@@ -63,7 +63,7 @@ workflows:
   stage:
     jobs:
       - build-and-test:
-          filters: *develop_filter
+          filters: *stage_filter
       - publish_to_expo_dev:
           filters: *stage_filter
           release_channel: stage
