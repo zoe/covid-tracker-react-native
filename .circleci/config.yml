@@ -28,11 +28,14 @@ executors:
   node:
     docker:
       - image: circleci/node:10.16
+        environment:
+          API_URL: $API_URL
 
 jobs:
   build-and-test:
     executor: node
     working_directory: ~/covid-react
+    environment:
     steps:
       - checkout
       - run: npm install
@@ -41,8 +44,6 @@ jobs:
   publish_to_expo_dev:
     executor: node
     working_directory: ~/covid-react
-    environment:
-      API_URL: $API_URL
     parameters:
       release_channel:
         description: Expo release channel
@@ -50,6 +51,8 @@ jobs:
     steps:
       - checkout
       - run: npm install
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel << parameters.release_channel >>
 
