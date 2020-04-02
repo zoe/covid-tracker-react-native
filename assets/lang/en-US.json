@@ -1,0 +1,19 @@
+{
+  "your-postcode": "Your zipcode?",
+  "placeholder-postcode": "zipcode",
+  "required-postcode": "Please enter your zipcode",
+
+  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhea?",
+  "placeholder-diarrhoea": "hasDiarrhea",
+
+  "button-at-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
+  "do-you-use-a-stick": "Do you regularly use a cane, walker or wheelchair to get about?",
+  "mobility-aid": "Do you regularly use a cane, walker or wheelchair to get about?",
+
+  "share-with-friends-message": "We can help beat #COVID19 together! Join me and take one minute a day to help fight the outbreak in our community. 🙏🏼 Download the app",
+  "share-with-friends-url": "https://covid.joinzoe.com/us",
+  "website-home": "https://covid.joinzoe.com/us",
+
+  "thank-you-body": "Thank you for joining millions of people supporting scientists at Massachusetts General Hospital, Stanford University School of Medicine & King's College London to help our health services.",
+  "blog-link": "https://covid.joinzoe.com/us-blog"
+}

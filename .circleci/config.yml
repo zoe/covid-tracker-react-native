@@ -1,0 +1,81 @@
+version: 2.1
+
+master_filter: &master_filter
+  branches:
+    only: master
+
+develop_filter: &develop_filter
+  branches:
+    only: develop
+
+stage_filter: &stage_filter
+  branches:
+    only: stage
+
+
+feature_filter: &feature_filter
+  branches:
+    ignore:
+      - master
+      - develop
+      - stage
+
+orbs:
+  node: circleci/node@2.0.1
+  slack: circleci/slack@3.2.0
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:10.16
+
+jobs:
+  build-and-test:
+    executor: node
+    working_directory: ~/covid-react
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm test
+
+  publish_to_expo_dev:
+    executor: node
+    working_directory: ~/covid-react
+    environment:
+      API_URL: $API_URL
+    parameters:
+      release_channel:
+        description: Expo release channel
+        type: string
+    steps:
+      - checkout
+      - run: npm install
+      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel << parameters.release_channel >>
+
+
+workflows:
+  build-and-test:
+    jobs:
+      - build-and-test:
+          filters: *feature_filter
+
+  stage:
+    jobs:
+      - build-and-test:
+          filters: *develop_filter
+      - publish_to_expo_dev:
+          filters: *stage_filter
+          release_channel: stage
+          requires:
+            - build-and-test
+
+  develop:
+    jobs:
+      - build-and-test:
+          filters: *develop_filter
+
+  master:
+    jobs:
+      - build-and-test:
+          filters: *master_filter

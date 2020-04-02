@@ -1,0 +1,133 @@
+{
+  "create-account-title": "Create an account",
+  "create-account-btn": "Create account",
+  "create-account-login": "Log in",
+  "create-account-if-you-have-an-account": "if you already have an account",
+  "create-account-already-registered": "An account already exists with this email address",
+  "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
+
+  "next-question": "Next Question",
+  "feel-normal": "I feel physically normal",
+  "have-symptoms": "I'm not feeling quite right",
+
+  "login-title": "Log in to\nyour account",
+  "login-label": "Email",
+  "password": "Password",
+  "forgot-password": "Forgot password?",
+  "log-in": "Log in",
+  "dont-have-account": "Don't have an account?",
+  "create-account": "Create account",
+  "user-not-found-exception": "We couldn't identify you. Please try again.",
+  "login-exception": "Unable to log in. Please try again.",
+
+  "something-went-wrong": "Something went wrong, please try again later",
+  "choose-one-of-these-options": "Choose one of the options",
+
+  "title-about-work": "About your work",
+  "label-cohort": "Are you participating in any of these research studies or part of these organizations?",
+
+  "required-is-healthcare-worker": "Please indicate if you are a healthcare worker",
+  "required-is-carer": "Please indicate if you are a carer",
+
+  "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)",
+  "yes-treating-patients": "Yes, currently treat patients",
+  "yes-not-treating-patients": "Yes, do not currently treat patients",
+  "are-you-carer": "Do you care for multiple people in the community, with direct contact with your patients?",
+
+  "label-physically-worked-in-places": "Since the COVID-19 epidemic began, have you physically worked in? (check all that apply)",
+  "label-interacted-with-infected-patients": "Have you EVER interacted in person with patients with documented or suspected COVID-19 infection?",
+  "required-has-patient-interaction": "Please indicate whether you've had contact with infected patients",
+
+  "label-used-ppe-equipment": "Since the COVID-19 epidemic began, have you used personal protective equipment (PPE) at work?",
+  "label-used-ppe-equipment-footnote": "* Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "label-ppe-equipment-available": "Is the PPE equipment you need available?",
+  "label-chose-an-option": "Choose one of the options",
+  "label-check-all-that-apply": "Check all that apply",
+  "required-has-used-ppe-equipment": "Please indicate whether you've used PPE equipment at work.",
+  "required-ppe-availability": "Please specify the availability level of PPE equipment at work.",
+
+  "title-about-you": "About you",
+
+  "what-year-were-you-born": "What year were you born?",
+  "placeholder-year-of-birth": "Year of birth",
+  "required-year-of-birth": "Please enter your year of birth",
+  "correct-year-of-birth": "Please correct your year of birth",
+
+  "your-sex-at-birth": "What sex were you assigned at birth?",
+  "sex-at-birth-male": "Male",
+  "sex-at-birth-female": "Female",
+  "sex-at-birth-intersex": "Intersex",
+  "sex-at-birth-pfnts": "Prefer not to say",
+  "placeholder-sex": "Assigned sex",
+  "required-sex-at-birth": "Please indicate the sex you were assigned at birth",
+
+  "label-gender-identity": "What gender do you most identify with?",
+  "label-gender-identity-other": "Please specify as you wish:",
+
+  "gender-identity-male": "Male",
+  "gender-identity-female": "Female",
+  "gender-identity-pfnts": "Prefer not to say",
+  "placeholder-gender-identity": "Your gender identity",
+  "required-gender-identity": "Please indicate the sex you were assigned at birth",
+  "gender-identity-other": "Other, please specify",
+
+  "your-height": "Your height",
+  "placeholder-height": "Height",
+  "placeholder-feet": "Feet",
+  "placeholder-inches": "Inches",
+  "placeholder-height-unit": "Height Units",
+  "picker-feet": "ft",
+  "picker-cm": "cm",
+
+  "your-weight": "Your weight",
+  "placeholder-weight": "Weight",
+  "placeholder-stones": "Stones",
+  "placeholder-pounds": "Pounds",
+
+  "placeholder-weight-unit": "Weight units",
+  "picker-pounds": "lbs",
+  "picker-kg": "kg",
+
+  "your-postcode": "Your postcode?",
+  "placeholder-postcode": "Postcode",
+  "required-postcode": "Please enter your postcode (first part is sufficient)",
+
+  "are-you-a-member-of-twins": "Are you a member of the UK Twins Study?",
+  "placeholder-twins": "isTwinsStudy",
+  "picker-yes": "Yes",
+  "picker-no": "No",
+
+  "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
+
+  "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
+  "exposed-yes-documented" : "Yes, documented COVID-19 cases only",
+  "exposed-yes-undocumented" : "Yes, suspected COVID-19 case only",
+  "exposed-both": "Yes, both documented & suspected COVID-19 cases",
+  "exposed-no" : "Not that I know of",
+  "housebound-problems": "In general, do you have any health problems that require you to stay at home?",
+  "needs-help": "Do you need someone to help you on a regular basis?",
+  "help-available": "If you need help, can you count on someone close to you?",
+  "mobility-aid": "Do you regularly use a stick, walking frame or wheelchair to get about?",
+
+  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhoea?",
+  "placeholder-diarrhoea": "hasDiarrhoea",
+
+  "select-country": "Select country of residence",
+  "website-home": "https://covid.joinzoe.com/",
+  "share-with-friends-message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well  🙏🏼. Download the app",
+  "share-with-friends-url": "https://covid.joinzoe.com/",
+
+  "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
+  "label-interacted-with-infected-patients-last-day": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
+  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? ",
+
+  "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
+  "blog-link": "https://covid.joinzoe.com/blog",
+  "thank-you-body": "Thank you for joining millions of people supporting scientists at King’s College London to help our health services.",
+  "check-in-tomorrow": "We would appreciate it if you could check back in tomorrow if you feel up to it.",
+  "check-news-feed" : "Please check our <b>news feed</b> for updates.",
+
+  "research-updates": "Research updates",
+  "faqs": "FAQs",
+  "privacy-policy": "Privacy Policy"
+}

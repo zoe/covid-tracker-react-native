@@ -1,0 +1,9 @@
+export const partnersLogo = require('./partner_logos.png');
+export const covidIcon = require('./icon_transparent.png');
+export const usFlagLarge = require('./icons/us-flag-large.png');
+export const ukFlagLarge = require('./icons/uk-flag-large.png');
+export const usFlagSmall = require('./icons/us-flag-small.png');
+export const ukFlagSmall = require('./icons/uk-flag-small.png');
+export const usLogos = require('./icons/us_logos.png');
+export const closeIcon = require('./icons/close.png');
+export const menuIcon = require('./icons/menu.png');
