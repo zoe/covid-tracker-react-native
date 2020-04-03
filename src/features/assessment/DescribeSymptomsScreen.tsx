@@ -193,7 +193,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
                                 <DropdownField
                                   selectedValue={props.values.hasFever}
-                                  onValueChange={props.handleChange("everExposed")}
+                                  onValueChange={props.handleChange("hasFever")}
                                   label="Do you have a fever?"
                                   error={props.touched.hasFever && props.errors.hasFever}
                                 />
