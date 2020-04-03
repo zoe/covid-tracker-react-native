@@ -89,6 +89,12 @@ export type PatientInfosRequest = {
     is_in_us_multiethnic_cohort: boolean,
     is_in_us_predict2: boolean,
     is_in_us_american_cancer_society_cancer_prevention_study_3: boolean,
+    is_in_us_harvard_health_professionals: boolean,
+    is_in_us_california_teachers: boolean,
+    is_in_us_sister: boolean,
+    is_in_us_agricultural_health: boolean,
+    is_in_us_gulf: boolean,
+    is_in_us_aspree_xt: boolean,
 
     // About your work
     healthcare_professional: string,

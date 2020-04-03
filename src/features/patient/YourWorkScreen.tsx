@@ -60,6 +60,12 @@ type State = {
     isMultiEthnicCohortStudy: boolean;
     isPredict2Study: boolean;
     isAmericanCancer3: boolean;
+    isHarvardHealthProfessional: boolean;
+    isCaliforniaTeacher: boolean;
+    isSister: boolean;
+    isAgriculturalHealth: boolean;
+    isGulf: boolean; 
+    isAspreeXt: boolean;
     isDiabetesRegistry: boolean;
     atHospitalInpatient: boolean;
     atHospitalOutpatient: boolean;
@@ -84,6 +90,12 @@ const initialState: State = {
     isMultiEthnicCohortStudy: false,
     isPredict2Study: false,
     isAmericanCancer3: false,
+    isHarvardHealthProfessional: false;
+    isCaliforniaTeacher: false;
+    isSister: false;
+    isAgriculturalHealth: false;
+    isGulf: false; 
+    isAspreeXt: false;
     isDiabetesRegistry: false,
     atHospitalInpatient: false,
     atHospitalOutpatient: false,
@@ -146,6 +158,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 is_in_us_multiethnic_cohort: this.state.isMultiEthnicCohortStudy,
                 is_in_us_predict2: this.state.isPredict2Study,
                 is_in_us_american_cancer_society_cancer_prevention_study_3: this.state.isAmericanCancer3,
+                is_in_us_harvard_health_professionals: this.state.isHarvardHealthProfessional,
+                is_in_us_california_teachers: this.state.isCaliforniaTeacher,
+                is_in_us_sister: this.state.isSister,
+                is_in_us_agricultural_health: this.state.isAgriculturalHealth,
+                is_in_us_gulf: this.state.isGulf,
+                is_in_us_aspree_xt: this.state.isAspreeXt,
             }
         }
 
@@ -312,6 +330,10 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                         onChange={(value: boolean) => this.setState({isGrowingUpTodayStudy: value})}
                                                     >Harvard Growing Up Today Study</CheckboxItem>
                                                     <CheckboxItem
+                                                        value={this.state.isHarvardHealthProfessional}
+                                                        onChange={(value: boolean) => this.setState({isHarvardHealthProfessional: value})}
+                                                    >Harvard Health Professionals Follow Up Study</CheckboxItem>
+                                                    <CheckboxItem
                                                         value={this.state.isMassGeneral}
                                                         onChange={(value: boolean) => this.setState({isMassGeneral: value})}
                                                     >Mass General / Brigham</CheckboxItem>
@@ -331,6 +353,26 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                         value={this.state.isAmericanCancer3}
                                                         onChange={(value: boolean) => this.setState({isAmericanCancer3: value})}
                                                     >American Cancer Society Cancer Prevention Study-3</CheckboxItem>
+                                                    <CheckboxItem
+                                                        value={this.state.isCaliforniaTeacher}
+                                                        onChange={(value: boolean) => this.setState({isCaliforniaTeacher: value})}
+                                                    >UCSD/COH California Teachers Study</CheckboxItem>
+                                                    <CheckboxItem
+                                                        value={this.state.isSister}
+                                                        onChange={(value: boolean) => this.setState({isSister: value})}
+                                                    >The Sister Study</CheckboxItem>
+                                                    <CheckboxItem
+                                                        value={this.state.isAgriculturalHealth}
+                                                        onChange={(value: boolean) => this.setState({isAgriculturalHealth: value})}
+                                                    >The Agricultural Health Study (AHS)</CheckboxItem>
+                                                    <CheckboxItem
+                                                        value={this.state.isGulf}
+                                                        onChange={(value: boolean) => this.setState({isGulf: value})}
+                                                    >The GuLF Study</CheckboxItem>
+                                                    <CheckboxItem
+                                                        value={this.state.isAspreeXt}
+                                                        onChange={(value: boolean) => this.setState({isAspreeXt: value})}
+                                                    >ASPREE-XT</CheckboxItem>
                                                 </CheckboxList>
                                             )}
                                         </Item>
