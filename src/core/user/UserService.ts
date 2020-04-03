@@ -1,4 +1,4 @@
-import {ApiClientBase} from "./ApiClientBase";
+import { ApiClientBase } from "./ApiClientBase";
 import {
     AssessmentInfosRequest,
     AssessmentResponse,
@@ -10,10 +10,10 @@ import {
     TokenInfoResponse,
     UserResponse
 } from "./dto/UserAPIContracts";
-import {UserNotFoundException} from "../Exception";
-import {AxiosResponse} from "axios";
-import {camelizeKeys} from "./utils";
-import {AsyncStorageService} from "../AsyncStorageService";
+import { UserNotFoundException } from "../Exception";
+import { AxiosResponse } from "axios";
+import { camelizeKeys } from "./utils";
+import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
 import { isAndroid } from "../../components/Screen";
 import i18n from "../../locale/i18n"
@@ -206,6 +206,15 @@ export default class UserService extends ApiClientBase {
         };
         UserService.consentSigned = consent;
         await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
+    }
+
+    async getUserCount() {
+        return await AsyncStorageService.getUserCount();
+    }
+
+    async setUserCountInAsyncStorage() {
+        const userCount = await this.client.get<number>('/users/covid_count');
+        await AsyncStorageService.setUserCount(userCount.data.toString());
     }
 
 

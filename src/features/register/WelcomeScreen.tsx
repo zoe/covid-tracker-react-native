@@ -6,14 +6,27 @@ import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {covidIcon, partnersLogo, ukFlagSmall, usFlagSmall} from "../../../assets";
-import {isUSLocale} from "../../core/user/UserService";
+import UserService, {isUSLocale} from "../../core/user/UserService";
+import { ContributionCounter } from "../../components/ContributionCounter";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
 }
 
-export class WelcomeScreen extends Component<PropsType, {}> {
+type WelcomeScreenState = {
+    userCount: string | null
+}
 
+export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
+    state = {
+        userCount: null,
+    };
+
+    async componentDidMount() {
+        const userService = new UserService();
+        const userCount = await userService.getUserCount();
+        this.setState({userCount});
+    }
 
     render() {
         const flagIcon = () => {
@@ -42,9 +55,10 @@ export class WelcomeScreen extends Component<PropsType, {}> {
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and help fight the outbreak.{"\n"}
+                                Take 1 minute each day and help fight the outbreak.
                             </RegularText>
-                            <RegularText style={styles.subheader}>This app allows you to help others, but does {"\n"} not give health advice. If you need health {"\n"} advice please{" "}
+                            <ContributionCounter variant={1} count={this.state.userCount}/>
+                            <RegularText style={styles.subheader}>{"\n"}This app allows you to help others, but does {"\n"} not give health advice. If you need health {"\n"} advice please{" "}
                                 <ClickableText style={[styles.subheader, styles.nhsWebsite]} onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>visit the NHS website</ClickableText>.
                                 {"\n"}{"\n"}
                             </RegularText>
