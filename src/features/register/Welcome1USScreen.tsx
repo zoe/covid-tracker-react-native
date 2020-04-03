@@ -51,23 +51,16 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
                                         <Image style={styles.flagIcon} source={flagIcon()}/>
                                     </TouchableOpacity>
-
-                                </View>
-                                <View style={styles.usMapContainer}>
-                                    <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
                                 </View>
 
-                                <View>
-
-                                    <RegularText style={styles.subtitle}>
-                                        Take 1 minute each day and help fight the outbreak in your community.
-                                    </RegularText>
-                                    <View style={styles.contributors}>
-                                        <ContributionCounter variant={1} count={this.state.userCount}/>
-                                    </View>
+                                <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
+                                
+                                <RegularText style={styles.subtitle}>
+                                    Take 1 minute each day and help fight the outbreak in your community.
+                                </RegularText>
+                                <View style={styles.contributors}>
+                                    <ContributionCounter variant={1} count={this.state.userCount}/>
                                 </View>
-
-
                             </View>
 
                         </View>
@@ -105,6 +98,7 @@ const styles = StyleSheet.create({
 
     nextButton: {
         backgroundColor: colors.purpleAccent,
+        fontSize: 16,
     },
 
     headerRow: {
