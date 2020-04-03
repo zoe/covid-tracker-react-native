@@ -5,7 +5,7 @@ import {colors} from "../../../theme";
 import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {covidIcon, ukFlagSmall, usFlagSmall, usLogos} from "../../../assets";
+import {covidIcon, ukFlagSmall, usFlagSmall, usLogos, usLogos2} from "../../../assets";
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import { ContributionCounter } from "../../components/ContributionCounter";
 
@@ -19,7 +19,7 @@ type WelcomeUSScreenState = {
     userCount: string | null
 }
 
-export class WelcomeUSScreen extends Component<PropsType, WelcomeUSScreenState> {
+export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState> {
     state = {
         userCount: null,
     };
@@ -45,8 +45,6 @@ export class WelcomeUSScreen extends Component<PropsType, WelcomeUSScreenState> 
 
                     <View style={styles.covidContainer}>
                         <View style={styles.headerRow}>
-                            <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
-                            <Text style={styles.appName}>COVID Symptom Tracker</Text>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
                                 <Image style={styles.flagIcon} source={flagIcon()}/>
                             </TouchableOpacity>
@@ -57,9 +55,10 @@ export class WelcomeUSScreen extends Component<PropsType, WelcomeUSScreenState> 
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and help fight the outbreak in your community.
+                                How you can help
                             </RegularText>
-                            <ContributionCounter variant={1} count={this.state.userCount}/>
+                            <RegularText style={styles.subheader}>{"\n"}Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
+
                             <RegularText style={styles.subheader}>{"\n"}No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
                         </View>
                     </View>
@@ -69,27 +68,22 @@ export class WelcomeUSScreen extends Component<PropsType, WelcomeUSScreenState> 
                             From Physicians and Researchers at
                         </RegularBoldText>
 
-                        <RegularText style={styles.partnerList}>
-                            Massachusetts General Hospital <PurpleSlash/> Harvard T.H. Chan School of Public Health <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
-                        </RegularText>
+                        <Image style={styles.partnersLogo} source={usLogos2}/>
 
-                        <View style={styles.partnersLogoContainer}>
-                            <Image style={styles.partnersLogo} source={usLogos}/>
-                        </View>
+                          <RegularText style={styles.partnerList}>
+                            Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
+                        </RegularText>
 
                         <BrandedButton
                             onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
-                        <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/us')} style={styles.moreInfo}>
-                            {"For more info "}
-                            <RegularText style={styles.moreInfoHighlight}>visit our website</RegularText>
-                        </ClickableText>
                     </View>
+
+
                 </View>
             </ScrollView>
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -124,7 +118,8 @@ const styles = StyleSheet.create({
 
     covidContainer: {
         paddingHorizontal: 24,
-        paddingVertical: 24,
+        paddingBottom: 24,
+        paddingTop: 48
     },
 
     partners: {
@@ -144,6 +139,7 @@ const styles = StyleSheet.create({
     partnerList: {
         marginTop: 0,
         textAlign: "center",
+
     },
 
     login: {
@@ -170,9 +166,9 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 24,
         lineHeight: 38,
-        paddingVertical: 24,
+        paddingVertical: 0,
         textAlign: "center",
-        marginTop: 15,
+        marginTop: 45,
     },
 
     noAdvice: {
@@ -194,8 +190,8 @@ const styles = StyleSheet.create({
         borderColor: colors.backgroundSecondary,
     },
     partnersLogo: {
-        height: 60,
-        width: '95%',
+        height: 120,
+        width: '100%',
         resizeMode: 'contain',
         alignSelf: "center",
     },

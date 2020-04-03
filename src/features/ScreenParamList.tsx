@@ -4,6 +4,7 @@ export type ScreenParamList = {
     Splash: undefined;
     Welcome: undefined;
     WelcomeUS: undefined;
+    Welcome2US: undefined;
     WelcomeRepeat: { patientId: string};
     WelcomeRepeatUS: { patientId: string};
     Terms: undefined;
