@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     divider: {
         height:1,
         backgroundColor: "#E2E2E2",
-        marginVertical:5,
+        marginVertical:10,
     },
 
     partnerList: {
