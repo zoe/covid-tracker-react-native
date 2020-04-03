@@ -90,12 +90,12 @@ const initialState: State = {
     isMultiEthnicCohortStudy: false,
     isPredict2Study: false,
     isAmericanCancer3: false,
-    isHarvardHealthProfessional: false;
-    isCaliforniaTeacher: false;
-    isSister: false;
-    isAgriculturalHealth: false;
-    isGulf: false; 
-    isAspreeXt: false;
+    isHarvardHealthProfessional: false,
+    isCaliforniaTeacher: false,
+    isSister: false,
+    isAgriculturalHealth: false,
+    isGulf: false,
+    isAspreeXt: false,
     isDiabetesRegistry: false,
     atHospitalInpatient: false,
     atHospitalOutpatient: false,
