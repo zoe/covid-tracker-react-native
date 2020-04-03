@@ -1,7 +1,7 @@
 import React from 'react';
 import {PickerItemProps, StyleSheet, PickerProps} from 'react-native';
 import {Icon, Item, Label, Picker, View} from 'native-base';
-import {FieldWrapper, screenWidth} from "./Screen";
+import {FieldWrapper, screenWidth, isAndroid} from "./Screen";
 import key from 'weak-key';
 import {colors} from "../../theme";
 import {ValidationError} from './ValidationError';
@@ -27,7 +27,7 @@ const DropdownField = (props: DropdownFieldProps) => {
     const itemStyle = error ? styles.errorHighlight : {};
     const pickerStyle = styles.picker;
 
-    if (androidDefaultLabel) {
+    if (androidDefaultLabel && isAndroid) {
         items.unshift({label: androidDefaultLabel, value: ""});
     }
 
