@@ -252,9 +252,10 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                     </ListItem>
 
                 </ScrollView>
-
+                
                 <BrandedButton style={styles.button}
-                               buttonProps={{disabled: !(this.state.processingChecked && this.state.termsOfUseChecked)}}
+                               hideLoading={true}
+                               enable={this.state.processingChecked && this.state.termsOfUseChecked}
                                onPress={this.handleAgreeClicked}>I agree</BrandedButton>
             </View>
 
