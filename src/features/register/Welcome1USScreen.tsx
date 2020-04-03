@@ -40,42 +40,45 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
         };
 
         return (
-            <SafeAreaView style={styles.safeView}>
-                <ScrollView contentContainerStyle={styles.scrollView}>
-                    <View style={styles.rootContainer}>
+            <ScrollView contentContainerStyle={styles.scrollView}>
+                <SafeAreaView style={styles.safeView}>
+                    <ScrollView contentContainerStyle={styles.scrollView}>
+                        <View style={styles.rootContainer}>
 
-                        <View style={styles.covidContainer}>
-                            <View style={styles.headerRow}>
+                            <View style={styles.covidContainer}>
+                                <View style={styles.headerRow}>
 
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                    <Image style={styles.flagIcon} source={flagIcon()}/>
-                                </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                                        <Image style={styles.flagIcon} source={flagIcon()}/>
+                                    </TouchableOpacity>
 
-                            </View>
-                            <View style={styles.usMapContainer}>
-                                <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
-                            </View>
-
-                            <View>
-
-                                <RegularText style={styles.subtitle}>
-                                    Take 1 minute each day and help fight the outbreak in your community.
-                                </RegularText>
-                                <View style={styles.contributors}>
-                                    <ContributionCounter variant={1} count={this.state.userCount}/>
                                 </View>
-                            </View>
+                                <View style={styles.usMapContainer}>
+                                    <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
+                                </View>
+
+                                <View>
+
+                                    <RegularText style={styles.subtitle}>
+                                        Take 1 minute each day and help fight the outbreak in your community.
+                                    </RegularText>
+                                    <View style={styles.contributors}>
+                                        <ContributionCounter variant={1} count={this.state.userCount}/>
+                                    </View>
+                                </View>
 
 
-                            <View style={styles.nextButtonContainer}>
-                                <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>Tell me more</BrandedButton>
                             </View>
 
                         </View>
+                    </ScrollView>
 
+                    <View style={styles.nextButtonContainer}>
+                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>Tell me more</BrandedButton>
                     </View>
-                </ScrollView>
-            </SafeAreaView>
+
+                </SafeAreaView>
+            </ScrollView>
         );
     }
 }
@@ -86,6 +89,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     scrollView: {
+        backgroundColor: "#024364",
         flexGrow: 1,
         justifyContent: 'space-between'
     },
@@ -95,7 +99,8 @@ const styles = StyleSheet.create({
     },
 
     nextButtonContainer: {
-        paddingTop: 40,
+        padding: 20,
+        paddingBottom: 30,
     },
 
     nextButton: {
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
     },
 
     headerRow: {
-        flex:1,
+        flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
     },
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
         paddingBottom: 14,
         paddingTop: 14
     },
-    
+
     usMap: {
         height: 200,
         width: '100%',
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
     },
 
     contributors: {
-        marginTop:20,
-        marginHorizontal:10
+        marginTop: 40,
+        marginHorizontal: 10
     }
 });
