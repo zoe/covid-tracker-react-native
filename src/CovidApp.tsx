@@ -93,7 +93,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="TermsOfUse" component={TermsOfUseScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
                 <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={{headerShown: true, title: 'Privacy policy'}}/>
-                <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{headerShown: true, title: 'Nurses Consent'}}/>
+                <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{headerShown: true, title: 'Research Consent'}}/>
                 <Stack.Screen name="BeforeWeStartUS" component={BeforeWeStartUS} options={{headerShown: false}}/>
                 <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={{headerShown: false}}/>
