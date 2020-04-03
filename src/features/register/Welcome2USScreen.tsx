@@ -60,24 +60,31 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                             <RegularText style={styles.subheader}>{"\n"}Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
 
                             <RegularText style={styles.subheader}>{"\n"}No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
+
+                            <Image style={styles.partnersLogo} source={usLogos2}/>
+
                         </View>
+
+
+                        <View style={styles.partnerContainer}>
+                            <RegularBoldText style={styles.partnerHeader}>
+                                From Physicians and Researchers at
+                            </RegularBoldText>
+
+                            <RegularText style={styles.partnerList}>
+                                Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
+                            </RegularText>
+
+                        </View>
+
+
+
+                        <View style={styles.buttonContainer}>
+                            <BrandedButton
+                                onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
+                        </View>
+
                     </View>
-
-                    <View style={styles.partners}>
-                        <RegularBoldText style={styles.partnerHeader}>
-                            From Physicians and Researchers at
-                        </RegularBoldText>
-
-                        <Image style={styles.partnersLogo} source={usLogos2}/>
-
-                          <RegularText style={styles.partnerList}>
-                            Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
-                        </RegularText>
-
-                        <BrandedButton
-                            onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
-                    </View>
-
 
                 </View>
             </ScrollView>
@@ -92,7 +99,7 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: "#F7F7F7",
     },
 
     headerRow: {
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
         width: 60
     },
     appName: {
-        color: "#FFFFFF",
+        color: colors.primary,
         paddingHorizontal: 5,
         fontSize: 14,
     },
@@ -143,19 +150,19 @@ const styles = StyleSheet.create({
     },
 
     login: {
-        color: "#FFFFFF",
+        color: colors.primary,
         fontWeight: "700",
     },
 
     title: {
-        color: "#FFFFFF",
+        color: colors.primary,
         textAlign: "center",
         fontSize: 32,
         paddingVertical: 10,
     },
 
     subheader: {
-        color: "#ffffff",
+        color: colors.primary,
         textAlign: "center",
         fontSize: 14,
         fontWeight: "300",
@@ -163,12 +170,12 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        color: "#FFFFFF",
-        fontSize: 24,
+        color: colors.primary,
+        fontSize: 28,
         lineHeight: 38,
         paddingVertical: 0,
         textAlign: "center",
-        marginTop: 45,
+        marginTop: 25,
     },
 
     noAdvice: {
@@ -190,10 +197,22 @@ const styles = StyleSheet.create({
         borderColor: colors.backgroundSecondary,
     },
     partnersLogo: {
+        marginTop: 28,
         height: 120,
         width: '100%',
         resizeMode: 'contain',
         alignSelf: "center",
+    },
+    partnerContainer: {
+        marginVertical: 40,
+        paddingVertical: 20,
+        paddingHorizontal: 30,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 2,
+    },
+    buttonContainer: {
+        paddingVertical: 20,
+
     },
     flagIcon: {
         height: 32,
