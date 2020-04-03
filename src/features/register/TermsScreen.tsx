@@ -59,7 +59,7 @@ export class TermsScreen extends Component<PropsType, TermsState> {
                 <View style={styles.rootContainer}>
                     <ScrollView>
                         <RegularText>
-                            If you are a healthcare worker or a member of any ongoing research studies at Brigham and Women’s Hospital (e.g. the Nurses Health Study), Massachusetts General Hospital (e.g. COVID-19 related studies), or other academic medical center, <ClickableText
+                            If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study, <ClickableText
                             onPress={() => this.props.navigation.navigate('NursesConsentUS')}>click here</ClickableText>
                             {"\n"}
                         </RegularText>
