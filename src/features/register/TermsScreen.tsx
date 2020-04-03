@@ -128,7 +128,10 @@ export class TermsScreen extends Component<PropsType, TermsState> {
 
                     </ScrollView>
 
-                    <BrandedButton style={styles.button} buttonProps={{disabled: !(this.state.processingChecked && this.state.termsOfUseChecked)}} onPress={this.handleUSAgreeClicked}>I Agree</BrandedButton>
+                    <BrandedButton style={styles.button}
+                                   enable={this.state.processingChecked && this.state.termsOfUseChecked}
+                                   hideLoading={true}
+                                   onPress={this.handleUSAgreeClicked}>I Agree</BrandedButton>
 
                 </View>
             ) : (
