@@ -1,15 +1,12 @@
 import React, {Component} from "react";
-import {Image, Linking, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
-import i18n from "../../locale/i18n"
-import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
+import {BrandedButton, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {covidIcon, ukFlagSmall, usFlagSmall, usLogos, usMap} from "../../../assets";
+import {ukFlagSmall, usFlagSmall, usMap} from "../../../assets";
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {ContributionCounter} from "../../components/ContributionCounter";
-
-const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>

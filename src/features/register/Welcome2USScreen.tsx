@@ -1,13 +1,12 @@
 import React, {Component} from "react";
-import {Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {covidIcon, ukFlagSmall, usFlagSmall, usLogos, usLogos2} from "../../../assets";
+import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../assets";
 import UserService, {isUSLocale} from "../../core/user/UserService";
-import { ContributionCounter } from "../../components/ContributionCounter";
 
 const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
 
@@ -40,59 +39,62 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
         };
 
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
+            <SafeAreaView style={styles.safeView}>
                 <View style={styles.rootContainer}>
+                    <ScrollView contentContainerStyle={styles.scrollView}>
 
-                    <View style={styles.covidContainer}>
-                        <View style={styles.headerRow}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                <Image style={styles.flagIcon} source={flagIcon()}/>
-                            </TouchableOpacity>
+                        <View style={styles.covidContainer}>
+                            <View style={styles.headerRow}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                                    <Image style={styles.flagIcon} source={flagIcon()}/>
+                                </TouchableOpacity>
 
-                            <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
+                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
+                            </View>
+                            <View>
+                                <RegularText style={styles.subtitle}>
+                                    How you can help
+                                </RegularText>
+                                <RegularText style={styles.subheader}>Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
+
+                                <RegularText style={styles.subheader2}>No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
+
+                                <Image style={styles.partnersLogo} source={usLogos2}/>
+
+                            </View>
+
+
+                            <View style={styles.partnerContainer}>
+                                <RegularText style={styles.partnerHeader}>
+                                    From Physicians and Researchers at
+                                </RegularText>
+
+                                <View style={styles.divider}></View>
+
+                                <RegularText style={styles.partnerList}>
+                                    Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
+                                </RegularText>
+
+                            </View>
                         </View>
-                        <View>
-                            <RegularText style={styles.subtitle}>
-                                How you can help
-                            </RegularText>
-                            <RegularText style={styles.subheader}>Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
-
-                            <RegularText style={styles.subheader2}>No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
-
-                            <Image style={styles.partnersLogo} source={usLogos2}/>
-
-                        </View>
-
-
-                        <View style={styles.partnerContainer}>
-                            <RegularText style={styles.partnerHeader}>
-                                From Physicians and Researchers at
-                            </RegularText>
-
-                            <View style={styles.divider}></View>
-
-                            <RegularText style={styles.partnerList}>
-                                Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
-                            </RegularText>
-
-                        </View>
-
-
-
-                        <View style={styles.buttonContainer}>
-                            <BrandedButton
-                                onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
-                        </View>
-
-                    </View>
-
+                    </ScrollView>
                 </View>
-            </ScrollView>
+
+
+                <View style={styles.buttonContainer}>
+                    <BrandedButton
+                        onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
+                </View>
+
+            </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    safeView: {
+        flexGrow: 1,
+    },
     scrollView: {
         flexGrow: 1,
         justifyContent: 'space-between'
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     covidContainer: {
         paddingHorizontal: 24,
         paddingBottom: 24,
-        paddingTop: 48
+        paddingTop: 24
     },
 
     partners: {
@@ -136,27 +138,27 @@ const styles = StyleSheet.create({
 
     partnerHeader: {
         textAlign: "center",
-        fontSize:14,
-        lineHeight:20
+        fontSize: 14,
+        lineHeight: 20
     },
 
     divider: {
-        height:1,
+        height: 1,
         backgroundColor: "#E2E2E2",
-        marginVertical:10,
+        marginVertical: 5,
     },
 
     partnerList: {
         marginTop: 0,
         textAlign: "center",
-        fontSize:16,
-        lineHeight:24,
+        fontSize: 16,
+        lineHeight: 24,
 
     },
 
     login: {
         color: colors.primary,
-        marginLeft:5,
+        marginLeft: 5,
     },
 
     title: {
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "300",
         lineHeight: 24,
-        marginTop:16,
+        marginTop: 16,
     },
 
     subheader2: {
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "300",
         lineHeight: 24,
-        marginTop:8,
+        marginTop: 8,
 
     },
 
@@ -218,8 +220,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     buttonContainer: {
-        paddingVertical: 10,
-
+        padding: 20,
     },
     flagIcon: {
         height: 32,
