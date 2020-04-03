@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, Linking, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import i18n from "../../locale/i18n"
@@ -40,46 +40,51 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
         };
 
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                <View style={styles.rootContainer}>
+            <SafeAreaView style={styles.safeView}>
+                <ScrollView contentContainerStyle={styles.scrollView}>
+                    <View style={styles.rootContainer}>
 
-                    <View style={styles.covidContainer}>
-                        <View style={styles.headerRow}>
+                        <View style={styles.covidContainer}>
+                            <View style={styles.headerRow}>
 
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                <Image style={styles.flagIcon} source={flagIcon()}/>
-                            </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                                    <Image style={styles.flagIcon} source={flagIcon()}/>
+                                </TouchableOpacity>
 
-                        </View>
-                        <View style={styles.usMapContainer}>
-                            <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
-                        </View>
-
-                        <View>
-
-                            <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and help fight the outbreak in your community.
-                            </RegularText>
-                            <View style={styles.contributors}>
-                                <ContributionCounter variant={1} count={this.state.userCount}/>
                             </View>
-                        </View>
+                            <View style={styles.usMapContainer}>
+                                <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
+                            </View>
+
+                            <View>
+
+                                <RegularText style={styles.subtitle}>
+                                    Take 1 minute each day and help fight the outbreak in your community.
+                                </RegularText>
+                                <View style={styles.contributors}>
+                                    <ContributionCounter variant={1} count={this.state.userCount}/>
+                                </View>
+                            </View>
 
 
-                        <View style={styles.nextButtonContainer}>
-                            <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>Tell me more</BrandedButton>
+                            <View style={styles.nextButtonContainer}>
+                                <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>Tell me more</BrandedButton>
+                            </View>
+
                         </View>
 
                     </View>
-
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </SafeAreaView>
         );
     }
 }
 
 
 const styles = StyleSheet.create({
+    safeView: {
+        flexGrow: 1,
+    },
     scrollView: {
         flexGrow: 1,
         justifyContent: 'space-between'
