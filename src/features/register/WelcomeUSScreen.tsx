@@ -6,15 +6,29 @@ import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {covidIcon, ukFlagSmall, usFlagSmall, usLogos} from "../../../assets";
-import {isUSLocale} from "../../core/user/UserService";
+import UserService, {isUSLocale} from "../../core/user/UserService";
+import { ContributionCounter } from "../../components/ContributionCounter";
+
+const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
 }
 
-const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
+type WelcomeUSScreenState = {
+    userCount: string | null
+}
 
-export class WelcomeUSScreen extends Component<PropsType, {}> {
+export class WelcomeUSScreen extends Component<PropsType, WelcomeUSScreenState> {
+    state = {
+        userCount: null,
+    };
+
+    async componentDidMount() {
+        const userService = new UserService();
+        const userCount = await userService.getUserCount();
+        this.setState({userCount});
+    }
 
     render() {
         const flagIcon = () => {
@@ -43,9 +57,10 @@ export class WelcomeUSScreen extends Component<PropsType, {}> {
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and help fight the outbreak in your community.{"\n"}
+                                Take 1 minute each day and help fight the outbreak in your community.
                             </RegularText>
-                            <RegularText style={styles.subheader}>No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
+                            <ContributionCounter variant={1} count={this.state.userCount}/>
+                            <RegularText style={styles.subheader}>{"\n"}No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
                         </View>
                     </View>
 

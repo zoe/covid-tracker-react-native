@@ -9,16 +9,26 @@ import UserService from "../../core/user/UserService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
+import { ContributionCounter } from "../../components/ContributionCounter";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
 }
 
-export class WelcomeRepeatUSScreen extends Component<PropsType, {}> {
+type WelcomeRepeatUSScreenState = {
+    userCount: string | null
+}
+
+export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSScreenState> {
+    state = {
+        userCount: null,
+    };
 
     async componentDidMount() {
         const userService = new UserService();
+        const userCount = await userService.getUserCount();
+        this.setState({userCount});
 
         // Refresh push token if we don't have one
         const hasPushToken = await AsyncStorageService.getPushToken();
@@ -71,6 +81,7 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, {}> {
                             <RegularText style={styles.subtitle}>
                                 Take 1 minute each day and {"\n"}help fight the outbreak.{"\n"}
                             </RegularText>
+                            <ContributionCounter variant={2} count={this.state.userCount}/>
                         </View>
                     </View>
 
