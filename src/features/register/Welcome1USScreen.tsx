@@ -52,9 +52,7 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                                 </TouchableOpacity>
 
                             </View>
-                            <View style={styles.usMapContainer}>
-                                <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
-                            </View>
+                            <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
 
                             <View>
 
@@ -100,6 +98,7 @@ const styles = StyleSheet.create({
 
     nextButton: {
         backgroundColor: colors.purpleAccent,
+        fontSize:16,
     },
 
     headerRow: {
