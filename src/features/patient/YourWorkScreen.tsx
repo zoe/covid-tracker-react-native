@@ -306,11 +306,11 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                     <CheckboxItem
                                                         value={this.state.isNurseHealthStudies}
                                                         onChange={(value: boolean) => this.setState({isNurseHealthStudies: value})}
-                                                    >Havard Nurses' Health Studies</CheckboxItem>
+                                                    >Harvard Nurses' Health Studies</CheckboxItem>
                                                     <CheckboxItem
                                                         value={this.state.isGrowingUpTodayStudy}
                                                         onChange={(value: boolean) => this.setState({isGrowingUpTodayStudy: value})}
-                                                    >Havard Growing Up Today Study</CheckboxItem>
+                                                    >Harvard Growing Up Today Study</CheckboxItem>
                                                     <CheckboxItem
                                                         value={this.state.isMassGeneral}
                                                         onChange={(value: boolean) => this.setState({isMassGeneral: value})}
