@@ -49,17 +49,15 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                                 <Image style={styles.flagIcon} source={flagIcon()}/>
                             </TouchableOpacity>
 
-                            <View style={styles.loginContainer}>
-                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
-                            </View>
+                            <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
                                 How you can help
                             </RegularText>
-                            <RegularText style={styles.subheader}>{"\n"}Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
+                            <RegularText style={styles.subheader}>Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
 
-                            <RegularText style={styles.subheader}>{"\n"}No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
+                            <RegularText style={styles.subheader2}>No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
 
                             <Image style={styles.partnersLogo} source={usLogos2}/>
 
@@ -67,9 +65,11 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
 
 
                         <View style={styles.partnerContainer}>
-                            <RegularBoldText style={styles.partnerHeader}>
+                            <RegularText style={styles.partnerHeader}>
                                 From Physicians and Researchers at
-                            </RegularBoldText>
+                            </RegularText>
+
+                            <View style={styles.divider}></View>
 
                             <RegularText style={styles.partnerList}>
                                 Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
@@ -104,13 +104,8 @@ const styles = StyleSheet.create({
 
     headerRow: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         alignItems: "center",
-    },
-
-    loginContainer: {
-        alignSelf: "center",
-        fontWeight: "300",
     },
 
     covidIcon: {
@@ -141,17 +136,27 @@ const styles = StyleSheet.create({
 
     partnerHeader: {
         textAlign: "center",
+        fontSize:14,
+        lineHeight:20
+    },
+
+    divider: {
+        height:1,
+        backgroundColor: "#E2E2E2",
+        marginVertical:5,
     },
 
     partnerList: {
         marginTop: 0,
         textAlign: "center",
+        fontSize:16,
+        lineHeight:24,
 
     },
 
     login: {
         color: colors.primary,
-        fontWeight: "700",
+        marginLeft:5,
     },
 
     title: {
@@ -164,31 +169,33 @@ const styles = StyleSheet.create({
     subheader: {
         color: colors.primary,
         textAlign: "center",
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: "300",
-        lineHeight: 20,
+        lineHeight: 24,
+        marginTop:16,
+    },
+
+    subheader2: {
+        color: colors.secondary,
+        textAlign: "center",
+        fontSize: 16,
+        fontWeight: "300",
+        lineHeight: 24,
+        marginTop:8,
+
     },
 
     subtitle: {
         color: colors.primary,
-        fontSize: 28,
-        lineHeight: 38,
+        fontSize: 24,
+        lineHeight: 32,
         paddingVertical: 0,
         textAlign: "center",
         marginTop: 25,
     },
 
-    noAdvice: {
-        color: colors.primary,
-        textAlign: "center",
-        marginVertical: 20,
-    },
-    nhsWebsite: {
-        color: colors.secondary,
-        textDecorationLine: "underline"
-    },
     purpleSlash: {
-        color: colors.purpleAccent,
+        color: "#29C4CF",
     },
     partnersLogoContainer: {
         padding: 10,
@@ -208,10 +215,10 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 30,
         backgroundColor: "#FFFFFF",
-        borderRadius: 2,
+        borderRadius: 10,
     },
     buttonContainer: {
-        paddingVertical: 20,
+        paddingVertical: 10,
 
     },
     flagIcon: {
