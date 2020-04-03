@@ -45,13 +45,11 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
 
                     <View style={styles.covidContainer}>
                         <View style={styles.headerRow}>
+
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
                                 <Image style={styles.flagIcon} source={flagIcon()}/>
                             </TouchableOpacity>
 
-                            <View style={styles.loginContainer}>
-                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
-                            </View>
                         </View>
                         <View style={styles.usMapContainer}>
                             <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
@@ -62,7 +60,9 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                             <RegularText style={styles.subtitle}>
                                 Take 1 minute each day and help fight the outbreak in your community.
                             </RegularText>
-                            <ContributionCounter variant={1} count={this.state.userCount}/>
+                            <View style={styles.contributors}>
+                                <ContributionCounter variant={1} count={this.state.userCount}/>
+                            </View>
                         </View>
 
 
@@ -98,14 +98,9 @@ const styles = StyleSheet.create({
     },
 
     headerRow: {
+        flex:1,
         flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-
-    loginContainer: {
-        alignSelf: "center",
-        fontWeight: "300",
+        justifyContent: "flex-end",
     },
 
     covidIcon: {
@@ -119,59 +114,21 @@ const styles = StyleSheet.create({
     },
 
     covidContainer: {
-        paddingHorizontal: 24,
-        paddingBottom: 24,
-        paddingTop: 48
+        paddingHorizontal: 14,
+        paddingBottom: 14,
+        paddingTop: 14
     },
-    usMapContainer: {},
+    
     usMap: {
-        height: 250,
+        height: 200,
         width: '100%',
         resizeMode: 'contain',
         alignSelf: "center",
     },
-    partners: {
-        flex: 1,
-        backgroundColor: "#ffffff",
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        padding: 32,
-        justifyContent: "space-between",
-        alignContent: "center",
-    },
-
-    partnerHeader: {
-        textAlign: "center",
-    },
-
-    partnerList: {
-        marginTop: 0,
-        textAlign: "center",
-    },
-
-    login: {
-        color: "#FFFFFF",
-        fontWeight: "700",
-    },
-
-    title: {
-        color: "#FFFFFF",
-        textAlign: "center",
-        fontSize: 32,
-        paddingVertical: 10,
-    },
-
-    subheader: {
-        color: "#ffffff",
-        textAlign: "center",
-        fontSize: 14,
-        fontWeight: "300",
-        lineHeight: 20,
-    },
 
     subtitle: {
         color: "#FFFFFF",
-        fontSize: 36,
+        fontSize: 32,
         lineHeight: 48,
         paddingVertical: 24,
         textAlign: "center",
@@ -179,43 +136,18 @@ const styles = StyleSheet.create({
         fontWeight: "300",
     },
 
-    noAdvice: {
-        color: colors.primary,
-        textAlign: "center",
-        marginVertical: 20,
-    },
-    nhsWebsite: {
-        color: colors.secondary,
-        textDecorationLine: "underline"
-    },
+
     purpleSlash: {
         color: colors.purpleAccent,
     },
-    partnersLogoContainer: {
-        padding: 10,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: colors.backgroundSecondary,
-    },
-    partnersLogo: {
-        height: 60,
-        width: '95%',
-        resizeMode: 'contain',
-        alignSelf: "center",
-    },
+
     flagIcon: {
         height: 32,
         width: 32
     },
-    moreInfo: {
-        textAlign: "center",
-        lineHeight: 20,
-        fontSize: 14,
-        color: colors.primary
-    },
-    moreInfoHighlight: {
-        color: colors.purpleAccent,
-        lineHeight: 20,
-        fontSize: 14,
+
+    contributors: {
+        marginTop:20,
+        marginHorizontal:10
     }
 });
