@@ -65,14 +65,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     registerSchema = Yup.object().shape({
         hasCovidTest: Yup.string().required(),
         hasCovidPositive: Yup.string().required(),
-        takesAnyBloodPressureMedications: Yup.lazy(value => {
-            if (this.state.needBloodPressureAnswer) {
-                return Yup.string().required(
-                    "Please indicate whether you are regularly taking any blood pressure medication."
-                );
-            }
-            return Yup.mixed().notRequired()
-        })
+        takesAnyBloodPressureMedications: Yup.string()
     });
 
     async componentDidMount() {
