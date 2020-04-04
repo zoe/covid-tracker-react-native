@@ -69,7 +69,8 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     });
 
     async componentDidMount() {
-        if (!await AsyncStorageService.hasBloodPressureAnswer()) {
+        const hasBloodPressureAnswer = await AsyncStorageService.hasBloodPressureAnswer();
+        if (!hasBloodPressureAnswer) {
             this.setState({needBloodPressureAnswer: true});
         }
     }
