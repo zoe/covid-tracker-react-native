@@ -173,6 +173,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                         onValueChange={props.handleChange("takesAnyBloodPressureMedications")}
                                         label={"Are you regularly taking any blood pressure medications?"}
                                         error={props.touched.takesAnyBloodPressureMedications && props.errors.takesAnyBloodPressureMedications}
+                                        androidDefaultLabel={i18n.t("label-chose-an-option")}
                                     />
                                 )}
 
