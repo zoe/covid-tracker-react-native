@@ -23,6 +23,11 @@
 
 COVID-19 Symptom Tracker is an open source Android and iOS app whose goal is to stop the spread of COVID-19 disease and help identify people who are at risk sooner.
 
+The COVID Symptom Tracker was designed by doctors and scientists at King's College London, Guys and St Thomas’ Hospitals working in partnership with ZOE Global Ltd – a health science company.
+
+If you're doing research on COVID-19 and you want to contribute or believe this initiative can help your efforts, please let us know at research@joinzoe.com
+
+
 ### Built With
 * [React Native](https://reactnative.dev)
 * [Expo](https://expo.io)
@@ -36,6 +41,7 @@ These instructions will get you a copy of the project up and running on your loc
 * npm
 ```sh
 npm install npm@latest -g
+npm install expo-cli --g
 ```
 
 ### Installation
@@ -46,7 +52,7 @@ git clone git@github.com:zoe/covid-tracker-react-native.git
 ```
 2. Create a `.env` file
 ```sh
-echo "API_URL=https://your-endpoint-.com/" > .env
+echo "API_URL=https://your-endpoint.com/" > .env
 ```
 3. Get the Cloudbase Authentication file and store it as `./google-services.json`
 4. Run the following commands
@@ -75,7 +81,7 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-Somesh Selvachandran - [@somesh](https://twitter.com/somesh) - somesh@joinzoe.com
+Somesh Selvachandran - [@s0m](https://twitter.com/s0m) - somesh@joinzoe.com
 
 ## Acknowledgements
 * [Contributor Covenant](https://www.contributor-covenant.org)
