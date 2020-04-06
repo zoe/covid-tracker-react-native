@@ -62,3 +62,10 @@ after_all do
     slack(message: new_build_message)
   end
 end
+
+error do |lane, exception|
+  slack(
+    pretext: "@here",
+    success: false,
+  )
+end
