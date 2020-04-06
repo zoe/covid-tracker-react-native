@@ -230,6 +230,7 @@ export default class UserService extends ApiClientBase {
         const localCountry = await AsyncStorageService.getUserCountry();
         if (localCountry != null) {
             UserService.userCountry = localCountry;
+            i18n.locale = "en-" + UserService.userCountry
         }
         return localCountry;
     }
