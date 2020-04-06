@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {Form, Label} from 'native-base';
-import {colors} from "../../../theme";
+import {Form, Label, Item, Icon} from 'native-base';
+import {colors, fontStyles} from "../../../theme";
 import i18n from "../../locale/i18n"
 import {Formik} from "formik";
 import * as Yup from "yup";
@@ -30,6 +30,11 @@ interface RegistrationData {
     email: string;
     password: string;
 }
+const initialRegistrationValues = {
+    email: "",
+    password: ""
+}
+
 
 export class RegisterScreen extends Component<PropsType, State> {
     private passwordComponent: any;
@@ -78,83 +83,98 @@ export class RegisterScreen extends Component<PropsType, State> {
 
     render() {
         return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+            <Formik
+                initialValues={initialRegistrationValues}
+                validationSchema={this.registerSchema}
+                onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
+            >
+                {props => {
+                    return (
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                        <View>
 
-                    <Formik
-                        initialValues={{email: "", postcode: "", password: ""}}
-                        validationSchema={this.registerSchema}
-                        onSubmit={(values: RegistrationData) => this.handleCreateAccount(values)}
-                    >
-                        {props => {
-                            return (
-                                <View>
-
-                                    <View>
-                                        <HeaderText>{i18n.t("create-account-title")}</HeaderText>
-                                        <View style={styles.login}>
-                                            <RegularText>
-                                                <ClickableText onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("create-account-login")}</ClickableText>
-                                                {" "}
-                                                {i18n.t("create-account-if-you-have-an-account")}
-                                            </RegularText>
-                                        </View>
-                                        <Form>
-
-                                            <Label>Email</Label>
-                                            <ValidatedTextInput
-                                                keyboardType="email-address"
-                                                autoCapitalize="none"
-                                                autoCompleteType="email"
-                                                placeholder="email"
-                                                value={props.values.email}
-                                                onChangeText={props.handleChange("email")}
-                                                onBlur={props.handleBlur("email")}
-                                                error={props.touched.email && props.errors.email}
-                                                returnKeyType="next"
-                                                onSubmitEditing={() => {
-                                                    this.passwordComponent.focus();
-                                                }}
-                                            />
-
-                                            {props.touched.email && props.errors.email &&
-                                            <ErrorText>Please enter a valid email</ErrorText>
-                                            }
-
-                                            <Label>Password</Label>
-                                            <ValidatedTextInput
-                                                ref={(input) => this.passwordComponent = input}
-                                                secureTextEntry
-                                                placeholder="password"
-                                                returnKeyType="go"
-                                                value={props.values.password}
-                                                onChangeText={props.handleChange("password")}
-                                                onBlur={props.handleBlur("password")}
-                                                onSubmitEditing={props.handleSubmit}
-                                                error={props.touched.password && props.errors.password}
-                                            />
-
-                                            {props.touched.password && props.errors.password &&
-                                            <ErrorText>Your password must be at least 8 characters with letters</ErrorText>
-                                            }
-
-                                        </Form>
-                                    </View>
-                                    <View>
-                                        <ErrorText>{this.state.errorMessage}</ErrorText>
-                                    </View>
-
-                                    <View>
-                                        <BrandedButton onPress={props.handleSubmit}>{i18n.t("create-account-btn")}</BrandedButton>
-                                    </View>
+                            <View style={styles.loginHeader}>
+                                <HeaderText style={fontStyles.h1Light}>{i18n.t("create-account-title")}</HeaderText>
+                                <View style={styles.loginSubtitle}>
+                                    <RegularText>
+                                        {i18n.t("create-account-if-you-have-an-account")}
+                                        {" "}
+                                        <ClickableText onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("create-account-login")}</ClickableText>
+                                    </RegularText>
                                 </View>
-                            );
-                        }}
-                    </Formik>
+                            </View>
 
+                            <Form>
+                                <View style={styles.formItem}>
+                                    <Item floatingLabel>
+                                        <Label style={styles.labelStyle}>{i18n.t("create-account-email")}</Label>
+                                        <ValidatedTextInput
+                                            keyboardType="email-address"
+                                            autoCapitalize="none"
+                                            autoCompleteType="email"
+                                            placeholder={i18n.t("create-account-email")}
+                                            value={props.values.email}
+                                            onChangeText={props.handleChange("email")}
+                                            onBlur={props.handleBlur("email")}
+                                            error={props.touched.email && props.errors.email}
+                                            returnKeyType="next"
+                                            onSubmitEditing={() => {
+                                                this.passwordComponent.focus();
+                                            }}
+                                        />
+                                        {!!props.touched.email && !!props.errors.email && (
+                                            <Icon name='close'/>
+                                        )}
+                                    </Item>
+                                    {!!props.touched.email && !!props.errors.email &&
+                                    <View style={styles.fieldError}>
+                                        <ErrorText>Please enter a valid email</ErrorText>
+                                    </View>
+                                    }
+                                </View>
 
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+                                <View style={styles.formItem}>
+                                    <Item floatingLabel>
+                                        <Label style={styles.labelStyle}>{i18n.t("create-account-password")}</Label>
+                                        <ValidatedTextInput
+                                            ref={(input) => this.passwordComponent = input}
+                                            secureTextEntry
+                                            placeholder={i18n.t("create-account-password")}
+                                            returnKeyType="go"
+                                            value={props.values.password}
+                                            onChangeText={props.handleChange("password")}
+                                            onBlur={props.handleBlur("password")}
+                                            onSubmitEditing={(event) => props.handleSubmit()}
+                                            error={props.touched.password && props.errors.password}
+                                            style={{backgroundColor: 'green'}}
+                                        />
+                                    </Item>
+
+                                    {!!props.touched.password && !!props.errors.password &&
+                                    <View style={styles.fieldError}>
+                                        <ErrorText>Your password must be at least 8 characters with letters</ErrorText>
+                                    </View>
+                                    }
+                                </View>
+
+                            </Form>
+                        </View>
+                        <View style={styles.actionBlock}>
+                            { !!this.state.errorMessage && (
+                                <View>
+                                    <ErrorText>{this.state.errorMessage}</ErrorText>
+                                </View>
+                            )}
+                            <View>
+                                <BrandedButton onPress={props.handleSubmit}>{i18n.t("create-account-btn")}</BrandedButton>
+                            </View>
+                        </View>
+                    </KeyboardAvoidingView>
+                </TouchableWithoutFeedback>
+                    );
+                }}
+            </Formik>
         );
     }
 }
@@ -165,11 +185,14 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         backgroundColor: colors.backgroundPrimary,
         paddingHorizontal: 24,
-        paddingTop: 56
+        paddingTop: 56,
     },
-    login: {
-        flexDirection: "row",
-        paddingBottom: 20,
+    loginHeader: {
+        marginTop: 30,
+        marginHorizontal: 16,
+    },
+    loginSubtitle: {
+        marginTop: 16,
     },
 
     titleText: {
@@ -177,8 +200,22 @@ const styles = StyleSheet.create({
         paddingBottom: 16
     },
 
+    formItem: {
+        paddingVertical: 4,
+    },
+    labelStyle: {
+        color: colors.tertiary,
+        fontSize: 16
+    },
+    fieldError: {
+        marginHorizontal: 16,
+        marginVertical: 4,
+    },
     errorText: {
         color: colors.feedbackBad
-    }
+    },
 
+    actionBlock: {
+        marginBottom: 16,
+    }
 });
