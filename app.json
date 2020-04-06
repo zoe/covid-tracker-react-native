@@ -32,7 +32,12 @@
       "package": "com.joinzoe.covid_zoe",
       "versionCode": 23,
       "permissions": [],
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCg1tzO4IgL_b6JTZaQauPk7P-5Z8cPEnA"
+        }
+      }
     },
     "androidStatusBar": {
       "backgroundColor": "#ffffff"
