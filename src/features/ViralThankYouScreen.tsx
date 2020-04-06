@@ -40,6 +40,10 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
         const count = 3532;
         const percentage = 8.2;
         const population = 42000;
+        const delta = 25;
+        const countyRank = 2256;
+        const totalCounty = 3007;
+
 
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -68,23 +72,42 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
                         </View>
                     </View>
 
+                    <RegularText style={styles.countyRank}>
+                        <RegularBoldText>{countyName}</RegularBoldText>'s rank in contribution
+                    </RegularText>
+                    <Text style={styles.dailyDelta}>
+                        {delta} since yesterday
+                    </Text>
+
+                    <Text style={styles.position}>
+                        <Text style={styles.positionBold}>{countyRank}</Text> out of <Text style={styles.positionBold}>{totalCounty}</Text> counties
+                    </Text>
+
                     <View style={styles.shareContainer}>
                         <View style={styles.covidIconContainer}>
                             <Image source={covidIcon} style={styles.covidIcon}/>
                         </View>
-                        <RegularBoldText style={styles.share}>Please share this app</RegularBoldText>
+                        <Text style={styles.share}>Sharing is caring</Text>
                         <RegularText style={styles.shareSubtitle}>
-                            The more people report their symptoms, the more we can help those at risk.
+                            The more people report, the better our estimates & the faster you can help your community fight COVID
                         </RegularText>
                         <BrandedButton onPress={this.shareApp} style={styles.shareButton}>Share this app</BrandedButton>
                     </View>
 
-                    <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
-                        {"Please check our "}
-                        <RegularText style={styles.newsFeedClickable}>news feed</RegularText>
-                        {" for updates."}
-                    </ClickableText>
-                    <RegularText style={styles.shareSubtitle}>{i18n.t("check-in-tomorrow")}</RegularText>
+                    <RegularText style={styles.partnerContainer}>
+                        Thank you for joining millions of people supporting scientists at{" "}
+                        <Text style={styles.partner}>Massachusetts General Hospital</Text>,{" "}
+                        <Text style={styles.partner}>Stanford University School of Medicine</Text> &{" "}
+                        <Text style={styles.partner}>King's College London</Text> to help our communities.
+                    </RegularText>
+
+                    <RegularText style={styles.visitWebsite}>
+                        Visit our{" "}
+                        <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
+                            website
+                        </ClickableText>{" "}
+                        to see the discoveries you made possible
+                    </RegularText>
 
                     <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>Done</ClickableText>
 
@@ -186,6 +209,89 @@ const styles = StyleSheet.create({
         flex:1,
     },
 
+    countyRank: {
+        marginTop:40,
+        color: colors.secondary,
+        textAlign:"center",
+    },
+
+    dailyDelta: {
+        marginTop:4,
+        fontSize:14,
+        lineHeight:20,
+        fontWeight: "300",
+        color: colors.secondary,
+        textAlign:"center",
+    },
+
+    position: {
+        marginTop:16,
+        fontSize:14,
+        lineHeight:20,
+        fontWeight: "300",
+        color: colors.secondary,
+        textAlign:"center",
+    },
+
+    positionBold: {
+        fontSize:24,
+        lineHeight:32,
+        fontWeight: "500",
+        color: colors.primary,
+    },
+
+
+
+    shareContainer: {
+        marginTop:40,
+        backgroundColor: "#ffffff",
+        borderRadius: 10,
+    },
+
+    covidIconContainer: {
+        height: 60,
+        width: 60,
+        borderRadius: 10,
+        margin: 30,
+        backgroundColor: "#082A5D",
+        alignSelf: "center"
+    },
+
+    share: {
+        fontSize: 20,
+        lineHeight:32,
+        fontWeight: "500",
+        textAlign: "center",
+    },
+    shareSubtitle: {
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        textAlign: "center",
+        color: colors.secondary
+    },
+
+    shareButton: {
+        marginVertical: 20,
+        width:240,
+        alignSelf: "center"
+    },
+
+    partnerContainer: {
+        marginTop:40,
+        textAlign:"center",
+        marginHorizontal: 16,
+        lineHeight:24,
+    },
+
+    partner: {
+        fontWeight: "700",
+        lineHeight:24,
+    },
+
+    visitWebsite: {
+        marginTop:24,
+        textAlign:"center",
+    },
 
     content: {
         justifyContent: "space-between",
@@ -202,49 +308,6 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
 
-
-    shareContainer: {
-        backgroundColor: "#ffffff",
-        borderRadius: 10,
-        marginHorizontal: 20,
-    },
-    share: {
-        fontSize: 20,
-        textAlign: "center",
-    },
-
-    newsFeed: {
-        paddingVertical: 20,
-        paddingHorizontal: 40,
-        fontSize: 20,
-        textAlign: "center",
-        color: colors.primary,
-    },
-    newsFeedClickable: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: colors.primary,
-        textDecorationLine: 'underline',
-    },
-    shareSubtitle: {
-        paddingVertical: 10,
-        paddingHorizontal: 40,
-        textAlign: "center",
-        color: colors.secondary
-    },
-
-    shareButton: {
-        marginVertical: 20,
-        marginHorizontal: 30,
-    },
-    covidIconContainer: {
-        height: 60,
-        width: 60,
-        borderRadius: 10,
-        margin: 30,
-        backgroundColor: "#082A5D",
-        alignSelf: "center"
-    },
     covidIcon: {
         height: 50,
         width: 50,
