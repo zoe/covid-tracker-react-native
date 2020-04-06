@@ -31,4 +31,5 @@ export type ScreenParamList = {
     ThankYou: undefined;
     Login: { terms: string };
     CountrySelect: { patientId: string | null };
+    NearYou: undefined;
 };
