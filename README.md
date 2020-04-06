@@ -1,31 +1,96 @@
-# COVID Symptom Tracker
+# COVID-19 Symptom Tracker
 
-## Getting Started with Development
+## Table of Contents
 
-### Clone the repo
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
+
+## About The Project
+
+<p float="left" align="middle">
+  <img src="images/screenshot_1.png" width="180" />
+  <img src="images/screenshot_2.png" width="180" />
+  <img src="images/screenshot_3.png" width="180" />
+</p>
+
+COVID-19 Symptom Tracker is an open source Android and iOS app whose goal is to stop the spread of COVID-19 disease and help identify people who are at risk sooner.
+
+The COVID Symptom Tracker was designed by doctors and scientists at King's College London, Guys and St Thomas’ Hospitals working in partnership with ZOE Global Ltd – a health science company.
+
+If you're doing research on COVID-19 and you want to contribute or believe this initiative can help your efforts, please let us know at research@joinzoe.com
+
+
+### Built With
+* [React Native](https://reactnative.dev)
+* [Expo](https://expo.io)
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+* npm
+```sh
+npm install npm@latest -g
+npm install expo-cli --g
+```
+
+### Installation
+
+1. Clone the repo
+```sh
 git clone git@github.com:zoe/covid-tracker-react-native.git
-
-### Run the mock api server
+```
+2. When you first start your application you should see the IP address in the console (located above the QR code). For example:
+```
+exp://123.456.7.890:19000
+```
+Copy that IP address.
+4. Create a `.env` file
+```sh
+echo "API_URL=<ip_address_here>:3000" > .env
+```
+5. Get the Cloudbase Authentication file and store it as `./google-services.json`
+6. Run the following commands
+```JS
+npm install
+expo start
+```
+7. Run the mock server
 ```
 npm run mock-server
 ```
 
-### Get the Cloudbase Authentication file and place it in ./google-services.json
+## Roadmap
 
-### Start the application
-npm install
-expo start
+See the [open issues](https://github.com/zoe/covid-tracker-react-native/issues) for a list of proposed features (and known issues).
 
-### create a .env file
-When you first start your application you should see the IP Address in the console. (Located just above the QR Code.)
-e.g. exp://123.456.7.890:19000
+## Contributing
 
-Create an .env file by running the following. (Replace <hostIP> with the host only e.g. 123.456.7.890)
-```
-echo "API_URL=http://<hostIP>:3000" > .env
-```
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-e.g.
-```
-echo "API_URL=http://123.456.7.890:3000" > .env
-```
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the Apache 2.0 License. See `LICENSE` for more information.
+
+## Contact
+
+ZOE Engineering - engineering@joinzoe.com
+
+## Acknowledgements
+* [Contributor Covenant](https://www.contributor-covenant.org)
