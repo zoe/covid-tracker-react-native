@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     picker: {
         width: screenWidth - 16,
-        marginTop: 16,
+        marginTop: 24,
     },
     dropdownWrapper: {
         borderBottomWidth: 1,
