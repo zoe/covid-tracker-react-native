@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         fontSize: 15,
+        lineHeight: 15,
         color: colors.primary
     },
     picker: {
