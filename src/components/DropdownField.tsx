@@ -56,7 +56,9 @@ const DropdownField = (props: DropdownFieldProps) => {
         onlyPicker ? <DropdownPicker onlyPicker={onlyPicker} {...more} /> :
             <FieldWrapper style={wrapperStyle}>
             <Label style={styles.labelStyle}>{label}</Label>
+                <View style={styles.dropdownWrapper}>
             <DropdownPicker {...more} />
+            </View>
           {!!error && (
             <View style={{marginTop: 10}}>
                 <ValidationError error={error}/>
@@ -71,17 +73,18 @@ const styles = StyleSheet.create({
         flex: 1,
         marginVertical: 32,
         marginHorizontal: 16,
-        borderBottomWidth: 1,
-        borderColor: colors.tertiary,
     },
     labelStyle: {
-        fontSize: 16,
+        fontSize: 15,
         color: colors.primary
     },
     picker: {
         width: screenWidth - 16,
         marginTop: 16,
-
+    },
+    dropdownWrapper: {
+        borderBottomWidth: 1,
+        borderColor: colors.tertiary,
     },
     errorHighlight: {
         borderBottomWidth: 1,
