@@ -1,0 +1,41 @@
+fastlane_version "2.145.0"
+
+desc "iOS publishing lanes"
+platform :ios do
+  desc "iOS Dev Channel (AppCenter)"
+  lane :dev do |options|
+    appcenter_upload(
+      app_name: options[:app_name],
+      file: Dir.pwd + "/app.ipa",
+      notify_testers: true,
+    )
+  end
+
+  desc "TODO: iOS Stage Channel (AppCenter/TestFlight)"
+  lane :stage do
+  end
+
+  desc "TODO: iOS Production Channel (App Store)"
+  lane :production do
+  end
+end
+
+desc "Android publishing lanes"
+platform :android do
+  desc "Android Dev Channel (AppCenter)"
+  lane :dev do |options|
+    appcenter_upload(
+      app_name: options[:app_name],
+      file: Dir.pwd + "/app.apk",
+      notify_testers: true,
+    )
+  end
+
+  desc "TODO: Android Stage Channel (AppCenter/Play Store Beta)"
+  lane :stage do
+  end
+
+  desc "TODO: Android Production Channel (Play Store)"
+  lane :production do
+  end
+end
