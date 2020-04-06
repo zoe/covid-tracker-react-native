@@ -51,7 +51,7 @@ commands:
   deploy_android:
     steps:
       - run: 
-          command: npx expo-cli build:android --release-channel $RELEASE_CHANNEL --no-publish
+          command: npx expo-cli build:android --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.apk "$(npx expo-cli url:apk --non-interactive)"
       - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID
@@ -60,7 +60,7 @@ commands:
   deploy_ios:
     steps:
       - run: 
-          command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive
+          command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.ipa "$(expo url:ipa --non-interactive)"
       - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS
