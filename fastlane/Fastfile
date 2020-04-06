@@ -39,3 +39,26 @@ platform :android do
   lane :production do
   end
 end
+
+after_all do
+  build_info = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
+  build_type = lane_context[SharedValues::LANE_NAME]
+  new_build_message = "A new `#{build_type}` build has been uploaded!"
+  if !build_info.nil?
+    slack(
+      success: true,
+      message: new_build_message,
+      default_payloads: [:last_git_commit, :last_git_commit_hash],
+      payload: {
+        "App Version": "#{build_info["id"]} (#{build_info["short_version"]})",
+        "Platform": build_info["app_os"],
+        "Download URL": "<#{build_info["download_url"]}|Click here>",
+      },
+      attachment_properties: {
+        thumb_url: build_info["app_icon_url"],
+      },
+    )
+  else
+    slack(message: new_build_message)
+  end
+end
