@@ -173,6 +173,18 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
             {label: '°C', value: 'C'},
             {label: '°F', value: 'F'},
         ];
+        const fatigueItems = [
+            {label: 'No', value: 'no'},
+            {label: 'Mild fatigue', value: 'mild'},
+            {label: 'Severe fatigue - I struggle to get out of bed', value: 'severe'},
+        ];
+        const shortnessOfBreathItems = [
+            {label: 'No', value: 'no'},
+            {label: 'Yes. Mild symptoms - slight shortness of breath during ordinary activity', value: 'mild'},
+            {label: 'Yes. Significant symptoms - breathing is comfortable only at rest', value: 'significant'},
+            {label: 'Yes. Severe symptoms - breathing is difficult even at rest', value: 'severe'},
+        ];
+
         return (
           <Screen>
               <Header>
@@ -222,51 +234,32 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
                                             <View style={styles.secondaryField}>
                                                 <DropdownField
-                                              selectedValue={props.values.temperatureUnit}
-                                              onValueChange={props.handleChange("temperatureUnit")}
-                                              error={props.touched.temperatureUnit && props.errors.temperatureUnit}
-                                              items={temperatureItems}
-                                              onlyPicker
-                                            />
+                                                  selectedValue={props.values.temperatureUnit}
+                                                  onValueChange={props.handleChange("temperatureUnit")}
+                                                  error={props.touched.temperatureUnit && props.errors.temperatureUnit}
+                                                  items={temperatureItems}
+                                                  onlyPicker
+                                                />
                                             </View>
                                         </View>
                                     </Item>
                                 </FieldWrapper>
 
-                                <FieldWrapper>
-                                    <Item stackedLabel>
-                                        <Label>Do you have a persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)?</Label>
-                                        <Picker mode="dropdown"
-                                                placeholder="hasPersistentCough"
-                                                selectedValue={props.values.hasPersistentCough}
-                                                onValueChange={props.handleChange("hasPersistentCough")}
-                                                iosIcon={<Icon name="arrow-down"/>}
-                                                style={styles.picker}
-                                        >
-                                            <Picker.Item label="Yes" value="yes"/>
-                                            <Picker.Item label="No" value="no"/>
-                                        </Picker>
-                                    </Item>
-                                </FieldWrapper>
+                                <DropdownField
+                                    label={"Do you have a persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)?"}
+                                    selectedValue={props.values.hasPersistentCough}
+                                    onValueChange={props.handleChange("hasPersistentCough")}
+                                />
 
                                 {/* Horizontal rule */}
 
-                                <FieldWrapper>
-                                    <Item stackedLabel>
-                                        <Label>Are you experiencing unusual fatigue?</Label>
-                                        <Picker mode="dropdown"
-                                                placeholder="hasUnusualFatigue"
-                                                selectedValue={props.values.hasUnusualFatigue}
-                                                onValueChange={props.handleChange("hasUnusualFatigue")}
-                                                iosIcon={<Icon name="arrow-down"/>}
-                                                style={styles.picker}
-                                        >
-                                            <Picker.Item label="No" value="no"/>
-                                            <Picker.Item label="Mild fatigue" value="mild"/>
-                                            <Picker.Item label="Severe fatigue - I struggle to get out of bed" value="severe"/>
-                                        </Picker>
-                                    </Item>
-                                </FieldWrapper>
+                                <DropdownField
+                                    label={"Are you experiencing unusual fatigue?"}
+                                    selectedValue={props.values.hasUnusualFatigue}
+                                    onValueChange={props.handleChange("hasUnusualFatigue")}
+                                    items={fatigueItems}
+                                />
+
 
                                 <DropdownField
                                   placeholder="hasHeadache"
@@ -275,23 +268,13 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                   label="Do you have a headache?"
                                 />
 
-                                <FieldWrapper>
-                                    <Item stackedLabel>
-                                        <Label>Are you experiencing unusual shortness of breath?</Label>
-                                        <Picker mode="dropdown"
-                                                placeholder="hasUnusualShortnessOfBreath"
-                                                selectedValue={props.values.hasUnusualShortnessOfBreath}
-                                                onValueChange={props.handleChange("hasUnusualShortnessOfBreath")}
-                                                iosIcon={<Icon name="arrow-down"/>}
-                                                style={styles.picker}
-                                        >
-                                            <Picker.Item label="No" value="no"/>
-                                            <Picker.Item label="Yes. Mild symptoms - slight shortness of breath during ordinary activity" value="mild"/>
-                                            <Picker.Item label="Yes. Significant symptoms - breathing is comfortable only at rest" value="significant"/>
-                                            <Picker.Item label="Yes. Severe symptoms - breathing is difficult even at rest" value="severe"/>
-                                        </Picker>
-                                    </Item>
-                                </FieldWrapper>
+                                <DropdownField
+                                    label={"Are you experiencing unusual shortness of breath?"}
+                                    selectedValue={props.values.hasUnusualShortnessOfBreath}
+                                    onValueChange={props.handleChange("hasUnusualShortnessOfBreath")}
+                                    error={props.touched.hasUnusualShortnessOfBreath && props.errors.hasUnusualShortnessOfBreath}
+                                    items={shortnessOfBreathItems}
+                                />
 
                                 <DropdownField
                                   placeholder="hasSoreThroat"
@@ -300,21 +283,13 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                   label="Do you have a sore throat?"
                                 />
 
-                                <FieldWrapper>
-                                    <Item stackedLabel>
-                                        <Label>Do you have a loss of smell/taste?</Label>
-                                        <Picker mode="dropdown"
-                                                placeholder="hasLossOfSmell"
-                                                selectedValue={props.values.hasLossOfSmell}
-                                                onValueChange={props.handleChange("hasLossOfSmell")}
-                                                iosIcon={<Icon name="arrow-down"/>}
-                                                style={styles.picker}
-                                        >
-                                            <Picker.Item label="Yes" value="yes"/>
-                                            <Picker.Item label="No" value="no"/>
-                                        </Picker>
-                                    </Item>
-                                </FieldWrapper>
+                                <DropdownField
+                                  placeholder="hasLossOfSmell"
+                                  selectedValue={props.values.hasLossOfSmell}
+                                  onValueChange={props.handleChange("hasLossOfSmell")}
+                                  label="Do you have a loss of smell/taste?"
+                                />
+
 
                                 <FieldWrapper>
                                     <Item stackedLabel>
