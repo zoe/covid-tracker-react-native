@@ -30,6 +30,7 @@ export type ScreenParamList = {
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
     ThankYou: undefined;
+    ViralThankYou: undefined;
     Login: { terms: string };
     CountrySelect: { patientId: string | null };
     NearYou: undefined;
