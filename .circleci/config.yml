@@ -31,6 +31,42 @@ executors:
         environment:
           API_URL: $API_URL
 
+commands:
+  build:
+    steps:
+      - checkout
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle update fastlane
+      - run: npm install
+  login_to_expo:
+    steps:
+      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+  publish_to_expo:
+    steps:
+      - login_to_expo
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel $RELEASE_CHANNEL    
+  deploy_android:
+    steps:
+      - run: 
+          command: npx expo-cli build:android --release-channel $RELEASE_CHANNEL --no-publish
+          no_output_timeout: 2h
+      - run: curl -o fastlane/app.apk "$(npx expo-cli url:apk --non-interactive)"
+      - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID
+      - store_artifacts:
+          path: ~/covid-react/fastlane/app.apk
+  deploy_ios:
+    steps:
+      - run: 
+          command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive
+          no_output_timeout: 2h
+      - run: curl -o fastlane/app.ipa "$(expo url:ipa --non-interactive)"
+      - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS
+      - store_artifacts:
+          path: ~/covid-react/fastlane/app.ipa    
+
 jobs:
   build-and-test:
     executor: node
