@@ -85,27 +85,32 @@ jobs:
 
 
 workflows:
-  build-and-test:
+  build_and_test:
     jobs:
-      - build-and-test:
+      - build_and_test:
           filters: *feature_filter
 
   stage:
     jobs:
-      - build-and-test:
+      - build_and_test:
           filters: *stage_filter
-      - publish_to_expo_dev:
+      - deploy:
           filters: *stage_filter
-          release_channel: stage
+          context: stage
           requires:
-            - build-and-test
+            - build_and_test
 
   develop:
     jobs:
-      - build-and-test:
+      - build_and_test:
           filters: *develop_filter
+      - deploy:
+          filters: *develop_filter
+          context: dev
+          requires:
+            - build_and_test
 
   master:
     jobs:
-      - build-and-test:
+      - build_and_test:
           filters: *master_filter
