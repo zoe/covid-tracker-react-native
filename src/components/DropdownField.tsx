@@ -76,11 +76,12 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         fontSize: 15,
+        lineHeight: 30,
         color: colors.primary
     },
     picker: {
         width: screenWidth - 16,
-        marginTop: 24,
+        marginTop: 12,
     },
     dropdownWrapper: {
         borderBottomWidth: 1,
