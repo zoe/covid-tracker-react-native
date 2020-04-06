@@ -16,25 +16,23 @@ interface DropdownFieldProps {
     isCompact?: boolean,
     androidDefaultLabel?: string,
     error?: any,
+    onlyPicker?: boolean,
 }
 
-const DropdownField = (props: DropdownFieldProps) => {
-    // Can be used as a yes/no dropdown field by leaving props.items blank.
-    const {placeholder, selectedValue, onValueChange, label, androidDefaultLabel, error, ...pickerProps} = props;
-    const items = props.items || [{label: 'No', value: 'no'}, {label: 'Yes', value: 'yes'}];
-    const wrapperStyle = props.isCompact ? null : styles.fieldWrapper;
+type DropdownPickerProps = Omit<DropdownFieldProps, "label">
 
+const DropdownPicker = (props: DropdownPickerProps) => {
+    const {placeholder, selectedValue, onValueChange, androidDefaultLabel, onlyPicker, error, ...pickerProps} = props;
+    const pickerStyle = onlyPicker ? {} : styles.picker;
     const itemStyle = error ? styles.errorHighlight : {};
-    const pickerStyle = styles.picker;
+    const items = props.items || [{label: 'No', value: 'no'}, {label: 'Yes', value: 'yes'}];
 
     if (androidDefaultLabel && isAndroid) {
         items.unshift({label: androidDefaultLabel, value: ""});
     }
 
     return (
-      <FieldWrapper style={wrapperStyle}>
-          <Label>{label}</Label>
-          <Picker
+        <Picker
             mode="dropdown"
             placeholder={placeholder} // Placeholder not supported on android
             selectedValue={selectedValue}
@@ -44,25 +42,45 @@ const DropdownField = (props: DropdownFieldProps) => {
             style={pickerStyle}
             {...pickerProps}
           >
-              {items.map(i => <Picker.Item color={i.value ? undefined : '#AAACAD'} key={key(i)} label={i.label} value={i.value}/>)}
-          </Picker>
+          {items.map(i => <Picker.Item color={i.value ? undefined : colors.tertiary} key={key(i)} label={i.label} value={i.value}/>)}
+      </Picker>
+    )
+};
+
+const DropdownField = (props: DropdownFieldProps) => {
+    // Can be used as a yes/no dropdown field by leaving props.items blank.
+    const {label, error, onlyPicker, ...more} = props;
+    const wrapperStyle = props.isCompact ? null : styles.fieldWrapper;
+
+    return (
+        onlyPicker ? <DropdownPicker onlyPicker={onlyPicker} {...more} /> :
+            <FieldWrapper style={wrapperStyle}>
+            <Label style={styles.labelStyle}>{label}</Label>
+            <DropdownPicker {...more} />
           {!!error && (
             <View style={{marginTop: 10}}>
                 <ValidationError error={error}/>
             </View>
-      )}
+          )}
       </FieldWrapper>
     )
-}
+};
 
 const styles = StyleSheet.create({
     fieldWrapper: {
+        flex: 1,
         marginVertical: 32,
         marginHorizontal: 16,
+        borderBottomWidth: 1,
+        borderColor: colors.tertiary,
+    },
+    labelStyle: {
+        fontSize: 16,
     },
     picker: {
         width: screenWidth - 16,
         marginTop: 16,
+
     },
     errorHighlight: {
         borderBottomWidth: 1,
