@@ -19,7 +19,7 @@ import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
 
 const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.1.0';    // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
 
 
 export default class UserService extends ApiClientBase {
