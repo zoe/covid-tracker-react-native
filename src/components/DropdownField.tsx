@@ -33,26 +33,24 @@ const DropdownField = (props: DropdownFieldProps) => {
 
     return (
       <FieldWrapper style={wrapperStyle}>
-          <Item stackedLabel style={itemStyle}>
-              <Label>{label}</Label>
-              <Picker
-                mode="dropdown"
-                placeholder={placeholder} // Placeholder not supported on android
-                selectedValue={selectedValue}
-                onValueChange={onValueChange}
-                iosIcon={<Icon name="arrow-down"/>}
-                itemTextStyle={{textAlign: "left"}}
-                style={pickerStyle}
-                {...pickerProps}
-              >
-                  {items.map(i => <Picker.Item color={i.value ? undefined : '#AAACAD'} key={key(i)} label={i.label} value={i.value}/>)}
-              </Picker>
-          </Item>
+          <Label>{label}</Label>
+          <Picker
+            mode="dropdown"
+            placeholder={placeholder} // Placeholder not supported on android
+            selectedValue={selectedValue}
+            onValueChange={onValueChange}
+            iosIcon={<Icon name="arrow-down"/>}
+            itemTextStyle={{textAlign: "left"}}
+            style={pickerStyle}
+            {...pickerProps}
+          >
+              {items.map(i => <Picker.Item color={i.value ? undefined : '#AAACAD'} key={key(i)} label={i.label} value={i.value}/>)}
+          </Picker>
           {!!error && (
             <View style={{marginTop: 10}}>
                 <ValidationError error={error}/>
             </View>
-          )}
+      )}
       </FieldWrapper>
     )
 }
@@ -60,6 +58,7 @@ const DropdownField = (props: DropdownFieldProps) => {
 const styles = StyleSheet.create({
     fieldWrapper: {
         marginVertical: 32,
+        marginHorizontal: 16,
     },
     picker: {
         width: screenWidth - 16,
