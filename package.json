@@ -9,7 +9,8 @@
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "apitest": "mocha -r ts-node/register tests/backend/*.spec.ts",
     "ts-node": "ts-node",
-    "testWithTranspile": "mocha -r ts-node/register/transpile-only.js src/**/*.spec.ts"
+    "testWithTranspile": "mocha -r ts-node/register/transpile-only.js src/**/*.spec.ts",
+    "mock-server": "ts-node ./mock-server/mockServer.ts --watch"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
@@ -51,11 +52,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.4",
     "@types/mocha": "^7.0.2",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "@types/redux-mock-store": "^1.0.2",
     "babel-preset-expo": "~8.0.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "mocha": "^7.1.0",
     "redux-mock-store": "^1.5.4",
     "ts-node": "^8.6.2",
