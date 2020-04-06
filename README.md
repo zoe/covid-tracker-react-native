@@ -90,7 +90,7 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-Somesh Selvachandran - [@s0m](https://twitter.com/s0m) - somesh@joinzoe.com
+ZOE Engineering - engineering@joinzoe.com
 
 ## Acknowledgements
 * [Contributor Covenant](https://www.contributor-covenant.org)
