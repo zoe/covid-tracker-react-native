@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         fontSize: 16,
+        color: colors.primary
     },
     picker: {
         width: screenWidth - 16,
