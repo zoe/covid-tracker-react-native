@@ -68,29 +68,20 @@ commands:
           path: ~/covid-react/fastlane/app.ipa    
 
 jobs:
-  build-and-test:
+  build_and_test:
     executor: node
     working_directory: ~/covid-react
-    environment:
     steps:
-      - checkout
-      - run: npm install
+      - build
       - run: npm test
-
-  publish_to_expo_dev:
+  deploy:
     executor: node
     working_directory: ~/covid-react
-    parameters:
-      release_channel:
-        description: Expo release channel
-        type: string
     steps:
-      - checkout
-      - run: npm install
-      - run: echo "API_URL=$API_URL" > .env
-      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel << parameters.release_channel >>
+      - build
+      - publish_to_expo
+      - deploy_android
+      - deploy_ios    
 
 
 workflows:
