@@ -10,7 +10,7 @@ export const ContributionCounter = (props: ContributionCounterProps) => {
         const countValue = I18n.toNumber(props.count, {precision: 0});
         return props.variant === 1 ?
                 <RegularText style={styles.contributingText}>
-                    Join <RegularBoldText style={styles.contributingText}>{countValue}</RegularBoldText> people contributing
+                    Join <RegularBoldText style={styles.contributingTextValue}>{countValue}</RegularBoldText> people contributing
                 </RegularText>
             : props.variant === 2 ?
                 <RegularText style={styles.contributingText}>
@@ -23,8 +23,14 @@ export const ContributionCounter = (props: ContributionCounterProps) => {
 
 const styles = StyleSheet.create({
     contributingText: {
-        fontSize: 16,
-        lineHeight: 24,
+        fontSize: 24,
+        lineHeight: 32,
+        color: '#5D879C',
+        textAlign: "center",
+    },
+    contributingTextValue: {
+        fontSize: 24,
+        lineHeight: 32,
         color: '#ffffff',
         textAlign: "center",
     }

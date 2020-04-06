@@ -15,16 +15,16 @@ import { AxiosResponse } from "axios";
 import { camelizeKeys } from "./utils";
 import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
-import { isAndroid } from "../../components/Screen";
+import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
 
-const ASSESSMENT_VERSION = '1.2.0'; // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.1.0';    // TODO: Wire this to something automatic.
 
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
-    public static consentSigned : Consent = {
+    public static consentSigned: Consent = {
         document: "",
         version: "",
         privacy_policy_version: "",
@@ -41,7 +41,8 @@ export default class UserService extends ApiClientBase {
     };
 
     private client = ApiClientBase.client;
-    public async login(username : string, password : string) {
+
+    public async login(username: string, password: string) {
 
         const requestBody = this.objectToQueryString({
             username: username,
@@ -52,14 +53,14 @@ export default class UserService extends ApiClientBase {
 
         try {
             response = await this.client.post<LoginOrRegisterResponse>('/auth/login/', requestBody, this.configEncoded);
-        } catch(e) {
+        } catch (e) {
             throw new UserNotFoundException("Invalid login");
         }
 
         return await this.handleLoginOrRegisterResponse(response);
     }
 
-    public async resetPassword(email : string) {
+    public async resetPassword(email: string) {
         const payload = {
             email: email,
         };
@@ -70,6 +71,7 @@ export default class UserService extends ApiClientBase {
         const data = this.getData<LoginOrRegisterResponse>(response);
         const authToken = data.key;
         await this.storeTokenInAsyncStorage(authToken, data.user.pii);
+        await AsyncStorageService.saveProfile(data.user);
         this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
 
         return data;
@@ -117,7 +119,7 @@ export default class UserService extends ApiClientBase {
             version: version,
             privacy_policy_version: privacy_policy_version,
         };
-        return this.client.patch(`/consent/`,  payload);
+        return this.client.patch(`/consent/`, payload);
     }
 
     public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
@@ -193,7 +195,7 @@ export default class UserService extends ApiClientBase {
             await AsyncStorageService.setIsHealthWorker(
                 (patientProfileResponse.data.healthcare_professional === "yes_does_treat")
                 || patientProfileResponse.data.is_carer_for_community);
-            await AsyncStorageService.setPatientDetailsComplete();
+            await AsyncStorageService.setPatientDetailsComplete(true);
             return true
         }
     }
@@ -225,7 +227,7 @@ export default class UserService extends ApiClientBase {
     }
 
     async getUserCountry() {
-        const localCountry =  await AsyncStorageService.getUserCountry();
+        const localCountry = await AsyncStorageService.getUserCountry();
         if (localCountry != null) {
             UserService.userCountry = localCountry;
         }
@@ -246,6 +248,25 @@ export default class UserService extends ApiClientBase {
 
     async isHealthWorker() {
         return AsyncStorageService.getIsHealthWorker()
+    }
+
+    async deleteLocalUserData() {
+        ApiClientBase.unsetToken();
+        await AsyncStorageService.clearData();
+        await AsyncStorageService.setIsHealthWorker(false);
+        await AsyncStorageService.saveProfile(null);
+        await AsyncStorageService.setPatientDetailsComplete(false);
+        this.setConsentSigned("","","");
+    }
+
+    async deleteRemoteUserData() {
+        const profile = await AsyncStorageService.getProfile()
+        const payload = {
+            username: profile?.username,
+        };
+        return this.client.delete(`/users/delete/`, {
+            data: payload
+        });
     }
 }
 

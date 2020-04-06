@@ -23,7 +23,8 @@ import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
 import { ScreenParamList } from './features/ScreenParamList';
 import ThankYouScreen from './features/ThankYouScreen';
 import { WelcomeRepeatScreen } from "./features/register/WelcomeRepeatScreen";
-import { WelcomeUSScreen } from "./features/register/WelcomeUSScreen";
+import { Welcome1USScreen } from "./features/register/Welcome1USScreen";
+import { Welcome2USScreen } from "./features/register/Welcome2USScreen";
 import { WelcomeRepeatUSScreen } from "./features/register/WelcomeRepeatUSScreen";
 import TermsOfUseScreen from "./features/register/TermsOfUseScreen";
 import { PrivacyPolicyUSScreen } from "./features/register/PrivacyPolicyUSScreen";
@@ -86,14 +87,15 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="WelcomeUS" component={WelcomeUSScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Terms" component={TermsScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUse" component={TermsOfUseScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
                 <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={{headerShown: true, title: 'Privacy policy'}}/>
-                <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{headerShown: true, title: 'Nurses Consent'}}/>
+                <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{headerShown: true, title: 'Research Consent'}}/>
                 <Stack.Screen name="BeforeWeStartUS" component={BeforeWeStartUS} options={{headerShown: false}}/>
                 <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={{headerShown: false}}/>
