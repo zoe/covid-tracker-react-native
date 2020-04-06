@@ -51,7 +51,7 @@ npm install expo-cli --g
 git clone git@github.com:zoe/covid-tracker-react-native.git
 ```
 2. When you first start your application you should see the IP address in the console (located above the QR code). For example:
-``
+```
 exp://123.456.7.890:19000
 ```
 Copy that IP address.
