@@ -27,7 +27,7 @@ orbs:
 executors:
   node:
     docker:
-      - image: circleci/node:10.16
+      - image: circleci/ruby:latest-node
         environment:
           API_URL: $API_URL
 
