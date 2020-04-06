@@ -30,6 +30,8 @@ export class SplashScreen extends Component<Props, {}> {
     private bootstrapAsync = async () => {
         const {navigation} = this.props;
 
+        await this.userService.setUserCountInAsyncStorage();
+
         const countryPromise = this.userService.getUserCountry();
         let {userToken, userId} = await AsyncStorageService.GetStoredData();
         const country = await countryPromise;
@@ -39,7 +41,7 @@ export class SplashScreen extends Component<Props, {}> {
 
             // If logged in with no country default to GB as this will handle all GB users before selector was included.
             if (country == null) {
-                this.userService.setUserCountry('GB');
+                await this.userService.setUserCountry('GB');
             }
 
             try {
@@ -55,7 +57,7 @@ export class SplashScreen extends Component<Props, {}> {
         } else {
             if (country == null) {
                 // Using locale to default to a country
-                this.userService.defaultCountryToLocale()
+                await this.userService.defaultCountryToLocale()
             }
             navigation.replace(this.getWelcomeScreenName());
         }

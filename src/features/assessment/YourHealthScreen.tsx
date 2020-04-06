@@ -160,10 +160,14 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
+            .then(async response => {
+                // Head off race condition where next page expects these details to have been set.
+                await AsyncStorageService.setPatientDetailsComplete();
+                await AsyncStorageService.setHasBloodPressureAnswer(true);
+                return response;
+            })
             .then(response => {
                 this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
-                AsyncStorageService.setPatientDetailsComplete();
-                AsyncStorageService.setHasBloodPressureAnswer(true);
             })
             .catch(err => {
                 this.setState({errorMessage: "Something went wrong, please try again later"})

@@ -3,6 +3,7 @@ import {UserResponse} from "./user/dto/UserAPIContracts";
 
 const AUTH_TOKEN = "authToken";
 const USER_ID = "userId";
+const USER_COUNT = "userCount";
 const USER_COUNTRY = "userCountry";
 const CONSENT_SIGNED = "consentSigned";
 const PUSH_TOKEN = "pushToken";
@@ -117,6 +118,22 @@ export class AsyncStorageService {
             return null;
         else {
             return JSON.parse(userProfile) as UserResponse
+        }
+    }
+
+    static async setUserCount(userCount: string) {
+        try {
+            await AsyncStorage.setItem(USER_COUNT, userCount)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    static async getUserCount() {
+        try {
+            return await AsyncStorage.getItem(USER_COUNT);
+        } catch (err) {
+            return null
         }
     }
 

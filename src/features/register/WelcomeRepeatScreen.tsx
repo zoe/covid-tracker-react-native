@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../../theme";
-import {BrandedButton, ClickableText, RegularText} from "../../components/Text";
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {covidIcon, menuIcon, partnersLogo} from "../../../assets";
 import {RouteProp} from "@react-navigation/native";
@@ -10,16 +10,24 @@ import {AsyncStorageService} from "../../core/AsyncStorageService";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {Linking} from "expo";
+import { ContributionCounter } from "../../components/ContributionCounter";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
 }
 
-export class WelcomeRepeatScreen extends Component<PropsType, {}> {
+type WelcomeRepeatScreenState = {
+    userCount: string | null
+}
+
+export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
+    state = { userCount: null };
 
     async componentDidMount() {
         const userService = new UserService();
+        const userCount = await userService.getUserCount();
+        this.setState({userCount});
 
         // Refresh push token if we don't have one
         const hasPushToken = await AsyncStorageService.getPushToken();
@@ -70,8 +78,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, {}> {
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and {"\n"}help fight the outbreak.
+                                Take 1 minute each day and {"\n"}help fight the outbreak.{"\n"}
                             </RegularText>
+                            <ContributionCounter variant={2} count={this.state.userCount}/>
 
                         </View>
                     </View>

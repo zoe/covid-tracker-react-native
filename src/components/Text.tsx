@@ -36,6 +36,7 @@ interface ClickableProps {
     style?: any;
     onPress: () => void;
     enable?: boolean;
+    hideLoading?: boolean
 }
 
 interface ButtonProps {
@@ -46,7 +47,7 @@ interface TextProps {
     textProps?: any;
 }
 
-export const BrandedButton = ({style, children, onPress, enable, buttonProps, textProps}: ClickableProps & ButtonProps & TextProps) => {
+export const BrandedButton = ({style, children, onPress, enable, buttonProps, textProps, hideLoading}: ClickableProps & ButtonProps & TextProps) => {
     const btnStyle = [styles.button, style];
     const isDisabled = (enable === false);
     if (isDisabled) {
@@ -58,7 +59,7 @@ export const BrandedButton = ({style, children, onPress, enable, buttonProps, te
           !isDisabled && onPress()
       }} {...buttonProps}>
           <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>{children}</Text>
-          {isDisabled && (
+          {(isDisabled && !hideLoading) && (
             <ActivityIndicator size="small"/>
           )}
       </Button>

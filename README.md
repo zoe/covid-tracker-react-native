@@ -50,15 +50,24 @@ npm install expo-cli --g
 ```sh
 git clone git@github.com:zoe/covid-tracker-react-native.git
 ```
-2. Create a `.env` file
-```sh
-echo "API_URL=https://your-endpoint.com/" > .env
+2. When you first start your application you should see the IP address in the console (located above the QR code). For example:
+``
+exp://123.456.7.890:19000
 ```
-3. Get the Cloudbase Authentication file and store it as `./google-services.json`
-4. Run the following commands
+Copy that IP address.
+4. Create a `.env` file
+```sh
+echo "API_URL=<ip_address_here>:3000" > .env
+```
+5. Get the Cloudbase Authentication file and store it as `./google-services.json`
+6. Run the following commands
 ```JS
 npm install
 expo start
+```
+7. Run the mock server
+```
+npm run mock-server
 ```
 
 ## Roadmap
