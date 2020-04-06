@@ -169,6 +169,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     }
 
     render() {
+        const temperatureItems = [
+            {label: '°C', value: 'C'},
+            {label: '°F', value: 'F'},
+        ];
         return (
           <Screen>
               <Header>
@@ -215,17 +219,15 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                                   keyboardType='numeric'
                                                 />
                                             </View>
+
                                             <View style={styles.secondaryField}>
-                                                <Picker mode="dropdown"
-                                                        placeholder="temperatureUnit"
-                                                        selectedValue={props.values.temperatureUnit}
-                                                        onValueChange={props.handleChange("temperatureUnit")}
-                                                        iosIcon={<Icon name="arrow-down"/>}
-                                                        style={styles.smallPicker}
-                                                >
-                                                    <Picker.Item label="°C" value="C"/>
-                                                    <Picker.Item label="°F" value="F"/>
-                                                </Picker>
+                                                <DropdownField
+                                              selectedValue={props.values.temperatureUnit}
+                                              onValueChange={props.handleChange("temperatureUnit")}
+                                              error={props.touched.temperatureUnit && props.errors.temperatureUnit}
+                                              items={temperatureItems}
+                                              onlyPicker
+                                            />
                                             </View>
                                         </View>
                                     </Item>
