@@ -1,13 +1,50 @@
 import {DrawerContentComponentProps} from "@react-navigation/drawer";
 import {colors, fontStyles} from "../../theme";
 import {closeIcon} from "../../assets";
-import {Image, Linking, StyleSheet, Text, TouchableOpacity, View, SafeAreaView} from "react-native";
+import {Alert, Image, Linking, StyleSheet, Text, TouchableOpacity, View, SafeAreaView} from "react-native";
 import i18n from "../locale/i18n"
 import React from "react";
 import Constants from "expo-constants";
-import {isGBLocale} from "../core/user/UserService";
+import UserService, {isGBLocale, isUSLocale} from "../core/user/UserService";
+import {DrawerActions} from '@react-navigation/native';
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
+
+    const userService = new UserService();
+
+    function showDeleteAlert() {
+        Alert.alert(
+            i18n.t('delete-data-alert-title'),
+            i18n.t('delete-data-alert-text'),
+            [
+                {
+                    text: i18n.t('cancel'),
+                    style: 'cancel',
+                },
+                {
+                    text: i18n.t('delete'),
+                    style: 'destructive',
+                    onPress: async () => {
+                        await userService.deleteRemoteUserData();
+                        logout();
+                    }
+                },
+            ],
+            {cancelable: false}
+        );
+    }
+
+    function logout() {
+        userService.deleteLocalUserData();
+        props.navigation.reset({
+            index: 0,
+            routes: [
+                {name: isUSLocale() ? 'WelcomeUS' : 'Welcome'},
+            ],
+        });
+        props.navigation.dispatch(DrawerActions.closeDrawer());
+    }
+
     return <SafeAreaView style={styles.drawerRoot}>
         <View style={styles.container}>
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
@@ -30,8 +67,14 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             }}>
                 <Text style={fontStyles.h2Reg}>{i18n.t('privacy-policy')}</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.iconNameRow} onPress={() => showDeleteAlert()}>
+                <Text style={fontStyles.h2Reg}>{i18n.t('delete-my-data')}</Text>
+            </TouchableOpacity>
             <View style={{flex: 1}}/>
-            <Text style={[fontStyles.bodySmallLight,styles.versionText]}>{Constants.manifest.version} : {Constants.manifest.revisionId}</Text>
+            <TouchableOpacity style={styles.iconNameRow} onPress={() => logout()}>
+                <Text style={fontStyles.h2Reg}>{i18n.t('logout')}</Text>
+            </TouchableOpacity>
+            <Text style={[fontStyles.bodySmallLight, styles.versionText]}>{Constants.manifest.version} : {Constants.manifest.revisionId}</Text>
         </View>
     </SafeAreaView>
 }
@@ -60,6 +103,7 @@ const styles = StyleSheet.create({
         marginEnd: 16
     },
     versionText: {
+        marginTop: 32,
         color: colors.tertiary,
         alignSelf: 'center'
     }

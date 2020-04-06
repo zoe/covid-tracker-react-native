@@ -129,5 +129,11 @@
 
   "research-updates": "Research updates",
   "faqs": "FAQs",
-  "privacy-policy": "Privacy Policy"
+  "privacy-policy": "Privacy Policy",
+  "delete-my-data": "Delete my data",
+  "delete-data-alert-title": "Are you sure?",
+  "delete-data-alert-text": "Deleting your account and data cannot be undone.",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "logout": "Log out"
 }
