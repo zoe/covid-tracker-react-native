@@ -18,6 +18,7 @@ export type ScreenParamList = {
     Register: undefined;
     OptionalInfo: { user: UserResponse };
     HealthWorkerExposure: { patientId: string };
+    YourStudy: { patientId: string };
     YourWork: { patientId: string };
     AboutYou: { patientId: string };
     YourHealth: { patientId: string, isMale: boolean};
