@@ -200,6 +200,11 @@ export default class UserService extends ApiClientBase {
         }
     }
 
+    async getConsentSigned(): Promise<Consent | null> {
+        let consent: string | null = await AsyncStorageService.getConsentSigned();
+        return consent ? JSON.parse(consent) : null
+    }
+
     async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
         const consent = {
             document: document,

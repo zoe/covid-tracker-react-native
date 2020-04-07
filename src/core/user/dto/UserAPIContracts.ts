@@ -52,9 +52,6 @@ export type PatientInfosRequest = {
     // Cancer questions
     has_cancer: boolean,
     cancer_type: string,
-    on_cancer_clinical_trial: boolean,
-    cancer_clinical_trial_site: string,
-    cancer_physician_name: string,
     does_chemiotherapy: boolean,
 
     takes_immunosuppressants: boolean,
@@ -95,6 +92,11 @@ export type PatientInfosRequest = {
     is_in_us_agricultural_health: boolean,
     is_in_us_gulf: boolean,
     is_in_us_aspree_xt: boolean,
+
+    clinical_study_names: string,
+    clinical_study_contact: string,
+    clinical_study_institution: string,
+    clinical_study_nct_id: string,
 
     // About your work
     healthcare_professional: string,

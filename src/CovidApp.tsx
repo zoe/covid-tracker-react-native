@@ -39,6 +39,7 @@ import LevelOfIsolationScreen from "./features/assessment/LevelOfIsolationScreen
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {DrawerMenu} from "./features/DrawerMenu";
 import NearYouScreen from './features/near-you/NearYou';
+import YourStudyScreen from "./features/patient/YourStudyScreen";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -102,6 +103,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="YourStudy" component={YourStudyScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourWork" component={YourWorkScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourHealth" component={YourHealthScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{headerShown: false}}/>
