@@ -385,15 +385,12 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                                         </View>
                                                     )}
                                                     <View style={styles.secondaryField}>
-                                                        <Picker mode="dropdown"
-                                                                placeholder="heightUnit"
-                                                                selectedValue={props.values.heightUnit}
-                                                                onValueChange={props.handleChange("heightUnit")}
-                                                                iosIcon={<Icon name="arrow-down"/>}
-                                                        >
-                                                            <Picker.Item label="ft" value="ft"/>
-                                                            <Picker.Item label="cm" value="cm"/>
-                                                        </Picker>
+                                                        <DropdownField
+                                                            onlyPicker
+                                                            selectedValue={props.values.heightUnit}
+                                                            onValueChange={props.handleChange("heightUnit")}
+                                                            items={[{label: 'ft', value: 'ft'}, {label: 'cm', value: 'cm'}]}
+                                                        />
                                                     </View>
                                                 </View>
                                             )}
