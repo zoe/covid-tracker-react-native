@@ -17,7 +17,8 @@ export const BigButton = (props: ButtonProps) => {
           </View>
       </TouchableOpacity>
     )
-}
+};
+
 const butStyles = StyleSheet.create({
     bigButton: {
         borderRadius: 28,
@@ -33,4 +34,4 @@ const butStyles = StyleSheet.create({
         color: colors.primary,
         textAlign: "center",
     }
-})
+});

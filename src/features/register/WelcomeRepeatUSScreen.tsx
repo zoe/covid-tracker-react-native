@@ -127,11 +127,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 
-    loginContainer: {
-        alignSelf: "center",
-        fontWeight: "300",
-    },
-
     covidIcon: {
         height: 60,
         width: 60
@@ -199,20 +194,13 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
 
-    noAdvice: {
-        color: colors.secondary,
-        textAlign: "center"
-    },
     partnersLogo: {
         height: 60,
         width: '95%',
         resizeMode: 'contain',
         alignSelf: "center",
     },
-    flagIcon: {
-        height: 32,
-        width: 32
-    },
+
     privacyPolicyText: {
         fontSize: 14,
         color: colors.secondary,

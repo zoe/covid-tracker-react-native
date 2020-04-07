@@ -104,15 +104,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
 
-    covidIcon: {
-        height: 60,
-        width: 60
-    },
-    appName: {
-        color: colors.white,
-        paddingHorizontal: 5,
-        fontSize: 14,
-    },
 
     covidContainer: {
         paddingHorizontal: 14,
@@ -135,11 +126,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 15,
         fontWeight: "300",
-    },
-
-
-    purpleSlash: {
-        color: colors.purple,
     },
 
     flagIcon: {

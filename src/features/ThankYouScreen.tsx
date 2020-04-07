@@ -84,15 +84,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 18,
     },
 
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
-    },
-
     scrollView: {
         flexGrow: 1,
         backgroundColor: colors.backgroundSecondary,

@@ -110,30 +110,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 
-    covidIcon: {
-        height: 60,
-        width: 60
-    },
-    appName: {
-        color: colors.primary,
-        paddingHorizontal: 5,
-        fontSize: 14,
-    },
-
     covidContainer: {
         paddingHorizontal: 24,
         paddingBottom: 24,
         paddingTop: 24
-    },
-
-    partners: {
-        flex: 1,
-        backgroundColor: colors.white,
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        padding: 32,
-        justifyContent: "space-between",
-        alignContent: "center",
     },
 
     partnerHeader: {
@@ -161,12 +141,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
 
-    title: {
-        color: colors.primary,
-        textAlign: "center",
-        fontSize: 32,
-        paddingVertical: 10,
-    },
 
     subheader: {
         color: colors.primary,
@@ -199,12 +173,7 @@ const styles = StyleSheet.create({
     purpleSlash: {
         color: "#29C4CF",
     },
-    partnersLogoContainer: {
-        padding: 10,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: colors.backgroundSecondary,
-    },
+
     partnersLogo: {
         marginTop: 28,
         height: 120,
@@ -226,15 +195,5 @@ const styles = StyleSheet.create({
         height: 32,
         width: 32
     },
-    moreInfo: {
-        textAlign: "center",
-        lineHeight: 20,
-        fontSize: 14,
-        color: colors.primary
-    },
-    moreInfoHighlight: {
-        color: colors.purple,
-        lineHeight: 20,
-        fontSize: 14,
-    }
+
 });

@@ -172,13 +172,4 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
 
-    titleText: {
-        paddingHorizontal: 16,
-        paddingBottom: 16
-    },
-
-    errorText: {
-        color: colors.feedbackBad
-    }
-
 });

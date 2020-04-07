@@ -131,13 +131,6 @@ const styles = StyleSheet.create({
         fontWeight: "700",
     },
 
-    title: {
-        color: colors.white,
-        textAlign: "center",
-        fontSize: 32,
-        paddingVertical: 10,
-    },
-
     subheader: {
         color: colors.white,
         textAlign: "center",

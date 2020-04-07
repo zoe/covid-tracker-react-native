@@ -18,7 +18,7 @@ export const Header = (props: HeaderProp) => {
           {props.children}
       </View>
     )
-}
+};
 
 
 type OverviewProp = {
@@ -31,7 +31,7 @@ export const Overview = (props: OverviewProp) => {
           {props.children}
       </View>
     )
-}
+};
 
 
 type ProgressBlockType = {
@@ -44,7 +44,7 @@ export const ProgressBlock = (props: ProgressBlockType) => {
           {props.children}
       </View>
     )
-}
+};
 
 
 type FieldWrapperType = {
@@ -58,7 +58,7 @@ export const FieldWrapper = (props: FieldWrapperType) => {
           {props.children}
       </View>
     )
-}
+};
 
 
 /*

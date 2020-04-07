@@ -117,18 +117,4 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 4,
     },
-    login: {
-        flexDirection: "row",
-        paddingBottom: 20,
-    },
-
-    titleText: {
-        paddingHorizontal: 16,
-        paddingBottom: 16
-    },
-
-    errorText: {
-        color: colors.feedbackBad
-    }
-
 });

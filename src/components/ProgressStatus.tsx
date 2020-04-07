@@ -28,7 +28,5 @@ export default class ProgressStatus extends Component<ProgressProps> {
 const styles = StyleSheet.create({
     progressBar: {
         width: screenWidth - 16,
-
-        // borderWidth: 1, borderColor: 'red',
     }
 });

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../../theme";
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from "../../components/Text";
+import { BrandedButton, ClickableText, RegularText } from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {covidIcon, menuIcon, partnersLogo} from "../../../assets";
 import {RouteProp} from "@react-navigation/native";
@@ -123,14 +123,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
     },
-    loginContainer: {
-        alignSelf: "center",
-        fontWeight: "300",
-    },
-    flagIcon: {
-        height: 32,
-        width: 32
-    },
+
     covidIcon: {
         height: 60,
         width: 60
@@ -165,20 +158,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
 
-    leadText: {
-        textAlign: "center",
-        color: colors.predict,
-        fontSize: 20,
-        lineHeight: 30
-    },
-
-    bold: {
-        textAlign: "center",
-        color: colors.predict,
-        fontSize: 20,
-        lineHeight: 30,
-        fontWeight: "700"
-    },
     discoveriesButton: {
         backgroundColor: colors.backgroundTertiary,
         alignSelf: "center",
