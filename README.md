@@ -9,7 +9,7 @@
   * [Installation](#installation)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
-* [Common issues](#contributing)
+* [Common issues](#common-issues)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
