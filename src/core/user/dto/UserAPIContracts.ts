@@ -170,8 +170,20 @@ export type TokenInfoResponse = {
     platform: "ANDROID" | "IOS"
 }
 
+// todo: what on earth is the any here?!?
 export type Consent = {
     document: string,
     version: string,
     privacy_policy_version: string,
 } | any
+
+
+export type AreaStatsResponse = {
+    locked: boolean,
+    rank: number,
+    number_of_areas: number,
+    rank_delta: number,
+    area_name: string,
+    predicted_cases: number,
+    population: number,
+}

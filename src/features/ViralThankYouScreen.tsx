@@ -7,21 +7,23 @@ import {
     View,
     Text,
     Modal,
-    TouchableHighlight,
     TouchableOpacity
 } from "react-native";
-import {Header, isAndroid, ProgressBlock} from "../components/Screen";
-import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../components/Text";
-import ProgressStatus from "../components/ProgressStatus";
+import {isAndroid} from "../components/Screen";
+import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../components/Text";
 import {colors} from "../../theme"
 import {ScreenParamList} from "./ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {covidIcon, social} from "../../assets";
+import {social} from "../../assets";
 import i18n from "../locale/i18n"
 import {Linking} from "expo";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import UserService from "../core/user/UserService";
+import {AreaStatsResponse} from "../core/user/dto/UserAPIContracts";
+import {Spinner} from "native-base";
+import BrandedSpinner from "../components/Spinner";
 
 type Props = {
     navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>
@@ -30,13 +32,30 @@ type Props = {
 
 type State = {
     modalVisible: boolean;
+    areaStats: AreaStatsResponse | null;
+    loading: boolean,
 }
 
 export default class ViralThankYouScreen extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = {modalVisible: false};
+        this.state = {
+            modalVisible: false,
+            areaStats: null,
+            loading: true,
+        };
+    }
+
+    componentDidMount() {
+        const userService = new UserService();
+        userService.getAreaStats("todotodotodo")
+            .then(response => this.setState({
+                areaStats: response.data,
+                loading: false,
+            }));
+
+        // todo: handle error
     }
 
     shareMessage = i18n.t("share-with-friends-message");
@@ -55,18 +74,12 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
 
     render() {
+        const area = this.state.areaStats;
+        const loading = this.state.loading;
+        const casePercentage = area?.population ? ((area.predicted_cases / area?.population) * 100).toFixed(1) : 0;
 
-        const unlocked = true;
-        const countyName = 'Suffolk County';
-        const count = 3532;
-        const percentage = 8.2;
-        const population = 42000;
-        const delta = 25;
-        const sign = delta > 0 ? '+' : '-'; // can't find a one liner to format numbers in TS. Am I stupid?
-        const countyRank = 2256;
-        const totalCounty = 3007;
-
-         let modalVisible = true;
+        // todo: different text if no change?
+        const sign = area?.rank_delta ?? 0 > 0 ? '+' : '-'; // can't find a one liner to format numbers in TS. Am I stupid?
 
         const modal = (
             <Modal animationType="slide" visible={this.state.modalVisible}>
@@ -94,7 +107,14 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                         Thank you, please report again tomorrow, even if you’re well.
                     </Text>
 
-                    {unlocked && (
+                    {loading && (
+                        <View>
+                            <BrandedSpinner/>
+                            <Text style={styles.loading}>Loading data for your area</Text>
+                        </View>
+                    )}
+
+                    {!loading && !area?.locked && (
                         <View style={styles.estimatedCaseContainer}>
                             <View style={styles.estimatedCaseFirstRow}>
                                 <TouchableOpacity onPress={() => {
@@ -104,22 +124,22 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                                     <MaterialIcons name="info-outline" size={16} style={styles.infoIcon} />
                                 </TouchableOpacity>
                                 <Text style={styles.estimatedCases}>Estimated cases of COVID</Text>
-                                <Text style={styles.estimatedCasesCounty}>in {countyName}</Text>
+                                <Text style={styles.estimatedCasesCounty}>in {area?.area_name}</Text>
                             </View>
                             <View style={styles.estimatedCaseSecondRow}>
-                            <View>
-                            <Text style={styles.estimatedCasesCount}>{count}</Text>
-                            <Text style={styles.estimatedCasesPercentage}>{percentage}%</Text>
-                            <Text style={styles.estimatedCasesPopulation}>of {population} residents</Text>
-                            </View>
+                                <View>
+                                    <Text style={styles.estimatedCasesCount}>{area?.predicted_cases}</Text>
+                                    <Text style={styles.estimatedCasesPercentage}>{casePercentage}%</Text>
+                                    <Text style={styles.estimatedCasesPopulation}>of {area?.population} residents</Text>
+                                </View>
                             <View style={styles.chartContainer}>
-                            <Text>Placeholder</Text>
+                                <Text>Placeholder</Text>
                             </View>
                             </View>
                         </View>
                     )}
 
-                    {!unlocked && (
+                    {!loading && area?.locked && (
                         <View style={styles.estimatedCaseContainer}>
                             <View style={styles.blurred}>
                                 <MaterialIcons name="lock-outline" size={48} style={styles.lockIcon}/>
@@ -128,17 +148,21 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                         )}
 
 
+                    {!loading && (
+                        <View>
+                            <RegularText style={styles.countyRank}>
+                                <RegularBoldText>{area?.area_name}</RegularBoldText>'s rank in contribution
+                            </RegularText>
+                            <Text style={styles.dailyDelta}>
+                                {sign}{area?.rank_delta} since yesterday
+                            </Text>
 
-                    <RegularText style={styles.countyRank}>
-                        <RegularBoldText>{countyName}</RegularBoldText>'s rank in contribution
-                    </RegularText>
-                    <Text style={styles.dailyDelta}>
-                        {sign}{delta} since yesterday
-                    </Text>
 
-                    <Text style={styles.position}>
-                        <Text style={styles.positionBold}>{countyRank}</Text> out of <Text style={styles.positionBold}>{totalCounty}</Text> counties
-                    </Text>
+                        <Text style={styles.position}>
+                            <Text style={styles.positionBold}>{area?.rank}</Text> out of <Text style={styles.positionBold}>{area?.number_of_areas}</Text> counties
+                        </Text>
+                        </View>
+                    )}
 
                     <View style={styles.shareContainer}>
                         <View style={styles.socialIconContainer}>
@@ -193,6 +217,15 @@ const styles = StyleSheet.create({
 
     thankYou: {
         marginTop:16,
+        padding:16,
+        fontSize:20,
+        lineHeight:32,
+        fontWeight: "300",
+        color: colors.primary,
+        textAlign:"center"
+    },
+
+    loading: {
         padding:16,
         fontSize:20,
         lineHeight:32,
