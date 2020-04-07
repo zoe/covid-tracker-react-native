@@ -1,28 +1,29 @@
 import React, {Component} from "react";
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {colors} from "../../../theme";
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from "../../components/Text";
-import {ScreenParamList} from "../ScreenParamList";
-import {covidIcon, menuIcon, partnersLogo} from "../../../assets";
+import {Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {colors} from "../../../../theme";
+import {BrandedButton, ClickableText, RegularText} from "../../../components/Text";
+import {ScreenParamList} from "../../ScreenParamList";
+import {covidIcon, menuIcon, usLogos} from "../../../../assets";
 import {RouteProp} from "@react-navigation/native";
-import UserService from "../../core/user/UserService";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
-import {PushNotificationService} from "../../core/PushNotificationService";
+import UserService from "../../../core/user/UserService";
+import {AsyncStorageService} from "../../../core/AsyncStorageService";
+import {PushNotificationService} from "../../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
-import {Linking} from "expo";
-import { ContributionCounter } from "../../components/ContributionCounter";
+import { ContributionCounter } from "../../../components/ContributionCounter";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
 }
 
-type WelcomeRepeatScreenState = {
+type WelcomeRepeatUSScreenState = {
     userCount: string | null
 }
 
-export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
-    state = { userCount: null };
+export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSScreenState> {
+    state = {
+        userCount: null,
+    };
 
     async componentDidMount() {
         const userService = new UserService();
@@ -57,7 +58,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                 this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
             }
         } else {
-            this.props.navigation.navigate('AboutYou', {patientId: patientId});
+            this.props.navigation.navigate('YourWork', {patientId: patientId});
         }
     };
 
@@ -81,17 +82,19 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                                 Take 1 minute each day and {"\n"}help fight the outbreak.{"\n"}
                             </RegularText>
                             <ContributionCounter variant={2} count={this.state.userCount}/>
-
                         </View>
                     </View>
 
                     <View style={styles.partners}>
 
-                        <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
+
+                        <View style={styles.partnersLogoContainer}>
+                            <Image style={styles.partnersLogo} source={usLogos}/>
+                        </View>
 
                         <View style={styles.discoveriesContainer}>
-                            <RegularText style={styles.discoveriesText}>See how your area is affected and the discoveries you made possible</RegularText>
-                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={() => Linking.openURL('https://covid.joinzoe.com/')}>Visit the website</BrandedButton>
+                            <RegularText style={styles.discoveriesText}>Follow the discoveries {"\n"} you made possible</RegularText>
+                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={() => Linking.openURL('https://covid.joinzoe.com/us')}>Visit the website</BrandedButton>
                         </View>
 
                         <BrandedButton onPress={this.handleButtonPress}>Report today, even if you're well</BrandedButton>
@@ -99,11 +102,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                         <RegularText style={styles.privacyPolicyText}>
                             <ClickableText
                                 style={styles.privacyPolicyClickText}
-                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK')}
+                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}
                             >Privacy policy</ClickableText> (incl. how to delete your data)
                         </RegularText>
                     </View>
-
                 </View>
             </ScrollView>
         );
@@ -119,18 +121,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#024364",
     },
+
     headerRow: {
         flexDirection: "row",
         alignItems: "center",
     },
+
     loginContainer: {
         alignSelf: "center",
         fontWeight: "300",
     },
-    flagIcon: {
-        height: 32,
-        width: 32
-    },
+
     covidIcon: {
         height: 60,
         width: 60
@@ -145,39 +146,6 @@ const styles = StyleSheet.create({
     covidContainer: {
         paddingHorizontal: 24,
         paddingVertical: 24,
-    },
-
-    partners: {
-        flex: 1,
-        backgroundColor: "#ffffff",
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        padding: 32,
-        justifyContent: "space-between",
-        alignContent: "center",
-    },
-    subtitle: {
-        color: "#FFFFFF",
-        fontSize: 24,
-        lineHeight: 38,
-        paddingVertical: 24,
-        textAlign: "center",
-        marginTop: 15,
-    },
-
-    leadText: {
-        textAlign: "center",
-        color: colors.predict,
-        fontSize: 20,
-        lineHeight: 30
-    },
-
-    bold: {
-        textAlign: "center",
-        color: colors.predict,
-        fontSize: 20,
-        lineHeight: 30,
-        fontWeight: "700"
     },
     discoveriesButton: {
         backgroundColor: colors.backgroundTertiary,
@@ -200,15 +168,50 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     discoveriesContainer: {
-        padding: 10,
+        padding: 20,
+        marginTop: 0,
         borderRadius: 8,
         borderWidth: 2,
         borderColor: colors.backgroundSecondary,
     },
+    partnersLogoContainer: {
+        padding: 10,
+        marginTop: 10,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: colors.backgroundSecondary,
+    },
+    partners: {
+        flex: 1,
+        backgroundColor: "#ffffff",
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        padding: 32,
+        justifyContent: "space-between",
+        alignContent: "center",
+    },
+    subtitle: {
+        color: "#FFFFFF",
+        fontSize: 24,
+        lineHeight: 38,
+        paddingVertical: 24,
+        textAlign: "center",
+        marginTop: 15,
+    },
+
+    noAdvice: {
+        color: colors.secondary,
+        textAlign: "center"
+    },
     partnersLogo: {
-        resizeMode: 'center',
+        height: 60,
+        width: '95%',
+        resizeMode: 'contain',
         alignSelf: "center",
-        height: 120,
+    },
+    flagIcon: {
+        height: 32,
+        width: 32
     },
     privacyPolicyText: {
         fontSize: 14,
