@@ -1,5 +1,15 @@
 import React, {Component} from "react";
-import {Image, ScrollView, Share, StyleSheet, View, Text} from "react-native";
+import {
+    Image,
+    ScrollView,
+    Share,
+    StyleSheet,
+    View,
+    Text,
+    Modal,
+    TouchableHighlight,
+    TouchableOpacity
+} from "react-native";
 import {Header, isAndroid, ProgressBlock} from "../components/Screen";
 import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../components/Text";
 import ProgressStatus from "../components/ProgressStatus";
@@ -13,12 +23,21 @@ import {Linking} from "expo";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
-type RenderProps = {
+type Props = {
     navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>
     route: RouteProp<ScreenParamList, 'ViralThankYou'>;
 }
 
-export default class ViralThankYouScreen extends Component<RenderProps, {}> {
+type State = {
+    modalVisible: boolean;
+}
+
+export default class ViralThankYouScreen extends Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {modalVisible: false};
+    }
 
     shareMessage = i18n.t("share-with-friends-message");
     shareUrl = i18n.t("share-with-friends-url");
@@ -47,10 +66,28 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
         const countyRank = 2256;
         const totalCounty = 3007;
 
+         let modalVisible = true;
+
+        const modal = (
+            <Modal animationType="slide" visible={this.state.modalVisible}>
+                <View style={styles.modalContainer}>
+                    <TouchableOpacity style={styles.modalCloseIconContainer} onPress={() => this.setState({modalVisible: false})}>
+                        <MaterialIcons name="close" size={32} style={styles.modalCloseIcon}/>
+                    </TouchableOpacity>
+                    <RegularText style={styles.modalTitle}>
+                        Prediction model
+                    </RegularText>
+                   <RegularText style={styles.modalContent}>
+                       Prediction is based on symptoms of app users who tested positive and adjusted for your area
+                   </RegularText>
+                </View>
+            </Modal>);
 
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.rootContainer}>
+                    
+                    {modal}
 
                     <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
                     <Text style={styles.thankYou}>
@@ -60,7 +97,12 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
                     {unlocked && (
                         <View style={styles.estimatedCaseContainer}>
                             <View style={styles.estimatedCaseFirstRow}>
-                                <MaterialIcons name="info-outline" size={16} style={styles.infoIcon}/>
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({modalVisible: true});
+                                    console.log("clicked");
+                                }} style={styles.infoIconContainer}>
+                                    <MaterialIcons name="info-outline" size={16} style={styles.infoIcon} />
+                                </TouchableOpacity>
                                 <Text style={styles.estimatedCases}>Estimated cases of COVID</Text>
                                 <Text style={styles.estimatedCasesCounty}>in {countyName}</Text>
                             </View>
@@ -118,7 +160,7 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
 
                     <RegularText style={styles.visitWebsite}>
                         Visit our{" "}
-                        <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
+                        <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
                             website
                         </ClickableText>{" "}
                         to see the discoveries you made possible
@@ -174,9 +216,14 @@ const styles = StyleSheet.create({
         marginVertical:8,
     },
 
-    infoIcon: {
+    infoIconContainer: {
         position: "absolute",
-        right:5,
+        zIndex:1,
+        right:0,
+        padding:5,
+    },
+
+    infoIcon: {
         color: colors.tertiary,
     },
 
@@ -321,21 +368,6 @@ const styles = StyleSheet.create({
         textAlign:"center",
     },
 
-    content: {
-        justifyContent: "space-between",
-        marginVertical: 32,
-        marginHorizontal: 18,
-    },
-
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
-    },
-
     covidIcon: {
         height: 50,
         width: 50,
@@ -348,6 +380,36 @@ const styles = StyleSheet.create({
         margin: 40,
         fontSize: 24,
         color: colors.brand
+    },
+
+    modalContainer: {
+        flex:1,
+
+    },
+
+    modalTitle: {
+        fontSize:20,
+        lineHeight:32,
+        marginTop:64,
+        fontWeight: "300",
+        textAlign: "center",
+    },
+
+    modalContent: {
+        marginTop:32,
+        textAlign: "center",
+        color: colors.secondary
+    },
+
+    modalCloseIconContainer: {
+        position: "absolute",
+        zIndex:1,
+        right:0,
+        padding:16,
+    },
+
+    modalCloseIcon: {
+        color: colors.primary
     }
 
 });
