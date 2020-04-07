@@ -24,6 +24,7 @@ export type ScreenParamList = {
 
     // Patient
     // TODO: add YourStudy here when it's merged into master.
+    YourStudy: { patientId: string, currentPatient: PatientStateType };
     YourWork: { patientId: string, currentPatient: PatientStateType };
     AboutYou: { patientId: string, currentPatient: PatientStateType };
     YourHealth: { patientId: string, isMale: boolean, currentPatient: PatientStateType};
