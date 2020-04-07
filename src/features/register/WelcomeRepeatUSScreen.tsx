@@ -219,7 +219,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     privacyPolicyClickText: {
-        color: colors.secondary,
         fontSize: 14,
         lineHeight: 20,
         textDecorationLine: "underline",

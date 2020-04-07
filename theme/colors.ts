@@ -17,10 +17,7 @@ export const colors = {
 
     white: '#FFFFFF',
     black: '#000000',
+    purple: '#A10056',
 
     backgroundBrandDisabled: '#7C9CAD',
-
-    privacyLink: '#024364',
-
-    purpleAccent: '#A10056',
 };
