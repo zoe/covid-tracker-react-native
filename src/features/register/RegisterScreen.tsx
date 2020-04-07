@@ -20,11 +20,14 @@ type PropsType = {
 type State = {
     errorMessage: string;
     enableSubmit: boolean;
+
+    accountExists: boolean;
 }
 
 const initialState: State = {
     errorMessage: "",
     enableSubmit: true,
+    accountExists: false,
 };
 
 interface RegistrationData {
@@ -53,15 +56,29 @@ export class RegisterScreen extends Component<PropsType, State> {
             userService.register(formData.email, formData.password)
                 .then(response => this.props.navigation.replace("OptionalInfo", {user: response.data.user}))
                 .catch((err: AxiosError) => {
-                    // TODO - These error messages are misleading and we could dispaly what the server sends back
-                    if (err.response?.status == 500)
-                        this.setState({errorMessage: i18n.t("create-account-already-registered")});
-                    else if (err.response?.status == 400)
-                        this.setState({errorMessage: i18n.t("create-account-password-too-simple")});
-                    else
-                        this.setState({errorMessage: "Something went wrong: " + err.response?.status});
+                    // TODO - These error messages are misleading and we could display what the server sends back
+                    if (err.response?.status == 500) {
+                        this.setState({
+                            errorMessage: i18n.t("create-account-already-registered"),
+                            accountExists: true,
+                            enableSubmit: false,
+                        });
+                    }
+                    else if (err.response?.status == 400) {
+                        this.setState({
+                            errorMessage: i18n.t("create-account-password-too-simple"),
+                            enableSubmit: true,
+                            accountExists: false
+                        });
+                    }
+                    else {
+                        this.setState({
+                            errorMessage: "Something went wrong: " + err.response?.status,
+                            enableSubmit: true,
+                            accountExists: false
+                        });
+                    }
 
-                    this.setState({enableSubmit: true});
                 })
                 // do nothing for now but find a way to report it somewhere?
                 .catch((err: Error) => {
@@ -70,6 +87,10 @@ export class RegisterScreen extends Component<PropsType, State> {
                 });
         }
 
+    }
+
+    gotoLogin = () => {
+        this.props.navigation.replace("Login", {terms: ""});
     }
 
     registerSchema = Yup.object().shape({
@@ -105,7 +126,10 @@ export class RegisterScreen extends Component<PropsType, State> {
                                     <RegularText>
                                         {i18n.t("create-account-if-you-have-an-account")}
                                         {" "}
-                                        <ClickableText onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("create-account-login")}</ClickableText>
+                                        <ClickableText
+                                            onPress={() => this.props.navigation.navigate('Login')}
+                                            style={{color: colors.feedbackBad}}
+                                        >{i18n.t("create-account-login")}</ClickableText>
                                     </RegularText>
                                 </View>
                             </View>
@@ -122,7 +146,10 @@ export class RegisterScreen extends Component<PropsType, State> {
                                             value={props.values.email}
                                             onChangeText={props.handleChange("email")}
                                             onBlur={props.handleBlur("email")}
-                                            error={props.touched.email && props.errors.email}
+                                            error={
+                                                (props.touched.email && props.errors.email)
+                                                || this.state.accountExists
+                                            }
                                             returnKeyType="next"
                                             onSubmitEditing={() => {
                                                 this.passwordComponent.focus();
@@ -131,6 +158,9 @@ export class RegisterScreen extends Component<PropsType, State> {
                                         {!!props.touched.email && !!props.errors.email &&
                                             <FieldError>{props.errors.email}</FieldError>
                                         }
+                                        {this.state.accountExists && (
+                                            <FieldError>{i18n.t("create-account-already-registered")}</FieldError>
+                                        )}
                                     </Field>
                                 </View>
 
@@ -155,15 +185,30 @@ export class RegisterScreen extends Component<PropsType, State> {
                                 </View>
 
                             </Form>
+
+                            {this.state.accountExists && (
+                                <View style={styles.nextAction}>
+                                    <RegularText style={{ textAlign: "center" }}>
+                                        <ClickableText onPress={this.gotoLogin}
+                                            style={{color: colors.feedbackBad}}
+                                        >Log in</ClickableText>
+                                        {" "}
+                                        to existing account.
+                                    </RegularText>
+                                </View>
+                            )}
                         </View>
                         <View style={styles.actionBlock}>
-                            { !!this.state.errorMessage && (
+                            { !!this.state.errorMessage && !this.state.accountExists && (
                                 <View>
                                     <ErrorText>{this.state.errorMessage}</ErrorText>
                                 </View>
                             )}
                             <View>
-                                <BrandedButton onPress={props.handleSubmit}>{i18n.t("create-account-btn")}</BrandedButton>
+                                <BrandedButton
+                                    onPress={props.handleSubmit}
+                                    enable={this.state.enableSubmit}
+                                >{i18n.t("create-account-btn")}</BrandedButton>
                             </View>
                         </View>
                     </KeyboardAvoidingView>
@@ -218,5 +263,8 @@ const styles = StyleSheet.create({
 
     actionBlock: {
         marginBottom: 16,
+    },
+    nextAction: {
+        marginVertical: 8
     }
 });

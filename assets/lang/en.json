@@ -5,7 +5,7 @@
   "create-account-email": "Your email",
   "create-account-password": "Create password",
   "create-account-if-you-have-an-account": "Already have an account?",
-  "create-account-already-registered": "An account already exists with this email address",
+  "create-account-already-registered": "An account already exists with this email address. Try to log in instead.",
   "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
 
   "next-question": "Next Question",
