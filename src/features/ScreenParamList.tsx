@@ -17,10 +17,16 @@ export type ScreenParamList = {
     ResetPasswordConfirm: undefined;
     Register: undefined;
     OptionalInfo: { user: UserResponse };
-    HealthWorkerExposure: { patientId: string };
-    YourWork: { patientId: string };
-    AboutYou: { patientId: string };
-    YourHealth: { patientId: string, isMale: boolean};
+
+    // Patient
+    // TODO: add YourStudy here when it's merged into master.
+    YourStudy: { patientId: string, currentPatient: PatientStateType };
+    YourWork: { patientId: string, currentPatient: PatientStateType };
+    AboutYou: { patientId: string, currentPatient: PatientStateType };
+    YourHealth: { patientId: string, isMale: boolean, currentPatient: PatientStateType};
+
+    // Assessment
+    HealthWorkerExposure: { patientId: string }; // How do people normally get here?
     CovidTest: { patientId: string, assessmentId: string | null};
     HowYouFeel: { assessmentId: string };
     DescribeSymptoms: { assessmentId: string };

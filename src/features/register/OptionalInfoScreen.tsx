@@ -6,7 +6,7 @@ import {colors} from "../../../theme";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService, { isGBLocale, isUSLocale } from "../../core/user/UserService";
 import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {RouteProp} from '@react-navigation/native';
 import {ScreenParamList} from "../ScreenParamList";
@@ -49,16 +49,21 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
 
         const patientId = this.props.route.params.user.patients[0];
+        const userService = new UserService();
+        let consent = await userService.getConsentSigned();
+        let nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
+            ? {name: "YourStudy", params: {patientId, currentPatient: {}}}
+            : {name: "YourWork", params: {patientId, currentPatient: {}}};
         const goToNextScreen = () => {
+
             this.props.navigation.reset({
                 index: 0,
                 routes: [
                     {name: this.getWelcomeRepeatScreenName(), params: {patientId: patientId}},
-                    {name: "YourWork", params: {patientId: patientId}}
+                    nextScreen
                 ],
             })
         };
-        const userService = new UserService();
 
         const pushToken = await PushNotificationService.getPushToken(false);
         if (pushToken) {
