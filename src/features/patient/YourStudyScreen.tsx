@@ -25,9 +25,9 @@ type YourStudyProps = {
 
 const initialFormValues = {
     clinicalStudyNames: '',
-    clinicalStudyContact: '',
-    clinicalStudyInstitution: '',
-    clinicalStudyNctId: '',
+    clinicalStudyContacts: '',
+    clinicalStudyInstitutions: '',
+    clinicalStudyNctIds: '',
 };
 
 interface YourStudyData {
