@@ -173,10 +173,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         lineHeight: 20,
         fontSize: 14,
-        color: colors.primary
     },
     moreInfoHighlight: {
-        color: colors.purpleAccent,
+        color: colors.purple,
         lineHeight: 20,
         fontSize: 14,
     }

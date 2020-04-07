@@ -120,9 +120,8 @@ const styles = StyleSheet.create({
         color: colors.primary,
     },
     newsFeedClickable: {
-        fontWeight: 'bold',
         fontSize: 20,
-        color: colors.primary,
+        color: colors.purple,
         textDecorationLine: 'underline',
     },
     shareSubtitle: {
@@ -155,7 +154,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         margin: 40,
         fontSize: 24,
-        color: colors.brand
     }
 
 });
