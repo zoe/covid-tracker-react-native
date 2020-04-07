@@ -144,7 +144,10 @@ export class RegisterScreen extends Component<PropsType, State> {
                                             autoCompleteType="email"
                                             placeholder={i18n.t("create-account-email")}
                                             value={props.values.email}
-                                            onChangeText={props.handleChange("email")}
+                                            onChangeText={text => {
+                                                this.setState({enableSubmit: true});
+                                                props.handleChange("email")(text);
+                                            }}
                                             onBlur={props.handleBlur("email")}
                                             error={
                                                 (props.touched.email && props.errors.email)
