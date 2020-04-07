@@ -85,24 +85,6 @@ const initialState: State = {
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
     registerSchema = Yup.object().shape({
-        isTwinsUkCohort: Yup.boolean(),
-        isUkBiobank: Yup.boolean(),
-        isStThomasTrust: Yup.boolean(),
-
-        isNurseHealthStudies: Yup.boolean(),
-        isMassGeneral: Yup.boolean(),
-        isGrowingUpTodayStudy: Yup.boolean(),
-        isStanfordNutritionStudy: Yup.boolean(),
-        isMultiEthnicCohortStudy: Yup.boolean(),
-        isPredict2Study: Yup.boolean(),
-        isAmericanCancer3: Yup.boolean(),
-        isHarvardHealthProfessional: Yup.boolean(),
-        isCaliforniaTeacher: Yup.boolean(),
-        isSister: Yup.boolean(),
-        isAgriculturalHealth: Yup.boolean(),
-        isGulf: Yup.boolean(),
-        isAspreeXt: Yup.boolean(),
-
         clinicalStudyNames: Yup.string(),
         clinicalStudyContact: Yup.string(),
         clinicalStudyInstitution: Yup.string(),
@@ -237,7 +219,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                 </Item>
                                             </FieldWrapper>
 
-                                                {/*<RegularText>If not</RegularText>*/}
+                                                <RegularText style={styles.standaloneLabel}>If not</RegularText>
 
                                             <GenericTextField
                                                 formikProps={props}
@@ -337,4 +319,7 @@ const styles = StyleSheet.create({
     textItemStyle: {
         borderColor: 'transparent',
     },
+    standaloneLabel: {
+        marginHorizontal: 16,
+    }
 });
