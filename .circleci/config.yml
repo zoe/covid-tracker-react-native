@@ -106,7 +106,7 @@ workflows:
           filters: *develop_filter
       - deploy:
           filters: *develop_filter
-          context: dev
+          context: react-covid-tracker-dev
           requires:
             - build_and_test
 
