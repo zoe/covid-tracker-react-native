@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
 
     nextButton: {
-        backgroundColor: colors.purpleAccent,
+        backgroundColor: colors.purple,
         fontSize: 16,
     },
 
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
 
 
     purpleSlash: {
-        color: colors.purpleAccent,
+        color: colors.purple,
     },
 
     flagIcon: {
