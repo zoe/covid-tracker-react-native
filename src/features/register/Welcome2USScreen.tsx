@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
         color: colors.primary
     },
     moreInfoHighlight: {
-        color: colors.purpleAccent,
+        color: colors.purple,
         lineHeight: 20,
         fontSize: 14,
     }

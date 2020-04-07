@@ -220,7 +220,7 @@ export default class UserService extends ApiClientBase {
     }
 
     async setUserCountInAsyncStorage() {
-        const userCount = await this.client.get<number>('/users/covid_count');
+        const userCount = await this.client.get<number>('/users/covid_count/');
         await AsyncStorageService.setUserCount(userCount.data.toString());
     }
 
