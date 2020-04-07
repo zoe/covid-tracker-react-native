@@ -9,3 +9,4 @@ export const closeIcon = require('./icons/close.png');
 export const menuIcon = require('./icons/menu.png');
 export const usLogos2 = require('./partner_logos_us_2.png');
 export const usMap = require('./us_map.png');
+export const social = require('./social.png');

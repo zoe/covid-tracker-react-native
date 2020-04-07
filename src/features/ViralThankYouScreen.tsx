@@ -17,7 +17,7 @@ import {colors} from "../../theme"
 import {ScreenParamList} from "./ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {covidIcon} from "../../assets";
+import {covidIcon, social} from "../../assets";
 import i18n from "../locale/i18n"
 import {Linking} from "expo";
 import { AntDesign } from '@expo/vector-icons';
@@ -86,7 +86,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.rootContainer}>
-                    
+
                     {modal}
 
                     <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
@@ -141,8 +141,8 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                     </Text>
 
                     <View style={styles.shareContainer}>
-                        <View style={styles.covidIconContainer}>
-                            <Image source={covidIcon} style={styles.covidIcon}/>
+                        <View style={styles.socialIconContainer}>
+                            <Image source={social} style={styles.socialIcon}/>
                         </View>
                         <Text style={styles.share}>Sharing is caring</Text>
                         <RegularText style={styles.shareSubtitle}>
@@ -323,21 +323,26 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
 
-    covidIconContainer: {
-        height: 60,
-        width: 60,
-        borderRadius: 10,
-        margin: 30,
-        backgroundColor: "#082A5D",
-        alignSelf: "center"
-    },
 
     share: {
+        marginTop:16,
         fontSize: 20,
         lineHeight:32,
         fontWeight: "500",
         textAlign: "center",
     },
+
+    socialIconContainer: {
+        height: 60,
+        marginTop:32,
+        alignSelf: "center",
+    },
+
+    socialIcon: {
+        height: 60,
+        resizeMode: "contain"
+    },
+
     shareSubtitle: {
         paddingVertical: 10,
         paddingHorizontal: 16,
@@ -368,13 +373,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
     },
 
-    covidIcon: {
-        height: 50,
-        width: 50,
-        marginLeft: 5,
-        marginTop: 5,
-        resizeMode: "contain"
-    },
+
     done: {
         alignSelf: "center",
         margin: 40,
