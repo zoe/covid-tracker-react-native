@@ -11,6 +11,7 @@ import UserService from "../../core/user/UserService";
 import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {AxiosError} from "axios";
 import {ScreenParamList} from "../ScreenParamList";
+import { Field, FieldError } from "../../components/Forms";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Register'>
@@ -72,8 +73,12 @@ export class RegisterScreen extends Component<PropsType, State> {
     }
 
     registerSchema = Yup.object().shape({
-        email: Yup.string().email().required(),
-        password: Yup.string().required().min(8) // todo: complicated enough...
+        email: Yup.string()
+            .required("Please enter your email address")
+            .email("Please correct your email address"),
+        password: Yup.string()
+            .required("Please enter a password")
+            .min(8, "Your password must be at least 8 characters with letters") // todo: complicated enough...
     });
 
     /*   .matches(
@@ -105,9 +110,9 @@ export class RegisterScreen extends Component<PropsType, State> {
                                 </View>
                             </View>
 
-                            <Form>
+                            <Form style={styles.form}>
                                 <View style={styles.formItem}>
-                                    <Item floatingLabel>
+                                    <Field>
                                         <Label style={styles.labelStyle}>{i18n.t("create-account-email")}</Label>
                                         <ValidatedTextInput
                                             keyboardType="email-address"
@@ -123,19 +128,14 @@ export class RegisterScreen extends Component<PropsType, State> {
                                                 this.passwordComponent.focus();
                                             }}
                                         />
-                                        {!!props.touched.email && !!props.errors.email && (
-                                            <Icon name='close'/>
-                                        )}
-                                    </Item>
-                                    {!!props.touched.email && !!props.errors.email &&
-                                    <View style={styles.fieldError}>
-                                        <ErrorText>Please enter a valid email</ErrorText>
-                                    </View>
-                                    }
+                                        {!!props.touched.email && !!props.errors.email &&
+                                            <FieldError>{props.errors.email}</FieldError>
+                                        }
+                                    </Field>
                                 </View>
 
                                 <View style={styles.formItem}>
-                                    <Item floatingLabel>
+                                    <Field>
                                         <Label style={styles.labelStyle}>{i18n.t("create-account-password")}</Label>
                                         <ValidatedTextInput
                                             ref={(input) => this.passwordComponent = input}
@@ -147,15 +147,11 @@ export class RegisterScreen extends Component<PropsType, State> {
                                             onBlur={props.handleBlur("password")}
                                             onSubmitEditing={(event) => props.handleSubmit()}
                                             error={props.touched.password && props.errors.password}
-                                            style={{backgroundColor: 'green'}}
                                         />
-                                    </Item>
-
-                                    {!!props.touched.password && !!props.errors.password &&
-                                    <View style={styles.fieldError}>
-                                        <ErrorText>Your password must be at least 8 characters with letters</ErrorText>
-                                    </View>
-                                    }
+                                        {!!props.touched.password && !!props.errors.password &&
+                                            <FieldError>{props.errors.password}</FieldError>
+                                        }
+                                    </Field>
                                 </View>
 
                             </Form>
@@ -200,15 +196,20 @@ const styles = StyleSheet.create({
         paddingBottom: 16
     },
 
+    form: {
+        marginVertical: 16,
+    },
+
     formItem: {
         paddingVertical: 4,
     },
     labelStyle: {
         color: colors.tertiary,
-        fontSize: 16
+        fontSize: 16,
+        position: 'absolute',
+        left: -16384,
     },
     fieldError: {
-        marginHorizontal: 16,
         marginVertical: 4,
     },
     errorText: {
