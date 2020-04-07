@@ -34,10 +34,6 @@ interface YourHealthData {
 
     hasCancer: string,
     cancerType: string,
-    onCancerClinicalTrial: string,
-    cancerClinicalTrialSite: string,
-    cancerClinicalTrialNctId: string,
-    cancerPhysicianName: string,
 
     doesChemiotherapy: string,
     takesImmunosuppressants: string,
@@ -65,10 +61,6 @@ const initialFormValues = {
 
     hasCancer: 'no',
     cancerType: '',
-    onCancerClinicalTrial: 'no',
-    cancerClinicalTrialSite: '',
-    cancerClinicalTrialNctId: '',
-    cancerPhysicianName: '',
 
     doesChemiotherapy: 'no',
     takesImmunosuppressants: 'no',
@@ -128,15 +120,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             is: (value) => isUSLocale() && value && value === 'yes',
             then: Yup.string().required()
         }),
-        onCancerClinicalTrial: Yup.string().when("hasCancer", {
-            is: (value) => isUSLocale() && value && value === 'yes',
-            then: Yup.string().required()
-        }),
-        cancerClinicalTrialSite: Yup.string(),
-        cancerClinicalTrialNctId: Yup.number().integer().positive().test(
-            'len', 'Must be 8 digits', val => (val && val.toString().length === 8) || !val
-        ),
-        cancerPhysicianName: Yup.string(),
 
         doesChemiotherapy: Yup.string(),
         takesImmunosuppressants: Yup.string().required(),
@@ -232,10 +215,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 infos = {
                     ...infos,
                     cancer_type: formData.cancerType,
-                    on_cancer_clinical_trial: formData.onCancerClinicalTrial === "yes",
-                    ...(formData.cancerClinicalTrialSite && {cancer_clinical_trial_site: formData.cancerClinicalTrialSite}),
-                    ...(formData.cancerClinicalTrialNctId && {cancer_clinical_trial_nct_id: formData.cancerClinicalTrialNctId}),
-                    ...(formData.cancerPhysicianName && {cancer_physician_name: formData.cancerPhysicianName}),
                 }
             }
         }
@@ -362,36 +341,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                                         name="cancerType"
                                                     />
 
-                                                    <DropdownField
-                                                        selectedValue={props.values.onCancerClinicalTrial}
-                                                        onValueChange={props.handleChange("onCancerClinicalTrial")}
-                                                        label="Are you on a clinical trial or study?"
-                                                    />
-
-                                                    {props.values.onCancerClinicalTrial === 'yes' && (
-                                                        <>
-                                                            <GenericTextField
-                                                                formikProps={props}
-                                                                label="Where do you see your study physicians?"
-                                                                name="cancerClinicalTrialSite"
-                                                                placeholder={'Optional'}
-                                                            />
-
-                                                            <GenericTextField
-                                                                formikProps={props}
-                                                                label="What is the name of your physician?"
-                                                                name="cancerPhysicianName"
-                                                                placeholder={'Optional'}
-                                                            />
-                                                            <GenericTextField
-                                                                formikProps={props}
-                                                                label="What is the NCT identifier of your trial?"
-                                                                name="cancerClinicalTrialNctId"
-                                                                placeholder={'Optional'}
-                                                                keyboardType="numeric"
-                                                            />
-                                                        </>
-                                                    )}
                                                 </>
                                             )}
                                             <DropdownField
