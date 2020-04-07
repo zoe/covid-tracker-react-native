@@ -58,7 +58,7 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
                 this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
             }
         } else {
-            this.props.navigation.navigate('AboutYou', {patientId: patientId});
+            this.props.navigation.navigate('YourWork', {patientId: patientId});
         }
     };
 
