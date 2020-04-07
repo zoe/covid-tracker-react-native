@@ -6,7 +6,7 @@ import {
     Consent,
     LoginOrRegisterResponse,
     PatientInfosRequest,
-    PiiRequest,
+    PiiRequest, StartupInfo,
     TokenInfoRequest,
     TokenInfoResponse,
     UserResponse
@@ -230,8 +230,8 @@ export default class UserService extends ApiClientBase {
     }
 
     async setUserCountInAsyncStorage() {
-        const userCount = await this.client.get<number>('/users/covid_count/');
-        await AsyncStorageService.setUserCount(userCount.data.toString());
+        const response = await this.client.get<StartupInfo>('/users/startup_info/');
+        await AsyncStorageService.setUserCount(response.data.users_count.toString());
     }
 
 

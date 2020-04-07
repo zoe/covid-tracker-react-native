@@ -178,7 +178,6 @@ export type Consent = {
     privacy_policy_version: string,
 } | any
 
-
 export type AreaStatsResponse = {
     locked: boolean,
     rank: number,
@@ -188,4 +187,9 @@ export type AreaStatsResponse = {
     predicted_cases: number,
     number_of_missing_contributors: number,
     population: number,
+}
+
+export type StartupInfo = {
+    users_count: number,
+    ip_country: string
 }
