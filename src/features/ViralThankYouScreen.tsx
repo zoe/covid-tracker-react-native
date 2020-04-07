@@ -36,11 +36,14 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
 
 
     render() {
+
+        const unlocked = true;
         const countyName = 'Suffolk County';
         const count = 3532;
         const percentage = 8.2;
         const population = 42000;
         const delta = 25;
+        const sign = delta > 0 ? '+' : '-'; // can't find a one liner to format numbers in TS. Am I stupid?
         const countyRank = 2256;
         const totalCounty = 3007;
 
@@ -54,29 +57,41 @@ export default class ViralThankYouScreen extends Component<RenderProps, {}> {
                         Thank you, please report again tomorrow, even if you’re well.
                     </Text>
 
-                    <View style={styles.estimatedCaseContainer}>
-                        <View style={styles.estimatedCaseFirstRow}>
-                            <MaterialIcons name="info-outline" size={16} style={styles.infoIcon}/>
-                            <Text style={styles.estimatedCases}>Estimated cases of COVID</Text>
-                            <Text style={styles.estimatedCasesCounty}>in {countyName}</Text>
-                        </View>
-                        <View style={styles.estimatedCaseSecondRow}>
+                    {unlocked && (
+                        <View style={styles.estimatedCaseContainer}>
+                            <View style={styles.estimatedCaseFirstRow}>
+                                <MaterialIcons name="info-outline" size={16} style={styles.infoIcon}/>
+                                <Text style={styles.estimatedCases}>Estimated cases of COVID</Text>
+                                <Text style={styles.estimatedCasesCounty}>in {countyName}</Text>
+                            </View>
+                            <View style={styles.estimatedCaseSecondRow}>
                             <View>
-                                <Text style={styles.estimatedCasesCount}>{count}</Text>
-                                <Text style={styles.estimatedCasesPercentage}>{percentage}%</Text>
-                                <Text style={styles.estimatedCasesPopulation}>of {population} residents</Text>
+                            <Text style={styles.estimatedCasesCount}>{count}</Text>
+                            <Text style={styles.estimatedCasesPercentage}>{percentage}%</Text>
+                            <Text style={styles.estimatedCasesPopulation}>of {population} residents</Text>
                             </View>
                             <View style={styles.chartContainer}>
-                                <Text>Placeholder</Text>
+                            <Text>Placeholder</Text>
+                            </View>
                             </View>
                         </View>
-                    </View>
+                    )}
+
+                    {!unlocked && (
+                        <View style={styles.estimatedCaseContainer}>
+                            <View style={styles.blurred}>
+                                <MaterialIcons name="lock-outline" size={48} style={styles.lockIcon}/>
+                            </View>
+                        </View>
+                        )}
+
+
 
                     <RegularText style={styles.countyRank}>
                         <RegularBoldText>{countyName}</RegularBoldText>'s rank in contribution
                     </RegularText>
                     <Text style={styles.dailyDelta}>
-                        {delta} since yesterday
+                        {sign}{delta} since yesterday
                     </Text>
 
                     <Text style={styles.position}>
@@ -240,6 +255,19 @@ const styles = StyleSheet.create({
         color: colors.primary,
     },
 
+    blurred: {
+        flex:1,
+        height:120,
+        color:"lightgray",
+        justifyContent:"center",
+    },
+
+    lockIcon: {
+        color:colors.primary,
+        borderWidth: 1,
+        borderColor: "#ff0000",
+        alignSelf:"center"
+    },
 
 
     shareContainer: {
