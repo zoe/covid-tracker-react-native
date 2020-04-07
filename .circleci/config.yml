@@ -6,7 +6,7 @@ master_filter: &master_filter
 
 develop_filter: &develop_filter
   branches:
-    only: develop
+    only: ci-test
 
 stage_filter: &stage_filter
   branches:
