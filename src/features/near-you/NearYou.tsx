@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     shareContainer: {
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderRadius: 10,
         margin: 16,
     },

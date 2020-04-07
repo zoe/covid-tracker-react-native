@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     scrollView: {
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
         flexGrow: 1,
         justifyContent: 'space-between'
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
     },
 
     nextButtonContainer: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         width: 60
     },
     appName: {
-        color: "#FFFFFF",
+        color: colors.white,
         paddingHorizontal: 5,
         fontSize: 14,
     },
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontSize: 32,
         lineHeight: 48,
         paddingVertical: 24,

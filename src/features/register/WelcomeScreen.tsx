@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
     },
 
     headerRow: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         width: 60
     },
     appName: {
-        color: "#FFFFFF",
+        color: colors.white,
         paddingHorizontal: 5,
         fontSize: 14,
     },
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 
     partners: {
         flex: 1,
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         padding: 32,
@@ -127,19 +127,19 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
     login: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontWeight: "700",
     },
 
     title: {
-        color: "#FFFFFF",
+        color: colors.white,
         textAlign: "center",
         fontSize: 32,
         paddingVertical: 10,
     },
 
     subheader: {
-        color: "#ffffff",
+        color: colors.white,
         textAlign: "center",
         fontSize: 14,
         fontWeight: "300",
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontSize: 24,
         lineHeight: 38,
         paddingVertical: 24,

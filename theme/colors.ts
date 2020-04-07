@@ -1,6 +1,8 @@
 export const colors = {
     brand: '#024364',
+    lightBrand: '#5D879C',
     predict: '#082A5D',
+
 
     primary: '#565A5C',
     secondary: '#888B8C',

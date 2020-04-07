@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 
     partners: {
         flex: 1,
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         padding: 32,
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         marginVertical: 40,
         paddingVertical: 20,
         paddingHorizontal: 30,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: colors.white,
         borderRadius: 10,
     },
     buttonContainer: {

@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
     },
 
     headerRow: {
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     },
     appName: {
         flex: 1,
-        color: "#FFFFFF",
+        color: colors.white,
         paddingHorizontal: 5,
         fontSize: 14,
     },
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     },
     partners: {
         flex: 1,
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         padding: 32,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
     subtitle: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontSize: 24,
         lineHeight: 38,
         paddingVertical: 24,
