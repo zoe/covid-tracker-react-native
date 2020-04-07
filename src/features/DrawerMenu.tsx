@@ -52,13 +52,13 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             </TouchableOpacity>
             <View style={{height: 40}}/>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
-                Linking.openURL("https://covid.joinzoe.com/blog")
+                Linking.openURL(i18n.t('blog-link'))
             }}>
                 <Text style={fontStyles.h2Reg}>{i18n.t('research-updates')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
-                Linking.openURL("https://covid.joinzoe.com/faq")
+                Linking.openURL(i18n.t('faq-link'))
             }}>
                 <Text style={fontStyles.h2Reg}>{i18n.t('faqs')}</Text>
             </TouchableOpacity>
