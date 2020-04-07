@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 
     clickableText: {
         ...fontStyles.bodyReg,
-        color: colors.brand,
+        color: colors.purple,
     },
 
     button: {
