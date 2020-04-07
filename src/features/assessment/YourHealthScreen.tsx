@@ -162,7 +162,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         userService.updatePatient(patientId, infos)
             .then(async response => {
                 // Head off race condition where next page expects these details to have been set.
-                await AsyncStorageService.setPatientDetailsComplete();
+                await AsyncStorageService.setPatientDetailsComplete(true);
                 await AsyncStorageService.setHasBloodPressureAnswer(true);
                 return response;
             })

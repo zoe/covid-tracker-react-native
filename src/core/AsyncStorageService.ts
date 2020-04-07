@@ -71,9 +71,9 @@ export class AsyncStorageService {
         }
     }
 
-    static async setPatientDetailsComplete() {
+    static async setPatientDetailsComplete(complete: boolean) {
         try {
-            await AsyncStorage.setItem('patientDetailsComplete', 'true');
+            await AsyncStorage.setItem('patientDetailsComplete', JSON.stringify(complete));
         } catch (err) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -96,7 +96,7 @@ export class AsyncStorageService {
         }
     }
 
-    static async saveProfile(profile: UserResponse) {
+    static async saveProfile(profile: UserResponse | null) {
         try {
             await AsyncStorage.setItem('userProfile', JSON.stringify(profile));
         } catch (err) {
@@ -185,11 +185,9 @@ export class AsyncStorageService {
     static async hasBloodPressureAnswer(): Promise<boolean | null> {
         try {
             const value = await AsyncStorage.getItem(BLOOD_PRESSURE_ANSWER);
-            return (value === STR_YES) ? true
-              : false;
+            return (value === STR_YES);
         } catch (err) {
             return false;
         }
     }
-
 }
