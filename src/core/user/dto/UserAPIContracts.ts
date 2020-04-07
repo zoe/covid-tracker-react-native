@@ -52,9 +52,6 @@ export type PatientInfosRequest = {
     // Cancer questions
     has_cancer: boolean,
     cancer_type: string,
-    on_cancer_clinical_trial: boolean,
-    cancer_clinical_trial_site: string,
-    cancer_physician_name: string,
     does_chemiotherapy: boolean,
 
     takes_immunosuppressants: boolean,
