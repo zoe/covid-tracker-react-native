@@ -76,7 +76,8 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     }
 
     handleUpdateHealth(formData: CovidTestData) {
-        const {patientId, assessmentId} = this.props.route.params;
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const patientId = currentPatient.patientId
 
         const userService = new UserService();
         var assessment = {
@@ -106,7 +107,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         if (assessmentId == null) {
             userService.addAssessment(assessment)
                 .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {assessmentId: response.data.id})
+                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: response.data.id})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -114,7 +115,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         } else {
             userService.updateAssessment(assessmentId, assessment)
                 .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {assessmentId: assessmentId})
+                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: assessmentId})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});

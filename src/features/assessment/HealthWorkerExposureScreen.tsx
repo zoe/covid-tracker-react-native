@@ -55,17 +55,20 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     }
 
     handleUpdate(formData: HealthWorkerExposureData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
         const userService = new UserService();
         var assessment = this.createAssessment(formData);
 
         userService.addAssessment(assessment)
-            .then(response => this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: response.data.id}))
+            .then(response => this.props.navigation.navigate('CovidTest', {
+                currentPatient, assessmentId: response.data.id
+            }))
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
     }
 
     private createAssessment(formData: HealthWorkerExposureData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
+        const patientId = currentPatient.patientId;
 
         var assessment = {
             patient: patientId,
@@ -181,7 +184,6 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                                             onValueChange={props.handleChange("hasUsedPPEEquipment")}
                                             label={i18n.t("label-used-ppe-equipment-last-day")}
                                             items={equipmentUsageOptions}
-                                            isCompact={true}
                                         />
 
                                         {props.values.hasUsedPPEEquipment === 'always' && (
@@ -190,7 +192,6 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                                                 onValueChange={props.handleChange("ppeAvailabilityAlways")}
                                                 label={i18n.t("label-chose-an-option")}
                                                 items={availabilityAlwaysOptions}
-                                                isCompact={true}
                                             />
                                         )}
 
@@ -200,7 +201,6 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                                                 onValueChange={props.handleChange("ppeAvailabilitySometimes")}
                                                 label={i18n.t("label-chose-an-option")}
                                                 items={availabilitySometimesOptions}
-                                                isCompact={true}
                                             />
                                         )}
 
@@ -210,7 +210,6 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                                                 onValueChange={props.handleChange("ppeAvailabilityNever")}
                                                 label={i18n.t("label-chose-an-option")}
                                                 items={availabilityNeverOptions}
-                                                isCompact={true}
                                             />
                                         )}
 

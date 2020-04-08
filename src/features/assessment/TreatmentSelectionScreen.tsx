@@ -28,13 +28,11 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
 
 
     handleTreatment(treatment: string) {
-        const assessmentId = this.props.route.params.assessmentId;
-        const location = this.props.route.params.location;
-
+        const {currentPatient, assessmentId, location} = this.props.route.params;
         const userService = new UserService();
 
         if (treatment == 'other') {
-            this.props.navigation.navigate('TreatmentOther', {assessmentId: assessmentId, location: location});
+            this.props.navigation.navigate('TreatmentOther', {currentPatient, assessmentId, location});
         } else {
             userService.updateAssessment(assessmentId, {
                 treatment: treatment
