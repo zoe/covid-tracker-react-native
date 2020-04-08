@@ -12,6 +12,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import UserService from "../../core/user/UserService";
 import {BigButton} from "../../components/Button";
+import {getThankYouScreen} from "../Navigation";
 
 
 type TreatmentSelectionProps = {
@@ -39,7 +40,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
             userService.updateAssessment(assessmentId, {
                 treatment: treatment
             }).then(r => {
-                this.props.navigation.navigate('ThankYou');
+                this.props.navigation.navigate(getThankYouScreen());
             });
         }
     }
