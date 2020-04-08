@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Platform, StyleSheet} from "react-native";
 import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
-import {BrandedButton, ClickableText, HeaderText, RegularText} from "../../components/Text";
+import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {Body, CheckBox, Form, Item, Label, ListItem, Text, Textarea} from "native-base";
 
 import {Formik} from "formik";
@@ -22,6 +22,7 @@ type RenderProps = {
 
 interface ConsentState {
     consentChecked: boolean,
+    errorMessage: string
 }
 
 
@@ -29,15 +30,32 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
     constructor(props: RenderProps) {
         super(props);
         this.state = {
-            consentChecked: false
+            consentChecked: false,
+            errorMessage: ""
         };
+        this.createProfile = this.createProfile.bind(this);
+
     }
 
     handleConsentClick = () => {
         this.setState({consentChecked: !this.state.consentChecked})
     };
 
-    goToNextScreen = () => this.props.navigation.navigate("CovidTest");
+    getAvatarName() {
+        return (this.props.route.params.avatarName) ?  this.props.route.params.avatarName : "profile1";
+    }
+
+    createProfile() {
+        const name = this.props.route.params.profileName;
+        const userService = new UserService();
+        userService.createPatient({
+            name: name,
+            avatar_name: this.getAvatarName(),
+            reported_by_another: true
+        })
+            .then(response => this.props.navigation.navigate("CovidTest"))
+            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+    }
 
     render() {
         return (
@@ -46,7 +64,7 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
                     <HeaderText>Adult consent</HeaderText>
                     <RegularText>
                         Please confirm that you have shown or read our{" "}
-                        <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>click here</ClickableText>
+                        <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>consent</ClickableText>
                         {" "}screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.
                     </RegularText>
                 </Header>
@@ -63,10 +81,12 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
                     </Body>
                 </ListItem>
 
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+
                 <BrandedButton style={styles.button}
                                enable={this.state.consentChecked}
                                hideLoading={true}
-                               onPress={this.goToNextScreen}>Create profile</BrandedButton>
+                               onPress={this.createProfile}>Create profile</BrandedButton>
 
             </Screen>
         )

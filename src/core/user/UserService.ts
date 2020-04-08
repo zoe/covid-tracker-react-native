@@ -123,6 +123,14 @@ export default class UserService extends ApiClientBase {
         return this.client.patch(`/consent/`, payload);
     }
 
+    public async createPatient(infos: Partial<PatientInfosRequest>) {
+          infos = {
+            ...infos,
+            version: this.getPatientVersion()
+        };
+        return this.client.post(`/patients/`, infos);
+    }
+
     public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
         infos = {
             ...infos,

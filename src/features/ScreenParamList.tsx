@@ -29,7 +29,7 @@ export type ScreenParamList = {
     LevelOfIsolation: { assessmentId: string };
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
-    AdultConsent: undefined
+    AdultConsent: { profileName: string, avatarName?: string},
     AdultOrChild: undefined;
     ChildConsent: undefined;
     CreateProfile: undefined;

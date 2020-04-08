@@ -41,16 +41,9 @@ export default class CreateProfileScreen extends Component<RenderProps> {
         name: Yup.string(),
     });
 
-    goToNextScreen = () => this.props.navigation.navigate("AdultConsent");
-
     handleUpdate(formData: FormData) {
         const userService = new UserService();
-        // userService.createProfile({
-        //     name: formData.name,
-        //     avatar_name: this.getAvatar()
-        //
-        // }).then(r => this.goToNextScreen());
-        this.goToNextScreen();
+        this.props.navigation.navigate("AdultConsent", {profileName: formData.name});
     }
 
     render() {

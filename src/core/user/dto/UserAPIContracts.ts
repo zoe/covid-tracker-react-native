@@ -30,6 +30,11 @@ export type PiiRequest = {
 export type PatientInfosRequest = {
     version: string,    // Document/schema version
 
+    name: string,
+    avatar_name: string
+    reported_by_another: boolean,
+    same_household_as_reporter: boolean,
+
     year_of_birth: number,
     gender: number, // 0: female, 1: male
     gender_identity: string,
