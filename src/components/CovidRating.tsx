@@ -94,7 +94,6 @@ export class CovidRating extends Component<PropsType, State> {
                     {this.state.showTakeToStore ?
                         <>
                             {this.renderHeader('Please rate this app', `We will now redirect you to the ${store_name}`)}
-                            {/*{this.renderActionButtons('Store', this.takeToStore)}*/}
                         </>
                         : (
                             <>
