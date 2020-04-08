@@ -119,7 +119,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                            We have developed machine learning models to estimate the number of people who currently
                            have COVID symptoms.{"\n\n"}
                            These estimates could be an earlier signal of COVID in your area today vs the confirmed cases
-                           which only come later and include only the people who tested.  {"\n\n"}
+                           which only come later and include only the people who tested.{"\n\n"}
                            Our estimates are calculated in 3 steps:{"\n\n"}
                            1. We learn which symptoms best predict COVID, based on app users who have been tested all
                            around the world (
