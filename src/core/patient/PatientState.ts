@@ -10,8 +10,8 @@ export type PatientStateType = {
 
 const initPatientState = {
     isHealthWorker: false,
-    hasCompletePatientDetails: false,
-    hasBloodPressureAnswer: false,
+    hasCompletePatientDetails: true,
+    hasBloodPressureAnswer: true,
     isFemale: false,
 } as Partial<PatientStateType>;
 

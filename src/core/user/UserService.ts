@@ -80,7 +80,6 @@ export default class UserService extends ApiClientBase {
     };
 
     getData = <T>(response: AxiosResponse<T>) => {
-
         if (typeof response.data === 'string') {
             return <T>camelizeKeys(JSON.parse(response.data));
         } else {
@@ -96,7 +95,6 @@ export default class UserService extends ApiClientBase {
     };
 
     public async register(email: string, password: string) {
-
         const payload = {
             username: email,
             password1: password,
@@ -151,19 +149,16 @@ export default class UserService extends ApiClientBase {
             }
 
             // Calculate the flags based on patient info
-            const isFemale = (patient.gender == 0);
+            const isFemale = (patient?.gender == 0);
             const isHealthWorker = (
-                (patient.healthcare_professional === "yes_does_treat")
-                || patient.is_carer_for_community
+                (patient?.healthcare_professional === "yes_does_treat")
+                || patient?.is_carer_for_community
             );
             const hasBloodPressureAnswer = (
-                patient.takes_any_blood_pressure_medications === true
-                || patient.takes_any_blood_pressure_medications === false
+                patient?.takes_any_blood_pressure_medications === true
+                || patient?.takes_any_blood_pressure_medications === false
             );
-            const hasCompletePatientDetails = (
-                patient.has_heart_disease === true
-                || patient.has_heart_disease === false
-            );
+            const hasCompletePatientDetails = !!patient?.profile_attributes_updated_at;
 
             currentPatient = {
                 ...currentPatient,
@@ -174,10 +169,7 @@ export default class UserService extends ApiClientBase {
             }
 
         } catch (error) {
-            // Something wrong with the request, fallback to local details
-            currentPatient.hasCompletePatientDetails = await this.hasCompletedPatientDetails(patientId);
-            currentPatient.isHealthWorker = await this.isHealthWorker();
-            currentPatient.hasBloodPressureAnswer = !!(await AsyncStorageService.hasBloodPressureAnswer());
+            // Something wrong with the request, fallback to defaults
         }
 
         return currentPatient;
@@ -229,24 +221,6 @@ export default class UserService extends ApiClientBase {
             platform: isAndroid ? 'ANDROID' : 'IOS',
         } as TokenInfoRequest;
         return this.client.post<TokenInfoResponse>(`/tokens/`, tokenDoc);
-    }
-
-    public async hasCompletedPatientDetails(patientId: string) {
-        const completedLocal = await AsyncStorageService.hasCompletedPatientDetails();
-        if (completedLocal != null) {
-            return completedLocal
-        }
-
-        const patientProfileResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
-        if (patientProfileResponse.data.profile_attributes_updated_at == null) {
-            return false
-        } else {
-            await AsyncStorageService.setIsHealthWorker(    // TODO: remove when currentPatient is persisted
-                (patientProfileResponse.data.healthcare_professional === "yes_does_treat")
-                || patientProfileResponse.data.is_carer_for_community);
-            await AsyncStorageService.setPatientDetailsComplete(true); // TODO: remove when currentPatient persists
-            return true
-        }
     }
 
     async getConsentSigned(): Promise<Consent | null> {
@@ -301,16 +275,10 @@ export default class UserService extends ApiClientBase {
         await this.setUserCountry(locale());
     }
 
-    async isHealthWorker() {
-        return AsyncStorageService.getIsHealthWorker()
-    }
-
     async deleteLocalUserData() {
         ApiClientBase.unsetToken();
         await AsyncStorageService.clearData();
-        await AsyncStorageService.setIsHealthWorker(null);
         await AsyncStorageService.saveProfile(null);
-        await AsyncStorageService.setPatientDetailsComplete(null);
         this.setConsentSigned("","","");
     }
 

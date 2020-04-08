@@ -7,7 +7,10 @@ const USER_COUNT = "userCount";
 const USER_COUNTRY = "userCountry";
 const CONSENT_SIGNED = "consentSigned";
 const PUSH_TOKEN = "pushToken";
+
 const BLOOD_PRESSURE_ANSWER = "hasBloodPressureAnswer";
+const IS_HEALTH_WORKER = "isHealthWorker";
+const IS_PATIENT_DETAILS_COMPLETE = "patientDetailsComplete"
 
 const STR_YES = "YES";
 const STR_NO = "NO";
@@ -40,59 +43,12 @@ export class AsyncStorageService {
         try {
             await AsyncStorage.removeItem(AUTH_TOKEN);
             await AsyncStorage.removeItem(USER_ID);
+            await AsyncStorage.removeItem(BLOOD_PRESSURE_ANSWER);
+            await AsyncStorage.removeItem(IS_HEALTH_WORKER);
+            await AsyncStorage.removeItem(IS_PATIENT_DETAILS_COMPLETE);
         } catch (err) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
-        }
-    }
-
-    static async setIsHealthWorker(isHealthWorker: boolean | null) {   // TODO: Remove when currentPatient persisted
-        try {
-            await AsyncStorage.setItem('isHealthWorker', JSON.stringify(isHealthWorker));
-        } catch (err) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-    }
-
-    static async getIsHealthWorker() {     // TODO: Remove when currentPatient persisted
-        let healthWorker: string | null = null;
-        try {
-            healthWorker = await AsyncStorage.getItem('isHealthWorker');
-        } catch (e) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-
-        if (healthWorker == null)
-            return false;
-        else {
-            return JSON.parse(healthWorker) as boolean;
-        }
-    }
-
-    static async setPatientDetailsComplete(complete: boolean | null) {
-        try {
-            await AsyncStorage.setItem('patientDetailsComplete', JSON.stringify(complete));
-        } catch (err) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-    }
-
-    static async hasCompletedPatientDetails() {
-        let completedDetails: string | null = null;
-        try {
-            completedDetails = await AsyncStorage.getItem('patientDetailsComplete');
-        } catch (e) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-
-        if (completedDetails == null)
-            return null;
-        else {
-            return JSON.parse(completedDetails) as boolean;
         }
     }
 
@@ -182,20 +138,4 @@ export class AsyncStorageService {
         }
     }
 
-    // Temp: flag to check we have blood pressure answer
-    static async setHasBloodPressureAnswer(hasAnswer: boolean) {
-        try {
-            await AsyncStorage.setItem(BLOOD_PRESSURE_ANSWER, hasAnswer ? STR_YES : STR_NO)
-        } catch (err) {
-        }
-    }
-
-    static async hasBloodPressureAnswer(): Promise<boolean | null> {
-        try {
-            const value = await AsyncStorage.getItem(BLOOD_PRESSURE_ANSWER);
-            return (value === STR_YES);
-        } catch (err) {
-            return false;
-        }
-    }
 }
