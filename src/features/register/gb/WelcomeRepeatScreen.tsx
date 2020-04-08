@@ -11,7 +11,6 @@ import {PushNotificationService} from "../../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {Linking} from "expo";
 import { ContributionCounter } from "../../../components/ContributionCounter";
-import { getInitialPatientState } from "../../../core/patient/PatientState";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
@@ -47,13 +46,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
     handleButtonPress = async () => {
         const {patientId} = this.props.route.params;
-        const currentPatient = getInitialPatientState(patientId);
         const userService = new UserService();
+        const currentPatient = await userService.getCurrentPatient(patientId);
 
-        const hasPatientDetails = await userService.hasCompletedPatientDetails(patientId);
-        currentPatient.isHealthWorker = await userService.isHealthWorker(); // TODO: remove when currentPatient persisted
-
-        if (hasPatientDetails) {
+        if (currentPatient.hasCompletePatientDetails) {
             // TODO: refactor as "StartAssessment" screen/controller
             if (currentPatient.isHealthWorker) {
                 this.props.navigation.navigate('HealthWorkerExposure', {currentPatient})

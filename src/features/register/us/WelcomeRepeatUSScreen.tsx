@@ -10,7 +10,6 @@ import {AsyncStorageService} from "../../../core/AsyncStorageService";
 import {PushNotificationService} from "../../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import { ContributionCounter } from "../../../components/ContributionCounter";
-import { getInitialPatientState } from "../../../core/patient/PatientState";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
@@ -48,14 +47,10 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
 
     handleButtonPress = async () => {
         const {patientId} = this.props.route.params;
-        const currentPatient = getInitialPatientState(patientId);
-
         const userService = new UserService();
+        const currentPatient = await userService.getCurrentPatient(patientId);
 
-        const hasPatientDetails = await userService.hasCompletedPatientDetails(patientId);
-        currentPatient.isHealthWorker = await userService.isHealthWorker(); // TODO: remove when currentPatient persisted
-
-        if (hasPatientDetails) {
+        if (currentPatient.hasCompletePatientDetails) {
             // TODO: this should be in a "Start assessment 'screen' which determines the next page"
             // So we have a this.prop.navigation.navigate('StartAssessment', {currentPatient})
             if (currentPatient.isHealthWorker) {
