@@ -122,7 +122,10 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                            which only come later and include only the people who tested.  {"\n\n"}
                            Our estimates are calculated in 3 steps:{"\n\n"}
                            1. We learn which symptoms best predict COVID, based on app users who have been tested all
-                           around the world (read more here){"\n\n"}
+                           around the world (
+                           <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')}>
+                               read more here
+                           </ClickableText>){"\n\n"}
                            2. We estimate total number of app users in your county with COVID today by applying those
                            rules to all users’ logged symptoms in your county{"\n\n"}
                            3. We extrapolate to the whole county population from app users, based on geography,
