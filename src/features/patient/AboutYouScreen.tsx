@@ -98,14 +98,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         if (this.state.enableSubmit) {
             this.setState({enableSubmit: false}); // Stop resubmissions
 
-            const patientId = this.props.route.params.patientId;
             const currentPatient = this.props.route.params.currentPatient;
+            const patientId = currentPatient.patientId;
             const userService = new UserService();
             var infos = this.createPatientInfos(formData);
 
             userService.updatePatient(patientId, infos)
                 .then(response => {
-                    this.props.navigation.navigate('YourHealth', {patientId, currentPatient, isMale: formData.sex === 'male'})
+                    this.props.navigation.navigate('YourHealth', {currentPatient, isMale: formData.sex === 'male'})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
