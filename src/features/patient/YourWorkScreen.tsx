@@ -118,6 +118,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
     handleUpdateWork(formData: YourWorkData) {
         const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
 
@@ -126,7 +127,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 AsyncStorageService.setIsHealthWorker(
                     (infos.healthcare_professional === "yes_does_treat")
                     || infos.is_carer_for_community);
-                this.props.navigation.navigate('AboutYou', {patientId: patientId})
+                this.props.navigation.navigate('AboutYou', {patientId, currentPatient})
             })
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
 

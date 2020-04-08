@@ -54,7 +54,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                 index: 0,
                 routes: [
                     {name: this.getWelcomeRepeatScreenName(), params: {patientId: patientId}},
-                    {name: "YourWork", params: {patientId: patientId}}
+                    {name: "YourWork", params: {patientId: patientId, patient: {}}}
                 ],
             })
         };

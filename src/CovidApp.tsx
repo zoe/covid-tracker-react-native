@@ -10,7 +10,7 @@ import { RegisterScreen } from "./features/register/RegisterScreen";
 import AboutYouScreen from "./features/patient/AboutYouScreen";
 import { WelcomeScreen } from "./features/register/WelcomeScreen";
 import { SplashScreen } from "./features/SplashScreen";
-import YourHealthScreen from "./features/assessment/YourHealthScreen";
+import YourHealthScreen from "./features/patient/YourHealthScreen";
 import HowYouFeelScreen from "./features/assessment/HowYouFeelScreen";
 import { PrivacyPolicyUKScreen } from "./features/register/PrivacyPolicyUKScreen";
 import { TermsScreen } from "./features/register/TermsScreen";

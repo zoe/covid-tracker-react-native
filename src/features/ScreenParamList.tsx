@@ -1,4 +1,5 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
+import { PatientStateType } from "../core/patient/PatientState";
 
 export type ScreenParamList = {
     Splash: undefined;
@@ -16,11 +17,19 @@ export type ScreenParamList = {
     ResetPassword: undefined;
     ResetPasswordConfirm: undefined;
     Register: undefined;
+
+
+    // PII
     OptionalInfo: { user: UserResponse };
-    HealthWorkerExposure: { patientId: string };
-    YourWork: { patientId: string };
-    AboutYou: { patientId: string };
-    YourHealth: { patientId: string, isMale: boolean};
+
+    // Patient
+    // TODO: add YourStudy here when it's merged into master.
+    YourWork: { patientId: string, currentPatient: PatientStateType };
+    AboutYou: { patientId: string, currentPatient: PatientStateType };
+    YourHealth: { patientId: string, isMale: boolean, currentPatient: PatientStateType};
+
+    // Assessment
+    HealthWorkerExposure: { patientId: string }; // How do people normally get here?
     CovidTest: { patientId: string, assessmentId: string | null};
     HowYouFeel: { assessmentId: string };
     DescribeSymptoms: { assessmentId: string };
@@ -28,6 +37,7 @@ export type ScreenParamList = {
     LevelOfIsolation: { assessmentId: string };
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
+
     ThankYou: undefined;
     Login: { terms: string };
     CountrySelect: { patientId: string | null };
