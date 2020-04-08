@@ -78,7 +78,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             // Be careful with extra tabs or space, they would appear in the message.
             return "I’m helping to fight #COVID19 – " +
                     `We only need ${area.number_of_missing_contributors} more people on the app to get a COVID ` +
-                    `estimate for ${area?.area_name}. ` +
+                    `estimate for ${area.area_name}. ` +
                     "Please help by taking 1 min daily to report how you feel 🙏. " +
                     "You also get an estimate of COVID in your area. Download the app";
         else
