@@ -74,12 +74,17 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         if(!area)
             return i18n.t("share-with-friends-message");
 
-        // Be careful with extra tabs or space, they would appear in the message.
-        return "I’m helping to fight #COVID19 in my community. " +
-                `We only need ${area.number_of_missing_contributors} more people in ` +
-                `${area?.area_name} to estimate people with COVID symptoms right now. ` +
-                "Please help 🙏 by taking 1 min daily to report how you feel and you also get an " +
-                "estimate of COVID in your area. Download the app";
+        if(area.locked)
+            // Be careful with extra tabs or space, they would appear in the message.
+            return "I’m helping to fight #COVID19 – " +
+                    `We only need ${area.number_of_missing_contributors} more people on the app to get a COVID ` +
+                    `estimate for ${area?.area_name}. ` +
+                    "Please help by taking 1 min daily to report how you feel 🙏. " +
+                    "You also get an estimate of COVID in your area. Download the app";
+        else
+            return `I’m helping to fight #COVID19 – ${area.predicted_cases} people are estimated to have COVID ` +
+                    `symptoms in ${area.area_name} today. Please help by taking 1 min daily to report how you `+
+                    "feel :pray::skin-tone-3:. You also get an estimate of COVID in your area. Download the app"
 
     };
 
