@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../theme";
-import {BrandedButton, RegularText} from "../../components/Text";
-import {ScreenParamList} from "../ScreenParamList";
-import {ukFlagSmall, usFlagSmall, usMap} from "../../../assets";
-import UserService, {isUSLocale} from "../../core/user/UserService";
-import {ContributionCounter} from "../../components/ContributionCounter";
+import {colors} from "../../../../theme";
+import {BrandedButton, RegularText} from "../../../components/Text";
+import {ScreenParamList} from "../../ScreenParamList";
+import {ukFlagSmall, usFlagSmall, usMap} from "../../../../assets";
+import UserService, {isUSLocale} from "../../../core/user/UserService";
+import {ContributionCounter} from "../../../components/ContributionCounter";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
