@@ -12,6 +12,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {Formik} from "formik";
 import * as Yup from "yup";
+import {GenericTextField} from "../../components/GenericTextField";
 
 const initialFormValues = {
     name: '',
@@ -38,11 +39,10 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     }
 
     registerSchema = Yup.object().shape({
-        name: Yup.string(),
+        name: Yup.string().required(),
     });
 
     handleUpdate(formData: FormData) {
-        const userService = new UserService();
         this.props.navigation.navigate("AdultConsent", {profileName: formData.name});
     }
 
@@ -64,19 +64,12 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                     {props => {
                         return (
                             <Form>
-                                <FieldWrapper style={{marginVertical: 64}}>
-                                    <Item stackedLabel>
-                                        <Textarea
-                                            style={styles.textarea}
-                                            rowSpan={1}
-                                            bordered
-                                            placeholder="name"
-                                            value={props.values.name}
-                                            onChangeText={props.handleChange("name")}
-                                            underline={false}
-                                        />
-                                    </Item>
-                                </FieldWrapper>
+
+                                <GenericTextField
+                                                formikProps={props}
+                                                name="name"
+                                                placeholder={'e.g. name, nickname or relation'}
+                                            />
 
                                 <BrandedButton onPress={props.handleSubmit}>
                                     <Text style={[fontStyles.bodyLight, styles.buttonText]}>Continue</Text>

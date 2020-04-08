@@ -30,17 +30,15 @@ export default class SelectProfileScreen extends Component<RenderProps, {}> {
                                 <RegularText>Or add more profiles</RegularText>
                             </Header>
 
-                            <View style={styles.shareContainer}>
 
-                                <BrandedButton onPress={() => this.props.navigation.navigate('CovidTest')}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Me</Text>
-                                </BrandedButton>
+                            <BrandedButton onPress={() => this.props.navigation.navigate('CovidTest')}>
+                                <Text style={[fontStyles.bodyLight, styles.buttonText]}>Me</Text>
+                            </BrandedButton>
 
-                                <BrandedButton onPress={() => this.props.navigation.navigate('SelectProfile')}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>New profile</Text>
-                                </BrandedButton>
+                            <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile')}>
+                                <Text style={[fontStyles.bodyLight, styles.buttonText]}>New profile</Text>
+                            </BrandedButton>
 
-                            </View>
                         </View>
 
                     </ScrollView>

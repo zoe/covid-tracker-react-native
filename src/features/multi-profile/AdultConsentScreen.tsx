@@ -83,7 +83,7 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                <BrandedButton style={styles.button}
+                <BrandedButton
                                enable={this.state.consentChecked}
                                hideLoading={true}
                                onPress={this.createProfile}>Create profile</BrandedButton>
