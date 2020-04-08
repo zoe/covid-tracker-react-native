@@ -136,12 +136,49 @@ export default class UserService extends ApiClientBase {
         return PATIENT_VERSION;
     }
 
-    public async getCurrentPatient(patientId: string): Promise<PatientStateType> {
-        const currentPatient = getInitialPatientState(patientId);
+    public async getPatient(patientId: string): Promise<PatientInfosRequest> {
+        // TODO: Cache this in AsyncStorage?
+        const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
+        return patientResponse.data;
+    }
 
-        // TODO: remove when currentPatient is calculated from backend Patient doc.
-        currentPatient.hasCompletePatientDetails = await this.hasCompletedPatientDetails(patientId);
-        currentPatient.isHealthWorker = await this.isHealthWorker();
+    public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
+        let currentPatient = getInitialPatientState(patientId);
+
+        try {
+            if (!patient) {
+                patient = await this.getPatient(patientId);
+            }
+
+            // Calculate the flags based on patient info
+            const isFemale = (patient.gender == 0);
+            const isHealthWorker = (
+                (patient.healthcare_professional === "yes_does_treat")
+                || patient.is_carer_for_community
+            );
+            const hasBloodPressureAnswer = (
+                patient.takes_any_blood_pressure_medications === true
+                || patient.takes_any_blood_pressure_medications === false
+            );
+            const hasCompletePatientDetails = (
+                patient.has_heart_disease === true
+                || patient.has_heart_disease === false
+            );
+
+            currentPatient = {
+                ...currentPatient,
+                isFemale,
+                isHealthWorker,
+                hasBloodPressureAnswer,
+                hasCompletePatientDetails,
+            }
+
+        } catch (error) {
+            // Something wrong with the request, fallback to local details
+            currentPatient.hasCompletePatientDetails = await this.hasCompletedPatientDetails(patientId);
+            currentPatient.isHealthWorker = await this.isHealthWorker();
+            currentPatient.hasBloodPressureAnswer = !!(await AsyncStorageService.hasBloodPressureAnswer());
+        }
 
         return currentPatient;
     }
