@@ -77,9 +77,9 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         // Be careful with extra tabs or space, they would appear in the message.
         return "I’m helping to fight #COVID19 in my community. " +
                 `We only need ${area.number_of_missing_contributors} more people in ` +
-                `${area?.area_name}to estimate people with COVID symptoms right now. ` +
+                `${area?.area_name} to estimate people with COVID symptoms right now. ` +
                 "Please help 🙏 by taking 1 min daily to report how you feel and you also get an " +
-                "estimate of COVID in your area. Download the app covid.joinzoe.com";
+                "estimate of COVID in your area. Download the app";
 
     };
 
