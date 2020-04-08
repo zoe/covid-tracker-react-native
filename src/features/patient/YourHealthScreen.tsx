@@ -80,7 +80,6 @@ const initialFormValues = {
 type HealthProps = {
     navigation: StackNavigationProp<ScreenParamList, 'YourHealth'>
     route: RouteProp<ScreenParamList, 'YourHealth'>;
-    isMale: boolean;
 }
 
 
@@ -161,6 +160,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
 
     private createPatientInfos(formData: YourHealthData) {
+        const currentPatient = this.props.route.params.currentPatient;
         const smokerStatus = formData.smokerStatus === "no" ? "never" : formData.smokerStatus;
         let infos = {
             has_heart_disease: formData.hasHeartDisease === "yes",
@@ -176,7 +176,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             limited_activity: formData.limitedActivity === "yes",
         } as Partial<PatientInfosRequest>;
 
-        if (!this.props.route.params.isMale) {
+        if (currentPatient.isFemale) {
             infos = {
                 ...infos,
                 is_pregnant: formData.isPregnant === "yes",
@@ -233,7 +233,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }
 
     render() {
-
+        const currentPatient = this.props.route.params.currentPatient;
         const smokerStatusItems = [
             {label: 'Never', value: 'never'},
             {label: 'Not currently', value: 'not_currently'},
@@ -269,7 +269,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                                     <Divider/>
 
-                                    {!this.props.route.params.isMale && (
+                                    {currentPatient.isFemale && (
                                         <>
                                             <DropdownField
                                                 selectedValue={props.values.isPregnant}
