@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../theme";
-import i18n from "../../locale/i18n"
-import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
-import {ScreenParamList} from "../ScreenParamList";
-import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../assets";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import {colors} from "../../../../theme";
+import i18n from "../../../locale/i18n"
+import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
+import {ScreenParamList} from "../../ScreenParamList";
+import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../../assets";
+import UserService, {isUSLocale} from "../../../core/user/UserService";
 
 const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
 
