@@ -166,8 +166,7 @@ app.get("/users/covid_count", (req, res) => {
   return res.status(200).send('2000000');
 });
 
-
-app.get("/area_stats/:patientId", (req, res) => {
+app.get("/area_stats", (req, res) => {
 
   return res.status(200).send({
     "locked": false,
