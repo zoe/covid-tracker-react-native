@@ -152,7 +152,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             })
             .then(response => {
                 // TODO: Refactor to a "StartAssessment" screen/controller
-                this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
+                this.props.navigation.navigate('CovidTest', {currentPatient, assessmentId: null})
             })
             .catch(err => {
                 this.setState({errorMessage: "Something went wrong, please try again later"})

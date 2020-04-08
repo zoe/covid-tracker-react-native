@@ -3,20 +3,28 @@ import { PatientStateType } from "../core/patient/PatientState";
 
 export type ScreenParamList = {
     Splash: undefined;
+
+    // Welcome screens
     Welcome: undefined;
     WelcomeUS: undefined;
     Welcome2US: undefined;
     WelcomeRepeat: { patientId: string};
     WelcomeRepeatUS: { patientId: string};
+
+    // Terms & consent screens
     Terms: undefined;
     NursesConsentUS: undefined;
     BeforeWeStartUS: undefined;
     TermsOfUse: undefined;
     PrivacyPolicyUK: undefined;
     PrivacyPolicyUS: undefined;
+
+    // User profile screens
     ResetPassword: undefined;
     ResetPasswordConfirm: undefined;
     Register: undefined;
+    Login: { terms: string };
+    CountrySelect: { patientId: string | null };
 
     // PII screens
     OptionalInfo: { user: UserResponse };
@@ -28,18 +36,17 @@ export type ScreenParamList = {
     YourHealth: { currentPatient: PatientStateType, isMale: boolean };
 
     // Assessment screens
-    HealthWorkerExposure: { patientId: string }; // How do people normally get here?
-    CovidTest: { patientId: string, assessmentId: string | null};
-    HowYouFeel: { assessmentId: string };
-    DescribeSymptoms: { assessmentId: string };
-    WhereAreYou: { assessmentId: string };
-    LevelOfIsolation: { assessmentId: string };
-    TreatmentSelection:  { assessmentId: string, location?: string };
-    TreatmentOther: { assessmentId: string, location?: string };
+    HealthWorkerExposure: { currentPatient: PatientStateType }; // How do people normally get here?
+    CovidTest: { currentPatient: PatientStateType, assessmentId: string | null};
+    HowYouFeel: { currentPatient: PatientStateType, assessmentId: string };
+    DescribeSymptoms: { currentPatient: PatientStateType, assessmentId: string };
+    WhereAreYou: { currentPatient: PatientStateType, assessmentId: string };
+    LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string };
+    TreatmentSelection:  { currentPatient: PatientStateType, assessmentId: string, location?: string };
+    TreatmentOther: { currentPatient: PatientStateType, assessmentId: string, location?: string };
 
+    // Completion screens
     ThankYou: undefined;
     ViralThankYou: undefined;
-    Login: { terms: string };
-    CountrySelect: { patientId: string | null };
     NearYou: undefined;
 };
