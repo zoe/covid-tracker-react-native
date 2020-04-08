@@ -44,13 +44,13 @@ export class CovidRating extends Component<PropsType, State> {
     takeToStore = () => {
         setTimeout(() => {
             if (Platform.OS != 'ios') {
-                Linking.openURL(`market://details?id=${storeLinks}`).catch(err =>
-                    alert('Please rate us on the Google Play Store!')
-                );
+                Linking.openURL(
+                    `market://details?id=${storeLinks}`
+                ).catch(err => {});
             } else {
                 Linking.openURL(
                     `itms://itunes.apple.com/in/app/apple-store/${storeLinks}`
-                ).catch(err => alert('Please rate us on the App Store!'));
+                ).catch(err => {});
             }
             this.setState({isModalOpen: false});
         }, 2000);
