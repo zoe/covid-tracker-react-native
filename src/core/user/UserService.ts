@@ -153,6 +153,15 @@ export default class UserService extends ApiClientBase {
         return localProfile
     }
 
+    public async getAskedToRateStatus() {
+        return AsyncStorageService.getAskedToRateStatus();
+    }
+
+    public setAskedToRateStatus(status: string) {
+        AsyncStorageService.setAskedToRateStatus(status);
+    }
+
+
     public async updatePii(pii: Partial<PiiRequest>) {
         const userId = ApiClientBase.userId;
         return this.client.patch(`/information/${userId}/`, pii);
