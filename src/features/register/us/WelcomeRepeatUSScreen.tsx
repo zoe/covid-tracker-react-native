@@ -53,11 +53,12 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
         const userService = new UserService();
 
         const hasPatientDetails = await userService.hasCompletedPatientDetails(patientId);
+        currentPatient.isHealthWorker = await userService.isHealthWorker(); // TODO: remove when currentPatient persisted
 
         if (hasPatientDetails) {
             // TODO: this should be in a "Start assessment 'screen' which determines the next page"
             // So we have a this.prop.navigation.navigate('StartAssessment', {currentPatient})
-            if (await userService.isHealthWorker()) {
+            if (currentPatient.isHealthWorker) {
                 this.props.navigation.navigate('HealthWorkerExposure', {currentPatient})
             } else {
                 this.props.navigation.navigate('CovidTest', {currentPatient, assessmentId: null})
