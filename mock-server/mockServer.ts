@@ -175,6 +175,7 @@ app.get("/area_stats/:patientId", (req, res) => {
     "number_of_areas": 1000,
     "rank_delta": 24,
     "area_name": "Suffolk County",
+    "number_of_missing_contributors": 100,
     "predicted_cases": 698,
     "population": 42000,
   });

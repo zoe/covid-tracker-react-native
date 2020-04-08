@@ -7,7 +7,7 @@ import {
     View,
     Text,
     Modal,
-    TouchableOpacity
+    TouchableOpacity, SafeAreaView
 } from "react-native";
 import {isAndroid} from "../components/Screen";
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../components/Text";
@@ -22,8 +22,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import UserService from "../core/user/UserService";
 import {AreaStatsResponse} from "../core/user/dto/UserAPIContracts";
-import {Spinner} from "native-base";
 import BrandedSpinner from "../components/Spinner";
+import moment from "moment";
+
 
 type Props = {
     navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>
@@ -34,6 +35,7 @@ type State = {
     modalVisible: boolean;
     areaStats: AreaStatsResponse | null;
     loading: boolean,
+    missingData: boolean,
 }
 
 export default class ViralThankYouScreen extends Component<Props, State> {
@@ -44,27 +46,48 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             modalVisible: false,
             areaStats: null,
             loading: true,
+            missingData: false,
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const userService = new UserService();
-        userService.getAreaStats("todotodotodo")
+        const profile = await userService.getProfile();
+
+        userService.getAreaStats(profile.patients[0]) // todo: multipatient
             .then(response => this.setState({
                 areaStats: response.data,
                 loading: false,
-            }));
-
-        // todo: handle error
+            }))
+            .catch(() => {
+                this.setState({
+                    missingData: true,
+                    loading: false,
+                });
+            });
     }
 
-    shareMessage = i18n.t("share-with-friends-message");
     shareUrl = i18n.t("share-with-friends-url");
 
+    getShareMessage = () => {
+        const area = this.state.areaStats;
+        if(!area)
+            return i18n.t("share-with-friends-message");
+
+        // Be careful with extra tabs or space, they would appear in the message.
+        return "I’m helping to fight #COVID19 in my community. " +
+                `We only need ${area.number_of_missing_contributors} more people in ` +
+                `${area?.area_name}to estimate people with COVID symptoms right now. ` +
+                "Please help 🙏 by taking 1 min daily to report how you feel and you also get an " +
+                "estimate of COVID in your area. Download the app covid.joinzoe.com";
+
+    };
+
     shareApp = async () => {
-        const message = this.shareMessage + (isAndroid ? " " + this.shareUrl : ""); // On Android add link to end of message
+        const message = this.getShareMessage() + (isAndroid ? " " + this.shareUrl : ""); // On Android add link to end of message
+
         try {
-            const result = await Share.share({
+            await Share.share({
                 message: message,
                 url: this.shareUrl, // IOS has separate field for URL
             })
@@ -72,10 +95,11 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         }
     };
 
-
     render() {
         const area = this.state.areaStats;
-        const loading = this.state.loading;
+        const date = moment();
+        const {loading, missingData} = this.state;
+        const displayStats = !loading && !missingData;
         const casePercentage = area?.population ? ((area.predicted_cases / area?.population) * 100).toFixed(1) : 0;
 
         // todo: different text if no change?
@@ -83,18 +107,49 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
         const modal = (
             <Modal animationType="slide" visible={this.state.modalVisible}>
-                <View style={styles.modalContainer}>
+                <SafeAreaView style={styles.modalContainer}>
                     <TouchableOpacity style={styles.modalCloseIconContainer} onPress={() => this.setState({modalVisible: false})}>
                         <MaterialIcons name="close" size={32} style={styles.modalCloseIcon}/>
                     </TouchableOpacity>
-                    <RegularText style={styles.modalTitle}>
-                        Prediction model
-                    </RegularText>
-                   <RegularText style={styles.modalContent}>
-                       Prediction is based on symptoms of app users who tested positive and adjusted for your area
-                   </RegularText>
-                </View>
+                    <ScrollView style={styles.modalText}>
+                        <RegularText style={styles.modalTitle}>
+                            The methodology behind our estimates
+                        </RegularText>
+                       <RegularText style={styles.modalContent}>
+                           We have developed machine learning models to estimate the number of people who currently
+                           have COVID symptoms.{"\n\n"}
+                           These estimates could be an earlier signal of COVID in your area today vs the confirmed cases
+                           which only come later and include only the people who tested.  {"\n\n"}
+                           Our estimates are calculated in 3 steps:{"\n\n"}
+                           1. We learn which symptoms best predict COVID, based on app users who have been tested all
+                           around the world (read more here){"\n\n"}
+                           2. We estimate total number of app users in your county with COVID today by applying those
+                           rules to all users’ logged symptoms in your county{"\n\n"}
+                           3. We extrapolate to the whole county population from app users, based on geography,
+                           age & gender proportions
+                       </RegularText>
+
+                        <View style={styles.divider}/>
+                        <RegularText style={styles.smallPrint}>
+                            *Our estimates do not include people aged under 20 or over 70 or with asymptomatic COVID infections, since we have too little data to model these.
+                        </RegularText>
+                        <View style={styles.divider}/>
+
+                        <RegularText style={styles.readBlog}>
+                            Read more on our{" "}
+                            <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>blog</ClickableText>
+                        </RegularText>
+                    </ScrollView>
+                </SafeAreaView>
             </Modal>);
+
+        const peopleWithSymptoms = (
+            <Text style={styles.estimatedCases}>
+                People with COVID symptoms in{"\n"}
+                <RegularBoldText>{area?.area_name}</RegularBoldText>{" "}
+                today
+            </Text>
+        );
 
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -114,47 +169,54 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                         </View>
                     )}
 
-                    {!loading && !area?.locked && (
+                    {displayStats && !area?.locked && (
                         <View style={styles.estimatedCaseContainer}>
                             <View style={styles.estimatedCaseFirstRow}>
-                                <TouchableOpacity onPress={() => {
-                                    this.setState({modalVisible: true});
-                                    console.log("clicked");
-                                }} style={styles.infoIconContainer}>
-                                    <MaterialIcons name="info-outline" size={16} style={styles.infoIcon} />
-                                </TouchableOpacity>
-                                <Text style={styles.estimatedCases}>Estimated cases of COVID</Text>
-                                <Text style={styles.estimatedCasesCounty}>in {area?.area_name}</Text>
+                                {peopleWithSymptoms}
+                                <Text style={styles.estimatedCasesCount}>{area?.predicted_cases}</Text>
                             </View>
                             <View style={styles.estimatedCaseSecondRow}>
-                                <View>
-                                    <Text style={styles.estimatedCasesCount}>{area?.predicted_cases}</Text>
-                                    <Text style={styles.estimatedCasesPercentage}>{casePercentage}%</Text>
-                                    <Text style={styles.estimatedCasesPopulation}>of {area?.population} residents</Text>
-                                </View>
-                            <View style={styles.chartContainer}>
-                                <Text>Placeholder</Text>
+                                <Text style={styles.estimatedCasesPercentage}>{casePercentage}%</Text>
+                                <Text style={styles.estimatedCasesPopulation}>of {area?.population} residents</Text>
                             </View>
+                            <View style={styles.divider}/>
+                            <View style={styles.estimatedCaseSecondRow}>
+                                <Text style={styles.estimate}>
+                                    Estimate for {date.format('MMMM D, YYYY')}{" "}
+                                    <ClickableText style={styles.learnMore} onPress={() => this.setState({modalVisible: true})}>Learn more</ClickableText>
+                                </Text>
                             </View>
                         </View>
                     )}
 
-                    {!loading && area?.locked && (
+                    {displayStats && area?.locked && (
                         <View style={styles.estimatedCaseContainer}>
+                            <View style={styles.estimatedCaseFirstRow}>
+                                {peopleWithSymptoms}
+                            </View>
                             <View style={styles.blurred}>
-                                <MaterialIcons name="lock-outline" size={48} style={styles.lockIcon}/>
+                                <MaterialIcons name="lock-outline" size={32} style={styles.lockIcon}/>
+                            </View>
+                            <View>
+                                <Text style={styles.almostThere}>
+                                    Almost there! We only need{" "}
+                                    <Text style={styles.almostThereCount}>{area?.number_of_missing_contributors} more people</Text>{" "}
+                                     from your county to report via the app, to provide accurate daily COVID estimates
+                                </Text>
+
+                                <ClickableText onPress={this.shareApp} style={styles.pleaseShare}>Please share the app</ClickableText>
                             </View>
                         </View>
                         )}
 
 
-                    {!loading && (
+                    {displayStats && (
                         <View>
                             <RegularText style={styles.countyRank}>
                                 <RegularBoldText>{area?.area_name}</RegularBoldText>'s rank in contribution
                             </RegularText>
                             <Text style={styles.dailyDelta}>
-                                {sign}{area?.rank_delta} since yesterday
+                                {sign}{area?.rank_delta} places since yesterday
                             </Text>
 
 
@@ -246,62 +308,63 @@ const styles = StyleSheet.create({
 
     estimatedCaseSecondRow: {
         flexDirection: "row",
+        justifyContent: "center",
+        alignContent: "center",
         marginVertical:8,
     },
 
-    infoIconContainer: {
-        position: "absolute",
-        zIndex:1,
-        right:0,
-        padding:5,
-    },
-
-    infoIcon: {
-        color: colors.tertiary,
-    },
-
     estimatedCases: {
-        fontSize:20,
-        lineHeight:32,
+        fontSize:16,
+        lineHeight:24,
         color: colors.primary,
-    },
-
-    estimatedCasesCounty: {
-        fontSize:14,
-        lineHeight:20,
-        color: colors.secondary,
+        textAlign: "center"
     },
 
     estimatedCasesCount: {
-        fontSize:32,
+        marginTop:10,
+        fontSize:40,
         lineHeight:48,
         color: colors.primary,
         fontWeight: "500",
+        textAlign: "center",
     },
 
     estimatedCasesPercentage: {
-        marginTop:12,
-        fontSize:12,
-        lineHeight:16,
+        fontSize:14,
+        lineHeight:20,
         color: "white",
         backgroundColor: "#D28C90",
         textAlign: "center",
         textAlignVertical:"center",
         width:48,
-        height:24,
+        height:28,
         borderRadius:5,
     },
 
     estimatedCasesPopulation: {
-        marginTop:8,
+        marginTop:4,
+        marginLeft:4,
+        fontSize:14,
+        lineHeight:20,
+        fontWeight: "300",
+        color: colors.primary,
+    },
+
+    estimate: {
         fontSize:12,
         lineHeight:16,
-        fontWeight: "300",
         color: colors.secondary,
     },
 
-    chartContainer: {
-        flex:1,
+    learnMore: {
+        fontSize:12,
+        lineHeight:16,
+    },
+
+    divider: {
+        height: 1,
+        backgroundColor: "#E2E2E2",
+        marginVertical: 20,
     },
 
     countyRank: {
@@ -342,11 +405,36 @@ const styles = StyleSheet.create({
         justifyContent:"center",
     },
 
+    almostThere: {
+        fontSize:14,
+        lineHeight:20,
+        fontWeight:"300",
+        textAlign:"center",
+        color: colors.primary,
+    },
+
+    almostThereCount: {
+        fontSize:16,
+        lineHeight:24,
+        fontWeight:"700",
+        color: colors.primary,
+    },
+
+    pleaseShare: {
+        marginTop:12,
+        fontSize:14,
+        lineHeight:20,
+        textAlign:"center",
+    },
+
     lockIcon: {
-        color:colors.primary,
+        color:"#E5E5E5",
         borderWidth: 1,
-        borderColor: "#ff0000",
-        alignSelf:"center"
+        borderRadius:32,
+        padding: 5,
+        borderColor: "#E5E5E5",
+        alignSelf:"center",
+        textAlign: "center",
     },
 
 
@@ -416,21 +504,30 @@ const styles = StyleSheet.create({
 
     modalContainer: {
         flex:1,
+        padding:16,
+    },
 
+    modalText: {
+        marginTop:64,
     },
 
     modalTitle: {
-        fontSize:20,
-        lineHeight:32,
-        marginTop:64,
+        fontSize:24,
+        lineHeight:38,
         fontWeight: "300",
-        textAlign: "center",
     },
 
     modalContent: {
         marginTop:32,
-        textAlign: "center",
         color: colors.secondary
+    },
+
+    smallPrint: {
+        color: colors.tertiary
+    },
+
+    readBlog: {
+        textAlign:"center",
     },
 
     modalCloseIconContainer: {

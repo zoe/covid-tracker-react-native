@@ -185,5 +185,6 @@ export type AreaStatsResponse = {
     rank_delta: number,
     area_name: string,
     predicted_cases: number,
+    number_of_missing_contributors: number,
     population: number,
 }
