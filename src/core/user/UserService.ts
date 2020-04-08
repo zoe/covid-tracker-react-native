@@ -25,6 +25,7 @@ const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
+    public static ipCountry = "";
     public static consentSigned: Consent = {
         document: "",
         version: "",
@@ -231,6 +232,7 @@ export default class UserService extends ApiClientBase {
 
     async setUserCountInAsyncStorage() {
         const response = await this.client.get<StartupInfo>('/users/startup_info/');
+        UserService.ipCountry = response.data.ip_country;
         await AsyncStorageService.setUserCount(response.data.users_count.toString());
     }
 
@@ -248,6 +250,14 @@ export default class UserService extends ApiClientBase {
             i18n.locale = "en-" + UserService.userCountry
         }
         return localCountry;
+    }
+
+    async shouldAskCountryConfirmation() {
+        if (await AsyncStorageService.getAskedCountryConfirmation()) {
+            return false
+        } else {
+            return UserService.userCountry != UserService.ipCountry
+        }
     }
 
     async defaultCountryToLocale() {
