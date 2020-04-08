@@ -200,6 +200,11 @@ export default class UserService extends ApiClientBase {
         }
     }
 
+    async getConsentSigned(): Promise<Consent | null> {
+        let consent: string | null = await AsyncStorageService.getConsentSigned();
+        return consent ? JSON.parse(consent) : null
+    }
+
     async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
         const consent = {
             document: document,
@@ -215,7 +220,7 @@ export default class UserService extends ApiClientBase {
     }
 
     async setUserCountInAsyncStorage() {
-        const userCount = await this.client.get<number>('/users/covid_count');
+        const userCount = await this.client.get<number>('/users/covid_count/');
         await AsyncStorageService.setUserCount(userCount.data.toString());
     }
 

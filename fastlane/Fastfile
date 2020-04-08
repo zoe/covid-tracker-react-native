@@ -1,0 +1,71 @@
+fastlane_version "2.145.0"
+
+desc "iOS publishing lanes"
+platform :ios do
+  desc "iOS Dev Channel (AppCenter)"
+  lane :dev do |options|
+    appcenter_upload(
+      app_name: options[:app_name],
+      file: Dir.pwd + "/app.ipa",
+      notify_testers: true,
+    )
+  end
+
+  desc "TODO: iOS Stage Channel (AppCenter/TestFlight)"
+  lane :stage do
+  end
+
+  desc "TODO: iOS Production Channel (App Store)"
+  lane :production do
+  end
+end
+
+desc "Android publishing lanes"
+platform :android do
+  desc "Android Dev Channel (AppCenter)"
+  lane :dev do |options|
+    appcenter_upload(
+      app_name: options[:app_name],
+      file: Dir.pwd + "/app.apk",
+      notify_testers: true,
+    )
+  end
+
+  desc "TODO: Android Stage Channel (AppCenter/Play Store Beta)"
+  lane :stage do
+  end
+
+  desc "TODO: Android Production Channel (Play Store)"
+  lane :production do
+  end
+end
+
+after_all do
+  build_info = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
+  build_type = lane_context[SharedValues::LANE_NAME]
+  new_build_message = "A new `#{build_type}` build has been uploaded!"
+  if !build_info.nil?
+    slack(
+      success: true,
+      message: new_build_message,
+      default_payloads: [:last_git_commit, :last_git_commit_hash],
+      payload: {
+        "App Version": "#{build_info["id"]} (#{build_info["short_version"]})",
+        "Platform": build_info["app_os"],
+        "Download URL": "<#{build_info["download_url"]}|Click here>",
+      },
+      attachment_properties: {
+        thumb_url: build_info["app_icon_url"],
+      },
+    )
+  else
+    slack(message: new_build_message)
+  end
+end
+
+error do |lane, exception|
+  slack(
+    pretext: "@here",
+    success: false,
+  )
+end

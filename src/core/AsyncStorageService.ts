@@ -152,6 +152,14 @@ export class AsyncStorageService {
         }
     }
 
+    static async getConsentSigned() {
+        try {
+            return await AsyncStorage.getItem(CONSENT_SIGNED);
+        } catch (err) {
+            return null
+        }
+    }
+
     static async setConsentSigned(consent: string) {
         try {
             await AsyncStorage.setItem(CONSENT_SIGNED, consent);

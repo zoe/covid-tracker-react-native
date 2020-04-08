@@ -15,5 +15,8 @@
   "website-home": "https://covid.joinzoe.com/us",
 
   "thank-you-body": "Thank you for joining millions of people supporting scientists at Massachusetts General Hospital, Stanford University School of Medicine & King's College London to help our health services.",
-  "blog-link": "https://covid.joinzoe.com/us-blog"
+  "blog-link": "https://covid.joinzoe.com/us-blog",
+  "faq-link": "https://covid.joinzoe.com/us-faq",
+
+  "label-cohort": "Are you participating in any of these research studies or part of these organizations?"
 }
