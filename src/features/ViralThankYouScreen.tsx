@@ -24,6 +24,7 @@ import UserService from "../core/user/UserService";
 import {AreaStatsResponse} from "../core/user/dto/UserAPIContracts";
 import BrandedSpinner from "../components/Spinner";
 import moment from "moment";
+import I18n from "i18n-js";
 
 
 type Props = {
@@ -56,7 +57,10 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
         userService.getAreaStats(profile.patients[0]) // todo: multipatient
             .then(response => this.setState({
-                areaStats: response.data,
+                areaStats: {
+                    ...response.data,
+                    area_name: response.data.area_name + " County"
+                },
                 loading: false,
             }))
             .catch(() => {
@@ -84,7 +88,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         else
             return `I’m helping to fight #COVID19 – ${area.predicted_cases} people are estimated to have COVID ` +
                     `symptoms in ${area.area_name} today. Please help by taking 1 min daily to report how you `+
-                    "feel :pray::skin-tone-3:. You also get an estimate of COVID in your area. Download the app"
+                    "feel 🙏. You also get an estimate of COVID in your area. Download the app"
 
     };
 
@@ -100,6 +104,8 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         }
     };
 
+    formatNumber = (x : number | undefined) => I18n.toNumber(x ?? 0, {precision: 0});
+
     render() {
         const area = this.state.areaStats;
         const date = moment();
@@ -112,7 +118,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
         const modal = (
             <Modal animationType="slide" visible={this.state.modalVisible}>
-                <SafeAreaView style={styles.modalContainer}>
+                <View style={styles.modalContainer}>
                     <TouchableOpacity style={styles.modalCloseIconContainer} onPress={() => this.setState({modalVisible: false})}>
                         <MaterialIcons name="close" size={32} style={styles.modalCloseIcon}/>
                     </TouchableOpacity>
@@ -148,7 +154,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                             <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>blog</ClickableText>
                         </RegularText>
                     </ScrollView>
-                </SafeAreaView>
+                </View>
             </Modal>);
 
         const peopleWithSymptoms = (
@@ -160,6 +166,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         );
 
         return (
+            <SafeAreaView>
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.rootContainer}>
 
@@ -181,11 +188,11 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                         <View style={styles.estimatedCaseContainer}>
                             <View style={styles.estimatedCaseFirstRow}>
                                 {peopleWithSymptoms}
-                                <Text style={styles.estimatedCasesCount}>{area?.predicted_cases}</Text>
+                                <Text style={styles.estimatedCasesCount}>{this.formatNumber(area?.predicted_cases)}</Text>
                             </View>
                             <View style={styles.estimatedCaseSecondRow}>
                                 <Text style={styles.estimatedCasesPercentage}>{casePercentage}%</Text>
-                                <Text style={styles.estimatedCasesPopulation}>of {area?.population} residents</Text>
+                                <Text style={styles.estimatedCasesPopulation}>of {this.formatNumber(area?.population)} residents</Text>
                             </View>
                             <View style={styles.divider}/>
                             <View style={styles.estimatedCaseSecondRow}>
@@ -229,7 +236,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
 
                         <Text style={styles.position}>
-                            <Text style={styles.positionBold}>{area?.rank}</Text> out of <Text style={styles.positionBold}>{area?.number_of_areas}</Text> counties
+                            <Text style={styles.positionBold}>{this.formatNumber(area?.rank)}</Text> out of <Text style={styles.positionBold}>{this.formatNumber(area?.number_of_areas)}</Text> counties
                         </Text>
                         </View>
                     )}
@@ -264,6 +271,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
                 </View>
             </ScrollView>
+            </SafeAreaView>
         )
     }
 }
