@@ -145,8 +145,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         userService.updatePatient(patientId, infos)
             .then(async response => {
                 // Head off race condition where next page expects these details to have been set.
-                await AsyncStorageService.setPatientDetailsComplete(true);
-                await AsyncStorageService.setHasBloodPressureAnswer(true);
+                await AsyncStorageService.setPatientDetailsComplete(true);  // TODO: remove when currentPatient persists
+                await AsyncStorageService.setHasBloodPressureAnswer(true);  // TODO: remove when currentPatient persists
+
+                currentPatient.hasCompletePatientDetails = true;
+                currentPatient.hasBloodPressureAnswer = true;
                 return response;
             })
             .then(response => {

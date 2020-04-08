@@ -17,6 +17,7 @@ import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
 import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
+import { getInitialPatientState, PatientStateType } from "../patient/PatientState";
 
 const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
@@ -134,6 +135,16 @@ export default class UserService extends ApiClientBase {
         return PATIENT_VERSION;
     }
 
+    public async getCurrentPatient(patientId: string): Promise<PatientStateType> {
+        const currentPatient = getInitialPatientState(patientId);
+
+        // TODO: remove when currentPatient is calculated from backend Patient doc.
+        currentPatient.hasCompletePatientDetails = await this.hasCompletedPatientDetails(patientId);
+        currentPatient.isHealthWorker = await this.isHealthWorker();
+
+        return currentPatient;
+    }
+
 
     public async getProfile(): Promise<UserResponse> {
         const localProfile = await AsyncStorageService.getProfile();
@@ -195,7 +206,7 @@ export default class UserService extends ApiClientBase {
             await AsyncStorageService.setIsHealthWorker(    // TODO: remove when currentPatient is persisted
                 (patientProfileResponse.data.healthcare_professional === "yes_does_treat")
                 || patientProfileResponse.data.is_carer_for_community);
-            await AsyncStorageService.setPatientDetailsComplete(true);
+            await AsyncStorageService.setPatientDetailsComplete(true); // TODO: remove when currentPatient persists
             return true
         }
     }
