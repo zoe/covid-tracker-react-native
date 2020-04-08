@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {Linking, ScrollView, StyleSheet, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../theme";
-import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
-import {ScreenParamList} from "../ScreenParamList";
-import {ApplicationVersion} from "../../components/AppVersion";
+import {colors} from "../../../../theme";
+import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
+import {ScreenParamList} from "../../ScreenParamList";
+import {ApplicationVersion} from "../../../components/AppVersion";
 
 
 type PropsType = {
