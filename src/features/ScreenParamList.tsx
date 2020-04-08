@@ -33,7 +33,7 @@ export type ScreenParamList = {
     YourStudy: { currentPatient: PatientStateType };
     YourWork: { currentPatient: PatientStateType };
     AboutYou: { currentPatient: PatientStateType };
-    YourHealth: { currentPatient: PatientStateType, isMale: boolean };
+    YourHealth: { currentPatient: PatientStateType };
 
     // Assessment screens
     HealthWorkerExposure: { currentPatient: PatientStateType }; // How do people normally get here?
