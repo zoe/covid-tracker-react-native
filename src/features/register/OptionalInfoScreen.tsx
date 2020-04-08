@@ -58,6 +58,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             : {name: "YourWork", params: {currentPatient}};
 
         const goToNextScreen = () => {
+
             this.props.navigation.reset({
                 index: 0,
                 routes: [

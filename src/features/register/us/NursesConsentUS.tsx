@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import {Linking, ScrollView, StyleSheet, View} from "react-native";
 import {Body, CheckBox, ListItem} from "native-base"
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../theme";
-import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
-import {ScreenParamList} from "../ScreenParamList";
-import UserService from "../../core/user/UserService";
-import {NursesConsentVersionUS, privacyPolicyVersionUS} from "./constants";
+import {colors} from "../../../../theme";
+import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
+import {ScreenParamList} from "../../ScreenParamList";
+import UserService from "../../../core/user/UserService";
+import {NursesConsentVersionUS, privacyPolicyVersionUS} from "../constants";
 
 
 type PropsType = {

@@ -18,28 +18,40 @@ export class ValidatedTextInput extends Component<Props, {}> {
     render() {
         const {error} = this.props;
         return (
-          <View style={{flexDirection: "row"}}>
+          <View style={styles.inputWrapper}>
               <TextInput
                 ref={(input) => this.textInput = input}
+                placeholderTextColor={colors.tertiary}
                 {...this.props}
                 style={[
                     styles.inputStyle,
-                    {borderBottomColor: error ? colors.feedbackBad : colors.tertiary}
+                    {borderBottomColor: error ? colors.feedbackBad : colors.primary},
                 ]}
               />
-              {error && <Icon name='close' style={{color: colors.feedbackBad}}/>}
+              {error && <Icon name='close' style={styles.errorIcon}/>}
           </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    inputWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
     inputStyle: {
         flex: 1,
         height: 40,
         borderBottomWidth: 1,
         borderBottomColor: colors.primary,
         fontSize: 16,
-        marginVertical: 10
+        paddingLeft: 8,
+        paddingRight: 16,
+        marginVertical: 10,
+    },
+    errorIcon: {
+        color: colors.feedbackBad,
+        height: 38,
+        marginLeft: -16,
     }
 });
