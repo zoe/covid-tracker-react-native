@@ -278,6 +278,7 @@ const styles = StyleSheet.create({
 
     rootContainer: {
         padding: 16,
+        marginTop:16,
     },
 
     checkIcon: {
@@ -438,7 +439,7 @@ const styles = StyleSheet.create({
     lockIcon: {
         color:"#E5E5E5",
         borderWidth: 1,
-        borderRadius:32,
+        borderRadius:22,
         padding: 5,
         borderColor: "#E5E5E5",
         alignSelf:"center",
