@@ -1,4 +1,5 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
+import { PatientStateType } from "../core/patient/PatientState";
 
 export type ScreenParamList = {
     Splash: undefined;
@@ -16,12 +17,18 @@ export type ScreenParamList = {
     ResetPassword: undefined;
     ResetPasswordConfirm: undefined;
     Register: undefined;
+
+    // PII screens
     OptionalInfo: { user: UserResponse };
-    HealthWorkerExposure: { patientId: string };
-    YourStudy: { patientId: string };
-    YourWork: { patientId: string };
-    AboutYou: { patientId: string };
-    YourHealth: { patientId: string, isMale: boolean};
+
+    // Patient screens
+    YourStudy: { currentPatient: PatientStateType };
+    YourWork: { currentPatient: PatientStateType };
+    AboutYou: { currentPatient: PatientStateType };
+    YourHealth: { currentPatient: PatientStateType, isMale: boolean };
+
+    // Assessment screens
+    HealthWorkerExposure: { patientId: string }; // How do people normally get here?
     CovidTest: { patientId: string, assessmentId: string | null};
     HowYouFeel: { assessmentId: string };
     DescribeSymptoms: { assessmentId: string };
@@ -29,6 +36,7 @@ export type ScreenParamList = {
     LevelOfIsolation: { assessmentId: string };
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
+
     ThankYou: undefined;
     ViralThankYou: undefined;
     Login: { terms: string };

@@ -137,7 +137,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     });
 
     handleUpdateHealth(formData: YourHealthData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
+        const patientId = currentPatient.patientId;
 
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
@@ -150,6 +151,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 return response;
             })
             .then(response => {
+                // TODO: Refactor to a "StartAssessment" screen/controller
                 this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
             })
             .catch(err => {
