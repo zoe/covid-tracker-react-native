@@ -107,6 +107,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
             is_carer_for_community: formData.isCarer === 'yes',
         } as PatientInfosRequest;
 
+
         if (formData.isHealthcareStaff !== 'no') {
             infos = {
                 ...infos,
@@ -233,6 +234,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         return (
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
                                 <Form>
+
 
                                     <DropdownField
                                         selectedValue={props.values.isHealthcareStaff}
