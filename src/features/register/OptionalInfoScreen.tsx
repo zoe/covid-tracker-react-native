@@ -13,6 +13,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {PiiRequest} from "../../core/user/dto/UserAPIContracts";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
+import { getInitialPatientState } from "../../core/patient/PatientState";
 
 
 type PropsType = {
@@ -49,13 +50,14 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
 
         const patientId = this.props.route.params.user.patients[0];
+        const currentPatient = getInitialPatientState(patientId);
         const userService = new UserService();
         let consent = await userService.getConsentSigned();
         let nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
-            ? {name: "YourStudy", params: {patientId, currentPatient: {}}}
-            : {name: "YourWork", params: {patientId, currentPatient: {}}};
-        const goToNextScreen = () => {
+            ? {name: "YourStudy", params: {currentPatient}}
+            : {name: "YourWork", params: {currentPatient}};
 
+        const goToNextScreen = () => {
             this.props.navigation.reset({
                 index: 0,
                 routes: [
