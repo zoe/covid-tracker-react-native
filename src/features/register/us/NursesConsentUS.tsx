@@ -109,7 +109,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                     <RegularBoldText>What should I do if I want to stop taking part in the study?{"\n"}</RegularBoldText>
 
                     <RegularText>
-                        If you take part in this research study, and want to drop out, you should tell us. You may withdraw your consent at any time by emailing <ClickableText onPress={() => this.openUrl('mailto://leavecovidtracking-us@joinzoe.com')}>leavecovidtracking-us@joinzoe.com</ClickableText>
+                        If you take part in this research study, and want to drop out, you should tell us. You may withdraw your consent at any time by emailing <ClickableText onPress={() => this.openUrl('mailto:leavecovidtracking-us@joinzoe.com')}>leavecovidtracking-us@joinzoe.com</ClickableText>
                         {"\n"}
                     </RegularText>
 
@@ -128,7 +128,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
                     <RegularBoldText>If I have questions or concerns about this research study, whom can I call?{"\n"}</RegularBoldText>
                     <RegularText>
-                        Zoe Global Ltd. Staff has built the app and is supporting and responsible for it. Any questions may be sent to <ClickableText onPress={() => this.openUrl('mailto://covidtrackingquestions-us@joinzoe.com')}>covidtrackingquestions-us@joinzoe.com</ClickableText>
+                        Zoe Global Ltd. Staff has built the app and is supporting and responsible for it. Any questions may be sent to <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions-us@joinzoe.com')}>covidtrackingquestions-us@joinzoe.com</ClickableText>
                         {"\n"}{"\n"}
                         You may also contact local U.S. based study staff at predict@mgh.harvard.edu.
                         {"\n"}{"\n"}
@@ -183,7 +183,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                         You have the right not to sign this form that allows us to use and share your health information for research; however, if you don’t sign it, you cannot take part in this research study.
                         {"\n"}{"\n"}
                         You have the right to withdraw your permission for us to use or share your health information for this research study. If you want to withdraw your permission, you must notify us in writing by emailing <ClickableText
-                        onPress={() => this.openUrl('mailto://leavecovidtracking-us@joinzoe.com')}>leavecovidtracking-us@joinzoe.com</ClickableText>
+                        onPress={() => this.openUrl('mailto:leavecovidtracking-us@joinzoe.com')}>leavecovidtracking-us@joinzoe.com</ClickableText>
                         {"\n"}{"\n"}
                         Once permission is withdrawn, you cannot continue to take part in the study.
                         {"\n"}{"\n"}

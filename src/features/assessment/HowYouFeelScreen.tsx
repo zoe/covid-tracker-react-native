@@ -14,6 +14,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
+import {getThankYouScreen} from "../Navigation";
 
 
 type HowYouFeelProps = {
@@ -42,7 +43,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 
     handleFeelNormal() {
         this.updateAssessment('healthy')
-            .then(response => this.props.navigation.navigate('ThankYou'))
+            .then(response => this.props.navigation.navigate(getThankYouScreen()))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 

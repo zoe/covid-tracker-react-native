@@ -14,6 +14,7 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
+import {getThankYouScreen} from "../Navigation";
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -45,7 +46,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     handleUpdateTreatment(formData: TreatmentData) {
 
         const {currentPatient, assessmentId, location} = this.props.route.params;
-        const goToNextScreen = () => this.props.navigation.navigate('ThankYou');
+        const goToNextScreen = () => this.props.navigation.navigate(getThankYouScreen());
 
         if (!formData.description) {
             goToNextScreen();

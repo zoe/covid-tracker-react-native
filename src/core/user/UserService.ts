@@ -1,5 +1,6 @@
 import { ApiClientBase } from "./ApiClientBase";
 import {
+    AreaStatsResponse,
     AssessmentInfosRequest,
     AssessmentResponse,
     Consent,
@@ -282,13 +283,17 @@ export default class UserService extends ApiClientBase {
     }
 
     async deleteRemoteUserData() {
-        const profile = await AsyncStorageService.getProfile()
+        const profile = await AsyncStorageService.getProfile();
         const payload = {
             username: profile?.username,
         };
         return this.client.delete(`/users/delete/`, {
             data: payload
         });
+    }
+
+    public async getAreaStats(patientId: string) {
+        return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
     }
 }
 
