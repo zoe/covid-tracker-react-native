@@ -277,7 +277,6 @@ export default class UserService extends ApiClientBase {
     }
 
     public async getAreaStats(patientId: string) {
-        // todo: check that backend restrict to only patientId you own...
         return this.client.get<AreaStatsResponse>(`/area_stats?patientId=${patientId}`);
     }
 }
