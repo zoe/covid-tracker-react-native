@@ -118,7 +118,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
         const modal = (
             <Modal animationType="slide" visible={this.state.modalVisible}>
-                <SafeAreaView style={styles.modalContainer}>
+                <View style={styles.modalContainer}>
                     <TouchableOpacity style={styles.modalCloseIconContainer} onPress={() => this.setState({modalVisible: false})}>
                         <MaterialIcons name="close" size={32} style={styles.modalCloseIcon}/>
                     </TouchableOpacity>
@@ -154,7 +154,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                             <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>blog</ClickableText>
                         </RegularText>
                     </ScrollView>
-                </SafeAreaView>
+                </View>
             </Modal>);
 
         const peopleWithSymptoms = (
@@ -527,10 +527,11 @@ const styles = StyleSheet.create({
     modalContainer: {
         flex:1,
         padding:16,
+        marginTop:32,
     },
 
     modalText: {
-        marginTop:64,
+        marginTop:48,
     },
 
     modalTitle: {
