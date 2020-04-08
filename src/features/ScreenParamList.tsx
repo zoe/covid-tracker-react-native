@@ -29,6 +29,12 @@ export type ScreenParamList = {
     LevelOfIsolation: { assessmentId: string };
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
+    AdultConsent: undefined
+    AdultOrChild: undefined;
+    ChildConsent: undefined;
+    CreateProfile: undefined;
+    ReportForOther: undefined;
+    SelectProfile: undefined;
     ThankYou: undefined;
     ViralThankYou: undefined;
     Login: { terms: string };

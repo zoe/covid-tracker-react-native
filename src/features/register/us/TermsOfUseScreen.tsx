@@ -8,6 +8,8 @@ import {ScreenParamList} from "../../ScreenParamList";
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Terms'>
 }
+
+// TODO - Delete this....
 interface TermsState {
     processingChecked: boolean,
     termsOfUseChecked: boolean
