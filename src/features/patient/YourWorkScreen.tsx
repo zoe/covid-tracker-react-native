@@ -15,7 +15,6 @@ import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
 import {ValidationErrors} from "../../components/ValidationError";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
 
 
 const initialFormValues = {
@@ -96,7 +95,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                     (infos.healthcare_professional === "yes_does_treat")
                     || infos.is_carer_for_community
                 );
-                AsyncStorageService.setIsHealthWorker(isHealthcareWorker);    // TODO: remove when currentPatient persisted
                 currentPatient.isHealthWorker = isHealthcareWorker;
                 this.props.navigation.navigate('AboutYou', {currentPatient})
             })

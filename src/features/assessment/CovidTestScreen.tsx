@@ -20,7 +20,6 @@ import UserService from "../../core/user/UserService";
 import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import { ValidationErrors } from "../../components/ValidationError";
-import { AsyncStorageService } from "../../core/AsyncStorageService";
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -69,10 +68,8 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     });
 
     async componentDidMount() {
-        const hasBloodPressureAnswer = await AsyncStorageService.hasBloodPressureAnswer();
-        if (!hasBloodPressureAnswer) {
-            this.setState({needBloodPressureAnswer: true});
-        }
+        const currentPatient = this.props.route.params.currentPatient
+        this.setState({needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer});
     }
 
     handleUpdateHealth(formData: CovidTestData) {
@@ -98,7 +95,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
             userService.updatePatient(patientId, {
                 takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes'
             })
-            .then(response => AsyncStorageService.setHasBloodPressureAnswer(true))
+            .then(response => currentPatient.hasBloodPressureAnswer = true)
             .catch(err => {
                 this.setState({errorMessage: i18n.t("something-went-wrong")});
             });

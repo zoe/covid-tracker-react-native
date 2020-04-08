@@ -14,7 +14,6 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
@@ -143,16 +142,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
-            .then(async response => {
-                // Head off race condition where next page expects these details to have been set.
-                await AsyncStorageService.setPatientDetailsComplete(true);  // TODO: remove when currentPatient persists
-                await AsyncStorageService.setHasBloodPressureAnswer(true);  // TODO: remove when currentPatient persists
-
+            .then(response => {
                 currentPatient.hasCompletePatientDetails = true;
                 currentPatient.hasBloodPressureAnswer = true;
-                return response;
-            })
-            .then(response => {
+
                 // TODO: Refactor to a "StartAssessment" screen/controller
                 this.props.navigation.navigate('CovidTest', {currentPatient, assessmentId: null})
             })

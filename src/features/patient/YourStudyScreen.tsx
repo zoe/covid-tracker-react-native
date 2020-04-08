@@ -14,7 +14,6 @@ import { RouteProp } from "@react-navigation/native";
 import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
 import { CheckboxItem, CheckboxList } from "../../components/Checkbox";
 import { ValidationErrors } from "../../components/ValidationError";
-import { AsyncStorageService } from "../../core/AsyncStorageService";
 import DropdownField from "../../components/DropdownField";
 import { GenericTextField } from "../../components/GenericTextField";
 
