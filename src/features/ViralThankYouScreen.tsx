@@ -191,7 +191,9 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                                 <Text style={styles.estimatedCasesCount}>{this.formatNumber(area?.predicted_cases)}</Text>
                             </View>
                             <View style={styles.estimatedCaseSecondRow}>
-                                <Text style={styles.estimatedCasesPercentage}>{casePercentage}%</Text>
+                                <View style={styles.estimatedCasesPercentage}>
+                                    <Text style={styles.estimatedCasesPercentageText}>{casePercentage}%</Text>
+                                </View>
                                 <Text style={styles.estimatedCasesPopulation}>of {this.formatNumber(area?.population)} residents</Text>
                             </View>
                             <View style={styles.divider}/>
@@ -347,15 +349,18 @@ const styles = StyleSheet.create({
     },
 
     estimatedCasesPercentage: {
-        fontSize:14,
-        lineHeight:20,
-        color: "white",
         backgroundColor: "#D28C90",
-        textAlign: "center",
-        textAlignVertical:"center",
         width:48,
         height:28,
         borderRadius:5,
+        justifyContent: "center",
+    },
+
+    estimatedCasesPercentageText: {
+        fontSize:14,
+        lineHeight:20,
+        color: "white",
+        alignSelf: "center",
     },
 
     estimatedCasesPopulation: {
