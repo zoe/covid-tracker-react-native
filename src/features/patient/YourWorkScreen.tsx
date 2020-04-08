@@ -92,9 +92,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
         userService.updatePatient(patientId, infos)
             .then(response => {
-                AsyncStorageService.setIsHealthWorker(
+                const isHealthcareWorker = (
                     (infos.healthcare_professional === "yes_does_treat")
-                    || infos.is_carer_for_community);
+                    || infos.is_carer_for_community
+                );
+                AsyncStorageService.setIsHealthWorker(isHealthcareWorker);    // TODO: remove when currentPatient persisted
+                currentPatient.isHealthWorker = isHealthcareWorker;
                 this.props.navigation.navigate('AboutYou', {currentPatient})
             })
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));

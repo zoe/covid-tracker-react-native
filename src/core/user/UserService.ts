@@ -192,7 +192,7 @@ export default class UserService extends ApiClientBase {
         if (patientProfileResponse.data.profile_attributes_updated_at == null) {
             return false
         } else {
-            await AsyncStorageService.setIsHealthWorker(
+            await AsyncStorageService.setIsHealthWorker(    // TODO: remove when currentPatient is persisted
                 (patientProfileResponse.data.healthcare_professional === "yes_does_treat")
                 || patientProfileResponse.data.is_carer_for_community);
             await AsyncStorageService.setPatientDetailsComplete(true);

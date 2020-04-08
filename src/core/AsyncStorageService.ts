@@ -46,7 +46,7 @@ export class AsyncStorageService {
         }
     }
 
-    static async setIsHealthWorker(isHealthWorker: boolean) {
+    static async setIsHealthWorker(isHealthWorker: boolean) {   // TODO: Remove when currentPatient persisted
         try {
             await AsyncStorage.setItem('isHealthWorker', JSON.stringify(isHealthWorker));
         } catch (err) {
@@ -55,7 +55,7 @@ export class AsyncStorageService {
         }
     }
 
-    static async getIsHealthWorker() {
+    static async getIsHealthWorker() {     // TODO: Remove when currentPatient persisted
         let healthWorker: string | null = null;
         try {
             healthWorker = await AsyncStorage.getItem('isHealthWorker');
