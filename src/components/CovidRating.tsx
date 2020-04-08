@@ -53,7 +53,7 @@ export class CovidRating extends Component<PropsType, State> {
                 ).catch(err => alert('Please rate us on the App Store!'));
             }
             this.setState({isModalOpen: false});
-        }, 2500);
+        }, 2000);
     };
 
     rate = (e: any) => {
