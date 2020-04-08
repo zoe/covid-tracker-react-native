@@ -277,7 +277,7 @@ export default class UserService extends ApiClientBase {
     }
 
     public async getAreaStats(patientId: string) {
-        return this.client.get<AreaStatsResponse>(`/area_stats?patient=${patientId}`);
+        return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
     }
 }
 
