@@ -16,6 +16,7 @@ export const ukFlagSmall = require('./icons/uk-flag-small.png');
 export const usLogos = require('./icons/us_logos.png');
 
 // Profiles
+export const addProfile = require('./profiles/add_profile.png');
 export const profile1 = require('./profiles/profile1.png');
 export const profile2 = require('./profiles/profile2.png');
 export const profile3 = require('./profiles/profile3.png');
@@ -26,5 +27,4 @@ export const profile7 = require('./profiles/profile7.png');
 export const profile8 = require('./profiles/profile8.png');
 export const profile9 = require('./profiles/profile9.png');
 export const profile10 = require('./profiles/profile10.png');
-
 export const profilesIcon = require('./profiles/profiles.png');

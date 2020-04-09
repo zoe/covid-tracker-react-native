@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Header} from "../../components/Screen";
 import {ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {colors} from "../../../theme"
@@ -8,7 +8,7 @@ import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
 import moment from "moment";
-import {profile1} from "../../../assets";
+import {profile1, addProfile} from "../../../assets";
 import {Card} from "native-base";
 
 type RenderProps = {
@@ -80,19 +80,20 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                       <View style={styles.cardContainer}>
                                         <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
                                             <Card style={styles.card}>
+                                                <Image source={profile1} style={styles.avatar} resizeMode={'contain'} />
                                                 <RegularText>{patient.name}</RegularText>
                                                 {
-                                                    <RegularText>{patient.last_reported_at ? moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
+                                                    <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
                                                 }
                                             </Card>
                                         </TouchableOpacity>
                                       </View>
-
                                     )
                                 }
 
                                 <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.props.navigation.navigate('CreateProfile')}>
                                     <Card style={styles.card}>
+                                        <Image source={addProfile} style={styles.addImage} resizeMode={'contain'} />
                                         <RegularText>New profile</RegularText>
                                     </Card>
                                 </TouchableOpacity>
@@ -121,6 +122,18 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: "45%",
         margin: 5,
+    },
+
+    avatar: {
+        width: "80%",
+        height: 100,
+        marginBottom: 10
+    },
+
+    addImage: {
+        width: "80%",
+        height: 100,
+        marginBottom: 10
     },
 
     card: {
