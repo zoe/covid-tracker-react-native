@@ -25,7 +25,7 @@ export class SplashScreen extends Component<Props, {}> {
     }
 
     private getWelcomeRepeatScreenName() {
-        return "SelectProfile";
+            return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
     }
 
     private bootstrapAsync = async () => {

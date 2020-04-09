@@ -1,18 +1,15 @@
 import React, {Component} from "react";
-import {Image, SafeAreaView, ScrollView, Share, StyleSheet, View} from "react-native";
-import {Header, isAndroid, ProgressBlock} from "../../components/Screen";
-import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../../components/Text";
-import ProgressStatus from "../../components/ProgressStatus";
-import {colors, fontStyles} from "../../../theme"
-import {ScreenParamList} from "./../ScreenParamList";
+import {SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Header} from "../../components/Screen";
+import {ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {colors} from "../../../theme"
+import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {covidIcon, profilesIcon} from "../../../assets";
-import i18n from "../../locale/i18n"
-import {Linking} from "expo";
-import {Form, Text} from "native-base";
 import UserService from "../../core/user/UserService";
 import moment from "moment";
+import {profile1} from "../../../assets";
+import {Card} from "native-base";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -54,6 +51,15 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
+    getNextReportScreen() {
+        // TODO - Wire up to proper logic
+        return 'CovidTest'
+    }
+
+    getAvatar(patient: Patient) {
+        // TODO - Return the proper asset
+        return profile1;
+    }
 
     render() {
         return (
@@ -66,31 +72,26 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                 <RegularText>Or add more profiles</RegularText>
                             </Header>
 
+                            <ErrorText>{this.state.errorMessage}</ErrorText>
+
                             {
                                 this.state.patients.map((patient, i) =>
-                                    <View key={i}>
-                                        <RegularText>{patient.name}</RegularText>
-                                        <RegularText>{patient.avatar_name}</RegularText>
-                                        {
-                                            patient.avatar_name &&
-                                                <Image source={require(`./../../../assets/profiles/profile1.png`)}></Image>
-                                        }
-                                        {
-                                            <RegularText>{patient.last_reported_at ? moment(patient.last_reported_at).fromNow() : ""}</RegularText>
-                                        }
-                                    </View>
+                                    <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
+                                        <Card style={styles.cardContainer}>
+                                            <RegularText>{patient.name}</RegularText>
+                                            {
+                                                <RegularText>{patient.last_reported_at ? moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
+                                            }
+                                        </Card>
+                                    </TouchableOpacity>
                                 )
                             }
 
-
-
-                            <BrandedButton onPress={() => this.props.navigation.navigate('CovidTest')}>
-                                <Text style={[fontStyles.bodyLight, styles.buttonText]}>Me</Text>
-                            </BrandedButton>
-
-                            <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile')}>
-                                <Text style={[fontStyles.bodyLight, styles.buttonText]}>New profile</Text>
-                            </BrandedButton>
+                            <TouchableOpacity key={'new'} onPress={() => this.props.navigation.navigate('CreateProfile')}>
+                                <Card style={styles.cardContainer}>
+                                    <RegularText>New profile</RegularText>
+                                </Card>
+                            </TouchableOpacity>
 
                         </View>
 
@@ -102,6 +103,10 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 }
 
 const styles = StyleSheet.create({
+    cardContainer: {
+        padding: 20
+    },
+
     view: {
         backgroundColor: colors.backgroundSecondary,
     },
@@ -116,10 +121,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginVertical: 32,
         marginHorizontal: 18,
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 
     rootContainer: {

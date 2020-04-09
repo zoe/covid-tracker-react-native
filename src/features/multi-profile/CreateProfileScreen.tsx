@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Platform, StyleSheet, View} from "react-native";
 import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
-import {BrandedButton, ClickableText, HeaderText, RegularText} from "../../components/Text";
+import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {Body, CheckBox, Form, Item, Label, ListItem, Text, Textarea} from "native-base";
 
 
@@ -50,7 +50,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                     <RegularText>This name is just for you. Choose a name that would allow you to know which person you are reporting for</RegularText>
                 </Header>
 
-                 <Formik
+                <Formik
                     initialValues={initialFormValues}
                     validationSchema={this.registerSchema}
                     onSubmit={(values: FormData) => {
@@ -62,10 +62,10 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                             <Form>
 
                                 <GenericTextField
-                                                formikProps={props}
-                                                name="name"
-                                                placeholder={'e.g. name, nickname or relation'}
-                                            />
+                                    formikProps={props}
+                                    name="name"
+                                    placeholder={'e.g. name, nickname or relation'}
+                                />
 
                                 <BrandedButton onPress={props.handleSubmit}>
                                     Continue
@@ -83,9 +83,5 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 
 
 const styles = StyleSheet.create({
-
-    buttonText: {
-        color: colors.white,
-    },
 
 });
