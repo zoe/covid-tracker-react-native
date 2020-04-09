@@ -74,24 +74,30 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
                             <ErrorText>{this.state.errorMessage}</ErrorText>
 
-                            {
-                                this.state.patients.map((patient, i) =>
-                                    <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
-                                        <Card style={styles.cardContainer}>
-                                            <RegularText>{patient.name}</RegularText>
-                                            {
-                                                <RegularText>{patient.last_reported_at ? moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
-                                            }
-                                        </Card>
-                                    </TouchableOpacity>
-                                )
-                            }
+                            <View style={styles.profileList}>
+                                {
+                                    this.state.patients.map((patient, i) =>
+                                      <View style={styles.cardContainer}>
+                                        <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
+                                            <Card style={styles.card}>
+                                                <RegularText>{patient.name}</RegularText>
+                                                {
+                                                    <RegularText>{patient.last_reported_at ? moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
+                                                }
+                                            </Card>
+                                        </TouchableOpacity>
+                                      </View>
 
-                            <TouchableOpacity key={'new'} onPress={() => this.props.navigation.navigate('CreateProfile')}>
-                                <Card style={styles.cardContainer}>
-                                    <RegularText>New profile</RegularText>
-                                </Card>
-                            </TouchableOpacity>
+                                    )
+                                }
+
+                                <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.props.navigation.navigate('CreateProfile')}>
+                                    <Card style={styles.card}>
+                                        <RegularText>New profile</RegularText>
+                                    </Card>
+                                </TouchableOpacity>
+                            </View>
+
 
                         </View>
 
@@ -103,8 +109,26 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 }
 
 const styles = StyleSheet.create({
+    profileList: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        width: "100%",
+        alignContent: "stretch"
+    },
+
     cardContainer: {
-        padding: 20
+        width: "45%",
+        margin: 5,
+    },
+
+    card: {
+        width: "100%",
+        borderRadius: 16,
+        minHeight: 200,
+        padding: 20,
+        alignItems: "center"
     },
 
     view: {
