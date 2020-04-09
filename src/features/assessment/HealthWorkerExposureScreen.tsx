@@ -115,6 +115,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
 
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         const patientInteractionOptions = [
             {label: "Yes, documented COVID-19 cases only", value: 'yes_documented'},
             {label: "Yes, suspected COVID-19 cases only", value: 'yes_suspected'},
@@ -152,7 +153,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         }
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>{i18n.t("title-health-worker-exposure")}</HeaderText>
                 </Header>

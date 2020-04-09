@@ -45,8 +45,9 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>How much have you been isolating over the last week?</HeaderText>
                 </Header>

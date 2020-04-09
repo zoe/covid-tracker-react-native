@@ -176,6 +176,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
+
         const healthcareStaffOptions = [
             {label: 'No', value: 'no'},
             {label: i18n.t("yes-treating-patients"), value: 'yes_does_treat'},
@@ -218,7 +220,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         }
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>{i18n.t("title-about-work")}</HeaderText>
                 </Header>

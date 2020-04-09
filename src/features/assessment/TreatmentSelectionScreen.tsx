@@ -44,13 +44,13 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
     }
 
     render() {
-
+        const currentPatient = this.props.route.params.currentPatient;
         const title = this.props.route.params.location == 'back_from_hospital' ?
             "What treatment did you receive while in the hospital?"
             : "What treatment are you receiving right now?";
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>{title}</HeaderText>
                 </Header>
