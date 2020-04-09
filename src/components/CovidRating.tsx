@@ -1,23 +1,22 @@
 import React, { Component } from "react";
 import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from "react-native";
-import { AirbnbRating } from 'react-native-ratings';
-import { View } from "native-base";
+import { Toast, View } from "native-base";
 import { colors } from "../../theme";
 import { RegularBoldText, RegularText } from "./Text";
-import UserService, { isGBLocale, isUSLocale } from "../core/user/UserService";
+import UserService, { isGBLocale } from "../core/user/UserService";
 
 type PropsType = {}
 
 type State = {
     isModalOpen: boolean,
     showTakeToStore: boolean,
-    rating: number | null,
 }
 
 const storeLinks = 'com.joinzoe.covid_zoe';
 const USiOSLink = `itms://itunes.apple.com/us/app/apple-store/${storeLinks}`;
 const UKiOSLink = `itms://itunes.apple.com/gb/app/apple-store/${storeLinks}`;
 const AndroidLink = `market://details?id=${storeLinks}`;
+
 const ModalContainer = (props: any) => (
     <Modal transparent={true}>
         <View style={styles.centeredView}>
@@ -32,36 +31,37 @@ export class CovidRating extends Component<PropsType, State> {
     state = {
         isModalOpen: true,
         showTakeToStore: false,
-        rating: 0
     };
     private userService = new UserService();
 
-    setRating = (rating: number) => this.setState({rating});
-
-    decline = (e: any) => {
+    decline = () => {
         this.userService.setAskedToRateStatus('asked');
         this.setState({isModalOpen: false})
     };
 
-    takeToStore = () => {
-        setTimeout(() => {
-            if (Platform.OS != 'ios') {
-                Linking.openURL(AndroidLink).catch(err => {});
-            } else {
-                Linking.openURL(isGBLocale() ? UKiOSLink : USiOSLink).catch(err => {});
-            }
-            this.setState({isModalOpen: false});
-        }, 2000);
+    declineFeedback = () => {
+        this.decline();
+        Toast.show({
+            text: `Thank you for your feedback.\nWe're working hard to improve things`,
+            duration: 3000,
+            position: 'top',
+            textStyle: {textAlign: 'center', lineHeight: 25},
+            // style: {paddingVertical: 40}
+        });
     };
 
-    rate = (e: any) => {
+    takeToStore = () => {
         this.userService.setAskedToRateStatus('asked');
-        if (this.state.rating >= 4) {
-            this.setState({showTakeToStore: true});
-            this.takeToStore();
+        if (Platform.OS != 'ios') {
+            Linking.openURL(AndroidLink).catch(err => {});
         } else {
-            this.setState({isModalOpen: false});
+            Linking.openURL(isGBLocale() ? UKiOSLink : USiOSLink).catch(err => {});
         }
+        this.setState({isModalOpen: false});
+    };
+
+    askToRate = (e: any) => {
+        this.setState({showTakeToStore: true});
     };
 
     renderHeader = (headerText: string, subText: string) => (
@@ -71,38 +71,32 @@ export class CovidRating extends Component<PropsType, State> {
         </>
     );
 
-    renderActionButtons = (rateLabel: string, rateAction: any) => (
+    renderActionButtons = (yesLabel: string, yesAction: any, noLabel: string, noAction: any) => (
         <View style={styles.actionContainer}>
-            <TouchableOpacity style={styles.ratingButton} onPress={this.decline}>
-                <RegularText style={styles.buttonText}>No thanks</RegularText>
+            <TouchableOpacity style={styles.ratingButton} onPress={noAction}>
+                <RegularText style={styles.buttonText}>{noLabel}</RegularText>
             </TouchableOpacity>
             <View style={styles.verticalDivider}/>
-            <TouchableOpacity style={styles.ratingButton} onPress={rateAction}>
-                <RegularText style={styles.buttonText}>{rateLabel}</RegularText>
+            <TouchableOpacity style={styles.ratingButton} onPress={yesAction}>
+                <RegularText style={styles.buttonText}>{yesLabel}</RegularText>
             </TouchableOpacity>
         </View>
     );
-
+//
 
     render() {
-        const store_name = Platform.OS === 'ios' ? 'App Store' : 'Google Play store';
         return (
             this.state.isModalOpen && (
                 <ModalContainer>
                     {this.state.showTakeToStore ?
                         <>
-                            {this.renderHeader('Please rate this app', `We will now redirect you to the ${store_name}`)}
+                            {this.renderHeader('Please rate this app', 'Your feedback can help more people join the fight against COVID-19')}
+                            {this.renderActionButtons('Rate', this.takeToStore, 'Not now', this.decline)}
                         </>
                         : (
                             <>
-                                {this.renderHeader('Please rate this app', 'Your feedback can help more people join the fight against COVID-19')}
-                                <AirbnbRating
-                                    showRating={false}
-                                    onFinishRating={this.setRating}
-                                    size={35}
-                                    defaultRating={0}
-                                />
-                                {this.renderActionButtons('Rate', this.rate)}
+                                {this.renderHeader('How are we doing?', 'Would you recommend this app to a friend or colleague?')}
+                                {this.renderActionButtons('Yes, I would', this.askToRate, `No, I wouldn't`, this.declineFeedback)}
                             </>
                         )}
                 </ModalContainer>
@@ -120,8 +114,7 @@ const styles = StyleSheet.create({
         backgroundColor: actionButtonBorder,
     },
     ratingText: {
-        // color: colors.white,
-        paddingBottom: 20,
+        paddingBottom: 30,
         marginHorizontal: 60,
         fontSize: 14,
         textAlign: "center",
@@ -132,7 +125,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     actionContainer: {
-        marginTop: 30,
         flexDirection: "row",
         justifyContent: "center",
         borderTopWidth: 1,
