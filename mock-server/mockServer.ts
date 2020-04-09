@@ -166,4 +166,19 @@ app.get("/users/covid_count", (req, res) => {
   return res.status(200).send('2000000');
 });
 
+app.get("/area_stats", (req, res) => {
+
+  return res.status(200).send({
+    "locked": false,
+    "rank": 768,
+    "number_of_areas": 1000,
+    "rank_delta": 24,
+    "area_name": "Suffolk County",
+    "number_of_missing_contributors": 100,
+    "predicted_cases": 698,
+    "population": 42000,
+  });
+});
+
+
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

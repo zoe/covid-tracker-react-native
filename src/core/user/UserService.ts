@@ -1,5 +1,6 @@
 import { ApiClientBase } from "./ApiClientBase";
 import {
+    AreaStatsResponse,
     AssessmentInfosRequest,
     AssessmentResponse,
     Consent,
@@ -126,7 +127,7 @@ export default class UserService extends ApiClientBase {
         infos = {
             ...infos,
             version: this.getPatientVersion()
-        }
+        };
         return this.client.patch(`/patients/${patientId}/`, infos);
     }
 
@@ -161,7 +162,7 @@ export default class UserService extends ApiClientBase {
         assessment = {
             ...assessment,
             version: this.getAssessmentVersion()
-        }
+        };
         return this.client.post<AssessmentResponse>(`/assessments/`, assessment);
     }
 
@@ -259,20 +260,24 @@ export default class UserService extends ApiClientBase {
     async deleteLocalUserData() {
         ApiClientBase.unsetToken();
         await AsyncStorageService.clearData();
-        await AsyncStorageService.setIsHealthWorker(false);
+        await AsyncStorageService.setIsHealthWorker(null);
         await AsyncStorageService.saveProfile(null);
-        await AsyncStorageService.setPatientDetailsComplete(false);
+        await AsyncStorageService.setPatientDetailsComplete(null);
         this.setConsentSigned("","","");
     }
 
     async deleteRemoteUserData() {
-        const profile = await AsyncStorageService.getProfile()
+        const profile = await AsyncStorageService.getProfile();
         const payload = {
             username: profile?.username,
         };
         return this.client.delete(`/users/delete/`, {
             data: payload
         });
+    }
+
+    public async getAreaStats(patientId: string) {
+        return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
     }
 }
 

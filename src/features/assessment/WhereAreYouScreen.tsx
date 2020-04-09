@@ -12,6 +12,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
+import {getThankYouScreen} from "../Navigation";
 
 
 type LocationProps = {
@@ -56,7 +57,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
     handleStillAtHome() {
         this.updateAssessment('back_from_hospital')
-            .then(response => this.props.navigation.navigate('ThankYou'))
+            .then(response => this.props.navigation.navigate(getThankYouScreen()))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
@@ -132,5 +133,4 @@ const styles = StyleSheet.create({
     buttonText: {
         color: colors.primary,
     },
-
 });
