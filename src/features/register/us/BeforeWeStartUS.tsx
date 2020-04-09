@@ -38,13 +38,13 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
 
                 <Form style={styles.form}>
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS')}>
+                        <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS', {viewOnly: false})}>
                             <Text style={[fontStyles.bodyLight, styles.buttonText]}>Yes, I am</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('Terms')}>
+                        <BigButton onPress={() => this.props.navigation.navigate('Terms', {viewOnly: false})}>
                             <Text style={[fontStyles.bodyLight, styles.buttonText]}>No, I am not</Text>
                         </BigButton>
                     </FieldWrapper>

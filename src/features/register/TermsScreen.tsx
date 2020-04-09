@@ -7,10 +7,12 @@ import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {ScreenParamList} from "../ScreenParamList";
 import {consentVersionUK, consentVersionUS, privacyPolicyVersionUK, privacyPolicyVersionUS} from "./constants";
+import {RouteProp} from "@react-navigation/native";
 
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Terms'>
+    route: RouteProp<ScreenParamList, 'Terms'>;
 }
 
 interface TermsState {
@@ -29,14 +31,15 @@ export class TermsScreen extends Component<PropsType, TermsState> {
         }
     }
 
+    viewOnly = this.props.route.params.viewOnly;
+
     handleProcessingChange = () => {
         this.setState({processingChecked: !this.state.processingChecked})
-
-    }
+    };
 
     handleTermsOfUseChange = () => {
         this.setState({termsOfUseChecked: !this.state.termsOfUseChecked})
-    }
+    };
 
     handleUSAgreeClicked = async () => {
         if (this.state.processingChecked && this.state.termsOfUseChecked) {
@@ -52,15 +55,14 @@ export class TermsScreen extends Component<PropsType, TermsState> {
 
 
     render() {
-        // get us or UK
-
+        // Get US or UK
         return (
-            isUSLocale() ? (
+            !isUSLocale() ? (
                 <View style={styles.rootContainer}>
                     <ScrollView>
                         <RegularText>
                             If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study, <ClickableText
-                            onPress={() => this.props.navigation.navigate('NursesConsentUS')}>click here</ClickableText>
+                            onPress={() => this.props.navigation.navigate('NursesConsentUS', {viewOnly: this.viewOnly})}>click here</ClickableText>
                             {"\n"}
                         </RegularText>
 
@@ -90,49 +92,57 @@ export class TermsScreen extends Component<PropsType, TermsState> {
                             By checking the box below, you consent to our using the personal information we collect through your use of this app in the way we have described.
                             {"\n\n"}
                             For more information about how we use and share personal information about you, please see our {" "}
-                            <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>privacy policy</ClickableText>.{"\n\n"}
+                            <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>privacy policy</ClickableText>.{"\n\n"}
                             You may withdraw your consent at any time by emailing <RegularBoldText>leavecovidtracking-us@joinzoe.com</RegularBoldText>
                             {"\n\n"}
                             Any questions may be sent to <RegularBoldText>covidtrackingquestions-us@joinzoe.com</RegularBoldText>
                         </RegularText>
 
-
-                        <ListItem style={styles.permission}>
-                            <CheckBox
-                                checked={this.state.processingChecked}
-                                onPress={this.handleProcessingChange}
-                            />
-                            <Body style={styles.label}>
-                                <RegularText>
-                                    I consent to the processing of my personal data (including without limitation data I provide relating to my health)
-                                    as set forth in this consent and in the{" "}
-                                    <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>Privacy Policy</ClickableText>
-                                    .
-                                </RegularText>
-                            </Body>
-                        </ListItem>
-                        <ListItem>
-                            <CheckBox
-                                checked={this.state.termsOfUseChecked}
-                                onPress={this.handleTermsOfUseChange}
-                            />
-                            <Body style={styles.label}>
-                                <RegularText>
-                                    I have read and accept Zoe Global’s {" "}
-                                    <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUse')}>Terms of Use</ClickableText>{" "}
-                                    and{" "}
-                                    <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>Privacy Policy</ClickableText>.
-                                </RegularText>
-                            </Body>
-                        </ListItem>
+                        {
+                            !this.viewOnly && (
+                                <View>
+                                    <ListItem style={styles.permission}>
+                                        <CheckBox
+                                            checked={this.state.processingChecked}
+                                            onPress={this.handleProcessingChange}
+                                        />
+                                        <Body style={styles.label}>
+                                            <RegularText>
+                                                I consent to the processing of my personal data (including without limitation data I provide relating to my health)
+                                                as set forth in this consent and in the{" "}
+                                                <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy Policy</ClickableText>
+                                                .
+                                            </RegularText>
+                                        </Body>
+                                    </ListItem>
+                                    <ListItem>
+                                        <CheckBox
+                                            checked={this.state.termsOfUseChecked}
+                                            onPress={this.handleTermsOfUseChange}
+                                        />
+                                        <Body style={styles.label}>
+                                            <RegularText>
+                                                I have read and accept Zoe Global’s {" "}
+                                                <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUse', {viewOnly: this.viewOnly})}>Terms of Use</ClickableText>{" "}
+                                                and{" "}
+                                                <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy Policy</ClickableText>.
+                                            </RegularText>
+                                        </Body>
+                                    </ListItem>
+                                </View>
+                            )
+                        }
 
                     </ScrollView>
 
-                    <BrandedButton style={styles.button}
-                                   enable={this.state.processingChecked && this.state.termsOfUseChecked}
-                                   hideLoading={true}
-                                   onPress={this.handleUSAgreeClicked}>I Agree</BrandedButton>
-
+                    {
+                        !this.viewOnly &&
+                        <BrandedButton
+                          style={styles.button}
+                          enable={this.state.processingChecked && this.state.termsOfUseChecked}
+                          hideLoading={true}
+                          onPress={this.handleUSAgreeClicked}>I Agree</BrandedButton>
+                    }
                 </View>
             ) : (
                 <View style={styles.rootContainer}>
@@ -150,8 +160,8 @@ export class TermsScreen extends Component<PropsType, TermsState> {
                         <RegularText>
                             This app is designed by doctors and scientists at Kings’ College London, Guys and St Thomas’ Hospitals and Zoe Global Limited, a health technology company.
                             They have access to the information you enter, which may also be shared with the NHS and other medical researchers as outlined in our
-                            {" "}<ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUK')}>privacy notice</ClickableText>.{"\n\n"}
-                            {"\n\n"}
+                            {" "}<ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: this.viewOnly})}>privacy notice</ClickableText>.{"\n\n"}
+                            {"\n"}
                             No information you share will be used for commercial purposes. An anonymous code will be used to replace your personal details when sharing information with other researchers.
                         </RegularText>
 
@@ -168,7 +178,7 @@ export class TermsScreen extends Component<PropsType, TermsState> {
                             your personal information on this basis.
                             {"\n\n"}
                             We adhere to the General Data Protection Regulation ‘GDPR’. For more information about how we use and share personal information about you, please see our
-                            {" "}<ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUK')}>privacy notice</ClickableText>.{"\n\n"}
+                            {" "}<ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: this.viewOnly})}>privacy notice</ClickableText>.{"\n\n"}
                             You may withdraw your consent at any time by emailing <RegularBoldText>leavecovidtracking@joinzoe.com</RegularBoldText>
                             {"\n\n"}
                             Any questions may be sent to <RegularBoldText>covidtrackingquestions@joinzoe.com</RegularBoldText>
@@ -176,7 +186,10 @@ export class TermsScreen extends Component<PropsType, TermsState> {
 
                     </ScrollView>
 
-                    <BrandedButton style={styles.button} onPress={this.handleUKAgreeClicked}>I Agree</BrandedButton>
+                    {
+                        !this.viewOnly &&
+                        <BrandedButton style={styles.button} onPress={this.handleUKAgreeClicked}>I Agree</BrandedButton>
+                    }
 
                 </View>
             )

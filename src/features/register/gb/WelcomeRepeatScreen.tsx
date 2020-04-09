@@ -102,7 +102,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                         <RegularText style={styles.privacyPolicyText}>
                             <ClickableText
                                 style={styles.privacyPolicyClickText}
-                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK')}
+                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: true})}
                             >Privacy policy</ClickableText> (incl. how to delete your data)
                         </RegularText>
                     </View>

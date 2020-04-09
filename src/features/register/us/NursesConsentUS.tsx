@@ -7,10 +7,12 @@ import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../
 import {ScreenParamList} from "../../ScreenParamList";
 import UserService from "../../../core/user/UserService";
 import {NursesConsentVersionUS, privacyPolicyVersionUS} from "../constants";
+import {RouteProp} from "@react-navigation/native";
 
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>
+    route: RouteProp<ScreenParamList, 'NursesConsentUS'>;
 }
 
 interface TermsState {
@@ -28,6 +30,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             termsOfUseChecked: false,
         }
     }
+
+    viewOnly = this.props.route.params.viewOnly;
 
     handleProcessingChange = () => {
         this.setState({processingChecked: !this.state.processingChecked})
@@ -163,7 +167,8 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                     <RegularBoldText>Who may see, use, and share your identifiable health information and why they may need to do so:
                         {"\n"}</RegularBoldText>
                     <RegularText>
-                        For complete details of the data we collect, who may see, use, and share your data and the reasons for doing so, please see the <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>Privacy Policy</ClickableText>. In brief, the privacy plan details
+                        For complete details of the data we collect, who may see, use, and share your data and the reasons for doing so, please see the <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy Policy</ClickableText>. In
+                        brief, the privacy plan details
                         that we may share your data with the researchers involved with this study which includes Zoe , other researchers and medical centers that are part of this study and their ethics boards, in addition to other individuals.
                         {"\n"}
                         No information you share will be used for commercial purposes. We will not use or share your information for any mailing or marketing list.
@@ -193,7 +198,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                         {"\n"}{"\n"}
                         By clicking below, you consent to our using the personal information we collect through your use of this app in the way we have described.
                         {"\n"}{"\n"}
-                        For more information about how we use and share personal information about you, please see our <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>privacy notice</ClickableText>.
+                        For more information about how we use and share personal information about you, please see our <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>privacy notice</ClickableText>.
                         {"\n"}{"\n"}
                     </RegularText>
 
@@ -219,44 +224,53 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                         {"\n"}
                     </RegularText>
 
-                    <ListItem style={styles.permission}>
-                        <CheckBox
-                            checked={this.state.processingChecked}
-                            onPress={this.handleProcessingChange}
-                        />
-                        <Body style={styles.label}>
-                            <RegularText>
-                                I consent to the processing of my personal data (including without limitation data I
-                                provide relating to my health) as set forth in this consent and in the{" "}
-                                <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>Privacy
-                                    Policy</ClickableText>
-                                .
-                            </RegularText>
-                        </Body>
-                    </ListItem>
-                    <ListItem>
-                        <CheckBox
-                            checked={this.state.termsOfUseChecked}
-                            onPress={this.handleTermsOfUseChange}
-                        />
-                        <Body style={styles.label}>
-                            <RegularText>
-                                I have read and accept Zoe Global’s {" "}
-                                <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUse')}>Terms of
-                                    Use</ClickableText>{" "}
-                                and{" "}
-                                <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>Privacy
-                                    Policy</ClickableText>.
-                            </RegularText>
-                        </Body>
-                    </ListItem>
-
+                    {
+                        !this.viewOnly && (
+                            <View>
+                                <ListItem style={styles.permission}>
+                                    <CheckBox
+                                        checked={this.state.processingChecked}
+                                        onPress={this.handleProcessingChange}
+                                    />
+                                    <Body style={styles.label}>
+                                        <RegularText>
+                                            I consent to the processing of my personal data (including without limitation data I
+                                            provide relating to my health) as set forth in this consent and in the{" "}
+                                            <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy
+                                                Policy</ClickableText>
+                                            .
+                                        </RegularText>
+                                    </Body>
+                                </ListItem>
+                                <ListItem>
+                                    <CheckBox
+                                        checked={this.state.termsOfUseChecked}
+                                        onPress={this.handleTermsOfUseChange}
+                                    />
+                                    <Body style={styles.label}>
+                                        <RegularText>
+                                            I have read and accept Zoe Global’s {" "}
+                                            <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUse', {viewOnly: this.viewOnly})}>Terms of
+                                                Use</ClickableText>{" "}
+                                            and{" "}
+                                            <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy
+                                                Policy</ClickableText>.
+                                        </RegularText>
+                                    </Body>
+                                </ListItem>
+                            </View>
+                        )
+                    }
                 </ScrollView>
 
-                <BrandedButton style={styles.button}
-                               hideLoading={true}
-                               enable={this.state.processingChecked && this.state.termsOfUseChecked}
-                               onPress={this.handleAgreeClicked}>I agree</BrandedButton>
+                {
+                    !this.viewOnly &&
+                    <BrandedButton style={styles.button}
+                                   hideLoading={true}
+                                   enable={this.state.processingChecked && this.state.termsOfUseChecked}
+                                   onPress={this.handleAgreeClicked}>I agree</BrandedButton>
+                }
+
             </View>
 
         );

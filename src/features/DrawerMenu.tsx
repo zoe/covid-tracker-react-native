@@ -63,7 +63,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
                 <Text style={fontStyles.h2Reg}>{i18n.t('faqs')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
-                isGBLocale() ? props.navigation.navigate("PrivacyPolicyUK") : props.navigation.navigate("PrivacyPolicyUS")
+                isGBLocale() ? props.navigation.navigate("PrivacyPolicyUK", {viewOnly: true}) : props.navigation.navigate("PrivacyPolicyUS", {viewOnly: true})
             }}>
                 <Text style={fontStyles.h2Reg}>{i18n.t('privacy-policy')}</Text>
             </TouchableOpacity>

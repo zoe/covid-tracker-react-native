@@ -69,7 +69,7 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
 
                         <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
 
-                        <BrandedButton onPress={() => this.props.navigation.navigate('Terms')}>{i18n.t("create-account-btn")}</BrandedButton>
+                        <BrandedButton onPress={() => this.props.navigation.navigate('Terms', {viewOnly: false})}>{i18n.t("create-account-btn")}</BrandedButton>
                         <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
                             {"For more info "}
                             <RegularText style={styles.moreInfoHighlight}>visit our website</RegularText>
