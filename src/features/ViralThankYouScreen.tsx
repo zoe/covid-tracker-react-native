@@ -50,7 +50,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             areaStats: null,
             loading: true,
             missingData: false,
-            askForRating: true,
+            askForRating: false,
         };
     }
 
