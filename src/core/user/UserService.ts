@@ -18,7 +18,8 @@ import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
 import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
-import { getInitialPatientState, PatientStateType } from "../patient/PatientState";
+import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
+import { AvatarName } from "../../utils/avatar";
 
 const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
@@ -179,8 +180,16 @@ export default class UserService extends ApiClientBase {
                     && (patient.has_heart_disease === true || patient.has_heart_disease === false)
                 );
 
+                const profile: PatientProfile = {
+                    name: patient.name,
+                    avatarName: patient.avatar_name as AvatarName,
+                    isReportedByAnother: patient.reported_by_another,
+                    isSameHousehold: patient.same_household_as_reporter,
+                }
+
                 currentPatient = {
                     ...currentPatient,
+                    // profile, // TODO: enable when Somesh's branch merged in.
                     isFemale,
                     isHealthWorker,
                     hasBloodPressureAnswer,
