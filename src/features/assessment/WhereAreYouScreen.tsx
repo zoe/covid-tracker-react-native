@@ -134,5 +134,4 @@ const styles = StyleSheet.create({
     buttonText: {
         color: colors.primary,
     },
-
-})
+});

@@ -171,14 +171,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingTop: 56
     },
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
-    },
     titleText: {
         paddingHorizontal: 16,
         paddingBottom: 16
@@ -205,8 +197,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: colors.backgroundPrimary
     },
-    createAccountText: {
-        color: colors.brand,
-        paddingStart: 4
-    }
+
 });

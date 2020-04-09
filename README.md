@@ -9,6 +9,7 @@
   * [Installation](#installation)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
+* [Common issues](#common-issues)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -83,6 +84,14 @@ Contributions are what make the open source community such an amazing place to b
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## Common Issues
+
+These are some known, common issues and their solutions:
+
+1. Changes to .env don't get picked up.
+
+- Solution: Change some of the source code.
 
 ## License
 

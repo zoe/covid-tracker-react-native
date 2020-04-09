@@ -1,9 +1,11 @@
 import React, {Component} from "react";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../../../theme";
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from "../../../components/Text";
+
+import { BrandedButton, ClickableText, RegularText } from "../../../components/Text";
 import {ScreenParamList} from "../../ScreenParamList";
 import {covidIcon, menuIcon, partnersLogo} from "../../../../assets";
+
 import {RouteProp} from "@react-navigation/native";
 import UserService from "../../../core/user/UserService";
 import {AsyncStorageService} from "../../../core/AsyncStorageService";
@@ -118,27 +120,20 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
     },
     headerRow: {
         flexDirection: "row",
         alignItems: "center",
     },
-    loginContainer: {
-        alignSelf: "center",
-        fontWeight: "300",
-    },
-    flagIcon: {
-        height: 32,
-        width: 32
-    },
+
     covidIcon: {
         height: 60,
         width: 60
     },
     appName: {
         flex: 1,
-        color: "#FFFFFF",
+        color: colors.white,
         paddingHorizontal: 5,
         fontSize: 14,
     },
@@ -150,7 +145,7 @@ const styles = StyleSheet.create({
 
     partners: {
         flex: 1,
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         padding: 32,
@@ -158,7 +153,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
     subtitle: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontSize: 24,
         lineHeight: 38,
         paddingVertical: 24,
@@ -166,20 +161,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
 
-    leadText: {
-        textAlign: "center",
-        color: colors.predict,
-        fontSize: 20,
-        lineHeight: 30
-    },
-
-    bold: {
-        textAlign: "center",
-        color: colors.predict,
-        fontSize: 20,
-        lineHeight: 30,
-        fontWeight: "700"
-    },
     discoveriesButton: {
         backgroundColor: colors.backgroundTertiary,
         alignSelf: "center",

@@ -5,6 +5,7 @@ import {ApiClientBase} from "../core/user/ApiClientBase";
 import {ScreenParamList} from "./ScreenParamList";
 import UserService, {isUSLocale} from "../core/user/UserService";
 import {AsyncStorageService} from "../core/AsyncStorageService";
+import {colors} from "../../theme";
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {
@@ -73,6 +74,6 @@ export class SplashScreen extends Component<Props, {}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#082A5D"
+        backgroundColor: colors.predict
     }
 });

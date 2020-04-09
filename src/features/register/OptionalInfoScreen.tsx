@@ -186,13 +186,4 @@ const styles = StyleSheet.create({
         paddingTop: 56
     },
 
-    titleText: {
-        paddingHorizontal: 16,
-        paddingBottom: 16
-    },
-
-    errorText: {
-        color: colors.feedbackBad
-    }
-
 });

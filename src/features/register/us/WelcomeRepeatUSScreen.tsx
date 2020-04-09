@@ -122,17 +122,12 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
     },
 
     headerRow: {
         flexDirection: "row",
         alignItems: "center",
-    },
-
-    loginContainer: {
-        alignSelf: "center",
-        fontWeight: "300",
     },
 
     covidIcon: {
@@ -141,7 +136,7 @@ const styles = StyleSheet.create({
     },
     appName: {
         flex: 1,
-        color: "#FFFFFF",
+        color: colors.white,
         paddingHorizontal: 5,
         fontSize: 14,
     },
@@ -186,7 +181,7 @@ const styles = StyleSheet.create({
     },
     partners: {
         flex: 1,
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         padding: 32,
@@ -194,7 +189,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
     },
     subtitle: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontSize: 24,
         lineHeight: 38,
         paddingVertical: 24,
@@ -202,20 +197,13 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
 
-    noAdvice: {
-        color: colors.secondary,
-        textAlign: "center"
-    },
     partnersLogo: {
         height: 60,
         width: '95%',
         resizeMode: 'contain',
         alignSelf: "center",
     },
-    flagIcon: {
-        height: 32,
-        width: 32
-    },
+
     privacyPolicyText: {
         fontSize: 14,
         color: colors.secondary,

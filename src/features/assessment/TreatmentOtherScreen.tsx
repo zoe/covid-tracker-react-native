@@ -111,38 +111,11 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
 const styles = StyleSheet.create({
-    fieldRow: {
-        flexDirection: "row",
-    },
-
-    primaryField: {
-        flex: 3,
-    },
-
-    secondaryField: {
-        flex: 1,
-    },
-
-    picker: {
-        width: screenWidth - 16,
-        marginTop: 16,
-    },
-
-    smallPicker: {
-        // width: 40,
-    },
-
     textarea: {
         width: '100%',
     },
 
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
     buttonText: {
         color: colors.white,
     },
-
-})
+});

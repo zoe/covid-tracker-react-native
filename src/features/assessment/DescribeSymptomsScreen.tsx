@@ -377,22 +377,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-    picker: {
-        width: screenWidth - 16,
-        marginTop: 16,
-    },
-
-    smallPicker: {
-        // width: 40,
-    },
-
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
     buttonText: {
         color: colors.white,
     },
-
 });
