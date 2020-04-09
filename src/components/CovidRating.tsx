@@ -13,8 +13,8 @@ type State = {
     showTakeToStore: boolean,
 }
 
-const USiOSLink = `itms://itunes.apple.com/us/app/apple-store/${Constants.manifest.ios.bundleIdentifier}`;
-const UKiOSLink = `itms://itunes.apple.com/gb/app/apple-store/${Constants.manifest.ios.bundleIdentifier}`;
+const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-tracker/id1503529611`;
+const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-tracker/id1503529611`;
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 const ModalContainer = (props: any) => (
