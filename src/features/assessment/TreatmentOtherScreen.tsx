@@ -45,8 +45,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     handleUpdateTreatment(formData: TreatmentData) {
 
-        const assessmentId = this.props.route.params.assessmentId;
-        const location = this.props.route.params.location;
+        const {currentPatient, assessmentId, location} = this.props.route.params;
         const goToNextScreen = () => this.props.navigation.navigate(getThankYouScreen());
 
         if (!formData.description) {

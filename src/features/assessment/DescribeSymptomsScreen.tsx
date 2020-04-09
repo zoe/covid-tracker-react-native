@@ -115,13 +115,13 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         if (this.state.enableSubmit) {
             this.setState({enableSubmit: false}); // Stop resubmissions
 
-            const assessmentId = this.props.route.params.assessmentId;
+            const {currentPatient, assessmentId} = this.props.route.params;
             const userService = new UserService();
             var infos = this.createAssessmentInfos(formData);
 
             userService.updateAssessment(assessmentId, infos)
               .then(response => {
-                  this.props.navigation.navigate('WhereAreYou', {assessmentId: assessmentId})
+                  this.props.navigation.navigate('WhereAreYou', {currentPatient, assessmentId: assessmentId})
               })
               .catch(err => {
                   this.setState({errorMessage: i18n.t("something-went-wrong")});

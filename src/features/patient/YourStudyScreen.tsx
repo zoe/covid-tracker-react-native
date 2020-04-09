@@ -14,7 +14,6 @@ import { RouteProp } from "@react-navigation/native";
 import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
 import { CheckboxItem, CheckboxList } from "../../components/Checkbox";
 import { ValidationErrors } from "../../components/ValidationError";
-import { AsyncStorageService } from "../../core/AsyncStorageService";
 import DropdownField from "../../components/DropdownField";
 import { GenericTextField } from "../../components/GenericTextField";
 
@@ -97,13 +96,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     }
 
     handleSubmit(formData: YourStudyData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient
+        const patientId = currentPatient.patientId;
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
             .then(response => {
-                this.props.navigation.navigate('YourWork', {patientId: patientId})
+                this.props.navigation.navigate('YourWork', {currentPatient})
             })
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
 
