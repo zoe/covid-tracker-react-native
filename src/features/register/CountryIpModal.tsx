@@ -6,11 +6,11 @@ import {RegularText} from "../../components/Text";
 import i18n from "../../locale/i18n"
 import {colors} from "../../../theme";
 import {Form, Icon, Label, Picker} from "native-base";
-import DropdownField from "../../components/DropdownField";
 import {closeIcon} from "../../../assets";
 import UserService from "../../core/user/UserService";
 import {isAndroid} from "../../components/Screen";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
+import key from "weak-key";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -42,6 +42,15 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
 
     render() {
         const {isModalVisible} = this.props;
+        const items = [
+            {label: i18n.t('united-states'), value: US_CODE},
+            {label: i18n.t('united-kingdom'), value: GB_CODE}
+        ];
+
+        if (isAndroid) {
+            items.unshift({label: i18n.t('choose-one-of-these-options'), value: ""});
+        }
+
         return (
             <Modal
                 animationType="fade"
@@ -61,12 +70,10 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
                             <Picker
                                 selectedValue={this.state.countrySelected}
                                 onValueChange={this.onValueChange.bind(this)}
+                                iosIcon={<Icon name="arrow-down"/>}
                                 placeholder={i18n.t('choose-one-of-these-options')}
                             >
-                                {isAndroid &&
-                                <Picker.Item label={i18n.t('choose-one-of-these-options')} value=''/>}
-                                <Picker.Item label={i18n.t('united-states')} value={US_CODE}/>
-                                <Picker.Item label={i18n.t('united-kingdom')} value={GB_CODE}/>
+                                {items.map(i => <Picker.Item color={i.value ? undefined : colors.tertiary} key={key(i)} label={i.label} value={i.value}/>)}
                             </Picker>
                         </Form>
                     </View>
