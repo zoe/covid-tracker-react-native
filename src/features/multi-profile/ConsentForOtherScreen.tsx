@@ -1,23 +1,19 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import {StyleSheet} from "react-native";
+import Screen, {Header, screenWidth} from "../../components/Screen";
 import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
-import {Body, CheckBox, Form, Item, Label, ListItem, Text, Textarea} from "native-base";
+import {Body, CheckBox, ListItem} from "native-base";
 
-import {Formik} from "formik";
-import * as Yup from "yup";
-
-import {colors, fontStyles} from "../../../theme"
+import {colors} from "../../../theme"
 import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
+import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import {getThankYouScreen} from "../Navigation";
 
 
 type RenderProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'AdultConsent'>
-    route: RouteProp<ScreenParamList, 'AdultConsent'>;
+    navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>
+    route: RouteProp<ScreenParamList, 'ConsentForOther'>;
 }
 
 interface ConsentState {
@@ -26,7 +22,7 @@ interface ConsentState {
 }
 
 
-export default class AdultConsentScreen extends Component<RenderProps, ConsentState> {
+export default class ConsentForOtherScreen extends Component<RenderProps, ConsentState> {
     constructor(props: RenderProps) {
         super(props);
         this.state = {
@@ -34,7 +30,6 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
             errorMessage: ""
         };
         this.createProfile = this.createProfile.bind(this);
-
     }
 
     handleConsentClick = () => {
@@ -42,8 +37,32 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
     };
 
     getAvatarName() {
-        return (this.props.route.params.avatarName) ?  this.props.route.params.avatarName : "profile1";
+        return (this.props.route.params.avatarName) ? this.props.route.params.avatarName : "profile1";
     }
+
+    isAdultConsent = () => {
+        return this.props.route.params.consentType == ConsentType.Adult;
+    };
+
+    headerText = this.isAdultConsent() ? "Adult consent" : "Child consent";
+    secondaryText = this.isAdultConsent() ? (
+        <RegularText>
+            Please confirm that you have shown or read our{" "}
+            <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>consent</ClickableText>
+            {" "}screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.
+        </RegularText>
+    ) : (
+        <RegularText>
+            If your child is old enough to understand our{" "}
+            <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>consent</ClickableText>
+            {" "}requirements, please explain to them that you are sharing information about them with us and we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.
+        </RegularText>
+    );
+    consentLabel = this.isAdultConsent() ? (
+        "I confirm the above"
+    ) : (
+        "I confirm that I am the child's legal guardian and that I have done the above"
+    );
 
     createProfile() {
         const name = this.props.route.params.profileName;
@@ -61,12 +80,8 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
         return (
             <Screen>
                 <Header>
-                    <HeaderText>Adult consent</HeaderText>
-                    <RegularText>
-                        Please confirm that you have shown or read our{" "}
-                        <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>consent</ClickableText>
-                        {" "}screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.
-                    </RegularText>
+                    <HeaderText>{this.headerText}</HeaderText>
+                    {this.secondaryText}
                 </Header>
 
                 <ListItem>
@@ -76,7 +91,7 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
                     />
                     <Body style={styles.label}>
                         <RegularText>
-                            I confirm the above
+                            {this.consentLabel}
                         </RegularText>
                     </Body>
                 </ListItem>
@@ -84,10 +99,9 @@ export default class AdultConsentScreen extends Component<RenderProps, ConsentSt
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
                 <BrandedButton
-                               enable={this.state.consentChecked}
-                               hideLoading={true}
-                               onPress={this.createProfile}>Create profile</BrandedButton>
-
+                    enable={this.state.consentChecked}
+                    hideLoading={true}
+                    onPress={this.createProfile}>Create profile</BrandedButton>
             </Screen>
         )
     }

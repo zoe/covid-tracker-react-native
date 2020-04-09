@@ -44,7 +44,8 @@ import ViralThankYouScreen from "./features/ViralThankYouScreen";
 import ReportForOtherScreen from "./features/multi-profile/ReportForOtherScreen";
 import SelectProfileScreen from "./features/multi-profile/SelectProfileScreen";
 import CreateProfileScreen from "./features/multi-profile/CreateProfileScreen";
-import AdultConsentScreen from "./features/multi-profile/AdultConsentScreen";
+import ConsentForOther from "./features/multi-profile/ConsentForOtherScreen";
+import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -126,9 +127,10 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="NearYou" component={NearYouScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="AdultConsent" component={AdultConsentScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={{headerShown: false}}/>
                 <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{headerShown: false}}/>
 
             </Stack.Navigator>
         )

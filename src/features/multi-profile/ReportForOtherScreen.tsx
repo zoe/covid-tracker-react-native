@@ -38,7 +38,6 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                                 <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile')}>
                                     <Text style={[fontStyles.bodyLight, styles.buttonText]}>Add profiles</Text>
                                 </BrandedButton>
-
                             </View>
 
                             <RegularText style={styles.shareSubtitle}>
@@ -67,12 +66,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
 
-
-    content: {
-        justifyContent: "space-between",
-        marginVertical: 32,
-        marginHorizontal: 18,
-    },
 
     button: {
         borderRadius: 8,

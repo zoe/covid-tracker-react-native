@@ -1,5 +1,10 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
 
+export enum ConsentType {
+    Adult = "adult",
+    Child = "child"
+}
+
 export type ScreenParamList = {
     Splash: undefined;
     Welcome: undefined;
@@ -29,9 +34,8 @@ export type ScreenParamList = {
     LevelOfIsolation: { assessmentId: string };
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
-    AdultConsent: { profileName: string, avatarName?: string},
-    AdultOrChild: undefined;
-    ChildConsent: undefined;
+    ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType},
+    AdultOrChild: { profileName: string };
     CreateProfile: undefined;
     ReportForOther: undefined;
     SelectProfile: undefined;

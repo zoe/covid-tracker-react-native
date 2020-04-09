@@ -31,19 +31,15 @@ type RenderProps = {
 export default class CreateProfileScreen extends Component<RenderProps> {
     constructor(props: RenderProps) {
         super(props);
-        this.state = {
-            consentChecked: false
-        };
-        this.handleUpdate = this.handleUpdate.bind(this);
-
+        this.handleClick = this.handleClick.bind(this);
     }
 
     registerSchema = Yup.object().shape({
         name: Yup.string().required(),
     });
 
-    handleUpdate(formData: FormData) {
-        this.props.navigation.navigate("AdultConsent", {profileName: formData.name});
+    handleClick(formData: FormData) {
+        this.props.navigation.navigate("AdultOrChild", {profileName: formData.name});
     }
 
     render() {
@@ -58,7 +54,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                     initialValues={initialFormValues}
                     validationSchema={this.registerSchema}
                     onSubmit={(values: FormData) => {
-                        return this.handleUpdate(values)
+                        return this.handleClick(values)
                     }}
                 >
                     {props => {
@@ -72,14 +68,13 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                                             />
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Continue</Text>
+                                    Continue
                                 </BrandedButton>
 
                             </Form>
                         )
                     }}
                 </Formik>
-
 
             </Screen>
         )
@@ -88,41 +83,6 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 
 
 const styles = StyleSheet.create({
-    label: {
-        marginLeft: 10,
-    },
-
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-
-
-    fieldRow: {
-        flexDirection: "row",
-    },
-
-    primaryField: {
-        flex: 3,
-    },
-
-    secondaryField: {
-        flex: 1,
-    },
-
-    picker: {
-        width: screenWidth - 16,
-        marginTop: 16,
-    },
-
-    smallPicker: {
-        // width: 40,
-    },
-
-    textarea: {
-        width: '100%',
-    },
 
     buttonText: {
         color: colors.white,
