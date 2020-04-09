@@ -10,7 +10,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {covidIcon} from "../../assets";
 import i18n from "../locale/i18n"
 import {Linking} from "expo";
-import { CovidRating } from "../components/CovidRating";
+import { CovidRating, shouldAskForRating } from "../components/CovidRating";
 import UserService from "../core/user/UserService";
 
 type RenderProps = {
@@ -39,11 +39,7 @@ export default class ThankYouScreen extends Component<RenderProps, {askForRating
 
     async componentDidMount() {
         // Ask for rating if not asked before and server indicates eligible.
-        const userService = new UserService();
-        const profile = await userService.getProfile();
-        const eligibleToAskForRating = profile.ask_for_rating;
-        const askedToRateStatus = await userService.getAskedToRateStatus();
-        if (!askedToRateStatus && eligibleToAskForRating) {this.setState({askForRating: true})}
+        if (await shouldAskForRating()) {this.setState({askForRating: true})}
     }
 
 

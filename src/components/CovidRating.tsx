@@ -27,6 +27,14 @@ const ModalContainer = (props: any) => (
     </Modal>
 );
 
+export async function shouldAskForRating() {
+    const userService = new UserService();
+    const profile = await userService.getProfile();
+    const eligibleToAskForRating = profile.ask_for_rating;
+    const askedToRateStatus = await userService.getAskedToRateStatus();
+    return (!askedToRateStatus && eligibleToAskForRating);
+}
+
 export class CovidRating extends Component<PropsType, State> {
     state = {
         isModalOpen: true,
