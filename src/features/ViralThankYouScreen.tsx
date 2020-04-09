@@ -24,6 +24,7 @@ import UserService from "../core/user/UserService";
 import {AreaStatsResponse} from "../core/user/dto/UserAPIContracts";
 import BrandedSpinner from "../components/Spinner";
 import moment from "moment";
+import { CovidRating } from "../components/CovidRating";
 import I18n from "i18n-js";
 
 
@@ -37,6 +38,7 @@ type State = {
     areaStats: AreaStatsResponse | null;
     loading: boolean,
     missingData: boolean,
+    askForRating: boolean,
 }
 
 export default class ViralThankYouScreen extends Component<Props, State> {
@@ -48,12 +50,20 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             areaStats: null,
             loading: true,
             missingData: false,
+            askForRating: false,
         };
     }
 
     async componentDidMount() {
+
+
         const userService = new UserService();
         const profile = await userService.getProfile();
+
+        // Ask for rating if not asked before and server indicates eligible.
+        const eligibleToAskForRating = profile.ask_for_rating;
+        const askedToRateStatus = await userService.getAskedToRateStatus();
+        if (!askedToRateStatus && eligibleToAskForRating) {this.setState({askForRating: true})}
 
         userService.getAreaStats(profile.patients[0]) // todo: multipatient
             .then(response => this.setState({
@@ -166,6 +176,8 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         );
 
         return (
+            <>
+             {this.state.askForRating && <CovidRating /> }
             <SafeAreaView>
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.rootContainer}>
@@ -274,6 +286,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 </View>
             </ScrollView>
             </SafeAreaView>
+            </>
         )
     }
 }

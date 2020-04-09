@@ -20,6 +20,7 @@ export type UserResponse = {
     username: string,
     authorizations: string[],
     patients: string[],
+    ask_for_rating: boolean,
 }
 
 export type PiiRequest = {
