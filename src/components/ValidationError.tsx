@@ -12,7 +12,7 @@ export const ValidationError = (props: ErrorProps) => {
           <ErrorText>{props.error}</ErrorText>
       </View>
     );
-}
+};
 
 type ErrorsProps = {
     errors: object,
@@ -27,7 +27,7 @@ export const ValidationErrors = (props: ErrorsProps) => {
           </ErrorText>
       </View>
     );
-}
+};
 
 
 const styles = StyleSheet.create({
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         marginHorizontal: 8
     }
-})
+});

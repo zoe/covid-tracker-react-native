@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
     form: {
         marginVertical: 32,
     },
-})
+});

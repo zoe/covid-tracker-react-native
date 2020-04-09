@@ -346,11 +346,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingVertical: 24
     },
-    divider: {
-        marginVertical: 30,
-        borderBottomWidth: 1,
-        borderColor: colors.tertiary
-    },
 
     button: {
         marginTop: 20,

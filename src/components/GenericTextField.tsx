@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
     textItemStyle: {
         borderColor: 'transparent'
     },
-})
+});

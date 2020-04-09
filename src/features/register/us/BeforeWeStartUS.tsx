@@ -66,40 +66,8 @@ const styles = StyleSheet.create({
         marginVertical: 32,
     },
 
-    textItemStyle: {
-        borderColor: 'transparent'
-    },
-
-    selectItemStyle: {
-        borderColor: colors.primary
-    },
-
-    primaryField: {
-        flex: 3,
-    },
-
-    secondaryField: {
-        flex: 1,
-    },
-
-    picker: {
-        // width: '68%',
-        width: screenWidth - 16,
-    },
-
-    smallPicker: {
-        // width: 40,
-    },
-
-    button: {
-        borderRadius: 28,
-        height: 56,
-        backgroundColor: colors.white,
-        borderWidth: 1,
-        borderColor: colors.primary,
-    },
     buttonText: {
         color: colors.primary,
     },
 
-})
+});

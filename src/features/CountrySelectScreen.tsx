@@ -6,6 +6,7 @@ import UserService from "../core/user/UserService";
 import i18n from "../locale/i18n"
 import {ukFlagLarge, usFlagLarge} from "../../assets";
 import {RouteProp} from "@react-navigation/native";
+import {colors} from "../../theme";
 
 type Props = {
     navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
@@ -79,10 +80,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#082A5D"
+        backgroundColor: colors.predict,
     },
     text: {
-        color: "#FFFFFF",
+        color: colors.white,
         paddingBottom: 40,
         fontSize: 24,
     },

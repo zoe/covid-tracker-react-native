@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     scrollView: {
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
         flexGrow: 1,
         justifyContent: 'space-between'
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#024364",
+        backgroundColor: colors.brand,
     },
 
     nextButtonContainer: {
@@ -104,15 +104,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
 
-    covidIcon: {
-        height: 60,
-        width: 60
-    },
-    appName: {
-        color: "#FFFFFF",
-        paddingHorizontal: 5,
-        fontSize: 14,
-    },
 
     covidContainer: {
         paddingHorizontal: 14,
@@ -128,18 +119,13 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        color: "#FFFFFF",
+        color: colors.white,
         fontSize: 32,
         lineHeight: 48,
         paddingVertical: 24,
         textAlign: "center",
         marginTop: 15,
         fontWeight: "300",
-    },
-
-
-    purpleSlash: {
-        color: colors.purple,
     },
 
     flagIcon: {
