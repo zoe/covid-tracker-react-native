@@ -57,7 +57,7 @@ export class TermsScreen extends Component<PropsType, TermsState> {
     render() {
         // Get US or UK
         return (
-            !isUSLocale() ? (
+            isUSLocale() ? (
                 <View style={styles.rootContainer}>
                     <ScrollView>
                         <RegularText>
