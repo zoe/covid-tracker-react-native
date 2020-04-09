@@ -13,8 +13,7 @@ type State = {
 }
 
 const storeLinks = 'com.joinzoe.covid_zoe';
-const USiOSLink = `itms://itunes.apple.com/us/app/apple-store/${storeLinks}`;
-const UKiOSLink = `itms://itunes.apple.com/gb/app/apple-store/${storeLinks}`;
+const iOSLink = `itms://itunes.apple.com/us/app/apple-store/${storeLinks}`;
 const AndroidLink = `market://details?id=${storeLinks}`;
 
 const ModalContainer = (props: any) => (
@@ -55,7 +54,7 @@ export class CovidRating extends Component<PropsType, State> {
         if (Platform.OS != 'ios') {
             Linking.openURL(AndroidLink).catch(err => {});
         } else {
-            Linking.openURL(isGBLocale() ? UKiOSLink : USiOSLink).catch(err => {});
+            Linking.openURL(iOSLink).catch(err => {});
         }
         this.setState({isModalOpen: false});
     };
