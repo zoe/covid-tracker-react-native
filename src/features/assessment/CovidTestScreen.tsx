@@ -1,15 +1,13 @@
 import React, {Component} from "react";
-import {View, Platform, StyleSheet} from "react-native";
-import Screen, {Header, Overview, ProgressBlock, FieldWrapper} from "../../components/Screen";
-import {screenWidth, isAndroid} from "../../components/Screen";
-import { BrandedButton, ErrorText, HeaderText, RegularText } from "../../components/Text";
-import {Text, Form, Item, Icon, Label, Input, Picker, Button} from "native-base";
+import {Platform, StyleSheet} from "react-native";
+import Screen, {Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
+import {Form, Text} from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
 
 import {Formik} from "formik";
 import * as Yup from "yup";
-import {ValidatedTextInput} from "../../components/ValidatedTextInput";
 
 import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
@@ -19,8 +17,8 @@ import {RouteProp} from "@react-navigation/native";
 import UserService from "../../core/user/UserService";
 import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
-import { ValidationErrors } from "../../components/ValidationError";
-import { AsyncStorageService } from "../../core/AsyncStorageService";
+import {ValidationErrors} from "../../components/ValidationError";
+import {AsyncStorageService} from "../../core/AsyncStorageService";
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -201,34 +199,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
 
 const styles = StyleSheet.create({
-    fieldRow: {
-        flexDirection: "row",
-    },
-
-    primaryField: {
-        flex: 3,
-    },
-
-    secondaryField: {
-        flex: 1,
-    },
-
-    picker: {
-        width: screenWidth - 16,
-        marginTop: 16,
-    },
-
-    smallPicker: {
-        // width: 40,
-    },
-
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
     buttonText: {
         color: colors.white,
     },
-
-})
+});

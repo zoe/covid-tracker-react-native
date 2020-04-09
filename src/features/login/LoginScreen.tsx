@@ -83,6 +83,8 @@ export class LoginScreen extends Component<PropsType, StateType> {
     // todo: validation for email
 
     render() {
+        const registerStartPage = isUSLocale() ? 'BeforeWeStartUS' : 'Terms';
+
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -147,7 +149,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
                         <View style={styles.bottomTextView}>
                             <RegularText>{i18n.t("dont-have-account")}</RegularText>
                             <RegularText> </RegularText>
-                            <ClickableText onPress={() => this.props.navigation.navigate('Register')}>{i18n.t("create-account")}</ClickableText>
+                            <ClickableText onPress={() => this.props.navigation.navigate(registerStartPage)}>{i18n.t("create-account")}</ClickableText>
                         </View>
 
                         <View style={styles.bottomTextView}>
@@ -168,14 +170,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.backgroundPrimary,
         paddingHorizontal: 24,
         paddingTop: 56
-    },
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
     },
     titleText: {
         paddingHorizontal: 16,
@@ -203,8 +197,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: colors.backgroundPrimary
     },
-    createAccountText: {
-        color: colors.brand,
-        paddingStart: 4
-    }
+
 });

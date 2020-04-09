@@ -46,7 +46,7 @@ export class AsyncStorageService {
         }
     }
 
-    static async setIsHealthWorker(isHealthWorker: boolean) {
+    static async setIsHealthWorker(isHealthWorker: boolean | null) {
         try {
             await AsyncStorage.setItem('isHealthWorker', JSON.stringify(isHealthWorker));
         } catch (err) {
@@ -71,7 +71,7 @@ export class AsyncStorageService {
         }
     }
 
-    static async setPatientDetailsComplete(complete: boolean) {
+    static async setPatientDetailsComplete(complete: boolean | null) {
         try {
             await AsyncStorage.setItem('patientDetailsComplete', JSON.stringify(complete));
         } catch (err) {

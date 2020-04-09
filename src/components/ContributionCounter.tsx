@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     contributingText: {
         fontSize: 24,
         lineHeight: 32,
-        color: '#5D879C',
+        color: colors.lightBrand,
         textAlign: "center",
     },
     contributingTextValue: {
         fontSize: 24,
         lineHeight: 32,
-        color: '#ffffff',
+        color: colors.white,
         textAlign: "center",
     }
 });
