@@ -148,24 +148,32 @@ export default class UserService extends ApiClientBase {
                 patient = await this.getPatient(patientId);
             }
 
-            // Calculate the flags based on patient info
-            const isFemale = (patient?.gender == 0);
-            const isHealthWorker = (
-                (patient?.healthcare_professional === "yes_does_treat")
-                || patient?.is_carer_for_community
-            );
-            const hasBloodPressureAnswer = (
-                patient?.takes_any_blood_pressure_medications === true
-                || patient?.takes_any_blood_pressure_medications === false
-            );
-            const hasCompletePatientDetails = !!patient?.profile_attributes_updated_at;
+            if (patient) {
+                // Calculate the flags based on patient info
+                const isFemale = (patient.gender == 0);
+                const isHealthWorker = (
+                    (patient.healthcare_professional === "yes_does_treat")
+                    || patient.is_carer_for_community
+                );
+                const hasBloodPressureAnswer = (
+                    patient.takes_any_blood_pressure_medications === true
+                    || patient.takes_any_blood_pressure_medications === false
+                );
+                const hasCompletePatientDetails = (
+                    // They've done at least one page of the patient flow. That's a start.
+                    !!patient.profile_attributes_updated_at
+                    // If they've completed the last page, heart disease will either be true or false
+                    // and not null. (or any nullable field on the last page)
+                    && (patient.has_heart_disease === true || patient.has_heart_disease === false)
+                );
 
-            currentPatient = {
-                ...currentPatient,
-                isFemale,
-                isHealthWorker,
-                hasBloodPressureAnswer,
-                hasCompletePatientDetails,
+                currentPatient = {
+                    ...currentPatient,
+                    isFemale,
+                    isHealthWorker,
+                    hasBloodPressureAnswer,
+                    hasCompletePatientDetails,
+                }
             }
 
         } catch (error) {
