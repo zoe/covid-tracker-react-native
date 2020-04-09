@@ -119,13 +119,14 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         const hasCovidPositiveItems = [
             {label: 'No', value: 'no'},
             {label: 'Yes', value: 'yes'},
             {label: 'Waiting for results', value: 'waiting'}
-        ]
+        ];
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>COVID-19 status</HeaderText>
                 </Header>
