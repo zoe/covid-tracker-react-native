@@ -170,8 +170,6 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             </Text>
         );
 
-        console.log("This state ask for rating:", this.state.askForRating);
-
         return (
             <>
              {this.state.askForRating && <CovidRating /> }
