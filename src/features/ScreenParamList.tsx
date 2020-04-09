@@ -35,8 +35,8 @@ export type ScreenParamList = {
     TreatmentSelection:  { assessmentId: string, location?: string };
     TreatmentOther: { assessmentId: string, location?: string };
     ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType},
-    AdultOrChild: { profileName: string };
-    CreateProfile: undefined;
+    AdultOrChild: { profileName: string, avatarName?: string };
+    CreateProfile: {avatarName?: string };
     ReportForOther: undefined;
     SelectProfile: undefined;
     ThankYou: undefined;

@@ -66,10 +66,16 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
     createProfile() {
         const name = this.props.route.params.profileName;
+        const avatarName = this.props.route.params.avatarName;
         const userService = new UserService();
+        console.log({
+            name: name,
+            avatar_name: avatarName,
+            reported_by_another: true
+        });
         userService.createPatient({
             name: name,
-            avatar_name: this.getAvatarName(),
+            avatar_name: avatarName,
             reported_by_another: true
         })
             .then(response => this.props.navigation.navigate("CovidTest"))

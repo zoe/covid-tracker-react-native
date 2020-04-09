@@ -39,7 +39,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     });
 
     handleClick(formData: FormData) {
-        this.props.navigation.navigate("AdultOrChild", {profileName: formData.name});
+        this.props.navigation.navigate("AdultOrChild", {profileName: formData.name, avatarName: this.props.route.params.avatarName});
     }
 
     render() {

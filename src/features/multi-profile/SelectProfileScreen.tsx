@@ -8,8 +8,9 @@ import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
 import moment from "moment";
-import {profile1, addProfile} from "../../../assets";
+import {profile1, profile2, profile3, profile4, profile5, profile6, profile7, profile8, profile9, profile10, addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
 import {Card} from "native-base";
+import '../../../assets';
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -57,8 +58,33 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     }
 
     getAvatar(patient: Patient) {
-        // TODO - Return the proper asset
-        return profile1;
+        // This makes me sad...
+        switch (patient.avatar_name) {
+            case 'profile1': return profile1;
+            case 'profile2': return profile2;
+            case 'profile3': return profile3;
+            case 'profile4': return profile4;
+            case 'profile5': return profile5;
+            case 'profile6': return profile6;
+            case 'profile7': return profile7;
+            case 'profile8': return profile8;
+            case 'profile9': return profile9;
+            case 'profile10': return profile10;
+            default: return profile1;
+        }
+    }
+
+    getNextAvatarName() {
+        if (this.state.patients) {
+            const n = (this.state.patients.length + 1) % NUMBER_OF_PROFILE_AVATARS;
+            return "profile" + n.toString()
+        } else {
+            return "profile1"
+        }
+    }
+
+    gotoCreateProfile() {
+        this.props.navigation.navigate('CreateProfile', {avatarName: this.getNextAvatarName()});
     }
 
     render() {
@@ -80,7 +106,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                       <View style={styles.cardContainer}>
                                         <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
                                             <Card style={styles.card}>
-                                                <Image source={profile1} style={styles.avatar} resizeMode={'contain'} />
+                                                <Image source={this.getAvatar(patient)} style={styles.avatar} resizeMode={'contain'} />
                                                 <RegularText>{patient.name}</RegularText>
                                                 {
                                                     <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
@@ -91,7 +117,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                     )
                                 }
 
-                                <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.props.navigation.navigate('CreateProfile')}>
+                                <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.gotoCreateProfile()}>
                                     <Card style={styles.card}>
                                         <Image source={addProfile} style={styles.addImage} resizeMode={'contain'} />
                                         <RegularText>New profile</RegularText>
