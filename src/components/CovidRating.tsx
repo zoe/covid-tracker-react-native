@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Constants from 'expo-constants';
 import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from "react-native";
 import { Toast, View } from "native-base";
 import { colors } from "../../theme";
@@ -12,9 +13,9 @@ type State = {
     showTakeToStore: boolean,
 }
 
-const storeLinks = 'com.joinzoe.covid_zoe';
-const iOSLink = `itms://itunes.apple.com/us/app/apple-store/${storeLinks}`;
-const AndroidLink = `market://details?id=${storeLinks}`;
+const USiOSLink = `itms://itunes.apple.com/us/app/apple-store/${Constants.manifest.ios.bundleIdentifier}`;
+const UKiOSLink = `itms://itunes.apple.com/gb/app/apple-store/${Constants.manifest.ios.bundleIdentifier}`;
+const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 const ModalContainer = (props: any) => (
     <Modal transparent={true}>
@@ -54,7 +55,7 @@ export class CovidRating extends Component<PropsType, State> {
         if (Platform.OS != 'ios') {
             Linking.openURL(AndroidLink).catch(err => {});
         } else {
-            Linking.openURL(iOSLink).catch(err => {});
+            Linking.openURL(isGBLocale() ? UKiOSLink : USiOSLink).catch(err => {});
         }
         this.setState({isModalOpen: false});
     };
