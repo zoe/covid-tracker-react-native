@@ -1,6 +1,11 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
 import { PatientStateType } from "../core/patient/PatientState";
 
+export enum ConsentType {
+    Adult = "adult",
+    Child = "child"
+}
+
 export type ScreenParamList = {
     Splash: undefined;
 
@@ -44,6 +49,13 @@ export type ScreenParamList = {
     LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string };
     TreatmentSelection:  { currentPatient: PatientStateType, assessmentId: string, location?: string };
     TreatmentOther: { currentPatient: PatientStateType, assessmentId: string, location?: string };
+
+    // Multi patient screens
+    ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType},
+    AdultOrChild: { profileName: string, avatarName?: string };
+    CreateProfile: {avatarName?: string };
+    ReportForOther: undefined;
+    SelectProfile: undefined;
 
     // Completion screens
     ThankYou: undefined;
