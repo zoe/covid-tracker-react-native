@@ -4,7 +4,7 @@ import { AirbnbRating } from 'react-native-ratings';
 import { View } from "native-base";
 import { colors } from "../../theme";
 import { RegularBoldText, RegularText } from "./Text";
-import UserService from "../core/user/UserService";
+import UserService, { isGBLocale, isUSLocale } from "../core/user/UserService";
 
 type PropsType = {}
 
@@ -15,7 +15,9 @@ type State = {
 }
 
 const storeLinks = 'com.joinzoe.covid_zoe';
-
+const USiOSLink = `itms://itunes.apple.com/us/app/apple-store/${storeLinks}`;
+const UKiOSLink = `itms://itunes.apple.com/gb/app/apple-store/${storeLinks}`;
+const AndroidLink = `market://details?id=${storeLinks}`;
 const ModalContainer = (props: any) => (
     <Modal transparent={true}>
         <View style={styles.centeredView}>
@@ -44,13 +46,9 @@ export class CovidRating extends Component<PropsType, State> {
     takeToStore = () => {
         setTimeout(() => {
             if (Platform.OS != 'ios') {
-                Linking.openURL(
-                    `market://details?id=${storeLinks}`
-                ).catch(err => {});
+                Linking.openURL(AndroidLink).catch(err => {});
             } else {
-                Linking.openURL(
-                    `itms://itunes.apple.com/in/app/apple-store/${storeLinks}`
-                ).catch(err => {});
+                Linking.openURL(isGBLocale() ? UKiOSLink : USiOSLink).catch(err => {});
             }
             this.setState({isModalOpen: false});
         }, 2000);
