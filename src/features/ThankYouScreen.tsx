@@ -84,15 +84,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 18,
     },
 
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
-    },
-
     scrollView: {
         flexGrow: 1,
         backgroundColor: colors.backgroundSecondary,
@@ -103,7 +94,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     shareContainer: {
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderRadius: 10,
         marginHorizontal: 20,
     },
@@ -140,7 +131,7 @@ const styles = StyleSheet.create({
         width: 60,
         borderRadius: 10,
         margin: 30,
-        backgroundColor: "#082A5D",
+        backgroundColor: colors.predict,
         alignSelf: "center"
     },
     covidIcon: {

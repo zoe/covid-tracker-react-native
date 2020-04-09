@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../theme";
 import {ScreenParamList} from "../ScreenParamList";
 import {BrandedButton, HeaderText, RegularText} from "../../components/Text";
 
@@ -39,28 +38,8 @@ export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
 }
 
 const styles = StyleSheet.create({
-    rootContainer: {
-        flex: 1,
-        justifyContent: "space-between",
-        backgroundColor: colors.backgroundPrimary,
-        paddingHorizontal: 24,
-        paddingTop: 56
-    },
-    login: {
-        flexDirection: "row",
-        paddingBottom: 20,
-    },
     formItem: {
         paddingHorizontal: 16,
         paddingVertical: 4,
     },
-    titleText: {
-        paddingHorizontal: 16,
-        paddingBottom: 16
-    },
-
-    errorText: {
-        color: colors.feedbackBad
-    }
-
 });

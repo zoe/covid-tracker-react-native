@@ -233,7 +233,6 @@ const styles = StyleSheet.create({
     loginSubtitle: {
         marginTop: 16,
     },
-
     titleText: {
         paddingHorizontal: 16,
         paddingBottom: 16

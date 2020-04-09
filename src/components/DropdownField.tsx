@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: colors.feedbackBad,
     },
-})
+});
 
 export default DropdownField

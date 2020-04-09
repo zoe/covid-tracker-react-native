@@ -1,13 +1,12 @@
 import React, {Component} from "react";
 import {ScrollView, StyleSheet, View, Dimensions} from "react-native";
-import {Header, isAndroid, ProgressBlock} from "../../components/Screen";
+import {Header, ProgressBlock} from "../../components/Screen";
 import {HeaderText} from "../../components/Text";
 import ProgressStatus from "../../components/ProgressStatus";
 import {colors} from "../../../theme"
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import i18n from "../../locale/i18n"
 import MapView from "react-native-maps";
 
 type RenderProps = {
@@ -30,7 +29,7 @@ export default class NearYouScreen extends Component<RenderProps, {}> {
                     </ProgressBlock>
 
                     <View style={styles.shareContainer}>
-                        <MapView style={styles.mapStyle} />
+                        <MapView style={styles.mapStyle}/>
                     </View>
                 </View>
             </ScrollView>
@@ -50,8 +49,9 @@ const styles = StyleSheet.create({
     rootContainer: {
         padding: 10,
     },
+
     shareContainer: {
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderRadius: 10,
         margin: 16,
     },
