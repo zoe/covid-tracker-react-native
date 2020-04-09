@@ -3,6 +3,7 @@ import {UserResponse} from "./user/dto/UserAPIContracts";
 
 const AUTH_TOKEN = "authToken";
 const USER_ID = "userId";
+const ASKED_TO_RATE_STATUS="askedToRateStatus";
 const USER_COUNT = "userCount";
 const USER_COUNTRY = "userCountry";
 const CONSENT_SIGNED = "consentSigned";
@@ -121,11 +122,25 @@ export class AsyncStorageService {
         }
     }
 
+    static async getAskedToRateStatus() {
+        try {
+            return await AsyncStorage.getItem(ASKED_TO_RATE_STATUS);
+        } catch (err) {
+            return null
+        }
+    }
+
+    static setAskedToRateStatus(status: string) {
+        try {
+            AsyncStorage.setItem(ASKED_TO_RATE_STATUS, status)
+        } catch (err) {
+        }
+    }
+
     static async setUserCount(userCount: string) {
         try {
             await AsyncStorage.setItem(USER_COUNT, userCount)
         } catch (err) {
-            console.log(err)
         }
     }
 
