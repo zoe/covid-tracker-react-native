@@ -1,3 +1,5 @@
+import { AvatarName } from "../../../utils/avatar";
+
 class UserInformation {
     public username: string;
     public authorizations: string[];
@@ -29,6 +31,11 @@ export type PiiRequest = {
 
 export type PatientInfosRequest = {
     version: string,    // Document/schema version
+
+    name: string,
+    avatar_name: AvatarName,
+    reported_by_another: boolean,
+    same_household_as_reporter: boolean,
 
     year_of_birth: number,
     gender: number, // 0: female, 1: male
