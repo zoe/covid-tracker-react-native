@@ -226,7 +226,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
                     {
                         !this.viewOnly && (
-                            <View>
+                            <>
                                 <ListItem style={styles.permission}>
                                     <CheckBox
                                         checked={this.state.processingChecked}
@@ -258,7 +258,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
                                         </RegularText>
                                     </Body>
                                 </ListItem>
-                            </View>
+                            </>
                         )
                     }
                 </ScrollView>
