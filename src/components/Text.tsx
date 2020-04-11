@@ -13,6 +13,10 @@ export const HeaderText = ({style, children}: Props) => (
   <Text style={[styles.headerText, style]}>{children}</Text>
 );
 
+export const HeaderLightText = ({style, children}: Props) => (
+  <Text style={[styles.headerLightText, style]}>{children}</Text>
+);
+
 export const RegularText = ({style, children}: Props) => (
   <Text style={[styles.regularText, style]}>{children}</Text>
 );
@@ -20,7 +24,6 @@ export const RegularText = ({style, children}: Props) => (
 export const CaptionText = ({style, children}: Props) => (
   <Text style={[styles.captionText, style]}>{children}</Text>
 );
-
 
 export const ErrorText = ({style, children}: Props) => (
   <Text style={[styles.errorText, style]}>{children}</Text>
@@ -80,6 +83,11 @@ const styles = StyleSheet.create({
         ...fontStyles.h2Reg,
     },
 
+    headerLightText: {
+        ...fontStyles.h1Light,
+    },
+
+
     regularText: {
         ...fontStyles.bodyReg,
     },
@@ -89,12 +97,10 @@ const styles = StyleSheet.create({
         color: colors.tertiary,
     },
 
-
     errorText: {
         ...fontStyles.bodyReg,
         color: colors.feedbackBad,
     },
-
 
     regularBoldText: {
         ...fontStyles.bodyReg,
