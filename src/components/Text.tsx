@@ -87,14 +87,12 @@ const styles = StyleSheet.create({
         ...fontStyles.h1Light,
     },
 
-
     regularText: {
         ...fontStyles.bodyReg,
     },
 
     captionText: {
         ...fontStyles.bodySmallLight,
-        color: colors.tertiary,
     },
 
     errorText: {
