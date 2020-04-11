@@ -66,20 +66,20 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('none')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>None</Text>
+                            <Text>None</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('oxygen')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Oxygen and fluids*</Text>
+                            <Text>Oxygen and fluids*</Text>
                         </BigButton>
                         <CaptionText style={styles.indentedText}>* Breathing support through an oxygen mask, no pressure applied.</CaptionText>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('nonInvasiveVentilation')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Non-invasive ventilation*</Text>
+                            <Text>Non-invasive ventilation*</Text>
                         </BigButton>
                         <CaptionText style={styles.indentedText}>* Breathing support through an oxygen mask, which pushes oxygen into your lungs.</CaptionText>
                     </FieldWrapper>
@@ -87,7 +87,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('invasiveVentilation')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Invasive ventilation*</Text>
+                            <Text>Invasive ventilation*</Text>
                         </BigButton>
                         <CaptionText style={styles.indentedText}>* Breathing support through an inserted tube. People are usually asleep for this procedure.</CaptionText>
                     </FieldWrapper>
@@ -95,7 +95,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('other')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Other </Text>
+                            <Text>Other </Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
@@ -121,9 +121,4 @@ const styles = StyleSheet.create({
         marginTop: 8,
         textAlign: "center",
     },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
 });

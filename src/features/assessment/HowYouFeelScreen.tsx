@@ -1,13 +1,10 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, FieldWrapper} from "../../components/Screen";
-import {screenWidth} from "../../components/Screen";
+import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
 import {HeaderText} from "../../components/Text";
-import {Text, Form} from "native-base";
+import {Form, Text} from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
-
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
 import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -78,13 +75,13 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleFeelNormal}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("feel-normal")}</Text>
+                            <Text>{i18n.t("feel-normal")}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleHaveSymptoms}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("have-symptoms")}</Text>
+                            <Text>{i18n.t("have-symptoms")}</Text>
                         </BigButton>
                     </FieldWrapper>
 
@@ -104,10 +101,5 @@ const styles = StyleSheet.create({
 
     fieldWrapper: {
         marginVertical: 32,
-    },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
+    }
 });

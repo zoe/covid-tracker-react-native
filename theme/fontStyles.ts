@@ -95,7 +95,7 @@ export const fontStyles = StyleSheet.create({
     bodySmallLight: { // Caption Text & Version Text
         fontSize: 14,
         lineHeight: 20,
-        color: colors.primary,
+        color: colors.tertiary,
     },
     // bodySmallReg: {
     //     fontSize: 14,

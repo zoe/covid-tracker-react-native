@@ -39,13 +39,13 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
                 <Form style={styles.form}>
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Yes, I am</Text>
+                            <Text>Yes, I am</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.props.navigation.navigate('Terms')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>No, I am not</Text>
+                            <Text>No, I am not</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
@@ -65,9 +65,4 @@ const styles = StyleSheet.create({
     fieldWrapper: {
         marginVertical: 32,
     },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
 });
