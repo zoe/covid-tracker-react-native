@@ -96,7 +96,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Done</Text>
+                                    <Text>Done</Text>
                                 </BrandedButton>
 
                             </Form>
@@ -113,9 +113,5 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 const styles = StyleSheet.create({
     textarea: {
         width: '100%',
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });
