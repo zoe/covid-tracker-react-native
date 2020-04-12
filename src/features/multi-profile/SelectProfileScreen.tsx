@@ -11,6 +11,7 @@ import moment from "moment";
 import {profile1, profile2, profile3, profile4, profile5, profile6, profile7, profile8, profile9, profile10, addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
 import {Card} from "native-base";
 import '../../../assets';
+import key from "weak-key";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -18,7 +19,7 @@ type RenderProps = {
 }
 
 type Patient = {
-    id?: string,
+    id: string,
     name?: string,
     avatar_name?: string,
     reported_by_another?: boolean,
@@ -103,8 +104,8 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                             <View style={styles.profileList}>
                                 {
                                     this.state.patients.map((patient, i) =>
-                                      <View style={styles.cardContainer}>
-                                        <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
+                                      <View style={styles.cardContainer}  key={key(patient)}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
                                             <Card style={styles.card}>
                                                 <Image source={this.getAvatar(patient)} style={styles.avatar} resizeMode={'contain'} />
                                                 <RegularText>{patient.name}</RegularText>

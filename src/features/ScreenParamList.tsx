@@ -1,5 +1,5 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
-import { PatientStateType } from "../core/patient/PatientState";
+import {PatientStateType} from "../core/patient/PatientState";
 
 export enum ConsentType {
     Adult = "adult",
@@ -13,16 +13,16 @@ export type ScreenParamList = {
     Welcome: undefined;
     WelcomeUS: undefined;
     Welcome2US: undefined;
-    WelcomeRepeat: { patientId: string};
-    WelcomeRepeatUS: { patientId: string};
+    WelcomeRepeat: { patientId: string };
+    WelcomeRepeatUS: { patientId: string };
 
     // Terms & consent screens
-    Terms: undefined;
-    NursesConsentUS: undefined;
+    Terms: { viewOnly: boolean };
+    NursesConsentUS: { viewOnly: boolean };
     BeforeWeStartUS: undefined;
-    TermsOfUse: undefined;
-    PrivacyPolicyUK: undefined;
-    PrivacyPolicyUS: undefined;
+    TermsOfUse: { viewOnly: boolean };
+    PrivacyPolicyUK: { viewOnly: boolean };
+    PrivacyPolicyUS: { viewOnly: boolean };
 
     // User profile screens
     ResetPassword: undefined;
@@ -42,18 +42,18 @@ export type ScreenParamList = {
 
     // Assessment screens
     HealthWorkerExposure: { currentPatient: PatientStateType }; // How do people normally get here?
-    CovidTest: { currentPatient: PatientStateType, assessmentId: string | null};
+    CovidTest: { currentPatient: PatientStateType, assessmentId: string | null };
     HowYouFeel: { currentPatient: PatientStateType, assessmentId: string };
     DescribeSymptoms: { currentPatient: PatientStateType, assessmentId: string };
     WhereAreYou: { currentPatient: PatientStateType, assessmentId: string };
     LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string };
-    TreatmentSelection:  { currentPatient: PatientStateType, assessmentId: string, location?: string };
+    TreatmentSelection: { currentPatient: PatientStateType, assessmentId: string, location?: string };
     TreatmentOther: { currentPatient: PatientStateType, assessmentId: string, location?: string };
 
     // Multi patient screens
-    ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType},
+    ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType },
     AdultOrChild: { profileName: string, avatarName?: string };
-    CreateProfile: {avatarName?: string };
+    CreateProfile: { avatarName?: string };
     ReportForOther: undefined;
     SelectProfile: undefined;
 
