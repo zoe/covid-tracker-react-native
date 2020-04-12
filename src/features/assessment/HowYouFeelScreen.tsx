@@ -45,8 +45,9 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     }
 
     handleHaveSymptoms() {
+        const currentPatient = this.props.route.params.currentPatient;
         this.updateAssessment('not_healthy')
-            .then(response => this.props.navigation.navigate('DescribeSymptoms', {assessmentId: response.data.id}))// todo julien: thank you
+            .then(response => this.props.navigation.navigate('DescribeSymptoms', {currentPatient, assessmentId: response.data.id}))// todo julien: thank you
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
