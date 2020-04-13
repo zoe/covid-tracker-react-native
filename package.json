@@ -63,10 +63,16 @@
     "babel-preset-expo": "~8.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "husky": "^4.2.5",
     "mocha": "^7.1.0",
     "redux-mock-store": "^1.5.4",
     "ts-node": "^8.6.2",
     "typescript": "~3.7.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   },
   "private": true
 }
