@@ -93,6 +93,7 @@ export type PatientInfosRequest = {
     is_in_us_agricultural_health: boolean,
     is_in_us_gulf: boolean,
     is_in_us_aspree_xt: boolean,
+    is_in_us_bwhs: boolean,
 
     clinical_study_names: string,
     clinical_study_contact: string,

@@ -83,6 +83,7 @@ app.get("/patients/:patientId", (req, res) => {
     is_in_us_agricultural_health: null,
     is_in_us_gulf: null,
     is_in_us_aspree_xt: null,
+    is_in_us_bwhs: null,
     contact_health_worker: null,
     healthcare_professional: null,
     is_carer_for_community: null,
