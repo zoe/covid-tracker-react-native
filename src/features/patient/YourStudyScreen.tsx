@@ -183,7 +183,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                         <CheckboxItem
                                                             value={this.state.isStanfordNutritionStudy}
                                                             onChange={(value: boolean) => this.setState({isStanfordNutritionStudy: value})}
-                                                        >Stanford Nutrition Studies</CheckboxItem>
+                                                        >Stanford Nutrition Studies Group</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.isMultiEthnicCohortStudy}
                                                             onChange={(value: boolean) => this.setState({isMultiEthnicCohortStudy: value})}
