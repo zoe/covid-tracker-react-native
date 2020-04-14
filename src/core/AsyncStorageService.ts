@@ -8,8 +8,7 @@ const USER_COUNT = "userCount";
 const USER_COUNTRY = "userCountry";
 const CONSENT_SIGNED = "consentSigned";
 const PUSH_TOKEN = "pushToken";
-const BLOOD_PRESSURE_ANSWER = "hasBloodPressureAnswer";
-const IS_HEALTH_WORKER = "isHealthWorker";
+
 const USER_PROFILE = "userProfile";
 const ASKED_COUNTRY = "askedCountry"
 
@@ -50,31 +49,6 @@ export class AsyncStorageService {
         }
     }
 
-    static async setIsHealthWorker(isHealthWorker: boolean | null) {
-        try {
-            await AsyncStorage.setItem(IS_HEALTH_WORKER, JSON.stringify(isHealthWorker));
-        } catch (err) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-    }
-
-    static async getIsHealthWorker() {
-        let healthWorker: string | null = null;
-        try {
-            healthWorker = await AsyncStorage.getItem(IS_HEALTH_WORKER);
-        } catch (e) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-
-        if (healthWorker == null)
-            return false;
-        else {
-            return JSON.parse(healthWorker) as boolean;
-        }
-    }
-
     static async setAskedCountryConfirmation(askedCountry: boolean) {
         try {
             await AsyncStorage.setItem(ASKED_COUNTRY, JSON.stringify(askedCountry));
@@ -97,31 +71,6 @@ export class AsyncStorageService {
             return false;
         else {
             return JSON.parse(askedCountry) as boolean;
-        }
-    }
-
-    static async setPatientDetailsComplete(complete: boolean | null) {
-        try {
-            await AsyncStorage.setItem('patientDetailsComplete', JSON.stringify(complete));
-        } catch (err) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-    }
-
-    static async hasCompletedPatientDetails() {
-        let completedDetails: string | null = null;
-        try {
-            completedDetails = await AsyncStorage.getItem('patientDetailsComplete');
-        } catch (e) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-
-        if (completedDetails == null)
-            return null;
-        else {
-            return JSON.parse(completedDetails) as boolean;
         }
     }
 
@@ -225,20 +174,4 @@ export class AsyncStorageService {
         }
     }
 
-    // Temp: flag to check we have blood pressure answer
-    static async setHasBloodPressureAnswer(hasAnswer: boolean) {
-        try {
-            await AsyncStorage.setItem(BLOOD_PRESSURE_ANSWER, hasAnswer ? STR_YES : STR_NO)
-        } catch (err) {
-        }
-    }
-
-    static async hasBloodPressureAnswer(): Promise<boolean | null> {
-        try {
-            const value = await AsyncStorage.getItem(BLOOD_PRESSURE_ANSWER);
-            return (value === STR_YES);
-        } catch (err) {
-            return false;
-        }
-    }
 }
