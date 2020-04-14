@@ -1,6 +1,11 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
 import { PatientStateType } from "../core/patient/PatientState";
 
+export enum ConsentType {
+    Adult = "adult",
+    Child = "child"
+}
+
 export type ScreenParamList = {
     Splash: undefined;
 
@@ -8,16 +13,16 @@ export type ScreenParamList = {
     Welcome: undefined;
     WelcomeUS: undefined;
     Welcome2US: undefined;
-    WelcomeRepeat: { patientId: string};
-    WelcomeRepeatUS: { patientId: string};
+    WelcomeRepeat: { patientId: string };
+    WelcomeRepeatUS: { patientId: string };
 
     // Terms & consent screens
-    Terms: undefined;
-    NursesConsentUS: undefined;
+    Terms: { viewOnly: boolean };
+    NursesConsentUS: { viewOnly: boolean };
     BeforeWeStartUS: undefined;
-    TermsOfUse: undefined;
-    PrivacyPolicyUK: undefined;
-    PrivacyPolicyUS: undefined;
+    TermsOfUse: { viewOnly: boolean };
+    PrivacyPolicyUK: { viewOnly: boolean };
+    PrivacyPolicyUS: { viewOnly: boolean };
 
     // User profile screens
     ResetPassword: undefined;
@@ -29,6 +34,13 @@ export type ScreenParamList = {
     // PII screens
     OptionalInfo: { user: UserResponse };
 
+    // Profile screens
+    ReportForOther: undefined;
+    SelectProfile: undefined;
+    CreateProfile: undefined;
+    AdultOrChild: { profileName: string, avatarName?: string };
+    ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType};
+
     // Patient screens
     YourStudy: { currentPatient: PatientStateType };
     YourWork: { currentPatient: PatientStateType };
@@ -36,8 +48,9 @@ export type ScreenParamList = {
     YourHealth: { currentPatient: PatientStateType };
 
     // Assessment screens
-    HealthWorkerExposure: { currentPatient: PatientStateType }; // How do people normally get here?
-    CovidTest: { currentPatient: PatientStateType, assessmentId: string | null};
+    StartAssessment: { currentPatient: PatientStateType, assessmentId?: string };
+    HealthWorkerExposure: { currentPatient: PatientStateType, assessmentId: string | null };
+    CovidTest: { currentPatient: PatientStateType, assessmentId: string | null };
     HowYouFeel: { currentPatient: PatientStateType, assessmentId: string };
     DescribeSymptoms: { currentPatient: PatientStateType, assessmentId: string };
     WhereAreYou: { currentPatient: PatientStateType, assessmentId: string };

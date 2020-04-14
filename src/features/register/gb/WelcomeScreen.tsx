@@ -81,7 +81,7 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
                             if (await this.userService.shouldAskCountryConfirmation()) {
                                 this.setState({ipModalVisible: true})
                             } else {
-                                this.props.navigation.navigate('Terms')
+                                this.props.navigation.navigate('Terms', {viewOnly: false})
                             }
                         }}>
                             {i18n.t("create-account-btn")}
