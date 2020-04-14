@@ -61,8 +61,9 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>How do you feel physically right now?</HeaderText>
                 </Header>

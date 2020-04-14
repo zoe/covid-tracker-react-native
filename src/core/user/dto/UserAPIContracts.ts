@@ -1,3 +1,5 @@
+import { AvatarName } from "../../../utils/avatar";
+
 class UserInformation {
     public username: string;
     public authorizations: string[];
@@ -32,7 +34,7 @@ export type PatientInfosRequest = {
     version: string,    // Document/schema version
 
     name: string,
-    avatar_name: string
+    avatar_name: AvatarName,
     reported_by_another: boolean,
     same_household_as_reporter: boolean,
 
@@ -98,6 +100,7 @@ export type PatientInfosRequest = {
     is_in_us_agricultural_health: boolean,
     is_in_us_gulf: boolean,
     is_in_us_aspree_xt: boolean,
+    is_in_us_bwhs: boolean,
 
     clinical_study_names: string,
     clinical_study_contact: string,
@@ -183,7 +186,6 @@ export type Consent = {
     privacy_policy_version: string,
 } | any
 
-
 export type AreaStatsResponse = {
     locked: boolean,
     rank: number,
@@ -193,4 +195,9 @@ export type AreaStatsResponse = {
     predicted_cases: number,
     number_of_missing_contributors: number,
     population: number,
+}
+
+export type StartupInfo = {
+    users_count: number,
+    ip_country: string
 }

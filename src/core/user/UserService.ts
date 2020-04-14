@@ -6,7 +6,7 @@ import {
     Consent,
     LoginOrRegisterResponse,
     PatientInfosRequest,
-    PiiRequest,
+    PiiRequest, StartupInfo,
     TokenInfoRequest,
     TokenInfoResponse,
     UserResponse
@@ -18,7 +18,8 @@ import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
 import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
-import { getInitialPatientState, PatientStateType } from "../patient/PatientState";
+import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
+import { AvatarName } from "../../utils/avatar";
 
 const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
@@ -26,6 +27,7 @@ const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
+    public static ipCountry = "";
     public static consentSigned: Consent = {
         document: "",
         version: "",
@@ -152,6 +154,44 @@ export default class UserService extends ApiClientBase {
         return patientResponse.data;
     }
 
+    public updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+        // Calculate the flags based on patient info
+        const isFemale = (patient.gender == 0);
+        const isHealthWorker = (
+            (patient.healthcare_professional === "yes_does_treat")
+            || patient.is_carer_for_community
+        );
+        const hasBloodPressureAnswer = (
+            patient.takes_any_blood_pressure_medications === true
+            || patient.takes_any_blood_pressure_medications === false
+        );
+        const hasCompletePatientDetails = (
+            // They've done at least one page of the patient flow. That's a start.
+            !!patient.profile_attributes_updated_at
+            // If they've completed the last page, heart disease will either be true or false
+            // and not null. (or any nullable field on the last page)
+            && (patient.has_heart_disease === true || patient.has_heart_disease === false)
+        );
+
+        const profile: PatientProfile = {
+            name: patient.name || "Me",
+            avatarName: (patient.avatar_name || "profile1") as AvatarName,
+        };
+        const isReportedByAnother = patient.reported_by_another || false;
+        const isSameHousehold = patient.same_household_as_reporter || false
+
+        return {
+            ...patientState,
+            profile,
+            isFemale,
+            isHealthWorker,
+            hasBloodPressureAnswer,
+            hasCompletePatientDetails,
+            isReportedByAnother,
+            isSameHousehold,
+        };
+    }
+
     public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
         let currentPatient = getInitialPatientState(patientId);
 
@@ -161,31 +201,7 @@ export default class UserService extends ApiClientBase {
             }
 
             if (patient) {
-                // Calculate the flags based on patient info
-                const isFemale = (patient.gender == 0);
-                const isHealthWorker = (
-                    (patient.healthcare_professional === "yes_does_treat")
-                    || patient.is_carer_for_community
-                );
-                const hasBloodPressureAnswer = (
-                    patient.takes_any_blood_pressure_medications === true
-                    || patient.takes_any_blood_pressure_medications === false
-                );
-                const hasCompletePatientDetails = (
-                    // They've done at least one page of the patient flow. That's a start.
-                    !!patient.profile_attributes_updated_at
-                    // If they've completed the last page, heart disease will either be true or false
-                    // and not null. (or any nullable field on the last page)
-                    && (patient.has_heart_disease === true || patient.has_heart_disease === false)
-                );
-
-                currentPatient = {
-                    ...currentPatient,
-                    isFemale,
-                    isHealthWorker,
-                    hasBloodPressureAnswer,
-                    hasCompletePatientDetails,
-                }
+                currentPatient = this.updatePatientState(currentPatient, patient);
             }
 
         } catch (error) {
@@ -271,9 +287,10 @@ export default class UserService extends ApiClientBase {
         return await AsyncStorageService.getUserCount();
     }
 
-    async setUserCountInAsyncStorage() {
-        const userCount = await this.client.get<number>('/users/covid_count/');
-        await AsyncStorageService.setUserCount(userCount.data.toString());
+    async getStartupInfo() {
+        const response = await this.client.get<StartupInfo>('/users/startup_info/');
+        UserService.ipCountry = response.data.ip_country;
+        await AsyncStorageService.setUserCount(response.data.users_count.toString());
     }
 
 
@@ -290,6 +307,14 @@ export default class UserService extends ApiClientBase {
             i18n.locale = "en-" + UserService.userCountry
         }
         return localCountry;
+    }
+
+    async shouldAskCountryConfirmation() {
+        if (await AsyncStorageService.getAskedCountryConfirmation()) {
+            return false
+        } else {
+            return UserService.userCountry != UserService.ipCountry
+        }
     }
 
     async defaultCountryToLocale() {

@@ -170,6 +170,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         const temperatureItems = [
             {label: '°C', value: 'C'},
             {label: '°F', value: 'F'},
@@ -187,7 +188,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         ];
 
         return (
-          <Screen>
+          <Screen profile={currentPatient.profile}>
               <Header>
                   <HeaderText>Describe the symptoms you are experiencing right now.</HeaderText>
               </Header>

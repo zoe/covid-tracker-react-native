@@ -236,7 +236,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             {label: 'Yes', value: 'yes'},
         ]
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>About your health</HeaderText>
                 </Header>
