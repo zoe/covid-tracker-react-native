@@ -358,6 +358,31 @@ export default class UserService extends ApiClientBase {
             return false
         }
     }
+
+    public async showReportForOthersScreen() {
+        const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
+        try {
+            let response = await AsyncStorageService.getAskedToReportForOthers();
+            if (response) {
+                return parseInt(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+            } else {
+                await AsyncStorageService.setAskedToReportForOthers("0");
+                return true
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    public async recordAskedToReportForOther() {
+        let response = await AsyncStorageService.getAskedToReportForOthers()
+        if (response) {
+            const value = parseInt(response) + 1;
+            await AsyncStorageService.setAskedToReportForOthers(value.toString())
+        } else {
+            await AsyncStorageService.setAskedToReportForOthers("0")
+        }
+    }
 }
 
 export const isUSLocale = () => UserService.userCountry === 'US';
