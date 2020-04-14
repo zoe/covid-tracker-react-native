@@ -153,6 +153,44 @@ export default class UserService extends ApiClientBase {
         return patientResponse.data;
     }
 
+    public updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+        // Calculate the flags based on patient info
+        const isFemale = (patient.gender == 0);
+        const isHealthWorker = (
+            (patient.healthcare_professional === "yes_does_treat")
+            || patient.is_carer_for_community
+        );
+        const hasBloodPressureAnswer = (
+            patient.takes_any_blood_pressure_medications === true
+            || patient.takes_any_blood_pressure_medications === false
+        );
+        const hasCompletePatientDetails = (
+            // They've done at least one page of the patient flow. That's a start.
+            !!patient.profile_attributes_updated_at
+            // If they've completed the last page, heart disease will either be true or false
+            // and not null. (or any nullable field on the last page)
+            && (patient.has_heart_disease === true || patient.has_heart_disease === false)
+        );
+
+        const profile: PatientProfile = {
+            name: patient.name || "Me",
+            avatarName: (patient.avatar_name || "profile1") as AvatarName,
+        };
+        const isReportedByAnother = patient.reported_by_another || false;
+        const isSameHousehold = patient.same_household_as_reporter || false
+
+        return {
+            ...patientState,
+            profile,
+            isFemale,
+            isHealthWorker,
+            hasBloodPressureAnswer,
+            hasCompletePatientDetails,
+            isReportedByAnother,
+            isSameHousehold,
+        };
+    }
+
     public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
         let currentPatient = getInitialPatientState(patientId);
 
@@ -162,39 +200,7 @@ export default class UserService extends ApiClientBase {
             }
 
             if (patient) {
-                // Calculate the flags based on patient info
-                const isFemale = (patient.gender == 0);
-                const isHealthWorker = (
-                    (patient.healthcare_professional === "yes_does_treat")
-                    || patient.is_carer_for_community
-                );
-                const hasBloodPressureAnswer = (
-                    patient.takes_any_blood_pressure_medications === true
-                    || patient.takes_any_blood_pressure_medications === false
-                );
-                const hasCompletePatientDetails = (
-                    // They've done at least one page of the patient flow. That's a start.
-                    !!patient.profile_attributes_updated_at
-                    // If they've completed the last page, heart disease will either be true or false
-                    // and not null. (or any nullable field on the last page)
-                    && (patient.has_heart_disease === true || patient.has_heart_disease === false)
-                );
-
-                const profile: PatientProfile = {
-                    name: patient.name,
-                    avatarName: patient.avatar_name as AvatarName,
-                    isReportedByAnother: patient.reported_by_another,
-                    isSameHousehold: patient.same_household_as_reporter,
-                }
-
-                currentPatient = {
-                    ...currentPatient,
-                    // profile, // TODO: enable when Somesh's branch merged in.
-                    isFemale,
-                    isHealthWorker,
-                    hasBloodPressureAnswer,
-                    hasCompletePatientDetails,
-                }
+                currentPatient = this.updatePatientState(currentPatient, patient);
             }
 
         } catch (error) {
