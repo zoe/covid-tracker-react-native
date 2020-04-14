@@ -1,29 +1,31 @@
-import React, {Component} from "react";
-import {KeyboardAvoidingView, Platform, View} from "react-native";
-import Screen, {Header, isAndroid, ProgressBlock} from "../../components/Screen";
-import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
-import {Form} from "native-base";
+import React, { Component } from "react";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
+import Screen, { Header, isAndroid, ProgressBlock } from "../../components/Screen";
+import { BrandedButton, ErrorText, HeaderText } from "../../components/Text";
+import { Form } from "native-base";
 import ProgressStatus from "../../components/ProgressStatus";
-import {Formik} from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import i18n from "../../locale/i18n"
 import UserService from "../../core/user/UserService";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
-import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ScreenParamList } from "../ScreenParamList";
+import { RouteProp } from "@react-navigation/native";
+import { AssessmentInfosRequest } from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 
 
 const initialFormValues = {
+    interactedAnyPatients: "",
     treatedPatientsWithCovid: "",
     hasUsedPPEEquipment: "",
     ppeAvailabilityAlways: "",
     ppeAvailabilitySometimes: "",
     ppeAvailabilityNever: "",
-}
+};
 
 interface HealthWorkerExposureData {
+    interactedAnyPatients: string;
     treatedPatientsWithCovid: string;
     hasUsedPPEEquipment: string;
     ppeAvailabilityAlways: string;
@@ -67,46 +69,38 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     private createAssessment(formData: HealthWorkerExposureData) {
         const patientId = this.props.route.params.patientId;
 
-        var assessment = {
+        return {
             patient: patientId,
-            treated_patients_with_covid: formData.treatedPatientsWithCovid,
-            have_used_PPE: formData.hasUsedPPEEquipment,
+            interacted_any_patients: formData.interactedAnyPatients === 'yes',
+            ...(formData.treatedPatientsWithCovid && {treated_patients_with_covid: formData.treatedPatientsWithCovid}),
+            ...(formData.hasUsedPPEEquipment && {have_used_PPE: formData.hasUsedPPEEquipment}),
+            ...(formData.hasUsedPPEEquipment === 'always' && formData.ppeAvailabilityAlways && {always_used_shortage: formData.ppeAvailabilityAlways}),
+            ...(formData.hasUsedPPEEquipment === 'sometimes' && formData.ppeAvailabilitySometimes && {sometimes_used_shortage: formData.ppeAvailabilitySometimes}),
+            ...(formData.hasUsedPPEEquipment === 'never' && formData.ppeAvailabilityNever && {never_used_shortage: formData.ppeAvailabilityNever}),
         } as Partial<AssessmentInfosRequest>;
-
-        if (formData.hasUsedPPEEquipment === 'always') {
-            assessment = {
-                ...assessment,
-                always_used_shortage: formData.ppeAvailabilityAlways,
-            }
-        } else if (formData.hasUsedPPEEquipment === 'sometimes') {
-            assessment = {
-                ...assessment,
-                sometimes_used_shortage: formData.ppeAvailabilitySometimes,
-            }
-        } else if (formData.hasUsedPPEEquipment === 'never') {
-            assessment = {
-                ...assessment,
-                never_used_shortage: formData.ppeAvailabilityNever,
-            }
-        }
-
-        return assessment;
     }
 
     registerSchema = Yup.object().shape({
-        treatedPatientsWithCovid: Yup.string().required(),
-        hasUsedPPEEquipment: Yup.string().required(),
-        ppeAvailabilityAlways: Yup.string().when('hasUsedPPEEquipment', {
-            is: 'always',
-            then: Yup.string().required()
+        interactedAnyPatients: Yup.string().required(),
+        treatedPatientsWithCovid: Yup.string().when('interactedAnyPatients', {
+            is: 'yes',
+            then: Yup.string().required(i18n.t("required-treated-patients-with-covid")),
+        }),
+        hasUsedPPEEquipment: Yup.string().when('interactedAnyPatients', {
+            is: 'yes',
+            then: Yup.string().required(i18n.t("required-has-used-ppe-equipment")),
+        }),
+        ppeAvailabilityAlways: Yup.string().when(['interactedAnyPatients', 'hasUsedPPEEquipment'], {
+            is: (interactedAnyPatients, hasUsedPPEEquipment) => interactedAnyPatients === 'yes' && hasUsedPPEEquipment === 'always',
+            then: Yup.string().required(i18n.t("required-ppe-availability-always")),
         }),
         ppeAvailabilitySometimes: Yup.string().when('hasUsedPPEEquipment', {
-            is: 'sometimes',
-            then: Yup.string().required()
+            is: (interactedAnyPatients, hasUsedPPEEquipment) => interactedAnyPatients === 'yes' && hasUsedPPEEquipment === 'sometimes',
+            then: Yup.string().required(i18n.t("required-ppe-availability-sometimes"))
         }),
         ppeAvailabilityNever: Yup.string().when('hasUsedPPEEquipment', {
-            is: 'never',
-            then: Yup.string().required()
+            is: (interactedAnyPatients, hasUsedPPEEquipment) => interactedAnyPatients === 'yes' && hasUsedPPEEquipment === 'never',
+            then: Yup.string().required(i18n.t("required-ppe-availability-never"))
         }),
     });
 
@@ -170,49 +164,55 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
 
                                     <View>
                                         <DropdownField
-                                            selectedValue={props.values.treatedPatientsWithCovid}
-                                            onValueChange={props.handleChange("treatedPatientsWithCovid")}
-                                            label={i18n.t("label-interacted-with-infected-patients-last-day")}
-                                            items={patientInteractionOptions}
+                                            selectedValue={props.values.interactedAnyPatients}
+                                            onValueChange={props.handleChange("interactedAnyPatients")}
+                                            label={i18n.t("label-interacted-with-any-patients-last-day")}
                                         />
 
-                                        <DropdownField
-                                            selectedValue={props.values.hasUsedPPEEquipment}
-                                            onValueChange={props.handleChange("hasUsedPPEEquipment")}
-                                            label={i18n.t("label-used-ppe-equipment-last-day")}
-                                            items={equipmentUsageOptions}
-                                            isCompact={true}
-                                        />
-
-                                        {props.values.hasUsedPPEEquipment === 'always' && (
+                                        {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === "yes" &&
+                                        <>
                                             <DropdownField
-                                                selectedValue={props.values.ppeAvailabilityAlways}
-                                                onValueChange={props.handleChange("ppeAvailabilityAlways")}
-                                                label={i18n.t("label-chose-an-option")}
-                                                items={availabilityAlwaysOptions}
-                                                isCompact={true}
+                                                selectedValue={props.values.treatedPatientsWithCovid}
+                                                onValueChange={props.handleChange("treatedPatientsWithCovid")}
+                                                label={i18n.t("label-interacted-with-infected-patients-last-day")}
+                                                items={patientInteractionOptions}
                                             />
-                                        )}
 
-                                        {props.values.hasUsedPPEEquipment === 'sometimes' && (
                                             <DropdownField
-                                                selectedValue={props.values.ppeAvailabilitySometimes}
-                                                onValueChange={props.handleChange("ppeAvailabilitySometimes")}
-                                                label={i18n.t("label-chose-an-option")}
-                                                items={availabilitySometimesOptions}
-                                                isCompact={true}
+                                                selectedValue={props.values.hasUsedPPEEquipment}
+                                                onValueChange={props.handleChange("hasUsedPPEEquipment")}
+                                                label={i18n.t("label-used-ppe-equipment-last-day")}
+                                                items={equipmentUsageOptions}
                                             />
-                                        )}
 
-                                        {props.values.hasUsedPPEEquipment === 'never' && (
-                                            <DropdownField
-                                                selectedValue={props.values.ppeAvailabilityNever}
-                                                onValueChange={props.handleChange("ppeAvailabilityNever")}
-                                                label={i18n.t("label-chose-an-option")}
-                                                items={availabilityNeverOptions}
-                                                isCompact={true}
-                                            />
-                                        )}
+                                            {props.values.hasUsedPPEEquipment === 'always' && (
+                                                <DropdownField
+                                                    selectedValue={props.values.ppeAvailabilityAlways}
+                                                    onValueChange={props.handleChange("ppeAvailabilityAlways")}
+                                                    label={i18n.t("label-chose-an-option")}
+                                                    items={availabilityAlwaysOptions}
+                                                />
+                                            )}
+
+                                            {props.values.hasUsedPPEEquipment === 'sometimes' && (
+                                                <DropdownField
+                                                    selectedValue={props.values.ppeAvailabilitySometimes}
+                                                    onValueChange={props.handleChange("ppeAvailabilitySometimes")}
+                                                    label={i18n.t("label-chose-an-option")}
+                                                    items={availabilitySometimesOptions}
+                                                />
+                                            )}
+
+                                            {props.values.hasUsedPPEEquipment === 'never' && (
+                                                <DropdownField
+                                                    selectedValue={props.values.ppeAvailabilityNever}
+                                                    onValueChange={props.handleChange("ppeAvailabilityNever")}
+                                                    label={i18n.t("label-chose-an-option")}
+                                                    items={availabilityNeverOptions}
+                                                />
+                                            )}
+                                        </>
+                                        }
 
                                     </View>
 
