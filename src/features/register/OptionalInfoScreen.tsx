@@ -13,7 +13,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {PiiRequest} from "../../core/user/dto/UserAPIContracts";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
-
+import Constants from 'expo-constants';
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>
@@ -65,13 +65,15 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             })
         };
 
-        const pushToken = await PushNotificationService.getPushToken(false);
-        if (pushToken) {
-            try {
-                await userService.savePushToken(pushToken);
-                AsyncStorageService.setPushToken(pushToken);
-            } catch (error) {
-                this.setState({errorMessage: 'Something went wrong... try again later'});
+        if (Constants.appOwnership !== 'expo') {
+            const pushToken = await PushNotificationService.getPushToken(false);
+            if (pushToken) {
+                try {
+                    await userService.savePushToken(pushToken);
+                    AsyncStorageService.setPushToken(pushToken);
+                } catch (error) {
+                    this.setState({errorMessage: 'Something went wrong... try again later'});
+                }
             }
         }
 
