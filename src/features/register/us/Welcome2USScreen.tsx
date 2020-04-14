@@ -7,6 +7,7 @@ import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../
 import {ScreenParamList} from "../../ScreenParamList";
 import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../../assets";
 import UserService, {isUSLocale} from "../../../core/user/UserService";
+import CountryIpModal from ".././CountryIpModal";
 
 const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
 
@@ -16,11 +17,14 @@ type PropsType = {
 
 type WelcomeUSScreenState = {
     userCount: string | null
+    ipModalVisible: boolean
 }
 
 export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState> {
+    userService = new UserService();
     state = {
         userCount: null,
+        ipModalVisible: false
     };
 
     async componentDidMount() {
@@ -80,10 +84,19 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                     </ScrollView>
                 </View>
 
+                <CountryIpModal navigation={this.props.navigation}
+                                isModalVisible={this.state.ipModalVisible}
+                                closeModal={() => this.setState({ipModalVisible: false})}/>
 
                 <View style={styles.buttonContainer}>
                     <BrandedButton
-                        onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
+                        onPress={async () => {
+                            if (await this.userService.shouldAskCountryConfirmation()) {
+                                this.setState({ipModalVisible: true})
+                            } else {
+                                this.props.navigation.navigate('BeforeWeStartUS')
+                            }
+                        }}>{i18n.t("create-account-btn")}</BrandedButton>
                 </View>
 
             </SafeAreaView>
