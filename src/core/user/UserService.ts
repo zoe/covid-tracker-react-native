@@ -203,7 +203,7 @@ export default class UserService extends ApiClientBase {
             return false
         } else {
             await AsyncStorageService.setIsHealthWorker(
-                (patientProfileResponse.data.healthcare_professional === "yes_does_treat")
+                (patientProfileResponse.data.healthcare_professional === "yes_does_interact")
                 || patientProfileResponse.data.is_carer_for_community);
             await AsyncStorageService.setPatientDetailsComplete(true);
             return true
