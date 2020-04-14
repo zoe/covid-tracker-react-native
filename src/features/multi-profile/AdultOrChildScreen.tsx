@@ -6,7 +6,7 @@ import {Form, Text} from "native-base";
 
 import {colors, fontStyles} from "../../../theme"
 import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList, ConsentType} from "../ScreenParamList";
+import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {BigButton} from "../../components/Button";
 import {RouteProp} from "@react-navigation/native";
 import {isUSLocale} from "../../core/user/UserService";
@@ -32,12 +32,12 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
         this.state = initialState;
     }
 
-    buildRouteParams = (consentType:ConsentType) => {
-      return {
-          consentType: consentType,
-          profileName: this.props.route.params.profileName,
-          avatarName: this.props.route.params.avatarName
-      }
+    buildRouteParams = (consentType: ConsentType) => {
+        return {
+            consentType: consentType,
+            profileName: this.props.route.params.profileName,
+            avatarName: this.props.route.params.avatarName
+        }
     };
 
     countryString = isUSLocale() ? "US" : "UK";
