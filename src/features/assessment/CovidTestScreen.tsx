@@ -17,8 +17,7 @@ import {RouteProp} from "@react-navigation/native";
 import UserService from "../../core/user/UserService";
 import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
-import {ValidationErrors} from "../../components/ValidationError";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
+import { ValidationErrors } from "../../components/ValidationError";
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -67,14 +66,13 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     });
 
     async componentDidMount() {
-        const hasBloodPressureAnswer = await AsyncStorageService.hasBloodPressureAnswer();
-        if (!hasBloodPressureAnswer) {
-            this.setState({needBloodPressureAnswer: true});
-        }
+        const currentPatient = this.props.route.params.currentPatient
+        this.setState({needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer});
     }
 
     handleUpdateHealth(formData: CovidTestData) {
-        const {patientId, assessmentId} = this.props.route.params;
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const patientId = currentPatient.patientId
 
         const userService = new UserService();
         var assessment = {
@@ -95,7 +93,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
             userService.updatePatient(patientId, {
                 takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes'
             })
-            .then(response => AsyncStorageService.setHasBloodPressureAnswer(true))
+            .then(response => currentPatient.hasBloodPressureAnswer = true)
             .catch(err => {
                 this.setState({errorMessage: i18n.t("something-went-wrong")});
             });
@@ -104,7 +102,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         if (assessmentId == null) {
             userService.addAssessment(assessment)
                 .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {assessmentId: response.data.id})
+                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: response.data.id})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -112,7 +110,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         } else {
             userService.updateAssessment(assessmentId, assessment)
                 .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {assessmentId: assessmentId})
+                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: assessmentId})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -121,13 +119,14 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         const hasCovidPositiveItems = [
             {label: i18n.t('picker-no'), value: 'no'},
             {label: i18n.t('picker-yes'), value: 'yes'},
             {label: i18n.t('covid-test-picker-waiting'), value: 'waiting'}
-        ]
+        ];
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>COVID-19 status</HeaderText>
                 </Header>
@@ -183,7 +182,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                    <Text>{i18n.t("next-question")}</Text>
                                 </BrandedButton>
 
 
@@ -196,10 +195,3 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    buttonText: {
-        color: colors.white,
-    },
-});

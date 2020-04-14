@@ -14,7 +14,6 @@ interface DropdownFieldProps {
     label?: string,
     items?: PickerItemProps[]
     pickerProps?: PickerProps,
-    isCompact?: boolean,
     androidDefaultLabel?: string,
     error?: any,
     onlyPicker?: boolean,
@@ -51,11 +50,10 @@ const DropdownPicker = (props: DropdownPickerProps) => {
 const DropdownField = (props: DropdownFieldProps) => {
     // Can be used as a yes/no dropdown field by leaving props.items blank.
     const {label, error, onlyPicker, ...more} = props;
-    const wrapperStyle = props.isCompact ? null : styles.fieldWrapper;
 
     return (
         onlyPicker ? <DropdownPicker onlyPicker={onlyPicker} {...more} /> :
-            <FieldWrapper style={wrapperStyle}>
+            <FieldWrapper style={styles.fieldWrapper}>
             <Label style={styles.labelStyle}>{label}</Label>
                 <View style={styles.dropdownWrapper}>
             <DropdownPicker {...more} />

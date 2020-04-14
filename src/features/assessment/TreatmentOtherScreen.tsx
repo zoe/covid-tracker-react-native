@@ -45,8 +45,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     handleUpdateTreatment(formData: TreatmentData) {
 
-        const assessmentId = this.props.route.params.assessmentId;
-        const location = this.props.route.params.location;
+        const {currentPatient, assessmentId, location} = this.props.route.params;
         const goToNextScreen = () => this.props.navigation.navigate(getThankYouScreen());
 
         if (!formData.description) {
@@ -60,8 +59,9 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>What treatment are you receiving in hospital?</HeaderText>
                 </Header>
@@ -97,7 +97,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Done</Text>
+                                    <Text>Done</Text>
                                 </BrandedButton>
 
                             </Form>
@@ -114,9 +114,5 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 const styles = StyleSheet.create({
     textarea: {
         width: '100%',
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });
