@@ -12,6 +12,7 @@ import {profile1, profile2, profile3, profile4, profile5, profile6, profile7, pr
 import {Card} from "native-base";
 import '../../../assets';
 import key from "weak-key";
+import { getAvatarByName, AvatarName } from "../../utils/avatar";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -61,22 +62,22 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
         this.props.navigation.navigate('StartAssessment', {currentPatient});
     }
 
-    getAvatar(patient: Patient) {
-        // This makes me sad...
-        switch (patient.avatar_name) {
-            case 'profile1': return profile1;
-            case 'profile2': return profile2;
-            case 'profile3': return profile3;
-            case 'profile4': return profile4;
-            case 'profile5': return profile5;
-            case 'profile6': return profile6;
-            case 'profile7': return profile7;
-            case 'profile8': return profile8;
-            case 'profile9': return profile9;
-            case 'profile10': return profile10;
-            default: return profile1;
-        }
-    }
+    // getAvatar(patient: Patient) {
+    //     // This makes me sad...
+    //     switch (patient.avatar_name) {
+    //         case 'profile1': return profile1;
+    //         case 'profile2': return profile2;
+    //         case 'profile3': return profile3;
+    //         case 'profile4': return profile4;
+    //         case 'profile5': return profile5;
+    //         case 'profile6': return profile6;
+    //         case 'profile7': return profile7;
+    //         case 'profile8': return profile8;
+    //         case 'profile9': return profile9;
+    //         case 'profile10': return profile10;
+    //         default: return profile1;
+    //     }
+    // }
 
     getNextAvatarName() {
         if (this.state.patients) {
@@ -106,19 +107,22 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
                             <View style={styles.profileList}>
                                 {
-                                    this.state.patients.map((patient, i) =>
-                                      <View style={styles.cardContainer}  key={key(patient)}>
-                                        <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
-                                            <Card style={styles.card}>
-                                                <Image source={this.getAvatar(patient)} style={styles.avatar} resizeMode={'contain'} />
-                                                <RegularText>{patient.name}</RegularText>
-                                                {
-                                                    <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
-                                                }
-                                            </Card>
-                                        </TouchableOpacity>
-                                      </View>
-                                    )
+                                    this.state.patients.map((patient, i) =>{
+                                        const avatarImage = getAvatarByName((patient.avatar_name || "profile10") as AvatarName);
+                                        return (
+                                            <View style={styles.cardContainer}  key={key(patient)}>
+                                            <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
+                                                <Card style={styles.card}>
+                                                    <Image source={avatarImage} style={styles.avatar} resizeMode={'contain'} />
+                                                    <RegularText>{patient.name}</RegularText>
+                                                    {
+                                                        <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
+                                                    }
+                                                </Card>
+                                            </TouchableOpacity>
+                                          </View>
+                                        )
+                                    })
                                 }
 
                                 <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.gotoCreateProfile()}>

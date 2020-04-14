@@ -47,12 +47,12 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
 
     handleButtonPress = async () => {
-        // this.props.navigation.navigate('SelectProfile');
+        this.props.navigation.navigate('SelectProfile');
 
-        const {patientId} = this.props.route.params;
-        const userService = new UserService();
-        const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.navigate('StartAssessment', {currentPatient});
+        // const {patientId} = this.props.route.params;
+        // const userService = new UserService();
+        // const currentPatient = await userService.getCurrentPatient(patientId);
+        // this.props.navigation.navigate('StartAssessment', {currentPatient});
     };
 
     render() {
