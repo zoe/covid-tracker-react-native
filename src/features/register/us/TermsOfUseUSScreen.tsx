@@ -7,8 +7,8 @@ import {ScreenParamList} from "../../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'TermsOfUse'>
-    route: RouteProp<ScreenParamList, 'TermsOfUse'>;
+    navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>
+    route: RouteProp<ScreenParamList, 'TermsOfUseUS'>;
 }
 
 const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 });
 
 
-export default class TermsOfUseScreen extends Component<PropsType> {
+export default class TermsOfUseUSScreen extends Component<PropsType> {
     constructor(props: PropsType) {
         super(props);
     }

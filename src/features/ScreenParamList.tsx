@@ -18,10 +18,10 @@ export type ScreenParamList = {
 
     // Terms & consent screens
     Consent: { viewOnly: boolean };
-    NursesConsentUS: { viewOnly: boolean };
-    BeforeWeStartUS: undefined;
-    TermsOfUse: { viewOnly: boolean };
     PrivacyPolicyUK: { viewOnly: boolean };
+    BeforeWeStartUS: undefined;
+    NursesConsentUS: { viewOnly: boolean };
+    TermsOfUseUS: { viewOnly: boolean };
     PrivacyPolicyUS: { viewOnly: boolean };
 
     // User profile screens

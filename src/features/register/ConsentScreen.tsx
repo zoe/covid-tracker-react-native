@@ -123,7 +123,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                                         <Body style={styles.label}>
                                             <RegularText>
                                                 I have read and accept Zoe Global’s {" "}
-                                                <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUse', {viewOnly: this.viewOnly})}>Terms of Use</ClickableText>{" "}
+                                                <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUseUS', {viewOnly: this.viewOnly})}>Terms of Use</ClickableText>{" "}
                                                 and{" "}
                                                 <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy Policy</ClickableText>.
                                             </RegularText>
