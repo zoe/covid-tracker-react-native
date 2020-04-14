@@ -21,8 +21,8 @@ import i18n from "../../locale/i18n"
 import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
 import { AvatarName } from "../../utils/avatar";
 
-const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.2.2'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.2.1';    // TODO: Wire this to something automatic.
 
 
 export default class UserService extends ApiClientBase {
@@ -158,7 +158,7 @@ export default class UserService extends ApiClientBase {
         // Calculate the flags based on patient info
         const isFemale = (patient.gender == 0);
         const isHealthWorker = (
-            (patient.healthcare_professional === "yes_does_treat")
+            ["yes_does_treat", "yes_does_interact"].includes(patient.healthcare_professional)
             || patient.is_carer_for_community
         );
         const hasBloodPressureAnswer = (
