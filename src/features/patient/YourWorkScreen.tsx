@@ -15,7 +15,6 @@ import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
 import {ValidationErrors} from "../../components/ValidationError";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
 
 
 const initialFormValues = {
@@ -85,16 +84,19 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     }
 
     handleUpdateWork(formData: YourWorkData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
+        const patientId = currentPatient.patientId;
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
             .then(response => {
-                AsyncStorageService.setIsHealthWorker(
+                const isHealthcareWorker = (
                     (infos.healthcare_professional === "yes_does_treat")
-                    || infos.is_carer_for_community);
-                this.props.navigation.navigate('AboutYou', {patientId: patientId})
+                    || infos.is_carer_for_community
+                );
+                currentPatient.isHealthWorker = isHealthcareWorker;
+                this.props.navigation.navigate('AboutYou', {currentPatient})
             })
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
 
@@ -174,6 +176,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
+
         const healthcareStaffOptions = [
             {label: 'No', value: 'no'},
             {label: i18n.t("yes-treating-patients"), value: 'yes_does_treat'},
@@ -216,7 +220,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         }
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>{i18n.t("title-about-work")}</HeaderText>
                 </Header>

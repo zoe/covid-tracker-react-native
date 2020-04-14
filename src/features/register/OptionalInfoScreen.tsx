@@ -47,15 +47,17 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     }
 
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
-
         const patientId = this.props.route.params.user.patients[0];
         const userService = new UserService();
-        let consent = await userService.getConsentSigned();
-        let nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
-            ? {name: "YourStudy", params: {patientId: patientId}}
-            : {name: "YourWork", params: {patientId: patientId}};
-        const goToNextScreen = () => {
 
+        const currentPatient = await userService.getCurrentPatient(patientId);
+        const consent = await userService.getConsentSigned();
+
+        const nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
+            ? {name: "YourStudy", params: {currentPatient}}
+            : {name: "YourWork", params: {currentPatient}};
+
+        const goToNextScreen = () => {
             this.props.navigation.reset({
                 index: 0,
                 routes: [
