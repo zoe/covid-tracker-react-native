@@ -9,6 +9,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {profilesIcon} from "../../../assets";
 import {Text} from "native-base";
 import {getLocalThankYou} from "../Navigation";
+import UserService from "../../core/user/UserService";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>
@@ -16,6 +17,12 @@ type RenderProps = {
 }
 
 export default class ReportForOtherScreen extends Component<RenderProps, {}> {
+
+    handleSkip = async () => {
+        const userService = new UserService()
+        await userService.recordAskedToReportForOther();
+        this.props.navigation.navigate(getLocalThankYou())
+    }
 
     render() {
         return (
@@ -45,7 +52,7 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                                 Not right now? You can add additional profiles from the menu icon above at any time.
                             </RegularText>
 
-                            <ClickableText onPress={() => this.props.navigation.navigate(getLocalThankYou())} style={styles.done}>Skip</ClickableText>
+                            <ClickableText onPress={() => this.handleSkip()} style={styles.done}>Skip</ClickableText>
 
                         </View>
                     </ScrollView>

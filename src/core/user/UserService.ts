@@ -23,7 +23,7 @@ import { AvatarName } from "../../utils/avatar";
 
 const ASSESSMENT_VERSION = '1.2.2'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.1';    // TODO: Wire this to something automatic.
-
+const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
@@ -359,8 +359,7 @@ export default class UserService extends ApiClientBase {
         }
     }
 
-    public async showReportForOthersScreen() {
-        const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
+    public async shouldAskToReportForOthers() {
         try {
             let response = await AsyncStorageService.getAskedToReportForOthers();
             if (response) {

@@ -6,12 +6,11 @@ export async function navigateAfterFinishingAssessment(navigation: any) {
     if (await userService.hasMultipleProfiles()) {
         navigation.replace(getLocalThankYou());
     } else {
-        if (await userService.showReportForOthersScreen()) {
+        if (await userService.shouldAskToReportForOthers()) {
             navigation.replace('ReportForOther')
         } else {
             navigation.replace(getLocalThankYou());
         }
-        navigation.replace('ReportForOther')
     }
 }
 
