@@ -8,7 +8,6 @@ import {colors, fontStyles} from "../../../theme"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList, ConsentType} from "../ScreenParamList";
 import {BigButton} from "../../components/Button";
-import {RegularText} from "../../components/Text";
 import {RouteProp} from "@react-navigation/native";
 import {isUSLocale} from "../../core/user/UserService";
 
