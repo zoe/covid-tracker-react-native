@@ -21,8 +21,8 @@ import i18n from "../../locale/i18n"
 import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
 import { AvatarName } from "../../utils/avatar";
 
-const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.2.2'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.2.1';    // TODO: Wire this to something automatic.
 
 
 export default class UserService extends ApiClientBase {
