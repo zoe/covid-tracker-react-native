@@ -47,11 +47,6 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
 
     handleButtonPress = async () => {
         this.props.navigation.navigate('SelectProfile');
-
-        // const {patientId} = this.props.route.params;
-        // const userService = new UserService();
-        // const currentPatient = await userService.getCurrentPatient(patientId);
-        // this.props.navigation.navigate('StartAssessment', {currentPatient});
     };
 
     render() {
