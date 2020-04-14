@@ -5,10 +5,12 @@ import {colors} from "../../../../theme";
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
 import {ScreenParamList} from "../../ScreenParamList";
 import {ApplicationVersion} from "../../../components/AppVersion";
+import {RouteProp} from "@react-navigation/native";
 
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>
+    navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUS'>
+    route: RouteProp<ScreenParamList, 'PrivacyPolicyUS'>;
 }
 
 const HeaderText = (props: { text: string }) => {
@@ -17,10 +19,11 @@ const HeaderText = (props: { text: string }) => {
             {props.text}{"\n"}
         </RegularBoldText>
     )
-}
-
+};
 
 export class PrivacyPolicyUSScreen extends Component<PropsType, {}> {
+
+    viewOnly = this.props.route.params.viewOnly;
 
     render() {
         return (
@@ -327,7 +330,6 @@ The General Data Protection Regulation also gives you the right to lodge a compl
                 <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
 
                 <ApplicationVersion/>
-
 
             </View>
         );

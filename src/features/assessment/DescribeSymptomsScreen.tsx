@@ -346,7 +346,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 )}
 
                                 <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                    <Text>{i18n.t("next-question")}</Text>
                                 </BrandedButton>
 
                             </Form>
@@ -376,9 +376,5 @@ const styles = StyleSheet.create({
 
     secondaryField: {
         flex: 1,
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });

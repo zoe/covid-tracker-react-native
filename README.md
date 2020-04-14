@@ -55,12 +55,18 @@ git clone git@github.com:zoe/covid-tracker-react-native.git
 ```
 exp://123.456.7.890:19000
 ```
-Copy that IP address.
+Copy the host part of the IP address only.
+
 4. Create a `.env` file
 ```sh
-echo "API_URL=<ip_address_here>:3000" > .env
+echo "API_URL=<ip_address_host_here>:3000" > .env
+```
+e.g.
+```sh
+echo "API_URL=http://123.456.7.890:3000" > .env
 ```
 5. Get the Cloudbase Authentication file and store it as `./google-services.json`
+
 6. Run the following commands
 ```JS
 npm install

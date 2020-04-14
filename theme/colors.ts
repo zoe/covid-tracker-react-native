@@ -10,6 +10,8 @@ export const colors = {
     backgroundPrimary: '#FFFFFF',
     backgroundSecondary: '#F7F7F7',
     backgroundTertiary: '#EEEEEF',
+    backgroundFour: '#E2E2E2',
+    backgroundFive: '#E5E5E5',
 
     feedbackBad: '#FF9600',
     feedbackPoor: '#FFD519',
@@ -19,8 +21,10 @@ export const colors = {
     white: '#FFFFFF',
     black: '#000000',
     purple: '#A10056',
+    pink: '#D28C90',
 
     linkBlue: '#007AFF',
+    slashBlue: '#29C4CF',
 
     backgroundBrandDisabled: '#7C9CAD',
 };
