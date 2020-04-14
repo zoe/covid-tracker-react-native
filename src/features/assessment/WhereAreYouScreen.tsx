@@ -30,27 +30,28 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
     }
 
     handleAtHome() {
+        const {currentPatient, assessmentId} = this.props.route.params;
         this.updateAssessment('home')
-            .then(response => this.props.navigation.navigate('LevelOfIsolation', {
-                assessmentId: this.props.route.params.assessmentId,
-            }))
+            .then(response => this.props.navigation.navigate('LevelOfIsolation', {currentPatient, assessmentId}))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
     handleAtHospital() {
-        this.updateAssessment('hospital')
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const location = "hospital";
+        this.updateAssessment(location)
             .then(response => this.props.navigation.navigate('TreatmentSelection', {
-                assessmentId: this.props.route.params.assessmentId,
-                location: 'hospital'
+                currentPatient, assessmentId, location
             }))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
     handleBackAtHome() {
-        this.updateAssessment('back_from_hospital')
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const location = "back_from_hospital";
+        this.updateAssessment(location)
             .then(response => this.props.navigation.navigate('TreatmentSelection', {
-                assessmentId: this.props.route.params.assessmentId,
-                location: 'back_from_hospital'
+                currentPatient, assessmentId, location
             }))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
@@ -72,12 +73,11 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
 
     render() {
-
-
+        const currentPatient = this.props.route.params.currentPatient;
         const medicalBuilding = isUSLocale() ? "clinic or hospital" : "hospital";
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>Where are you right now?</HeaderText>
                 </Header>

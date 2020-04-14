@@ -18,6 +18,8 @@ import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
 import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
+import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
+import { AvatarName } from "../../utils/avatar";
 
 const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
@@ -80,7 +82,6 @@ export default class UserService extends ApiClientBase {
     };
 
     getData = <T>(response: AxiosResponse<T>) => {
-
         if (typeof response.data === 'string') {
             return <T>camelizeKeys(JSON.parse(response.data));
         } else {
@@ -96,7 +97,6 @@ export default class UserService extends ApiClientBase {
     };
 
     public async register(email: string, password: string) {
-
         const payload = {
             username: email,
             password1: password,
@@ -134,6 +134,69 @@ export default class UserService extends ApiClientBase {
 
     private getPatientVersion() {
         return PATIENT_VERSION;
+    }
+
+    public async getPatient(patientId: string): Promise<PatientInfosRequest> {
+        // TODO: Cache this in AsyncStorage?
+        const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
+        return patientResponse.data;
+    }
+
+    public updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+        // Calculate the flags based on patient info
+        const isFemale = (patient.gender == 0);
+        const isHealthWorker = (
+            (patient.healthcare_professional === "yes_does_treat")
+            || patient.is_carer_for_community
+        );
+        const hasBloodPressureAnswer = (
+            patient.takes_any_blood_pressure_medications === true
+            || patient.takes_any_blood_pressure_medications === false
+        );
+        const hasCompletePatientDetails = (
+            // They've done at least one page of the patient flow. That's a start.
+            !!patient.profile_attributes_updated_at
+            // If they've completed the last page, heart disease will either be true or false
+            // and not null. (or any nullable field on the last page)
+            && (patient.has_heart_disease === true || patient.has_heart_disease === false)
+        );
+
+        const profile: PatientProfile = {
+            name: patient.name || "Me",
+            avatarName: (patient.avatar_name || "profile1") as AvatarName,
+        };
+        const isReportedByAnother = patient.reported_by_another || false;
+        const isSameHousehold = patient.same_household_as_reporter || false
+
+        return {
+            ...patientState,
+            profile,
+            isFemale,
+            isHealthWorker,
+            hasBloodPressureAnswer,
+            hasCompletePatientDetails,
+            isReportedByAnother,
+            isSameHousehold,
+        };
+    }
+
+    public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
+        let currentPatient = getInitialPatientState(patientId);
+
+        try {
+            if (!patient) {
+                patient = await this.getPatient(patientId);
+            }
+
+            if (patient) {
+                currentPatient = this.updatePatientState(currentPatient, patient);
+            }
+
+        } catch (error) {
+            // Something wrong with the request, fallback to defaults
+        }
+
+        return currentPatient;
     }
 
 
@@ -191,25 +254,6 @@ export default class UserService extends ApiClientBase {
             platform: isAndroid ? 'ANDROID' : 'IOS',
         } as TokenInfoRequest;
         return this.client.post<TokenInfoResponse>(`/tokens/`, tokenDoc);
-    }
-
-    public async hasCompletedPatientDetails(patientId: string) {
-        const completedLocal = await AsyncStorageService.hasCompletedPatientDetails();
-        if (completedLocal != null) {
-            return completedLocal
-        }
-
-        const patientProfileResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
-        if (patientProfileResponse.data.profile_attributes_updated_at == null) {
-            return false
-        } else {
-            await AsyncStorageService.setIsHealthWorker(
-                (patientProfileResponse.data.healthcare_professional === "yes_does_treat") ||
-                (patientProfileResponse.data.healthcare_professional === "yes_does_interact")
-                || patientProfileResponse.data.is_carer_for_community);
-            await AsyncStorageService.setPatientDetailsComplete(true);
-            return true
-        }
     }
 
     async getConsentSigned(): Promise<Consent | null> {
@@ -273,16 +317,10 @@ export default class UserService extends ApiClientBase {
         await this.setUserCountry(locale());
     }
 
-    async isHealthWorker() {
-        return AsyncStorageService.getIsHealthWorker()
-    }
-
     async deleteLocalUserData() {
         ApiClientBase.unsetToken();
         await AsyncStorageService.clearData();
-        await AsyncStorageService.setIsHealthWorker(null);
         await AsyncStorageService.saveProfile(null);
-        await AsyncStorageService.setPatientDetailsComplete(null);
         this.setConsentSigned("","","");
     }
 
