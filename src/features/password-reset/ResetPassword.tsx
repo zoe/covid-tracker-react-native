@@ -58,7 +58,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                <KeyboardAvoidingView style={styles.rootContainer}>
 
                     <Formik
                         initialValues={{email: ""}}

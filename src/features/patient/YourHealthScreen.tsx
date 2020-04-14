@@ -253,7 +253,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 >
                     {props => {
                         return (
-                            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                            <KeyboardAvoidingView>
                                 <Form>
 
                                     <DropdownField

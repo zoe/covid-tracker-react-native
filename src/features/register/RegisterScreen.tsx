@@ -117,7 +117,7 @@ export class RegisterScreen extends Component<PropsType, State> {
                 {props => {
                     return (
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                    <KeyboardAvoidingView style={styles.rootContainer}>
                         <View>
 
                             <View style={styles.loginHeader}>

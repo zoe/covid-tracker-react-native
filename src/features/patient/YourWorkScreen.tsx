@@ -225,7 +225,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                             (!!props.values.isCarer && props.values.isCarer === 'yes'
                         );
                         return (
-                            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                            <KeyboardAvoidingView>
                                 <Form>
 
 

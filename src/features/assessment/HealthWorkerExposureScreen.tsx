@@ -163,7 +163,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                 >
                     {props => {
                         return (
-                            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                            <KeyboardAvoidingView>
                                 <Form>
 
                                     <View>

@@ -87,7 +87,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                <KeyboardAvoidingView style={styles.rootContainer}>
                     <View>
                         <HeaderLightText style={styles.titleText}>{i18n.t("login-title")}</HeaderLightText>
 

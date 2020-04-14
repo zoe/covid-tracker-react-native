@@ -131,7 +131,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 >
                     {props => {
                         return (
-                            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                            <KeyboardAvoidingView>
                                 <Form>
 
 

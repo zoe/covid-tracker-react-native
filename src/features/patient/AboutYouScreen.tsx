@@ -258,7 +258,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     }}>
                     {props => {
                         return (
-                            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                            <KeyboardAvoidingView>
                                 <Form>
 
                                     <FieldWrapper>

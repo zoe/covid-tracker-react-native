@@ -206,7 +206,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
               >
                   {props => {
                       return (
-                        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                        <KeyboardAvoidingView>
                             <Form>
 
                                 <DropdownField
