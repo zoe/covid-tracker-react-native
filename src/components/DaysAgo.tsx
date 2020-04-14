@@ -11,8 +11,8 @@ export default class DaysAgo extends Component<ProgressProps> {
         let text = "Never reported";
 
         if (this.props.timeAgo) {
-            const today = moment().startOf("day")
-            let x = today.diff(moment(this.props.timeAgo).startOf("day"));
+            const today = moment().utc().startOf("day")
+            let x = today.diff(moment(this.props.timeAgo).startOf("day"), "days");
             if (x == 0) {
                 text = "Today";
             } else if (x == 1) {

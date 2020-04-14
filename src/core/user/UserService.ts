@@ -23,7 +23,7 @@ import { AvatarName } from "../../utils/avatar";
 
 const ASSESSMENT_VERSION = '1.2.2'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.1';    // TODO: Wire this to something automatic.
-
+const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
@@ -348,6 +348,39 @@ export default class UserService extends ApiClientBase {
 
     public async getAreaStats(patientId: string) {
         return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
+    }
+
+    public async hasMultipleProfiles() {
+        try {
+            let response = await this.listPatients();
+            return response.data.length > 1
+        } catch (e) {
+            return false
+        }
+    }
+
+    public async shouldAskToReportForOthers() {
+        try {
+            let response = await AsyncStorageService.getAskedToReportForOthers();
+            if (response) {
+                return parseInt(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+            } else {
+                await AsyncStorageService.setAskedToReportForOthers("0");
+                return true
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    public async recordAskedToReportForOther() {
+        let response = await AsyncStorageService.getAskedToReportForOthers()
+        if (response) {
+            const value = parseInt(response) + 1;
+            await AsyncStorageService.setAskedToReportForOthers(value.toString())
+        } else {
+            await AsyncStorageService.setAskedToReportForOthers("0")
+        }
     }
 }
 

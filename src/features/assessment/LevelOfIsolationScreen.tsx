@@ -15,7 +15,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
 import {SelectorButton} from "../../components/SelectorButton";
-import {getThankYouScreen} from "../Navigation";
+import {navigateAfterFinishingAssessment} from "../Navigation";
 
 
 type LocationProps = {
@@ -31,7 +31,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
 
     handleSelection = (level_of_isolation: string) => {
         this.updateAssessment(level_of_isolation)
-            .then(response => this.props.navigation.navigate(getThankYouScreen()))
+            .then(response => navigateAfterFinishingAssessment(this.props.navigation))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     };
 

@@ -12,6 +12,8 @@ const PUSH_TOKEN = "pushToken";
 const USER_PROFILE = "userProfile";
 const ASKED_COUNTRY = "askedCountry"
 
+const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers'
+
 const STR_YES = "YES";
 const STR_NO = "NO";
 
@@ -96,6 +98,21 @@ export class AsyncStorageService {
             return null;
         else {
             return JSON.parse(userProfile) as UserResponse
+        }
+    }
+
+    static async getAskedToReportForOthers() {
+        try {
+            return await AsyncStorage.getItem(ASKED_TO_REPORT_FOR_OTHERS);
+        } catch (err) {
+            return null
+        }
+    }
+
+    static setAskedToReportForOthers(count: string) {
+        try {
+            AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count)
+        } catch (err) {
         }
     }
 
