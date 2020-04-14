@@ -92,7 +92,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         userService.updatePatient(patientId, infos)
             .then(response => {
                 AsyncStorageService.setIsHealthWorker(
-                    (infos.healthcare_professional === "yes_does_treat")
+                    (infos.healthcare_professional === "yes_does_interact")
                     || infos.is_carer_for_community);
                 this.props.navigation.navigate('AboutYou', {patientId: patientId})
             })
@@ -103,12 +103,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
     private createPatientInfos(formData: YourWorkData) {
         var infos = {
-            healthcare_professional: formData.isHealthcareStaff,
+            ...(formData.isHealthcareStaff && {healthcare_professional: formData.isHealthcareStaff}),
             is_carer_for_community: formData.isCarer === 'yes',
         } as PatientInfosRequest;
 
 
-        if (formData.isHealthcareStaff !== 'no') {
+        if (formData.isHealthcareStaff === 'yes_does_interact' || formData.isCarer === 'yes') {
             infos = {
                 ...infos,
                 have_worked_in_hospital_inpatient: this.state.atHospitalInpatient,
@@ -119,27 +119,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 have_worked_in_hospital_school_clinic: this.state.atSchoolClinic,
                 have_worked_in_hospital_other: this.state.atOtherFacility,
 
-                interacted_patients_with_covid: formData.hasPatientInteraction,
-
-                have_used_PPE: formData.hasUsedPPEEquipment,
-            }
-
-            if (formData.hasUsedPPEEquipment === 'always') {
-                infos = {
-                    ...infos,
-                    always_used_shortage: formData.ppeAvailabilityAlways,
-                }
-            } else if (formData.hasUsedPPEEquipment === 'sometimes') {
-                infos = {
-                    ...infos,
-                    sometimes_used_shortage: formData.ppeAvailabilitySometimes,
-                }
-            } else if (formData.hasUsedPPEEquipment === 'never') {
-                infos = {
-                    ...infos,
-                    never_used_shortage: formData.ppeAvailabilityNever,
-                }
-            }
+                ...(formData.hasPatientInteraction && {interacted_patients_with_covid: formData.hasPatientInteraction}),
+                ...(formData.hasUsedPPEEquipment && {have_used_PPE: formData.hasUsedPPEEquipment}),
+                ...(formData.hasUsedPPEEquipment === 'always' && formData.ppeAvailabilityAlways && {always_used_shortage: formData.ppeAvailabilityAlways}),
+                ...(formData.hasUsedPPEEquipment === 'sometimes' && formData.ppeAvailabilitySometimes && {sometimes_used_shortage: formData.ppeAvailabilitySometimes}),
+                ...(formData.hasUsedPPEEquipment === 'never' && formData.ppeAvailabilityNever && {never_used_shortage: formData.ppeAvailabilityNever}),
+            };
 
         }
 
@@ -150,12 +135,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         inHospitalInpatient: Yup.boolean(),
         isHealthcareStaff: Yup.string().required(i18n.t("required-is-healthcare-worker")),
         isCarer: Yup.string().required(i18n.t("required-is-carer")),
-        hasPatientInteraction: Yup.string().when('isHealthcareStaff', {
-            is: (value) => value && value !== 'no',
+        hasPatientInteraction: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
+            is: (isHealthcareStaff, isCarer) => isHealthcareStaff === 'yes_does_interact' || isCarer === 'yes',
             then: Yup.string().required(i18n.t("required-has-patient-interaction"))
         }),
-        hasUsedPPEEquipment: Yup.string().when('isHealthcareStaff', {
-            is: (value) => value && value !== 'no',
+        hasUsedPPEEquipment: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
+            is: (isHealthcareStaff, isCarer) => isHealthcareStaff === 'yes_does_interact' || isCarer === 'yes',
             then: Yup.string().required(i18n.t("required-has-used-ppe-equipment"))
         }),
         ppeAvailabilityAlways: Yup.string().when('hasUsedPPEEquipment', {
@@ -176,8 +161,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     render() {
         const healthcareStaffOptions = [
             {label: 'No', value: 'no'},
-            {label: i18n.t("yes-treating-patients"), value: 'yes_does_treat'},
-            {label: i18n.t("yes-not-treating-patients"), value: 'yes_does_not_treat'}
+            {label: i18n.t("yes-interacting-patients"), value: 'yes_does_interact'},
+            {label: i18n.t("yes-not-interacting-patients"), value: 'yes_does_not_interact'},
         ];
         const equipmentUsageOptions = [
             {label: 'Always', value: 'always'},
@@ -231,6 +216,10 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                     onSubmit={(values: YourWorkData) => this.handleUpdateWork(values)}
                 >
                     {props => {
+                        let showWorkerAndCarerQuestions: boolean = (
+                            !!props.values.isHealthcareStaff && props.values.isHealthcareStaff === 'yes_does_interact') ||
+                            (!!props.values.isCarer && props.values.isCarer === 'yes'
+                        );
                         return (
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
                                 <Form>
@@ -253,7 +242,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                     />
 
                                     {/* if is healthcare worker question is yes */}
-                                    {!!props.values.isHealthcareStaff && props.values.isHealthcareStaff !== 'no' && (
+                                    {showWorkerAndCarerQuestions && (
                                         <View>
                                             <FieldWrapper>
                                                 <Item stackedLabel style={styles.textItemStyle}>
@@ -308,7 +297,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                 onValueChange={props.handleChange("hasUsedPPEEquipment")}
                                                 label={i18n.t("label-used-ppe-equipment")}
                                                 items={equipmentUsageOptions}
-                                                isCompact={true}
                                                 error={props.touched.hasUsedPPEEquipment && props.errors.hasUsedPPEEquipment}
                                             />
 
@@ -318,7 +306,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                     onValueChange={props.handleChange("ppeAvailabilityAlways")}
                                                     label={i18n.t("label-chose-an-option")}
                                                     items={availabilityAlwaysOptions}
-                                                    isCompact={true}
                                                     error={props.touched.ppeAvailabilityAlways && props.errors.ppeAvailabilityAlways}
                                                 />
                                             )}
@@ -329,7 +316,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                     onValueChange={props.handleChange("ppeAvailabilitySometimes")}
                                                     label={i18n.t("label-chose-an-option")}
                                                     items={availabilitySometimesOptions}
-                                                    isCompact={true}
                                                     error={props.touched.ppeAvailabilitySometimes && props.errors.ppeAvailabilitySometimes}
                                                 />
                                             )}
@@ -340,7 +326,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                     onValueChange={props.handleChange("ppeAvailabilityNever")}
                                                     label={i18n.t("label-chose-an-option")}
                                                     items={availabilityNeverOptions}
-                                                    isCompact={true}
                                                     error={props.touched.ppeAvailabilityNever && props.errors.ppeAvailabilityNever}
                                                 />
                                             )}
