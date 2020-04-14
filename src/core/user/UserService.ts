@@ -230,7 +230,7 @@ export default class UserService extends ApiClientBase {
         return await AsyncStorageService.getUserCount();
     }
 
-    async setUserCountInAsyncStorage() {
+    async getStartupInfo() {
         const response = await this.client.get<StartupInfo>('/users/startup_info/');
         UserService.ipCountry = response.data.ip_country;
         await AsyncStorageService.setUserCount(response.data.users_count.toString());
