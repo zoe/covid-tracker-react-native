@@ -17,7 +17,7 @@ export type ScreenParamList = {
     WelcomeRepeatUS: { patientId: string };
 
     // Terms & consent screens
-    Terms: { viewOnly: boolean };
+    Consent: { viewOnly: boolean };
     NursesConsentUS: { viewOnly: boolean };
     BeforeWeStartUS: undefined;
     TermsOfUse: { viewOnly: boolean };

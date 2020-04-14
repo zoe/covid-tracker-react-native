@@ -11,8 +11,8 @@ import {RouteProp} from "@react-navigation/native";
 
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'Terms'>
-    route: RouteProp<ScreenParamList, 'Terms'>;
+    navigation: StackNavigationProp<ScreenParamList, 'Consent'>
+    route: RouteProp<ScreenParamList, 'Consent'>;
 }
 
 interface TermsState {
@@ -20,7 +20,7 @@ interface TermsState {
     termsOfUseChecked: boolean
 }
 
-export class TermsScreen extends Component<PropsType, TermsState> {
+export class ConsentScreen extends Component<PropsType, TermsState> {
     private userService = new UserService();
 
     constructor(props: PropsType) {

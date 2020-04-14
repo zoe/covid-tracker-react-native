@@ -13,7 +13,7 @@ import { SplashScreen } from "./features/SplashScreen";
 import YourHealthScreen from "./features/patient/YourHealthScreen";
 import HowYouFeelScreen from "./features/assessment/HowYouFeelScreen";
 import { PrivacyPolicyUKScreen } from "./features/register/gb/PrivacyPolicyUKScreen";
-import { TermsScreen } from "./features/register/TermsScreen";
+import { ConsentScreen } from "./features/register/ConsentScreen";
 import { OptionalInfoScreen } from "./features/register/OptionalInfoScreen";
 import CovidTestScreen from './features/assessment/CovidTestScreen';
 import DescribeSymptomsScreen from './features/assessment/DescribeSymptomsScreen';
@@ -101,7 +101,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Terms" component={TermsScreen} options={{headerShown: true, title: 'Consent'}}/>
+                <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUse" component={TermsOfUseScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
                 <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={{headerShown: true, title: 'Privacy policy'}}/>
