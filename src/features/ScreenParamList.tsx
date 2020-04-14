@@ -17,11 +17,11 @@ export type ScreenParamList = {
     WelcomeRepeatUS: { patientId: string };
 
     // Terms & consent screens
-    Terms: { viewOnly: boolean };
-    NursesConsentUS: { viewOnly: boolean };
-    BeforeWeStartUS: undefined;
-    TermsOfUse: { viewOnly: boolean };
+    Consent: { viewOnly: boolean };
     PrivacyPolicyUK: { viewOnly: boolean };
+    BeforeWeStartUS: undefined;
+    NursesConsentUS: { viewOnly: boolean };
+    TermsOfUseUS: { viewOnly: boolean };
     PrivacyPolicyUS: { viewOnly: boolean };
 
     // User profile screens

@@ -44,7 +44,7 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('Terms', {viewOnly: false})}>
+                        <BigButton onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>
                             <Text>No, I am not</Text>
                         </BigButton>
                     </FieldWrapper>

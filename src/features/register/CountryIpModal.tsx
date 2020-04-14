@@ -95,7 +95,7 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
             } else {
                 return [
                     {name: 'Welcome', params: {}},
-                    {name: 'Terms', params: {}},
+                    {name: 'Consent', params: {}},
                 ]
             }
         };

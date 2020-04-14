@@ -11,8 +11,8 @@ import {RouteProp} from "@react-navigation/native";
 
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'Terms'>
-    route: RouteProp<ScreenParamList, 'Terms'>;
+    navigation: StackNavigationProp<ScreenParamList, 'Consent'>
+    route: RouteProp<ScreenParamList, 'Consent'>;
 }
 
 interface TermsState {
@@ -20,7 +20,7 @@ interface TermsState {
     termsOfUseChecked: boolean
 }
 
-export class TermsScreen extends Component<PropsType, TermsState> {
+export class ConsentScreen extends Component<PropsType, TermsState> {
     private userService = new UserService();
 
     constructor(props: PropsType) {
@@ -123,7 +123,7 @@ export class TermsScreen extends Component<PropsType, TermsState> {
                                         <Body style={styles.label}>
                                             <RegularText>
                                                 I have read and accept Zoe Global’s {" "}
-                                                <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUse', {viewOnly: this.viewOnly})}>Terms of Use</ClickableText>{" "}
+                                                <ClickableText onPress={() => this.props.navigation.navigate('TermsOfUseUS', {viewOnly: this.viewOnly})}>Terms of Use</ClickableText>{" "}
                                                 and{" "}
                                                 <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy Policy</ClickableText>.
                                             </RegularText>
