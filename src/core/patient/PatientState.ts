@@ -3,8 +3,6 @@ import {AvatarName} from "../../utils/avatar";
 export type PatientProfile = {
     name: string,
     avatarName: AvatarName,
-    isReportedByAnother: boolean,
-    isSameHousehold: boolean,
 }
 
 export type PatientStateType = {
@@ -14,6 +12,8 @@ export type PatientStateType = {
     hasCompletePatientDetails: boolean,
     hasBloodPressureAnswer: boolean,
     isFemale: boolean,
+    isReportedByAnother: boolean,
+    isSameHousehold: boolean,
 }
 
 const initPatientState = {
