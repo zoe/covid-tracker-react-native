@@ -62,23 +62,6 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
         this.props.navigation.navigate('StartAssessment', {currentPatient});
     }
 
-    // getAvatar(patient: Patient) {
-    //     // This makes me sad...
-    //     switch (patient.avatar_name) {
-    //         case 'profile1': return profile1;
-    //         case 'profile2': return profile2;
-    //         case 'profile3': return profile3;
-    //         case 'profile4': return profile4;
-    //         case 'profile5': return profile5;
-    //         case 'profile6': return profile6;
-    //         case 'profile7': return profile7;
-    //         case 'profile8': return profile8;
-    //         case 'profile9': return profile9;
-    //         case 'profile10': return profile10;
-    //         default: return profile1;
-    //     }
-    // }
-
     getNextAvatarName() {
         if (this.state.patients) {
             const n = (this.state.patients.length + 1) % NUMBER_OF_PROFILE_AVATARS;

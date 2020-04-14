@@ -10,6 +10,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import { AvatarName } from "../../utils/avatar";
+import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
 
 
 type RenderProps = {
@@ -68,28 +69,29 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.navigate('StartAssessment', {currentPatient});
+        this.props.navigation.replace('StartAssessment', {currentPatient});
     }
 
     createProfile() {
         const name = this.props.route.params.profileName;
         const avatarName = this.props.route.params.avatarName;
         const userService = new UserService();
-        console.log({
+
+        const newPatient = {
             name: name,
             avatar_name: avatarName,
             reported_by_another: true
-        });
-        userService.createPatient({
-            name: name,
-            avatar_name: (avatarName || "profile10") as AvatarName,
-            reported_by_another: true
-        })
-            .then(response => {
-                // TODO: Need to get patientId of the newly created patient
-                const patientId = "76265d77-e526-4a8b-8e6f-bc6a9943f698"; // TODO: Fixme
+        } as Partial<PatientInfosRequest>
 
-                this.startAssessment(patientId);
+        userService.createPatient(newPatient)
+            .then(() => userService.listPatients())
+            .then(response => {
+                const patientList = response.data;
+                const createdPatient = patientList.find((patient: PatientInfosRequest) => (
+                    patient.name === newPatient.name
+                    && patient.avatar_name == newPatient.avatar_name
+                ))
+                this.startAssessment(createdPatient.id);
             })
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
