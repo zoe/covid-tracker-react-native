@@ -50,12 +50,15 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
         const userService = new UserService();
         userService.listPatients()
             .then(response => this.setState({patients: response.data}))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => {
+                this.setState({errorMessage: "Something went wrong, please try again later"})
+            });
     }
 
-    getNextReportScreen() {
-        // TODO - Wire up to proper logic
-        return 'CovidTest'
+    async startAssessment(patientId: string) {
+        const userService = new UserService();
+        const currentPatient = await userService.getCurrentPatient(patientId);
+        this.props.navigation.navigate('StartAssessment', {currentPatient});
     }
 
     getAvatar(patient: Patient) {
@@ -105,7 +108,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                 {
                                     this.state.patients.map((patient, i) =>
                                       <View style={styles.cardContainer}  key={key(patient)}>
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
+                                        <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
                                             <Card style={styles.card}>
                                                 <Image source={this.getAvatar(patient)} style={styles.avatar} resizeMode={'contain'} />
                                                 <RegularText>{patient.name}</RegularText>

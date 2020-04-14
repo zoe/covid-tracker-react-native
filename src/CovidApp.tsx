@@ -46,6 +46,7 @@ import SelectProfileScreen from "./features/multi-profile/SelectProfileScreen";
 import CreateProfileScreen from "./features/multi-profile/CreateProfileScreen";
 import ConsentForOther from "./features/multi-profile/ConsentForOtherScreen";
 import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
+import StartAssessmentScreen from './features/assessment/StartAssessment';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -114,6 +115,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="YourWork" component={YourWorkScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourHealth" component={YourHealthScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="StartAssessment" component={StartAssessmentScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{headerShown: false}}/>

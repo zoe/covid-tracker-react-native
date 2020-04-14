@@ -49,20 +49,7 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
         const {patientId} = this.props.route.params;
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-
-        if (currentPatient.hasCompletePatientDetails) {
-            // TODO: this should be in a "Start assessment 'screen' which determines the next page"
-            // So we have a this.prop.navigation.navigate('StartAssessment', {currentPatient})
-            if (currentPatient.isHealthWorker) {
-                this.props.navigation.navigate('HealthWorkerExposure', {currentPatient})
-            } else {
-                this.props.navigation.navigate('CovidTest', {currentPatient, assessmentId: null})
-            }
-        } else {
-            // TODO: this should be in a "Start patient 'screen' which determines the next page"
-            // So we have a this.prop.navigation.navigate('StartPatient', {currentPatient})
-            this.props.navigation.navigate('YourWork', {currentPatient});
-        }
+        this.props.navigation.navigate('StartAssessment', {currentPatient});
     };
 
     render() {

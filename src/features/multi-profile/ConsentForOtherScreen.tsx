@@ -64,6 +64,12 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         "I confirm that I am the child's legal guardian and that I have done the above"
     );
 
+    async startAssessment(patientId: string) {
+        const userService = new UserService();
+        const currentPatient = await userService.getCurrentPatient(patientId);
+        this.props.navigation.navigate('StartAssessment', {currentPatient});
+    }
+
     createProfile() {
         const name = this.props.route.params.profileName;
         const avatarName = this.props.route.params.avatarName;
@@ -75,10 +81,15 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         });
         userService.createPatient({
             name: name,
-            avatar_name: avatarName,
+            avatar_name: (avatarName || "profile10") as AvatarName,
             reported_by_another: true
         })
-            .then(response => this.props.navigation.navigate("CovidTest"))
+            .then(response => {
+                // TODO: Need to get patientId of the newly created patient
+                const patientId = "76265d77-e526-4a8b-8e6f-bc6a9943f698"; // TODO: Fixme
+
+                this.startAssessment(patientId);
+            })
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
