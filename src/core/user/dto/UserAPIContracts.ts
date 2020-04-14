@@ -147,6 +147,7 @@ export type AssessmentInfosRequest = {
     level_of_isolation: string,	//'not_left_the_house', 'rarely_left_the_house', 'often_left_the_house'
     treatment: string,//	I left this as a free text field, because there is the option to add 'other treatment'.
 
+    interacted_any_patients: boolean,
     treated_patients_with_covid: string,
     have_used_PPE: string,
     always_used_shortage: string,
