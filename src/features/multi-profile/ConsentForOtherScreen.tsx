@@ -84,7 +84,6 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         } as Partial<PatientInfosRequest>
 
         userService.createPatient(newPatient)
-            .then(() => userService.listPatients())
             .then(response => {
                 const patientList = response.data;
                 const createdPatient = patientList.find((patient: PatientInfosRequest) => (
