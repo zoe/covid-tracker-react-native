@@ -38,7 +38,7 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
             }
         } else {
             // TODO: refactor as "StartPatient" screen/controller
-            this.props.navigation.replace('AboutYou', {currentPatient});
+            this.props.navigation.replace('YourWork', {currentPatient});
         }
     }
 
