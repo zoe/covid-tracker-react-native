@@ -6,7 +6,7 @@ import {
     Consent,
     LoginOrRegisterResponse,
     PatientInfosRequest,
-    PiiRequest,
+    PiiRequest, StartupInfo,
     TokenInfoRequest,
     TokenInfoResponse,
     UserResponse
@@ -25,6 +25,7 @@ const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
+    public static ipCountry = "";
     public static consentSigned: Consent = {
         document: "",
         version: "",
@@ -165,6 +166,15 @@ export default class UserService extends ApiClientBase {
         return localProfile
     }
 
+    public async getAskedToRateStatus() {
+        return AsyncStorageService.getAskedToRateStatus();
+    }
+
+    public setAskedToRateStatus(status: string) {
+        AsyncStorageService.setAskedToRateStatus(status);
+    }
+
+
     public async updatePii(pii: Partial<PiiRequest>) {
         const userId = ApiClientBase.userId;
         return this.client.patch(`/information/${userId}/`, pii);
@@ -232,9 +242,10 @@ export default class UserService extends ApiClientBase {
         return await AsyncStorageService.getUserCount();
     }
 
-    async setUserCountInAsyncStorage() {
-        const userCount = await this.client.get<number>('/users/covid_count/');
-        await AsyncStorageService.setUserCount(userCount.data.toString());
+    async getStartupInfo() {
+        const response = await this.client.get<StartupInfo>('/users/startup_info/');
+        UserService.ipCountry = response.data.ip_country;
+        await AsyncStorageService.setUserCount(response.data.users_count.toString());
     }
 
 
@@ -251,6 +262,14 @@ export default class UserService extends ApiClientBase {
             i18n.locale = "en-" + UserService.userCountry
         }
         return localCountry;
+    }
+
+    async shouldAskCountryConfirmation() {
+        if (await AsyncStorageService.getAskedCountryConfirmation()) {
+            return false
+        } else {
+            return UserService.userCountry != UserService.ipCountry
+        }
     }
 
     async defaultCountryToLocale() {

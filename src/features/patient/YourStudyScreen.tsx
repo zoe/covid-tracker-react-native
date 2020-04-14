@@ -55,6 +55,7 @@ type State = {
     isAgriculturalHealth: boolean;
     isGulf: boolean;
     isAspreeXt: boolean;
+    isBwhs: boolean;
 
     errorMessage: string;
 }
@@ -77,6 +78,7 @@ const initialState: State = {
     isAgriculturalHealth: false,
     isGulf: false,
     isAspreeXt: false,
+    isBwhs: false,
 
     errorMessage: ""
 };
@@ -181,7 +183,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                         <CheckboxItem
                                                             value={this.state.isStanfordNutritionStudy}
                                                             onChange={(value: boolean) => this.setState({isStanfordNutritionStudy: value})}
-                                                        >Stanford Nutrition Studies</CheckboxItem>
+                                                        >Stanford Nutrition Studies Group</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.isMultiEthnicCohortStudy}
                                                             onChange={(value: boolean) => this.setState({isMultiEthnicCohortStudy: value})}
@@ -215,6 +217,10 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                             value={this.state.isAspreeXt}
                                                             onChange={(value: boolean) => this.setState({isAspreeXt: value})}
                                                         >ASPREE-XT</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.isBwhs}
+                                                            onChange={(value: boolean) => this.setState({isBwhs: value})}
+                                                        >Black Women's Health Study</CheckboxItem>
                                                     </CheckboxList>
                                                 </Item>
                                             </FieldWrapper>
@@ -300,6 +306,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 is_in_us_agricultural_health: this.state.isAgriculturalHealth,
                 is_in_us_gulf: this.state.isGulf,
                 is_in_us_aspree_xt: this.state.isAspreeXt,
+                is_in_us_bwhs: this.state.isBwhs,
 
                 ...(formData.clinicalStudyNames && {clinical_study_names: formData.clinicalStudyNames}),
                 ...(formData.clinicalStudyContacts && {clinical_study_contacts: formData.clinicalStudyContacts}),

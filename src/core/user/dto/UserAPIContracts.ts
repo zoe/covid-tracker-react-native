@@ -20,6 +20,7 @@ export type UserResponse = {
     username: string,
     authorizations: string[],
     patients: string[],
+    ask_for_rating: boolean,
 }
 
 export type PiiRequest = {
@@ -97,6 +98,7 @@ export type PatientInfosRequest = {
     is_in_us_agricultural_health: boolean,
     is_in_us_gulf: boolean,
     is_in_us_aspree_xt: boolean,
+    is_in_us_bwhs: boolean,
 
     clinical_study_names: string,
     clinical_study_contact: string,
@@ -182,7 +184,6 @@ export type Consent = {
     privacy_policy_version: string,
 } | any
 
-
 export type AreaStatsResponse = {
     locked: boolean,
     rank: number,
@@ -192,4 +193,9 @@ export type AreaStatsResponse = {
     predicted_cases: number,
     number_of_missing_contributors: number,
     population: number,
+}
+
+export type StartupInfo = {
+    users_count: number,
+    ip_country: string
 }

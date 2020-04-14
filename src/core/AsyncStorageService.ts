@@ -3,11 +3,15 @@ import {UserResponse} from "./user/dto/UserAPIContracts";
 
 const AUTH_TOKEN = "authToken";
 const USER_ID = "userId";
+const ASKED_TO_RATE_STATUS="askedToRateStatus";
 const USER_COUNT = "userCount";
 const USER_COUNTRY = "userCountry";
 const CONSENT_SIGNED = "consentSigned";
 const PUSH_TOKEN = "pushToken";
 const BLOOD_PRESSURE_ANSWER = "hasBloodPressureAnswer";
+const IS_HEALTH_WORKER = "isHealthWorker";
+const USER_PROFILE = "userProfile";
+const ASKED_COUNTRY = "askedCountry"
 
 const STR_YES = "YES";
 const STR_NO = "NO";
@@ -48,7 +52,7 @@ export class AsyncStorageService {
 
     static async setIsHealthWorker(isHealthWorker: boolean | null) {
         try {
-            await AsyncStorage.setItem('isHealthWorker', JSON.stringify(isHealthWorker));
+            await AsyncStorage.setItem(IS_HEALTH_WORKER, JSON.stringify(isHealthWorker));
         } catch (err) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -58,7 +62,7 @@ export class AsyncStorageService {
     static async getIsHealthWorker() {
         let healthWorker: string | null = null;
         try {
-            healthWorker = await AsyncStorage.getItem('isHealthWorker');
+            healthWorker = await AsyncStorage.getItem(IS_HEALTH_WORKER);
         } catch (e) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -68,6 +72,31 @@ export class AsyncStorageService {
             return false;
         else {
             return JSON.parse(healthWorker) as boolean;
+        }
+    }
+
+    static async setAskedCountryConfirmation(askedCountry: boolean) {
+        try {
+            await AsyncStorage.setItem(ASKED_COUNTRY, JSON.stringify(askedCountry));
+        } catch (err) {
+            // Swallow for now
+            // todo: find a way to report the crash and an alternative
+        }
+    }
+
+    static async getAskedCountryConfirmation() {
+        let askedCountry: string | null = null;
+        try {
+            askedCountry = await AsyncStorage.getItem(ASKED_COUNTRY);
+        } catch (e) {
+            // Swallow for now
+            // todo: find a way to report the crash and an alternative
+        }
+
+        if (askedCountry == null)
+            return false;
+        else {
+            return JSON.parse(askedCountry) as boolean;
         }
     }
 
@@ -98,7 +127,7 @@ export class AsyncStorageService {
 
     static async saveProfile(profile: UserResponse | null) {
         try {
-            await AsyncStorage.setItem('userProfile', JSON.stringify(profile));
+            await AsyncStorage.setItem(USER_PROFILE, JSON.stringify(profile));
         } catch (err) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -108,7 +137,7 @@ export class AsyncStorageService {
     static async getProfile() {
         let userProfile: string | null = null;
         try {
-            userProfile = await AsyncStorage.getItem('userProfile')
+            userProfile = await AsyncStorage.getItem(USER_PROFILE)
         } catch (e) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -121,11 +150,25 @@ export class AsyncStorageService {
         }
     }
 
+    static async getAskedToRateStatus() {
+        try {
+            return await AsyncStorage.getItem(ASKED_TO_RATE_STATUS);
+        } catch (err) {
+            return null
+        }
+    }
+
+    static setAskedToRateStatus(status: string) {
+        try {
+            AsyncStorage.setItem(ASKED_TO_RATE_STATUS, status)
+        } catch (err) {
+        }
+    }
+
     static async setUserCount(userCount: string) {
         try {
             await AsyncStorage.setItem(USER_COUNT, userCount)
         } catch (err) {
-            console.log(err)
         }
     }
 
