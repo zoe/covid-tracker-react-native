@@ -9,8 +9,7 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import { AvatarName } from "../../utils/avatar";
-import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
+import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 
 
 type RenderProps = {

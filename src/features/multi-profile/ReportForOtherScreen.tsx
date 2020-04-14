@@ -3,7 +3,7 @@ import {Image, SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import {Header} from "../../components/Screen";
 import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../../components/Text";
 import {colors, fontStyles} from "../../../theme"
-import {ScreenParamList} from "./../ScreenParamList";
+import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {profilesIcon} from "../../../assets";
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: colors.white,
     },
-
 
 
     rootContainer: {
