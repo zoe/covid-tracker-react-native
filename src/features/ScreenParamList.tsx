@@ -1,6 +1,11 @@
 import {UserResponse} from "../core/user/dto/UserAPIContracts";
 import { PatientStateType } from "../core/patient/PatientState";
 
+export enum ConsentType {
+    Adult = "adult",
+    Child = "child"
+}
+
 export type ScreenParamList = {
     Splash: undefined;
 
@@ -28,6 +33,13 @@ export type ScreenParamList = {
 
     // PII screens
     OptionalInfo: { user: UserResponse };
+
+    // Profile screens
+    ReportForOther: undefined;
+    SelectProfile: undefined;
+    CreateProfile: undefined;
+    AdultOrChild: { profileName: string };
+    ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType};
 
     // Patient screens
     YourStudy: { currentPatient: PatientStateType };
