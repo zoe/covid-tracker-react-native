@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "0.10",
+    "version": "0.11",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -26,11 +26,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.joinzoe.covid-zoe",
-      "buildNumber": "0.0.23"
+      "buildNumber": "0.0.25"
     },
     "android": {
       "package": "com.joinzoe.covid_zoe",
-      "versionCode": 23,
+      "versionCode": 25,
       "permissions": [],
       "googleServicesFile": "./google-services.json",
       "config": {

@@ -14,7 +14,6 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
@@ -80,7 +79,6 @@ const initialFormValues = {
 type HealthProps = {
     navigation: StackNavigationProp<ScreenParamList, 'YourHealth'>
     route: RouteProp<ScreenParamList, 'YourHealth'>;
-    isMale: boolean;
 }
 
 
@@ -137,20 +135,18 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     });
 
     handleUpdateHealth(formData: YourHealthData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
+        const patientId = currentPatient.patientId;
 
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
-            .then(async response => {
-                // Head off race condition where next page expects these details to have been set.
-                await AsyncStorageService.setPatientDetailsComplete(true);
-                await AsyncStorageService.setHasBloodPressureAnswer(true);
-                return response;
-            })
             .then(response => {
-                this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
+                currentPatient.hasCompletePatientDetails = true;
+                currentPatient.hasBloodPressureAnswer = true;
+
+                this.props.navigation.navigate('StartAssessment', {currentPatient});
             })
             .catch(err => {
                 this.setState({errorMessage: "Something went wrong, please try again later"})
@@ -159,6 +155,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
 
     private createPatientInfos(formData: YourHealthData) {
+        const currentPatient = this.props.route.params.currentPatient;
         const smokerStatus = formData.smokerStatus === "no" ? "never" : formData.smokerStatus;
         let infos = {
             has_heart_disease: formData.hasHeartDisease === "yes",
@@ -174,7 +171,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             limited_activity: formData.limitedActivity === "yes",
         } as Partial<PatientInfosRequest>;
 
-        if (!this.props.route.params.isMale) {
+        if (currentPatient.isFemale) {
             infos = {
                 ...infos,
                 is_pregnant: formData.isPregnant === "yes",
@@ -231,14 +228,14 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }
 
     render() {
-
+        const currentPatient = this.props.route.params.currentPatient;
         const smokerStatusItems = [
             {label: 'Never', value: 'never'},
             {label: 'Not currently', value: 'not_currently'},
             {label: 'Yes', value: 'yes'},
         ]
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>About your health</HeaderText>
                 </Header>
@@ -267,7 +264,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                                     <Divider/>
 
-                                    {!this.props.route.params.isMale && (
+                                    {currentPatient.isFemale && (
                                         <>
                                             <DropdownField
                                                 selectedValue={props.values.isPregnant}

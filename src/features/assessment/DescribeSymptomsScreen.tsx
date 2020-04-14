@@ -115,13 +115,13 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         if (this.state.enableSubmit) {
             this.setState({enableSubmit: false}); // Stop resubmissions
 
-            const assessmentId = this.props.route.params.assessmentId;
+            const {currentPatient, assessmentId} = this.props.route.params;
             const userService = new UserService();
             var infos = this.createAssessmentInfos(formData);
 
             userService.updateAssessment(assessmentId, infos)
               .then(response => {
-                  this.props.navigation.navigate('WhereAreYou', {assessmentId: assessmentId})
+                  this.props.navigation.navigate('WhereAreYou', {currentPatient, assessmentId: assessmentId})
               })
               .catch(err => {
                   this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -170,6 +170,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         const temperatureItems = [
             {label: '°C', value: 'C'},
             {label: '°F', value: 'F'},
@@ -187,7 +188,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         ];
 
         return (
-          <Screen>
+          <Screen profile={currentPatient.profile}>
               <Header>
                   <HeaderText>Describe the symptoms you are experiencing right now.</HeaderText>
               </Header>
@@ -345,7 +346,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 )}
 
                                 <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                    <Text>{i18n.t("next-question")}</Text>
                                 </BrandedButton>
 
                             </Form>
@@ -375,9 +376,5 @@ const styles = StyleSheet.create({
 
     secondaryField: {
         flex: 1,
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });

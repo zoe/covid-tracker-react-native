@@ -30,27 +30,28 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
     }
 
     handleAtHome() {
+        const {currentPatient, assessmentId} = this.props.route.params;
         this.updateAssessment('home')
-            .then(response => this.props.navigation.navigate('LevelOfIsolation', {
-                assessmentId: this.props.route.params.assessmentId,
-            }))
+            .then(response => this.props.navigation.navigate('LevelOfIsolation', {currentPatient, assessmentId}))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
     handleAtHospital() {
-        this.updateAssessment('hospital')
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const location = "hospital";
+        this.updateAssessment(location)
             .then(response => this.props.navigation.navigate('TreatmentSelection', {
-                assessmentId: this.props.route.params.assessmentId,
-                location: 'hospital'
+                currentPatient, assessmentId, location
             }))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
     handleBackAtHome() {
-        this.updateAssessment('back_from_hospital')
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const location = "back_from_hospital";
+        this.updateAssessment(location)
             .then(response => this.props.navigation.navigate('TreatmentSelection', {
-                assessmentId: this.props.route.params.assessmentId,
-                location: 'back_from_hospital'
+                currentPatient, assessmentId, location
             }))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
@@ -72,12 +73,11 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
 
     render() {
-
-
+        const currentPatient = this.props.route.params.currentPatient;
         const medicalBuilding = isUSLocale() ? "clinic or hospital" : "hospital";
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>Where are you right now?</HeaderText>
                 </Header>
@@ -91,25 +91,25 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I'm at home. I haven't been to a {medicalBuilding} for suspected COVID-19 symptoms.</Text>
+                            <Text>I'm at home. I haven't been to a {medicalBuilding} for suspected COVID-19 symptoms.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHospital}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am at the {medicalBuilding} with suspected COVID-19 symptoms.</Text>
+                            <Text>I am at the {medicalBuilding} with suspected COVID-19 symptoms.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleBackAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am back from the {medicalBuilding}, I'd like to tell you about my treatment.</Text>
+                            <Text>I am back from the {medicalBuilding}, I'd like to tell you about my treatment.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleStillAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am back from the {medicalBuilding}, I've already told you about my treatment.</Text>
+                            <Text>I am back from the {medicalBuilding}, I've already told you about my treatment.</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
@@ -128,9 +128,5 @@ const styles = StyleSheet.create({
 
     fieldWrapper: {
         // marginVertical: 32,
-    },
-
-    buttonText: {
-        color: colors.primary,
     },
 });

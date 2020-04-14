@@ -8,7 +8,7 @@
   "create-account-already-registered": "An account already exists with this email address. Try to log in instead.",
   "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
 
-  "next-question": "Next Question",
+  "next-question": "Next question",
   "feel-normal": "I feel physically normal",
   "have-symptoms": "I'm not feeling quite right",
 
@@ -32,8 +32,8 @@
   "required-is-carer": "Please indicate if you are a carer",
 
   "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)",
-  "yes-treating-patients": "Yes, currently treat patients",
-  "yes-not-treating-patients": "Yes, do not currently treat patients",
+  "yes-interacting-patients": "Yes, I currently interact with patients",
+  "yes-not-interacting-patients": "Yes, I do not currently interact with patients",
   "are-you-carer": "Do you care for multiple people in the community, with direct contact with your patients?",
 
   "label-physically-worked-in-places": "Since the COVID-19 epidemic began, have you physically worked in? (check all that apply)",
@@ -125,8 +125,14 @@
   "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
+  "label-interacted-with-any-patients-last-day": "In the last day, have you interacted with any patients?",
   "label-interacted-with-infected-patients-last-day": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
-  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? ",
+  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
+  "required-has-used-ppe-equipment": "Please indicate how often you've used PPE equipment",
+  "required-ppe-availability-always": "Please indicate the availability of PPE equipment to you",
+  "required-ppe-availability-sometimes": "Please indicate the availability of PPE equipment to you",
+  "required-ppe-availability-never": "Please indicate the availability of PPE equipment to you",
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",

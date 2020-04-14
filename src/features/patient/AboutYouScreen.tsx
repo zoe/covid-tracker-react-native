@@ -98,13 +98,15 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         if (this.state.enableSubmit) {
             this.setState({enableSubmit: false}); // Stop resubmissions
 
-            const patientId = this.props.route.params.patientId;
+            const currentPatient = this.props.route.params.currentPatient;
+            const patientId = currentPatient.patientId;
             const userService = new UserService();
             var infos = this.createPatientInfos(formData);
 
             userService.updatePatient(patientId, infos)
                 .then(response => {
-                    this.props.navigation.navigate('YourHealth', {patientId: patientId, isMale: formData.sex === 'male'})
+                    currentPatient.isFemale = formData.sex !== 'male',
+                    this.props.navigation.navigate('YourHealth', {currentPatient})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -215,7 +217,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
 
     render() {
-        const placeholderText = i18n.t("choose-one-of-these-options");
+        const currentPatient = this.props.route.params.currentPatient;
         const sexAtBirthItems = [
             {label: 'Choose one of the options', value: ''},
             {label: i18n.t("sex-at-birth-male"), value: 'male'},
@@ -239,7 +241,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         ];
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>{i18n.t("title-about-you")}</HeaderText>
                 </Header>
@@ -571,7 +573,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                     )}
 
                                     <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
-                                        <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                        <Text>{i18n.t("next-question")}</Text>
                                     </BrandedButton>
 
                                 </Form>
@@ -618,9 +620,5 @@ const styles = StyleSheet.create({
     picker: {
         // width: '68%',
         width: screenWidth - 16, // TODO: Fix width to something sensible
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });
