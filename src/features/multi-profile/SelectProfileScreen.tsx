@@ -13,6 +13,7 @@ import {Card} from "native-base";
 import '../../../assets';
 import key from "weak-key";
 import { getAvatarByName, AvatarName } from "../../utils/avatar";
+import DaysAgo from "../../components/DaysAgo";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -98,9 +99,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                                 <Card style={styles.card}>
                                                     <Image source={avatarImage} style={styles.avatar} resizeMode={'contain'} />
                                                     <RegularText>{patient.name}</RegularText>
-                                                    {
-                                                        <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
-                                                    }
+                                                    <DaysAgo timeAgo={patient.last_reported_at} />
                                                 </Card>
                                             </TouchableOpacity>
                                           </View>
