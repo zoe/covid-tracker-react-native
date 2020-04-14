@@ -94,11 +94,11 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
             is: (interactedAnyPatients, hasUsedPPEEquipment) => interactedAnyPatients === 'yes' && hasUsedPPEEquipment === 'always',
             then: Yup.string().required(i18n.t("required-ppe-availability-always")),
         }),
-        ppeAvailabilitySometimes: Yup.string().when('hasUsedPPEEquipment', {
+        ppeAvailabilitySometimes: Yup.string().when(['interactedAnyPatients', 'hasUsedPPEEquipment'], {
             is: (interactedAnyPatients, hasUsedPPEEquipment) => interactedAnyPatients === 'yes' && hasUsedPPEEquipment === 'sometimes',
             then: Yup.string().required(i18n.t("required-ppe-availability-sometimes"))
         }),
-        ppeAvailabilityNever: Yup.string().when('hasUsedPPEEquipment', {
+        ppeAvailabilityNever: Yup.string().when(['interactedAnyPatients', 'hasUsedPPEEquipment'], {
             is: (interactedAnyPatients, hasUsedPPEEquipment) => interactedAnyPatients === 'yes' && hasUsedPPEEquipment === 'never',
             then: Yup.string().required(i18n.t("required-ppe-availability-never"))
         }),
