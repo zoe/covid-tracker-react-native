@@ -237,7 +237,7 @@ Except as expressly set forth in the sections above regarding the Apple Applicat
                         </RegularText>
                 </ScrollView>
 
-                <BrandedButton style={styles.button} onPress={() => this.props.navigation.replace('Terms', {viewOnly: this.viewOnly})}>Back</BrandedButton>
+                <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
 
             </View>
         )
