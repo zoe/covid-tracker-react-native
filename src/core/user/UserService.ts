@@ -349,6 +349,15 @@ export default class UserService extends ApiClientBase {
     public async getAreaStats(patientId: string) {
         return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
     }
+
+    public async hasMultipleProfiles() {
+        try {
+            let response = await this.listPatients();
+            return response.data.length > 1
+        } catch (e) {
+            return false
+        }
+    }
 }
 
 export const isUSLocale = () => UserService.userCountry === 'US';
