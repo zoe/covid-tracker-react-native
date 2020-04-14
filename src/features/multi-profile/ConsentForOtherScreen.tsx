@@ -9,6 +9,7 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
+import { AvatarName } from "../../utils/avatar";
 
 
 type RenderProps = {
