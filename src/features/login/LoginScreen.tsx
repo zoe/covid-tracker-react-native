@@ -83,7 +83,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
     // todo: validation for email
 
     render() {
-        const registerStartPage = isUSLocale() ? 'BeforeWeStartUS' : 'Terms';
+        const registerStartPage = isUSLocale() ? 'BeforeWeStartUS' : 'Consent';
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
