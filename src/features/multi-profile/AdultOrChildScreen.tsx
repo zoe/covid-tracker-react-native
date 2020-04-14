@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, screenWidth} from "../../components/Screen";
-import {HeaderText} from "../../components/Text";
+import Screen, {FieldWrapper, Header} from "../../components/Screen";
+import {HeaderText, RegularText} from "../../components/Text";
 import {Form, Text} from "native-base";
 
 import {colors, fontStyles} from "../../../theme"
@@ -33,8 +33,12 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
         this.state = initialState;
     }
 
-    getProfileName = () => {
-        return this.props.route.params.profileName;
+    buildRouteParams = (consentType:ConsentType) => {
+      return {
+          consentType: consentType,
+          profileName: this.props.route.params.profileName,
+          avatarName: this.props.route.params.avatarName
+      }
     };
 
     countryString = isUSLocale() ? "US" : "UK";
@@ -50,13 +54,13 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
 
                 <Form style={styles.form}>
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('ConsentForOther', {profileName: this.getProfileName(), consentType: ConsentType.Adult})}>
+                        <BigButton onPress={() => this.props.navigation.navigate('ConsentForOther', this.buildRouteParams(ConsentType.Adult))}>
                             <Text style={[fontStyles.bodyLight, styles.buttonText]}>Person over 18</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('ConsentForOther', {profileName: this.getProfileName(), consentType: ConsentType.Child})}>
+                        <BigButton onPress={() => this.props.navigation.navigate('ConsentForOther', this.buildRouteParams(ConsentType.Child))}>
                             <Text style={[fontStyles.bodyLight, styles.buttonText]}>Person under 18</Text>
                         </BigButton>
                     </FieldWrapper>

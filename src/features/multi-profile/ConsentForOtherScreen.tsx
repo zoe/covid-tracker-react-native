@@ -9,6 +9,8 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
+import { AvatarName } from "../../utils/avatar";
+import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
 
 
 type RenderProps = {
@@ -48,13 +50,13 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     secondaryText = this.isAdultConsent() ? (
         <RegularText>
             Please confirm that you have shown or read our{" "}
-            <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>consent</ClickableText>
+            <ClickableText onPress={() => this.props.navigation.navigate("Terms", {viewOnly: true})}>consent</ClickableText>
             {" "}screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.
         </RegularText>
     ) : (
         <RegularText>
             If your child is old enough to understand our{" "}
-            <ClickableText onPress={() => this.props.navigation.navigate("Terms")}>consent</ClickableText>
+            <ClickableText onPress={() => this.props.navigation.navigate("Terms", {viewOnly: true})}>consent</ClickableText>
             {" "}requirements, please explain to them that you are sharing information about them with us and we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.
         </RegularText>
     );
@@ -64,15 +66,33 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         "I confirm that I am the child's legal guardian and that I have done the above"
     );
 
+    async startAssessment(patientId: string) {
+        const userService = new UserService();
+        const currentPatient = await userService.getCurrentPatient(patientId);
+        this.props.navigation.replace('StartAssessment', {currentPatient});
+    }
+
     createProfile() {
         const name = this.props.route.params.profileName;
+        const avatarName = this.props.route.params.avatarName;
         const userService = new UserService();
-        userService.createPatient({
+
+        const newPatient = {
             name: name,
-            avatar_name: this.getAvatarName(),
+            avatar_name: avatarName,
             reported_by_another: true
-        })
-            .then(response => this.props.navigation.navigate("CovidTest"))
+        } as Partial<PatientInfosRequest>
+
+        userService.createPatient(newPatient)
+            .then(() => userService.listPatients())
+            .then(response => {
+                const patientList = response.data;
+                const createdPatient = patientList.find((patient: PatientInfosRequest) => (
+                    patient.name === newPatient.name
+                    && patient.avatar_name == newPatient.avatar_name
+                ))
+                this.startAssessment(createdPatient.id);
+            })
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 

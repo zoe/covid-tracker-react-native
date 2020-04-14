@@ -8,8 +8,11 @@ import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
 import moment from "moment";
-import {profile1, addProfile} from "../../../assets";
+import {profile1, profile2, profile3, profile4, profile5, profile6, profile7, profile8, profile9, profile10, addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
 import {Card} from "native-base";
+import '../../../assets';
+import key from "weak-key";
+import { getAvatarByName, AvatarName } from "../../utils/avatar";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -17,7 +20,7 @@ type RenderProps = {
 }
 
 type Patient = {
-    id?: string,
+    id: string,
     name?: string,
     avatar_name?: string,
     reported_by_another?: boolean,
@@ -48,17 +51,28 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
         const userService = new UserService();
         userService.listPatients()
             .then(response => this.setState({patients: response.data}))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => {
+                this.setState({errorMessage: "Something went wrong, please try again later"})
+            });
     }
 
-    getNextReportScreen() {
-        // TODO - Wire up to proper logic
-        return 'CovidTest'
+    async startAssessment(patientId: string) {
+        const userService = new UserService();
+        const currentPatient = await userService.getCurrentPatient(patientId);
+        this.props.navigation.navigate('StartAssessment', {currentPatient});
     }
 
-    getAvatar(patient: Patient) {
-        // TODO - Return the proper asset
-        return profile1;
+    getNextAvatarName() {
+        if (this.state.patients) {
+            const n = (this.state.patients.length + 1) % NUMBER_OF_PROFILE_AVATARS;
+            return "profile" + n.toString()
+        } else {
+            return "profile1"
+        }
+    }
+
+    gotoCreateProfile() {
+        this.props.navigation.navigate('CreateProfile', {avatarName: this.getNextAvatarName()});
     }
 
     render() {
@@ -76,22 +90,25 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
                             <View style={styles.profileList}>
                                 {
-                                    this.state.patients.map((patient, i) =>
-                                      <View style={styles.cardContainer}>
-                                        <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate(this.getNextReportScreen())}>
-                                            <Card style={styles.card}>
-                                                <Image source={profile1} style={styles.avatar} resizeMode={'contain'} />
-                                                <RegularText>{patient.name}</RegularText>
-                                                {
-                                                    <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
-                                                }
-                                            </Card>
-                                        </TouchableOpacity>
-                                      </View>
-                                    )
+                                    this.state.patients.map((patient, i) =>{
+                                        const avatarImage = getAvatarByName((patient.avatar_name || "profile10") as AvatarName);
+                                        return (
+                                            <View style={styles.cardContainer}  key={key(patient)}>
+                                            <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
+                                                <Card style={styles.card}>
+                                                    <Image source={avatarImage} style={styles.avatar} resizeMode={'contain'} />
+                                                    <RegularText>{patient.name}</RegularText>
+                                                    {
+                                                        <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
+                                                    }
+                                                </Card>
+                                            </TouchableOpacity>
+                                          </View>
+                                        )
+                                    })
                                 }
 
-                                <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.props.navigation.navigate('CreateProfile')}>
+                                <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.gotoCreateProfile()}>
                                     <Card style={styles.card}>
                                         <Image source={addProfile} style={styles.addImage} resizeMode={'contain'} />
                                         <RegularText>New profile</RegularText>

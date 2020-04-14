@@ -28,3 +28,5 @@ export const profile8 = require('./profiles/profile8.png');
 export const profile9 = require('./profiles/profile9.png');
 export const profile10 = require('./profiles/profile10.png');
 export const profilesIcon = require('./profiles/profiles.png');
+
+export const NUMBER_OF_PROFILE_AVATARS = 10;

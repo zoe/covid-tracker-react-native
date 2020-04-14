@@ -20,13 +20,13 @@ const initPatientState = {
     profile: {
         name: "Bob",
         avatarName: "profile1",
-        isReportedByAnother: false,
-        isSameHousehold: false,
     },
     isHealthWorker: false,
     hasCompletePatientDetails: true,
     hasBloodPressureAnswer: true,
     isFemale: false,
+    isReportedByAnother: false,
+    isSameHousehold: false,
 } as Partial<PatientStateType>;
 
 export const getInitialPatientState = (patientId: string) : PatientStateType => {
