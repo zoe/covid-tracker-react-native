@@ -85,12 +85,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
         userService.createPatient(newPatient)
             .then(response => {
-                const patientList = response.data;
-                const createdPatient = patientList.find((patient: PatientInfosRequest) => (
-                    patient.name === newPatient.name
-                    && patient.avatar_name == newPatient.avatar_name
-                ))
-                this.startAssessment(createdPatient.id);
+                this.startAssessment(response.data.id);
             })
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
