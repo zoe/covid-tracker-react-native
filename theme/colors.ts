@@ -20,5 +20,7 @@ export const colors = {
     black: '#000000',
     purple: '#A10056',
 
+    linkBlue: '#007AFF',
+
     backgroundBrandDisabled: '#7C9CAD',
 };

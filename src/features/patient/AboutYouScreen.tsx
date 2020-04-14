@@ -490,7 +490,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                                 placeholder={i18n.t("placeholder-postcode")}
                                                 value={props.values.postcode}
                                                 onChangeText={props.handleChange("postcode")}
-                                                onBlur={props.handleBlur("age")}
+                                                onBlur={props.handleBlur("postcode")}
                                                 error={props.touched.postcode && props.errors.postcode}
                                                 returnKeyType="next"
                                                 onSubmitEditing={() => { /* this.passwordComponent.focus(); */
