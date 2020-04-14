@@ -146,7 +146,7 @@ export default class UserService extends ApiClientBase {
         // Calculate the flags based on patient info
         const isFemale = (patient.gender == 0);
         const isHealthWorker = (
-            (patient.healthcare_professional === "yes_does_treat")
+            ["yes_does_treat", "yes_does_interact"].includes(patient.healthcare_professional)
             || patient.is_carer_for_community
         );
         const hasBloodPressureAnswer = (
