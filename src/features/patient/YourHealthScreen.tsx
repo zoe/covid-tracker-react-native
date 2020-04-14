@@ -146,8 +146,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 currentPatient.hasCompletePatientDetails = true;
                 currentPatient.hasBloodPressureAnswer = true;
 
-                // TODO: Refactor to a "StartAssessment" screen/controller
-                this.props.navigation.navigate('CovidTest', {currentPatient, assessmentId: null})
+                this.props.navigation.navigate('StartAssessment', {currentPatient});
             })
             .catch(err => {
                 this.setState({errorMessage: "Something went wrong, please try again later"})
