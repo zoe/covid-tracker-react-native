@@ -7,12 +7,12 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
-import moment from "moment";
-import {profile1, profile2, profile3, profile4, profile5, profile6, profile7, profile8, profile9, profile10, addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
+import {addProfile, NUMBER_OF_PROFILE_AVATARS, profile1} from "../../../assets";
 import {Card} from "native-base";
 import '../../../assets';
 import key from "weak-key";
-import { getAvatarByName, AvatarName } from "../../utils/avatar";
+import {AvatarName, getAvatarByName} from "../../utils/avatar";
+import DaysAgo from "../../components/DaysAgo";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -90,27 +90,25 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
                             <View style={styles.profileList}>
                                 {
-                                    this.state.patients.map((patient, i) =>{
-                                        const avatarImage = getAvatarByName((patient.avatar_name || "profile10") as AvatarName);
+                                    this.state.patients.map((patient, i) => {
+                                        const avatarImage = getAvatarByName((patient.avatar_name || "profile1") as AvatarName);
                                         return (
-                                            <View style={styles.cardContainer}  key={key(patient)}>
-                                            <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
-                                                <Card style={styles.card}>
-                                                    <Image source={avatarImage} style={styles.avatar} resizeMode={'contain'} />
-                                                    <RegularText>{patient.name}</RegularText>
-                                                    {
-                                                        <RegularText style={{textAlign: "center"}}>{patient.last_reported_at ?  "Reported " + moment(patient.last_reported_at).fromNow() : "Never reported"}</RegularText>
-                                                    }
-                                                </Card>
-                                            </TouchableOpacity>
-                                          </View>
+                                            <View style={styles.cardContainer} key={key(patient)}>
+                                                <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
+                                                    <Card style={styles.card}>
+                                                        <Image source={avatarImage} style={styles.avatar} resizeMode={'contain'}/>
+                                                        <RegularText>{patient.name}</RegularText>
+                                                        <DaysAgo timeAgo={patient.last_reported_at}/>
+                                                    </Card>
+                                                </TouchableOpacity>
+                                            </View>
                                         )
                                     })
                                 }
 
                                 <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.gotoCreateProfile()}>
                                     <Card style={styles.card}>
-                                        <Image source={addProfile} style={styles.addImage} resizeMode={'contain'} />
+                                        <Image source={addProfile} style={styles.addImage} resizeMode={'contain'}/>
                                         <RegularText>New profile</RegularText>
                                     </Card>
                                 </TouchableOpacity>

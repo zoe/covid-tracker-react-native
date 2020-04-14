@@ -9,8 +9,7 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import { AvatarName } from "../../utils/avatar";
-import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
+import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 
 
 type RenderProps = {
@@ -84,14 +83,8 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         } as Partial<PatientInfosRequest>
 
         userService.createPatient(newPatient)
-            .then(() => userService.listPatients())
             .then(response => {
-                const patientList = response.data;
-                const createdPatient = patientList.find((patient: PatientInfosRequest) => (
-                    patient.name === newPatient.name
-                    && patient.avatar_name == newPatient.avatar_name
-                ))
-                this.startAssessment(createdPatient.id);
+                this.startAssessment(response.data.id);
             })
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }

@@ -1,12 +1,8 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet, View} from "react-native";
-import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
-import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
-import {Body, CheckBox, Form, Item, Label, ListItem, Text, Textarea} from "native-base";
-
-
-import {colors, fontStyles} from "../../../theme"
-import UserService from "../../core/user/UserService";
+import {StyleSheet} from "react-native";
+import Screen, {Header} from "../../components/Screen";
+import {BrandedButton, HeaderText, RegularText} from "../../components/Text";
+import {Form} from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
@@ -82,6 +78,4 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 }
 
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});

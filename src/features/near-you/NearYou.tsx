@@ -10,8 +10,8 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import MapView from "react-native-maps";
 
 type RenderProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>
-    route: RouteProp<ScreenParamList, 'ThankYou'>;
+    navigation: StackNavigationProp<ScreenParamList, 'NearYou'>
+    route: RouteProp<ScreenParamList, 'NearYou'>;
 }
 
 export default class NearYouScreen extends Component<RenderProps, {}> {
