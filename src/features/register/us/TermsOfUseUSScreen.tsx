@@ -7,8 +7,8 @@ import {ScreenParamList} from "../../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'TermsOfUse'>
-    route: RouteProp<ScreenParamList, 'TermsOfUse'>;
+    navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>
+    route: RouteProp<ScreenParamList, 'TermsOfUseUS'>;
 }
 
 const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 });
 
 
-export default class TermsOfUseScreen extends Component<PropsType> {
+export default class TermsOfUseUSScreen extends Component<PropsType> {
     constructor(props: PropsType) {
         super(props);
     }
@@ -237,7 +237,7 @@ Except as expressly set forth in the sections above regarding the Apple Applicat
                         </RegularText>
                 </ScrollView>
 
-                <BrandedButton style={styles.button} onPress={() => this.props.navigation.replace('Terms', {viewOnly: this.viewOnly})}>Back</BrandedButton>
+                <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
 
             </View>
         )

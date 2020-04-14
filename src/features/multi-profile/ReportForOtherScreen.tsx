@@ -3,7 +3,7 @@ import {Image, SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import {Header} from "../../components/Screen";
 import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../../components/Text";
 import {colors, fontStyles} from "../../../theme"
-import {ScreenParamList} from "./../ScreenParamList";
+import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {profilesIcon} from "../../../assets";
@@ -36,7 +36,7 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                                     <RegularText style={styles.innerContainer}>You can now report on behalf of someone else.</RegularText>
                                 </View>
 
-                                <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile')}>
+                                <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile', {avatarName: 'profile2'})}>
                                     <Text style={[fontStyles.bodyLight, styles.buttonText]}>Add profiles</Text>
                                 </BrandedButton>
                             </View>

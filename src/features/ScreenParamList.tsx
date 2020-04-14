@@ -17,11 +17,11 @@ export type ScreenParamList = {
     WelcomeRepeatUS: { patientId: string };
 
     // Terms & consent screens
-    Terms: { viewOnly: boolean };
-    NursesConsentUS: { viewOnly: boolean };
-    BeforeWeStartUS: undefined;
-    TermsOfUse: { viewOnly: boolean };
+    Consent: { viewOnly: boolean };
     PrivacyPolicyUK: { viewOnly: boolean };
+    BeforeWeStartUS: undefined;
+    NursesConsentUS: { viewOnly: boolean };
+    TermsOfUseUS: { viewOnly: boolean };
     PrivacyPolicyUS: { viewOnly: boolean };
 
     // User profile screens
@@ -37,7 +37,7 @@ export type ScreenParamList = {
     // Profile screens
     ReportForOther: undefined;
     SelectProfile: undefined;
-    CreateProfile: undefined;
+    CreateProfile: { avatarName: string };
     AdultOrChild: { profileName: string, avatarName?: string };
     ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType};
 
