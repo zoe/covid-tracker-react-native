@@ -99,6 +99,11 @@
   "picker-yes": "Yes",
   "picker-no": "No",
 
+  "covid-test-question-has-covid-test": "Have you had a test for COVID-19?",
+  "covid-test-question-has-covid-positive": "Did you test positive for COVID-19?",
+  "covid-test-picker-waiting": "Waiting for results",
+  "covid-test-question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
   "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
