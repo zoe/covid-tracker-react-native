@@ -91,7 +91,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                             <View style={styles.profileList}>
                                 {
                                     this.state.patients.map((patient, i) => {
-                                        const avatarImage = getAvatarByName((patient.avatar_name || "profile10") as AvatarName);
+                                        const avatarImage = getAvatarByName((patient.avatar_name || "profile1") as AvatarName);
                                         return (
                                             <View style={styles.cardContainer} key={key(patient)}>
                                                 <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
