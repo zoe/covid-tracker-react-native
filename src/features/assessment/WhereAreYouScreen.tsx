@@ -91,25 +91,25 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I'm at home. I haven't been to a {medicalBuilding} for suspected COVID-19 symptoms.</Text>
+                            <Text>I'm at home. I haven't been to a {medicalBuilding} for suspected COVID-19 symptoms.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHospital}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am at the {medicalBuilding} with suspected COVID-19 symptoms.</Text>
+                            <Text>I am at the {medicalBuilding} with suspected COVID-19 symptoms.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleBackAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am back from the {medicalBuilding}, I'd like to tell you about my treatment.</Text>
+                            <Text>I am back from the {medicalBuilding}, I'd like to tell you about my treatment.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleStillAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am back from the {medicalBuilding}, I've already told you about my treatment.</Text>
+                            <Text>I am back from the {medicalBuilding}, I've already told you about my treatment.</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
@@ -128,9 +128,5 @@ const styles = StyleSheet.create({
 
     fieldWrapper: {
         // marginVertical: 32,
-    },
-
-    buttonText: {
-        color: colors.primary,
     },
 });

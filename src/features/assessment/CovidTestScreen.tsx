@@ -182,7 +182,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                    <Text>{i18n.t("next-question")}</Text>
                                 </BrandedButton>
 
 
@@ -195,10 +195,3 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    buttonText: {
-        color: colors.white,
-    },
-});
