@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import {Header} from "../../components/Screen";
-import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../../components/Text";
-import {colors, fontStyles} from "../../../theme"
+import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText, SecondaryText} from "../../components/Text";
+import {colors} from "../../../theme"
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -31,20 +31,20 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                     <ScrollView contentContainerStyle={styles.scrollView}>
                         <View style={styles.rootContainer}>
                             <Header>
-                                <HeaderText>Reporting on behalf of someone else?</HeaderText>
-                                <RegularText>You can now create profiles for other people on whose behalf you want to report.</RegularText>
+                                <HeaderText style={{marginBottom: 12}}>Reporting on behalf of someone else?</HeaderText>
+                                <SecondaryText>You can now create profiles for other people on whose behalf you want to report.</SecondaryText>
                             </Header>
 
                             <View style={styles.shareContainer}>
                                 <Image source={profilesIcon} style={styles.icon}/>
 
                                 <View style={styles.innerContainer}>
-                                    <RegularBoldText style={styles.innerContainer}>Add profiles</RegularBoldText>
+                                    <RegularBoldText style={styles.innerContainerBold}>Add profiles</RegularBoldText>
                                     <RegularText style={styles.innerContainer}>You can now report on behalf of someone else.</RegularText>
                                 </View>
 
-                                <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile', {avatarName: 'profile2'})}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Add profiles</Text>
+                                <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile', {avatarName: 'profile2'})} style={{marginVertical: 16}}>
+                                    <Text>Add profiles</Text>
                                 </BrandedButton>
                             </View>
 
@@ -74,39 +74,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
 
-
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
-    },
-
-
     rootContainer: {
         padding: 10,
     },
 
-
-    share: {
-        fontSize: 20,
-        textAlign: "center",
-    },
-
-    newsFeed: {
-        paddingVertical: 20,
-        paddingHorizontal: 40,
-        fontSize: 20,
-        textAlign: "center",
-        color: colors.primary,
-    },
-    newsFeedClickable: {
-        fontSize: 20,
-        color: colors.purple,
-        textDecorationLine: 'underline',
-    },
     shareSubtitle: {
         paddingVertical: 10,
         paddingHorizontal: 40,
@@ -114,33 +85,38 @@ const styles = StyleSheet.create({
         color: colors.secondary
     },
 
-    shareButton: {
-        marginVertical: 20,
-        marginHorizontal: 30,
-    },
-
     shareContainer: {
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderRadius: 10,
-        marginHorizontal: 20,
+        margin: 20,
         paddingHorizontal: 20,
         paddingVertical: 15,
     },
+
+    innerContainerBold: {
+        alignSelf: "center",
+        textAlign: "center",
+        fontSize: 18,
+        marginBottom: 8
+    },
+
     innerContainer: {
         alignSelf: "center",
         textAlign: "center"
     },
+
     icon: {
         alignSelf: "center",
         height: 100,
         width: 150,
         resizeMode: "contain"
     },
+
     done: {
         alignSelf: "center",
         color: colors.primary,
         margin: 40,
-        fontSize: 24,
+        fontSize: 20,
     }
 
 });
