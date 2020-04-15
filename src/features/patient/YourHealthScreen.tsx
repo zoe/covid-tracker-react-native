@@ -54,7 +54,7 @@ const initialFormValues = {
     hasHeartDisease: 'no',
     hasDiabetes: 'no',
     hasLungDisease: 'no',
-    smokerStatus: 'no',
+    smokerStatus: 'never',
     smokedYearsAgo: '',
     hasKidneyDisease: 'no',
 
