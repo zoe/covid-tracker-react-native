@@ -42,6 +42,7 @@ commands:
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run: npx expo-cli fetch:android:keystore
   publish_to_expo:
     steps:
       - login_to_expo
