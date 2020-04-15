@@ -16,7 +16,7 @@ import DropdownField from "../../components/DropdownField";
 
 
 const initialFormValues = {
-    interactedAnyPatients: "",
+    interactedAnyPatients: "no",
     treatedPatientsWithCovid: "",
     hasUsedPPEEquipment: "",
     ppeAvailabilityAlways: "",
