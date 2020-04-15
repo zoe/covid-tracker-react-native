@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
 import Screen, {Header, screenWidth} from "../../components/Screen";
-import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText, SecondaryText} from "../../components/Text";
 import {Body, CheckBox, ListItem} from "native-base";
 
 import {colors} from "../../../theme"
@@ -37,27 +37,23 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         this.setState({consentChecked: !this.state.consentChecked})
     };
 
-    getAvatarName() {
-        return (this.props.route.params.avatarName) ? this.props.route.params.avatarName : "profile1";
-    }
-
     isAdultConsent = () => {
         return this.props.route.params.consentType == ConsentType.Adult;
     };
 
     headerText = this.isAdultConsent() ? "Adult consent" : "Child consent";
     secondaryText = this.isAdultConsent() ? (
-        <RegularText>
+        <SecondaryText>
             Please confirm that you have shown or read our{" "}
             <ClickableText onPress={() => this.props.navigation.navigate("Consent", {viewOnly: true})}>consent</ClickableText>
             {" "}screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.
-        </RegularText>
+        </SecondaryText>
     ) : (
-        <RegularText>
+        <SecondaryText>
             If your child is old enough to understand our{" "}
             <ClickableText onPress={() => this.props.navigation.navigate("Consent", {viewOnly: true})}>consent</ClickableText>
-            {" "}requirements, please explain to them that you are sharing information about them with us and we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.
-        </RegularText>
+            {" "}requirements, please explain to them that you are sharing information about them with us and what we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.
+        </SecondaryText>
     );
     consentLabel = this.isAdultConsent() ? (
         "I confirm the above"
@@ -96,7 +92,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         return (
             <Screen>
                 <Header>
-                    <HeaderText>{this.headerText}</HeaderText>
+                    <HeaderText style={{marginBottom: 12}}>{this.headerText}</HeaderText>
                     {this.secondaryText}
                 </Header>
 

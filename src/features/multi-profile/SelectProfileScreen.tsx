@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Header} from "../../components/Screen";
-import {ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {ErrorText, HeaderText, RegularText, SecondaryText} from "../../components/Text";
 import {colors} from "../../../theme"
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
@@ -85,8 +85,8 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                     <ScrollView contentContainerStyle={styles.scrollView}>
                         <View style={styles.rootContainer}>
                             <Header>
-                                <HeaderText>Select profile you want to report for</HeaderText>
-                                <RegularText>Or add more profiles</RegularText>
+                                <HeaderText style={{marginBottom: 12}}>Select profile you want to report for</HeaderText>
+                                <SecondaryText>Or add more profiles</SecondaryText>
                             </Header>
 
                             <ErrorText>{this.state.errorMessage}</ErrorText>

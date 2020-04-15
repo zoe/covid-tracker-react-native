@@ -1,4 +1,4 @@
-import {RegularText} from "./Text";
+import {RegularText, SecondaryText} from "./Text";
 import moment from "moment";
 import React, {Component} from "react";
 
@@ -23,7 +23,7 @@ export default class DaysAgo extends Component<ProgressProps> {
         }
 
         return (
-            <RegularText style={{textAlign: "center"}}>{text}</RegularText>
+            <SecondaryText style={{textAlign: "center"}}>{text}</SecondaryText>
         );
     }
 }

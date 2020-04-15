@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
 import Screen, {FieldWrapper, Header} from "../../components/Screen";
-import {HeaderText, RegularText} from "../../components/Text";
+import {HeaderText, SecondaryText} from "../../components/Text";
 import {Form, Text} from "native-base";
 
 import {colors, fontStyles} from "../../../theme"
@@ -47,8 +47,8 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
         return (
             <Screen>
                 <Header>
-                    <HeaderText>Who would you like to report for? </HeaderText>
-                    <RegularText>Right now, you can only create additional profiles for {this.countryString} residents.</RegularText>
+                    <HeaderText style={{marginBottom: 12}}>Who would you like to report for? </HeaderText>
+                    <SecondaryText>Right now, you can only create additional profiles for {this.countryString} residents.</SecondaryText>
                 </Header>
 
                 <Form style={styles.form}>

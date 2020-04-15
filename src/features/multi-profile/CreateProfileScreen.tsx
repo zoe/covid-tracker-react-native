@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
 import Screen, {Header} from "../../components/Screen";
-import {BrandedButton, HeaderText, RegularText} from "../../components/Text";
+import {BrandedButton, HeaderText, SecondaryText} from "../../components/Text";
 import {Form} from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -42,8 +42,8 @@ export default class CreateProfileScreen extends Component<RenderProps> {
         return (
             <Screen>
                 <Header>
-                    <HeaderText>Give new profile a name</HeaderText>
-                    <RegularText>This name is just for you. Choose a name that would allow you to know which person you are reporting for</RegularText>
+                    <HeaderText style={{marginBottom: 12}}>Give new profile a name</HeaderText>
+                    <SecondaryText>This name is just for you. Choose a name that would allow you to know which person you are reporting for</SecondaryText>
                 </Header>
 
                 <Formik
