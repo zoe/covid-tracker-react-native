@@ -37,7 +37,7 @@ export type ScreenParamList = {
     // Profile screens
     ReportForOther: undefined;
     SelectProfile: undefined;
-    CreateProfile: undefined;
+    CreateProfile: { avatarName?: string };
     AdultOrChild: { profileName: string, avatarName?: string };
     ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType};
 
