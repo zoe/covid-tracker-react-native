@@ -80,9 +80,8 @@ jobs:
     steps:
       - build
       - publish_to_expo
-      - deploy_ios
       - deploy_android
-
+      - deploy_ios
 
 workflows:
   build_and_test:
