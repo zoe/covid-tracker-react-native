@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {StyleSheet} from "react-native";
 import Screen, {Header, screenWidth} from "../../components/Screen";
 import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText, SecondaryText} from "../../components/Text";
-import {Body, CheckBox, ListItem} from "native-base";
+import {Body, CheckBox, Item, ListItem} from "native-base";
 
 import {colors} from "../../../theme"
 import UserService from "../../core/user/UserService";
@@ -10,6 +10,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
+import {TouchableWithoutFeedback} from "react-native-gesture-handler";
 
 
 type RenderProps = {
@@ -101,11 +102,14 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
                         checked={this.state.consentChecked}
                         onPress={this.handleConsentClick}
                     />
-                    <Body style={styles.label}>
-                        <RegularText>
-                            {this.consentLabel}
-                        </RegularText>
-                    </Body>
+                    <TouchableWithoutFeedback onPress={this.handleConsentClick}>
+                        <Body style={styles.label}>
+                            <RegularText>
+                                {this.consentLabel}
+                            </RegularText>
+                        </Body>
+                    </TouchableWithoutFeedback>
+
                 </ListItem>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
