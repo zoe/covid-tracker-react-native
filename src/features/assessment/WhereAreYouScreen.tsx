@@ -12,7 +12,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
-import {navigateAfterFinishingAssessment} from "../Navigation";
+import { getLocalThankYou, navigateAfterFinishingAssessment } from "../Navigation";
 
 
 type LocationProps = {
@@ -30,9 +30,8 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
     }
 
     handleAtHome() {
-        const {currentPatient, assessmentId} = this.props.route.params;
         this.updateAssessment('home')
-            .then(response => this.props.navigation.navigate('LevelOfIsolation', {currentPatient, assessmentId}))
+            .then(response => this.props.navigation.navigate(getLocalThankYou()))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
