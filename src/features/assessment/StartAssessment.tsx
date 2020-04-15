@@ -18,6 +18,7 @@ import UserService from "../../core/user/UserService";
 import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import { ValidationErrors } from "../../components/ValidationError";
+import moment from "moment";
 
 
 type StartAssessmentProps = {
@@ -30,15 +31,22 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
     async componentDidMount() {
         const currentPatient = this.props.route.params.currentPatient;
         const assessmentId = this.props.route.params.assessmentId || null;
-        if (currentPatient.hasCompletePatientDetails) {
-            if (currentPatient.isHealthWorker) {
-                this.props.navigation.replace('HealthWorkerExposure', {currentPatient, assessmentId})
-            } else {
-                this.props.navigation.replace('CovidTest', {currentPatient, assessmentId})
-            }
+
+        if (currentPatient.shouldAskLevelOfIsolation) {
+            this.props.navigation.replace('LevelOfIsolation', {currentPatient, assessmentId})
         } else {
-            // TODO: refactor as "StartPatient" screen/controller
-            this.props.navigation.replace('YourWork', {currentPatient});
+
+            if (currentPatient.hasCompletePatientDetails) {
+                if (currentPatient.isHealthWorker) {
+                    this.props.navigation.replace('HealthWorkerExposure', {currentPatient, assessmentId})
+                } else {
+                    this.props.navigation.replace('CovidTest', {currentPatient, assessmentId})
+                }
+            } else {
+                // TODO: refactor as "StartPatient" screen/controller
+                this.props.navigation.replace('YourWork', {currentPatient});
+            }
+
         }
     }
 
