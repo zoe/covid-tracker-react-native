@@ -20,6 +20,7 @@ import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
 import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
 import { AvatarName } from "../../utils/avatar";
+import moment from "moment";
 
 const ASSESSMENT_VERSION = '1.2.2'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.2.1';    // TODO: Wire this to something automatic.
@@ -178,7 +179,15 @@ export default class UserService extends ApiClientBase {
             avatarName: (patient.avatar_name || "profile1") as AvatarName,
         };
         const isReportedByAnother = patient.reported_by_another || false;
-        const isSameHousehold = patient.same_household_as_reporter || false
+        const isSameHousehold = patient.same_household_as_reporter || false;
+
+        // Last asked level_of_isolation a week or more ago, or never asked
+        const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
+        let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
+        if (lastAskedLevelOfIsolation) {
+            let lastAsked = moment(lastAskedLevelOfIsolation);
+            shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7
+        }
 
         return {
             ...patientState,
@@ -189,6 +198,7 @@ export default class UserService extends ApiClientBase {
             hasCompletePatientDetails,
             isReportedByAnother,
             isSameHousehold,
+            shouldAskLevelOfIsolation,
         };
     }
 
