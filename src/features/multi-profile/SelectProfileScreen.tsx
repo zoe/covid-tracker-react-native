@@ -59,7 +59,10 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.navigate('StartAssessment', {currentPatient});
+        this.props.navigation.reset({
+            index: 0,
+            routes: [{name: 'StartAssessment', params: {currentPatient: currentPatient}}]
+        });
     }
 
     getNextAvatarName() {
