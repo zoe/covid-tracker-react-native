@@ -42,8 +42,6 @@ commands:
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: npx expo-cli fetch:android:keystore
-      - run: npx expo-cli fetch:ios:certs
   publish_to_expo:
     steps:
       - login_to_expo
@@ -53,7 +51,7 @@ commands:
   deploy_android:
     steps:
       - run: 
-          command: npx expo-cli build:android -t app-bundle --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
+          command: EXPO_LEGACY_API=true npx expo-cli build:android -t app-bundle --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.abb "$(npx expo-cli url:apk --non-interactive)"
       - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID
@@ -62,7 +60,7 @@ commands:
   deploy_ios:
     steps:
       - run: 
-          command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
+          command: EXPO_LEGACY_API=true npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.ipa "$(expo url:ipa --non-interactive)"
       - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS
