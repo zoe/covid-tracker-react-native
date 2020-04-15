@@ -7,7 +7,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
-import {addProfile, NUMBER_OF_PROFILE_AVATARS, profile1} from "../../../assets";
+import {addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
 import {Card} from "native-base";
 import '../../../assets';
 import key from "weak-key";
@@ -56,13 +56,36 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
             });
     }
 
+    cleanNavigationStack(navigation: StackNavigationProp<ScreenParamList>) {
+        const navState = navigation.dangerouslyGetState();
+
+        // First pass - take a slice up to the current page.
+        const newStack = navState.routes.slice(0, navState.index + 1);
+        return {
+            index: navState.index,
+            routes: newStack
+        };
+    }
+
+    pushToCleanNavStack(navigation: any, nextRoute: any) {
+        const navStack = this.cleanNavigationStack(navigation);
+        return {
+            index: navStack.index + 1,
+            routes: [
+                ...navStack.routes,
+                nextRoute
+            ]
+        }
+    }
+
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.reset({
-            index: 0,
-            routes: [{name: 'StartAssessment', params: {currentPatient: currentPatient}}]
-        });
+
+        // Clean up existing route stack, and plonk StartAssessment on as next route
+        const nextRoute = {name: 'StartAssessment', params: {currentPatient}};
+        const newStack = this.pushToCleanNavStack(this.props.navigation, nextRoute);
+        this.props.navigation.reset(newStack);
     }
 
     getNextAvatarName() {

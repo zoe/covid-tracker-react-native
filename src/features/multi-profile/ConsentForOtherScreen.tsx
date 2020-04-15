@@ -65,13 +65,44 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         "I confirm that I am the child's legal guardian and that I have done the above"
     );
 
+    cleanNavigationStack(navigation: StackNavigationProp<ScreenParamList>) {
+        const navState = navigation.dangerouslyGetState();
+
+        // Second pass - take a slice up to the SelectProfile page.
+        let foundRoute = false;
+        const newStack = navState.routes.filter(route => {
+            if (foundRoute) {
+                return false;
+            }
+            if (route.name === "SelectProfile") {
+                foundRoute = true;
+            }
+            return true;
+        })
+        return {
+            index: navState.index,
+            routes: newStack
+        };
+    }
+
+    pushToCleanNavStack(navigation: any, nextRoute: any) {
+        const navStack = this.cleanNavigationStack(navigation);
+        return {
+            index: navStack.index + 1,
+            routes: [
+                ...navStack.routes,
+                nextRoute
+            ]
+        }
+    }
+
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.reset({
-            index: 0,
-            routes: [{name: 'StartAssessment', params: {currentPatient: currentPatient}}]
-        });
+
+        const nextRoute = {name: 'StartAssessment', params: {currentPatient}};
+        const newStack = this.pushToCleanNavStack(this.props.navigation, nextRoute);
+        this.props.navigation.reset(newStack);
     }
 
     createProfile() {
