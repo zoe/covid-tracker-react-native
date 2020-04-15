@@ -56,36 +56,10 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
             });
     }
 
-    cleanNavigationStack(navigation: StackNavigationProp<ScreenParamList>) {
-        const navState = navigation.dangerouslyGetState();
-
-        // First pass - take a slice up to the current page.
-        const newStack = navState.routes.slice(0, navState.index + 1);
-        return {
-            index: navState.index,
-            routes: newStack
-        };
-    }
-
-    pushToCleanNavStack(navigation: any, nextRoute: any) {
-        const navStack = this.cleanNavigationStack(navigation);
-        return {
-            index: navStack.index + 1,
-            routes: [
-                ...navStack.routes,
-                nextRoute
-            ]
-        }
-    }
-
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-
-        // Clean up existing route stack, and plonk StartAssessment on as next route
-        const nextRoute = {name: 'StartAssessment', params: {currentPatient}};
-        const newStack = this.pushToCleanNavStack(this.props.navigation, nextRoute);
-        this.props.navigation.reset(newStack);
+        this.props.navigation.navigate('StartAssessment', {currentPatient});
     }
 
     getNextAvatarName() {
