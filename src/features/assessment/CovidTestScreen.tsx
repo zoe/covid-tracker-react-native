@@ -121,9 +121,9 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const hasCovidPositiveItems = [
-            {label: 'No', value: 'no'},
-            {label: 'Yes', value: 'yes'},
-            {label: 'Waiting for results', value: 'waiting'}
+            {label: i18n.t('picker-no'), value: 'no'},
+            {label: i18n.t('picker-yes'), value: 'yes'},
+            {label: i18n.t('covid-test-picker-waiting'), value: 'waiting'}
         ];
         return (
             <Screen profile={currentPatient.profile}>
@@ -150,7 +150,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                     placeholder="hasCovidTest"
                                     selectedValue={props.values.hasCovidTest}
                                     onValueChange={props.handleChange("hasCovidTest")}
-                                    label="Have you had a test for COVID-19?"
+                                    label={i18n.t('covid-test-question-has-covid-test')}
                                 />
 
                                 {props.values.hasCovidTest === "yes" && (
@@ -158,7 +158,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                         placeholder="hasCovidPositive"
                                         selectedValue={props.values.hasCovidPositive}
                                         onValueChange={props.handleChange("hasCovidPositive")}
-                                        label="Did you test positive for COVID-19?"
+                                        label={i18n.t('covid-test-question-has-covid-positive')}
                                         items={hasCovidPositiveItems}
                                     />
                                 )}
@@ -168,7 +168,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.takesAnyBloodPressureMedications}
                                         onValueChange={props.handleChange("takesAnyBloodPressureMedications")}
-                                        label={"Are you regularly taking any blood pressure medications?"}
+                                        label={i18n.t('covid-test-question-takes-any-blood-pressure-medications')}
                                         error={props.touched.takesAnyBloodPressureMedications && props.errors.takesAnyBloodPressureMedications}
                                         androidDefaultLabel={i18n.t("label-chose-an-option")}
                                     />
