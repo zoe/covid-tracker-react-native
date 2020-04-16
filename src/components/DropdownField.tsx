@@ -5,6 +5,7 @@ import {FieldWrapper, screenWidth, isAndroid} from "./Screen";
 import key from 'weak-key';
 import {colors} from "../../theme";
 import {ValidationError} from './ValidationError';
+import i18n from "../locale/i18n";
 
 interface DropdownFieldProps {
     placeholder?: string | undefined,
@@ -24,7 +25,7 @@ const DropdownPicker = (props: DropdownPickerProps) => {
     const {placeholder, selectedValue, onValueChange, androidDefaultLabel, onlyPicker, error, ...pickerProps} = props;
     const pickerStyle = onlyPicker ? {} : styles.picker;
     const itemStyle = error ? styles.errorHighlight : {};
-    const items = props.items || [{label: 'No', value: 'no'}, {label: 'Yes', value: 'yes'}];
+    const items = props.items || [{label: i18n.t('picker-no'), value: 'no'}, {label: i18n.t('picker-yes'), value: 'yes'}];
 
     if (androidDefaultLabel && isAndroid) {
         items.unshift({label: androidDefaultLabel, value: ""});

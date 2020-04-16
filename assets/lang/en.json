@@ -99,6 +99,39 @@
   "picker-yes": "Yes",
   "picker-no": "No",
 
+  "covid-test-question-has-covid-test": "Have you had a test for COVID-19?",
+  "covid-test-question-has-covid-positive": "Did you test positive for COVID-19?",
+  "covid-test-picker-waiting": "Waiting for results",
+  "covid-test-question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+
+  "describe-symptoms-question-has-fever": "Do you have a fever?",
+  "describe-symptoms-placeholder-temperature": "Enter temperature",
+  "describe-symptoms-picker-celsius": "°C",
+  "describe-symptoms-picker-fahrenheit": "°F",
+  "describe-symptoms-question-has-persistent-cough": "Do you have a persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)?",
+  "describe-symptoms-question-has-unusual-fatigue": "Are you experiencing unusual fatigue?",
+  "describe-symptoms-picker-fatigue-none": "No",
+  "describe-symptoms-picker-fatigue-mild": "Mild fatigue",
+  "describe-symptoms-picker-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
+  "describe-symptoms-question-has-headache": "Do you have a headache?",
+  "describe-symptoms-question-has-unusual-shortness-of-breath": "Are you experiencing unusual shortness of breath?",
+  "describe-symptoms-picker-shortness-of-breath-none": "No",
+  "describe-symptoms-picker-shortness-of-breath-mild": "Yes. Mild symptoms - slight shortness of breath during ordinary activity",
+  "describe-symptoms-picker-shortness-of-breath-significant": "Yes. Significant symptoms - breathing is comfortable only at rest",
+  "describe-symptoms-picker-shortness-of-breath-severe": "Yes. Severe symptoms - breathing is difficult even at rest",
+  "describe-symptoms-question-has-sore-throat": "Do you have a sore throat?",
+  "describe-symptoms-question-has-loss-of-smell": "Do you have a loss of smell/taste?",
+  "describe-symptoms-question-has-hoarse-voice": "Do you have an unusually hoarse voice?",
+  "describe-symptoms-question-has-chest-pain": "Are you feeling an unusual chest pain or tightness in your chest?",
+  "describe-symptoms-question-has-abdominal-pain": "Do you have an unusual abdominal pain?",
+  "describe-symptoms-question-has-diarrhoea": "Are you experiencing diarrhoea?",
+  "describe-symptoms-placeholder-has-diarrhoea": "hasDiarrhoea",
+  "describe-symptoms-question-has-unusual-muscle-pains": "Do you have unusual strong muscle pains?",
+  "describe-symptoms-question-has-delirium": "Do you have any of the following symptoms: confusion, disorientation or drowsiness?",
+  "describe-symptoms-question-is-skipping-meals": "Have you been skipping meals?",
+  "describe-symptoms-question-other-symptoms": "Are there other important symptoms you want to share with us?",
+  "describe-symptoms-placeholder-other-symptoms": "Other symptoms",
+
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
   "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
@@ -110,9 +143,6 @@
   "needs-help": "Do you need someone to help you on a regular basis?",
   "help-available": "If you need help, can you count on someone close to you?",
   "mobility-aid": "Do you regularly use a stick, walking frame or wheelchair to get about?",
-
-  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhoea?",
-  "placeholder-diarrhoea": "hasDiarrhoea",
 
   "select-country": "Select country of residence",
   "website-home": "https://covid.joinzoe.com/",
@@ -150,4 +180,6 @@
   "your-country-text": "We're not certain which country you're in because of how your phone is configured.",
   "united-states": "United States",
   "united-kingdom": "United Kingdom",
+
+  "validation-error-text": "Please fill in or correct the above information: %{info}",
 }
