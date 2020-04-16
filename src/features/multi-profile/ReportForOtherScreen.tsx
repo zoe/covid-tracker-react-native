@@ -50,8 +50,8 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                                             index: 2,
                                             routes: [
                                                 state.routes[0],
-                                                {name: 'SelectProfile', params: {avatarName: 'profile2'}},
-                                                {name: 'CreateProfile', params: {avatarName: 'profile2'}}
+                                                {name: 'SelectProfile', params: {}},
+                                                {name: 'CreateProfile', params: {avatarName: 'New Profile'}}
                                             ]
                                         });
                                     });
