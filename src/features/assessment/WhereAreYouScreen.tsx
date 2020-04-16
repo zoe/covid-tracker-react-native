@@ -76,7 +76,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         const medicalBuilding = isUSLocale() ? "clinic or hospital" : "hospital";
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>Where are you right now?</HeaderText>
                 </Header>

@@ -126,7 +126,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
             {label: i18n.t('covid-test-picker-waiting'), value: 'waiting'}
         ];
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>COVID-19 status</HeaderText>
                 </Header>
