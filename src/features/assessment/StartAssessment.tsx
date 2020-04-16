@@ -14,11 +14,17 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
     async componentDidMount() {
         const currentPatient = this.props.route.params.currentPatient;
         const assessmentId = this.props.route.params.assessmentId || null;
+
         if (currentPatient.hasCompletePatientDetails) {
-            if (currentPatient.isHealthWorker) {
-                this.props.navigation.replace('HealthWorkerExposure', {currentPatient, assessmentId})
+            if (currentPatient.shouldAskLevelOfIsolation) {
+                this.props.navigation.replace('LevelOfIsolation', {currentPatient, assessmentId})
             } else {
-                this.props.navigation.replace('CovidTest', {currentPatient, assessmentId})
+                // Everything in this block should be replicated in Level Of Isolation navigation for now
+                if (currentPatient.isHealthWorker) {
+                    this.props.navigation.replace('HealthWorkerExposure', {currentPatient, assessmentId})
+                } else {
+                    this.props.navigation.replace('CovidTest', {currentPatient, assessmentId})
+                }
             }
         } else {
             this.props.navigation.replace('StartPatient', {currentPatient});

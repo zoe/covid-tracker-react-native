@@ -14,6 +14,7 @@ export type PatientStateType = {
     isFemale: boolean,
     isReportedByAnother: boolean,
     isSameHousehold: boolean,
+    shouldAskLevelOfIsolation: boolean,
 }
 
 const initPatientState = {
