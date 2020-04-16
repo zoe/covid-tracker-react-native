@@ -68,9 +68,16 @@ export type PatientInfosRequest = {
     takes_blood_pressure_medications: boolean,
     takes_any_blood_pressure_medications: boolean,
     takes_blood_pressure_medications_sartan: boolean,
+
+    // Previous Exposure
     already_had_covid: boolean,
     classic_symptoms: boolean,
     classic_symptoms_days_ago: number,
+
+    unusual_symptoms_month_before: boolean,
+    still_experiencing_unusual_symptoms: boolean,
+    unusual_symptoms_days_ago: number,
+    unusual_symptoms_changed: boolean,
 
     limited_activity: boolean,
     is_pregnant: boolean,
