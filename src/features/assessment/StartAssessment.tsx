@@ -1,29 +1,12 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, screenWidth} from "../../components/Screen";
-import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
-import {Form, Text} from "native-base";
-
-import ProgressStatus from "../../components/ProgressStatus";
-
-import {Formik} from "formik";
-import * as Yup from "yup";
-
-import {colors, fontStyles} from "../../../theme"
-import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import UserService from "../../core/user/UserService";
-import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
-import DropdownField from "../../components/DropdownField";
-import { ValidationErrors } from "../../components/ValidationError";
-import moment from "moment";
 
 
 type StartAssessmentProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>
-    route: RouteProp<ScreenParamList, 'CovidTest'>;
+    navigation: StackNavigationProp<ScreenParamList, 'StartAssessment'>
+    route: RouteProp<ScreenParamList, 'StartAssessment'>;
 }
 
 
@@ -44,8 +27,7 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
                 }
             }
         } else {
-            // TODO: refactor as "StartPatient" screen/controller
-            this.props.navigation.replace('YourWork', {currentPatient});
+            this.props.navigation.replace('StartPatient', {currentPatient});
         }
     }
 
