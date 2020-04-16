@@ -44,9 +44,9 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
 
     navigateToStart = (currentPatient: PatientStateType, assessmentId: string) => {
         if (currentPatient.isHealthWorker) {
-            this.props.navigation.replace('HealthWorkerExposure', {currentPatient, assessmentId})
+            this.props.navigation.navigate('HealthWorkerExposure', {currentPatient, assessmentId})
         } else {
-            this.props.navigation.replace('CovidTest', {currentPatient, assessmentId})
+            this.props.navigation.navigate('CovidTest', {currentPatient, assessmentId})
         }
     };
 
