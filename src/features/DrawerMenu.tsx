@@ -75,7 +75,11 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <TouchableOpacity style={styles.iconNameRow} onPress={() => logout()}>
                 <HeaderText>{i18n.t('logout')}</HeaderText>
             </TouchableOpacity>
-            <CaptionText style={[styles.versionText]}>{Constants.manifest.version} : {Constants.manifest.revisionId}</CaptionText>
+            <CaptionText style={[styles.versionText]}>
+                {Constants.manifest.version}
+                {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
+                {Constants.manifest.releaseChannel && ` (${Constants.manifest.releaseChannel})`}
+            </CaptionText>
         </View>
     </SafeAreaView>
 }
