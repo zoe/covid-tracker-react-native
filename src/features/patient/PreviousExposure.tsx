@@ -54,7 +54,7 @@ type State = {
     pastSymptomChestPain: boolean;
     pastSymptomHoarseVoice: boolean;
     pastSymptomAbdominalPain: boolean;
-    pastSymptomConfusion: boolean;
+    pastSymptomDelirium: boolean;
     errorMessage: string;
 }
 
@@ -69,7 +69,7 @@ const initialState: State = {
     pastSymptomChestPain: false,
     pastSymptomHoarseVoice: false,
     pastSymptomAbdominalPain: false,
-    pastSymptomConfusion: false,
+    pastSymptomDelirium: false,
     errorMessage: ""
 };
 
@@ -140,7 +140,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                 past_symptom_chest_pain: this.state.pastSymptomChestPain,
                 past_symptom_hoarse_voice: this.state.pastSymptomHoarseVoice,
                 past_symptom_abdominal_pain: this.state.pastSymptomAbdominalPain,
-                past_symptom_confusion: this.state.pastSymptomConfusion,
+                past_symptom_delirium: this.state.pastSymptomDelirium,
                 ...(formData.pastSymptomsDaysAgo && {past_symptoms_days_ago: stripAndRound(formData.pastSymptomsDaysAgo)}),
             }
 
@@ -246,8 +246,8 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                                                             onChange={(value: boolean) => this.setState({pastSymptomAbdominalPain: value})}
                                                         >{i18n.t("label-past-symptom-abdominal-pain")}</CheckboxItem>
                                                         <CheckboxItem
-                                                            value={this.state.pastSymptomConfusion}
-                                                            onChange={(value: boolean) => this.setState({pastSymptomConfusion: value})}
+                                                            value={this.state.pastSymptomDelirium}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomDelirium: value})}
                                                         >{i18n.t("label-past-symptom-confusion")}</CheckboxItem>
                                                     </CheckboxList>
                                                 </Item>

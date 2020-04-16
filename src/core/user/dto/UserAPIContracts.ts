@@ -85,7 +85,7 @@ export type PatientInfosRequest = {
     past_symptom_chest_pain: boolean,
     past_symptom_hoarse_voice: boolean,
     past_symptom_abdominal_pain: boolean,
-    past_symptom_confusion: boolean,
+    past_symptom_delirium: boolean,
 
     already_had_covid: boolean,
     classic_symptoms: boolean,
