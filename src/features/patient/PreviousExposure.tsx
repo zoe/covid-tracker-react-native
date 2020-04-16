@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {KeyboardAvoidingView, Platform} from "react-native";
-import Screen, {Header, ProgressBlock} from "../../components/Screen";
-import {BrandedButton, Divider, ErrorText, HeaderText} from "../../components/Text";
-import {Form} from "native-base";
+import {KeyboardAvoidingView, Platform, StyleSheet} from "react-native";
+import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
+import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
+import {Form, Item, Label} from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
 
@@ -12,18 +12,18 @@ import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService from "../../core/user/UserService";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
-
+import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
 
 interface YourHealthData {
     unwellMonthBefore: string,
     stillHavePastSymptoms: string,
-    past_symptoms_days_ago: string,
-    past_symptoms_changed: string,
+    pastSymptomsDaysAgo: string,
+    pastSymptomsChanged: string,
     alreadyHadCovid: string,
     classicSymptoms: string,
 }
@@ -31,8 +31,8 @@ interface YourHealthData {
 const initialFormValues = {
     unwellMonthBefore: 'no',
     stillHavePastSymptoms: 'no',
-    past_symptoms_days_ago: '',
-    past_symptoms_changed: 'no',
+    pastSymptomsDaysAgo: '',
+    pastSymptomsChanged: 'no',
     alreadyHadCovid: 'no',
     classicSymptoms: 'no',
 };
@@ -43,10 +43,32 @@ type HealthProps = {
 }
 
 type State = {
+    pastSymptomAnosmia: boolean;
+    pastSymptomShortnessOfBreath: boolean;
+    pastSymptomFatigue: boolean;
+    pastSymptomFever: boolean;
+    pastSymptomSkippedMeals: boolean;
+    pastSymptomPersistentCough: boolean;
+    pastSymptomDiarrhoea: boolean;
+    pastSymptomChestPain: boolean;
+    pastSymptomHoarseVoice: boolean;
+    pastSymptomAbdominalPain: boolean;
+    pastSymptomConfusion: boolean;
     errorMessage: string;
 }
 
 const initialState: State = {
+    pastSymptomAnosmia: false,
+    pastSymptomShortnessOfBreath: false,
+    pastSymptomFatigue: false,
+    pastSymptomFever: false,
+    pastSymptomSkippedMeals: false,
+    pastSymptomPersistentCough: false,
+    pastSymptomDiarrhoea: false,
+    pastSymptomChestPain: false,
+    pastSymptomHoarseVoice: false,
+    pastSymptomAbdominalPain: false,
+    pastSymptomConfusion: false,
     errorMessage: ""
 };
 
@@ -96,7 +118,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                 this.props.navigation.navigate('StartAssessment', {currentPatient});
             })
             .catch(err => {
-                this.setState({errorMessage: "Something went wrong, please try again later"})
+                this.setState({errorMessage: i18n.t("something-went-wrong")})
             });
     }
 
@@ -109,14 +131,25 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
             infos = {
                 ...infos,
                 still_have_past_symptoms: formData.stillHavePastSymptoms === "yes",
-                already_had_covid: formData.alreadyHadCovid === "yes"
+                already_had_covid: formData.alreadyHadCovid === "yes",
+                past_symptom_anosmia: this.state.pastSymptomAnosmia,
+                past_symptom_shortness_of_breath: this.state.pastSymptomShortnessOfBreath,
+                past_symptom_fatigue: this.state.pastSymptomFatigue,
+                past_symptom_fever: this.state.pastSymptomFever,
+                past_symptom_skipped_meals: this.state.pastSymptomSkippedMeals,
+                past_symptom_persistent_cough: this.state.pastSymptomPersistentCough,
+                past_symptom_diarrhoea: this.state.pastSymptomDiarrhoea,
+                past_symptom_chest_pain: this.state.pastSymptomChestPain,
+                past_symptom_hoarse_voice: this.state.pastSymptomHoarseVoice,
+                past_symptom_abdominal_pain: this.state.pastSymptomAbdominalPain,
+                past_symptom_confusion: this.state.pastSymptomConfusion
             }
 
             if (infos.still_have_past_symptoms) {
                 infos = {
                     ...infos,
-                    ...(formData.past_symptoms_days_ago && {unusual_symptoms_days_ago: stripAndRound(formData.past_symptoms_days_ago)}),
-                    unusual_symptoms_changed: formData.past_symptoms_changed === "yes" // TODO?
+                    ...(formData.pastSymptomsDaysAgo && {past_symptoms_days_ago: stripAndRound(formData.pastSymptomsDaysAgo)}),
+                    past_symptoms_changed: formData.pastSymptomsChanged === "yes"
                 }
             }
         }
@@ -134,16 +167,16 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const symptomChangeChoices = [
-            {label: 'Much better', value: 'much_better'},
-            {label: 'A little better', value: 'little_better'},
-            {label: 'The same', value: 'same'},
-            {label: 'A little worse', value: 'little_worse'},
-            {label: 'Much worse', value: 'much_worse'},
+            {label: i18n.t("past-symptom-changed-much-better"), value: 'much_better'},
+            {label: i18n.t("past-symptom-changed-little-better"), value: 'little_better'},
+            {label: i18n.t("past-symptom-changed-same"), value: 'same'},
+            {label: i18n.t("past-symptom-changed-little-worse"), value: 'little_worse'},
+            {label: i18n.t("past-symptom-changed-much-worse"), value: 'much_worse'},
         ]
         return (
             <Screen profile={currentPatient.profile}>
                 <Header>
-                    <HeaderText>Previous exposure to COVID</HeaderText>
+                    <HeaderText>{i18n.t("previous-exposure-title")}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -165,22 +198,74 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                                     <DropdownField
                                         selectedValue={props.values.unwellMonthBefore}
                                         onValueChange={props.handleChange("unwellMonthBefore")}
-                                        label={"Have you felt unwell in the month before you started reporting on this app?"}
+                                        label={i18n.t("label-unwell-month-before")}
                                     />
 
                                     {props.values.unwellMonthBefore === 'yes' && (
                                         <>
+                                            <FieldWrapper>
+                                                <Item stackedLabel style={styles.textItemStyle}>
+                                                    <Label>{i18n.t("label-past-symptoms")}</Label>
+                                                    <CheckboxList>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomAnosmia}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomAnosmia: value})}
+                                                        >{i18n.t("label-past-symptom-anosmia")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomShortnessOfBreath}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomShortnessOfBreath: value})}
+                                                        >{i18n.t("label-past-symptom-breath")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomFatigue}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomFatigue: value})}
+                                                        >{i18n.t("label-past-symptom-fatigue")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomFever}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomFever: value})}
+                                                        >{i18n.t("label-past-symptom-fever")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomSkippedMeals}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomSkippedMeals: value})}
+                                                        >{i18n.t("label-past-symptom-skipped-meals")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomPersistentCough}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomPersistentCough: value})}
+                                                        >{i18n.t("label-past-symptom-cough")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomDiarrhoea}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomDiarrhoea: value})}
+                                                        >{i18n.t("label-past-symptom-diarrhoea")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomChestPain}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomChestPain: value})}
+                                                        >{i18n.t("label-past-symptom-chest-pain")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomHoarseVoice}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomHoarseVoice: value})}
+                                                        >{i18n.t("label-past-symptom-hoarse-voice")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomAbdominalPain}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomAbdominalPain: value})}
+                                                        >{i18n.t("label-past-symptom-abdominal-pain")}</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.pastSymptomConfusion}
+                                                            onChange={(value: boolean) => this.setState({pastSymptomConfusion: value})}
+                                                        >{i18n.t("label-past-symptom-confusion")}</CheckboxItem>
+                                                    </CheckboxList>
+                                                </Item>
+                                            </FieldWrapper>
+
                                             <GenericTextField
                                                 formikProps={props}
-                                                label="How many days ago did your symptoms start?"
-                                                name="past_symptoms_days_ago"
+                                                label={i18n.t("label-past-symptoms-days-ago")}
+                                                name="pastSymptomsDaysAgo"
                                                 keyboardType="numeric"
                                             />
 
                                             <DropdownField
                                                 selectedValue={props.values.stillHavePastSymptoms}
                                                 onValueChange={props.handleChange("stillHavePastSymptoms")}
-                                                label={"Are you still experiencing symptoms?"}
+                                                label={i18n.t("label-past-symptoms-still-have")}
                                             />
                                         </>
 
@@ -189,9 +274,9 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                                     {props.values.stillHavePastSymptoms === 'yes' && (
                                         <>
                                             <DropdownField
-                                                selectedValue={props.values.past_symptoms_changed}
-                                                onValueChange={props.handleChange("past_symptoms_changed")}
-                                                label={"How have your symptoms changed over the last few days?"}
+                                                selectedValue={props.values.pastSymptomsChanged}
+                                                onValueChange={props.handleChange("pastSymptomsChanged")}
+                                                label={i18n.t("label-past-symptoms-changed")}
                                                 items={symptomChangeChoices}
                                             />
                                         </>
@@ -200,14 +285,14 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                                     <DropdownField
                                         selectedValue={props.values.alreadyHadCovid}
                                         onValueChange={props.handleChange("alreadyHadCovid")}
-                                        label={"Do you think you have already had COVID -19, but were not tested?"}
+                                        label={i18n.t("label-past-symptoms-had-covid")}
                                     />
 
                                     {props.values.alreadyHadCovid === 'yes' && (
                                         <DropdownField
                                             selectedValue={props.values.classicSymptoms}
                                             onValueChange={props.handleChange("classicSymptoms")}
-                                            label={"Did you have the classic symptoms (high fever and persistent cough) for several days?"}
+                                            label={i18n.t("label-past-symptoms-classic")}
                                         />
                                     )}
 
@@ -227,5 +312,11 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
             </Screen>
         )
     }
-
 }
+
+
+const styles = StyleSheet.create({
+    textItemStyle: {
+        borderColor: 'transparent',
+    },
+});

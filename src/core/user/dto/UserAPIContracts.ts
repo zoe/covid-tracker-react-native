@@ -70,15 +70,28 @@ export type PatientInfosRequest = {
     takes_blood_pressure_medications_sartan: boolean,
 
     // Previous Exposure
+    unwell_month_before: boolean,
+    still_have_past_symptoms: boolean,
+    past_symptoms_days_ago: number,
+    past_symptoms_changed: boolean,
+
+    past_symptom_anosmia: boolean,
+    past_symptom_shortness_of_breath: boolean,
+    past_symptom_fatigue: boolean,
+    past_symptom_fever: boolean,
+    past_symptom_skipped_meals: boolean,
+    past_symptom_persistent_cough: boolean,
+    past_symptom_diarrhoea: boolean,
+    past_symptom_chest_pain: boolean,
+    past_symptom_hoarse_voice: boolean,
+    past_symptom_abdominal_pain: boolean,
+    past_symptom_confusion: boolean,
+
     already_had_covid: boolean,
     classic_symptoms: boolean,
     classic_symptoms_days_ago: number,
 
-    unwell_month_before: boolean,
-    still_have_past_symptoms: boolean,
-    unusual_symptoms_days_ago: number,
-    unusual_symptoms_changed: boolean,
-
+    //
     limited_activity: boolean,
     is_pregnant: boolean,
     needs_help: boolean,

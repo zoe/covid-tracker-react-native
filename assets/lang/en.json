@@ -99,6 +99,32 @@
   "picker-yes": "Yes",
   "picker-no": "No",
 
+  "previous-exposure-title": "Previous exposure to COVID",
+  "label-unwell-month-before": "Have you felt unwell in the month before you started reporting on this app?",
+"label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
+"label-past-symptoms-still-have": "Are you still experiencing symptoms?",
+"label-past-symptoms-changed": "How have your symptoms changed over the last few days?",
+"label-past-symptoms-had-covid": "Do you think you have already had COVID-19, but were not tested?",
+"label-past-symptoms-classic": "Did you have the classic symptoms (high fever and persistent cough) for several days?",
+
+  "label-past-symptoms": "Did you have any of the following symptoms (please select all that apply):",
+  "label-past-symptom-anosmia": "Loss of smell/taste",
+  "label-past-symptom-breath": "Unusual shortness of breath",
+  "label-past-symptom-fatigue": "Unusual fatigue",
+  "label-past-symptom-fever": "Fever",
+  "label-past-symptom-skipped-meals": "Skipped meals",
+  "label-past-symptom-cough": "Persistent cough",
+  "label-past-symptom-diarrhoea": "Diarrhoea",
+  "label-past-symptom-chest-pain": "Unusual chest pain or tightness in your chest",
+  "label-past-symptom-hoarse-voice": "Hoarse voice",
+  "label-past-symptom-abdominal-pain": "Abdominal pain",
+  "label-past-symptom-confusion": "Confusion, disorientation, drowsiness",
+  "past-symptom-changed-much-better": "Much better",
+  "past-symptom-changed-little-better": "A little better",
+  "past-symptom-changed-same": "The same",
+  "past-symptom-changed-little-worse": "A little worse",
+  "past-symptom-changed-much-worse": "Much worse",
+
   "covid-test-question-has-covid-test": "Have you had a test for COVID-19?",
   "covid-test-question-has-covid-positive": "Did you test positive for COVID-19?",
   "covid-test-picker-waiting": "Waiting for results",
@@ -181,5 +207,5 @@
   "united-states": "United States",
   "united-kingdom": "United Kingdom",
 
-  "validation-error-text": "Please fill in or correct the above information: %{info}",
+  "validation-error-text": "Please fill in or correct the above information: %{info}"
 }
