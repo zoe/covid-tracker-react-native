@@ -7,8 +7,9 @@ import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../
 import {ScreenParamList} from "../../ScreenParamList";
 import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../../assets";
 import UserService, {isUSLocale} from "../../../core/user/UserService";
+import CountryIpModal from ".././CountryIpModal";
 
-const PurpleSlash = () => <RegularBoldText style={styles.purpleSlash}>/</RegularBoldText>;
+const Slash = () => <RegularBoldText style={styles.slash}>/</RegularBoldText>;
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -16,11 +17,14 @@ type PropsType = {
 
 type WelcomeUSScreenState = {
     userCount: string | null
+    ipModalVisible: boolean
 }
 
 export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState> {
+    userService = new UserService();
     state = {
         userCount: null,
+        ipModalVisible: false
     };
 
     async componentDidMount() {
@@ -72,7 +76,7 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                                 <View style={styles.divider}></View>
 
                                 <RegularText style={styles.partnerList}>
-                                    Harvard T.H. Chan School of Public Health <PurpleSlash/> Massachusetts General Hospital <PurpleSlash/> King's College London <PurpleSlash/> Stanford University School of Medicine <PurpleSlash/> ZOE
+                                    Harvard T.H. Chan School of Public Health <Slash/> Massachusetts General Hospital <Slash/> King's College London <Slash/> Stanford University School of Medicine <Slash/> ZOE
                                 </RegularText>
 
                             </View>
@@ -80,10 +84,19 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                     </ScrollView>
                 </View>
 
+                <CountryIpModal navigation={this.props.navigation}
+                                isModalVisible={this.state.ipModalVisible}
+                                closeModal={() => this.setState({ipModalVisible: false})}/>
 
                 <View style={styles.buttonContainer}>
                     <BrandedButton
-                        onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account-btn")}</BrandedButton>
+                        onPress={async () => {
+                            if (await this.userService.shouldAskCountryConfirmation()) {
+                                this.setState({ipModalVisible: true})
+                            } else {
+                                this.props.navigation.navigate('BeforeWeStartUS')
+                            }
+                        }}>{i18n.t("create-account-btn")}</BrandedButton>
                 </View>
 
             </SafeAreaView>
@@ -101,7 +114,7 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flex: 1,
-        backgroundColor: "#F7F7F7",
+        backgroundColor: colors.backgroundSecondary,
     },
 
     headerRow: {
@@ -124,7 +137,7 @@ const styles = StyleSheet.create({
 
     divider: {
         height: 1,
-        backgroundColor: "#E2E2E2",
+        backgroundColor: colors.backgroundFour,
         marginVertical: 5,
     },
 
@@ -170,8 +183,8 @@ const styles = StyleSheet.create({
         marginTop: 25,
     },
 
-    purpleSlash: {
-        color: "#29C4CF",
+    slash: {
+        color: colors.slashBlue,
     },
 
     partnersLogo: {

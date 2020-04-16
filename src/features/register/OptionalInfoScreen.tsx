@@ -6,14 +6,14 @@ import {colors} from "../../../theme";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
-import UserService, { isGBLocale, isUSLocale } from "../../core/user/UserService";
+import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
 import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {RouteProp} from '@react-navigation/native';
 import {ScreenParamList} from "../ScreenParamList";
 import {PiiRequest} from "../../core/user/dto/UserAPIContracts";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
-
+import Constants from 'expo-constants';
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>
@@ -47,15 +47,19 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     }
 
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
-
         const patientId = this.props.route.params.user.patients[0];
         const userService = new UserService();
-        let consent = await userService.getConsentSigned();
-        let nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
-            ? {name: "YourStudy", params: {patientId: patientId}}
-            : {name: "YourWork", params: {patientId: patientId}};
-        const goToNextScreen = () => {
 
+        const currentPatient = await userService.getCurrentPatient(patientId);
+        const consent = await userService.getConsentSigned();
+
+        // TODO: refactor this to PatientScreen. After we understand why other routes
+        // don't have this branching logic.
+        const nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
+            ? {name: "YourStudy", params: {currentPatient}}
+            : {name: "YourWork", params: {currentPatient}};
+
+        const goToNextScreen = () => {
             this.props.navigation.reset({
                 index: 0,
                 routes: [
@@ -65,13 +69,15 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             })
         };
 
-        const pushToken = await PushNotificationService.getPushToken(false);
-        if (pushToken) {
-            try {
-                await userService.savePushToken(pushToken);
-                AsyncStorageService.setPushToken(pushToken);
-            } catch (error) {
-                this.setState({errorMessage: 'Something went wrong... try again later'});
+        if (Constants.appOwnership !== 'expo') {
+            const pushToken = await PushNotificationService.getPushToken(false);
+            if (pushToken) {
+                try {
+                    await userService.savePushToken(pushToken);
+                    AsyncStorageService.setPushToken(pushToken);
+                } catch (error) {
+                    this.setState({errorMessage: 'Something went wrong... try again later'});
+                }
             }
         }
 
@@ -123,10 +129,10 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                                 <View>
 
                                     <View>
-                                        <HeaderText>Optional contact information</HeaderText>
+                                        <HeaderText style={{marginBottom: 24}}>Optional contact information</HeaderText>
 
                                         <RegularText>
-                                            Please share your name and phone number. This is optional but would allow someone to contact you in an emergency.
+                                            Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.
                                         </RegularText>
 
                                         <Form>
@@ -145,7 +151,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
                                             <ValidatedTextInput
                                                 ref={(input) => this.phoneComponent = input}
-                                                placeholder="Your phone number"
+                                                placeholder="Phone number"
                                                 value={props.values.phone}
                                                 onChangeText={props.handleChange("phone")}
                                                 onBlur={props.handleBlur("phone")}

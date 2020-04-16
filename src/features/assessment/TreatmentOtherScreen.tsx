@@ -14,7 +14,7 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import {getThankYouScreen} from "../Navigation";
+import {navigateAfterFinishingAssessment} from "../Navigation";
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -45,23 +45,21 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     handleUpdateTreatment(formData: TreatmentData) {
 
-        const assessmentId = this.props.route.params.assessmentId;
-        const location = this.props.route.params.location;
-        const goToNextScreen = () => this.props.navigation.navigate(getThankYouScreen());
-
+        const {currentPatient, assessmentId, location} = this.props.route.params;
         if (!formData.description) {
-            goToNextScreen();
+            navigateAfterFinishingAssessment(this.props.navigation);
         } else {
             const userService = new UserService();
             userService.updateAssessment(assessmentId, {
                 treatment: formData.description
-            }).then(r => goToNextScreen());
+            }).then(r => navigateAfterFinishingAssessment(this.props.navigation));
         }
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile}>
                 <Header>
                     <HeaderText>What treatment are you receiving in hospital?</HeaderText>
                 </Header>
@@ -97,7 +95,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Done</Text>
+                                    <Text>Done</Text>
                                 </BrandedButton>
 
                             </Form>
@@ -114,9 +112,5 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 const styles = StyleSheet.create({
     textarea: {
         width: '100%',
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });

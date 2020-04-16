@@ -1,6 +1,7 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
 import {ErrorText} from "./Text";
+import i18n from "../locale/i18n";
 
 type ErrorProps = {
     error: string,
@@ -19,11 +20,11 @@ type ErrorsProps = {
 }
 
 export const ValidationErrors = (props: ErrorsProps) => {
+    const info = Object.keys(props.errors).join(", ");
     return (
       <View style={styles.validationErrors}>
           <ErrorText>
-              Please fill in or correct the above information:{" "}
-              {Object.keys(props.errors).join(", ")}
+              {i18n.t('validation-error-text', {'info': info})}
           </ErrorText>
       </View>
     );

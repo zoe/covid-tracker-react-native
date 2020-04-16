@@ -5,19 +5,21 @@ import {colors} from "../../../../theme";
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
 import {ScreenParamList} from "../../ScreenParamList";
 import {ApplicationVersion} from "../../../components/AppVersion";
+import {RouteProp} from "@react-navigation/native";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>
+    route: RouteProp<ScreenParamList, 'PrivacyPolicyUK'>;
 }
 
 export class PrivacyPolicyUKScreen extends Component<PropsType, {}> {
 
-    // todo julien: add links
+    viewOnly = this.props.route.params.viewOnly;
+
     render() {
         return (
             <View style={styles.rootContainer}>
                 <ScrollView>
-
 
                     <RegularBoldText>Your consent{"\n"}</RegularBoldText>
                     <RegularBoldText>European General Data Protection Regulation{"\n"}</RegularBoldText>
@@ -101,7 +103,6 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, {}> {
                         {"\n"}
                     </RegularText>
 
-
                     <RegularBoldText>Third party processors for both kinds of information{"\n"}</RegularBoldText>
                     <RegularText>
                         We use third parties to process some of your personal data on our behalf. When we allow them access to your data, we do not permit them to use it for their own purposes. We have in place with each processor, a contract that requires them only to process the data on our
@@ -169,7 +170,6 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, {}> {
 
                     <RegularBoldText>Institutions we share data with{"\n"}</RegularBoldText>
 
-
                     <RegularText>
                         King’s College London{"\n"}
                         Guys & St Thomas' Hospitals{"\n"}
@@ -185,7 +185,10 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, {}> {
                     </RegularText>
                 </ScrollView>
 
-                <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
+                {
+                    !this.viewOnly && <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
+                }
+
 
                 <ApplicationVersion/>
             </View>
@@ -209,5 +212,4 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 20,
     }
-
 });

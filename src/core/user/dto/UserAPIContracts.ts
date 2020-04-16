@@ -1,3 +1,5 @@
+import { AvatarName } from "../../../utils/avatar";
+
 class UserInformation {
     public username: string;
     public authorizations: string[];
@@ -30,6 +32,11 @@ export type PiiRequest = {
 
 export type PatientInfosRequest = {
     version: string,    // Document/schema version
+
+    name: string,
+    avatar_name: AvatarName,
+    reported_by_another: boolean,
+    same_household_as_reporter: boolean,
 
     year_of_birth: number,
     gender: number, // 0: female, 1: male
@@ -118,6 +125,8 @@ export type PatientInfosRequest = {
     always_used_shortage: string,
     sometimes_used_shortage: string,
     never_used_shortage: string,
+
+    last_asked_level_of_isolation: Date,
 }
 
 export type AssessmentInfosRequest = {
@@ -147,6 +156,7 @@ export type AssessmentInfosRequest = {
     level_of_isolation: string,	//'not_left_the_house', 'rarely_left_the_house', 'often_left_the_house'
     treatment: string,//	I left this as a free text field, because there is the option to add 'other treatment'.
 
+    interacted_any_patients: boolean,
     treated_patients_with_covid: string,
     have_used_PPE: string,
     always_used_shortage: string,
@@ -179,7 +189,6 @@ export type Consent = {
     privacy_policy_version: string,
 } | any
 
-
 export type AreaStatsResponse = {
     locked: boolean,
     rank: number,
@@ -189,4 +198,9 @@ export type AreaStatsResponse = {
     predicted_cases: number,
     number_of_missing_contributors: number,
     population: number,
+}
+
+export type StartupInfo = {
+    users_count: number,
+    ip_country: string
 }

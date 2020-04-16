@@ -10,10 +10,10 @@ import { RegisterScreen } from "./features/register/RegisterScreen";
 import AboutYouScreen from "./features/patient/AboutYouScreen";
 import { WelcomeScreen } from "./features/register/gb/WelcomeScreen";
 import { SplashScreen } from "./features/SplashScreen";
-import YourHealthScreen from "./features/assessment/YourHealthScreen";
+import YourHealthScreen from "./features/patient/YourHealthScreen";
 import HowYouFeelScreen from "./features/assessment/HowYouFeelScreen";
 import { PrivacyPolicyUKScreen } from "./features/register/gb/PrivacyPolicyUKScreen";
-import { TermsScreen } from "./features/register/TermsScreen";
+import { ConsentScreen } from "./features/register/ConsentScreen";
 import { OptionalInfoScreen } from "./features/register/OptionalInfoScreen";
 import CovidTestScreen from './features/assessment/CovidTestScreen';
 import DescribeSymptomsScreen from './features/assessment/DescribeSymptomsScreen';
@@ -26,7 +26,7 @@ import { WelcomeRepeatScreen } from "./features/register/gb/WelcomeRepeatScreen"
 import { Welcome1USScreen } from "./features/register/us/Welcome1USScreen";
 import { Welcome2USScreen } from "./features/register/us/Welcome2USScreen";
 import { WelcomeRepeatUSScreen } from "./features/register/us/WelcomeRepeatUSScreen";
-import TermsOfUseScreen from "./features/register/us/TermsOfUseScreen";
+import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
 import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
 import {CountrySelectScreen} from "./features/CountrySelectScreen";
 import YourWorkScreen from './features/patient/YourWorkScreen';
@@ -41,6 +41,13 @@ import {DrawerMenu} from "./features/DrawerMenu";
 import NearYouScreen from './features/near-you/NearYou';
 import YourStudyScreen from "./features/patient/YourStudyScreen";
 import ViralThankYouScreen from "./features/ViralThankYouScreen";
+import ReportForOtherScreen from "./features/multi-profile/ReportForOtherScreen";
+import SelectProfileScreen from "./features/multi-profile/SelectProfileScreen";
+import CreateProfileScreen from "./features/multi-profile/CreateProfileScreen";
+import ConsentForOther from "./features/multi-profile/ConsentForOtherScreen";
+import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
+import StartAssessmentScreen from './features/assessment/StartAssessment';
+import StartPatientScreen from './features/patient/StartPatient';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -87,6 +94,7 @@ export default class ZoeApp extends Component<{}, State> {
      mainNavStack() {
         return (
             <Stack.Navigator>
+
                 <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
@@ -94,8 +102,8 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Terms" component={TermsScreen} options={{headerShown: true, title: 'Consent'}}/>
-                <Stack.Screen name="TermsOfUse" component={TermsOfUseScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
+                <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
+                <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
                 <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={{headerShown: true, title: 'Privacy policy'}}/>
                 <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{headerShown: true, title: 'Research Consent'}}/>
@@ -104,10 +112,13 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="StartPatient" component={StartPatientScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourStudy" component={YourStudyScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourWork" component={YourWorkScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourHealth" component={YourHealthScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="StartAssessment" component={StartAssessmentScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{headerShown: false}}/>
@@ -118,8 +129,13 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="ThankYou" component={ThankYouScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="NearYou" component={NearYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={{headerShown: false}}/>
+                <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{headerShown: false}}/>
+
             </Stack.Navigator>
         )
     }

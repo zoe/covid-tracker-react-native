@@ -8,7 +8,7 @@
   "create-account-already-registered": "An account already exists with this email address. Try to log in instead.",
   "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
 
-  "next-question": "Next Question",
+  "next-question": "Next question",
   "feel-normal": "I feel physically normal",
   "have-symptoms": "I'm not feeling quite right",
 
@@ -26,14 +26,14 @@
   "choose-one-of-these-options": "Choose one of the options",
 
   "title-about-work": "About your work",
-  "label-cohort": "Are you participating in any of these research studies or part of these organisations?",
+  "label-cohort": "Are you part of one of these population studies or organisations?",
 
   "required-is-healthcare-worker": "Please indicate if you are a healthcare worker",
   "required-is-carer": "Please indicate if you are a carer",
 
   "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)",
-  "yes-treating-patients": "Yes, currently treat patients",
-  "yes-not-treating-patients": "Yes, do not currently treat patients",
+  "yes-interacting-patients": "Yes, I currently interact with patients",
+  "yes-not-interacting-patients": "Yes, but I do not currently interact with patients",
   "are-you-carer": "Do you care for multiple people in the community, with direct contact with your patients?",
 
   "label-physically-worked-in-places": "Since the COVID-19 epidemic began, have you physically worked in? (check all that apply)",
@@ -99,6 +99,39 @@
   "picker-yes": "Yes",
   "picker-no": "No",
 
+  "covid-test-question-has-covid-test": "Have you had a test for COVID-19?",
+  "covid-test-question-has-covid-positive": "Did you test positive for COVID-19?",
+  "covid-test-picker-waiting": "Waiting for results",
+  "covid-test-question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+
+  "describe-symptoms-question-has-fever": "Do you have a fever?",
+  "describe-symptoms-placeholder-temperature": "Enter temperature",
+  "describe-symptoms-picker-celsius": "°C",
+  "describe-symptoms-picker-fahrenheit": "°F",
+  "describe-symptoms-question-has-persistent-cough": "Do you have a persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)?",
+  "describe-symptoms-question-has-unusual-fatigue": "Are you experiencing unusual fatigue?",
+  "describe-symptoms-picker-fatigue-none": "No",
+  "describe-symptoms-picker-fatigue-mild": "Mild fatigue",
+  "describe-symptoms-picker-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
+  "describe-symptoms-question-has-headache": "Do you have a headache?",
+  "describe-symptoms-question-has-unusual-shortness-of-breath": "Are you experiencing unusual shortness of breath?",
+  "describe-symptoms-picker-shortness-of-breath-none": "No",
+  "describe-symptoms-picker-shortness-of-breath-mild": "Yes. Mild symptoms - slight shortness of breath during ordinary activity",
+  "describe-symptoms-picker-shortness-of-breath-significant": "Yes. Significant symptoms - breathing is comfortable only at rest",
+  "describe-symptoms-picker-shortness-of-breath-severe": "Yes. Severe symptoms - breathing is difficult even at rest",
+  "describe-symptoms-question-has-sore-throat": "Do you have a sore throat?",
+  "describe-symptoms-question-has-loss-of-smell": "Do you have a loss of smell/taste?",
+  "describe-symptoms-question-has-hoarse-voice": "Do you have an unusually hoarse voice?",
+  "describe-symptoms-question-has-chest-pain": "Are you feeling an unusual chest pain or tightness in your chest?",
+  "describe-symptoms-question-has-abdominal-pain": "Do you have an unusual abdominal pain?",
+  "describe-symptoms-question-has-diarrhoea": "Are you experiencing diarrhoea?",
+  "describe-symptoms-placeholder-has-diarrhoea": "hasDiarrhoea",
+  "describe-symptoms-question-has-unusual-muscle-pains": "Do you have unusual strong muscle pains?",
+  "describe-symptoms-question-has-delirium": "Do you have any of the following symptoms: confusion, disorientation or drowsiness?",
+  "describe-symptoms-question-is-skipping-meals": "Have you been skipping meals?",
+  "describe-symptoms-question-other-symptoms": "Are there other important symptoms you want to share with us?",
+  "describe-symptoms-placeholder-other-symptoms": "Other symptoms",
+
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
   "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
@@ -111,17 +144,20 @@
   "help-available": "If you need help, can you count on someone close to you?",
   "mobility-aid": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
-  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhoea?",
-  "placeholder-diarrhoea": "hasDiarrhoea",
-
   "select-country": "Select country of residence",
   "website-home": "https://covid.joinzoe.com/",
   "share-with-friends-message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well  🙏. Download the app",
   "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
+  "label-interacted-with-any-patients-last-day": "In the last day, have you interacted with any patients?",
   "label-interacted-with-infected-patients-last-day": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
-  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? ",
+  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
+  "required-has-used-ppe-equipment": "Please indicate how often you've used PPE equipment",
+  "required-ppe-availability-always": "Please indicate the availability of PPE equipment to you",
+  "required-ppe-availability-sometimes": "Please indicate the availability of PPE equipment to you",
+  "required-ppe-availability-never": "Please indicate the availability of PPE equipment to you",
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
@@ -138,5 +174,49 @@
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
   "cancel": "Cancel",
   "delete": "Delete",
-  "logout": "Log out"
+  "logout": "Log out",
+
+  "your-country-title": "Your country",
+  "your-country-text": "We're not certain which country you're in because of how your phone is configured.",
+  "united-states": "United States",
+  "united-kingdom": "United Kingdom",
+
+  "never-reported": "Never reported",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "days-ago": "%{diffDays} days ago",
+
+  "adult-or-child-title": "Who would you like to report for?",
+  "adult-or-child-text": "Right now, you can only create additional profiles for UK residents.",
+  "person-over-18": "Person over 18",
+  "person-under-18": "Person under 18",
+
+  "adult-consent-title": "Adult consent",
+  "child-consent-title": "Child consent",
+  "adult-consent-confirm": "I confirm the above",
+  "child-consent-confirm": "I confirm that I am the child's legal guardian and that I have done the above",
+  "consent": "consent",
+  "child-consent-text-1": "If your child is old enough to understand our",
+  "child-consent-text-2": "requirements, please explain to them that you are sharing information about them with us and what we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.",
+  "adult-consent-text-1": "Please confirm that you have shown or read our",
+  "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
+  "consent-create-profile": "Create profile",
+
+  "create-profile-title": "Give new profile a name",
+  "create-profile-text": "This name is just for you. Choose a name that would allow you to know which person you are reporting for.",
+  "create-profile-placeholder": "e.g. name, nickname or relation",
+  "create-profile-button": "Continue",
+
+  "report-for-others-title": "Reporting on behalf of someone else?",
+  "report-for-others-text": "You can now create profiles for other people on whose behalf you want to report.",
+  "report-for-others-add-profiles": "Add profiles",
+  "report-for-others-subtext": "You can now report on behalf of someone else.",
+  "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
+  "report-for-others-skip": "Skip",
+
+  "select-profile-title": "Select profile you want to report for",
+  "select-profile-text": "Or add more profiles",
+  "select-profile-button": "New profile",
+
+  "validation-error-text": "Please fill in or correct the above information: %{info}",
 }

@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, screenWidth} from "../../../components/Screen";
+import Screen, {FieldWrapper, Header} from "../../../components/Screen";
 import {HeaderText} from "../../../components/Text";
 import {Form, Text} from "native-base";
-
-import {colors, fontStyles} from "../../../../theme"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../../ScreenParamList";
 import {BigButton} from "../../../components/Button";
@@ -38,14 +36,14 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
 
                 <Form style={styles.form}>
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Yes, I am</Text>
+                        <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS', {viewOnly: false})}>
+                            <Text>Yes, I am</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('Terms')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>No, I am not</Text>
+                        <BigButton onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>
+                            <Text>No, I am not</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
@@ -65,9 +63,4 @@ const styles = StyleSheet.create({
     fieldWrapper: {
         marginVertical: 32,
     },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
 });
