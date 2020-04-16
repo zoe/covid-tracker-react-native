@@ -22,6 +22,11 @@ export const fontStyles = StyleSheet.create({
         lineHeight: 24,
         color: colors.primary,
     },
+    bodySecondary: { // Secondary Text
+        fontSize: 16,
+        lineHeight: 24,
+        color: colors.secondary,
+    },
     bodyMutedReg: { // Muted Text
         fontSize: 16,
         lineHeight: 24,

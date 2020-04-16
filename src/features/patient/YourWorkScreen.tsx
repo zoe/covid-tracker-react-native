@@ -228,7 +228,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
                                 <Form>
 
-
                                     <DropdownField
                                         selectedValue={props.values.isHealthcareStaff}
                                         onValueChange={props.handleChange("isHealthcareStaff")}

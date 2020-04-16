@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, ScrollView, Share, StyleSheet, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, Share, StyleSheet, View} from "react-native";
 import {Header, isAndroid, ProgressBlock} from "../components/Screen";
 import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../components/Text";
 import ProgressStatus from "../components/ProgressStatus";
@@ -47,7 +47,8 @@ export default class ThankYouScreen extends Component<RenderProps, {askForRating
         return (
             <>
                 {this.state.askForRating && <CovidRating /> }
-                <ScrollView contentContainerStyle={styles.scrollView}>
+                <SafeAreaView>
+                    <ScrollView contentContainerStyle={styles.scrollView}>
                     <View style={styles.rootContainer}>
                         <Header>
                             <HeaderText>{i18n.t("thank-you-title")}</HeaderText>
@@ -83,6 +84,8 @@ export default class ThankYouScreen extends Component<RenderProps, {askForRating
 
                     </View>
                 </ScrollView>
+                </SafeAreaView>
+
             </>
         )
     }
@@ -158,6 +161,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         margin: 40,
         fontSize: 24,
+        color: colors.brand
     }
 
 });
