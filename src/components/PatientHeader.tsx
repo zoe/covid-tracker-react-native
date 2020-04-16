@@ -17,7 +17,7 @@ const BackButton = ({navigation}: BackButtonProps) => {
     return (
         <TouchableOpacity onPress={navigation.goBack}>
             <View style={styles.iconButton}>
-                <Icon name="chevron-thin-left" type="Entypo" />
+                <Icon name="chevron-thin-left" type="Entypo" style={styles.icon}/>
             </View>
         </TouchableOpacity>
     );
@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     icon: {
+        fontSize: 16,
+        color: colors.secondary
     },
 
     headerBar: {
