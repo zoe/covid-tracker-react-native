@@ -266,7 +266,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 <DropdownField
                                   selectedValue={props.values.hasHeadache}
                                   onValueChange={props.handleChange("hasHeadache")}
-                                  label="Do you have a headache?"
+                                  label={i18n.t('describe-symptoms-question-has-headache')}
                                 />
 
                                 <DropdownField
