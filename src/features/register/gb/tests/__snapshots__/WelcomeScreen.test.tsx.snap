@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome Screen should match snapshot 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "flexGrow": 1,
+      "justifyContent": "space-between",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#024364",
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "paddingHorizontal": 24,
+            "paddingVertical": 24,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Object {
+                "height": 60,
+                "width": 60,
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 14,
+                "paddingHorizontal": 5,
+              }
+            }
+          >
+            COVID Symptom Tracker
+          </Text>
+          <View
+            accessible={true}
+            focusable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <Image
+              source={1}
+              style={
+                Object {
+                  "height": 32,
+                  "width": 32,
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "300",
+              }
+            }
+          >
+            <Text
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#A10056",
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                  Object {
+                    "color": "#FFFFFF",
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Sign in
+            </Text>
+          </View>
+        </View>
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#565A5C",
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                Object {
+                  "color": "#FFFFFF",
+                  "fontSize": 24,
+                  "lineHeight": 38,
+                  "marginTop": 15,
+                  "paddingVertical": 24,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Take 1 minute each day and help fight the outbreak.
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#565A5C",
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                Object {
+                  "color": "#FFFFFF",
+                  "fontSize": 14,
+                  "fontWeight": "300",
+                  "lineHeight": 20,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            
+
+            This app allows you to help others, but does 
+            
+
+             not give health advice. If you need health 
+            
+
+             advice please
+             
+            <Text
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "#A10056",
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "color": "#FFFFFF",
+                      "fontSize": 14,
+                      "fontWeight": "300",
+                      "lineHeight": 20,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "textDecorationLine": "underline",
+                    },
+                  ],
+                ]
+              }
+            >
+              visit the NHS website
+            </Text>
+            .
+            
+
+            
+
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignContent": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderTopLeftRadius": 20,
+            "borderTopRightRadius": 20,
+            "flex": 1,
+            "justifyContent": "space-between",
+            "padding": 32,
+          }
+        }
+      >
+        <Image
+          resizeMode="contain"
+          source={1}
+          style={
+            Object {
+              "alignSelf": "center",
+              "height": 120,
+              "marginBottom": 20,
+              "marginTop": 30,
+              "resizeMode": "center",
+            }
+          }
+        />
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "backgroundColor": "#024364",
+              "borderBottomWidth": null,
+              "borderColor": "#007aff",
+              "borderLeftWidth": null,
+              "borderRadius": 100,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 0,
+              "flexDirection": "row",
+              "height": 56,
+              "justifyContent": "center",
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": undefined,
+              "shadowOffset": undefined,
+              "shadowOpacity": undefined,
+              "shadowRadius": undefined,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#565A5C",
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                Object {
+                  "color": "#FFFFFF",
+                },
+              ]
+            }
+          >
+            Create account
+          </Text>
+        </View>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#A10056",
+                "fontSize": 16,
+                "lineHeight": 24,
+              },
+              Object {
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginTop": 10,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          For more info 
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#565A5C",
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                Object {
+                  "color": "#A10056",
+                  "fontSize": 14,
+                  "lineHeight": 20,
+                },
+              ]
+            }
+          >
+            visit our website
+          </Text>
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

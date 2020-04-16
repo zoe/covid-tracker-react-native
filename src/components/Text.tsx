@@ -36,7 +36,8 @@ interface ClickableProps {
     style?: any;
     onPress: () => void;
     enable?: boolean;
-    hideLoading?: boolean
+    hideLoading?: boolean;
+    testID?: string
 }
 
 interface ButtonProps {
@@ -66,7 +67,7 @@ export const BrandedButton = ({style, children, onPress, enable, buttonProps, te
     );
 };
 
-export const ClickableText = ({style, children, onPress}: ClickableProps) => (
+export const ClickableText = ({style, children, onPress, testID}: ClickableProps) => (
   <Text style={[styles.clickableText, style]} onPress={onPress}>{children}</Text>
 );
 

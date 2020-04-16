@@ -11,6 +11,8 @@ import { ContributionCounter } from "../../../components/ContributionCounter";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
+    testID?: string 
+    onPress?: any
 }
 
 type WelcomeScreenState = {
@@ -59,7 +61,7 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
                             </RegularText>
                             <ContributionCounter variant={1} count={this.state.userCount}/>
                             <RegularText style={styles.subheader}>{"\n"}This app allows you to help others, but does {"\n"} not give health advice. If you need health {"\n"} advice please{" "}
-                                <ClickableText style={[styles.subheader, styles.nhsWebsite]} onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>visit the NHS website</ClickableText>.
+                                <ClickableText style={[styles.subheader, styles.nhsWebsite]} testID="nhsLink" onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>visit the NHS website</ClickableText>.
                                 {"\n"}{"\n"}
                             </RegularText>
                         </View>
@@ -69,8 +71,8 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
 
                         <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
 
-                        <BrandedButton onPress={() => this.props.navigation.navigate('Terms')}>{i18n.t("create-account-btn")}</BrandedButton>
-                        <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
+                        <BrandedButton testID="createAccount" onPress={() => this.props.navigation.navigate('Terms')}>{i18n.t("create-account-btn")}</BrandedButton>
+                        <ClickableText testID="moreInfo" onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
                             {"For more info "}
                             <RegularText style={styles.moreInfoHighlight}>visit our website</RegularText>
                         </ClickableText>
