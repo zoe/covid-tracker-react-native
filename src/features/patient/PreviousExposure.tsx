@@ -86,11 +86,11 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
             is: "yes",
             then: Yup.string().required(),
         }),
-        past_symptoms_days_ago: Yup.number().when("unwellMonthBefore", {
+        pastSymptomsDaysAgo: Yup.number().when("unwellMonthBefore", {
             is: "yes",
             then: Yup.number().required(),
         }),
-        past_symptoms_changed: Yup.string().when("stillHavePastSymptoms", {
+        pastSymptomsChanged: Yup.string().when("stillHavePastSymptoms", {
             is: "yes",
             then: Yup.string().required(),
         }),
@@ -140,13 +140,13 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                 past_symptom_chest_pain: this.state.pastSymptomChestPain,
                 past_symptom_hoarse_voice: this.state.pastSymptomHoarseVoice,
                 past_symptom_abdominal_pain: this.state.pastSymptomAbdominalPain,
-                past_symptom_confusion: this.state.pastSymptomConfusion
+                past_symptom_confusion: this.state.pastSymptomConfusion,
+                ...(formData.pastSymptomsDaysAgo && {past_symptoms_days_ago: stripAndRound(formData.pastSymptomsDaysAgo)}),
             }
 
             if (infos.still_have_past_symptoms) {
                 infos = {
                     ...infos,
-                    ...(formData.pastSymptomsDaysAgo && {past_symptoms_days_ago: stripAndRound(formData.pastSymptomsDaysAgo)}),
                     past_symptoms_changed: formData.pastSymptomsChanged
                 }
             }
