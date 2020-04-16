@@ -55,7 +55,7 @@ export type ScreenParamList = {
     HowYouFeel: { currentPatient: PatientStateType, assessmentId: string };
     DescribeSymptoms: { currentPatient: PatientStateType, assessmentId: string };
     WhereAreYou: { currentPatient: PatientStateType, assessmentId: string };
-    LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string };
+    LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string | null };
     TreatmentSelection:  { currentPatient: PatientStateType, assessmentId: string, location?: string };
     TreatmentOther: { currentPatient: PatientStateType, assessmentId: string, location?: string };
 
