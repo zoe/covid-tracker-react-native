@@ -5,6 +5,9 @@ platform :ios do
   desc "iOS Dev Channel (AppCenter)"
   lane :dev do |options|
     appcenter_upload(
+      api_token: options[:app_token],
+      owner_name: "Joinzoe",
+      owner_type: "organization",
       app_name: options[:app_name],
       file: Dir.pwd + "/app.ipa",
       notify_testers: true,
@@ -25,6 +28,9 @@ platform :android do
   desc "Android Dev Channel (AppCenter)"
   lane :dev do |options|
     appcenter_upload(
+      api_token: options[:app_token],
+      owner_name: "Joinzoe",
+      owner_type: "organization",
       app_name: options[:app_name],
       file: Dir.pwd + "/app.aab",
       notify_testers: true,
