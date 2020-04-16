@@ -18,6 +18,7 @@ import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
 import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
+import { stripAndRound } from "../../utils/helpers";
 
 interface YourHealthData {
     unwellMonthBefore: string,
@@ -72,9 +73,6 @@ const initialState: State = {
     errorMessage: ""
 };
 
-const stripAndRound = (str: string): number => {
-    return Math.round(parseFloat(str.replace(/,/g, '')))
-};
 
 export default class PreviousExposureScreen extends Component<HealthProps, State> {
     constructor(props: HealthProps) {
@@ -149,7 +147,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                 infos = {
                     ...infos,
                     ...(formData.pastSymptomsDaysAgo && {past_symptoms_days_ago: stripAndRound(formData.pastSymptomsDaysAgo)}),
-                    past_symptoms_changed: formData.pastSymptomsChanged === "yes"
+                    past_symptoms_changed: formData.pastSymptomsChanged
                 }
             }
         }

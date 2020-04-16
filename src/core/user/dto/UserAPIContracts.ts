@@ -73,7 +73,7 @@ export type PatientInfosRequest = {
     unwell_month_before: boolean,
     still_have_past_symptoms: boolean,
     past_symptoms_days_ago: number,
-    past_symptoms_changed: boolean,
+    past_symptoms_changed: string,
 
     past_symptom_anosmia: boolean,
     past_symptom_shortness_of_breath: boolean,

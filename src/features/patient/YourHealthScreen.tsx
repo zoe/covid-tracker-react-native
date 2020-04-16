@@ -17,6 +17,7 @@ import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
+import {stripAndRound} from "../../utils/helpers";
 
 
 interface YourHealthData {
@@ -77,12 +78,9 @@ type State = {
     errorMessage: string;
 }
 
+
 const initialState: State = {
     errorMessage: ""
-};
-
-const stripAndRound = (str: string): number => {
-    return Math.round(parseFloat(str.replace(/,/g, '')))
 };
 
 export default class YourHealthScreen extends Component<HealthProps, State> {
