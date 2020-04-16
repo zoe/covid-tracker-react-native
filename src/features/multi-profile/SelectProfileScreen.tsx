@@ -31,7 +31,8 @@ type Patient = {
 
 interface State {
     patients: Patient[],
-    errorMessage: string
+    errorMessage: string,
+    shouldRefresh: boolean,
 }
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {
@@ -39,12 +40,19 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
         super(props);
         this.state = {
             patients: [],
-            errorMessage: ""
+            errorMessage: "",
+            shouldRefresh: false
         };
     }
 
     async componentDidMount() {
+        this.props.navigation.addListener('focus', e => {
+            if (this.state.shouldRefresh) {
+                this.listProfiles();
+            };
+        });
         this.listProfiles();
+        this.setState({shouldRefresh: true});
     }
 
     listProfiles() {
