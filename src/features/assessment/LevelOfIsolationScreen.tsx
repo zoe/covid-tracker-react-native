@@ -1,21 +1,16 @@
-import React, {Component} from "react";
-import {GestureResponderEvent, StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, FieldWrapper} from "../../components/Screen";
-import {screenWidth} from "../../components/Screen";
-import {HeaderText} from "../../components/Text";
-import {Text, Form} from "native-base";
+import React, { Component } from "react";
+import { StyleSheet } from "react-native";
+import Screen, { Header, ProgressBlock } from "../../components/Screen";
+import { HeaderText } from "../../components/Text";
+import { Form } from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
-
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
-import UserService, {isUSLocale} from "../../core/user/UserService";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
-import {BigButton} from "../../components/Button";
-import {SelectorButton} from "../../components/SelectorButton";
-import {navigateAfterFinishingAssessment} from "../Navigation";
+import UserService from "../../core/user/UserService";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ScreenParamList } from "../ScreenParamList";
+import { RouteProp } from "@react-navigation/native";
+import { SelectorButton } from "../../components/SelectorButton";
 import { AssessmentInfosRequest, PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
 import moment from "moment";
 import { PatientStateType } from "../../core/patient/PatientState";
@@ -36,21 +31,23 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
         const userService = new UserService();
         const patientId = currentPatient.patientId;
         let timeNow = moment().toDate();
-        let promise = userService.updatePatient(patientId, {
+        const infos = {
             last_asked_level_of_isolation: timeNow
-        } as Partial<PatientInfosRequest>
-        ).then(response => currentPatient.shouldAskLevelOfIsolation = false)
-        .catch(err => {
-            this.setState({errorMessage: i18n.t("something-went-wrong")});
-        });
-        return promise
+        } as Partial<PatientInfosRequest>;
+
+        return userService.updatePatient(patientId, infos)
+            .then(response => currentPatient.shouldAskLevelOfIsolation = false)
+            .catch(err => {
+                this.setState({errorMessage: i18n.t("something-went-wrong")});
+            })
     }
 
     navigateToStart = (currentPatient: PatientStateType, assessmentId: string) => {
-        this.props.navigation.reset({
-            index: 0,
-            routes: [{name: 'StartAssessment', params: {currentPatient, assessmentId}}]
-        })
+        if (currentPatient.isHealthWorker) {
+            this.props.navigation.replace('HealthWorkerExposure', {currentPatient, assessmentId})
+        } else {
+            this.props.navigation.replace('CovidTest', {currentPatient, assessmentId})
+        }
     };
 
     handleSelection = (level_of_isolation: string) => {
@@ -65,14 +62,12 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
         let promise = null;
         if (assessmentId == null) {
             promise = userService.addAssessment(assessment)
-
         } else {
             promise = userService.updateAssessment(assessmentId, assessment)
         }
-        promise.then(response => {
-            let assessmentId = response.data.id;
-            this.updatePatientsLastAskedDate(currentPatient).then(resp=> this.navigateToStart(currentPatient, assessmentId));
-        })
+        promise.then(response => assessmentId = response.data.id)
+        .then(() => this.updatePatientsLastAskedDate(currentPatient)
+        .then(() => this.navigateToStart(currentPatient, assessmentId as string)))
         .catch(err => {
             this.setState({errorMessage: i18n.t("something-went-wrong")});
         });
