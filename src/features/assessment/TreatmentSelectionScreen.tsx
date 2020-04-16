@@ -50,7 +50,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
             : "What treatment are you receiving right now?";
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{title}</HeaderText>
                 </Header>

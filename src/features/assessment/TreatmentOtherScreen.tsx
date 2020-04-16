@@ -59,7 +59,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>What treatment are you receiving in hospital?</HeaderText>
                 </Header>
