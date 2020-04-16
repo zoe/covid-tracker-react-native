@@ -42,6 +42,7 @@ export type ScreenParamList = {
     ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType};
 
     // Patient screens
+    StartPatient: { currentPatient: PatientStateType };
     YourStudy: { currentPatient: PatientStateType };
     YourWork: { currentPatient: PatientStateType };
     AboutYou: { currentPatient: PatientStateType };

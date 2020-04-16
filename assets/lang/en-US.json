@@ -3,8 +3,8 @@
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
 
-  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhea?",
-  "placeholder-diarrhoea": "hasDiarrhea",
+  "describe-symptoms-question-has-diarrhoea": "Are you experiencing diarrhea?",
+  "describe-symptoms-placeholder-has-diarrhoea": "hasDiarrhea",
 
   "button-at-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
   "do-you-use-a-stick": "Do you regularly use a cane, walker or wheelchair to get about?",

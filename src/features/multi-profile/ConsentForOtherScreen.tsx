@@ -8,7 +8,7 @@ import {colors} from "../../../theme"
 import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
+import {CommonActions, RouteProp} from "@react-navigation/native";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import {TouchableWithoutFeedback} from "react-native-gesture-handler";
 import i18n from "../../locale/i18n";
@@ -67,9 +67,20 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.reset({
-            index: 0,
-            routes: [{name: 'StartAssessment', params: {currentPatient: currentPatient}}]
+
+        this.props.navigation.dispatch(state => {
+            const newStack = state.routes;
+            while (newStack[newStack.length-1].name != 'SelectProfile') {
+                newStack.pop()
+            }
+
+            return CommonActions.reset({
+                index: 1,
+                routes: [
+                    ...newStack,
+                    {name: 'StartAssessment', params: {currentPatient}}
+                ]
+            });
         });
     }
 

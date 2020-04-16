@@ -53,6 +53,8 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         const currentPatient = await userService.getCurrentPatient(patientId);
         const consent = await userService.getConsentSigned();
 
+        // TODO: refactor this to PatientScreen. After we understand why other routes
+        // don't have this branching logic.
         const nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
             ? {name: "YourStudy", params: {currentPatient}}
             : {name: "YourWork", params: {currentPatient}};

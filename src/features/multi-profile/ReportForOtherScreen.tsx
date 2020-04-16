@@ -11,6 +11,8 @@ import {Text} from "native-base";
 import {getLocalThankYou} from "../Navigation";
 import UserService from "../../core/user/UserService";
 import i18n from "../../locale/i18n";
+import { CommonActions } from '@react-navigation/native';
+
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>
@@ -44,8 +46,20 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                                     <RegularText style={styles.innerContainer}>{i18n.t("report-for-others-subtext")}</RegularText>
                                 </View>
 
-                                <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile', {avatarName: 'profile2'})} style={{marginVertical: 16}}>
-                                    <Text>{i18n.t("report-for-others-add-profiles")}</Text>
+                                <BrandedButton onPress={() => {
+                                    this.props.navigation.dispatch(state => {
+                                        return CommonActions.reset({
+                                            index: 2,
+                                            routes: [
+                                                state.routes[0],
+                                                {name: 'SelectProfile', params: {}},
+                                                {name: 'CreateProfile', params: {avatarName: 'New Profile'}}
+                                            ]
+                                        });
+                                    });
+                                }}>
+                                <Text>{i18n.t("report-for-others-add-profiles")}</Text>
+
                                 </BrandedButton>
                             </View>
 
