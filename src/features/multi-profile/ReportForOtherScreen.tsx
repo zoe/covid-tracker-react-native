@@ -10,6 +10,7 @@ import {profilesIcon} from "../../../assets";
 import {Text} from "native-base";
 import {getLocalThankYou} from "../Navigation";
 import UserService from "../../core/user/UserService";
+import i18n from "../../locale/i18n";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>
@@ -31,28 +32,28 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                     <ScrollView contentContainerStyle={styles.scrollView}>
                         <View style={styles.rootContainer}>
                             <Header>
-                                <HeaderText style={{marginBottom: 12}}>Reporting on behalf of someone else?</HeaderText>
-                                <SecondaryText>You can now create profiles for other people on whose behalf you want to report.</SecondaryText>
+                                <HeaderText style={{marginBottom: 12}}>{i18n.t("report-for-others-title")}</HeaderText>
+                                <SecondaryText>{i18n.t("report-for-others-text")}</SecondaryText>
                             </Header>
 
                             <View style={styles.shareContainer}>
                                 <Image source={profilesIcon} style={styles.icon}/>
 
                                 <View style={styles.innerContainer}>
-                                    <RegularBoldText style={styles.innerContainerBold}>Add profiles</RegularBoldText>
-                                    <RegularText style={styles.innerContainer}>You can now report on behalf of someone else.</RegularText>
+                                    <RegularBoldText style={styles.innerContainerBold}>{i18n.t("report-for-others-add-profiles")}</RegularBoldText>
+                                    <RegularText style={styles.innerContainer}>{i18n.t("report-for-others-subtext")}</RegularText>
                                 </View>
 
                                 <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile', {avatarName: 'profile2'})} style={{marginVertical: 16}}>
-                                    <Text>Add profiles</Text>
+                                    <Text>{i18n.t("report-for-others-add-profiles")}</Text>
                                 </BrandedButton>
                             </View>
 
                             <RegularText style={styles.shareSubtitle}>
-                                Not right now? You can add additional profiles from the menu icon above at any time.
+                                {i18n.t("report-for-others-not-right-now")}
                             </RegularText>
 
-                            <ClickableText onPress={() => this.handleSkip()} style={styles.done}>Skip</ClickableText>
+                            <ClickableText onPress={() => this.handleSkip()} style={styles.done}>{i18n.t("report-for-others-skip")}</ClickableText>
 
                         </View>
                     </ScrollView>

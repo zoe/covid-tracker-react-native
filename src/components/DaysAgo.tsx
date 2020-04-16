@@ -1,6 +1,7 @@
 import {RegularText, SecondaryText} from "./Text";
 import moment from "moment";
 import React, {Component} from "react";
+import i18n from "../locale/i18n";
 
 type ProgressProps = {
     timeAgo: Date | undefined;
@@ -8,17 +9,17 @@ type ProgressProps = {
 
 export default class DaysAgo extends Component<ProgressProps> {
     render() {
-        let text = "Never reported";
+        let text = i18n.t("never-reported");
 
         if (this.props.timeAgo) {
             const today = moment().utc().startOf("day")
-            let x = today.diff(moment(this.props.timeAgo).startOf("day"), "days");
-            if (x == 0) {
-                text = "Today";
-            } else if (x == 1) {
-                text = "Yesterday";
+            let diffDays = today.diff(moment(this.props.timeAgo).startOf("day"), "days");
+            if (diffDays == 0) {
+                text = i18n.t("today");
+            } else if (diffDays == 1) {
+                text = i18n.t("yesterday");
             } else {
-                text = `${x} days ago`;
+                text = diffDays + " " + i18n.t("days-ago");
             }
         }
 
