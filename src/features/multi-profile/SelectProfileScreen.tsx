@@ -7,7 +7,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
-import {addProfile, NUMBER_OF_PROFILE_AVATARS, profile1} from "../../../assets";
+import {addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
 import {Card} from "native-base";
 import '../../../assets';
 import key from "weak-key";
@@ -59,10 +59,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     async startAssessment(patientId: string) {
         const userService = new UserService();
         const currentPatient = await userService.getCurrentPatient(patientId);
-        this.props.navigation.reset({
-            index: 0,
-            routes: [{name: 'StartAssessment', params: {currentPatient: currentPatient}}]
-        });
+        this.props.navigation.navigate('StartAssessment', {currentPatient});
     }
 
     getNextAvatarName() {
