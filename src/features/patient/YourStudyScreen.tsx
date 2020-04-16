@@ -115,7 +115,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         const currentPatient = this.props.route.params.currentPatient;
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{isGBLocale() ? 'Population studies' : isUSLocale() ? 'Your clinical study' : ''}</HeaderText>
                 </Header>

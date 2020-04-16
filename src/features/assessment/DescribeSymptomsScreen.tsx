@@ -188,7 +188,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         ];
 
         return (
-          <Screen profile={currentPatient.profile}>
+          <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
               <Header>
                   <HeaderText>Describe the symptoms you are experiencing right now.</HeaderText>
               </Header>
