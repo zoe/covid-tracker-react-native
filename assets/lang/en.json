@@ -164,6 +164,17 @@
   "treatment-other-question-treatment-after": "What medical treatment did you receive?",
   "treatment-other-question-treatment-during": "What medical treatment are you receiving?",
 
+  "treatment-selection-title-after": "What treatment did you receive while in the hospital?",
+  "treatment-selection-title-during": "What treatment are you receiving right now?",
+  "treatment-selection-picker-none": "None",
+  "treatment-selection-picker-oxygen": "Oxygen and fluids*",
+  "treatment-selection-picker-subtext-oxygen": "* Breathing support through an oxygen mask, no pressure applied.",
+  "treatment-selection-picker-non-invasive-ventilation": "Non-invasive ventilation*",
+  "treatment-selection-picker-subtext-non-invasive-ventilation": "* Breathing support through an oxygen mask, which pushes oxygen into your lungs.",
+  "treatment-selection-picker-invasive-ventilation": "Invasive ventilation*",
+  "treatment-selection-picker-subtext-invasive-ventilation": "* Breathing support through an inserted tube. People are usually asleep for this procedure.",
+  "treatment-selection-picker-other": "Other",
+
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
   "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
