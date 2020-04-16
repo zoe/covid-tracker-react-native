@@ -184,7 +184,7 @@
   "never-reported": "Never reported",
   "today": "Today",
   "yesterday": "Yesterday",
-  "days-ago": "days ago",
+  "days-ago": "%{diffDays} days ago",
 
   "adult-or-child-title": "Who would you like to report for?",
   "adult-or-child-text": "Right now, you can only create additional profiles for UK residents.",

@@ -19,7 +19,7 @@ export default class DaysAgo extends Component<ProgressProps> {
             } else if (diffDays == 1) {
                 text = i18n.t("yesterday");
             } else {
-                text = diffDays + " " + i18n.t("days-ago");
+                text = i18n.t("days-ago", {diffDays: diffDays});
             }
         }
 
