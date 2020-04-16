@@ -83,7 +83,12 @@ export class LoginScreen extends Component<PropsType, StateType> {
     // todo: validation for email
 
     render() {
-        const registerStartPage = isUSLocale() ? 'BeforeWeStartUS' : 'Consent';
+        const registerStartLink = isUSLocale() ?
+            (
+                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account")}</ClickableText>
+            ) : (
+                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("create-account")}</ClickableText>
+            )
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -149,7 +154,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
                         <View style={styles.bottomTextView}>
                             <RegularText>{i18n.t("dont-have-account")}</RegularText>
                             <RegularText> </RegularText>
-                            <ClickableText onPress={() => this.props.navigation.navigate(registerStartPage)}>{i18n.t("create-account")}</ClickableText>
+                            {registerStartLink}
                         </View>
 
                         <View style={styles.bottomTextView}>

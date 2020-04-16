@@ -6,7 +6,7 @@ import {colors} from "../../../theme";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
-import UserService, { isGBLocale, isUSLocale } from "../../core/user/UserService";
+import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
 import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {RouteProp} from '@react-navigation/native';
 import {ScreenParamList} from "../ScreenParamList";
@@ -129,10 +129,10 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                                 <View>
 
                                     <View>
-                                        <HeaderText>Optional contact information</HeaderText>
+                                        <HeaderText style={{marginBottom: 24}}>Optional contact information</HeaderText>
 
                                         <RegularText>
-                                            Please share your name and phone number. This is optional but would allow someone to contact you in an emergency.
+                                            Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.
                                         </RegularText>
 
                                         <Form>
@@ -151,7 +151,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
                                             <ValidatedTextInput
                                                 ref={(input) => this.phoneComponent = input}
-                                                placeholder="Your phone number"
+                                                placeholder="Phone number"
                                                 value={props.values.phone}
                                                 onChangeText={props.handleChange("phone")}
                                                 onBlur={props.handleBlur("phone")}

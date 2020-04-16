@@ -26,14 +26,14 @@
   "choose-one-of-these-options": "Choose one of the options",
 
   "title-about-work": "About your work",
-  "label-cohort": "Are you participating in any of these research studies or part of these organisations?",
+  "label-cohort": "Are you part of one of these population studies or organisations?",
 
   "required-is-healthcare-worker": "Please indicate if you are a healthcare worker",
   "required-is-carer": "Please indicate if you are a carer",
 
   "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)",
   "yes-interacting-patients": "Yes, I currently interact with patients",
-  "yes-not-interacting-patients": "Yes, I do not currently interact with patients",
+  "yes-not-interacting-patients": "Yes, but I do not currently interact with patients",
   "are-you-carer": "Do you care for multiple people in the community, with direct contact with your patients?",
 
   "label-physically-worked-in-places": "Since the COVID-19 epidemic began, have you physically worked in? (check all that apply)",
@@ -207,5 +207,43 @@
   "united-states": "United States",
   "united-kingdom": "United Kingdom",
 
-  "validation-error-text": "Please fill in or correct the above information: %{info}"
+
+  "never-reported": "Never reported",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "days-ago": "%{diffDays} days ago",
+
+  "adult-or-child-title": "Who would you like to report for?",
+  "adult-or-child-text": "Right now, you can only create additional profiles for UK residents.",
+  "person-over-18": "Person over 18",
+  "person-under-18": "Person under 18",
+
+  "adult-consent-title": "Adult consent",
+  "child-consent-title": "Child consent",
+  "adult-consent-confirm": "I confirm the above",
+  "child-consent-confirm": "I confirm that I am the child's legal guardian and that I have done the above",
+  "consent": "consent",
+  "child-consent-text-1": "If your child is old enough to understand our",
+  "child-consent-text-2": "requirements, please explain to them that you are sharing information about them with us and what we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.",
+  "adult-consent-text-1": "Please confirm that you have shown or read our",
+  "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
+  "consent-create-profile": "Create profile",
+
+  "create-profile-title": "Give new profile a name",
+  "create-profile-text": "This name is just for you. Choose a name that would allow you to know which person you are reporting for.",
+  "create-profile-placeholder": "e.g. name, nickname or relation",
+  "create-profile-button": "Continue",
+
+  "report-for-others-title": "Reporting on behalf of someone else?",
+  "report-for-others-text": "You can now create profiles for other people on whose behalf you want to report.",
+  "report-for-others-add-profiles": "Add profiles",
+  "report-for-others-subtext": "You can now report on behalf of someone else.",
+  "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
+  "report-for-others-skip": "Skip",
+
+  "select-profile-title": "Select profile you want to report for",
+  "select-profile-text": "Or add more profiles",
+  "select-profile-button": "New profile",
+
+  "validation-error-text": "Please fill in or correct the above information: %{info}",
 }
