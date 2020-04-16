@@ -62,7 +62,7 @@ commands:
       - run: 
           command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
-      - run: curl -o fastlane/app.ipa "$(npx expo url:ipa --non-interactive)"
+      - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
       - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
       - store_artifacts:
           path: ~/covid-react/fastlane/app.ipa
@@ -80,8 +80,8 @@ jobs:
     steps:
       - build
       - publish_to_expo
-      - deploy_android
       - deploy_ios
+      - deploy_android
 
 workflows:
   build_and_test:
