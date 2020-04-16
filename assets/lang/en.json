@@ -9,8 +9,6 @@
   "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
 
   "next-question": "Next question",
-  "feel-normal": "I feel physically normal",
-  "have-symptoms": "I'm not feeling quite right",
 
   "login-title": "Log in to\nyour account",
   "login-label": "Email",
@@ -149,6 +147,10 @@
   "health-worker-exposure-picker-ppe-sometimes-reused": "I've had to reuse PPE because of shortage",
   "health-worker-exposure-picker-ppe-never-not-needed": "I haven't needed PPE",
   "health-worker-exposure-picker-ppe-never-not-available": "I needed PPE, but it was not available",
+
+  "how-you-feel-question-health-status": "How do you feel physically right now?",
+  "how-you-feel-picker-health-status-healthy": "I feel physically normal",
+  "how-you-feel-picker-health-status-not-healthy": "I'm not feeling quite right",
 
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
