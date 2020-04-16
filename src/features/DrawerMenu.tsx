@@ -78,7 +78,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <CaptionText style={[styles.versionText]}>
                 {Constants.manifest.version}
                 {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
-                {Constants.manifest.releaseChannel && ` (${Constants.manifest.releaseChannel})`}
+                {(Constants.manifest.releaseChannel === 'dev') && ` (DEV)`}
             </CaptionText>
         </View>
     </SafeAreaView>
