@@ -20,19 +20,19 @@ import {ValidationErrors} from "../../components/ValidationError";
 
 
 interface YourHealthData {
-    unusualSymptomsMonthBefore: string,
-    stillExperiencingUnusualSymptoms: string,
-    unusualSymptomsDaysAgo: string,
-    unusualSymptomsChanged: string,
+    unwellMonthBefore: string,
+    stillHavePastSymptoms: string,
+    past_symptoms_days_ago: string,
+    past_symptoms_changed: string,
     alreadyHadCovid: string,
     classicSymptoms: string,
 }
 
 const initialFormValues = {
-    unusualSymptomsMonthBefore: 'no',
-    stillExperiencingUnusualSymptoms: 'no',
-    unusualSymptomsDaysAgo: '',
-    unusualSymptomsChanged: 'no',
+    unwellMonthBefore: 'no',
+    stillHavePastSymptoms: 'no',
+    past_symptoms_days_ago: '',
+    past_symptoms_changed: 'no',
     alreadyHadCovid: 'no',
     classicSymptoms: 'no',
 };
@@ -61,20 +61,20 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     }
 
     registerSchema = Yup.object().shape({
-        unusualSymptomsMonthBefore: Yup.string().required(),
-        stillExperiencingUnusualSymptoms: Yup.string().required().when("unusualSymptomsMonthBefore", {
+        unwellMonthBefore: Yup.string().required(),
+        stillHavePastSymptoms: Yup.string().required().when("unwellMonthBefore", {
             is: "yes",
             then: Yup.string().required(),
         }),
-        unusualSymptomsDaysAgo: Yup.number().when("stillExperiencingUnusualSymptoms", {
+        past_symptoms_days_ago: Yup.number().when("unwellMonthBefore", {
             is: "yes",
             then: Yup.number().required(),
         }),
-        unusualSymptomsChanged: Yup.string().when("stillExperiencingUnusualSymptoms", {
+        past_symptoms_changed: Yup.string().when("stillHavePastSymptoms", {
             is: "yes",
             then: Yup.string().required(),
         }),
-        alreadyHadCovid: Yup.string().when("unusualSymptomsMonthBefore", {
+        alreadyHadCovid: Yup.string().when("unwellMonthBefore", {
             is: "yes",
             then: Yup.string().required(),
         }),
@@ -102,21 +102,21 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
 
     private createPatientInfos(formData: YourHealthData) {
         let infos = {
-            unusual_symptoms_month_before: formData.unusualSymptomsMonthBefore === 'yes',
+            unwell_month_before: formData.unwellMonthBefore === 'yes',
         } as Partial<PatientInfosRequest>;
 
-        if (infos.unusual_symptoms_month_before) {
+        if (infos.unwell_month_before) {
             infos = {
                 ...infos,
-                still_experiencing_unusual_symptoms: formData.stillExperiencingUnusualSymptoms === "yes",
+                still_have_past_symptoms: formData.stillHavePastSymptoms === "yes",
                 already_had_covid: formData.alreadyHadCovid === "yes"
             }
 
-            if (infos.still_experiencing_unusual_symptoms) {
+            if (infos.still_have_past_symptoms) {
                 infos = {
                     ...infos,
-                    ...(formData.unusualSymptomsDaysAgo && {unusual_symptoms_days_ago: stripAndRound(formData.unusualSymptomsDaysAgo)}),
-                    unusual_symptoms_changed: formData.unusualSymptomsChanged === "yes" // TODO?
+                    ...(formData.past_symptoms_days_ago && {unusual_symptoms_days_ago: stripAndRound(formData.past_symptoms_days_ago)}),
+                    unusual_symptoms_changed: formData.past_symptoms_changed === "yes" // TODO?
                 }
             }
         }
@@ -143,7 +143,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
         return (
             <Screen profile={currentPatient.profile}>
                 <Header>
-                    <HeaderText>Previous Exposure to COVID</HeaderText>
+                    <HeaderText>Previous exposure to COVID</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -163,43 +163,45 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                                 <Form>
 
                                     <DropdownField
-                                        selectedValue={props.values.unusualSymptomsMonthBefore}
-                                        onValueChange={props.handleChange("unusualSymptomsMonthBefore")}
-                                        label={"Do you have unusual symptoms in the month before you started reporting on this app?"}
+                                        selectedValue={props.values.unwellMonthBefore}
+                                        onValueChange={props.handleChange("unwellMonthBefore")}
+                                        label={"Have you felt unwell in the month before you started reporting on this app?"}
                                     />
 
-                                    {props.values.unusualSymptomsMonthBefore === 'yes' && (
-                                        <DropdownField
-                                            selectedValue={props.values.stillExperiencingUnusualSymptoms}
-                                            onValueChange={props.handleChange("stillExperiencingUnusualSymptoms")}
-                                            label={"Are you still experiencing symptoms?"}
-                                        />
-                                    )}
-
-                                    {props.values.stillExperiencingUnusualSymptoms === 'yes' && (
+                                    {props.values.unwellMonthBefore === 'yes' && (
                                         <>
                                             <GenericTextField
                                                 formikProps={props}
                                                 label="How many days ago did your symptoms start?"
-                                                name="unusualSymptomsDaysAgo"
+                                                name="past_symptoms_days_ago"
                                                 keyboardType="numeric"
                                             />
+
                                             <DropdownField
-                                                selectedValue={props.values.unusualSymptomsChanged}
-                                                onValueChange={props.handleChange("unusualSymptomsChanged")}
+                                                selectedValue={props.values.stillHavePastSymptoms}
+                                                onValueChange={props.handleChange("stillHavePastSymptoms")}
+                                                label={"Are you still experiencing symptoms?"}
+                                            />
+                                        </>
+
+                                    )}
+
+                                    {props.values.stillHavePastSymptoms === 'yes' && (
+                                        <>
+                                            <DropdownField
+                                                selectedValue={props.values.past_symptoms_changed}
+                                                onValueChange={props.handleChange("past_symptoms_changed")}
                                                 label={"How have your symptoms changed over the last few days?"}
                                                 items={symptomChangeChoices}
                                             />
                                         </>
                                     )}
 
-                                    {props.values.unusualSymptomsMonthBefore === 'yes' && (
-                                        <DropdownField
-                                            selectedValue={props.values.alreadyHadCovid}
-                                            onValueChange={props.handleChange("alreadyHadCovid")}
-                                            label={"Do you think you have already had COVID -19, but were not tested)?"}
-                                        />
-                                    )}
+                                    <DropdownField
+                                        selectedValue={props.values.alreadyHadCovid}
+                                        onValueChange={props.handleChange("alreadyHadCovid")}
+                                        label={"Do you think you have already had COVID -19, but were not tested?"}
+                                    />
 
                                     {props.values.alreadyHadCovid === 'yes' && (
                                         <DropdownField

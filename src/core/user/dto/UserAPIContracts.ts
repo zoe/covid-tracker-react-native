@@ -74,8 +74,8 @@ export type PatientInfosRequest = {
     classic_symptoms: boolean,
     classic_symptoms_days_ago: number,
 
-    unusual_symptoms_month_before: boolean,
-    still_experiencing_unusual_symptoms: boolean,
+    unwell_month_before: boolean,
+    still_have_past_symptoms: boolean,
     unusual_symptoms_days_ago: number,
     unusual_symptoms_changed: boolean,
 
