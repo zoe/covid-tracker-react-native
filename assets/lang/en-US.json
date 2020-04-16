@@ -3,6 +3,11 @@
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
 
+  "where-are-you-picker-location-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
+  "where-are-you-picker-location-hospital": "I am at the clinic or hospital with suspected COVID-19 symptoms.",
+  "where-are-you-picker-location-back-from-hospital": "I am back from the clinic or hospital, I'd like to tell you about my treatment.",
+  "where-are-you-picker-location-back-from-hospital-already-reported": "I am back from the clinic or hospital, I've already told you about my treatment.",
+
   "describe-symptoms-question-has-diarrhoea": "Are you experiencing diarrhea?",
   "describe-symptoms-placeholder-has-diarrhoea": "hasDiarrhea",
 
