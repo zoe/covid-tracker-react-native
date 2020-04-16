@@ -31,7 +31,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
     handleAtHome() {
         this.updateAssessment('home')
-            .then(response => this.props.navigation.navigate(getLocalThankYou()))
+            .then(response => navigateAfterFinishingAssessment(this.props.navigation))
             .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
     }
 
