@@ -132,6 +132,8 @@ export type PatientInfosRequest = {
     always_used_shortage: string,
     sometimes_used_shortage: string,
     never_used_shortage: string,
+
+    last_asked_level_of_isolation: Date,
 }
 
 export type AssessmentInfosRequest = {

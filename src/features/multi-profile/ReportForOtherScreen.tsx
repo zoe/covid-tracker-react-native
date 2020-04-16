@@ -9,7 +9,8 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {profilesIcon} from "../../../assets";
 import {Text} from "native-base";
 import {getLocalThankYou} from "../Navigation";
-import UserService from "../../core/user/UserService";
+import UserService, {isUSLocale} from "../../core/user/UserService";
+import { CommonActions } from '@react-navigation/native';
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>
@@ -43,7 +44,18 @@ export default class ReportForOtherScreen extends Component<RenderProps, {}> {
                                     <RegularText style={styles.innerContainer}>You can now report on behalf of someone else.</RegularText>
                                 </View>
 
-                                <BrandedButton onPress={() => this.props.navigation.navigate('CreateProfile', {avatarName: 'profile2'})}>
+                                <BrandedButton onPress={() => {
+                                    this.props.navigation.dispatch(state => {
+                                        return CommonActions.reset({
+                                            index: 2,
+                                            routes: [
+                                                state.routes[0],
+                                                {name: 'SelectProfile', params: {}},
+                                                {name: 'CreateProfile', params: {avatarName: 'profile2'}}
+                                            ]
+                                        });
+                                    });
+                                }}>
                                     <Text style={[fontStyles.bodyLight, styles.buttonText]}>Add profiles</Text>
                                 </BrandedButton>
                             </View>
