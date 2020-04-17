@@ -317,7 +317,7 @@
   "us-white": "White",
   "us-other": "Other, please specify",
   "hispanic": "Hispanic or Latino or Spanish origin",
-  "not-hispanic": "Not Hispanic or Latino, or Spanish origin"
+  "not-hispanic": "Not Hispanic or Latino, or Spanish origin",
 
   "answer-for": "Answer for %{name}",
   "profile-name-too-long": "Enter a profile name with less that 32 characters"
