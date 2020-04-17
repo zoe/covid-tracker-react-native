@@ -249,7 +249,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </Header>
 
                 <ProgressBlock>
-                    <ProgressStatus step={1} maxSteps={5}/>
+                    <ProgressStatus step={2} maxSteps={6}/>
                 </ProgressBlock>
 
                 <Formik

@@ -47,6 +47,7 @@ export type ScreenParamList = {
     YourWork: { currentPatient: PatientStateType };
     AboutYou: { currentPatient: PatientStateType };
     YourHealth: { currentPatient: PatientStateType };
+    PreviousExposure: { currentPatient: PatientStateType };
 
     // Assessment screens
     StartAssessment: { currentPatient: PatientStateType, assessmentId?: string };
