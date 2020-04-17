@@ -44,7 +44,7 @@ const initialFormValues = {
     needsHelp: "no",
     helpAvailable: "no",
     mobilityAid: "no",
-    race: new Array<string>(),
+    race: [] as string[],
     raceOther: "",
     ethnicity: ""
 };
@@ -71,7 +71,7 @@ interface AboutYouData {
     needsHelp: string,
     helpAvailable: string,
     mobilityAid: string,
-    race: Array<string>
+    race: string[]
     raceOther: string
     ethnicity: string
 }
@@ -240,7 +240,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         mobilityAid: Yup.string().required(),
         race: Yup.array<string>().min(1, i18n.t("please-select-race")),
         raceOther: Yup.string().when('race', {
-            is: (val: Array<string>) => val.includes('other'),
+            is: (val: string[]) => val.includes('other'),
             then: Yup.string().required()
         }),
         ethnicity: Yup.string().when([], {
