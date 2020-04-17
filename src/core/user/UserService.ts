@@ -22,8 +22,8 @@ import { getInitialPatientState, PatientStateType, PatientProfile } from "../pat
 import { AvatarName } from "../../utils/avatar";
 import moment from "moment";
 
-const ASSESSMENT_VERSION = '1.2.3'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.2.2';    // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
 
 export default class UserService extends ApiClientBase {
