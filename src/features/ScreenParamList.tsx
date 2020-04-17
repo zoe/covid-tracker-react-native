@@ -63,5 +63,4 @@ export type ScreenParamList = {
     // Completion screens
     ThankYou: undefined;
     ViralThankYou: undefined;
-    NearYou: undefined;
 };
