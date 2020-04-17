@@ -21,6 +21,10 @@ export const RegularText = ({style, children}: Props) => (
   <Text style={[styles.regularText, style]}>{children}</Text>
 );
 
+export const ClippedText = ({style, children}: Props) => (
+  <Text style={[styles.regularText, style]} numberOfLines={1}>{children}</Text>
+);
+
 export const SecondaryText = ({style, children}: Props) => (
   <Text style={[styles.secondaryText, style]}>{children}</Text>
 );

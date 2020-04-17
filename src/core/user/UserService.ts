@@ -177,6 +177,7 @@ export default class UserService extends ApiClientBase {
         const profile: PatientProfile = {
             name: patient.name || "Me",
             avatarName: (patient.avatar_name || "profile1") as AvatarName,
+            isPrimaryPatient: !patient.reported_by_another,
         };
         const isReportedByAnother = patient.reported_by_another || false;
         const isSameHousehold = patient.same_household_as_reporter || false;
