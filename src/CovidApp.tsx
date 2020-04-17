@@ -38,7 +38,6 @@ import HealthWorkerExposureScreen from "./features/assessment/HealthWorkerExposu
 import LevelOfIsolationScreen from "./features/assessment/LevelOfIsolationScreen";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {DrawerMenu} from "./features/DrawerMenu";
-import NearYouScreen from './features/near-you/NearYou';
 import YourStudyScreen from "./features/patient/YourStudyScreen";
 import ViralThankYouScreen from "./features/ViralThankYouScreen";
 import ReportForOtherScreen from "./features/multi-profile/ReportForOtherScreen";
@@ -47,6 +46,7 @@ import CreateProfileScreen from "./features/multi-profile/CreateProfileScreen";
 import ConsentForOther from "./features/multi-profile/ConsentForOtherScreen";
 import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 import StartAssessmentScreen from './features/assessment/StartAssessment';
+import PreviousExposureScreen from "./features/patient/PreviousExposure";
 import StartPatientScreen from './features/patient/StartPatient';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -117,6 +117,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="YourWork" component={YourWorkScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="YourHealth" component={YourHealthScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="StartAssessment" component={StartAssessmentScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{headerShown: false}}/>
@@ -129,7 +130,6 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="ThankYou" component={ThankYouScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="NearYou" component={NearYouScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={{headerShown: false}}/>
                 <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{headerShown: false}}/>

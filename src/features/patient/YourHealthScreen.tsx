@@ -17,9 +17,7 @@ import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
-
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
+import {stripAndRound} from "../../utils/helpers";
 
 
 interface YourHealthData {
@@ -41,9 +39,6 @@ interface YourHealthData {
     takesBloodPressureMedications: string, // pril
     takesAnyBloodPressureMedications: string,
     takesBloodPressureMedicationsSartan: string,
-    alreadyHadCovid: string,
-    classicSymptoms: string,
-    classicSymptomsDaysAgo: string,
 
     limitedActivity: string,
 }
@@ -68,9 +63,6 @@ const initialFormValues = {
     takesBloodPressureMedications: 'no', // pril
     takesAnyBloodPressureMedications: 'no',
     takesBloodPressureMedicationsSartan: 'no',
-    alreadyHadCovid: 'no',
-    classicSymptoms: 'no',
-    classicSymptomsDaysAgo: '',
 
     limitedActivity: 'no',
 };
@@ -86,12 +78,9 @@ type State = {
     errorMessage: string;
 }
 
+
 const initialState: State = {
     errorMessage: ""
-};
-
-const stripAndRound = (str: string): number => {
-    return Math.round(parseFloat(str.replace(/,/g, '')))
 };
 
 export default class YourHealthScreen extends Component<HealthProps, State> {
@@ -125,13 +114,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         takesCorticosteroids: Yup.string().required(),
         takesBloodPressureMedications: Yup.string().required(), // pril
         takesAnyBloodPressureMedications: Yup.string().required(),
-        takesBloodPressureMedicationsSartan: Yup.string().required(),
-        alreadyHadCovid: Yup.string().required(),
-        classicSymptoms: Yup.string().required(),
-        classicSymptomsDaysAgo: Yup.number().when("classicSymptoms", {
-            is: "yes",
-            then: Yup.number().required(),
-        }),
+        takesBloodPressureMedicationsSartan: Yup.string().required()
     });
 
     handleUpdateHealth(formData: YourHealthData) {
@@ -146,7 +129,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 currentPatient.hasCompletePatientDetails = true;
                 currentPatient.hasBloodPressureAnswer = true;
 
-                this.props.navigation.navigate('StartAssessment', {currentPatient});
+                this.props.navigation.navigate('PreviousExposure', {currentPatient});
             })
             .catch(err => {
                 this.setState({errorMessage: "Something went wrong, please try again later"})
@@ -167,7 +150,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             takes_aspirin: formData.takesAspirin === "yes",
             takes_corticosteroids: formData.takesCorticosteroids === "yes",
             takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === "yes",
-            already_had_covid: formData.alreadyHadCovid === 'yes',
             limited_activity: formData.limitedActivity === "yes",
         } as Partial<PatientInfosRequest>;
 
@@ -186,7 +168,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             }
         }
 
-
         if (smokerStatus) {
             infos = {
                 ...infos,
@@ -201,7 +182,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             }
         }
 
-
         if (infos.has_cancer) {
             infos = {
                 ...infos,
@@ -215,15 +195,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 }
             }
         }
-
-        if (infos.already_had_covid) {
-            infos = {
-                ...infos,
-                classic_symptoms: formData.classicSymptoms === "yes",
-                ...(formData.classicSymptomsDaysAgo && {classic_symptoms_days_ago: stripAndRound(formData.classicSymptomsDaysAgo)}),
-            }
-        }
-
         return infos;
     }
 
@@ -241,7 +212,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 </Header>
 
                 <ProgressBlock>
-                    <ProgressStatus step={2} maxSteps={5}/>
+                    <ProgressStatus step={3} maxSteps={6}/>
                 </ProgressBlock>
 
                 <Formik
@@ -384,32 +355,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                                 selectedValue={props.values.takesBloodPressureMedicationsSartan}
                                                 onValueChange={props.handleChange("takesBloodPressureMedicationsSartan")}
                                                 label={"Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"}
-                                            />
-                                        </>
-                                    )}
-
-
-                                    <Divider/>
-
-                                    <DropdownField
-                                        selectedValue={props.values.alreadyHadCovid}
-                                        onValueChange={props.handleChange("alreadyHadCovid")}
-                                        label={"Do you think you have already had COVID-19, but were not tested?"}
-                                    />
-
-                                    {props.values.alreadyHadCovid === 'yes' && (
-                                        <>
-                                            <DropdownField
-                                                selectedValue={props.values.classicSymptoms}
-                                                onValueChange={props.handleChange("classicSymptoms")}
-                                                label={"Did you have the classic symptoms (high fever and persistent cough) for several days?"}
-                                            />
-
-                                            <GenericTextField
-                                                formikProps={props}
-                                                label="How many days ago did your symptoms start?"
-                                                name="classicSymptomsDaysAgo"
-                                                keyboardType="numeric"
                                             />
                                         </>
                                     )}

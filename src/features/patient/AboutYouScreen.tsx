@@ -206,7 +206,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             then: Yup.number().required("Please enter your weight in pounds")
         }),
 
-        postcode: Yup.string().required(i18n.t("required-postcode")),
+        postcode: Yup.string()
+            .required(i18n.t("required-postcode"))
+            .max(8, i18n.t("postcode-too-long")),
 
         everExposed: Yup.string().required("Please indicate if you've been exposed to someone with COVID-19 infection"),
         houseboundProblems: Yup.string().required(),
@@ -247,7 +249,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </Header>
 
                 <ProgressBlock>
-                    <ProgressStatus step={1} maxSteps={5}/>
+                    <ProgressStatus step={2} maxSteps={6}/>
                 </ProgressBlock>
 
                 <Formik
