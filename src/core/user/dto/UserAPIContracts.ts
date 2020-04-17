@@ -125,6 +125,10 @@ export type PatientInfosRequest = {
     always_used_shortage: string,
     sometimes_used_shortage: string,
     never_used_shortage: string,
+
+    race: string[],
+    race_other: string,
+    ethnicity: string
 }
 
 export type AssessmentInfosRequest = {

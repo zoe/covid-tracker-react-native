@@ -18,5 +18,8 @@
   "blog-link": "https://covid.joinzoe.com/us-blog",
   "faq-link": "https://covid.joinzoe.com/us-faq",
 
-  "label-cohort": "Are you participating in any of these research studies or part of these organizations?"
+  "label-cohort": "Are you participating in any of these research studies or part of these organizations?",
+
+  "race-question": "What is your race? (check all that apply):",
+  "race-other-question": "Please specify your race",
 }

@@ -182,4 +182,28 @@
   "united-kingdom": "United Kingdom",
 
   "validation-error-text": "Please fill in or correct the above information: %{info}",
+
+  "race-question": "Which of the following best describes your ethnicity?",
+  "race-other-question": "Please specify your ethnicity",
+  "ethnicity-question": "What is your ethnicity:",
+  "prefer-not-to-say": " - Prefer not to say",
+  "please-select-race": "Please select an option",
+
+  "uk-asian": " - Asian/Asian British - Indian, Pakistani, Bangladeshi, other",
+  "uk-black": " - Black/Black British - Caribbean, African, other",
+  "uk-mixed-white-black": " - Mixed race - White and Black/Black British",
+  "uk-mixed-other": " - Mixed race - other",
+  "uk-white": " - White - British, Irish, other",
+  "uk-chinese": " - Chinese/Chinese British",
+  "uk-middle-eastern": " - Middle Eastern/Middle Eastern British - Arab, Turkish, other",
+  "uk-other": " - Other ethnic group",
+
+  "us-indian_native": " - American Indian or Alaska Native",
+  "us-asian": " - Asian",
+  "us-black": " - Black or African-American",
+  "us-hawaiian_pacific": " - Native Hawaiian or other Pacific Islander",
+  "us-white": " - White",
+  "us-other": " - Other, please specify",
+  "hispanic": " - Hispanic or Latino or Spanish origin",
+  "not-hispanic": " - Not Hispanic or Latino, or Spanish origin"
 }
