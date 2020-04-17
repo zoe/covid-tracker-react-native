@@ -139,8 +139,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             help_available: formData.helpAvailable === "yes",
             mobility_aid: formData.mobilityAid === "yes",
             race: formData.race,
-            ethnicity:  formData.ethnicity
         } as Partial<PatientInfosRequest>;
+
+        if (formData.ethnicity) {
+            infos = {
+                ...infos,
+                ethnicity:  formData.ethnicity
+            }
+        }
 
         if (formData.raceOther) {
             infos = {
@@ -237,7 +243,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             is: (val: Array<string>) => val.includes('other'),
             then: Yup.string().required()
         }),
-        ethnicity: Yup.string().required()
+        ethnicity: Yup.string().when([], {
+            is: () => isUSLocale(),
+            then: Yup.string().required()
+        })
     });
 
 
