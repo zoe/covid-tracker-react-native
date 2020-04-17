@@ -20,6 +20,8 @@ import DropdownField from "../../components/DropdownField";
 import {ValidationError, ValidationErrors} from "../../components/ValidationError";
 import {GenericTextField} from "../../components/GenericTextField";
 import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
+import {cloneDeep} from 'lodash';
+
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -303,7 +305,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </ProgressBlock>
 
                 <Formik
-                    initialValues={JSON.parse(JSON.stringify(initialFormValues))}
+                    initialValues={cloneDeep(initialFormValues)}
                     validationSchema={this.registerSchema}
                     onSubmit={(values: AboutYouData) => {
                         return this.handleUpdateHealth(values)
