@@ -65,7 +65,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         if (assessmentId == null) {
             userService.addAssessment(assessment)
                 .then(response => {
-                    this.props.route.params.assessmentId = response.data.id;
+                    this.props.navigation.setParams({assessmentId: response.data.id})
                     this.props.navigation.navigate('CovidTest', {
                         currentPatient, assessmentId: response.data.id
                 })})

@@ -66,7 +66,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
             promise = userService.updateAssessment(assessmentId, assessment)
         }
         promise.then(response => {
-            this.props.route.params.assessmentId = response.data.id
+            this.props.navigation.setParams({assessmentId: response.data.id})
             assessmentId = response.data.id
         })
         .then(() => this.updatePatientsLastAskedDate(currentPatient)
