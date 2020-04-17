@@ -78,7 +78,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>How much have you been isolating over the last week?</HeaderText>
+                    <HeaderText>{i18n.t('level-of-isolation-question-level-of-isolation')}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -86,10 +86,10 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
                 </ProgressBlock>
 
                 <Form style={styles.form}>
-                    <SelectorButton text={"I have not left the house"} onPress={() => this.handleSelection('not_left_the_house')}/>
-                    <SelectorButton text={"I rarely leave the house and when I do, I have little interaction with others (e.g. to exercise)"} onPress={() => this.handleSelection('rarely_left_the_house')}/>
-                    <SelectorButton text={"I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries"} onPress={() => this.handleSelection('rarely_left_the_house_but_visited_lots')}/>
-                    <SelectorButton text={"I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)"} onPress={() => this.handleSelection('often_left_the_house')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation-picker-not-left-the-house')} onPress={() => this.handleSelection('not_left_the_house')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation-picker-rarely-left-the-house')} onPress={() => this.handleSelection('rarely_left_the_house')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation-picker-rarely-left-the-house-but-visited-lots')} onPress={() => this.handleSelection('rarely_left_the_house_but_visited_lots')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation-picker-often-left-the-house')} onPress={() => this.handleSelection('often_left_the_house')}/>
                 </Form>
 
             </Screen>
