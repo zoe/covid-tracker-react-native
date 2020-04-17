@@ -215,7 +215,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             then: Yup.number()
         }),
         pounds: Yup.number().when('weightUnit', {
-            is: '',
+            is: 'lbs',
             then: Yup.number().required("Please enter your weight in pounds")
         }),
 
