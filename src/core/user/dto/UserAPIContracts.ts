@@ -143,6 +143,9 @@ export type PatientInfosRequest = {
     sometimes_used_shortage: string,
     never_used_shortage: string,
 
+    race: string[],
+    race_other: string,
+    ethnicity: string,
     last_asked_level_of_isolation: Date,
 }
 
