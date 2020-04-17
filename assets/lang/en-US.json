@@ -2,6 +2,7 @@
   "your-postcode": "Your zipcode?",
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
+  "postcode-too-long": "Please correct your zipcode",
 
   "where-are-you-picker-location-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
   "where-are-you-picker-location-hospital": "I am at the clinic or hospital with suspected COVID-19 symptoms.",
