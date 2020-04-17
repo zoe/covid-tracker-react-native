@@ -91,6 +91,7 @@
   "your-postcode": "Your postcode?",
   "placeholder-postcode": "Postcode",
   "required-postcode": "Please enter your postcode (first part is sufficient)",
+  "postcode-too-long": "Please correct your postcode (first part is sufficient)",
 
   "are-you-a-member-of-twins": "Are you a member of the UK Twins Study?",
   "placeholder-twins": "isTwinsStudy",
@@ -265,5 +266,5 @@
   "select-profile-button": "New profile",
 
   "validation-error-text": "Please fill in or correct the above information: %{info}",
-  "validation-error-text-no-info": "Please fill in or correct the above information",
+  "validation-error-text-no-info": "Please fill in or correct the above information"
 }
