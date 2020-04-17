@@ -36,7 +36,7 @@ export type PatientInfosRequest = {
     same_household_as_reporter: boolean,
 
     year_of_birth: number,
-    gender: number, // 0: female, 1: male, 2: pfnts 3: pfnts
+    gender: number, // 0: female, 1: male, 2: pfnts 3: intersex
     gender_identity: string,
     height_cm: number,
     height_feet: number,
