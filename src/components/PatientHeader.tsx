@@ -1,5 +1,5 @@
 import React from "react";
-import {RegularText} from "./Text"
+import {ClippedText, RegularText} from "./Text"
 import {PatientProfile} from "../core/patient/PatientState"
 import {View, StyleSheet, Image} from "react-native";
 import {getAvatarByName} from "../utils/avatar"
@@ -52,10 +52,11 @@ const PatientHeader = ({profile, navigation}: NavbarProps) => {
                     ) : (
                         <>
                             <View style={styles.altTextBox}>
-                            <RegularText style={styles.altText}>{i18n.t("answer-for", {name: profile.name})}</RegularText>
-                                                        <View style={styles.rightTriangle}/>
-
-                        </View>
+                                <ClippedText style={styles.altText}>
+                                    {i18n.t("answer-for", {name: profile.name})}
+                                </ClippedText>
+                                <View style={styles.rightTriangle}/>
+                            </View>
                         </>
 
                     )
@@ -112,16 +113,16 @@ const styles = StyleSheet.create({
 
     },
     rightTriangle: {
-         position: "absolute",
-         right: -8,
-         borderTopWidth: 8,
-         borderRightWidth: 0,
-         borderBottomWidth: 8,
-         borderLeftWidth: 8,
-         borderTopColor: 'transparent',
-         borderRightColor: 'transparent',
-         borderBottomColor: 'transparent',
-         borderLeftColor: colors.coral,
+        position: "absolute",
+        right: -8,
+        borderTopWidth: 8,
+        borderRightWidth: 0,
+        borderBottomWidth: 8,
+        borderLeftWidth: 8,
+        borderTopColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'transparent',
+        borderLeftColor: colors.coral,
     },
     regularTextBox: {
         justifyContent: "center",
