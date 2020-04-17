@@ -3,6 +3,8 @@
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
 
+  "label-past-symptom-diarrhoea": "Diarrhea",
+
   "describe-symptoms-question-has-diarrhoea": "Are you experiencing diarrhea?",
   "describe-symptoms-placeholder-has-diarrhoea": "hasDiarrhea",
 
