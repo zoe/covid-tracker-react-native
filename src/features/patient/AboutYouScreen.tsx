@@ -303,7 +303,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </ProgressBlock>
 
                 <Formik
-                    initialValues={initialFormValues}
+                    initialValues={JSON.parse(JSON.stringify(initialFormValues))}
                     validationSchema={this.registerSchema}
                     onSubmit={(values: AboutYouData) => {
                         return this.handleUpdateHealth(values)
