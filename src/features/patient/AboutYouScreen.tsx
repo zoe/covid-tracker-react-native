@@ -206,7 +206,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             then: Yup.number().required("Please enter your weight in pounds")
         }),
 
-        postcode: Yup.string().required(i18n.t("required-postcode")),
+        postcode: Yup.string()
+            .required(i18n.t("required-postcode"))
+            .max(8, i18n.t("postcode-too-long")),
 
         everExposed: Yup.string().required("Please indicate if you've been exposed to someone with COVID-19 infection"),
         houseboundProblems: Yup.string().required(),
