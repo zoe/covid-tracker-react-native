@@ -6,9 +6,6 @@ class UserInformation {
     public tags: string[];
     public userType: string;
     public profileStatus: string;
-    // public studies: List<StudyDetail>?
-    // public metabolicProfile: List<MetabolicProfile>?
-
 }
 
 export type LoginOrRegisterResponse = {
@@ -39,7 +36,7 @@ export type PatientInfosRequest = {
     same_household_as_reporter: boolean,
 
     year_of_birth: number,
-    gender: number, // 0: female, 1: male
+    gender: number, // 0: female, 1: male, 2: pfnts 3: pfnts
     gender_identity: string,
     height_cm: number,
     height_feet: number,
@@ -49,6 +46,7 @@ export type PatientInfosRequest = {
 
     interacted_with_covid: string
 
+    // Your Health
     has_heart_disease: boolean,
     has_diabetes: boolean,
     has_lung_disease: boolean,
@@ -56,6 +54,7 @@ export type PatientInfosRequest = {
     smoker_status: string,
     smoked_years_ago: number,
     has_kidney_disease: boolean,
+    limited_activity: boolean,
 
     // Cancer questions
     has_cancer: boolean,
@@ -91,8 +90,7 @@ export type PatientInfosRequest = {
     classic_symptoms: boolean,
     classic_symptoms_days_ago: number,
 
-    //
-    limited_activity: boolean,
+    // About You
     is_pregnant: boolean,
     needs_help: boolean,
     housebound_problems: boolean,
@@ -131,7 +129,7 @@ export type PatientInfosRequest = {
     healthcare_professional: string,
     is_carer_for_community: boolean,
 
-    // Healthcare professional quesstions
+    // Healthcare professional questions
     have_worked_in_hospital_inpatient: boolean,
     have_worked_in_hospital_outpatient: boolean,
     have_worked_in_hospital_clinic: boolean,
@@ -140,7 +138,6 @@ export type PatientInfosRequest = {
     have_worked_in_hospital_school_clinic: boolean,
     have_worked_in_hospital_other: boolean,
     interacted_patients_with_covid: string,
-
     have_used_PPE: string,
     always_used_shortage: string,
     sometimes_used_shortage: string,
