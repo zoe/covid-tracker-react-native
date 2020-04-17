@@ -9,8 +9,6 @@
   "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
 
   "next-question": "Next question",
-  "feel-normal": "I feel physically normal",
-  "have-symptoms": "I'm not feeling quite right",
 
   "login-title": "Log in to\nyour account",
   "login-label": "Email",
@@ -98,6 +96,7 @@
   "placeholder-twins": "isTwinsStudy",
   "picker-yes": "Yes",
   "picker-no": "No",
+  "placeholder-optional-question": "*Optional",
 
   "previous-exposure-title": "Previous exposure to COVID",
   "label-unwell-month-before": "Have you felt unwell in the month before you started reporting on this app?",
@@ -158,6 +157,56 @@
   "describe-symptoms-question-other-symptoms": "Are there other important symptoms you want to share with us?",
   "describe-symptoms-placeholder-other-symptoms": "Other symptoms",
 
+  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients?",
+  "health-worker-exposure-question-treated-patients-with-covid": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
+  "health-worker-exposure-picker-patient-interaction-yes-documented": "Yes, documented COVID-19 cases only",
+  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",
+  "health-worker-exposure-picker-patient-interaction-yes-both": "Yes, both documented and suspected COVID-19 cases",
+  "health-worker-exposure-picker-patient-interaction-no": "Not that I know of",
+  "health-worker-exposure-question-has-used-ppe-equipment" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "health-worker-exposure-picker-ppe-always": "Always",
+  "health-worker-exposure-picker-ppe-sometimes": "Sometimes",
+  "health-worker-exposure-picker-ppe-never": "Never",
+  "health-worker-exposure-picker-ppe-always-all-needed": "I have had all the PPE I need for work",
+  "health-worker-exposure-picker-ppe-always-reused": "I had to reuse PPE because of shortage",
+  "health-worker-exposure-picker-ppe-sometimes-all-needed": "I haven't always needed to use PPE, but have had enough when I did",
+  "health-worker-exposure-picker-ppe-sometimes-not-enough": "I would have used PPE all the time, but I haven't had enough",
+  "health-worker-exposure-picker-ppe-sometimes-reused": "I've had to reuse PPE because of shortage",
+  "health-worker-exposure-picker-ppe-never-not-needed": "I haven't needed PPE",
+  "health-worker-exposure-picker-ppe-never-not-available": "I needed PPE, but it was not available",
+
+  "how-you-feel-question-health-status": "How do you feel physically right now?",
+  "how-you-feel-picker-health-status-healthy": "I feel physically normal",
+  "how-you-feel-picker-health-status-not-healthy": "I'm not feeling quite right",
+
+  "level-of-isolation-question-level-of-isolation": "How much have you been isolating over the last week?",
+  "level-of-isolation-picker-not-left-the-house": "I have not left the house",
+  "level-of-isolation-picker-rarely-left-the-house": "I rarely leave the house and when I do, I have little interaction with others (eg for exercise)",
+  "level-of-isolation-picker-rarely-left-the-house-but-visited-lots": "I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries)",
+  "level-of-isolation-picker-often-left-the-house": "I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)",
+
+  "treatment-other-title-after": "What treatment did you receive while in the hospital?",
+  "treatment-other-title-during": "What treatment are you receiving in hospital?",
+  "treatment-other-question-treatment-after": "What medical treatment did you receive?",
+  "treatment-other-question-treatment-during": "What medical treatment are you receiving?",
+
+  "treatment-selection-title-after": "What treatment did you receive while in the hospital?",
+  "treatment-selection-title-during": "What treatment are you receiving right now?",
+  "treatment-selection-picker-none": "None",
+  "treatment-selection-picker-oxygen": "Oxygen and fluids*",
+  "treatment-selection-picker-subtext-oxygen": "* Breathing support through an oxygen mask, no pressure applied.",
+  "treatment-selection-picker-non-invasive-ventilation": "Non-invasive ventilation*",
+  "treatment-selection-picker-subtext-non-invasive-ventilation": "* Breathing support through an oxygen mask, which pushes oxygen into your lungs.",
+  "treatment-selection-picker-invasive-ventilation": "Invasive ventilation*",
+  "treatment-selection-picker-subtext-invasive-ventilation": "* Breathing support through an inserted tube. People are usually asleep for this procedure.",
+  "treatment-selection-picker-other": "Other",
+
+  "where-are-you-question-location": "Where are you right now?",
+  "where-are-you-picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
+  "where-are-you-picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
+  "where-are-you-picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
+  "where-are-you-picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment.",
+
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
   "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
@@ -176,9 +225,6 @@
   "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
-  "label-interacted-with-any-patients-last-day": "In the last day, have you interacted with any patients?",
-  "label-interacted-with-infected-patients-last-day": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
-  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
   "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
   "required-has-used-ppe-equipment": "Please indicate how often you've used PPE equipment",
   "required-ppe-availability-always": "Please indicate the availability of PPE equipment to you",
@@ -246,4 +292,5 @@
   "select-profile-button": "New profile",
 
   "validation-error-text": "Please fill in or correct the above information: %{info}",
+  "validation-error-text-no-info": "Please fill in or correct the above information",
 }

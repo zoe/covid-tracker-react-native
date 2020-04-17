@@ -41,14 +41,14 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     handleFeelNormal() {
         this.updateAssessment('healthy')
             .then(response => navigateAfterFinishingAssessment(this.props.navigation))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
     handleHaveSymptoms() {
         const currentPatient = this.props.route.params.currentPatient;
         this.updateAssessment('not_healthy')
             .then(response => this.props.navigation.navigate('DescribeSymptoms', {currentPatient, assessmentId: response.data.id}))// todo julien: thank you
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
     private updateAssessment(status: string) {
@@ -63,9 +63,9 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>How do you feel physically right now?</HeaderText>
+                    <HeaderText>{i18n.t('how-you-feel-question-health-status')}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -77,13 +77,13 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleFeelNormal}>
-                            <Text>{i18n.t("feel-normal")}</Text>
+                            <Text>{i18n.t("how-you-feel-picker-health-status-healthy")}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleHaveSymptoms}>
-                            <Text>{i18n.t("have-symptoms")}</Text>
+                            <Text>{i18n.t("how-you-feel-picker-health-status-not-healthy")}</Text>
                         </BigButton>
                     </FieldWrapper>
 

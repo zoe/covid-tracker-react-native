@@ -6,6 +6,7 @@ import {Form, Text} from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
 
+import i18n from "../../locale/i18n"
 import {colors, fontStyles} from "../../../theme"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -46,11 +47,11 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const title = this.props.route.params.location == 'back_from_hospital' ?
-            "What treatment did you receive while in the hospital?"
-            : "What treatment are you receiving right now?";
+            i18n.t('treatment-selection-title-after')
+            : i18n.t('treatment-selection-title-during');
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{title}</HeaderText>
                 </Header>
@@ -64,36 +65,36 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('none')}>
-                            <Text>None</Text>
+                            <Text>{i18n.t('treatment-selection-picker-none')}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('oxygen')}>
-                            <Text>Oxygen and fluids*</Text>
+                            <Text>{i18n.t('treatment-selection-picker-oxygen')}</Text>
                         </BigButton>
-                        <CaptionText style={styles.indentedText}>* Breathing support through an oxygen mask, no pressure applied.</CaptionText>
+                        <CaptionText style={styles.indentedText}>{i18n.t('treatment-selection-picker-subtext-oxygen')}</CaptionText>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('nonInvasiveVentilation')}>
-                            <Text>Non-invasive ventilation*</Text>
+                            <Text>{i18n.t('treatment-selection-picker-non-invasive-ventilation')}</Text>
                         </BigButton>
-                        <CaptionText style={styles.indentedText}>* Breathing support through an oxygen mask, which pushes oxygen into your lungs.</CaptionText>
+                        <CaptionText style={styles.indentedText}>{i18n.t('treatment-selection-picker-subtext-non-invasive-ventilation')}</CaptionText>
                     </FieldWrapper>
 
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('invasiveVentilation')}>
-                            <Text>Invasive ventilation*</Text>
+                            <Text>{i18n.t('treatment-selection-picker-invasive-ventilation')}</Text>
                         </BigButton>
-                        <CaptionText style={styles.indentedText}>* Breathing support through an inserted tube. People are usually asleep for this procedure.</CaptionText>
+                        <CaptionText style={styles.indentedText}>{i18n.t('treatment-selection-picker-subtext-invasive-ventilation')}</CaptionText>
                     </FieldWrapper>
 
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.handleTreatment('other')}>
-                            <Text>Other </Text>
+                            <Text>{i18n.t('treatment-selection-picker-other')}</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>

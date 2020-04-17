@@ -6,6 +6,7 @@ import {Form, Text} from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
 
+import i18n from "../../locale/i18n"
 import {colors, fontStyles} from "../../../theme"
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -31,8 +32,8 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
     handleAtHome() {
         this.updateAssessment('home')
-            .then(response => this.props.navigation.navigate(getLocalThankYou()))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .then(response => navigateAfterFinishingAssessment(this.props.navigation))
+            .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
     handleAtHospital() {
@@ -42,7 +43,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
             .then(response => this.props.navigation.navigate('TreatmentSelection', {
                 currentPatient, assessmentId, location
             }))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
     handleBackAtHome() {
@@ -52,13 +53,13 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
             .then(response => this.props.navigation.navigate('TreatmentSelection', {
                 currentPatient, assessmentId, location
             }))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
     handleStillAtHome() {
         this.updateAssessment('back_from_hospital')
             .then(response => navigateAfterFinishingAssessment(this.props.navigation))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+            .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
     private updateAssessment(status: string) {
@@ -73,12 +74,11 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
     render() {
         const currentPatient = this.props.route.params.currentPatient;
-        const medicalBuilding = isUSLocale() ? "clinic or hospital" : "hospital";
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>Where are you right now?</HeaderText>
+                    <HeaderText>{i18n.t('where-are-you-question-location')}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -90,25 +90,25 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHome}>
-                            <Text>I'm at home. I haven't been to a {medicalBuilding} for suspected COVID-19 symptoms.</Text>
+                            <Text>{i18n.t('where-are-you-picker-location-home')}.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHospital}>
-                            <Text>I am at the {medicalBuilding} with suspected COVID-19 symptoms.</Text>
+                            <Text>{i18n.t('where-are-you-picker-location-hospital')}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleBackAtHome}>
-                            <Text>I am back from the {medicalBuilding}, I'd like to tell you about my treatment.</Text>
+                            <Text>{i18n.t('where-are-you-picker-location-back-from-hospital')}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleStillAtHome}>
-                            <Text>I am back from the {medicalBuilding}, I've already told you about my treatment.</Text>
+                            <Text>{i18n.t('where-are-you-picker-location-back-from-hospital-already-reported')}</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
