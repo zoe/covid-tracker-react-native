@@ -45,7 +45,7 @@ const initialFormValues = {
     helpAvailable: "no",
     mobilityAid: "no",
     race: new Array<string>(),
-    race_other: "",
+    raceOther: "",
     ethnicity: ""
 };
 
@@ -72,7 +72,7 @@ interface AboutYouData {
     helpAvailable: string,
     mobilityAid: string,
     race: Array<string>
-    race_other: string
+    raceOther: string
     ethnicity: string
 }
 
@@ -139,7 +139,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             help_available: formData.helpAvailable === "yes",
             mobility_aid: formData.mobilityAid === "yes",
             race: formData.race,
-            race_other: formData.race_other,
+            race_other: formData.raceOther,
             ethnicity:  formData.ethnicity
         } as Partial<PatientInfosRequest>;
 
@@ -227,9 +227,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         helpAvailable: Yup.string().required(),
         mobilityAid: Yup.string().required(),
         race: Yup.array<string>().min(1, i18n.t("please-select-race")),
-        race_other: Yup.string().when('race', {
+        raceOther: Yup.string().when('race', {
             is: (val: Array<string>) => val.includes('other'),
-            then: Yup.string().required()
+            then: Yup.string()
         }),
         ethnicity: Yup.string().required()
     });
@@ -263,9 +263,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             return data.map(checkBoxData => {
                 return <CheckboxItem
                     value={props.values.race.includes(checkBoxData.value)}
-                    onChange={(value: boolean) => {
+                    onChange={(checked: boolean) => {
                         let raceArray = props.values.race;
-                        if (value) {
+                        if (checked) {
                             raceArray.push(checkBoxData.value);
                         } else {
                             raceArray = raceArray.filter((val) => val != checkBoxData.value);
@@ -369,7 +369,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         <GenericTextField
                                             formikProps={props}
                                             label={i18n.t("race-other-question")}
-                                            name="race_other"
+                                            name="raceOther"
                                         />
                                     )}
 

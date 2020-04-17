@@ -126,7 +126,7 @@ export type PatientInfosRequest = {
     sometimes_used_shortage: string,
     never_used_shortage: string,
 
-    race: string[],
+    race: Array<string>,
     race_other: string,
     ethnicity: string
 }
