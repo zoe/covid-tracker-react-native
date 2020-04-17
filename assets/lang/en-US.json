@@ -26,6 +26,9 @@
   "blog-link": "https://covid.joinzoe.com/us-blog",
   "faq-link": "https://covid.joinzoe.com/us-faq",
 
+  "race-question": "What is your race? (check all that apply):",
+  "race-other-question": "Please specify your race",
+  
   "label-cohort": "Is your study one of the following?",
   "adult-or-child-text": "Right now, you can only create additional profiles for US residents."
 }
