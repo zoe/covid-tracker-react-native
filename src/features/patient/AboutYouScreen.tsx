@@ -277,6 +277,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<AboutYouData>) => {
             return data.map(checkBoxData => {
                 return <CheckboxItem
+                    key={checkBoxData.value}
                     value={props.values.race.includes(checkBoxData.value)}
                     onChange={(checked: boolean) => {
                         let raceArray = props.values.race;
