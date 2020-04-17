@@ -266,4 +266,7 @@
 
   "validation-error-text": "Please fill in or correct the above information: %{info}",
   "validation-error-text-no-info": "Please fill in or correct the above information",
+
+  "answer-for": "Answer for %{name}",
+  "profile-name-too-long": "Enter a profile name with less that 32 characters"
 }

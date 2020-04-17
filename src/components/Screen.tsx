@@ -88,7 +88,7 @@ export default class Screen extends Component<ScreenProps> {
                 {!!profile ? (
                     <PatientHeader profile={profile} navigation={this.props.navigation} />
                 ): (
-                    <View style={styles.statusBarBlock}></View>
+                    <View style={styles.statusBarBlock} />
                 )}
 
                 <ScrollView>
