@@ -229,7 +229,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         race: Yup.array<string>().min(1, i18n.t("please-select-race")),
         raceOther: Yup.string().when('race', {
             is: (val: Array<string>) => val.includes('other'),
-            then: Yup.string()
+            then: Yup.string().required()
         }),
         ethnicity: Yup.string().required()
     });
