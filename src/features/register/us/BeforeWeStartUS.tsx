@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, screenWidth} from "../../../components/Screen";
+import Screen, {FieldWrapper, Header} from "../../../components/Screen";
 import {HeaderText} from "../../../components/Text";
 import {Form, Text} from "native-base";
-
-import {colors, fontStyles} from "../../../../theme"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../../ScreenParamList";
 import {BigButton} from "../../../components/Button";

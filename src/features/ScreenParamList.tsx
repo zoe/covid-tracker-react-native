@@ -42,10 +42,12 @@ export type ScreenParamList = {
     ConsentForOther: { profileName: string, avatarName?: string, consentType: ConsentType};
 
     // Patient screens
+    StartPatient: { currentPatient: PatientStateType };
     YourStudy: { currentPatient: PatientStateType };
     YourWork: { currentPatient: PatientStateType };
     AboutYou: { currentPatient: PatientStateType };
     YourHealth: { currentPatient: PatientStateType };
+    PreviousExposure: { currentPatient: PatientStateType };
 
     // Assessment screens
     StartAssessment: { currentPatient: PatientStateType, assessmentId?: string };
@@ -54,12 +56,11 @@ export type ScreenParamList = {
     HowYouFeel: { currentPatient: PatientStateType, assessmentId: string };
     DescribeSymptoms: { currentPatient: PatientStateType, assessmentId: string };
     WhereAreYou: { currentPatient: PatientStateType, assessmentId: string };
-    LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string };
+    LevelOfIsolation: { currentPatient: PatientStateType, assessmentId: string | null };
     TreatmentSelection:  { currentPatient: PatientStateType, assessmentId: string, location?: string };
     TreatmentOther: { currentPatient: PatientStateType, assessmentId: string, location?: string };
 
     // Completion screens
     ThankYou: undefined;
     ViralThankYou: undefined;
-    NearYou: undefined;
 };

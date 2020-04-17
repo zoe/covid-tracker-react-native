@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
 import Screen, {Header} from "../../components/Screen";
-import {BrandedButton, HeaderText, RegularText} from "../../components/Text";
+import {BrandedButton, HeaderText, SecondaryText} from "../../components/Text";
 import {Form} from "native-base";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -9,6 +9,7 @@ import {RouteProp} from "@react-navigation/native";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {GenericTextField} from "../../components/GenericTextField";
+import i18n from "../../locale/i18n";
 
 const initialFormValues = {
     name: '',
@@ -31,7 +32,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     }
 
     registerSchema = Yup.object().shape({
-        name: Yup.string().required(),
+        name: Yup.string().required().max(32, i18n.t("profile-name-too-long")),
     });
 
     handleClick(formData: FormData) {
@@ -42,8 +43,8 @@ export default class CreateProfileScreen extends Component<RenderProps> {
         return (
             <Screen>
                 <Header>
-                    <HeaderText>Give new profile a name</HeaderText>
-                    <RegularText>This name is just for you. Choose a name that would allow you to know which person you are reporting for</RegularText>
+                    <HeaderText style={{marginBottom: 12}}>{i18n.t("create-profile-title")}</HeaderText>
+                    <SecondaryText>{i18n.t("create-profile-text")}</SecondaryText>
                 </Header>
 
                 <Formik
@@ -60,11 +61,11 @@ export default class CreateProfileScreen extends Component<RenderProps> {
                                 <GenericTextField
                                     formikProps={props}
                                     name="name"
-                                    placeholder={'e.g. name, nickname or relation'}
+                                    placeholder={i18n.t("create-profile-placeholder")}
                                 />
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    Continue
+                                    {i18n.t("create-profile-button")}
                                 </BrandedButton>
 
                             </Form>

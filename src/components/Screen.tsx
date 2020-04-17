@@ -4,6 +4,8 @@ import {colors} from '../../theme';
 import { PatientProfile } from '../core/patient/PatientState';
 import PatientHeader from './PatientHeader';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreenParamList } from '../features/ScreenParamList';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
@@ -70,6 +72,7 @@ export const FieldWrapper = (props: FieldWrapperType) => {
 */
 type ScreenProps = {
     children: any;
+    navigation?: StackNavigationProp<ScreenParamList>
     profile?: PatientProfile;
 }
 
@@ -79,14 +82,13 @@ export default class Screen extends Component<ScreenProps> {
 
     render() {
         const profile = this.props.profile;
-        const hasProfile = profile && profile.name;
 
         return (
             <SafeAreaView style={styles.screen}>
                 {!!profile ? (
-                    <PatientHeader profile={profile} />
+                    <PatientHeader profile={profile} navigation={this.props.navigation} />
                 ): (
-                    <View style={styles.statusBarBlock}></View>
+                    <View style={styles.statusBarBlock} />
                 )}
 
                 <ScrollView>

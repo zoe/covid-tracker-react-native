@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
 import Screen, {FieldWrapper, Header} from "../../components/Screen";
-import {HeaderText, RegularText} from "../../components/Text";
+import {HeaderText, SecondaryText} from "../../components/Text";
 import {Form, Text} from "native-base";
 
 import {colors, fontStyles} from "../../../theme"
@@ -9,7 +9,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ConsentType, ScreenParamList} from "../ScreenParamList";
 import {BigButton} from "../../components/Button";
 import {RouteProp} from "@react-navigation/native";
-import {isUSLocale} from "../../core/user/UserService";
+import i18n from "../../locale/i18n";
 
 
 type HowYouFeelProps = {
@@ -40,27 +40,24 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
         }
     };
 
-    countryString = isUSLocale() ? "US" : "UK";
-
-
     render() {
         return (
             <Screen>
                 <Header>
-                    <HeaderText>Who would you like to report for? </HeaderText>
-                    <RegularText>Right now, you can only create additional profiles for {this.countryString} residents.</RegularText>
+                    <HeaderText style={{marginBottom: 12}}>{i18n.t("adult-or-child-title")}</HeaderText>
+                    <SecondaryText>{i18n.t("adult-or-child-text")}</SecondaryText>
                 </Header>
 
                 <Form style={styles.form}>
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.props.navigation.navigate('ConsentForOther', this.buildRouteParams(ConsentType.Adult))}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Person over 18</Text>
+                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("person-over-18")}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={() => this.props.navigation.navigate('ConsentForOther', this.buildRouteParams(ConsentType.Child))}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Person under 18</Text>
+                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("person-under-18")}</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>

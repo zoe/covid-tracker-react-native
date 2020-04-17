@@ -1,21 +1,20 @@
-import React, { Component } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from "../../components/Screen";
-import { BrandedButton, ErrorText, HeaderText, RegularText } from "../../components/Text";
-import { Form, Item, Label } from "native-base";
+import React, {Component} from "react";
+import {KeyboardAvoidingView, Platform, StyleSheet} from "react-native";
+import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
+import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {Form, Item, Label} from "native-base";
 import ProgressStatus from "../../components/ProgressStatus";
-import { Formik } from "formik";
+import {Formik} from "formik";
 import * as Yup from "yup";
 import i18n from "../../locale/i18n"
-import UserService, { isGBLocale, isUSLocale } from "../../core/user/UserService";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ScreenParamList } from "../ScreenParamList";
-import { RouteProp } from "@react-navigation/native";
-import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
-import { CheckboxItem, CheckboxList } from "../../components/Checkbox";
-import { ValidationErrors } from "../../components/ValidationError";
-import DropdownField from "../../components/DropdownField";
-import { GenericTextField } from "../../components/GenericTextField";
+import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import {StackNavigationProp} from "@react-navigation/stack";
+import {ScreenParamList} from "../ScreenParamList";
+import {RouteProp} from "@react-navigation/native";
+import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
+import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
+import {ValidationErrors} from "../../components/ValidationError";
+import {GenericTextField} from "../../components/GenericTextField";
 
 type YourStudyProps = {
     navigation: StackNavigationProp<ScreenParamList, 'YourStudy'>
@@ -108,14 +107,13 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 this.props.navigation.navigate('YourWork', {currentPatient})
             })
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
-
     }
 
     render() {
         const currentPatient = this.props.route.params.currentPatient;
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{isGBLocale() ? 'Population studies' : isUSLocale() ? 'Your clinical study' : ''}</HeaderText>
                 </Header>
@@ -133,7 +131,6 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                         return (
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
                                 <Form>
-
 
                                     {/* UK-only cohorts */}
                                     {isGBLocale() && (
@@ -226,7 +223,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                 </Item>
                                             </FieldWrapper>
 
-                                                <RegularText style={styles.standaloneLabel}>If not</RegularText>
+                                            <RegularText style={styles.standaloneLabel}>If not</RegularText>
 
                                             <GenericTextField
                                                 formikProps={props}
@@ -248,7 +245,6 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                     placeholder={'Optional'}
                                                 />
 
-
                                                 <GenericTextField
                                                     formikProps={props}
                                                     label="What is the NCT number (if you know it)?"
@@ -266,10 +262,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                                     <BrandedButton
                                         onPress={props.handleSubmit}>{i18n.t("next-question")}</BrandedButton>
-
                                 </Form>
                             </KeyboardAvoidingView>
-
                         )
                     }}
                 </Formik>
@@ -314,10 +308,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 ...(formData.clinicalStudyInstitutions && {clinical_study_institutions: formData.clinicalStudyInstitutions}),
                 ...(formData.clinicalStudyNctIds && {clinical_study_nct_ids: formData.clinicalStudyNctIds}),
             }
-
-
         }
-
         return infos;
     }
 }

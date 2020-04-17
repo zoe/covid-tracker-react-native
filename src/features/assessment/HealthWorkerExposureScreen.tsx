@@ -111,29 +111,29 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const patientInteractionOptions = [
-            {label: "Yes, documented COVID-19 cases only", value: 'yes_documented'},
-            {label: "Yes, suspected COVID-19 cases only", value: 'yes_suspected'},
-            {label: "Yes, both documented and suspected COVID-19 cases", value: 'yes_documented_suspected'},
-            {label: "Not that I know of", value: 'no'}
+            {label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented'},
+            {label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected'},
+            {label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-both'), value: 'yes_documented_suspected'},
+            {label: i18n.t('health-worker-exposure-picker-patient-interaction-no'), value: 'no'}
         ];
         const equipmentUsageOptions = [
-            {label: 'Always', value: 'always'},
-            {label: 'Sometimes', value: 'sometimes'},
-            {label: 'Never', value: 'never'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-always'), value: 'always'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-sometimes'), value: 'sometimes'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-never'), value: 'never'},
         ];
 
         const availabilityAlwaysOptions = [
-            {label: 'I have had all the PPE I need for work', value: 'all_needed'},
-            {label: 'I had to reuse PPE because of shortage', value: 'reused'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-always-all-needed'), value: 'all_needed'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-always-reused'), value: 'reused'},
         ];
         const availabilitySometimesOptions = [
-            {label: "I haven't always needed to use PPE, but have had enough when I did", value: 'all_needed'},
-            {label: "I would have used PPE all the time, but I haven't had enough", value: 'not_enough'},
-            {label: "I've had to reuse PPE because of shortage", value: 'reused'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-sometimes-all-needed'), value: 'all_needed'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-sometimes-not-enough'), value: 'not_enough'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-sometimes-reused'), value: 'reused'},
         ];
         const availabilityNeverOptions = [
-            {label: "I haven't needed PPE", value: 'not_needed'},
-            {label: "I needed PPE, but it was not available", value: 'not_available'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-never-not-needed'), value: 'not_needed'},
+            {label: i18n.t('health-worker-exposure-picker-ppe-never-not-available'), value: 'not_available'},
         ];
 
 
@@ -147,7 +147,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
         }
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{i18n.t("title-health-worker-exposure")}</HeaderText>
                 </Header>
@@ -170,7 +170,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                                         <DropdownField
                                             selectedValue={props.values.interactedAnyPatients}
                                             onValueChange={props.handleChange("interactedAnyPatients")}
-                                            label={i18n.t("label-interacted-with-any-patients-last-day")}
+                                            label={i18n.t("health-worker-exposure-question-interacted-any-patients")}
                                         />
 
                                         {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === "yes" &&
@@ -178,14 +178,14 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                                             <DropdownField
                                                 selectedValue={props.values.treatedPatientsWithCovid}
                                                 onValueChange={props.handleChange("treatedPatientsWithCovid")}
-                                                label={i18n.t("label-interacted-with-infected-patients-last-day")}
+                                                label={i18n.t("health-worker-exposure-question-treated-patients-with-covid")}
                                                 items={patientInteractionOptions}
                                             />
 
                                             <DropdownField
                                                 selectedValue={props.values.hasUsedPPEEquipment}
                                                 onValueChange={props.handleChange("hasUsedPPEEquipment")}
-                                                label={i18n.t("label-used-ppe-equipment-last-day")}
+                                                label={i18n.t("health-worker-exposure-question-has-used-ppe-equipment")}
                                                 items={equipmentUsageOptions}
                                             />
 
@@ -222,7 +222,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
 
 
                                     {!!Object.keys(props.errors).length && (
-                                        <ErrorText>Please fill in or correct the above information</ErrorText>
+                                        <ErrorText>{i18n.t('validation-error-text-no-info')}</ErrorText>
                                     )}
                                     <ErrorText>{this.state.errorMessage}</ErrorText>
 

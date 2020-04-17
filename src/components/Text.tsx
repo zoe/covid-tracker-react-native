@@ -21,6 +21,14 @@ export const RegularText = ({style, children}: Props) => (
   <Text style={[styles.regularText, style]}>{children}</Text>
 );
 
+export const ClippedText = ({style, children}: Props) => (
+  <Text style={[styles.regularText, style]} numberOfLines={1}>{children}</Text>
+);
+
+export const SecondaryText = ({style, children}: Props) => (
+  <Text style={[styles.secondaryText, style]}>{children}</Text>
+);
+
 export const MutedText = ({style, children}: Props) => (
   <Text style={[styles.regularMutedText, style]}>{children}</Text>
 );
@@ -95,6 +103,10 @@ const styles = StyleSheet.create({
         ...fontStyles.bodyReg,
     },
 
+    secondaryText: {
+        ...fontStyles.bodySecondary,
+    },
+
     regularMutedText: {
         ...fontStyles.bodyMutedReg,
     },
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
 
     regularBoldText: {
         ...fontStyles.bodyReg,
-        fontWeight: "700",
+        fontWeight: "600",
     },
 
     clickableText: {

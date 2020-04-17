@@ -205,7 +205,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         }
 
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{i18n.t("title-about-work")}</HeaderText>
                 </Header>
@@ -227,7 +227,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                         return (
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
                                 <Form>
-
 
                                     <DropdownField
                                         selectedValue={props.values.isHealthcareStaff}

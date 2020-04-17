@@ -9,6 +9,7 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
+import i18n from "../../locale/i18n"
 import {colors, fontStyles} from "../../../theme"
 import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -58,10 +59,17 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     render() {
         const currentPatient = this.props.route.params.currentPatient;
+        const title = this.props.route.params.location == 'back_from_hospital' ?
+            i18n.t('treatment-other-title-after')
+            : i18n.t('treatment-other-title-during');
+        const question = this.props.route.params.location == 'back_from_hospital' ?
+            i18n.t('treatment-other-question-treatment-after')
+            : i18n.t('treatment-other-question-treatment-during');
+
         return (
-            <Screen profile={currentPatient.profile}>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>What treatment are you receiving in hospital?</HeaderText>
+                    <HeaderText>{title}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -80,12 +88,12 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
                             <Form>
                                 <FieldWrapper style={{marginVertical: 64}}>
                                     <Item stackedLabel>
-                                        <Label style={{marginBottom: 16}}>What medical treatment are you receiving?</Label>
+                                        <Label style={{marginBottom: 16}}>{question}</Label>
                                         <Textarea
                                             style={styles.textarea}
                                             rowSpan={5}
                                             bordered
-                                            placeholder="*Optional"
+                                            placeholder={i18n.t('placeholder-optional-question')}
                                             value={props.values.description}
                                             onChangeText={props.handleChange("description")}
                                             underline={false}

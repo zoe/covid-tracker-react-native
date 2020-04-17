@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Header} from "../../components/Screen";
-import {ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {ErrorText, HeaderText, RegularText, SecondaryText} from "../../components/Text";
 import {colors} from "../../../theme"
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
@@ -13,6 +13,7 @@ import '../../../assets';
 import key from "weak-key";
 import {AvatarName, getAvatarByName} from "../../utils/avatar";
 import DaysAgo from "../../components/DaysAgo";
+import i18n from "../../locale/i18n";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
@@ -31,7 +32,8 @@ type Patient = {
 
 interface State {
     patients: Patient[],
-    errorMessage: string
+    errorMessage: string,
+    shouldRefresh: boolean,
 }
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {
@@ -39,21 +41,30 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
         super(props);
         this.state = {
             patients: [],
-            errorMessage: ""
+            errorMessage: "",
+            shouldRefresh: false
         };
     }
 
     async componentDidMount() {
-        this.listProfiles();
+        this.props.navigation.addListener('focus', async (e) => {
+            if (this.state.shouldRefresh) {
+                await this.listProfiles();
+            };
+        });
+
+        await this.listProfiles();
+        this.setState({shouldRefresh: true});
     }
 
-    listProfiles() {
+    async listProfiles() {
         const userService = new UserService();
-        userService.listPatients()
-            .then(response => this.setState({patients: response.data}))
-            .catch(err => {
-                this.setState({errorMessage: "Something went wrong, please try again later"})
-            });
+        try {
+            const response = await userService.listPatients();
+            this.setState({patients: response.data});
+        } catch (err) {
+            this.setState({errorMessage: i18n.t("something-went-wrong")});
+        }
     }
 
     async startAssessment(patientId: string) {
@@ -82,8 +93,8 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                     <ScrollView contentContainerStyle={styles.scrollView}>
                         <View style={styles.rootContainer}>
                             <Header>
-                                <HeaderText>Select profile you want to report for</HeaderText>
-                                <RegularText>Or add more profiles</RegularText>
+                                <HeaderText style={{marginBottom: 12}}>{i18n.t("select-profile-title")}</HeaderText>
+                                <SecondaryText>{i18n.t("select-profile-text")}</SecondaryText>
                             </Header>
 
                             <ErrorText>{this.state.errorMessage}</ErrorText>
@@ -109,11 +120,10 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                 <TouchableOpacity style={styles.cardContainer} key={'new'} onPress={() => this.gotoCreateProfile()}>
                                     <Card style={styles.card}>
                                         <Image source={addProfile} style={styles.addImage} resizeMode={'contain'}/>
-                                        <RegularText>New profile</RegularText>
+                                        <RegularText>{i18n.t("select-profile-button")}</RegularText>
                                     </Card>
                                 </TouchableOpacity>
                             </View>
-
 
                         </View>
 
@@ -146,7 +156,7 @@ const styles = StyleSheet.create({
     },
 
     addImage: {
-        width: "80%",
+        width: "100%",
         height: 100,
         marginBottom: 10
     },
