@@ -47,22 +47,24 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     }
 
     async componentDidMount() {
-        this.props.navigation.addListener('focus', e => {
+        this.props.navigation.addListener('focus', async (e) => {
             if (this.state.shouldRefresh) {
-                this.listProfiles();
+                await this.listProfiles();
             };
         });
-        this.listProfiles();
+
+        await this.listProfiles();
         this.setState({shouldRefresh: true});
     }
 
-    listProfiles() {
+    async listProfiles() {
         const userService = new UserService();
-        userService.listPatients()
-            .then(response => this.setState({patients: response.data}))
-            .catch(err => {
-                this.setState({errorMessage: i18n.t("something-went-wrong")})
-            });
+        try {
+            const response = await userService.listPatients();
+            this.setState({patients: response.data});
+        } catch (err) {
+            this.setState({errorMessage: i18n.t("something-went-wrong")});
+        }
     }
 
     async startAssessment(patientId: string) {
