@@ -2,11 +2,17 @@
   "create-account-title": "Create new account",
   "create-account-btn": "Create account",
   "create-account-login": "Log in",
+  "create-account-existing-account": "to existing account.",
   "create-account-email": "Your email",
   "create-account-password": "Create password",
   "create-account-if-you-have-an-account": "Already have an account?",
   "create-account-already-registered": "An account already exists with this email address. Try to log in instead.",
+  "create-account-email-required": "Please enter your email address",
+  "create-account-email-error": "Please correct your email address",
+  "create-account-password-required": "Please enter a password",
   "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
+  "create-account-something-went-wrong": "Something went wrong: %{msg}",
+  "create-account-error": "Error #01. Please report this to covid-bugs@joinzoe.com: %{msg}",
 
   "next-question": "Next question",
 
