@@ -14,13 +14,10 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
 import {ValidationErrors} from "../../components/ValidationError";
-
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
+import {stripAndRound} from "../../utils/helpers";
 
 
 interface YourHealthData {
@@ -42,9 +39,6 @@ interface YourHealthData {
     takesBloodPressureMedications: string, // pril
     takesAnyBloodPressureMedications: string,
     takesBloodPressureMedicationsSartan: string,
-    alreadyHadCovid: string,
-    classicSymptoms: string,
-    classicSymptomsDaysAgo: string,
 
     limitedActivity: string,
 }
@@ -55,7 +49,7 @@ const initialFormValues = {
     hasHeartDisease: 'no',
     hasDiabetes: 'no',
     hasLungDisease: 'no',
-    smokerStatus: 'no',
+    smokerStatus: 'never',
     smokedYearsAgo: '',
     hasKidneyDisease: 'no',
 
@@ -69,9 +63,6 @@ const initialFormValues = {
     takesBloodPressureMedications: 'no', // pril
     takesAnyBloodPressureMedications: 'no',
     takesBloodPressureMedicationsSartan: 'no',
-    alreadyHadCovid: 'no',
-    classicSymptoms: 'no',
-    classicSymptomsDaysAgo: '',
 
     limitedActivity: 'no',
 };
@@ -80,7 +71,6 @@ const initialFormValues = {
 type HealthProps = {
     navigation: StackNavigationProp<ScreenParamList, 'YourHealth'>
     route: RouteProp<ScreenParamList, 'YourHealth'>;
-    isMale: boolean;
 }
 
 
@@ -88,12 +78,9 @@ type State = {
     errorMessage: string;
 }
 
+
 const initialState: State = {
     errorMessage: ""
-};
-
-const stripAndRound = (str: string): number => {
-    return Math.round(parseFloat(str.replace(/,/g, '')))
 };
 
 export default class YourHealthScreen extends Component<HealthProps, State> {
@@ -127,30 +114,22 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         takesCorticosteroids: Yup.string().required(),
         takesBloodPressureMedications: Yup.string().required(), // pril
         takesAnyBloodPressureMedications: Yup.string().required(),
-        takesBloodPressureMedicationsSartan: Yup.string().required(),
-        alreadyHadCovid: Yup.string().required(),
-        classicSymptoms: Yup.string().required(),
-        classicSymptomsDaysAgo: Yup.number().when("classicSymptoms", {
-            is: "yes",
-            then: Yup.number().required(),
-        }),
+        takesBloodPressureMedicationsSartan: Yup.string().required()
     });
 
     handleUpdateHealth(formData: YourHealthData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient;
+        const patientId = currentPatient.patientId;
 
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
-            .then(async response => {
-                // Head off race condition where next page expects these details to have been set.
-                await AsyncStorageService.setPatientDetailsComplete(true);
-                await AsyncStorageService.setHasBloodPressureAnswer(true);
-                return response;
-            })
             .then(response => {
-                this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
+                currentPatient.hasCompletePatientDetails = true;
+                currentPatient.hasBloodPressureAnswer = true;
+
+                this.props.navigation.navigate('PreviousExposure', {currentPatient});
             })
             .catch(err => {
                 this.setState({errorMessage: "Something went wrong, please try again later"})
@@ -159,6 +138,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
 
     private createPatientInfos(formData: YourHealthData) {
+        const currentPatient = this.props.route.params.currentPatient;
         const smokerStatus = formData.smokerStatus === "no" ? "never" : formData.smokerStatus;
         let infos = {
             has_heart_disease: formData.hasHeartDisease === "yes",
@@ -170,11 +150,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             takes_aspirin: formData.takesAspirin === "yes",
             takes_corticosteroids: formData.takesCorticosteroids === "yes",
             takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === "yes",
-            already_had_covid: formData.alreadyHadCovid === 'yes',
             limited_activity: formData.limitedActivity === "yes",
         } as Partial<PatientInfosRequest>;
 
-        if (!this.props.route.params.isMale) {
+        if (currentPatient.isFemale) {
             infos = {
                 ...infos,
                 is_pregnant: formData.isPregnant === "yes",
@@ -188,7 +167,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 takes_blood_pressure_medications_sartan: formData.takesBloodPressureMedicationsSartan === "yes",
             }
         }
-
 
         if (smokerStatus) {
             infos = {
@@ -204,7 +182,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             }
         }
 
-
         if (infos.has_cancer) {
             infos = {
                 ...infos,
@@ -218,33 +195,24 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 }
             }
         }
-
-        if (infos.already_had_covid) {
-            infos = {
-                ...infos,
-                classic_symptoms: formData.classicSymptoms === "yes",
-                ...(formData.classicSymptomsDaysAgo && {classic_symptoms_days_ago: stripAndRound(formData.classicSymptomsDaysAgo)}),
-            }
-        }
-
         return infos;
     }
 
     render() {
-
+        const currentPatient = this.props.route.params.currentPatient;
         const smokerStatusItems = [
             {label: 'Never', value: 'never'},
             {label: 'Not currently', value: 'not_currently'},
             {label: 'Yes', value: 'yes'},
         ]
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>About your health</HeaderText>
                 </Header>
 
                 <ProgressBlock>
-                    <ProgressStatus step={2} maxSteps={5}/>
+                    <ProgressStatus step={3} maxSteps={6}/>
                 </ProgressBlock>
 
                 <Formik
@@ -267,7 +235,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                                     <Divider/>
 
-                                    {!this.props.route.params.isMale && (
+                                    {currentPatient.isFemale && (
                                         <>
                                             <DropdownField
                                                 selectedValue={props.values.isPregnant}
@@ -387,32 +355,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                                 selectedValue={props.values.takesBloodPressureMedicationsSartan}
                                                 onValueChange={props.handleChange("takesBloodPressureMedicationsSartan")}
                                                 label={"Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"}
-                                            />
-                                        </>
-                                    )}
-
-
-                                    <Divider/>
-
-                                    <DropdownField
-                                        selectedValue={props.values.alreadyHadCovid}
-                                        onValueChange={props.handleChange("alreadyHadCovid")}
-                                        label={"Do you think you have already had COVID-19, but were not tested?"}
-                                    />
-
-                                    {props.values.alreadyHadCovid === 'yes' && (
-                                        <>
-                                            <DropdownField
-                                                selectedValue={props.values.classicSymptoms}
-                                                onValueChange={props.handleChange("classicSymptoms")}
-                                                label={"Did you have the classic symptoms (high fever and persistent cough) for several days?"}
-                                            />
-
-                                            <GenericTextField
-                                                formikProps={props}
-                                                label="How many days ago did your symptoms start?"
-                                                name="classicSymptomsDaysAgo"
-                                                keyboardType="numeric"
                                             />
                                         </>
                                     )}

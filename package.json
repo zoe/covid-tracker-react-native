@@ -9,6 +9,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:updateSnapshots": "jest -u",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "yarn eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "ts-node": "ts-node",
     "testWithTranspile": "mocha -r ts-node/register/transpile-only.js src/**/*.spec.ts",
     "mock-server": "ts-node ./mock-server/mockServer.ts --watch"
@@ -39,7 +41,6 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "~1.5.0",
-    "react-native-maps": "^0.26.1",
     "react-native-progress": "^4.0.3",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
@@ -61,11 +62,17 @@
     "@types/react-native": "~0.60.23",
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-mock-store": "^1.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "babel-preset-expo": "~8.0.0",
     "body-parser": "^1.19.0",
+    "eslint": "^6.8.0",
+    "eslint-config-universe": "^3.0.0",
     "express": "^4.17.1",
     "jest-expo": "^37.0.0",
     "react-test-renderer": "^16.13.1",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.4",
     "redux-mock-store": "^1.5.4",
     "ts-jest": "^25.3.1",
     "ts-node": "^8.6.2",
@@ -87,6 +94,11 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   },
   "private": true
 }

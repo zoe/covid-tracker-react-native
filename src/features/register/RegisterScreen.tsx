@@ -8,7 +8,7 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
 import UserService from "../../core/user/UserService";
-import {BrandedButton, ClickableText, ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {BrandedButton, ClickableText, ErrorText, HeaderLightText, HeaderText, RegularText} from "../../components/Text";
 import {AxiosError} from "axios";
 import {ScreenParamList} from "../ScreenParamList";
 import { Field, FieldError } from "../../components/Forms";
@@ -121,7 +121,7 @@ export class RegisterScreen extends Component<PropsType, State> {
                         <View>
 
                             <View style={styles.loginHeader}>
-                                <HeaderText style={fontStyles.h1Light}>{i18n.t("create-account-title")}</HeaderText>
+                                <HeaderLightText>{i18n.t("create-account-title")}</HeaderLightText>
                                 <View style={styles.loginSubtitle}>
                                     <RegularText>
                                         {i18n.t("create-account-if-you-have-an-account")}

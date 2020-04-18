@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, ScrollView, Share, StyleSheet, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, Share, StyleSheet, View} from "react-native";
 import {Header, isAndroid, ProgressBlock} from "../components/Screen";
 import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../components/Text";
 import ProgressStatus from "../components/ProgressStatus";
@@ -10,13 +10,18 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {covidIcon} from "../../assets";
 import i18n from "../locale/i18n"
 import {Linking} from "expo";
+import { CovidRating, shouldAskForRating } from "../components/CovidRating";
+import UserService from "../core/user/UserService";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>
     route: RouteProp<ScreenParamList, 'ThankYou'>;
 }
 
-export default class ThankYouScreen extends Component<RenderProps, {}> {
+export default class ThankYouScreen extends Component<RenderProps, {askForRating: boolean}> {
+    state = {
+        askForRating: false
+    };
 
     shareMessage = i18n.t("share-with-friends-message");
     shareUrl = i18n.t("share-with-friends-url");
@@ -32,45 +37,56 @@ export default class ThankYouScreen extends Component<RenderProps, {}> {
         }
     };
 
+    async componentDidMount() {
+        // Ask for rating if not asked before and server indicates eligible.
+        if (await shouldAskForRating()) {this.setState({askForRating: true})}
+    }
+
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                <View style={styles.rootContainer}>
-                    <Header>
-                        <HeaderText>{i18n.t("thank-you-title")}</HeaderText>
-                    </Header>
+            <>
+                {this.state.askForRating && <CovidRating /> }
+                <SafeAreaView>
+                    <ScrollView contentContainerStyle={styles.scrollView}>
+                    <View style={styles.rootContainer}>
+                        <Header>
+                            <HeaderText>{i18n.t("thank-you-title")}</HeaderText>
+                        </Header>
 
-                    <ProgressBlock>
-                        <ProgressStatus step={5} maxSteps={5}/>
-                    </ProgressBlock>
+                        <ProgressBlock>
+                            <ProgressStatus step={5} maxSteps={5}/>
+                        </ProgressBlock>
 
-                    <View style={styles.content}>
-                        <RegularText>{i18n.t("thank-you-body")}</RegularText>
-                    </View>
-
-                    <View style={styles.shareContainer}>
-                        <View style={styles.covidIconContainer}>
-                            <Image source={covidIcon} style={styles.covidIcon}/>
+                        <View style={styles.content}>
+                            <RegularText>{i18n.t("thank-you-body")}</RegularText>
                         </View>
-                        <RegularBoldText style={styles.share}>Please share this app</RegularBoldText>
-                        <RegularText style={styles.shareSubtitle}>
-                            The more people report their symptoms, the more we can help those at risk.
-                        </RegularText>
-                        <BrandedButton onPress={this.shareApp} style={styles.shareButton}>Share this app</BrandedButton>
+
+                        <View style={styles.shareContainer}>
+                            <View style={styles.covidIconContainer}>
+                                <Image source={covidIcon} style={styles.covidIcon}/>
+                            </View>
+                            <RegularBoldText style={styles.share}>Please share this app</RegularBoldText>
+                            <RegularText style={styles.shareSubtitle}>
+                                The more people report their symptoms, the more we can help those at risk.
+                            </RegularText>
+                            <BrandedButton onPress={this.shareApp} style={styles.shareButton}>Share this app</BrandedButton>
+                        </View>
+
+                        <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
+                            {"Please check our "}
+                            <RegularText style={styles.newsFeedClickable}>news feed</RegularText>
+                            {" for updates."}
+                        </ClickableText>
+                        <RegularText style={styles.shareSubtitle}>{i18n.t("check-in-tomorrow")}</RegularText>
+
+                        <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>Done</ClickableText>
+
                     </View>
+                </ScrollView>
+                </SafeAreaView>
 
-                    <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
-                        {"Please check our "}
-                        <RegularText style={styles.newsFeedClickable}>news feed</RegularText>
-                        {" for updates."}
-                    </ClickableText>
-                    <RegularText style={styles.shareSubtitle}>{i18n.t("check-in-tomorrow")}</RegularText>
-
-                    <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>Done</ClickableText>
-
-                </View>
-            </ScrollView>
+            </>
         )
     }
 }
@@ -145,6 +161,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         margin: 40,
         fontSize: 24,
+        color: colors.brand
     }
 
 });
