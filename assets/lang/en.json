@@ -14,6 +14,12 @@
   "create-account-something-went-wrong": "Something went wrong: %{msg}",
   "create-account-error": "Error #01. Please report this to covid-bugs@joinzoe.com: %{msg}",
 
+  "optional-info-title": "Optional contact information",
+  "optional-info-description": "Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.",
+  "optional-info-name-placeholder": "Your name",
+  "optional-info-phone-placeholder": "Phone number",
+  "optional-info-button": "Continue",
+
   "next-question": "Next question",
 
   "login-title": "Log in to\nyour account",
