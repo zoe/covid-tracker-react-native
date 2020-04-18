@@ -24,6 +24,7 @@ import UserService from "../core/user/UserService";
 import {AreaStatsResponse} from "../core/user/dto/UserAPIContracts";
 import BrandedSpinner from "../components/Spinner";
 import moment from "moment";
+import { CovidRating, shouldAskForRating } from "../components/CovidRating";
 import I18n from "i18n-js";
 
 
@@ -37,6 +38,7 @@ type State = {
     areaStats: AreaStatsResponse | null;
     loading: boolean,
     missingData: boolean,
+    askForRating: boolean,
 }
 
 export default class ViralThankYouScreen extends Component<Props, State> {
@@ -48,12 +50,15 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             areaStats: null,
             loading: true,
             missingData: false,
+            askForRating: false,
         };
     }
 
     async componentDidMount() {
         const userService = new UserService();
         const profile = await userService.getProfile();
+
+        if (await shouldAskForRating()) {this.setState({askForRating: true})}
 
         userService.getAreaStats(profile.patients[0]) // todo: multipatient
             .then(response => this.setState({
@@ -166,6 +171,8 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         );
 
         return (
+            <>
+             {this.state.askForRating && <CovidRating /> }
             <SafeAreaView>
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.rootContainer}>
@@ -274,6 +281,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 </View>
             </ScrollView>
             </SafeAreaView>
+            </>
         )
     }
 }
@@ -282,7 +290,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 const styles = StyleSheet.create({
     scrollView: {
         flexGrow: 1,
-        backgroundColor: "#E5E5E5",
+        backgroundColor: colors.backgroundFive,
         justifyContent: 'space-between'
     },
 
@@ -292,7 +300,7 @@ const styles = StyleSheet.create({
     },
 
     checkIcon: {
-        color: "#A0B406",
+        color: colors.feedbackExcellent,
         alignSelf:"center"
     },
 
@@ -349,7 +357,7 @@ const styles = StyleSheet.create({
     },
 
     estimatedCasesPercentage: {
-        backgroundColor: "#D28C90",
+        backgroundColor: colors.pink,
         width:48,
         height:28,
         borderRadius:5,
@@ -385,7 +393,7 @@ const styles = StyleSheet.create({
 
     divider: {
         height: 1,
-        backgroundColor: "#E2E2E2",
+        backgroundColor: colors.backgroundFour,
         marginVertical: 20,
     },
 
@@ -450,11 +458,11 @@ const styles = StyleSheet.create({
     },
 
     lockIcon: {
-        color:"#E5E5E5",
+        color: colors.backgroundFive,
         borderWidth: 1,
         borderRadius:22,
         padding: 5,
-        borderColor: "#E5E5E5",
+        borderColor: colors.backgroundFive,
         alignSelf:"center",
         textAlign: "center",
     },
@@ -462,7 +470,7 @@ const styles = StyleSheet.create({
 
     shareContainer: {
         marginTop:40,
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.white,
         borderRadius: 10,
     },
 

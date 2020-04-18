@@ -1,22 +1,20 @@
-import React, { Component } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from "../../components/Screen";
-import { BrandedButton, ErrorText, HeaderText, RegularText } from "../../components/Text";
-import { Form, Item, Label } from "native-base";
+import React, {Component} from "react";
+import {KeyboardAvoidingView, Platform, StyleSheet} from "react-native";
+import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
+import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
+import {Form, Item, Label} from "native-base";
 import ProgressStatus from "../../components/ProgressStatus";
-import { Formik } from "formik";
+import {Formik} from "formik";
 import * as Yup from "yup";
 import i18n from "../../locale/i18n"
-import UserService, { isGBLocale, isUSLocale } from "../../core/user/UserService";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ScreenParamList } from "../ScreenParamList";
-import { RouteProp } from "@react-navigation/native";
-import { PatientInfosRequest } from "../../core/user/dto/UserAPIContracts";
-import { CheckboxItem, CheckboxList } from "../../components/Checkbox";
-import { ValidationErrors } from "../../components/ValidationError";
-import { AsyncStorageService } from "../../core/AsyncStorageService";
-import DropdownField from "../../components/DropdownField";
-import { GenericTextField } from "../../components/GenericTextField";
+import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import {StackNavigationProp} from "@react-navigation/stack";
+import {ScreenParamList} from "../ScreenParamList";
+import {RouteProp} from "@react-navigation/native";
+import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
+import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
+import {ValidationErrors} from "../../components/ValidationError";
+import {GenericTextField} from "../../components/GenericTextField";
 
 type YourStudyProps = {
     navigation: StackNavigationProp<ScreenParamList, 'YourStudy'>
@@ -55,6 +53,7 @@ type State = {
     isAgriculturalHealth: boolean;
     isGulf: boolean;
     isAspreeXt: boolean;
+    isBwhs: boolean;
 
     errorMessage: string;
 }
@@ -77,6 +76,7 @@ const initialState: State = {
     isAgriculturalHealth: false,
     isGulf: false,
     isAspreeXt: false,
+    isBwhs: false,
 
     errorMessage: ""
 };
@@ -97,22 +97,23 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     }
 
     handleSubmit(formData: YourStudyData) {
-        const patientId = this.props.route.params.patientId;
+        const currentPatient = this.props.route.params.currentPatient
+        const patientId = currentPatient.patientId;
         const userService = new UserService();
         var infos = this.createPatientInfos(formData);
 
         userService.updatePatient(patientId, infos)
             .then(response => {
-                this.props.navigation.navigate('YourWork', {patientId: patientId})
+                this.props.navigation.navigate('YourWork', {currentPatient})
             })
             .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
-
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
 
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{isGBLocale() ? 'Population studies' : isUSLocale() ? 'Your clinical study' : ''}</HeaderText>
                 </Header>
@@ -130,7 +131,6 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                         return (
                             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
                                 <Form>
-
 
                                     {/* UK-only cohorts */}
                                     {isGBLocale() && (
@@ -181,7 +181,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                         <CheckboxItem
                                                             value={this.state.isStanfordNutritionStudy}
                                                             onChange={(value: boolean) => this.setState({isStanfordNutritionStudy: value})}
-                                                        >Stanford Nutrition Studies</CheckboxItem>
+                                                        >Stanford Nutrition Studies Group</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.isMultiEthnicCohortStudy}
                                                             onChange={(value: boolean) => this.setState({isMultiEthnicCohortStudy: value})}
@@ -215,11 +215,15 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                             value={this.state.isAspreeXt}
                                                             onChange={(value: boolean) => this.setState({isAspreeXt: value})}
                                                         >ASPREE-XT</CheckboxItem>
+                                                        <CheckboxItem
+                                                            value={this.state.isBwhs}
+                                                            onChange={(value: boolean) => this.setState({isBwhs: value})}
+                                                        >Black Women's Health Study</CheckboxItem>
                                                     </CheckboxList>
                                                 </Item>
                                             </FieldWrapper>
 
-                                                <RegularText style={styles.standaloneLabel}>If not</RegularText>
+                                            <RegularText style={styles.standaloneLabel}>If not</RegularText>
 
                                             <GenericTextField
                                                 formikProps={props}
@@ -241,7 +245,6 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                                     placeholder={'Optional'}
                                                 />
 
-
                                                 <GenericTextField
                                                     formikProps={props}
                                                     label="What is the NCT number (if you know it)?"
@@ -259,10 +262,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                                     <BrandedButton
                                         onPress={props.handleSubmit}>{i18n.t("next-question")}</BrandedButton>
-
                                 </Form>
                             </KeyboardAvoidingView>
-
                         )
                     }}
                 </Formik>
@@ -300,16 +301,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 is_in_us_agricultural_health: this.state.isAgriculturalHealth,
                 is_in_us_gulf: this.state.isGulf,
                 is_in_us_aspree_xt: this.state.isAspreeXt,
+                is_in_us_bwhs: this.state.isBwhs,
 
                 ...(formData.clinicalStudyNames && {clinical_study_names: formData.clinicalStudyNames}),
                 ...(formData.clinicalStudyContacts && {clinical_study_contacts: formData.clinicalStudyContacts}),
                 ...(formData.clinicalStudyInstitutions && {clinical_study_institutions: formData.clinicalStudyInstitutions}),
                 ...(formData.clinicalStudyNctIds && {clinical_study_nct_ids: formData.clinicalStudyNctIds}),
             }
-
-
         }
-
         return infos;
     }
 }

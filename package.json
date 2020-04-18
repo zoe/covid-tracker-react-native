@@ -40,7 +40,6 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "~1.5.0",
-    "react-native-maps": "^0.26.1",
     "react-native-progress": "^4.0.3",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
@@ -69,11 +68,17 @@
     "eslint": "^6.8.0",
     "eslint-config-universe": "^3.0.0",
     "express": "^4.17.1",
+    "husky": "^4.2.5",
     "mocha": "^7.1.0",
     "prettier": "^2.0.4",
     "redux-mock-store": "^1.5.4",
     "ts-node": "^8.6.2",
     "typescript": "~3.7.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   },
   "private": true
 }

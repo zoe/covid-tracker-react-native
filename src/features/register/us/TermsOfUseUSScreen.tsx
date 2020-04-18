@@ -1,16 +1,14 @@
 import {StackNavigationProp} from "@react-navigation/stack";
 import React, {Component} from "react";
-import {Linking, ScrollView, StyleSheet, View} from "react-native";
+import {ScrollView, StyleSheet, View} from "react-native";
 import {colors} from "../../../../theme";
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
 import {ScreenParamList} from "../../ScreenParamList";
+import {RouteProp} from "@react-navigation/native";
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'Terms'>
-}
-interface TermsState {
-    processingChecked: boolean,
-    termsOfUseChecked: boolean
+    navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>
+    route: RouteProp<ScreenParamList, 'TermsOfUseUS'>;
 }
 
 const styles = StyleSheet.create({
@@ -28,14 +26,12 @@ const styles = StyleSheet.create({
 });
 
 
-export default class TermsOfUseScreen extends Component<PropsType, TermsState> {
+export default class TermsOfUseUSScreen extends Component<PropsType> {
     constructor(props: PropsType) {
         super(props);
-        this.state = {
-            processingChecked: false,
-            termsOfUseChecked: false,
-        }
     }
+
+    viewOnly = this.props.route.params.viewOnly;
 
     render() {
         return (
@@ -52,7 +48,7 @@ export default class TermsOfUseScreen extends Component<PropsType, TermsState> {
 
                             These Terms of Use (the “Terms”) are a binding contract between you and us. Your use of the Services in any way means that you agree to all of these Terms, and these Terms will remain in effect while you use the Services. These Terms include the provisions in this document as well as those in our
                             {" "}
-                        <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}>Privacy Policy.</ClickableText>
+                        <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: this.viewOnly})}>Privacy Policy.</ClickableText>
                         {"\n"}
                     </RegularText>
 
@@ -118,8 +114,7 @@ export default class TermsOfUseScreen extends Component<PropsType, TermsState> {
                             THE SERVICES SHOULD NEVER BE USED AS A SUBSTITUTE FOR EMERGENCY CARE. IF YOU HAVE A MEDICAL OR MENTAL HEALTH EMERGENCY, ARE THINKING ABOUT SUICIDE OR TAKING ACTIONS THAT MAY CAUSE HARM TO YOU OR TO OTHERS, YOU SHOULD SEEK EMERGENCY TREATMENT AT THE NEAREST EMERGENCY ROOM OR DIAL 911.
                             {"\n\n"}
                             You will only use the Services for your own internal, personal, non-commercial use, and not on behalf of or for the benefit of any third party, and only in a manner that complies with all laws that apply to you. If your use of the Services is prohibited by applicable laws, then you aren’t authorized to use the Services. We can’t and won’t be responsible for your using the Services in a way that breaks the law.
-                        </RegularText>
-
+                    </RegularText>
 
                     <RegularBoldText>
                         {"\n"}
@@ -135,7 +130,6 @@ export default class TermsOfUseScreen extends Component<PropsType, TermsState> {
                             Will Zoe ever change the Services?
                             {"\n"}
                     </RegularBoldText>
-
 
                     <RegularText>
                         We’re always trying to improve our Services, so they may change over time. We may suspend or discontinue any part of the Services, or we may introduce new features or impose limits on certain features or restrict access to parts or all of the Services.
@@ -159,7 +153,6 @@ export default class TermsOfUseScreen extends Component<PropsType, TermsState> {
                             {"\n"}
                     </RegularBoldText>
 
-
                     <RegularText>
                         You acknowledge and agree that the availability of our mobile application is dependent on the third party stores from which you download the application, e.g., the App Store from Apple or the Android app market from Google (each an “App Store”). Each App Store may have its own terms and conditions to which you must agree before downloading mobile applications from such store, including the specific terms relating to Apple App Store set forth below. You agree to comply with, and your license to use our application is conditioned upon your compliance with, such App Store terms and conditions. To the extent such other terms and conditions from such App Store are less restrictive than, or otherwise conflict with, the terms and conditions of these Terms of Use, the more restrictive or conflicting terms and conditions in these Terms of Use apply.
                         </RegularText>
@@ -169,6 +162,7 @@ export default class TermsOfUseScreen extends Component<PropsType, TermsState> {
                             I use the Zoe App available via the Apple App Store – should I know anything about that?
                             {"\n"}
                     </RegularBoldText>
+
                     <RegularText>
 
                         A. Both you and Zoe acknowledge that the Terms are concluded between you and Zoe only, and not with Apple, and that Apple is not responsible for the Application;
@@ -240,21 +234,13 @@ Miscellaneous.
                             {"\n"}
 Except as expressly set forth in the sections above regarding the Apple Application and the arbitration agreement, you and Zoe agree there are no third-party beneficiaries intended under these Terms.
 
-
-
-
-
                         </RegularText>
                 </ScrollView>
 
-                <BrandedButton style={styles.button} onPress={() => this.props.navigation.replace('Terms')}>BACK</BrandedButton>
-
+                <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
 
             </View>
         )
     }
 
-    private openUrl(link: string) {
-        Linking.openURL(link);
-    }
 }
