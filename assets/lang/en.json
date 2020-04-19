@@ -16,7 +16,33 @@
     "error": "Error #01. Please report this to covid-bugs@joinzoe.com: %{msg}"
   },
 
-  "optional-info" : {
+  "login": {
+    "title": "Log in to\nyour account",
+    "email-label": "Email",
+    "password-label": "Password",
+    "dont-have-account": "Don't have an account?",
+    "create-account": "Create account",
+    "forgot-your-password": "Forgot your password?",
+    "button": "Log in",
+    "user-not-found-exception": "We couldn't identify you. Please try again.",
+    "exception": "Unable to log in. Please try again."
+  },
+
+  "reset-password": {
+    "title": "Enter your email and we’ll send you a link to reset your password",
+    "email-label": "Email",
+    "email-error": "Please enter a valid email",
+    "button": "Reset password",
+    "error": "Error #02. Please report this to covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "reset-password-confirm": {
+    "title": "Check your email",
+    "text": "We've sent you a password reset link.",
+    "button": "Back"
+  },
+
+  "optional-info": {
     "title": "Optional contact information",
     "description": "Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.",
     "name-placeholder": "Your name",
@@ -63,17 +89,6 @@
 
 
   "next-question": "Next question",
-
-  "login-title": "Log in to\nyour account",
-  "login-label": "Email",
-  "password": "Password",
-  "forgot-password": "Forgot password?",
-  "log-in": "Log in",
-  "dont-have-account": "Don't have an account?",
-  "login-create-account": "Create account",
-  "user-not-found-exception": "We couldn't identify you. Please try again.",
-  "login-exception": "Unable to log in. Please try again.",
-
   "something-went-wrong": "Something went wrong, please try again later",
   "choose-one-of-these-options": "Choose one of the options",
 
