@@ -128,16 +128,16 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                                 <View>
 
                                     <View>
-                                        <HeaderText style={{marginBottom: 24}}>{i18n.t("optional-info-title")}</HeaderText>
+                                        <HeaderText style={{marginBottom: 24}}>{i18n.t("optional-info.title")}</HeaderText>
 
                                         <RegularText>
-                                            {i18n.t("optional-info-description")}
+                                            {i18n.t("optional-info.description")}
                                         </RegularText>
 
                                         <Form>
 
                                             <ValidatedTextInput
-                                                placeholder={i18n.t("optional-info-name-placeholder")}
+                                                placeholder={i18n.t("optional-info.name-placeholder")}
                                                 value={props.values.name}
                                                 onChangeText={props.handleChange("name")}
                                                 onBlur={props.handleBlur("name")}
@@ -150,7 +150,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
                                             <ValidatedTextInput
                                                 ref={(input) => this.phoneComponent = input}
-                                                placeholder={i18n.t("optional-info-phone-placeholder")}
+                                                placeholder={i18n.t("optional-info.phone-placeholder")}
                                                 value={props.values.phone}
                                                 onChangeText={props.handleChange("phone")}
                                                 onBlur={props.handleBlur("phone")}
@@ -166,7 +166,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
                                     </View>
 
                                     <View>
-                                        <BrandedButton onPress={props.handleSubmit}>{i18n.t("optional-info-button")}</BrandedButton>
+                                        <BrandedButton onPress={props.handleSubmit}>{i18n.t("optional-info.button")}</BrandedButton>
                                     </View>
                                 </View>
                             );

@@ -48,22 +48,24 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
                     <View style={styles.covidContainer}>
                         <View style={styles.headerRow}>
                             <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
-                            <Text style={styles.appName}>COVID Symptom Tracker</Text>
+                            <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
                                 <Image style={styles.flagIcon} source={flagIcon()}/>
                             </TouchableOpacity>
 
                             <View style={styles.loginContainer}>
-                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
+                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("welcome.sign-in")}</ClickableText>
                             </View>
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and help fight the outbreak.
+                                {i18n.t("welcome.take-a-minute")}
                             </RegularText>
                             <ContributionCounter variant={1} count={this.state.userCount}/>
-                            <RegularText style={styles.subheader}>{"\n"}This app allows you to help others, but does {"\n"} not give health advice. If you need health {"\n"} advice please{" "}
-                                <ClickableText style={[styles.subheader, styles.nhsWebsite]} onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>visit the NHS website</ClickableText>.
+                            <RegularText style={styles.subheader}>{"\n"}{i18n.t("welcome.disclaimer")}{" "}
+                                <ClickableText style={[styles.subheader, styles.nhsWebsite]} onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>
+                                    {i18n.t("welcome.disclaimer-link")}
+                                </ClickableText>.
                                 {"\n"}{"\n"}
                             </RegularText>
                         </View>
@@ -84,11 +86,11 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
                                 this.props.navigation.navigate('Consent', {viewOnly: false})
                             }
                         }}>
-                            {i18n.t("create-account-btn")}
+                            {i18n.t("create-account.btn")}
                         </BrandedButton>
                         <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
-                            {"For more info "}
-                            <RegularText style={styles.moreInfoHighlight}>visit our website</RegularText>
+                            {i18n.t("welcome.more-info")}
+                            <RegularText style={styles.moreInfoHighlight}>{i18n.t("welcome.more-info-link")}</RegularText>
                         </ClickableText>
                     </View>
                 </View>

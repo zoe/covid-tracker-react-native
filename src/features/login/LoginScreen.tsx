@@ -85,9 +85,9 @@ export class LoginScreen extends Component<PropsType, StateType> {
     render() {
         const registerStartLink = isUSLocale() ?
             (
-                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account")}</ClickableText>
+                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("login-create-account")}</ClickableText>
             ) : (
-                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("create-account")}</ClickableText>
+                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("login-create-account")}</ClickableText>
             )
 
         return (

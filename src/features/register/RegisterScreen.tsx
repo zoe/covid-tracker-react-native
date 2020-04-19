@@ -57,19 +57,19 @@ export class RegisterScreen extends Component<PropsType, State> {
                     // TODO - These error messages are misleading and we could display what the server sends back
                     if (err.response?.status === 500) {
                         this.setState({
-                            errorMessage: i18n.t("create-account-already-registered"),
+                            errorMessage: i18n.t("create-account.already-registered"),
                             accountExists: true,
                             enableSubmit: false,
                         });
                     } else if (err.response?.status === 400) {
                         this.setState({
-                            errorMessage: i18n.t("create-account-password-too-simple"),
+                            errorMessage: i18n.t("create-account.password-too-simple"),
                             enableSubmit: true,
                             accountExists: false,
                         });
                     } else {
                         this.setState({
-                            errorMessage: i18n.t("create-account-something-went-wrong", {msg: err.response?.status}),
+                            errorMessage: i18n.t("create-account.something-went-wrong", {msg: err.response?.status}),
                             enableSubmit: true,
                             accountExists: false,
                         });
@@ -77,7 +77,7 @@ export class RegisterScreen extends Component<PropsType, State> {
                 })
                 // do nothing for now but find a way to report it somewhere?
                 .catch((err: Error) => {
-                    this.setState({errorMessage: i18n.t("create-account-error", {msg: err.message})});
+                    this.setState({errorMessage: i18n.t("create-account.error", {msg: err.message})});
                     this.setState({enableSubmit: true});
                 });
         }
@@ -89,11 +89,11 @@ export class RegisterScreen extends Component<PropsType, State> {
 
     registerSchema = Yup.object().shape({
         email: Yup.string()
-            .required(i18n.t("create-account-email-required"))
-            .email(i18n.t("create-account-email-error")),
+            .required(i18n.t("create-account.email-required"))
+            .email(i18n.t("create-account.email-error")),
         password: Yup.string()
-            .required(i18n.t("create-account-password-required"))
-            .min(8, i18n.t("create-account-password-too-simple")) // todo: complicated enough...
+            .required(i18n.t("create-account.password-required"))
+            .min(8, i18n.t("create-account.password-too-simple")) // todo: complicated enough...
     });
 
     /*   .matches(
@@ -115,12 +115,12 @@ export class RegisterScreen extends Component<PropsType, State> {
                                 <View>
 
                                     <View style={styles.loginHeader}>
-                                        <HeaderLightText>{i18n.t("create-account-title")}</HeaderLightText>
+                                        <HeaderLightText>{i18n.t("create-account.title")}</HeaderLightText>
                                         <View style={styles.loginSubtitle}>
                                             <RegularText>
-                                                {i18n.t("create-account-if-you-have-an-account")}
+                                                {i18n.t("create-account.if-you-have-an-account")}
                                                 {" "}
-                                                <ClickableText onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("create-account-login")}</ClickableText>
+                                                <ClickableText onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("create-account.login")}</ClickableText>
                                             </RegularText>
                                         </View>
                                     </View>
@@ -128,12 +128,12 @@ export class RegisterScreen extends Component<PropsType, State> {
                                     <Form style={styles.form}>
                                         <View style={styles.formItem}>
                                             <Field>
-                                                <Label style={styles.labelStyle}>{i18n.t("create-account-email")}</Label>
+                                                <Label style={styles.labelStyle}>{i18n.t("create-account.email")}</Label>
                                                 <ValidatedTextInput
                                                     keyboardType="email-address"
                                                     autoCapitalize="none"
                                                     autoCompleteType="email"
-                                                    placeholder={i18n.t("create-account-email")}
+                                                    placeholder={i18n.t("create-account.email")}
                                                     value={props.values.email}
                                                     onChangeText={text => {
                                                         this.setState({enableSubmit: true});
@@ -153,18 +153,18 @@ export class RegisterScreen extends Component<PropsType, State> {
                                                 <FieldError>{props.errors.email}</FieldError>
                                                 }
                                                 {this.state.accountExists && (
-                                                    <FieldError>{i18n.t("create-account-already-registered")}</FieldError>
+                                                    <FieldError>{i18n.t("create-account.already-registered")}</FieldError>
                                                 )}
                                             </Field>
                                         </View>
 
                                         <View style={styles.formItem}>
                                             <Field>
-                                                <Label style={styles.labelStyle}>{i18n.t("create-account-password")}</Label>
+                                                <Label style={styles.labelStyle}>{i18n.t("create-account.password")}</Label>
                                                 <ValidatedTextInput
                                                     ref={(input) => this.passwordComponent = input}
                                                     secureTextEntry
-                                                    placeholder={i18n.t("create-account-password")}
+                                                    placeholder={i18n.t("create-account.password")}
                                                     returnKeyType="go"
                                                     value={props.values.password}
                                                     onChangeText={props.handleChange("password")}
@@ -183,9 +183,9 @@ export class RegisterScreen extends Component<PropsType, State> {
                                     {this.state.accountExists && (
                                         <View style={styles.nextAction}>
                                             <RegularText style={{textAlign: "center"}}>
-                                                <ClickableText onPress={this.gotoLogin}>{i18n.t("create-account-login")}</ClickableText>
+                                                <ClickableText onPress={this.gotoLogin}>{i18n.t("create-account.login")}</ClickableText>
                                                 {" "}
-                                                {i18n.t("create-account-existing-account")}
+                                                {i18n.t("create-account.existing-account")}
                                             </RegularText>
                                         </View>
                                     )}
@@ -200,7 +200,7 @@ export class RegisterScreen extends Component<PropsType, State> {
                                         <BrandedButton
                                             onPress={props.handleSubmit}
                                             enable={this.state.enableSubmit}
-                                        >{i18n.t("create-account-btn")}</BrandedButton>
+                                        >{i18n.t("create-account.btn")}</BrandedButton>
                                     </View>
                                 </View>
                             </KeyboardAvoidingView>
