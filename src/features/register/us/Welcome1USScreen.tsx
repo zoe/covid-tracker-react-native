@@ -65,7 +65,7 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                     </ScrollView>
 
                     <View style={styles.nextButtonContainer}>
-                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>Tell me more</BrandedButton>
+                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
                     </View>
 
                 </SafeAreaView>
