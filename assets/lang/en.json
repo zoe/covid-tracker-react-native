@@ -257,11 +257,13 @@
     "picker-health-status-not-healthy": "I'm not feeling quite right"
   },
 
-  "level-of-isolation-question-level-of-isolation": "How much have you been isolating over the last week?",
-  "level-of-isolation-picker-not-left-the-house": "I have not left the house",
-  "level-of-isolation-picker-rarely-left-the-house": "I rarely leave the house and when I do, I have little interaction with others (eg for exercise)",
-  "level-of-isolation-picker-rarely-left-the-house-but-visited-lots": "I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries)",
-  "level-of-isolation-picker-often-left-the-house": "I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)",
+  "level-of-isolation": {
+    "question-level-of-isolation": "How much have you been isolating over the last week?",
+    "picker-not-left-the-house": "I have not left the house",
+    "picker-rarely-left-the-house": "I rarely leave the house and when I do, I have little interaction with others (eg for exercise)",
+    "picker-rarely-left-the-house-but-visited-lots": "I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries)",
+    "picker-often-left-the-house": "I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)"
+  },
 
   "treatment-other-title-after": "What treatment did you receive while in the hospital?",
   "treatment-other-title-during": "What treatment are you receiving in hospital?",
