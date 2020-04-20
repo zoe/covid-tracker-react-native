@@ -204,11 +204,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         sex: Yup.string().required(i18n.t("required-sex-at-birth")),
         genderIdentity: Yup.string()
             .required(i18n.t("required-gender-identity"))
-            .test('len', 'Maximum 30 characters', val => (val && val.length < 30) || !val),
+            .test('len', i18n.t("error-gender-identity-length"), val => (val && val.length < 30) || !val),
         heightUnit: Yup.string().required(),
         height: Yup.number().when('heightUnit', {
             is: 'cm',
-            then: Yup.number().required("Please enter your height in centimeters as a number")
+            then: Yup.number().required(i18n.t("required-height-in-cm"))
         }),
         feet: Yup.number().when('heightUnit', {
             is: 'ft',
@@ -216,13 +216,13 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         }),
         inches: Yup.number().when('heightUnit', {
             is: 'ft',
-            then: Yup.number().required("Please enter your height in feet & inches")
+            then: Yup.number().required(i18n.t("required-height-in-ft-in"))
         }),
 
         weightUnit: Yup.string().required(),
         weight: Yup.number().when('weightUnit', {
             is: 'kg',
-            then: Yup.number().required("Please enter your weight in kilograms")
+            then: Yup.number().required(i18n.t("required-weight-in-kg"))
         }),
         stones: Yup.number().when('weightUnit', {
             is: 'lbs',
@@ -230,14 +230,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         }),
         pounds: Yup.number().when('weightUnit', {
             is: 'lbs',
-            then: Yup.number().required("Please enter your weight in pounds")
+            then: Yup.number().required(i18n.t("required-weight-in-lb"))
         }),
 
         postcode: Yup.string()
             .required(i18n.t("required-postcode"))
             .max(8, i18n.t("postcode-too-long")),
 
-        everExposed: Yup.string().required("Please indicate if you've been exposed to someone with COVID-19 infection"),
+        everExposed: Yup.string().required(i18n.t("required-ever-exposed")),
         houseboundProblems: Yup.string().required(),
         needsHelp: Yup.string().required(),
         helpAvailable: Yup.string().required(),
@@ -257,21 +257,21 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const sexAtBirthItems = [
-            {label: 'Choose one of the options', value: ''},
+            {label: i18n.t("choose-one-of-these-options"), value: ''},
             {label: i18n.t("sex-at-birth-male"), value: 'male'},
             {label: i18n.t("sex-at-birth-female"), value: 'female'},
             {label: i18n.t("sex-at-birth-intersex"), value: 'intersex'},
             {label: i18n.t("sex-at-birth-pfnts"), value: 'pfnts'},
         ];
         const genderIdentityItems = [
-            {label: 'Choose one of the options', value: ''},
+            {label: i18n.t("choose-one-of-these-options"), value: ''},
             {label: i18n.t("gender-identity-male"), value: 'male'},
             {label: i18n.t("gender-identity-female"), value: 'female'},
             {label: i18n.t("gender-identity-pfnts"), value: 'pfnts'},
             {label: i18n.t("gender-identity-other"), value: 'other'},
         ];
         const everExposedItems = [
-            {label: 'Choose one of the options', value: ''},
+            {label: i18n.t("choose-one-of-these-options"), value: ''},
             {label: i18n.t("exposed-yes-documented"), value: 'yes_documented'},
             {label: i18n.t("exposed-yes-undocumented"), value: 'yes_suspected'},
             {label: i18n.t("exposed-both"), value: 'yes_documented_suspected'},

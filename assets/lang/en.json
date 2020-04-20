@@ -93,6 +93,16 @@
   "something-went-wrong": "Something went wrong, please try again later",
   "choose-one-of-these-options": "Choose one of the options",
 
+  "your-work": {
+    "worked-hospital-inpatient": "Hospital inpatient",
+    "worked-hospital-outpatient": "Hospital outpatient",
+    "worked-clinic-outside-hospital": "Clinic outside a hospital",
+    "worked-nursing-home": "Nursing home/elderly care or group care facility",
+    "worked-home-health": "Home health",
+    "worked-school-clinic": "School clinic",
+    "worked-other-facility": "Other health care facility"
+  },
+
   "title-about-work": "About your work",
   "label-cohort": "Are you part of one of these population studies or organisations?",
 
@@ -139,6 +149,7 @@
   "placeholder-gender-identity": "Your gender identity",
   "required-gender-identity": "Please indicate the gender you most identify with",
   "gender-identity-other": "Other, please specify",
+  "error-gender-identity-length": "Maximum 30 characters",
 
   "your-height": "Your height",
   "placeholder-height": "Height",
@@ -147,11 +158,15 @@
   "placeholder-height-unit": "Height Units",
   "picker-feet": "ft",
   "picker-cm": "cm",
+  "required-height-in-cm": "Please enter your height in centimeters as a number",
+  "required-height-in-ft-in": "Please enter your height in feet & inches",
 
   "your-weight": "Your weight",
   "placeholder-weight": "Weight",
   "placeholder-stones": "Stones",
   "placeholder-pounds": "Pounds",
+  "required-weight-in-kg": "Please enter your weight in kilograms",
+  "required-weight-in-lb": "Please enter your weight in pounds",
 
   "placeholder-weight-unit": "Weight units",
   "picker-pounds": "lbs",
@@ -169,6 +184,7 @@
   "placeholder-optional-question": "*Optional",
 
   "previous-exposure-title": "Previous exposure to COVID",
+  "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
   "label-unwell-month-before": "Have you felt unwell in the month before you started reporting on this app?",
   "label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
   "label-past-symptoms-still-have": "Are you still experiencing symptoms?",
@@ -193,6 +209,30 @@
   "past-symptom-changed-same": "The same",
   "past-symptom-changed-little-worse": "A little worse",
   "past-symptom-changed-much-worse": "Much worse",
+
+  "your-health": {
+    "page-title": "About your health",
+    "health-problems-that-limit-activity": "In general, do you have any health problems that require you to limit your activities?",
+    "are-you-pregnant": "Are you pregnant?",
+    "have-heart-disease": "Do you have heart disease?",
+    "have-diabetes": "Do you have diabetes?",
+    "have-lung-disease": "Do you have lung disease or asthma?",
+    "is-smoker": "Do you smoke?",
+    "never-smoked": "Never",
+    "not-currently-smoking": "Not currently",
+    "yes-smoking": "Yes",
+    "years-since-last-smoked": "How many years since you last smoked?",
+    "has-kidney-disease": "Do you have kidney disease?",
+    "has-cancer": "Are you living with cancer?",
+    "what-cancer-type": "What type of cancer do you have?",
+    "is-on-chemotherapy": "Are you on chemotherapy or immunotherapy for cancer?",
+    "takes-immunosuppressant": "Do you regularly take immunosuppressant medications (including steroids, methotrexate, biologic agents)?",
+    "takes-asprin": "Do you regularly take aspirin (baby aspirin or standard dose)?",
+    "takes-nsaids": "Do you regularly take \"NSAIDs\" like ibuprofen, nurofen, diclofenac, naproxen?",
+    "takes-any-blood-pressure-medication": "Are you regularly taking any blood pressure medications?",
+    "takes-pril-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-pril\", such as enalapril, lisinopril, captopril, ramipril?",
+    "takes-sartan-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"
+  },
 
   "covid-test": {
     "page-title": "COVID-19 status",

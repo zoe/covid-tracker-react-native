@@ -201,14 +201,14 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const smokerStatusItems = [
-            {label: 'Never', value: 'never'},
-            {label: 'Not currently', value: 'not_currently'},
-            {label: 'Yes', value: 'yes'},
+            {label: i18n.t("your-health.never-smoked"), value: 'never'},
+            {label: i18n.t("your-health.not-currently-smoking"), value: 'not_currently'},
+            {label: i18n.t("your-health.yes-smoking"), value: 'yes'},
         ]
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>About your health</HeaderText>
+                    <HeaderText>{i18n.t("your-health.page-title")}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -230,7 +230,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.limitedActivity}
                                         onValueChange={props.handleChange("limitedActivity")}
-                                        label="In general, do you have any health problems that require you to limit your activities?"
+                                        label={i18n.t("your-health.health-problems-that-limit-activity")}
                                     />
 
                                     <Divider/>
@@ -240,7 +240,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                             <DropdownField
                                                 selectedValue={props.values.isPregnant}
                                                 onValueChange={props.handleChange("isPregnant")}
-                                                label="Are you pregnant?"
+                                                label={i18n.t("your-health.are-you-pregnant")}
                                             />
                                             <Divider/>
                                         </>
@@ -249,13 +249,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.hasHeartDisease}
                                         onValueChange={props.handleChange("hasHeartDisease")}
-                                        label="Do you have heart disease?"
+                                        label={i18n.t("your-health.have-heart-disease")}
                                     />
 
                                     <DropdownField
                                         selectedValue={props.values.hasDiabetes}
                                         onValueChange={props.handleChange("hasDiabetes")}
-                                        label="Do you have diabetes?"
+                                        label={i18n.t("your-health.have-diabetes")}
                                     />
 
                                     <Divider/>
@@ -263,13 +263,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.hasLungDisease}
                                         onValueChange={props.handleChange("hasLungDisease")}
-                                        label="Do you have lung disease or asthma?"
+                                        label={i18n.t("your-health.have-lung-disease")}
                                     />
 
                                     <DropdownField
                                         selectedValue={props.values.smokerStatus}
                                         onValueChange={props.handleChange("smokerStatus")}
-                                        label="Do you smoke?"
+                                        label={i18n.t("your-health.is-smoker")}
                                         items={smokerStatusItems}
                                         error={props.touched.smokerStatus && props.errors.smokerStatus}
                                     />
@@ -277,7 +277,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     {props.values.smokerStatus === 'not_currently' && (
                                         <GenericTextField
                                             formikProps={props}
-                                            label="How many years since you last smoked?"
+                                            label={i18n.t("your-health.years-since-last-smoked")}
                                             name="smokedYearsAgo"
                                             keyboardType="numeric"
                                         />
@@ -288,7 +288,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.hasKidneyDisease}
                                         onValueChange={props.handleChange("hasKidneyDisease")}
-                                        label="Do you have kidney disease?"
+                                        label={i18n.t("your-health.has-kidney-disease")}
                                     />
 
                                     <Divider/>
@@ -296,7 +296,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.hasCancer}
                                         onValueChange={props.handleChange("hasCancer")}
-                                        label="Are you living with cancer?"
+                                        label={i18n.t("your-health.has-cancer")}
                                     />
 
                                     {props.values.hasCancer === 'yes' && (
@@ -305,7 +305,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                                 <>
                                                     <GenericTextField
                                                         formikProps={props}
-                                                        label="What type of cancer do you have?"
+                                                        label={i18n.t("your-health.what-cancer-type")}
                                                         name="cancerType"
                                                     />
 
@@ -314,7 +314,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                             <DropdownField
                                                 selectedValue={props.values.doesChemiotherapy}
                                                 onValueChange={props.handleChange("doesChemiotherapy")}
-                                                label="Are you on chemotherapy or immunotherapy for cancer?"
+                                                label={i18n.t("your-health.is-on-chemotherapy")}
                                             />
                                         </>
                                     )}
@@ -322,25 +322,25 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.takesImmunosuppressants}
                                         onValueChange={props.handleChange("takesImmunosuppressants")}
-                                        label="Do you regularly take immunosuppressant medications (including steroids, methotrexate, biologic agents)?"
+                                        label={i18n.t("your-health.takes-immunosuppressant")}
                                     />
 
                                     <DropdownField
                                         selectedValue={props.values.takesAspirin}
                                         onValueChange={props.handleChange("takesAspirin")}
-                                        label="Do you regularly take aspirin (baby aspirin or standard dose)?"
+                                        label={i18n.t("your-health.takes-asprin")}
                                     />
 
                                     <DropdownField
                                         selectedValue={props.values.takesCorticosteroids}
                                         onValueChange={props.handleChange("takesCorticosteroids")}
-                                        label={"Do you regularly take \"NSAIDs\" like ibuprofen, nurofen, diclofenac, naproxen?"}
+                                        label={i18n.t("your-health.takes-nsaids")}
                                     />
 
                                     <DropdownField
                                         selectedValue={props.values.takesAnyBloodPressureMedications}
                                         onValueChange={props.handleChange("takesAnyBloodPressureMedications")}
-                                        label={"Are you regularly taking any blood pressure medications?"}
+                                        label={i18n.t("your-health.takes-any-blood-pressure-medication")}
                                     />
 
                                     {props.values.takesAnyBloodPressureMedications === 'yes' && (
@@ -348,13 +348,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                                             <DropdownField
                                                 selectedValue={props.values.takesBloodPressureMedications}
                                                 onValueChange={props.handleChange("takesBloodPressureMedications")}
-                                                label={"Are you regularly taking blood pressure medications ending in \"-pril\", such as enalapril, lisinopril, captopril, ramipril?"}
+                                                label={i18n.t("your-health.takes-pril-blood-pressure-medication")}
                                             />
 
                                             <DropdownField
                                                 selectedValue={props.values.takesBloodPressureMedicationsSartan}
                                                 onValueChange={props.handleChange("takesBloodPressureMedicationsSartan")}
-                                                label={"Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"}
+                                                label={i18n.t("your-health.takes-sartan-blood-pressure-medication")}
                                             />
                                         </>
                                     )}
