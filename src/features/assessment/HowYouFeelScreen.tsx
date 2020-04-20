@@ -65,7 +65,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>{i18n.t('how-you-feel-question-health-status')}</HeaderText>
+                    <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -77,13 +77,13 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleFeelNormal}>
-                            <Text>{i18n.t("how-you-feel-picker-health-status-healthy")}</Text>
+                            <Text>{i18n.t("how-you-feel.picker-health-status-healthy")}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleHaveSymptoms}>
-                            <Text>{i18n.t("how-you-feel-picker-health-status-not-healthy")}</Text>
+                            <Text>{i18n.t("how-you-feel.picker-health-status-not-healthy")}</Text>
                         </BigButton>
                     </FieldWrapper>
 

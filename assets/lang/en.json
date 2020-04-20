@@ -198,7 +198,7 @@
     "question-has-covid-test": "Have you had a test for COVID-19?",
     "question-has-covid-positive": "Did you test positive for COVID-19?",
     "picker-waiting": "Waiting for results",
-    "question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+    "question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?"
   },
 
   "describe-symptoms": {
@@ -251,9 +251,11 @@
   "health-worker-exposure-picker-ppe-never-not-needed": "I haven't needed PPE",
   "health-worker-exposure-picker-ppe-never-not-available": "I needed PPE, but it was not available",
 
-  "how-you-feel-question-health-status": "How do you feel physically right now?",
-  "how-you-feel-picker-health-status-healthy": "I feel physically normal",
-  "how-you-feel-picker-health-status-not-healthy": "I'm not feeling quite right",
+  "how-you-feel": {
+    "question-health-status": "How do you feel physically right now?",
+    "picker-health-status-healthy": "I feel physically normal",
+    "picker-health-status-not-healthy": "I'm not feeling quite right"
+  },
 
   "level-of-isolation-question-level-of-isolation": "How much have you been isolating over the last week?",
   "level-of-isolation-picker-not-left-the-house": "I have not left the house",
