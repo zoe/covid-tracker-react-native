@@ -24,6 +24,7 @@ type StateType = {
 
 const US_CODE = 'en-US';
 const GB_CODE = 'en-GB';
+const SV_CODE = 'sv-SE';
 
 export default class CountryIpModal extends Component<PropsType, StateType> {
     userService = new UserService();
@@ -44,7 +45,9 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
         const {isModalVisible} = this.props;
         const items = [
             {label: i18n.t('united-states'), value: US_CODE},
-            {label: i18n.t('united-kingdom'), value: GB_CODE}
+            {label: i18n.t('united-kingdom'), value: GB_CODE},
+            {label: i18n.t('sweden'), value: SV_CODE}
+
         ];
 
         if (isAndroid) {

@@ -329,7 +329,16 @@ export default class UserService extends ApiClientBase {
         if (await AsyncStorageService.getAskedCountryConfirmation()) {
             return false
         } else {
-            return UserService.userCountry != UserService.ipCountry
+            const locale = () => {
+                // ipCountry comes back as a 2 letter country code. We convert it to a locale here and then compare.
+                if (UserService.ipCountry == 'US' || UserService.ipCountry == 'GB') {
+                    return 'en-' + UserService.ipCountry
+                } else {
+                    return UserService.ipCountry
+                }
+            };
+
+            return UserService.userCountry != locale()
         }
     }
 

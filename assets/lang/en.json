@@ -444,5 +444,5 @@
   "profile-name-too-long": "Enter a profile name with less that 32 characters",
 
   "total-people-contributing": "%{total} people contributing",
-  "join-total-people-contributing": "Join %{total} people contributing"
+  "join-total-people-contributing": "Join %{total} people contributing",
 }
