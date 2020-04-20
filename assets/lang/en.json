@@ -193,11 +193,13 @@
   "past-symptom-changed-little-worse": "A little worse",
   "past-symptom-changed-much-worse": "Much worse",
 
-  "title-covid-19-status": "COVID-19 status",
-  "covid-test-question-has-covid-test": "Have you had a test for COVID-19?",
-  "covid-test-question-has-covid-positive": "Did you test positive for COVID-19?",
-  "covid-test-picker-waiting": "Waiting for results",
-  "covid-test-question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+  "covid-test": {
+    "page-title": "COVID-19 status",
+    "question-has-covid-test": "Have you had a test for COVID-19?",
+    "question-has-covid-positive": "Did you test positive for COVID-19?",
+    "picker-waiting": "Waiting for results",
+    "question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+  },
 
   "describe-symptoms": {
     "page-title": "Describe the symptoms you are experiencing right now.",
