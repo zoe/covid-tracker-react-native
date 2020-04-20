@@ -7,6 +7,7 @@ import {ScreenParamList} from "../../ScreenParamList";
 import {ukFlagSmall, usFlagSmall, usMap} from "../../../../assets";
 import UserService, {isUSLocale} from "../../../core/user/UserService";
 import {ContributionCounter} from "../../../components/ContributionCounter";
+import i18n from "../../../locale/i18n";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -53,7 +54,7 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                                 <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
                                 
                                 <RegularText style={styles.subtitle}>
-                                    Take 1 minute each day and help fight the outbreak in your community.
+                                     {i18n.t("welcome.take-a-minute")}
                                 </RegularText>
                                 <View style={styles.contributors}>
                                     <ContributionCounter variant={1} count={this.state.userCount}/>
@@ -64,7 +65,7 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                     </ScrollView>
 
                     <View style={styles.nextButtonContainer}>
-                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>Tell me more</BrandedButton>
+                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
                     </View>
 
                 </SafeAreaView>
@@ -87,37 +88,30 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.brand,
     },
-
     nextButtonContainer: {
         padding: 20,
         paddingBottom: 30,
     },
-
     nextButton: {
         backgroundColor: colors.purple,
         fontSize: 16,
     },
-
     headerRow: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
     },
-
-
     covidContainer: {
         paddingHorizontal: 14,
         paddingBottom: 14,
         paddingTop: 14
     },
-
     usMap: {
         height: 200,
         width: '100%',
         resizeMode: 'contain',
         alignSelf: "center",
     },
-
     subtitle: {
         color: colors.white,
         fontSize: 32,
@@ -127,12 +121,10 @@ const styles = StyleSheet.create({
         marginTop: 15,
         fontWeight: "300",
     },
-
     flagIcon: {
         height: 32,
         width: 32
     },
-
     contributors: {
         marginTop: 40,
         marginHorizontal: 10

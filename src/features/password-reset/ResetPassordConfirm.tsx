@@ -3,6 +3,8 @@ import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from "react-native
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {BrandedButton, HeaderText, RegularText} from "../../components/Text";
+import i18n from "../../locale/i18n";
+import {colors} from "../../../theme";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'ResetPasswordConfirm'>
@@ -22,15 +24,20 @@ export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
         return (
 
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View>
+                <View style={styles.rootContainer}>
                     <View style={styles.formItem}>
-                        <HeaderText style={{paddingTop: 32}}>Check your email</HeaderText>
-                        <RegularText style={{paddingTop: 24}}>We've sent you a password reset link.</RegularText>
+                        <HeaderText>
+                            {i18n.t("reset-password-confirm.title")}
+                        </HeaderText>
 
-                        <BrandedButton style={{marginTop: 32}} onPress={() => this.props.navigation.navigate('Login')}>Back</BrandedButton>
+                        <RegularText style={{paddingTop: 24}}>
+                            {i18n.t("reset-password-confirm.text")}
+                        </RegularText>
+
+                        <BrandedButton style={{marginTop: 32}} onPress={() => this.props.navigation.navigate('Login')}>
+                            {i18n.t("reset-password-confirm.button")}
+                        </BrandedButton>
                     </View>
-
-
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -38,6 +45,13 @@ export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
 }
 
 const styles = StyleSheet.create({
+    rootContainer: {
+        flex: 1,
+        justifyContent: "space-between",
+        backgroundColor: colors.backgroundPrimary,
+        paddingHorizontal: 24,
+        paddingTop: 56
+    },
     formItem: {
         paddingHorizontal: 16,
         paddingVertical: 4,
