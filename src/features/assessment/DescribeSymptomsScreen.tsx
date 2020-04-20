@@ -172,25 +172,25 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     render() {
         const currentPatient = this.props.route.params.currentPatient;
         const temperatureItems = [
-            {label: i18n.t('describe-symptoms-picker-celsius'), value: 'C'},
-            {label: i18n.t('describe-symptoms-picker-fahrenheit'), value: 'F'},
+            {label: i18n.t('describe-symptoms.picker-celsius'), value: 'C'},
+            {label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F'},
         ];
         const fatigueItems = [
-            {label: i18n.t('describe-symptoms-picker-fatigue-none'), value: 'no'},
-            {label: i18n.t('describe-symptoms-picker-fatigue-mild'), value: 'mild'},
+            {label: i18n.t('describe-symptoms.picker-fatigue-none'), value: 'no'},
+            {label: i18n.t('describe-symptoms.picker-fatigue-mild'), value: 'mild'},
             {label: i18n.t('describe-symptoms-picker-fatigue-severe'), value: 'severe'},
         ];
         const shortnessOfBreathItems = [
-            {label: i18n.t('describe-symptoms-picker-shortness-of-breath-none'), value: 'no'},
-            {label: i18n.t('describe-symptoms-picker-shortness-of-breath-mild'), value: 'mild'},
-            {label: i18n.t('describe-symptoms-picker-shortness-of-breath-significant'), value: 'significant'},
-            {label: i18n.t('describe-symptoms-picker-shortness-of-breath-severe'), value: 'severe'},
+            {label: i18n.t('describe-symptoms.picker-shortness-of-breath-none'), value: 'no'},
+            {label: i18n.t('describe-symptoms.picker-shortness-of-breath-mild'), value: 'mild'},
+            {label: i18n.t('describe-symptoms.picker-shortness-of-breath-significant'), value: 'significant'},
+            {label: i18n.t('describe-symptoms.picker-shortness-of-breath-severe'), value: 'severe'},
         ];
 
         return (
           <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
               <Header>
-                  <HeaderText>Describe the symptoms you are experiencing right now.</HeaderText>
+                  <HeaderText>{i18n.t("describe-symptoms.page-title")}</HeaderText>
               </Header>
 
               <ProgressBlock>
@@ -212,17 +212,17 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 <DropdownField
                                   selectedValue={props.values.hasFever}
                                   onValueChange={props.handleChange("hasFever")}
-                                  label={i18n.t('describe-symptoms-question-has-fever')}
+                                  label={i18n.t('describe-symptoms.question-has-fever')}
                                   error={props.touched.hasFever && props.errors.hasFever}
                                 />
 
                                 <FieldWrapper>
                                     <Item stackedLabel style={styles.textItemStyle}>
-                                        <Label>If you are able to measure it, what is your temperature?</Label>
+                                        <Label>{i18n.t("describe-symptoms.question-your-temperature")}</Label>
                                         <View style={styles.fieldRow}>
                                             <View style={styles.primaryField}>
                                                 <ValidatedTextInput
-                                                  placeholder={i18n.t('describe-symptoms-placeholder-temperature')}
+                                                  placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
                                                   value={props.values.temperature}
                                                   onChangeText={props.handleChange("temperature")}
                                                   onBlur={props.handleBlur("temperature")}
@@ -248,7 +248,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 </FieldWrapper>
 
                                 <DropdownField
-                                    label={i18n.t('describe-symptoms-question-has-persistent-cough')}
+                                    label={i18n.t('describe-symptoms.question-has-persistent-cough')}
                                     selectedValue={props.values.hasPersistentCough}
                                     onValueChange={props.handleChange("hasPersistentCough")}
                                 />
@@ -256,7 +256,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 {/* Horizontal rule */}
 
                                 <DropdownField
-                                    label={i18n.t('describe-symptoms-question-has-unusual-fatigue')}
+                                    label={i18n.t('describe-symptoms.question-has-unusual-fatigue')}
                                     selectedValue={props.values.hasUnusualFatigue}
                                     onValueChange={props.handleChange("hasUnusualFatigue")}
                                     items={fatigueItems}
@@ -266,11 +266,11 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 <DropdownField
                                   selectedValue={props.values.hasHeadache}
                                   onValueChange={props.handleChange("hasHeadache")}
-                                  label={i18n.t('describe-symptoms-question-has-headache')}
+                                  label={i18n.t('describe-symptoms.question-has-headache')}
                                 />
 
                                 <DropdownField
-                                    label={i18n.t('describe-symptoms-question-has-unusual-shortness-of-breath')}
+                                    label={i18n.t('describe-symptoms.question-has-unusual-shortness-of-breath')}
                                     selectedValue={props.values.hasUnusualShortnessOfBreath}
                                     onValueChange={props.handleChange("hasUnusualShortnessOfBreath")}
                                     error={props.touched.hasUnusualShortnessOfBreath && props.errors.hasUnusualShortnessOfBreath}
@@ -280,43 +280,43 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 <DropdownField
                                   selectedValue={props.values.hasSoreThroat}
                                   onValueChange={props.handleChange("hasSoreThroat")}
-                                  label={i18n.t('describe-symptoms-question-has-sore-throat')}
+                                  label={i18n.t('describe-symptoms.question-has-sore-throat')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.hasLossOfSmell}
                                   onValueChange={props.handleChange("hasLossOfSmell")}
-                                  label={i18n.t('describe-symptoms-question-has-loss-of-smell')}
+                                  label={i18n.t('describe-symptoms.question-has-loss-of-smell')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.hasHoarseVoice}
                                   onValueChange={props.handleChange("hasHoarseVoice")}
-                                  label={i18n.t('describe-symptoms-question-has-hoarse-voice')}
+                                  label={i18n.t('describe-symptoms.question-has-hoarse-voice')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.hasChestPain}
                                   onValueChange={props.handleChange("hasChestPain")}
-                                  label={i18n.t('describe-symptoms-question-has-chest-pain')}
+                                  label={i18n.t('describe-symptoms.question-has-chest-pain')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.hasAbdominalPain}
                                   onValueChange={props.handleChange("hasAbdominalPain")}
-                                  label={i18n.t('describe-symptoms-question-has-abdominal-pain')}
+                                  label={i18n.t('describe-symptoms.question-has-abdominal-pain')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.hasDiarrhoea}
                                   onValueChange={props.handleChange("hasDiarrhoea")}
-                                  label={i18n.t('describe-symptoms-question-has-diarrhoea')}
+                                  label={i18n.t('describe-symptoms.question-has-diarrhoea')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.hasUnusualMusclePains}
                                   onValueChange={props.handleChange("hasUnusualMusclePains")}
-                                  label={i18n.t('describe-symptoms-question-has-unusual-muscle-pains')}
+                                  label={i18n.t('describe-symptoms.question-has-unusual-muscle-pains')}
                                 />
 
                                 <Divider/>
@@ -324,20 +324,20 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                                 <DropdownField
                                   selectedValue={props.values.hasDelirium}
                                   onValueChange={props.handleChange("hasDelirium")}
-                                  label={i18n.t('describe-symptoms-question-has-delirium')}
+                                  label={i18n.t('describe-symptoms.question-has-delirium')}
                                 />
 
                                 <DropdownField
                                   selectedValue={props.values.isSkippingMeals}
                                   onValueChange={props.handleChange("isSkippingMeals")}
-                                  label={i18n.t('describe-symptoms-question-is-skipping-meals')}
+                                  label={i18n.t('describe-symptoms.question-is-skipping-meals')}
                                 />
 
                                 <GenericTextField
                                     formikProps={props}
-                                    label={i18n.t('describe-symptoms-question-other-symptoms')}
+                                    label={i18n.t('describe-symptoms.question-other-symptoms')}
                                     name="otherSymptoms"
-                                    placeholder={i18n.t('describe-symptoms-placeholder-other-symptoms')}
+                                    placeholder={i18n.t('describe-symptoms.placeholder-other-symptoms')}
                                 />
 
                                 <ErrorText>{this.state.errorMessage}</ErrorText>
