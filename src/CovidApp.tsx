@@ -5,7 +5,6 @@ import * as Font from "expo-font";
 import { Header, Root, View } from "native-base";
 import React, { Component } from "react";
 import { Dimensions, StatusBar } from "react-native";
-
 import { colors } from "../theme/colors";
 import { CountrySelectScreen } from "./features/CountrySelectScreen";
 import { DrawerMenu } from "./features/DrawerMenu";
@@ -102,206 +101,46 @@ export default class ZoeApp extends Component<object, State> {
     mainNavStack() {
         return (
             <Stack.Navigator>
-                <Stack.Screen
-                    name="Splash"
-                    component={SplashScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="CountrySelect"
-                    component={CountrySelectScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Welcome"
-                    component={WelcomeScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="WelcomeUS"
-                    component={Welcome1USScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Welcome2US"
-                    component={Welcome2USScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="WelcomeRepeat"
-                    component={WelcomeRepeatScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="WelcomeRepeatUS"
-                    component={WelcomeRepeatUSScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Consent"
-                    component={ConsentScreen}
-                    options={{ headerShown: true, title: "Consent" }}
-                />
-                <Stack.Screen
-                    name="TermsOfUseUS"
-                    component={TermsOfUseUSScreen}
-                    options={{ headerShown: true, title: "Terms of Use" }}
-                />
-                <Stack.Screen
-                    name="PrivacyPolicyUK"
-                    component={PrivacyPolicyUKScreen}
-                    options={{ headerShown: true, title: "Privacy notice" }}
-                />
-                <Stack.Screen
-                    name="PrivacyPolicyUS"
-                    component={PrivacyPolicyUSScreen}
-                    options={{ headerShown: true, title: "Privacy policy" }}
-                />
-                <Stack.Screen
-                    name="NursesConsentUS"
-                    component={NursesConsentUSScreen}
-                    options={{ headerShown: true, title: "Research Consent" }}
-                />
-                <Stack.Screen
-                    name="BeforeWeStartUS"
-                    component={BeforeWeStartUS}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="ResetPassword"
-                    component={ResetPasswordScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="ResetPasswordConfirm"
-                    component={ResetPasswordConfirmScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Register"
-                    component={RegisterScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="OptionalInfo"
-                    component={OptionalInfoScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="StartPatient"
-                    component={StartPatientScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="YourStudy"
-                    component={YourStudyScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="YourWork"
-                    component={YourWorkScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="YourHealth"
-                    component={YourHealthScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="AboutYou"
-                    component={AboutYouScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="PreviousExposure"
-                    component={PreviousExposureScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="StartAssessment"
-                    component={StartAssessmentScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="HealthWorkerExposure"
-                    component={HealthWorkerExposureScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="CovidTest"
-                    component={CovidTestScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="HowYouFeel"
-                    component={HowYouFeelScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="DescribeSymptoms"
-                    component={DescribeSymptomsScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="WhereAreYou"
-                    component={WhereAreYouScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="LevelOfIsolation"
-                    component={LevelOfIsolationScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="TreatmentSelection"
-                    component={TreatmentSelectionScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="TreatmentOther"
-                    component={TreatmentOtherScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="ThankYou"
-                    component={ThankYouScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="ViralThankYou"
-                    component={ViralThankYouScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Login"
-                    component={LoginScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="CreateProfile"
-                    component={CreateProfileScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="ConsentForOther"
-                    component={ConsentForOther}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="ReportForOther"
-                    component={ReportForOtherScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="SelectProfile"
-                    component={SelectProfileScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="AdultOrChild"
-                    component={AdultOrChildScreen}
-                    options={{ headerShown: false }}
-                />
+                <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
+                <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
+                <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
+                <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={{headerShown: true, title: 'Privacy policy'}}/>
+                <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{headerShown: true, title: 'Research Consent'}}/>
+                <Stack.Screen name="BeforeWeStartUS" component={BeforeWeStartUS} options={{headerShown: false}}/>
+                <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="StartPatient" component={StartPatientScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="YourStudy" component={YourStudyScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="YourWork" component={YourWorkScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="YourHealth" component={YourHealthScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="StartAssessment" component={StartAssessmentScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="LevelOfIsolation" component={LevelOfIsolationScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="ThankYou" component={ThankYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={{headerShown: false}}/>
+                <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{headerShown: false}}/>
             </Stack.Navigator>
         );
     }
