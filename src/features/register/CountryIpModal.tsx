@@ -22,8 +22,8 @@ type StateType = {
     countrySelected: string
 }
 
-const US_CODE = 'US';
-const GB_CODE = 'GB';
+const US_CODE = 'en-US';
+const GB_CODE = 'en-GB';
 
 export default class CountryIpModal extends Component<PropsType, StateType> {
     userService = new UserService();
