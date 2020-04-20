@@ -9,7 +9,7 @@ import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../../assets";
 import UserService, {isUSLocale} from "../../../core/user/UserService";
 import CountryIpModal from ".././CountryIpModal";
 
-const Slash = () => <RegularBoldText style={styles.slash}>/</RegularBoldText>;
+const Slash = () => <RegularBoldText style={styles.slash}>  /  </RegularBoldText>;
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -53,30 +53,39 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                                     <Image style={styles.flagIcon} source={flagIcon()}/>
                                 </TouchableOpacity>
 
-                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
+                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>
+                                    {i18n.t("welcome.sign-in")}
+                                </ClickableText>
                             </View>
                             <View>
                                 <RegularText style={styles.subtitle}>
-                                    How you can help
+                                    {i18n.t("welcome.how-you-can-help.title")}
                                 </RegularText>
-                                <RegularText style={styles.subheader}>Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.</RegularText>
+                                <RegularText style={styles.subheader}>
+                                    {i18n.t("welcome.how-you-can-help.text1")}
+                                </RegularText>
 
-                                <RegularText style={styles.subheader2}>No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice.</RegularText>
+                                <RegularText style={styles.subheader2}>
+                                    {i18n.t("welcome.how-you-can-help.text2")}
+                                </RegularText>
 
                                 <Image style={styles.partnersLogo} source={usLogos2}/>
-
                             </View>
 
 
                             <View style={styles.partnerContainer}>
                                 <RegularText style={styles.partnerHeader}>
-                                    From Physicians and Researchers at
+                                    {i18n.t("welcome.from-researchers")}
                                 </RegularText>
 
-                                <View style={styles.divider}></View>
+                                <View style={styles.divider} />
 
                                 <RegularText style={styles.partnerList}>
-                                    Harvard T.H. Chan School of Public Health <Slash/> Massachusetts General Hospital <Slash/> King's College London <Slash/> Stanford University School of Medicine <Slash/> ZOE
+                                    {i18n.t("names.harvard-th-chan-school-of-public-health")}<Slash/>
+                                    {i18n.t("names.mass-general-hospital")}<Slash/>
+                                    {i18n.t("names.kings-college-london")}<Slash/>
+                                    {i18n.t("names.stanford-university-school-of-medicine")}<Slash/>
+                                    {i18n.t("names.zoe")}
                                 </RegularText>
 
                             </View>
@@ -96,7 +105,7 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                             } else {
                                 this.props.navigation.navigate('BeforeWeStartUS')
                             }
-                        }}>{i18n.t("create-account-btn")}</BrandedButton>
+                        }}>{i18n.t("welcome.create-account")}</BrandedButton>
                 </View>
 
             </SafeAreaView>
@@ -116,45 +125,36 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.backgroundSecondary,
     },
-
     headerRow: {
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "center",
     },
-
     covidContainer: {
         paddingHorizontal: 24,
         paddingBottom: 24,
         paddingTop: 24
     },
-
     partnerHeader: {
         textAlign: "center",
         fontSize: 14,
         lineHeight: 20
     },
-
     divider: {
         height: 1,
         backgroundColor: colors.backgroundFour,
         marginVertical: 5,
     },
-
     partnerList: {
         marginTop: 0,
         textAlign: "center",
         fontSize: 16,
         lineHeight: 24,
-
     },
-
     login: {
         color: colors.primary,
         marginLeft: 5,
     },
-
-
     subheader: {
         color: colors.primary,
         textAlign: "center",
@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         marginTop: 16,
     },
-
     subheader2: {
         color: colors.secondary,
         textAlign: "center",
@@ -171,9 +170,7 @@ const styles = StyleSheet.create({
         fontWeight: "300",
         lineHeight: 24,
         marginTop: 8,
-
     },
-
     subtitle: {
         color: colors.primary,
         fontSize: 24,
@@ -182,11 +179,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 25,
     },
-
     slash: {
         color: colors.slashBlue,
     },
-
     partnersLogo: {
         marginTop: 28,
         height: 120,
