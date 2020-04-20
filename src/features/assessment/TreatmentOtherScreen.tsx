@@ -103,7 +103,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text>Done</Text>
+                                    <Text>{i18n.t("completed")}</Text>
                                 </BrandedButton>
 
                             </Form>
