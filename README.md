@@ -60,7 +60,10 @@ Copy that IP address.
 ```sh
 echo "API_URL=<ip_address_here>:3000" > .env
 ```
-5. Get the Cloudbase Authentication file and store it as `./google-services.json`
+5. Create an empty `./google-services.json` file in the root of the application.
+```sh
+echo "{}" > google-services.json
+```
 6. Run the following commands
 ```JS
 npm install
