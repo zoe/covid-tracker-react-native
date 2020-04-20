@@ -43,7 +43,6 @@
   "label-ppe-equipment-available": "Is the PPE equipment you need available?",
   "label-chose-an-option": "Choose one of the options",
   "label-check-all-that-apply": "Check all that apply",
-  "required-has-used-ppe-equipment": "Please indicate whether you've used PPE equipment at work.",
   "required-ppe-availability": "Please specify the availability level of PPE equipment at work.",
 
   "title-about-you": "About you",
@@ -101,11 +100,11 @@
 
   "previous-exposure-title": "Previous exposure to COVID",
   "label-unwell-month-before": "Have you felt unwell in the month before you started reporting on this app?",
-"label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
-"label-past-symptoms-still-have": "Are you still experiencing symptoms?",
-"label-past-symptoms-changed": "How have your symptoms changed over the last few days?",
-"label-past-symptoms-had-covid": "Do you think you have already had COVID-19, but were not tested?",
-"label-past-symptoms-classic": "Did you have the classic symptoms (high fever and persistent cough) for several days?",
+  "label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
+  "label-past-symptoms-still-have": "Are you still experiencing symptoms?",
+  "label-past-symptoms-changed": "How have your symptoms changed over the last few days?",
+  "label-past-symptoms-had-covid": "Do you think you have already had COVID-19, but were not tested?",
+  "label-past-symptoms-classic": "Did you have the classic symptoms (high fever and persistent cough) for several days?",
 
   "label-past-symptoms": "Did you have any of the following symptoms (please select all that apply):",
   "label-past-symptom-anosmia": "Loss of smell/taste",
@@ -320,5 +319,8 @@
   "not-hispanic": "Not Hispanic or Latino, or Spanish origin",
 
   "answer-for": "Answer for %{name}",
-  "profile-name-too-long": "Enter a profile name with less that 32 characters"
+  "profile-name-too-long": "Enter a profile name with less that 32 characters",
+
+  "total-people-contributing": "%{total} people contributing",
+  "join-total-people-contributing": "Join %{total} people contributing"
 }
