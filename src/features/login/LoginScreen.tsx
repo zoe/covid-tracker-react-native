@@ -7,7 +7,7 @@ import {colors} from "../../../theme";
 import {UserNotFoundException} from "../../core/Exception";
 import i18n from "../../locale/i18n"
 import {fontStyles} from "../../../theme";
-import {BrandedButton, ClickableText, RegularText} from "../../components/Text";
+import {BrandedButton, ClickableText, HeaderLightText, RegularText} from "../../components/Text";
 import UserService, {isUSLocale} from "../../core/user/UserService";
 import {ScreenParamList} from "../ScreenParamList";
 
@@ -83,13 +83,18 @@ export class LoginScreen extends Component<PropsType, StateType> {
     // todo: validation for email
 
     render() {
-        const registerStartPage = isUSLocale() ? 'BeforeWeStartUS' : 'Terms';
+        const registerStartLink = isUSLocale() ?
+            (
+                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account")}</ClickableText>
+            ) : (
+                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("create-account")}</ClickableText>
+            )
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
                     <View>
-                        <Text style={[fontStyles.h1Light, styles.titleText]}>{i18n.t("login-title")}</Text>
+                        <HeaderLightText style={styles.titleText}>{i18n.t("login-title")}</HeaderLightText>
 
                         <View style={styles.formItem}>
                             <Item style={styles.labelPos} floatingLabel error={this.state.hasUserValidationError}>
@@ -149,7 +154,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
                         <View style={styles.bottomTextView}>
                             <RegularText>{i18n.t("dont-have-account")}</RegularText>
                             <RegularText> </RegularText>
-                            <ClickableText onPress={() => this.props.navigation.navigate(registerStartPage)}>{i18n.t("create-account")}</ClickableText>
+                            {registerStartLink}
                         </View>
 
                         <View style={styles.bottomTextView}>

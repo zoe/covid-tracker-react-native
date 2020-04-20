@@ -6,7 +6,7 @@ import {
     Consent,
     LoginOrRegisterResponse,
     PatientInfosRequest,
-    PiiRequest,
+    PiiRequest, StartupInfo,
     TokenInfoRequest,
     TokenInfoResponse,
     UserResponse
@@ -18,13 +18,17 @@ import { AsyncStorageService } from "../AsyncStorageService";
 import * as Localization from 'expo-localization';
 import {isAndroid} from "../../components/Screen";
 import i18n from "../../locale/i18n"
+import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
+import { AvatarName } from "../../utils/avatar";
+import moment from "moment";
 
-const ASSESSMENT_VERSION = '1.2.1'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.2.0';    // TODO: Wire this to something automatic.
-
+const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
+const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
+    public static ipCountry = "";
     public static consentSigned: Consent = {
         document: "",
         version: "",
@@ -79,7 +83,6 @@ export default class UserService extends ApiClientBase {
     };
 
     getData = <T>(response: AxiosResponse<T>) => {
-
         if (typeof response.data === 'string') {
             return <T>camelizeKeys(JSON.parse(response.data));
         } else {
@@ -95,7 +98,6 @@ export default class UserService extends ApiClientBase {
     };
 
     public async register(email: string, password: string) {
-
         const payload = {
             username: email,
             password1: password,
@@ -123,6 +125,18 @@ export default class UserService extends ApiClientBase {
         return this.client.patch(`/consent/`, payload);
     }
 
+    public async listPatients() {
+        return this.client.get(`/patient_list/`)
+    }
+
+    public async createPatient(infos: Partial<PatientInfosRequest>) {
+          infos = {
+            ...infos,
+            version: this.getPatientVersion()
+        };
+        return this.client.post(`/patients/`, infos);
+    }
+
     public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
         infos = {
             ...infos,
@@ -133,6 +147,79 @@ export default class UserService extends ApiClientBase {
 
     private getPatientVersion() {
         return PATIENT_VERSION;
+    }
+
+    public async getPatient(patientId: string): Promise<PatientInfosRequest> {
+        // TODO: Cache this in AsyncStorage?
+        const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
+        return patientResponse.data;
+    }
+
+    public updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+        // Calculate the flags based on patient info
+        const isFemale = (patient.gender == 0);
+        const isHealthWorker = (
+            ["yes_does_treat", "yes_does_interact"].includes(patient.healthcare_professional)
+            || patient.is_carer_for_community
+        );
+        const hasBloodPressureAnswer = (
+            patient.takes_any_blood_pressure_medications === true
+            || patient.takes_any_blood_pressure_medications === false
+        );
+        const hasCompletePatientDetails = (
+            // They've done at least one page of the patient flow. That's a start.
+            !!patient.profile_attributes_updated_at
+            // If they've completed the last page, heart disease will either be true or false
+            // and not null. (or any nullable field on the last page)
+            && (patient.has_heart_disease === true || patient.has_heart_disease === false)
+        );
+
+        const profile: PatientProfile = {
+            name: patient.name || "Me",
+            avatarName: (patient.avatar_name || "profile1") as AvatarName,
+            isPrimaryPatient: !patient.reported_by_another,
+        };
+        const isReportedByAnother = patient.reported_by_another || false;
+        const isSameHousehold = patient.same_household_as_reporter || false;
+
+        // Last asked level_of_isolation a week or more ago, or never asked
+        const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
+        let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
+        if (lastAskedLevelOfIsolation) {
+            let lastAsked = moment(lastAskedLevelOfIsolation);
+            shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7
+        }
+
+        return {
+            ...patientState,
+            profile,
+            isFemale,
+            isHealthWorker,
+            hasBloodPressureAnswer,
+            hasCompletePatientDetails,
+            isReportedByAnother,
+            isSameHousehold,
+            shouldAskLevelOfIsolation,
+        };
+    }
+
+    public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
+        let currentPatient = getInitialPatientState(patientId);
+
+        try {
+            if (!patient) {
+                patient = await this.getPatient(patientId);
+            }
+
+            if (patient) {
+                currentPatient = this.updatePatientState(currentPatient, patient);
+            }
+
+        } catch (error) {
+            // Something wrong with the request, fallback to defaults
+        }
+
+        return currentPatient;
     }
 
 
@@ -152,6 +239,15 @@ export default class UserService extends ApiClientBase {
         });
         return localProfile
     }
+
+    public async getAskedToRateStatus() {
+        return AsyncStorageService.getAskedToRateStatus();
+    }
+
+    public setAskedToRateStatus(status: string) {
+        AsyncStorageService.setAskedToRateStatus(status);
+    }
+
 
     public async updatePii(pii: Partial<PiiRequest>) {
         const userId = ApiClientBase.userId;
@@ -183,24 +279,6 @@ export default class UserService extends ApiClientBase {
         return this.client.post<TokenInfoResponse>(`/tokens/`, tokenDoc);
     }
 
-    public async hasCompletedPatientDetails(patientId: string) {
-        const completedLocal = await AsyncStorageService.hasCompletedPatientDetails();
-        if (completedLocal != null) {
-            return completedLocal
-        }
-
-        const patientProfileResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
-        if (patientProfileResponse.data.profile_attributes_updated_at == null) {
-            return false
-        } else {
-            await AsyncStorageService.setIsHealthWorker(
-                (patientProfileResponse.data.healthcare_professional === "yes_does_treat")
-                || patientProfileResponse.data.is_carer_for_community);
-            await AsyncStorageService.setPatientDetailsComplete(true);
-            return true
-        }
-    }
-
     async getConsentSigned(): Promise<Consent | null> {
         let consent: string | null = await AsyncStorageService.getConsentSigned();
         return consent ? JSON.parse(consent) : null
@@ -220,9 +298,10 @@ export default class UserService extends ApiClientBase {
         return await AsyncStorageService.getUserCount();
     }
 
-    async setUserCountInAsyncStorage() {
-        const userCount = await this.client.get<number>('/users/covid_count/');
-        await AsyncStorageService.setUserCount(userCount.data.toString());
+    async getStartupInfo() {
+        const response = await this.client.get<StartupInfo>('/users/startup_info/');
+        UserService.ipCountry = response.data.ip_country;
+        await AsyncStorageService.setUserCount(response.data.users_count.toString());
     }
 
 
@@ -241,6 +320,14 @@ export default class UserService extends ApiClientBase {
         return localCountry;
     }
 
+    async shouldAskCountryConfirmation() {
+        if (await AsyncStorageService.getAskedCountryConfirmation()) {
+            return false
+        } else {
+            return UserService.userCountry != UserService.ipCountry
+        }
+    }
+
     async defaultCountryToLocale() {
         const locale = () => {
             if (Localization.locale == 'en-GB') {
@@ -253,16 +340,10 @@ export default class UserService extends ApiClientBase {
         await this.setUserCountry(locale());
     }
 
-    async isHealthWorker() {
-        return AsyncStorageService.getIsHealthWorker()
-    }
-
     async deleteLocalUserData() {
         ApiClientBase.unsetToken();
         await AsyncStorageService.clearData();
-        await AsyncStorageService.setIsHealthWorker(null);
         await AsyncStorageService.saveProfile(null);
-        await AsyncStorageService.setPatientDetailsComplete(null);
         this.setConsentSigned("","","");
     }
 
@@ -278,6 +359,39 @@ export default class UserService extends ApiClientBase {
 
     public async getAreaStats(patientId: string) {
         return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
+    }
+
+    public async hasMultipleProfiles() {
+        try {
+            let response = await this.listPatients();
+            return response.data.length > 1
+        } catch (e) {
+            return false
+        }
+    }
+
+    public async shouldAskToReportForOthers() {
+        try {
+            let response = await AsyncStorageService.getAskedToReportForOthers();
+            if (response) {
+                return parseInt(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+            } else {
+                await AsyncStorageService.setAskedToReportForOthers("0");
+                return true
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    public async recordAskedToReportForOther() {
+        let response = await AsyncStorageService.getAskedToReportForOthers()
+        if (response) {
+            const value = parseInt(response) + 1;
+            await AsyncStorageService.setAskedToReportForOthers(value.toString())
+        } else {
+            await AsyncStorageService.setAskedToReportForOthers("0")
+        }
     }
 }
 

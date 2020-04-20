@@ -55,10 +55,15 @@ git clone git@github.com:zoe/covid-tracker-react-native.git
 ```
 exp://123.456.7.890:19000
 ```
-Copy that IP address.
+Copy the host part of the IP address only.
+
 4. Create a `.env` file
 ```sh
-echo "API_URL=<ip_address_here>:3000" > .env
+echo "API_URL=<ip_address_host_here>:3000" > .env
+```
+e.g.
+```sh
+echo "API_URL=http://123.456.7.890:3000" > .env
 ```
 5. Create an empty `./google-services.json` file in the root of the application.
 ```sh
@@ -80,7 +85,7 @@ See the [open issues](https://github.com/zoe/covid-tracker-react-native/issues) 
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated** - see the [contributing guidelines](CONTRIBUTING.md).
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)

@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {Dimensions, Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from '../../theme';
+import { PatientProfile } from '../core/patient/PatientState';
+import PatientHeader from './PatientHeader';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreenParamList } from '../features/ScreenParamList';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
@@ -66,7 +71,9 @@ export const FieldWrapper = (props: FieldWrapperType) => {
 * For permanent page fixtures
 */
 type ScreenProps = {
-    children: any
+    children: any;
+    navigation?: StackNavigationProp<ScreenParamList>
+    profile?: PatientProfile;
 }
 
 export default class Screen extends Component<ScreenProps> {
@@ -74,20 +81,24 @@ export default class Screen extends Component<ScreenProps> {
     screenHeight: number = screenHeight;
 
     render() {
+        const profile = this.props.profile;
+
         return (
-          <View style={styles.screen}>
+            <SafeAreaView style={styles.screen}>
+                {!!profile ? (
+                    <PatientHeader profile={profile} navigation={this.props.navigation} />
+                ): (
+                    <View style={styles.statusBarBlock} />
+                )}
 
-              {/* TODO: Replace with navigation header component */}
-              <View style={styles.statusBarBlock}></View>
+                <ScrollView>
+                    <View style={styles.pageBlock}>
+                        {this.props.children}
+                    </View>
+                </ScrollView>
 
-              <ScrollView>
-                  <View style={styles.pageBlock}>
-                      {this.props.children}
-                  </View>
-              </ScrollView>
-
-              {/* TODO: Put any fixed footer component */}
-          </View>
+                {/* TODO: Put any fixed footer component */}
+            </SafeAreaView>
         );
     }
 }
@@ -95,7 +106,7 @@ export default class Screen extends Component<ScreenProps> {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
     },
 
     statusBarBlock: {

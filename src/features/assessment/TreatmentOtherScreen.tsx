@@ -9,12 +9,13 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
+import i18n from "../../locale/i18n"
 import {colors, fontStyles} from "../../../theme"
 import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import {getThankYouScreen} from "../Navigation";
+import {navigateAfterFinishingAssessment} from "../Navigation";
 
 
 const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
@@ -45,25 +46,30 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
     handleUpdateTreatment(formData: TreatmentData) {
 
-        const assessmentId = this.props.route.params.assessmentId;
-        const location = this.props.route.params.location;
-        const goToNextScreen = () => this.props.navigation.navigate(getThankYouScreen());
-
+        const {currentPatient, assessmentId, location} = this.props.route.params;
         if (!formData.description) {
-            goToNextScreen();
+            navigateAfterFinishingAssessment(this.props.navigation);
         } else {
             const userService = new UserService();
             userService.updateAssessment(assessmentId, {
                 treatment: formData.description
-            }).then(r => goToNextScreen());
+            }).then(r => navigateAfterFinishingAssessment(this.props.navigation));
         }
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
+        const title = this.props.route.params.location == 'back_from_hospital' ?
+            i18n.t('treatment-other-title-after')
+            : i18n.t('treatment-other-title-during');
+        const question = this.props.route.params.location == 'back_from_hospital' ?
+            i18n.t('treatment-other-question-treatment-after')
+            : i18n.t('treatment-other-question-treatment-during');
+
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>What treatment are you receiving in hospital?</HeaderText>
+                    <HeaderText>{title}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -82,12 +88,12 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
                             <Form>
                                 <FieldWrapper style={{marginVertical: 64}}>
                                     <Item stackedLabel>
-                                        <Label style={{marginBottom: 16}}>What medical treatment are you receiving?</Label>
+                                        <Label style={{marginBottom: 16}}>{question}</Label>
                                         <Textarea
                                             style={styles.textarea}
                                             rowSpan={5}
                                             bordered
-                                            placeholder="*Optional"
+                                            placeholder={i18n.t('placeholder-optional-question')}
                                             value={props.values.description}
                                             onChangeText={props.handleChange("description")}
                                             underline={false}
@@ -97,7 +103,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Done</Text>
+                                    <Text>Done</Text>
                                 </BrandedButton>
 
                             </Form>
@@ -114,9 +120,5 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 const styles = StyleSheet.create({
     textarea: {
         width: '100%',
-    },
-
-    buttonText: {
-        color: colors.white,
     },
 });

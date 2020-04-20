@@ -25,13 +25,13 @@ export class SplashScreen extends Component<Props, {}> {
     }
 
     private getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
+            return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
     }
 
     private bootstrapAsync = async () => {
         const {navigation} = this.props;
 
-        await this.userService.setUserCountInAsyncStorage();
+        await this.userService.getStartupInfo();
 
         const countryPromise = this.userService.getUserCountry();
         let {userToken, userId} = await AsyncStorageService.GetStoredData();
