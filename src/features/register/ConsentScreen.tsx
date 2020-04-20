@@ -141,7 +141,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                           style={styles.button}
                           enable={this.state.processingChecked && this.state.termsOfUseChecked}
                           hideLoading={true}
-                          onPress={this.handleUSAgreeClicked}>I Agree</BrandedButton>
+                          onPress={this.handleUSAgreeClicked}>I agree</BrandedButton>
                     }
                 </View>
             ) : (
@@ -188,7 +188,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
 
                     {
                         !this.viewOnly &&
-                        <BrandedButton style={styles.button} onPress={this.handleUKAgreeClicked}>I Agree</BrandedButton>
+                        <BrandedButton style={styles.button} onPress={this.handleUKAgreeClicked}>I agree</BrandedButton>
                     }
 
                 </View>

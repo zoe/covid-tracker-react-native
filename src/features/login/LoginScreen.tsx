@@ -69,9 +69,9 @@ export class LoginScreen extends Component<PropsType, StateType> {
             })
             .catch(error => {
                 if (error.constructor === UserNotFoundException) {
-                    this.errorMessage = i18n.t("user-not-found-exception")
+                    this.errorMessage = i18n.t("login.user-not-found-exception")
                 } else {
-                    this.errorMessage = i18n.t("login-exception")
+                    this.errorMessage = i18n.t("login.exception")
                 }
                 Toast.show({
                     text: this.errorMessage,
@@ -85,20 +85,20 @@ export class LoginScreen extends Component<PropsType, StateType> {
     render() {
         const registerStartLink = isUSLocale() ?
             (
-                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("create-account")}</ClickableText>
+                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("login.create-account")}</ClickableText>
             ) : (
-                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("create-account")}</ClickableText>
+                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("login.create-account")}</ClickableText>
             )
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
                     <View>
-                        <HeaderLightText style={styles.titleText}>{i18n.t("login-title")}</HeaderLightText>
+                        <HeaderLightText style={styles.titleText}>{i18n.t("login.title")}</HeaderLightText>
 
                         <View style={styles.formItem}>
                             <Item style={styles.labelPos} floatingLabel error={this.state.hasUserValidationError}>
-                                <Label style={styles.labelStyle}>{i18n.t("login-label")}</Label>
+                                <Label style={styles.labelStyle}>{i18n.t("login.email-label")}</Label>
                                 <Input
                                     keyboardType="email-address"
                                     autoCapitalize="none"
@@ -124,7 +124,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
                         </View>
                         <View style={styles.formItem}>
                             <Item style={styles.labelPos} floatingLabel error={this.state.hasPassValidationError}>
-                                <Label style={styles.labelStyle}>{i18n.t("password")}</Label>
+                                <Label style={styles.labelStyle}>{i18n.t("login.password-label")}</Label>
                                 <Input
                                     secureTextEntry={true}
                                     returnKeyType="go"
@@ -143,22 +143,27 @@ export class LoginScreen extends Component<PropsType, StateType> {
                                     <Icon name='close'/>
                                 )}
                             </Item>
-                            {/*<Text style={[fontStyles.bodySmallLight, styles.forgotPasswordText]}>{i18n.t("forgot-password")}</Text>*/}
                         </View>
                     </View>
 
                     <View>
                         <BrandedButton onPress={this.handleLogin}>
-                            <Text>{i18n.t("log-in")}</Text>
+                            <Text>
+                                {i18n.t("login.button")}
+                            </Text>
                         </BrandedButton>
                         <View style={styles.bottomTextView}>
-                            <RegularText>{i18n.t("dont-have-account")}</RegularText>
+                            <RegularText>
+                                {i18n.t("login.dont-have-account")}
+                            </RegularText>
                             <RegularText> </RegularText>
                             {registerStartLink}
                         </View>
 
-                        <View style={styles.bottomTextView}>
-                            <ClickableText onPress={() => this.props.navigation.navigate('ResetPassword')}>Forgot your password?</ClickableText>
+                        <View style={styles.bottomTextView2}>
+                            <ClickableText onPress={() => this.props.navigation.navigate('ResetPassword')}>
+                                {i18n.t("login.forgot-your-password")}
+                            </ClickableText>
                         </View>
 
                     </View>
@@ -197,10 +202,17 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
     },
     bottomTextView: {
-        padding: 24,
+        paddingTop: 24,
+        paddingBottom: 6,
+        paddingHorizontal: 23,
         justifyContent: "center",
         flexDirection: 'row',
         backgroundColor: colors.backgroundPrimary
     },
-
+    bottomTextView2: {
+        paddingBottom: 24,
+        justifyContent: "center",
+        flexDirection: 'row',
+        backgroundColor: colors.backgroundPrimary
+    },
 });

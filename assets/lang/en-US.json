@@ -1,4 +1,8 @@
 {
+  "welcome": {
+    "take-a-minute": "Take 1 minute each day and help fight the outbreak in your community."
+  },
+
   "your-postcode": "Your zipcode?",
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
