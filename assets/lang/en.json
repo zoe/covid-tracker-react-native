@@ -265,6 +265,14 @@
     "picker-often-left-the-house": "I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)"
   },
 
+  "where-are-you": {
+    "question-location": "Where are you right now?",
+    "picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
+    "picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
+    "picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
+    "picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment."
+  },
+
   "treatment-other-title-after": "What treatment did you receive while in the hospital?",
   "treatment-other-title-during": "What treatment are you receiving in hospital?",
   "treatment-other-question-treatment-after": "What medical treatment did you receive?",
@@ -280,12 +288,6 @@
   "treatment-selection-picker-invasive-ventilation": "Invasive ventilation*",
   "treatment-selection-picker-subtext-invasive-ventilation": "* Breathing support through an inserted tube. People are usually asleep for this procedure.",
   "treatment-selection-picker-other": "Other",
-
-  "where-are-you-question-location": "Where are you right now?",
-  "where-are-you-picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
-  "where-are-you-picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
-  "where-are-you-picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
-  "where-are-you-picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment.",
 
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 

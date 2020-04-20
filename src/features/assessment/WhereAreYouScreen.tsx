@@ -78,7 +78,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>{i18n.t('where-are-you-question-location')}</HeaderText>
+                    <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -90,25 +90,25 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHome}>
-                            <Text>{i18n.t('where-are-you-picker-location-home')}.</Text>
+                            <Text>{i18n.t('where-are-you.picker-location-home')}.</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHospital}>
-                            <Text>{i18n.t('where-are-you-picker-location-hospital')}</Text>
+                            <Text>{i18n.t('where-are-you.picker-location-hospital')}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleBackAtHome}>
-                            <Text>{i18n.t('where-are-you-picker-location-back-from-hospital')}</Text>
+                            <Text>{i18n.t('where-are-you.picker-location-back-from-hospital')}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleStillAtHome}>
-                            <Text>{i18n.t('where-are-you-picker-location-back-from-hospital-already-reported')}</Text>
+                            <Text>{i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
