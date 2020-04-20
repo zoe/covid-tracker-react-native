@@ -7,13 +7,12 @@ import {Form, Text} from "native-base";
 import ProgressStatus from "../../components/ProgressStatus";
 
 import i18n from "../../locale/i18n"
-import {colors, fontStyles} from "../../../theme"
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
-import { getLocalThankYou, navigateAfterFinishingAssessment } from "../Navigation";
+import { navigateAfterFinishingAssessment } from "../Navigation";
 
 
 type LocationProps = {

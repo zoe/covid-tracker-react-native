@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import {Platform} from "react-native";
+import Screen, {Header, ProgressBlock} from "../../components/Screen";
 import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
 import {Form, Text} from "native-base";
 
@@ -9,7 +9,6 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -19,8 +18,6 @@ import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import { ValidationErrors } from "../../components/ValidationError";
 
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
 
 const initialFormValues = {
     hasCovidTest: 'no',

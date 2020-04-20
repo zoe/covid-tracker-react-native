@@ -9,7 +9,6 @@ import {Formik, FormikProps} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
 
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
 import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";

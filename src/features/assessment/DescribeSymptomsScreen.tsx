@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {KeyboardAvoidingView, Platform, StyleSheet, View} from "react-native";
-import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
 import {BrandedButton, Divider, ErrorText, HeaderText} from "../../components/Text";
-import {Form, Icon, Item, Label, Picker, Text} from "native-base";
+import {Form, Item, Label, Text} from "native-base";
 
 import ProgressStatus from "../../components/ProgressStatus";
 
@@ -10,7 +10,6 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
 
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -21,8 +20,6 @@ import DropdownField from "../../components/DropdownField";
 import {ValidationErrors} from "../../components/ValidationError";
 import { GenericTextField } from "../../components/GenericTextField";
 
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
 
 const initialFormValues = {
     hasFever: 'no',

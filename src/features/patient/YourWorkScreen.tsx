@@ -7,7 +7,7 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import i18n from "../../locale/i18n"
-import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
