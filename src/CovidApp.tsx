@@ -48,6 +48,7 @@ import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 import StartAssessmentScreen from './features/assessment/StartAssessment';
 import PreviousExposureScreen from "./features/patient/PreviousExposure";
 import StartPatientScreen from './features/patient/StartPatient';
+import {WelcomeScreenSV} from "./features/register/sv/WelcomeScreenSV";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -102,6 +103,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="WelcomeSV" component={WelcomeScreenSV} options={{headerShown: false}}/>
                 <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>

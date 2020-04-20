@@ -9,6 +9,8 @@ export const usMap = require('./us_map.png');
 // Icons
 export const closeIcon = require('./icons/close.png');
 export const menuIcon = require('./icons/menu.png');
+export const svFlagLarge = require('./icons/sv-flag-large.png');
+export const svFlagSmall = require('./icons/sv-flag-small.png');
 export const ukFlagLarge = require('./icons/uk-flag-large.png');
 export const usFlagSmall = require('./icons/us-flag-small.png');
 export const usFlagLarge = require('./icons/us-flag-large.png');
