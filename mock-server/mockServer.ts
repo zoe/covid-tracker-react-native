@@ -163,8 +163,11 @@ app.patch("/assessments/:assessmentId", (req, res) => {
   })
 });
 
-app.get("/users/covid_count", (req, res) => {
-  return res.status(200).send('2000000');
+app.get("/users/startup_info/", (req, res) => {
+  return res.status(200).send({
+    users_count: '2000000',
+    ip_country: 'gb'
+  });
 });
 
 app.get("/area_stats", (req, res) => {
