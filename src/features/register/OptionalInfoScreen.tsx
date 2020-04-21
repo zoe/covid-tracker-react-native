@@ -42,10 +42,6 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         this.state = initialState;
     }
 
-    private getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
-    }
-
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
         const patientId = this.props.route.params.user.patients[0];
         const userService = new UserService();
@@ -63,7 +59,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             this.props.navigation.reset({
                 index: 0,
                 routes: [
-                    {name: this.getWelcomeRepeatScreenName(), params: {patientId: patientId}},
+                    {name: 'WelcomeRepeat', params: {patientId: patientId}},
                     nextScreen
                 ],
             })

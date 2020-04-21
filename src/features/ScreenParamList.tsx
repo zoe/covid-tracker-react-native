@@ -13,8 +13,8 @@ export type ScreenParamList = {
     Welcome: undefined;
     WelcomeUS: undefined;
     Welcome2US: undefined;
+    WelcomeSV: undefined;
     WelcomeRepeat: { patientId: string };
-    WelcomeRepeatUS: { patientId: string };
 
     // Terms & consent screens
     Consent: { viewOnly: boolean };

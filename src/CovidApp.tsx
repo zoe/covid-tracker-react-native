@@ -25,7 +25,6 @@ import ThankYouScreen from './features/ThankYouScreen';
 import { WelcomeRepeatScreen } from "./features/register/gb/WelcomeRepeatScreen";
 import { Welcome1USScreen } from "./features/register/us/Welcome1USScreen";
 import { Welcome2USScreen } from "./features/register/us/Welcome2USScreen";
-import { WelcomeRepeatUSScreen } from "./features/register/us/WelcomeRepeatUSScreen";
 import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
 import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
 import {CountrySelectScreen} from "./features/CountrySelectScreen";
@@ -102,7 +101,6 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeSV" component={WelcomeScreenSV} options={{headerShown: false}}/>
                 <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
