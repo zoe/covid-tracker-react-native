@@ -39,17 +39,11 @@ export class CountrySelectScreen extends Component<Props, {}> {
 
         const screenName = () => {
             if (patientId != null) {
-                if (countryCode == US_CODE) {
-                    return 'WelcomeRepeatUS'
-                } if (countryCode == SV_CODE) {
-                    return 'WelcomeRepeat'
-                } else {
-                    return 'WelcomeRepeat'
-                }
+                return 'WelcomeRepeat'
             } else {
                 if (countryCode == US_CODE) {
                     return 'WelcomeUS'
-                } if (countryCode == SV_CODE) {
+                } else if (countryCode == SV_CODE) {
                     return 'WelcomeSV'
                 } else {
                     return 'Welcome'

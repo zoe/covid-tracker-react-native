@@ -24,10 +24,6 @@ export class SplashScreen extends Component<Props, {}> {
         return isUSLocale() ? 'WelcomeUS' : 'Welcome'
     }
 
-    private getWelcomeRepeatScreenName() {
-            return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
-    }
-
     private bootstrapAsync = async () => {
         const {navigation} = this.props;
         let country: string|null = null;
@@ -51,7 +47,7 @@ export class SplashScreen extends Component<Props, {}> {
 
             try {
                 const profile = await this.userService.getProfile();
-                navigation.replace(this.getWelcomeRepeatScreenName(), {patientId: profile.patients[0]});
+                navigation.replace('WelcomeRepeat', {patientId: profile.patients[0]});
             } catch (error) {
                 // Logged in with an account doesn't exist. Force logout.
                 ApiClientBase.unsetToken();

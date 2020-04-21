@@ -38,13 +38,6 @@ export class LoginScreen extends Component<PropsType, StateType> {
         this.handleLogin = this.handleLogin.bind(this)
     }
 
-    componentDidMount() {
-    }
-
-    private getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
-    }
-
     handleLogin() {
         this.errorMessage = ""
         const username = this.username.trim();
@@ -64,7 +57,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
                 const patientId = response.user.patients[0];
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{name: this.getWelcomeRepeatScreenName(), params: {patientId: patientId}}],
+                    routes: [{name: 'WelcomeRepeat', params: {patientId: patientId}}],
                 })
             })
             .catch(error => {

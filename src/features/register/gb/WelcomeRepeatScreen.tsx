@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../../../theme";
-
 import { BrandedButton, ClickableText, RegularText } from "../../../components/Text";
 import {ScreenParamList} from "../../ScreenParamList";
-import {covidIcon, menuIcon, partnersLogo} from "../../../../assets";
-
+import {covidIcon, menuIcon, partnersLogo, usLogos} from "../../../../assets";
 import {RouteProp} from "@react-navigation/native";
-import UserService from "../../../core/user/UserService";
+import UserService, {isGBLocale, isUSLocale} from "../../../core/user/UserService";
 import {AsyncStorageService} from "../../../core/AsyncStorageService";
 import {PushNotificationService} from "../../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
@@ -51,12 +49,36 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
         this.props.navigation.navigate('SelectProfile');
     };
 
+    navigateToPrivacyPolicy = () => {
+        if (isUSLocale()) {
+            this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: true})
+        } else {
+            this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: true})
+        }
+    };
+
+    openWebsite = () => {
+        if (isUSLocale()) {
+            Linking.openURL('https://covid.joinzoe.com/us')
+        } else {
+            Linking.openURL('https://covid.joinzoe.com/')
+        }
+    };
+
+    logos = () => {
+        if (isUSLocale()) {
+            return usLogos
+        } else {
+            return partnersLogo
+        }
+    };
+
     render() {
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.rootContainer}>
 
-                    <View style={styles.covidContainer}>
+                    <View style={styles.topSection}>
                         <View style={styles.headerRow}>
                             <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
                             <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
@@ -66,22 +88,19 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                                 <Image source={menuIcon} style={styles.menuIcon}/>
                             </TouchableOpacity>
                         </View>
-                        <View>
                             <RegularText style={styles.subtitle}>
                                  {i18n.t("welcome.take-a-minute")}
                             </RegularText>
                             <ContributionCounter variant={2} count={this.state.userCount}/>
-
-                        </View>
                     </View>
 
-                    <View style={styles.partners}>
-
-                        <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
-
+                    <View style={styles.bottomSection}>
+                        <View style={styles.partnersLogoContainer}>
+                                <Image style={styles.partnersLogo} source={this.logos()} />
+                        </View>
                         <View style={styles.discoveriesContainer}>
                             <RegularText style={styles.discoveriesText}>{i18n.t("welcome.see-how-your-area-is-affected")}</RegularText>
-                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={() => Linking.openURL('https://covid.joinzoe.com/')}>{i18n.t("welcome.visit-the-website")}</BrandedButton>
+                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={this.openWebsite}>{i18n.t("welcome.visit-the-website")}</BrandedButton>
                         </View>
 
                         <BrandedButton onPress={this.handleButtonPress}>{i18n.t("welcome.report-button")}</BrandedButton>
@@ -89,7 +108,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                         <RegularText style={styles.privacyPolicyText}>
                             <ClickableText
                                 style={styles.privacyPolicyClickText}
-                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: true})}
+                                onPress={this.navigateToPrivacyPolicy}
                             >{i18n.t("welcome.privacy-policy")}</ClickableText>{" "}{i18n.t("welcome.privacy-policy-subtext")}
                         </RegularText>
                     </View>
@@ -126,12 +145,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
 
-    covidContainer: {
-        paddingHorizontal: 24,
-        paddingVertical: 24,
+    topSection: {
+        flex: 1,
+        justifyContent: 'space-between',
+        padding: 24,
     },
 
-    partners: {
+    bottomSection: {
         flex: 1,
         backgroundColor: colors.white,
         borderTopRightRadius: 20,
@@ -170,15 +190,18 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     discoveriesContainer: {
-        padding: 10,
+        padding: 40,
         borderRadius: 8,
         borderWidth: 2,
         borderColor: colors.backgroundSecondary,
+        height: 180,
+        justifyContent: 'center',
     },
     partnersLogo: {
-        resizeMode: 'center',
-        alignSelf: "center",
+        alignSelf: 'center',
+        width: '95%',
         height: 120,
+        resizeMode: 'contain',
     },
     privacyPolicyText: {
         fontSize: 14,
@@ -194,5 +217,10 @@ const styles = StyleSheet.create({
         height: 20,
         width: 20,
         tintColor: colors.white
-    }
+    },
+    partnersLogoContainer: {
+        padding: 10,
+        marginTop: 10,
+        borderRadius: 10,
+    },
 });

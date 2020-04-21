@@ -47,7 +47,33 @@ import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScr
 import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
 import { Welcome1USScreen } from "./features/register/us/Welcome1USScreen";
 import { Welcome2USScreen } from "./features/register/us/Welcome2USScreen";
+<<<<<<< HEAD
 import { WelcomeRepeatUSScreen } from "./features/register/us/WelcomeRepeatUSScreen";
+=======
+import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
+import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
+import {CountrySelectScreen} from "./features/CountrySelectScreen";
+import YourWorkScreen from './features/patient/YourWorkScreen';
+import {NursesConsentUSScreen} from "./features/register/us/NursesConsentUS";
+import BeforeWeStartUS from "./features/register/us/BeforeWeStartUS";
+import {ResetPasswordScreen} from "./features/password-reset/ResetPassword";
+import {ResetPasswordConfirmScreen} from "./features/password-reset/ResetPassordConfirm";
+import HealthWorkerExposureScreen from "./features/assessment/HealthWorkerExposureScreen";
+import LevelOfIsolationScreen from "./features/assessment/LevelOfIsolationScreen";
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import {DrawerMenu} from "./features/DrawerMenu";
+import YourStudyScreen from "./features/patient/YourStudyScreen";
+import ViralThankYouScreen from "./features/ViralThankYouScreen";
+import ReportForOtherScreen from "./features/multi-profile/ReportForOtherScreen";
+import SelectProfileScreen from "./features/multi-profile/SelectProfileScreen";
+import CreateProfileScreen from "./features/multi-profile/CreateProfileScreen";
+import ConsentForOther from "./features/multi-profile/ConsentForOtherScreen";
+import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
+import StartAssessmentScreen from './features/assessment/StartAssessment';
+import PreviousExposureScreen from "./features/patient/PreviousExposure";
+import StartPatientScreen from './features/patient/StartPatient';
+import {WelcomeScreenSV} from "./features/register/sv/WelcomeScreenSV";
+>>>>>>> Unify repeat screens
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -107,7 +133,6 @@ export default class ZoeApp extends Component<object, State> {
                 <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
