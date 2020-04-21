@@ -323,8 +323,7 @@
   "united-states": "United States",
   "united-kingdom": "United Kingdom",
 
-
-  "never-reported": "Never reported",
+  "never-reported": "Not reported",
   "today": "Today",
   "yesterday": "Yesterday",
   "days-ago": "%{diffDays} days ago",
