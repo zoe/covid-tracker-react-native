@@ -65,8 +65,10 @@ e.g.
 ```sh
 echo "API_URL=http://123.456.7.890:3000" > .env
 ```
-5. Get the Cloudbase Authentication file and store it as `./google-services.json`
-
+5. Create an empty `./google-services.json` file in the root of the application.
+```sh
+echo "{}" > google-services.json
+```
 6. Run the following commands
 ```JS
 npm install
