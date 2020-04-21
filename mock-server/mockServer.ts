@@ -1,5 +1,6 @@
 import express = require("express");
 import bodyParser = require("body-parser");
+import moment = require("moment");
 
 const app = express();
 const port = 3000;
@@ -133,6 +134,7 @@ app.get("/patients/:patientId", (req, res) => {
 });
 
 app.patch("/patients/:patientId", (req, res) => {
+  // TODO: return different patients on different patientId
   return res.send();
 });
 
@@ -142,7 +144,7 @@ app.get("/patient_list/", (req, res) => {
       id: "00000000-0000-0000-0000-000000000000",
       avatar_name: 'profile1',
       name: 'Me',
-      last_reported_at: '2020-04-21T15:07:00Z'
+      last_reported_at: moment().subtract(6, 'hours').format()
     },
     {
       id: "00000000-0000-0000-0000-000000000001",
@@ -154,7 +156,7 @@ app.get("/patient_list/", (req, res) => {
       id: "00000000-0000-0000-0000-000000000002",
       avatar_name: 'profile3',
       name: 'Bob',
-      last_reported_at: '2020-04-19T15:07:00Z'
+      last_reported_at: moment().subtract(1, 'days').format()
     },
   ])
 });
