@@ -21,6 +21,8 @@ import i18n from "../../locale/i18n"
 import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
 import { AvatarName } from "../../utils/avatar";
 import moment from "moment";
+import {getCountryConfig} from "../Config";
+
 
 const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
@@ -347,6 +349,11 @@ export default class UserService extends ApiClientBase {
         };
 
         await this.setUserCountry(locale());
+    }
+
+    async getConfig() {
+        const country = await this.getUserCountry();
+        return getCountryConfig(country as string);
     }
 
     async deleteLocalUserData() {
