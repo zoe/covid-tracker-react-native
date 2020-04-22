@@ -79,7 +79,7 @@ class Navigator {
         if (ScreenFlow[screenName]) {
             ScreenFlow[screenName](params);
         } else {
-            console.error("[ROUTE] no next route found for:", screenName);
+            console.log("[ROUTE] no next route found for:", screenName);
         }
     }
 
