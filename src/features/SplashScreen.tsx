@@ -49,14 +49,14 @@ export class SplashScreen extends Component<Props, {}> {
                 ApiClientBase.unsetToken();
                 await AsyncStorageService.clearData();
 
-                navigation.replace('WelcomeUS');
+                navigation.replace('Welcome');
             }
         } else {
             if (country == null) {
                 // Using locale to default to a country
                 await this.userService.defaultCountryToLocale()
             }
-            navigation.replace('WelcomeUS');
+            navigation.replace('Welcome');
         }
     };
 

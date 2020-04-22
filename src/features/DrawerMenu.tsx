@@ -40,7 +40,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         props.navigation.reset({
             index: 0,
             routes: [
-                {name:'WelcomeUS'},
+                {name:'Welcome'},
             ],
         });
         props.navigation.dispatch(DrawerActions.closeDrawer());

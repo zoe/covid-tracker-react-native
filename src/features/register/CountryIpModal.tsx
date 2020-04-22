@@ -91,13 +91,13 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
         const screenStack = () => {
             if (countryCode == US_CODE) {
                 return [
-                    {name: 'WelcomeUS', params: {}},
+                    {name: 'Welcome', params: {}},
                     {name: 'BeforeWeStartUS', params: {}},
                 ]
 
             } else {
                 return [
-                    {name: 'WelcomeUS', params: {}},
+                    {name: 'Welcome', params: {}},
                     {name: 'Consent', params: {}},
                 ]
             }
