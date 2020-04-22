@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../../theme";
-import i18n from "../../../locale/i18n"
-import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../../components/Text";
-import {ScreenParamList} from "../../ScreenParamList";
-import {ukFlagSmall, usFlagSmall, usLogos2} from "../../../../assets";
-import UserService, {isUSLocale} from "../../../core/user/UserService";
-import CountryIpModal from ".././CountryIpModal";
+import {colors} from "../../../theme";
+import i18n from "../../locale/i18n"
+import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
+import {ScreenParamList} from "../ScreenParamList";
+import {svFlagSmall, ukFlagSmall, usFlagSmall, usLogos2} from "../../../assets";
+import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
+import CountryIpModal from "./CountryIpModal";
 
 const Slash = () => <RegularBoldText style={styles.slash}>  /  </RegularBoldText>;
 
@@ -35,10 +35,12 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
 
     render() {
         const flagIcon = () => {
-            if (isUSLocale()) {
-                return usFlagSmall
-            } else {
+            if (isGBLocale()) {
                 return ukFlagSmall
+            } else if (isSVLocale()) {
+                return svFlagSmall
+            } else {
+                return usFlagSmall
             }
         };
 
@@ -72,23 +74,24 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                                 <Image style={styles.partnersLogo} source={usLogos2}/>
                             </View>
 
+                            {isUSLocale() && (
+                                <View style={styles.partnerContainer}>
+                                    <RegularText style={styles.partnerHeader}>
+                                        {i18n.t("welcome.from-researchers")}
+                                    </RegularText>
 
-                            <View style={styles.partnerContainer}>
-                                <RegularText style={styles.partnerHeader}>
-                                    {i18n.t("welcome.from-researchers")}
-                                </RegularText>
+                                    <View style={styles.divider}/>
 
-                                <View style={styles.divider} />
+                                    <RegularText style={styles.partnerList}>
+                                        {i18n.t("names.harvard-th-chan-school-of-public-health")}<Slash/>
+                                        {i18n.t("names.mass-general-hospital")}<Slash/>
+                                        {i18n.t("names.kings-college-london")}<Slash/>
+                                        {i18n.t("names.stanford-university-school-of-medicine")}<Slash/>
+                                        {i18n.t("names.zoe")}
+                                    </RegularText>
+                                </View>
+                            )}
 
-                                <RegularText style={styles.partnerList}>
-                                    {i18n.t("names.harvard-th-chan-school-of-public-health")}<Slash/>
-                                    {i18n.t("names.mass-general-hospital")}<Slash/>
-                                    {i18n.t("names.kings-college-london")}<Slash/>
-                                    {i18n.t("names.stanford-university-school-of-medicine")}<Slash/>
-                                    {i18n.t("names.zoe")}
-                                </RegularText>
-
-                            </View>
                         </View>
                     </ScrollView>
                 </View>
@@ -103,7 +106,11 @@ export class Welcome2USScreen extends Component<PropsType, WelcomeUSScreenState>
                             if (await this.userService.shouldAskCountryConfirmation()) {
                                 this.setState({ipModalVisible: true})
                             } else {
-                                this.props.navigation.navigate('BeforeWeStartUS')
+                                if (isUSLocale()) {
+                                    this.props.navigation.navigate('BeforeWeStartUS')
+                                } else {
+                                    this.props.navigation.navigate('Consent', {viewOnly: false})
+                                }
                             }
                         }}>{i18n.t("welcome.create-account")}</BrandedButton>
                 </View>

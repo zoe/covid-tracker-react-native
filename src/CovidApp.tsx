@@ -8,7 +8,6 @@ import {Dimensions, StatusBar} from "react-native";
 import { colors } from "../theme/colors";
 import { RegisterScreen } from "./features/register/RegisterScreen";
 import AboutYouScreen from "./features/patient/AboutYouScreen";
-import { WelcomeScreen } from "./features/register/gb/WelcomeScreen";
 import { SplashScreen } from "./features/SplashScreen";
 import YourHealthScreen from "./features/patient/YourHealthScreen";
 import HowYouFeelScreen from "./features/assessment/HowYouFeelScreen";
@@ -23,8 +22,8 @@ import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
 import { ScreenParamList } from './features/ScreenParamList';
 import ThankYouScreen from './features/ThankYouScreen';
 import { WelcomeRepeatScreen } from "./features/register/gb/WelcomeRepeatScreen";
-import { Welcome1USScreen } from "./features/register/us/Welcome1USScreen";
-import { Welcome2USScreen } from "./features/register/us/Welcome2USScreen";
+import { Welcome1USScreen } from "./features/register/Welcome1USScreen";
+import { Welcome2USScreen } from "./features/register/Welcome2USScreen";
 import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
 import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
 import {CountrySelectScreen} from "./features/CountrySelectScreen";
@@ -47,7 +46,6 @@ import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 import StartAssessmentScreen from './features/assessment/StartAssessment';
 import PreviousExposureScreen from "./features/patient/PreviousExposure";
 import StartPatientScreen from './features/patient/StartPatient';
-import {WelcomeScreenSV} from "./features/register/sv/WelcomeScreenSV";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -97,11 +95,9 @@ export default class ZoeApp extends Component<{}, State> {
 
                 <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="WelcomeSV" component={WelcomeScreenSV} options={{headerShown: false}}/>
                 <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
