@@ -29,7 +29,6 @@ export class SplashScreen extends Component<Props, {}> {
 
         // Stash a reference to navigator so we can have a class handle next page.
         Navigator.setNavigation(navigation as NavigationType);
-        console.log(navigation);
 
         try {
             await this.userService.getStartupInfo();

@@ -14,10 +14,13 @@ import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {Linking} from "expo";
 import { ContributionCounter } from "../../../components/ContributionCounter";
 import i18n from "../../../locale/i18n";
+import Navigator, {NavigationType} from "../../Navigation";
+
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
+    patientId: string;
 }
 
 type WelcomeRepeatScreenState = {
@@ -28,6 +31,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     state = { userCount: null };
 
     async componentDidMount() {
+        Navigator.resetNavigation(this.props.navigation as unknown as NavigationType);
         const userService = new UserService();
         const userCount = await userService.getUserCount();
         this.setState({userCount});
@@ -48,7 +52,8 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
 
     handleButtonPress = async () => {
-        this.props.navigation.navigate('SelectProfile');
+        const patientId = this.props.patientId;
+        Navigator.gotoNextScreen(this.props.route.name, {patientId});
     };
 
     render() {

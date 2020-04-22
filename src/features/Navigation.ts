@@ -1,8 +1,8 @@
 import UserService, {isUSLocale} from "../core/user/UserService";
 import {ConfigType} from "../core/Config"
-import { StackNavigationProp } from "@react-navigation/stack";
 import { ScreenParamList } from "./ScreenParamList";
 import { PatientStateType } from "../core/patient/PatientState";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type ScreenName = keyof ScreenParamList;
 
@@ -11,17 +11,30 @@ type PatientIdParamType = { patientId: string }
 type CurrentPatientParamType = { currentPatient: PatientStateType }
 type RouteParamsType = PatientIdParamType | CurrentPatientParamType;
 
+export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 class Navigator {
-    navigation: StackNavigationProp<ScreenParamList>;
+    navigation: NavigationType;
     userService: UserService;
 
     constructor() {
         this.userService = new UserService();
     }
 
-    setNavigation(navigation: StackNavigationProp<ScreenParamList>) {
+    setNavigation(navigation: NavigationType) {
         this.navigation = navigation;
+    }
+
+    // Workaround for Expo save/refresh nixing the navigation.
+    resetNavigation(navigation: NavigationType) {
+        if (!this.navigation) {
+            console.log("[ROUTE] Resetting navgation");
+        }
+        this.navigation = this.navigation || navigation;
+    }
+
+    getNavigation(): NavigationType {
+        return this.navigation;
     }
 
     async getConfig(): Promise<ConfigType> {
@@ -53,7 +66,11 @@ class Navigator {
     }
 
     gotoNextScreen(screenName: ScreenName, params: RouteParamsType) {
-        // TODO: insert magic here.
+        if (ScreenFlow[screenName]) {
+            ScreenFlow[screenName](params);
+        } else {
+            console.log("[ROUTE] no next route found for:", screenName);
+        }
     }
 
     gotoScreen(screenName: ScreenName, params: RouteParamsType) {
@@ -68,6 +85,29 @@ class Navigator {
 const navigator = new Navigator();
 export default navigator;
 
+
+const ScreenFlow: any = {
+    Register: async (routeParams: PatientIdParamType) => {
+        const {patientId} = routeParams;
+        const config = await navigator.getConfig();
+
+        if (config.enablePersonalInformation) {
+            navigator.gotoScreen("OptionalInfo", {patientId});
+        } else if (patientId) {
+            const currentPatient = await navigator.getCurrentPatient(patientId);
+            navigator.gotoStartPatient(currentPatient);
+        } else {
+            // TODO: Warn: missing parameter -- critical error. DO NOT FAIL SILENTLY
+            console.error("[ROUTE] Missing patientId parameter for gotoNextPage(Register)");
+        }
+    },
+    WelcomeRepeat: async (routeParams: PatientIdParamType) => {
+        navigator.gotoScreen("SelectProfile", routeParams);
+    },
+    WelcomeRepeatUS: async (routeParams: PatientIdParamType) => {
+        navigator.gotoScreen("SelectProfile", routeParams);
+    }
+}
 
 export async function navigateAfterFinishingAssessment(navigation: any) {
     const userService = new UserService();

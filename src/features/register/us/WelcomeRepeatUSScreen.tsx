@@ -10,10 +10,13 @@ import {AsyncStorageService} from "../../../core/AsyncStorageService";
 import {PushNotificationService} from "../../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import { ContributionCounter } from "../../../components/ContributionCounter";
+import Navigator, {NavigationType} from "../../Navigation";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
+    patientId: string;
 }
 
 type WelcomeRepeatUSScreenState = {
@@ -26,6 +29,7 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
     };
 
     async componentDidMount() {
+        Navigator.resetNavigation(this.props.navigation as unknown as NavigationType);
         const userService = new UserService();
         const userCount = await userService.getUserCount();
         this.setState({userCount});
@@ -46,7 +50,8 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
     }
 
     handleButtonPress = async () => {
-        this.props.navigation.navigate('SelectProfile');
+        const patientId = this.props.patientId;
+        Navigator.gotoNextScreen(this.props.route.name, {patientId});
     };
 
     render() {
