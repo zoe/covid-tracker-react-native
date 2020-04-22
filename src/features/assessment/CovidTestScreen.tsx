@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import {Platform} from "react-native";
+import Screen, {Header, ProgressBlock} from "../../components/Screen";
 import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
 import {Form, Text} from "native-base";
 
@@ -9,7 +9,6 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -19,8 +18,6 @@ import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import { ValidationErrors } from "../../components/ValidationError";
 
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
 
 const initialFormValues = {
     hasCovidTest: 'no',
@@ -123,12 +120,12 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         const hasCovidPositiveItems = [
             {label: i18n.t('picker-no'), value: 'no'},
             {label: i18n.t('picker-yes'), value: 'yes'},
-            {label: i18n.t('covid-test-picker-waiting'), value: 'waiting'}
+            {label: i18n.t('covid-test.picker-waiting'), value: 'waiting'}
         ];
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>COVID-19 status</HeaderText>
+                    <HeaderText>{i18n.t("covid-test.page-title")}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -150,7 +147,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                     placeholder="hasCovidTest"
                                     selectedValue={props.values.hasCovidTest}
                                     onValueChange={props.handleChange("hasCovidTest")}
-                                    label={i18n.t('covid-test-question-has-covid-test')}
+                                    label={i18n.t('covid-test.question-has-covid-test')}
                                 />
 
                                 {props.values.hasCovidTest === "yes" && (
@@ -158,7 +155,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                         placeholder="hasCovidPositive"
                                         selectedValue={props.values.hasCovidPositive}
                                         onValueChange={props.handleChange("hasCovidPositive")}
-                                        label={i18n.t('covid-test-question-has-covid-positive')}
+                                        label={i18n.t('covid-test.question-has-covid-positive')}
                                         items={hasCovidPositiveItems}
                                     />
                                 )}
@@ -168,7 +165,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.takesAnyBloodPressureMedications}
                                         onValueChange={props.handleChange("takesAnyBloodPressureMedications")}
-                                        label={i18n.t('covid-test-question-takes-any-blood-pressure-medications')}
+                                        label={i18n.t('covid-test.question-takes-any-blood-pressure-medications')}
                                         error={props.touched.takesAnyBloodPressureMedications && props.errors.takesAnyBloodPressureMedications}
                                         androidDefaultLabel={i18n.t("label-chose-an-option")}
                                     />

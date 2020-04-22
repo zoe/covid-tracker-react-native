@@ -7,7 +7,7 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import i18n from "../../locale/i18n"
-import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
@@ -164,35 +164,35 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         const currentPatient = this.props.route.params.currentPatient;
 
         const healthcareStaffOptions = [
-            {label: 'No', value: 'no'},
+            {label: i18n.t("picker-no"), value: 'no'},
             {label: i18n.t("yes-interacting-patients"), value: 'yes_does_interact'},
             {label: i18n.t("yes-not-interacting-patients"), value: 'yes_does_not_interact'},
         ];
         const equipmentUsageOptions = [
-            {label: 'Always', value: 'always'},
-            {label: 'Sometimes', value: 'sometimes'},
-            {label: 'Never', value: 'never'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-always"), value: 'always'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-sometimes"), value: 'sometimes'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-never"), value: 'never'},
         ];
 
         const availabilityAlwaysOptions = [
-            {label: 'I have had all the PPE I need for work', value: 'all_needed'},
-            {label: 'I had to reuse PPE because of shortage', value: 'reused'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-always-all-needed"), value: 'all_needed'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-always-reused"), value: 'reused'},
         ];
         const availabilitySometimesOptions = [
-            {label: "I haven't always needed to use PPE, but have had enough when I did", value: 'all_needed'},
-            {label: "I would have used PPE all the time, but I haven't had enough", value: 'not_enough'},
-            {label: "I've had to reuse PPE because of shortage", value: 'reused'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-sometimes-all-needed"), value: 'all_needed'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-sometimes-not-enough"), value: 'not_enough'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-sometimes-reused"), value: 'reused'},
         ];
         const availabilityNeverOptions = [
-            {label: "I haven't needed PPE", value: 'not_needed'},
-            {label: "I needed PPE, but it was not available", value: 'not_available'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-never-not-needed"), value: 'not_needed'},
+            {label: i18n.t("health-worker-exposure-picker-ppe-never-not-available"), value: 'not_available'},
         ];
 
         const patientInteractionOptions = [
-            {label: "Yes, documented COVID-19 cases only", value: 'yes_documented'},
-            {label: "Yes, suspected COVID-19 cases only", value: 'yes_suspected'},
-            {label: "Yes, both documented and suspected COVID-19 cases", value: 'yes_documented_suspected'},
-            {label: "Not that I know of", value: 'no'}
+            {label: i18n.t("exposed-yes-documented"), value: 'yes_documented'},
+            {label: i18n.t("exposed-yes-undocumented"), value: 'yes_suspected'},
+            {label: i18n.t("exposed-both"), value: 'yes_documented_suspected'},
+            {label: i18n.t("exposed-no"), value: 'no'}
         ];
 
         if (isAndroid) {
@@ -255,31 +255,31 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                         <CheckboxItem
                                                             value={this.state.atHospitalInpatient}
                                                             onChange={(value: boolean) => this.setState({atHospitalInpatient: value})}
-                                                        >Hospital inpatient</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-hospital-inpatient")}</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.atHospitalOutpatient}
                                                             onChange={(value: boolean) => this.setState({atHospitalOutpatient: value})}
-                                                        >Hospital outpatient</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-hospital-outpatient")}</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.atClinicOutsideHospital}
                                                             onChange={(value: boolean) => this.setState({atClinicOutsideHospital: value})}
-                                                        >Clinic outside a hospital</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-clinic-outside-hospital")}</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.atCareFacility}
                                                             onChange={(value: boolean) => this.setState({atCareFacility: value})}
-                                                        >Nursing home/elderly care or group care facility</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-nursing-home")}</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.atHomeHealth}
                                                             onChange={(value: boolean) => this.setState({atHomeHealth: value})}
-                                                        >Home health</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-home-health")}</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.atSchoolClinic}
                                                             onChange={(value: boolean) => this.setState({atSchoolClinic: value})}
-                                                        >School clinic</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-school-clinic")}</CheckboxItem>
                                                         <CheckboxItem
                                                             value={this.state.atOtherFacility}
                                                             onChange={(value: boolean) => this.setState({atOtherFacility: value})}
-                                                        >Other health care facility</CheckboxItem>
+                                                        >{i18n.t("your-work.worked-other-facility")}</CheckboxItem>
                                                     </CheckboxList>
 
                                                 </Item>
