@@ -1,45 +1,14 @@
+import { Item, CheckBox, View } from "native-base";
 import React from "react";
-import {StyleSheet} from "react-native";
-import {Item, CheckBox, View} from "native-base";
-import {TouchableWithoutFeedback} from "react-native-gesture-handler";
-import {RegularText} from "./Text";
+import { StyleSheet } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-type CheckboxProps = {
-    value: any;
-    onChange: any;
-    children: any;
-}
+import { RegularText } from "./Text";
 
-export const CheckboxItem = (props: CheckboxProps) => {
-    return (
-      <Item style={cbStyles.checkboxRow}>
-          <CheckBox
-            checked={props.value}
-            onPress={() => props.onChange(!props.value)}
-          />
-          <TouchableWithoutFeedback onPress={() => props.onChange(!props.value)}>
-              <RegularText style={cbStyles.checkboxLabel}>{props.children}</RegularText>
-          </TouchableWithoutFeedback>
-      </Item>
-    );
-};
-
-type CheckboxListProps = {
-    children: any;
-}
-
-export const CheckboxList = (props: CheckboxListProps) => {
-    return (
-      <View style={cbStyles.checkboxList}>
-          {props.children}
-      </View>
-    )
-};
-
-const cbStyles = StyleSheet.create({
+const checkboxStyles = StyleSheet.create({
     checkboxList: {
         marginVertical: 16,
-        width: '100%'
+        width: "100%",
     },
 
     checkboxRow: {
@@ -48,6 +17,38 @@ const cbStyles = StyleSheet.create({
     },
 
     checkboxLabel: {
-        marginLeft: 16
-    }
+        marginLeft: 16,
+    },
 });
+
+type CheckboxProps = {
+    value: boolean;
+    onChange: (value: boolean) => void;
+    children: React.ReactNode;
+};
+
+type CheckboxListProps = {
+    children: React.ReactNode;
+};
+
+export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
+    return (
+        <Item style={checkboxStyles.checkboxRow}>
+            <CheckBox
+                checked={props.value}
+                onPress={() => props.onChange(!props.value)}
+            />
+            <TouchableWithoutFeedback
+                onPress={() => props.onChange(!props.value)}
+            >
+                <RegularText style={checkboxStyles.checkboxLabel}>
+                    {props.children}
+                </RegularText>
+            </TouchableWithoutFeedback>
+        </Item>
+    );
+};
+
+export const CheckboxList: React.FC<CheckboxListProps> = ({ children }) => (
+    <View style={checkboxStyles.checkboxList}>{children}</View>
+);

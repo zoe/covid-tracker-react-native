@@ -1,35 +1,34 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
-import {ErrorText} from "./Text";
+import { StyleSheet, View } from "react-native";
+
 import i18n from "../locale/i18n";
+import { ErrorText } from "./Text";
 
 type ErrorProps = {
-    error: string,
-}
+    error: string;
+};
 
-export const ValidationError = (props: ErrorProps) => {
+export const ValidationError: React.FC<ErrorProps> = ({ error }) => {
     return (
-      <View style={styles.validationError}>
-          <ErrorText>{props.error}</ErrorText>
-      </View>
+        <View style={styles.validationError}>
+            <ErrorText>{error}</ErrorText>
+        </View>
     );
 };
 
 type ErrorsProps = {
-    errors: object,
-}
-
-export const ValidationErrors = (props: ErrorsProps) => {
-    const info = Object.keys(props.errors).join(", ");
-    return (
-      <View style={styles.validationErrors}>
-          <ErrorText>
-              {i18n.t('validation-error-text', {'info': info})}
-          </ErrorText>
-      </View>
-    );
+    errors: object;
 };
 
+export const ValidationErrors: React.FC<ErrorsProps> = ({ errors }) => (
+    <View style={styles.validationErrors}>
+        <ErrorText>
+            {i18n.t("validation-error-text", {
+                info: Object.keys(errors).join(", "),
+            })}
+        </ErrorText>
+    </View>
+);
 
 const styles = StyleSheet.create({
     validationError: {
@@ -39,6 +38,6 @@ const styles = StyleSheet.create({
 
     validationErrors: {
         marginVertical: 8,
-        marginHorizontal: 8
-    }
+        marginHorizontal: 8,
+    },
 });
