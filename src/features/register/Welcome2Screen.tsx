@@ -1,15 +1,15 @@
 import React, {Component} from "react";
-import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Dimensions, Image, Linking, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {svFlagSmall, ukFlagSmall, usFlagSmall, usLogos2} from "../../../assets";
+import {svFlagSmall, ukFlagSmall, usFlagSmall, usLogos2, partnersLogo, svLogos} from "../../../assets";
 import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
 import CountryIpModal from "./CountryIpModal";
 
-const Slash = () => <RegularBoldText style={styles.slash}>  /  </RegularBoldText>;
+const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -24,7 +24,36 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
     userService = new UserService();
     state = {
         userCount: null,
-        ipModalVisible: false
+        ipModalVisible: false,
+    };
+
+
+    partnersLogos = () => {
+        if (isGBLocale()) {
+            return partnersLogo
+        } else if (isSVLocale()) {
+            return svLogos
+        } else {
+            return usLogos2
+        }
+    };
+
+    flagIcon = () => {
+        if (isGBLocale()) {
+            return ukFlagSmall
+        } else if (isSVLocale()) {
+            return svFlagSmall
+        } else {
+            return usFlagSmall
+        }
+    };
+
+    helpUrl = () => {
+        if (isGBLocale()) {
+            Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")
+        } else if (isSVLocale()) {
+            Linking.openURL("https://www.1177.se")
+        }
     };
 
     async componentDidMount() {
@@ -34,16 +63,6 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
     }
 
     render() {
-        const flagIcon = () => {
-            if (isGBLocale()) {
-                return ukFlagSmall
-            } else if (isSVLocale()) {
-                return svFlagSmall
-            } else {
-                return usFlagSmall
-            }
-        };
-
         return (
             <SafeAreaView style={styles.safeView}>
                 <View style={styles.rootContainer}>
@@ -51,13 +70,12 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
 
                         <View style={styles.covidContainer}>
                             <View style={styles.headerRow}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                    <Image style={styles.flagIcon} source={flagIcon()}/>
-                                </TouchableOpacity>
-
                                 <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>
                                     {i18n.t("welcome.sign-in")}
                                 </ClickableText>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                                    <Image style={styles.flagIcon} source={this.flagIcon()}/>
+                                </TouchableOpacity>
                             </View>
                             <View>
                                 <RegularText style={styles.subtitle}>
@@ -67,11 +85,22 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
                                     {i18n.t("welcome.how-you-can-help.text1")}
                                 </RegularText>
 
-                                <RegularText style={styles.subheader2}>
-                                    {i18n.t("welcome.how-you-can-help.text2")}
-                                </RegularText>
+                                {isUSLocale() && (
+                                    <RegularText style={styles.subheader2}>
+                                        {i18n.t("welcome.how-you-can-help.text2")}
+                                    </RegularText>
+                                )}
 
-                                <Image style={styles.partnersLogo} source={usLogos2}/>
+                                {(isSVLocale() || isGBLocale()) && (
+                                    <RegularText style={styles.subheader2}>{"\n"}{i18n.t("welcome.disclaimer")}{" "}
+                                        <ClickableText style={[styles.subheader2, styles.nhsWebsite]}
+                                                       onPress={this.helpUrl}>
+                                            {i18n.t("welcome.disclaimer-link")}
+                                        </ClickableText>.
+                                    </RegularText>
+                                )}
+
+                                <Image style={styles.partnersLogo} source={this.partnersLogos()}/>
                             </View>
 
                             {isUSLocale() && (
@@ -133,6 +162,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.backgroundSecondary,
     },
     headerRow: {
+        paddingVertical: 8,
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "center",
@@ -160,17 +190,18 @@ const styles = StyleSheet.create({
     },
     login: {
         color: colors.primary,
-        marginLeft: 5,
+        marginHorizontal: 16,
     },
     subheader: {
+        paddingVertical: 8,
         color: colors.primary,
         textAlign: "center",
         fontSize: 16,
-        fontWeight: "300",
         lineHeight: 24,
         marginTop: 16,
     },
     subheader2: {
+        paddingVertical: 8,
         color: colors.secondary,
         textAlign: "center",
         fontSize: 16,
@@ -182,7 +213,7 @@ const styles = StyleSheet.create({
         color: colors.primary,
         fontSize: 24,
         lineHeight: 32,
-        paddingVertical: 0,
+        paddingVertical: 8,
         textAlign: "center",
         marginTop: 25,
     },
@@ -190,15 +221,14 @@ const styles = StyleSheet.create({
         color: colors.slashBlue,
     },
     partnersLogo: {
-        marginTop: 28,
-        height: 120,
+        marginVertical: 16,
+        height: 160,
         width: '100%',
         resizeMode: 'contain',
         alignSelf: "center",
     },
     partnerContainer: {
-        marginVertical: 40,
-        paddingVertical: 20,
+        marginVertical: 16,
         paddingHorizontal: 30,
         backgroundColor: colors.white,
         borderRadius: 10,
@@ -210,5 +240,7 @@ const styles = StyleSheet.create({
         height: 32,
         width: 32
     },
-
+    nhsWebsite: {
+        textDecorationLine: "underline"
+    },
 });

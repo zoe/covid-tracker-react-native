@@ -28,27 +28,27 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
         this.setState({userCount});
     }
 
+    flagIcon = () => {
+        if (isGBLocale()) {
+            return ukFlagSmall
+        } else if (isSVLocale()) {
+            return svFlagSmall
+        } else {
+            return usFlagSmall
+        }
+    };
+
+    mapImage = () => {
+        if (isGBLocale()) {
+            return usMap
+        } else if (isSVLocale()) {
+            return usMap
+        } else {
+            return usMap
+        }
+    };
+
     render() {
-        const flagIcon = () => {
-            if (isGBLocale()) {
-                return ukFlagSmall
-            } else if (isSVLocale()) {
-                return svFlagSmall
-            } else {
-                return usFlagSmall
-            }
-        };
-
-        const mapImage = () => {
-            if (isGBLocale()) {
-                return usMap
-            } else if (isSVLocale()) {
-                return usMap
-            } else {
-                return usMap
-            }
-        };
-
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <SafeAreaView style={styles.safeView}>
@@ -59,11 +59,11 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
                                 <View style={styles.headerRow}>
 
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                        <Image style={styles.flagIcon} source={flagIcon()}/>
+                                        <Image style={styles.flagIcon} source={this.flagIcon()}/>
                                     </TouchableOpacity>
                                 </View>
 
-                                <Image style={styles.usMap} source={mapImage()} resizeMode="contain"/>
+                                <Image style={styles.usMap} source={this.mapImage()} resizeMode="contain"/>
                                 
                                 <RegularText style={styles.subtitle}>
                                      {i18n.t("welcome.take-a-minute")}
