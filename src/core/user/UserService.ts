@@ -155,7 +155,7 @@ export default class UserService extends ApiClientBase {
         return patientResponse.data;
     }
 
-    public updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+    public async updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
         // Calculate the flags based on patient info
         const isFemale = (patient.gender == 0);
         const isHealthWorker = (
@@ -190,6 +190,14 @@ export default class UserService extends ApiClientBase {
             shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7
         }
 
+        // Decide whether patient needs to answer YourStudy questions
+        const consent = await this.getConsentSigned();
+        const shouldAskStudy = (
+            (isUSLocale() && consent && consent.document === "US Nurses")
+            || isGBLocale()
+        );
+
+
         return {
             ...patientState,
             profile,
@@ -200,6 +208,7 @@ export default class UserService extends ApiClientBase {
             isReportedByAnother,
             isSameHousehold,
             shouldAskLevelOfIsolation,
+            shouldAskStudy,
         };
     }
 
@@ -212,7 +221,7 @@ export default class UserService extends ApiClientBase {
             }
 
             if (patient) {
-                currentPatient = this.updatePatientState(currentPatient, patient);
+                currentPatient = await this.updatePatientState(currentPatient, patient);
             }
 
         } catch (error) {
