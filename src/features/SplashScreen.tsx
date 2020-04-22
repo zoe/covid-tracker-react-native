@@ -20,10 +20,6 @@ export class SplashScreen extends Component<Props, {}> {
         this.bootstrapAsync();
     }
 
-    private getWelcomeScreenName() {
-        return isUSLocale() ? 'WelcomeUS' : 'Welcome'
-    }
-
     private bootstrapAsync = async () => {
         const {navigation} = this.props;
         let country: string|null = null;
@@ -53,14 +49,14 @@ export class SplashScreen extends Component<Props, {}> {
                 ApiClientBase.unsetToken();
                 await AsyncStorageService.clearData();
 
-                navigation.replace(this.getWelcomeScreenName());
+                navigation.replace('WelcomeUS');
             }
         } else {
             if (country == null) {
                 // Using locale to default to a country
                 await this.userService.defaultCountryToLocale()
             }
-            navigation.replace(this.getWelcomeScreenName());
+            navigation.replace('WelcomeUS');
         }
     };
 

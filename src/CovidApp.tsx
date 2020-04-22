@@ -6,50 +6,24 @@ import { Header, Root, View } from "native-base";
 import React, { Component } from "react";
 import { Dimensions, StatusBar } from "react-native";
 import { colors } from "../theme/colors";
-import { CountrySelectScreen } from "./features/CountrySelectScreen";
-import { DrawerMenu } from "./features/DrawerMenu";
-import { ScreenParamList } from "./features/ScreenParamList";
+import { RegisterScreen } from "./features/register/RegisterScreen";
 import { SplashScreen } from "./features/SplashScreen";
 import ThankYouScreen from "./features/ThankYouScreen";
-import ViralThankYouScreen from "./features/ViralThankYouScreen";
 import CovidTestScreen from "./features/assessment/CovidTestScreen";
 import DescribeSymptomsScreen from "./features/assessment/DescribeSymptomsScreen";
-import HealthWorkerExposureScreen from "./features/assessment/HealthWorkerExposureScreen";
 import HowYouFeelScreen from "./features/assessment/HowYouFeelScreen";
-import LevelOfIsolationScreen from "./features/assessment/LevelOfIsolationScreen";
-import StartAssessmentScreen from "./features/assessment/StartAssessment";
 import TreatmentOtherScreen from "./features/assessment/TreatmentOtherScreen";
 import TreatmentSelectionScreen from "./features/assessment/TreatmentSelectionScreen";
 import WhereAreYouScreen from "./features/assessment/WhereAreYouScreen";
 import { LoginScreen } from "./features/login/LoginScreen";
-import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
-import ConsentForOther from "./features/multi-profile/ConsentForOtherScreen";
-import CreateProfileScreen from "./features/multi-profile/CreateProfileScreen";
-import ReportForOtherScreen from "./features/multi-profile/ReportForOtherScreen";
-import SelectProfileScreen from "./features/multi-profile/SelectProfileScreen";
-import { ResetPasswordConfirmScreen } from "./features/password-reset/ResetPassordConfirm";
-import { ResetPasswordScreen } from "./features/password-reset/ResetPassword";
 import AboutYouScreen from "./features/patient/AboutYouScreen";
-import PreviousExposureScreen from "./features/patient/PreviousExposure";
-import StartPatientScreen from "./features/patient/StartPatient";
 import YourHealthScreen from "./features/patient/YourHealthScreen";
-import YourStudyScreen from "./features/patient/YourStudyScreen";
-import YourWorkScreen from "./features/patient/YourWorkScreen";
 import { ConsentScreen } from "./features/register/ConsentScreen";
 import { OptionalInfoScreen } from "./features/register/OptionalInfoScreen";
-import { RegisterScreen } from "./features/register/RegisterScreen";
 import { PrivacyPolicyUKScreen } from "./features/register/gb/PrivacyPolicyUKScreen";
 import { WelcomeRepeatScreen } from "./features/register/gb/WelcomeRepeatScreen";
-import { WelcomeScreen } from "./features/register/gb/WelcomeScreen";
-import BeforeWeStartUS from "./features/register/us/BeforeWeStartUS";
-import { NursesConsentUSScreen } from "./features/register/us/NursesConsentUS";
-import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
-import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
-import { Welcome1USScreen } from "./features/register/us/Welcome1USScreen";
-import { Welcome2USScreen } from "./features/register/us/Welcome2USScreen";
-<<<<<<< HEAD
-import { WelcomeRepeatUSScreen } from "./features/register/us/WelcomeRepeatUSScreen";
-=======
+import { Welcome1USScreen } from "./features/register/Welcome1USScreen";
+import { Welcome2USScreen } from "./features/register/Welcome2USScreen";
 import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
 import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
 import {CountrySelectScreen} from "./features/CountrySelectScreen";
@@ -60,7 +34,6 @@ import {ResetPasswordScreen} from "./features/password-reset/ResetPassword";
 import {ResetPasswordConfirmScreen} from "./features/password-reset/ResetPassordConfirm";
 import HealthWorkerExposureScreen from "./features/assessment/HealthWorkerExposureScreen";
 import LevelOfIsolationScreen from "./features/assessment/LevelOfIsolationScreen";
-import {createDrawerNavigator} from "@react-navigation/drawer";
 import {DrawerMenu} from "./features/DrawerMenu";
 import YourStudyScreen from "./features/patient/YourStudyScreen";
 import ViralThankYouScreen from "./features/ViralThankYouScreen";
@@ -72,8 +45,7 @@ import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 import StartAssessmentScreen from './features/assessment/StartAssessment';
 import PreviousExposureScreen from "./features/patient/PreviousExposure";
 import StartPatientScreen from './features/patient/StartPatient';
-import {WelcomeScreenSV} from "./features/register/sv/WelcomeScreenSV";
->>>>>>> Unify repeat screens
+import {ScreenParamList} from "./features/ScreenParamList";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -129,7 +101,6 @@ export default class ZoeApp extends Component<object, State> {
             <Stack.Navigator>
                 <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
