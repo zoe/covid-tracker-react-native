@@ -47,7 +47,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     }
 
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
-        const patientId = this.props.route.params.user.patients[0];
+        const patientId = this.props.route.params.patientId;
         const userService = new UserService();
 
         const currentPatient = await userService.getCurrentPatient(patientId);

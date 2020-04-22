@@ -32,7 +32,7 @@ export type ScreenParamList = {
     CountrySelect: { patientId: string | null };
 
     // PII screens
-    OptionalInfo: { user: UserResponse };
+    OptionalInfo: { patientId: string };
 
     // Profile screens
     ReportForOther: undefined;

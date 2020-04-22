@@ -52,7 +52,10 @@ export class RegisterScreen extends Component<PropsType, State> {
             this.setState({enableSubmit: false}); // Stop resubmissions
             const userService = new UserService(); // todo get gloval var
             userService.register(formData.email, formData.password)
-                .then(response => this.props.navigation.replace("OptionalInfo", {user: response.data.user}))
+                .then(response => {
+                    const patientId = response.data.user.patients[0];
+                    this.props.navigation.replace("OptionalInfo", {patientId});
+                })
                 .catch((err: AxiosError) => {
                     // TODO - These error messages are misleading and we could display what the server sends back
                     if (err.response?.status === 500) {
