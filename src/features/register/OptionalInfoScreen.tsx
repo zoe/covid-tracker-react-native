@@ -6,7 +6,7 @@ import {colors} from "../../../theme";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService from "../../core/user/UserService";
 import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {RouteProp} from '@react-navigation/native';
 import {ScreenParamList} from "../ScreenParamList";
@@ -15,6 +15,7 @@ import {PushNotificationService} from "../../core/PushNotificationService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
 import Constants from 'expo-constants';
 import i18n from "../../locale/i18n";
+import Navigator from "../Navigation";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>
@@ -42,31 +43,10 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         this.state = initialState;
     }
 
-    private getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
-    }
-
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
         const patientId = this.props.route.params.patientId;
         const userService = new UserService();
-
         const currentPatient = await userService.getCurrentPatient(patientId);
-
-        // TODO: refactor this to PatientScreen. After we understand why other routes
-        // don't have this branching logic.
-        const nextScreen = currentPatient.shouldAskStudy
-            ? {name: "YourStudy", params: {currentPatient}}
-            : {name: "YourWork", params: {currentPatient}};
-
-        const goToNextScreen = () => {
-            this.props.navigation.reset({
-                index: 0,
-                routes: [
-                    {name: this.getWelcomeRepeatScreenName(), params: {patientId: patientId}},
-                    nextScreen
-                ],
-            })
-        };
 
         if (Constants.appOwnership !== 'expo') {
             const pushToken = await PushNotificationService.getPushToken(false);
@@ -83,7 +63,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         const hasFormData = formData.phone?.trim() || formData.name?.trim()
 
         if (!hasFormData) {
-            goToNextScreen();
+            Navigator.gotoStartPatient(currentPatient);
         } else {
             let piiDoc = formData.name ? {
                 name: formData.name
@@ -97,12 +77,8 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             }
 
             userService.updatePii(piiDoc)
-                .then(() => {
-                    goToNextScreen()
-                }).catch(err => {
-                this.setState({errorMessage: i18n.t("something-went-wrong")});
-                console.log(err.response.data);
-            })
+                .then(() => Navigator.gotoStartPatient(currentPatient))
+                .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
         }
     }
 
