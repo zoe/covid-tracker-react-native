@@ -11,8 +11,7 @@ export type ScreenParamList = {
 
     // Welcome screens
     Welcome: undefined;
-    WelcomeUS: undefined;
-    Welcome2US: undefined;
+    Welcome2: undefined;
     WelcomeSV: undefined;
     WelcomeRepeat: { patientId: string };
 
