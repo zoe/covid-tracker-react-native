@@ -4,6 +4,7 @@ export const covidIcon = require('./icon_transparent.png');
 export const partnersLogo = require('./partner_logos.png');
 export const social = require('./social.png');
 export const usLogos2 = require('./partner_logos_us_2.png');
+export const svLogos = require('./svLogos.png');
 export const usMap = require('./us_map.png');
 export const usMap2 = require('./usMap.png');
 export const gbMap = require('./gbMap.png');
