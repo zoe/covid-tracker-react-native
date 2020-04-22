@@ -13,11 +13,11 @@ type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
 }
 
-type WelcomeUSScreenState = {
+type WelcomeScreenState = {
     userCount: string | null
 }
 
-export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState> {
+export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
     state = {
         userCount: null,
     };
