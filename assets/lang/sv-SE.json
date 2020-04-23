@@ -311,7 +311,7 @@
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig",
     "disclaimer-link": "besöka 1177.se",
     "tell-me-more": "Berätta mer",
-    "more-info": "för mer information",
+    "more-info": "%{link} för mer information",
     "more-info-link": "Besök vår webbplats ",
     "visit-the-website": "Besök webbplatsen",
     "see-how-your-area-is-affected": "Se hur ditt område påverkas och vilka fynd du bidrog till",
