@@ -1,177 +1,191 @@
-import React, {Component} from "react";
-import {Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {RouteProp} from '@react-navigation/native';
-import {Icon, Input, Item, Label, Toast} from 'native-base';
-import {colors} from "../../../theme";
-import {UserNotFoundException} from "../../core/Exception";
-import i18n from "../../locale/i18n"
-import {fontStyles} from "../../../theme";
-import {BrandedButton, ClickableText, HeaderLightText, RegularText} from "../../components/Text";
-import UserService, {isUSLocale} from "../../core/user/UserService";
-import {ScreenParamList} from "../ScreenParamList";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Formik } from "formik";
+import { Input, Item, Label, Toast } from "native-base";
+import React from "react";
+import {
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableWithoutFeedback,
+    View,
+} from "react-native";
+
+import { colors } from "../../../theme";
+import {
+    BrandedButton,
+    ClickableText,
+    HeaderLightText,
+    RegularText,
+} from "../../components/Text";
+import { UserNotFoundException } from "../../core/Exception";
+import UserService, { isUSLocale } from "../../core/user/UserService";
+import i18n from "../../locale/i18n";
+import { ScreenParamList } from "../ScreenParamList";
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'Login'>
-    routeProp: RouteProp<ScreenParamList, 'Login'>;
+    navigation: StackNavigationProp<ScreenParamList, "Login">;
+    routeProp: RouteProp<ScreenParamList, "Login">;
+};
+
+interface LoginSubmitProps {
+    username: string;
+    password: string;
 }
 
-type StateType = {
-    hasUserValidationError: boolean,
-    hasPassValidationError: boolean
-}
+const RegisterStartLink: React.FC<PropsType> = ({ navigation }) => {
+    return isUSLocale() ? (
+        <ClickableText onPress={() => navigation.navigate("BeforeWeStartUS")}>
+            {i18n.t("login.create-account")}
+        </ClickableText>
+    ) : (
+        <ClickableText
+            onPress={() =>
+                navigation.navigate("Consent", {
+                    viewOnly: false,
+                })
+            }
+        >
+            {i18n.t("login.create-account")}
+        </ClickableText>
+    );
+};
+const initialValues: LoginSubmitProps = {
+    username: "",
+    password: "",
+};
 
-const initialState: StateType = {
-    hasUserValidationError: false,
-    hasPassValidationError: false
-}
+export const LoginScreen: React.FC<PropsType> = (props) => {
+    const getWelcomeRepeatScreenName = () => {
+        return isUSLocale() ? "WelcomeRepeatUS" : "WelcomeRepeat";
+    };
 
-export class LoginScreen extends Component<PropsType, StateType> {
-    private passwordField: Input | null
-    private errorMessage = ""
-    private username = ""
-    private password = ""
-
-    constructor(props: PropsType) {
-        super(props);
-        this.state = initialState;
-        this.handleLogin = this.handleLogin.bind(this)
-    }
-
-    componentDidMount() {
-    }
-
-    private getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
-    }
-
-    handleLogin() {
-        this.errorMessage = ""
-        const username = this.username.trim();
-        this.setState({
-            hasUserValidationError: username == "",
-            hasPassValidationError: this.password == ""
-        })
-
-        if (username == "" || this.password == "") {
-            return;
-        }
-
+    const handleLogin = async ({ username, password }: LoginSubmitProps) => {
         const userService = new UserService();
-        userService.login(username, this.password)
-            .then(response => {
-                // TODO: Support multiple users.
-                const patientId = response.user.patients[0];
-                this.props.navigation.reset({
-                    index: 0,
-                    routes: [{name: this.getWelcomeRepeatScreenName(), params: {patientId: patientId}}],
-                })
-            })
-            .catch(error => {
-                if (error.constructor === UserNotFoundException) {
-                    this.errorMessage = i18n.t("login.user-not-found-exception")
-                } else {
-                    this.errorMessage = i18n.t("login.exception")
-                }
-                Toast.show({
-                    text: this.errorMessage,
-                    duration: 2500,
-                })
+
+        try {
+            const response = await userService.login(username.trim(), password);
+            const patientId = response.user.patients[0];
+            props.navigation.reset({
+                index: 0,
+                routes: [
+                    {
+                        name: getWelcomeRepeatScreenName(),
+                        params: { patientId },
+                    },
+                ],
             });
-    }
+        } catch (error) {
+            const errorMessage = i18n.t(
+                error.constructor === UserNotFoundException
+                    ? "login.user-not-found-exception"
+                    : "login.exception"
+            );
 
-    // todo: validation for email
+            Toast.show({
+                text: errorMessage,
+                duration: 2500,
+            });
+        }
+    };
 
-    render() {
-        const registerStartLink = isUSLocale() ?
-            (
-                <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("login.create-account")}</ClickableText>
-            ) : (
-                <ClickableText onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>{i18n.t("login.create-account")}</ClickableText>
-            )
+    let inputEl: any | null = null;
 
-        return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-                    <View>
-                        <HeaderLightText style={styles.titleText}>{i18n.t("login.title")}</HeaderLightText>
+    return (
+        <Formik onSubmit={handleLogin} initialValues={initialValues}>
+            {({ handleSubmit, handleChange, values }) => {
+                return (
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <KeyboardAvoidingView
+                            style={styles.rootContainer}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : undefined
+                            }
+                        >
+                            <View>
+                                <HeaderLightText style={styles.titleText}>
+                                    {i18n.t("login.title")}
+                                </HeaderLightText>
 
-                        <View style={styles.formItem}>
-                            <Item style={styles.labelPos} floatingLabel error={this.state.hasUserValidationError}>
-                                <Label style={styles.labelStyle}>{i18n.t("login.email-label")}</Label>
-                                <Input
-                                    keyboardType="email-address"
-                                    autoCapitalize="none"
-                                    returnKeyType="next"
-                                    autoCompleteType="email"
-                                    onChangeText={(username) => {
-                                        this.username = username;
-                                        if (this.state.hasUserValidationError) {
-                                            this.setState({hasUserValidationError: false})
+                                <View style={styles.formItem}>
+                                    <Item style={styles.labelPos} floatingLabel>
+                                        <Label style={styles.labelStyle}>
+                                            {i18n.t("login.email-label")}
+                                        </Label>
+                                        <Input
+                                            keyboardType="email-address"
+                                            autoCapitalize="none"
+                                            returnKeyType="next"
+                                            autoCompleteType="email"
+                                            onChangeText={handleChange(
+                                                "username"
+                                            )}
+                                            onSubmitEditing={() => {
+                                                !!inputEl._root &&
+                                                    inputEl._root.focus();
+                                            }}
+                                            blurOnSubmit={false}
+                                        />
+                                    </Item>
+                                </View>
+                                <View style={styles.formItem}>
+                                    <Item style={styles.labelPos} floatingLabel>
+                                        <Label style={styles.labelStyle}>
+                                            {i18n.t("login.password-label")}
+                                        </Label>
+                                        <Input
+                                            secureTextEntry
+                                            returnKeyType="go"
+                                            onChangeText={handleChange(
+                                                "password"
+                                            )}
+                                            getRef={(a) => (inputEl = a)}
+                                            onSubmitEditing={() =>
+                                                handleSubmit()
+                                            }
+                                        />
+                                    </Item>
+                                </View>
+                            </View>
+
+                            <View>
+                                <BrandedButton
+                                    onPress={() => handleSubmit()}
+                                    enable={
+                                        !!values.username && !!values.password
+                                    }
+                                >
+                                    <Text>{i18n.t("login.button")}</Text>
+                                </BrandedButton>
+                                <View style={styles.bottomTextView}>
+                                    <RegularText>
+                                        {i18n.t("login.dont-have-account")}
+                                    </RegularText>
+                                    <RegularText> </RegularText>
+                                    <RegisterStartLink {...props} />
+                                </View>
+
+                                <View style={styles.bottomTextView2}>
+                                    <ClickableText
+                                        onPress={() =>
+                                            props.navigation.navigate(
+                                                "ResetPassword"
+                                            )
                                         }
-                                    }}
-                                    onSubmitEditing={() => {
-                                        // This complains (but still works) due to issue with Native Base: https://github.com/GeekyAnts/NativeBase/issues/1803 so we force ignore.
-                                        // @ts-ignore
-                                        this.passwordField._root.focus()
-                                    }}
-                                    blurOnSubmit={false}
-                                />
-                                {this.state.hasUserValidationError && (
-                                    <Icon name='close'/>
-                                )}
-                            </Item>
-                        </View>
-                        <View style={styles.formItem}>
-                            <Item style={styles.labelPos} floatingLabel error={this.state.hasPassValidationError}>
-                                <Label style={styles.labelStyle}>{i18n.t("login.password-label")}</Label>
-                                <Input
-                                    secureTextEntry={true}
-                                    returnKeyType="go"
-                                    onChangeText={(password) => {
-                                        this.password = password
-                                        if (this.state.hasPassValidationError) {
-                                            this.setState({hasPassValidationError: false})
-                                        }
-                                    }}
-                                    getRef={(inputField) => {
-                                        this.passwordField = inputField
-                                    }}
-                                    onSubmitEditing={this.handleLogin}
-                                />
-                                {this.state.hasPassValidationError && (
-                                    <Icon name='close'/>
-                                )}
-                            </Item>
-                        </View>
-                    </View>
-
-                    <View>
-                        <BrandedButton onPress={this.handleLogin}>
-                            <Text>
-                                {i18n.t("login.button")}
-                            </Text>
-                        </BrandedButton>
-                        <View style={styles.bottomTextView}>
-                            <RegularText>
-                                {i18n.t("login.dont-have-account")}
-                            </RegularText>
-                            <RegularText> </RegularText>
-                            {registerStartLink}
-                        </View>
-
-                        <View style={styles.bottomTextView2}>
-                            <ClickableText onPress={() => this.props.navigation.navigate('ResetPassword')}>
-                                {i18n.t("login.forgot-your-password")}
-                            </ClickableText>
-                        </View>
-
-                    </View>
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
-        );
-    }
-}
+                                    >
+                                        {i18n.t("login.forgot-your-password")}
+                                    </ClickableText>
+                                </View>
+                            </View>
+                        </KeyboardAvoidingView>
+                    </TouchableWithoutFeedback>
+                );
+            }}
+        </Formik>
+    );
+};
 
 const styles = StyleSheet.create({
     rootContainer: {
@@ -179,15 +193,15 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         backgroundColor: colors.backgroundPrimary,
         paddingHorizontal: 24,
-        paddingTop: 56
+        paddingTop: 56,
     },
     titleText: {
         paddingHorizontal: 16,
-        paddingBottom: 16
+        paddingBottom: 16,
     },
     forgotPasswordText: {
         color: colors.brand,
-        alignSelf: 'center',
+        alignSelf: "center",
         padding: 40,
     },
     formItem: {
@@ -196,7 +210,7 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         color: colors.tertiary,
-        fontSize: 16
+        fontSize: 16,
     },
     labelPos: {
         paddingBottom: 8,
@@ -206,13 +220,13 @@ const styles = StyleSheet.create({
         paddingBottom: 6,
         paddingHorizontal: 23,
         justifyContent: "center",
-        flexDirection: 'row',
-        backgroundColor: colors.backgroundPrimary
+        flexDirection: "row",
+        backgroundColor: colors.backgroundPrimary,
     },
     bottomTextView2: {
         paddingBottom: 24,
         justifyContent: "center",
-        flexDirection: 'row',
-        backgroundColor: colors.backgroundPrimary
+        flexDirection: "row",
+        backgroundColor: colors.backgroundPrimary,
     },
 });
