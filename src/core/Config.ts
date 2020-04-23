@@ -7,6 +7,7 @@ export type ConfigType = {
     country: string,
     enableMultiplePatients: boolean,        // Enables select/create profile feature
     enablePersonalInformation: boolean,     // Enables Personal Information screen
+    enableCohorts: boolean,                 // Enables cohort/YourStudy screen
 }
 
 const configs = new Map<string, ConfigType>([

@@ -1,5 +1,6 @@
 {
     "country": "SE",
     "enableMultiplePatients": false,
-    "enablePersonalInformation": false
+    "enablePersonalInformation": false,
+    "enableCohorts": true
 }
