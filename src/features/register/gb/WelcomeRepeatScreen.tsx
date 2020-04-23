@@ -1,19 +1,19 @@
-import React, {Component} from "react";
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {colors} from "../../../../theme";
+import React, { Component } from "react";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { colors } from "../../../../theme";
 
 import { BrandedButton, ClickableText, RegularText } from "../../../components/Text";
-import {ScreenParamList} from "../../ScreenParamList";
-import {covidIcon, menuIcon, partnersLogo} from "../../../../assets";
+import { ScreenParamList } from "../../ScreenParamList";
+import { covidIcon, menuIcon, partnersLogo } from "../../../../assets";
 
-import {RouteProp} from "@react-navigation/native";
-import UserService from "../../../core/user/UserService";
-import {AsyncStorageService} from "../../../core/AsyncStorageService";
-import {PushNotificationService} from "../../../core/PushNotificationService";
-import {DrawerNavigationProp} from "@react-navigation/drawer";
-import {Linking} from "expo";
+import { RouteProp } from "@react-navigation/native";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { Linking } from "expo";
 import { ContributionCounter } from "../../../components/ContributionCounter";
 import i18n from "../../../locale/i18n";
+import { PushNotificationService } from "../../../core/PushNotificationService";
+import UserService from "../../../core/user/UserService";
+import { AsyncStorageService } from "../../../core/AsyncStorageService";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
