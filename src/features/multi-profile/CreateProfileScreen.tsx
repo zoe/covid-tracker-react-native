@@ -32,7 +32,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     }
 
     registerSchema = Yup.object().shape({
-        name: Yup.string().required(),
+        name: Yup.string().required().max(32, i18n.t("profile-name-too-long")),
     });
 
     handleClick(formData: FormData) {

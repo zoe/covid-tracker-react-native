@@ -1,22 +1,23 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Header} from "../../components/Screen";
-import {ErrorText, HeaderText, RegularText, SecondaryText} from "../../components/Text";
+import {ClippedText, ErrorText, HeaderText, RegularText, SecondaryText} from "../../components/Text";
 import {colors} from "../../../theme"
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import UserService from "../../core/user/UserService";
-import {addProfile, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
+import {addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS} from "../../../assets";
 import {Card} from "native-base";
 import '../../../assets';
 import key from "weak-key";
 import {AvatarName, getAvatarByName} from "../../utils/avatar";
 import DaysAgo from "../../components/DaysAgo";
 import i18n from "../../locale/i18n";
+import {DrawerNavigationProp} from "@react-navigation/drawer";
 
 type RenderProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'SelectProfile'>
+    navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>
     route: RouteProp<ScreenParamList, 'SelectProfile'>;
 }
 
@@ -47,22 +48,24 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     }
 
     async componentDidMount() {
-        this.props.navigation.addListener('focus', e => {
+        this.props.navigation.addListener('focus', async (e) => {
             if (this.state.shouldRefresh) {
-                this.listProfiles();
-            };
+                await this.listProfiles();
+            }
         });
-        this.listProfiles();
+
+        await this.listProfiles();
         this.setState({shouldRefresh: true});
     }
 
-    listProfiles() {
+    async listProfiles() {
         const userService = new UserService();
-        userService.listPatients()
-            .then(response => this.setState({patients: response.data}))
-            .catch(err => {
-                this.setState({errorMessage: i18n.t("something-went-wrong")})
-            });
+        try {
+            const response = await userService.listPatients();
+            this.setState({patients: response.data});
+        } catch (err) {
+            this.setState({errorMessage: i18n.t("something-went-wrong")});
+        }
     }
 
     async startAssessment(patientId: string) {
@@ -90,6 +93,13 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                 <SafeAreaView>
                     <ScrollView contentContainerStyle={styles.scrollView}>
                         <View style={styles.rootContainer}>
+
+                            <TouchableOpacity onPress={() => {
+                                this.props.navigation.toggleDrawer()
+                            }}>
+                                <Image source={menuIcon} style={styles.menuIcon}/>
+                            </TouchableOpacity>
+
                             <Header>
                                 <HeaderText style={{marginBottom: 12}}>{i18n.t("select-profile-title")}</HeaderText>
                                 <SecondaryText>{i18n.t("select-profile-text")}</SecondaryText>
@@ -106,7 +116,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                                                 <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
                                                     <Card style={styles.card}>
                                                         <Image source={avatarImage} style={styles.avatar} resizeMode={'contain'}/>
-                                                        <RegularText>{patient.name}</RegularText>
+                                                        <ClippedText>{patient.name}</ClippedText>
                                                         <DaysAgo timeAgo={patient.last_reported_at}/>
                                                     </Card>
                                                 </TouchableOpacity>
@@ -194,5 +204,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
     },
+
+    menuIcon: {
+        height: 20,
+        width: 20,
+        tintColor: colors.primary,
+        alignSelf: "flex-end",
+        marginRight: 15,
+        marginTop: 10
+    }
 
 });

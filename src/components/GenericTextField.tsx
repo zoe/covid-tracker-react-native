@@ -3,9 +3,10 @@ import {Item, Label} from "native-base";
 import {ValidatedTextInput} from "./ValidatedTextInput";
 import React from "react";
 import {KeyboardTypeOptions, StyleSheet} from "react-native";
+import {FormikProps} from "formik";
 
 interface GenericTextFieldProps {
-    formikProps: any,
+    formikProps: FormikProps<any>,
     name: string,
     label?: string,
     placeholder?: string | undefined,

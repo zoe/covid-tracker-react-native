@@ -65,8 +65,10 @@ e.g.
 ```sh
 echo "API_URL=http://123.456.7.890:3000" > .env
 ```
-5. Get the Cloudbase Authentication file and store it as `./google-services.json`
-
+5. Create an empty `./google-services.json` file in the root of the application.
+```sh
+echo "{}" > google-services.json
+```
 6. Run the following commands
 ```JS
 npm install
@@ -83,7 +85,7 @@ See the [open issues](https://github.com/zoe/covid-tracker-react-native/issues) 
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated** - see the [contributing guidelines](CONTRIBUTING.md).
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)

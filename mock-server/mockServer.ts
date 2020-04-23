@@ -1,5 +1,6 @@
 import express = require("express");
 import bodyParser = require("body-parser");
+import moment = require("moment");
 
 const app = express();
 const port = 3000;
@@ -133,14 +134,42 @@ app.get("/patients/:patientId", (req, res) => {
 });
 
 app.patch("/patients/:patientId", (req, res) => {
+  // TODO: return different patients on different patientId
   return res.send();
+});
+
+app.get("/patient_list/", (req, res) => {
+  return res.send([
+    {
+      id: "00000000-0000-0000-0000-000000000000",
+      avatar_name: 'profile1',
+      name: 'Me',
+      last_reported_at: moment().subtract(6, 'hours').format()
+    },
+    {
+      id: "00000000-0000-0000-0000-000000000001",
+      avatar_name: 'profile2',
+      name: 'Alice',
+      last_reported_at: '2020-04-20T15:07:00Z'
+    },
+    {
+      id: "00000000-0000-0000-0000-000000000002",
+      avatar_name: 'profile3',
+      name: 'Bob',
+      last_reported_at: moment().subtract(1, 'days').format()
+    },
+  ])
 });
 
 app.get("/profile", (req, res) => {
   return res.status(200).send({
     username: "testuser@example.com",
     authorizations: [],
-    patients: ["00000000-0000-0000-0000-000000000000"],
+    patients: [
+      "00000000-0000-0000-0000-000000000000",
+      "00000000-0000-0000-0000-000000000001",
+      "00000000-0000-0000-0000-000000000002"
+    ],
     pii: "00000000-0000-0000-0000-000000000000",
     push_tokens: [],
     country_code: "GB",
@@ -163,8 +192,11 @@ app.patch("/assessments/:assessmentId", (req, res) => {
   })
 });
 
-app.get("/users/covid_count", (req, res) => {
-  return res.status(200).send('2000000');
+app.get("/users/startup_info/", (req, res) => {
+  return res.status(200).send({
+    users_count: '2000000',
+    ip_country: 'GB'
+  });
 });
 
 app.get("/area_stats", (req, res) => {

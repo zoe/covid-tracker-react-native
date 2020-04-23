@@ -6,9 +6,6 @@ class UserInformation {
     public tags: string[];
     public userType: string;
     public profileStatus: string;
-    // public studies: List<StudyDetail>?
-    // public metabolicProfile: List<MetabolicProfile>?
-
 }
 
 export type LoginOrRegisterResponse = {
@@ -39,7 +36,7 @@ export type PatientInfosRequest = {
     same_household_as_reporter: boolean,
 
     year_of_birth: number,
-    gender: number, // 0: female, 1: male
+    gender: number, // 0: female, 1: male, 2: pfnts 3: intersex
     gender_identity: string,
     height_cm: number,
     height_feet: number,
@@ -49,6 +46,7 @@ export type PatientInfosRequest = {
 
     interacted_with_covid: string
 
+    // Your Health
     has_heart_disease: boolean,
     has_diabetes: boolean,
     has_lung_disease: boolean,
@@ -56,6 +54,7 @@ export type PatientInfosRequest = {
     smoker_status: string,
     smoked_years_ago: number,
     has_kidney_disease: boolean,
+    limited_activity: boolean,
 
     // Cancer questions
     has_cancer: boolean,
@@ -68,11 +67,30 @@ export type PatientInfosRequest = {
     takes_blood_pressure_medications: boolean,
     takes_any_blood_pressure_medications: boolean,
     takes_blood_pressure_medications_sartan: boolean,
+
+    // Previous Exposure
+    unwell_month_before: boolean,
+    still_have_past_symptoms: boolean,
+    past_symptoms_days_ago: number,
+    past_symptoms_changed: string,
+
+    past_symptom_anosmia: boolean,
+    past_symptom_shortness_of_breath: boolean,
+    past_symptom_fatigue: boolean,
+    past_symptom_fever: boolean,
+    past_symptom_skipped_meals: boolean,
+    past_symptom_persistent_cough: boolean,
+    past_symptom_diarrhoea: boolean,
+    past_symptom_chest_pain: boolean,
+    past_symptom_hoarse_voice: boolean,
+    past_symptom_abdominal_pain: boolean,
+    past_symptom_delirium: boolean,
+
     already_had_covid: boolean,
     classic_symptoms: boolean,
     classic_symptoms_days_ago: number,
 
-    limited_activity: boolean,
+    // About You
     is_pregnant: boolean,
     needs_help: boolean,
     housebound_problems: boolean,
@@ -111,7 +129,7 @@ export type PatientInfosRequest = {
     healthcare_professional: string,
     is_carer_for_community: boolean,
 
-    // Healthcare professional quesstions
+    // Healthcare professional questions
     have_worked_in_hospital_inpatient: boolean,
     have_worked_in_hospital_outpatient: boolean,
     have_worked_in_hospital_clinic: boolean,
@@ -120,12 +138,14 @@ export type PatientInfosRequest = {
     have_worked_in_hospital_school_clinic: boolean,
     have_worked_in_hospital_other: boolean,
     interacted_patients_with_covid: string,
-
     have_used_PPE: string,
     always_used_shortage: string,
     sometimes_used_shortage: string,
     never_used_shortage: string,
 
+    race: string[],
+    race_other: string,
+    ethnicity: string,
     last_asked_level_of_isolation: Date,
 }
 
