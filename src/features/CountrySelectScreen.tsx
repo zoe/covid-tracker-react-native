@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {ScreenParamList} from "./ScreenParamList";
 import UserService from "../core/user/UserService";
 import i18n from "../locale/i18n"
-import {ukFlagLarge, usFlagLarge} from "../../assets";
+import {svFlagLarge, ukFlagLarge, usFlagLarge} from "../../assets";
 import {RouteProp} from "@react-navigation/native";
 import {colors} from "../../theme";
 
@@ -13,8 +13,9 @@ type Props = {
     route: RouteProp<ScreenParamList, 'CountrySelect'>;
 };
 
-const US_CODE = 'US';
-const GB_CODE = 'GB';
+const US_CODE = 'en-US';
+const GB_CODE = 'en-GB';
+const SV_CODE = 'sv-SE';
 
 export class CountrySelectScreen extends Component<Props, {}> {
     private userService = new UserService();
@@ -38,17 +39,9 @@ export class CountrySelectScreen extends Component<Props, {}> {
 
         const screenName = () => {
             if (patientId != null) {
-                if (countryCode == US_CODE) {
-                    return 'WelcomeRepeatUS'
-                } else {
-                    return 'WelcomeRepeat'
-                }
+                return 'WelcomeRepeat'
             } else {
-                if (countryCode == US_CODE) {
-                    return 'WelcomeUS'
-                } else {
-                    return 'Welcome'
-                }
+                return 'Welcome'
             }
         };
 
@@ -68,6 +61,9 @@ export class CountrySelectScreen extends Component<Props, {}> {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.selectCountry(GB_CODE)}>
                         <Image source={ukFlagLarge}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.selectCountry(SV_CODE)}>
+                        <Image source={svFlagLarge}/>
                     </TouchableOpacity>
                 </View>
             </View>

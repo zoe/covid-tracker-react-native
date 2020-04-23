@@ -1,23 +1,23 @@
 import React, {Component} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {colors} from "../../../../theme";
-import {BrandedButton, RegularText} from "../../../components/Text";
-import {ScreenParamList} from "../../ScreenParamList";
-import {ukFlagSmall, usFlagSmall, usMap} from "../../../../assets";
-import UserService, {isUSLocale} from "../../../core/user/UserService";
-import {ContributionCounter} from "../../../components/ContributionCounter";
-import i18n from "../../../locale/i18n";
+import {colors} from "../../../theme";
+import {BrandedButton, RegularText} from "../../components/Text";
+import {ScreenParamList} from "../ScreenParamList";
+import {svFlagSmall, ukFlagSmall, usFlagSmall, usMap, usMap2} from "../../../assets";
+import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
+import {ContributionCounter} from "../../components/ContributionCounter";
+import i18n from "../../locale/i18n";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
 }
 
-type WelcomeUSScreenState = {
+type WelcomeScreenState = {
     userCount: string | null
 }
 
-export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState> {
+export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
     state = {
         userCount: null,
     };
@@ -28,15 +28,27 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
         this.setState({userCount});
     }
 
-    render() {
-        const flagIcon = () => {
-            if (isUSLocale()) {
-                return usFlagSmall
-            } else {
-                return ukFlagSmall
-            }
-        };
+    flagIcon = () => {
+        if (isGBLocale()) {
+            return ukFlagSmall
+        } else if (isSVLocale()) {
+            return svFlagSmall
+        } else {
+            return usFlagSmall
+        }
+    };
 
+    mapImage = () => {
+        if (isGBLocale()) {
+            return usMap
+        } else if (isSVLocale()) {
+            return usMap
+        } else {
+            return usMap
+        }
+    };
+
+    render() {
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <SafeAreaView style={styles.safeView}>
@@ -47,25 +59,27 @@ export class Welcome1USScreen extends Component<PropsType, WelcomeUSScreenState>
                                 <View style={styles.headerRow}>
 
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                        <Image style={styles.flagIcon} source={flagIcon()}/>
+                                        <Image style={styles.flagIcon} source={this.flagIcon()}/>
                                     </TouchableOpacity>
                                 </View>
 
-                                <Image style={styles.usMap} source={usMap} resizeMode="contain"/>
+                                <Image style={styles.usMap} source={this.mapImage()} resizeMode="contain"/>
                                 
                                 <RegularText style={styles.subtitle}>
                                      {i18n.t("welcome.take-a-minute")}
                                 </RegularText>
-                                <View style={styles.contributors}>
-                                    <ContributionCounter variant={1} count={this.state.userCount}/>
-                                </View>
+
                             </View>
 
                         </View>
                     </ScrollView>
 
+                    <View style={styles.contributors}>
+                        <ContributionCounter variant={1} count={this.state.userCount}/>
+                    </View>
+
                     <View style={styles.nextButtonContainer}>
-                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2US')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
+                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
                     </View>
 
                 </SafeAreaView>
@@ -117,8 +131,9 @@ const styles = StyleSheet.create({
         fontSize: 32,
         lineHeight: 48,
         paddingVertical: 24,
+        paddingHorizontal: 40,
         textAlign: "center",
-        marginTop: 15,
+        marginTop: 24,
         fontWeight: "300",
     },
     flagIcon: {
@@ -126,7 +141,7 @@ const styles = StyleSheet.create({
         width: 32
     },
     contributors: {
-        marginTop: 40,
-        marginHorizontal: 10
+        paddingHorizontal: 32,
+        marginBottom: 32,
     }
 });

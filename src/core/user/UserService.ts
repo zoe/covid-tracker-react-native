@@ -27,7 +27,7 @@ const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
 
 export default class UserService extends ApiClientBase {
-    public static userCountry = 'US';
+    public static userCountry = 'en-US';
     public static ipCountry = "";
     public static consentSigned: Consent = {
         document: "",
@@ -307,15 +307,20 @@ export default class UserService extends ApiClientBase {
 
     async setUserCountry(countryCode: string) {
         UserService.userCountry = countryCode;
-        i18n.locale = "en-" + UserService.userCountry
+        i18n.locale = UserService.userCountry;
         await AsyncStorageService.setUserCountry(countryCode);
     }
 
     async getUserCountry() {
-        const localCountry = await AsyncStorageService.getUserCountry();
+        let localCountry = await AsyncStorageService.getUserCountry();
         if (localCountry != null) {
-            UserService.userCountry = localCountry;
-            i18n.locale = "en-" + UserService.userCountry
+            if (localCountry == 'GB' || localCountry == 'US') { // Fixes issue with previously only storing partial country code. Can be removed in future.
+                localCountry = 'en-' + localCountry;
+                await this.setUserCountry(localCountry)
+            } else {
+                UserService.userCountry = localCountry;
+                i18n.locale = UserService.userCountry
+            }
         }
         return localCountry;
     }
@@ -324,16 +329,27 @@ export default class UserService extends ApiClientBase {
         if (await AsyncStorageService.getAskedCountryConfirmation()) {
             return false
         } else {
-            return UserService.userCountry != UserService.ipCountry
+            const locale = () => {
+                // ipCountry comes back as a 2 letter country code. We convert it to a locale here and then compare.
+                if (UserService.ipCountry == 'US' || UserService.ipCountry == 'GB') {
+                    return 'en-' + UserService.ipCountry
+                } else {
+                    return UserService.ipCountry
+                }
+            };
+
+            return UserService.userCountry != locale()
         }
     }
 
     async defaultCountryToLocale() {
         const locale = () => {
             if (Localization.locale == 'en-GB') {
-                return "GB";
+                return "en-GB";
+            } else if (Localization.locale == 'sv-SE') {
+                return "sv-SE";
             } else {
-                return "US";
+                return "en-US";
             }
         };
 
@@ -395,6 +411,7 @@ export default class UserService extends ApiClientBase {
     }
 }
 
-export const isUSLocale = () => UserService.userCountry === 'US';
-export const isGBLocale = () => UserService.userCountry === 'GB';
+export const isUSLocale = () => UserService.userCountry === 'en-US';
+export const isGBLocale = () => UserService.userCountry === 'en-GB';
+export const isSVLocale = () => UserService.userCountry === 'sv-SE';
 

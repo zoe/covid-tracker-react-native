@@ -4,11 +4,17 @@ export const covidIcon = require('./icon_transparent.png');
 export const partnersLogo = require('./partner_logos.png');
 export const social = require('./social.png');
 export const usLogos2 = require('./partner_logos_us_2.png');
+export const svLogos = require('./svLogos.png');
 export const usMap = require('./us_map.png');
+export const usMap2 = require('./usMap.png');
+export const gbMap = require('./gbMap.png');
+export const svMap = require('./svMap.png');
 
 // Icons
 export const closeIcon = require('./icons/close.png');
 export const menuIcon = require('./icons/menu.png');
+export const svFlagLarge = require('./icons/sv-flag-large.png');
+export const svFlagSmall = require('./icons/sv-flag-small.png');
 export const ukFlagLarge = require('./icons/uk-flag-large.png');
 export const usFlagSmall = require('./icons/us-flag-small.png');
 export const usFlagLarge = require('./icons/us-flag-large.png');
