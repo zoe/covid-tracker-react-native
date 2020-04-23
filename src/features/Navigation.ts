@@ -3,6 +3,7 @@ import {ConfigType} from "../core/Config"
 import { ScreenParamList } from "./ScreenParamList";
 import { PatientStateType } from "../core/patient/PatientState";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { PartialState, NavigationState } from "@react-navigation/native";
 
 type ScreenName = keyof ScreenParamList;
 
@@ -53,6 +54,13 @@ class Navigator {
         return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat';
     }
 
+    async getStartPatientScreenName(currentPatient: PatientStateType) {
+        const config = await this.getConfig();
+        const shouldAskStudy = (config.enableCohorts && currentPatient.shouldAskStudy);
+        const page =  shouldAskStudy ? "YourStudy" : "YourWork";
+        return page;
+    }
+
     async gotoStartReport(patientId: string) {
         const config = await this.getConfig();
         if (config.enablePersonalInformation) {
@@ -65,8 +73,9 @@ class Navigator {
 
     async gotoStartPatient(currentPatient: PatientStateType) {
         const patientId = currentPatient.patientId;
-        const nextPage = currentPatient.shouldAskStudy ? "YourStudy" : "YourWork";
+        const nextPage = await this.getStartPatientScreenName(currentPatient);
 
+        // OptionalInfo nav-stack cleanup.
         this.navigation.reset({
             index: 0,
             routes: [
@@ -95,7 +104,8 @@ class Navigator {
         if (ScreenFlow[screenName]) {
             ScreenFlow[screenName](params);
         } else {
-            console.log("[ROUTE] no next route found for:", screenName);
+            // We don't have nextScreen logic for this page. Explain loudly.
+            console.error("[ROUTE] no next route found for:", screenName);
         }
     }
 
@@ -105,6 +115,10 @@ class Navigator {
 
     async replaceScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
         this.navigation.replace(screenName, params);
+    }
+
+    async resetAndGo(navStack: PartialState<NavigationState>) {
+        this.navigation.reset(navStack);
     }
 }
 
@@ -134,6 +148,23 @@ const ScreenFlow: any = {
     },
     WelcomeRepeatUS: async (routeParams: PatientIdParamType) => {
         await navigator.gotoStartReport(routeParams.patientId);
+    },
+
+    // Start of Patient flow
+    OptionalInfo: async (routeParams: CurrentPatientParamType) => {
+        const currentPatient = routeParams.currentPatient;
+        const patientId = currentPatient.patientId;
+        const startPage = navigator.getWelcomeRepeatScreenName();
+        const nextPage = await navigator.getStartPatientScreenName(currentPatient);
+
+        // OptionalInfo nav-stack cleanup.
+        navigator.resetAndGo({
+            index: 0,
+            routes: [
+                {name: startPage, params: {patientId}},
+                {name: nextPage, params: {currentPatient}}
+            ],
+        })
     },
 
     // End of Assessment flows

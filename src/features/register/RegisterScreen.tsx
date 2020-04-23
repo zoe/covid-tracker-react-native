@@ -12,9 +12,12 @@ import {BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText} f
 import {AxiosError} from "axios";
 import {ScreenParamList} from "../ScreenParamList";
 import {Field, FieldError} from "../../components/Forms";
+import Navigator from "../Navigation";
+import { RouteProp } from "@react-navigation/native";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, "Register">
+    route: RouteProp<ScreenParamList, 'Register'>;
 };
 
 type State = {
@@ -54,7 +57,7 @@ export class RegisterScreen extends Component<PropsType, State> {
             userService.register(formData.email, formData.password)
                 .then(response => {
                     const patientId = response.data.user.patients[0];
-                    this.props.navigation.replace("OptionalInfo", {patientId});
+                    Navigator.gotoNextScreen(this.props.route.name, {patientId});
                 })
                 .catch((err: AxiosError) => {
                     // TODO - These error messages are misleading and we could display what the server sends back

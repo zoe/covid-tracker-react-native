@@ -63,7 +63,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         const hasFormData = formData.phone?.trim() || formData.name?.trim()
 
         if (!hasFormData) {
-            Navigator.gotoStartPatient(currentPatient);
+            Navigator.gotoNextScreen(this.props.route.name, {currentPatient});
         } else {
             let piiDoc = formData.name ? {
                 name: formData.name
@@ -77,7 +77,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             }
 
             userService.updatePii(piiDoc)
-                .then(() => Navigator.gotoStartPatient(currentPatient))
+                .then(() => Navigator.gotoNextScreen(this.props.route.name, {currentPatient}))
                 .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
         }
     }
