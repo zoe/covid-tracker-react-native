@@ -9,6 +9,7 @@ import {covidIcon, partnersLogo, ukFlagSmall, usFlagSmall} from "../../../../ass
 import UserService, {isUSLocale} from "../../../core/user/UserService";
 import CountryIpModal from ".././CountryIpModal";
 import { ContributionCounter } from "../../../components/ContributionCounter";
+import reactStringReplace from "react-string-replace";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -89,9 +90,13 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
                             {i18n.t("create-account.btn")}
                         </BrandedButton>
                         <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
-                            {i18n.t("welcome.more-info")}
-                            <RegularText style={styles.moreInfoHighlight}>{i18n.t("welcome.more-info-link")}</RegularText>
+                        { reactStringReplace(
+                            i18n.t("welcome.more-info", {link: '{{LINK}}'}),
+                            '{{LINK}}',
+                            (match, i) => (<RegularText key={i} style={styles.moreInfoHighlight}>{i18n.t("welcome.more-info-link")}</RegularText>)
+                        )}
                         </ClickableText>
+
                     </View>
                 </View>
             </ScrollView>
