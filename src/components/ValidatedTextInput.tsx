@@ -1,14 +1,14 @@
-import React, {Component} from "react";
-import {StyleSheet, TextInput, TextInputProps, View} from "react-native";
-import {colors} from "../../theme";
-import {Icon} from "native-base";
+import { Icon } from "native-base";
+import React, { Component } from "react";
+import { StyleSheet, TextInput, TextInputProps, View } from "react-native";
+
+import { colors } from "../../theme";
 
 interface Props extends TextInputProps {
     error?: any;
 }
 
-// todo: icon
-export class ValidatedTextInput extends Component<Props, {}> {
+export class ValidatedTextInput extends Component<Props, object> {
     private textInput: any;
 
     focus() {
@@ -16,20 +16,24 @@ export class ValidatedTextInput extends Component<Props, {}> {
     }
 
     render() {
-        const {error} = this.props;
+        const { error } = this.props;
         return (
-          <View style={styles.inputWrapper}>
-              <TextInput
-                ref={(input) => this.textInput = input}
-                placeholderTextColor={colors.tertiary}
-                {...this.props}
-                style={[
-                    styles.inputStyle,
-                    {borderBottomColor: error ? colors.feedbackBad : colors.primary},
-                ]}
-              />
-              {error && <Icon name='close' style={styles.errorIcon}/>}
-          </View>
+            <View style={styles.inputWrapper}>
+                <TextInput
+                    ref={(input) => (this.textInput = input)}
+                    placeholderTextColor={colors.tertiary}
+                    {...this.props}
+                    style={[
+                        styles.inputStyle,
+                        {
+                            borderBottomColor: error
+                                ? colors.feedbackBad
+                                : colors.primary,
+                        },
+                    ]}
+                />
+                {error && <Icon name="close" style={styles.errorIcon} />}
+            </View>
         );
     }
 }
@@ -53,5 +57,5 @@ const styles = StyleSheet.create({
         color: colors.feedbackBad,
         height: 38,
         marginLeft: -16,
-    }
+    },
 });
