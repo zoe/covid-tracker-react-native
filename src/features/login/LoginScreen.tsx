@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import { Input, Item, Label, Toast } from "native-base";
 import React from "react";
 import {
@@ -12,8 +12,10 @@ import {
     TouchableWithoutFeedback,
     View,
 } from "react-native";
+import * as Yup from "yup";
 
 import { colors } from "../../../theme";
+import { FieldError } from "../../components/Forms";
 import {
     BrandedButton,
     ClickableText,
@@ -61,6 +63,11 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
     const getWelcomeRepeatScreenName = () => {
         return isUSLocale() ? "WelcomeRepeatUS" : "WelcomeRepeat";
     };
+    const registerSchema = Yup.object().shape({
+        username: Yup.string()
+            .required(i18n.t("create-account.email-required"))
+            .email(i18n.t("create-account.email-error")),
+    });
 
     const handleLogin = async ({ username, password }: LoginSubmitProps) => {
         const userService = new UserService();
@@ -94,8 +101,15 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
     let inputEl: any | null = null;
 
     return (
-        <Formik onSubmit={handleLogin} initialValues={initialValues}>
+        <Formik
+            onSubmit={handleLogin}
+            initialValues={initialValues}
+            validationSchema={registerSchema}
+            validateOnBlur
+            validateOnChange={false}
+        >
             {({ handleSubmit, handleChange, values, ...formikProps }) => {
+                console.log(formikProps.touched);
                 return (
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <KeyboardAvoidingView
@@ -111,6 +125,25 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
 
                                 <View style={styles.formItem}>
                                     <Item style={styles.labelPos} floatingLabel>
+                                        <Field name="username">
+                                            <Input
+                                                keyboardType="email-address"
+                                                autoCapitalize="none"
+                                                returnKeyType="next"
+                                                autoCompleteType="email"
+                                                onChangeText={handleChange(
+                                                    "username"
+                                                )}
+                                                onBlur={formikProps.handleBlur(
+                                                    "username"
+                                                )}
+                                                onSubmitEditing={() => {
+                                                    !!inputEl._root &&
+                                                        inputEl._root.focus();
+                                                }}
+                                                blurOnSubmit={false}
+                                            />
+                                        </Field>
                                         <Label style={styles.labelStyle}>
                                             {i18n.t("login.email-label")}
                                         </Label>
@@ -122,6 +155,9 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                                             onChangeText={handleChange(
                                                 "username"
                                             )}
+                                            onBlur={formikProps.handleBlur(
+                                                "password"
+                                            )}
                                             onSubmitEditing={() => {
                                                 !!inputEl._root &&
                                                     inputEl._root.focus();
@@ -129,6 +165,11 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                                             blurOnSubmit={false}
                                         />
                                     </Item>
+                                    {formikProps.errors.username && (
+                                        <FieldError>
+                                            {formikProps.errors.username}
+                                        </FieldError>
+                                    )}
                                 </View>
                                 <View style={styles.formItem}>
                                     <Item style={styles.labelPos} floatingLabel>
