@@ -48,6 +48,7 @@ import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 import StartAssessmentScreen from './features/assessment/StartAssessment';
 import PreviousExposureScreen from "./features/patient/PreviousExposure";
 import StartPatientScreen from './features/patient/StartPatient';
+import ContributionsScreen from './features/ContributionsScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -94,7 +95,6 @@ export default class ZoeApp extends Component<{}, State> {
      mainNavStack() {
         return (
             <Stack.Navigator>
-
                 <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
@@ -135,7 +135,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{headerShown: false}}/>
-
+                <Stack.Screen name="Contributions" component={ContributionsScreen} options={{headerShown: true, title: 'Contributions'}}/>
             </Stack.Navigator>
         )
     }

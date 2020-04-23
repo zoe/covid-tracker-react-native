@@ -71,6 +71,9 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <TouchableOpacity style={styles.iconNameRow} onPress={() => showDeleteAlert()}>
                 <HeaderText>{i18n.t('delete-my-data')}</HeaderText>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.iconNameRow} onPress={() => props.navigation.navigate("Contributions", {viewOnly: false})}>
+                <HeaderText>{i18n.t('contributions')}</HeaderText>
+            </TouchableOpacity>
             <View style={{flex: 1}}/>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => logout()}>
                 <HeaderText>{i18n.t('logout')}</HeaderText>

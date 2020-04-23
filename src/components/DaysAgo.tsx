@@ -8,9 +8,9 @@ type ProgressProps = {
 }
 
 export default class DaysAgo extends Component<ProgressProps> {
+
     render() {
         let text = i18n.t("never-reported");
-
         if (this.props.timeAgo) {
             const today = moment().utc().startOf("day")
             let diffDays = today.diff(moment(this.props.timeAgo).startOf("day"), "days");

@@ -2,6 +2,8 @@ import express = require("express");
 import bodyParser = require("body-parser");
 import moment = require("moment");
 
+import {mockContributionCount} from './utils';
+
 const app = express();
 const port = 3000;
 
@@ -144,19 +146,22 @@ app.get("/patient_list/", (req, res) => {
       id: "00000000-0000-0000-0000-000000000000",
       avatar_name: 'profile1',
       name: 'Me',
-      last_reported_at: moment().subtract(6, 'hours').format()
+      last_reported_at: moment().subtract(6, 'hours').format(),
+      contributions: mockContributionCount(),
     },
     {
       id: "00000000-0000-0000-0000-000000000001",
       avatar_name: 'profile2',
       name: 'Alice',
-      last_reported_at: '2020-04-20T15:07:00Z'
+      last_reported_at: '2020-04-20T15:07:00Z',
+      contributions: mockContributionCount(),
     },
     {
       id: "00000000-0000-0000-0000-000000000002",
       avatar_name: 'profile3',
       name: 'Bob',
-      last_reported_at: moment().subtract(1, 'days').format()
+      last_reported_at: moment().subtract(1, 'days').format(),
+      contributions: mockContributionCount(),
     },
   ])
 });
