@@ -86,9 +86,20 @@ const initialState: State = {
     enableSubmit: true,
 };
 
-
-export default class AboutYouScreen extends Component<AboutYouProps, State> {
-
+const enableSubmitButton = (props: any) => {   
+    return Boolean(
+      props.values.yearOfBirth &&
+        props.values.sex &&
+        props.values.genderIdentity &&
+        props.values.postcode &&
+        props.values.feet &&
+        props.values.inches &&
+        props.values.stones &&
+        props.values.pounds &&
+        props.values.everExposed
+    );
+}
+export default class AboutYouScreen extends Component<AboutYouProps, State> {  
     constructor(props: AboutYouProps) {
         super(props);
         this.state = initialState;
@@ -570,7 +581,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         <ValidationErrors errors={props.errors as string[]}/>
                                     )}
 
-                                    <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
+                                    <BrandedButton onPress={props.handleSubmit} enable={enableSubmitButton(props)}>
                                         <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
                                     </BrandedButton>
 
@@ -589,38 +600,38 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
 
 const styles = StyleSheet.create({
-    fieldRow: {
-        flexDirection: "row",
-    },
+  fieldRow: {
+    flexDirection: "row",
+  },
 
-    textItemStyle: {
-        borderColor: 'transparent'
-    },
+  textItemStyle: {
+    borderColor: "transparent",
+  },
 
-    primaryField: {
-        flex: 6,
-    },
+  primaryField: {
+    flex: 6,
+  },
 
-    primaryFieldRow: {
-        flex: 6,
-        flexDirection: "row",
-    },
+  primaryFieldRow: {
+    flex: 6,
+    flexDirection: "row",
+  },
 
-    tertiaryField: {
-        flex: 5,
-        marginRight: 8,
-    },
+  tertiaryField: {
+    flex: 5,
+    marginRight: 8,
+  },
 
-    secondaryField: {
-        flex: 2,
-    },
+  secondaryField: {
+    flex: 2,
+  },
 
-    picker: {
-        // width: '68%',
-        width: screenWidth - 16, // TODO: Fix width to something sensible
-    },
+  picker: {
+    // width: '68%',
+    width: screenWidth - 16, // TODO: Fix width to something sensible
+  },
 
-    buttonText: {
-        color: colors.white,
-    },
+  buttonText: {
+    color: colors.white,
+  },
 });
