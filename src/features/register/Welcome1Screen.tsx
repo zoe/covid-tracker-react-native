@@ -4,7 +4,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import {BrandedButton, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {svFlagSmall, ukFlagSmall, usFlagSmall, usMap, usMap2} from "../../../assets";
+import {svFlagSmall, ukFlagSmall, usFlagSmall, usMap2, gbMap, svMap} from "../../../assets";
 import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
 import {ContributionCounter} from "../../components/ContributionCounter";
 import i18n from "../../locale/i18n";
@@ -40,50 +40,44 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
 
     mapImage = () => {
         if (isGBLocale()) {
-            return usMap
+            return gbMap
         } else if (isSVLocale()) {
-            return usMap
+            return svMap
         } else {
-            return usMap
+            return usMap2
         }
     };
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
-                <SafeAreaView style={styles.safeView}>
-                    <ScrollView contentContainerStyle={styles.scrollView}>
-                        <View style={styles.rootContainer}>
+            <SafeAreaView style={styles.safeView}>
+                <ScrollView contentContainerStyle={styles.scrollView}>
+                    <View style={styles.rootContainer}>
 
-                            <View style={styles.covidContainer}>
-                                <View style={styles.headerRow}>
+                        <View style={styles.covidContainer}>
+                            <Image style={styles.mapImage} source={this.mapImage()}/>
 
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                        <Image style={styles.flagIcon} source={this.flagIcon()}/>
-                                    </TouchableOpacity>
-                                </View>
+                            <TouchableOpacity style={styles.countryFlag}
+                                              onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                                <Image style={styles.flagIcon} source={this.flagIcon()}/>
+                            </TouchableOpacity>
 
-                                <Image style={styles.usMap} source={this.mapImage()} resizeMode="contain"/>
-                                
-                                <RegularText style={styles.subtitle}>
-                                     {i18n.t("welcome.take-a-minute")}
-                                </RegularText>
-
-                            </View>
-
+                            <RegularText style={styles.subtitle}>
+                                {i18n.t("welcome.take-a-minute")}
+                            </RegularText>
                         </View>
-                    </ScrollView>
-
+                    </View>
                     <View style={styles.contributors}>
                         <ContributionCounter variant={1} count={this.state.userCount}/>
                     </View>
+                </ScrollView>
 
-                    <View style={styles.nextButtonContainer}>
-                        <BrandedButton style={styles.nextButton} onPress={() => this.props.navigation.navigate('Welcome2')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
-                    </View>
+                <View style={styles.nextButtonContainer}>
+                    <BrandedButton style={styles.nextButton}
+                                   onPress={() => this.props.navigation.navigate('Welcome2')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
+                </View>
 
-                </SafeAreaView>
-            </ScrollView>
+            </SafeAreaView>
         );
     }
 }
@@ -92,6 +86,7 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
 const styles = StyleSheet.create({
     safeView: {
         flexGrow: 1,
+        backgroundColor: colors.brand,
     },
     scrollView: {
         backgroundColor: colors.brand,
@@ -110,18 +105,17 @@ const styles = StyleSheet.create({
         backgroundColor: colors.purple,
         fontSize: 16,
     },
-    headerRow: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "flex-end",
+    countryFlag: {
+        position: 'absolute',
+        top: 16,
+        end: 16,
     },
     covidContainer: {
         paddingHorizontal: 14,
         paddingBottom: 14,
-        paddingTop: 14
     },
-    usMap: {
-        height: 200,
+    mapImage: {
+        height: 300,
         width: '100%',
         resizeMode: 'contain',
         alignSelf: "center",
@@ -133,7 +127,6 @@ const styles = StyleSheet.create({
         paddingVertical: 24,
         paddingHorizontal: 40,
         textAlign: "center",
-        marginTop: 24,
         fontWeight: "300",
     },
     flagIcon: {
