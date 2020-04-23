@@ -254,7 +254,7 @@
 
   "where-are-you": {
       "question-location": "Var befinner du dig just nu?",
-      "picker-location-home": "Jag är hemma. Jas har inte besökt sjukhuset för misstänkta COVID-19-symtom.",
+      "picker-location-home": "Jag är hemma. Jag har inte besökt sjukhuset för misstänkta COVID-19-symtom.",
       "picker-location-hospital": "Jag är på sjukhuset med misstänkta COVID-19-symtom.",
       "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill berätta om min behandling.",
       "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om min behandling."
@@ -312,7 +312,7 @@
     "disclaimer-link": "besöka 1177.se",
     "tell-me-more": "Berätta mer",
     "more-info": "%{link} för mer information",
-    "more-info-link": "Besök vår webbplats ",
+    "more-info-link": "Besök vår webbplats",
     "visit-the-website": "Besök webbplatsen",
     "see-how-your-area-is-affected": "Se hur ditt område påverkas och vilka fynd du bidrog till",
     "report-button": "Rapportera i dag, även om du är frisk",
@@ -338,7 +338,7 @@
 
   "thank-you-title": "Stort tack för att du deltar i studien och hjälper forskare och läkare i kampen mot COVID-19",
   "blog-link": "https://covid.joinzoe.com/blog",
-  "thank-you-body": "Tack för att du anslutit dig till de miljontals människor som redan stöder forskarna på Lunds Universitet och King’s College London för att hjälpa vår hälso- och sjukvård.",
+  "thank-you-body": "Tack för att du anslutit dig till de miljontals människor som redan stöder forskarna på Lunds universitet och King’s College London för att hjälpa vår hälso- och sjukvård.",
   "check-in-tomorrow": "Vi skulle uppskatta om du har möjlighet att logga in igen i morgon om du orkar.",
   "check-news-feed" : "Håll utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://covid.joinzoe.com/faq",
