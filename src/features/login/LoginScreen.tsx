@@ -95,7 +95,7 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
 
     return (
         <Formik onSubmit={handleLogin} initialValues={initialValues}>
-            {({ handleSubmit, handleChange, values }) => {
+            {({ handleSubmit, handleChange, values, ...formikProps }) => {
                 return (
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <KeyboardAvoidingView
@@ -154,8 +154,11 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                                 <BrandedButton
                                     onPress={() => handleSubmit()}
                                     enable={
-                                        !!values.username && !!values.password
+                                        !formikProps.isSubmitting &&
+                                        !!values.username &&
+                                        !!values.password
                                     }
+                                    hideLoading={!formikProps.isSubmitting}
                                 >
                                     <Text>{i18n.t("login.button")}</Text>
                                 </BrandedButton>
