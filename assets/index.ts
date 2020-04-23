@@ -1,10 +1,13 @@
 // Please keep these in alphabetical order ^_^
 
 export const covidIcon = require('./icon_transparent.png');
-export const partnersLogo = require('./partner_logos.png');
 export const social = require('./social.png');
-export const usLogos2 = require('./partner_logos_us_2.png');
-export const svLogos = require('./svLogos.png');
+export const gbPartners = require('./logos/gb_partners.png');
+export const usPartners = require('./logos/us_partners.png');
+export const svPartners = require('./logos/sv_partners.png');
+export const gbPartnersReturn = require('./logos/gb_partners_return.png');
+export const usPartnersReturn = require('./logos/us_partners_return.png');
+export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usMap = require('./us_map.png');
 export const usMap2 = require('./usMap.png');
 export const gbMap = require('./gbMap.png');

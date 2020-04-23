@@ -60,7 +60,7 @@
     "more-info": "For more info %{link}",
     "more-info-link": "visit our website",
     "visit-the-website": "Visit the website",
-    "see-how-your-area-is-affected": "See how your area is affected and the discoveries you made possible",
+    "see-how-your-area-is-affected": "Follow the discoveries you made possible",
     "report-button": "Report today, even if you're well",
     "privacy-policy": "Privacy policy",
     "privacy-policy-subtext": "(incl. how to delete your data)",
@@ -70,7 +70,8 @@
       "text2": "No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice."
     },
     "from-researchers": "From Physicians and Researchers at",
-    "create-account": "Create account"
+    "create-account": "Create account",
+    "research": "RESEARCH"
   },
 
   "names": {

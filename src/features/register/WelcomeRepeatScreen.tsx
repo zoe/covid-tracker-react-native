@@ -1,16 +1,16 @@
 import React, {Component} from "react";
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
 import {colors} from "../../../theme";
-import { BrandedButton, ClickableText, RegularText } from "../../components/Text";
+import {BrandedButton, ClickableText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {covidIcon, menuIcon, partnersLogo, usLogos} from "../../../assets";
+import {covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn} from "../../../assets";
 import {RouteProp} from "@react-navigation/native";
-import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {Linking} from "expo";
-import { ContributionCounter } from "../../components/ContributionCounter";
+import {ContributionCounter} from "../../components/ContributionCounter";
 import i18n from "../../locale/i18n";
 
 type PropsType = {
@@ -23,7 +23,7 @@ type WelcomeRepeatScreenState = {
 }
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
-    state = { userCount: null };
+    state = {userCount: null};
 
     async componentDidMount() {
         const userService = new UserService();
@@ -65,110 +65,96 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
         }
     };
 
-    logos = () => {
-        if (isUSLocale()) {
-            return usLogos
+    partnersLogos = () => {
+        if (isGBLocale()) {
+            return gbPartnersReturn
+        } else if (isSVLocale()) {
+            return svPartnersReturn
         } else {
-            return partnersLogo
+            return usPartnersReturn
         }
     };
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
+            <SafeAreaView style={styles.safeView}>
                 <View style={styles.rootContainer}>
 
-                    <View style={styles.topSection}>
-                        <View style={styles.headerRow}>
-                            <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
-                            <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
-                            <TouchableOpacity onPress={() => {
-                                this.props.navigation.toggleDrawer()
-                            }}>
-                                <Image source={menuIcon} style={styles.menuIcon}/>
-                            </TouchableOpacity>
-                        </View>
-                            <RegularText style={styles.subtitle}>
-                                 {i18n.t("welcome.take-a-minute")}
-                            </RegularText>
-                            <ContributionCounter variant={2} count={this.state.userCount}/>
+                    <View style={styles.headerRow}>
+                        <TouchableOpacity onPress={() => {
+                            this.props.navigation.toggleDrawer()
+                        }}>
+                            <Image source={menuIcon} style={styles.menuIcon}/>
+                        </TouchableOpacity>
                     </View>
 
-                    <View style={styles.bottomSection}>
-                        <View style={styles.partnersLogoContainer}>
-                                <Image style={styles.partnersLogo} source={this.logos()} />
-                        </View>
-                        <View style={styles.discoveriesContainer}>
-                            <RegularText style={styles.discoveriesText}>{i18n.t("welcome.see-how-your-area-is-affected")}</RegularText>
-                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={this.openWebsite}>{i18n.t("welcome.visit-the-website")}</BrandedButton>
-                        </View>
-
-                        <BrandedButton onPress={this.handleButtonPress}>{i18n.t("welcome.report-button")}</BrandedButton>
-
-                        <RegularText style={styles.privacyPolicyText}>
-                            <ClickableText
-                                style={styles.privacyPolicyClickText}
-                                onPress={this.navigateToPrivacyPolicy}
-                            >{i18n.t("welcome.privacy-policy")}</ClickableText>{" "}{i18n.t("welcome.privacy-policy-subtext")}
-                        </RegularText>
+                    <View style={styles.covidIconBackground}>
+                        <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
                     </View>
 
+                    <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
+
+                    <RegularText style={styles.subtitle}>{i18n.t("welcome.take-a-minute")}</RegularText>
+
+                    <ContributionCounter variant={2} count={this.state.userCount}/>
+
+                    <Image style={styles.partnersLogo} source={this.partnersLogos()}/>
+
+                    <View style={{flex: 1}}/>
+
+
+                    <TouchableOpacity style={styles.discoveriesContainer} onPress={this.openWebsite}>
+                        <View style={styles.discoveriesTitleBackground}>
+                            <RegularText style={styles.discoveriesTitle}>{i18n.t("welcome.research")}</RegularText>
+                        </View>
+                        <RegularText style={styles.discoveriesText}>{i18n.t("welcome.see-how-your-area-is-affected")}</RegularText>
+                        <RegularText style={styles.discoveriesVisitText}>{i18n.t("welcome.visit-the-website")}</RegularText>
+                    </TouchableOpacity>
+
+                    <BrandedButton style={styles.reportButton} onPress={this.handleButtonPress}>{i18n.t("welcome.report-button")}</BrandedButton>
                 </View>
-            </ScrollView>
+            </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flexGrow: 1,
-        justifyContent: 'space-between'
-    },
-    rootContainer: {
+    safeView: {
         flex: 1,
         backgroundColor: colors.brand,
-        paddingTop: 16,
+    },
+    rootContainer: {
+        paddingHorizontal: 24,
+        paddingTop: 24,
+        flex: 1,
+        alignItems: 'center',
     },
     headerRow: {
+        alignSelf: 'stretch',
         flexDirection: "row",
-        alignItems: "center",
+        justifyContent: "flex-end",
     },
-
+    covidIconBackground: {
+        backgroundColor: colors.predict,
+        padding: 8,
+        borderRadius: 8,
+        marginVertical: 24,
+    },
     covidIcon: {
-        height: 60,
-        width: 60
+        height: 48,
+        width: 48
     },
     appName: {
-        flex: 1,
         color: colors.white,
-        paddingHorizontal: 5,
         fontSize: 14,
-    },
-
-    topSection: {
-        flex: 1,
-        justifyContent: 'space-between',
-        padding: 24,
-    },
-
-    bottomSection: {
-        flex: 1,
-        backgroundColor: colors.white,
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        padding: 32,
-        justifyContent: "space-between",
-        alignContent: "center",
     },
     subtitle: {
         color: colors.white,
         fontSize: 24,
         lineHeight: 38,
-        paddingVertical: 24,
         textAlign: "center",
-        marginTop: 15,
+        marginTop: 16,
     },
-
     discoveriesButton: {
         backgroundColor: colors.backgroundTertiary,
         alignSelf: "center",
@@ -176,51 +162,54 @@ const styles = StyleSheet.create({
         margin: 10,
         elevation: 0
     },
-    discoveriesButtonText: {
-        color: colors.brand,
+    discoveriesVisitText: {
+        color: colors.lightBrand,
         fontSize: 16,
         lineHeight: 24,
+    },
+    discoveriesTitleBackground: {
+        backgroundColor: colors.slashBlue,
+        paddingHorizontal: 4,
+        borderRadius: 4,
+    },
+    discoveriesTitle: {
+        fontSize: 12,
+        color: colors.white,
+        letterSpacing: 0.2,
+
     },
     discoveriesText: {
         textAlign: "center",
-        color: colors.primary,
+        marginHorizontal: 100,
+        marginVertical: 8,
+        color: colors.white,
         fontSize: 16,
         lineHeight: 24,
-        marginTop: 10,
-        marginBottom: 5,
     },
     discoveriesContainer: {
-        padding: 40,
-        borderRadius: 8,
-        borderWidth: 2,
+        paddingVertical: 16,
+        borderRadius: 16,
+        borderWidth: 1,
         borderColor: colors.backgroundSecondary,
-        height: 180,
-        justifyContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     partnersLogo: {
-        alignSelf: 'center',
         width: '95%',
-        height: 120,
+        height: 100,
         resizeMode: 'contain',
-    },
-    privacyPolicyText: {
-        fontSize: 14,
-        color: colors.secondary,
-        alignSelf: 'center',
-    },
-    privacyPolicyClickText: {
-        fontSize: 14,
-        lineHeight: 20,
-        textDecorationLine: "underline",
     },
     menuIcon: {
         height: 20,
         width: 20,
         tintColor: colors.white
     },
-    partnersLogoContainer: {
-        padding: 10,
-        marginTop: 10,
-        borderRadius: 10,
-    },
+    reportButton: {
+        marginTop: 48,
+        textAlign: 'center',
+        backgroundColor: colors.purple,
+        alignSelf: "center",
+        width: '100%',
+        elevation: 0
+    }
 });

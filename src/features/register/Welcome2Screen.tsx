@@ -5,7 +5,7 @@ import {colors} from "../../../theme";
 import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {svFlagSmall, ukFlagSmall, usFlagSmall, usLogos2, partnersLogo, svLogos} from "../../../assets";
+import {svFlagSmall, ukFlagSmall, usFlagSmall, usPartners, gbPartners, svPartners} from "../../../assets";
 import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
 import CountryIpModal from "./CountryIpModal";
 
@@ -30,11 +30,11 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
 
     partnersLogos = () => {
         if (isGBLocale()) {
-            return partnersLogo
+            return gbPartners
         } else if (isSVLocale()) {
-            return svLogos
+            return svPartners
         } else {
-            return usLogos2
+            return usPartners
         }
     };
 
