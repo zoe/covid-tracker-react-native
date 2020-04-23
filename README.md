@@ -2,17 +2,19 @@
 
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [Common issues](#common-issues)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
+- [COVID-19 Symptom Tracker](#covid-19-symptom-tracker)
+  - [Table of Contents](#table-of-contents)
+  - [About The Project](#about-the-project)
+    - [Built With](#built-with)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [Common Issues](#common-issues)
+  - [License](#license)
+  - [Contact](#contact)
+  - [Acknowledgements](#acknowledgements)
 
 ## About The Project
 
@@ -28,10 +30,10 @@ The COVID Symptom Tracker was designed by doctors and scientists at King's Colle
 
 If you're doing research on COVID-19 and you want to contribute or believe this initiative can help your efforts, please let us know at research@joinzoe.com
 
-
 ### Built With
-* [React Native](https://reactnative.dev)
-* [Expo](https://expo.io)
+
+- [React Native](https://reactnative.dev)
+- [Expo](https://expo.io)
 
 ## Getting Started
 
@@ -39,7 +41,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* npm
+- npm
+- expo-cli
+
 ```sh
 npm install npm@latest -g
 npm install expo-cli --g
@@ -48,36 +52,49 @@ npm install expo-cli --g
 ### Installation
 
 1. Clone the repo
-```sh
-git clone git@github.com:zoe/covid-tracker-react-native.git
-```
-2. When you first start your application you should see the IP address in the console (located above the QR code). For example:
-```
-exp://123.456.7.890:19000
-```
-Copy the host part of the IP address only.
 
-4. Create a `.env` file
-```sh
-echo "API_URL=<ip_address_host_here>:3000" > .env
-```
-e.g.
-```sh
-echo "API_URL=http://123.456.7.890:3000" > .env
-```
-5. Create an empty `./google-services.json` file in the root of the application.
-```sh
-echo "{}" > google-services.json
-```
-6. Run the following commands
-```JS
-npm install
-expo start
-```
-7. Run the mock server
-```
-npm run mock-server
-```
+   ```sh
+   git clone git@github.com:zoe/covid-tracker-react-native.git
+   ```
+
+2. When you first start your application you should see the IP address in the console (located above the QR code). For example:
+
+   ```sh
+   exp://123.456.7.890:19000
+   ```
+
+   Copy the host part of the IP address only.
+
+3. Create a `.env` file - please note that `http://` is required otherwise API requests will fail.
+
+   ```sh
+   echo "API_URL=http://<ip_address_host_here>:3000" > .env
+   ```
+
+   e.g.
+
+   ```sh
+   echo "API_URL=http://123.456.7.890:3000" > .env
+   ```
+
+4. Create an empty `./google-services.json` file in the root of the application.
+
+   ```sh
+   echo "{}" > google-services.json
+   ```
+
+5. Run the following commands
+
+   ```bash
+   npm install
+   expo start
+   ```
+
+6. Run the mock server
+
+   ```bash
+   npm run mock-server
+   ```
 
 ## Roadmap
 
@@ -110,4 +127,5 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 ZOE Engineering - engineering@joinzoe.com
 
 ## Acknowledgements
-* [Contributor Covenant](https://www.contributor-covenant.org)
+
+- [Contributor Covenant](https://www.contributor-covenant.org)
