@@ -20,6 +20,7 @@ const ProgressStatus: React.FC<ProgressProps> = (props) => {
                 color={colors.brand}
                 unfilledColor={colors.backgroundFour}
                 borderWidth={0}
+                height={2}
             />
         </View>
     );
