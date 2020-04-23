@@ -109,7 +109,6 @@ class Navigator {
 }
 
 const navigator = new Navigator();
-export default navigator;
 
 
 const ScreenFlow: any = {
@@ -153,20 +152,4 @@ const ScreenFlow: any = {
 
 }
 
-export async function navigateAfterFinishingAssessment(navigation: any) {
-    const userService = new UserService();
-
-    if (await userService.hasMultipleProfiles()) {
-        navigation.replace(getLocalThankYou());
-    } else {
-        if (await userService.shouldAskToReportForOthers()) {
-            navigation.replace('ReportForOther')
-        } else {
-            navigation.replace(getLocalThankYou());
-        }
-    }
-}
-
-export function getLocalThankYou() {
-    return isUSLocale() ? 'ViralThankYou' : 'ThankYou';
-}
+export default navigator;
