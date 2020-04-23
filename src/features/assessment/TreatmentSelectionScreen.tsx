@@ -13,7 +13,7 @@ import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import UserService from "../../core/user/UserService";
 import {BigButton} from "../../components/Button";
-import {navigateAfterFinishingAssessment} from "../Navigation";
+import Navigator from "../Navigation";
 
 
 type TreatmentSelectionProps = {
@@ -25,6 +25,7 @@ type TreatmentSelectionProps = {
 export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
     constructor(props: TreatmentSelectionProps) {
         super(props);
+        Navigator.resetNavigation(props.navigation);
         this.handleTreatment = this.handleTreatment.bind(this);
     }
 
@@ -36,11 +37,8 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
         if (treatment == 'other') {
             this.props.navigation.navigate('TreatmentOther', {currentPatient, assessmentId, location});
         } else {
-            userService.updateAssessment(assessmentId, {
-                treatment: treatment
-            }).then(r => {
-                navigateAfterFinishingAssessment(this.props.navigation);
-            });
+            userService.updateAssessment(assessmentId, {treatment})
+                .then(r => Navigator.gotoEndAssessment());
         }
     }
 
