@@ -110,7 +110,7 @@ export const patientInteractionOptions = [
 ].filter(Boolean) as IOption[];
 
 export const initialFormValues: Partial<YourWorkData> = {
-    inHospitalInpatient: false,
+    // inHospitalInpatient: false,
 };
 
 export interface YourWorkData {

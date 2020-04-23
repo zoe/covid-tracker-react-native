@@ -7,11 +7,7 @@ import * as Yup from "yup";
 import { CheckboxItem, CheckboxList } from "../../../components/Checkbox";
 import DropdownField from "../../../components/DropdownField";
 import ProgressStatus from "../../../components/ProgressStatus";
-import Screen, {
-    FieldWrapper,
-    Header,
-    ProgressBlock,
-} from "../../../components/Screen";
+import Screen, { FieldWrapper, Header, ProgressBlock } from "../../../components/Screen";
 import { BrandedButton, ErrorText, HeaderText } from "../../../components/Text";
 import { ValidationErrors } from "../../../components/ValidationError";
 import UserService from "../../../core/user/UserService";
@@ -50,8 +46,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
             .updatePatient(patientId, infos)
             .then((response) => {
                 const isHealthcareWorker =
-                    infos.healthcare_professional ===
-                        HealthCareStaffOptions.DOES_INTERACT ||
+                    infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT ||
                     infos.is_carer_for_community;
                 currentPatient.isHealthWorker = isHealthcareWorker;
                 this.props.navigation.navigate("AboutYou", { currentPatient });
@@ -72,28 +67,21 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         } as PatientInfosRequest;
 
         if (
-            formData.isHealthcareStaff ===
-                HealthCareStaffOptions.DOES_INTERACT ||
+            formData.isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT ||
             formData.isCarer === "yes"
         ) {
             infos = {
                 ...infos,
-                have_worked_in_hospital_inpatient: this.state
-                    .atHospitalInpatient,
-                have_worked_in_hospital_outpatient: this.state
-                    .atHospitalOutpatient,
-                have_worked_in_hospital_clinic: this.state
-                    .atClinicOutsideHospital,
-                have_worked_in_hospital_care_facility: this.state
-                    .atCareFacility,
+                have_worked_in_hospital_inpatient: this.state.atHospitalInpatient,
+                have_worked_in_hospital_outpatient: this.state.atHospitalOutpatient,
+                have_worked_in_hospital_clinic: this.state.atClinicOutsideHospital,
+                have_worked_in_hospital_care_facility: this.state.atCareFacility,
                 have_worked_in_hospital_home_health: this.state.atHomeHealth,
-                have_worked_in_hospital_school_clinic: this.state
-                    .atSchoolClinic,
+                have_worked_in_hospital_school_clinic: this.state.atSchoolClinic,
                 have_worked_in_hospital_other: this.state.atOtherFacility,
 
                 ...(formData.hasPatientInteraction && {
-                    interacted_patients_with_covid:
-                        formData.hasPatientInteraction,
+                    interacted_patients_with_covid: formData.hasPatientInteraction,
                 }),
                 ...(formData.hasUsedPPEEquipment && {
                     have_used_PPE: formData.hasUsedPPEEquipment,
@@ -104,8 +92,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                     }),
                 ...(formData.hasUsedPPEEquipment === "sometimes" &&
                     formData.ppeAvailabilitySometimes && {
-                        sometimes_used_shortage:
-                            formData.ppeAvailabilitySometimes,
+                        sometimes_used_shortage: formData.ppeAvailabilitySometimes,
                     }),
                 ...(formData.hasUsedPPEEquipment === "never" &&
                     formData.ppeAvailabilityNever && {
@@ -119,34 +106,18 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
     registerSchema = Yup.object().shape({
         inHospitalInpatient: Yup.boolean(),
-        isHealthcareStaff: Yup.string().required(
-            i18n.t("required-is-healthcare-worker")
-        ),
+        isHealthcareStaff: Yup.string().required(i18n.t("required-is-healthcare-worker")),
         isCarer: Yup.string().required(i18n.t("required-is-carer")),
-        hasPatientInteraction: Yup.string().when(
-            ["isHealthcareStaff", "isCarer"],
-            {
-                is: (isHealthcareStaff, isCarer) =>
-                    isHealthcareStaff ===
-                        HealthCareStaffOptions.DOES_INTERACT ||
-                    isCarer === "yes",
-                then: Yup.string().required(
-                    i18n.t("required-has-patient-interaction")
-                ),
-            }
-        ),
-        hasUsedPPEEquipment: Yup.string().when(
-            ["isHealthcareStaff", "isCarer"],
-            {
-                is: (isHealthcareStaff, isCarer) =>
-                    isHealthcareStaff ===
-                        HealthCareStaffOptions.DOES_INTERACT ||
-                    isCarer === "yes",
-                then: Yup.string().required(
-                    i18n.t("required-has-used-ppe-equipment")
-                ),
-            }
-        ),
+        hasPatientInteraction: Yup.string().when(["isHealthcareStaff", "isCarer"], {
+            is: (isHealthcareStaff, isCarer) =>
+                isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT || isCarer === "yes",
+            then: Yup.string().required(i18n.t("required-has-patient-interaction")),
+        }),
+        hasUsedPPEEquipment: Yup.string().when(["isHealthcareStaff", "isCarer"], {
+            is: (isHealthcareStaff, isCarer) =>
+                isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT || isCarer === "yes",
+            then: Yup.string().required(i18n.t("required-has-used-ppe-equipment")),
+        }),
         ppeAvailabilityAlways: Yup.string().when("hasUsedPPEEquipment", {
             is: "always",
             then: Yup.string().required(i18n.t("required-ppe-availability")),
@@ -165,10 +136,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         const currentPatient = this.props.route.params.currentPatient;
 
         return (
-            <Screen
-                profile={currentPatient.profile}
-                navigation={this.props.navigation}
-            >
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
                     <HeaderText>{i18n.t("title-about-work")}</HeaderText>
                 </Header>
@@ -180,9 +148,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 <Formik
                     initialValues={initialFormValues as YourWorkData}
                     validationSchema={this.registerSchema}
-                    onSubmit={(values: YourWorkData) =>
-                        this.handleUpdateWork(values)
-                    }
+                    onSubmit={(values: YourWorkData) => this.handleUpdateWork(values)}
                 >
                     {({
                         values: {
@@ -194,6 +160,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                             ppeAvailabilityAlways,
                             ppeAvailabilityNever,
                         },
+                        values,
+                        isSubmitting,
                         handleSubmit,
                         handleChange,
                         touched,
@@ -201,30 +169,26 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                     }) => {
                         const showWorkerAndCarerQuestions: boolean =
                             (!!isHealthcareStaff &&
-                                isHealthcareStaff ===
-                                    HealthCareStaffOptions.DOES_INTERACT) ||
+                                isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT) ||
                             (!!isCarer && isCarer === "yes");
+
+                        const checkFormFilled = () => {
+                            if (Object.keys(errors).length) return false;
+                            if (Object.keys(values).length === 0) return false;
+                            return true;
+                        };
                         return (
                             <KeyboardAvoidingView
-                                behavior={
-                                    Platform.OS === "ios"
-                                        ? "padding"
-                                        : undefined
-                                }
+                                behavior={Platform.OS === "ios" ? "padding" : undefined}
                             >
                                 <Form>
                                     <DropdownField
                                         selectedValue={isHealthcareStaff}
-                                        onValueChange={handleChange(
-                                            "isHealthcareStaff"
-                                        )}
-                                        label={i18n.t(
-                                            "are-you-healthcare-staff"
-                                        )}
+                                        onValueChange={handleChange("isHealthcareStaff")}
+                                        label={i18n.t("are-you-healthcare-staff")}
                                         items={healthcareStaffOptions}
                                         error={
-                                            touched.isHealthcareStaff &&
-                                            errors.isHealthcareStaff
+                                            touched.isHealthcareStaff && errors.isHealthcareStaff
                                         }
                                     />
 
@@ -232,22 +196,15 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                         selectedValue={isCarer}
                                         onValueChange={handleChange("isCarer")}
                                         label={i18n.t("are-you-carer")}
-                                        androidDefaultLabel={i18n.t(
-                                            "choose-one-of-these-options"
-                                        )}
-                                        error={
-                                            touched.isCarer && errors.isCarer
-                                        }
+                                        androidDefaultLabel={i18n.t("choose-one-of-these-options")}
+                                        error={touched.isCarer && errors.isCarer}
                                     />
 
                                     {/* if is healthcare worker question is yes */}
                                     {showWorkerAndCarerQuestions && (
                                         <View>
                                             <FieldWrapper>
-                                                <Item
-                                                    stackedLabel
-                                                    style={styles.textItemStyle}
-                                                >
+                                                <Item stackedLabel style={styles.textItemStyle}>
                                                     <Label>
                                                         {i18n.t(
                                                             "label-physically-worked-in-places"
@@ -256,13 +213,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
                                                     <CheckboxList>
                                                         <CheckboxItem
-                                                            value={
-                                                                this.state
-                                                                    .atHospitalInpatient
-                                                            }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            value={this.state.atHospitalInpatient}
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atHospitalInpatient: value,
                                                                 })
@@ -273,13 +225,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                             )}
                                                         </CheckboxItem>
                                                         <CheckboxItem
-                                                            value={
-                                                                this.state
-                                                                    .atHospitalOutpatient
-                                                            }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            value={this.state.atHospitalOutpatient}
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atHospitalOutpatient: value,
                                                                 })
@@ -291,12 +238,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                         </CheckboxItem>
                                                         <CheckboxItem
                                                             value={
-                                                                this.state
-                                                                    .atClinicOutsideHospital
+                                                                this.state.atClinicOutsideHospital
                                                             }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atClinicOutsideHospital: value,
                                                                 })
@@ -307,13 +251,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                             )}
                                                         </CheckboxItem>
                                                         <CheckboxItem
-                                                            value={
-                                                                this.state
-                                                                    .atCareFacility
-                                                            }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            value={this.state.atCareFacility}
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atCareFacility: value,
                                                                 })
@@ -324,30 +263,18 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                             )}
                                                         </CheckboxItem>
                                                         <CheckboxItem
-                                                            value={
-                                                                this.state
-                                                                    .atHomeHealth
-                                                            }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            value={this.state.atHomeHealth}
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atHomeHealth: value,
                                                                 })
                                                             }
                                                         >
-                                                            {i18n.t(
-                                                                "your-work.worked-home-health"
-                                                            )}
+                                                            {i18n.t("your-work.worked-home-health")}
                                                         </CheckboxItem>
                                                         <CheckboxItem
-                                                            value={
-                                                                this.state
-                                                                    .atSchoolClinic
-                                                            }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            value={this.state.atSchoolClinic}
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atSchoolClinic: value,
                                                                 })
@@ -358,13 +285,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                             )}
                                                         </CheckboxItem>
                                                         <CheckboxItem
-                                                            value={
-                                                                this.state
-                                                                    .atOtherFacility
-                                                            }
-                                                            onChange={(
-                                                                value: boolean
-                                                            ) =>
+                                                            value={this.state.atOtherFacility}
+                                                            onChange={(value: boolean) =>
                                                                 this.setState({
                                                                     atOtherFacility: value,
                                                                 })
@@ -379,18 +301,14 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                             </FieldWrapper>
 
                                             <DropdownField
-                                                selectedValue={
-                                                    hasPatientInteraction
-                                                }
+                                                selectedValue={hasPatientInteraction}
                                                 onValueChange={handleChange(
                                                     "hasPatientInteraction"
                                                 )}
                                                 label={i18n.t(
                                                     "label-interacted-with-infected-patients"
                                                 )}
-                                                items={
-                                                    patientInteractionOptions
-                                                }
+                                                items={patientInteractionOptions}
                                                 error={
                                                     touched.hasPatientInteraction &&
                                                     errors.hasPatientInteraction
@@ -398,15 +316,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                             />
 
                                             <DropdownField
-                                                selectedValue={
-                                                    hasUsedPPEEquipment
-                                                }
-                                                onValueChange={handleChange(
-                                                    "hasUsedPPEEquipment"
-                                                )}
-                                                label={i18n.t(
-                                                    "label-used-ppe-equipment"
-                                                )}
+                                                selectedValue={hasUsedPPEEquipment}
+                                                onValueChange={handleChange("hasUsedPPEEquipment")}
+                                                label={i18n.t("label-used-ppe-equipment")}
                                                 items={equipmentUsageOptions}
                                                 error={
                                                     touched.hasUsedPPEEquipment &&
@@ -414,21 +326,14 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                 }
                                             />
 
-                                            {hasUsedPPEEquipment ===
-                                                "always" && (
+                                            {hasUsedPPEEquipment === "always" && (
                                                 <DropdownField
-                                                    selectedValue={
-                                                        ppeAvailabilityAlways
-                                                    }
+                                                    selectedValue={ppeAvailabilityAlways}
                                                     onValueChange={handleChange(
                                                         "ppeAvailabilityAlways"
                                                     )}
-                                                    label={i18n.t(
-                                                        "label-chose-an-option"
-                                                    )}
-                                                    items={
-                                                        availabilityAlwaysOptions
-                                                    }
+                                                    label={i18n.t("label-chose-an-option")}
+                                                    items={availabilityAlwaysOptions}
                                                     error={
                                                         touched.ppeAvailabilityAlways &&
                                                         errors.ppeAvailabilityAlways
@@ -436,21 +341,14 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                 />
                                             )}
 
-                                            {hasUsedPPEEquipment ===
-                                                "sometimes" && (
+                                            {hasUsedPPEEquipment === "sometimes" && (
                                                 <DropdownField
-                                                    selectedValue={
-                                                        ppeAvailabilitySometimes
-                                                    }
+                                                    selectedValue={ppeAvailabilitySometimes}
                                                     onValueChange={handleChange(
                                                         "ppeAvailabilitySometimes"
                                                     )}
-                                                    label={i18n.t(
-                                                        "label-chose-an-option"
-                                                    )}
-                                                    items={
-                                                        availabilitySometimesOptions
-                                                    }
+                                                    label={i18n.t("label-chose-an-option")}
+                                                    items={availabilitySometimesOptions}
                                                     error={
                                                         touched.ppeAvailabilitySometimes &&
                                                         errors.ppeAvailabilitySometimes
@@ -458,21 +356,14 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                                 />
                                             )}
 
-                                            {hasUsedPPEEquipment ===
-                                                "never" && (
+                                            {hasUsedPPEEquipment === "never" && (
                                                 <DropdownField
-                                                    selectedValue={
-                                                        ppeAvailabilityNever
-                                                    }
+                                                    selectedValue={ppeAvailabilityNever}
                                                     onValueChange={handleChange(
                                                         "ppeAvailabilityNever"
                                                     )}
-                                                    label={i18n.t(
-                                                        "label-chose-an-option"
-                                                    )}
-                                                    items={
-                                                        availabilityNeverOptions
-                                                    }
+                                                    label={i18n.t("label-chose-an-option")}
+                                                    items={availabilityNeverOptions}
                                                     error={
                                                         touched.ppeAvailabilityNever &&
                                                         errors.ppeAvailabilityNever
@@ -482,14 +373,16 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                                         </View>
                                     )}
 
-                                    <ErrorText>
-                                        {this.state.errorMessage}
-                                    </ErrorText>
+                                    <ErrorText>{this.state.errorMessage}</ErrorText>
                                     {!!Object.keys(errors).length && (
                                         <ValidationErrors errors={errors} />
                                     )}
 
-                                    <BrandedButton onPress={handleSubmit}>
+                                    <BrandedButton
+                                        onPress={handleSubmit}
+                                        enable={checkFormFilled()}
+                                        hideLoading={!isSubmitting}
+                                    >
                                         {i18n.t("next-question")}
                                     </BrandedButton>
                                 </Form>
