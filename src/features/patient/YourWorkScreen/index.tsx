@@ -178,7 +178,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                 </ProgressBlock>
 
                 <Formik
-                    initialValues={initialFormValues}
+                    initialValues={initialFormValues as YourWorkData}
                     validationSchema={this.registerSchema}
                     onSubmit={(values: YourWorkData) =>
                         this.handleUpdateWork(values)
