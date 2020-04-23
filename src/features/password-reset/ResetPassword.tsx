@@ -1,121 +1,130 @@
-import React, {Component} from "react";
-import {Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {Form} from 'native-base';
-import {colors} from "../../../theme";
-import {Formik} from "formik";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Formik } from "formik";
+import { Form } from "native-base";
+import React, { useState } from "react";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import * as Yup from "yup";
-import {ValidatedTextInput} from "../../components/ValidatedTextInput";
+
+import { colors } from "../../../theme";
+import { BrandedButton, ErrorText, HeaderText } from "../../components/Text";
+import { ValidatedTextInput } from "../../components/ValidatedTextInput";
 import UserService from "../../core/user/UserService";
-import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
-import {AxiosError} from "axios";
-import {ScreenParamList} from "../ScreenParamList";
 import i18n from "../../locale/i18n";
+import { ScreenParamList } from "../ScreenParamList";
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'ResetPassword'>
-}
+  navigation: StackNavigationProp<ScreenParamList, "ResetPassword">;
+};
 
 type State = {
-    errorMessage: string;
-    enableSubmit: boolean;
-}
+  errorMessage?: string;
+  enableSubmit: boolean;
+};
 
 const initialState: State = {
-    errorMessage: "",
-    enableSubmit: true,
+  enableSubmit: true,
 };
 
 interface ResetPasswordData {
-    email: string;
+  email: string;
 }
 
-export class ResetPasswordScreen extends Component<PropsType, State> {
+const registerSchema = Yup.object<ResetPasswordData>().shape({
+  email: Yup.string().email().required(),
+});
 
-    constructor(props: PropsType) {
-        super(props);
-        this.state = initialState;
+const ResetPasswordScreen: React.FC<PropsType> = ({ navigation }) => {
+  const [{ enableSubmit, errorMessage }, setState] = useState<State>(initialState);
+
+  const handleClick = async (formData: ResetPasswordData) => {
+    if (!enableSubmit) return;
+    setState({ enableSubmit: false }); // Stop resubmissions
+    const userService = new UserService(); // todo get global var
+
+    try {
+      await userService.resetPassword(formData.email);
+      navigation.navigate("ResetPasswordConfirm");
+    } catch (error) {
+      setState({
+        enableSubmit: true,
+        errorMessage: i18n.t("reset-password.error", {
+          msg: error.message,
+        }),
+      });
     }
+  };
 
-    private handleClick(formData: ResetPasswordData) {
-        if (this.state.enableSubmit) {
-            this.setState({enableSubmit: false}); // Stop resubmissions
-            const userService = new UserService(); // todo get global var
-            userService.resetPassword(formData.email)
-                .then(response => this.props.navigation.navigate("ResetPasswordConfirm"))
-                .catch((err: AxiosError) => {
-                    this.setState({errorMessage:  i18n.t("reset-password.error", {msg: err.message})});
-                    this.setState({enableSubmit: true});
-                });
-        }
-    }
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={styles.rootContainer}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <Formik
+          initialValues={{ email: "" }}
+          validationSchema={registerSchema}
+          onSubmit={(values: ResetPasswordData) => handleClick(values)}
+        >
+          {({ touched, values, errors, ...props }) => {
+            return (
+              <View>
+                <View style={styles.formItem}>
+                  <HeaderText>{i18n.t("reset-password.title")}</HeaderText>
+                  <Form>
+                    <ValidatedTextInput
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      autoCompleteType="email"
+                      placeholder={i18n.t("reset-password.email-label")}
+                      value={values.email}
+                      onChangeText={props.handleChange("email")}
+                      onBlur={props.handleBlur("email")}
+                      error={touched.email && errors.email}
+                      returnKeyType="go"
+                    />
 
-    registerSchema = Yup.object().shape({
-        email: Yup.string().email().required(),
-    });
+                    {touched.email && errors.email && (
+                      <ErrorText>{i18n.t("reset-password.email-error")}</ErrorText>
+                    )}
+                  </Form>
+                </View>
+                <View>
+                  <ErrorText>{errorMessage}</ErrorText>
+                </View>
 
-    render() {
-        return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-
-                    <Formik
-                        initialValues={{email: ""}}
-                        validationSchema={this.registerSchema}
-                        onSubmit={(values: ResetPasswordData) => this.handleClick(values)}
-                    >
-                        {props => {
-                            return (
-                                <View>
-                                    <View style={styles.formItem}>
-                                        <HeaderText>{i18n.t("reset-password.title")}</HeaderText>
-                                        <Form>
-                                            <ValidatedTextInput
-                                                keyboardType="email-address"
-                                                autoCapitalize="none"
-                                                autoCompleteType="email"
-                                                placeholder={i18n.t("reset-password.email-label")}
-                                                value={props.values.email}
-                                                onChangeText={props.handleChange("email")}
-                                                onBlur={props.handleBlur("email")}
-                                                error={props.touched.email && props.errors.email}
-                                                returnKeyType="go"
-                                            />
-
-                                            {props.touched.email && props.errors.email &&
-                                            <ErrorText> {i18n.t("reset-password.email-error")}</ErrorText>
-                                            }
-                                        </Form>
-                                    </View>
-                                    <View>
-                                        <ErrorText>{this.state.errorMessage}</ErrorText>
-                                    </View>
-
-                                    <View>
-                                        <BrandedButton onPress={props.handleSubmit}>
-                                            {i18n.t("reset-password.button")}
-                                        </BrandedButton>
-                                    </View>
-                                </View>
-                            );
-                        }}
-                    </Formik>
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
-        );
-    }
-}
+                <View>
+                  <BrandedButton onPress={props.handleSubmit}>
+                    {i18n.t("reset-password.button")}
+                  </BrandedButton>
+                </View>
+              </View>
+            );
+          }}
+        </Formik>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
-    rootContainer: {
-        flex: 1,
-        justifyContent: "space-between",
-        backgroundColor: colors.backgroundPrimary,
-        paddingHorizontal: 24,
-        paddingTop: 56
-    },
-    formItem: {
-        paddingHorizontal: 16,
-        paddingVertical: 4,
-    },
+  rootContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    backgroundColor: colors.backgroundPrimary,
+    paddingHorizontal: 24,
+    paddingTop: 56,
+  },
+  formItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+  },
 });
+
+export default ResetPasswordScreen;

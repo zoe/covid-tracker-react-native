@@ -1,59 +1,52 @@
-import React, {Component} from "react";
-import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {BrandedButton, HeaderText, RegularText} from "../../components/Text";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React from "react";
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+
+import { colors } from "../../../theme";
+import { BrandedButton, HeaderText, RegularText } from "../../components/Text";
 import i18n from "../../locale/i18n";
-import {colors} from "../../../theme";
+import { ScreenParamList } from "../ScreenParamList";
 
 type PropsType = {
-    navigation: StackNavigationProp<ScreenParamList, 'ResetPasswordConfirm'>
-}
+  navigation: StackNavigationProp<ScreenParamList, "ResetPasswordConfirm">;
+};
 
-type State = {
-    errorMessage: string;
-    enableSubmit: boolean;
-}
+const ResetPasswordConfirmScreen: React.FC<PropsType> = ({ navigation }) => (
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.rootContainer}>
+      <View style={styles.formItem}>
+        <HeaderText>{i18n.t("reset-password-confirm.title")}</HeaderText>
 
-export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
-    constructor(props: PropsType) {
-        super(props);
-    }
+        <RegularText style={styles.passwordResetConfirm}>
+          {i18n.t("reset-password-confirm.text")}
+        </RegularText>
 
-    render() {
-        return (
+        <BrandedButton style={styles.login} onPress={() => navigation.navigate("Login")}>
+          {i18n.t("reset-password-confirm.button")}
+        </BrandedButton>
+      </View>
+    </View>
+  </TouchableWithoutFeedback>
+);
 
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.rootContainer}>
-                    <View style={styles.formItem}>
-                        <HeaderText>
-                            {i18n.t("reset-password-confirm.title")}
-                        </HeaderText>
-
-                        <RegularText style={{paddingTop: 24}}>
-                            {i18n.t("reset-password-confirm.text")}
-                        </RegularText>
-
-                        <BrandedButton style={{marginTop: 32}} onPress={() => this.props.navigation.navigate('Login')}>
-                            {i18n.t("reset-password-confirm.button")}
-                        </BrandedButton>
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-        );
-    }
-}
+export default ResetPasswordConfirmScreen;
 
 const styles = StyleSheet.create({
-    rootContainer: {
-        flex: 1,
-        justifyContent: "space-between",
-        backgroundColor: colors.backgroundPrimary,
-        paddingHorizontal: 24,
-        paddingTop: 56
-    },
-    formItem: {
-        paddingHorizontal: 16,
-        paddingVertical: 4,
-    },
+  passwordResetConfirm: {
+    paddingTop: 24,
+  },
+  login: {
+    marginTop: 32,
+  },
+  rootContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    backgroundColor: colors.backgroundPrimary,
+    paddingHorizontal: 24,
+    paddingTop: 56,
+  },
+  formItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+  },
 });
