@@ -206,7 +206,7 @@
   },
 
   "covid-test": {
-      "page-title": "COVID-19-status",
+      "page-title": "COVID-19-test",
       "question-has-covid-test": "Har du testats för COVID-19?",
       "question-has-covid-positive": "Testades du positiv för COVID-19?",
       "picker-waiting": "Väntar på mina resultat",
@@ -215,7 +215,7 @@
   
 
   "how-you-feel": {
-      "question-health-status": "Hur känner du dig fysiskt just nu?",
+      "question-health-status": "Hur mår du i kroppen just nu?",
       "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
       "picker-health-status-not-healthy": "Jag känner mig inte helt kry"
   },
@@ -228,7 +228,7 @@
       "picker-celsius": "°C",
       "picker-fahrenheit": "°F",
       "question-has-persistent-cough": "Har du ihållande hosta (hostar mycket i mer än en timme, eller tre eller fler hostepisoder under ett dygn)?",
-      "question-has-unusual-fatigue": "Upplever du ovanlig trötthet?",
+      "question-has-unusual-fatigue": "Känner du dig ovanligt trött?",
       "picker-fatigue-none": "Nej",
       "picker-fatigue-mild": "Lindrig trötthet",
       "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
@@ -254,7 +254,7 @@
 
   "where-are-you": {
       "question-location": "Var befinner du dig just nu?",
-      "picker-location-home": "Jag är hemma. Jas har inte besökt sjukhuset för misstänkta COVID-19-symtom.",
+      "picker-location-home": "Jag är hemma. Jag har inte besökt sjukhuset för misstänkta COVID-19-symtom.",
       "picker-location-hospital": "Jag är på sjukhuset med misstänkta COVID-19-symtom.",
       "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill berätta om min behandling.",
       "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om min behandling."
@@ -311,8 +311,8 @@
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig",
     "disclaimer-link": "besöka 1177.se",
     "tell-me-more": "Berätta mer",
-    "more-info": "för mer information",
-    "more-info-link": "Besök vår webbplats ",
+    "more-info": "%{link} för mer information",
+    "more-info-link": "Besök vår webbplats",
     "visit-the-website": "Besök webbplatsen",
     "see-how-your-area-is-affected": "Se hur ditt område påverkas och vilka fynd du bidrog till",
     "report-button": "Rapportera i dag, även om du är frisk",
@@ -327,7 +327,7 @@
     "create-account": "Skapa konto"
   },
   "total-people-contributing": "%{total} personer bidrar",
-  "join-total-people-contributing": "Anslut dig till %{total} personer som bidrar",
+  "join-total-people-contributing": "Bli en av de %{total} personerna i världen som bidrar",
 
   "select-country": "Välj bosättningsland",
   "your-country-title": "Ditt land",
@@ -336,9 +336,9 @@
   "united-kingdom": "Storbritannien",
   "sweden": "Sverige",
 
-  "thank-you-title": "Tack för din hjälp och avgörande bidrag till studien av COVID-19.",
+  "thank-you-title": "Stort tack för att du deltar i studien och hjälper forskare och läkare i kampen mot COVID-19",
   "blog-link": "https://covid.joinzoe.com/blog",
-  "thank-you-body": "Tack för att du anslutit dig till de miljontals människor som redan stöder forskarna på Lunds Universitet och King’s College London för att hjälpa vår hälso- och sjukvård.",
+  "thank-you-body": "Tack för att du anslutit dig till de miljontals människor som redan stöder forskarna på Lunds universitet och King’s College London för att hjälpa vår hälso- och sjukvård.",
   "check-in-tomorrow": "Vi skulle uppskatta om du har möjlighet att logga in igen i morgon om du orkar.",
   "check-news-feed" : "Håll utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://covid.joinzoe.com/faq",

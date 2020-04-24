@@ -1,80 +1,68 @@
-import React, {Component} from 'react';
-import {Dimensions, Platform, ScrollView, StyleSheet, View} from 'react-native';
-import {colors} from '../../theme';
-import { PatientProfile } from '../core/patient/PatientState';
-import PatientHeader from './PatientHeader';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreenParamList } from '../features/ScreenParamList';
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { Component } from "react";
+import {
+    Dimensions,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
-export const screenHeight = Math.round(Dimensions.get('window').height);
-export const isAndroid = (Platform.OS === 'android');
-export const isIos = (Platform.OS === 'ios');
+import { colors } from "../../theme";
+import { PatientProfile } from "../core/patient/PatientState";
+import { ScreenParamList } from "../features/ScreenParamList";
+import PatientHeader from "./PatientHeader";
 
+export const screenWidth = Math.round(Dimensions.get("window").width) - 32;
+export const screenHeight = Math.round(Dimensions.get("window").height);
+export const isAndroid = Platform.OS === "android";
+export const isIos = Platform.OS === "ios";
 
 type HeaderProp = {
-    children: any
+    children: React.ReactNode;
 };
 
 export const Header = (props: HeaderProp) => {
-    return (
-      <View style={styles.headerBlock}>
-          {props.children}
-      </View>
-    )
+    return <View style={styles.headerBlock}>{props.children}</View>;
 };
 
-
 type OverviewProp = {
-    children: any
+    children: React.ReactNode;
 };
 
 export const Overview = (props: OverviewProp) => {
-    return (
-      <View style={styles.overviewBlock}>
-          {props.children}
-      </View>
-    )
+    return <View style={styles.overviewBlock}>{props.children}</View>;
 };
 
-
 type ProgressBlockType = {
-    children: any
+    children: React.ReactNode;
 };
 
 export const ProgressBlock = (props: ProgressBlockType) => {
-    return (
-      <View style={styles.progressBlock}>
-          {props.children}
-      </View>
-    )
+    return <View style={styles.progressBlock}>{props.children}</View>;
 };
 
-
 type FieldWrapperType = {
-    children: any,
-    style?: any
+    children: React.ReactNode;
+    style?: object;
 };
 
 export const FieldWrapper = (props: FieldWrapperType) => {
     return (
-      <View style={[styles.fieldWrapper, props.style]}>
-          {props.children}
-      </View>
-    )
+        <View style={[styles.fieldWrapper, props.style]}>{props.children}</View>
+    );
 };
 
-
 /*
-* A component to wrap all screens in a common wrapper.
-* For permanent page fixtures
-*/
+ * A component to wrap all screens in a common wrapper.
+ * For permanent page fixtures
+ */
 type ScreenProps = {
-    children: any;
-    navigation?: StackNavigationProp<ScreenParamList>
+    children: React.ReactNode;
+    navigation?: StackNavigationProp<ScreenParamList>;
     profile?: PatientProfile;
-}
+};
 
 export default class Screen extends Component<ScreenProps> {
     screenWidth: number = screenWidth;
@@ -85,16 +73,17 @@ export default class Screen extends Component<ScreenProps> {
 
         return (
             <SafeAreaView style={styles.screen}>
-                {!!profile ? (
-                    <PatientHeader profile={profile} navigation={this.props.navigation} />
-                ): (
+                {profile ? (
+                    <PatientHeader
+                        profile={profile}
+                        navigation={this.props.navigation}
+                    />
+                ) : (
                     <View style={styles.statusBarBlock} />
                 )}
 
                 <ScrollView>
-                    <View style={styles.pageBlock}>
-                        {this.props.children}
-                    </View>
+                    <View style={styles.pageBlock}>{this.props.children}</View>
                 </ScrollView>
 
                 {/* TODO: Put any fixed footer component */}
@@ -134,5 +123,5 @@ const styles = StyleSheet.create({
 
     fieldWrapper: {
         marginVertical: 16,
-    }
+    },
 });
