@@ -1,4 +1,4 @@
-import UserService, {isUSLocale} from "../core/user/UserService";
+import UserService, {isUSCountry} from "../core/user/UserService";
 
 export async function navigateAfterFinishingAssessment(navigation: any) {
     const userService = new UserService();
@@ -15,5 +15,5 @@ export async function navigateAfterFinishingAssessment(navigation: any) {
 }
 
 export function getLocalThankYou() {
-    return isUSLocale() ? 'ViralThankYou' : 'ThankYou';
+    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
 }

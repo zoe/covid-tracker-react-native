@@ -24,7 +24,7 @@ import moment from "moment";
 
 const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
-const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
+const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
     public static userCountry = 'US';
@@ -307,17 +307,17 @@ export default class UserService extends ApiClientBase {
 
     async setUserCountry(countryCode: string) {
         UserService.userCountry = countryCode;
-        i18n.locale = "en-" + UserService.userCountry
+        UserService.setLocaleFromCountry(countryCode)
         await AsyncStorageService.setUserCountry(countryCode);
     }
 
     async getUserCountry() {
-        const localCountry = await AsyncStorageService.getUserCountry();
-        if (localCountry != null) {
-            UserService.userCountry = localCountry;
-            i18n.locale = "en-" + UserService.userCountry
+        let country = await AsyncStorageService.getUserCountry();
+        if (country != null) {
+            UserService.userCountry = country;
+            UserService.setLocaleFromCountry(country)
         }
-        return localCountry;
+        return country;
     }
 
     async shouldAskCountryConfirmation() {
@@ -328,16 +328,18 @@ export default class UserService extends ApiClientBase {
         }
     }
 
-    async defaultCountryToLocale() {
-        const locale = () => {
+    async defaultCountryFromLocale() {
+        const country = () => {
             if (Localization.locale == 'en-GB') {
                 return "GB";
+            } else if (Localization.locale == 'sv-SE') {
+                return "SE";
             } else {
                 return "US";
             }
         };
 
-        await this.setUserCountry(locale());
+        await this.setUserCountry(country());
     }
 
     async deleteLocalUserData() {
@@ -393,8 +395,19 @@ export default class UserService extends ApiClientBase {
             await AsyncStorageService.setAskedToReportForOthers("0")
         }
     }
+
+    private static setLocaleFromCountry(countryCode: string) {
+        const localeMap: { [key: string]: string } = {
+            US: 'en',
+            GB: 'en',
+            SE: 'sv'
+        };
+
+        i18n.locale = localeMap[countryCode] + "-" +  UserService.userCountry;
+    }
 }
 
-export const isUSLocale = () => UserService.userCountry === 'US';
-export const isGBLocale = () => UserService.userCountry === 'GB';
+export const isUSCountry = () => UserService.userCountry === 'US';
+export const isGBCountry = () => UserService.userCountry === 'GB';
+export const isSECountry = () => UserService.userCountry === 'SE';
 

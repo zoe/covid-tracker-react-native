@@ -4,7 +4,7 @@ import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from "react-na
 import { Toast, View } from "native-base";
 import { colors } from "../../theme";
 import { RegularBoldText, RegularText } from "./Text";
-import UserService, { isGBLocale } from "../core/user/UserService";
+import UserService, { isGBCountry } from "../core/user/UserService";
 
 type PropsType = {}
 
@@ -63,7 +63,7 @@ export class CovidRating extends Component<PropsType, State> {
         if (Platform.OS != 'ios') {
             Linking.openURL(AndroidLink).catch(err => {});
         } else {
-            Linking.openURL(isGBLocale() ? UKiOSLink : USiOSLink).catch(err => {});
+            Linking.openURL(isGBCountry() ? UKiOSLink : USiOSLink).catch(err => {});
         }
         this.setState({isModalOpen: false});
     };

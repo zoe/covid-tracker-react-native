@@ -19,11 +19,11 @@ export const ContributionCounter = (props: ContributionCounterProps) => {
                     )}
                 </RegularText>
             : props.variant === 2 ?
-                <RegularText style={styles.contributingText}>
+                <RegularText style={styles.contributingText2}>
                     { reactStringReplace(
                         i18n.t("total-people-contributing", {total: '{{TOTAL}}'}),
                         '{{TOTAL}}',
-                        (match, i) => (<RegularBoldText key={i} style={styles.contributingText}>{countValue}</RegularBoldText>)
+                        (match, i) => (<RegularBoldText key={i} style={styles.contributingTextValue2}>{countValue}</RegularBoldText>)
                     )}
                 </RegularText> : null
     }
@@ -40,6 +40,19 @@ const styles = StyleSheet.create({
     },
     contributingTextValue: {
         fontSize: 24,
+        lineHeight: 32,
+        color: colors.white,
+        textAlign: "center",
+    },
+    contributingText2: {
+        fontSize: 14,
+        lineHeight: 32,
+        marginTop: 16,
+        color: colors.lightBrand,
+        textAlign: "center",
+    },
+    contributingTextValue2: {
+        fontSize: 16,
         lineHeight: 32,
         color: colors.white,
         textAlign: "center",
