@@ -20,8 +20,8 @@ Now that we've excluded a few things, let's discuss what would be great contribu
 - Accessibility - The app has never been tested for this, it's most likely broken.
 - UX Improvements
   - Better validation - Error messages are not consistently shown next to the actual error.
-    - Better retry - our backend doesn't have 100% uptime atm, mostly due to how it scales up or down. This is something we can and will fix, but we should still give better error messages and retry mechanism.
-    - Better UI - we have some great designs that we never had time to implement.
+  - Better retry - our backend doesn't have 100% uptime atm, mostly due to how it scales up or down. This is something we can and will fix, but we should still give better error messages and retry mechanism.
+  - Better UI - we have some great designs that we never had time to implement.
 - General code quality improvements.
   - Code refactoring.
   - Unit tests.
