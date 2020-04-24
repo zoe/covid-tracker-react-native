@@ -21,10 +21,11 @@ export default class DaysAgo extends Component<ProgressProps> {
             } else {
                 text = i18n.t("days-ago", {diffDays: diffDays});
             }
+            text = i18n.t("select-profile-last-report") + " " + text
         }
 
         return (
-            <SecondaryText style={{textAlign: "center"}}>{text}</SecondaryText>
+            <SecondaryText style={{textAlign: "center", fontSize: 12}}>{text}</SecondaryText>
         );
     }
 }

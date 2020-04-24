@@ -413,6 +413,7 @@
   "select-profile-title": "Select profile you want to report for",
   "select-profile-text": "Or add more profiles",
   "select-profile-button": "New profile",
+  "select-profile-last-report": "Last report:",
 
   "validation-error-text": "Please fill in or correct the above information: %{info}",
   "validation-error-text-no-info": "Please fill in or correct the above information",
