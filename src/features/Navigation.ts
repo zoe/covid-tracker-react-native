@@ -72,17 +72,8 @@ class Navigator {
     }
 
     async gotoStartPatient(currentPatient: PatientStateType) {
-        const patientId = currentPatient.patientId;
         const nextPage = await this.getStartPatientScreenName(currentPatient);
-
-        // OptionalInfo nav-stack cleanup.
-        this.navigation.reset({
-            index: 0,
-            routes: [
-                {name: this.getWelcomeRepeatScreenName(), params: {patientId}},
-                {name: nextPage, params: {currentPatient}}
-            ],
-        })
+        this.gotoScreen(nextPage, {currentPatient});
     }
 
     async gotoEndAssessment() {

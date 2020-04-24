@@ -1,5 +1,9 @@
 {
     "country": "ZZ",
     "enableMultiplePatients": true,
-    "enablePersonalInformation": true
+    "enablePersonalInformation": true,
+    "enableCohorts": true,
+
+    "showEthnicityQuestion": false,
+    "showRaceQuestion": true
 }
