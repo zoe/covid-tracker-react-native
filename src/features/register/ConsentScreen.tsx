@@ -377,8 +377,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                     </ScrollView>
 
                     {
-                        !this.viewOnly &&
-                        <BrandedButton style={styles.button} onPress={this.handleSVAgreeClicked}>I agree</BrandedButton>
+                        !this.viewOnly && this.renderConsentAgreeButton()
                     }
 
                 </View>
