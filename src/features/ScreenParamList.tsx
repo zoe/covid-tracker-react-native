@@ -21,6 +21,7 @@ export type ScreenParamList = {
     NursesConsentUS: { viewOnly: boolean };
     TermsOfUseUS: { viewOnly: boolean };
     PrivacyPolicyUS: { viewOnly: boolean };
+    PrivacyPolicySV: { viewOnly: boolean };
 
     // User profile screens
     ResetPassword: undefined;
