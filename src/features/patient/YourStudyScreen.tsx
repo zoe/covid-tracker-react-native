@@ -7,7 +7,7 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import i18n from "../../locale/i18n"
-import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBCountry, isUSCountry} from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
@@ -115,7 +115,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>{isGBLocale() ? 'Population studies' : isUSLocale() ? 'Your clinical study' : ''}</HeaderText>
+                    <HeaderText>{isGBCountry() ? 'Population studies' : isUSCountry() ? 'Your clinical study' : ''}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -133,7 +133,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                 <Form>
 
                                     {/* UK-only cohorts */}
-                                    {isGBLocale() && (
+                                    {isGBCountry() && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("label-cohort")}</Label>
@@ -156,7 +156,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                                     )}
 
                                     {/* US-only cohorts */}
-                                    {isUSLocale() && (
+                                    {isUSCountry() && (
                                         <>
                                             <FieldWrapper>
                                                 <Item stackedLabel style={styles.textItemStyle}>
@@ -276,7 +276,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     private createPatientInfos(formData: YourStudyData) {
         var infos = {} as Partial<PatientInfosRequest>;
 
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             infos = {
                 ...infos,
                 is_in_uk_twins: this.state.isTwinsUkCohort,
@@ -285,7 +285,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
             }
         }
 
-        if (isUSLocale()) {
+        if (isUSCountry()) {
             infos = {
                 ...infos,
                 is_in_us_nurses_study: this.state.isNurseHealthStudies,

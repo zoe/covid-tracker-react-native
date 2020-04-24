@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {StyleSheet, View} from "react-native";
 import {ApiClientBase} from "../core/user/ApiClientBase";
 import {ScreenParamList} from "./ScreenParamList";
-import UserService, {isUSLocale} from "../core/user/UserService";
+import UserService, {isUSCountry} from "../core/user/UserService";
 import {AsyncStorageService} from "../core/AsyncStorageService";
 import {colors} from "../../theme";
 
@@ -18,14 +18,6 @@ export class SplashScreen extends Component<Props, {}> {
     constructor(props: Props) {
         super(props);
         this.bootstrapAsync();
-    }
-
-    private getWelcomeScreenName() {
-        return isUSLocale() ? 'WelcomeUS' : 'Welcome'
-    }
-
-    private getWelcomeRepeatScreenName() {
-            return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
     }
 
     private bootstrapAsync = async () => {
@@ -51,20 +43,20 @@ export class SplashScreen extends Component<Props, {}> {
 
             try {
                 const profile = await this.userService.getProfile();
-                navigation.replace(this.getWelcomeRepeatScreenName(), {patientId: profile.patients[0]});
+                navigation.replace('WelcomeRepeat', {patientId: profile.patients[0]});
             } catch (error) {
                 // Logged in with an account doesn't exist. Force logout.
                 ApiClientBase.unsetToken();
                 await AsyncStorageService.clearData();
 
-                navigation.replace(this.getWelcomeScreenName());
+                navigation.replace('Welcome');
             }
         } else {
             if (country == null) {
                 // Using locale to default to a country
-                await this.userService.defaultCountryToLocale()
+                await this.userService.defaultCountryFromLocale()
             }
-            navigation.replace(this.getWelcomeScreenName());
+            navigation.replace('Welcome');
         }
     };
 

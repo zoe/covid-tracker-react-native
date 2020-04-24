@@ -24,6 +24,7 @@ type StateType = {
 
 const US_CODE = 'US';
 const GB_CODE = 'GB';
+const SV_CODE = 'SE';
 
 export default class CountryIpModal extends Component<PropsType, StateType> {
     userService = new UserService();
@@ -32,7 +33,7 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
     };
 
     async onValueChange(value: string) {
-        this.props.closeModal()
+        this.props.closeModal();
         this.setState({
             countrySelected: value
         });
@@ -44,7 +45,9 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
         const {isModalVisible} = this.props;
         const items = [
             {label: i18n.t('united-states'), value: US_CODE},
-            {label: i18n.t('united-kingdom'), value: GB_CODE}
+            {label: i18n.t('united-kingdom'), value: GB_CODE},
+            {label: i18n.t('sweden'), value: SV_CODE}
+
         ];
 
         if (isAndroid) {
@@ -88,7 +91,7 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
         const screenStack = () => {
             if (countryCode == US_CODE) {
                 return [
-                    {name: 'WelcomeUS', params: {}},
+                    {name: 'Welcome', params: {}},
                     {name: 'BeforeWeStartUS', params: {}},
                 ]
 
