@@ -181,7 +181,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, {}> {
                         Berkeley University{"\n"}
                         Nottingham University{"\n"}
                         University of Trento{"\n"}
-                        Lundt University
+                        Lund University
                     </RegularText>
                 </ScrollView>
 
