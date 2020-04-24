@@ -38,7 +38,7 @@ export class SplashScreen extends Component<Props, {}> {
 
             // If logged in with no country default to GB as this will handle all GB users before selector was included.
             if (country == null) {
-                await this.userService.setUserCountry('en-GB');
+                await this.userService.setUserCountry('GB');
             }
 
             try {
@@ -54,7 +54,7 @@ export class SplashScreen extends Component<Props, {}> {
         } else {
             if (country == null) {
                 // Using locale to default to a country
-                await this.userService.defaultCountryToLocale()
+                await this.userService.defaultCountryFromLocale()
             }
             navigation.replace('Welcome');
         }

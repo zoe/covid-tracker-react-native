@@ -24,10 +24,10 @@ import moment from "moment";
 
 const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
-const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3
+const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
-    public static userCountry = 'en-US';
+    public static userCountry = 'US';
     public static ipCountry = "";
     public static consentSigned: Consent = {
         document: "",
@@ -307,53 +307,39 @@ export default class UserService extends ApiClientBase {
 
     async setUserCountry(countryCode: string) {
         UserService.userCountry = countryCode;
-        i18n.locale = UserService.userCountry;
+        UserService.setLocaleFromCountry(countryCode)
         await AsyncStorageService.setUserCountry(countryCode);
     }
 
     async getUserCountry() {
-        let localCountry = await AsyncStorageService.getUserCountry();
-        if (localCountry != null) {
-            if (localCountry == 'GB' || localCountry == 'US') { // Fixes issue with previously only storing partial country code. Can be removed in future.
-                localCountry = 'en-' + localCountry;
-                await this.setUserCountry(localCountry)
-            } else {
-                UserService.userCountry = localCountry;
-                i18n.locale = UserService.userCountry
-            }
+        let country = await AsyncStorageService.getUserCountry();
+        if (country != null) {
+            UserService.userCountry = country;
+            UserService.setLocaleFromCountry(country)
         }
-        return localCountry;
+        return country;
     }
 
     async shouldAskCountryConfirmation() {
         if (await AsyncStorageService.getAskedCountryConfirmation()) {
             return false
         } else {
-            const locale = () => {
-                // ipCountry comes back as a 2 letter country code. We convert it to a locale here and then compare.
-                if (UserService.ipCountry == 'US' || UserService.ipCountry == 'GB') {
-                    return 'en-' + UserService.ipCountry
-                } else {
-                    return UserService.ipCountry
-                }
-            };
-
-            return UserService.userCountry != locale()
+            return UserService.userCountry != UserService.ipCountry
         }
     }
 
-    async defaultCountryToLocale() {
-        const locale = () => {
+    async defaultCountryFromLocale() {
+        const country = () => {
             if (Localization.locale == 'en-GB') {
-                return "en-GB";
+                return "GB";
             } else if (Localization.locale == 'sv-SE') {
-                return "sv-SE";
+                return "SE";
             } else {
-                return "en-US";
+                return "US";
             }
         };
 
-        await this.setUserCountry(locale());
+        await this.setUserCountry(country());
     }
 
     async deleteLocalUserData() {
@@ -409,9 +395,19 @@ export default class UserService extends ApiClientBase {
             await AsyncStorageService.setAskedToReportForOthers("0")
         }
     }
+
+    private static setLocaleFromCountry(countryCode: string) {
+        const localeMap: { [key: string]: string } = {
+            US: 'en',
+            GB: 'en',
+            SE: 'sv'
+        };
+
+        i18n.locale = localeMap[countryCode] + "-" +  UserService.userCountry;
+    }
 }
 
-export const isUSLocale = () => UserService.userCountry === 'en-US';
-export const isGBLocale = () => UserService.userCountry === 'en-GB';
-export const isSVLocale = () => UserService.userCountry === 'sv-SE';
+export const isUSLocale = () => UserService.userCountry === 'US';
+export const isGBLocale = () => UserService.userCountry === 'GB';
+export const isSVLocale = () => UserService.userCountry === 'SE';
 

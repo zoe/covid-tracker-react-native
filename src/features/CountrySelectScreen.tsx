@@ -13,9 +13,9 @@ type Props = {
     route: RouteProp<ScreenParamList, 'CountrySelect'>;
 };
 
-const US_CODE = 'en-US';
-const GB_CODE = 'en-GB';
-const SV_CODE = 'sv-SE';
+const US_CODE = 'US';
+const GB_CODE = 'GB';
+const SV_CODE = 'SE';
 
 export class CountrySelectScreen extends Component<Props, {}> {
     private userService = new UserService();

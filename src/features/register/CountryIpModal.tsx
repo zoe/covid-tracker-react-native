@@ -22,9 +22,9 @@ type StateType = {
     countrySelected: string
 }
 
-const US_CODE = 'en-US';
-const GB_CODE = 'en-GB';
-const SV_CODE = 'sv-SE';
+const US_CODE = 'US';
+const GB_CODE = 'GB';
+const SV_CODE = 'SE';
 
 export default class CountryIpModal extends Component<PropsType, StateType> {
     userService = new UserService();
@@ -33,7 +33,7 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
     };
 
     async onValueChange(value: string) {
-        this.props.closeModal()
+        this.props.closeModal();
         this.setState({
             countrySelected: value
         });
