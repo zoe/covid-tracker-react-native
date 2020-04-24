@@ -103,10 +103,6 @@ export const ClickableText = ({style, children, onPress, testID}: ClickableProps
   <Text style={[styles.clickableText, style]} onPress={onPress}>{children}</Text>
 );
 
-export const Divider = () => (
-  <View style={styles.divider}/>
-);
-
 export const Divider = () => <View style={styles.divider} />;
 
 const styles = StyleSheet.create({
