@@ -46,20 +46,7 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
     }
 
     handleButtonPress = async () => {
-        const {patientId} = this.props.route.params;
-        const userService = new UserService();
-
-        const hasPatientDetails = await userService.hasCompletedPatientDetails(patientId);
-
-        if (hasPatientDetails) {
-            if (await userService.isHealthWorker()) {
-                this.props.navigation.navigate('HealthWorkerExposure', {patientId: patientId})
-            } else {
-                this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
-            }
-        } else {
-            this.props.navigation.navigate('YourWork', {patientId: patientId});
-        }
+        this.props.navigation.navigate('SelectProfile');
     };
 
     render() {
@@ -102,7 +89,7 @@ export class WelcomeRepeatUSScreen extends Component<PropsType, WelcomeRepeatUSS
                         <RegularText style={styles.privacyPolicyText}>
                             <ClickableText
                                 style={styles.privacyPolicyClickText}
-                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUS')}
+                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: true})}
                             >Privacy policy</ClickableText> (incl. how to delete your data)
                         </RegularText>
                     </View>

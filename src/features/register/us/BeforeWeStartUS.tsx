@@ -1,13 +1,12 @@
 import React, {Component} from "react";
 import {StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, screenWidth} from "../../../components/Screen";
+import Screen, {FieldWrapper, Header} from "../../../components/Screen";
 import {HeaderText} from "../../../components/Text";
 import {Form, Text} from "native-base";
-
-import {colors, fontStyles} from "../../../../theme"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../../ScreenParamList";
 import {BigButton} from "../../../components/Button";
+import i18n from "../../../locale/i18n";
 
 
 type HowYouFeelProps = {
@@ -19,6 +18,7 @@ type State = {
 }
 
 const initialState: State = {
+    // TODO - This is not used
     errorMessage: ""
 };
 
@@ -33,19 +33,19 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
         return (
             <Screen>
                 <Header>
-                    <HeaderText>I am in an existing research study or trial, and I want my data to be shared with investigators on that study.</HeaderText>
+                    <HeaderText>{i18n.t("before-we-start.title")}</HeaderText>
                 </Header>
 
                 <Form style={styles.form}>
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>Yes, I am</Text>
+                        <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS', {viewOnly: false})}>
+                            <Text>{i18n.t("before-we-start.yes")}</Text>
                         </BigButton>
                     </FieldWrapper>
 
                     <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={() => this.props.navigation.navigate('Terms')}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>No, I am not</Text>
+                        <BigButton onPress={() => this.props.navigation.navigate('Consent', {viewOnly: false})}>
+                            <Text>{i18n.t("before-we-start.no")}</Text>
                         </BigButton>
                     </FieldWrapper>
                 </Form>
@@ -57,17 +57,10 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
 
 
 const styles = StyleSheet.create({
-
     form: {
         marginVertical: 32,
     },
-
     fieldWrapper: {
         marginVertical: 32,
     },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
 });

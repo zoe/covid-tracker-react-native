@@ -7,6 +7,7 @@ import React from "react";
 import Constants from "expo-constants";
 import UserService, {isGBLocale, isUSLocale} from "../core/user/UserService";
 import {DrawerActions} from '@react-navigation/native';
+import {CaptionText, HeaderText} from "../components/Text";
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
 
@@ -54,27 +55,31 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
                 Linking.openURL(i18n.t('blog-link'))
             }}>
-                <Text style={fontStyles.h2Reg}>{i18n.t('research-updates')}</Text>
+                <HeaderText>{i18n.t('research-updates')}</HeaderText>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
                 Linking.openURL(i18n.t('faq-link'))
             }}>
-                <Text style={fontStyles.h2Reg}>{i18n.t('faqs')}</Text>
+                <HeaderText>{i18n.t('faqs')}</HeaderText>
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
-                isGBLocale() ? props.navigation.navigate("PrivacyPolicyUK") : props.navigation.navigate("PrivacyPolicyUS")
+                isGBLocale() ? props.navigation.navigate("PrivacyPolicyUK", {viewOnly: true}) : props.navigation.navigate("PrivacyPolicyUS", {viewOnly: true})
             }}>
-                <Text style={fontStyles.h2Reg}>{i18n.t('privacy-policy')}</Text>
+                <HeaderText>{i18n.t('privacy-policy')}</HeaderText>
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => showDeleteAlert()}>
-                <Text style={fontStyles.h2Reg}>{i18n.t('delete-my-data')}</Text>
+                <HeaderText>{i18n.t('delete-my-data')}</HeaderText>
             </TouchableOpacity>
             <View style={{flex: 1}}/>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => logout()}>
-                <Text style={fontStyles.h2Reg}>{i18n.t('logout')}</Text>
+                <HeaderText>{i18n.t('logout')}</HeaderText>
             </TouchableOpacity>
-            <Text style={[fontStyles.bodySmallLight, styles.versionText]}>{Constants.manifest.version} : {Constants.manifest.revisionId}</Text>
+            <CaptionText style={[styles.versionText]}>
+                {Constants.manifest.version}
+                {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
+                {(Constants.manifest.releaseChannel === 'dev') && ` (DEV)`}
+            </CaptionText>
         </View>
     </SafeAreaView>
 }
@@ -104,7 +109,6 @@ const styles = StyleSheet.create({
     },
     versionText: {
         marginTop: 32,
-        color: colors.tertiary,
         alignSelf: 'center'
     }
 });

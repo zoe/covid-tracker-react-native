@@ -8,7 +8,11 @@ const USER_COUNT = "userCount";
 const USER_COUNTRY = "userCountry";
 const CONSENT_SIGNED = "consentSigned";
 const PUSH_TOKEN = "pushToken";
-const BLOOD_PRESSURE_ANSWER = "hasBloodPressureAnswer";
+
+const USER_PROFILE = "userProfile";
+const ASKED_COUNTRY = "askedCountry"
+
+const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers'
 
 const STR_YES = "YES";
 const STR_NO = "NO";
@@ -47,59 +51,34 @@ export class AsyncStorageService {
         }
     }
 
-    static async setIsHealthWorker(isHealthWorker: boolean | null) {
+    static async setAskedCountryConfirmation(askedCountry: boolean) {
         try {
-            await AsyncStorage.setItem('isHealthWorker', JSON.stringify(isHealthWorker));
+            await AsyncStorage.setItem(ASKED_COUNTRY, JSON.stringify(askedCountry));
         } catch (err) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
         }
     }
 
-    static async getIsHealthWorker() {
-        let healthWorker: string | null = null;
+    static async getAskedCountryConfirmation() {
+        let askedCountry: string | null = null;
         try {
-            healthWorker = await AsyncStorage.getItem('isHealthWorker');
+            askedCountry = await AsyncStorage.getItem(ASKED_COUNTRY);
         } catch (e) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
         }
 
-        if (healthWorker == null)
+        if (askedCountry == null)
             return false;
         else {
-            return JSON.parse(healthWorker) as boolean;
-        }
-    }
-
-    static async setPatientDetailsComplete(complete: boolean | null) {
-        try {
-            await AsyncStorage.setItem('patientDetailsComplete', JSON.stringify(complete));
-        } catch (err) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-    }
-
-    static async hasCompletedPatientDetails() {
-        let completedDetails: string | null = null;
-        try {
-            completedDetails = await AsyncStorage.getItem('patientDetailsComplete');
-        } catch (e) {
-            // Swallow for now
-            // todo: find a way to report the crash and an alternative
-        }
-
-        if (completedDetails == null)
-            return null;
-        else {
-            return JSON.parse(completedDetails) as boolean;
+            return JSON.parse(askedCountry) as boolean;
         }
     }
 
     static async saveProfile(profile: UserResponse | null) {
         try {
-            await AsyncStorage.setItem('userProfile', JSON.stringify(profile));
+            await AsyncStorage.setItem(USER_PROFILE, JSON.stringify(profile));
         } catch (err) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -109,7 +88,7 @@ export class AsyncStorageService {
     static async getProfile() {
         let userProfile: string | null = null;
         try {
-            userProfile = await AsyncStorage.getItem('userProfile')
+            userProfile = await AsyncStorage.getItem(USER_PROFILE)
         } catch (e) {
             // Swallow for now
             // todo: find a way to report the crash and an alternative
@@ -119,6 +98,21 @@ export class AsyncStorageService {
             return null;
         else {
             return JSON.parse(userProfile) as UserResponse
+        }
+    }
+
+    static async getAskedToReportForOthers() {
+        try {
+            return await AsyncStorage.getItem(ASKED_TO_REPORT_FOR_OTHERS);
+        } catch (err) {
+            return null
+        }
+    }
+
+    static setAskedToReportForOthers(count: string) {
+        try {
+            AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count)
+        } catch (err) {
         }
     }
 
@@ -197,20 +191,4 @@ export class AsyncStorageService {
         }
     }
 
-    // Temp: flag to check we have blood pressure answer
-    static async setHasBloodPressureAnswer(hasAnswer: boolean) {
-        try {
-            await AsyncStorage.setItem(BLOOD_PRESSURE_ANSWER, hasAnswer ? STR_YES : STR_NO)
-        } catch (err) {
-        }
-    }
-
-    static async hasBloodPressureAnswer(): Promise<boolean | null> {
-        try {
-            const value = await AsyncStorage.getItem(BLOOD_PRESSURE_ANSWER);
-            return (value === STR_YES);
-        } catch (err) {
-            return false;
-        }
-    }
 }

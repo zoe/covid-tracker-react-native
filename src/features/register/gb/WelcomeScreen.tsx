@@ -7,7 +7,9 @@ import {BrandedButton, ClickableText, RegularText} from "../../../components/Tex
 import {ScreenParamList} from "../../ScreenParamList";
 import {covidIcon, partnersLogo, ukFlagSmall, usFlagSmall} from "../../../../assets";
 import UserService, {isUSLocale} from "../../../core/user/UserService";
+import CountryIpModal from ".././CountryIpModal";
 import { ContributionCounter } from "../../../components/ContributionCounter";
+import reactStringReplace from "react-string-replace";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'Welcome'>
@@ -15,16 +17,19 @@ type PropsType = {
 
 type WelcomeScreenState = {
     userCount: string | null
+    ipModalVisible: boolean
 }
 
 export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
+    userService = new UserService();
     state = {
         userCount: null,
+        ipModalVisible: false
     };
 
     async componentDidMount() {
-        const userService = new UserService();
-        const userCount = await userService.getUserCount();
+
+        const userCount = await this.userService.getUserCount();
         this.setState({userCount});
     }
 
@@ -44,36 +49,54 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
                     <View style={styles.covidContainer}>
                         <View style={styles.headerRow}>
                             <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
-                            <Text style={styles.appName}>COVID Symptom Tracker</Text>
+                            <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
                                 <Image style={styles.flagIcon} source={flagIcon()}/>
                             </TouchableOpacity>
 
                             <View style={styles.loginContainer}>
-                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>Sign in</ClickableText>
+                                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>{i18n.t("welcome.sign-in")}</ClickableText>
                             </View>
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and help fight the outbreak.
+                                {i18n.t("welcome.take-a-minute")}
                             </RegularText>
                             <ContributionCounter variant={1} count={this.state.userCount}/>
-                            <RegularText style={styles.subheader}>{"\n"}This app allows you to help others, but does {"\n"} not give health advice. If you need health {"\n"} advice please{" "}
-                                <ClickableText style={[styles.subheader, styles.nhsWebsite]} onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>visit the NHS website</ClickableText>.
+                            <RegularText style={styles.subheader}>{"\n"}{i18n.t("welcome.disclaimer")}{" "}
+                                <ClickableText style={[styles.subheader, styles.nhsWebsite]} onPress={() => Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")}>
+                                    {i18n.t("welcome.disclaimer-link")}
+                                </ClickableText>.
                                 {"\n"}{"\n"}
                             </RegularText>
                         </View>
                     </View>
 
+                    <CountryIpModal navigation={this.props.navigation}
+                                    isModalVisible={this.state.ipModalVisible}
+                                    closeModal={() => this.setState({ipModalVisible: false})}/>
+
                     <View style={styles.partners}>
 
                         <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
 
-                        <BrandedButton onPress={() => this.props.navigation.navigate('Terms')}>{i18n.t("create-account-btn")}</BrandedButton>
+                        <BrandedButton onPress={async () => {
+                            if (await this.userService.shouldAskCountryConfirmation()) {
+                                this.setState({ipModalVisible: true})
+                            } else {
+                                this.props.navigation.navigate('Consent', {viewOnly: false})
+                            }
+                        }}>
+                            {i18n.t("create-account.btn")}
+                        </BrandedButton>
                         <ClickableText onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
-                            {"For more info "}
-                            <RegularText style={styles.moreInfoHighlight}>visit our website</RegularText>
+                        { reactStringReplace(
+                            i18n.t("welcome.more-info", {link: '{{LINK}}'}),
+                            '{{LINK}}',
+                            (match, i) => (<RegularText key={i} style={styles.moreInfoHighlight}>{i18n.t("welcome.more-info-link")}</RegularText>)
+                        )}
                         </ClickableText>
+
                     </View>
                 </View>
             </ScrollView>
@@ -89,6 +112,7 @@ const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
         backgroundColor: colors.brand,
+        paddingTop: 16,
     },
 
     headerRow: {

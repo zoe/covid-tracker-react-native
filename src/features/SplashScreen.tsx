@@ -25,17 +25,21 @@ export class SplashScreen extends Component<Props, {}> {
     }
 
     private getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
+            return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
     }
 
     private bootstrapAsync = async () => {
         const {navigation} = this.props;
+        let country: string|null = null;
 
-        await this.userService.setUserCountInAsyncStorage();
+        try {
+            await this.userService.getStartupInfo();
+            country = await this.userService.getUserCountry();
+        } catch (err) {
+            // TODO: how to deal with the user_startup info endpoint failing?
+        }
 
-        const countryPromise = this.userService.getUserCountry();
         let {userToken, userId} = await AsyncStorageService.GetStoredData();
-        const country = await countryPromise;
 
         if (userToken && userId) {
             ApiClientBase.setToken(userToken, userId);

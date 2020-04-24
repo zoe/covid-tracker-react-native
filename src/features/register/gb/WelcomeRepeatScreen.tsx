@@ -13,6 +13,7 @@ import {PushNotificationService} from "../../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {Linking} from "expo";
 import { ContributionCounter } from "../../../components/ContributionCounter";
+import i18n from "../../../locale/i18n";
 
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
@@ -47,20 +48,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
 
     handleButtonPress = async () => {
-        const {patientId} = this.props.route.params;
-        const userService = new UserService();
-
-        const hasPatientDetails = await userService.hasCompletedPatientDetails(patientId);
-
-        if (hasPatientDetails) {
-            if (await userService.isHealthWorker()) {
-                this.props.navigation.navigate('HealthWorkerExposure', {patientId: patientId})
-            } else {
-                this.props.navigation.navigate('CovidTest', {patientId: patientId, assessmentId: null})
-            }
-        } else {
-            this.props.navigation.navigate('AboutYou', {patientId: patientId});
-        }
+        this.props.navigation.navigate('SelectProfile');
     };
 
     render() {
@@ -71,7 +59,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                     <View style={styles.covidContainer}>
                         <View style={styles.headerRow}>
                             <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
-                            <Text style={styles.appName}>COVID Symptom Tracker</Text>
+                            <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
                             <TouchableOpacity onPress={() => {
                                 this.props.navigation.toggleDrawer()
                             }}>
@@ -80,7 +68,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                         </View>
                         <View>
                             <RegularText style={styles.subtitle}>
-                                Take 1 minute each day and {"\n"}help fight the outbreak.{"\n"}
+                                 {i18n.t("welcome.take-a-minute")}
                             </RegularText>
                             <ContributionCounter variant={2} count={this.state.userCount}/>
 
@@ -92,17 +80,17 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                         <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
 
                         <View style={styles.discoveriesContainer}>
-                            <RegularText style={styles.discoveriesText}>See how your area is affected and the discoveries you made possible</RegularText>
-                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={() => Linking.openURL('https://covid.joinzoe.com/')}>Visit the website</BrandedButton>
+                            <RegularText style={styles.discoveriesText}>{i18n.t("welcome.see-how-your-area-is-affected")}</RegularText>
+                            <BrandedButton style={styles.discoveriesButton} textProps={{style: styles.discoveriesButtonText}} onPress={() => Linking.openURL('https://covid.joinzoe.com/')}>{i18n.t("welcome.visit-the-website")}</BrandedButton>
                         </View>
 
-                        <BrandedButton onPress={this.handleButtonPress}>Report today, even if you're well</BrandedButton>
+                        <BrandedButton onPress={this.handleButtonPress}>{i18n.t("welcome.report-button")}</BrandedButton>
 
                         <RegularText style={styles.privacyPolicyText}>
                             <ClickableText
                                 style={styles.privacyPolicyClickText}
-                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK')}
-                            >Privacy policy</ClickableText> (incl. how to delete your data)
+                                onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: true})}
+                            >{i18n.t("welcome.privacy-policy")}</ClickableText>{" "}{i18n.t("welcome.privacy-policy-subtext")}
                         </RegularText>
                     </View>
 
@@ -120,6 +108,7 @@ const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
         backgroundColor: colors.brand,
+        paddingTop: 16,
     },
     headerRow: {
         flexDirection: "row",

@@ -10,6 +10,7 @@ import UserService from "../../core/user/UserService";
 import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
 import {AxiosError} from "axios";
 import {ScreenParamList} from "../ScreenParamList";
+import i18n from "../../locale/i18n";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'ResetPassword'>
@@ -30,8 +31,6 @@ interface ResetPasswordData {
 }
 
 export class ResetPasswordScreen extends Component<PropsType, State> {
-    private passwordComponent: any;
-
 
     constructor(props: PropsType) {
         super(props);
@@ -41,11 +40,11 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     private handleClick(formData: ResetPasswordData) {
         if (this.state.enableSubmit) {
             this.setState({enableSubmit: false}); // Stop resubmissions
-            const userService = new UserService(); // todo get gloval var
+            const userService = new UserService(); // todo get global var
             userService.resetPassword(formData.email)
                 .then(response => this.props.navigation.navigate("ResetPasswordConfirm"))
                 .catch((err: AxiosError) => {
-                    this.setState({errorMessage: "Error #02. Please report this to covid-bugs@joinzoe.com: " + err.message});
+                    this.setState({errorMessage:  i18n.t("reset-password.error", {msg: err.message})});
                     this.setState({enableSubmit: true});
                 });
         }
@@ -69,13 +68,13 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
                             return (
                                 <View>
                                     <View style={styles.formItem}>
-                                        <HeaderText>Enter your email and we’ll send you a link to reset your password</HeaderText>
+                                        <HeaderText>{i18n.t("reset-password.title")}</HeaderText>
                                         <Form>
                                             <ValidatedTextInput
                                                 keyboardType="email-address"
                                                 autoCapitalize="none"
                                                 autoCompleteType="email"
-                                                placeholder="email"
+                                                placeholder={i18n.t("reset-password.email-label")}
                                                 value={props.values.email}
                                                 onChangeText={props.handleChange("email")}
                                                 onBlur={props.handleBlur("email")}
@@ -84,7 +83,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
                                             />
 
                                             {props.touched.email && props.errors.email &&
-                                            <ErrorText>Please enter a valid email</ErrorText>
+                                            <ErrorText> {i18n.t("reset-password.email-error")}</ErrorText>
                                             }
                                         </Form>
                                     </View>
@@ -93,7 +92,9 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
                                     </View>
 
                                     <View>
-                                        <BrandedButton onPress={props.handleSubmit}>Reset password</BrandedButton>
+                                        <BrandedButton onPress={props.handleSubmit}>
+                                            {i18n.t("reset-password.button")}
+                                        </BrandedButton>
                                     </View>
                                 </View>
                             );

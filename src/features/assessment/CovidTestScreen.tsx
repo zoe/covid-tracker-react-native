@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import {Platform} from "react-native";
+import Screen, {Header, ProgressBlock} from "../../components/Screen";
 import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
 import {Form, Text} from "native-base";
 
@@ -9,7 +9,6 @@ import ProgressStatus from "../../components/ProgressStatus";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
-import {colors, fontStyles} from "../../../theme"
 import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
@@ -17,11 +16,8 @@ import {RouteProp} from "@react-navigation/native";
 import UserService from "../../core/user/UserService";
 import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
-import {ValidationErrors} from "../../components/ValidationError";
-import {AsyncStorageService} from "../../core/AsyncStorageService";
+import { ValidationErrors } from "../../components/ValidationError";
 
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
 
 const initialFormValues = {
     hasCovidTest: 'no',
@@ -67,14 +63,13 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     });
 
     async componentDidMount() {
-        const hasBloodPressureAnswer = await AsyncStorageService.hasBloodPressureAnswer();
-        if (!hasBloodPressureAnswer) {
-            this.setState({needBloodPressureAnswer: true});
-        }
+        const currentPatient = this.props.route.params.currentPatient
+        this.setState({needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer});
     }
 
     handleUpdateHealth(formData: CovidTestData) {
-        const {patientId, assessmentId} = this.props.route.params;
+        const {currentPatient, assessmentId} = this.props.route.params;
+        const patientId = currentPatient.patientId
 
         const userService = new UserService();
         var assessment = {
@@ -95,7 +90,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
             userService.updatePatient(patientId, {
                 takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes'
             })
-            .then(response => AsyncStorageService.setHasBloodPressureAnswer(true))
+            .then(response => currentPatient.hasBloodPressureAnswer = true)
             .catch(err => {
                 this.setState({errorMessage: i18n.t("something-went-wrong")});
             });
@@ -104,7 +99,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         if (assessmentId == null) {
             userService.addAssessment(assessment)
                 .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {assessmentId: response.data.id})
+                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: response.data.id})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -112,7 +107,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         } else {
             userService.updateAssessment(assessmentId, assessment)
                 .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {assessmentId: assessmentId})
+                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: assessmentId})
                 })
                 .catch(err => {
                     this.setState({errorMessage: i18n.t("something-went-wrong")});
@@ -121,15 +116,16 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     }
 
     render() {
+        const currentPatient = this.props.route.params.currentPatient;
         const hasCovidPositiveItems = [
-            {label: 'No', value: 'no'},
-            {label: 'Yes', value: 'yes'},
-            {label: 'Waiting for results', value: 'waiting'}
-        ]
+            {label: i18n.t('picker-no'), value: 'no'},
+            {label: i18n.t('picker-yes'), value: 'yes'},
+            {label: i18n.t('covid-test.picker-waiting'), value: 'waiting'}
+        ];
         return (
-            <Screen>
+            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>COVID-19 status</HeaderText>
+                    <HeaderText>{i18n.t("covid-test.page-title")}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -151,7 +147,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                     placeholder="hasCovidTest"
                                     selectedValue={props.values.hasCovidTest}
                                     onValueChange={props.handleChange("hasCovidTest")}
-                                    label="Have you had a test for COVID-19?"
+                                    label={i18n.t('covid-test.question-has-covid-test')}
                                 />
 
                                 {props.values.hasCovidTest === "yes" && (
@@ -159,7 +155,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                         placeholder="hasCovidPositive"
                                         selectedValue={props.values.hasCovidPositive}
                                         onValueChange={props.handleChange("hasCovidPositive")}
-                                        label="Did you test positive for COVID-19?"
+                                        label={i18n.t('covid-test.question-has-covid-positive')}
                                         items={hasCovidPositiveItems}
                                     />
                                 )}
@@ -169,7 +165,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                     <DropdownField
                                         selectedValue={props.values.takesAnyBloodPressureMedications}
                                         onValueChange={props.handleChange("takesAnyBloodPressureMedications")}
-                                        label={"Are you regularly taking any blood pressure medications?"}
+                                        label={i18n.t('covid-test.question-takes-any-blood-pressure-medications')}
                                         error={props.touched.takesAnyBloodPressureMedications && props.errors.takesAnyBloodPressureMedications}
                                         androidDefaultLabel={i18n.t("label-chose-an-option")}
                                     />
@@ -183,7 +179,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                    <Text>{i18n.t("next-question")}</Text>
                                 </BrandedButton>
 
 
@@ -196,10 +192,3 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    buttonText: {
-        color: colors.white,
-    },
-});
