@@ -15,6 +15,7 @@ import {PushNotificationService} from "../../core/PushNotificationService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
 import Constants from 'expo-constants';
 import i18n from "../../locale/i18n";
+import Navigator from "../Navigation";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>
@@ -43,27 +44,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     }
 
     private async handleSaveOptionalInfos(formData: OptionalInfoData) {
-        const patientId = this.props.route.params.user.patients[0];
+        const patientId = this.props.route.params.patientId;
         const userService = new UserService();
-
         const currentPatient = await userService.getCurrentPatient(patientId);
-        const consent = await userService.getConsentSigned();
-
-        // TODO: refactor this to PatientScreen. After we understand why other routes
-        // don't have this branching logic.
-        const nextScreen = ((isUSCountry() && consent && consent.document === "US Nurses") || isGBCountry())
-            ? {name: "YourStudy", params: {currentPatient}}
-            : {name: "YourWork", params: {currentPatient}};
-
-        const goToNextScreen = () => {
-            this.props.navigation.reset({
-                index: 0,
-                routes: [
-                    {name: 'WelcomeRepeat', params: {patientId: patientId}},
-                    nextScreen
-                ],
-            })
-        };
 
         if (Constants.appOwnership !== 'expo') {
             const pushToken = await PushNotificationService.getPushToken(false);
@@ -80,7 +63,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         const hasFormData = formData.phone?.trim() || formData.name?.trim()
 
         if (!hasFormData) {
-            goToNextScreen();
+            Navigator.gotoNextScreen(this.props.route.name, {currentPatient});
         } else {
             let piiDoc = formData.name ? {
                 name: formData.name
@@ -94,12 +77,8 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
             }
 
             userService.updatePii(piiDoc)
-                .then(() => {
-                    goToNextScreen()
-                }).catch(err => {
-                this.setState({errorMessage: i18n.t("something-went-wrong")});
-                console.log(err.response.data);
-            })
+                .then(() => Navigator.gotoNextScreen(this.props.route.name, {currentPatient}))
+                .catch(err => this.setState({errorMessage: i18n.t("something-went-wrong")}));
         }
     }
 

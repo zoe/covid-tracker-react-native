@@ -6,11 +6,14 @@ import {ScreenParamList} from "./ScreenParamList";
 import UserService, {isUSCountry} from "../core/user/UserService";
 import {AsyncStorageService} from "../core/AsyncStorageService";
 import {colors} from "../../theme";
+import Navigator from "./Navigation";
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {
     navigation: SplashScreenNavigationProp;
 };
+
+type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class SplashScreen extends Component<Props, {}> {
     private userService = new UserService();
@@ -24,11 +27,15 @@ export class SplashScreen extends Component<Props, {}> {
         const {navigation} = this.props;
         let country: string|null = null;
 
+        // Stash a reference to navigator so we can have a class handle next page.
+        Navigator.setNavigation(navigation as NavigationType);
+
         try {
             await this.userService.getStartupInfo();
             country = await this.userService.getUserCountry();
         } catch (err) {
             // TODO: how to deal with the user_startup info endpoint failing?
+            // TODO: Trigger Offline handling here? At least show an error
         }
 
         let {userToken, userId} = await AsyncStorageService.GetStoredData();
@@ -43,20 +50,20 @@ export class SplashScreen extends Component<Props, {}> {
 
             try {
                 const profile = await this.userService.getProfile();
-                navigation.replace('WelcomeRepeat', {patientId: profile.patients[0]});
+                const patientId = profile.patients[0];
+                Navigator.replaceScreen('WelcomeRepeat', {patientId});
             } catch (error) {
                 // Logged in with an account doesn't exist. Force logout.
                 ApiClientBase.unsetToken();
                 await AsyncStorageService.clearData();
-
-                navigation.replace('Welcome');
+                Navigator.replaceScreen('Welcome');
             }
         } else {
             if (country == null) {
                 // Using locale to default to a country
                 await this.userService.defaultCountryFromLocale()
             }
-            navigation.replace('Welcome');
+            Navigator.replaceScreen('Welcome');
         }
     };
 

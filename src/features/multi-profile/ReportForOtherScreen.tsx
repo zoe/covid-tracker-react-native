@@ -8,7 +8,7 @@ import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {profilesIcon} from "../../../assets";
 import {Text} from "native-base";
-import {getLocalThankYou} from "../Navigation";
+import Navigator from "../Navigation";
 import UserService from "../../core/user/UserService";
 import i18n from "../../locale/i18n";
 import { CommonActions } from '@react-navigation/native';
@@ -22,9 +22,9 @@ type RenderProps = {
 export default class ReportForOtherScreen extends Component<RenderProps, {}> {
 
     handleSkip = async () => {
-        const userService = new UserService()
+        const userService = new UserService();
         await userService.recordAskedToReportForOther();
-        this.props.navigation.navigate(getLocalThankYou())
+        this.props.navigation.navigate(Navigator.getThankYouScreenName());
     }
 
     render() {

@@ -12,7 +12,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
-import { navigateAfterFinishingAssessment } from "../Navigation";
+import Navigator from "../Navigation";
 
 
 type LocationProps = {
@@ -23,6 +23,7 @@ type LocationProps = {
 export default class WhereAreYouScreen extends Component<LocationProps> {
     constructor(props: LocationProps) {
         super(props);
+        Navigator.resetNavigation(props.navigation);
         this.handleAtHome = this.handleAtHome.bind(this);
         this.handleAtHospital = this.handleAtHospital.bind(this);
         this.handleBackAtHome = this.handleBackAtHome.bind(this);
@@ -31,7 +32,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
     handleAtHome() {
         this.updateAssessment('home')
-            .then(response => navigateAfterFinishingAssessment(this.props.navigation))
+            .then(response => Navigator.gotoEndAssessment())
             .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
@@ -57,7 +58,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
     handleStillAtHome() {
         this.updateAssessment('back_from_hospital')
-            .then(response => navigateAfterFinishingAssessment(this.props.navigation))
+            .then(response => Navigator.gotoEndAssessment())
             .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 

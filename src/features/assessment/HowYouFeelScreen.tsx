@@ -11,7 +11,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {BigButton} from "../../components/Button";
-import {navigateAfterFinishingAssessment} from "../Navigation";
+import Navigator from "../Navigation";
 
 
 type HowYouFeelProps = {
@@ -32,6 +32,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     constructor(props: HowYouFeelProps) {
         super(props);
         this.state = initialState;
+        Navigator.resetNavigation(props.navigation);
 
         // Fix reference to `this` inside these functions
         this.handleFeelNormal = this.handleFeelNormal.bind(this);
@@ -40,7 +41,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 
     handleFeelNormal() {
         this.updateAssessment('healthy')
-            .then(response => navigateAfterFinishingAssessment(this.props.navigation))
+            .then(response => Navigator.gotoEndAssessment())
             .catch(err => this.setState({errorMessage: i18n.t('something-went-wrong')}));
     }
 
