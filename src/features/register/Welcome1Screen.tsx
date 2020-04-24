@@ -46,7 +46,6 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
     userService.getUserCount().then((response) => {
       if (response) {
         const userCount = parseInt(response, 10);
-        console.log(userCount);
         setState({ userCount });
       }
     });
