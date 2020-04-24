@@ -100,7 +100,9 @@ export const BrandedButton = ({
 };
 
 export const ClickableText = ({style, children, onPress, testID}: ClickableProps) => (
-  <Text style={[styles.clickableText, style]} onPress={onPress}>{children}</Text>
+  <Text style={[styles.clickableText, style]} onPress={onPress}>
+    {children}
+  </Text>
 );
 
 export const Divider = () => <View style={styles.divider} />;
