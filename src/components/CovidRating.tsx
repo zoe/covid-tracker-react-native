@@ -4,7 +4,8 @@ import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from "react-na
 import { Toast, View } from "native-base";
 import { colors } from "../../theme";
 import { RegularBoldText, RegularText } from "./Text";
-import UserService, { isGBCountry } from "../core/user/UserService";
+import UserService, { isGBCountry, isUSCountry, isSECountry } from "../core/user/UserService";
+import i18n from "../locale/i18n";
 
 type PropsType = {}
 
@@ -15,6 +16,7 @@ type State = {
 
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-tracker/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-tracker/id1503529611`;
+const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-tracker/id1503529611`;
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 const ModalContainer = (props: any) => (
@@ -50,7 +52,7 @@ export class CovidRating extends Component<PropsType, State> {
     declineFeedback = () => {
         this.decline();
         Toast.show({
-            text: `Thank you for your feedback.\nWe're working hard to improve things`,
+            text: i18n.t("rating.thank-you-for-rating"),
             duration: 3000,
             position: 'top',
             textStyle: {textAlign: 'center', lineHeight: 25},
@@ -63,7 +65,12 @@ export class CovidRating extends Component<PropsType, State> {
         if (Platform.OS != 'ios') {
             Linking.openURL(AndroidLink).catch(err => {});
         } else {
-            Linking.openURL(isGBCountry() ? UKiOSLink : USiOSLink).catch(err => {});
+            const storeLink = (
+                isUSCountry() ? USiOSLink
+                : isSECountry() ? SEiOSLink
+                : UKiOSLink
+            )
+            Linking.openURL(storeLink).catch(err => {});
         }
         this.setState({isModalOpen: false});
     };
@@ -98,13 +105,13 @@ export class CovidRating extends Component<PropsType, State> {
                 <ModalContainer>
                     {this.state.showTakeToStore ?
                         <>
-                            {this.renderHeader('Please rate this app', 'Your feedback can help more people join the fight against COVID-19')}
-                            {this.renderActionButtons('Rate', this.takeToStore, 'Not now', this.decline)}
+                            {this.renderHeader(i18n.t("rating.rate-this-app"), i18n.t("rating.explanation"))}
+                            {this.renderActionButtons(i18n.t("rating.cta-rate"), this.takeToStore, i18n.t("rating.cta-later"), this.decline)}
                         </>
                         : (
                             <>
-                                {this.renderHeader('How are we doing?', 'Would you recommend this app to a friend or colleague?')}
-                                {this.renderActionButtons('Yes, I would', this.askToRate, `No, I wouldn't`, this.declineFeedback)}
+                                {this.renderHeader(i18n.t("rating.how-are-we-doing"), i18n.t("rating.would-you-recommend"))}
+                                {this.renderActionButtons(i18n.t("rating.cta-yes"), this.askToRate, i18n.t("rating.cta-no"), this.declineFeedback)}
                             </>
                         )}
                 </ModalContainer>
