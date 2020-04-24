@@ -407,7 +407,7 @@ export default class UserService extends ApiClientBase {
     }
 }
 
-export const isUSLocale = () => UserService.userCountry === 'US';
-export const isGBLocale = () => UserService.userCountry === 'GB';
-export const isSVLocale = () => UserService.userCountry === 'SE';
+export const isUSCountry = () => UserService.userCountry === 'US';
+export const isGBCountry = () => UserService.userCountry === 'GB';
+export const isSECountry = () => UserService.userCountry === 'SE';
 

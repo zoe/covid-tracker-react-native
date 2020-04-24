@@ -5,7 +5,7 @@ import {colors} from "../../../theme";
 import {BrandedButton, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {usMap, gbMap, svMap, svFlag, usFlag, gbFlag} from "../../../assets";
-import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBCountry, isSECountry, isUSCountry} from "../../core/user/UserService";
 import {ContributionCounter} from "../../components/ContributionCounter";
 import i18n from "../../locale/i18n";
 
@@ -29,9 +29,9 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
     }
 
     flagIcon = () => {
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             return gbFlag
-        } else if (isSVLocale()) {
+        } else if (isSECountry()) {
             return svFlag
         } else {
             return usFlag
@@ -39,9 +39,9 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
     };
 
     mapImage = () => {
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             return gbMap
-        } else if (isSVLocale()) {
+        } else if (isSECountry()) {
             return svMap
         } else {
             return usMap

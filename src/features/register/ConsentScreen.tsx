@@ -4,7 +4,7 @@ import {Body, CheckBox, ListItem} from "native-base"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService, {isUSCountry} from "../../core/user/UserService";
 import {ScreenParamList} from "../ScreenParamList";
 import {consentVersionUK, consentVersionUS, privacyPolicyVersionUK, privacyPolicyVersionUS} from "./constants";
 import {RouteProp} from "@react-navigation/native";
@@ -57,7 +57,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
     render() {
         // Get US or UK
         return (
-            isUSLocale() ? (
+            isUSCountry() ? (
                 <View style={styles.rootContainer}>
                     <ScrollView>
                         <RegularText>

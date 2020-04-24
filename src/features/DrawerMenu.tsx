@@ -5,7 +5,7 @@ import {Alert, Image, Linking, StyleSheet, Text, TouchableOpacity, View, SafeAre
 import i18n from "../locale/i18n"
 import React from "react";
 import Constants from "expo-constants";
-import UserService, {isGBLocale, isUSLocale} from "../core/user/UserService";
+import UserService, {isGBCountry, isUSCountry} from "../core/user/UserService";
 import {DrawerActions} from '@react-navigation/native';
 import {CaptionText, HeaderText} from "../components/Text";
 
@@ -64,7 +64,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
                 <HeaderText>{i18n.t('faqs')}</HeaderText>
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconNameRow} onPress={() => {
-                isGBLocale() ? props.navigation.navigate("PrivacyPolicyUK", {viewOnly: true}) : props.navigation.navigate("PrivacyPolicyUS", {viewOnly: true})
+                isGBCountry() ? props.navigation.navigate("PrivacyPolicyUK", {viewOnly: true}) : props.navigation.navigate("PrivacyPolicyUS", {viewOnly: true})
             }}>
                 <HeaderText>{i18n.t('privacy-policy')}</HeaderText>
             </TouchableOpacity>

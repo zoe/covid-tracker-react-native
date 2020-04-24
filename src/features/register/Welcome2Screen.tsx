@@ -6,7 +6,7 @@ import i18n from "../../locale/i18n"
 import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {usPartners, gbPartners, svPartners, svFlag, gbFlag, usFlag} from "../../../assets";
-import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBCountry, isSECountry, isUSCountry} from "../../core/user/UserService";
 import CountryIpModal from "./CountryIpModal";
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
@@ -29,9 +29,9 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
 
 
     partnersLogos = () => {
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             return gbPartners
-        } else if (isSVLocale()) {
+        } else if (isSECountry()) {
             return svPartners
         } else {
             return usPartners
@@ -39,9 +39,9 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
     };
 
     flagIcon = () => {
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             return gbFlag
-        } else if (isSVLocale()) {
+        } else if (isSECountry()) {
             return svFlag
         } else {
             return usFlag
@@ -49,9 +49,9 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
     };
 
     helpUrl = () => {
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             Linking.openURL("https://www.nhs.uk/conditions/coronavirus-covid-19/")
-        } else if (isSVLocale()) {
+        } else if (isSECountry()) {
             Linking.openURL("https://www.1177.se")
         }
     };
@@ -85,13 +85,13 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
                                     {i18n.t("welcome.how-you-can-help.text1")}
                                 </RegularText>
 
-                                {isUSLocale() && (
+                                {isUSCountry() && (
                                     <RegularText style={styles.subheader2}>
                                         {i18n.t("welcome.how-you-can-help.text2")}
                                     </RegularText>
                                 )}
 
-                                {(isSVLocale() || isGBLocale()) && (
+                                {(isSECountry() || isGBCountry()) && (
                                     <RegularText style={styles.subheader2}>{"\n"}{i18n.t("welcome.disclaimer")}{" "}
                                         <ClickableText style={[styles.subheader2, styles.nhsWebsite]}
                                                        onPress={this.helpUrl}>
@@ -103,7 +103,7 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
                                 <Image style={styles.partnersLogo} source={this.partnersLogos()}/>
                             </View>
 
-                            {isUSLocale() && (
+                            {isUSCountry() && (
                                 <View style={styles.partnerContainer}>
                                     <RegularText style={styles.partnerHeader}>
                                         {i18n.t("welcome.from-researchers")}
@@ -135,7 +135,7 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
                             if (await this.userService.shouldAskCountryConfirmation()) {
                                 this.setState({ipModalVisible: true})
                             } else {
-                                if (isUSLocale()) {
+                                if (isUSCountry()) {
                                     this.props.navigation.navigate('BeforeWeStartUS')
                                 } else {
                                     this.props.navigation.navigate('Consent', {viewOnly: false})

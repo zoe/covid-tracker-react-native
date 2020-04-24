@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {StyleSheet, View} from "react-native";
 import {ApiClientBase} from "../core/user/ApiClientBase";
 import {ScreenParamList} from "./ScreenParamList";
-import UserService, {isUSLocale} from "../core/user/UserService";
+import UserService, {isUSCountry} from "../core/user/UserService";
 import {AsyncStorageService} from "../core/AsyncStorageService";
 import {colors} from "../../theme";
 

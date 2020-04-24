@@ -6,7 +6,7 @@ import {colors} from "../../../theme";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
-import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBCountry, isUSCountry} from "../../core/user/UserService";
 import {BrandedButton, ErrorText, HeaderText, RegularText} from "../../components/Text";
 import {RouteProp} from '@react-navigation/native';
 import {ScreenParamList} from "../ScreenParamList";
@@ -51,7 +51,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
         // TODO: refactor this to PatientScreen. After we understand why other routes
         // don't have this branching logic.
-        const nextScreen = ((isUSLocale() && consent && consent.document === "US Nurses") || isGBLocale())
+        const nextScreen = ((isUSCountry() && consent && consent.document === "US Nurses") || isGBCountry())
             ? {name: "YourStudy", params: {currentPatient}}
             : {name: "YourWork", params: {currentPatient}};
 

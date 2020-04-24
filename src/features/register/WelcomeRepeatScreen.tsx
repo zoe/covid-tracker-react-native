@@ -5,7 +5,7 @@ import {BrandedButton, ClickableText, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
 import {covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn} from "../../../assets";
 import {RouteProp} from "@react-navigation/native";
-import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBCountry, isSECountry, isUSCountry} from "../../core/user/UserService";
 import {AsyncStorageService} from "../../core/AsyncStorageService";
 import {PushNotificationService} from "../../core/PushNotificationService";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
@@ -50,7 +50,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     };
 
     navigateToPrivacyPolicy = () => {
-        if (isUSLocale()) {
+        if (isUSCountry()) {
             this.props.navigation.navigate('PrivacyPolicyUS', {viewOnly: true})
         } else {
             this.props.navigation.navigate('PrivacyPolicyUK', {viewOnly: true})
@@ -58,7 +58,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     };
 
     openWebsite = () => {
-        if (isUSLocale()) {
+        if (isUSCountry()) {
             Linking.openURL('https://covid.joinzoe.com/us')
         } else {
             Linking.openURL('https://covid.joinzoe.com/')
@@ -66,9 +66,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     };
 
     partnersLogos = () => {
-        if (isGBLocale()) {
+        if (isGBCountry()) {
             return gbPartnersReturn
-        } else if (isSVLocale()) {
+        } else if (isSECountry()) {
             return svPartnersReturn
         } else {
             return usPartnersReturn

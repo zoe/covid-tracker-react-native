@@ -8,7 +8,7 @@ import {UserNotFoundException} from "../../core/Exception";
 import i18n from "../../locale/i18n"
 import {fontStyles} from "../../../theme";
 import {BrandedButton, ClickableText, HeaderLightText, RegularText} from "../../components/Text";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService, {isUSCountry} from "../../core/user/UserService";
 import {ScreenParamList} from "../ScreenParamList";
 
 type PropsType = {
@@ -76,7 +76,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
     // todo: validation for email
 
     render() {
-        const registerStartLink = isUSLocale() ?
+        const registerStartLink = isUSCountry() ?
             (
                 <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>{i18n.t("login.create-account")}</ClickableText>
             ) : (
