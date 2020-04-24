@@ -48,6 +48,7 @@ export class RegisterScreen extends Component<PropsType, State> {
     constructor(props: PropsType) {
         super(props);
         this.state = initialState;
+        Navigator.setNavigation(this.props.navigation);
     }
 
     private handleCreateAccount(formData: RegistrationData) {
