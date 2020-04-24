@@ -69,12 +69,15 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
                     <View style={styles.contributors}>
                         <ContributionCounter variant={1} count={this.state.userCount}/>
                     </View>
-                </ScrollView>
 
-                <View style={styles.nextButtonContainer}>
-                    <BrandedButton style={styles.nextButton}
-                                   onPress={() => this.props.navigation.navigate('Welcome2')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
-                </View>
+                    <View style={styles.nextButtonContainer}>
+                        <BrandedButton
+                            style={styles.nextButton}
+                            onPress={() => this.props.navigation.navigate('Welcome2')}>
+                            {i18n.t('welcome.tell-me-more')}
+                        </BrandedButton>
+                    </View>
+                </ScrollView>
             </View>
         );
     }
