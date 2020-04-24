@@ -82,8 +82,6 @@ export class WelcomeScreen extends Component<PropsType, WelcomeScreenState> {
 
                         <Image source={partnersLogo} style={styles.partnersLogo} resizeMode="contain"/>
 
-                        <BrandedButton testID="createAccount" onPress={() => this.props.navigation.navigate('Terms')}>{i18n.t("create-account-btn")}</BrandedButton>
-                        <ClickableText testID="moreInfo" onPress={() => Linking.openURL('https://covid.joinzoe.com/')} style={styles.moreInfo}>
                         <BrandedButton onPress={async () => {
                             if (await this.userService.shouldAskCountryConfirmation()) {
                                 this.setState({ipModalVisible: true})
