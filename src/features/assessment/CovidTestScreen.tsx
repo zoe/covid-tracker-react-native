@@ -99,6 +99,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         if (assessmentId == null) {
             userService.addAssessment(assessment)
                 .then(response => {
+                    this.props.navigation.setParams({assessmentId: response.data.id});
                     this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: response.data.id})
                 })
                 .catch(err => {

@@ -1,25 +1,17 @@
 import React from "react";
-import {TouchableOpacity} from "react-native-gesture-handler";
-import {View, Text, StyleSheet} from "react-native";
-import {colors} from "../../theme";
+import { View, Text, StyleSheet, GestureResponderEvent } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
+import { colors } from "../../theme";
+
+export type IButtonPress = ((event: GestureResponderEvent) => void) | undefined;
 
 type ButtonProps = {
-    onPress: any;
-    children: any;
-}
-
-export const BigButton = (props: ButtonProps) => {
-    return (
-      <TouchableOpacity onPress={props.onPress}>
-          <View style={butStyles.bigButton}>
-              <Text style={butStyles.buttonText}>{props.children}</Text>
-          </View>
-      </TouchableOpacity>
-    )
+    onPress: IButtonPress;
+    children: React.ReactNode;
 };
 
-const butStyles = StyleSheet.create({
+const buttonStyles = StyleSheet.create({
     bigButton: {
         borderRadius: 28,
         borderWidth: 1,
@@ -33,5 +25,13 @@ const butStyles = StyleSheet.create({
     buttonText: {
         color: colors.primary,
         textAlign: "center",
-    }
+    },
 });
+
+export const BigButton: React.FC<ButtonProps> = (props) => (
+    <TouchableOpacity onPress={props.onPress}>
+        <View style={buttonStyles.bigButton}>
+            <Text style={buttonStyles.buttonText}>{props.children}</Text>
+        </View>
+    </TouchableOpacity>
+);
