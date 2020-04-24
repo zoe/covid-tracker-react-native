@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "ts-node": "ts-node",
-    "mock-server": "ts-node ./mock-server/mockServer.ts --watch"
+    "mock-server": "ts-node ./mock-server/mockServer.ts --watch",
+    "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",

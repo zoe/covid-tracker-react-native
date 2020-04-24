@@ -17,9 +17,10 @@ const ProgressStatus: React.FC<ProgressProps> = (props) => {
             <Progress.Bar
                 progress={progress / 100}
                 width={screenWidth - 36}
-                color={colors.brand}
+                color={colors.purple}
                 unfilledColor={colors.backgroundFour}
                 borderWidth={0}
+                height={2}
             />
         </View>
     );
