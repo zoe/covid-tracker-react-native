@@ -103,7 +103,6 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
             initialValues={initialValues}
             validationSchema={registerSchema}
             validateOnBlur
-            validateOnChange={false}
         >
             {({ handleSubmit, handleChange, values, ...formikProps }) => {
                 return (
@@ -173,7 +172,8 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                                     enable={
                                         !formikProps.isSubmitting &&
                                         !!values.username &&
-                                        !!values.password
+                                        !!values.password &&
+                                        formikProps.isValid
                                     }
                                     hideLoading={!formikProps.isSubmitting}
                                 >
