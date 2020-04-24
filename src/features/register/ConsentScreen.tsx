@@ -92,20 +92,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         return false;
     };
 
-    renderConsentAgreeButton = () => {
-        return (
-            <BrandedButton
-              style={styles.button}
-              enable={this.canAgree()}
-              hideLoading={true}
-              onPress={this.handleAgreeClicked}>{i18n.t('legal.i-agree')}</BrandedButton>
-        )
-    };
-
     renderUSConsent = () => {
         return (
             isUSCountry() ? (
-                <View style={styles.rootContainer}>
                     <ScrollView>
                         <RegularText>
                             If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study, <ClickableText
@@ -181,18 +170,12 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                         }
 
                     </ScrollView>
-
-                    {
-                        !this.viewOnly && this.renderConsentAgreeButton()
-                    }
-                </View>
             ) : (<View/>)
         )
     };
 
     renderUKConsent = () => {
         return (
-            <View style={styles.rootContainer}>
                     <ScrollView>
 
                         <RegularText>
@@ -232,18 +215,11 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                         </RegularText>
 
                     </ScrollView>
-
-                    {
-                        !this.viewOnly && this.renderConsentAgreeButton()
-                    }
-
-                </View>
         )
     };
 
     renderSwedishConsent = () => {
         return (
-            <View style={styles.rootContainer}>
                     <ScrollView>
                         <RegularText>
                             Vi vill fråga dig om du vill delta i ett forskningsprojekt som handlar om covid-19. I det här dokumentet får du information om projektet och om vad det innebär att delta.
@@ -367,21 +343,28 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                         }
 
                     </ScrollView>
-
-                    {
-                        !this.viewOnly && this.renderConsentAgreeButton()
-                    }
-
-                </View>
         )
     };
 
-    render() {
+    renderConsent = () => {
         let consent = this.renderUKConsent; //default;
         if (isUSCountry()) consent = this.renderUSConsent;
         if (isGBCountry()) consent = this.renderUKConsent;
         if (isSECountry()) consent = this.renderSwedishConsent;
         return consent();
+    };
+
+    render() {
+        return (
+            <View style={styles.rootContainer}>
+                {this.renderConsent()}
+                {!this.viewOnly && <BrandedButton
+                  style={styles.button}
+                  enable={this.canAgree()}
+                  hideLoading={true}
+                  onPress={this.handleAgreeClicked}>{i18n.t('legal.i-agree')}</BrandedButton>}
+            </View>
+        )
     }
 
     private openUrl(link: string) {
