@@ -258,7 +258,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         needsHelp: Yup.string().required(),
         helpAvailable: Yup.string().required(),
         mobilityAid: Yup.string().required(),
-        race: Yup.array<string>().min(1, i18n.t("please-select-race")),
+        race: Yup.array<string>().when([], {
+            is: () => this.state.showRaceQuestion,
+            then: Yup.array<string>().min(1, i18n.t("please-select-race"))
+        }),
         raceOther: Yup.string().when('race', {
             is: (val: string[]) => val.includes('other'),
             then: Yup.string().required()
