@@ -1,75 +1,78 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Icon } from "native-base";
 import React from "react";
-import {ClippedText, RegularText} from "./Text"
-import {PatientProfile} from "../core/patient/PatientState"
-import {View, StyleSheet, Image} from "react-native";
-import {getAvatarByName} from "../utils/avatar"
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../features/ScreenParamList";
-import {TouchableOpacity} from "react-native-gesture-handler";
-import {Icon} from "native-base";
-import {colors} from "../../theme";
+import { View, StyleSheet, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { colors } from "../../theme";
+import { PatientProfile } from "../core/patient/PatientState";
+import { ScreenParamList } from "../features/ScreenParamList";
 import i18n from "../locale/i18n";
+import { getAvatarByName } from "../utils/avatar";
+import { ClippedText, RegularText } from "./Text";
 
 type BackButtonProps = {
-    navigation: StackNavigationProp<ScreenParamList>
-}
+    navigation: StackNavigationProp<ScreenParamList>;
+};
 
-const BackButton = ({navigation}: BackButtonProps) => {
+const BackButton: React.FC<BackButtonProps> = ({ navigation }) => {
     return (
         <TouchableOpacity onPress={navigation.goBack}>
             <View style={styles.iconButton}>
-                <Icon name="chevron-thin-left" type="Entypo" style={styles.icon}/>
+                <Icon
+                    name="chevron-thin-left"
+                    type="Entypo"
+                    style={styles.icon}
+                />
             </View>
         </TouchableOpacity>
     );
-}
+};
 
 type NavbarProps = {
-    profile: PatientProfile,
-    navigation: StackNavigationProp<ScreenParamList> | undefined
-}
+    profile: PatientProfile;
+    navigation: StackNavigationProp<ScreenParamList> | undefined;
+};
 
-const PatientHeader = ({profile, navigation}: NavbarProps) => {
-    const avatarImage = !!profile.avatarName && getAvatarByName(profile.avatarName);
+const PatientHeader: React.FC<NavbarProps> = ({ profile, navigation }) => {
+    const avatarImage =
+        !!profile.avatarName && getAvatarByName(profile.avatarName);
 
     return (
         <View style={styles.headerBar}>
             <View style={styles.left}>
-                {!!navigation && (
-                    <BackButton navigation={navigation}/>
+                {!!navigation && <BackButton navigation={navigation} />}
+            </View>
+            <View style={styles.center} />
+            <View style={styles.right}>
+                {profile.isPrimaryPatient ? (
+                    <View style={styles.regularTextBox}>
+                        <RegularText style={styles.regularText}>
+                            {profile.name}
+                        </RegularText>
+                    </View>
+                ) : (
+                    <>
+                        <View style={styles.altTextBox}>
+                            <ClippedText style={styles.altText}>
+                                {i18n.t("answer-for", { name: profile.name })}
+                            </ClippedText>
+                            <View style={styles.rightTriangle} />
+                        </View>
+                    </>
+                )}
+                {!!avatarImage && (
+                    <Image source={avatarImage} style={styles.avatar} />
                 )}
             </View>
-            <View style={styles.center}>
-
-            </View>
-            <View style={styles.right}>
-                {
-                    profile.isPrimaryPatient ? (
-                        <View style={styles.regularTextBox}>
-                            <RegularText style={styles.regularText}>{profile.name}</RegularText>
-                        </View>
-
-                    ) : (
-                        <>
-                            <View style={styles.altTextBox}>
-                                <ClippedText style={styles.altText}>
-                                    {i18n.t("answer-for", {name: profile.name})}
-                                </ClippedText>
-                                <View style={styles.rightTriangle}/>
-                            </View>
-                        </>
-
-                    )
-                }
-                {!!avatarImage && <Image source={avatarImage} style={styles.avatar}/>}
-            </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     iconButton: {
-        height: 32, width: 32,
+        height: 32,
+        width: 32,
         marginVertical: 16,
         marginHorizontal: 8,
         backgroundColor: colors.backgroundFour,
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         fontSize: 16,
-        color: colors.secondary
+        color: colors.secondary,
     },
     headerBar: {
         flexDirection: "row",
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     center: {
-        flex: 1
+        flex: 1,
     },
     left: {
         flexDirection: "row",
@@ -109,8 +112,7 @@ const styles = StyleSheet.create({
     altText: {
         paddingHorizontal: 10,
         color: colors.white,
-        overflow: "hidden"
-
+        overflow: "hidden",
     },
     rightTriangle: {
         position: "absolute",
@@ -119,9 +121,9 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         borderBottomWidth: 8,
         borderLeftWidth: 8,
-        borderTopColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'transparent',
+        borderTopColor: "transparent",
+        borderRightColor: "transparent",
+        borderBottomColor: "transparent",
         borderLeftColor: colors.coral,
     },
     regularTextBox: {
@@ -135,7 +137,6 @@ const styles = StyleSheet.create({
         width: 32,
         borderRadius: 16,
     },
-
 });
 
 export default PatientHeader;

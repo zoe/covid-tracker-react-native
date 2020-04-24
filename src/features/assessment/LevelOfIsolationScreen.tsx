@@ -65,7 +65,10 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
         } else {
             promise = userService.updateAssessment(assessmentId, assessment)
         }
-        promise.then(response => assessmentId = response.data.id)
+        promise.then(response => {
+            this.props.navigation.setParams({assessmentId: response.data.id});
+            assessmentId = response.data.id;
+        })
         .then(() => this.updatePatientsLastAskedDate(currentPatient)
         .then(() => this.navigateToStart(currentPatient, assessmentId as string)))
         .catch(err => {
@@ -78,7 +81,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
         return (
             <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
                 <Header>
-                    <HeaderText>{i18n.t('level-of-isolation-question-level-of-isolation')}</HeaderText>
+                    <HeaderText>{i18n.t('level-of-isolation.question-level-of-isolation')}</HeaderText>
                 </Header>
 
                 <ProgressBlock>
@@ -86,10 +89,10 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
                 </ProgressBlock>
 
                 <Form style={styles.form}>
-                    <SelectorButton text={i18n.t('level-of-isolation-picker-not-left-the-house')} onPress={() => this.handleSelection('not_left_the_house')}/>
-                    <SelectorButton text={i18n.t('level-of-isolation-picker-rarely-left-the-house')} onPress={() => this.handleSelection('rarely_left_the_house')}/>
-                    <SelectorButton text={i18n.t('level-of-isolation-picker-rarely-left-the-house-but-visited-lots')} onPress={() => this.handleSelection('rarely_left_the_house_but_visited_lots')}/>
-                    <SelectorButton text={i18n.t('level-of-isolation-picker-often-left-the-house')} onPress={() => this.handleSelection('often_left_the_house')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation.picker-not-left-the-house')} onPress={() => this.handleSelection('not_left_the_house')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation.picker-rarely-left-the-house')} onPress={() => this.handleSelection('rarely_left_the_house')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation.picker-rarely-left-the-house-but-visited-lots')} onPress={() => this.handleSelection('rarely_left_the_house_but_visited_lots')}/>
+                    <SelectorButton text={i18n.t('level-of-isolation.picker-often-left-the-house')} onPress={() => this.handleSelection('often_left_the_house')}/>
                 </Form>
 
             </Screen>

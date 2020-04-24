@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Platform, StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
+import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
 import {BrandedButton, HeaderText} from "../../components/Text";
 import {Form, Item, Label, Text, Textarea} from "native-base";
 
@@ -10,15 +10,12 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 
 import i18n from "../../locale/i18n"
-import {colors, fontStyles} from "../../../theme"
 import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {navigateAfterFinishingAssessment} from "../Navigation";
 
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
 
 const initialFormValues = {
     description: '',
@@ -103,7 +100,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 
                                 <BrandedButton onPress={props.handleSubmit}>
-                                    <Text>Done</Text>
+                                    <Text>{i18n.t("completed")}</Text>
                                 </BrandedButton>
 
                             </Form>

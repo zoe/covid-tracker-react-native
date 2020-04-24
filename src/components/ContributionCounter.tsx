@@ -3,6 +3,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { colors } from "../../theme";
 import I18n from "i18n-js";
+import i18n from "../locale/i18n";
+import reactStringReplace from "react-string-replace";
 
 type ContributionCounterProps = {variant: number, count: number | null}
 export const ContributionCounter = (props: ContributionCounterProps) => {
@@ -10,11 +12,19 @@ export const ContributionCounter = (props: ContributionCounterProps) => {
         const countValue = I18n.toNumber(props.count, {precision: 0});
         return props.variant === 1 ?
                 <RegularText style={styles.contributingText}>
-                    Join <RegularBoldText style={styles.contributingTextValue}>{countValue}</RegularBoldText> people contributing
+                    { reactStringReplace(
+                        i18n.t("join-total-people-contributing", {total: '{{TOTAL}}'}),
+                        '{{TOTAL}}',
+                        (match, i) => (<RegularBoldText key={i} style={styles.contributingTextValue}>{countValue}</RegularBoldText>)
+                    )}
                 </RegularText>
             : props.variant === 2 ?
                 <RegularText style={styles.contributingText}>
-                    <RegularBoldText style={styles.contributingText}>{countValue}</RegularBoldText> people contributing
+                    { reactStringReplace(
+                        i18n.t("total-people-contributing", {total: '{{TOTAL}}'}),
+                        '{{TOTAL}}',
+                        (match, i) => (<RegularBoldText key={i} style={styles.contributingText}>{countValue}</RegularBoldText>)
+                    )}
                 </RegularText> : null
     }
     return null;

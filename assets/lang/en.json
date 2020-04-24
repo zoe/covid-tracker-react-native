@@ -1,27 +1,107 @@
 {
-  "create-account-title": "Create new account",
-  "create-account-btn": "Create account",
-  "create-account-login": "Log in",
-  "create-account-email": "Your email",
-  "create-account-password": "Create password",
-  "create-account-if-you-have-an-account": "Already have an account?",
-  "create-account-already-registered": "An account already exists with this email address. Try to log in instead.",
-  "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
+  "create-account": {
+    "title": "Create new account",
+    "btn": "Create account",
+    "login": "Log in",
+    "existing-account": "to existing account.",
+    "email": "Your email",
+    "password": "Create password",
+    "if-you-have-an-account": "Already have an account?",
+    "already-registered": "An account already exists with this email address. Try to log in instead.",
+    "email-required": "Please enter your email address",
+    "email-error": "Please correct your email address",
+    "password-required": "Please enter a password",
+    "password-too-simple": "Your password must be at least 8 characters long and not numbers only",
+    "something-went-wrong": "Something went wrong: %{msg}",
+    "error": "Error #01. Please report this to covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "login": {
+    "title": "Log in to\nyour account",
+    "email-label": "Email",
+    "password-label": "Password",
+    "dont-have-account": "Don't have an account?",
+    "create-account": "Create account",
+    "forgot-your-password": "Forgot your password?",
+    "button": "Log in",
+    "user-not-found-exception": "We couldn't identify you. Please try again.",
+    "exception": "Unable to log in. Please try again."
+  },
+
+  "reset-password": {
+    "title": "Enter your email and we’ll send you a link to reset your password",
+    "email-label": "Email",
+    "email-error": "Please enter a valid email",
+    "button": "Reset password",
+    "error": "Error #02. Please report this to covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "reset-password-confirm": {
+    "title": "Check your email",
+    "text": "We've sent you a password reset link.",
+    "button": "Back"
+  },
+
+  "optional-info": {
+    "title": "Optional contact information",
+    "description": "Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.",
+    "name-placeholder": "Your name",
+    "phone-placeholder": "Phone number",
+    "button": "Continue"
+  },
+
+  "welcome": {
+    "title": "COVID Symptom Tracker",
+    "sign-in": "Sign in",
+    "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
+    "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
+    "disclaimer-link": "visit the NHS website",
+    "tell-me-more": "Tell me more",
+    "more-info": "For more info %{link}",
+    "more-info-link": "visit our website",
+    "visit-the-website": "Visit the website",
+    "see-how-your-area-is-affected": "See how your area is affected and the discoveries you made possible",
+    "report-button": "Report today, even if you're well",
+    "privacy-policy": "Privacy policy",
+    "privacy-policy-subtext": "(incl. how to delete your data)",
+    "how-you-can-help": {
+      "title": "How you can help",
+      "text1": "Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.",
+      "text2": "No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice."
+    },
+    "from-researchers": "From Physicians and Researchers at",
+    "create-account": "Create account"
+  },
+
+  "names": {
+    "harvard-th-chan-school-of-public-health": "Harvard T.H. Chan School of Public Health",
+    "mass-general-hospital": "Massachusetts General Hospital",
+    "kings-college-london": "King's College London",
+    "stanford-university-school-of-medicine": "Stanford University School of Medicine",
+    "zoe": "ZOE"
+  },
+
+  "before-we-start": {
+    "title": "I am in an existing research study or trial, and I want my data to be shared with investigators on that study.",
+    "yes": "Yes, I am",
+    "no": "No, I am not"
+  },
+
 
   "next-question": "Next question",
-
-  "login-title": "Log in to\nyour account",
-  "login-label": "Email",
-  "password": "Password",
-  "forgot-password": "Forgot password?",
-  "log-in": "Log in",
-  "dont-have-account": "Don't have an account?",
-  "create-account": "Create account",
-  "user-not-found-exception": "We couldn't identify you. Please try again.",
-  "login-exception": "Unable to log in. Please try again.",
-
+  "completed": "Done",
   "something-went-wrong": "Something went wrong, please try again later",
   "choose-one-of-these-options": "Choose one of the options",
+
+  "your-work": {
+    "worked-hospital-inpatient": "Hospital inpatient",
+    "worked-hospital-outpatient": "Hospital outpatient",
+    "worked-clinic-outside-hospital": "Clinic outside a hospital",
+    "worked-nursing-home": "Nursing home/elderly care or group care facility",
+    "worked-home-health": "Home health",
+    "worked-school-clinic": "School clinic",
+    "worked-other-facility": "Other health care facility"
+  },
 
   "title-about-work": "About your work",
   "label-cohort": "Are you part of one of these population studies or organisations?",
@@ -43,7 +123,6 @@
   "label-ppe-equipment-available": "Is the PPE equipment you need available?",
   "label-chose-an-option": "Choose one of the options",
   "label-check-all-that-apply": "Check all that apply",
-  "required-has-used-ppe-equipment": "Please indicate whether you've used PPE equipment at work.",
   "required-ppe-availability": "Please specify the availability level of PPE equipment at work.",
 
   "title-about-you": "About you",
@@ -70,6 +149,7 @@
   "placeholder-gender-identity": "Your gender identity",
   "required-gender-identity": "Please indicate the gender you most identify with",
   "gender-identity-other": "Other, please specify",
+  "error-gender-identity-length": "Maximum 30 characters",
 
   "your-height": "Your height",
   "placeholder-height": "Height",
@@ -78,11 +158,15 @@
   "placeholder-height-unit": "Height Units",
   "picker-feet": "ft",
   "picker-cm": "cm",
+  "required-height-in-cm": "Please enter your height in centimeters as a number",
+  "required-height-in-ft-in": "Please enter your height in feet & inches",
 
   "your-weight": "Your weight",
   "placeholder-weight": "Weight",
   "placeholder-stones": "Stones",
   "placeholder-pounds": "Pounds",
+  "required-weight-in-kg": "Please enter your weight in kilograms",
+  "required-weight-in-lb": "Please enter your weight in pounds",
 
   "placeholder-weight-unit": "Weight units",
   "picker-pounds": "lbs",
@@ -100,12 +184,13 @@
   "placeholder-optional-question": "*Optional",
 
   "previous-exposure-title": "Previous exposure to COVID",
+  "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
   "label-unwell-month-before": "Have you felt unwell in the month before you started reporting on this app?",
-"label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
-"label-past-symptoms-still-have": "Are you still experiencing symptoms?",
-"label-past-symptoms-changed": "How have your symptoms changed over the last few days?",
-"label-past-symptoms-had-covid": "Do you think you have already had COVID-19, but were not tested?",
-"label-past-symptoms-classic": "Did you have the classic symptoms (high fever and persistent cough) for several days?",
+  "label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
+  "label-past-symptoms-still-have": "Are you still experiencing symptoms?",
+  "label-past-symptoms-changed": "How have your symptoms changed over the last few days?",
+  "label-past-symptoms-had-covid": "Do you think you have already had COVID-19, but were not tested?",
+  "label-past-symptoms-classic": "Did you have the classic symptoms (high fever and persistent cough) for several days?",
 
   "label-past-symptoms": "Did you have any of the following symptoms (please select all that apply):",
   "label-past-symptom-anosmia": "Loss of smell/taste",
@@ -125,38 +210,68 @@
   "past-symptom-changed-little-worse": "A little worse",
   "past-symptom-changed-much-worse": "Much worse",
 
-  "covid-test-question-has-covid-test": "Have you had a test for COVID-19?",
-  "covid-test-question-has-covid-positive": "Did you test positive for COVID-19?",
-  "covid-test-picker-waiting": "Waiting for results",
-  "covid-test-question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
+  "your-health": {
+    "page-title": "About your health",
+    "health-problems-that-limit-activity": "In general, do you have any health problems that require you to limit your activities?",
+    "are-you-pregnant": "Are you pregnant?",
+    "have-heart-disease": "Do you have heart disease?",
+    "have-diabetes": "Do you have diabetes?",
+    "have-lung-disease": "Do you have lung disease or asthma?",
+    "is-smoker": "Do you smoke?",
+    "never-smoked": "Never",
+    "not-currently-smoking": "Not currently",
+    "yes-smoking": "Yes",
+    "years-since-last-smoked": "How many years since you last smoked?",
+    "has-kidney-disease": "Do you have kidney disease?",
+    "has-cancer": "Are you living with cancer?",
+    "what-cancer-type": "What type of cancer do you have?",
+    "is-on-chemotherapy": "Are you on chemotherapy or immunotherapy for cancer?",
+    "takes-immunosuppressant": "Do you regularly take immunosuppressant medications (including steroids, methotrexate, biologic agents)?",
+    "takes-asprin": "Do you regularly take aspirin (baby aspirin or standard dose)?",
+    "takes-nsaids": "Do you regularly take \"NSAIDs\" like ibuprofen, nurofen, diclofenac, naproxen?",
+    "takes-any-blood-pressure-medication": "Are you regularly taking any blood pressure medications?",
+    "takes-pril-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-pril\", such as enalapril, lisinopril, captopril, ramipril?",
+    "takes-sartan-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"
+  },
 
-  "describe-symptoms-question-has-fever": "Do you have a fever?",
-  "describe-symptoms-placeholder-temperature": "Enter temperature",
-  "describe-symptoms-picker-celsius": "°C",
-  "describe-symptoms-picker-fahrenheit": "°F",
-  "describe-symptoms-question-has-persistent-cough": "Do you have a persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)?",
-  "describe-symptoms-question-has-unusual-fatigue": "Are you experiencing unusual fatigue?",
-  "describe-symptoms-picker-fatigue-none": "No",
-  "describe-symptoms-picker-fatigue-mild": "Mild fatigue",
-  "describe-symptoms-picker-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
-  "describe-symptoms-question-has-headache": "Do you have a headache?",
-  "describe-symptoms-question-has-unusual-shortness-of-breath": "Are you experiencing unusual shortness of breath?",
-  "describe-symptoms-picker-shortness-of-breath-none": "No",
-  "describe-symptoms-picker-shortness-of-breath-mild": "Yes. Mild symptoms - slight shortness of breath during ordinary activity",
-  "describe-symptoms-picker-shortness-of-breath-significant": "Yes. Significant symptoms - breathing is comfortable only at rest",
-  "describe-symptoms-picker-shortness-of-breath-severe": "Yes. Severe symptoms - breathing is difficult even at rest",
-  "describe-symptoms-question-has-sore-throat": "Do you have a sore throat?",
-  "describe-symptoms-question-has-loss-of-smell": "Do you have a loss of smell/taste?",
-  "describe-symptoms-question-has-hoarse-voice": "Do you have an unusually hoarse voice?",
-  "describe-symptoms-question-has-chest-pain": "Are you feeling an unusual chest pain or tightness in your chest?",
-  "describe-symptoms-question-has-abdominal-pain": "Do you have an unusual abdominal pain?",
-  "describe-symptoms-question-has-diarrhoea": "Are you experiencing diarrhoea?",
-  "describe-symptoms-placeholder-has-diarrhoea": "hasDiarrhoea",
-  "describe-symptoms-question-has-unusual-muscle-pains": "Do you have unusual strong muscle pains?",
-  "describe-symptoms-question-has-delirium": "Do you have any of the following symptoms: confusion, disorientation or drowsiness?",
-  "describe-symptoms-question-is-skipping-meals": "Have you been skipping meals?",
-  "describe-symptoms-question-other-symptoms": "Are there other important symptoms you want to share with us?",
-  "describe-symptoms-placeholder-other-symptoms": "Other symptoms",
+  "covid-test": {
+    "page-title": "COVID-19 status",
+    "question-has-covid-test": "Have you had a test for COVID-19?",
+    "question-has-covid-positive": "Did you test positive for COVID-19?",
+    "picker-waiting": "Waiting for results",
+    "question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?"
+  },
+
+  "describe-symptoms": {
+    "page-title": "Describe the symptoms you are experiencing right now.",
+    "question-has-fever": "Do you have a fever?",
+    "question-your-temperature": "If you are able to measure it, what is your temperature?",
+    "placeholder-temperature": "Enter temperature",
+    "picker-celsius": "°C",
+    "picker-fahrenheit": "°F",
+    "question-has-persistent-cough": "Do you have a persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)?",
+    "question-has-unusual-fatigue": "Are you experiencing unusual fatigue?",
+    "picker-fatigue-none": "No",
+    "picker-fatigue-mild": "Mild fatigue",
+    "picker-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
+    "question-has-headache": "Do you have a headache?",
+    "question-has-unusual-shortness-of-breath": "Are you experiencing unusual shortness of breath?",
+    "picker-shortness-of-breath-none": "No",
+    "picker-shortness-of-breath-mild": "Yes. Mild symptoms - slight shortness of breath during ordinary activity",
+    "picker-shortness-of-breath-significant": "Yes. Significant symptoms - breathing is comfortable only at rest",
+    "picker-shortness-of-breath-severe": "Yes. Severe symptoms - breathing is difficult even at rest",
+    "question-has-sore-throat": "Do you have a sore throat?",
+    "question-has-loss-of-smell": "Do you have a loss of smell/taste?",
+    "question-has-hoarse-voice": "Do you have an unusually hoarse voice?",
+    "question-has-chest-pain": "Are you feeling an unusual chest pain or tightness in your chest?",
+    "question-has-abdominal-pain": "Do you have an unusual abdominal pain?",
+    "question-has-diarrhoea": "Are you experiencing diarrhoea?",
+    "question-has-unusual-muscle-pains": "Do you have unusual strong muscle pains?",
+    "question-has-delirium": "Do you have any of the following symptoms: confusion, disorientation or drowsiness?",
+    "question-is-skipping-meals": "Have you been skipping meals?",
+    "question-other-symptoms": "Are there other important symptoms you want to share with us?",
+    "placeholder-other-symptoms": "Other symptoms"
+  },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients?",
   "health-worker-exposure-question-treated-patients-with-covid": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
@@ -176,15 +291,27 @@
   "health-worker-exposure-picker-ppe-never-not-needed": "I haven't needed PPE",
   "health-worker-exposure-picker-ppe-never-not-available": "I needed PPE, but it was not available",
 
-  "how-you-feel-question-health-status": "How do you feel physically right now?",
-  "how-you-feel-picker-health-status-healthy": "I feel physically normal",
-  "how-you-feel-picker-health-status-not-healthy": "I'm not feeling quite right",
+  "how-you-feel": {
+    "question-health-status": "How do you feel physically right now?",
+    "picker-health-status-healthy": "I feel physically normal",
+    "picker-health-status-not-healthy": "I'm not feeling quite right"
+  },
 
-  "level-of-isolation-question-level-of-isolation": "How much have you been isolating over the last week?",
-  "level-of-isolation-picker-not-left-the-house": "I have not left the house",
-  "level-of-isolation-picker-rarely-left-the-house": "I rarely leave the house and when I do, I have little interaction with others (eg for exercise)",
-  "level-of-isolation-picker-rarely-left-the-house-but-visited-lots": "I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries)",
-  "level-of-isolation-picker-often-left-the-house": "I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)",
+  "level-of-isolation": {
+    "question-level-of-isolation": "How much have you been isolating over the last week?",
+    "picker-not-left-the-house": "I have not left the house",
+    "picker-rarely-left-the-house": "I rarely leave the house and when I do, I have little interaction with others (eg for exercise)",
+    "picker-rarely-left-the-house-but-visited-lots": "I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries)",
+    "picker-often-left-the-house": "I have to leave the house often and am in contact with other people (eg still working outside the house or using public transport)"
+  },
+
+  "where-are-you": {
+    "question-location": "Where are you right now?",
+    "picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
+    "picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
+    "picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
+    "picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment."
+  },
 
   "treatment-other-title-after": "What treatment did you receive while in the hospital?",
   "treatment-other-title-during": "What treatment are you receiving in hospital?",
@@ -201,12 +328,6 @@
   "treatment-selection-picker-invasive-ventilation": "Invasive ventilation*",
   "treatment-selection-picker-subtext-invasive-ventilation": "* Breathing support through an inserted tube. People are usually asleep for this procedure.",
   "treatment-selection-picker-other": "Other",
-
-  "where-are-you-question-location": "Where are you right now?",
-  "where-are-you-picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
-  "where-are-you-picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
-  "where-are-you-picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
-  "where-are-you-picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment.",
 
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
@@ -253,9 +374,9 @@
   "your-country-text": "We're not certain which country you're in because of how your phone is configured.",
   "united-states": "United States",
   "united-kingdom": "United Kingdom",
+  "sweden": "Sweden",
 
-
-  "never-reported": "Never reported",
+  "never-reported": "Not reported",
   "today": "Today",
   "yesterday": "Yesterday",
   "days-ago": "%{diffDays} days ago",
@@ -320,5 +441,8 @@
   "not-hispanic": "Not Hispanic or Latino, or Spanish origin",
 
   "answer-for": "Answer for %{name}",
-  "profile-name-too-long": "Enter a profile name with less that 32 characters"
+  "profile-name-too-long": "Enter a profile name with less that 32 characters",
+
+  "total-people-contributing": "%{total} people contributing",
+  "join-total-people-contributing": "Join %{total} people contributing"
 }
