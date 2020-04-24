@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {ScreenParamList} from "./ScreenParamList";
 import UserService from "../core/user/UserService";
 import i18n from "../locale/i18n"
-import {svFlagLarge, ukFlagLarge, usFlagLarge} from "../../assets";
+import {gbFlag, svFlag, usFlag} from "../../assets";
 import {RouteProp} from "@react-navigation/native";
 import {colors} from "../../theme";
 
@@ -57,13 +57,13 @@ export class CountrySelectScreen extends Component<Props, {}> {
                 <Text style={styles.text}>{i18n.t("select-country")}</Text>
                 <View style={styles.flagRow}>
                     <TouchableOpacity onPress={() => this.selectCountry(US_CODE)}>
-                        <Image source={usFlagLarge}/>
+                        <Image source={usFlag}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.selectCountry(GB_CODE)}>
-                        <Image source={ukFlagLarge}/>
+                        <Image source={gbFlag}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.selectCountry(SV_CODE)}>
-                        <Image source={svFlagLarge}/>
+                        <Image source={svFlag}/>
                     </TouchableOpacity>
                 </View>
             </View>

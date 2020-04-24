@@ -15,13 +15,11 @@ export const svMap = require('./svMap.png');
 // Icons
 export const closeIcon = require('./icons/close.png');
 export const menuIcon = require('./icons/menu.png');
-export const svFlagLarge = require('./icons/sv-flag-large.png');
-export const svFlagSmall = require('./icons/sv-flag-small.png');
-export const ukFlagLarge = require('./icons/uk-flag-large.png');
-export const usFlagSmall = require('./icons/us-flag-small.png');
-export const usFlagLarge = require('./icons/us-flag-large.png');
-export const ukFlagSmall = require('./icons/uk-flag-small.png');
-export const usLogos = require('./icons/us_logos.png');
+
+// Flags
+export const svFlag = require('./icons/sv-flag.png');
+export const gbFlag = require('./icons/gb-flag.png');
+export const usFlag = require('./icons/us-flag.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');

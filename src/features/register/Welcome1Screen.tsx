@@ -4,7 +4,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import {BrandedButton, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {svFlagSmall, ukFlagSmall, usFlagSmall, usMap, gbMap, svMap} from "../../../assets";
+import {usMap, gbMap, svMap, svFlag, usFlag, gbFlag} from "../../../assets";
 import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
 import {ContributionCounter} from "../../components/ContributionCounter";
 import i18n from "../../locale/i18n";
@@ -30,11 +30,11 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
 
     flagIcon = () => {
         if (isGBLocale()) {
-            return ukFlagSmall
+            return gbFlag
         } else if (isSVLocale()) {
-            return svFlagSmall
+            return svFlag
         } else {
-            return usFlagSmall
+            return usFlag
         }
     };
 
@@ -54,8 +54,7 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
                 <ScrollView contentContainerStyle={styles.scrollView}>
                     <Image style={styles.mapImage} source={this.mapImage()}/>
 
-                    <TouchableOpacity style={styles.countryFlag}
-                                      onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                    <TouchableOpacity style={styles.countryFlag} onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
                         <Image style={styles.flagIcon} source={this.flagIcon()}/>
                     </TouchableOpacity>
 
