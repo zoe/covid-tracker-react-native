@@ -24,9 +24,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "associatedDomains": ["webcredentials:covid-zoe.joinzoe.com"],
+      "buildNumber": "0.0.27",
       "bundleIdentifier": "com.joinzoe.covid-zoe",
-      "buildNumber": "0.0.27"
+      "supportsTablet": true
     },
     "android": {
       "package": "com.joinzoe.covid_zoe",
