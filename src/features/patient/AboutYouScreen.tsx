@@ -150,8 +150,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             needs_help: formData.needsHelp === "yes",
             help_available: formData.helpAvailable === "yes",
             mobility_aid: formData.mobilityAid === "yes",
-            race: formData.race,
         } as Partial<PatientInfosRequest>;
+
+        if (formData.race) {
+            infos = {
+                ...infos,
+                race: formData.race
+            }
+        }
 
         if (formData.ethnicity) {
             infos = {
