@@ -12,7 +12,7 @@ import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService, {isUSCountry} from "../../core/user/UserService";
 import {PatientInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {GenericTextField} from "../../components/GenericTextField";
@@ -104,7 +104,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
         hasCancer: Yup.string().required(),
         cancerType: Yup.string().when("hasCancer", {
-            is: (value) => isUSLocale() && value && value === 'yes',
+            is: (value) => isUSCountry() && value && value === 'yes',
             then: Yup.string().required()
         }),
 
@@ -188,7 +188,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 does_chemiotherapy: formData.doesChemiotherapy === "yes",
             }
 
-            if (isUSLocale()) {
+            if (isUSCountry()) {
                 infos = {
                     ...infos,
                     cancer_type: formData.cancerType,
@@ -301,7 +301,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                                     {props.values.hasCancer === 'yes' && (
                                         <>
-                                            {isUSLocale() && (
+                                            {isUSCountry() && (
                                                 <>
                                                     <GenericTextField
                                                         formikProps={props}

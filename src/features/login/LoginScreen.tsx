@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { Input, Item, Label, Toast } from "native-base";
 import React from "react";
 import {
@@ -23,7 +23,7 @@ import {
     RegularText,
 } from "../../components/Text";
 import { UserNotFoundException } from "../../core/Exception";
-import UserService, { isUSLocale } from "../../core/user/UserService";
+import UserService, { isUSCountry } from "../../core/user/UserService";
 import i18n from "../../locale/i18n";
 import { ScreenParamList } from "../ScreenParamList";
 
@@ -38,17 +38,13 @@ interface LoginSubmitProps {
 }
 
 const RegisterStartLink: React.FC<PropsType> = ({ navigation }) => {
-    return isUSLocale() ? (
+    return isUSCountry() ? (
         <ClickableText onPress={() => navigation.navigate("BeforeWeStartUS")}>
             {i18n.t("login.create-account")}
         </ClickableText>
     ) : (
         <ClickableText
-            onPress={() =>
-                navigation.navigate("Consent", {
-                    viewOnly: false,
-                })
-            }
+            onPress={() => navigation.navigate("Consent", { viewOnly: false })}
         >
             {i18n.t("login.create-account")}
         </ClickableText>
@@ -61,7 +57,7 @@ const initialValues: LoginSubmitProps = {
 
 export const LoginScreen: React.FC<PropsType> = (props) => {
     const getWelcomeRepeatScreenName = () => {
-        return isUSLocale() ? "WelcomeRepeatUS" : "WelcomeRepeat";
+        return isUSCountry() ? "WelcomeRepeatUS" : "WelcomeRepeat";
     };
     const registerSchema = Yup.object().shape({
         username: Yup.string()

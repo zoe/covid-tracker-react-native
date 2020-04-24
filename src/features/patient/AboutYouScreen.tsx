@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import {ValidatedTextInput} from "../../components/ValidatedTextInput";
 
 import i18n from "../../locale/i18n"
-import UserService, {isGBLocale, isUSLocale} from "../../core/user/UserService";
+import UserService, {isGBCountry, isUSCountry} from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
@@ -244,7 +244,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             then: Yup.string().required()
         }),
         ethnicity: Yup.string().when([], {
-            is: () => isUSLocale(),
+            is: () => isUSCountry(),
             then: Yup.string().required()
         })
     });
@@ -359,7 +359,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         />
                                     )}
 
-                                    {isGBLocale() && (
+                                    {isGBCountry() && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("race-question")}</Label>
@@ -370,7 +370,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         </FieldWrapper>
                                     )}
 
-                                    {isUSLocale() && (
+                                    {isUSCountry() && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("race-question")}</Label>
@@ -389,7 +389,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         />
                                     )}
 
-                                    {isUSLocale() && (
+                                    {isUSCountry() && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("ethnicity-question")}</Label>
@@ -421,7 +421,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                     <FieldWrapper>
                                         <Item stackedLabel style={styles.textItemStyle}>
                                             <Label>{i18n.t("your-height")}</Label>
-                                            {isUSLocale() ? (
+                                            {isUSCountry() ? (
                                                 <View style={styles.primaryFieldRow}>
                                                     <View style={styles.tertiaryField}>
                                                         <ValidatedTextInput
@@ -516,7 +516,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                     <FieldWrapper>
                                         <Item stackedLabel style={styles.textItemStyle}>
                                             <Label>{i18n.t("your-weight")}</Label>
-                                            {isUSLocale() ? (
+                                            {isUSCountry() ? (
                                                 <ValidatedTextInput
                                                     placeholder={i18n.t("placeholder-pounds")}
                                                     value={props.values.pounds}
