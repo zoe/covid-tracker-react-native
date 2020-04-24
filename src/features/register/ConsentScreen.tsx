@@ -256,7 +256,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                         <RegularText>
                             Vi vill fråga dig om du vill delta i ett forskningsprojekt som handlar om covid-19. I det här dokumentet får du information om projektet och om vad det innebär att delta.
                             {"\n\n"}
-                            Projektets titel är ”Nationellt initiativ för att via en app i realtid kartlägga samhällspridningen av covid-19 i Sverige samt riskfaktorer för att drabbas av en allvarlig sjukdomsbild vid covid-19”, och forskningen är godkänd av Etikprövningsmyndigheten i Sverige (DNR 2020-XXX).
+                            Projektets titel är ”Nationellt initiativ för att via en app i realtid kartlägga samhällspridningen av covid-19 i Sverige samt riskfaktorer för att drabbas av en allvarlig sjukdomsbild vid covid-19”, och forskningen är godkänd av Etikprövningsmyndigheten i Sverige (DNR 2020-01803).
                             {"\n\n"}
                         </RegularText>
 
