@@ -7,6 +7,7 @@ import {ScreenParamList} from "../../ScreenParamList";
 import {ApplicationVersion} from "../../../components/AppVersion";
 import {RouteProp} from "@react-navigation/native";
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from "../LegalComponents";
+import i18n from "../../../locale/i18n";
 
 type PropsType = {
     navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>
@@ -147,7 +148,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, {}> {
                 </ScrollView>
 
                 {
-                    !this.viewOnly && <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>Back</BrandedButton>
+                    !this.viewOnly && <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>{i18n.t('legal.back')}</BrandedButton>
                 }
 
                 <ApplicationVersion/>
