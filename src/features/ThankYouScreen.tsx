@@ -12,6 +12,7 @@ import i18n from "../locale/i18n"
 import {Linking} from "expo";
 import { CovidRating, shouldAskForRating } from "../components/CovidRating";
 import UserService from "../core/user/UserService";
+import reactStringReplace from "react-string-replace";
 
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>
@@ -66,24 +67,24 @@ export default class ThankYouScreen extends Component<RenderProps, {askForRating
                             <View style={styles.covidIconContainer}>
                                 <Image source={covidIcon} style={styles.covidIcon}/>
                             </View>
-                            <RegularBoldText style={styles.share}>Please share this app</RegularBoldText>
-                            <RegularText style={styles.shareSubtitle}>
-                                The more people report their symptoms, the more we can help those at risk.
-                            </RegularText>
-                            <BrandedButton onPress={this.shareApp} style={styles.shareButton}>Share this app</BrandedButton>
+                            <RegularBoldText style={styles.share}>{i18n.t("thank-you.please-share-app")}</RegularBoldText>
+                            <RegularText style={styles.shareSubtitle}>{i18n.t("thank-you.share-text")}</RegularText>
+                            <BrandedButton onPress={this.shareApp} style={styles.shareButton}>{i18n.t("thank-you.btn-share")}</BrandedButton>
                         </View>
 
                         <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
-                            {"Please check our "}
-                            <RegularText style={styles.newsFeedClickable}>news feed</RegularText>
-                            {" for updates."}
+                        { reactStringReplace(
+                            i18n.t("thank-you.check-for-updates", {link: '{{LINK}}'}),
+                            '{{LINK}}',
+                            (match, i) => (<RegularText key={i} style={styles.newsFeedClickable}>{i18n.t("thank-you.news-feed")}</RegularText>)
+                        )}
                         </ClickableText>
                         <RegularText style={styles.shareSubtitle}>{i18n.t("check-in-tomorrow")}</RegularText>
 
-                        <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>Done</ClickableText>
+                        <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>{i18n.t("completed")}</ClickableText>
 
                     </View>
-                </ScrollView>
+                    </ScrollView>
                 </SafeAreaView>
 
             </>

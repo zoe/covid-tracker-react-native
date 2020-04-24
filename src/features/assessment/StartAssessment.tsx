@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
+import Navigator from "../Navigation";
 
 
 type StartAssessmentProps = {
@@ -12,6 +13,7 @@ type StartAssessmentProps = {
 
 export default class StartAssessmentScreen extends Component<StartAssessmentProps> {
     async componentDidMount() {
+        Navigator.setNavigation(this.props.navigation);
         const currentPatient = this.props.route.params.currentPatient;
         const assessmentId = this.props.route.params.assessmentId || null;
 
@@ -27,7 +29,8 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
                 }
             }
         } else {
-            this.props.navigation.replace('StartPatient', {currentPatient});
+            const nextPage = await Navigator.getStartPatientScreenName(currentPatient);
+            Navigator.replaceScreen(nextPage, {currentPatient});
         }
     }
 

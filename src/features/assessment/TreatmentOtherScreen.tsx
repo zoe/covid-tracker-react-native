@@ -14,7 +14,7 @@ import UserService from "../../core/user/UserService";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import {navigateAfterFinishingAssessment} from "../Navigation";
+import Navigator from "../Navigation";
 
 
 const initialFormValues = {
@@ -34,6 +34,7 @@ type TreatmentOtherProps = {
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
     constructor(props: TreatmentOtherProps) {
         super(props);
+        Navigator.resetNavigation(props.navigation);
         this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
     }
 
@@ -45,12 +46,12 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
         const {currentPatient, assessmentId, location} = this.props.route.params;
         if (!formData.description) {
-            navigateAfterFinishingAssessment(this.props.navigation);
+            Navigator.gotoEndAssessment();
         } else {
             const userService = new UserService();
             userService.updateAssessment(assessmentId, {
                 treatment: formData.description
-            }).then(r => navigateAfterFinishingAssessment(this.props.navigation));
+            }).then(r => Navigator.gotoEndAssessment());
         }
     }
 
