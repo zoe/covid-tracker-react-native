@@ -21,6 +21,8 @@ import i18n from "../../locale/i18n"
 import { getInitialPatientState, PatientStateType, PatientProfile } from "../patient/PatientState";
 import { AvatarName } from "../../utils/avatar";
 import moment from "moment";
+import {getCountryConfig} from "../Config";
+
 
 const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.3.0';    // TODO: Wire this to something automatic.
@@ -155,7 +157,7 @@ export default class UserService extends ApiClientBase {
         return patientResponse.data;
     }
 
-    public updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+    public async updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
         // Calculate the flags based on patient info
         const isFemale = (patient.gender == 0);
         const isHealthWorker = (
@@ -190,6 +192,14 @@ export default class UserService extends ApiClientBase {
             shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7
         }
 
+        // Decide whether patient needs to answer YourStudy questions
+        const consent = await this.getConsentSigned();
+        const shouldAskStudy = (
+            (isUSCountry() && consent && consent.document === "US Nurses")
+            || isGBCountry()
+        );
+
+
         return {
             ...patientState,
             profile,
@@ -200,6 +210,7 @@ export default class UserService extends ApiClientBase {
             isReportedByAnother,
             isSameHousehold,
             shouldAskLevelOfIsolation,
+            shouldAskStudy,
         };
     }
 
@@ -212,7 +223,7 @@ export default class UserService extends ApiClientBase {
             }
 
             if (patient) {
-                currentPatient = this.updatePatientState(currentPatient, patient);
+                currentPatient = await this.updatePatientState(currentPatient, patient);
             }
 
         } catch (error) {
@@ -340,6 +351,11 @@ export default class UserService extends ApiClientBase {
         };
 
         await this.setUserCountry(country());
+    }
+
+    async getConfig() {
+        const country = await this.getUserCountry();
+        return getCountryConfig(country as string);
     }
 
     async deleteLocalUserData() {

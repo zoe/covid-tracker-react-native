@@ -87,19 +87,33 @@ type AboutYouProps = {
 type State = {
     errorMessage: string;
     enableSubmit: boolean;
+
+    showRaceQuestion: boolean;
+    showEthnicityQuestion: boolean;
 }
 
 const initialState: State = {
     errorMessage: "",
     enableSubmit: true,
+
+    showRaceQuestion: false,
+    showEthnicityQuestion: false,
 };
 
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
-
     constructor(props: AboutYouProps) {
         super(props);
         this.state = initialState;
+    }
+
+    async componentDidMount() {
+        const userService = new UserService();
+        const features = await userService.getConfig();
+        this.setState({
+            showRaceQuestion: features.showRaceQuestion,
+            showEthnicityQuestion: features.showEthnicityQuestion,
+        });
     }
 
     handleUpdateHealth(formData: AboutYouData) {
@@ -136,8 +150,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             needs_help: formData.needsHelp === "yes",
             help_available: formData.helpAvailable === "yes",
             mobility_aid: formData.mobilityAid === "yes",
-            race: formData.race,
         } as Partial<PatientInfosRequest>;
+
+        if (formData.race) {
+            infos = {
+                ...infos,
+                race: formData.race
+            }
+        }
 
         if (formData.ethnicity) {
             infos = {
@@ -238,7 +258,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         needsHelp: Yup.string().required(),
         helpAvailable: Yup.string().required(),
         mobilityAid: Yup.string().required(),
-        race: Yup.array<string>().min(1, i18n.t("please-select-race")),
+        race: Yup.array<string>().when([], {
+            is: () => this.state.showRaceQuestion,
+            then: Yup.array<string>().min(1, i18n.t("please-select-race"))
+        }),
         raceOther: Yup.string().when('race', {
             is: (val: string[]) => val.includes('other'),
             then: Yup.string().required()
@@ -359,7 +382,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         />
                                     )}
 
-                                    {isGBCountry() && (
+                                    {this.state.showRaceQuestion && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("race-question")}</Label>
@@ -370,7 +393,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         </FieldWrapper>
                                     )}
 
-                                    {isUSCountry() && (
+                                    {this.state.showEthnicityQuestion && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("race-question")}</Label>
