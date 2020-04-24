@@ -83,7 +83,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
     };
 
     handleSVAgreeClicked = async () => {
-        await this.userService.setConsentSigned("SV", consentVersionSV, privacyPolicyVersionSV);
+        await this.userService.setConsentSigned("SE", consentVersionSV, privacyPolicyVersionSV);
         this.props.navigation.navigate('Register')
     };
 
