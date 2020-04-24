@@ -67,6 +67,7 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
         username: Yup.string()
             .required(i18n.t("create-account.email-required"))
             .email(i18n.t("create-account.email-error")),
+        password: Yup.string().required(i18n.t("password-required")),
     });
 
     const handleLogin = async ({ username, password }: LoginSubmitProps) => {
