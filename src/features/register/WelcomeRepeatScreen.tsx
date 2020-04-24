@@ -17,7 +17,6 @@ import Navigator, {NavigationType} from "../Navigation";
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
-    patientId: string;
 }
 
 type WelcomeRepeatScreenState = {
@@ -49,7 +48,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
 
     handleButtonPress = async () => {
-        const patientId = this.props.patientId;
+        const patientId = this.props.route.params.patientId;
         Navigator.gotoNextScreen(this.props.route.name, {patientId});
     };
 
