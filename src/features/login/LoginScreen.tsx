@@ -85,11 +85,11 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                 ],
             });
         } catch (error) {
-            const errorMessage = i18n.t(
+            const messageVariant =
                 error.constructor === UserNotFoundException
                     ? "login.user-not-found-exception"
-                    : "login.exception"
-            );
+                    : "login.exception";
+            const errorMessage = i18n.t(messageVariant);
 
             Toast.show({
                 text: errorMessage,
@@ -98,7 +98,7 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
         }
     };
 
-    let inputEl: any | null = null;
+    let passwordInput: any | null = null;
 
     return (
         <Formik
@@ -124,42 +124,22 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
 
                                 <View style={styles.formItem}>
                                     <Item style={styles.labelPos} floatingLabel>
-                                        <Field name="username">
-                                            <Input
-                                                keyboardType="email-address"
-                                                autoCapitalize="none"
-                                                returnKeyType="next"
-                                                autoCompleteType="email"
-                                                onChangeText={handleChange(
-                                                    "username"
-                                                )}
-                                                onBlur={formikProps.handleBlur(
-                                                    "username"
-                                                )}
-                                                onSubmitEditing={() => {
-                                                    !!inputEl._root &&
-                                                        inputEl._root.focus();
-                                                }}
-                                                blurOnSubmit={false}
-                                            />
-                                        </Field>
                                         <Label style={styles.labelStyle}>
                                             {i18n.t("login.email-label")}
                                         </Label>
                                         <Input
-                                            keyboardType="email-address"
                                             autoCapitalize="none"
                                             returnKeyType="next"
-                                            autoCompleteType="email"
+                                            autoCompleteType="password"
                                             onChangeText={handleChange(
                                                 "username"
                                             )}
                                             onBlur={formikProps.handleBlur(
-                                                "password"
+                                                "username"
                                             )}
                                             onSubmitEditing={() => {
-                                                !!inputEl._root &&
-                                                    inputEl._root.focus();
+                                                !!passwordInput._root &&
+                                                    passwordInput._root.focus();
                                             }}
                                             blurOnSubmit={false}
                                         />
@@ -181,7 +161,7 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                                             onChangeText={handleChange(
                                                 "password"
                                             )}
-                                            getRef={(a) => (inputEl = a)}
+                                            getRef={(a) => (passwordInput = a)}
                                             onSubmitEditing={() =>
                                                 handleSubmit()
                                             }
