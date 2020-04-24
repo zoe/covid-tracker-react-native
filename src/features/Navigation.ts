@@ -67,13 +67,28 @@ class Navigator {
             navigator.gotoScreen("SelectProfile", {patientId});
         } else {
             const currentPatient = await this.getCurrentPatient(patientId);
-            this.gotoStartPatient(currentPatient);
+            this.navigation.navigate('StartAssessment', {currentPatient});
         }
     }
 
     async gotoStartPatient(currentPatient: PatientStateType) {
         const nextPage = await this.getStartPatientScreenName(currentPatient);
         this.gotoScreen(nextPage, {currentPatient});
+    }
+
+    async resetToStartPatient(currentPatient: PatientStateType) {
+        const patientId = currentPatient.patientId;
+        const startPage = navigator.getWelcomeRepeatScreenName();
+        const nextPage = await navigator.getStartPatientScreenName(currentPatient);
+
+        // OptionalInfo nav-stack cleanup.
+        navigator.resetAndGo({
+            index: 0,
+            routes: [
+                {name: startPage, params: {patientId}},
+                {name: nextPage, params: {currentPatient}}
+            ],
+        })
     }
 
     async gotoEndAssessment() {
@@ -122,14 +137,19 @@ const ScreenFlow: any = {
         const config = await navigator.getConfig();
 
         if (config.enablePersonalInformation) {
-            await navigator.gotoScreen("OptionalInfo", {patientId});
+            await navigator.replaceScreen("OptionalInfo", {patientId});
         } else if (patientId) {
             const currentPatient = await navigator.getCurrentPatient(patientId);
-            await navigator.gotoStartPatient(currentPatient);
+            navigator.resetToStartPatient(currentPatient);
         } else {
             // TODO: Warn: missing parameter -- critical error. DO NOT FAIL SILENTLY
             console.error("[ROUTE] Missing patientId parameter for gotoNextPage(Register)");
         }
+    },
+
+    // End of Personal Information flow
+    OptionalInfo: async (routeParams: CurrentPatientParamType) => {
+        await navigator.resetToStartPatient(routeParams.currentPatient);
     },
 
     // Start of reporting flow
@@ -138,23 +158,6 @@ const ScreenFlow: any = {
     },
     WelcomeRepeatUS: async (routeParams: PatientIdParamType) => {
         await navigator.gotoStartReport(routeParams.patientId);
-    },
-
-    // Start of Patient flow
-    OptionalInfo: async (routeParams: CurrentPatientParamType) => {
-        const currentPatient = routeParams.currentPatient;
-        const patientId = currentPatient.patientId;
-        const startPage = navigator.getWelcomeRepeatScreenName();
-        const nextPage = await navigator.getStartPatientScreenName(currentPatient);
-
-        // OptionalInfo nav-stack cleanup.
-        navigator.resetAndGo({
-            index: 0,
-            routes: [
-                {name: startPage, params: {patientId}},
-                {name: nextPage, params: {currentPatient}}
-            ],
-        })
     },
 
     // End of Assessment flows

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should match snapshot 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  delayLongPress={600}
+  extraButtonProps={
+    Object {
+      "rippleColor": "transparent",
+    }
+  }
+  onPress={[Function]}
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "borderColor": "#565A5C",
+        "borderRadius": 28,
+        "borderWidth": 1,
+        "fontSize": 16,
+        "paddingHorizontal": 24,
+        "paddingVertical": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#565A5C",
+          "textAlign": "center",
+        }
+      }
+    >
+      Button Text
+    </Text>
+  </View>
+</TouchableOpacity>
+`;

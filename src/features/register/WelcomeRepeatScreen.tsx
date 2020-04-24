@@ -49,7 +49,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
 
     handleButtonPress = async () => {
-        const patientId = this.props.patientId;
+        const patientId = this.props.route.params.patientId;
         Navigator.gotoNextScreen(this.props.route.name, {patientId});
     };
 
