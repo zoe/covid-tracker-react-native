@@ -333,12 +333,32 @@
   "united-kingdom": "Storbritannien",
   "sweden": "Sverige",
 
+  "thank-you": {
+    "please-share-app": "Hjälp till att sprida appen",
+    "share-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
+    "btn-share": "Dela appen",
+    "check-for-updates": "Håll gärna utkik efter uppdateringar i vårt %{link}.",
+    "news-feed": "nyhetsflöde"
+  },
+
   "thank-you-title": "Stort tack för din hjälp och ditt värdefulla bidrag till forskningen.",
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Tack, du är nu en av de miljontals människor som hjälper forskare på Lunds universitet och King’s College London att bekämpa COVID-19.",
   "check-in-tomorrow": "Om du har möjlighet uppskattar vi verkligen om du rapporterar hur du mår igen i morgon.",
   "check-news-feed" : "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://covid.joinzoe.com/faq",
+
+  "rating": {
+    "how-are-we-doing": "How are we doing?",
+    "would-you-recommend": "Would you recommend this app to a friend or colleague?",
+    "cta-yes": "Yes, I would",
+    "cta-no": "No, I wouldn't",
+    "rate-this-app": "Please rate this app",
+    "explanation": "Your feedback can help more people join the fight against COVID-19",
+    "cta-rate": "Rate",
+    "cta-later": "Not now",
+    "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
+  },
 
   "research-updates": "Aktuella forskningsnyheter",
   "faqs": "Vanliga frågor",
