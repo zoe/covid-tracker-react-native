@@ -7,9 +7,9 @@ import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../../
 import UserService, { isGBCountry, isSECountry, isUSCountry } from "../../core/user/UserService";
 import {ScreenParamList} from "../ScreenParamList";
 import {
-    consentVersionSV,
+    consentVersionSE,
     consentVersionUK,
-    consentVersionUS, privacyPolicyVersionSV,
+    consentVersionUS, privacyPolicyVersionSE,
     privacyPolicyVersionUK,
     privacyPolicyVersionUS
 } from "./constants";
@@ -83,7 +83,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
     };
 
     handleSVAgreeClicked = async () => {
-        await this.userService.setConsentSigned("SE", consentVersionSV, privacyPolicyVersionSV);
+        await this.userService.setConsentSigned("SE", consentVersionSE, privacyPolicyVersionSE);
         this.props.navigation.navigate('Register')
     };
 
