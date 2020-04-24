@@ -21,7 +21,6 @@ describe('Welcome Screen', () => {
             <WelcomeScreen testID='nhsLink' onPress={onPressMock} />
         )
         fireEvent(getByTestId('nhsLink'), 'onPress', visitNhsText)
-        expect(onPressMock).toHaveBeenCalled()
         expect(onPressMock).toHaveBeenCalledWith(visitNhsText)
     })
 
@@ -30,7 +29,6 @@ describe('Welcome Screen', () => {
         const onPressMock = jest.fn()
         const { getByTestId } = render(<WelcomeScreen testID='createAccount' onPress={onPressMock} />)      
         fireEvent(getByTestId('createAccount'), 'onPress', createAccountText)
-        expect(onPressMock).toHaveBeenCalled()
         expect(onPressMock).toHaveBeenCalledWith(createAccountText)
     })
 
@@ -39,7 +37,6 @@ describe('Welcome Screen', () => {
         const onPressMock = jest.fn()
         const { getByTestId } = render(<WelcomeScreen testID='moreInfo' onPress={onPressMock} />)
         fireEvent(getByTestId('moreInfo'), 'onPress', moreInfoText)
-        expect(onPressMock).toHaveBeenCalled()
         expect(onPressMock).toHaveBeenCalledWith(moreInfoText)
     })
 
