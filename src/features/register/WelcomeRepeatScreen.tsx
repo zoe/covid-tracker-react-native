@@ -17,6 +17,7 @@ import Navigator, {NavigationType} from "../Navigation";
 type PropsType = {
     navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>
     route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
+    patientId: string;
 }
 
 type WelcomeRepeatScreenState = {
