@@ -4,7 +4,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {colors} from "../../../theme";
 import {BrandedButton, RegularText} from "../../components/Text";
 import {ScreenParamList} from "../ScreenParamList";
-import {svFlagSmall, ukFlagSmall, usFlagSmall, usMap2, gbMap, svMap} from "../../../assets";
+import {svFlagSmall, ukFlagSmall, usFlagSmall, usMap, gbMap, svMap} from "../../../assets";
 import UserService, {isGBLocale, isSVLocale, isUSLocale} from "../../core/user/UserService";
 import {ContributionCounter} from "../../components/ContributionCounter";
 import i18n from "../../locale/i18n";
@@ -44,24 +44,24 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
         } else if (isSVLocale()) {
             return svMap
         } else {
-            return usMap2
+            return usMap
         }
     };
 
     render() {
         return (
-            <SafeAreaView style={styles.safeView}>
+            <View style={styles.safeView}>
                 <ScrollView contentContainerStyle={styles.scrollView}>
+                    <Image style={styles.mapImage} source={this.mapImage()}/>
+
+                    <TouchableOpacity style={styles.countryFlag}
+                                      onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
+                        <Image style={styles.flagIcon} source={this.flagIcon()}/>
+                    </TouchableOpacity>
+
                     <View style={styles.rootContainer}>
 
                         <View style={styles.covidContainer}>
-                            <Image style={styles.mapImage} source={this.mapImage()}/>
-
-                            <TouchableOpacity style={styles.countryFlag}
-                                              onPress={() => this.props.navigation.navigate('CountrySelect', {patientId: null})}>
-                                <Image style={styles.flagIcon} source={this.flagIcon()}/>
-                            </TouchableOpacity>
-
                             <RegularText style={styles.subtitle}>
                                 {i18n.t("welcome.take-a-minute")}
                             </RegularText>
@@ -76,8 +76,7 @@ export class Welcome1Screen extends Component<PropsType, WelcomeScreenState> {
                     <BrandedButton style={styles.nextButton}
                                    onPress={() => this.props.navigation.navigate('Welcome2')}>{i18n.t("welcome.tell-me-more")}</BrandedButton>
                 </View>
-
-            </SafeAreaView>
+            </View>
         );
     }
 }
@@ -94,6 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     rootContainer: {
+        marginTop: 32,
         flex: 1,
         backgroundColor: colors.brand,
     },
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     },
     countryFlag: {
         position: 'absolute',
-        top: 16,
-        end: 16,
+        top: 56,
+        end: 32,
     },
     covidContainer: {
         paddingHorizontal: 14,

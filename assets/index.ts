@@ -8,8 +8,7 @@ export const svPartners = require('./logos/sv_partners.png');
 export const gbPartnersReturn = require('./logos/gb_partners_return.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
-export const usMap = require('./us_map.png');
-export const usMap2 = require('./usMap.png');
+export const usMap = require('./usMap.png');
 export const gbMap = require('./gbMap.png');
 export const svMap = require('./svMap.png');
 
