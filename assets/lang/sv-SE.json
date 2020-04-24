@@ -97,11 +97,8 @@
   "required-postcode": "Ange ditt postnummer",
   "postcode-too-long": "Korrigera ditt postnummer",
 
-  "are-you-a-member-of-twins": "Are you a member of the UK Twins Study?",
-  "placeholder-twins": "isTwinsStudy",
-  "picker-yes": "Yes",
-  "picker-no": "No",
-  "placeholder-optional-question": "*Optional",
+  "picker-yes": "Ja",
+  "picker-no": "Nej",
 
   "have-you-been-exposed" : "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented" : "Ja, bekräftat COVID-19-fall",
