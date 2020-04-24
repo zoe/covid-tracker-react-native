@@ -390,7 +390,7 @@
   "select-profile-title": "Välj den profil du vill rapportera åt",
   "select-profile-text": "Eller lägg till fler profiler",
   "select-profile-button": "Ny profil",
-
+  "select-profile-last-report": "Sista rapport:",
 
   "next-question": "Nästa fråga",
   "completed": "Klar",
