@@ -15,6 +15,7 @@ import {
 } from "./constants";
 import {RouteProp} from "@react-navigation/native";
 import { HeaderText, SimpleTextBlock } from "./LegalComponents";
+import i18n from "../../locale/i18n";
 
 
 type PropsType = {
@@ -50,24 +51,15 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
 
     viewOnly = this.props.route.params.viewOnly;
 
-    handleSwedenParticipateChange = () => {
-        this.setState({swedenParticipateChecked: !this.state.swedenParticipateChecked})
-    };
-
-    handleSwedenProcessingChange = () => {
-        this.setState({swedenProcessingChecked: !this.state.swedenProcessingChecked})
-    };
-
-    handleSwedenAgreeZoe = () => {
-        this.setState({swedenAgreeZoe: !this.state.swedenAgreeZoe})
-    };
-
-    handleProcessingChange = () => {
-        this.setState({processingChecked: !this.state.processingChecked})
-    };
-
-    handleTermsOfUseChange = () => {
-        this.setState({termsOfUseChecked: !this.state.termsOfUseChecked})
+    handleToggle = (label: string) => {
+        if (label in this.state) {
+            // @ts-ignore
+            let val: any = this.state[label];
+            this.setState((prevState) => ({
+                ...prevState,
+                [label]: !val
+            }));
+        }
     };
 
     handleUSAgreeClicked = async () => {
@@ -100,13 +92,13 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         return false;
     };
 
-    renderConsentAgreeButton = (props?: any) => {
+    renderConsentAgreeButton = () => {
         return (
             <BrandedButton
               style={styles.button}
               enable={this.canAgree()}
               hideLoading={true}
-              onPress={this.handleAgreeClicked} {...props}>I agree</BrandedButton>
+              onPress={this.handleAgreeClicked}>{i18n.t('legal.i-agree')}</BrandedButton>
         )
     };
 
@@ -159,7 +151,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                                     <ListItem style={styles.permission}>
                                         <CheckBox
                                             checked={this.state.processingChecked}
-                                            onPress={this.handleProcessingChange}
+                                            onPress={() => this.handleToggle('processingChecked')}
                                         />
                                         <Body style={styles.label}>
                                             <RegularText>
@@ -173,7 +165,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                                     <ListItem>
                                         <CheckBox
                                             checked={this.state.termsOfUseChecked}
-                                            onPress={this.handleTermsOfUseChange}
+                                            onPress={() => this.handleToggle('termsOfUseChecked')}
                                         />
                                         <Body style={styles.label}>
                                             <RegularText>
@@ -338,7 +330,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                                     <ListItem style={styles.permission}>
                                         <CheckBox
                                             checked={this.state.swedenParticipateChecked}
-                                            onPress={this.handleSwedenParticipateChange}
+                                            onPress={() => this.handleToggle('swedenParticipateChecked')}
                                         />
                                         <Body style={styles.label}>
                                             <RegularText>
@@ -349,7 +341,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                                     <ListItem>
                                         <CheckBox
                                             checked={this.state.swedenProcessingChecked}
-                                            onPress={this.handleSwedenProcessingChange}
+                                            onPress={() => this.handleToggle('swedenProcessingChecked')}
                                         />
                                         <Body style={styles.label}>
                                             <RegularText>
@@ -360,7 +352,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                                     <ListItem>
                                         <CheckBox
                                             checked={this.state.swedenAgreeZoe}
-                                            onPress={this.handleSwedenAgreeZoe}
+                                            onPress={() => this.handleToggle('swedenAgreeZoe')}
                                         />
                                         <Body style={styles.label}>
                                             <RegularText>
@@ -384,19 +376,12 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         )
     };
 
-    renderConsent = () => {
+    render() {
         let consent = this.renderUKConsent; //default;
         if (isUSCountry()) consent = this.renderUSConsent;
         if (isGBCountry()) consent = this.renderUKConsent;
         if (isSECountry()) consent = this.renderSwedishConsent;
         return consent();
-    };
-
-
-    render() {
-        return (
-            this.renderConsent()
-        )
     }
 
     private openUrl(link: string) {
