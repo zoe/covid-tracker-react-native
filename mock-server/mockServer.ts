@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.post("/auth/login", (req, res) => {
     setTimeout(() => {
-        if (req.body.username === "invalid") {
+        if (req.body.username === "invalid@test.com") {
             return res.status(403).send("Unauthorised");
         } else {
             return res.status(200).send({

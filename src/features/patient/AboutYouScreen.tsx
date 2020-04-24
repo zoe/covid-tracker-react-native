@@ -339,7 +339,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     validateOnMount
                 >
                     {(props) => {
-                        console.log(props.isValid);
                         return (
                             <KeyboardAvoidingView
                                 behavior={Platform.OS === "ios" ? "padding" : undefined}

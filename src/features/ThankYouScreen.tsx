@@ -1,42 +1,24 @@
-import { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { Linking } from "expo";
-import React, { Component } from "react";
-import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    Share,
-    StyleSheet,
-    View,
-} from "react-native";
-
-import { covidIcon } from "../../assets";
-import { colors } from "../../theme";
-import { CovidRating, shouldAskForRating } from "../components/CovidRating";
+import React, {Component} from "react";
+import {Image, SafeAreaView, ScrollView, Share, StyleSheet, View} from "react-native";
+import {Header, isAndroid, ProgressBlock} from "../components/Screen";
+import {BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText} from "../components/Text";
 import ProgressStatus from "../components/ProgressStatus";
-import { Header, isAndroid, ProgressBlock } from "../components/Screen";
-import {
-    BrandedButton,
-    ClickableText,
-    HeaderText,
-    RegularBoldText,
-    RegularText,
-} from "../components/Text";
-import i18n from "../locale/i18n";
-import { ScreenParamList } from "./ScreenParamList";
-
+import {colors} from "../../theme"
+import {ScreenParamList} from "./ScreenParamList";
+import {RouteProp} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
+import {covidIcon} from "../../assets";
+import i18n from "../locale/i18n"
+import {Linking} from "expo";
+import { CovidRating, shouldAskForRating } from "../components/CovidRating";
 type RenderProps = {
     navigation: StackNavigationProp<ScreenParamList, "ThankYou">;
     route: RouteProp<ScreenParamList, "ThankYou">;
 };
 
-export default class ThankYouScreen extends Component<
-    RenderProps,
-    { askForRating: boolean }
-> {
+export default class ThankYouScreen extends Component<RenderProps,{ askForRating: boolean }> {
     state = {
-        askForRating: false,
+        askForRating: false
     };
 
     shareMessage = i18n.t("share-with-friends-message");

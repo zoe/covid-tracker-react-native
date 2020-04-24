@@ -109,7 +109,6 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
             validateOnChange={false}
         >
             {({ handleSubmit, handleChange, values, ...formikProps }) => {
-                console.log(formikProps.touched);
                 return (
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <KeyboardAvoidingView
