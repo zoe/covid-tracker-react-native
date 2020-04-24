@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {StyleSheet, View} from "react-native";
 import {ApiClientBase} from "../core/user/ApiClientBase";
 import {ScreenParamList} from "./ScreenParamList";
-import UserService from "../core/user/UserService";
+import UserService, {isUSCountry} from "../core/user/UserService";
 import {AsyncStorageService} from "../core/AsyncStorageService";
 import {colors} from "../../theme";
 import Navigator from "./Navigation";
@@ -51,19 +51,19 @@ export class SplashScreen extends Component<Props, {}> {
             try {
                 const profile = await this.userService.getProfile();
                 const patientId = profile.patients[0];
-                Navigator.replaceScreen(Navigator.getWelcomeRepeatScreenName(), {patientId});
+                Navigator.replaceScreen('WelcomeRepeat', {patientId});
             } catch (error) {
                 // Logged in with an account doesn't exist. Force logout.
                 ApiClientBase.unsetToken();
                 await AsyncStorageService.clearData();
-                Navigator.replaceScreen(Navigator.getWelcomeScreenName());
+                Navigator.replaceScreen('Welcome');
             }
         } else {
             if (country == null) {
                 // Using locale to default to a country
-                await this.userService.defaultCountryToLocale()
+                await this.userService.defaultCountryFromLocale()
             }
-            Navigator.replaceScreen(Navigator.getWelcomeScreenName());
+            Navigator.replaceScreen('Welcome');
         }
     };
 

@@ -1,33 +1,31 @@
-import React, { Component } from 'react';
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { LoginScreen } from "./features/login/LoginScreen";
-import { Header, Root, View } from "native-base";
-import * as Font from 'expo-font';
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
+import * as Font from "expo-font";
+import {Header, Root, View} from "native-base";
+import React, {Component} from "react";
 import {Dimensions, StatusBar} from "react-native";
-import { colors } from "../theme/colors";
-import { RegisterScreen } from "./features/register/RegisterScreen";
-import AboutYouScreen from "./features/patient/AboutYouScreen";
-import { WelcomeScreen } from "./features/register/gb/WelcomeScreen";
-import { SplashScreen } from "./features/SplashScreen";
-import YourHealthScreen from "./features/patient/YourHealthScreen";
+import {colors} from "../theme/colors";
+import {RegisterScreen} from "./features/register/RegisterScreen";
+import {SplashScreen} from "./features/SplashScreen";
 import HowYouFeelScreen from "./features/assessment/HowYouFeelScreen";
-import { PrivacyPolicyUKScreen } from "./features/register/gb/PrivacyPolicyUKScreen";
-import { ConsentScreen } from "./features/register/ConsentScreen";
-import { OptionalInfoScreen } from "./features/register/OptionalInfoScreen";
+import {LoginScreen} from "./features/login/LoginScreen";
+import AboutYouScreen from "./features/patient/AboutYouScreen";
+import YourHealthScreen from "./features/patient/YourHealthScreen";
+import {ConsentScreen} from "./features/register/ConsentScreen";
+import {OptionalInfoScreen} from "./features/register/OptionalInfoScreen";
+import {PrivacyPolicyUKScreen} from "./features/register/gb/PrivacyPolicyUKScreen";
 import CovidTestScreen from './features/assessment/CovidTestScreen';
 import DescribeSymptomsScreen from './features/assessment/DescribeSymptomsScreen';
 import WhereAreYouScreen from './features/assessment/WhereAreYouScreen';
 import TreatmentSelectionScreen from './features/assessment/TreatmentSelectionScreen';
 import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
-import { ScreenParamList } from './features/ScreenParamList';
 import ThankYouScreen from './features/ThankYouScreen';
-import { WelcomeRepeatScreen } from "./features/register/gb/WelcomeRepeatScreen";
-import { Welcome1USScreen } from "./features/register/us/Welcome1USScreen";
-import { Welcome2USScreen } from "./features/register/us/Welcome2USScreen";
-import { WelcomeRepeatUSScreen } from "./features/register/us/WelcomeRepeatUSScreen";
+import {WelcomeRepeatScreen} from "./features/register/WelcomeRepeatScreen";
+import {Welcome1Screen} from "./features/register/Welcome1Screen";
+import {Welcome2Screen} from "./features/register/Welcome2Screen";
 import TermsOfUseUSScreen from "./features/register/us/TermsOfUseUSScreen";
-import { PrivacyPolicyUSScreen } from "./features/register/us/PrivacyPolicyUSScreen";
+import {PrivacyPolicyUSScreen} from "./features/register/us/PrivacyPolicyUSScreen";
 import {CountrySelectScreen} from "./features/CountrySelectScreen";
 import YourWorkScreen from './features/patient/YourWorkScreen';
 import {NursesConsentUSScreen} from "./features/register/us/NursesConsentUS";
@@ -36,7 +34,6 @@ import {ResetPasswordScreen} from "./features/password-reset/ResetPassword";
 import {ResetPasswordConfirmScreen} from "./features/password-reset/ResetPassordConfirm";
 import HealthWorkerExposureScreen from "./features/assessment/HealthWorkerExposureScreen";
 import LevelOfIsolationScreen from "./features/assessment/LevelOfIsolationScreen";
-import {createDrawerNavigator} from "@react-navigation/drawer";
 import {DrawerMenu} from "./features/DrawerMenu";
 import YourStudyScreen from "./features/patient/YourStudyScreen";
 import ViralThankYouScreen from "./features/ViralThankYouScreen";
@@ -48,6 +45,7 @@ import AdultOrChildScreen from "./features/multi-profile/AdultOrChildScreen";
 import StartAssessmentScreen from './features/assessment/StartAssessment';
 import PreviousExposureScreen from "./features/patient/PreviousExposure";
 import StartPatientScreen from './features/patient/StartPatient';
+import {ScreenParamList} from "./features/ScreenParamList";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -56,52 +54,56 @@ class State {
     fontLoaded: boolean;
 }
 
-export default class ZoeApp extends Component<{}, State> {
+export default class ZoeApp extends Component<object, State> {
     state = new State();
 
     async componentDidMount() {
         await Font.loadAsync({
-            'Roboto': require("native-base/Fonts/Roboto.ttf"),
-            'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf")
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
         });
 
         this.setState({fontLoaded: true});
     }
 
     render() {
-        if (!this.state.fontLoaded)
-            return (<View></View>);
+        if (!this.state.fontLoaded) return <View/>;
 
         return (
             <Root>
-                <Header style={{display: 'none'}}>
+                <Header style={{display: "none"}}>
                     <StatusBar
                         backgroundColor={colors.white}
-                        barStyle="dark-content"/>
+                        barStyle="dark-content"
+                    />
                 </Header>
 
                 <NavigationContainer>
-                    <Drawer.Navigator drawerContent={props => <DrawerMenu {...props} />} screenOptions={{swipeEnabled: false}} drawerStyle={{
-                        width: Dimensions.get("screen").width,
-                    }}>
-                        <Drawer.Screen name="Main" component={this.mainNavStack}/>
+                    <Drawer.Navigator
+                        drawerContent={(props) => <DrawerMenu {...props} />}
+                        screenOptions={{swipeEnabled: false}}
+                        drawerStyle={{
+                            width: Dimensions.get("screen").width,
+                        }}
+                    >
+                        <Drawer.Screen
+                            name="Main"
+                            component={this.mainNavStack}
+                        />
                     </Drawer.Navigator>
                 </NavigationContainer>
             </Root>
         );
     }
 
-     mainNavStack() {
+    mainNavStack() {
         return (
             <Stack.Navigator>
-
                 <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="WelcomeUS" component={Welcome1USScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Welcome2US" component={Welcome2USScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Welcome" component={Welcome1Screen} options={{headerShown: false}}/>
+                <Stack.Screen name="Welcome2" component={Welcome2Screen} options={{headerShown: false}}/>
                 <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="WelcomeRepeatUS" component={WelcomeRepeatUSScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Consent" component={ConsentScreen} options={{headerShown: true, title: 'Consent'}}/>
                 <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{headerShown: true, title: 'Terms of Use'}}/>
                 <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{headerShown: true, title: 'Privacy notice'}}/>
@@ -135,8 +137,7 @@ export default class ZoeApp extends Component<{}, State> {
                 <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{headerShown: false}}/>
-
             </Stack.Navigator>
-        )
+        );
     }
 }

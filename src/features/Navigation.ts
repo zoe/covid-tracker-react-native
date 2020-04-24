@@ -1,4 +1,4 @@
-import UserService, {isUSLocale} from "../core/user/UserService";
+import UserService, {isUSCountry} from "../core/user/UserService";
 import {ConfigType} from "../core/Config"
 import { ScreenParamList } from "./ScreenParamList";
 import { PatientStateType } from "../core/patient/PatientState";
@@ -43,15 +43,15 @@ class Navigator {
     }
 
     getThankYouScreenName() {
-        return isUSLocale() ? 'ViralThankYou' : 'ThankYou';
+        return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
     }
 
     getWelcomeScreenName() {
-        return isUSLocale() ? 'WelcomeUS' : 'Welcome'
+        return 'Welcome';
     }
 
     getWelcomeRepeatScreenName() {
-        return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat';
+        return 'WelcomeRepeat';
     }
 
     async getStartPatientScreenName(currentPatient: PatientStateType) {
@@ -124,7 +124,6 @@ class Navigator {
 
 const navigator = new Navigator();
 
-
 const ScreenFlow: any = {
     // End of registration flows
     Register: async (routeParams: PatientIdParamType) => {
@@ -180,7 +179,10 @@ const ScreenFlow: any = {
     WhereAreYou: async() => {
         await navigator.gotoEndAssessment()
     },
+}
 
+export function getLocalThankYou() {
+    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
 }
 
 export default navigator;

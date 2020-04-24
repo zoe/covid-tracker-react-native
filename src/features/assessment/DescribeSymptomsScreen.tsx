@@ -14,7 +14,7 @@ import i18n from "../../locale/i18n"
 import {StackNavigationProp} from "@react-navigation/stack";
 import {ScreenParamList} from "../ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
-import UserService, {isUSLocale} from "../../core/user/UserService";
+import UserService, {isUSCountry} from "../../core/user/UserService";
 import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
 import DropdownField from "../../components/DropdownField";
 import {ValidationErrors} from "../../components/ValidationError";
@@ -84,7 +84,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         this.state = initialState;
         this.handleUpdateSymptoms = this.handleUpdateSymptoms.bind(this);
 
-        initialFormValues.temperatureUnit = isUSLocale() ? 'F' : 'C';
+        initialFormValues.temperatureUnit = isUSCountry() ? 'F' : 'C';
     }
 
 
