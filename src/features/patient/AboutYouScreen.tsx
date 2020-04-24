@@ -22,9 +22,6 @@ import {CheckboxItem, CheckboxList} from "../../components/Checkbox";
 import {cloneDeep} from 'lodash';
 
 
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
-
 const initialFormValues = {
     yearOfBirth: "",
     sex: "",
@@ -90,19 +87,33 @@ type AboutYouProps = {
 type State = {
     errorMessage: string;
     enableSubmit: boolean;
+
+    showRaceQuestion: boolean;
+    showEthnicityQuestion: boolean;
 }
 
 const initialState: State = {
     errorMessage: "",
     enableSubmit: true,
+
+    showRaceQuestion: false,
+    showEthnicityQuestion: false,
 };
 
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
-
     constructor(props: AboutYouProps) {
         super(props);
         this.state = initialState;
+    }
+
+    async componentDidMount() {
+        const userService = new UserService();
+        const features = await userService.getConfig();
+        this.setState({
+            showRaceQuestion: features.showRaceQuestion,
+            showEthnicityQuestion: features.showEthnicityQuestion,
+        });
     }
 
     handleUpdateHealth(formData: AboutYouData) {
@@ -362,7 +373,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         />
                                     )}
 
-                                    {isGBLocale() && (
+                                    {this.state.showRaceQuestion && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("race-question")}</Label>
@@ -373,7 +384,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         </FieldWrapper>
                                     )}
 
-                                    {isUSLocale() && (
+                                    {this.state.showEthnicityQuestion && (
                                         <FieldWrapper>
                                             <Item stackedLabel style={styles.textItemStyle}>
                                                 <Label>{i18n.t("race-question")}</Label>

@@ -1,3 +1,6 @@
 {
-    "country": "US"
+    "country": "US",
+
+    "showEthnicityQuestion": true,
+    "showRaceQuestion": false
 }
