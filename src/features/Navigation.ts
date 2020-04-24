@@ -67,7 +67,7 @@ class Navigator {
             navigator.gotoScreen("SelectProfile", {patientId});
         } else {
             const currentPatient = await this.getCurrentPatient(patientId);
-            this.gotoStartPatient(currentPatient);
+            this.navigation.navigate('StartAssessment', {currentPatient});
         }
     }
 
