@@ -94,7 +94,6 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
 
     renderUSConsent = () => {
         return (
-            isUSCountry() ? (
                     <ScrollView>
                         <RegularText>
                             If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study, <ClickableText
@@ -170,7 +169,6 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
                         }
 
                     </ScrollView>
-            ) : (<View/>)
         )
     };
 
