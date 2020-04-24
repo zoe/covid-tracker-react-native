@@ -96,7 +96,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
     canAgree = () => {
         if (isUSCountry()) return this.state.processingChecked && this.state.termsOfUseChecked;
         if (isGBCountry()) return true;
-        if (isSECountry()) return this.state.swedenParticipateChecked && this.state.swedenProcessingChecked;
+        if (isSECountry()) return this.state.swedenParticipateChecked && this.state.swedenProcessingChecked && this.state.swedenAgreeZoe;
         return false;
     };
 
