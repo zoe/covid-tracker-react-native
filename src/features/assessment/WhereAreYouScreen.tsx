@@ -90,7 +90,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 
                     <FieldWrapper style={styles.fieldWrapper}>
                         <BigButton onPress={this.handleAtHome}>
-                            <Text>{i18n.t('where-are-you.picker-location-home')}.</Text>
+                            <Text>{i18n.t('where-are-you.picker-location-home')}</Text>
                         </BigButton>
                     </FieldWrapper>
 
