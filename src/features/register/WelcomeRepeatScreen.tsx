@@ -83,38 +83,40 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
         return (
             <SafeAreaView style={styles.safeView}>
                 <View style={styles.rootContainer}>
+                    <ScrollView>
 
-                    <View style={styles.headerRow}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.navigation.toggleDrawer()
-                        }}>
-                            <Image source={menuIcon} style={styles.menuIcon}/>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.covidIconBackground}>
-                        <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
-                    </View>
-
-                    <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
-
-                    <RegularText style={styles.subtitle}>{i18n.t("welcome.take-a-minute")}</RegularText>
-
-                    <ContributionCounter variant={2} count={this.state.userCount}/>
-
-                    <Image style={styles.partnersLogo} source={this.partnersLogos()}/>
-
-                    <View style={{flex: 1}}/>
-
-
-                    <TouchableOpacity style={styles.discoveriesContainer} onPress={this.openWebsite}>
-                        <View style={styles.discoveriesTitleBackground}>
-                            <RegularText style={styles.discoveriesTitle}>{i18n.t("welcome.research")}</RegularText>
+                        <View style={styles.headerRow}>
+                            <TouchableOpacity onPress={() => {
+                                this.props.navigation.toggleDrawer()
+                            }}>
+                                <Image source={menuIcon} style={styles.menuIcon}/>
+                            </TouchableOpacity>
                         </View>
-                        <RegularText style={styles.discoveriesText}>{i18n.t("welcome.see-how-your-area-is-affected")}</RegularText>
-                        <RegularText style={styles.discoveriesVisitText}>{i18n.t("welcome.visit-the-website")}</RegularText>
-                    </TouchableOpacity>
 
+                        <View style={styles.covidIconBackground}>
+                            <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain"/>
+                        </View>
+
+                        <Text style={styles.appName}>{i18n.t("welcome.title")}</Text>
+
+                        <RegularText style={styles.subtitle}>{i18n.t("welcome.take-a-minute")}</RegularText>
+
+                        <ContributionCounter variant={2} count={this.state.userCount}/>
+
+                        <Image style={styles.partnersLogo} source={this.partnersLogos()}/>
+
+                        <View style={{flex: 1}}/>
+
+
+                        <TouchableOpacity style={styles.discoveriesContainer} onPress={this.openWebsite}>
+                            <View style={styles.discoveriesTitleBackground}>
+                                <RegularText style={styles.discoveriesTitle}>{i18n.t("welcome.research")}</RegularText>
+                            </View>
+                            <RegularText style={styles.discoveriesText}>{i18n.t("welcome.see-how-your-area-is-affected")}</RegularText>
+                            <RegularText style={styles.discoveriesVisitText}>{i18n.t("welcome.visit-the-website")}</RegularText>
+                        </TouchableOpacity>
+
+                    </ScrollView>
                     <BrandedButton style={styles.reportButton} onPress={this.handleButtonPress}>{i18n.t("welcome.report-button")}</BrandedButton>
                 </View>
             </SafeAreaView>
