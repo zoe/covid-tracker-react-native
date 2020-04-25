@@ -15,6 +15,11 @@
       "something-went-wrong": "Någonting gick fel: %{msg}",
       "error": "Fel nr 01. Rapportera detta till covid-bugs@joinzoe.com: %{msg}"
   },
+
+  "legal": {
+    "i-agree": "Jag godkänner",
+    "back": "Tillbaka"
+  },
   
   "title-about-work": "Om ditt arbete",
   "are-you-healthcare-staff": "Arbetar du inom hälso- och sjukvården (sjukhus, primärvård, kommunal omsorg, privat vård eller omsorg)?",

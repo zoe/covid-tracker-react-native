@@ -88,6 +88,11 @@
     "no": "No, I am not"
   },
 
+  "legal": {
+    "i-agree": "I agree",
+    "back": "Back"
+  },
+
 
   "next-question": "Next question",
   "completed": "Done",
