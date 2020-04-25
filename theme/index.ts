@@ -1,2 +1,2 @@
-export {colors} from "./colors";
-export {fontStyles} from "./fontStyles";
+export { colors } from './colors';
+export { fontStyles } from './fontStyles';
