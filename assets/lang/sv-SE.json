@@ -208,7 +208,7 @@
   },
 
   "covid-test": {
-      "page-title": "COVITest för COVID-19",
+      "page-title": "Test för COVID-19",
       "question-has-covid-test": "Har du testats för COVID-19?",
       "question-has-covid-positive": "Testades du positiv för COVID-19?",
       "picker-waiting": "Väntar på mina resultat",
