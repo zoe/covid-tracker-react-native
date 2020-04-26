@@ -126,7 +126,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <View>
+        <View style={styles.reportContainer}>
           <BrandedButton style={styles.reportButton} onPress={this.handleButtonPress}>
             {i18n.t('welcome.report-button')}
           </BrandedButton>
@@ -222,8 +222,10 @@ const styles = StyleSheet.create({
     width: 20,
     tintColor: colors.white,
   },
+  reportContainer: {
+    padding: 20,
+  },
   reportButton: {
-    marginVertical: 10,
     textAlign: 'center',
     backgroundColor: colors.purple,
     alignSelf: 'center',
