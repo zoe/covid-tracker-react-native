@@ -172,7 +172,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     const fatigueItems = [
       { label: i18n.t('describe-symptoms.picker-fatigue-none'), value: 'no' },
       { label: i18n.t('describe-symptoms.picker-fatigue-mild'), value: 'mild' },
-      { label: i18n.t('describe-symptoms-picker-fatigue-severe'), value: 'severe' },
+      { label: i18n.t('describe-symptoms.picker-fatigue-severe'), value: 'severe' },
     ];
     const shortnessOfBreathItems = [
       { label: i18n.t('describe-symptoms.picker-shortness-of-breath-none'), value: 'no' },
