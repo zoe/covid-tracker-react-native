@@ -7,25 +7,21 @@ import * as Yup from 'yup';
 import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import DropdownField from '../../../components/DropdownField';
 import ProgressStatus from '../../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../../components/Screen';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
 import { ValidationErrors } from '../../../components/ValidationError';
 import UserService from '../../../core/user/UserService';
-import { PatientInfosRequest, HealthCareStaffOptions } from '../../../core/user/dto/UserAPIContracts';
-import i18n from '../../../locale/i18n';
 import {
-  healthcareStaffOptions,
-  equipmentUsageOptions,
-  availabilityAlwaysOptions,
-  availabilitySometimesOptions,
-  patientInteractionOptions,
-  availabilityNeverOptions,
-  YourWorkProps,
-  State,
-  initialState,
-  YourWorkData,
-  initialFormValues,
-} from './helpers';
+  PatientInfosRequest,
+  HealthCareStaffOptions,
+  EquipmentUsageOptions,
+  AvailabilityAlwaysOptions,
+  AvailabilitySometimesOptions,
+  AvailabilityNeverOptions,
+  PatientInteractions,
+} from '../../../core/user/dto/UserAPIContracts';
+import i18n from '../../../locale/i18n';
+import { IOption, YourWorkProps, State, initialState, YourWorkData, initialFormValues } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
@@ -127,6 +123,100 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
+
+    const androidOption = isAndroid && {
+      label: i18n.t('choose-one-of-these-options'),
+      value: '',
+    };
+
+    const healthcareStaffOptions = [
+      androidOption,
+      {
+        label: i18n.t('picker-no'),
+        value: HealthCareStaffOptions.NO,
+      },
+      {
+        label: i18n.t('yes-interacting-patients'),
+        value: HealthCareStaffOptions.DOES_INTERACT,
+      },
+      {
+        label: i18n.t('yes-not-interacting-patients'),
+        value: HealthCareStaffOptions.DOES_NOT_INTERACT,
+      },
+    ].filter(Boolean) as IOption[];
+
+    const equipmentUsageOptions = [
+      androidOption,
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-always'),
+        value: EquipmentUsageOptions.ALWAYS,
+      },
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-sometimes'),
+        value: EquipmentUsageOptions.SOMETIMES,
+      },
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-never'),
+        value: EquipmentUsageOptions.NEVER,
+      },
+    ].filter(Boolean) as IOption[];
+
+    const availabilityAlwaysOptions = [
+      androidOption,
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-always-all-needed'),
+        value: AvailabilityAlwaysOptions.ALL_NEEDED,
+      },
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-always-reused'),
+        value: AvailabilityAlwaysOptions.REUSED,
+      },
+    ].filter(Boolean) as IOption[];
+
+    const availabilitySometimesOptions = [
+      androidOption,
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-sometimes-all-needed'),
+        value: AvailabilitySometimesOptions.ALL_NEEDED,
+      },
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-sometimes-not-enough'),
+        value: AvailabilitySometimesOptions.NOT_ENOUGH,
+      },
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-sometimes-reused'),
+        value: AvailabilitySometimesOptions.REUSED,
+      },
+    ].filter(Boolean) as IOption[];
+
+    const availabilityNeverOptions = [
+      androidOption,
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-never-not-needed'),
+        value: AvailabilityNeverOptions.NOT_NEEDED,
+      },
+      {
+        label: i18n.t('health-worker-exposure-picker-ppe-never-not-available'),
+        value: AvailabilityNeverOptions.NOT_AVAILABLE,
+      },
+    ].filter(Boolean) as IOption[];
+
+    const patientInteractionOptions = [
+      androidOption,
+      {
+        label: i18n.t('exposed-yes-documented'),
+        value: PatientInteractions.YES_DOCUMENTED,
+      },
+      {
+        label: i18n.t('exposed-yes-undocumented'),
+        value: PatientInteractions.YES_SUSPECTED,
+      },
+      {
+        label: i18n.t('exposed-both'),
+        value: PatientInteractions.YES_DOCUMENTED_SUSPECTED,
+      },
+      { label: i18n.t('exposed-no'), value: PatientInteractions.NO },
+    ].filter(Boolean) as IOption[];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
