@@ -414,3 +414,39 @@ export default class UserService extends ApiClientBase {
 export const isUSCountry = () => UserService.userCountry === 'US';
 export const isGBCountry = () => UserService.userCountry === 'GB';
 export const isSECountry = () => UserService.userCountry === 'SE';
+
+export const defaultHeightUnit = () => {
+  switch (UserService.userCountry) {
+    case 'US':
+    case 'GB':
+      return 'ft';
+    case 'SE':
+      return 'cm';
+    default:
+      return 'cm';
+  }
+};
+
+export const defaultWeightUnit = () => {
+  switch (UserService.userCountry) {
+    case 'US':
+      return 'lbs';
+    case 'GB':
+    case 'SE':
+      return 'kg';
+    default:
+      return 'kg';
+  }
+};
+
+export const defaultTemperatureUnit = () => {
+  switch (UserService.userCountry) {
+    case 'US':
+      return 'F';
+    case 'GB':
+    case 'SE':
+      return 'C';
+    default:
+      return 'C';
+  }
+};
