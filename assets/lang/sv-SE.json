@@ -104,7 +104,8 @@
 
   "picker-yes": "Ja",
   "picker-no": "Nej",
-
+  "placeholder-optional-question": "*Optional",
+  
   "have-you-been-exposed" : "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented" : "Ja, bekräftat COVID-19-fall",
   "exposed-yes-undocumented" : "Ja, sannolikt COVID-19-fall",
@@ -124,9 +125,9 @@
       "have-diabetes": "Har du diabetes?",
       "have-lung-disease": "Har du någon lungsjukdom eller astma?",
       "is-smoker": "Röker du?",
-      "never-smoked": "Aldrig",
-      "not-currently-smoking": "Inte just nu",
-      "yes-smoking": "Ja",
+      "never-smoked": "Nej, aldrig rökt",
+      "not-currently-smoking": "Nej, men tidigare varit rökare",
+      "yes-smoking": "Ja, röker",
       "years-since-last-smoked": "Hur många år är det sedan du rökte?",
       "has-kidney-disease": "Har du någon njursjukdom?",
       "has-cancer": "Har du cancer?",
@@ -134,13 +135,13 @@
       "is-on-chemotherapy": "Behandlas din cancer med kemoterapi eller immunoterapi?",
       "takes-immunosuppressant": "Tar du regelbundet immunsuppressiva läkemedel, t.ex. kortisontabletter, metotrexat eller biologiska läkemedel?",
       "takes-asprin": "Tar du regelbundet aspirin/acetylsalicylsyra (inkl. acetylsalicylsyra i lågdos t.ex. Trombyl®)?",
-      "takes-nsaids": "Tar du regelbundet icke-steroida antiinflammatoriska läkemedel (NSAID), t.ex. ibuprofen, nurofen, diklofenak eller naproxen?",
+      "takes-nsaids": "Tar du regelbundet icke-steroida antiinflammatoriska läkemedel (NSAID), t.ex. Ipren®, Brufen®, Eeze®, Voltaren®, eller Naproxen®?”",
       "takes-any-blood-pressure-medication": "Tar du regelbundet någon blodtryckssänkande medicin?",
       "takes-pril-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar med -pril, t.ex. enalapril (t.ex. Enalapril®, Renitec®), lisinopril (t.ex. Lisinopril®, Zestril®), captopril (t.ex. Captopril®) eller ramipril (t.ex. Ramipril®, Triatec®)?",
       "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
   },
 
-  "previous-exposure-title": "Tidigare exponering för COVID",
+  "previous-exposure-title": "Tidigare exponering för COVID-19",
   "required-ever-exposed": "Ange om du har träffat någon med COVID-19-infektion",
   "label-unwell-month-before": "Har du känt dig sjuk under månaden innan du började rapportera i denna app?",
 
@@ -202,13 +203,13 @@
   "level-of-isolation": {
       "question-level-of-isolation": "Till vilken grad har du isolerat dig den senaste veckan?",
       "picker-not-left-the-house": "Jag har inte lämnat min bostad",
-      "picker-rarely-left-the-house": "Jag lämnar sällan bostaden, och när jag gör det så har jag mycket lite kontakt med andra (t.ex. för att motionera ute)",
+      "picker-rarely-left-the-house": "Jag lämnar sällan bostaden, och när jag gör det har jag mycket lite kontakt med andra (t.ex. går bara ut för att motionera utomhus)",
       "picker-rarely-left-the-house-but-visited-lots": "Jag lämnar sällan bostaden, men var tvungen att besöka en plats med många personer (t.ex. sjukhus/mottagning, mataffär)",
       "picker-often-left-the-house": "Jag måste lämna bostaden ofta och har då kontakt med andra människor (t.ex. arbetar fortfarande utanför bostaden eller använder kollektivtrafiken)"
   },
 
   "covid-test": {
-      "page-title": "COVID-19-test",
+      "page-title": "COVITest för COVID-19",
       "question-has-covid-test": "Har du testats för COVID-19?",
       "question-has-covid-positive": "Testades du positiv för COVID-19?",
       "picker-waiting": "Väntar på mina resultat",
@@ -256,7 +257,7 @@
 
   "where-are-you": {
       "question-location": "Var befinner du dig just nu?",
-      "picker-location-home": "Jag är hemma. Jag har inte besökt sjukhuset pga misstänkt COVID-19.",
+      "picker-location-home": "Jag är hemma. Jag har inte uppsökt sjukvården pga misstänkt COVID-19.",
       "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
       "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
       "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
@@ -270,9 +271,9 @@
   "treatment-selection-title-after": "Vilken behandling fick du under tiden du var på sjukhuset?",
   "treatment-selection-title-during": "Vilken behandling får du just nu?",
   "treatment-selection-picker-none": "Ingen",
-  "treatment-selection-picker-oxygen": "Syre och vätska*",
+  "treatment-selection-picker-oxygen": "Syrgas* och vätska",
   "treatment-selection-picker-subtext-oxygen": "* Syrgas i vanlig syrgasmask, utan extra tryck",
-  "treatment-selection-picker-non-invasive-ventilation": "Icke-invasiv ventilation*",
+  "treatment-selection-picker-non-invasive-ventilation": "Andningshjälp* och syrgas",
   "treatment-selection-picker-subtext-non-invasive-ventilation": "* Andningshjälp med hjälp av en syrgasmask som trycker ner syre i lungorna",
   "treatment-selection-picker-invasive-ventilation": "Respiratorvård*",
   "treatment-selection-picker-subtext-invasive-ventilation": "* Andningshjälp med respirator. Man är oftast sövd om man vårdas i respirator",
@@ -309,7 +310,7 @@
   "welcome": {
     "title": "COVID Symptom Tracker",
     "sign-in": "Logga in",
-    "take-a-minute": "Lägg en minut om dagen på att hjälpa till att bekämpa COVID-19.",
+    "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa COVID-19.",
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig",
     "disclaimer-link": "besöka 1177.se",
     "tell-me-more": "Berätta mer",
@@ -322,11 +323,12 @@
     "privacy-policy-subtext": "(inkl. hur du tar bort dina uppgifter)",
     "how-you-can-help": {
       "title": "Så här kan du hjälpa till",
-      "text1": "Lägg en minut om dagen på att rapportera hur du mår, även om du känner dig frisk. Se sedan hur smittspridningen ser ut i ditt område.",
+      "text1": "Lägg 1 minut om dagen på att rapportera hur du mår, även om du känner dig frisk. Se sedan hur smittspridningen ser ut i ditt område.",
       "text2": "Ingen information som du delar kommer att användas för kommersiella syften. Du uppger inte ditt namn eller ditt personnummer. Den här appen erbjuder ingen hälsorådgivning."
     },
     "from-researchers": "Från läkare och forskare vid",
-    "create-account": "Skapa konto"
+    "create-account": "Skapa konto",
+    "research": "Aktuellt"
   },
   "total-people-contributing": "%{total} personer bidrar",
   "join-total-people-contributing": "Bli en av de %{total} personerna i världen som bidrar",
@@ -359,7 +361,7 @@
     "cta-yes": "Yes, I would",
     "cta-no": "No, I wouldn't",
     "rate-this-app": "Please rate this app",
-    "explanation": "Your feedback can help more people join the fight against COVID-19",
+    "explanation": "Din feedback bidrar till att göra appen bättre, så att fler personer kan delta i forskningen.",
     "cta-rate": "Rate",
     "cta-later": "Not now",
     "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
@@ -404,7 +406,6 @@
   "answer-for": "Svara åt %{name}",
   "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
 
-
   "report-for-others-title": "Rapporterar du åt någon annan?",
   "report-for-others-text": "Du kan nu skapa profiler för andra personer som du vill rapportera åt.",
   "report-for-others-add-profiles": "Lägg till profiler",
@@ -427,6 +428,6 @@
   "validation-error-text-no-info": "Fyll i eller korrigera informationen ovan",
 
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och identifiera riskpersoner tidigare genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
+  "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
   "share-with-friends-url": "https://covid.joinzoe.com/"
 }
