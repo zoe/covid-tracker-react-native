@@ -12,7 +12,7 @@ import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
 import { isAndroid } from '../components/Screen';
 import BrandedSpinner from '../components/Spinner';
-import {BrandedButton, ClickableText, RegularBoldText, RegularText} from "../components/Text";
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../components/Text';
 import { ScreenParamList } from './ScreenParamList';
 import i18n from '../locale/i18n';
 import UserService from '../core/user/UserService';

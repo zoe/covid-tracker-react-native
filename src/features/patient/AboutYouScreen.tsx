@@ -11,10 +11,8 @@ import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
-import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
-
-
+import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '../../components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '../../components/ValidationError';
@@ -22,10 +20,7 @@ import UserService, { isGBCountry, isUSCountry } from '../../core/user/UserServi
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 
-
 import { ScreenParamList } from '../ScreenParamList';
-
-
 
 const initialFormValues = {
   yearOfBirth: '',
