@@ -49,7 +49,6 @@
   "label-check-all-that-apply": "Markera alla som är tillämpliga",
   "required-ppe-availability": "Ange tillgänglighetsnivån för skyddsutrustning på arbetet.",
 
-
   "title-about-you": "Om dig",
 
   "what-year-were-you-born": "Vilket år är du född?",
@@ -105,7 +104,7 @@
   "picker-yes": "Ja",
   "picker-no": "Nej",
   "placeholder-optional-question": "*Optional",
-  
+
   "have-you-been-exposed" : "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented" : "Ja, bekräftat COVID-19-fall",
   "exposed-yes-undocumented" : "Ja, sannolikt COVID-19-fall",
@@ -356,15 +355,15 @@
   "faq-link": "https://covid.joinzoe.com/faq",
 
   "rating": {
-    "how-are-we-doing": "How are we doing?",
-    "would-you-recommend": "Would you recommend this app to a friend or colleague?",
-    "cta-yes": "Yes, I would",
-    "cta-no": "No, I wouldn't",
-    "rate-this-app": "Please rate this app",
-    "explanation": "Din feedback bidrar till att göra appen bättre, så att fler personer kan delta i forskningen.",
-    "cta-rate": "Rate",
-    "cta-later": "Not now",
-    "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
+    "how-are-we-doing": "Vad tycker du om vårt arbete?",
+    "would-you-recommend": "Skulle du rekommendera appen till en vän eller kollega?",
+    "cta-yes": "Ja, det skulle jag",
+    "cta-no": "Nej, det skulle jag inte",
+    "rate-this-app": "Betygsätt appen",
+    "explanation": "Din feedback kan leda till att fler personer hjälper oss i kampen mot COVID-19.",
+    "cta-rate": "Betygsätt",
+    "cta-later": "Inte nu",
+    "thank-you-for-rating": "Tack för din feedback.\nVi jobbar hela tiden på att förbättra appen"
   },
 
   "research-updates": "Aktuella forskningsnyheter",
