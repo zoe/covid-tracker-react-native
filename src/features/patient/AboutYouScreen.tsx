@@ -15,7 +15,7 @@ import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '../../
 import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '../../components/ValidationError';
-import UserService, { defaultHeightUnit, defaultWeightUnit, isUSCountry } from '../../core/user/UserService';
+import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
@@ -88,6 +88,9 @@ type State = {
 
   showRaceQuestion: boolean;
   showEthnicityQuestion: boolean;
+
+  defaultHeightUnit: string;
+  defaultWeightUnit: string;
 };
 
 const initialState: State = {
@@ -96,6 +99,9 @@ const initialState: State = {
 
   showRaceQuestion: false,
   showEthnicityQuestion: false,
+
+  defaultHeightUnit: 'ft',
+  defaultWeightUnit: 'lbs',
 };
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
@@ -110,6 +116,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
       showEthnicityQuestion: features.showEthnicityQuestion,
+      defaultHeightUnit: features.defaultHeightUnit,
+      defaultWeightUnit: features.defaultWeightUnit,
     });
   }
 
@@ -311,9 +319,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       });
     };
 
-    const initValues = cloneDeep(initialFormValues);
-    initValues.heightUnit = defaultHeightUnit();
-    initValues.weightUnit = defaultWeightUnit();
+    const initValues = cloneDeep({
+      ...initialFormValues,
+      heightUnit: this.state.defaultHeightUnit,
+      weightUnit: this.state.defaultWeightUnit,
+    });
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

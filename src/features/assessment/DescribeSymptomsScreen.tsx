@@ -13,7 +13,7 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Sc
 import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationErrors } from '../../components/ValidationError';
-import UserService, { defaultTemperatureUnit } from '../../core/user/UserService';
+import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
@@ -80,8 +80,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     super(props);
     this.state = initialState;
     this.handleUpdateSymptoms = this.handleUpdateSymptoms.bind(this);
+  }
 
-    initialFormValues.temperatureUnit = defaultTemperatureUnit();
+  async componentDidMount() {
+    const userService = new UserService();
+    const features = await userService.getConfig();
+    initialFormValues.temperatureUnit = features.defaultTemperatureUnit;
   }
 
   registerSchema = Yup.object().shape({
