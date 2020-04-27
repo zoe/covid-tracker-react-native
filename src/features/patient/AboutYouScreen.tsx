@@ -108,9 +108,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     const userService = new UserService();
     const features = userService.getConfig();
 
-    initialFormValues.heightUnit = features.defaultHeightUnit;
-    initialFormValues.weightUnit = features.defaultWeightUnit;
-
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
       showEthnicityQuestion: features.showEthnicityQuestion,
@@ -315,7 +312,16 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       });
     };
 
-    const initValues = cloneDeep(initialFormValues);
+    const getInitialFormValues = () => {
+      const userService = new UserService();
+      const features = userService.getConfig();
+
+      return cloneDeep({
+        ...initialFormValues,
+        heightUnit: features.defaultHeightUnit,
+        weightUnit: features.defaultWeightUnit,
+      });
+    };
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -328,8 +334,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={initValues}
-          enableReinitialize={true}
+          initialValues={getInitialFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: AboutYouData) => {
             return this.handleUpdateHealth(values);
