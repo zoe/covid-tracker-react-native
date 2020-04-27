@@ -13,8 +13,9 @@ export const ContributionCounter = (props: ContributionCounterProps) => {
   if (props.count) {
     const userService = new UserService();
     const features = userService.getConfig();
+    const delimiter = features ? features.thousandSeparator : ',';
 
-    const countValue = I18n.toNumber(props.count, { precision: 0, delimiter: features.thousandSeparator });
+    const countValue = I18n.toNumber(props.count, { precision: 0, delimiter });
     return props.variant === 1 ? (
       <RegularText style={styles.contributingText}>
         {reactStringReplace(
