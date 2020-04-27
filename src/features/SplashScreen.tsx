@@ -34,6 +34,7 @@ export class SplashScreen extends Component<Props, object> {
     try {
       await this.userService.getStartupInfo();
       country = await this.userService.getUserCountry();
+      this.userService.initCountry(country as string);
     } catch (err) {
       // TODO: how to deal with the user_startup info endpoint failing?
       // TODO: Trigger Offline handling here? At least show an error

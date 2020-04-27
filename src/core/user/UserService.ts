@@ -6,7 +6,7 @@ import { isAndroid } from '../../components/Screen';
 import i18n from '../../locale/i18n';
 import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
-import { getCountryConfig } from '../Config';
+import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { ApiClientBase } from './ApiClientBase';
@@ -32,6 +32,7 @@ const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 export default class UserService extends ApiClientBase {
   public static userCountry = 'US';
   public static ipCountry = '';
+  public static countryConfig: ConfigType;
   public static consentSigned: Consent = {
     document: '',
     version: '',
@@ -307,7 +308,12 @@ export default class UserService extends ApiClientBase {
   async setUserCountry(countryCode: string) {
     UserService.userCountry = countryCode;
     UserService.setLocaleFromCountry(countryCode);
+    this.initCountry(countryCode);
     await AsyncStorageService.setUserCountry(countryCode);
+  }
+
+  initCountry(countryCode: string) {
+    UserService.countryConfig = getCountryConfig(countryCode);
   }
 
   async getUserCountry() {
@@ -341,9 +347,8 @@ export default class UserService extends ApiClientBase {
     await this.setUserCountry(country());
   }
 
-  async getConfig() {
-    const country = await this.getUserCountry();
-    return getCountryConfig(country as string);
+  getConfig(): ConfigType {
+    return UserService.countryConfig;
   }
 
   async deleteLocalUserData() {

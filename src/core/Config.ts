@@ -5,12 +5,16 @@ import DefaultConfig from './config/default.json';
 
 export type ConfigType = {
   country: string;
-  enableMultiplePatients: boolean; // Enables select/create profile feature
-  enablePersonalInformation: boolean; // Enables Personal Information screen
-  enableCohorts: boolean; // Enables cohort/YourStudy screen
+  enableMultiplePatients: boolean;
+  enablePersonalInformation: boolean;
+  enableCohorts: boolean;
 
-  showEthnicityQuestion: boolean; // Shows ethnicity question
-  showRaceQuestion: boolean; // Shows race question
+  showEthnicityQuestion: boolean;
+  showRaceQuestion: boolean;
+
+  defaultHeightUnit: string;
+  defaultWeightUnit: string;
+  defaultTemperatureUnit: string;
 };
 
 const configs = new Map<string, ConfigType>([

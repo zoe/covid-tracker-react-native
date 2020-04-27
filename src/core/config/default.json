@@ -5,5 +5,9 @@
     "enableCohorts": true,
 
     "showEthnicityQuestion": false,
-    "showRaceQuestion": true
+    "showRaceQuestion": true,
+
+    "defaultHeightUnit": "cm",
+    "defaultWeightUnit": "kg",
+    "defaultTemperatureUnit": "C"
 }
