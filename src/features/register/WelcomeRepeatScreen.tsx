@@ -121,7 +121,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
               <View style={styles.discoveriesTitleBackground}>
                 <RegularText style={styles.discoveriesTitle}>{i18n.t('welcome.research')}</RegularText>
               </View>
-              <RegularText style={styles.discoveriesText}>{i18n.t('welcome.see-how-your-area-is-affected')}</RegularText>
+              <RegularText style={styles.discoveriesText}>
+                {i18n.t('welcome.see-how-your-area-is-affected')}
+              </RegularText>
               <RegularText style={styles.discoveriesVisitText}>{i18n.t('welcome.visit-the-website')}</RegularText>
             </TouchableOpacity>
           </View>

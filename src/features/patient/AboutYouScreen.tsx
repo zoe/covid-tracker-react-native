@@ -13,13 +13,11 @@ import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
-
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '../../components/ValidationError';
-import UserService, { isGBCountry, isUSCountry } from '../../core/user/UserService';
+import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
-
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
@@ -108,7 +106,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   async componentDidMount() {
     const userService = new UserService();
-    const features = await userService.getConfig();
+    const features = userService.getConfig();
+
+    initialFormValues.heightUnit = features.defaultHeightUnit;
+    initialFormValues.weightUnit = features.defaultWeightUnit;
+
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
       showEthnicityQuestion: features.showEthnicityQuestion,
@@ -313,6 +315,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       });
     };
 
+    const initValues = cloneDeep(initialFormValues);
+
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
@@ -324,7 +328,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={cloneDeep(initialFormValues)}
+          initialValues={initValues}
+          enableReinitialize={true}
           validationSchema={this.registerSchema}
           onSubmit={(values: AboutYouData) => {
             return this.handleUpdateHealth(values);
