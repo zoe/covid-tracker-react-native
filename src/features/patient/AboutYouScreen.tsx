@@ -108,7 +108,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   async componentDidMount() {
     const userService = new UserService();
-    const features = await userService.getConfig();
+    const features = userService.getConfig();
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
       showEthnicityQuestion: features.showEthnicityQuestion,

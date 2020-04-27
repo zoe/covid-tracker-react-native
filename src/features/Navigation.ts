@@ -35,8 +35,8 @@ class Navigator {
     this.navigation = this.navigation || navigation;
   }
 
-  async getConfig(): Promise<ConfigType> {
-    return await this.userService.getConfig();
+  getConfig(): ConfigType {
+    return this.userService.getConfig();
   }
 
   async getCurrentPatient(patientId: string): Promise<PatientStateType> {
@@ -56,14 +56,14 @@ class Navigator {
   }
 
   async getStartPatientScreenName(currentPatient: PatientStateType) {
-    const config = await this.getConfig();
+    const config = this.getConfig();
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     const page = shouldAskStudy ? 'YourStudy' : 'YourWork';
     return page;
   }
 
   async gotoStartReport(patientId: string) {
-    const config = await this.getConfig();
+    const config = this.getConfig();
     if (config.enablePersonalInformation) {
       navigator.gotoScreen('SelectProfile', { patientId });
     } else {
@@ -93,7 +93,7 @@ class Navigator {
   }
 
   async gotoEndAssessment() {
-    const config = await this.getConfig();
+    const config = this.getConfig();
     const shouldShowReportForOthers =
       config.enableMultiplePatients &&
       !(await this.userService.hasMultipleProfiles()) &&
@@ -134,7 +134,7 @@ const ScreenFlow: any = {
   // End of registration flows
   Register: async (routeParams: PatientIdParamType) => {
     const { patientId } = routeParams;
-    const config = await navigator.getConfig();
+    const config = navigator.getConfig();
 
     if (config.enablePersonalInformation) {
       await navigator.replaceScreen('OptionalInfo', { patientId });
