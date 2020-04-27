@@ -401,8 +401,8 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
               />
               <Body style={styles.label}>
                 <RegularText>
-                  Jag samtycker till att personuppgifter om mig behandlas på det sätt som beskrivs i
-                  forskningspersonsinformationen ovan.
+                  Jag samtycker till att personuppgifter om mig behandlas på det sätt som beskrivs i informationen till
+                  studiedeltagare ovan.
                 </RegularText>
               </Body>
             </ListItem>
