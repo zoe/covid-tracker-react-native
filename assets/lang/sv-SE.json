@@ -310,8 +310,8 @@
     "title": "COVID Symptom Tracker",
     "sign-in": "Logga in",
     "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa COVID-19.",
-    "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig",
-    "disclaimer-link": "besöka 1177.se",
+    "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
+    "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
     "more-info": "%{link} för mer information",
     "more-info-link": "Besök vår webbplats",
@@ -348,11 +348,11 @@
   },
 
   "thank-you-title": "Stort tack för din hjälp och ditt värdefulla bidrag till forskningen.",
-  "blog-link": "https://covid.joinzoe.com/blog",
+  "blog-link": "http://covid19app.lu.se/",
   "thank-you-body": "Tack, du är nu en av de miljontals människor som hjälper forskare på Lunds universitet och King’s College London att bekämpa COVID-19.",
   "check-in-tomorrow": "Om du har möjlighet uppskattar vi verkligen om du rapporterar hur du mår igen i morgon.",
   "check-news-feed" : "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
-  "faq-link": "https://covid.joinzoe.com/faq",
+  "faq-link": "https://www.covid19app.lu.se/faq",
 
   "rating": {
     "how-are-we-doing": "Vad tycker du om vårt arbete?",

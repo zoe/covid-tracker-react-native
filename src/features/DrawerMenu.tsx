@@ -7,7 +7,7 @@ import { Alert, Image, Linking, StyleSheet, Text, TouchableOpacity, View, SafeAr
 import { closeIcon } from '../../assets';
 import { colors, fontStyles } from '../../theme';
 import { CaptionText, HeaderText } from '../components/Text';
-import UserService, { isGBCountry, isUSCountry } from '../core/user/UserService';
+import UserService, { isGBCountry, isUSCountry, isSECountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
@@ -71,6 +71,8 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           onPress={() => {
             isGBCountry()
               ? props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
+              : isSECountry()
+              ? props.navigation.navigate('PrivacyPolicySV', { viewOnly: true })
               : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
           }}>
           <HeaderText>{i18n.t('privacy-policy')}</HeaderText>
