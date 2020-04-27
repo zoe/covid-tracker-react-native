@@ -173,8 +173,13 @@ export default class UserService extends ApiClientBase {
       // and not null. (or any nullable field on the last page)
       (patient.has_heart_disease === true || patient.has_heart_disease === false);
 
+    let patientName = patient.name;
+    if (!patientName || (!patient.reported_by_another && patientName === 'Me')) {
+      patientName = i18n.t('default-profile-name');
+    }
+
     const profile: PatientProfile = {
-      name: patient.name || 'Me',
+      name: patientName,
       avatarName: (patient.avatar_name || 'profile1') as AvatarName,
       isPrimaryPatient: !patient.reported_by_another,
     };
@@ -214,6 +219,8 @@ export default class UserService extends ApiClientBase {
       if (!patient) {
         patient = await this.getPatient(patientId);
       }
+
+      console.log('[PATIENT]', patient);
 
       if (patient) {
         currentPatient = await this.updatePatientState(currentPatient, patient);
