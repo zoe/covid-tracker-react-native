@@ -88,9 +88,6 @@ type State = {
 
   showRaceQuestion: boolean;
   showEthnicityQuestion: boolean;
-
-  defaultHeightUnit: string;
-  defaultWeightUnit: string;
 };
 
 const initialState: State = {
@@ -99,9 +96,6 @@ const initialState: State = {
 
   showRaceQuestion: false,
   showEthnicityQuestion: false,
-
-  defaultHeightUnit: 'ft',
-  defaultWeightUnit: 'lbs',
 };
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
@@ -113,11 +107,13 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   async componentDidMount() {
     const userService = new UserService();
     const features = await userService.getConfig();
+
+    initialFormValues.heightUnit = features.defaultHeightUnit;
+    initialFormValues.weightUnit = features.defaultWeightUnit;
+
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
       showEthnicityQuestion: features.showEthnicityQuestion,
-      defaultHeightUnit: features.defaultHeightUnit,
-      defaultWeightUnit: features.defaultWeightUnit,
     });
   }
 
@@ -319,11 +315,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       });
     };
 
-    const initValues = cloneDeep({
-      ...initialFormValues,
-      heightUnit: this.state.defaultHeightUnit,
-      weightUnit: this.state.defaultWeightUnit,
-    });
+    const initValues = cloneDeep(initialFormValues);
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -337,6 +329,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
         <Formik
           initialValues={initValues}
+          enableReinitialize={true}
           validationSchema={this.registerSchema}
           onSubmit={(values: AboutYouData) => {
             return this.handleUpdateHealth(values);
