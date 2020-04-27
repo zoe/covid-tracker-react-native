@@ -1,3 +1,5 @@
 {
-    "country": "GB"
+    "country": "GB",
+
+    "defaultHeightUnit": "ft",
 }
