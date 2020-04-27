@@ -220,8 +220,6 @@ export default class UserService extends ApiClientBase {
         patient = await this.getPatient(patientId);
       }
 
-      console.log('[PATIENT]', patient);
-
       if (patient) {
         currentPatient = await this.updatePatientState(currentPatient, patient);
       }
