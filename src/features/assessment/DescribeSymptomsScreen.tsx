@@ -84,7 +84,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
   async componentDidMount() {
     const userService = new UserService();
-    const features = await userService.getConfig();
+    const features = userService.getConfig();
     initialFormValues.temperatureUnit = features.defaultTemperatureUnit;
   }
 
