@@ -9,5 +9,6 @@
 
     "defaultHeightUnit": "cm",
     "defaultWeightUnit": "kg",
-    "defaultTemperatureUnit": "C"
+    "defaultTemperatureUnit": "C",
+    "thousandSeparator": ",",
 }

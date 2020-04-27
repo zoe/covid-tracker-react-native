@@ -15,6 +15,7 @@ export type ConfigType = {
   defaultHeightUnit: string;
   defaultWeightUnit: string;
   defaultTemperatureUnit: string;
+  thousandSeparator: string;
 };
 
 const configs = new Map<string, ConfigType>([

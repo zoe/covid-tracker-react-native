@@ -4,13 +4,17 @@ import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
 import { colors } from '../../theme';
+import UserService from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { RegularBoldText, RegularText } from './Text';
 
 type ContributionCounterProps = { variant: number; count: number | null };
 export const ContributionCounter = (props: ContributionCounterProps) => {
   if (props.count) {
-    const countValue = I18n.toNumber(props.count, { precision: 0 });
+    const userService = new UserService();
+    const features = userService.getConfig();
+
+    const countValue = I18n.toNumber(props.count, { precision: 0, delimiter: features.thousandSeparator });
     return props.variant === 1 ? (
       <RegularText style={styles.contributingText}>
         {reactStringReplace(
