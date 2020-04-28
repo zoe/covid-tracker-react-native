@@ -317,10 +317,10 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
           Enligt EU:s dataskyddsförordning har du rätt att kostnadsfritt få ta del av den information om dig som
           hanteras i studien, och vid behov få eventuella fel rättade. Du kan också begära att information som du lämnat
           raderas samt att behandlingen av dina personuppgifter begränsas. Detta kan du göra genom att e-posta till{' '}
-          <RegularBoldText>leavecovidtracking-sweden@joinzoe.com</RegularBoldText> från den e-postadress du använt för att
-          registrera dig i appen. Inom kort kommer också appen uppdateras och göra det möjligt för dig att göra det här
-          i själva appen. Du kan även kontakta ansvarig forskare i Sverige professor Paul Franks om du har frågor, se
-          kontaktinformation nedan.
+          <RegularBoldText>leavecovidtracking-sweden@joinzoe.com</RegularBoldText> från den e-postadress du använt för
+          att registrera dig i appen. Inom kort kommer också appen uppdateras och göra det möjligt för dig att göra det
+          här i själva appen. Du kan även kontakta ansvarig forskare i Sverige professor Paul Franks om du har frågor,
+          se kontaktinformation nedan.
         </RegularText>
         <RegularText>
           Det finns också ett dataskyddsombud på Lunds universitet som nås på{' '}

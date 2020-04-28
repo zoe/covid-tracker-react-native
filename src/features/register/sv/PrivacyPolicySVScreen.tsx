@@ -186,7 +186,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
 
           <RegularText>
             Vår adress: 164 Westminster Bridge Road, London SE1 7RW, Storbritannien{'\n\n'}
-            Dataskyddsansvarig: dpo@joinzoe.com
+            Dataskyddsansvarig: dpo-sweden@joinzoe.com
             {'\n'}
           </RegularText>
         </ScrollView>
