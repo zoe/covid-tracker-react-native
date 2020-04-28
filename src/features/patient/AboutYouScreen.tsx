@@ -691,7 +691,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                     )}
 
                                     <BrandedButton onPress={props.handleSubmit} enable={checkFormFilled(props)} hideLoading={!props.isSubmitting}>
-                                        <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
+                                        <Text>{i18n.t("next-question")}</Text>
                                     </BrandedButton>
 
                                 </Form>
@@ -758,9 +758,4 @@ const styles = StyleSheet.create({
     // width: '68%',
     width: screenWidth - 16, // TODO: Fix width to something sensible
   },
-
-  buttonText: {
-    color: colors.white,
-  },
-
 });
