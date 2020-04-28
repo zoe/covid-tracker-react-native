@@ -20,6 +20,7 @@ import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
   hasFever: 'no',
+  hasChills: 'no',
   temperature: '',
   temperatureUnit: '',
   hasPersistentCough: 'no',
@@ -38,12 +39,14 @@ const initialFormValues = {
   hasDiarrhoea: 'no',
   hasUnusualMusclePains: 'no',
   hasDelirium: 'no',
+  hasEyeSoreness: 'no',
   isSkippingMeals: 'no',
   otherSymptoms: '',
 };
 
 interface DescribeSymptomsData {
   hasFever: string;
+  hasChills: string;
   temperature: string; // Temperature: 37.3
   temperatureUnit: string;
   hasPersistentCough: string;
@@ -63,6 +66,7 @@ interface DescribeSymptomsData {
   hasDelirium: string;
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
+  hasEyeSoreness: string;
   otherSymptoms: string;
 }
 
@@ -96,6 +100,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
   registerSchema = Yup.object().shape({
     hasFever: Yup.string().required(),
+    hasChills: Yup.string().required(),
     temperature: Yup.string(),
     temperatureUnit: Yup.string().required(),
     hasPersistentCough: Yup.string().required(),
@@ -115,6 +120,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     isSkippingMeals: Yup.string().required(),
     hasRedWeltsOnFace: Yup.string().required(),
     hasBlistersOnFeet: Yup.string().required(),
+    hasEyeSoreness: Yup.string().required(),
     otherSymptoms: Yup.string(),
   });
 
@@ -143,6 +149,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   createAssessmentInfos(formData: DescribeSymptomsData) {
     let infos = ({
       fever: formData.hasFever === 'yes',
+      chills_or_shivers: formData.hasChills === 'yes',
       persistent_cough: formData.hasPersistentCough === 'yes',
       fatigue: formData.hasUnusualFatigue,
       headache: formData.hasHeadache === 'yes',
@@ -160,6 +167,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       abdominal_pain: formData.hasAbdominalPain === 'yes',
       red_welts_on_face_or_lips: formData.hasRedWeltsOnFace === 'yes',
       blisters_on_feet: formData.hasBlistersOnFeet === 'yes',
+      eye_soreness: formData.hasEyeSoreness === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
     if (formData.otherSymptoms) {
@@ -225,6 +233,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     onValueChange={props.handleChange('hasFever')}
                     label={i18n.t('describe-symptoms.question-has-fever')}
                     error={props.touched.hasFever && props.errors.hasFever}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasChills}
+                    onValueChange={props.handleChange('hasChills')}
+                    label={i18n.t('describe-symptoms.question-has-chills')}
                   />
 
                   <FieldWrapper>
@@ -358,6 +372,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     selectedValue={props.values.hasDelirium}
                     onValueChange={props.handleChange('hasDelirium')}
                     label={i18n.t('describe-symptoms.question-has-delirium')}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasEyeSoreness}
+                    onValueChange={props.handleChange('hasEyeSoreness')}
+                    label={i18n.t('describe-symptoms.question-has-eye-soreness')}
                   />
 
                   <DropdownField

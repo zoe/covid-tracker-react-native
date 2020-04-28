@@ -183,6 +183,7 @@ export type AssessmentInfosRequest = {
   tested_covid_positive: string;
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
+  chills_or_shivers: boolean; //defaults to False
   nausea: boolean; //defaults to False
   dizzy_light_headed: boolean; //defaults to False
   temperature: number; //can be null
@@ -196,6 +197,7 @@ export type AssessmentInfosRequest = {
   hoarse_voice: boolean; // defaults to False
   chest_pain: boolean; // defaults to False
   abdominal_pain: boolean; // defaults to False
+  eye_soreness: boolean; //defaults to False
   other_symptoms: string;
 
   diarrhoea: boolean; //	defaults to False

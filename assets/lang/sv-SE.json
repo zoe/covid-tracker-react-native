@@ -255,7 +255,9 @@
       "question-red-welts-on-face": "Har du haft upphöjda, röda, kliande utslag på huden eller har ditt ansikte eller dina läppar plötsligt svullnat upp?",
       "question-blisters-on-feet": "Har du haft några röda/lila sår eller blåsor på fötterna, inklusive tårna?",
       "question-as-nausea": "Har du känt dig illamående eller kräkts?",
-      "question-has-dizziness": "Känner du dig yr eller snurrig?"
+      "question-has-dizziness": "Känner du dig yr eller snurrig?",
+      "question-has-chills": "Har du frossa eller huttrar du (känner dig kall)?",
+      "question-has-eye-soreness": "Gör dina ögon ont eller är irriterade (t.ex. ljuskänsliga, rinniga, eller röda)?"
   },
 
   "where-are-you": {
