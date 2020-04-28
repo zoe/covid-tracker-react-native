@@ -97,19 +97,12 @@ const initialState: State = {
     enableSubmit: true,
 };
 
-const enableSubmitButton = (props: any) => {   
-    return Boolean(
-      props.values.yearOfBirth &&
-        props.values.sex &&
-        props.values.genderIdentity &&
-        props.values.postcode &&
-        props.values.feet &&
-        props.values.inches &&
-        props.values.stones &&
-        props.values.pounds &&
-        props.values.everExposed
-    );
-}
+ const checkFormFilled = (props: any) => {
+     if (Object.keys(props.errors).length) return false;
+     if (Object.keys(props.values).length === 0) return false;
+     return true;
+ };
+
 export default class AboutYouScreen extends Component<AboutYouProps, State> {  
     constructor(props: AboutYouProps) {
         super(props);
@@ -697,7 +690,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                                         <ValidationErrors errors={props.errors as string[]}/>
                                     )}
 
-                                    <BrandedButton onPress={props.handleSubmit} enable={enableSubmitButton(props)}>
+                                    <BrandedButton onPress={props.handleSubmit} enable={checkFormFilled(props)} hideLoading={!props.isSubmitting}>
                                         <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("next-question")}</Text>
                                     </BrandedButton>
 
