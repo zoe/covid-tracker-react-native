@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import {Formik, FormikProps} from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -17,8 +17,9 @@ import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
+import {BloodPressureMedicationQuestion} from "./fields/BloodPressureMedicationQuestion";
 
-interface YourHealthData {
+export interface YourHealthData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -327,27 +328,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.takes-nsaids')}
                   />
 
-                  <DropdownField
-                    selectedValue={props.values.takesAnyBloodPressureMedications}
-                    onValueChange={props.handleChange('takesAnyBloodPressureMedications')}
-                    label={i18n.t('your-health.takes-any-blood-pressure-medication')}
-                  />
-
-                  {props.values.takesAnyBloodPressureMedications === 'yes' && (
-                    <>
-                      <DropdownField
-                        selectedValue={props.values.takesBloodPressureMedications}
-                        onValueChange={props.handleChange('takesBloodPressureMedications')}
-                        label={i18n.t('your-health.takes-pril-blood-pressure-medication')}
-                      />
-
-                      <DropdownField
-                        selectedValue={props.values.takesBloodPressureMedicationsSartan}
-                        onValueChange={props.handleChange('takesBloodPressureMedicationsSartan')}
-                        label={i18n.t('your-health.takes-sartan-blood-pressure-medication')}
-                      />
-                    </>
-                  )}
+                  <BloodPressureMedicationQuestion formikProps={props}/>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
