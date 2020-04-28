@@ -183,6 +183,8 @@ export type AssessmentInfosRequest = {
   tested_covid_positive: string;
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
+  nausea: boolean; //defaults to False
+  dizzy_light_headed: boolean; //defaults to False
   temperature: number; //can be null
   temperature_unit: string; //'C' for centigrade, 'F' for Fahrenheit
   persistent_cough: boolean; //defaults to False

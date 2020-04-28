@@ -278,7 +278,9 @@
     "question-other-symptoms": "Are there other important symptoms you want to share with us?",
     "placeholder-other-symptoms": "Other symptoms",
     "question-red-welts-on-face": "Have you had raised, red, itchy, welts on the skin or sudden swelling of the face or lips?",
-    "question-blisters-on-feet": "Have you had any red/purple sores or blisters on your feet, including your toes?"
+    "question-blisters-on-feet": "Have you had any red/purple sores or blisters on your feet, including your toes?",
+    "question-as-nausea": "Have you felt nausea or experienced vomiting?",
+    "question-has-dizziness": "Are you experiencing dizziness or light-headedness?"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients?",

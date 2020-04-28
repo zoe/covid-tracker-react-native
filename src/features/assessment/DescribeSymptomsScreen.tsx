@@ -25,6 +25,8 @@ const initialFormValues = {
   hasPersistentCough: 'no',
   hasUnusualFatigue: 'no',
   hasHeadache: 'no',
+  hasNausea: 'no',
+  hasDizziness: 'no',
   hasUnusualShortnessOfBreath: 'no',
   hasSoreThroat: 'no',
   hasLossOfSmell: 'no',
@@ -47,6 +49,8 @@ interface DescribeSymptomsData {
   hasPersistentCough: string;
   hasUnusualFatigue: string;
   hasHeadache: string;
+  hasNausea: string;
+  hasDizziness: string;
   hasUnusualShortnessOfBreath: string;
   hasSoreThroat: string;
   hasLossOfSmell: string;
@@ -97,6 +101,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasPersistentCough: Yup.string().required(),
     hasUnusualFatigue: Yup.string().required(),
     hasHeadache: Yup.string().required(),
+    hasNausea: Yup.string().required(),
+    hasDizziness: Yup.string().required(),
     hasUnusualShortnessOfBreath: Yup.string().required(),
     hasSoreThroat: Yup.string().required(),
     hasLossOfSmell: Yup.string().required(),
@@ -140,6 +146,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       persistent_cough: formData.hasPersistentCough === 'yes',
       fatigue: formData.hasUnusualFatigue,
       headache: formData.hasHeadache === 'yes',
+      nausea: formData.hasNausea === 'yes',
+      dizzy_light_headed: formData.hasDizziness === 'yes',
       shortness_of_breath: formData.hasUnusualShortnessOfBreath,
       sore_throat: formData.hasSoreThroat === 'yes',
       diarrhoea: formData.hasDiarrhoea === 'yes',
@@ -270,6 +278,18 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     selectedValue={props.values.hasHeadache}
                     onValueChange={props.handleChange('hasHeadache')}
                     label={i18n.t('describe-symptoms.question-has-headache')}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasNausea}
+                    onValueChange={props.handleChange('hasNausea')}
+                    label={i18n.t('describe-symptoms.question-has-nausea')}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasDizziness}
+                    onValueChange={props.handleChange('hasDizziness')}
+                    label={i18n.t('describe-symptoms.question-has-dizziness')}
                   />
 
                   <DropdownField
