@@ -31,7 +31,8 @@ const initialFormValues = {
   hasHoarseVoice: 'no',
   hasChestPain: 'no',
   hasAbdominalPain: 'no',
-
+  hasRedWeltsOnFace: 'no',
+  hasBlistersOnFeet: 'no',
   hasDiarrhoea: 'no',
   hasUnusualMusclePains: 'no',
   hasDelirium: 'no',
@@ -52,7 +53,8 @@ interface DescribeSymptomsData {
   hasHoarseVoice: string;
   hasChestPain: string;
   hasAbdominalPain: string;
-
+  hasRedWeltsOnFace: string;
+  hasBlistersOnFeet: string;
   hasDiarrhoea: string;
   hasDelirium: string;
   hasUnusualMusclePains: string;
@@ -105,6 +107,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasUnusualMusclePains: Yup.string().required(),
     hasDelirium: Yup.string().required(),
     isSkippingMeals: Yup.string().required(),
+    hasRedWeltsOnFace: Yup.string().required(),
+    hasBlistersOnFeet: Yup.string().required(),
     otherSymptoms: Yup.string(),
   });
 
@@ -146,6 +150,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       hoarse_voice: formData.hasHoarseVoice === 'yes',
       chest_pain: formData.hasChestPain === 'yes',
       abdominal_pain: formData.hasAbdominalPain === 'yes',
+      red_welts_on_face_or_lips: formData.hasRedWeltsOnFace === 'yes',
+      blisters_on_feet: formData.hasBlistersOnFeet === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
     if (formData.otherSymptoms) {
@@ -316,7 +322,17 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     label={i18n.t('describe-symptoms.question-has-unusual-muscle-pains')}
                   />
 
-                  <Divider />
+                  <DropdownField
+                    label={i18n.t('describe-symptoms.question-red-welts-on-face')}
+                    selectedValue={props.values.hasRedWeltsOnFace}
+                    onValueChange={props.handleChange('hasRedWeltsOnFace')}
+                  />
+
+                  <DropdownField
+                    label={i18n.t('describe-symptoms.question-blisters-on-feet')}
+                    selectedValue={props.values.hasBlistersOnFeet}
+                    onValueChange={props.handleChange('hasBlistersOnFeet')}
+                  />
 
                   <DropdownField
                     selectedValue={props.values.hasDelirium}

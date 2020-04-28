@@ -188,7 +188,8 @@ export type AssessmentInfosRequest = {
   persistent_cough: boolean; //defaults to False
   fatigue: string; //'no', 'mild' or 'severe', defaults to 'no'
   shortness_of_breath: string; //'no', 'mild', 'significant' or 'severe', defaults to 'no'
-
+  red_welts_on_face_or_lips: string; // defaults to False
+  blisters_on_feet: string; // defaults to False
   loss_of_smell: boolean; // defaults to False
   hoarse_voice: boolean; // defaults to False
   chest_pain: boolean; // defaults to False

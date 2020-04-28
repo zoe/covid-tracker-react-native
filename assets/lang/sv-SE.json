@@ -251,7 +251,9 @@
       "question-has-sore-throat": "Har du ont i halsen?",
       "question-has-unusual-muscle-pains": "Har du mycket ont i musklerna?",
       "question-other-symptoms": "Finns det några andra viktiga symtom som du vill berätta om?",
-      "placeholder-other-symptoms": "Andra symtom"
+      "placeholder-other-symptoms": "Andra symtom",
+      "question-red-welts-on-face": "Har du haft upphöjda, röda, kliande utslag på huden eller har ditt ansikte eller dina läppar plötsligt svullnat upp?",
+      "question-blisters-on-feet": "Har du haft några röda/lila sår eller blåsor på fötterna, inklusive tårna?"
   },
 
   "where-are-you": {
