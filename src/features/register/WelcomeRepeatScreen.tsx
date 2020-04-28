@@ -74,6 +74,8 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   openWebsite = () => {
     if (isUSCountry()) {
       Linking.openURL('https://covid.joinzoe.com/us');
+    } else if (isSECountry()) {
+      Linking.openURL('https://covid19app.lu.se/');
     } else {
       Linking.openURL('https://covid.joinzoe.com/');
     }
