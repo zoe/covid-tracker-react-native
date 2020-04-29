@@ -29,6 +29,7 @@ export type ScreenParamList = {
   Register: undefined;
   Login: { terms: string };
   CountrySelect: { patientId: string | null };
+  ProfileBackDate: { currentPatient: PatientStateType };
 
   // PII screens
   OptionalInfo: { patientId: string };

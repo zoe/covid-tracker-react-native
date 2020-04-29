@@ -93,7 +93,6 @@
     "back": "Back"
   },
 
-
   "next-question": "Next question",
   "completed": "Done",
   "something-went-wrong": "Something went wrong, please try again later",
@@ -108,6 +107,9 @@
     "worked-school-clinic": "School clinic",
     "worked-other-facility": "Other health care facility"
   },
+
+  "back-date-profile-title": "Some additional questions about you",
+  "update-profile": "Update profile",
 
   "title-about-work": "About your work",
   "label-cohort": "Are you part of one of these population studies or organisations?",
