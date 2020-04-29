@@ -71,12 +71,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async startAssessment(patientId: string) {
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
-
-    if (currentPatient.hasRaceAnswer && currentPatient.hasBloodPressureAnswer) {
-      this.props.navigation.navigate('StartAssessment', { currentPatient });
-    } else {
-      this.props.navigation.navigate('ProfileBackDate', { currentPatient });
-    }
+    this.props.navigation.navigate('StartAssessment', { currentPatient });
   }
 
   getNextAvatarName() {
