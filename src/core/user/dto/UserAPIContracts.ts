@@ -194,8 +194,6 @@ export type AssessmentInfosRequest = {
   ever_had_covid_test: boolean;
   had_new_covid_test: boolean;
 
-
-
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
   chills_or_shivers: boolean; //defaults to False
