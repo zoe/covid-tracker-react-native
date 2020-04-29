@@ -38,6 +38,7 @@ const initialFormValues = {
   hasRedWeltsOnFace: 'no',
   hasBlistersOnFeet: 'no',
   hasDiarrhoea: 'no',
+  diarrhoeaFrequency: '',
   hasUnusualMusclePains: 'no',
   hasDelirium: 'no',
   hasEyeSoreness: 'no',
@@ -65,6 +66,7 @@ interface DescribeSymptomsData {
   hasRedWeltsOnFace: string;
   hasBlistersOnFeet: string;
   hasDiarrhoea: string;
+  diarrhoeaFrequency: string;
   hasDelirium: string;
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
@@ -118,6 +120,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasChestPain: Yup.string().required(),
     hasAbdominalPain: Yup.string().required(),
     hasDiarrhoea: Yup.string().required(),
+    diarrhoeaFrequency: Yup.string(),
     hasUnusualMusclePains: Yup.string().required(),
     hasDelirium: Yup.string().required(),
     isSkippingMeals: Yup.string().required(),
@@ -222,6 +225,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'allday' },
       { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most' },
       { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'someday' },
+    ].filter(Boolean) as [];
+    const diarrhoeaFrequencyItems = [
+      androidOption,
+      { label: '1-2', value: '1-2' },
+      { label: '3-4', value: '3-4' },
+      { label: '5+', value: '5+' },
     ].filter(Boolean) as [];
 
     return (
@@ -375,6 +384,15 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     onValueChange={props.handleChange('hasDiarrhoea')}
                     label={i18n.t('describe-symptoms.question-has-diarrhoea')}
                   />
+
+                  {props.values.hasDiarrhoea === 'yes' && (
+                    <DropdownField
+                      selectedValue={props.values.diarrhoeaFrequency}
+                      onValueChange={props.handleChange('diarrhoeaFrequency')}
+                      label={i18n.t('describe-symptoms.question-diarrhoea-frequency')}
+                      items={diarrhoeaFrequencyItems}
+                    />
+                  )}
 
                   <DropdownField
                     selectedValue={props.values.hasUnusualMusclePains}
