@@ -50,6 +50,13 @@
     "button": "Continue"
   },
 
+  "splash-error": {
+    "title": "Error",
+    "message": "There was a problem while fetching startup information",
+    "primary-action-title": "Try again",
+    "secondary-action-title": "Cancel"
+  },
+
   "welcome": {
     "title": "COVID Symptom Tracker",
     "sign-in": "Sign in",

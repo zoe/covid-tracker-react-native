@@ -6,6 +6,7 @@ import { colors } from '../../theme';
 import { AsyncStorageService } from '../core/AsyncStorageService';
 import { ApiClientBase } from '../core/user/ApiClientBase';
 import UserService, { isUSCountry } from '../core/user/UserService';
+import i18n from '../../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
 
@@ -37,14 +38,14 @@ export class SplashScreen extends Component<Props, object> {
       this.userService.initCountry(country as string);
     } catch (err) {
       Alert.alert(
-        'Error',
-        'There was a problem while fetching startup information: ' + err.message,
+        i18n.t('splash-error.title'),
+        i18n.t('splash-error.message') + ': ' + err.message,
         [
           {
-            text: 'Cancel',
+            text: i18n.t('splash-error.secondary-action-title'),
             style: 'cancel',
           },
-          { text: 'Try Again', onPress: () => this.bootstrapAsync() },
+          { text: i18n.t('splash-error.primary-action-title'), onPress: () => this.bootstrapAsync() },
         ],
         { cancelable: false }
       );
