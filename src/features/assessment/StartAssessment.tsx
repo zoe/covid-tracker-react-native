@@ -17,7 +17,7 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
     const assessmentId = this.props.route.params.assessmentId ?? null;
 
     if (currentPatient.hasCompletedPatientDetails) {
-      if (currentPatient.hasRaceAnswer && currentPatient.hasBloodPressureAnswer) {
+      if (!currentPatient.hasRaceAnswer || !currentPatient.hasBloodPressureAnswer) {
         this.props.navigation.replace('ProfileBackDate', { currentPatient });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
         this.props.navigation.replace('LevelOfIsolation', { currentPatient, assessmentId });
