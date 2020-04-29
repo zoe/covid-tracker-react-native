@@ -155,13 +155,13 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       { label: 'No', value: 'negative' },
       { label: 'Yes', value: 'positive' },
       { label: i18n.t('covid-test.picker-test-failed'), value: 'test_failed' },
-    ].filter(Boolean);
+    ].filter(Boolean) as IOption[];
 
     const covidTestResultStatusItems = [
       androidOption,
       { label: 'Yes', value: 'received' },
       { label: 'No', value: 'waiting' },
-    ].filter(Boolean);
+    ].filter(Boolean) as IOption[];
 
     if (isWaitingForCovidTestResult)
       covidTestResultStatusItems.push({
@@ -176,7 +176,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       { label: i18n.t('covid-test.picker-over-2-week-ago'), value: 'over_2_week_ago' },
       { label: i18n.t('covid-test.picker-over-3-week-ago'), value: 'over_3_week_ago' },
       { label: i18n.t('covid-test.picker-over-1-month-ago'), value: 'over_1_month_ago' },
-    ].filter(Boolean);
+    ].filter(Boolean) as IOption[];
 
     const covidTestMechanismItems = [
       androidOption,
@@ -185,7 +185,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
       { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
       { label: i18n.t('covid-test.picker-other'), value: 'other' },
-    ].filter(Boolean);
+    ].filter(Boolean) as IOption[];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
