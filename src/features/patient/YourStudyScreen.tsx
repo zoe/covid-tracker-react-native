@@ -202,7 +202,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                             <CheckboxItem
                               value={this.state.isPartnersBiobank}
                               onChange={(value: boolean) => this.setState({ isPartnersBiobank: value })}>
-                              Partners (Mass General Brigham) Biobank
+                              Partners Biobank
                             </CheckboxItem>
                             <CheckboxItem
                               value={this.state.isMassEyeEarInfirmary}
