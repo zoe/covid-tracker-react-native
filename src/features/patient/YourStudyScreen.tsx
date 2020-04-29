@@ -42,19 +42,27 @@ type State = {
   isStThomasTrust: boolean;
 
   isNurseHealthStudies: boolean;
-  isMassGeneral: boolean;
   isGrowingUpTodayStudy: boolean;
-  isStanfordNutritionStudy: boolean;
-  isMultiEthnicCohortStudy: boolean;
-  isPredict2Study: boolean;
-  isAmericanCancer3: boolean;
   isHarvardHealthProfessional: boolean;
+  isMassGeneral: boolean;
+  isPartnersBiobank: boolean;
+  isMassEyeEarInfirmary: boolean;
+  isBwhs: boolean;
+  isAmericanCancer3: boolean;
   isCaliforniaTeacher: boolean;
+  isAspreeXt: boolean;
+  isMultiEthnicCohortStudy: boolean;
   isSister: boolean;
+  isCovidFluNearYou: boolean;
+  isChasingCovid: boolean;
+  isEnvironmentalPolymorphisms: boolean;
   isAgriculturalHealth: boolean;
   isGulf: boolean;
-  isAspreeXt: boolean;
-  isBwhs: boolean;
+  isPredetermine: boolean;
+  isPromisePcrowd: boolean;
+  isColocare: boolean;
+  isPredict2Study: boolean;
+  isStanfordNutritionStudy: boolean;
 
   errorMessage: string;
 };
@@ -65,19 +73,27 @@ const initialState: State = {
   isStThomasTrust: false,
 
   isNurseHealthStudies: false,
-  isMassGeneral: false,
   isGrowingUpTodayStudy: false,
-  isStanfordNutritionStudy: false,
-  isMultiEthnicCohortStudy: false,
-  isPredict2Study: false,
-  isAmericanCancer3: false,
   isHarvardHealthProfessional: false,
+  isMassGeneral: false,
+  isPartnersBiobank: false,
+  isMassEyeEarInfirmary: false,
+  isBwhs: false,
+  isAmericanCancer3: false,
   isCaliforniaTeacher: false,
+  isAspreeXt: false,
+  isMultiEthnicCohortStudy: false,
   isSister: false,
+  isCovidFluNearYou: false,
+  isChasingCovid: false,
+  isEnvironmentalPolymorphisms: false,
   isAgriculturalHealth: false,
   isGulf: false,
-  isAspreeXt: false,
-  isBwhs: false,
+  isPredetermine: false,
+  isPromisePcrowd: false,
+  isColocare: false,
+  isPredict2Study: false,
+  isStanfordNutritionStudy: false,
 
   errorMessage: '',
 };
@@ -184,19 +200,19 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                               Mass General / Brigham
                             </CheckboxItem>
                             <CheckboxItem
-                              value={this.state.isStanfordNutritionStudy}
-                              onChange={(value: boolean) => this.setState({ isStanfordNutritionStudy: value })}>
-                              Stanford Nutrition Studies Group
+                              value={this.state.isPartnersBiobank}
+                              onChange={(value: boolean) => this.setState({ isPartnersBiobank: value })}>
+                              Partners Biobank
                             </CheckboxItem>
                             <CheckboxItem
-                              value={this.state.isMultiEthnicCohortStudy}
-                              onChange={(value: boolean) => this.setState({ isMultiEthnicCohortStudy: value })}>
-                              Multiethnic Cohort Study
+                              value={this.state.isMassEyeEarInfirmary}
+                              onChange={(value: boolean) => this.setState({ isMassEyeEarInfirmary: value })}>
+                              Mass Eye and Ear Infirmary
                             </CheckboxItem>
                             <CheckboxItem
-                              value={this.state.isPredict2Study}
-                              onChange={(value: boolean) => this.setState({ isPredict2Study: value })}>
-                              PREDICT 2
+                              value={this.state.isBwhs}
+                              onChange={(value: boolean) => this.setState({ isBwhs: value })}>
+                              Black Women's Health Study
                             </CheckboxItem>
                             <CheckboxItem
                               value={this.state.isAmericanCancer3}
@@ -209,9 +225,34 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                               UCSD/COH California Teachers Study
                             </CheckboxItem>
                             <CheckboxItem
+                              value={this.state.isAspreeXt}
+                              onChange={(value: boolean) => this.setState({ isAspreeXt: value })}>
+                              ASPREE-XT
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isMultiEthnicCohortStudy}
+                              onChange={(value: boolean) => this.setState({ isMultiEthnicCohortStudy: value })}>
+                              Multiethnic Cohort Study
+                            </CheckboxItem>
+                            <CheckboxItem
                               value={this.state.isSister}
                               onChange={(value: boolean) => this.setState({ isSister: value })}>
                               The Sister Study
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isCovidFluNearYou}
+                              onChange={(value: boolean) => this.setState({ isCovidFluNearYou: value })}>
+                              CovidNearYou / FluNearYou
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isChasingCovid}
+                              onChange={(value: boolean) => this.setState({ isChasingCovid: value })}>
+                              CHASING COVID - CUNY ISPH
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isEnvironmentalPolymorphisms}
+                              onChange={(value: boolean) => this.setState({ isEnvironmentalPolymorphisms: value })}>
+                              NIEHS Environmental Polymorphisms Study
                             </CheckboxItem>
                             <CheckboxItem
                               value={this.state.isAgriculturalHealth}
@@ -224,14 +265,29 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                               The GuLF Study
                             </CheckboxItem>
                             <CheckboxItem
-                              value={this.state.isAspreeXt}
-                              onChange={(value: boolean) => this.setState({ isAspreeXt: value })}>
-                              ASPREE-XT
+                              value={this.state.isPredetermine}
+                              onChange={(value: boolean) => this.setState({ isPredetermine: value })}>
+                              PREDETERMINE Study
                             </CheckboxItem>
                             <CheckboxItem
-                              value={this.state.isBwhs}
-                              onChange={(value: boolean) => this.setState({ isBwhs: value })}>
-                              Black Women's Health Study
+                              value={this.state.isPromisePcrowd}
+                              onChange={(value: boolean) => this.setState({ isPromisePcrowd: value })}>
+                              PROMISE/PCROWD Study
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isColocare}
+                              onChange={(value: boolean) => this.setState({ isColocare: value })}>
+                              ColoCare Study
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isPredict2Study}
+                              onChange={(value: boolean) => this.setState({ isPredict2Study: value })}>
+                              PREDICT 2
+                            </CheckboxItem>
+                            <CheckboxItem
+                              value={this.state.isStanfordNutritionStudy}
+                              onChange={(value: boolean) => this.setState({ isStanfordNutritionStudy: value })}>
+                              Stanford Nutrition Studies Group
                             </CheckboxItem>
                           </CheckboxList>
                         </Item>
@@ -297,20 +353,29 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     if (isUSCountry()) {
       infos = {
         ...infos,
+
         is_in_us_nurses_study: this.state.isNurseHealthStudies,
-        is_in_us_mass_general_brigham: this.state.isMassGeneral,
         is_in_us_growing_up_today: this.state.isGrowingUpTodayStudy,
-        is_in_us_stanford_nutrition: this.state.isStanfordNutritionStudy,
-        is_in_us_multiethnic_cohort: this.state.isMultiEthnicCohortStudy,
-        is_in_us_predict2: this.state.isPredict2Study,
-        is_in_us_american_cancer_society_cancer_prevention_study_3: this.state.isAmericanCancer3,
         is_in_us_harvard_health_professionals: this.state.isHarvardHealthProfessional,
+        is_in_us_mass_general_brigham: this.state.isMassGeneral,
+        is_in_us_partners_biobank: this.state.isPartnersBiobank,
+        is_in_us_mass_eye_ear_infirmary: this.state.isMassEyeEarInfirmary,
+        is_in_us_bwhs: this.state.isBwhs,
+        is_in_us_american_cancer_society_cancer_prevention_study_3: this.state.isAmericanCancer3,
         is_in_us_california_teachers: this.state.isCaliforniaTeacher,
+        is_in_us_aspree_xt: this.state.isAspreeXt,
+        is_in_us_multiethnic_cohort: this.state.isMultiEthnicCohortStudy,
         is_in_us_sister: this.state.isSister,
+        is_in_us_covid_flu_near_you: this.state.isCovidFluNearYou,
+        is_in_us_chasing_covid: this.state.isChasingCovid,
+        is_in_us_environmental_polymorphisms: this.state.isEnvironmentalPolymorphisms,
         is_in_us_agricultural_health: this.state.isAgriculturalHealth,
         is_in_us_gulf: this.state.isGulf,
-        is_in_us_aspree_xt: this.state.isAspreeXt,
-        is_in_us_bwhs: this.state.isBwhs,
+        is_in_us_predetermine: this.state.isPredetermine,
+        is_in_us_promise_pcrowd: this.state.isPromisePcrowd,
+        is_in_us_colocare: this.state.isColocare,
+        is_in_us_predict2: this.state.isPredict2Study,
+        is_in_us_stanford_nutrition: this.state.isStanfordNutritionStudy,
 
         ...(formData.clinicalStudyNames && { clinical_study_names: formData.clinicalStudyNames }),
         ...(formData.clinicalStudyContacts && { clinical_study_contacts: formData.clinicalStudyContacts }),
