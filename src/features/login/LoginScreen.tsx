@@ -41,6 +41,11 @@ export class LoginScreen extends Component<PropsType, StateType> {
     componentDidMount() {
     }
 
+    checkFieldsFilled() {
+        if (this.state.hasPassValidationError || this.state.hasUserValidationError) return false
+        return true
+    }
+
     private getWelcomeRepeatScreenName() {
         return isUSLocale() ? 'WelcomeRepeatUS' : 'WelcomeRepeat'
     }
@@ -143,7 +148,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
                     </View>
 
                     <View>
-                        <BrandedButton onPress={this.handleLogin}>
+                        <BrandedButton onPress={this.handleLogin} enable={this.checkFieldsFilled()}>
                             <Text>{i18n.t("log-in")}</Text>
                         </BrandedButton>
                         <View style={styles.bottomTextView}>
