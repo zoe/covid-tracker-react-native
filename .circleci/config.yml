@@ -77,8 +77,11 @@ jobs:
       - run: npm run lint
       - run: npm run prettier
       - run: npm test
-      - run: RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version'`-dev
+      - run: RELEASE_CHANNEL=
       - run: eval echo ${RELEASE_CHANNEL}
+      - run: echo ${CIRCLE_BRANCH}
+      - run: echo 'export MY_ENV_VAR=`cat app.json | jq -r '.expo.version'`-dev' >> $BASH_ENV
+      - run: echo ${MY_ENV_VAR}
   deploy:
     executor: node
     working_directory: ~/covid-react
