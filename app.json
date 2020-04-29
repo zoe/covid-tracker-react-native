@@ -26,11 +26,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.joinzoe.covid-zoe",
-      "buildNumber": "0.0.28"
+      "buildNumber": "0.0.29"
     },
     "android": {
       "package": "com.joinzoe.covid_zoe",
-      "versionCode": 28,
+      "versionCode": 29,
       "permissions": [],
       "googleServicesFile": "./google-services.json",
       "config": {
