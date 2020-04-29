@@ -6,8 +6,6 @@ import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
-
-import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
@@ -19,6 +17,7 @@ import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import {RaceEthnicityData, RaceEthnicityQuestion} from "./fields/RaceEthnicityQuestion";
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -40,12 +39,9 @@ const initialFormValues = {
   needsHelp: 'no',
   helpAvailable: 'no',
   mobilityAid: 'no',
-  race: [] as string[],
-  raceOther: '',
-  ethnicity: '',
 };
 
-interface AboutYouData {
+export interface AboutYouData extends RaceEthnicityData {
   yearOfBirth: string;
   sex: string;
   genderIdentity: string;
@@ -67,15 +63,7 @@ interface AboutYouData {
   needsHelp: string;
   helpAvailable: string;
   mobilityAid: string;
-  race: string[];
-  raceOther: string;
-  ethnicity: string;
 }
-
-type RaceCheckBoxData = {
-  label: string;
-  value: string;
-};
 
 type AboutYouProps = {
   navigation: StackNavigationProp<ScreenParamList, 'AboutYou'>;
@@ -291,36 +279,16 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       { label: i18n.t('exposed-no'), value: 'no' },
     ];
 
-    const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<AboutYouData>) => {
-      return data.map((checkBoxData) => {
-        return (
-          <CheckboxItem
-            key={checkBoxData.value}
-            value={props.values.race.includes(checkBoxData.value)}
-            onChange={(checked: boolean) => {
-              let raceArray = props.values.race;
-              if (checked) {
-                raceArray.push(checkBoxData.value);
-              } else {
-                raceArray = raceArray.filter((val) => val != checkBoxData.value);
-              }
-              props.setFieldValue('race', raceArray);
-            }}>
-            {checkBoxData.label}
-          </CheckboxItem>
-        );
-      });
-    };
-
     const getInitialFormValues = () => {
       const userService = new UserService();
       const features = userService.getConfig();
 
-      return cloneDeep({
+      return{
         ...initialFormValues,
         heightUnit: features.defaultHeightUnit,
         weightUnit: features.defaultWeightUnit,
-      });
+        ...RaceEthnicityQuestion.initialFormValues()
+      };
     };
 
     return (
@@ -388,58 +356,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     />
                   )}
 
-                  {this.state.showRaceQuestion && (
-                    <FieldWrapper>
-                      <Item stackedLabel style={styles.textItemStyle}>
-                        <Label>{i18n.t('race-question')}</Label>
-                        <CheckboxList>{createRaceCheckboxes(UKRaceCheckboxes, props)}</CheckboxList>
-                      </Item>
-                    </FieldWrapper>
-                  )}
-
-                  {this.state.showEthnicityQuestion && (
-                    <FieldWrapper>
-                      <Item stackedLabel style={styles.textItemStyle}>
-                        <Label>{i18n.t('race-question')}</Label>
-                        <CheckboxList>{createRaceCheckboxes(USRaceCheckboxes, props)}</CheckboxList>
-                      </Item>
-                    </FieldWrapper>
-                  )}
-
-                  {props.values.race.includes('other') && (
-                    <GenericTextField formikProps={props} label={i18n.t('race-other-question')} name="raceOther" />
-                  )}
-
-                  {isUSCountry() && (
-                    <FieldWrapper>
-                      <Item stackedLabel style={styles.textItemStyle}>
-                        <Label>{i18n.t('ethnicity-question')}</Label>
-                        <CheckboxList>
-                          <CheckboxItem
-                            value={props.values.ethnicity == 'hispanic'}
-                            onChange={(value: boolean) => {
-                              props.setFieldValue('ethnicity', value ? 'hispanic' : '');
-                            }}>
-                            {i18n.t('hispanic')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={props.values.ethnicity == 'not_hispanic'}
-                            onChange={(value: boolean) => {
-                              props.setFieldValue('ethnicity', value ? 'not_hispanic' : '');
-                            }}>
-                            {i18n.t('not-hispanic')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={props.values.ethnicity == 'prefer_not_to_say'}
-                            onChange={(value: boolean) => {
-                              props.setFieldValue('ethnicity', value ? 'prefer_not_to_say' : '');
-                            }}>
-                            {i18n.t('prefer-not-to-say')}
-                          </CheckboxItem>
-                        </CheckboxList>
-                      </Item>
-                    </FieldWrapper>
-                  )}
+                  <RaceEthnicityQuestion
+                    showRaceQuestion={this.state.showRaceQuestion}
+                    showEthnicityQuestion={this.state.showEthnicityQuestion}
+                    formikProps={props as FormikProps<RaceEthnicityData>}
+                  />
 
                   <FieldWrapper>
                     <Item stackedLabel style={styles.textItemStyle}>
@@ -731,28 +652,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     );
   }
 }
-
-const UKRaceCheckboxes = [
-  { label: i18n.t('uk-asian'), value: 'uk_asian' },
-  { label: i18n.t('uk-black'), value: 'uk_black' },
-  { label: i18n.t('uk-mixed-white-black'), value: 'uk_mixed_white_black' },
-  { label: i18n.t('uk-mixed-other'), value: 'uk_mixed_other' },
-  { label: i18n.t('uk-white'), value: 'uk_white' },
-  { label: i18n.t('uk-chinese'), value: 'uk_chinese' },
-  { label: i18n.t('uk-middle-eastern'), value: 'uk_middle_eastern' },
-  { label: i18n.t('uk-other'), value: 'other' },
-  { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
-];
-
-const USRaceCheckboxes = [
-  { label: i18n.t('us-indian_native'), value: 'us_indian_native' },
-  { label: i18n.t('us-asian'), value: 'us_asian' },
-  { label: i18n.t('us-black'), value: 'us_black' },
-  { label: i18n.t('us-hawaiian_pacific'), value: 'us_hawaiian_pacific' },
-  { label: i18n.t('us-white'), value: 'us_white' },
-  { label: i18n.t('us-other'), value: 'other' },
-  { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
-];
 
 const styles = StyleSheet.create({
   fieldRow: {
