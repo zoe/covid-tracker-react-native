@@ -224,7 +224,7 @@
     
   "describe-symptoms": {
       "page-title": "Beskriv de symtom du har just nu",
-      "question-has-fever": "Har du feber?",
+      "question-has-fever": "Har du feber eller känner dig varm?",
       "question-your-temperature": "Om du kan ta tempen, vad är den?",
       "placeholder-temperature": "Ange temperatur",
       "picker-celsius": "°C",
@@ -234,7 +234,7 @@
       "picker-fatigue-none": "Nej",
       "picker-fatigue-mild": "Lindrig trötthet",
       "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
-      "question-has-unusual-shortness-of-breath": "Har du andningssvårigheter?",
+      "question-has-unusual-shortness-of-breath": "Har du andningsbesvär, eller känns det som att du inte får tillräckligt med luft?",
       "picker-shortness-of-breath-none": "Nej",
       "picker-shortness-of-breath-mild": "- Ja. Lindriga symtom - viss andnöd under vanliga aktiviteter",
       "picker-shortness-of-breath-significant": "- Ja. Måttliga symtom - andningen är bara bekväm i vila",
@@ -242,7 +242,7 @@
       "question-has-loss-of-smell": "Har du fått nedsatt lukt- eller smaksinne?",
       "question-has-hoarse-voice": "Är du hes?",
       "question-has-chest-pain": "Känner du ovanlig smärta eller stramhet i bröstet?",
-      "question-has-abdominal-pain": "Har du ont i magen?",
+      "question-has-abdominal-pain": "Har du ont i magen/buken på ett sätt som du inte brukar ha?",
       "question-has-diarrhoea": "Har du diarré?",
       "placeholder-has-diarrhoea": "Har du diarré?",
       "question-has-delirium": "Har du något av följande symtom: förvirring, desorientering eller dåsighet?",
