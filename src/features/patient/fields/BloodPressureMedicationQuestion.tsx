@@ -3,12 +3,11 @@ import { View } from 'react-native';
 import i18n from '../../../locale/i18n';
 import { FormikProps } from 'formik';
 import DropdownField from '../../../components/DropdownField';
-import {YourHealthData} from "../YourHealthScreen";
 
 export interface BloodPressureData {
-    takesBloodPressureMedications: string; // pril
-    takesAnyBloodPressureMedications: string;
-    takesBloodPressureMedicationsSartan: string;
+  takesBloodPressureMedications: string; // pril
+  takesAnyBloodPressureMedications: string;
+  takesBloodPressureMedicationsSartan: string;
 }
 
 interface Props {
@@ -16,6 +15,15 @@ interface Props {
 }
 
 export class BloodPressureMedicationQuestion extends Component<Props, {}> {
+
+  static initialFormValues = () => {
+    return {
+      takesBloodPressureMedications: 'no', // pril
+      takesAnyBloodPressureMedications: 'no',
+      takesBloodPressureMedicationsSartan: 'no',
+    };
+  };
+
   render() {
     return (
       <View>
@@ -24,7 +32,8 @@ export class BloodPressureMedicationQuestion extends Component<Props, {}> {
           onValueChange={this.props.formikProps.handleChange('takesAnyBloodPressureMedications')}
           label={i18n.t('your-health.takes-any-blood-pressure-medication')}
           error={
-            this.props.formikProps.touched.takesAnyBloodPressureMedications && this.props.formikProps.errors.takesAnyBloodPressureMedications
+            this.props.formikProps.touched.takesAnyBloodPressureMedications &&
+            this.props.formikProps.errors.takesAnyBloodPressureMedications
           }
           androidDefaultLabel={i18n.t('label-chose-an-option')}
         />

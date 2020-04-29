@@ -1,36 +1,20 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form, Item, Label, Text } from 'native-base';
+import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
+import Screen, { Header, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isUSCountry } from '../../core/user/UserService';
-import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
+import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
-import { GenericTextField } from '../../components/GenericTextField';
-import {RaceEthnicityData, RaceEthnicityQuestion} from '../patient/fields/RaceEthnicityQuestion';
-import { AboutYouData } from '../patient/AboutYouScreen';
-import { YourHealthData } from '../patient/YourHealthScreen';
-import {BloodPressureData, BloodPressureMedicationQuestion} from "../patient/fields/BloodPressureMedicationQuestion";
-
-const initialFormValues: BackData = {
-  race: [] as string[],
-  raceOther: '',
-  ethnicity: '',
-
-  takesBloodPressureMedications: 'no', // pril
-  takesAnyBloodPressureMedications: 'no',
-  takesBloodPressureMedicationsSartan: 'no',
-};
+import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
+import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
 
 interface BackData extends BloodPressureData, RaceEthnicityData {}
 
@@ -63,15 +47,15 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   registerSchema = Yup.object().shape({
     takesAnyBloodPressureMedications: Yup.string().when([], {
       is: () => this.state.needBloodPressureAnswer,
-      then: Yup.string().required()
+      then: Yup.string().required(),
     }),
     takesBloodPressureMedications: Yup.string().when([], {
       is: () => this.state.needBloodPressureAnswer,
-      then: Yup.string().required()
+      then: Yup.string().required(),
     }),
     takesBloodPressureMedicationsSartan: Yup.string().when([], {
       is: () => this.state.needBloodPressureAnswer,
-      then: Yup.string().required()
+      then: Yup.string().required(),
     }),
 
     race: Yup.array<string>().when([], {
@@ -164,7 +148,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues}
+          initialValues={{
+            ...RaceEthnicityQuestion.initialFormValues(),
+            ...BloodPressureMedicationQuestion.initialFormValues(),
+          }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackData) => {
             return this.handleProfileUpdate(values);
@@ -173,7 +160,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             return (
               <Form>
                 {this.state.needBloodPressureAnswer && (
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>}/>
+                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
                 )}
 
                 {this.state.needRaceAnswer && (

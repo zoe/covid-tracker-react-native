@@ -39,9 +39,6 @@ const initialFormValues = {
   needsHelp: 'no',
   helpAvailable: 'no',
   mobilityAid: 'no',
-  race: [] as string[],
-  raceOther: '',
-  ethnicity: '',
 };
 
 export interface AboutYouData extends RaceEthnicityData {
@@ -66,9 +63,6 @@ export interface AboutYouData extends RaceEthnicityData {
   needsHelp: string;
   helpAvailable: string;
   mobilityAid: string;
-  race: string[];
-  raceOther: string;
-  ethnicity: string;
 }
 
 type AboutYouProps = {
@@ -289,11 +283,12 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       const userService = new UserService();
       const features = userService.getConfig();
 
-      return cloneDeep({
+      return{
         ...initialFormValues,
         heightUnit: features.defaultHeightUnit,
         weightUnit: features.defaultWeightUnit,
-      });
+        ...RaceEthnicityQuestion.initialFormValues()
+      };
     };
 
     return (

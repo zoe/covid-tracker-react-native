@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import {Formik, FormikProps} from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -17,9 +17,9 @@ import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
-import {BloodPressureData, BloodPressureMedicationQuestion} from "./fields/BloodPressureMedicationQuestion";
+import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 
-export interface YourHealthData extends BloodPressureData {
+export interface YourHealthData extends BloodPressureData{
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -35,9 +35,6 @@ export interface YourHealthData extends BloodPressureData {
   takesImmunosuppressants: string;
   takesAspirin: string;
   takesCorticosteroids: string;
-  takesBloodPressureMedications: string; // pril
-  takesAnyBloodPressureMedications: string;
-  takesBloodPressureMedicationsSartan: string;
 
   limitedActivity: string;
 }
@@ -58,10 +55,7 @@ const initialFormValues = {
   takesImmunosuppressants: 'no',
   takesCorticosteroids: 'no',
   takesAspirin: 'no',
-  takesBloodPressureMedications: 'no', // pril
-  takesAnyBloodPressureMedications: 'no',
-  takesBloodPressureMedicationsSartan: 'no',
-
+  
   limitedActivity: 'no',
 };
 
@@ -210,7 +204,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues}
+          initialValues={{
+            ...initialFormValues,
+            ...BloodPressureMedicationQuestion.initialFormValues(),
+          }}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourHealthData) => {
             return this.handleUpdateHealth(values);
@@ -328,7 +325,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.takes-nsaids')}
                   />
 
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>}/>
+                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
