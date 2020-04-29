@@ -40,6 +40,11 @@ commands:
       - run: bundle install
       - run: bundle update fastlane
       - run: npm install
+      - run: echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version'`-dev' >> $BASH_ENV
+
+  another_step:
+    steps:
+      - run: echo ${RELEASE_CHANNEL}
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -74,14 +79,11 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - build
+      - another_step
       - run: npm run lint
       - run: npm run prettier
       - run: npm test
-      - run: RELEASE_CHANNEL=
-      - run: eval echo ${RELEASE_CHANNEL}
-      - run: echo ${CIRCLE_BRANCH}
-      - run: echo 'export MY_ENV_VAR=`cat app.json | jq -r '.expo.version'`-dev' >> $BASH_ENV
-      - run: echo ${MY_ENV_VAR}
+
   deploy:
     executor: node
     working_directory: ~/covid-react
