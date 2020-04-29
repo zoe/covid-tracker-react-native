@@ -115,7 +115,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        currentPatient.hasCompletePatientDetails = true;
+        currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
