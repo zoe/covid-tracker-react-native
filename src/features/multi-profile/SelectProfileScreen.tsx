@@ -12,8 +12,8 @@ import DaysAgo from '../../components/DaysAgo';
 import { Header } from '../../components/Screen';
 import { ClippedText, ErrorText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
 import UserService from '../../core/user/UserService';
-import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import i18n from '../../locale/i18n';
+import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
