@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
+import Screen, { FieldWrapper, Header, ProgressBlock, isAndroid } from '../../components/Screen';
 import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationErrors } from '../../components/ValidationError';
@@ -26,6 +26,7 @@ const initialFormValues = {
   hasPersistentCough: 'no',
   hasUnusualFatigue: 'no',
   hasHeadache: 'no',
+  headacheFrequency: '',
   hasNausea: 'no',
   hasDizziness: 'no',
   hasUnusualShortnessOfBreath: 'no',
@@ -52,6 +53,7 @@ interface DescribeSymptomsData {
   hasPersistentCough: string;
   hasUnusualFatigue: string;
   hasHeadache: string;
+  headacheFrequency: string;
   hasNausea: string;
   hasDizziness: string;
   hasUnusualShortnessOfBreath: string;
@@ -106,6 +108,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasPersistentCough: Yup.string().required(),
     hasUnusualFatigue: Yup.string().required(),
     hasHeadache: Yup.string().required(),
+    headacheFrequency: Yup.string(),
     hasNausea: Yup.string().required(),
     hasDizziness: Yup.string().required(),
     hasUnusualShortnessOfBreath: Yup.string().required(),
@@ -186,10 +189,18 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       };
     }
 
+    // TODO: Update infos with headacheFrequency and frequencyLooseStools when
+    // they exist as backend fields
+
     return infos;
   }
 
   render() {
+    const androidOption = isAndroid && {
+      label: i18n.t('choose-one-of-these-options'),
+      value: '',
+    };
+
     const currentPatient = this.props.route.params.currentPatient;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
@@ -206,6 +217,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       { label: i18n.t('describe-symptoms.picker-shortness-of-breath-significant'), value: 'significant' },
       { label: i18n.t('describe-symptoms.picker-shortness-of-breath-severe'), value: 'severe' },
     ];
+    const headacheFrequencyItems = [
+      androidOption,
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'allday' },
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most' },
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'someday' },
+    ].filter(Boolean) as [];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -293,6 +310,15 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     onValueChange={props.handleChange('hasHeadache')}
                     label={i18n.t('describe-symptoms.question-has-headache')}
                   />
+
+                  { props.values.hasHeadache === 'yes'  && (
+                    <DropdownField
+                      selectedValue={props.values.headacheFrequency}
+                      onValueChange={props.handleChange('headacheFrequency')}
+                      label={i18n.t('describe-symptoms.question-headache-frequency')}
+                      items={headacheFrequencyItems}
+                    />
+                  )}
 
                   <DropdownField
                     selectedValue={props.values.hasNausea}
