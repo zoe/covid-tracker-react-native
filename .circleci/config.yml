@@ -78,7 +78,7 @@ jobs:
       - run: npm run prettier
       - run: npm test
       - run: RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version'`-dev
-      - run: echo $RELEASE_CHANNEL
+      - run: echo ${RELEASE_CHANNEL}
   deploy:
     executor: node
     working_directory: ~/covid-react
