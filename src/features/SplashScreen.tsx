@@ -37,16 +37,14 @@ export class SplashScreen extends Component<Props, object> {
       this.userService.initCountry(country as string);
     } catch (err) {
       Alert.alert(
-        "Error",
-        "There was a problem while fetching startup information: " + err.message,
+        'Error',
+        'There was a problem while fetching startup information: ' + err.message,
         [
           {
-            text: "Cancel",
-            style: "cancel"
+            text: 'Cancel',
+            style: 'cancel',
           },
-          { text: "Try Again", 
-            onPress: () => this.bootstrapAsync()
-          }
+          { text: 'Try Again', onPress: () => this.bootstrapAsync() },
         ],
         { cancelable: false }
       );
