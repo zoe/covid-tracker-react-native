@@ -5,8 +5,14 @@ import { FormikProps } from 'formik';
 import DropdownField from '../../../components/DropdownField';
 import {YourHealthData} from "../YourHealthScreen";
 
+export interface BloodPressureData {
+    takesBloodPressureMedications: string; // pril
+    takesAnyBloodPressureMedications: string;
+    takesBloodPressureMedicationsSartan: string;
+}
+
 interface Props {
-  formikProps: FormikProps<YourHealthData>;
+  formikProps: FormikProps<BloodPressureData>;
 }
 
 export class BloodPressureMedicationQuestion extends Component<Props, {}> {

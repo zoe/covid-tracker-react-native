@@ -17,9 +17,9 @@ import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
-import {BloodPressureMedicationQuestion} from "./fields/BloodPressureMedicationQuestion";
+import {BloodPressureData, BloodPressureMedicationQuestion} from "./fields/BloodPressureMedicationQuestion";
 
-export interface YourHealthData {
+export interface YourHealthData extends BloodPressureData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -328,7 +328,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.takes-nsaids')}
                   />
 
-                  <BloodPressureMedicationQuestion formikProps={props}/>
+                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>}/>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}

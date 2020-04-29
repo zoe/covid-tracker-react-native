@@ -17,57 +17,22 @@ import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
 import { GenericTextField } from '../../components/GenericTextField';
-import { RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
+import {RaceEthnicityData, RaceEthnicityQuestion} from '../patient/fields/RaceEthnicityQuestion';
 import { AboutYouData } from '../patient/AboutYouScreen';
 import { YourHealthData } from '../patient/YourHealthScreen';
-import {BloodPressureMedicationQuestion} from "../patient/fields/BloodPressureMedicationQuestion";
+import {BloodPressureData, BloodPressureMedicationQuestion} from "../patient/fields/BloodPressureMedicationQuestion";
 
 const initialFormValues: BackData = {
-  yearOfBirth: '',
-  sex: '',
-  genderIdentity: '',
-  genderIdentityDescription: '',
-  postcode: '',
-  height: '',
-  feet: '',
-  inches: '',
-  heightUnit: 'ft',
-  weight: '',
-  stones: '',
-  pounds: '',
-  weightUnit: 'lbs',
-
-  everExposed: '',
-  houseboundProblems: 'no',
-  needsHelp: 'no',
-  helpAvailable: 'no',
-  mobilityAid: 'no',
   race: [] as string[],
   raceOther: '',
   ethnicity: '',
-  isPregnant: 'no',
-  hasHeartDisease: 'no',
-  hasDiabetes: 'no',
-  hasLungDisease: 'no',
-  smokerStatus: 'never',
-  smokedYearsAgo: '',
-  hasKidneyDisease: 'no',
 
-  hasCancer: 'no',
-  cancerType: '',
-
-  doesChemiotherapy: 'no',
-  takesImmunosuppressants: 'no',
-  takesCorticosteroids: 'no',
-  takesAspirin: 'no',
   takesBloodPressureMedications: 'no', // pril
   takesAnyBloodPressureMedications: 'no',
   takesBloodPressureMedicationsSartan: 'no',
-
-  limitedActivity: 'no',
 };
 
-interface BackData extends AboutYouData, YourHealthData {}
+interface BackData extends BloodPressureData, RaceEthnicityData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -208,14 +173,14 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             return (
               <Form>
                 {this.state.needBloodPressureAnswer && (
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<YourHealthData>}/>
+                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>}/>
                 )}
 
                 {this.state.needRaceAnswer && (
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.features.showRaceQuestion}
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
-                    formikProps={props as FormikProps<AboutYouData>}
+                    formikProps={props as FormikProps<RaceEthnicityData>}
                   />
                 )}
 

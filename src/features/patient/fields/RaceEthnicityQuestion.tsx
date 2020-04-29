@@ -9,10 +9,16 @@ import { FormikProps } from 'formik';
 import { FieldWrapper } from '../../../components/Screen';
 import { AboutYouData } from '../AboutYouScreen';
 
+export interface RaceEthnicityData {
+  race: string[];
+  raceOther: string;
+  ethnicity: string;
+}
+
 interface RaceEthnicityQuestionProps {
   showRaceQuestion: Boolean;
   showEthnicityQuestion: Boolean;
-  formikProps: FormikProps<AboutYouData>;
+  formikProps: FormikProps<RaceEthnicityData>;
 }
 
 type RaceCheckBoxData = {
@@ -42,7 +48,7 @@ const USRaceCheckboxes = [
   { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
 ];
 
-const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<AboutYouData>) => {
+const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<RaceEthnicityData>) => {
   return data.map((checkBoxData) => {
     return (
       <CheckboxItem

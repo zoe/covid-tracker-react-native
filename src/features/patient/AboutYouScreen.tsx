@@ -17,7 +17,7 @@ import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import {RaceEthnicityQuestion} from "./fields/RaceEthnicityQuestion";
+import {RaceEthnicityData, RaceEthnicityQuestion} from "./fields/RaceEthnicityQuestion";
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -44,7 +44,7 @@ const initialFormValues = {
   ethnicity: '',
 };
 
-export interface AboutYouData {
+export interface AboutYouData extends RaceEthnicityData {
   yearOfBirth: string;
   sex: string;
   genderIdentity: string;
@@ -364,7 +364,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.state.showRaceQuestion}
                     showEthnicityQuestion={this.state.showEthnicityQuestion}
-                    formikProps={props}
+                    formikProps={props as FormikProps<RaceEthnicityData>}
                   />
 
                   <FieldWrapper>
