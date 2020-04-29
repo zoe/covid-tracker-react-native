@@ -427,7 +427,7 @@
   "validation-error-text": "Fyll i eller korrigera informationen ovan: %{info}",
   "validation-error-text-no-info": "Fyll i eller korrigera informationen ovan",
 
-  "website-home": "https://covid.joinzoe.com/",
+  "website-home": "https://covid19app.lu.se/",
   "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
-  "share-with-friends-url": "https://covid.joinzoe.com/"
+  "share-with-friends-url": "https://covid19app.lu.se/"
 }
