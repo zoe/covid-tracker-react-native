@@ -39,7 +39,10 @@ const initialRegistrationValues = {
     password: ""
 }
 
-
+const checkFieldsFilled = (props: any) => {
+    if (props.errors.password || props.errors.email) return false
+    return true
+}
 export class RegisterScreen extends Component<PropsType, State> {
     private passwordComponent: any;
 
@@ -205,7 +208,8 @@ export class RegisterScreen extends Component<PropsType, State> {
                             <View>
                                 <BrandedButton
                                     onPress={props.handleSubmit}
-                                    enable={this.state.enableSubmit}
+                                    enable={checkFieldsFilled(props)}
+                                    hideLoading={!props.isSubmitting}
                                 >{i18n.t("create-account-btn")}</BrandedButton>
                             </View>
                         </View>
