@@ -19,15 +19,11 @@ import { ScreenParamList } from '../ScreenParamList';
 const initialFormValues = {
   hasCovidTest: 'no',
   hasCovidPositive: 'no',
-
-  takesAnyBloodPressureMedications: '',
 };
 
 interface CovidTestData {
   hasCovidTest: string;
   hasCovidPositive: string;
-
-  takesAnyBloodPressureMedications: string;
 }
 
 type CovidProps = {
@@ -37,12 +33,10 @@ type CovidProps = {
 
 type State = {
   errorMessage: string;
-  needBloodPressureAnswer: boolean;
 };
 
 const initialState: State = {
   errorMessage: '',
-  needBloodPressureAnswer: false,
 };
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
@@ -56,11 +50,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     hasCovidPositive: Yup.string().required(),
     takesAnyBloodPressureMedications: Yup.string(),
   });
-
-  async componentDidMount() {
-    const currentPatient = this.props.route.params.currentPatient;
-    this.setState({ needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer });
-  }
 
   handleUpdateHealth(formData: CovidTestData) {
     const { currentPatient, assessmentId } = this.props.route.params;
@@ -77,19 +66,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         ...assessment,
         tested_covid_positive: formData.hasCovidPositive,
       };
-    }
-
-    // Update patient data with blood pressure answer, if answered.
-    if (patientId && formData.takesAnyBloodPressureMedications) {
-      // Deliberately fire and forget.
-      userService
-        .updatePatient(patientId, {
-          takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
-        })
-        .then((response) => (currentPatient.hasBloodPressureAnswer = true))
-        .catch((err) => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
     }
 
     if (assessmentId == null) {
@@ -154,18 +130,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                     onValueChange={props.handleChange('hasCovidPositive')}
                     label={i18n.t('covid-test.question-has-covid-positive')}
                     items={hasCovidPositiveItems}
-                  />
-                )}
-
-                {this.state.needBloodPressureAnswer && (
-                  <DropdownField
-                    selectedValue={props.values.takesAnyBloodPressureMedications}
-                    onValueChange={props.handleChange('takesAnyBloodPressureMedications')}
-                    label={i18n.t('covid-test.question-takes-any-blood-pressure-medications')}
-                    error={
-                      props.touched.takesAnyBloodPressureMedications && props.errors.takesAnyBloodPressureMedications
-                    }
-                    androidDefaultLabel={i18n.t('label-chose-an-option')}
                   />
                 )}
 
