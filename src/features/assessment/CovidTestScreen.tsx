@@ -17,6 +17,7 @@ import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import moment from 'moment';
 import { GenericTextField } from '../../components/GenericTextField';
+import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
   covidTestResult: 'negative',
