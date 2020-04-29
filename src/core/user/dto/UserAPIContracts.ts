@@ -174,13 +174,28 @@ export type PatientInfosRequest = {
   race_other: string;
   ethnicity: string;
   last_asked_level_of_isolation: Date;
+
+  // Covid test
+  ever_had_covid_test: boolean;
+  is_waiting_for_covid_test_result: boolean;
 };
 
 export type AssessmentInfosRequest = {
   version: string; // document/schema version
   patient: string; //	Patient id
+
+  //Covid test
   had_covid_test: boolean;
   tested_covid_positive: string;
+
+  covid_test_result: string;
+  covid_test_result_status: string;
+
+  ever_had_covid_test: boolean;
+  had_new_covid_test: boolean;
+
+
+
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
   chills_or_shivers: boolean; //defaults to False
