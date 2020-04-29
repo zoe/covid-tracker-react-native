@@ -183,16 +183,21 @@ export type AssessmentInfosRequest = {
   tested_covid_positive: string;
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
+  chills_or_shivers: boolean; //defaults to False
+  nausea: boolean; //defaults to False
+  dizzy_light_headed: boolean; //defaults to False
   temperature: number; //can be null
   temperature_unit: string; //'C' for centigrade, 'F' for Fahrenheit
   persistent_cough: boolean; //defaults to False
   fatigue: string; //'no', 'mild' or 'severe', defaults to 'no'
   shortness_of_breath: string; //'no', 'mild', 'significant' or 'severe', defaults to 'no'
-
+  red_welts_on_face_or_lips: string; // defaults to False
+  blisters_on_feet: string; // defaults to False
   loss_of_smell: boolean; // defaults to False
   hoarse_voice: boolean; // defaults to False
   chest_pain: boolean; // defaults to False
   abdominal_pain: boolean; // defaults to False
+  eye_soreness: boolean; //defaults to False
   other_symptoms: string;
 
   diarrhoea: boolean; //	defaults to False
