@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 
 import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService from '../../core/user/UserService';
@@ -143,15 +143,22 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     const currentPatient = this.props.route.params.currentPatient;
     const { isWaitingForCovidTestResult, everHadCovidTest } = currentPatient;
 
+    const androidOption = isAndroid && {
+      label: i18n.t('choose-one-of-these-options'),
+      value: '',
+    };
+
     const dateToday = moment().toDate();
 
     const covidTestResultItems = [
+      androidOption,
       { label: 'No', value: 'negative' },
       { label: 'Yes', value: 'positive' },
       { label: i18n.t('covid-test.picker-test-failed'), value: 'test_failed' },
     ];
 
     const covidTestResultStatusItems = [
+      androidOption,
       { label: 'Yes', value: 'received' },
       { label: 'No', value: 'waiting' },
     ];
@@ -163,6 +170,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       });
 
     const dateTestOccurredGuessItems = [
+      androidOption,
       { label: i18n.t('covid-test.picker-less-than-7-days-ago'), value: 'less_than_7_days_ago' },
       { label: i18n.t('covid-test.picker-over-1-week-ago'), value: 'over_1_week_ago' },
       { label: i18n.t('covid-test.picker-over-2-week-ago'), value: 'over_2_week_ago' },
@@ -171,6 +179,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     ];
 
     const covidTestMechanismItems = [
+      androidOption,
       { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
       { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
