@@ -17,9 +17,10 @@ import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import moment from 'moment';
 import { GenericTextField } from '../../components/GenericTextField';
+import { IOption } from "../patient/YourWorkScreen/helpers";
 
 const initialFormValues = {
-  covidTestResult: 'negative',
+  covidTestResult: '',
 
   everHadCovidTest: 'no', //Patient
 
@@ -65,12 +66,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     super(props);
     this.state = initialState;
   }
-
-  registerSchema = Yup.object().shape({
-    everHadCovidTest: Yup.string(),
-    covidTestResult: Yup.string(),
-    covidTestResultStatus: Yup.string(),
-  });
 
   handleUpdatePatientEverHadCovid(patientId: string, formData: CovidTestData) {
     const userService = new UserService();
@@ -143,6 +138,34 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     const currentPatient = this.props.route.params.currentPatient;
     const { isWaitingForCovidTestResult, everHadCovidTest } = currentPatient;
 
+    let registerSchema = Yup.object().shape({
+      everHadCovidTest: Yup.string(),
+      hadNewCovidTest: Yup.string(),
+      covidTestResultStatus: Yup.string().when(['everHadCovidTest', 'hadNewCovidTest'], {
+        is: (everVal, newVal) => {
+          if (isWaitingForCovidTestResult) return true;
+          return [everVal, newVal].includes('yes');
+        },
+        then: Yup.string().required(),
+      }),
+      covidTestResult: Yup.string().when('covidTestResultStatus', {
+        is: 'received',
+        then: Yup.string().required(),
+      }),
+      dateTestOccurredGuess: Yup.string().when('knowsDateOfTest', {
+        is: 'no',
+        then: Yup.string().required(),
+      }),
+      covidTestMechanism: Yup.string().test(
+        'Covid test mechanism present',
+        'Please indicate how the test was performed',
+        function test(value) {
+          return !!(this.parent.covidTestMechanism || this.parent.covidTestMechanismSpecify);
+
+        }
+      ),
+    });
+
     const androidOption = isAndroid && {
       label: i18n.t('choose-one-of-these-options'),
       value: '',
@@ -199,7 +222,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
         <Formik
           initialValues={initialFormValues}
-          validationSchema={this.registerSchema}
+          validationSchema={registerSchema}
           onSubmit={(values: CovidTestData) => {
             return this.handleUpdateHealth(values);
           }}>
