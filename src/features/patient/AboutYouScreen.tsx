@@ -79,6 +79,12 @@ type State = {
   showEthnicityQuestion: boolean;
 };
 
+const checkFormFilled = (props: FormikProps<AboutYouData>) => {
+  if (Object.keys(props.errors).length) return false;
+  if (Object.keys(props.values).length === 0) return false;
+  return true;
+};
+
 const initialState: State = {
   errorMessage: '',
   enableSubmit: true,
@@ -281,7 +287,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       { label: i18n.t('exposed-no'), value: 'no' },
     ];
 
-    const getInitialFormValues = () => {
+    const getInitialFormValues = (): AboutYouData => {
       const userService = new UserService();
       const features = userService.getConfig();
 
@@ -642,7 +648,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
 
-                  <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
+                  <BrandedButton
+                    onPress={props.handleSubmit}
+                    enable={checkFormFilled(props)}
+                    hideLoading={!props.isSubmitting}>
                     <Text>{i18n.t('next-question')}</Text>
                   </BrandedButton>
                 </Form>
