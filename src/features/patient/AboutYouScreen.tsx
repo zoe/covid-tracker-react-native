@@ -6,6 +6,7 @@ import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
+
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
@@ -17,7 +18,7 @@ import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import {RaceEthnicityData, RaceEthnicityQuestion} from "./fields/RaceEthnicityQuestion";
+import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -205,6 +206,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   registerSchema = Yup.object().shape({
     yearOfBirth: Yup.number()
+      .typeError(i18n.t('correct-year-of-birth'))
       .required(i18n.t('required-year-of-birth'))
       .min(1900, i18n.t('correct-year-of-birth'))
       .max(2020, i18n.t('correct-year-of-birth')),
@@ -289,11 +291,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       const userService = new UserService();
       const features = userService.getConfig();
 
-      return{
+      return {
         ...initialFormValues,
         heightUnit: features.defaultHeightUnit,
         weightUnit: features.defaultWeightUnit,
-        ...RaceEthnicityQuestion.initialFormValues()
+        ...RaceEthnicityQuestion.initialFormValues(),
       };
     };
 
