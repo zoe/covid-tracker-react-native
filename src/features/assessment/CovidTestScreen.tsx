@@ -26,9 +26,6 @@ const initialFormValues = {
 
   hasCovidTest: 'no',
   dateTestOccurredGuess: '',
-  covidTestMechanism: '',
-  covidTestMechanismSpecify: '',
-  covidTestResultStatus: '',
 
   knowsDateOfTest: '', // only for ux logic
 };
@@ -36,12 +33,9 @@ const initialFormValues = {
 interface CovidTestData {
   covidTestResult: string;
   hasCovidPositive: string;
-  covidTestResultStatus: string;
   everHadCovidTest: string;
   hasCovidTest: string;
   dateTestOccurredGuess: string;
-  covidTestMechanism: string;
-  covidTestMechanismSpecify: string;
 
   knowsDateOfTest: string; // only for ux logic
 }
@@ -136,7 +130,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
-    const { isWaitingForCovidTestResult } = currentPatient;
 
     const registerSchema = Yup.object().shape({
       hasCovidTest: Yup.string(),
@@ -146,7 +139,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       }),
       knowsDateOfTest: Yup.string().when(['hasCovidTest', 'hasCovidPositive'], {
         is: (hasNewTest, hasCovidPositive) => {
-          if (isWaitingForCovidTestResult) return false;
           return hasNewTest === 'yes' && (hasCovidPositive === 'yes' || hasCovidPositive === 'no');
         },
         then: Yup.string().required(),
@@ -170,25 +162,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
     ];
 
-    const covidTestResultItems = [
-      androidOption,
-      { label: i18n.t('picker-no'), value: 'negative' },
-      { label: i18n.t('picker-yes'), value: 'positive' },
-      { label: i18n.t('covid-test.picker-test-failed'), value: 'test_failed' },
-    ].filter(Boolean) as IOption[];
-
-    const covidTestResultStatusItems = [
-      androidOption,
-      { label: i18n.t('picker-yes'), value: 'received' },
-      { label: i18n.t('picker-no'), value: 'waiting' },
-    ].filter(Boolean) as IOption[];
-
-    if (isWaitingForCovidTestResult)
-      covidTestResultStatusItems.push({
-        label: i18n.t('covid-test.picker-never-had-test'),
-        value: 'never_had_test',
-      });
-
     const dateTestOccurredGuessItems = [
       androidOption,
       { label: i18n.t('covid-test.picker-less-than-7-days-ago'), value: 'less_than_7_days_ago' },
@@ -196,15 +169,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       { label: i18n.t('covid-test.picker-over-2-week-ago'), value: 'over_2_week_ago' },
       { label: i18n.t('covid-test.picker-over-3-week-ago'), value: 'over_3_week_ago' },
       { label: i18n.t('covid-test.picker-over-1-month-ago'), value: 'over_1_month_ago' },
-    ].filter(Boolean) as IOption[];
-
-    const covidTestMechanismItems = [
-      androidOption,
-      { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
-      { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
-      { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
-      { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
-      { label: i18n.t('covid-test.picker-other'), value: 'other' },
     ].filter(Boolean) as IOption[];
 
     return (
