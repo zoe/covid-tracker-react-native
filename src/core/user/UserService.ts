@@ -158,7 +158,7 @@ export default class UserService extends ApiClientBase {
     return patientResponse.data;
   }
 
-  public async updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+  public async updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType> {
     // Calculate the flags based on patient info
     const hasRaceAnswer = patient.race.length > 0;
     const isFemale = patient.gender == 0;
@@ -166,7 +166,7 @@ export default class UserService extends ApiClientBase {
       ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
       patient.is_carer_for_community;
     const hasBloodPressureAnswer = patient.takes_any_blood_pressure_medications != null
-    const hasCompletePatientDetails =
+    const hasCompletedPatientDetails =
       // They've done at least one page of the patient flow. That's a start.
       !!patient.profile_attributes_updated_at &&
       // If they've completed the last page, heart disease will either be true or false
@@ -205,7 +205,7 @@ export default class UserService extends ApiClientBase {
       isHealthWorker,
       hasRaceAnswer,
       hasBloodPressureAnswer,
-      hasCompletePatientDetails,
+      hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
       shouldAskLevelOfIsolation,
