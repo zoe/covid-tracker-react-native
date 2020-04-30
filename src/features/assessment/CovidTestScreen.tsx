@@ -25,7 +25,7 @@ const initialFormValues = {
   everHadCovidTest: 'no', //Patient
 
   hadNewCovidTest: 'no',
-  dateTestOccurredGuess: null,
+  dateTestOccurredGuess: '',
   covidTestMechanism: '',
   covidTestMechanismSpecify: '',
   covidTestResultStatus: '',
@@ -39,7 +39,7 @@ interface CovidTestData {
 
   everHadCovidTest: string;
   hadNewCovidTest: string;
-  dateTestOccurredGuess: Date | null;
+  dateTestOccurredGuess: string;
   covidTestMechanism: string;
   covidTestMechanismSpecify: string;
 
@@ -53,12 +53,12 @@ type CovidProps = {
 
 type State = {
   errorMessage: string;
-  date: Date | null;
+  date: Date;
 };
 
 const initialState: State = {
   errorMessage: '',
-  date: new Date(),
+  date: moment().add(moment().utcOffset(), 'minutes').toDate(),
 };
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
@@ -82,8 +82,11 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     }
   }
 
-  setDate = (newDate: Date) => {
-    this.setState({ date: newDate });
+  setDate = (selectedDate: Date) => {
+    let stateDate = moment(selectedDate);
+    let offset = stateDate.utcOffset();
+    stateDate.add(offset, 'minutes');
+    this.setState({ date: stateDate.toDate() });
   };
 
   handleUpdateHealth(formData: CovidTestData) {
@@ -96,12 +99,13 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     const everHadOrNewTest = formData.everHadCovidTest === 'yes' || formData.hadNewCovidTest === 'yes';
     const storeTestResultStatus = everHadOrNewTest || isWaitingForCovidTestResult;
 
+    const dateToPost = moment(this.state.date).format('YYYY-MM-DD');
     const assessment = {
       patient: patientId,
       had_new_covid_test: formData.hadNewCovidTest === 'yes',
       ...(storeTestResultStatus && { covid_test_result_status: formData.covidTestResultStatus }),
       ...(formData.covidTestResultStatus === 'received' && { covid_test_result: formData.covidTestResult }),
-      ...(everHadOrNewTest && formData.knowsDateOfTest === 'yes' && { date_test_occurred: this.state.date }),
+      ...(everHadOrNewTest && formData.knowsDateOfTest === 'yes' && { date_test_occurred: dateToPost }),
       ...(everHadOrNewTest &&
         formData.knowsDateOfTest === 'no' && { date_test_occurred_guess: formData.dateTestOccurredGuess }),
       ...(everHadOrNewTest &&
@@ -151,9 +155,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       dateTestOccurredGuess: Yup.string().when(['knowsDateOfTest', 'hadNewCovidTest', 'everHadCovidTest'], {
         is: (knowsDate, hadNewTest, everHadTest) => {
           const shouldFillInTestDetails = hadNewTest === 'yes' || everHadTest === 'yes';
-          if (knowsDate === 'no' && !isWaitingForCovidTestResult && shouldFillInTestDetails) return true;
-          if (knowsDate === 'yes') return false;
-          return false;
+          return knowsDate === 'no' && !isWaitingForCovidTestResult && shouldFillInTestDetails;
         },
         then: Yup.string().required(),
       }),
@@ -181,8 +183,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       label: i18n.t('choose-one-of-these-options'),
       value: '',
     };
-
-    const dateToday = moment().toDate();
 
     const covidTestResultItems = [
       androidOption,
@@ -275,14 +275,13 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                 {i18n.t('covid-test.question-date-test-occurred')}
                               </Label>
                               <DatePicker
-                                defaultDate={dateToday}
-                                minimumDate={new Date(2020, 0, 1)}
-                                maximumDate={dateToday}
-                                locale="en"
+                                defaultDate={this.state.date}
+                                minimumDate={new Date(2019, 11, 1)}
+                                maximumDate={this.state.date}
+                                locale="fr-FR"
                                 modalTransparent={false}
                                 animationType="fade"
                                 onDateChange={this.setDate}
-                                timeZoneOffsetInMinutes={60}
                                 disabled={false}
                               />
                             </Item>
@@ -331,7 +330,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                     items={covidTestResultStatusItems}
                   />
                 )}
-                {}
                 {askCovidTestResult && (
                   <DropdownField
                     selectedValue={props.values.covidTestResult}
