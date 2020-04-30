@@ -233,7 +233,8 @@
       "picker-throat-swab": "En testpinne i svalget",
       "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
       "picker-blood-sample": "Jag lämnade ett blodprov",
-      "picker-other": "Annat sätt, ange vilket"
+      "picker-other": "Annat sätt, ange vilket",
+      "indicate-test-mechanism": "Ange hur testet utfördes"
   },
 
 

@@ -17,7 +17,7 @@ import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import moment from 'moment';
 import { GenericTextField } from '../../components/GenericTextField';
-import { IOption } from "../patient/YourWorkScreen/helpers";
+import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
   covidTestResult: '',
@@ -30,7 +30,7 @@ const initialFormValues = {
   covidTestMechanismSpecify: '',
   covidTestResultStatus: '',
 
-  knowsDateOfTest: 'no', // only for ux logic
+  knowsDateOfTest: '', // only for ux logic
 };
 
 interface CovidTestData {
@@ -141,6 +141,29 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     let registerSchema = Yup.object().shape({
       everHadCovidTest: Yup.string(),
       hadNewCovidTest: Yup.string(),
+      knowsDateOfTest: Yup.string().when(['hadNewCovidTest', 'everHadCovidTest'], {
+        is: (hadNewTest, everHadTest) => {
+          if (isWaitingForCovidTestResult) return false;
+          return hadNewTest === 'yes' || everHadTest === 'yes';
+        },
+        then: Yup.string().required(),
+      }),
+      dateTestOccurredGuess: Yup.mixed().when(['knowsDateOfTest', 'hadNewCovidTest', 'everHadCovidTest'], {
+        is: (knowsDate, hadNewTest, everHadTest) => {
+          const shouldFillInTestDetails = hadNewTest === 'yes' || everHadTest === 'yes';
+          if (knowsDate === 'no' && !isWaitingForCovidTestResult && shouldFillInTestDetails) return true;
+          if (knowsDate === 'yes') return false;
+          return false;
+        },
+        then: Yup.string().required(),
+      }),
+      covidTestMechanism: Yup.string().when(['covidTestMechanismSpecify', 'hadNewCovidTest', 'everHadCovidTest'], {
+        is: (testMechanismSpecify, hadNewTest, everHadTest) => {
+          const shouldFillInTestDetails = hadNewTest === 'yes' || everHadTest === 'yes';
+          return !testMechanismSpecify && !isWaitingForCovidTestResult && shouldFillInTestDetails;
+        },
+        then: Yup.string().required(),
+      }),
       covidTestResultStatus: Yup.string().when(['everHadCovidTest', 'hadNewCovidTest'], {
         is: (everVal, newVal) => {
           if (isWaitingForCovidTestResult) return true;
@@ -152,18 +175,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         is: 'received',
         then: Yup.string().required(),
       }),
-      dateTestOccurredGuess: Yup.string().when('knowsDateOfTest', {
-        is: 'no',
-        then: Yup.string().required(),
-      }),
-      covidTestMechanism: Yup.string().test(
-        'Covid test mechanism present',
-        'Please indicate how the test was performed',
-        function test(value) {
-          return !!(this.parent.covidTestMechanism || this.parent.covidTestMechanismSpecify);
-
-        }
-      ),
     });
 
     const androidOption = isAndroid && {
@@ -175,15 +186,15 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
     const covidTestResultItems = [
       androidOption,
-      { label: 'No', value: 'negative' },
-      { label: 'Yes', value: 'positive' },
+      { label: i18n.t('picker-no'), value: 'negative' },
+      { label: i18n.t('picker-yes'), value: 'positive' },
       { label: i18n.t('covid-test.picker-test-failed'), value: 'test_failed' },
     ].filter(Boolean) as IOption[];
 
     const covidTestResultStatusItems = [
       androidOption,
-      { label: 'Yes', value: 'received' },
-      { label: 'No', value: 'waiting' },
+      { label: i18n.t('picker-yes'), value: 'received' },
+      { label: i18n.t('picker-no'), value: 'waiting' },
     ].filter(Boolean) as IOption[];
 
     if (isWaitingForCovidTestResult)
@@ -227,6 +238,10 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {
+            let receivedResults = props.values.covidTestResultStatus === 'received';
+            let askCovidTestResult =
+              (props.values.hadNewCovidTest === 'yes' || props.values.everHadCovidTest === 'yes') && receivedResults;
+            askCovidTestResult = askCovidTestResult || (isWaitingForCovidTestResult && receivedResults);
             return (
               <Form>
                 {!isWaitingForCovidTestResult && (
@@ -302,33 +317,29 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                   </>
                 )}
 
-                {isWaitingForCovidTestResult ||
-                  ((props.values.hadNewCovidTest === 'yes' || props.values.everHadCovidTest === 'yes') && (
-                    <DropdownField
-                      selectedValue={props.values.covidTestResultStatus}
-                      onValueChange={props.handleChange('covidTestResultStatus')}
-                      label={i18n.t(
-                        isWaitingForCovidTestResult
-                          ? 'covid-test.question-covid-test-result-status-waiting'
-                          : 'covid-test.question-covid-test-result-status'
-                      )}
-                      items={covidTestResultStatusItems}
-                    />
-                  ))}
-
-                {props.values.covidTestResultStatus === 'received' &&
-                  (props.values.hadNewCovidTest === 'yes' || props.values.everHadCovidTest === 'yes') && (
-                    <DropdownField
-                      selectedValue={props.values.covidTestResult}
-                      onValueChange={props.handleChange('covidTestResult')}
-                      label={i18n.t(
-                        isWaitingForCovidTestResult
-                          ? 'covid-test.question-tested-covid-positive-waiting'
-                          : 'covid-test.question-tested-covid-positive'
-                      )}
-                      items={covidTestResultItems}
-                    />
-                  )}
+                {(isWaitingForCovidTestResult ||
+                  props.values.hadNewCovidTest === 'yes' ||
+                  props.values.everHadCovidTest === 'yes') && (
+                  <DropdownField
+                    selectedValue={props.values.covidTestResultStatus}
+                    onValueChange={props.handleChange('covidTestResultStatus')}
+                    label={i18n.t(
+                      isWaitingForCovidTestResult
+                        ? 'covid-test.question-covid-test-result-status-waiting'
+                        : 'covid-test.question-covid-test-result-status'
+                    )}
+                    items={covidTestResultStatusItems}
+                  />
+                )}
+                {}
+                {askCovidTestResult && (
+                  <DropdownField
+                    selectedValue={props.values.covidTestResult}
+                    onValueChange={props.handleChange('covidTestResult')}
+                    label={i18n.t('covid-test.question-tested-covid-positive')}
+                    items={covidTestResultItems}
+                  />
+                )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}

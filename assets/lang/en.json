@@ -268,7 +268,9 @@
     "picker-throat-swab": "Someone swabbed my throat",
     "picker-saliva-sample": "I spat in a cup/tube",
     "picker-blood-sample": "I gave a blood sample",
-    "picker-other": "Other, please specify"
+    "picker-other": "Other, please specify",
+    "indicate-test-mechanism": "Please indicate how the test was performed",
+    "indicate-test-occurred": "Please indicate when the test was performed"
   },
 
   "describe-symptoms": {
