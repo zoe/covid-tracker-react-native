@@ -129,7 +129,10 @@ app.get('/patients/:patientId', (req, res) => {
     cancer_clinical_trial_nct_id: null,
     cancer_physician_name: null,
     version: '',
+    last_asked_level_of_isolation: null,
     profile_attributes_updated_at: null,
+    is_waiting_for_covid_test_result: null,
+    ever_had_covid_test: null,
   });
 });
 
