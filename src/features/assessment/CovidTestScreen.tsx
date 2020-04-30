@@ -22,21 +22,16 @@ import { IOption } from '../patient/YourWorkScreen/helpers';
 const initialFormValues = {
   covidTestResult: '',
   hasCovidPositive: '',
-  everHadCovidTest: 'no', //Patient
-
   hasCovidTest: 'no',
   dateTestOccurredGuess: '',
-
   knowsDateOfTest: '', // only for ux logic
 };
 
 interface CovidTestData {
   covidTestResult: string;
   hasCovidPositive: string;
-  everHadCovidTest: string;
   hasCovidTest: string;
   dateTestOccurredGuess: string;
-
   knowsDateOfTest: string; // only for ux logic
 }
 
@@ -64,7 +59,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
   handleUpdatePatientEverHadCovid(patientId: string, formData: CovidTestData) {
     const userService = new UserService();
     // Update patient data with has ever had covid test, if answered.
-    if (patientId && (formData.hasCovidTest === 'yes' || formData.everHadCovidTest === 'yes')) {
+    if (patientId && formData.hasCovidTest === 'yes') {
       // Deliberately fire and forget.
       userService
         .updatePatient(patientId, {
