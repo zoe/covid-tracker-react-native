@@ -1,12 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
+import moment from 'moment';
 import { Form, Text, DatePicker, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import DropdownField from '../../components/DropdownField';
+import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
@@ -15,8 +17,6 @@ import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import moment from 'moment';
-import { GenericTextField } from '../../components/GenericTextField';
 import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
@@ -138,7 +138,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     const currentPatient = this.props.route.params.currentPatient;
     const { isWaitingForCovidTestResult, everHadCovidTest } = currentPatient;
 
-    let registerSchema = Yup.object().shape({
+    const registerSchema = Yup.object().shape({
       everHadCovidTest: Yup.string(),
       hadNewCovidTest: Yup.string(),
       knowsDateOfTest: Yup.string().when(['hadNewCovidTest', 'everHadCovidTest'], {
@@ -238,7 +238,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {
-            let receivedResults = props.values.covidTestResultStatus === 'received';
+            const receivedResults = props.values.covidTestResultStatus === 'received';
             let askCovidTestResult =
               (props.values.hadNewCovidTest === 'yes' || props.values.everHadCovidTest === 'yes') && receivedResults;
             askCovidTestResult = askCovidTestResult || (isWaitingForCovidTestResult && receivedResults);
@@ -278,9 +278,9 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                                 defaultDate={dateToday}
                                 minimumDate={new Date(2020, 0, 1)}
                                 maximumDate={dateToday}
-                                locale={'en'}
+                                locale="en"
                                 modalTransparent={false}
-                                animationType={'fade'}
+                                animationType="fade"
                                 onDateChange={this.setDate}
                                 timeZoneOffsetInMinutes={60}
                                 disabled={false}
