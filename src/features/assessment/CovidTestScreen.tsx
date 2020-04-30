@@ -148,7 +148,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         },
         then: Yup.string().required(),
       }),
-      dateTestOccurredGuess: Yup.mixed().when(['knowsDateOfTest', 'hadNewCovidTest', 'everHadCovidTest'], {
+      dateTestOccurredGuess: Yup.string().when(['knowsDateOfTest', 'hadNewCovidTest', 'everHadCovidTest'], {
         is: (knowsDate, hadNewTest, everHadTest) => {
           const shouldFillInTestDetails = hadNewTest === 'yes' || everHadTest === 'yes';
           if (knowsDate === 'no' && !isWaitingForCovidTestResult && shouldFillInTestDetails) return true;
