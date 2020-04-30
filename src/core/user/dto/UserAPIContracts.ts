@@ -132,20 +132,28 @@ export type PatientInfosRequest = {
 
   // US Cohorts
   is_in_us_nurses_study: boolean;
-  is_in_us_mass_general_brigham: boolean;
-  is_in_us_stanford_diabetes: boolean;
   is_in_us_growing_up_today: boolean;
-  is_in_us_stanford_nutrition: boolean;
-  is_in_us_multiethnic_cohort: boolean;
-  is_in_us_predict2: boolean;
-  is_in_us_american_cancer_society_cancer_prevention_study_3: boolean;
   is_in_us_harvard_health_professionals: boolean;
+  is_in_us_mass_general_brigham: boolean;
+  is_in_us_partners_biobank: boolean;
+  is_in_us_mass_eye_ear_infirmary: boolean;
+  is_in_us_bwhs: boolean;
+  is_in_us_american_cancer_society_cancer_prevention_study_3: boolean;
   is_in_us_california_teachers: boolean;
+  is_in_us_aspree_xt: boolean;
+  is_in_us_multiethnic_cohort: boolean;
   is_in_us_sister: boolean;
+  is_in_us_covid_flu_near_you: boolean;
+  is_in_us_chasing_covid: boolean;
+  is_in_us_environmental_polymorphisms: boolean;
   is_in_us_agricultural_health: boolean;
   is_in_us_gulf: boolean;
-  is_in_us_aspree_xt: boolean;
-  is_in_us_bwhs: boolean;
+  is_in_us_predetermine: boolean;
+  is_in_us_promise_pcrowd: boolean;
+  is_in_us_colocare: boolean;
+  is_in_us_predict2: boolean;
+  is_in_us_stanford_nutrition: boolean;
+  is_in_us_stanford_diabetes: boolean;
 
   clinical_study_names: string;
   clinical_study_contact: string;

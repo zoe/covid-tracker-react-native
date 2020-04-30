@@ -25,8 +25,8 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 
-const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
