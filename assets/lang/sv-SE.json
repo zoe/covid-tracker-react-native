@@ -210,11 +210,33 @@
   "covid-test": {
       "page-title": "Test för COVID-19",
       "question-has-covid-test": "Har du testats för COVID-19?",
-      "question-has-covid-positive": "Testades du positiv för COVID-19?",
+      "question-tested-covid-positive": "Var ditt test för COVID-19 positivt?",
+      "question-ever-had-covid-test": "Har du någon gång testats för COVID-19?",
       "picker-waiting": "Väntar på mina resultat",
-      "question-takes-any-blood-pressure-medications": "Tar du regelbundet någon blodtrycksmedicin?"
+      "picker-test-failed": "Testet misslyckades",
+      "question-takes-any-blood-pressure-medications": "Tar du regelbundet någon blodtrycksmedicin?",
+      "question-covid-test-result-status": "Har du fått testresultatet?",
+      "question-covid-test-result-status-waiting": "Du nämnde nyligen att du väntar på ditt resultat från ett COVID-19-test. Har du fått det nu?",
+      "picker-never-had-test": "Jag testades aldrig",
+      "question-had-new-covid-test": "Har du testats på nytt för COVID-19 sedan du sist rapporterade?",
+      "question-knows-date-of-test": "Vet du vilket datum du testades?",
+      "question-date-test-occurred": "När testades du?",
+      "question-date-test-occurred-guess": "När (ungefär) testades du?",
+      "picker-less-than-7-days-ago": "För mindre än sju dagar sedan",
+      "picker-over-1-week-ago": "Över en vecka sedan",
+      "picker-over-2-week-ago": "Över två veckor sedan",
+      "picker-over-3-week-ago": "Över tre veckor sedan",
+      "picker-over-1-month-ago": "Över en månad sedan",
+      "question-covid-test-mechanism": "Hur utfördes testet?",
+      "question-covid-test-mechanism-specify": "Ange hur testet utfördes:",
+      "picker-nose-swab": "En testpinne i näsan",
+      "picker-throat-swab": "En testpinne i svalget",
+      "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
+      "picker-blood-sample": "Jag lämnade ett blodprov",
+      "picker-other": "Annat sätt, ange vilket",
+      "indicate-test-mechanism": "Ange hur testet utfördes"
   },
-  
+
 
   "how-you-feel": {
       "question-health-status": "Hur mår du i kroppen just nu?",
