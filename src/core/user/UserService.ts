@@ -25,8 +25,8 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 
-const ASSESSMENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
@@ -165,13 +165,13 @@ export default class UserService extends ApiClientBase {
     const isHealthWorker =
       ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
       patient.is_carer_for_community;
-    const hasBloodPressureAnswer = patient.takes_any_blood_pressure_medications != null
+    const hasBloodPressureAnswer = patient.takes_any_blood_pressure_medications != null;
     const hasCompletePatientDetails =
       // They've done at least one page of the patient flow. That's a start.
       !!patient.profile_attributes_updated_at &&
       // If they've completed the last page, heart disease will either be true or false
       // and not null. (or any nullable field on the last page)
-      (patient.has_heart_disease != null);
+      patient.has_heart_disease != null;
 
     let patientName = patient.name;
     if (!patientName || (!patient.reported_by_another && patientName === 'Me')) {
@@ -198,6 +198,10 @@ export default class UserService extends ApiClientBase {
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
 
+    // CovidTestScreen flag
+    const isWaitingForCovidTestResult = patient.is_waiting_for_covid_test_result || false;
+    const everHadCovidTest = patient.ever_had_covid_test || false;
+
     return {
       ...patientState,
       profile,
@@ -210,6 +214,8 @@ export default class UserService extends ApiClientBase {
       isSameHousehold,
       shouldAskLevelOfIsolation,
       shouldAskStudy,
+      isWaitingForCovidTestResult,
+      everHadCovidTest,
     };
   }
 

@@ -1,12 +1,13 @@
+import { FormikProps } from 'formik';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import i18n from '../../../locale/i18n';
+
 import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import { GenericTextField } from '../../../components/GenericTextField';
-import { isUSCountry } from '../../../core/user/UserService';
-import { FormikProps } from 'formik';
 import { FieldWrapper } from '../../../components/Screen';
+import { isUSCountry } from '../../../core/user/UserService';
+import i18n from '../../../locale/i18n';
 
 export interface RaceEthnicityData {
   race: string[];
@@ -15,8 +16,8 @@ export interface RaceEthnicityData {
 }
 
 interface RaceEthnicityQuestionProps {
-  showRaceQuestion: Boolean;
-  showEthnicityQuestion: Boolean;
+  showRaceQuestion: boolean;
+  showEthnicityQuestion: boolean;
   formikProps: FormikProps<RaceEthnicityData>;
 }
 
@@ -68,8 +69,7 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<RaceE
   });
 };
 
-export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps, {}> {
-
+export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps, object> {
   static initialFormValues = () => {
     return {
       race: [] as string[],

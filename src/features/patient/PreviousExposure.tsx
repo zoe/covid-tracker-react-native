@@ -12,7 +12,6 @@ import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
-
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
