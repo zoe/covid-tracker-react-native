@@ -54,6 +54,7 @@
   "placeholder-year-of-birth": "Year of birth",
   "required-year-of-birth": "Please enter your year of birth",
   "correct-year-of-birth": "Please correct your year of birth",
+  "valid-year-of-birth": "Please enter a valid year of birth",
 
   "your-sex-at-birth": "What sex were you assigned at birth?",
   "sex-at-birth-male": "Male",
