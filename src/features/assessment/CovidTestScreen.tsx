@@ -94,18 +94,19 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     const patientId = currentPatient.patientId;
 
     const userService = new UserService();
-    const everHadOrNewTest = formData.hasCovidTest === 'yes';
+    const hadCovidTest = formData.hasCovidTest === 'yes';
+    const receivedTestResults = formData.hasCovidPositive === 'yes' || formData.hasCovidPositive === 'no';
     const dateToPost = moment(this.state.date).format('YYYY-MM-DD');
 
     const assessment = {
       patient: patientId,
       had_covid_test: formData.hasCovidTest === 'yes',
-      ...(everHadOrNewTest && { tested_covid_positive: formData.hasCovidPositive }),
-      ...(everHadOrNewTest &&
-        formData.hasCovidPositive !== 'waiting' &&
+      ...(hadCovidTest && { tested_covid_positive: formData.hasCovidPositive }),
+      ...(hadCovidTest &&
+        receivedTestResults &&
         formData.knowsDateOfTest === 'yes' && { date_test_occurred: dateToPost }),
-      ...(everHadOrNewTest &&
-        formData.hasCovidPositive !== 'waiting' &&
+      ...(hadCovidTest &&
+        receivedTestResults &&
         formData.knowsDateOfTest === 'no' && { date_test_occurred_guess: formData.dateTestOccurredGuess }),
     } as Partial<AssessmentInfosRequest>;
 
@@ -139,6 +140,10 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
 
     const registerSchema = Yup.object().shape({
       hasCovidTest: Yup.string(),
+      hasCovidPositive: Yup.string().when('hasCovidTest', {
+        is: 'yes',
+        then: Yup.string().required(),
+      }),
       knowsDateOfTest: Yup.string().when(['hasCovidTest', 'hasCovidPositive'], {
         is: (hasNewTest, hasCovidPositive) => {
           if (isWaitingForCovidTestResult) return false;
