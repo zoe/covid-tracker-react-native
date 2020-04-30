@@ -1,8 +1,9 @@
+import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import i18n from '../../../locale/i18n';
-import { FormikProps } from 'formik';
+
 import DropdownField from '../../../components/DropdownField';
+import i18n from '../../../locale/i18n';
 
 export interface BloodPressureData {
   takesBloodPressureMedications: string; // pril
@@ -14,8 +15,7 @@ interface Props {
   formikProps: FormikProps<BloodPressureData>;
 }
 
-export class BloodPressureMedicationQuestion extends Component<Props, {}> {
-
+export class BloodPressureMedicationQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
       takesBloodPressureMedications: 'no', // pril
