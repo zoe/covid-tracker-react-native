@@ -56,21 +56,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     this.state = initialState;
   }
 
-  handleUpdatePatientEverHadCovid(patientId: string, formData: CovidTestData) {
-    const userService = new UserService();
-    // Update patient data with has ever had covid test, if answered.
-    if (patientId && formData.hasCovidTest === 'yes') {
-      // Deliberately fire and forget.
-      userService
-        .updatePatient(patientId, {
-          ever_had_covid_test: true,
-        })
-        .catch((err) => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
-    }
-  }
-
   setDate = (selectedDate: Date) => {
     const stateDate = moment(selectedDate);
     const offset = stateDate.utcOffset();
@@ -103,7 +88,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       userService
         .addAssessment(assessment)
         .then((response) => {
-          this.handleUpdatePatientEverHadCovid(patientId, formData);
           this.props.navigation.setParams({ assessmentId: response.data.id });
           this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId: response.data.id });
         })
@@ -114,7 +98,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       userService
         .updateAssessment(assessmentId, assessment)
         .then((response) => {
-          this.handleUpdatePatientEverHadCovid(patientId, formData);
           this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId });
         })
         .catch((err) => {
