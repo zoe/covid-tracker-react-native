@@ -135,10 +135,11 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     };
 
     const hasCovidPositiveItems = [
+      androidOption,
       { label: i18n.t('picker-no'), value: 'no' },
       { label: i18n.t('picker-yes'), value: 'yes' },
       { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
-    ];
+    ].filter(Boolean) as IOption[];
 
     const dateTestOccurredGuessItems = [
       androidOption,
