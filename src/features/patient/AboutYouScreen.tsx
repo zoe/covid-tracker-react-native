@@ -200,6 +200,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   registerSchema = Yup.object().shape({
     yearOfBirth: Yup.number()
+      .typeError(i18n.t('correct-year-of-birth'))
       .required(i18n.t('required-year-of-birth'))
       .min(1900, i18n.t('correct-year-of-birth'))
       .max(2020, i18n.t('correct-year-of-birth')),
