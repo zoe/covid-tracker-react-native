@@ -51,10 +51,10 @@ commands:
   deploy_android:
     steps:
       - run: 
-          command: npx expo-cli build:android --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
+          command: npx expo-cli build:android -t app-bundle --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
-      - run: curl -o fastlane/app.apk "$(npx expo-cli url:apk --non-interactive)"
-      - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID
+      - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
+      - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
       - store_artifacts:
           path: ~/covid-react/fastlane/app.apk
   deploy_ios:
@@ -62,10 +62,10 @@ commands:
       - run: 
           command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
-      - run: curl -o fastlane/app.ipa "$(expo url:ipa --non-interactive)"
-      - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS
+      - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
+      - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
       - store_artifacts:
-          path: ~/covid-react/fastlane/app.ipa    
+          path: ~/covid-react/fastlane/app.ipa
 
 jobs:
   build_and_test:
@@ -73,6 +73,8 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - build
+      - run: npm run lint
+      - run: npm run prettier
       - run: npm test
   deploy:
     executor: node
@@ -80,9 +82,8 @@ jobs:
     steps:
       - build
       - publish_to_expo
+      - deploy_ios
       - deploy_android
-      - deploy_ios    
-
 
 workflows:
   build_and_test:

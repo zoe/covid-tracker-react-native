@@ -1,5 +1,6 @@
-import express = require("express");
-import bodyParser = require("body-parser");
+import express = require('express');
+import bodyParser = require('body-parser');
+import moment = require('moment');
 
 const app = express();
 const port = 3000;
@@ -7,51 +8,51 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post("/auth/login", (req, res) => {
+app.post('/auth/login', (req, res) => {
   return res.status(200).send({
-    key: "abc",
+    key: 'abc',
     user: {
-      username: "testuser@example.com",
+      username: 'testuser@example.com',
       authorizations: [],
-      patients: ["00000000-0000-0000-0000-000000000000"],
-      pii: "00000000-0000-0000-0000-000000000000",
+      patients: ['00000000-0000-0000-0000-000000000000'],
+      pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: "GB",
+      country_code: 'GB',
     },
   });
 });
 
-app.post("/auth/password/reset", (req, res) => {
+app.post('/auth/password/reset', (req, res) => {
   return res.send();
 });
 
-app.post("/auth/signup", (req, res) => {
+app.post('/auth/signup', (req, res) => {
   return res.status(201).send({
-    key: "abc",
+    key: 'abc',
     user: {
-      username: "testuser@example.com",
+      username: 'testuser@example.com',
       authorizations: [],
-      patients: ["00000000-0000-0000-0000-000000000000"],
-      pii: "00000000-0000-0000-0000-000000000000",
+      patients: ['00000000-0000-0000-0000-000000000000'],
+      pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: "GB",
+      country_code: 'GB',
     },
   });
 });
 
-app.post("/tokens", (req, res) => {
+app.post('/tokens', (req, res) => {
   return res.send({
-    token: "abcd",
+    token: 'abcd',
     active: true,
-    platform: "ANDROID",
+    platform: 'ANDROID',
   });
 });
 
-app.patch("/consent", (req, res) => {
+app.patch('/consent', (req, res) => {
   return res.send();
 });
 
-app.get("/patients/:patientId", (req, res) => {
+app.get('/patients/:patientId', (req, res) => {
   return res.status(200).send({
     year_of_birth: null,
     height_cm: null,
@@ -127,59 +128,88 @@ app.get("/patients/:patientId", (req, res) => {
     cancer_clinical_trial_site: null,
     cancer_clinical_trial_nct_id: null,
     cancer_physician_name: null,
-    version: "",
+    version: '',
     profile_attributes_updated_at: null,
   });
 });
 
-app.patch("/patients/:patientId", (req, res) => {
+app.patch('/patients/:patientId', (req, res) => {
+  // TODO: return different patients on different patientId
   return res.send();
 });
 
-app.get("/profile", (req, res) => {
+app.get('/patient_list/', (req, res) => {
+  return res.send([
+    {
+      id: '00000000-0000-0000-0000-000000000000',
+      avatar_name: 'profile1',
+      name: 'Me',
+      last_reported_at: moment().subtract(6, 'hours').format(),
+    },
+    {
+      id: '00000000-0000-0000-0000-000000000001',
+      avatar_name: 'profile2',
+      name: 'Alice',
+      last_reported_at: '2020-04-20T15:07:00Z',
+    },
+    {
+      id: '00000000-0000-0000-0000-000000000002',
+      avatar_name: 'profile3',
+      name: 'Bob',
+      last_reported_at: moment().subtract(1, 'days').format(),
+    },
+  ]);
+});
+
+app.get('/profile', (req, res) => {
   return res.status(200).send({
-    username: "testuser@example.com",
+    username: 'testuser@example.com',
     authorizations: [],
-    patients: ["00000000-0000-0000-0000-000000000000"],
-    pii: "00000000-0000-0000-0000-000000000000",
+    patients: [
+      '00000000-0000-0000-0000-000000000000',
+      '00000000-0000-0000-0000-000000000001',
+      '00000000-0000-0000-0000-000000000002',
+    ],
+    pii: '00000000-0000-0000-0000-000000000000',
     push_tokens: [],
-    country_code: "GB",
+    country_code: 'GB',
   });
 });
 
-app.patch("/information/:userId", (req, res) => {
-  return res.send()
+app.patch('/information/:userId', (req, res) => {
+  return res.send();
 });
 
-app.post("/assessments", (req, res) => {
+app.post('/assessments', (req, res) => {
   return res.send({
-    id: 'abcde'
-  })
+    id: 'abcde',
+  });
 });
 
-app.patch("/assessments/:assessmentId", (req, res) => {
+app.patch('/assessments/:assessmentId', (req, res) => {
   return res.send({
-    id: 'abcde'
-  })
+    id: 'abcde',
+  });
 });
 
-app.get("/users/covid_count", (req, res) => {
-  return res.status(200).send('2000000');
-});
-
-app.get("/area_stats", (req, res) => {
-
+app.get('/users/startup_info/', (req, res) => {
   return res.status(200).send({
-    "locked": false,
-    "rank": 768,
-    "number_of_areas": 1000,
-    "rank_delta": 24,
-    "area_name": "Suffolk County",
-    "number_of_missing_contributors": 100,
-    "predicted_cases": 698,
-    "population": 42000,
+    users_count: '2000000',
+    ip_country: 'GB',
   });
 });
 
+app.get('/area_stats', (req, res) => {
+  return res.status(200).send({
+    locked: false,
+    rank: 768,
+    number_of_areas: 1000,
+    rank_delta: 24,
+    area_name: 'Suffolk County',
+    number_of_missing_contributors: 100,
+    predicted_cases: 698,
+    population: 42000,
+  });
+});
 
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
