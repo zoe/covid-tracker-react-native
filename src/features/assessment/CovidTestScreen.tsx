@@ -83,8 +83,8 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
   }
 
   setDate = (selectedDate: Date) => {
-    let stateDate = moment(selectedDate);
-    let offset = stateDate.utcOffset();
+    const stateDate = moment(selectedDate);
+    const offset = stateDate.utcOffset();
     stateDate.add(offset, 'minutes');
     this.setState({ date: stateDate.toDate() });
   };
