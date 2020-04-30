@@ -132,20 +132,28 @@ export type PatientInfosRequest = {
 
   // US Cohorts
   is_in_us_nurses_study: boolean;
-  is_in_us_mass_general_brigham: boolean;
-  is_in_us_stanford_diabetes: boolean;
   is_in_us_growing_up_today: boolean;
-  is_in_us_stanford_nutrition: boolean;
-  is_in_us_multiethnic_cohort: boolean;
-  is_in_us_predict2: boolean;
-  is_in_us_american_cancer_society_cancer_prevention_study_3: boolean;
   is_in_us_harvard_health_professionals: boolean;
+  is_in_us_mass_general_brigham: boolean;
+  is_in_us_partners_biobank: boolean;
+  is_in_us_mass_eye_ear_infirmary: boolean;
+  is_in_us_bwhs: boolean;
+  is_in_us_american_cancer_society_cancer_prevention_study_3: boolean;
   is_in_us_california_teachers: boolean;
+  is_in_us_aspree_xt: boolean;
+  is_in_us_multiethnic_cohort: boolean;
   is_in_us_sister: boolean;
+  is_in_us_covid_flu_near_you: boolean;
+  is_in_us_chasing_covid: boolean;
+  is_in_us_environmental_polymorphisms: boolean;
   is_in_us_agricultural_health: boolean;
   is_in_us_gulf: boolean;
-  is_in_us_aspree_xt: boolean;
-  is_in_us_bwhs: boolean;
+  is_in_us_predetermine: boolean;
+  is_in_us_promise_pcrowd: boolean;
+  is_in_us_colocare: boolean;
+  is_in_us_predict2: boolean;
+  is_in_us_stanford_nutrition: boolean;
+  is_in_us_stanford_diabetes: boolean;
 
   clinical_study_names: string;
   clinical_study_contact: string;
@@ -183,16 +191,21 @@ export type AssessmentInfosRequest = {
   tested_covid_positive: string;
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
+  chills_or_shivers: boolean; //defaults to False
+  nausea: boolean; //defaults to False
+  dizzy_light_headed: boolean; //defaults to False
   temperature: number; //can be null
   temperature_unit: string; //'C' for centigrade, 'F' for Fahrenheit
   persistent_cough: boolean; //defaults to False
   fatigue: string; //'no', 'mild' or 'severe', defaults to 'no'
   shortness_of_breath: string; //'no', 'mild', 'significant' or 'severe', defaults to 'no'
-
+  red_welts_on_face_or_lips: string; // defaults to False
+  blisters_on_feet: string; // defaults to False
   loss_of_smell: boolean; // defaults to False
   hoarse_voice: boolean; // defaults to False
   chest_pain: boolean; // defaults to False
   abdominal_pain: boolean; // defaults to False
+  eye_soreness: boolean; //defaults to False
   other_symptoms: string;
 
   diarrhoea: boolean; //	defaults to False

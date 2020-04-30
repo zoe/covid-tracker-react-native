@@ -48,6 +48,7 @@ import StartAssessmentScreen from './features/assessment/StartAssessment';
 import PreviousExposureScreen from './features/patient/PreviousExposure';
 import StartPatientScreen from './features/patient/StartPatient';
 import { RegisterScreen } from './features/register/RegisterScreen';
+import ProfileBackDateScreen from "./features/assessment/ProfileBackDateScreen";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -100,38 +101,14 @@ export default class ZoeApp extends Component<object, State> {
         <Stack.Screen name="Welcome2" component={Welcome2Screen} options={{ headerShown: false }} />
         <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Consent" component={ConsentScreen} options={{ headerShown: true, title: 'Consent' }} />
-        <Stack.Screen
-          name="TermsOfUseUS"
-          component={TermsOfUseUSScreen}
-          options={{ headerShown: true, title: 'Terms of Use' }}
-        />
-        <Stack.Screen
-          name="PrivacyPolicyUK"
-          component={PrivacyPolicyUKScreen}
-          options={{ headerShown: true, title: 'Privacy notice' }}
-        />
-        <Stack.Screen
-          name="PrivacyPolicyUS"
-          component={PrivacyPolicyUSScreen}
-          options={{ headerShown: true, title: 'Privacy policy' }}
-        />
-        <Stack.Screen
-          name="PrivacyPolicySV"
-          component={PrivacyPolicySVScreen}
-          options={{ headerShown: true, title: 'Integritetsmeddelande' }}
-        />
-        <Stack.Screen
-          name="NursesConsentUS"
-          component={NursesConsentUSScreen}
-          options={{ headerShown: true, title: 'Research Consent' }}
-        />
+        <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={{ headerShown: true, title: 'Terms of Use' }}/>
+        <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={{ headerShown: true, title: 'Privacy notice' }}/>
+        <Stack.Screen name="PrivacyPolicyUS" component={PrivacyPolicyUSScreen} options={{ headerShown: true, title: 'Privacy policy' }}/>
+        <Stack.Screen name="PrivacyPolicySV" component={PrivacyPolicySVScreen} options={{ headerShown: true, title: 'Integritetsmeddelande' }}/>
+        <Stack.Screen name="NursesConsentUS" component={NursesConsentUSScreen} options={{ headerShown: true, title: 'Research Consent' }}/>
         <Stack.Screen name="BeforeWeStartUS" component={BeforeWeStartUS} options={{ headerShown: false }} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
-        <Stack.Screen
-          name="ResetPasswordConfirm"
-          component={ResetPasswordConfirmScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="StartPatient" component={StartPatientScreen} options={{ headerShown: false }} />
@@ -141,11 +118,7 @@ export default class ZoeApp extends Component<object, State> {
         <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{ headerShown: false }} />
         <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={{ headerShown: false }} />
         <Stack.Screen name="StartAssessment" component={StartAssessmentScreen} options={{ headerShown: false }} />
-        <Stack.Screen
-          name="HealthWorkerExposure"
-          component={HealthWorkerExposureScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{ headerShown: false }} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{ headerShown: false }} />
@@ -161,6 +134,7 @@ export default class ZoeApp extends Component<object, State> {
         <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   }

@@ -224,7 +224,7 @@
     
   "describe-symptoms": {
       "page-title": "Beskriv de symtom du har just nu",
-      "question-has-fever": "Har du feber?",
+      "question-has-fever": "Har du feber eller känner dig varm?",
       "question-your-temperature": "Om du kan ta tempen, vad är den?",
       "placeholder-temperature": "Ange temperatur",
       "picker-celsius": "°C",
@@ -234,7 +234,7 @@
       "picker-fatigue-none": "Nej",
       "picker-fatigue-mild": "Lindrig trötthet",
       "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
-      "question-has-unusual-shortness-of-breath": "Har du andningssvårigheter?",
+      "question-has-unusual-shortness-of-breath": "Har du andningsbesvär, eller känns det som att du inte får tillräckligt med luft?",
       "picker-shortness-of-breath-none": "Nej",
       "picker-shortness-of-breath-mild": "- Ja. Lindriga symtom - viss andnöd under vanliga aktiviteter",
       "picker-shortness-of-breath-significant": "- Ja. Måttliga symtom - andningen är bara bekväm i vila",
@@ -242,7 +242,7 @@
       "question-has-loss-of-smell": "Har du fått nedsatt lukt- eller smaksinne?",
       "question-has-hoarse-voice": "Är du hes?",
       "question-has-chest-pain": "Känner du ovanlig smärta eller stramhet i bröstet?",
-      "question-has-abdominal-pain": "Har du ont i magen?",
+      "question-has-abdominal-pain": "Har du ont i magen/buken på ett sätt som du inte brukar ha?",
       "question-has-diarrhoea": "Har du diarré?",
       "placeholder-has-diarrhoea": "Har du diarré?",
       "question-has-delirium": "Har du något av följande symtom: förvirring, desorientering eller dåsighet?",
@@ -251,7 +251,13 @@
       "question-has-sore-throat": "Har du ont i halsen?",
       "question-has-unusual-muscle-pains": "Har du mycket ont i musklerna?",
       "question-other-symptoms": "Finns det några andra viktiga symtom som du vill berätta om?",
-      "placeholder-other-symptoms": "Andra symtom"
+      "placeholder-other-symptoms": "Andra symtom",
+      "question-red-welts-on-face": "Har du haft upphöjda, röda, kliande utslag på huden eller har ditt ansikte eller dina läppar plötsligt svullnat upp?",
+      "question-blisters-on-feet": "Har du haft några röda/lila sår eller blåsor på fötterna, inklusive tårna?",
+      "question-has-nausea": "Har du känt dig illamående eller kräkts?",
+      "question-has-dizziness": "Känner du dig yr eller snurrig?",
+      "question-has-chills": "Har du frossa eller huttrar du (känner dig kall)?",
+      "question-has-eye-soreness": "Gör dina ögon ont eller är irriterade (t.ex. ljuskänsliga, rinniga, eller röda)?"
   },
 
   "where-are-you": {
@@ -429,5 +435,8 @@
 
   "website-home": "https://covid.joinzoe.com/",
   "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
-  "share-with-friends-url": "https://covid19app.lu.se/"
+  "share-with-friends-url": "https://covid19app.lu.se/",
+
+  "back-date-profile-title": "Några fler frågor om dig",
+  "update-profile": "Uppdatera profilen"
 }
