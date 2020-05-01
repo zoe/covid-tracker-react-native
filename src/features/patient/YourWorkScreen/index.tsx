@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
@@ -12,22 +12,28 @@ import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
 import { ValidationErrors } from '../../../components/ValidationError';
 import UserService from '../../../core/user/UserService';
 import {
-  PatientInfosRequest,
-  HealthCareStaffOptions,
-  EquipmentUsageOptions,
   AvailabilityAlwaysOptions,
-  AvailabilitySometimesOptions,
   AvailabilityNeverOptions,
+  AvailabilitySometimesOptions,
+  EquipmentUsageOptions,
+  HealthCareStaffOptions,
+  PatientInfosRequest,
   PatientInteractions,
 } from '../../../core/user/dto/UserAPIContracts';
 import i18n from '../../../locale/i18n';
-import { IOption, YourWorkProps, State, initialState, YourWorkData, initialFormValues } from './helpers';
+import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
     super(props);
     this.state = initialState;
   }
+
+  checkFormFilled = (props: FormikProps<YourWorkData>) => {
+    if (Object.keys(props.errors).length) return false;
+    if (Object.keys(props.values).length === 0) return false;
+    return true;
+  };
 
   handleUpdateWork(formData: YourWorkData) {
     const currentPatient = this.props.route.params.currentPatient;
@@ -38,9 +44,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        const isHealthcareWorker =
+        currentPatient.isHealthWorker =
           infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
-        currentPatient.isHealthWorker = isHealthcareWorker;
         this.props.navigation.navigate('AboutYou', { currentPatient });
       })
       .catch(() =>
@@ -94,7 +99,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   }
 
   registerSchema = Yup.object().shape({
-    inHospitalInpatient: Yup.boolean(),
     isHealthcareStaff: Yup.string().required(i18n.t('required-is-healthcare-worker')),
     isCarer: Yup.string().required(i18n.t('required-is-carer')),
     hasPatientInteraction: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
@@ -229,11 +233,11 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues as YourWorkData}
+          initialValues={{} as YourWorkData}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourWorkData) => this.handleUpdateWork(values)}>
-          {({
-            values: {
+          {(props) => {
+            const {
               isHealthcareStaff,
               isCarer,
               hasUsedPPEEquipment,
@@ -241,12 +245,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
               ppeAvailabilitySometimes,
               ppeAvailabilityAlways,
               ppeAvailabilityNever,
-            },
-            handleSubmit,
-            handleChange,
-            touched,
-            errors,
-          }) => {
+            } = props.values;
+            const { handleSubmit, handleChange, touched, errors } = props;
+
             const showWorkerAndCarerQuestions: boolean =
               (!!isHealthcareStaff && isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT) ||
               (!!isCarer && isCarer === 'yes');
@@ -395,7 +396,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(errors).length && <ValidationErrors errors={errors} />}
 
-                  <BrandedButton onPress={handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                  <BrandedButton
+                    onPress={handleSubmit}
+                    enable={this.checkFormFilled(props)}
+                    hideLoading={!props.isSubmitting}>
+                    {i18n.t('next-question')}
+                  </BrandedButton>
                 </Form>
               </KeyboardAvoidingView>
             );
