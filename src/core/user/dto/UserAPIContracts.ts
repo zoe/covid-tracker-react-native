@@ -187,8 +187,11 @@ export type PatientInfosRequest = {
 export type AssessmentInfosRequest = {
   version: string; // document/schema version
   patient: string; //	Patient id
+
+  //Covid test
   had_covid_test: boolean;
   tested_covid_positive: string;
+
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
   chills_or_shivers: boolean; //defaults to False

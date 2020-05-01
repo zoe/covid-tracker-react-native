@@ -6,6 +6,7 @@ import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
+
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
@@ -17,7 +18,7 @@ import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import {RaceEthnicityData, RaceEthnicityQuestion} from "./fields/RaceEthnicityQuestion";
+import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -76,6 +77,12 @@ type State = {
 
   showRaceQuestion: boolean;
   showEthnicityQuestion: boolean;
+};
+
+const checkFormFilled = (props: FormikProps<AboutYouData>) => {
+  if (Object.keys(props.errors).length) return false;
+  if (Object.keys(props.values).length === 0) return false;
+  return true;
 };
 
 const initialState: State = {
@@ -199,6 +206,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   registerSchema = Yup.object().shape({
     yearOfBirth: Yup.number()
+      .typeError(i18n.t('correct-year-of-birth'))
       .required(i18n.t('required-year-of-birth'))
       .min(1900, i18n.t('correct-year-of-birth'))
       .max(2020, i18n.t('correct-year-of-birth')),
@@ -279,15 +287,15 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       { label: i18n.t('exposed-no'), value: 'no' },
     ];
 
-    const getInitialFormValues = () => {
+    const getInitialFormValues = (): AboutYouData => {
       const userService = new UserService();
       const features = userService.getConfig();
 
-      return{
+      return {
         ...initialFormValues,
         heightUnit: features.defaultHeightUnit,
         weightUnit: features.defaultWeightUnit,
-        ...RaceEthnicityQuestion.initialFormValues()
+        ...RaceEthnicityQuestion.initialFormValues(),
       };
     };
 
@@ -640,7 +648,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
 
-                  <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
+                  <BrandedButton
+                    onPress={props.handleSubmit}
+                    enable={checkFormFilled(props)}
+                    hideLoading={!props.isSubmitting}>
                     <Text>{i18n.t('next-question')}</Text>
                   </BrandedButton>
                 </Form>

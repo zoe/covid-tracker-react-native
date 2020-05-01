@@ -19,7 +19,7 @@ import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 
-export interface YourHealthData extends BloodPressureData{
+export interface YourHealthData extends BloodPressureData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -55,7 +55,7 @@ const initialFormValues = {
   takesImmunosuppressants: 'no',
   takesCorticosteroids: 'no',
   takesAspirin: 'no',
-  
+
   limitedActivity: 'no',
 };
 
