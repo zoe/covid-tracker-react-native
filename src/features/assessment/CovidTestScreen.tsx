@@ -24,7 +24,7 @@ const initialFormValues = {
   hasCovidPositive: '',
   hasCovidTest: 'no',
   dateTestOccurredGuess: '',
-  knowsDateOfTest: '', // only for ux logic
+  knowsDateOfTest: 'yes', // only for ux logic
 };
 
 interface CovidTestData {
