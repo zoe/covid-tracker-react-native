@@ -17,6 +17,7 @@ import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -176,7 +177,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       eye_soreness: formData.hasEyeSoreness === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
-    if (formData.otherSymptoms) {
+    if (infos.headache && formData.otherSymptoms) {
       infos = {
         ...infos,
         other_symptoms: formData.otherSymptoms,
@@ -192,8 +193,19 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       };
     }
 
-    // TODO: Update infos with headacheFrequency and frequencyLooseStools when
-    // they exist as backend fields
+    if (formData.headacheFrequency) {
+      infos = {
+        ...infos,
+        headache_frequency: formData.headacheFrequency,
+      };
+    }
+
+    if (infos.diarrhoea && formData.diarrhoeaFrequency) {
+      infos = {
+        ...infos,
+        diarrhoea_frequency: formData.diarrhoeaFrequency,
+      };
+    }
 
     return infos;
   }
@@ -222,16 +234,16 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     ];
     const headacheFrequencyItems = [
       androidOption,
-      { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'allday' },
-      { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most' },
-      { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'someday' },
-    ].filter(Boolean) as [];
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'all_of_the_day' },
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most_of_day' },
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'some_of_day' },
+    ].filter(Boolean) as IOption[];
     const diarrhoeaFrequencyItems = [
       androidOption,
-      { label: '1-2', value: '1-2' },
-      { label: '3-4', value: '3-4' },
-      { label: '5+', value: '5+' },
-    ].filter(Boolean) as [];
+      { label: '1-2', value: 'one_to_two' },
+      { label: '3-4', value: 'three_to_four' },
+      { label: '5+', value: 'five_or_more' },
+    ].filter(Boolean) as IOption[];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
