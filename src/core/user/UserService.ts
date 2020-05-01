@@ -25,8 +25,8 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 
-const ASSESSMENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.3.0'; // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
@@ -158,20 +158,23 @@ export default class UserService extends ApiClientBase {
     return patientResponse.data;
   }
 
-  public async updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest) {
+  public async updatePatientState(
+    patientState: PatientStateType,
+    patient: PatientInfosRequest
+  ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
+    const hasRaceAnswer = patient.race.length > 0;
     const isFemale = patient.gender == 0;
     const isHealthWorker =
       ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
       patient.is_carer_for_community;
-    const hasBloodPressureAnswer =
-      patient.takes_any_blood_pressure_medications === true || patient.takes_any_blood_pressure_medications === false;
-    const hasCompletePatientDetails =
+    const hasBloodPressureAnswer = patient.takes_any_blood_pressure_medications != null;
+    const hasCompletedPatientDetails =
       // They've done at least one page of the patient flow. That's a start.
       !!patient.profile_attributes_updated_at &&
       // If they've completed the last page, heart disease will either be true or false
       // and not null. (or any nullable field on the last page)
-      (patient.has_heart_disease === true || patient.has_heart_disease === false);
+      patient.has_heart_disease != null;
 
     let patientName = patient.name;
     if (!patientName || (!patient.reported_by_another && patientName === 'Me')) {
@@ -203,8 +206,9 @@ export default class UserService extends ApiClientBase {
       profile,
       isFemale,
       isHealthWorker,
+      hasRaceAnswer,
       hasBloodPressureAnswer,
-      hasCompletePatientDetails,
+      hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
       shouldAskLevelOfIsolation,

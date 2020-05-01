@@ -20,43 +20,53 @@ import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
   hasFever: 'no',
+  hasChills: 'no',
   temperature: '',
   temperatureUnit: '',
   hasPersistentCough: 'no',
   hasUnusualFatigue: 'no',
   hasHeadache: 'no',
+  hasNausea: 'no',
+  hasDizziness: 'no',
   hasUnusualShortnessOfBreath: 'no',
   hasSoreThroat: 'no',
   hasLossOfSmell: 'no',
   hasHoarseVoice: 'no',
   hasChestPain: 'no',
   hasAbdominalPain: 'no',
-
+  hasRedWeltsOnFace: 'no',
+  hasBlistersOnFeet: 'no',
   hasDiarrhoea: 'no',
   hasUnusualMusclePains: 'no',
   hasDelirium: 'no',
+  hasEyeSoreness: 'no',
   isSkippingMeals: 'no',
   otherSymptoms: '',
 };
 
 interface DescribeSymptomsData {
   hasFever: string;
+  hasChills: string;
   temperature: string; // Temperature: 37.3
   temperatureUnit: string;
   hasPersistentCough: string;
   hasUnusualFatigue: string;
   hasHeadache: string;
+  hasNausea: string;
+  hasDizziness: string;
   hasUnusualShortnessOfBreath: string;
   hasSoreThroat: string;
   hasLossOfSmell: string;
   hasHoarseVoice: string;
   hasChestPain: string;
   hasAbdominalPain: string;
-
+  hasRedWeltsOnFace: string;
+  hasBlistersOnFeet: string;
   hasDiarrhoea: string;
   hasDelirium: string;
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
+  hasEyeSoreness: string;
   otherSymptoms: string;
 }
 
@@ -90,11 +100,14 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
   registerSchema = Yup.object().shape({
     hasFever: Yup.string().required(),
+    hasChills: Yup.string().required(),
     temperature: Yup.string(),
     temperatureUnit: Yup.string().required(),
     hasPersistentCough: Yup.string().required(),
     hasUnusualFatigue: Yup.string().required(),
     hasHeadache: Yup.string().required(),
+    hasNausea: Yup.string().required(),
+    hasDizziness: Yup.string().required(),
     hasUnusualShortnessOfBreath: Yup.string().required(),
     hasSoreThroat: Yup.string().required(),
     hasLossOfSmell: Yup.string().required(),
@@ -105,6 +118,9 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasUnusualMusclePains: Yup.string().required(),
     hasDelirium: Yup.string().required(),
     isSkippingMeals: Yup.string().required(),
+    hasRedWeltsOnFace: Yup.string().required(),
+    hasBlistersOnFeet: Yup.string().required(),
+    hasEyeSoreness: Yup.string().required(),
     otherSymptoms: Yup.string(),
   });
 
@@ -133,9 +149,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   createAssessmentInfos(formData: DescribeSymptomsData) {
     let infos = ({
       fever: formData.hasFever === 'yes',
+      chills_or_shivers: formData.hasChills === 'yes',
       persistent_cough: formData.hasPersistentCough === 'yes',
       fatigue: formData.hasUnusualFatigue,
       headache: formData.hasHeadache === 'yes',
+      nausea: formData.hasNausea === 'yes',
+      dizzy_light_headed: formData.hasDizziness === 'yes',
       shortness_of_breath: formData.hasUnusualShortnessOfBreath,
       sore_throat: formData.hasSoreThroat === 'yes',
       diarrhoea: formData.hasDiarrhoea === 'yes',
@@ -146,6 +165,9 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       hoarse_voice: formData.hasHoarseVoice === 'yes',
       chest_pain: formData.hasChestPain === 'yes',
       abdominal_pain: formData.hasAbdominalPain === 'yes',
+      red_welts_on_face_or_lips: formData.hasRedWeltsOnFace === 'yes',
+      blisters_on_feet: formData.hasBlistersOnFeet === 'yes',
+      eye_soreness: formData.hasEyeSoreness === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
     if (formData.otherSymptoms) {
@@ -197,7 +219,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
         <Formik
           initialValues={initialFormValues}
-          enableReinitialize={true}
+          enableReinitialize
           validationSchema={this.registerSchema}
           onSubmit={(values: DescribeSymptomsData) => {
             return this.handleUpdateSymptoms(values);
@@ -211,6 +233,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     onValueChange={props.handleChange('hasFever')}
                     label={i18n.t('describe-symptoms.question-has-fever')}
                     error={props.touched.hasFever && props.errors.hasFever}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasChills}
+                    onValueChange={props.handleChange('hasChills')}
+                    label={i18n.t('describe-symptoms.question-has-chills')}
                   />
 
                   <FieldWrapper>
@@ -267,6 +295,18 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                   />
 
                   <DropdownField
+                    selectedValue={props.values.hasNausea}
+                    onValueChange={props.handleChange('hasNausea')}
+                    label={i18n.t('describe-symptoms.question-has-nausea')}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasDizziness}
+                    onValueChange={props.handleChange('hasDizziness')}
+                    label={i18n.t('describe-symptoms.question-has-dizziness')}
+                  />
+
+                  <DropdownField
                     label={i18n.t('describe-symptoms.question-has-unusual-shortness-of-breath')}
                     selectedValue={props.values.hasUnusualShortnessOfBreath}
                     onValueChange={props.handleChange('hasUnusualShortnessOfBreath')}
@@ -316,12 +356,28 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     label={i18n.t('describe-symptoms.question-has-unusual-muscle-pains')}
                   />
 
-                  <Divider />
+                  <DropdownField
+                    label={i18n.t('describe-symptoms.question-red-welts-on-face')}
+                    selectedValue={props.values.hasRedWeltsOnFace}
+                    onValueChange={props.handleChange('hasRedWeltsOnFace')}
+                  />
+
+                  <DropdownField
+                    label={i18n.t('describe-symptoms.question-blisters-on-feet')}
+                    selectedValue={props.values.hasBlistersOnFeet}
+                    onValueChange={props.handleChange('hasBlistersOnFeet')}
+                  />
 
                   <DropdownField
                     selectedValue={props.values.hasDelirium}
                     onValueChange={props.handleChange('hasDelirium')}
                     label={i18n.t('describe-symptoms.question-has-delirium')}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.hasEyeSoreness}
+                    onValueChange={props.handleChange('hasEyeSoreness')}
+                    label={i18n.t('describe-symptoms.question-has-eye-soreness')}
                   />
 
                   <DropdownField
