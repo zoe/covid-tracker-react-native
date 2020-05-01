@@ -51,7 +51,7 @@ const now = moment().add(moment().utcOffset(), 'minutes').toDate();
 const initialState: State = {
   errorMessage: '',
   date: now,
-  today: now
+  today: now,
 };
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
