@@ -121,8 +121,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       userService
         .updatePatient(patientId, infos)
         .then((response) => {
-          (currentPatient.isFemale = formData.sex !== 'male'),
-            this.props.navigation.navigate('YourHealth', { currentPatient });
+          currentPatient.hasRaceAnswer = formData.race.length > 0;
+          currentPatient.isFemale = formData.sex !== 'male';
+          this.props.navigation.navigate('YourHealth', { currentPatient });
         })
         .catch((err) => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
