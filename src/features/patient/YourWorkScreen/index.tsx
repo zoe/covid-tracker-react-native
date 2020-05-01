@@ -1,15 +1,15 @@
-import {Formik, FormikProps} from 'formik';
-import {Form, Item, Label} from 'native-base';
-import React, {Component} from 'react';
-import {KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
+import { Formik, FormikProps } from 'formik';
+import { Form, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-import {CheckboxItem, CheckboxList} from '../../../components/Checkbox';
+import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import DropdownField from '../../../components/DropdownField';
 import ProgressStatus from '../../../components/ProgressStatus';
-import Screen, {FieldWrapper, Header, isAndroid, ProgressBlock} from '../../../components/Screen';
-import {BrandedButton, ErrorText, HeaderText} from '../../../components/Text';
-import {ValidationErrors} from '../../../components/ValidationError';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../../components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
+import { ValidationErrors } from '../../../components/ValidationError';
 import UserService from '../../../core/user/UserService';
 import {
   AvailabilityAlwaysOptions,
@@ -21,7 +21,7 @@ import {
   PatientInteractions,
 } from '../../../core/user/dto/UserAPIContracts';
 import i18n from '../../../locale/i18n';
-import {initialState, IOption, State, YourWorkData, YourWorkProps} from './helpers';
+import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
@@ -44,7 +44,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        currentPatient.isHealthWorker = infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
+        currentPatient.isHealthWorker =
+          infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
         this.props.navigation.navigate('AboutYou', { currentPatient });
       })
       .catch(() =>
