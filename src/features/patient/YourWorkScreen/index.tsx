@@ -1,33 +1,39 @@
-import { Formik } from 'formik';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import {Formik, FormikProps} from 'formik';
+import {Form, Item, Label} from 'native-base';
+import React, {Component} from 'react';
+import {KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
 import * as Yup from 'yup';
 
-import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
+import {CheckboxItem, CheckboxList} from '../../../components/Checkbox';
 import DropdownField from '../../../components/DropdownField';
 import ProgressStatus from '../../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
-import { ValidationErrors } from '../../../components/ValidationError';
+import Screen, {FieldWrapper, Header, isAndroid, ProgressBlock} from '../../../components/Screen';
+import {BrandedButton, ErrorText, HeaderText} from '../../../components/Text';
+import {ValidationErrors} from '../../../components/ValidationError';
 import UserService from '../../../core/user/UserService';
 import {
-  PatientInfosRequest,
-  HealthCareStaffOptions,
-  EquipmentUsageOptions,
   AvailabilityAlwaysOptions,
-  AvailabilitySometimesOptions,
   AvailabilityNeverOptions,
+  AvailabilitySometimesOptions,
+  EquipmentUsageOptions,
+  HealthCareStaffOptions,
+  PatientInfosRequest,
   PatientInteractions,
 } from '../../../core/user/dto/UserAPIContracts';
 import i18n from '../../../locale/i18n';
-import { IOption, YourWorkProps, State, initialState, YourWorkData, initialFormValues } from './helpers';
+import {initialFormValues, initialState, IOption, State, YourWorkData, YourWorkProps} from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
     super(props);
     this.state = initialState;
   }
+
+  checkFormFilled = (props: FormikProps<YourWorkData>) => {
+    if (Object.keys(props.errors).length) return false;
+    if (Object.keys(props.values).length === 0) return false;
+    return true;
+  };
 
   handleUpdateWork(formData: YourWorkData) {
     const currentPatient = this.props.route.params.currentPatient;
@@ -38,9 +44,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        const isHealthcareWorker =
-          infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
-        currentPatient.isHealthWorker = isHealthcareWorker;
+        currentPatient.isHealthWorker = infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
         this.props.navigation.navigate('AboutYou', { currentPatient });
       })
       .catch(() =>
@@ -232,8 +236,8 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
           initialValues={initialFormValues as YourWorkData}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourWorkData) => this.handleUpdateWork(values)}>
-          {({
-            values: {
+          {(props) => {
+            const {
               isHealthcareStaff,
               isCarer,
               hasUsedPPEEquipment,
@@ -241,12 +245,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
               ppeAvailabilitySometimes,
               ppeAvailabilityAlways,
               ppeAvailabilityNever,
-            },
-            handleSubmit,
-            handleChange,
-            touched,
-            errors,
-          }) => {
+            } = props.values;
+            const { handleSubmit, handleChange, touched, errors } = props;
+
             const showWorkerAndCarerQuestions: boolean =
               (!!isHealthcareStaff && isHealthcareStaff === HealthCareStaffOptions.DOES_INTERACT) ||
               (!!isCarer && isCarer === 'yes');
@@ -395,7 +396,12 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(errors).length && <ValidationErrors errors={errors} />}
 
-                  <BrandedButton onPress={handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                  <BrandedButton
+                    onPress={handleSubmit}
+                    enable={this.checkFormFilled(props)}
+                    hideLoading={!props.isSubmitting}>
+                    {i18n.t('next-question')}
+                  </BrandedButton>
                 </Form>
               </KeyboardAvoidingView>
             );
