@@ -43,11 +43,15 @@ type CovidProps = {
 type State = {
   errorMessage: string;
   date: Date;
+  today: Date;
 };
+
+const now = moment().add(moment().utcOffset(), 'minutes').toDate();
 
 const initialState: State = {
   errorMessage: '',
-  date: moment().add(moment().utcOffset(), 'minutes').toDate(),
+  date: now,
+  today: now
 };
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
@@ -201,8 +205,8 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                             <DatePicker
                               defaultDate={this.state.date}
                               minimumDate={new Date(2019, 11, 1)}
-                              maximumDate={this.state.date}
-                              locale="fr-FR"
+                              maximumDate={this.state.today}
+                              locale={i18n.locale}
                               modalTransparent={false}
                               animationType="fade"
                               onDateChange={this.setDate}
