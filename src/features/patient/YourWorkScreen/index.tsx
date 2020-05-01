@@ -21,7 +21,7 @@ import {
   PatientInteractions,
 } from '../../../core/user/dto/UserAPIContracts';
 import i18n from '../../../locale/i18n';
-import {initialFormValues, initialState, IOption, State, YourWorkData, YourWorkProps} from './helpers';
+import {initialState, IOption, State, YourWorkData, YourWorkProps} from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
@@ -98,7 +98,6 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   }
 
   registerSchema = Yup.object().shape({
-    inHospitalInpatient: Yup.boolean(),
     isHealthcareStaff: Yup.string().required(i18n.t('required-is-healthcare-worker')),
     isCarer: Yup.string().required(i18n.t('required-is-carer')),
     hasPatientInteraction: Yup.string().when(['isHealthcareStaff', 'isCarer'], {
@@ -233,7 +232,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues as YourWorkData}
+          initialValues={{} as YourWorkData}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourWorkData) => this.handleUpdateWork(values)}>
           {(props) => {
