@@ -16,12 +16,7 @@ export interface IOption {
   value: string | number;
 }
 
-export const initialFormValues: Partial<YourWorkData> = {
-  inHospitalInpatient: false,
-};
-
 export interface YourWorkData {
-  inHospitalInpatient: boolean;
   isHealthcareStaff: HealthCareStaffOptions;
   isCarer: 'yes' | 'no';
   hasPatientInteraction: PatientInteractions;
