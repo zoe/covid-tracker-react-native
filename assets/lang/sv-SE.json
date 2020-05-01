@@ -210,11 +210,33 @@
   "covid-test": {
       "page-title": "Test för COVID-19",
       "question-has-covid-test": "Har du testats för COVID-19?",
-      "question-has-covid-positive": "Testades du positiv för COVID-19?",
+      "question-tested-covid-positive": "Var ditt test för COVID-19 positivt?",
+      "question-ever-had-covid-test": "Har du någon gång testats för COVID-19?",
       "picker-waiting": "Väntar på mina resultat",
-      "question-takes-any-blood-pressure-medications": "Tar du regelbundet någon blodtrycksmedicin?"
+      "picker-test-failed": "Testet misslyckades",
+      "question-takes-any-blood-pressure-medications": "Tar du regelbundet någon blodtrycksmedicin?",
+      "question-covid-test-result-status": "Har du fått testresultatet?",
+      "question-covid-test-result-status-waiting": "Du nämnde nyligen att du väntar på ditt resultat från ett COVID-19-test. Har du fått det nu?",
+      "picker-never-had-test": "Jag testades aldrig",
+      "question-had-new-covid-test": "Har du testats på nytt för COVID-19 sedan du sist rapporterade?",
+      "question-knows-date-of-test": "Vet du vilket datum du testades?",
+      "question-date-test-occurred": "När testades du?",
+      "question-date-test-occurred-guess": "När (ungefär) testades du?",
+      "picker-less-than-7-days-ago": "För mindre än sju dagar sedan",
+      "picker-over-1-week-ago": "Över en vecka sedan",
+      "picker-over-2-week-ago": "Över två veckor sedan",
+      "picker-over-3-week-ago": "Över tre veckor sedan",
+      "picker-over-1-month-ago": "Över en månad sedan",
+      "question-covid-test-mechanism": "Hur utfördes testet?",
+      "question-covid-test-mechanism-specify": "Ange hur testet utfördes:",
+      "picker-nose-swab": "En testpinne i näsan",
+      "picker-throat-swab": "En testpinne i svalget",
+      "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
+      "picker-blood-sample": "Jag lämnade ett blodprov",
+      "picker-other": "Annat sätt, ange vilket",
+      "indicate-test-mechanism": "Ange hur testet utfördes"
   },
-  
+
 
   "how-you-feel": {
       "question-health-status": "Hur mår du i kroppen just nu?",
@@ -224,7 +246,7 @@
     
   "describe-symptoms": {
       "page-title": "Beskriv de symtom du har just nu",
-      "question-has-fever": "Har du feber?",
+      "question-has-fever": "Har du feber eller känner dig varm?",
       "question-your-temperature": "Om du kan ta tempen, vad är den?",
       "placeholder-temperature": "Ange temperatur",
       "picker-celsius": "°C",
@@ -234,7 +256,7 @@
       "picker-fatigue-none": "Nej",
       "picker-fatigue-mild": "Lindrig trötthet",
       "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
-      "question-has-unusual-shortness-of-breath": "Har du andningssvårigheter?",
+      "question-has-unusual-shortness-of-breath": "Har du andningsbesvär, eller känns det som att du inte får tillräckligt med luft?",
       "picker-shortness-of-breath-none": "Nej",
       "picker-shortness-of-breath-mild": "- Ja. Lindriga symtom - viss andnöd under vanliga aktiviteter",
       "picker-shortness-of-breath-significant": "- Ja. Måttliga symtom - andningen är bara bekväm i vila",
@@ -242,7 +264,7 @@
       "question-has-loss-of-smell": "Har du fått nedsatt lukt- eller smaksinne?",
       "question-has-hoarse-voice": "Är du hes?",
       "question-has-chest-pain": "Känner du ovanlig smärta eller stramhet i bröstet?",
-      "question-has-abdominal-pain": "Har du ont i magen?",
+      "question-has-abdominal-pain": "Har du ont i magen/buken på ett sätt som du inte brukar ha?",
       "question-has-diarrhoea": "Har du diarré?",
       "placeholder-has-diarrhoea": "Har du diarré?",
       "question-diarrhoea-frequency": "Hur många lösa avföringar har du haft under det senaste dygnet?",
@@ -440,5 +462,8 @@
 
   "website-home": "https://covid.joinzoe.com/",
   "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
-  "share-with-friends-url": "https://covid19app.lu.se/"
+  "share-with-friends-url": "https://covid19app.lu.se/",
+
+  "back-date-profile-title": "Några fler frågor om dig",
+  "update-profile": "Uppdatera profilen"
 }

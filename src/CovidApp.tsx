@@ -17,37 +17,38 @@ import CovidTestScreen from './features/assessment/CovidTestScreen';
 import DescribeSymptomsScreen from './features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from './features/assessment/HealthWorkerExposureScreen';
 import HowYouFeelScreen from './features/assessment/HowYouFeelScreen';
+import LevelOfIsolationScreen from './features/assessment/LevelOfIsolationScreen';
+import ProfileBackDateScreen from './features/assessment/ProfileBackDateScreen';
+import StartAssessmentScreen from './features/assessment/StartAssessment';
+import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
+import TreatmentSelectionScreen from './features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from './features/assessment/WhereAreYouScreen';
 import { LoginScreen } from './features/login/LoginScreen';
+import AdultOrChildScreen from './features/multi-profile/AdultOrChildScreen';
+import ConsentForOther from './features/multi-profile/ConsentForOtherScreen';
+import CreateProfileScreen from './features/multi-profile/CreateProfileScreen';
+import ReportForOtherScreen from './features/multi-profile/ReportForOtherScreen';
+import SelectProfileScreen from './features/multi-profile/SelectProfileScreen';
+import { ResetPasswordConfirmScreen } from './features/password-reset/ResetPassordConfirm';
+import { ResetPasswordScreen } from './features/password-reset/ResetPassword';
 import AboutYouScreen from './features/patient/AboutYouScreen';
+import PreviousExposureScreen from './features/patient/PreviousExposure';
+import StartPatientScreen from './features/patient/StartPatient';
 import YourHealthScreen from './features/patient/YourHealthScreen';
+import YourStudyScreen from './features/patient/YourStudyScreen';
+import YourWorkScreen from './features/patient/YourWorkScreen';
 import { ConsentScreen } from './features/register/ConsentScreen';
 import { OptionalInfoScreen } from './features/register/OptionalInfoScreen';
-import { PrivacyPolicyUKScreen } from './features/register/gb/PrivacyPolicyUKScreen';
-import TreatmentSelectionScreen from './features/assessment/TreatmentSelectionScreen';
-import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
-import { WelcomeRepeatScreen } from './features/register/WelcomeRepeatScreen';
+import { RegisterScreen } from './features/register/RegisterScreen';
 import { Welcome1Screen } from './features/register/Welcome1Screen';
 import { Welcome2Screen } from './features/register/Welcome2Screen';
+import { WelcomeRepeatScreen } from './features/register/WelcomeRepeatScreen';
+import { PrivacyPolicyUKScreen } from './features/register/gb/PrivacyPolicyUKScreen';
 import PrivacyPolicySVScreen from './features/register/sv/PrivacyPolicySVScreen';
 import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
-import YourWorkScreen from './features/patient/YourWorkScreen';
-import { ResetPasswordScreen } from './features/password-reset/ResetPassword';
-import { ResetPasswordConfirmScreen } from './features/password-reset/ResetPassordConfirm';
-import LevelOfIsolationScreen from './features/assessment/LevelOfIsolationScreen';
-import YourStudyScreen from './features/patient/YourStudyScreen';
-import ReportForOtherScreen from './features/multi-profile/ReportForOtherScreen';
-import SelectProfileScreen from './features/multi-profile/SelectProfileScreen';
-import CreateProfileScreen from './features/multi-profile/CreateProfileScreen';
-import ConsentForOther from './features/multi-profile/ConsentForOtherScreen';
-import AdultOrChildScreen from './features/multi-profile/AdultOrChildScreen';
-import StartAssessmentScreen from './features/assessment/StartAssessment';
-import PreviousExposureScreen from './features/patient/PreviousExposure';
-import StartPatientScreen from './features/patient/StartPatient';
-import { RegisterScreen } from './features/register/RegisterScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -161,6 +162,7 @@ export default class ZoeApp extends Component<object, State> {
         <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   }

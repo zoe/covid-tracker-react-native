@@ -245,7 +245,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
         <Formik
           initialValues={initialFormValues}
-          enableReinitialize={true}
+          enableReinitialize
           validationSchema={this.registerSchema}
           onSubmit={(values: DescribeSymptomsData) => {
             return this.handleUpdateSymptoms(values);
