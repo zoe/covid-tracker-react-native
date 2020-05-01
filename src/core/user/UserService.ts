@@ -201,10 +201,6 @@ export default class UserService extends ApiClientBase {
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
 
-    // CovidTestScreen flag
-    const isWaitingForCovidTestResult = patient.is_waiting_for_covid_test_result || false;
-    const everHadCovidTest = patient.ever_had_covid_test || false;
-
     return {
       ...patientState,
       profile,
@@ -217,8 +213,6 @@ export default class UserService extends ApiClientBase {
       isSameHousehold,
       shouldAskLevelOfIsolation,
       shouldAskStudy,
-      isWaitingForCovidTestResult,
-      everHadCovidTest,
     };
   }
 
