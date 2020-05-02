@@ -1,195 +1,249 @@
-import React, {Component} from "react";
-import {Platform} from "react-native";
-import Screen, {Header, ProgressBlock} from "../../components/Screen";
-import {BrandedButton, ErrorText, HeaderText} from "../../components/Text";
-import {Form, Text} from "native-base";
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import moment from 'moment';
+import { Form, Text, DatePicker, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { Platform, StyleSheet } from 'react-native';
+import * as Yup from 'yup';
 
-import ProgressStatus from "../../components/ProgressStatus";
-
-import {Formik} from "formik";
-import * as Yup from "yup";
-
-import i18n from "../../locale/i18n"
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
-import UserService from "../../core/user/UserService";
-import {AssessmentInfosRequest} from "../../core/user/dto/UserAPIContracts";
-import DropdownField from "../../components/DropdownField";
-import { ValidationErrors } from "../../components/ValidationError";
-
+import DropdownField from '../../components/DropdownField';
+import { GenericTextField } from '../../components/GenericTextField';
+import ProgressStatus from '../../components/ProgressStatus';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../components/Screen';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
+import { ValidationErrors } from '../../components/ValidationError';
+import UserService from '../../core/user/UserService';
+import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
+import i18n from '../../locale/i18n';
+import { ScreenParamList } from '../ScreenParamList';
+import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
-    hasCovidTest: 'no',
-    hasCovidPositive: 'no',
-
-    takesAnyBloodPressureMedications: ''
-}
+  covidTestResult: '',
+  hasCovidPositive: '',
+  hasCovidTest: 'no',
+  dateTestOccurredGuess: '',
+  knowsDateOfTest: 'yes', // only for ux logic
+};
 
 interface CovidTestData {
-    hasCovidTest: string;
-    hasCovidPositive: string;
-
-    takesAnyBloodPressureMedications: string;
+  covidTestResult: string;
+  hasCovidPositive: string;
+  hasCovidTest: string;
+  dateTestOccurredGuess: string;
+  knowsDateOfTest: string; // only for ux logic
 }
 
 type CovidProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>
-    route: RouteProp<ScreenParamList, 'CovidTest'>;
-}
-
-
-type State = {
-    errorMessage: string;
-    needBloodPressureAnswer: boolean;
-}
-
-const initialState: State = {
-    errorMessage: "",
-    needBloodPressureAnswer: false,
+  navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;
+  route: RouteProp<ScreenParamList, 'CovidTest'>;
 };
 
+type State = {
+  errorMessage: string;
+  date: Date;
+  today: Date;
+};
+
+const now = moment().add(moment().utcOffset(), 'minutes').toDate();
+
+const initialState: State = {
+  errorMessage: '',
+  date: now,
+  today: now,
+};
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
-    constructor(props: CovidProps) {
-        super(props);
-        this.state = initialState;
-    }
+  constructor(props: CovidProps) {
+    super(props);
+    this.state = initialState;
+  }
 
-    registerSchema = Yup.object().shape({
-        hasCovidTest: Yup.string().required(),
-        hasCovidPositive: Yup.string().required(),
-        takesAnyBloodPressureMedications: Yup.string()
+  setDate = (selectedDate: Date) => {
+    const stateDate = moment(selectedDate);
+    const offset = stateDate.utcOffset();
+    stateDate.add(offset, 'minutes');
+    this.setState({ date: stateDate.toDate() });
+  };
+
+  handleUpdateHealth(formData: CovidTestData) {
+    const { currentPatient, assessmentId } = this.props.route.params;
+    const patientId = currentPatient.patientId;
+
+    const userService = new UserService();
+    const hadCovidTest = formData.hasCovidTest === 'yes';
+    const receivedTestResults = formData.hasCovidPositive === 'yes' || formData.hasCovidPositive === 'no';
+    const dateToPost = moment(this.state.date).format('YYYY-MM-DD');
+
+    const assessment = {
+      patient: patientId,
+      had_covid_test: formData.hasCovidTest === 'yes',
+      ...(hadCovidTest && { tested_covid_positive: formData.hasCovidPositive }),
+      ...(hadCovidTest &&
+        receivedTestResults &&
+        formData.knowsDateOfTest === 'yes' && { date_test_occurred: dateToPost }),
+      ...(hadCovidTest &&
+        receivedTestResults &&
+        formData.knowsDateOfTest === 'no' && { date_test_occurred_guess: formData.dateTestOccurredGuess }),
+    } as Partial<AssessmentInfosRequest>;
+
+    if (assessmentId == null) {
+      userService
+        .addAssessment(assessment)
+        .then((response) => {
+          this.props.navigation.setParams({ assessmentId: response.data.id });
+          this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId: response.data.id });
+        })
+        .catch((err) => {
+          this.setState({ errorMessage: i18n.t('something-went-wrong') });
+        });
+    } else {
+      userService
+        .updateAssessment(assessmentId, assessment)
+        .then((response) => {
+          this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId });
+        })
+        .catch((err) => {
+          this.setState({ errorMessage: i18n.t('something-went-wrong') });
+        });
+    }
+  }
+
+  render() {
+    const currentPatient = this.props.route.params.currentPatient;
+
+    const registerSchema = Yup.object().shape({
+      hasCovidTest: Yup.string(),
+      hasCovidPositive: Yup.string().when('hasCovidTest', {
+        is: 'yes',
+        then: Yup.string().required(),
+      }),
+      knowsDateOfTest: Yup.string().when(['hasCovidTest', 'hasCovidPositive'], {
+        is: (hasNewTest, hasCovidPositive) => {
+          return hasNewTest === 'yes' && (hasCovidPositive === 'yes' || hasCovidPositive === 'no');
+        },
+        then: Yup.string().required(),
+      }),
+      dateTestOccurredGuess: Yup.string().when(['knowsDateOfTest'], {
+        is: (knowsDate) => {
+          return knowsDate === 'no';
+        },
+        then: Yup.string().required(),
+      }),
     });
 
-    async componentDidMount() {
-        const currentPatient = this.props.route.params.currentPatient
-        this.setState({needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer});
-    }
+    const androidOption = isAndroid && {
+      label: i18n.t('choose-one-of-these-options'),
+      value: '',
+    };
 
-    handleUpdateHealth(formData: CovidTestData) {
-        const {currentPatient, assessmentId} = this.props.route.params;
-        const patientId = currentPatient.patientId
+    const hasCovidPositiveItems = [
+      androidOption,
+      { label: i18n.t('picker-no'), value: 'no' },
+      { label: i18n.t('picker-yes'), value: 'yes' },
+      { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
+    ].filter(Boolean) as IOption[];
 
-        const userService = new UserService();
-        var assessment = {
-            patient: patientId,
-            had_covid_test: formData.hasCovidTest === 'yes',
-        } as Partial<AssessmentInfosRequest>;
+    const dateTestOccurredGuessItems = [
+      androidOption,
+      { label: i18n.t('covid-test.picker-less-than-7-days-ago'), value: 'less_than_7_days_ago' },
+      { label: i18n.t('covid-test.picker-over-1-week-ago'), value: 'over_1_week_ago' },
+      { label: i18n.t('covid-test.picker-over-2-week-ago'), value: 'over_2_week_ago' },
+      { label: i18n.t('covid-test.picker-over-3-week-ago'), value: 'over_3_week_ago' },
+      { label: i18n.t('covid-test.picker-over-1-month-ago'), value: 'over_1_month_ago' },
+    ].filter(Boolean) as IOption[];
 
-        if (formData.hasCovidTest === 'yes') {
-            assessment = {
-                ...assessment,
-                tested_covid_positive: formData.hasCovidPositive,
-            }
-        }
+    return (
+      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+        <Header>
+          <HeaderText>{i18n.t('covid-test.page-title')}</HeaderText>
+        </Header>
 
-        // Update patient data with blood pressure answer, if answered.
-        if (patientId && formData.takesAnyBloodPressureMedications) {
-            // Deliberately fire and forget.
-            userService.updatePatient(patientId, {
-                takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes'
-            })
-            .then(response => currentPatient.hasBloodPressureAnswer = true)
-            .catch(err => {
-                this.setState({errorMessage: i18n.t("something-went-wrong")});
-            });
-        }
+        <ProgressBlock>
+          <ProgressStatus step={2} maxSteps={5} />
+        </ProgressBlock>
 
-        if (assessmentId == null) {
-            userService.addAssessment(assessment)
-                .then(response => {
-                    this.props.navigation.setParams({assessmentId: response.data.id});
-                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: response.data.id})
-                })
-                .catch(err => {
-                    this.setState({errorMessage: i18n.t("something-went-wrong")});
-                });
-        } else {
-            userService.updateAssessment(assessmentId, assessment)
-                .then(response => {
-                    this.props.navigation.navigate('HowYouFeel', {currentPatient, assessmentId: assessmentId})
-                })
-                .catch(err => {
-                    this.setState({errorMessage: i18n.t("something-went-wrong")});
-                });
-        }
-    }
+        <Formik
+          initialValues={initialFormValues}
+          validationSchema={registerSchema}
+          onSubmit={(values: CovidTestData) => {
+            return this.handleUpdateHealth(values);
+          }}>
+          {(props) => {
+            return (
+              <Form>
+                <DropdownField
+                  placeholder="hasCovidTest"
+                  selectedValue={props.values.hasCovidTest}
+                  onValueChange={props.handleChange('hasCovidTest')}
+                  label={i18n.t('covid-test.question-has-covid-test')}
+                />
 
-    render() {
-        const currentPatient = this.props.route.params.currentPatient;
-        const hasCovidPositiveItems = [
-            {label: i18n.t('picker-no'), value: 'no'},
-            {label: i18n.t('picker-yes'), value: 'yes'},
-            {label: i18n.t('covid-test.picker-waiting'), value: 'waiting'}
-        ];
-        return (
-            <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-                <Header>
-                    <HeaderText>{i18n.t("covid-test.page-title")}</HeaderText>
-                </Header>
+                {props.values.hasCovidTest === 'yes' && (
+                  <DropdownField
+                    selectedValue={props.values.hasCovidPositive}
+                    onValueChange={props.handleChange('hasCovidPositive')}
+                    label={i18n.t('covid-test.question-tested-covid-positive')}
+                    items={hasCovidPositiveItems}
+                  />
+                )}
 
-                <ProgressBlock>
-                    <ProgressStatus step={2} maxSteps={5}/>
-                </ProgressBlock>
+                {props.values.hasCovidTest === 'yes' &&
+                  (props.values.hasCovidPositive === 'yes' || props.values.hasCovidPositive === 'no') && (
+                    <>
+                      <DropdownField
+                        selectedValue={props.values.knowsDateOfTest}
+                        onValueChange={props.handleChange('knowsDateOfTest')}
+                        label={i18n.t('covid-test.question-knows-date-of-test')}
+                      />
 
-                <Formik
-                    initialValues={initialFormValues}
-                    validationSchema={this.registerSchema}
-                    onSubmit={(values: CovidTestData) => {
-                        return this.handleUpdateHealth(values)
-                    }}
-                >
-                    {props => {
-                        return (
-                            <Form>
+                      {props.values.knowsDateOfTest === 'yes' && (
+                        <FieldWrapper>
+                          <Item stackedLabel>
+                            <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
+                            <DatePicker
+                              defaultDate={this.state.date}
+                              minimumDate={new Date(2019, 11, 1)}
+                              maximumDate={this.state.today}
+                              locale={i18n.locale}
+                              modalTransparent={false}
+                              animationType="fade"
+                              onDateChange={this.setDate}
+                              disabled={false}
+                            />
+                          </Item>
+                        </FieldWrapper>
+                      )}
 
-                                <DropdownField
-                                    placeholder="hasCovidTest"
-                                    selectedValue={props.values.hasCovidTest}
-                                    onValueChange={props.handleChange("hasCovidTest")}
-                                    label={i18n.t('covid-test.question-has-covid-test')}
-                                />
+                      {props.values.knowsDateOfTest === 'no' && (
+                        <DropdownField
+                          selectedValue={props.values.dateTestOccurredGuess}
+                          onValueChange={props.handleChange('dateTestOccurredGuess')}
+                          label={i18n.t('covid-test.question-date-test-occurred-guess')}
+                          items={dateTestOccurredGuessItems}
+                        />
+                      )}
+                    </>
+                  )}
 
-                                {props.values.hasCovidTest === "yes" && (
-                                    <DropdownField
-                                        placeholder="hasCovidPositive"
-                                        selectedValue={props.values.hasCovidPositive}
-                                        onValueChange={props.handleChange("hasCovidPositive")}
-                                        label={i18n.t('covid-test.question-has-covid-positive')}
-                                        items={hasCovidPositiveItems}
-                                    />
-                                )}
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
 
-
-                                {this.state.needBloodPressureAnswer && (
-                                    <DropdownField
-                                        selectedValue={props.values.takesAnyBloodPressureMedications}
-                                        onValueChange={props.handleChange("takesAnyBloodPressureMedications")}
-                                        label={i18n.t('covid-test.question-takes-any-blood-pressure-medications')}
-                                        error={props.touched.takesAnyBloodPressureMedications && props.errors.takesAnyBloodPressureMedications}
-                                        androidDefaultLabel={i18n.t("label-chose-an-option")}
-                                    />
-                                )}
-
-
-                                <ErrorText>{this.state.errorMessage}</ErrorText>
-                                {!!Object.keys(props.errors).length && (
-                                    <ValidationErrors errors={props.errors as string[]} />
-                                )}
-
-
-                                <BrandedButton onPress={props.handleSubmit}>
-                                    <Text>{i18n.t("next-question")}</Text>
-                                </BrandedButton>
-
-
-                            </Form>
-                        )
-                    }}
-                </Formik>
-
-            </Screen>
-        )
-    }
+                <BrandedButton onPress={props.handleSubmit}>
+                  <Text>{i18n.t('next-question')}</Text>
+                </BrandedButton>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Screen>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  labelStyle: {
+    marginBottom: 10,
+  },
+});
