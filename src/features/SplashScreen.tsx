@@ -1,11 +1,12 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 
 import { colors } from '../../theme';
 import { AsyncStorageService } from '../core/AsyncStorageService';
 import { ApiClientBase } from '../core/user/ApiClientBase';
 import UserService, { isUSCountry } from '../core/user/UserService';
+import i18n from '../../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
 
@@ -36,8 +37,18 @@ export class SplashScreen extends Component<Props, object> {
       country = await this.userService.getUserCountry();
       this.userService.initCountry(country as string);
     } catch (err) {
-      // TODO: how to deal with the user_startup info endpoint failing?
-      // TODO: Trigger Offline handling here? At least show an error
+      Alert.alert(
+        i18n.t('splash-error.title'),
+        i18n.t('splash-error.message') + ': ' + err.message,
+        [
+          {
+            text: i18n.t('splash-error.secondary-action-title'),
+            style: 'cancel',
+          },
+          { text: i18n.t('splash-error.primary-action-title'), onPress: () => this.bootstrapAsync() },
+        ],
+        { cancelable: false }
+      );
     }
 
     const { userToken, userId } = await AsyncStorageService.GetStoredData();
