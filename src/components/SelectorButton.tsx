@@ -1,29 +1,28 @@
-import {GestureResponderEvent, StyleSheet} from "react-native";
-import {FieldWrapper} from "./Screen";
-import {BigButton} from "./Button";
-import {Text} from "native-base";
-import {colors, fontStyles} from "../../theme";
-import React from "react";
+import { Text } from 'native-base';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+
+import { colors, fontStyles } from '../../theme';
+import { BigButton, IButtonPress } from './Button';
+import { FieldWrapper } from './Screen';
 
 interface SelectorButtonProps {
-    onPress?: (event: GestureResponderEvent) => void;
-    text: string;
+  onPress?: IButtonPress;
+  text: string;
 }
 
 export const SelectorButton = (props: SelectorButtonProps) => (
   <FieldWrapper style={styles.fieldWrapper}>
-      <BigButton onPress={props.onPress}>
-          <Text style={[fontStyles.bodyLight, styles.buttonText]}>{props.text}</Text>
-      </BigButton>
+    <BigButton onPress={props.onPress}>
+      <Text style={[fontStyles.bodyLight, styles.buttonText]}>{props.text}</Text>
+    </BigButton>
   </FieldWrapper>
 );
 
 const styles = StyleSheet.create({
-    fieldWrapper: {
-        // marginVertical: 32,
-    },
+  fieldWrapper: {},
 
-    buttonText: {
-        color: colors.primary,
-    },
+  buttonText: {
+    color: colors.primary,
+  },
 });

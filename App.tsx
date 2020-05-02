@@ -1,2 +1,2 @@
-import CovidApp from "./src/CovidApp";
+import CovidApp from './src/CovidApp';
 export default CovidApp;

@@ -1,0 +1,14 @@
+{
+    "country": "ZZ",
+    "enableMultiplePatients": true,
+    "enablePersonalInformation": true,
+    "enableCohorts": true,
+
+    "showEthnicityQuestion": false,
+    "showRaceQuestion": true,
+
+    "defaultHeightUnit": "cm",
+    "defaultWeightUnit": "kg",
+    "defaultTemperatureUnit": "C",
+    "thousandSeparator": ","
+}
