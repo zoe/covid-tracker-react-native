@@ -44,7 +44,6 @@ export class LoginScreen extends Component<PropsType, StateType> {
     super(props);
     this.state = initialState;
     this.handleLogin = this.handleLogin.bind(this);
-    this.checkFieldsFilled = this.checkFieldsFilled.bind(this);
   }
 
   checkFieldsFilled() {
