@@ -1,9 +1,9 @@
-import { Button } from "native-base";
-import React from "react";
-import { ActivityIndicator, StyleSheet, Text } from "react-native";
+import { Button } from 'native-base';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 
-import { colors, fontStyles } from "../../../theme";
-import { ClickableProps } from "../Text";
+import { colors, fontStyles } from '../../../theme';
+import { ClickableProps } from '../Text';
 
 interface BrandedButtonProps {
   buttonProps?: any;
@@ -32,8 +32,7 @@ export const BrandedButton = ({
       onPress={() => {
         !isDisabled && onPress();
       }}
-      {...buttonProps}
-    >
+      {...buttonProps}>
       <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
         {children}
       </Text>
