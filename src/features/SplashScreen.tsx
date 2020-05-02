@@ -1,12 +1,12 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../theme';
 import { AsyncStorageService } from '../core/AsyncStorageService';
 import { ApiClientBase } from '../core/user/ApiClientBase';
-import UserService, { isUSCountry } from '../core/user/UserService';
-import i18n from '../../locale/i18n';
+import UserService from '../core/user/UserService';
+import i18n from '../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
 
