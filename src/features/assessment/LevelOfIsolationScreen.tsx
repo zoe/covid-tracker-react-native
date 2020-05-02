@@ -1,29 +1,71 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
 import moment from 'moment';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import * as Yup from 'yup';
 
+import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { SelectorButton } from '../../components/SelectorButton';
-import { HeaderText } from '../../components/Text';
+import Screen, { Header, ProgressBlock, isAndroid } from '../../components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 import { PatientStateType } from '../../core/patient/PatientState';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import { IOption } from '../patient/YourWorkScreen/helpers';
+
+const initialFormValues = {
+  isolationLittleInteraction: 'never',
+  isolationLotsOfPeople: 'never',
+  isolationHealthcareProvider: 'never',
+};
+
+interface LevelOfIsolationData {
+  isolationLittleInteraction: string;
+  isolationLotsOfPeople: string;
+  isolationHealthcareProvider: string;
+}
 
 type LocationProps = {
   navigation: StackNavigationProp<ScreenParamList, 'LevelOfIsolation'>;
   route: RouteProp<ScreenParamList, 'LevelOfIsolation'>;
 };
 
-export default class LevelOfIsolationScreen extends Component<LocationProps> {
+type State = {
+  errorMessage: string;
+};
+
+const initialState: State = {
+  errorMessage: '',
+};
+
+export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
   constructor(props: LocationProps) {
     super(props);
+    this.state = initialState;
   }
+
+  private createAssessment(formData: LevelOfIsolationData) {
+    const currentPatient = this.props.route.params.currentPatient;
+    const patientId = currentPatient.patientId;
+
+    return {
+      patient: patientId,
+      isolation_little_interaction: formData.isolationLittleInteraction,
+      isolation_lots_of_people: formData.isolationLotsOfPeople,
+      isolation_healthcare_provider: formData.isolationHealthcareProvider,
+    } as Partial<AssessmentInfosRequest>;
+  }
+
+  registerSchema = Yup.object().shape({
+    a: Yup.string(),
+    b: Yup.string(),
+    c: Yup.string(),
+  });
 
   private updatePatientsLastAskedDate(currentPatient: PatientStateType) {
     const userService = new UserService();
@@ -36,7 +78,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
     return userService
       .updatePatient(patientId, infos)
       .then((response) => (currentPatient.shouldAskLevelOfIsolation = false))
-      .catch((err) => {
+      .catch(() => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });
   }
@@ -49,38 +91,47 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
     }
   };
 
-  handleSelection = (level_of_isolation: string) => {
-    let { currentPatient, assessmentId } = this.props.route.params;
-    const patientId = currentPatient.patientId;
+  handleUpdate(formData: LevelOfIsolationData) {
     const userService = new UserService();
-    const assessment = {
-      patient: patientId,
-      level_of_isolation,
-    } as Partial<AssessmentInfosRequest>;
+    let { currentPatient, assessmentId } = this.props.route.params;
+    var assessment = this.createAssessment(formData);
 
-    let promise = null;
-    if (assessmentId == null) {
-      promise = userService.addAssessment(assessment);
-    } else {
-      promise = userService.updateAssessment(assessmentId, assessment);
-    }
+    const promise =
+      assessmentId == null
+        ? userService.addAssessment(assessment)
+        : userService.updateAssessment(assessmentId, assessment);
+
     promise
       .then((response) => {
         this.props.navigation.setParams({ assessmentId: response.data.id });
         assessmentId = response.data.id;
       })
-      .then(() =>
-        this.updatePatientsLastAskedDate(currentPatient).then(() =>
-          this.navigateToStart(currentPatient, assessmentId as string)
-        )
-      )
-      .catch((err) => {
-        this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      });
-  };
+      .then(() => this.updatePatientsLastAskedDate(currentPatient))
+      .then(() => this.navigateToStart(currentPatient, assessmentId as string))
+      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  }
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
+
+    const androidOption = isAndroid && {
+      label: i18n.t('choose-one-of-these-options'),
+      value: '',
+    };
+
+    const isolationFrequencyItems = [
+      androidOption,
+      { label: i18n.t('level-of-isolation.picker-never'), value: 'Never' },
+      { label: i18n.t('level-of-isolation.picker-once'), value: '1_time' },
+      { label: i18n.t('level-of-isolation.picker-twice'), value: '2_times' },
+      { label: i18n.t('level-of-isolation.picker-three'), value: '3_times' },
+      { label: i18n.t('level-of-isolation.picker-four'), value: '4_times' },
+      { label: i18n.t('level-of-isolation.picker-five'), value: '5_times' },
+      { label: i18n.t('level-of-isolation.picker-six'), value: '6_times' },
+      { label: i18n.t('level-of-isolation.picker-seven'), value: '7_times' },
+      { label: i18n.t('level-of-isolation.picker-more-than-seven'), value: 'more_than_7_times' },
+    ].filter(Boolean) as IOption[];
+
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
@@ -91,31 +142,52 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
           <ProgressStatus step={3} maxSteps={5} />
         </ProgressBlock>
 
-        <Form style={styles.form}>
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-not-left-the-house')}
-            onPress={() => this.handleSelection('not_left_the_house')}
-          />
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-rarely-left-the-house')}
-            onPress={() => this.handleSelection('rarely_left_the_house')}
-          />
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-rarely-left-the-house-but-visited-lots')}
-            onPress={() => this.handleSelection('rarely_left_the_house_but_visited_lots')}
-          />
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-often-left-the-house')}
-            onPress={() => this.handleSelection('often_left_the_house')}
-          />
-        </Form>
+        <Formik
+          initialValues={initialFormValues}
+          validationSchema={this.registerSchema}
+          onSubmit={(values: LevelOfIsolationData) => {
+            return this.handleUpdate(values);
+          }}>
+          {(props) => {
+            return (
+              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <Form>
+                  <DropdownField
+                    selectedValue={props.values.isolationLittleInteraction}
+                    onValueChange={props.handleChange('isolationLittleInteraction')}
+                    label={i18n.t('level-of-isolation.question-little-interaction')}
+                    items={isolationFrequencyItems}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.isolationLotsOfPeople}
+                    onValueChange={props.handleChange('isolationLotsOfPeople')}
+                    label={i18n.t('level-of-isolation.question-lots-of-people')}
+                    items={isolationFrequencyItems}
+                  />
+
+                  <DropdownField
+                    selectedValue={props.values.isolationHealthcareProvider}
+                    onValueChange={props.handleChange('isolationHealthcareProvider')}
+                    label={i18n.t('level-of-isolation.question-healthcare-provider')}
+                    items={isolationFrequencyItems}
+                  />
+
+                  <ErrorText>{this.state.errorMessage}</ErrorText>
+
+                  <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                </Form>
+              </KeyboardAvoidingView>
+            );
+          }}
+        </Formik>
       </Screen>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  form: {
-    marginVertical: 32,
-  },
-});
+// const styles = StyleSheet.create({
+//   form: {
+//     marginVertical: 32,
+//   },
+// });
