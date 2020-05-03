@@ -24,7 +24,6 @@ const initialFormValues = {
   covidTestResult: '',
   hasCovidPositive: '',
   hasCovidTest: 'no',
-  dateTestOccurredGuess: '',
   knowsDateOfTest: 'yes', // only for ux logic
 };
 
@@ -32,7 +31,6 @@ interface CovidTestData {
   covidTestResult: string;
   hasCovidPositive: string;
   hasCovidTest: string;
-  dateTestOccurredGuess: string;
   knowsDateOfTest: string; // only for ux logic
 }
 
@@ -43,56 +41,56 @@ type CovidProps = {
 
 type State = {
   errorMessage: string;
-  date: Date;
+  certainTestDate: Date;
   today: Date;
   showDatePicker: boolean;
-  showTwoDates: boolean;
-  startDate: Date | null;
-  endDate: Date | null;
+  showRangePicker: boolean;
+  rangeTestDateStart: Date | null;
+  rangeTestDateEnd: Date | null;
 };
 
 const now = moment().add(moment().utcOffset(), 'minutes').toDate();
 
 const initialState: State = {
   errorMessage: '',
-  date: now,
+  certainTestDate: now,
   today: now,
   showDatePicker: false,
-  showTwoDates: false,
-  startDate: null,
-  endDate: null,
+  showRangePicker: false,
+  rangeTestDateStart: null,
+  rangeTestDateEnd: null,
 };
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
-    this.setDate = this.setDate.bind(this);
-    this.setTwoDates = this.setTwoDates.bind(this);
+    this.setTestDate = this.setTestDate.bind(this);
+    this.setRangeTestDates = this.setRangeTestDates.bind(this);
   }
 
-  setDate = (selectedDate: Moment) => {
+  setTestDate = (selectedDate: Moment) => {
     const offset = selectedDate.utcOffset();
     selectedDate.add(offset, 'minutes');
     this.setState({
-      date: selectedDate.toDate(),
+      certainTestDate: selectedDate.toDate(),
       showDatePicker: false,
     });
   };
 
-  setTwoDates = (selectedDate: Moment, type: string) => {
+  setRangeTestDates = (selectedDate: Moment, type: string) => {
     const offset = selectedDate.utcOffset();
     selectedDate.add(offset, 'minutes');
 
     if (type === 'END_DATE') {
       this.setState({
-        endDate: selectedDate.toDate(),
-        showTwoDates: false,
+        rangeTestDateEnd: selectedDate.toDate(),
+        showRangePicker: false,
       });
     } else {
       this.setState({
-        startDate: selectedDate.toDate(),
-        endDate: null,
+        rangeTestDateStart: selectedDate.toDate(),
+        rangeTestDateEnd: null,
       });
     }
   };
@@ -104,7 +102,7 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
     const userService = new UserService();
     const hadCovidTest = formData.hasCovidTest === 'yes';
     const receivedTestResults = formData.hasCovidPositive === 'yes' || formData.hasCovidPositive === 'no';
-    const dateToPost = moment(this.state.date).format('YYYY-MM-DD');
+    const dateToPost = moment(this.state.certainTestDate).format('YYYY-MM-DD');
 
     const assessment = {
       patient: patientId,
@@ -113,9 +111,10 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       ...(hadCovidTest &&
         receivedTestResults &&
         formData.knowsDateOfTest === 'yes' && { date_test_occurred: dateToPost }),
-      ...(hadCovidTest &&
-        receivedTestResults &&
-        formData.knowsDateOfTest === 'no' && { date_test_occurred_guess: formData.dateTestOccurredGuess }),
+      // TODO: Pass two dates back to the server
+      // ...(hadCovidTest &&
+      //   receivedTestResults &&
+      //   formData.knowsDateOfTest === 'no' && { ),
     } as Partial<AssessmentInfosRequest>;
 
     if (assessmentId == null) {
@@ -155,12 +154,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
         },
         then: Yup.string().required(),
       }),
-      dateTestOccurredGuess: Yup.string().when(['knowsDateOfTest'], {
-        is: (knowsDate) => {
-          return knowsDate === 'no';
-        },
-        then: Yup.string().required(),
-      }),
     });
 
     const androidOption = isAndroid && {
@@ -173,15 +166,6 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
       { label: i18n.t('picker-no'), value: 'no' },
       { label: i18n.t('picker-yes'), value: 'yes' },
       { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
-    ].filter(Boolean) as IOption[];
-
-    const dateTestOccurredGuessItems = [
-      androidOption,
-      { label: i18n.t('covid-test.picker-less-than-7-days-ago'), value: 'less_than_7_days_ago' },
-      { label: i18n.t('covid-test.picker-over-1-week-ago'), value: 'over_1_week_ago' },
-      { label: i18n.t('covid-test.picker-over-2-week-ago'), value: 'over_2_week_ago' },
-      { label: i18n.t('covid-test.picker-over-3-week-ago'), value: 'over_3_week_ago' },
-      { label: i18n.t('covid-test.picker-over-1-month-ago'), value: 'over_1_month_ago' },
     ].filter(Boolean) as IOption[];
 
     return (
@@ -234,10 +218,10 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
 
                             {this.state.showDatePicker ? (
-                              <CalendarPicker onDateChange={this.setDate} />
+                              <CalendarPicker onDateChange={this.setTestDate} />
                             ) : (
                               <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
-                                {this.state.date.toString()}
+                                {moment(this.state.certainTestDate).format('l')}
                               </ClickableText>
                             )}
                           </Item>
@@ -250,16 +234,23 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                             {i18n.t('covid-test.question-date-test-occurred-guess')}
                           </Label>
 
-                          {this.state.showTwoDates ? (
+                          {this.state.showRangePicker ? (
                             <CalendarPicker
                               startFromMonday={true}
                               allowRangeSelection={true}
-                              onDateChange={this.setTwoDates}
+                              onDateChange={this.setRangeTestDates}
                             />
                           ) : (
-                            <ClickableText onPress={() => this.setState({ showTwoDates: true })}>
-                              {this.state.startDate && this.state.startDate.toString()} {}{' '}
-                              {this.state.endDate && this.state.endDate.toString()}
+                            <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
+                              {this.state.rangeTestDateStart && this.state.rangeTestDateEnd ? (
+                                <>
+                                  {'Between '}
+                                  {moment(this.state.rangeTestDateStart).format('l')} {' and '}
+                                  {moment(this.state.rangeTestDateEnd).format('l')}
+                                </>
+                              ) : (
+                                <Text>Select a range</Text>
+                              )}
                             </ClickableText>
                           )}
                         </>
