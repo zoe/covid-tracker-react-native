@@ -1,17 +1,18 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import moment from 'moment';
-import { Form, Text, DatePicker, Item, Label } from 'native-base';
+import moment, { Moment } from 'moment';
+import { Form, Item, Label, Text } from 'native-base';
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import DropdownField from '../../components/DropdownField';
-import { GenericTextField } from '../../components/GenericTextField';
+import CalendarPicker from 'react-native-calendar-picker';
+
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
+import { BrandedButton, ClickableText, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -44,6 +45,10 @@ type State = {
   errorMessage: string;
   date: Date;
   today: Date;
+  showDatePicker: boolean;
+  showTwoDates: boolean;
+  startDate: Date | null;
+  endDate: Date | null;
 };
 
 const now = moment().add(moment().utcOffset(), 'minutes').toDate();
@@ -52,19 +57,44 @@ const initialState: State = {
   errorMessage: '',
   date: now,
   today: now,
+  showDatePicker: false,
+  showTwoDates: false,
+  startDate: null,
+  endDate: null,
 };
 
 export default class CovidTestScreen extends Component<CovidProps, State> {
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
+    this.setDate = this.setDate.bind(this);
+    this.setTwoDates = this.setTwoDates.bind(this);
   }
 
-  setDate = (selectedDate: Date) => {
-    const stateDate = moment(selectedDate);
-    const offset = stateDate.utcOffset();
-    stateDate.add(offset, 'minutes');
-    this.setState({ date: stateDate.toDate() });
+  setDate = (selectedDate: Moment) => {
+    const offset = selectedDate.utcOffset();
+    selectedDate.add(offset, 'minutes');
+    this.setState({
+      date: selectedDate.toDate(),
+      showDatePicker: false,
+    });
+  };
+
+  setTwoDates = (selectedDate: Moment, type: string) => {
+    const offset = selectedDate.utcOffset();
+    selectedDate.add(offset, 'minutes');
+
+    if (type === 'END_DATE') {
+      this.setState({
+        endDate: selectedDate.toDate(),
+        showTwoDates: false,
+      });
+    } else {
+      this.setState({
+        startDate: selectedDate.toDate(),
+        endDate: null,
+      });
+    }
   };
 
   handleUpdateHealth(formData: CovidTestData) {
@@ -202,27 +232,37 @@ export default class CovidTestScreen extends Component<CovidProps, State> {
                         <FieldWrapper>
                           <Item stackedLabel>
                             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
-                            <DatePicker
-                              defaultDate={this.state.date}
-                              minimumDate={new Date(2019, 11, 1)}
-                              maximumDate={this.state.today}
-                              locale={i18n.locale}
-                              modalTransparent={false}
-                              animationType="fade"
-                              onDateChange={this.setDate}
-                              disabled={false}
-                            />
+
+                            {this.state.showDatePicker ? (
+                              <CalendarPicker onDateChange={this.setDate} />
+                            ) : (
+                              <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
+                                {this.state.date.toString()}
+                              </ClickableText>
+                            )}
                           </Item>
                         </FieldWrapper>
                       )}
 
                       {props.values.knowsDateOfTest === 'no' && (
-                        <DropdownField
-                          selectedValue={props.values.dateTestOccurredGuess}
-                          onValueChange={props.handleChange('dateTestOccurredGuess')}
-                          label={i18n.t('covid-test.question-date-test-occurred-guess')}
-                          items={dateTestOccurredGuessItems}
-                        />
+                        <>
+                          <Label style={styles.labelStyle}>
+                            {i18n.t('covid-test.question-date-test-occurred-guess')}
+                          </Label>
+
+                          {this.state.showTwoDates ? (
+                            <CalendarPicker
+                              startFromMonday={true}
+                              allowRangeSelection={true}
+                              onDateChange={this.setTwoDates}
+                            />
+                          ) : (
+                            <ClickableText onPress={() => this.setState({ showTwoDates: true })}>
+                              {this.state.startDate && this.state.startDate.toString()} {}{' '}
+                              {this.state.endDate && this.state.endDate.toString()}
+                            </ClickableText>
+                          )}
+                        </>
                       )}
                     </>
                   )}
