@@ -2,26 +2,27 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import moment from 'moment';
-import { Form } from 'native-base';
+import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock, isAndroid } from '../../components/Screen';
+import Screen, { Header, ProgressBlock, FieldWrapper } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 import { PatientStateType } from '../../core/patient/PatientState';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
+import { ValidatedTextInput } from '../../components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '../../components/ValidationError';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
-  isolationLittleInteraction: 'never',
-  isolationLotsOfPeople: 'never',
-  isolationHealthcareProvider: 'never',
+  isolationLittleInteraction: '',
+  isolationLotsOfPeople: '',
+  isolationHealthcareProvider: '',
 };
 
 interface LevelOfIsolationData {
@@ -37,10 +38,18 @@ type LocationProps = {
 
 type State = {
   errorMessage: string;
+  enableSubmit: boolean;
+};
+
+const checkFormFilled = (props: FormikProps<LevelOfIsolationData>) => {
+  if (Object.keys(props.errors).length) return false;
+  if (Object.keys(props.values).length === 0) return false;
+  return true;
 };
 
 const initialState: State = {
   errorMessage: '',
+  enableSubmit: true,
 };
 
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
@@ -55,16 +64,16 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return {
       patient: patientId,
-      isolation_little_interaction: formData.isolationLittleInteraction,
-      isolation_lots_of_people: formData.isolationLotsOfPeople,
-      isolation_healthcare_provider: formData.isolationHealthcareProvider,
+      isolation_little_interaction: parseInt(formData.isolationLittleInteraction),
+      isolation_lots_of_people: parseInt(formData.isolationLotsOfPeople),
+      isolation_healthcare_provider: parseInt(formData.isolationHealthcareProvider),
     } as Partial<AssessmentInfosRequest>;
   }
 
   registerSchema = Yup.object().shape({
-    a: Yup.string(),
-    b: Yup.string(),
-    c: Yup.string(),
+    isolationLittleInteraction: Yup.number().required(i18n.t('level-of-isolation.required-answer')).typeError(i18n.t('level-of-isolation.correct-answer')).integer(i18n.t('level-of-isolation.correct-answer')).min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationLotsOfPeople: Yup.number().required(i18n.t('level-of-isolation.required-answer')).typeError(i18n.t('level-of-isolation.correct-answer')).integer(i18n.t('level-of-isolation.correct-answer')).min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationHealthcareProvider: Yup.number().required(i18n.t('level-of-isolation.required-answer')).typeError(i18n.t('level-of-isolation.correct-answer')).integer(i18n.t('level-of-isolation.correct-answer')).min(0, i18n.t('level-of-isolation.correct-answer')),
   });
 
   private updatePatientsLastAskedDate(currentPatient: PatientStateType) {
@@ -114,24 +123,6 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   render() {
     const currentPatient = this.props.route.params.currentPatient;
 
-    const androidOption = isAndroid && {
-      label: i18n.t('choose-one-of-these-options'),
-      value: '',
-    };
-
-    const isolationFrequencyItems = [
-      androidOption,
-      { label: i18n.t('level-of-isolation.picker-never'), value: 'Never' },
-      { label: i18n.t('level-of-isolation.picker-once'), value: '1_time' },
-      { label: i18n.t('level-of-isolation.picker-twice'), value: '2_times' },
-      { label: i18n.t('level-of-isolation.picker-three'), value: '3_times' },
-      { label: i18n.t('level-of-isolation.picker-four'), value: '4_times' },
-      { label: i18n.t('level-of-isolation.picker-five'), value: '5_times' },
-      { label: i18n.t('level-of-isolation.picker-six'), value: '6_times' },
-      { label: i18n.t('level-of-isolation.picker-seven'), value: '7_times' },
-      { label: i18n.t('level-of-isolation.picker-more-than-seven'), value: 'more_than_7_times' },
-    ].filter(Boolean) as IOption[];
-
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
@@ -145,6 +136,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
+          validateOnChange={false}
+          validateOnBlur={false}
           onSubmit={(values: LevelOfIsolationData) => {
             return this.handleUpdate(values);
           }}>
@@ -152,30 +145,69 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
             return (
               <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <Form>
-                  <DropdownField
-                    selectedValue={props.values.isolationLittleInteraction}
-                    onValueChange={props.handleChange('isolationLittleInteraction')}
-                    label={i18n.t('level-of-isolation.question-little-interaction')}
-                    items={isolationFrequencyItems}
-                  />
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                        value={props.values.isolationLittleInteraction}
+                        onChangeText={props.handleChange('isolationLittleInteraction')}
+                        onBlur={props.handleBlur('isolationLittleInteraction')}
+                        error={props.touched.isolationLittleInteraction && props.errors.isolationLittleInteraction}
+                        returnKeyType="next"
+                        keyboardType="numeric"
+                      />
+                    </Item>
+                    {!!props.errors.isolationLittleInteraction && (
+                      <ValidationError error={props.errors.isolationLittleInteraction} />
+                    )}
+                  </FieldWrapper>
 
-                  <DropdownField
-                    selectedValue={props.values.isolationLotsOfPeople}
-                    onValueChange={props.handleChange('isolationLotsOfPeople')}
-                    label={i18n.t('level-of-isolation.question-lots-of-people')}
-                    items={isolationFrequencyItems}
-                  />
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                        value={props.values.isolationLotsOfPeople}
+                        onChangeText={props.handleChange('isolationLotsOfPeople')}
+                        onBlur={props.handleBlur('isolationLotsOfPeople')}
+                        error={props.touched.isolationLotsOfPeople && props.errors.isolationLotsOfPeople}
+                        returnKeyType="next"
+                        keyboardType="numeric"
+                      />
+                    </Item>
+                    {!!props.errors.isolationLotsOfPeople && (
+                      <ValidationError error={props.errors.isolationLotsOfPeople} />
+                    )}
+                  </FieldWrapper>
 
-                  <DropdownField
-                    selectedValue={props.values.isolationHealthcareProvider}
-                    onValueChange={props.handleChange('isolationHealthcareProvider')}
-                    label={i18n.t('level-of-isolation.question-healthcare-provider')}
-                    items={isolationFrequencyItems}
-                  />
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                        value={props.values.isolationHealthcareProvider}
+                        onChangeText={props.handleChange('isolationHealthcareProvider')}
+                        onBlur={props.handleBlur('isolationHealthcareProvider')}
+                        error={props.touched.isolationHealthcareProvider && props.errors.isolationHealthcareProvider}
+                        returnKeyType="next"
+                        keyboardType="numeric"
+                      />
+                    </Item>
+                    {!!props.errors.isolationHealthcareProvider && (
+                      <ValidationError error={props.errors.isolationHealthcareProvider} />
+                    )}
+                  </FieldWrapper>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
+                  {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
 
-                  <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                  <BrandedButton
+                    onPress={props.handleSubmit}
+                    enable={checkFormFilled(props)}
+                    hideLoading={!props.isSubmitting}>
+                    {i18n.t('next-question')}
+                  </BrandedButton>
                 </Form>
               </KeyboardAvoidingView>
             );
@@ -186,8 +218,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   }
 }
 
-// const styles = StyleSheet.create({
-//   form: {
-//     marginVertical: 32,
-//   },
-// });
+const styles = StyleSheet.create({
+  textItemStyle: {
+    borderColor: 'transparent',
+  },
+});
