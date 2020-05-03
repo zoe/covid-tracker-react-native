@@ -45,7 +45,7 @@ const initialRegistrationValues = {
 
 export class RegisterScreen extends Component<PropsType, State> {
   private passwordComponent: any;
-
+  
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
