@@ -43,16 +43,18 @@ commands:
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: |
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-prod' >> $BASH_ENV
-        elif [ "${CIRCLE_BRANCH}" == "stage" ]; then
-          echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-stage' >> $BASH_ENV
-        elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
-          echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-dev' >> $BASH_ENV
-        else
-          echo 'export RELEASE_CHANNEL=$CIRCLE_BRANCH' >> $BASH_ENV
-        fi
+      - run:
+          name: Set expo release channel
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-prod' >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "stage" ]; then
+              echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-stage' >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-dev' >> $BASH_ENV
+            else
+              echo 'export RELEASE_CHANNEL=$CIRCLE_BRANCH' >> $BASH_ENV
+            fi
   publish_to_expo:
     steps:
       - login_to_expo
@@ -61,7 +63,7 @@ commands:
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
   deploy_android:
     steps:
-      - run: 
+      - run:
           command: npx expo-cli build:android -t app-bundle --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
@@ -71,7 +73,7 @@ commands:
           path: ~/covid-react/fastlane/app.apk
   deploy_ios:
     steps:
-      - run: 
+      - run:
           command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
