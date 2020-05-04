@@ -13,6 +13,7 @@ import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/u
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import moment from 'moment';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -41,19 +42,27 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async updatePushToken() {
     const pushTokenService = new PushNotificationService();
+    const aWeekAgo = moment().subtract(7, 'days');
+    let shouldUpdate = false;
+    let pushToken;
 
     try {
-      let pushToken = await pushTokenService.getSavedPushToken();
+      pushToken = await pushTokenService.getSavedPushToken();
+
       if (!pushToken) {
         pushToken = await pushTokenService.createPushToken();
-        if (pushToken) {
-          try {
-            const userService = new UserService();
-            await userService.updatePushToken(pushToken);
-            await pushTokenService.savePushToken(pushToken);
-          } catch (error) {
-            // Ignore failure
-          }
+        shouldUpdate = true;
+      } else if (moment(pushToken.lastUpdated).isBefore(aWeekAgo)) {
+        shouldUpdate = true;
+      }
+
+      if (pushToken && shouldUpdate) {
+        try {
+          const userService = new UserService();
+          await userService.updatePushToken(pushToken);
+          await pushTokenService.savePushToken(pushToken);
+        } catch (error) {
+          // Ignore failure
         }
       }
     } catch (error) {
