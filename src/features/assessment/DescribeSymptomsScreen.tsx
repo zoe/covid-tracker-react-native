@@ -111,7 +111,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasPersistentCough: Yup.string().required(),
     hasUnusualFatigue: Yup.string().required(),
     hasHeadache: Yup.string().required(),
-    headacheFrequency: Yup.string(),
+    headacheFrequency: Yup.string().when('hasHeadache', {
+      is: 'yes',
+      then: Yup.string().required(i18n.t("describe-symptoms.required-headache-frequency"))
+    }),
     hasNausea: Yup.string().required(),
     hasDizziness: Yup.string().required(),
     hasUnusualShortnessOfBreath: Yup.string().required(),
@@ -121,7 +124,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasChestPain: Yup.string().required(),
     hasAbdominalPain: Yup.string().required(),
     hasDiarrhoea: Yup.string().required(),
-    diarrhoeaFrequency: Yup.string(),
+    diarrhoeaFrequency: Yup.string().when('hasDiarrhoea', {
+      is: 'yes',
+      then: Yup.string().required(i18n.t("describe-symptoms.required-diarrhoea-frequency"))
+    }),
     hasUnusualMusclePains: Yup.string().required(),
     hasDelirium: Yup.string().required(),
     isSkippingMeals: Yup.string().required(),
@@ -177,7 +183,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       eye_soreness: formData.hasEyeSoreness === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
-    if (infos.headache && formData.otherSymptoms) {
+    if (formData.otherSymptoms) {
       infos = {
         ...infos,
         other_symptoms: formData.otherSymptoms,
@@ -193,7 +199,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       };
     }
 
-    if (formData.headacheFrequency) {
+    if (infos.headache && formData.headacheFrequency) {
       infos = {
         ...infos,
         headache_frequency: formData.headacheFrequency,
@@ -338,6 +344,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                       onValueChange={props.handleChange('headacheFrequency')}
                       label={i18n.t('describe-symptoms.question-headache-frequency')}
                       items={headacheFrequencyItems}
+                      error={props.touched.headacheFrequency && props.errors.headacheFrequency}
                     />
                   )}
 
@@ -403,6 +410,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                       onValueChange={props.handleChange('diarrhoeaFrequency')}
                       label={i18n.t('describe-symptoms.question-diarrhoea-frequency')}
                       items={diarrhoeaFrequencyItems}
+                      error={props.touched.diarrhoeaFrequency && props.errors.diarrhoeaFrequency}
                     />
                   )}
 
