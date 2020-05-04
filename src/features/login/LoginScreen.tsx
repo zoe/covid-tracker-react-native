@@ -46,6 +46,10 @@ export class LoginScreen extends Component<PropsType, StateType> {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
+  checkFieldsFilled() {
+    return !(this.state.hasPassValidationError || this.state.hasUserValidationError);
+  }
+
   handleLogin() {
     this.errorMessage = '';
     const username = this.username.trim();
@@ -148,7 +152,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
           </View>
 
           <View>
-            <BrandedButton onPress={this.handleLogin}>
+            <BrandedButton onPress={this.handleLogin} enable={this.checkFieldsFilled()}>
               <Text>{i18n.t('login.button')}</Text>
             </BrandedButton>
             <View style={styles.bottomTextView}>

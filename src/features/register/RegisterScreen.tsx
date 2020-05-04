@@ -52,6 +52,11 @@ export class RegisterScreen extends Component<PropsType, State> {
     Navigator.setNavigation(this.props.navigation);
   }
 
+  private checkFieldsFilled = (props: any) => {
+    if (props.errors.password || props.errors.email) return false;
+    return true;
+  };
+
   private handleCreateAccount(formData: RegistrationData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
@@ -198,7 +203,10 @@ export class RegisterScreen extends Component<PropsType, State> {
                     </View>
                   )}
                   <View>
-                    <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
+                    <BrandedButton
+                      onPress={props.handleSubmit}
+                      hideLoading={!props.isSubmitting}
+                      enable={this.checkFieldsFilled(props) && this.state.enableSubmit}>
                       {i18n.t('create-account.btn')}
                     </BrandedButton>
                   </View>
