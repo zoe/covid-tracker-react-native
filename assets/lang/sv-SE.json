@@ -208,10 +208,12 @@
 
   "level-of-isolation": {
       "question-level-of-isolation": "Till vilken grad har du isolerat dig den senaste veckan?",
-      "picker-not-left-the-house": "Jag har inte lämnat min bostad",
-      "picker-rarely-left-the-house": "Jag lämnar sällan bostaden, och när jag gör det har jag mycket lite kontakt med andra (t.ex. går bara ut för att motionera utomhus)",
-      "picker-rarely-left-the-house-but-visited-lots": "Jag lämnar sällan bostaden, men var tvungen att besöka en plats med många personer (t.ex. sjukhus/mottagning, mataffär)",
-      "picker-often-left-the-house": "Jag måste lämna bostaden ofta och har då kontakt med andra människor (t.ex. arbetar fortfarande utanför bostaden eller använder kollektivtrafiken)"
+      "question-little-interaction": "Hur många gånger den senaste veckan har du varit utomhus, och då haft begränsat med umgänge med personer utanför ditt hushåll (t.ex. för att motionera)?",
+      "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats som besöks av många människor (t.ex. mataffär, kollektivtrafik, arbetsplats)?",
+      "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
+      "placeholder-frequency": "Antal gånger detta inträffade",
+      "required-answer": "Ange hur många gånger detta inträffade",
+      "correct-answer": "Var snäll och granska ditt svar"
   },
 
   "covid-test": {
