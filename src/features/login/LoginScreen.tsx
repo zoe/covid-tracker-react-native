@@ -43,6 +43,7 @@ const RegisterStartLink: React.FC<PropsType> = ({ navigation }) => {
     </ClickableText>
   );
 };
+
 const initialValues: LoginSubmitProps = {
   username: '',
   password: '',
@@ -52,6 +53,7 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
   const getWelcomeRepeatScreenName = () => {
     return isUSCountry() ? 'WelcomeRepeatUS' : 'WelcomeRepeat';
   };
+
   const registerSchema = Yup.object().shape({
     username: Yup.string()
       .required(i18n.t('create-account.email-required'))
@@ -89,7 +91,12 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
   let passwordInput: any | null = null;
 
   return (
-    <Formik onSubmit={handleLogin} initialValues={initialValues} validationSchema={registerSchema} validateOnBlur>
+    <Formik
+      onSubmit={handleLogin}
+      initialValues={initialValues}
+      validationSchema={registerSchema}
+      validateOnMount
+      validateOnBlur>
       {({ handleSubmit, handleChange, values, ...formikProps }) => {
         return (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -112,7 +119,9 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
                       blurOnSubmit={false}
                     />
                   </Item>
-                  {formikProps.errors.username && <FieldError>{formikProps.errors.username}</FieldError>}
+                  {formikProps.errors.username && formikProps.touched.username && (
+                    <FieldError>{formikProps.errors.username}</FieldError>
+                  )}
                 </View>
                 <View style={styles.formItem}>
                   <Item style={styles.labelPos} floatingLabel>
@@ -131,7 +140,7 @@ export const LoginScreen: React.FC<PropsType> = (props) => {
               <View>
                 <BrandedButton
                   onPress={() => handleSubmit()}
-                  enable={!formikProps.isSubmitting && !!values.username && !!values.password && formikProps.isValid}
+                  enable={!formikProps.isSubmitting && formikProps.isValid}
                   hideLoading={!formikProps.isSubmitting}>
                   <Text>{i18n.t('login.button')}</Text>
                 </BrandedButton>
