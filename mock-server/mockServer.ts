@@ -9,17 +9,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/auth/login', (req, res) => {
-  return res.status(200).send({
-    key: 'abc',
-    user: {
-      username: 'testuser@example.com',
-      authorizations: [],
-      patients: ['00000000-0000-0000-0000-000000000000'],
-      pii: '00000000-0000-0000-0000-000000000000',
-      push_tokens: [],
-      country_code: 'GB',
-    },
-  });
+  setTimeout(() => {
+    if (req.body.username === 'invalid@test.com') {
+      return res.status(403).send('Unauthorised');
+    } else {
+      return res.status(200).send({
+        key: 'abc',
+        user: {
+          username: 'testuser@example.com',
+          authorizations: [],
+          patients: ['00000000-0000-0000-0000-000000000000'],
+          pii: '00000000-0000-0000-0000-000000000000',
+          push_tokens: [],
+          country_code: 'GB',
+        },
+      });
+    }
+  }, 1000);
 });
 
 app.post('/auth/password/reset', (req, res) => {
