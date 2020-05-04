@@ -113,7 +113,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasHeadache: Yup.string().required(),
     headacheFrequency: Yup.string().when('hasHeadache', {
       is: 'yes',
-      then: Yup.string().required(i18n.t("describe-symptoms.required-headache-frequency"))
+      then: Yup.string().required(i18n.t('describe-symptoms.required-headache-frequency')),
     }),
     hasNausea: Yup.string().required(),
     hasDizziness: Yup.string().required(),
@@ -126,7 +126,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasDiarrhoea: Yup.string().required(),
     diarrhoeaFrequency: Yup.string().when('hasDiarrhoea', {
       is: 'yes',
-      then: Yup.string().required(i18n.t("describe-symptoms.required-diarrhoea-frequency"))
+      then: Yup.string().required(i18n.t('describe-symptoms.required-diarrhoea-frequency')),
     }),
     hasUnusualMusclePains: Yup.string().required(),
     hasDelirium: Yup.string().required(),
@@ -338,7 +338,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     label={i18n.t('describe-symptoms.question-has-headache')}
                   />
 
-                  { props.values.hasHeadache === 'yes'  && (
+                  {props.values.hasHeadache === 'yes' && (
                     <DropdownField
                       selectedValue={props.values.headacheFrequency}
                       onValueChange={props.handleChange('headacheFrequency')}
