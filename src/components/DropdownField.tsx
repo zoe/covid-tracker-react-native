@@ -31,8 +31,12 @@ const DropdownPicker = (props: DropdownPickerProps) => {
     { label: i18n.t('picker-yes'), value: 'yes' },
   ];
 
-  if (androidDefaultLabel && isAndroid) {
-    items.unshift({ label: androidDefaultLabel, value: '' });
+  if (isAndroid) {
+    if (androidDefaultLabel) {
+      items.unshift({ label: androidDefaultLabel, value: '' });
+    } else if (!items.find((item) => item.value === selectedValue)) {
+      items.unshift({ label: i18n.t('choose-one-of-these-options'), value: selectedValue });
+    }
   }
 
   return (
