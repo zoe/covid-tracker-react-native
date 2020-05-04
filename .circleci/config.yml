@@ -54,6 +54,7 @@ commands:
           command: npx expo-cli build:android -t app-bundle --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
+      - run: echo "$PLAY_STORE_JSON" | base64 --decode > fastlane/playstore.json
       - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
       - store_artifacts:
           path: ~/covid-react/fastlane/app.apk

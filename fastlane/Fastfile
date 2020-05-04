@@ -37,8 +37,16 @@ platform :android do
     )
   end
 
-  desc "TODO: Android Stage Channel (AppCenter/Play Store Beta)"
+  desc "Android Stage Channel (Play Store Beta)"
   lane :stage do
+    upload_to_play_store(
+      track: "beta",
+      aab: Dir.pwd + "/app.aab",
+      json_key: Dir.pwd + "/playstore.json",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
   end
 
   desc "TODO: Android Production Channel (Play Store)"
