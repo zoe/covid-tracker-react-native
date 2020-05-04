@@ -223,8 +223,8 @@
       "question-ever-had-covid-test": "Har du någon gång testats för COVID-19?",
       "picker-waiting": "Väntar på mina resultat",
       "picker-test-failed": "Testet misslyckades",
-      "question-takes-any-blood-pressure-medications": "Tar du regelbundet någon blodtrycksmedicin?",
       "question-covid-test-result-status": "Har du fått testresultatet?",
+
       "question-covid-test-result-status-waiting": "Du nämnde nyligen att du väntar på ditt resultat från ett COVID-19-test. Har du fått det nu?",
       "picker-never-had-test": "Jag testades aldrig",
       "question-had-new-covid-test": "Har du testats på nytt för COVID-19 sedan du sist rapporterade?",
@@ -243,7 +243,7 @@
       "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
       "picker-blood-sample": "Jag lämnade ett blodprov",
       "picker-other": "Annat sätt, ange vilket",
-      "indicate-test-mechanism": "Ange hur testet utfördes"
+      "question-mechanism-specify": "Ange hur testet utfördes"
   },
 
 
