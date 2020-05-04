@@ -17,10 +17,7 @@ export type PatientStateType = {
   isSameHousehold: boolean;
   shouldAskLevelOfIsolation: boolean;
   shouldAskStudy: boolean;
-
   hasRaceAnswer: boolean;
-  isWaitingForCovidTestResult: boolean;
-  everHadCovidTest: boolean;
 };
 
 const initPatientState = {

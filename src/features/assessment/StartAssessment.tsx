@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import UserService from '../../core/user/UserService';
 
 type StartAssessmentProps = {
   navigation: StackNavigationProp<ScreenParamList, 'StartAssessment'>;
@@ -16,8 +17,13 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
     const currentPatient = this.props.route.params.currentPatient;
     const assessmentId = this.props.route.params.assessmentId ?? null;
 
+    const userService = new UserService();
+    const features = userService.getConfig();
+
     if (currentPatient.hasCompletedPatientDetails) {
-      if (!currentPatient.hasRaceAnswer || !currentPatient.hasBloodPressureAnswer) {
+      if (features.showRaceQuestion && !currentPatient.hasRaceAnswer) {
+        this.props.navigation.replace('ProfileBackDate', { currentPatient });
+      } else if (!currentPatient.hasBloodPressureAnswer) {
         this.props.navigation.replace('ProfileBackDate', { currentPatient });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
         this.props.navigation.replace('LevelOfIsolation', { currentPatient, assessmentId });

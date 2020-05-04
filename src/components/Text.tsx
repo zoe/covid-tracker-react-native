@@ -1,8 +1,8 @@
-import { Button } from 'native-base';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet, Text, View } from 'react-native';
 import { colors, fontStyles } from '../../theme';
+
+export * from './BrandedButton';
 
 interface Props {
   children: React.ReactNode;
@@ -39,52 +39,13 @@ export const RegularBoldText = ({ style, children }: Props) => (
   <Text style={[styles.regularBoldText, style]}>{children}</Text>
 );
 
-interface ClickableProps {
+export interface ClickableProps {
   children: React.ReactNode;
   style?: any;
   onPress: () => void;
   enable?: boolean;
   hideLoading?: boolean;
 }
-
-interface ButtonProps {
-  buttonProps?: any;
-}
-
-interface TextProps {
-  textProps?: any;
-}
-
-export const BrandedButton = ({
-  style,
-  children,
-  onPress,
-  enable,
-  buttonProps,
-  textProps,
-  hideLoading,
-}: ClickableProps & ButtonProps & TextProps) => {
-  const btnStyle = [styles.button, style];
-  const isDisabled = enable === false;
-  if (isDisabled) {
-    btnStyle.push(styles.buttonDisabled);
-  }
-
-  return (
-    <Button
-      block
-      style={btnStyle}
-      onPress={() => {
-        !isDisabled && onPress();
-      }}
-      {...buttonProps}>
-      <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
-        {children}
-      </Text>
-      {isDisabled && !hideLoading && <ActivityIndicator size="small" />}
-    </Button>
-  );
-};
 
 export const ClickableText = ({ style, children, onPress }: ClickableProps) => (
   <Text style={[styles.clickableText, style]} onPress={onPress}>
@@ -132,21 +93,6 @@ const styles = StyleSheet.create({
   clickableText: {
     ...fontStyles.bodyReg,
     color: colors.purple,
-  },
-
-  button: {
-    borderRadius: 100,
-    height: 56,
-    backgroundColor: colors.brand,
-    elevation: 0,
-  },
-
-  buttonDisabled: {
-    backgroundColor: colors.backgroundBrandDisabled,
-  },
-
-  buttonText: {
-    color: colors.white,
   },
 
   divider: {
