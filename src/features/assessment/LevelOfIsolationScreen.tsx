@@ -11,11 +11,11 @@ import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock, FieldWrapper } from '../../components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
+import { ValidatedTextInput } from '../../components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '../../components/ValidationError';
 import { PatientStateType } from '../../core/patient/PatientState';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import { ValidatedTextInput } from '../../components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '../../components/ValidationError';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -71,9 +71,21 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   }
 
   registerSchema = Yup.object().shape({
-    isolationLittleInteraction: Yup.number().required(i18n.t('level-of-isolation.required-answer')).typeError(i18n.t('level-of-isolation.correct-answer')).integer(i18n.t('level-of-isolation.correct-answer')).min(0, i18n.t('level-of-isolation.correct-answer')),
-    isolationLotsOfPeople: Yup.number().required(i18n.t('level-of-isolation.required-answer')).typeError(i18n.t('level-of-isolation.correct-answer')).integer(i18n.t('level-of-isolation.correct-answer')).min(0, i18n.t('level-of-isolation.correct-answer')),
-    isolationHealthcareProvider: Yup.number().required(i18n.t('level-of-isolation.required-answer')).typeError(i18n.t('level-of-isolation.correct-answer')).integer(i18n.t('level-of-isolation.correct-answer')).min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationLittleInteraction: Yup.number()
+      .required(i18n.t('level-of-isolation.required-answer'))
+      .typeError(i18n.t('level-of-isolation.correct-answer'))
+      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationLotsOfPeople: Yup.number()
+      .required(i18n.t('level-of-isolation.required-answer'))
+      .typeError(i18n.t('level-of-isolation.correct-answer'))
+      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationHealthcareProvider: Yup.number()
+      .required(i18n.t('level-of-isolation.required-answer'))
+      .typeError(i18n.t('level-of-isolation.correct-answer'))
+      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .min(0, i18n.t('level-of-isolation.correct-answer')),
   });
 
   private updatePatientsLastAskedDate(currentPatient: PatientStateType) {
