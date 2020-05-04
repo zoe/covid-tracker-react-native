@@ -64,9 +64,9 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return {
       patient: patientId,
-      isolation_little_interaction: parseInt(formData.isolationLittleInteraction),
-      isolation_lots_of_people: parseInt(formData.isolationLotsOfPeople),
-      isolation_healthcare_provider: parseInt(formData.isolationHealthcareProvider),
+      isolation_little_interaction: parseInt(formData.isolationLittleInteraction, 10),
+      isolation_lots_of_people: parseInt(formData.isolationLotsOfPeople, 10),
+      isolation_healthcare_provider: parseInt(formData.isolationHealthcareProvider, 10),
     } as Partial<AssessmentInfosRequest>;
   }
 
