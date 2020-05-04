@@ -14,6 +14,7 @@ import { SplashScreen } from './features/SplashScreen';
 import ThankYouScreen from './features/ThankYouScreen';
 import ViralThankYouScreen from './features/ViralThankYouScreen';
 import CovidTestScreen from './features/assessment/CovidTestScreen';
+import CovidTestDetailScreen from './features/assessment/CovidTestDetailScreen';
 import DescribeSymptomsScreen from './features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from './features/assessment/HealthWorkerExposureScreen';
 import HowYouFeelScreen from './features/assessment/HowYouFeelScreen';
@@ -148,6 +149,7 @@ export default class ZoeApp extends Component<object, State> {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{ headerShown: false }} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={{ headerShown: false }} />
