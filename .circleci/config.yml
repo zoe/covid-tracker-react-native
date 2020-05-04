@@ -113,7 +113,7 @@ workflows:
           filters: *stage_filter
       - deploy:
           filters: *stage_filter
-          context: react-covid-tracker-dev
+          context: react-covid-tracker-stage
           requires:
             - build_and_test
 
@@ -143,6 +143,6 @@ workflows:
           filters: *master_filter
       - deploy:
           filters: *master_filter
-          context: react-covid-tracker-dev
+          context: react-covid-tracker-prod
           requires:
             - wait_for_approval
