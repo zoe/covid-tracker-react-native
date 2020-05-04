@@ -2,7 +2,6 @@ import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 import moment from 'moment';
 
-import { isAndroid } from '../../components/Screen';
 import i18n from '../../locale/i18n';
 import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
@@ -24,6 +23,7 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
+import { PushToken } from '../types';
 
 const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
@@ -280,11 +280,11 @@ export default class UserService extends ApiClientBase {
     return this.client.patch<AssessmentResponse>(`/assessments/${assessmentId}/`, assessment);
   }
 
-  public async savePushToken(pushToken: string) {
+  public async updatePushToken(pushTokenDoc: PushToken) {
     const tokenDoc = {
-      token: pushToken,
+      token: pushTokenDoc.token,
       active: true,
-      platform: isAndroid ? 'ANDROID' : 'IOS',
+      platform: pushTokenDoc.platform,
     } as TokenInfoRequest;
     return this.client.post<TokenInfoResponse>(`/tokens/`, tokenDoc);
   }

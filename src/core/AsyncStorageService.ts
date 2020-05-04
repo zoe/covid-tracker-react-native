@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native';
-
 import { UserResponse } from './user/dto/UserAPIContracts';
 
 const AUTH_TOKEN = 'authToken';
@@ -8,15 +7,11 @@ const ASKED_TO_RATE_STATUS = 'askedToRateStatus';
 const USER_COUNT = 'userCount';
 const USER_COUNTRY = 'userCountry';
 const CONSENT_SIGNED = 'consentSigned';
-const PUSH_TOKEN = 'pushToken';
 
 const USER_PROFILE = 'userProfile';
 const ASKED_COUNTRY = 'askedCountry';
 
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
-
-const STR_YES = 'YES';
-const STR_NO = 'NO';
 
 export class AsyncStorageService {
   public static async GetStoredData() {
@@ -168,19 +163,5 @@ export class AsyncStorageService {
     try {
       await AsyncStorage.setItem(CONSENT_SIGNED, consent);
     } catch (err) {}
-  }
-
-  static async setPushToken(pushToken: string) {
-    try {
-      await AsyncStorage.setItem(PUSH_TOKEN, pushToken);
-    } catch (err) {}
-  }
-
-  static async getPushToken(): Promise<string | null> {
-    try {
-      return await AsyncStorage.getItem(PUSH_TOKEN);
-    } catch (err) {
-      return null;
-    }
   }
 }

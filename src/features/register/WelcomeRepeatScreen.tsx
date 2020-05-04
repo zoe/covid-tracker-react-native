@@ -2,22 +2,12 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { Linking } from 'expo';
 import React, { Component } from 'react';
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '../../../assets';
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
-import { BrandedButton, ClickableText, RegularText } from '../../components/Text';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
+import { BrandedButton, RegularText } from '../../components/Text';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
@@ -38,23 +28,36 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   state = { userCount: null };
 
   async componentDidMount() {
+    this.updateUserCount();
+    this.updatePushToken();
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
+  }
+
+  async updateUserCount() {
     const userService = new UserService();
     const userCount = await userService.getUserCount();
     this.setState({ userCount });
+  }
 
-    // Refresh push token if we don't have one
-    const hasPushToken = await AsyncStorageService.getPushToken();
-    if (!hasPushToken) {
-      const pushToken = await PushNotificationService.getPushToken(false);
-      if (pushToken) {
-        try {
-          await userService.savePushToken(pushToken);
-          AsyncStorageService.setPushToken(pushToken);
-        } catch (error) {
-          // Ignore failure.
+  async updatePushToken() {
+    const pushTokenService = new PushNotificationService();
+
+    try {
+      let pushToken = await pushTokenService.getSavedPushToken();
+      if (!pushToken) {
+        pushToken = await pushTokenService.createPushToken();
+        if (pushToken) {
+          try {
+            const userService = new UserService();
+            await userService.updatePushToken(pushToken);
+            await pushTokenService.savePushToken(pushToken);
+          } catch (error) {
+            // Ignore failure
+          }
         }
       }
+    } catch (error) {
+      // Do nothing.
     }
   }
 

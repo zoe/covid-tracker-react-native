@@ -10,9 +10,8 @@ import * as Yup from 'yup';
 import { colors } from '../../../theme';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
-import UserService, { isGBCountry, isUSCountry } from '../../core/user/UserService';
+import UserService from '../../core/user/UserService';
 import { PiiRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
@@ -44,34 +43,34 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
+  async sendPushToken() {
+    if (Constants.appOwnership !== 'expo') {
+      const pushService = new PushNotificationService();
+      const pushToken = await pushService.createPushToken();
+      if (pushToken) {
+        try {
+          const userService = new UserService();
+          await userService.updatePushToken(pushToken);
+          await pushService.savePushToken(pushToken);
+        } catch (error) {
+          // Fail silently
+        }
+      }
+    }
+  }
+
   private async handleSaveOptionalInfos(formData: OptionalInfoData) {
     const patientId = this.props.route.params.patientId;
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
 
-    if (Constants.appOwnership !== 'expo') {
-      const pushToken = await PushNotificationService.getPushToken(false);
-      if (pushToken) {
-        try {
-          await userService.savePushToken(pushToken);
-          AsyncStorageService.setPushToken(pushToken);
-        } catch (error) {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        }
-      }
-    }
+    this.sendPushToken();
 
     const hasFormData = formData.phone?.trim() || formData.name?.trim();
-
     if (!hasFormData) {
       Navigator.gotoNextScreen(this.props.route.name, { currentPatient });
     } else {
-      let piiDoc = formData.name
-        ? {
-            name: formData.name,
-          }
-        : (({} as unknown) as Partial<PiiRequest>);
-
+      let piiDoc = formData.name ? { name: formData.name } : (({} as unknown) as Partial<PiiRequest>);
       if (formData.phone) {
         piiDoc = {
           ...piiDoc,
