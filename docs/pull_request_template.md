@@ -13,6 +13,9 @@ _Description of the feature or fix with link to the issue if existing_
 
 _Please attach screenshots showing the change if relevant_
 
+## Checklist
+- [ ] I have updated mockServer
+
 ## Out of scope and potential follow-up
 
 _Is there any related changes that you plan to do in a follow-up PR or voluntarily excluded from the scope?_
