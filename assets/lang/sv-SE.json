@@ -20,6 +20,13 @@
     "i-agree": "Jag godkänner",
     "back": "Tillbaka"
   },
+
+  "splash-error": {
+    "title": "Fel",
+    "message": "Det uppstod ett fel vid hämtningen av startinformation",
+    "primary-action-title": "Försök igen",
+    "secondary-action-title": "Avbryt"
+  },
   
   "title-about-work": "Om ditt arbete",
   "are-you-healthcare-staff": "Arbetar du inom hälso- och sjukvården (sjukhus, primärvård, kommunal omsorg, privat vård eller omsorg)?",
