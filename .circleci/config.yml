@@ -106,6 +106,16 @@ workflows:
     jobs:
       - build_and_test:
           filters: *stage_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to stage
+          requires:
+            - build_and_test
+          filters: *stage_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build_and_test
+          filters: *stage_filter
       - deploy:
           filters: *stage_filter
           context: react-covid-tracker-stage
