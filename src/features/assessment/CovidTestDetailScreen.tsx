@@ -100,7 +100,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const dateToPost = moment(this.state.dateTakenSpecific).format('YYYY-MM-DD');
 
     let postTest = {
-      patient: patientId,
+      patient_id: patientId,
       ...(formData.result && { result: formData.result }),
       ...(formData.knowsDateOfTest === 'yes' && { date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific) }),
       ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
