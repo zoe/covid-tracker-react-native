@@ -1,23 +1,20 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import moment from 'moment';
-import { Button, ListItem, Text } from 'native-base';
+import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, isAndroid, ProgressBlock } from '../../components/Screen';
+import Screen, { Header, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '../../components/Text';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { IOption } from '../patient/YourWorkScreen/helpers';
-import { colors, fontStyles } from '../../../theme';
-import { inspect } from 'util';
-import { chevronRight, menuIcon, pending, tick } from '../../../assets';
+import { colors } from '../../../theme';
+import { chevronRight, pending, tick } from '../../../assets';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import CovidTestService from '../../core/user/CovidTestService';
-import key from "weak-key";
+import key from 'weak-key';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;
@@ -124,7 +121,10 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           <View style={styles.list}>
             {this.state.covidTests.map((item: CovidTest) => {
               return (
-                <TouchableOpacity key={key(item)} style={styles.itemTouchable} onPress={() => this.handleEditTest(item)}>
+                <TouchableOpacity
+                  key={key(item)}
+                  style={styles.itemTouchable}
+                  onPress={() => this.handleEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
                   <Text>{item.date_taken_specific}</Text>
                   <View style={{ flex: 1 }} />
