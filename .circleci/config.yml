@@ -58,8 +58,6 @@ commands:
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
   deploy_android:
     steps:
-      - set_release_channel
-      - login_to_expo
       - run:
           command: npx expo-cli build:android -t app-bundle --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
@@ -70,8 +68,6 @@ commands:
           path: ~/covid-react/fastlane/app.apk
   deploy_ios:
     steps:
-      - set_release_channel
-      - login_to_expo
       - run:
           command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
