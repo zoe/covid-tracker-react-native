@@ -1,19 +1,19 @@
 {
   "create-account": {
-      "title": "Skapa nytt konto",
-      "btn": "Skapa konto",
-      "login": "Logga in",
-      "existing-account": "till befintligt konto.",
-      "email": "Din e-postadress",
-      "password": "Skapa lösenord",
-      "if-you-have-an-account": "Har du redan ett konto?",
-      "already-registered": "Ett konto kopplat till denna e-postadress finns redan. Försök logga in i stället.",
-      "email-required": "Ange din e-postadress",
-      "email-error": "Korrigera din e-postadress",
-      "password-required": "Ange ett lösenord",
-      "password-too-simple": "Lösenordet måste vara minst åtta tecken långt och får inte bara innehålla siffror",
-      "something-went-wrong": "Någonting gick fel: %{msg}",
-      "error": "Fel nr 01. Rapportera detta till covid-bugs@joinzoe.com: %{msg}"
+    "title": "Skapa nytt konto",
+    "btn": "Skapa konto",
+    "login": "Logga in",
+    "existing-account": "till befintligt konto.",
+    "email": "Din e-postadress",
+    "password": "Skapa lösenord",
+    "if-you-have-an-account": "Har du redan ett konto?",
+    "already-registered": "Ett konto kopplat till denna e-postadress finns redan. Försök logga in i stället.",
+    "email-required": "Ange din e-postadress",
+    "email-error": "Korrigera din e-postadress",
+    "password-required": "Ange ett lösenord",
+    "password-too-simple": "Lösenordet måste vara minst åtta tecken långt och får inte bara innehålla siffror",
+    "something-went-wrong": "Någonting gick fel: %{msg}",
+    "error": "Fel nr 01. Rapportera detta till covid-bugs@joinzoe.com: %{msg}"
   },
 
   "legal": {
@@ -27,7 +27,7 @@
     "primary-action-title": "Försök igen",
     "secondary-action-title": "Avbryt"
   },
-  
+
   "title-about-work": "Om ditt arbete",
   "are-you-healthcare-staff": "Arbetar du inom hälso- och sjukvården (sjukhus, primärvård, kommunal omsorg, privat vård eller omsorg)?",
   "yes-interacting-patients": "Ja, och jag träffar patienter",
@@ -37,15 +37,15 @@
   "required-is-carer": "Ange om du arbetar som vårdare",
   "label-physically-worked-in-places": "Har du, sedan COVID-19-epidemin startade, arbetat på?",
   "your-work": {
-      "worked-hospital-inpatient": "Sjukhus (inom slutenvård)",
-      "worked-hospital-outpatient": "Öppenvårdsmottagning",
-      "worked-clinic-outside-hospital": "Vårdcentral",
-      "worked-nursing-home": "Vårdhem/äldreboende eller gruppboende",
-      "worked-home-health": "Hemtjänst",
-      "worked-school-clinic": "Elevhälsa",
-      "worked-other-facility": "Annan vårdanläggning"
+    "worked-hospital-inpatient": "Sjukhus (inom slutenvård)",
+    "worked-hospital-outpatient": "Öppenvårdsmottagning",
+    "worked-clinic-outside-hospital": "Vårdcentral",
+    "worked-nursing-home": "Vårdhem/äldreboende eller gruppboende",
+    "worked-home-health": "Hemtjänst",
+    "worked-school-clinic": "Elevhälsa",
+    "worked-other-facility": "Annan vårdanläggning"
   },
-  
+
   "label-interacted-with-infected-patients": "Har du NÅGONSIN haft direktkontakt med patienter med bekräftad eller sannolik COVID-19-infektion?",
   "required-has-patient-interaction": "Ange om du har haft direktkontakt med patient med COVID-19",
 
@@ -112,11 +112,11 @@
   "picker-no": "Nej",
   "placeholder-optional-question": "*Optional",
 
-  "have-you-been-exposed" : "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
-  "exposed-yes-documented" : "Ja, bekräftat COVID-19-fall",
-  "exposed-yes-undocumented" : "Ja, sannolikt COVID-19-fall",
+  "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
+  "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
+  "exposed-yes-undocumented": "Ja, sannolikt COVID-19-fall",
   "exposed-both": "Ja, både bekräftat och sannolikt COVID-19-fall",
-  "exposed-no" : "Inte vad jag vet",
+  "exposed-no": "Inte vad jag vet",
 
   "housebound-problems": "Har du några hälsoproblem som gör att du har svårt att lämna hemmet?",
   "needs-help": "Behöver du regelbundet hjälp från andra personer?",
@@ -124,27 +124,27 @@
   "mobility-aid": "Använder du regelbundet käpp, rullator eller rullstol för att ta dig fram?",
 
   "your-health": {
-      "page-title": "Om din hälsa",
-      "health-problems-that-limit-activity": "Har du några hälsoproblem som vanligtvis kräver att du begränsar dina aktiviteter?",
-      "are-you-pregnant": "Är du gravid?",
-      "have-heart-disease": "Har du någon hjärtsjukdom?",
-      "have-diabetes": "Har du diabetes?",
-      "have-lung-disease": "Har du någon lungsjukdom eller astma?",
-      "is-smoker": "Röker du?",
-      "never-smoked": "Nej, aldrig rökt",
-      "not-currently-smoking": "Nej, men tidigare varit rökare",
-      "yes-smoking": "Ja, röker",
-      "years-since-last-smoked": "Hur många år är det sedan du rökte?",
-      "has-kidney-disease": "Har du någon njursjukdom?",
-      "has-cancer": "Har du cancer?",
-      "what-cancer-type": "Vilken typ av cancer har du?",
-      "is-on-chemotherapy": "Behandlas din cancer med kemoterapi eller immunoterapi?",
-      "takes-immunosuppressant": "Tar du regelbundet mediciner som kan påverka ditt immunförsvar, t.ex. kortisontabletter, Metotrexate® eller biologiska läkemedel (som används vid t.ex. vissa typer av cancer eller reumatisk sjukdom)?",
-      "takes-asprin": "Tar du regelbundet aspirin/acetylsalicylsyra (inkl. acetylsalicylsyra i lågdos t.ex. Trombyl®)?",
-      "takes-nsaids": "Tar du regelbundet icke-steroida antiinflammatoriska läkemedel (NSAID), t.ex. Ipren®, Brufen®, Eeze®, Voltaren®, eller Naproxen®?”",
-      "takes-any-blood-pressure-medication": "Tar du regelbundet någon blodtryckssänkande medicin?",
-      "takes-pril-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar med -pril, t.ex. enalapril (t.ex. Enalapril®, Renitec®), lisinopril (t.ex. Lisinopril®, Zestril®), captopril (t.ex. Captopril®) eller ramipril (t.ex. Ramipril®, Triatec®)?",
-      "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
+    "page-title": "Om din hälsa",
+    "health-problems-that-limit-activity": "Har du några hälsoproblem som vanligtvis kräver att du begränsar dina aktiviteter?",
+    "are-you-pregnant": "Är du gravid?",
+    "have-heart-disease": "Har du någon hjärtsjukdom?",
+    "have-diabetes": "Har du diabetes?",
+    "have-lung-disease": "Har du någon lungsjukdom eller astma?",
+    "is-smoker": "Röker du?",
+    "never-smoked": "Nej, aldrig rökt",
+    "not-currently-smoking": "Nej, men tidigare varit rökare",
+    "yes-smoking": "Ja, röker",
+    "years-since-last-smoked": "Hur många år är det sedan du rökte?",
+    "has-kidney-disease": "Har du någon njursjukdom?",
+    "has-cancer": "Har du cancer?",
+    "what-cancer-type": "Vilken typ av cancer har du?",
+    "is-on-chemotherapy": "Behandlas din cancer med kemoterapi eller immunoterapi?",
+    "takes-immunosuppressant": "Tar du regelbundet mediciner som kan påverka ditt immunförsvar, t.ex. kortisontabletter, Metotrexate® eller biologiska läkemedel (som används vid t.ex. vissa typer av cancer eller reumatisk sjukdom)?",
+    "takes-asprin": "Tar du regelbundet aspirin/acetylsalicylsyra (inkl. acetylsalicylsyra i lågdos t.ex. Trombyl®)?",
+    "takes-nsaids": "Tar du regelbundet icke-steroida antiinflammatoriska läkemedel (NSAID), t.ex. Ipren®, Brufen®, Eeze®, Voltaren®, eller Naproxen®?”",
+    "takes-any-blood-pressure-medication": "Tar du regelbundet någon blodtryckssänkande medicin?",
+    "takes-pril-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar med -pril, t.ex. enalapril (t.ex. Enalapril®, Renitec®), lisinopril (t.ex. Lisinopril®, Zestril®), captopril (t.ex. Captopril®) eller ramipril (t.ex. Ramipril®, Triatec®)?",
+    "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
   },
 
   "previous-exposure-title": "Tidigare exponering för COVID-19",
@@ -177,7 +177,6 @@
   "label-past-symptoms-had-covid": "Tror du att du redan har haft COVID-19, men att du inte testades?",
   "label-past-symptoms-classic": "Har du haft de klassiska symtomen (hög feber och ihållande hosta) i flera dagar?",
 
-
   "title-health-worker-exposure": "Exponering för COVID-19 för vårdpersonal",
   "health-worker-exposure-question-interacted-any-patients": "Har du under det senaste dygnet träffat någon patient?",
   "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik COVID-19-infektion?",
@@ -186,7 +185,7 @@
   "health-worker-exposure-picker-patient-interaction-yes-both": "Ja, både bekräftade och sannolika COVID-19-fall",
   "health-worker-exposure-picker-patient-interaction-no": "Inte vad jag vet",
 
-  "health-worker-exposure-question-has-used-ppe-equipment" : "Har du det senaste dygnet använt skyddsutrustning på arbetet *Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
+  "health-worker-exposure-question-has-used-ppe-equipment": "Har du det senaste dygnet använt skyddsutrustning på arbetet *Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
   "health-worker-exposure-picker-ppe-always": "Alltid",
   "health-worker-exposure-picker-ppe-sometimes": "Ibland",
   "health-worker-exposure-picker-ppe-never": "Aldrig",
@@ -205,100 +204,101 @@
   "required-ppe-availability-sometimes": "Ange tillgängligheten av skyddsutrustning för dig",
   "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
 
-
   "level-of-isolation": {
-      "question-level-of-isolation": "Till vilken grad har du isolerat dig den senaste veckan?",
-      "question-little-interaction": "Hur många gånger den senaste veckan har du varit utomhus med begränsad kontakt med personer utanför ditt hushåll (t.ex. för att motionera)?",
-      "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats som besöks av många människor (t.ex. mataffär, kollektivtrafik, arbetsplats)?",
-      "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
-      "placeholder-frequency": "Antal tillfällen",
-      "required-answer": "Ange antal tillfällen",
-      "correct-answer": "Var snäll och granska ditt svar"
+    "question-level-of-isolation": "Till vilken grad har du isolerat dig den senaste veckan?",
+    "question-little-interaction": "Hur många gånger den senaste veckan har du varit utomhus med begränsad kontakt med personer utanför ditt hushåll (t.ex. för att motionera)?",
+    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats som besöks av många människor (t.ex. mataffär, kollektivtrafik, arbetsplats)?",
+    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
+    "placeholder-frequency": "Antal tillfällen",
+    "required-answer": "Ange antal tillfällen",
+    "correct-answer": "Var snäll och granska ditt svar"
   },
 
   "covid-test": {
-      "page-title": "Test för COVID-19",
-      "question-has-covid-test": "Har du testats för COVID-19?",
-      "question-tested-covid-positive": "Var ditt test för COVID-19 positivt?",
-      "question-ever-had-covid-test": "Har du någon gång testats för COVID-19?",
-      "picker-waiting": "Väntar på mina resultat",
-      "picker-test-failed": "Testet misslyckades",
-      "question-covid-test-result-status": "Har du fått testresultatet?",
+    "page-title": "Test för COVID-19",
+    "page-title-detail-add": "Add new test",
+    "page-title-detail-update": "Update test",
+    "add-test": "Add test",
+    "update-test": "Update test",
+    "question-select-a-date-range": "Select a date range",
 
-      "question-covid-test-result-status-waiting": "Du nämnde nyligen att du väntar på ditt resultat från ett COVID-19-test. Har du fått det nu?",
-      "picker-never-had-test": "Jag testades aldrig",
-      "question-had-new-covid-test": "Har du testats på nytt för COVID-19 sedan du sist rapporterade?",
-      "question-knows-date-of-test": "Vet du vilket datum du testades?",
-      "question-date-test-occurred": "När testades du?",
-      "question-date-test-occurred-guess": "När (ungefär) testades du?",
-      "picker-less-than-7-days-ago": "För mindre än sju dagar sedan",
-      "picker-over-1-week-ago": "Över en vecka sedan",
-      "picker-over-2-week-ago": "Över två veckor sedan",
-      "picker-over-3-week-ago": "Över tre veckor sedan",
-      "picker-over-1-month-ago": "Över en månad sedan",
-      "question-covid-test-mechanism": "Hur utfördes testet?",
-      "question-covid-test-mechanism-specify": "Ange hur testet utfördes:",
-      "picker-nose-swab": "En testpinne i näsan",
-      "picker-throat-swab": "En testpinne i svalget",
-      "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
-      "picker-blood-sample": "Jag lämnade ett blodprov",
-      "picker-other": "Annat sätt, ange vilket",
-      "question-mechanism-specify": "Ange hur testet utfördes"
+    "question-mechanism": "Hur utfördes testet?",
+    "picker-nose-swab": "En testpinne i näsan",
+    "picker-throat-swab": "En testpinne i svalget",
+    "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
+    "picker-blood-sample": "Jag lämnade ett blodprov",
+    "picker-other": "Annat sätt, ange vilket",
+
+    "question-mechanism-specify": "Ange hur testet utfördes:",
+
+    "question-result": "Var ditt test för COVID-19 positivt?",
+
+    "picker-waiting": "Väntar på mina resultat",
+    "picker-test-failed": "Testet misslyckades",
+
+    "question-knows-date-of-test": "Vet du vilket datum du testades?",
+    "question-date-test-occurred": "När testades du?",
+
+    "question-date-test-occurred-guess": "När (ungefär) testades du?",
+    "picker-less-than-7-days-ago": "För mindre än sju dagar sedan",
+    "picker-over-1-week-ago": "Över en vecka sedan",
+    "picker-over-2-week-ago": "Över två veckor sedan",
+    "picker-over-3-week-ago": "Över tre veckor sedan",
+    "picker-over-1-month-ago": "Över en månad sedan"
   },
-
 
   "how-you-feel": {
-      "question-health-status": "Hur mår du i kroppen just nu?",
-      "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
-      "picker-health-status-not-healthy": "Jag känner mig inte helt kry"
+    "question-health-status": "Hur mår du i kroppen just nu?",
+    "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
+    "picker-health-status-not-healthy": "Jag känner mig inte helt kry"
   },
-    
+
   "describe-symptoms": {
-      "page-title": "Beskriv de symtom du har just nu",
-      "question-has-fever": "Har du feber eller känner dig varm?",
-      "question-your-temperature": "Om du kan ta tempen, vad är den?",
-      "placeholder-temperature": "Ange temperatur",
-      "picker-celsius": "°C",
-      "picker-fahrenheit": "°F",
-      "question-has-persistent-cough": "Har du ihållande hosta (hostat mycket i mer än en timme, eller haft tre eller fler hostattacker under ett dygn)?",
-      "question-has-unusual-fatigue": "Känner du dig ovanligt trött?",
-      "picker-fatigue-none": "Nej",
-      "picker-fatigue-mild": "Lindrig trötthet",
-      "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
-      "question-has-unusual-shortness-of-breath": "Har du andningsbesvär, eller känns det som att du inte får tillräckligt med luft?",
-      "picker-shortness-of-breath-none": "Nej",
-      "picker-shortness-of-breath-mild": "- Ja. Lindriga symtom - viss andnöd under vanliga aktiviteter",
-      "picker-shortness-of-breath-significant": "- Ja. Måttliga symtom - andningen är bara bekväm i vila",
-      "picker-shortness-of-breath-severe": "- Ja. Allvarliga symtom - andningen är påverkad även i vila",
-      "question-has-loss-of-smell": "Har du fått nedsatt lukt- eller smaksinne?",
-      "question-has-hoarse-voice": "Är du hes?",
-      "question-has-chest-pain": "Känner du ovanlig smärta eller stramhet i bröstet?",
-      "question-has-abdominal-pain": "Har du ont i magen/buken på ett sätt som du inte brukar ha?",
-      "question-has-diarrhoea": "Har du diarré?",
-      "placeholder-has-diarrhoea": "Har du diarré?",
-      "question-has-delirium": "Har du något av följande symtom: förvirring, desorientering eller dåsighet?",
-      "question-is-skipping-meals": "Har du hoppat över måltider?",
-      "question-has-headache": "Har du ont i huvudet?",
-      "question-has-sore-throat": "Har du ont i halsen?",
-      "question-has-unusual-muscle-pains": "Har du mycket ont i musklerna?",
-      "question-other-symptoms": "Finns det några andra viktiga symtom som du vill berätta om?",
-      "placeholder-other-symptoms": "Andra symtom",
-      "question-red-welts-on-face": "Har du haft upphöjda, röda, kliande utslag på huden eller har ditt ansikte eller dina läppar plötsligt svullnat upp?",
-      "question-blisters-on-feet": "Har du haft några röda/lila sår eller blåsor på fötterna, inklusive tårna?",
-      "question-has-nausea": "Har du känt dig illamående eller kräkts?",
-      "question-has-dizziness": "Känner du dig yr eller snurrig?",
-      "question-has-chills": "Har du frossa eller huttrar du (känner dig kall)?",
-      "question-has-eye-soreness": "Gör dina ögon ont eller är irriterade (t.ex. ljuskänsliga, rinniga, eller röda)?"
+    "page-title": "Beskriv de symtom du har just nu",
+    "question-has-fever": "Har du feber eller känner dig varm?",
+    "question-your-temperature": "Om du kan ta tempen, vad är den?",
+    "placeholder-temperature": "Ange temperatur",
+    "picker-celsius": "°C",
+    "picker-fahrenheit": "°F",
+    "question-has-persistent-cough": "Har du ihållande hosta (hostat mycket i mer än en timme, eller haft tre eller fler hostattacker under ett dygn)?",
+    "question-has-unusual-fatigue": "Känner du dig ovanligt trött?",
+    "picker-fatigue-none": "Nej",
+    "picker-fatigue-mild": "Lindrig trötthet",
+    "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
+    "question-has-unusual-shortness-of-breath": "Har du andningsbesvär, eller känns det som att du inte får tillräckligt med luft?",
+    "picker-shortness-of-breath-none": "Nej",
+    "picker-shortness-of-breath-mild": "- Ja. Lindriga symtom - viss andnöd under vanliga aktiviteter",
+    "picker-shortness-of-breath-significant": "- Ja. Måttliga symtom - andningen är bara bekväm i vila",
+    "picker-shortness-of-breath-severe": "- Ja. Allvarliga symtom - andningen är påverkad även i vila",
+    "question-has-loss-of-smell": "Har du fått nedsatt lukt- eller smaksinne?",
+    "question-has-hoarse-voice": "Är du hes?",
+    "question-has-chest-pain": "Känner du ovanlig smärta eller stramhet i bröstet?",
+    "question-has-abdominal-pain": "Har du ont i magen/buken på ett sätt som du inte brukar ha?",
+    "question-has-diarrhoea": "Har du diarré?",
+    "placeholder-has-diarrhoea": "Har du diarré?",
+    "question-has-delirium": "Har du något av följande symtom: förvirring, desorientering eller dåsighet?",
+    "question-is-skipping-meals": "Har du hoppat över måltider?",
+    "question-has-headache": "Har du ont i huvudet?",
+    "question-has-sore-throat": "Har du ont i halsen?",
+    "question-has-unusual-muscle-pains": "Har du mycket ont i musklerna?",
+    "question-other-symptoms": "Finns det några andra viktiga symtom som du vill berätta om?",
+    "placeholder-other-symptoms": "Andra symtom",
+    "question-red-welts-on-face": "Har du haft upphöjda, röda, kliande utslag på huden eller har ditt ansikte eller dina läppar plötsligt svullnat upp?",
+    "question-blisters-on-feet": "Har du haft några röda/lila sår eller blåsor på fötterna, inklusive tårna?",
+    "question-has-nausea": "Har du känt dig illamående eller kräkts?",
+    "question-has-dizziness": "Känner du dig yr eller snurrig?",
+    "question-has-chills": "Har du frossa eller huttrar du (känner dig kall)?",
+    "question-has-eye-soreness": "Gör dina ögon ont eller är irriterade (t.ex. ljuskänsliga, rinniga, eller röda)?"
   },
 
   "where-are-you": {
-      "question-location": "Var befinner du dig just nu?",
-      "picker-location-home": "Jag är hemma. Jag har inte uppsökt sjukvården pga misstänkt COVID-19.",
-      "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
-      "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
-      "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
+    "question-location": "Var befinner du dig just nu?",
+    "picker-location-home": "Jag är hemma. Jag har inte uppsökt sjukvården pga misstänkt COVID-19.",
+    "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
+    "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
+    "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
   },
-  
+
   "treatment-other-title-after": "Vilken behandling fick du på sjukhuset",
   "treatment-other-title-during": "Vilken behandling får du på sjukhuset?",
   "treatment-other-question-treatment-after": "Vilken medicinsk behandling fick du?",
@@ -314,7 +314,6 @@
   "treatment-selection-picker-invasive-ventilation": "Respiratorvård*",
   "treatment-selection-picker-subtext-invasive-ventilation": "* Andningshjälp med respirator. Man är oftast sövd om man vårdas i respirator",
   "treatment-selection-picker-other": "Annat",
-
 
   "login": {
     "title": "Logga in på ditt konto",
@@ -335,7 +334,6 @@
     "button": "Återställ lösenord",
     "error": "Fel nr 02. Rapportera detta till covid-bugs@joinzoe.com: %{msg}"
   },
-
 
   "reset-password-confirm": {
     "title": "Kolla din e-post",
@@ -388,7 +386,7 @@
   "blog-link": "https://covid19app.lu.se/",
   "thank-you-body": "Tack, du är nu en av de miljontals människor som hjälper forskare på Lunds universitet och King’s College London att bekämpa COVID-19.",
   "check-in-tomorrow": "Om du har möjlighet uppskattar vi verkligen om du rapporterar hur du mår igen i morgon.",
-  "check-news-feed" : "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
+  "check-news-feed": "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://www.covid19app.lu.se/faq",
 
   "rating": {
@@ -412,7 +410,7 @@
   "cancel": "Avbryt",
   "delete": "Ta bort",
   "logout": "Logga ut",
-  
+
   "never-reported": "Aldrig rapporterat",
   "today": "I dag",
   "yesterday": "I går",
