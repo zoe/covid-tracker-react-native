@@ -192,6 +192,10 @@ export default class UserService extends ApiClientBase {
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
 
+    // Hormone treatment related questions
+    const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
+    const hasHormoneTreatmentAnswer = !isPeriodCapable || patient.hormone_treatments.length > 0;
+
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
     let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
@@ -212,6 +216,8 @@ export default class UserService extends ApiClientBase {
       isHealthWorker,
       hasRaceAnswer,
       hasBloodPressureAnswer,
+      hasPeriodAnswer,
+      hasHormoneTreatmentAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,

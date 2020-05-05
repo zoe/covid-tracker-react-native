@@ -16,7 +16,19 @@ export interface HormoneTreatmentData {
 
 interface Props {
   formikProps: FormikProps<HormoneTreatmentData>;
+  showPeriodStatusQuestion?: boolean;
+  showHormoneTreatmentQuestion?: boolean;
 }
+
+interface State {
+  showPeriodStatus: boolean;
+  showHormoneTreatment: boolean;
+}
+
+const initialState: State = {
+  showPeriodStatus: true,
+  showHormoneTreatment: true,
+};
 
 const periodValues = {
   NEVER: 'never',
@@ -95,7 +107,21 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
   });
 };
 
-export class HormoneTreatmentQuestion extends Component<Props, object> {
+export class HormoneTreatmentQuestion extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  componentDidMount() {
+    if (this.props.showPeriodStatusQuestion === false) {
+      this.setState({ showPeriodStatus: false });
+    }
+    if (this.props.showHormoneTreatmentQuestion === false) {
+      this.setState({ showHormoneTreatment: false });
+    }
+  }
+
   static initialFormValues = () => {
     return {
       havingPeriods: '',
@@ -103,29 +129,33 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
     };
   };
 
-  // "label-taking-hormone-treatment"
-
   render() {
     const formikProps = this.props.formikProps;
     return (
       <View>
-        <DropdownField
-          selectedValue={formikProps.values.havingPeriods}
-          onValueChange={formikProps.handleChange('havingPeriods')}
-          label={i18n.t('your-health.having-periods')}
-          error={formikProps.touched.havingPeriods && formikProps.errors.havingPeriods}
-          items={periodItems}
-        />
+        {this.state.showPeriodStatus && (
+          <DropdownField
+            selectedValue={formikProps.values.havingPeriods}
+            onValueChange={formikProps.handleChange('havingPeriods')}
+            label={i18n.t('your-health.having-periods')}
+            error={formikProps.touched.havingPeriods && formikProps.errors.havingPeriods}
+            items={periodItems}
+          />
+        )}
 
-        <FieldWrapper>
-          <Item stackedLabel style={styles.textItemStyle}>
-            <Label>{i18n.t('your-health.label-taking-hormone-treatment')}</Label>
-            <CheckboxList>{createTreatmentCheckboxes(HormoneTreatmentCheckboxes, this.props.formikProps)}</CheckboxList>
-          </Item>
-          {!!formikProps.errors.hormoneTreatment && (
-            <ValidationError error={formikProps.errors.hormoneTreatment as string} />
-          )}
-        </FieldWrapper>
+        {this.state.showHormoneTreatment && (
+          <FieldWrapper>
+            <Item stackedLabel style={styles.textItemStyle}>
+              <Label>{i18n.t('your-health.label-taking-hormone-treatment')}</Label>
+              <CheckboxList>
+                {createTreatmentCheckboxes(HormoneTreatmentCheckboxes, this.props.formikProps)}
+              </CheckboxList>
+            </Item>
+            {!!formikProps.errors.hormoneTreatment && (
+              <ValidationError error={formikProps.errors.hormoneTreatment as string} />
+            )}
+          </FieldWrapper>
+        )}
       </View>
     );
   }
