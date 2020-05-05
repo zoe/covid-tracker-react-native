@@ -230,6 +230,10 @@ export type AssessmentInfosRequest = {
   never_used_shortage: string;
   // Allowed values should be defined app side.
   // Can be null
+
+  isolation_little_interaction: number;
+  isolation_lots_of_people: number;
+  isolation_healthcare_provider: number;
 };
 
 export type AssessmentResponse = {

@@ -1,29 +1,92 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
 import moment from 'moment';
-import { Form } from 'native-base';
+import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import * as Yup from 'yup';
 
+import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { SelectorButton } from '../../components/SelectorButton';
-import { HeaderText } from '../../components/Text';
+import Screen, { Header, ProgressBlock, FieldWrapper } from '../../components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
+import { ValidatedTextInput } from '../../components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '../../components/ValidationError';
 import { PatientStateType } from '../../core/patient/PatientState';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
+const initialFormValues = {
+  isolationLittleInteraction: '',
+  isolationLotsOfPeople: '',
+  isolationHealthcareProvider: '',
+};
+
+interface LevelOfIsolationData {
+  isolationLittleInteraction: string;
+  isolationLotsOfPeople: string;
+  isolationHealthcareProvider: string;
+}
+
 type LocationProps = {
   navigation: StackNavigationProp<ScreenParamList, 'LevelOfIsolation'>;
   route: RouteProp<ScreenParamList, 'LevelOfIsolation'>;
 };
 
-export default class LevelOfIsolationScreen extends Component<LocationProps> {
+type State = {
+  errorMessage: string;
+  enableSubmit: boolean;
+};
+
+const checkFormFilled = (props: FormikProps<LevelOfIsolationData>) => {
+  if (Object.keys(props.errors).length && props.submitCount > 0) return false;
+  if (Object.keys(props.values).length === 0 && props.submitCount > 0) return false;
+  return true;
+};
+
+const initialState: State = {
+  errorMessage: '',
+  enableSubmit: true,
+};
+
+export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
   constructor(props: LocationProps) {
     super(props);
+    this.state = initialState;
   }
+
+  private createAssessment(formData: LevelOfIsolationData) {
+    const currentPatient = this.props.route.params.currentPatient;
+    const patientId = currentPatient.patientId;
+
+    return {
+      patient: patientId,
+      isolation_little_interaction: parseInt(formData.isolationLittleInteraction, 10),
+      isolation_lots_of_people: parseInt(formData.isolationLotsOfPeople, 10),
+      isolation_healthcare_provider: parseInt(formData.isolationHealthcareProvider, 10),
+    } as Partial<AssessmentInfosRequest>;
+  }
+
+  registerSchema = Yup.object().shape({
+    isolationLittleInteraction: Yup.number()
+      .required(i18n.t('level-of-isolation.required-answer'))
+      .typeError(i18n.t('level-of-isolation.correct-answer'))
+      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationLotsOfPeople: Yup.number()
+      .required(i18n.t('level-of-isolation.required-answer'))
+      .typeError(i18n.t('level-of-isolation.correct-answer'))
+      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .min(0, i18n.t('level-of-isolation.correct-answer')),
+    isolationHealthcareProvider: Yup.number()
+      .required(i18n.t('level-of-isolation.required-answer'))
+      .typeError(i18n.t('level-of-isolation.correct-answer'))
+      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .min(0, i18n.t('level-of-isolation.correct-answer')),
+  });
 
   private updatePatientsLastAskedDate(currentPatient: PatientStateType) {
     const userService = new UserService();
@@ -36,7 +99,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
     return userService
       .updatePatient(patientId, infos)
       .then((response) => (currentPatient.shouldAskLevelOfIsolation = false))
-      .catch((err) => {
+      .catch(() => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });
   }
@@ -49,38 +112,29 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
     }
   };
 
-  handleSelection = (level_of_isolation: string) => {
-    let { currentPatient, assessmentId } = this.props.route.params;
-    const patientId = currentPatient.patientId;
+  handleUpdate(formData: LevelOfIsolationData) {
     const userService = new UserService();
-    const assessment = {
-      patient: patientId,
-      level_of_isolation,
-    } as Partial<AssessmentInfosRequest>;
+    let { currentPatient, assessmentId } = this.props.route.params;
+    var assessment = this.createAssessment(formData);
 
-    let promise = null;
-    if (assessmentId == null) {
-      promise = userService.addAssessment(assessment);
-    } else {
-      promise = userService.updateAssessment(assessmentId, assessment);
-    }
+    const promise =
+      assessmentId == null
+        ? userService.addAssessment(assessment)
+        : userService.updateAssessment(assessmentId, assessment);
+
     promise
       .then((response) => {
         this.props.navigation.setParams({ assessmentId: response.data.id });
         assessmentId = response.data.id;
       })
-      .then(() =>
-        this.updatePatientsLastAskedDate(currentPatient).then(() =>
-          this.navigateToStart(currentPatient, assessmentId as string)
-        )
-      )
-      .catch((err) => {
-        this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      });
-  };
+      .then(() => this.updatePatientsLastAskedDate(currentPatient))
+      .then(() => this.navigateToStart(currentPatient, assessmentId as string))
+      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  }
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
+
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
@@ -91,31 +145,105 @@ export default class LevelOfIsolationScreen extends Component<LocationProps> {
           <ProgressStatus step={3} maxSteps={5} />
         </ProgressBlock>
 
-        <Form style={styles.form}>
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-not-left-the-house')}
-            onPress={() => this.handleSelection('not_left_the_house')}
-          />
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-rarely-left-the-house')}
-            onPress={() => this.handleSelection('rarely_left_the_house')}
-          />
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-rarely-left-the-house-but-visited-lots')}
-            onPress={() => this.handleSelection('rarely_left_the_house_but_visited_lots')}
-          />
-          <SelectorButton
-            text={i18n.t('level-of-isolation.picker-often-left-the-house')}
-            onPress={() => this.handleSelection('often_left_the_house')}
-          />
-        </Form>
+        <Formik
+          initialValues={initialFormValues}
+          validationSchema={this.registerSchema}
+          onSubmit={(values: LevelOfIsolationData) => {
+            return this.handleUpdate(values);
+          }}>
+          {(props) => {
+            return (
+              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <Form>
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                        value={props.values.isolationLittleInteraction}
+                        onChangeText={props.handleChange('isolationLittleInteraction')}
+                        onBlur={props.handleBlur('isolationLittleInteraction')}
+                        error={
+                          props.touched.isolationLittleInteraction &&
+                          props.errors.isolationLittleInteraction &&
+                          props.submitCount > 0
+                        }
+                        returnKeyType="next"
+                        keyboardType="numeric"
+                      />
+                    </Item>
+                    {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
+                      <ValidationError error={props.errors.isolationLittleInteraction} />
+                    )}
+                  </FieldWrapper>
+
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                        value={props.values.isolationLotsOfPeople}
+                        onChangeText={props.handleChange('isolationLotsOfPeople')}
+                        onBlur={props.handleBlur('isolationLotsOfPeople')}
+                        error={
+                          props.touched.isolationLotsOfPeople &&
+                          props.errors.isolationLotsOfPeople &&
+                          props.submitCount > 0
+                        }
+                        returnKeyType="next"
+                        keyboardType="numeric"
+                      />
+                    </Item>
+                    {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
+                      <ValidationError error={props.errors.isolationLotsOfPeople} />
+                    )}
+                  </FieldWrapper>
+
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                        value={props.values.isolationHealthcareProvider}
+                        onChangeText={props.handleChange('isolationHealthcareProvider')}
+                        onBlur={props.handleBlur('isolationHealthcareProvider')}
+                        error={
+                          props.touched.isolationHealthcareProvider &&
+                          props.errors.isolationHealthcareProvider &&
+                          props.submitCount > 0
+                        }
+                        returnKeyType="next"
+                        keyboardType="numeric"
+                      />
+                    </Item>
+                    {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
+                      <ValidationError error={props.errors.isolationHealthcareProvider} />
+                    )}
+                  </FieldWrapper>
+
+                  <ErrorText>{this.state.errorMessage}</ErrorText>
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                    <ValidationErrors errors={props.errors as string[]} />
+                  )}
+
+                  <BrandedButton
+                    onPress={props.handleSubmit}
+                    enable={checkFormFilled(props)}
+                    hideLoading={!props.isSubmitting}>
+                    {i18n.t('next-question')}
+                  </BrandedButton>
+                </Form>
+              </KeyboardAvoidingView>
+            );
+          }}
+        </Formik>
       </Screen>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  form: {
-    marginVertical: 32,
+  textItemStyle: {
+    borderColor: 'transparent',
   },
 });

@@ -350,10 +350,12 @@
 
   "level-of-isolation": {
     "question-level-of-isolation": "How much have you been isolating over the last week?",
-    "picker-not-left-the-house": "I have not left the house",
-    "picker-rarely-left-the-house": "I rarely leave the house and when I do, I have little interaction with others (e.g. for exercise)",
-    "picker-rarely-left-the-house-but-visited-lots": "I rarely leave the house but had to visit somewhere with lots of people (e.g. hospital/clinic, groceries)",
-    "picker-often-left-the-house": "I have to leave the house often and am in contact with other people (e.g. still working outside the house or using public transport)"
+    "question-little-interaction": "In the last week, how many times have you been outside, with little interaction with people outside your household (e.g. exercise)?",
+    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work)?",
+    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare provider (e.g. hospital, clinic, dentist, pharmacy)?",
+    "placeholder-frequency": "Number of times this occurred",
+    "required-answer": "Please indicate the number of times this occurred",
+    "correct-answer": "Please correct your answer"
   },
 
   "where-are-you": {
