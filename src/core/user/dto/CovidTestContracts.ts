@@ -1,4 +1,4 @@
-export type CovidTestRequest = {
+export type CovidTest = {
     id: string; // Test schema version
     version: string; // Test schema version
     patient: string;

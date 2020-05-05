@@ -16,7 +16,7 @@ import { ValidationErrors } from '../../components/ValidationError';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';
-import { CovidTestRequest } from '../../core/user/dto/CovidTestContracts';
+import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import CovidTestService from '../../core/user/CovidTestService';
 import CalendarPicker from 'react-native-calendar-picker';
 
@@ -93,7 +93,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   formatDateToPost = (date: Date) => moment(date).format('YYYY-MM-DD');
 
   handleAction(formData: CovidTestData) {
-    const { currentPatient, assessmentId, test } = this.props.route.params;
+    const { currentPatient, test } = this.props.route.params;
     const patientId = currentPatient.patientId;
     const covidTestService = new CovidTestService();
 
@@ -106,7 +106,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
       ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
       // TODO: Pass two dates back to the server
-    } as Partial<CovidTestRequest>;
+    } as Partial<CovidTest>;
     if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
       postTest = {
           ...postTest,
@@ -119,7 +119,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       covidTestService
         .updateTest(test.id, postTest)
         .then((response) => {
-          this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId: assessmentId });
+          this.props.navigation.goBack();
         })
         .catch((err) => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -128,7 +128,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       covidTestService
         .addTest(postTest)
         .then((response) => {
-          this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId: assessmentId });
+          this.props.navigation.goBack();
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });

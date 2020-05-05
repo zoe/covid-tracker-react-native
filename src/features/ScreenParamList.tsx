@@ -1,6 +1,6 @@
 import { PatientStateType } from '../core/patient/PatientState';
 import { UserResponse } from '../core/user/dto/UserAPIContracts';
-import { CovidTestRequest } from "../core/user/dto/CovidTestContracts";
+import { CovidTest } from "../core/user/dto/CovidTestContracts";
 
 export enum ConsentType {
   Adult = 'adult',
@@ -54,7 +54,7 @@ export type ScreenParamList = {
   StartAssessment: { currentPatient: PatientStateType; assessmentId?: string };
   HealthWorkerExposure: { currentPatient: PatientStateType; assessmentId: string | null };
   CovidTest: { currentPatient: PatientStateType; assessmentId: string | null };
-  CovidTestDetail: { currentPatient: PatientStateType; assessmentId: string | null; test?: CovidTestRequest };
+  CovidTestDetail: { currentPatient: PatientStateType; test?: CovidTest };
   HowYouFeel: { currentPatient: PatientStateType; assessmentId: string };
   DescribeSymptoms: { currentPatient: PatientStateType; assessmentId: string };
   WhereAreYou: { currentPatient: PatientStateType; assessmentId: string };

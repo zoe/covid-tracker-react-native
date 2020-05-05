@@ -15,6 +15,8 @@ import { IOption } from '../patient/YourWorkScreen/helpers';
 import { colors, fontStyles } from '../../../theme';
 import { inspect } from 'util';
 import { chevronRight, menuIcon, pending, tick } from '../../../assets';
+import { CovidTest } from '../../core/user/dto/CovidTestContracts';
+import CovidTestService from '../../core/user/CovidTestService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;
@@ -26,23 +28,9 @@ type State = {
   covidTests: CovidTest[];
 };
 
-type CovidTest = {
-  key: string;
-  date: Date;
-  type: string;
-  result: string;
-};
-
-const now = moment().add(moment().utcOffset(), 'minutes').toDate();
-
 const initialState: State = {
   errorMessage: '',
-  covidTests: [
-    //todo remove
-    { key: '1', date: now, type: 'swab', result: 'pending' },
-    { key: '2', date: now, type: 'blood', result: 'negative' },
-    { key: '3', date: now, type: 'blood', result: 'negative' },
-  ],
+  covidTests: [],
 };
 
 export default class YourCovidTestsScreen extends Component<Props, State> {
@@ -51,14 +39,20 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     this.state = initialState;
   }
 
-  componentDidMount(): void {
-    //todo get current tests and update state
+  async componentDidMount() {
+    const covidTestService = new CovidTestService();
+    const tests = await covidTestService.listTests();
+    this.setState({ covidTests: tests.data });
   }
 
   handleAddNewTest() {
     const { currentPatient } = this.props.route.params;
-    const patientId = currentPatient.patientId;
-    const userService = new UserService();
+    this.props.navigation.navigate('CovidTestDetail', { currentPatient });
+  }
+
+  handleEditTest(test: CovidTest) {
+    const { currentPatient } = this.props.route.params;
+    this.props.navigation.navigate('CovidTestDetail', { currentPatient, test });
   }
 
   handleNextQuestion() {
@@ -129,9 +123,9 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           <View style={styles.list}>
             {this.state.covidTests.map((item) => {
               return (
-                <TouchableOpacity style={styles.itemTouchable}>
+                <TouchableOpacity style={styles.itemTouchable} onPress={() => this.handleEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
-                  <Text>{item.date.toDateString()}</Text>
+                  <Text>{item.date_taken_specific}</Text>
                   <View style={{ flex: 1 }} />
                   <Text>{resultString(item.result)}</Text>
                   <Image source={chevronRight} style={styles.chevron} />
@@ -141,7 +135,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           </View>
         </Screen>
 
-        <Button block style={styles.newTestButton}>
+        <Button block style={styles.newTestButton} onPress={this.handleAddNewTest}>
           <Text style={styles.newTestText}>{i18n.t('add-new-test')}</Text>
         </Button>
 

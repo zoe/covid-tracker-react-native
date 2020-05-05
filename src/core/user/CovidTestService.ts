@@ -1,5 +1,5 @@
 import UserService from "./UserService";
-import { CovidTestRequest, CovidTestResponse } from "./dto/CovidTestContracts";
+import { CovidTest, CovidTestResponse } from "./dto/CovidTestContracts";
 
 const TEST_VERSION = '1.0.0'; // TODO: Wire this to something automatic.
 
@@ -10,10 +10,10 @@ export default class CovidTestService extends UserService {
   }
 
   public async listTests() {
-    return this.client.get<CovidTestRequest[]>(`/covid_tests/`);
+    return this.client.get<CovidTest[]>(`/covid_tests/`);
   }
 
-  public async addTest(test: Partial<CovidTestRequest>) {
+  public async addTest(test: Partial<CovidTest>) {
     test = {
       ...test,
       version: CovidTestService.getTestVersion(),
@@ -22,13 +22,13 @@ export default class CovidTestService extends UserService {
     return this.client.post<CovidTestResponse>(`/covid_tests/`, test);
   }
 
-  public async getTest(testId: string): Promise<CovidTestRequest> {
+  public async getTest(testId: string): Promise<CovidTest> {
     // TODO: Cache this in AsyncStorage?
-    const testResponse = await this.client.get<CovidTestRequest>(`/covid_tests/${testId}/`);
+    const testResponse = await this.client.get<CovidTest>(`/covid_tests/${testId}/`);
     return testResponse.data;
   }
 
-  public async updateTest(testId: string, test: Partial<CovidTestRequest>) {
+  public async updateTest(testId: string, test: Partial<CovidTest>) {
     return this.client.patch<CovidTestResponse>(`/covid_tests/${testId}/`, test);
   }
 }
