@@ -18,7 +18,6 @@ export default class CovidTestService extends UserService {
       ...test,
       version: CovidTestService.getTestVersion(),
     };
-    console.log("Test to post: ", test);
     return this.client.post<CovidTestResponse>(`/covid_tests/`, test);
   }
 
