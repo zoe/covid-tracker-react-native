@@ -7,6 +7,7 @@ import { colors } from '../../../../theme';
 import { ApplicationVersion } from '../../../components/AppVersion';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
 import { ScreenParamList } from '../../ScreenParamList';
+import { BulletedTextBlock } from '../LegalComponents';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;
@@ -106,11 +107,24 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             it. They are not permitted to keep the data after our relationship with them has ended.
             {'\n\n'}
             These processors include:
-            {'\n\n'}- Amazon Web Services{'\n'}- Google Cloud Platform{'\n'}- SurveyMonkey{'\n'}- Segment{'\n'}- Google
-            Analytics{'\n'}- Mixpanel{'\n'}- Google G Suite{'\n'}- MailChimp{'\n'}- Mailgun{'\n'}- Intercom{'\n'}-
-            Sentry{'\n'}- Google Firebase{'\n'}- SwiftyBeaver
-            {'\n'}
           </RegularText>
+          <BulletedTextBlock
+            text={[
+              'Google Cloud Platform',
+              'SurveyMonkey',
+              'Segment',
+              'Expo',
+              'Google Firebase',
+              'Amplitude',
+              'Google G Suite',
+              'MailChimp',
+              'Mailgun',
+              'Intercom',
+              'Sentry',
+              'Cloudflare',
+              'Sqreen'
+            ]}
+          />
 
           <RegularBoldText>Your rights{'\n'}</RegularBoldText>
           <RegularText>
