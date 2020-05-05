@@ -23,13 +23,13 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
-import { PushToken } from '../types';
+import { PushToken, IPushTokenRemoteClient } from '../types';
 
 const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
-export default class UserService extends ApiClientBase {
+export default class UserService extends ApiClientBase implements IPushTokenRemoteClient {
   public static userCountry = 'US';
   public static ipCountry = '';
   public static countryConfig: ConfigType;
@@ -280,7 +280,7 @@ export default class UserService extends ApiClientBase {
     return this.client.patch<AssessmentResponse>(`/assessments/${assessmentId}/`, assessment);
   }
 
-  public async updatePushToken(pushTokenDoc: PushToken) {
+  public async updatePushToken(pushTokenDoc: PushToken): Promise<AxiosResponse<TokenInfoResponse>> {
     const tokenDoc = {
       token: pushTokenDoc.token,
       active: true,

@@ -1,13 +1,14 @@
-import { Notifications, Constants } from 'expo';
+import { Notifications } from 'expo';
+import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import { AsyncStorage } from 'react-native';
 import moment from 'moment';
-import { PushToken } from './types';
+import { PushToken, IPushTokenRemoteClient } from './types';
 import UserService from './user/UserService';
 import { now, aWeekAgo } from './utils/datetime';
 import { isAndroid } from './utils/platform';
+import LocalStorageService, { IStorageService } from './LocalStorageService';
 
-const PUSH_TOKEN = 'PUSH_TOKEN';
+const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
 const PLATFORM_IOS = 'IOS';
 const STATUS_GRANTED = 'granted';
@@ -38,21 +39,27 @@ const getPushTokenFromExpo = async (): Promise<string | null> => {
 };
 
 export class PushNotificationService {
+  apiClient: IPushTokenRemoteClient;
+  storage: IStorageService;
+
+  constructor(apiClient: IPushTokenRemoteClient | null = null, storage: IStorageService | null = null) {
+    this.apiClient = apiClient || new UserService();
+    this.storage = storage || new LocalStorageService();
+  }
+
   private async createPushToken(): Promise<PushToken | null> {
     const token = await getPushTokenFromExpo();
     return token ? createTokenDoc(token) : null;
   }
 
   private async getSavedPushToken(): Promise<PushToken | null> {
-    const serialised = await AsyncStorage.getItem(PUSH_TOKEN);
-    const tokenDoc = serialised ? JSON.parse(serialised) : serialised;
-    return tokenDoc;
+    const tokenDoc = await this.storage.getObject<PushToken>(KEY_PUSH_TOKEN);
+    return tokenDoc || null;
   }
 
   private async savePushToken(tokenDoc: PushToken) {
     tokenDoc.lastUpdated = moment().format();
-    const serialised = JSON.stringify(tokenDoc);
-    return await AsyncStorage.setItem(PUSH_TOKEN, serialised);
+    return await this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, tokenDoc);
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
@@ -60,8 +67,7 @@ export class PushNotificationService {
   }
 
   private async sendPushToken(pushToken: PushToken) {
-    const userService = new UserService();
-    await userService.updatePushToken(pushToken);
+    await this.apiClient.updatePushToken(pushToken);
     await this.savePushToken(pushToken);
   }
 
