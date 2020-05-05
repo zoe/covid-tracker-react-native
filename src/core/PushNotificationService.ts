@@ -1,10 +1,9 @@
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import moment from 'moment';
 import { PushToken, IPushTokenRemoteClient } from './types';
 import UserService from './user/UserService';
-import { now, aWeekAgo } from './utils/datetime';
+import { now, aWeekAgo, isDateBefore } from './utils/datetime';
 import { isAndroid } from './utils/platform';
 import LocalStorageService, { IStorageService } from './LocalStorageService';
 
@@ -53,17 +52,17 @@ export class PushNotificationService {
   }
 
   private async getSavedPushToken(): Promise<PushToken | null> {
-    const tokenDoc = await this.storage.getObject<PushToken>(KEY_PUSH_TOKEN);
-    return tokenDoc || null;
+    const pushToken = await this.storage.getObject<PushToken>(KEY_PUSH_TOKEN);
+    return pushToken || null;
   }
 
-  private async savePushToken(tokenDoc: PushToken) {
-    tokenDoc.lastUpdated = moment().format();
-    return await this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, tokenDoc);
+  private async savePushToken(pushToken: PushToken) {
+    pushToken.lastUpdated = now();
+    return await this.storage.setObject<PushToken>(KEY_PUSH_TOKEN, pushToken);
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
-    return moment(pushToken.lastUpdated).isBefore(aWeekAgo());
+    return isDateBefore(pushToken.lastUpdated, aWeekAgo());
   }
 
   private async sendPushToken(pushToken: PushToken) {

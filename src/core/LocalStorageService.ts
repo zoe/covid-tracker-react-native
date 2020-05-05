@@ -17,7 +17,7 @@ class LocalStorageService implements IStorageService {
   async getObject<T>(key: string): Promise<T | null> {
     try {
       const val = await AsyncStorage.getItem(key);
-      return val === undefined ? (JSON.parse(val) as T) : null;
+      return !!val ? <T>JSON.parse(val) : null;
     } catch (error) {
       return null;
     }
