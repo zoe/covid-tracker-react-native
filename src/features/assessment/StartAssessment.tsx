@@ -2,9 +2,9 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 
+import UserService from '../../core/user/UserService';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import UserService from '../../core/user/UserService';
 
 type StartAssessmentProps = {
   navigation: StackNavigationProp<ScreenParamList, 'StartAssessment'>;
