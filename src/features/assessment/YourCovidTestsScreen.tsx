@@ -17,6 +17,7 @@ import { inspect } from 'util';
 import { chevronRight, menuIcon, pending, tick } from '../../../assets';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import CovidTestService from '../../core/user/CovidTestService';
+import key from "weak-key";
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;
@@ -121,9 +122,9 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           </ProgressBlock>
 
           <View style={styles.list}>
-            {this.state.covidTests.map((item) => {
+            {this.state.covidTests.map((item: CovidTest) => {
               return (
-                <TouchableOpacity style={styles.itemTouchable} onPress={() => this.handleEditTest(item)}>
+                <TouchableOpacity key={key(item)} style={styles.itemTouchable} onPress={() => this.handleEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
                   <Text>{item.date_taken_specific}</Text>
                   <View style={{ flex: 1 }} />
