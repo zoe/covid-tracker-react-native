@@ -165,8 +165,8 @@ export default class UserService extends ApiClientBase {
     // Calculate the flags based on patient info
     const hasRaceAnswer = patient.race.length > 0;
     const isFemale = patient.gender == 0;
-    const isSexNotMale = ![1, 2].includes(patient.gender);
-    const isGenderNotMale = !['male', 'pfnts'].includes(patient.gender_identity);
+    const isSexNotMale = ![null, 1, 2].includes(patient.gender);
+    const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
     const isPeriodCapable = isSexNotMale || isGenderNotMale;
     const isHealthWorker =
       ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
@@ -194,7 +194,7 @@ export default class UserService extends ApiClientBase {
 
     // Hormone treatment related questions
     const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
-    const hasHormoneTreatmentAnswer = !isPeriodCapable || patient.hormone_treatments.length > 0;
+    const hasHormoneTreatmentAnswer = !isPeriodCapable || patient.hormone_treatments?.length > 0;
 
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
