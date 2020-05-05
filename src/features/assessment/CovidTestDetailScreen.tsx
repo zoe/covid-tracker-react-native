@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import moment, { Moment } from 'moment';
-import { Form, Item, Label, Text } from 'native-base';
+import { Form, Item, Label, Text, View } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../components/Screen';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock, screenWidth } from '../../components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import i18n from '../../locale/i18n';
@@ -18,11 +18,11 @@ import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import CovidTestService from '../../core/user/CovidTestService';
-import CalendarPicker from 'react-native-calendar-picker';
-
+import { colors } from '../../../theme';
+import CalendarPicker from '../../components/CalendarPicker';
 
 interface CovidTestData {
-  knowsDateOfTest: string, // only for ux logic
+  knowsDateOfTest: string; // only for ux logic
   mechanism: string;
   mechanismSpecify: string;
   result: string;
@@ -39,8 +39,8 @@ type State = {
   today: Date;
   showDatePicker: boolean;
   showRangePicker: boolean;
-  dateTakenBetweenStart: Date | null;
-  dateTakenBetweenEnd: Date | null;
+  dateTakenBetweenStart: Date | undefined;
+  dateTakenBetweenEnd: Date | undefined;
 };
 
 const now = moment().add(moment().utcOffset(), 'minutes').toDate();
@@ -54,12 +54,12 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const dateTakenBetweenEnd = updatingTest?.date_taken_between_end;
     const initialState: State = {
       errorMessage: '',
-      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() :  now,
+      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : now,
       today: now,
       showDatePicker: !!dateTakenSpecific,
       showRangePicker: !dateTakenSpecific,
-      dateTakenBetweenStart: dateTakenBetweenStart ? moment(dateTakenBetweenStart).toDate() : null,
-      dateTakenBetweenEnd: dateTakenBetweenEnd ? moment(dateTakenBetweenEnd).toDate() : null,
+      dateTakenBetweenStart: dateTakenBetweenStart ? moment(dateTakenBetweenStart).toDate() : undefined,
+      dateTakenBetweenEnd: dateTakenBetweenEnd ? moment(dateTakenBetweenEnd).toDate() : undefined,
     };
     this.state = initialState;
   }
@@ -85,7 +85,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     } else {
       this.setState({
         dateTakenBetweenStart: selectedDate.toDate(),
-        dateTakenBetweenEnd: null,
+        dateTakenBetweenEnd: undefined,
       });
     }
   };
@@ -100,19 +100,21 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const dateToPost = moment(this.state.dateTakenSpecific).format('YYYY-MM-DD');
 
     let postTest = {
-      patient_id: patientId,
+      patient: patientId,
       ...(formData.result && { result: formData.result }),
-      ...(formData.knowsDateOfTest === 'yes' && { date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific) }),
+      ...(formData.knowsDateOfTest === 'yes' && {
+        date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
+      }),
       ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
       ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
       // TODO: Pass two dates back to the server
     } as Partial<CovidTest>;
     if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
       postTest = {
-          ...postTest,
-          date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
-          date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd)
-      }
+        ...postTest,
+        date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
+        date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
+      };
     }
 
     if (test?.id) {
@@ -139,9 +141,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   render() {
     const { currentPatient, test } = this.props.route.params;
     const testId = test?.id;
+    const dateTakenSpecific = test?.date_taken_specific;
     const initialFormValues = {
-      knowsDateOfTest: test?.date_taken_specific ? test.date_taken_specific : 'yes', // only for ux logic
-      mechanism: test ? test.mechanism : '',
+      knowsDateOfTest: dateTakenSpecific ? 'yes' : 'no', // only for ux logic
+      mechanism: test?.mechanism ? test.mechanism : '',
       mechanismSpecify: '',
       result: test?.result ? test.result : '',
     };
@@ -200,7 +203,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           {(props) => {
             return (
               <Form>
-
                 <DropdownField
                   selectedValue={props.values.knowsDateOfTest}
                   onValueChange={props.handleChange('knowsDateOfTest')}
@@ -212,7 +214,11 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                     <Item stackedLabel>
                       <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
                       {this.state.showDatePicker ? (
-                        <CalendarPicker onDateChange={this.setTestDate} />
+                        <CalendarPicker
+                          onDateChange={this.setTestDate}
+                          initialDate={this.state.dateTakenSpecific}
+                          selectedStartDate={this.state.dateTakenSpecific}
+                        />
                       ) : (
                         <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
                           {moment(this.state.dateTakenSpecific).format('l')}
@@ -225,27 +231,30 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                 {props.values.knowsDateOfTest === 'no' && (
                   <FieldWrapper>
                     <Item stackedLabel>
-                    <Label style={styles.labelStyle}>
-                      {i18n.t('covid-test.question-date-test-occurred-guess')}
-                    </Label>
+                      <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</Label>
 
-                    {this.state.showRangePicker ? (
-                        // @ts-ignore Incorrect types on onDateChange, ignore it.
-                      <CalendarPicker startFromMonday={true} allowRangeSelection={true} onDateChange={this.setRangeTestDates}
-                      />
-                    ) : (
-                      <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
-                        {this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd ? (
-                          <>
-                            {'Between '}
-                            {moment(this.state.dateTakenBetweenStart).format('Do of MMMM')} {' and '}
-                            {moment(this.state.dateTakenBetweenEnd).format('Do of MMMM')}
-                          </>
-                        ) : (
-                          <Text>{i18n.t('covid-test.question-select-a-date-range')}</Text>
-                        )}
-                      </ClickableText>
-                    )}
+                      {this.state.showRangePicker ? (
+                        <CalendarPicker
+                          allowRangeSelection={true}
+                          // @ts-ignore Incorrect types on onDateChange, ignore it.
+                          onDateChange={this.setRangeTestDates}
+                          initialDate={this.state.dateTakenBetweenStart}
+                          selectedStartDate={this.state.dateTakenBetweenStart}
+                          selectedEndDate={this.state.dateTakenBetweenEnd}
+                        />
+                      ) : (
+                        <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
+                          {this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd ? (
+                            <>
+                              {'Between '}
+                              {moment(this.state.dateTakenBetweenStart).format('Do of MMMM')} {' and '}
+                              {moment(this.state.dateTakenBetweenEnd).format('Do of MMMM')}
+                            </>
+                          ) : (
+                            <Text>{i18n.t('covid-test.question-select-a-date-range')}</Text>
+                          )}
+                        </ClickableText>
+                      )}
                     </Item>
                   </FieldWrapper>
                 )}

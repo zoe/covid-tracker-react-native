@@ -1,7 +1,7 @@
 export type CovidTest = {
     id: string; // Test schema version
     version: string; // Test schema version
-    patient_id: string;
+    patient: string;
 
     result: string;
     mechanism: string;

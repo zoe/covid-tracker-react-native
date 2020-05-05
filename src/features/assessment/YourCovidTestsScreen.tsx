@@ -39,8 +39,10 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
 
   async componentDidMount() {
     const covidTestService = new CovidTestService();
-    const tests = await covidTestService.listTests();
-    this.setState({ covidTests: tests.data });
+    const tests = (await covidTestService.listTests()).data;
+    const patientId = this.props.route.params.currentPatient.patientId;
+    const patientTests = tests.filter((t) => t.patient === patientId);
+    this.setState({ covidTests: patientTests });
   }
 
   handleAddNewTest = () => {
