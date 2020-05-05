@@ -122,7 +122,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
               'Intercom',
               'Sentry',
               'Cloudflare',
-              'Sqreen'
+              'Sqreen',
             ]}
           />
 
