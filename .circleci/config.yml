@@ -23,6 +23,7 @@ feature_filter: &feature_filter
 orbs:
   node: circleci/node@2.0.1
   slack: circleci/slack@3.2.0
+  jq: circleci/jq@2.0.1
 
 executors:
   node:
@@ -42,16 +43,23 @@ commands:
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+  set_release_channel:
+    steps:
+      - run:
+          name: Set expo release channel
+          command: |
+            echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-$RELEASE_CHANNEL_SUFFIX' >> $BASH_ENV
   publish_to_expo:
     steps:
+      - set_release_channel
       - login_to_expo
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel $RELEASE_CHANNEL    
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
   deploy_android:
     steps:
-      - run: 
-          command: npx expo-cli build:android -t app-bundle --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
+      - run:
+          command: npx expo-cli build:android -t app-bundle --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
       - run: echo "$PLAY_STORE_JSON" | base64 --decode > fastlane/playstore.json
@@ -60,8 +68,8 @@ commands:
           path: ~/covid-react/fastlane/app.apk
   deploy_ios:
     steps:
-      - run: 
-          command: npx expo-cli build:ios --release-channel $RELEASE_CHANNEL --non-interactive --no-publish
+      - run:
+          command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
       - run: bundle exec fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
@@ -98,9 +106,19 @@ workflows:
     jobs:
       - build_and_test:
           filters: *stage_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to stage
+          requires:
+            - build_and_test
+          filters: *stage_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build_and_test
+          filters: *stage_filter
       - deploy:
           filters: *stage_filter
-          context: stage
+          context: react-covid-tracker-stage
           requires:
             - build_and_test
 
@@ -118,3 +136,18 @@ workflows:
     jobs:
       - build_and_test:
           filters: *master_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to production
+          requires:
+            - build_and_test
+          filters: *master_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build_and_test
+          filters: *master_filter
+      - deploy:
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+            - wait_for_approval
