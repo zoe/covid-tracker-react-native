@@ -22,10 +22,14 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
     return (
       <View style={styles.rootContainer}>
         <ScrollView>
-          <RegularText>
-            Denna app har skapats och drivs av Zoe Global Limited (”Zoe”), som är ett hälsoteknikföretag. Zoe har
-            tillgång till den information du anger.
-          </RegularText>
+          <HeaderText text="Integritetsmeddelande för COVID Symptom Tracker Sverige" />
+          <SimpleTextBlock
+            text={[
+              'Denna app har skapats och drivs av Zoe Global Limited (”Zoe”), som är ett hälsoteknikföretag. Zoe har tillgång till all information du rapporterar.',
+              'Zoe driver ingen kommersiell verksamhet i Sverige och har inte heller några planer på kommersiell verksamhet i Sverige. Zoe utvecklade ursprungligen denna app för att stötta den nationella hälso- och sjukvården i Storbritannien, med förbehållet att data endast får användas för icke-kommersiella ändamål. Zoe har tillhandahållit en anpassad version för Sverige utan kostnad för att bistå studien vid Lunds universitet under den pågående globala covid-19-epidemin.',
+            ]}
+          />
+
           <HeaderText text="Dataskyddsförordningen (GDPR)" />
           <SimpleTextBlock
             text={[
@@ -37,26 +41,28 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
           <HeaderText text="Känsliga personuppgifter" />
           <SimpleTextBlock
             text={[
-              'Detta är uppgifter om dig, din hälsa och dina symtom vid sjukdom, samt de uppgifter som din telefon delar, t.ex. IP-adress och plats.',
-              'Vi behandlar dessa uppgifter så att:',
+              'Detta är uppgifter om dig, din hälsa och dina symtom vid sjukdom, samt de uppgifter som din telefon delar, inklusive IP-adressen (vilken vi använder för att upptäcka skadlig aktivitet och bekräfta att en användare befinner sig i Sverige). Appen har inte åtkomst till dina kontakter, din kamera, dina filer eller din geolocation.',
             ]}
           />
+          <RegularText>Vi behandlar dessa uppgifter så att:</RegularText>
           <BulletedTextBlock
             text={[
               'vi ska förstå symtomen på COVID-19 bättre',
               'vi ska kunna spåra spridningen av COVID-19',
-              'vi ska kunna främja vetenskaplig forskning om kopplingarna mellan patientens hälsa och hur denne svarar på en COVID-19-infektion',
+              'vi ska kunna främja vetenskaplig forskning om kopplingarna mellan patientens hälsa och hur denne reagerar på en COVID-19-infektion',
             ]}
           />
 
           <SimpleTextBlock
             text={[
               'Vår rättsliga grund för att behandla uppgifterna är att du gav oss ditt medgivande. På grund av de stränga föreskrivande krav som gäller oss behöver vi ditt medgivande för att vi ska få behandla data som rör din hälsa. Detta i sin tur innebär att vi inte kan ge dig tillstånd att använda appen om du inte ger ditt medgivande (eller om du tar tillbaka ditt medgivande). Detta gör vi inte för att vara otrevliga, utan vi kan helt enkelt inte tillhandhålla dig tjänsten utan ditt medgivande.',
-              'Vi delar dessa uppgifter med Lunds universitet i Sverige för att genomföra forskning inom hälsa. De kan ha tillgång till den fullständiga information vi delar med dig.',
-              'Efter att vi har delat informationen med Lunds universitet sparar vi en kopia av dessa uppgifter.',
-              'Vi arbetar också med andra personer som utför forskning inom hälsa med vilka vi kan komma att dela dina uppgifter, t.ex. personer som arbetar på:',
+              'Vi delar dessa data med Lunds universitet i Sverige för att genomföra forskning inom hälsa relaterat till covid-19. För att skydda din integritet kommer Lunds universitet inte att ha tillgång till din IP-adress, din e-postadress eller ditt fullständiga postnummer. Efter att vi har delat informationen med Lunds universitet sparar vi en kopia av dessa uppgifter.',
             ]}
           />
+          <RegularText>
+            Vi arbetar också med andra personer som utför forskning inom hälsa med vilka vi kan komma att dela dina
+            uppgifter, t.ex. personer som arbetar på:
+          </RegularText>
           <BulletedTextBlock
             text={[
               'Sjukhus',
@@ -64,30 +70,30 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               'Universitet',
               'Välgörenhetsorganisationer inom hälsoområdet',
               'Andra forskningsinstitutioner',
-              'Innan vi delar några av dina uppgifter med någon annan än Lunds universitet kommer vi att ta bort din e-postadress och alla siffror utom de två första i ditt postnummer för att skydda din integritet. En anonym kod kommer att användas i stället.',
             ]}
           />
 
           <SimpleTextBlock
             text={[
-              'Ibland när vi delar uppgifter med forskare exporteras de till länder som exempelvis USA, som har väldigt annorlunda regler gällande dataskydd och som kanske inte skyddar dina uppgifter på samma sätt som, eller lika bra som, GDPR gör. Vi har rätt att göra det, eftersom du ger oss ditt medgivande till detta.',
+              'Innan vi delar några av dina uppgifter kommer vi att ta bort din e-postadress, IP-adress och alla siffror utom de två första i ditt postnummer för att skydda din integritet. En anonym kod kommer att användas i stället.',
+              'Ibland när vi delar uppgifter med forskare exporteras de till länder som exempelvis USA, som har annorlunda regler gällande dataskydd och som kanske inte skyddar dina uppgifter på samma sätt som, eller lika bra som, GDPR gör. Vi har rätt att göra det, eftersom du ger oss ditt medgivande till detta. Vi avlägsnar alltid den information som beskrivs ovan för att skydda din integritet. Dock gäller fortsatt lagstiftningen kring GDPR alla uppgifter du delat med oss och vi måste därför dela alla data på ett sätt som överensstämmer med GDPR.',
             ]}
           />
 
-          <RegularText>
-            På grund av typen av forskning som vi genomför kan vi inte ange en specifik tidsgräns för lagringen av
-            känsliga personuppgifter, men vi granskar detta regelbundet och säkerställer att de inte sparas längre än
-            nödvändigt. Om du vill att vi ska sluta behandla dina känsliga personuppgifter kan du dra tillbaka ditt
-            medgivande när som helst genom att skicka ett e-postmeddelande till{' '}
+          <RegularText style={{ marginBottom: 20 }}>
+            På grund av typen av forskning som vi genomför under en pågående epidemi kan vi inte ange en specifik
+            tidsgräns för lagringen av känsliga personuppgifter, men vi granskar detta regelbundet och säkerställer att
+            de inte sparas längre än nödvändigt. Om du vill att vi ska sluta behandla dina känsliga personuppgifter kan
+            du dra tillbaka ditt medgivande när som helst genom att skicka ett e-postmeddelande till{' '}
             <RegularBoldText>leavecovidtracking-sweden@joinzoe.com</RegularBoldText>. När du drar tillbaka ditt
             medgivande raderar vi alla känsliga personuppgifter som vi har om dig.
           </RegularText>
 
-          <HeaderText text="Dataskyddsförordningen (GDPR)" />
-          <SimpleTextBlock text={['Vi behandlar också dina kontaktuppgifter i syfte att:']} />
+          <HeaderText text="Andra personuppgifter" />
+          <RegularText>Vi behandlar också dina kontaktuppgifter i syfte att:</RegularText>
           <BulletedTextBlock
             text={[
-              'be om din feedback om appen eller utföra någon annan typ av undersökning',
+              'be om din feedback om appen eller utföra någon annan typ av enkätundersökning',
               'hålla kontakten med dig om appen och hur den fungerar',
               'skicka dig information om nya versioner av appen eller liknande appar som vi kan ha i framtiden',
               'dela resultaten från världsomfattande forskning från Covid Symptom Tracker och annan forskning som utförs av Zoe.',
@@ -106,24 +112,24 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
           <SimpleTextBlock
             text={[
               'Vi använder oss av tredje parter som behandlar en del av dina personuppgifter å våra vägnar. När vi ger dem åtkomst till dina uppgifter låter vi dem inte använda dem för sina egna ändamål. Vi har upprättat ett avtal med varje behandlare som kräver att de endast behandlar data i enlighet med våra anvisningar och att de vidtar nödvändiga försiktighetsåtgärder när de använder dem. Dessa tredje parter har inte rätt att behålla data efter det att vår relation med dem har upphört.',
-              'Dessa behandlare innefattar:',
             ]}
           />
+          <RegularText>Dessa behandlare innefattar:</RegularText>
           <BulletedTextBlock
             text={[
-              'Amazon Web Services',
               'Google Cloud Platform',
               'SurveyMonkey',
               'Segment',
-              'Google Analytics',
-              'Mixpanel',
+              'Expo',
+              'Google Firebase',
+              'Amplitude',
               'Google G Suite',
               'MailChimp',
               'Mailgun',
               'Intercom',
               'Sentry',
-              'Google Firebase',
-              'SwiftyBeaver',
+              'Cloudflare',
+              'Sqreen',
             ]}
           />
 
@@ -137,7 +143,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               GDPR
             </ClickableText>{' '}
             har du ett antal viktiga rättigheter utan kostnad. Sammanfattningsvis innefattar dessa rätten att:
-            {'\n\n'}
+            {'\n'}
             <BulletedTextBlock
               text={[
                 'få tillgång till dina personuppgifter',
@@ -158,7 +164,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
                 )
               }>
               Guidance from the United Kingdom Information Commissioner’s Office (ICO)
-            </ClickableText>
+            </ClickableText>{' '}
             gällande enskilda personers rättigheter under Dataskyddsförodningen.
             {'\n\n'}
             Om du vill utöva någon rätt ber vi dig skicka en e-post, ringa eller skriva till vår dataskyddsansvarige med
@@ -171,10 +177,10 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               }>
               GDPR
             </ClickableText>{' '}
-            har du även rätt att lämna in ett klagomål till en tillsynsmyndighet, företrädesvis i den medlemsstat inom
-            den Europeiska unionen (eller det Europeiska ekonomiska samarbetsområdet) där du arbetar, vanligtvis bor
-            eller där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien
-            är Information Commissioner som kan kontaktas på{' '}
+            har du även rätt att lämna in ett klagomål till en tillsynsmyndighet, särskilt i den medlemsstat inom den
+            Europeiska unionen (eller det Europeiska ekonomiska samarbetsområdet) där du arbetar, vanligtvis bor eller
+            där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
+            Information Commissioner som kan kontaktas på{' '}
             <ClickableText
               onPress={() => this.openUrl('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
