@@ -42,8 +42,8 @@ type State = {
 };
 
 const checkFormFilled = (props: FormikProps<LevelOfIsolationData>) => {
-  if (Object.keys(props.errors).length) return false;
-  if (Object.keys(props.values).length === 0) return false;
+  if (Object.keys(props.errors).length && props.submitCount > 0) return false;
+  if (Object.keys(props.values).length === 0 && props.submitCount > 0) return false;
   return true;
 };
 
@@ -148,8 +148,6 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
         <Formik
           initialValues={initialFormValues}
           validationSchema={this.registerSchema}
-          validateOnChange={false}
-          validateOnBlur={false}
           onSubmit={(values: LevelOfIsolationData) => {
             return this.handleUpdate(values);
           }}>
@@ -165,12 +163,16 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                         value={props.values.isolationLittleInteraction}
                         onChangeText={props.handleChange('isolationLittleInteraction')}
                         onBlur={props.handleBlur('isolationLittleInteraction')}
-                        error={props.touched.isolationLittleInteraction && props.errors.isolationLittleInteraction}
+                        error={
+                          props.touched.isolationLittleInteraction &&
+                          props.errors.isolationLittleInteraction &&
+                          props.submitCount > 0
+                        }
                         returnKeyType="next"
                         keyboardType="numeric"
                       />
                     </Item>
-                    {!!props.errors.isolationLittleInteraction && (
+                    {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
                       <ValidationError error={props.errors.isolationLittleInteraction} />
                     )}
                   </FieldWrapper>
@@ -183,12 +185,16 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                         value={props.values.isolationLotsOfPeople}
                         onChangeText={props.handleChange('isolationLotsOfPeople')}
                         onBlur={props.handleBlur('isolationLotsOfPeople')}
-                        error={props.touched.isolationLotsOfPeople && props.errors.isolationLotsOfPeople}
+                        error={
+                          props.touched.isolationLotsOfPeople &&
+                          props.errors.isolationLotsOfPeople &&
+                          props.submitCount > 0
+                        }
                         returnKeyType="next"
                         keyboardType="numeric"
                       />
                     </Item>
-                    {!!props.errors.isolationLotsOfPeople && (
+                    {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
                       <ValidationError error={props.errors.isolationLotsOfPeople} />
                     )}
                   </FieldWrapper>
@@ -201,18 +207,24 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                         value={props.values.isolationHealthcareProvider}
                         onChangeText={props.handleChange('isolationHealthcareProvider')}
                         onBlur={props.handleBlur('isolationHealthcareProvider')}
-                        error={props.touched.isolationHealthcareProvider && props.errors.isolationHealthcareProvider}
+                        error={
+                          props.touched.isolationHealthcareProvider &&
+                          props.errors.isolationHealthcareProvider &&
+                          props.submitCount > 0
+                        }
                         returnKeyType="next"
                         keyboardType="numeric"
                       />
                     </Item>
-                    {!!props.errors.isolationHealthcareProvider && (
+                    {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
                       <ValidationError error={props.errors.isolationHealthcareProvider} />
                     )}
                   </FieldWrapper>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                    <ValidationErrors errors={props.errors as string[]} />
+                  )}
 
                   <BrandedButton
                     onPress={props.handleSubmit}
