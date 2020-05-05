@@ -50,6 +50,7 @@ import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
+import YourCovidTestsScreen from "./features/assessment/YourCovidTestsScreen";
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -148,7 +149,7 @@ export default class ZoeApp extends Component<object, State> {
           component={HealthWorkerExposureScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CovidTest" component={YourCovidTestsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{ headerShown: false }} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{ headerShown: false }} />

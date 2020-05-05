@@ -517,5 +517,14 @@
   "answer-for": "Answer for %{name}",
   "profile-name-too-long": "Enter a profile name with less that 32 characters",
   "total-people-contributing": "%{total} people contributing",
-  "join-total-people-contributing": "Join %{total} people contributing worldwide"
+  "join-total-people-contributing": "Join %{total} people contributing worldwide",
+
+  "add-new-test": "Add new test",
+  "your-covid-tests": "Your COVID-19 tests",
+  "positive": "Positive",
+  "negative": "Negative",
+  "pending": "Pending",
+  "please-add-test-below": "If you’ve ever had a COVID-19 test,  please add below. You can edit these at any time in the future.",
+  "never-had-test" : "I have never had a COVID test",
+  "above-list-correct": "The above list is correct"
 }
