@@ -289,6 +289,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
 const styles = StyleSheet.create({
   labelStyle: {
-    marginBottom: 10,
+    marginBottom: 30,
   },
 });
