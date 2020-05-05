@@ -182,6 +182,10 @@ export type PatientInfosRequest = {
   race_other: string;
   ethnicity: string;
   last_asked_level_of_isolation: Date;
+
+  // Hormone therapy fields
+  period_status: string;
+  hormone_treatments: string[];
 };
 
 export type AssessmentInfosRequest = {

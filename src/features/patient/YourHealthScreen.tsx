@@ -10,7 +10,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, Divider, ErrorText, HeaderText, RegularText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -18,8 +18,9 @@ import i18n from '../../locale/i18n';
 import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
+import { HormoneTreatmentQuestion, HormoneTreatmentData } from './fields/HormoneTreatmentQuestion';
 
-export interface YourHealthData extends BloodPressureData {
+export interface YourHealthData extends BloodPressureData, HormoneTreatmentData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -66,20 +67,37 @@ type HealthProps = {
 
 type State = {
   errorMessage: string;
+  showHormoneTherapy: boolean;
 };
 
 const initialState: State = {
   errorMessage: '',
+  showHormoneTherapy: false,
 };
+
+const maleOptions = ['', 'male', 'pfnts'];
 
 export default class YourHealthScreen extends Component<HealthProps, State> {
   constructor(props: HealthProps) {
     super(props);
-    this.state = initialState;
+    const currentPatient = this.props.route.params.currentPatient;
+    this.state = {
+      ...initialState,
+      showHormoneTherapy: currentPatient.isPeriodCapable,
+    };
   }
 
   registerSchema = Yup.object().shape({
     isPregnant: Yup.string().required(),
+    havingPeriods: Yup.string().when([], {
+      is: () => this.state.showHormoneTherapy,
+      then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+    }),
+    hormoneTreatment: Yup.array<string>().when([], {
+      is: () => this.state.showHormoneTherapy,
+      then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
+    }),
+
     hasHeartDisease: Yup.string().required(),
     hasDiabetes: Yup.string().required(),
     hasLungDisease: Yup.string().required(),
@@ -183,6 +201,16 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         };
       }
     }
+
+    if (this.state.showHormoneTherapy) {
+      // TODO: Update when we have the backend fields and values
+      infos = {
+        ...infos,
+        period_status: formData.havingPeriods,
+        hormone_treatments: formData.hormoneTreatment,
+      };
+    }
+
     return infos;
   }
 
@@ -207,6 +235,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           initialValues={{
             ...initialFormValues,
             ...BloodPressureMedicationQuestion.initialFormValues(),
+            ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourHealthData) => {
@@ -233,6 +262,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                       />
                       <Divider />
                     </>
+                  )}
+
+                  {currentPatient.isPeriodCapable && (
+                    <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
                   )}
 
                   <DropdownField
