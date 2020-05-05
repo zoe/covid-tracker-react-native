@@ -1,6 +1,5 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
@@ -43,20 +42,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
-  async sendPushToken() {
-    if (Constants.appOwnership !== 'expo') {
-      const pushService = new PushNotificationService();
-      const pushToken = await pushService.createPushToken();
-      if (pushToken) {
-        try {
-          const userService = new UserService();
-          await userService.updatePushToken(pushToken);
-          await pushService.savePushToken(pushToken);
-        } catch (error) {
-          // Fail silently
-        }
-      }
-    }
+  async initPushToken() {
+    const pushService = new PushNotificationService();
+    await pushService.initPushToken();
   }
 
   private async handleSaveOptionalInfos(formData: OptionalInfoData) {
@@ -64,7 +52,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
 
-    this.sendPushToken();
+    this.initPushToken();
 
     const hasFormData = formData.phone?.trim() || formData.name?.trim();
     if (!hasFormData) {

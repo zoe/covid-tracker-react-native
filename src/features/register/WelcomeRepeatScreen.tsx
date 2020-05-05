@@ -13,7 +13,6 @@ import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/u
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import moment from 'moment';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -30,7 +29,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async componentDidMount() {
     this.updateUserCount();
-    this.updatePushToken();
+    this.refreshPushToken();
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
   }
 
@@ -40,34 +39,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     this.setState({ userCount });
   }
 
-  async updatePushToken() {
+  async refreshPushToken() {
     const pushTokenService = new PushNotificationService();
-    const aWeekAgo = moment().subtract(7, 'days');
-    let shouldUpdate = false;
-    let pushToken;
-
-    try {
-      pushToken = await pushTokenService.getSavedPushToken();
-
-      if (!pushToken) {
-        pushToken = await pushTokenService.createPushToken();
-        shouldUpdate = true;
-      } else if (moment(pushToken.lastUpdated).isBefore(aWeekAgo)) {
-        shouldUpdate = true;
-      }
-
-      if (pushToken && shouldUpdate) {
-        try {
-          const userService = new UserService();
-          await userService.updatePushToken(pushToken);
-          await pushTokenService.savePushToken(pushToken);
-        } catch (error) {
-          // Ignore failure
-        }
-      }
-    } catch (error) {
-      // Do nothing.
-    }
+    pushTokenService.refreshPushToken();
   }
 
   handleButtonPress = async () => {
