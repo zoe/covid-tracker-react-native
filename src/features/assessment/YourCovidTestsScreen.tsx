@@ -45,17 +45,17 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     this.setState({ covidTests: tests.data });
   }
 
-  handleAddNewTest() {
+  handleAddNewTest = () => {
     const { currentPatient } = this.props.route.params;
     this.props.navigation.navigate('CovidTestDetail', { currentPatient });
-  }
+  };
 
-  handleEditTest(test: CovidTest) {
+  handleEditTest = (test: CovidTest) => {
     const { currentPatient } = this.props.route.params;
     this.props.navigation.navigate('CovidTestDetail', { currentPatient, test });
-  }
+  };
 
-  handleNextQuestion() {
+  handleNextQuestion = () => {
     const { currentPatient, assessmentId } = this.props.route.params;
     const userService = new UserService();
     const patientId = currentPatient.patientId;
@@ -84,7 +84,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
         });
     }
-  }
+  };
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
