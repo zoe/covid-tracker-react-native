@@ -26,7 +26,7 @@ import {
 import { camelizeKeys } from './utils';
 
 const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
@@ -165,6 +165,9 @@ export default class UserService extends ApiClientBase {
     // Calculate the flags based on patient info
     const hasRaceAnswer = patient.race.length > 0;
     const isFemale = patient.gender == 0;
+    const isSexNotMale = ![1, 2].includes(patient.gender);
+    const isGenderNotMale = !['male', 'pfnts'].includes(patient.gender_identity);
+    const isPeriodCapable = isSexNotMale || isGenderNotMale;
     const isHealthWorker =
       ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
       patient.is_carer_for_community;
@@ -205,6 +208,7 @@ export default class UserService extends ApiClientBase {
       ...patientState,
       profile,
       isFemale,
+      isPeriodCapable,
       isHealthWorker,
       hasRaceAnswer,
       hasBloodPressureAnswer,

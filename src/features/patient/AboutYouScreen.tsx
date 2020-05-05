@@ -123,6 +123,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         .then((response) => {
           currentPatient.hasRaceAnswer = formData.race.length > 0;
           currentPatient.isFemale = formData.sex !== 'male';
+          currentPatient.isPeriodCapable = (
+            !['', 'male', 'pfnts'].includes(formData.sex)
+            || !['', 'male', 'pfnts'].includes(formData.genderIdentity)
+          )
           this.props.navigation.navigate('YourHealth', { currentPatient });
         })
         .catch((err) => {
