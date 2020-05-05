@@ -107,7 +107,6 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
 
   render() {
     const formikProps = this.props.formikProps;
-    console.log('[FORMIK] Field values:', formikProps.initialValues);
     return (
       <View>
         <DropdownField
