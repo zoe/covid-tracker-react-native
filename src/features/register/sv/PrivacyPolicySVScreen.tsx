@@ -59,7 +59,10 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               'Vi delar dessa data med Lunds universitet i Sverige för att genomföra forskning inom hälsa relaterat till covid-19. För att skydda din integritet kommer Lunds universitet inte att ha tillgång till din IP-adress, din e-postadress eller ditt fullständiga postnummer. Efter att vi har delat informationen med Lunds universitet sparar vi en kopia av dessa uppgifter.',
             ]}
           />
-          <RegularText>Vi arbetar också med andra personer som utför forskning inom hälsa med vilka vi kan komma att dela dina uppgifter, t.ex. personer som arbetar på:</RegularText>
+          <RegularText>
+            Vi arbetar också med andra personer som utför forskning inom hälsa med vilka vi kan komma att dela dina
+            uppgifter, t.ex. personer som arbetar på:
+          </RegularText>
           <BulletedTextBlock
             text={[
               'Sjukhus',
@@ -77,15 +80,13 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             ]}
           />
 
-          <RegularText style={{marginBottom: 20}}>
-            På grund av typen av forskning som vi genomför under en pågående epidemi kan vi inte
-            ange en specifik tidsgräns för lagringen av känsliga personuppgifter, men vi granskar detta
-            regelbundet och säkerställer att de inte sparas längre än nödvändigt. Om du vill att vi ska
-            sluta behandla dina känsliga personuppgifter kan du dra tillbaka ditt medgivande när som
-            helst genom att skicka ett e-postmeddelande till{' '}
-            <RegularBoldText>leavecovidtracking-sweden@joinzoe.com</RegularBoldText>.
-            När du drar tillbaka ditt medgivande raderar vi alla känsliga personuppgifter som vi har om
-            dig.
+          <RegularText style={{ marginBottom: 20 }}>
+            På grund av typen av forskning som vi genomför under en pågående epidemi kan vi inte ange en specifik
+            tidsgräns för lagringen av känsliga personuppgifter, men vi granskar detta regelbundet och säkerställer att
+            de inte sparas längre än nödvändigt. Om du vill att vi ska sluta behandla dina känsliga personuppgifter kan
+            du dra tillbaka ditt medgivande när som helst genom att skicka ett e-postmeddelande till{' '}
+            <RegularBoldText>leavecovidtracking-sweden@joinzoe.com</RegularBoldText>. När du drar tillbaka ditt
+            medgivande raderar vi alla känsliga personuppgifter som vi har om dig.
           </RegularText>
 
           <HeaderText text="Andra personuppgifter" />
@@ -110,7 +111,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
           <HeaderText text="Behandlare av tredje part för båda typerna av information" />
           <SimpleTextBlock
             text={[
-              'Vi använder oss av tredje parter som behandlar en del av dina personuppgifter å våra vägnar. När vi ger dem åtkomst till dina uppgifter låter vi dem inte använda dem för sina egna ändamål. Vi har upprättat ett avtal med varje behandlare som kräver att de endast behandlar data i enlighet med våra anvisningar och att de vidtar nödvändiga försiktighetsåtgärder när de använder dem. Dessa tredje parter har inte rätt att behålla data efter det att vår relation med dem har upphört.'
+              'Vi använder oss av tredje parter som behandlar en del av dina personuppgifter å våra vägnar. När vi ger dem åtkomst till dina uppgifter låter vi dem inte använda dem för sina egna ändamål. Vi har upprättat ett avtal med varje behandlare som kräver att de endast behandlar data i enlighet med våra anvisningar och att de vidtar nödvändiga försiktighetsåtgärder när de använder dem. Dessa tredje parter har inte rätt att behålla data efter det att vår relation med dem har upphört.',
             ]}
           />
           <RegularText>Dessa behandlare innefattar:</RegularText>
@@ -128,7 +129,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               'Intercom',
               'Sentry',
               'Cloudflare',
-              'Sqreen'
+              'Sqreen',
             ]}
           />
 
@@ -163,8 +164,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
                 )
               }>
               Guidance from the United Kingdom Information Commissioner’s Office (ICO)
-            </ClickableText>
-            {' '}
+            </ClickableText>{' '}
             gällande enskilda personers rättigheter under Dataskyddsförodningen.
             {'\n\n'}
             Om du vill utöva någon rätt ber vi dig skicka en e-post, ringa eller skriva till vår dataskyddsansvarige med
@@ -177,10 +177,10 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               }>
               GDPR
             </ClickableText>{' '}
-            har du även rätt att lämna in ett klagomål till en tillsynsmyndighet, särskilt i den medlemsstat inom
-            den Europeiska unionen (eller det Europeiska ekonomiska samarbetsområdet) där du arbetar, vanligtvis bor
-            eller där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien
-            är Information Commissioner som kan kontaktas på{' '}
+            har du även rätt att lämna in ett klagomål till en tillsynsmyndighet, särskilt i den medlemsstat inom den
+            Europeiska unionen (eller det Europeiska ekonomiska samarbetsområdet) där du arbetar, vanligtvis bor eller
+            där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
+            Information Commissioner som kan kontaktas på{' '}
             <ClickableText
               onPress={() => this.openUrl('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
