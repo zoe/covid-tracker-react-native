@@ -281,7 +281,11 @@
     "picker-over-1-week-ago": "Over 1 week ago",
     "picker-over-2-week-ago": "Over 2 weeks ago",
     "picker-over-3-week-ago": "Over 3 weeks ago",
-    "picker-over-1-month-ago": "Over 1 month ago"
+    "picker-over-1-month-ago": "Over 1 month ago",
+
+    "required-date": "Please indicate the date this test occurred",
+    "required-mechanism": "Please indicate how the test was performed",
+    "required-result": "Please indicate the result of the test"
 
   },
 

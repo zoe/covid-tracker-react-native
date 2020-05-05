@@ -244,7 +244,11 @@
     "picker-over-1-week-ago": "Över en vecka sedan",
     "picker-over-2-week-ago": "Över två veckor sedan",
     "picker-over-3-week-ago": "Över tre veckor sedan",
-    "picker-over-1-month-ago": "Över en månad sedan"
+    "picker-over-1-month-ago": "Över en månad sedan",
+
+    "required-date": "Please indicate the date this test occurred",
+    "required-mechanism": "Please indicate how the test was performed",
+    "required-result": "Please indicate the result of the test"
   },
 
   "how-you-feel": {

@@ -97,44 +97,48 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const patientId = currentPatient.patientId;
     const covidTestService = new CovidTestService();
 
-    const dateToPost = moment(this.state.dateTakenSpecific).format('YYYY-MM-DD');
+    if (this.state.dateTakenSpecific || (!!this.state.dateTakenBetweenStart && !!this.state.dateTakenBetweenStart)) {
 
-    let postTest = {
-      patient: patientId,
-      ...(formData.result && { result: formData.result }),
-      ...(formData.knowsDateOfTest === 'yes' && {
-        date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
-      }),
-      ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
-      ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
-      // TODO: Pass two dates back to the server
-    } as Partial<CovidTest>;
-    if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
-      postTest = {
-        ...postTest,
-        date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
-        date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
-      };
-    }
+      let postTest = {
+        patient: patientId,
+        ...(formData.result && {result: formData.result}),
+        ...(formData.knowsDateOfTest === 'yes' && {
+          date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
+        }),
+        ...(formData.mechanism === 'other' && {mechanism: formData.mechanismSpecify}),
+        ...(formData.mechanism !== 'other' && {mechanism: formData.mechanism}),
+        // TODO: Pass two dates back to the server
+      } as Partial<CovidTest>;
+      if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
+        postTest = {
+          ...postTest,
+          date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
+          date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
+        };
+      }
 
-    if (test?.id) {
-      covidTestService
-        .updateTest(test.id, postTest)
-        .then((response) => {
-          this.props.navigation.goBack();
-        })
-        .catch((err) => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
+      if (test?.id) {
+        covidTestService
+            .updateTest(test.id, postTest)
+            .then((response) => {
+              this.props.navigation.goBack();
+            })
+            .catch((err) => {
+              this.setState({errorMessage: i18n.t('something-went-wrong')});
+            });
+      } else {
+        covidTestService
+            .addTest(postTest)
+            .then((response) => {
+              this.props.navigation.goBack();
+            })
+            .catch(() => {
+              this.setState({errorMessage: i18n.t('something-went-wrong')});
+            });
+      }
+
     } else {
-      covidTestService
-        .addTest(postTest)
-        .then((response) => {
-          this.props.navigation.goBack();
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
+      this.setState({errorMessage: i18n.t('covid-test.required-date')});
     }
   }
 
@@ -154,10 +158,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         is: (mechanismSpecify) => {
           return !mechanismSpecify;
         },
-        then: Yup.string().required(),
+        then: Yup.string().required(i18n.t('covid-test.required-mechanism')),
       }),
       mechanismSpecify: Yup.string(),
-      result: Yup.string(),
+      result: Yup.string().required(i18n.t('covid-test.required-result')),
     });
 
     const androidOption = isAndroid && {
