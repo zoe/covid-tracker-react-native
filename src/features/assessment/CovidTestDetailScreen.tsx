@@ -176,6 +176,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       { label: i18n.t('picker-no'), value: 'negative' },
       { label: i18n.t('picker-yes'), value: 'positive' },
       { label: i18n.t('covid-test.picker-test-failed'), value: 'test_failed' },
+      { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
     ].filter(Boolean) as IOption[];
 
     return (
