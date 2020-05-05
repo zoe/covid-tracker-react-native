@@ -72,9 +72,9 @@ commands:
           command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
           no_output_timeout: 2h
       - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
-      - run: bundle exec fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
+      - run: bundle exec fastlane fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
       - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
-      - run: bundle exec fastlane-credentials remove --username $ITUNES_CONNECT_USER
+      - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
       - store_artifacts:
           path: ~/covid-react/fastlane/app.ipa
 
