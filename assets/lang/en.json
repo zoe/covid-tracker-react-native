@@ -533,6 +533,7 @@
   "your-covid-tests": "Your COVID-19 tests",
   "positive": "Positive",
   "negative": "Negative",
+  "failed": "Failed",
   "pending": "Pending",
   "please-add-test-below": "If you’ve ever had a COVID-19 test,  please add below. You can edit these at any time in the future.",
   "never-had-test" : "I have never had a COVID test",

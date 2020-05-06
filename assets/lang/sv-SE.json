@@ -254,6 +254,7 @@
     "your-covid-tests": "Dina covid-19-tester",
     "positive": "Positivt",
     "negative": "Negativt",
+    "failed": "Misslyckades",
     "pending": "Väntar",
     "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
     "never-had-test" : "Jag har aldrig testats för covid-19",

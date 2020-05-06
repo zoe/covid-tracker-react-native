@@ -97,13 +97,15 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           return i18n.t('positive');
         case 'negative':
           return i18n.t('negative');
+        case 'failed':
+          return i18n.t('failed');
         default:
           return i18n.t('pending');
       }
     };
 
     const icon = (result: string) => {
-      if (result == 'pending') {
+      if (result == 'waiting') {
         return pending;
       } else {
         return tick;
@@ -141,9 +143,13 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
                   style={styles.itemTouchable}
                   onPress={() => this.handleEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
-                  <Text>{dateString(item)}</Text>
+                  <RegularText style={item.result == 'waiting' ? styles.pendingText : []}>
+                    {dateString(item)}
+                  </RegularText>
                   <View style={{ flex: 1 }} />
-                  <Text>{resultString(item.result)}</Text>
+                  <RegularText style={item.result == 'waiting' ? styles.pendingText : []}>
+                    {resultString(item.result)}
+                  </RegularText>
                   <Image source={chevronRight} style={styles.chevron} />
                 </TouchableOpacity>
               );
@@ -208,5 +214,8 @@ const styles = StyleSheet.create({
   topText: {
     marginHorizontal: 16,
     marginVertical: 8,
+  },
+  pendingText: {
+    color: colors.secondary,
   },
 });
