@@ -8,13 +8,14 @@ import Screen, { Header, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '../../components/Text';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
+import i18n, { getDayName, getMonthName } from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { colors } from '../../../theme';
 import { chevronRight, pending, tick } from '../../../assets';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import CovidTestService from '../../core/user/CovidTestService';
 import key from 'weak-key';
+import moment from 'moment';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;
@@ -32,6 +33,8 @@ const initialState: State = {
 };
 
 export default class YourCovidTestsScreen extends Component<Props, State> {
+  userService = new UserService();
+
   constructor(props: Props) {
     super(props);
     this.state = initialState;
@@ -57,7 +60,6 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
 
   handleNextQuestion = () => {
     const { currentPatient, assessmentId } = this.props.route.params;
-    const userService = new UserService();
     const patientId = currentPatient.patientId;
 
     const assessment = {
@@ -65,7 +67,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     } as Partial<AssessmentInfosRequest>;
 
     if (assessmentId == null) {
-      userService
+      this.userService
         .addAssessment(assessment)
         .then((response) => {
           this.props.navigation.setParams({ assessmentId: response.data.id });
@@ -75,7 +77,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
         });
     } else {
-      userService
+      this.userService
         .updateAssessment(assessmentId, assessment)
         .then((response) => {
           this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId });
@@ -108,6 +110,17 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
       }
     };
 
+    const dateString = (test: CovidTest) => {
+      if (test.date_taken_specific) {
+        const date = moment(test.date_taken_specific).toDate();
+        return `${getMonthName(date)} ${date.getDate()} (${getDayName(date)})`;
+      } else {
+        const stateDate = moment(test.date_taken_between_start).toDate();
+        const endDate = moment(test.date_taken_between_end).toDate();
+        return `${getMonthName(stateDate)} ${stateDate.getDate()} - ${getMonthName(endDate)} ${endDate.getDate()}`;
+      }
+    };
+
     return (
       <View style={styles.rootContainer}>
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -128,7 +141,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
                   style={styles.itemTouchable}
                   onPress={() => this.handleEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
-                  <Text>{item.date_taken_specific}</Text>
+                  <Text>{dateString(item)}</Text>
                   <View style={{ flex: 1 }} />
                   <Text>{resultString(item.result)}</Text>
                   <Image source={chevronRight} style={styles.chevron} />
