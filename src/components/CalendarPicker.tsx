@@ -3,11 +3,12 @@ import { colors } from '../../theme';
 import { screenWidth } from './Screen';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { isUSCountry } from "../core/user/UserService";
 
 const ZoeCalendarPicker = (props: CalendarPickerProps) => (
   <CalendarPicker
     {...props}
-    startFromMonday={true}
+    startFromMonday={!isUSCountry()}
     selectedDayStyle={styles.selectedDay}
     selectedDayTextColor={colors.white}
     selectedRangeStyle={styles.selectedRange}
