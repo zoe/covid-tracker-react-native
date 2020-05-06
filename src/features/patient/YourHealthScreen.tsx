@@ -19,7 +19,8 @@ import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion } from './fields/PeriodQuestion';
+import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
+import { PeriodFrequencyQuestion } from './fields/PeriodFrequencyQuestion';
 
 export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
   isPregnant: string;
@@ -104,6 +105,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     havingPeriods: Yup.string().when([], {
       is: () => this.state.showPeriodQuestion,
       then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+    }),
+    periodFrequency: Yup.string().when('havingPeriods', {
+      is: periodValues.CURRENTLY,
+      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.showHormoneTherapyQuestion,
@@ -220,6 +225,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         ...infos,
         period_status: formData.havingPeriods,
       };
+
+      if (formData.havingPeriods === periodValues.CURRENTLY) {
+        infos = {
+          ...infos,
+          period_frequency: formData.periodFrequency,
+        };
+      }
     }
 
     if (this.state.showHormoneTherapyQuestion && formData.hormoneTreatment.length) {
@@ -255,6 +267,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...initialFormValues,
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...PeriodQuestion.initialFormValues(),
+            ...PeriodFrequencyQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}

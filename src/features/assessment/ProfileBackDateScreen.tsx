@@ -19,7 +19,7 @@ import {
   HormoneTreatmentQuestion,
   TreatmentValue,
 } from '../patient/fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion } from '../patient/fields/PeriodQuestion';
+import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
@@ -84,6 +84,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     havingPeriods: Yup.string().when([], {
       is: () => this.state.needPeriodStatusAnswer,
       then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+    }),
+    periodFrequency: Yup.string().when('havingPeriods', {
+      is: periodValues.CURRENTLY,
+      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.needHormoneTreatmentAnswer,
@@ -168,6 +172,13 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         ...infos,
         period_status: formData.havingPeriods,
       };
+
+      if (formData.havingPeriods === periodValues.CURRENTLY) {
+        infos = {
+          ...infos,
+          period_frequency: formData.periodFrequency,
+        };
+      }
     }
 
     if (this.state.needHormoneTreatmentAnswer) {

@@ -185,6 +185,7 @@ export type PatientInfosRequest = {
 
   // period fields
   period_status: string;
+  period_frequency: string;
 
   // Hormone therapy fields
   ht_none: boolean;

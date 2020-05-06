@@ -3,16 +3,18 @@ import React, { Component } from 'react';
 
 import DropdownField from '../../../components/DropdownField';
 import i18n from '../../../locale/i18n';
+import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 
 export interface PeriodData {
   havingPeriods: string;
+  periodFrequency: string;
 }
 
 interface Props {
   formikProps: FormikProps<PeriodData>;
 }
 
-const periodValues = {
+export const periodValues = {
   NEVER: 'never',
   CURRENTLY: 'currently',
   STOPPED: 'stopped',
@@ -38,13 +40,18 @@ export class PeriodQuestion extends Component<Props, object> {
   render() {
     const formikProps = this.props.formikProps;
     return (
-      <DropdownField
-        selectedValue={formikProps.values.havingPeriods}
-        onValueChange={formikProps.handleChange('havingPeriods')}
-        label={i18n.t('your-health.having-periods')}
-        error={formikProps.touched.havingPeriods && formikProps.errors.havingPeriods}
-        items={periodItems}
-      />
+      <>
+        <DropdownField
+          selectedValue={formikProps.values.havingPeriods}
+          onValueChange={formikProps.handleChange('havingPeriods')}
+          label={i18n.t('your-health.having-periods')}
+          error={formikProps.touched.havingPeriods && formikProps.errors.havingPeriods}
+          items={periodItems}
+        />
+        {formikProps.values.havingPeriods === periodValues.CURRENTLY && (
+          <PeriodFrequencyQuestion formikProps={formikProps as FormikProps<PeriodFrequencyData>} />
+        )}
+      </>
     );
   }
 }

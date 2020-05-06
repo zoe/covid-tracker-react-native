@@ -92,6 +92,7 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
       havingPeriods: '',
+      periodFrequency: '',
       hormoneTreatment: [] as string[],
     };
   };
