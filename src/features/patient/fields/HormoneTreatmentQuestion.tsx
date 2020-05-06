@@ -70,8 +70,12 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
         value={props.values.hormoneTreatment.includes(checkBoxData.value)}
         onChange={(checked: boolean) => {
           let treatmentArray = props.values.hormoneTreatment;
-          if (checked) {
+          if ([treatmentValues.NONE, treatmentValues.PREFER_NOT_TO_SAY].includes(checkBoxData.value)) {
+            treatmentArray = [checkBoxData.value];
+          } else if (checked) {
             treatmentArray.push(checkBoxData.value);
+            treatmentArray = treatmentArray.filter((val) => val !== treatmentValues.NONE);
+            treatmentArray = treatmentArray.filter((val) => val !== treatmentValues.PREFER_NOT_TO_SAY);
           } else {
             treatmentArray = treatmentArray.filter((val) => val !== checkBoxData.value);
           }
