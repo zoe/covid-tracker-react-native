@@ -49,7 +49,7 @@ export default class UserService extends ApiClientBase {
     },
   };
 
-  private client = ApiClientBase.client;
+  protected client = ApiClientBase.client;
 
   public async login(username: string, password: string) {
     const requestBody = this.objectToQueryString({
