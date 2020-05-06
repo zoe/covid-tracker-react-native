@@ -86,9 +86,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   constructor(props: HealthProps) {
     super(props);
     const currentPatient = this.props.route.params.currentPatient;
+    const userService = new UserService();
+    const features = userService.getConfig();
     this.state = {
       ...initialState,
-      showPregnancyQuestion: currentPatient.isFemale,
+      showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,
       showPeriodQuestion: currentPatient.isPeriodCapable,
       showHormoneTherapyQuestion: currentPatient.isPeriodCapable,
     };
@@ -271,7 +273,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                   <Divider />
 
-                  {currentPatient.isFemale && (
+                  {this.state.showPregnancyQuestion && (
                     <>
                       <DropdownField
                         selectedValue={props.values.isPregnant}
