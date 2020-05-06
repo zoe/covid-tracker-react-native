@@ -29,13 +29,13 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
     return (
       <View style={styles.rootContainer}>
         <ScrollView>
-          <HeaderText text="COVID-19 Symptom Tracker App Privacy Policy" />
+          <HeaderText text="COVID-19 Symptom Study App Privacy Policy" />
           <RegularText>
             Effective Date: March 27, 2020
             {'\n\n'}
             At Zoe Global Limited (together with its affiliates, “Zoe,” “we,” “us”) we take your privacy seriously.
             Please read the following to learn how we treat your personal information. By using or accessing the
-            COVID-19 Symptom Tracker app and associated website covid.joinzoe.com (together, the “Services”) in any
+            COVID-19 Symptom Study app and associated website covid.joinzoe.com (together, the “Services”) in any
             manner, you acknowledge that you accept the practices and policies outlined in this Privacy Policy, and you
             hereby consent that we will collect, use, and share your information in the following ways.
             {'\n\n'}
@@ -59,7 +59,7 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             {'\n\n'}• You:
             {'\n\n'}- when you provide such information directly to us, and
             {'\n'}- when Personal Data about you is automatically collected in connection with your use of our Services
-            {'\n\n'}• On our COVID-19 Tracker website https://covid.joinzoe.com/ we collect Personal Data through
+            {'\n\n'}• On our COVID-19 Study website https://covid.joinzoe.com/ we collect Personal Data through
             cookies and similar technologies such as pixel tags, web beacons, clear GIFs, and JavaScript (collectively,
             “Cookies”) to enable our servers to recognize your web browser and tell us how and when you visit and use
             our website, to analyze trends, learn about our user base and operate and improve our website. Cookies are

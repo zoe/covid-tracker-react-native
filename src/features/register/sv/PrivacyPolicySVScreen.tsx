@@ -22,7 +22,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
     return (
       <View style={styles.rootContainer}>
         <ScrollView>
-          <HeaderText text="Integritetsmeddelande för COVID Symptom Tracker Sverige" />
+          <HeaderText text="Integritetsmeddelande för COVID Symptom Study Sverige" />
           <SimpleTextBlock
             text={[
               'Denna app har skapats och drivs av Zoe Global Limited (”Zoe”), som är ett hälsoteknikföretag. Zoe har tillgång till all information du rapporterar.',
@@ -96,7 +96,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
               'be om din feedback om appen eller utföra någon annan typ av enkätundersökning',
               'hålla kontakten med dig om appen och hur den fungerar',
               'skicka dig information om nya versioner av appen eller liknande appar som vi kan ha i framtiden',
-              'dela resultaten från världsomfattande forskning från Covid Symptom Tracker och annan forskning som utförs av Zoe.',
+              'dela resultaten från världsomfattande forskning från Covid Symptom Study och annan forskning som utförs av Zoe.',
             ]}
           />
 

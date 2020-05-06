@@ -9,7 +9,7 @@ Before digging into what would be good contributions, let's discuss what would b
 - External contributors can not ask new questions about people's health, symptoms or anything related to PII (name, phone, etc.). Questions asked in the app are decided by our research partners. They are only added for research purposes.
 - Change of wording to the questions is extremely likely to be rejected unless fixing a typo. Questions are phrased by our research partners and go through internal and external reviews.
 - Changes to T&Cs, privacy policy or consent screens. Those are legally binding and are reviewed by legal counsel.
-- Support for new countries. While we would love for the COVID Symptom Tracker to be accessible worldwide, each country has specific data sharing laws that need to be assessed before releasing in the country. Our capacity to do so is heavily constrained.
+- Support for new countries. While we would love for the COVID Symptom Study to be accessible worldwide, each country has specific data sharing laws that need to be assessed before releasing in the country. Our capacity to do so is heavily constrained.
 
 ## In scope PRs
 
