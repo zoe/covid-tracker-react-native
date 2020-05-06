@@ -1,21 +1,22 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import moment from 'moment';
 import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import key from 'weak-key';
+
+import { chevronRight, pending, tick } from '../../../assets';
+import { colors } from '../../../theme';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '../../components/Text';
+import CovidTestService from '../../core/user/CovidTestService';
 import UserService from '../../core/user/UserService';
+import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n, { getDayName, getMonthName } from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { colors } from '../../../theme';
-import { chevronRight, pending, tick } from '../../../assets';
-import { CovidTest } from '../../core/user/dto/CovidTestContracts';
-import CovidTestService from '../../core/user/CovidTestService';
-import key from 'weak-key';
-import moment from 'moment';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;

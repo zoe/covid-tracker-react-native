@@ -1,9 +1,10 @@
-import CalendarPicker, { CalendarPickerProps } from 'react-native-calendar-picker';
-import { colors } from '../../theme';
-import { screenWidth } from './Screen';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import CalendarPicker, { CalendarPickerProps } from 'react-native-calendar-picker';
+
+import { colors } from '../../theme';
 import { isUSCountry } from '../core/user/UserService';
+import { screenWidth } from './Screen';
 
 const ZoeCalendarPicker = (props: CalendarPickerProps) => (
   <CalendarPicker
@@ -13,7 +14,7 @@ const ZoeCalendarPicker = (props: CalendarPickerProps) => (
     selectedDayTextColor={colors.white}
     selectedRangeStyle={styles.selectedRange}
     todayTextStyle={styles.today}
-    todayBackgroundColor={'transparent'}
+    todayBackgroundColor="transparent"
     scaleFactor={screenWidth + 30}
   />
 );

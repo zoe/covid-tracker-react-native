@@ -23,6 +23,7 @@ import StartAssessmentScreen from './features/assessment/StartAssessment';
 import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from './features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from './features/assessment/WhereAreYouScreen';
+import YourCovidTestsScreen from './features/assessment/YourCovidTestsScreen';
 import { LoginScreen } from './features/login/LoginScreen';
 import AdultOrChildScreen from './features/multi-profile/AdultOrChildScreen';
 import ConsentForOther from './features/multi-profile/ConsentForOtherScreen';
@@ -49,7 +50,6 @@ import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
-import YourCovidTestsScreen from './features/assessment/YourCovidTestsScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();

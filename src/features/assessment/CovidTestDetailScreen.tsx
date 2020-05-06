@@ -7,19 +7,19 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
+import CalendarPicker from '../../components/CalendarPicker';
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock, screenWidth } from '../../components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
+import CovidTestService from '../../core/user/CovidTestService';
+import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import i18n from '../../locale/i18n';
+import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';
-import { CovidTest } from '../../core/user/dto/CovidTestContracts';
-import CovidTestService from '../../core/user/CovidTestService';
-import Navigator from '../Navigation';
-import CalendarPicker from '../../components/CalendarPicker';
 
 interface CovidTestData {
   knowsDateOfTest: string; // only for ux logic
@@ -237,7 +237,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
                       {this.state.showRangePicker ? (
                         <CalendarPicker
-                          allowRangeSelection={true}
+                          allowRangeSelection
                           // @ts-ignore Incorrect types on onDateChange, ignore it.
                           onDateChange={this.setRangeTestDates}
                           initialDate={this.state.dateTakenBetweenStart}
