@@ -1,5 +1,6 @@
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
+
 import DropdownField from '../../../components/DropdownField';
 import i18n from '../../../locale/i18n';
 
@@ -27,7 +28,7 @@ const periodItems = [
   { label: i18n.t('your-health.picker-pfnts'), value: periodValues.PFNTS },
 ];
 
-export class PeriodQuestion extends Component<Props, {}> {
+export class PeriodQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
       havingPeriods: '',

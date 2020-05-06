@@ -164,7 +164,7 @@ export default class UserService extends ApiClientBase {
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
     const hasRaceAnswer = patient.race.length > 0;
-    const isFemale = patient.gender == 0;
+    const isFemale = patient.gender === 0;
     const isSexNotMale = ![null, 1, 2].includes(patient.gender);
     const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
     const isPeriodCapable = isSexNotMale || isGenderNotMale;
@@ -413,7 +413,7 @@ export default class UserService extends ApiClientBase {
     try {
       const response = await AsyncStorageService.getAskedToReportForOthers();
       if (response) {
-        return parseInt(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+        return parseInt(response, 10) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
       } else {
         await AsyncStorageService.setAskedToReportForOthers('0');
         return true;
@@ -426,7 +426,7 @@ export default class UserService extends ApiClientBase {
   public async recordAskedToReportForOther() {
     const response = await AsyncStorageService.getAskedToReportForOthers();
     if (response) {
-      const value = parseInt(response) + 1;
+      const value = parseInt(response, 10) + 1;
       await AsyncStorageService.setAskedToReportForOthers(value.toString());
     } else {
       await AsyncStorageService.setAskedToReportForOthers('0');

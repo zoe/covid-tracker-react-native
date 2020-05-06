@@ -1,11 +1,12 @@
 import { FormikProps } from 'formik';
+import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import i18n from '../../../locale/i18n';
+
 import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import { FieldWrapper } from '../../../components/Screen';
-import { Item, Label } from 'native-base';
 import { ValidationError } from '../../../components/ValidationError';
+import i18n from '../../../locale/i18n';
 
 export interface HormoneTreatmentData {
   hormoneTreatment: string[];
@@ -72,7 +73,7 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
           if (checked) {
             treatmentArray.push(checkBoxData.value);
           } else {
-            treatmentArray = treatmentArray.filter((val) => val != checkBoxData.value);
+            treatmentArray = treatmentArray.filter((val) => val !== checkBoxData.value);
           }
           props.setFieldValue('hormoneTreatment', treatmentArray);
         }}>
@@ -82,7 +83,7 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
   });
 };
 
-export class HormoneTreatmentQuestion extends Component<Props, {}> {
+export class HormoneTreatmentQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
       havingPeriods: '',

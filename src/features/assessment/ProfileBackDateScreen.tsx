@@ -14,13 +14,13 @@ import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
-import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
 import {
   HormoneTreatmentData,
   HormoneTreatmentQuestion,
   TreatmentValue,
 } from '../patient/fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion } from '../patient/fields/PeriodQuestion';
+import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
@@ -170,7 +170,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       };
     }
 
-    // TODO: Update when we have the backend fields and values
     if (this.state.needHormoneTreatmentAnswer) {
       const treatmentsDoc = HormoneTreatmentQuestion.createTreatmentsDoc(formData.hormoneTreatment as TreatmentValue[]);
       infos = {
