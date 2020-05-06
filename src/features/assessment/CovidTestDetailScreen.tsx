@@ -98,15 +98,14 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const covidTestService = new CovidTestService();
 
     if (this.state.dateTakenSpecific || (!!this.state.dateTakenBetweenStart && !!this.state.dateTakenBetweenStart)) {
-
       let postTest = {
         patient: patientId,
-        ...(formData.result && {result: formData.result}),
+        ...(formData.result && { result: formData.result }),
         ...(formData.knowsDateOfTest === 'yes' && {
           date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
         }),
-        ...(formData.mechanism === 'other' && {mechanism: formData.mechanismSpecify}),
-        ...(formData.mechanism !== 'other' && {mechanism: formData.mechanism}),
+        ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
+        ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
         // TODO: Pass two dates back to the server
       } as Partial<CovidTest>;
       if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
@@ -119,26 +118,25 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
       if (test?.id) {
         covidTestService
-            .updateTest(test.id, postTest)
-            .then((response) => {
-              this.props.navigation.goBack();
-            })
-            .catch((err) => {
-              this.setState({errorMessage: i18n.t('something-went-wrong')});
-            });
+          .updateTest(test.id, postTest)
+          .then((response) => {
+            this.props.navigation.goBack();
+          })
+          .catch((err) => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+          });
       } else {
         covidTestService
-            .addTest(postTest)
-            .then((response) => {
-              this.props.navigation.goBack();
-            })
-            .catch(() => {
-              this.setState({errorMessage: i18n.t('something-went-wrong')});
-            });
+          .addTest(postTest)
+          .then((response) => {
+            this.props.navigation.goBack();
+          })
+          .catch(() => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+          });
       }
-
     } else {
-      this.setState({errorMessage: i18n.t('covid-test.required-date')});
+      this.setState({ errorMessage: i18n.t('covid-test.required-date') });
     }
   }
 

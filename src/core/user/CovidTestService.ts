@@ -1,10 +1,9 @@
-import UserService from "./UserService";
-import { CovidTest, CovidTestResponse } from "./dto/CovidTestContracts";
+import UserService from './UserService';
+import { CovidTest, CovidTestResponse } from './dto/CovidTestContracts';
 
 const TEST_VERSION = '1.0.0'; // TODO: Wire this to something automatic.
 
 export default class CovidTestService extends UserService {
-
   private static getTestVersion() {
     return TEST_VERSION;
   }

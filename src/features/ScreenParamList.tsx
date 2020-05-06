@@ -1,6 +1,6 @@
 import { PatientStateType } from '../core/patient/PatientState';
 import { UserResponse } from '../core/user/dto/UserAPIContracts';
-import { CovidTest } from "../core/user/dto/CovidTestContracts";
+import { CovidTest } from '../core/user/dto/CovidTestContracts';
 
 export enum ConsentType {
   Adult = 'adult',
