@@ -18,7 +18,7 @@ import i18n from '../../locale/i18n';
 import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
-import { HormoneTreatmentQuestion, HormoneTreatmentData } from './fields/HormoneTreatmentQuestion';
+import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion } from './fields/PeriodQuestion';
 
 export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
@@ -156,7 +156,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   }
 
   private createPatientInfos(formData: YourHealthData) {
-    const currentPatient = this.props.route.params.currentPatient;
     const smokerStatus = formData.smokerStatus === 'no' ? 'never' : formData.smokerStatus;
     let infos = {
       has_heart_disease: formData.hasHeartDisease === 'yes',
@@ -215,18 +214,17 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }
 
     if (this.state.showPeriodQuestion) {
-      // TODO: Update when we have the backend fields and values
       infos = {
         ...infos,
         period_status: formData.havingPeriods,
       };
     }
 
-    if (this.state.showHormoneTherapyQuestion) {
-      // TODO: Update when we have the backend fields and values
+    if (this.state.showHormoneTherapyQuestion && formData.hormoneTreatment.length) {
+      const treatmentsDoc = HormoneTreatmentQuestion.createTreatmentsDoc(formData.hormoneTreatment as TreatmentValue[]);
       infos = {
         ...infos,
-        hormone_treatments: formData.hormoneTreatment,
+        ...treatmentsDoc,
       };
     }
 

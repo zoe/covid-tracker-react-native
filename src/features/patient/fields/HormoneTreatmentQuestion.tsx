@@ -15,16 +15,27 @@ interface Props {
   formikProps: FormikProps<HormoneTreatmentData>;
 }
 
+export type TreatmentValue =
+  | 'ht_none'
+  | 'ht_combined_oral_contraceptive_pill'
+  | 'ht_progestone_only_pill'
+  | 'ht_mirena_or_other_coil'
+  | 'ht_depot_injection_or_implant'
+  | 'ht_hormone_treatment_therapy'
+  | 'ht_oestrogen_hormone_therapy'
+  | 'ht_testosterone_hormone_therapy'
+  | 'ht_pfnts';
+
 const treatmentValues = {
-  NONE: 'no',
-  ORAL_CONTRACEPTIVE_PILL: 'combined_oral_contraceptive_pill',
-  PROGESTERONE_ONLY_PILL: 'progestone_only_pill',
-  MIRENA_OR_OTHER_COIL: 'mirena_or_other_coil',
-  DEPOT_INJECTION_OR_IMPLANT: 'depot_injection_or_implant',
-  HORMONE_TREATMENT_THERAPY: 'hormone_treatment_therapy',
-  OESTROGEN_HORMONE_THERAPY: 'oestrogen_hormone_therapy',
-  TESTOSTERONE_HORMONE_THERAPY: 'testosterone_hormone_therapy',
-  PREFER_NOT_TO_SAY: 'pfnts',
+  NONE: 'ht_none',
+  ORAL_CONTRACEPTIVE_PILL: 'ht_combined_oral_contraceptive_pill',
+  PROGESTERONE_ONLY_PILL: 'ht_progestone_only_pill',
+  MIRENA_OR_OTHER_COIL: 'ht_mirena_or_other_coil',
+  DEPOT_INJECTION_OR_IMPLANT: 'ht_depot_injection_or_implant',
+  HORMONE_TREATMENT_THERAPY: 'ht_hormone_treatment_therapy',
+  OESTROGEN_HORMONE_THERAPY: 'ht_oestrogen_hormone_therapy',
+  TESTOSTERONE_HORMONE_THERAPY: 'ht_testosterone_hormone_therapy',
+  PREFER_NOT_TO_SAY: 'ht_pfnts',
 };
 
 type TreatmentCheckBoxData = {
@@ -77,6 +88,24 @@ export class HormoneTreatmentQuestion extends Component<Props, {}> {
       havingPeriods: '',
       hormoneTreatment: [] as string[],
     };
+  };
+
+  static createTreatmentsDoc = (selectedTreatments: TreatmentValue[]) => {
+    const treatments = {
+      ht_none: false,
+      ht_combined_oral_contraceptive_pill: false,
+      ht_progestone_only_pill: false,
+      ht_mirena_or_other_coil: false,
+      ht_depot_injection_or_implant: false,
+      ht_hormone_treatment_therapy: false,
+      ht_oestrogen_hormone_therapy: false,
+      ht_testosterone_hormone_therapy: false,
+      ht_pfnts: false,
+    };
+    selectedTreatments.forEach((item: TreatmentValue) => {
+      treatments[item] = true;
+    });
+    return treatments;
   };
 
   render() {

@@ -183,9 +183,19 @@ export type PatientInfosRequest = {
   ethnicity: string;
   last_asked_level_of_isolation: Date;
 
-  // Hormone therapy fields
+  // period fields
   period_status: string;
-  hormone_treatments: string[];
+
+  // Hormone therapy fields
+  ht_none: boolean;
+  ht_combined_oral_contraceptive_pill: boolean;
+  ht_progestone_only_pill: boolean;
+  ht_mirena_or_other_coil: boolean;
+  ht_depot_injection_or_implant: boolean;
+  ht_hormone_treatment_therapy: boolean;
+  ht_oestrogen_hormone_therapy: boolean;
+  ht_testosterone_hormone_therapy: boolean;
+  ht_pfnts: boolean;
 };
 
 export type AssessmentInfosRequest = {
