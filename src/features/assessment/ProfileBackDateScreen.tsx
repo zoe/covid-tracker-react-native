@@ -73,11 +73,11 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       then: Yup.array<string>().min(1, i18n.t('please-select-race')),
     }),
     raceOther: Yup.string().when('race', {
-      is: (val: string[]) => val.includes('other'),
+      is: (val: string[]) => this.state.needRaceAnswer && val.includes('other'),
       then: Yup.string().required(),
     }),
     ethnicity: Yup.string().when([], {
-      is: () => isUSCountry(),
+      is: () => this.state.needRaceAnswer && isUSCountry(),
       then: Yup.string().required(),
     }),
 
