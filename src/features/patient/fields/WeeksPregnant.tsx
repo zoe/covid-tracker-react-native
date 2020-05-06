@@ -31,7 +31,7 @@ export class WeeksPregnant extends Component<Props, object> {
           style={{
             borderColor: 'transparent',
           }}>
-          <Label>{i18n.t('your-health.weeks-pregnant"')}</Label>
+          <Label>{i18n.t('your-health.weeks-pregnant')}</Label>
           <ValidatedTextInput
             value={formikProps.values.weeksPregnant}
             onChangeText={formikProps.handleChange('weeksPregnant')}

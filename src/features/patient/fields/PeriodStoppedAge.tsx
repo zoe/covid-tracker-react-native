@@ -31,7 +31,7 @@ export class PeriodStoppedAge extends Component<Props, object> {
           style={{
             borderColor: 'transparent',
           }}>
-          <Label>{i18n.t('your-health.period-stopped-age"')}</Label>
+          <Label>{i18n.t('your-health.period-stopped-age')}</Label>
           <ValidatedTextInput
             value={formikProps.values.periodStoppedAge}
             onChangeText={formikProps.handleChange('periodStoppedAge')}
