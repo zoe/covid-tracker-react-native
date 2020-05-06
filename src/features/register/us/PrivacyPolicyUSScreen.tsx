@@ -59,8 +59,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             {'\n\n'}• You:
             {'\n\n'}- when you provide such information directly to us, and
             {'\n'}- when Personal Data about you is automatically collected in connection with your use of our Services
-            {'\n\n'}• On our COVID-19 Study website https://covid.joinzoe.com/ we collect Personal Data through
-            cookies and similar technologies such as pixel tags, web beacons, clear GIFs, and JavaScript (collectively,
+            {'\n\n'}• On our COVID-19 Study website https://covid.joinzoe.com/ we collect Personal Data through cookies
+            and similar technologies such as pixel tags, web beacons, clear GIFs, and JavaScript (collectively,
             “Cookies”) to enable our servers to recognize your web browser and tell us how and when you visit and use
             our website, to analyze trends, learn about our user base and operate and improve our website. Cookies are
             small pieces of data– usually text files – placed on your computer, tablet, phone, or similar device when

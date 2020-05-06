@@ -38,10 +38,10 @@ export default class TermsOfUseUSScreen extends Component<PropsType> {
         <ScrollView>
           <RegularBoldText>Effective date: March 27, 2020{'\n'}</RegularBoldText>
           <RegularText>
-            Welcome to the COVID-19 Symptom Study, provided by Zoe Global Limited (together with its affiliates,
-            “Zoe,” “us,” “we”). Please read on to learn the rules and restrictions that govern your use of our
-            website(s), products, services and applications (the “Services”). By using this app and tracking if you are
-            well or have symptoms, you will be helping medical science and healthcare providers across the country (such
+            Welcome to the COVID-19 Symptom Study, provided by Zoe Global Limited (together with its affiliates, “Zoe,”
+            “us,” “we”). Please read on to learn the rules and restrictions that govern your use of our website(s),
+            products, services and applications (the “Services”). By using this app and tracking if you are well or have
+            symptoms, you will be helping medical science and healthcare providers across the country (such
             as Massachusetts General Hospital) to better understand Coronavirus (COVID-19). The Services are not
             intended for commercial purposes. If you have any questions, comments, or concerns regarding these terms or
             the Services, please contact us at:
