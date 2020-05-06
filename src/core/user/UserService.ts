@@ -194,7 +194,7 @@ export default class UserService extends ApiClientBase {
 
     // Hormone treatment related questions
     const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
-    const hasHormoneTreatmentAnswer = !isPeriodCapable || patient.hormone_treatments?.length > 0;
+    const hasHormoneTreatmentAnswer = !isPeriodCapable || !!(patient.hormone_treatments?.length > 0);
 
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
