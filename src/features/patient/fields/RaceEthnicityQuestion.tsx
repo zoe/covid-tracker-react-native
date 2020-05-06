@@ -56,8 +56,11 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<RaceE
         value={props.values.race.includes(checkBoxData.value)}
         onChange={(checked: boolean) => {
           let raceArray = props.values.race;
-          if (checked) {
+          if (checkBoxData.value == 'prefer_not_to_say') {
+            raceArray = ['prefer_not_to_say'];
+          } else if (checked) {
             raceArray.push(checkBoxData.value);
+            raceArray = raceArray.filter((val) => val != 'prefer_not_to_say');
           } else {
             raceArray = raceArray.filter((val) => val != checkBoxData.value);
           }
