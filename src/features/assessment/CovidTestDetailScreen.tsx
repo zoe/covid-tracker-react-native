@@ -18,7 +18,7 @@ import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';
 import CovidTestService from '../../core/user/CovidTestService';
-import { colors } from '../../../theme';
+import Navigator from '../Navigation';
 import CalendarPicker from '../../components/CalendarPicker';
 
 interface CovidTestData {

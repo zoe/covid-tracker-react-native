@@ -53,7 +53,7 @@ export type ScreenParamList = {
   // Assessment screens
   StartAssessment: { currentPatient: PatientStateType; assessmentId?: string };
   HealthWorkerExposure: { currentPatient: PatientStateType; assessmentId: string | null };
-  CovidTest: { currentPatient: PatientStateType; assessmentId: string | null };
+  CovidTest: { currentPatient: PatientStateType; assessmentId: string | null, tests?: CovidTest[] };
   CovidTestDetail: { currentPatient: PatientStateType; test?: CovidTest };
   HowYouFeel: { currentPatient: PatientStateType; assessmentId: string };
   DescribeSymptoms: { currentPatient: PatientStateType; assessmentId: string };

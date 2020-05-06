@@ -27,25 +27,27 @@ type State = {
   covidTests: CovidTest[];
 };
 
-const initialState: State = {
-  errorMessage: '',
-  covidTests: [],
-};
-
 export default class YourCovidTestsScreen extends Component<Props, State> {
   userService = new UserService();
+  state: State = {
+    errorMessage: '',
+    covidTests: [],
+  };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = initialState;
-  }
+  private _unsubscribe: any = null;
 
   async componentDidMount() {
-    const covidTestService = new CovidTestService();
-    const tests = (await covidTestService.listTests()).data;
-    const patientId = this.props.route.params.currentPatient.patientId;
-    const patientTests = tests.filter((t) => t.patient === patientId);
-    this.setState({ covidTests: patientTests });
+    this._unsubscribe = this.props.navigation.addListener('focus', async () => {
+      const covidTestService = new CovidTestService();
+      const tests = (await covidTestService.listTests()).data;
+      const patientId = this.props.route.params.currentPatient.patientId;
+      const patientTests = tests.filter((t) => t.patient === patientId);
+      this.setState({ covidTests: patientTests });
+    });
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   handleAddNewTest = () => {
