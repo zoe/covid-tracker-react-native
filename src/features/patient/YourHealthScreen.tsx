@@ -10,7 +10,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, Divider, ErrorText, HeaderText, RegularText } from '../../components/Text';
+import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -19,8 +19,9 @@ import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 import { HormoneTreatmentQuestion, HormoneTreatmentData } from './fields/HormoneTreatmentQuestion';
+import { PeriodData, PeriodQuestion } from './fields/PeriodQuestion';
 
-export interface YourHealthData extends BloodPressureData, HormoneTreatmentData {
+export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -67,12 +68,16 @@ type HealthProps = {
 
 type State = {
   errorMessage: string;
-  showHormoneTherapy: boolean;
+  showPregnancyQuestion: boolean;
+  showPeriodQuestion: boolean;
+  showHormoneTherapyQuestion: boolean;
 };
 
 const initialState: State = {
   errorMessage: '',
-  showHormoneTherapy: false,
+  showPregnancyQuestion: false,
+  showPeriodQuestion: false,
+  showHormoneTherapyQuestion: false,
 };
 
 const maleOptions = ['', 'male', 'pfnts'];
@@ -83,18 +88,23 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     const currentPatient = this.props.route.params.currentPatient;
     this.state = {
       ...initialState,
-      showHormoneTherapy: currentPatient.isPeriodCapable,
+      showPregnancyQuestion: currentPatient.isFemale,
+      showPeriodQuestion: currentPatient.isPeriodCapable,
+      showHormoneTherapyQuestion: currentPatient.isPeriodCapable,
     };
   }
 
   registerSchema = Yup.object().shape({
-    isPregnant: Yup.string().required(),
+    isPregnant: Yup.string().when([], {
+      is: () => this.state.showPregnancyQuestion,
+      then: Yup.string().required(),
+    }),
     havingPeriods: Yup.string().when([], {
-      is: () => this.state.showHormoneTherapy,
+      is: () => this.state.showPeriodQuestion,
       then: Yup.string().required(i18n.t('your-health.please-select-periods')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
-      is: () => this.state.showHormoneTherapy,
+      is: () => this.state.showHormoneTherapyQuestion,
       then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
     }),
 
@@ -135,6 +145,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       .then((response) => {
         currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
+        currentPatient.hasPeriodAnswer = true;
+        currentPatient.hasHormoneTreatmentAnswer = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })
@@ -159,7 +171,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       limited_activity: formData.limitedActivity === 'yes',
     } as Partial<PatientInfosRequest>;
 
-    if (currentPatient.isFemale) {
+    if (this.state.showPregnancyQuestion) {
       infos = {
         ...infos,
         is_pregnant: formData.isPregnant === 'yes',
@@ -202,11 +214,18 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       }
     }
 
-    if (this.state.showHormoneTherapy) {
+    if (this.state.showPeriodQuestion) {
       // TODO: Update when we have the backend fields and values
       infos = {
         ...infos,
         period_status: formData.havingPeriods,
+      };
+    }
+
+    if (this.state.showHormoneTherapyQuestion) {
+      // TODO: Update when we have the backend fields and values
+      infos = {
+        ...infos,
         hormone_treatments: formData.hormoneTreatment,
       };
     }
@@ -235,6 +254,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           initialValues={{
             ...initialFormValues,
             ...BloodPressureMedicationQuestion.initialFormValues(),
+            ...PeriodQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
@@ -264,7 +284,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     </>
                   )}
 
-                  {currentPatient.isPeriodCapable && (
+                  {this.state.showPeriodQuestion && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
+
+                  {this.state.showHormoneTherapyQuestion && (
                     <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
                   )}
 

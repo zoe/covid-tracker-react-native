@@ -16,8 +16,9 @@ import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
 import { HormoneTreatmentData, HormoneTreatmentQuestion } from '../patient/fields/HormoneTreatmentQuestion';
+import { PeriodData, PeriodQuestion } from '../patient/fields/PeriodQuestion';
 
-interface BackData extends BloodPressureData, RaceEthnicityData, HormoneTreatmentData {}
+interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -94,12 +95,28 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     this.setState({ needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer });
   }
 
-  handleProfileUpdate(formData: BackData) {
+  handleProfileUpdate(formData: BackfillData) {
     const { currentPatient } = this.props.route.params;
     const patientId = currentPatient.patientId;
 
     const userService = new UserService();
+    const infos = this.createPatientInfos(formData);
 
+    userService
+      .updatePatient(patientId, infos)
+      .then((response) => {
+        if (formData.race) currentPatient.hasRaceAnswer = true;
+        if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
+        if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
+        if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
+        this.props.navigation.replace('StartAssessment', { currentPatient });
+      })
+      .catch((err) => {
+        this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      });
+  }
+
+  createPatientInfos(formData: BackfillData) {
     let infos: Partial<PatientInfosRequest> = {};
 
     if (this.state.needBloodPressureAnswer) {
@@ -147,7 +164,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       infos = {
         ...infos,
         period_status: formData.havingPeriods,
-        hormone_treatments: formData.hormoneTreatment,
       };
     }
 
@@ -159,21 +175,11 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       };
     }
 
-    userService
-      .updatePatient(patientId, infos)
-      .then((response) => {
-        if (formData.race) currentPatient.hasRaceAnswer = true;
-        if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
-        this.props.navigation.replace('StartAssessment', { currentPatient });
-      })
-      .catch((err) => {
-        this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      });
+    return infos;
   }
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
-    const showHormoneQuestions = this.state.needPeriodStatusAnswer || this.state.needHormoneTreatmentAnswer;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -192,7 +198,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
-          onSubmit={(values: BackData) => {
+          onSubmit={(values: BackfillData) => {
             return this.handleProfileUpdate(values);
           }}>
           {(props) => {
@@ -210,12 +216,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                   />
                 )}
 
-                {showHormoneQuestions && (
-                  <HormoneTreatmentQuestion
-                    showPeriodStatusQuestion={this.state.needPeriodStatusAnswer}
-                    showHormoneTreatmentQuestion={this.state.needHormoneTreatmentAnswer}
-                    formikProps={props as FormikProps<HormoneTreatmentData>}
-                  />
+                {this.state.needPeriodStatusAnswer && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
+
+                {this.state.needHormoneTreatmentAnswer && (
+                  <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
