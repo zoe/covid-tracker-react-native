@@ -39,6 +39,8 @@ const treatmentValues = {
   PREFER_NOT_TO_SAY: 'ht_pfnts',
 };
 
+const singleOptions = [treatmentValues.NONE, treatmentValues.PREFER_NOT_TO_SAY];
+
 type TreatmentCheckBoxData = {
   label: string;
   value: string;
@@ -70,12 +72,11 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
         value={props.values.hormoneTreatment.includes(checkBoxData.value)}
         onChange={(checked: boolean) => {
           let treatmentArray = props.values.hormoneTreatment;
-          if ([treatmentValues.NONE, treatmentValues.PREFER_NOT_TO_SAY].includes(checkBoxData.value)) {
+          if (singleOptions.includes(checkBoxData.value)) {
             treatmentArray = [checkBoxData.value];
           } else if (checked) {
             treatmentArray.push(checkBoxData.value);
-            treatmentArray = treatmentArray.filter((val) => val !== treatmentValues.NONE);
-            treatmentArray = treatmentArray.filter((val) => val !== treatmentValues.PREFER_NOT_TO_SAY);
+            treatmentArray = treatmentArray.filter((val) => !singleOptions.includes(val));
           } else {
             treatmentArray = treatmentArray.filter((val) => val !== checkBoxData.value);
           }
