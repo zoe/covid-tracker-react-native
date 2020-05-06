@@ -6,6 +6,7 @@
 
     "showEthnicityQuestion": false,
     "showRaceQuestion": true,
+    "showPregnancyQuestion": false,
 
     "defaultHeightUnit": "cm",
     "defaultWeightUnit": "kg",
