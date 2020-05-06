@@ -7,11 +7,14 @@ export const gbMap = require('./gbMap.png');
 
 // Icons
 export const closeIcon = require('./icons/close.png');
-export const menuIcon = require('./icons/menu.png');
+export const chevronRight = require('./icons/chevron-right.png');
+export const pending = require('./icons/pending.png');
 
 // Flags
 export const svFlag = require('./icons/sv-flag.png');
 export const gbFlag = require('./icons/gb-flag.png');
+export const menuIcon = require('./icons/menu.png');
+export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
 export const gbPartners = require('./logos/gb_partners.png');
 export const gbPartnersReturn = require('./logos/gb_partners_return.png');

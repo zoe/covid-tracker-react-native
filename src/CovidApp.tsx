@@ -13,7 +13,7 @@ import { ScreenParamList } from './features/ScreenParamList';
 import { SplashScreen } from './features/SplashScreen';
 import ThankYouScreen from './features/ThankYouScreen';
 import ViralThankYouScreen from './features/ViralThankYouScreen';
-import CovidTestScreen from './features/assessment/CovidTestScreen';
+import CovidTestDetailScreen from './features/assessment/CovidTestDetailScreen';
 import DescribeSymptomsScreen from './features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from './features/assessment/HealthWorkerExposureScreen';
 import HowYouFeelScreen from './features/assessment/HowYouFeelScreen';
@@ -23,6 +23,7 @@ import StartAssessmentScreen from './features/assessment/StartAssessment';
 import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from './features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from './features/assessment/WhereAreYouScreen';
+import YourCovidTestsScreen from './features/assessment/YourCovidTestsScreen';
 import { LoginScreen } from './features/login/LoginScreen';
 import AdultOrChildScreen from './features/multi-profile/AdultOrChildScreen';
 import ConsentForOther from './features/multi-profile/ConsentForOtherScreen';
@@ -147,7 +148,8 @@ export default class ZoeApp extends Component<object, State> {
           component={HealthWorkerExposureScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="CovidTest" component={CovidTestScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CovidTest" component={YourCovidTestsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={{ headerShown: false }} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={{ headerShown: false }} />

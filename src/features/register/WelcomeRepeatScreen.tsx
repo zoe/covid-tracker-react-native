@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   discoveriesTitleBackground: {
-    backgroundColor: colors.slashBlue,
+    backgroundColor: colors.lightBlueBrand,
     paddingHorizontal: 4,
     borderRadius: 4,
   },

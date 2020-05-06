@@ -251,33 +251,41 @@
 
   "covid-test": {
     "page-title": "COVID-19 status",
-    "question-has-covid-test": "Have you had a test for COVID-19?",
-    "question-tested-covid-positive": "Did you test positive for COVID-19?",
-    "question-ever-had-covid-test": "Have you ever had a test for COVID-19?",
+    "page-title-detail-add": "Add new test",
+    "page-title-detail-update": "Update test",
+    "add-test": "Add test",
+    "update-test": "Update test",
+
+    "question-select-a-date-range": "Select a date range",
+
+    "question-mechanism": "How was this test performed?",
+    "picker-nose-swab": "Someone swabbed my nose",
+    "picker-throat-swab": "Someone swabbed my throat",
+    "picker-saliva-sample": "I spat in a cup/tube",
+    "picker-blood-sample": "I gave a blood sample",
+    "picker-other": "Other, please specify",
+
+    "question-mechanism-specify": "Please indicate how the test was performed",
+
+    "question-result": "Did you test positive for COVID-19?",
+
     "picker-waiting": "Waiting for results",
     "picker-test-failed": "Test failed",
-    "question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
-    "question-covid-test-result-status": "Have you received results?",
-    "question-covid-test-result-status-waiting": "You recently told us you were waiting for results of a COVID-19 test. Have you received results?",
     "picker-never-had-test": "Never had test",
-    "question-had-new-covid-test": "Since you last reported, have you had a new test for COVID-19?",
+
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
+
     "question-date-test-occurred-guess": "When was your test (roughly)?",
     "picker-less-than-7-days-ago": "Less than 7 days ago",
     "picker-over-1-week-ago": "Over 1 week ago",
     "picker-over-2-week-ago": "Over 2 weeks ago",
     "picker-over-3-week-ago": "Over 3 weeks ago",
     "picker-over-1-month-ago": "Over 1 month ago",
-    "question-covid-test-mechanism": "How was this test performed?",
-    "question-covid-test-mechanism-specify": "Please specify how the test was performed:",
-    "picker-nose-swab": "Someone swabbed my nose",
-    "picker-throat-swab": "Someone swabbed my throat",
-    "picker-saliva-sample": "I spat in a cup/tube",
-    "picker-blood-sample": "I gave a blood sample",
-    "picker-other": "Other, please specify",
-    "indicate-test-mechanism": "Please indicate how the test was performed",
-    "indicate-test-occurred": "Please indicate when the test was performed"
+
+    "required-date": "Please indicate the date this test occurred",
+    "required-mechanism": "Please indicate how the test was performed",
+    "required-result": "Please indicate the result of the test"
   },
 
   "describe-symptoms": {
@@ -330,7 +338,7 @@
   "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",
   "health-worker-exposure-picker-patient-interaction-yes-both": "Yes, both documented and suspected COVID-19 cases",
   "health-worker-exposure-picker-patient-interaction-no": "Not that I know of",
-  "health-worker-exposure-question-has-used-ppe-equipment" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "health-worker-exposure-question-has-used-ppe-equipment": "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
   "health-worker-exposure-picker-ppe-always": "Always",
   "health-worker-exposure-picker-ppe-sometimes": "Sometimes",
   "health-worker-exposure-picker-ppe-never": "Never",
@@ -384,11 +392,11 @@
 
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
-  "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
-  "exposed-yes-documented" : "Yes, documented COVID-19 cases only",
-  "exposed-yes-undocumented" : "Yes, suspected COVID-19 case only",
+  "have-you-been-exposed": "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
+  "exposed-yes-documented": "Yes, documented COVID-19 cases only",
+  "exposed-yes-undocumented": "Yes, suspected COVID-19 case only",
   "exposed-both": "Yes, both documented & suspected COVID-19 cases",
-  "exposed-no" : "Not that I know of",
+  "exposed-no": "Not that I know of",
   "housebound-problems": "In general, do you have any health problems that require you to stay at home?",
   "needs-help": "Do you need someone to help you on a regular basis?",
   "help-available": "If you need help, can you count on someone close to you?",
@@ -418,7 +426,7 @@
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Thank you for joining millions of people supporting scientists at King’s College London to help our health services.",
   "check-in-tomorrow": "We would appreciate it if you could check back in tomorrow if you feel up to it.",
-  "check-news-feed" : "Please check our <b>news feed</b> for updates.",
+  "check-news-feed": "Please check our <b>news feed</b> for updates.",
   "faq-link": "https://covid.joinzoe.com/faq",
 
   "rating": {
@@ -518,5 +526,15 @@
   "answer-for": "Answer for %{name}",
   "profile-name-too-long": "Enter a profile name with less that 32 characters",
   "total-people-contributing": "%{total} people contributing",
-  "join-total-people-contributing": "Join %{total} people contributing worldwide"
+  "join-total-people-contributing": "Join %{total} people contributing worldwide",
+
+  "add-new-test": "Add new test",
+  "your-covid-tests": "Your COVID-19 tests",
+  "positive": "Positive",
+  "negative": "Negative",
+  "failed": "Failed",
+  "pending": "Pending",
+  "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. You can edit these at any time in the future.",
+  "never-had-test": "I have never had a COVID test",
+  "above-list-correct": "The above list is correct"
 }
