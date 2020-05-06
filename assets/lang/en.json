@@ -286,7 +286,6 @@
     "required-date": "Please indicate the date this test occurred",
     "required-mechanism": "Please indicate how the test was performed",
     "required-result": "Please indicate the result of the test"
-
   },
 
   "describe-symptoms": {
@@ -339,7 +338,7 @@
   "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",
   "health-worker-exposure-picker-patient-interaction-yes-both": "Yes, both documented and suspected COVID-19 cases",
   "health-worker-exposure-picker-patient-interaction-no": "Not that I know of",
-  "health-worker-exposure-question-has-used-ppe-equipment" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "health-worker-exposure-question-has-used-ppe-equipment": "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
   "health-worker-exposure-picker-ppe-always": "Always",
   "health-worker-exposure-picker-ppe-sometimes": "Sometimes",
   "health-worker-exposure-picker-ppe-never": "Never",
@@ -393,11 +392,11 @@
 
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
-  "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
-  "exposed-yes-documented" : "Yes, documented COVID-19 cases only",
-  "exposed-yes-undocumented" : "Yes, suspected COVID-19 case only",
+  "have-you-been-exposed": "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
+  "exposed-yes-documented": "Yes, documented COVID-19 cases only",
+  "exposed-yes-undocumented": "Yes, suspected COVID-19 case only",
   "exposed-both": "Yes, both documented & suspected COVID-19 cases",
-  "exposed-no" : "Not that I know of",
+  "exposed-no": "Not that I know of",
   "housebound-problems": "In general, do you have any health problems that require you to stay at home?",
   "needs-help": "Do you need someone to help you on a regular basis?",
   "help-available": "If you need help, can you count on someone close to you?",
@@ -427,7 +426,7 @@
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Thank you for joining millions of people supporting scientists at King’s College London to help our health services.",
   "check-in-tomorrow": "We would appreciate it if you could check back in tomorrow if you feel up to it.",
-  "check-news-feed" : "Please check our <b>news feed</b> for updates.",
+  "check-news-feed": "Please check our <b>news feed</b> for updates.",
   "faq-link": "https://covid.joinzoe.com/faq",
 
   "rating": {
@@ -535,7 +534,7 @@
   "negative": "Negative",
   "failed": "Failed",
   "pending": "Pending",
-  "please-add-test-below": "If you’ve ever had a COVID-19 test,  please add below. You can edit these at any time in the future.",
-  "never-had-test" : "I have never had a COVID test",
+  "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. You can edit these at any time in the future.",
+  "never-had-test": "I have never had a COVID test",
   "above-list-correct": "The above list is correct"
 }
