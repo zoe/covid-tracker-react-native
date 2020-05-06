@@ -25,7 +25,7 @@ export const colors = {
   pink: '#D28C90',
 
   linkBlue: '#007AFF',
-  slashBlue: '#29C4CF',
+  lightBlueBrand: '#29C4CF',
 
   backgroundBrandDisabled: '#7C9CAD',
 };

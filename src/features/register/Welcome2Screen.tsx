@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   slash: {
-    color: colors.slashBlue,
+    color: colors.lightBlueBrand,
   },
   partnersLogo: {
     marginVertical: 16,

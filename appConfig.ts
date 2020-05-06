@@ -1,6 +1,6 @@
 // @ts-ignore
-import { API_URL } from "react-native-dotenv";
+import { API_URL } from 'react-native-dotenv';
 
 export default {
-  apiBase: API_URL
+  apiBase: API_URL,
 };
