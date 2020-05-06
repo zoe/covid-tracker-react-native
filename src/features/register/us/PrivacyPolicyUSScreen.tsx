@@ -145,19 +145,19 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             requires them only to process the data on our instructions and to take proper care in using it.
             {'\n\n'}
             These processors include:
-            {'\n\n'}• Amazon Web Services
-            {'\n'}• Google Cloud Platform
+            {'\n\n'}• Google Cloud Platform
             {'\n'}• SurveyMonkey
             {'\n'}• Segment
-            {'\n'}• Google Analytics
-            {'\n'}• Mixpanel
+            {'\n'}• Expo
+            {'\n'}• Google Firebase
+            {'\n'}• Amplitude
             {'\n'}• Google G Suite
             {'\n'}• MailChimp
             {'\n'}• Mailgun
             {'\n'}• Intercom
             {'\n'}• Sentry
-            {'\n'}• Google Firebase
-            {'\n'}• SwiftyBeaver
+            {'\n'}• Cloudflare
+            {'\n'}• Sqreen
             {'\n\n'}
             Research Partners and Other Third Parties:
             {'\n\n'}
