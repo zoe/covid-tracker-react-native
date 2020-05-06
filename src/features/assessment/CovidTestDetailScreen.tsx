@@ -140,12 +140,20 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
+  getInitialKnowsDateOfTest = (test: CovidTest | undefined): string => {
+    if (test === undefined) {
+      return '';
+    } else {
+      return test.date_taken_specific ? 'yes' : 'no';
+    }
+  };
+
   render() {
     const { currentPatient, test } = this.props.route.params;
     const testId = test?.id;
-    const dateTakenSpecific = test?.date_taken_specific;
+
     const initialFormValues = {
-      knowsDateOfTest: dateTakenSpecific ? 'yes' : 'no', // only for ux logic
+      knowsDateOfTest: this.getInitialKnowsDateOfTest(test), // only for ux logic
       mechanism: test?.mechanism ? test.mechanism : '',
       mechanismSpecify: '',
       result: test?.result ? test.result : '',
