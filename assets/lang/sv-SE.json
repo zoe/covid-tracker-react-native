@@ -216,11 +216,11 @@
 
   "covid-test": {
     "page-title": "Test för COVID-19",
-    "page-title-detail-add": "Add new test",
-    "page-title-detail-update": "Update test",
-    "add-test": "Add test",
-    "update-test": "Update test",
-    "question-select-a-date-range": "Select a date range",
+    "page-title-detail-add": "Lägg till nytt test",
+    "page-title-detail-update": "Uppdatera test",
+    "add-test": "Lägg till test",
+    "update-test": "Uppdatera test",
+    "question-select-a-date-range": "Välj ett datumintervall",
 
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
@@ -246,9 +246,18 @@
     "picker-over-3-week-ago": "Över tre veckor sedan",
     "picker-over-1-month-ago": "Över en månad sedan",
 
-    "required-date": "Please indicate the date this test occurred",
-    "required-mechanism": "Please indicate how the test was performed",
-    "required-result": "Please indicate the result of the test"
+    "required-date": "Ange datum när testet utfördes",
+    "required-mechanism": "Ange hur testet utfördes",
+    "required-result": "Ange testresultatet",
+
+    "add-new-test": "Lägg till nytt test",
+    "your-covid-tests": "Dina covid-19-tester",
+    "positive": "Positivt",
+    "negative": "Negativt",
+    "pending": "Väntar",
+    "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
+    "never-had-test" : "Jag har aldrig testats för covid-19",
+    "above-list-correct": "Listan ovan är korrekt"
   },
 
   "how-you-feel": {
