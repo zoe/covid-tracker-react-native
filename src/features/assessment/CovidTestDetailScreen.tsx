@@ -225,7 +225,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                         />
                       ) : (
                         <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
-                          {moment(this.state.dateTakenSpecific).format('l')}
+                          {moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')}
                         </ClickableText>
                       )}
                     </Item>
