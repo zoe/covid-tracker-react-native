@@ -10,7 +10,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -318,8 +318,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.health-problems-that-limit-activity')}
                   />
 
-                  <Divider />
-
                   {this.state.showPregnancyQuestion && (
                     <>
                       <DropdownField
@@ -327,7 +325,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                         onValueChange={props.handleChange('isPregnant')}
                         label={i18n.t('your-health.are-you-pregnant')}
                       />
-                      <Divider />
                     </>
                   )}
 
@@ -348,8 +345,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     onValueChange={props.handleChange('hasDiabetes')}
                     label={i18n.t('your-health.have-diabetes')}
                   />
-
-                  <Divider />
 
                   <DropdownField
                     selectedValue={props.values.hasLungDisease}
@@ -374,15 +369,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     />
                   )}
 
-                  <Divider />
-
                   <DropdownField
                     selectedValue={props.values.hasKidneyDisease}
                     onValueChange={props.handleChange('hasKidneyDisease')}
                     label={i18n.t('your-health.has-kidney-disease')}
                   />
-
-                  <Divider />
 
                   <DropdownField
                     selectedValue={props.values.hasCancer}
