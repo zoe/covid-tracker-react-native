@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
+import Screen, { FieldWrapper, Header, ProgressBlock, isAndroid } from '../../components/Screen';
 import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationErrors } from '../../components/ValidationError';
@@ -17,6 +17,7 @@ import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -26,6 +27,7 @@ const initialFormValues = {
   hasPersistentCough: 'no',
   hasUnusualFatigue: 'no',
   hasHeadache: 'no',
+  headacheFrequency: '',
   hasNausea: 'no',
   hasDizziness: 'no',
   hasUnusualShortnessOfBreath: 'no',
@@ -37,6 +39,7 @@ const initialFormValues = {
   hasRedWeltsOnFace: 'no',
   hasBlistersOnFeet: 'no',
   hasDiarrhoea: 'no',
+  diarrhoeaFrequency: '',
   hasUnusualMusclePains: 'no',
   hasDelirium: 'no',
   hasEyeSoreness: 'no',
@@ -52,6 +55,7 @@ interface DescribeSymptomsData {
   hasPersistentCough: string;
   hasUnusualFatigue: string;
   hasHeadache: string;
+  headacheFrequency: string;
   hasNausea: string;
   hasDizziness: string;
   hasUnusualShortnessOfBreath: string;
@@ -63,6 +67,7 @@ interface DescribeSymptomsData {
   hasRedWeltsOnFace: string;
   hasBlistersOnFeet: string;
   hasDiarrhoea: string;
+  diarrhoeaFrequency: string;
   hasDelirium: string;
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
@@ -106,6 +111,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasPersistentCough: Yup.string().required(),
     hasUnusualFatigue: Yup.string().required(),
     hasHeadache: Yup.string().required(),
+    headacheFrequency: Yup.string().when('hasHeadache', {
+      is: 'yes',
+      then: Yup.string().required(i18n.t('describe-symptoms.required-headache-frequency')),
+    }),
     hasNausea: Yup.string().required(),
     hasDizziness: Yup.string().required(),
     hasUnusualShortnessOfBreath: Yup.string().required(),
@@ -115,6 +124,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasChestPain: Yup.string().required(),
     hasAbdominalPain: Yup.string().required(),
     hasDiarrhoea: Yup.string().required(),
+    diarrhoeaFrequency: Yup.string().when('hasDiarrhoea', {
+      is: 'yes',
+      then: Yup.string().required(i18n.t('describe-symptoms.required-diarrhoea-frequency')),
+    }),
     hasUnusualMusclePains: Yup.string().required(),
     hasDelirium: Yup.string().required(),
     isSkippingMeals: Yup.string().required(),
@@ -186,10 +199,29 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       };
     }
 
+    if (infos.headache && formData.headacheFrequency) {
+      infos = {
+        ...infos,
+        headache_frequency: formData.headacheFrequency,
+      };
+    }
+
+    if (infos.diarrhoea && formData.diarrhoeaFrequency) {
+      infos = {
+        ...infos,
+        diarrhoea_frequency: formData.diarrhoeaFrequency,
+      };
+    }
+
     return infos;
   }
 
   render() {
+    const androidOption = isAndroid && {
+      label: i18n.t('choose-one-of-these-options'),
+      value: '',
+    };
+
     const currentPatient = this.props.route.params.currentPatient;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
@@ -206,6 +238,18 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       { label: i18n.t('describe-symptoms.picker-shortness-of-breath-significant'), value: 'significant' },
       { label: i18n.t('describe-symptoms.picker-shortness-of-breath-severe'), value: 'severe' },
     ];
+    const headacheFrequencyItems = [
+      androidOption,
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'all_of_the_day' },
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most_of_day' },
+      { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'some_of_day' },
+    ].filter(Boolean) as IOption[];
+    const diarrhoeaFrequencyItems = [
+      androidOption,
+      { label: '1-2', value: 'one_to_two' },
+      { label: '3-4', value: 'three_to_four' },
+      { label: '5+', value: 'five_or_more' },
+    ].filter(Boolean) as IOption[];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -294,6 +338,16 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     label={i18n.t('describe-symptoms.question-has-headache')}
                   />
 
+                  {props.values.hasHeadache === 'yes' && (
+                    <DropdownField
+                      selectedValue={props.values.headacheFrequency}
+                      onValueChange={props.handleChange('headacheFrequency')}
+                      label={i18n.t('describe-symptoms.question-headache-frequency')}
+                      items={headacheFrequencyItems}
+                      error={props.touched.headacheFrequency && props.errors.headacheFrequency}
+                    />
+                  )}
+
                   <DropdownField
                     selectedValue={props.values.hasNausea}
                     onValueChange={props.handleChange('hasNausea')}
@@ -349,6 +403,16 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                     onValueChange={props.handleChange('hasDiarrhoea')}
                     label={i18n.t('describe-symptoms.question-has-diarrhoea')}
                   />
+
+                  {props.values.hasDiarrhoea === 'yes' && (
+                    <DropdownField
+                      selectedValue={props.values.diarrhoeaFrequency}
+                      onValueChange={props.handleChange('diarrhoeaFrequency')}
+                      label={i18n.t('describe-symptoms.question-diarrhoea-frequency')}
+                      items={diarrhoeaFrequencyItems}
+                      error={props.touched.diarrhoeaFrequency && props.errors.diarrhoeaFrequency}
+                    />
+                  )}
 
                   <DropdownField
                     selectedValue={props.values.hasUnusualMusclePains}
