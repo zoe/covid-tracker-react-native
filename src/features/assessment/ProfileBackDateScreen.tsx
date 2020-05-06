@@ -21,6 +21,8 @@ import {
 } from '../patient/fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
+import { PeriodStoppedAge } from '../patient/fields/PeriodStoppedAge';
+import { WeeksPregnant } from '../patient/fields/WeeksPregnant';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
@@ -88,6 +90,22 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     periodFrequency: Yup.string().when('havingPeriods', {
       is: periodValues.CURRENTLY,
       then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
+    }),
+    weeksPregnant: Yup.number().when('havingPeriods', {
+      is: periodValues.PREGNANT,
+      then: Yup.number()
+        .typeError(i18n.t('correct-weeks-pregnant'))
+        .required(i18n.t('required-weeks-pregnant'))
+        .min(0, i18n.t('correct-weeks-pregnant'))
+        .max(50, i18n.t('correct-weeks-pregnant')),
+    }),
+    periodStoppedAge: Yup.number().when('havingPeriods', {
+      is: periodValues.STOPPED,
+      then: Yup.number()
+        .typeError(i18n.t('correct-period-stopped-age'))
+        .required(i18n.t('required-period-stopped-age'))
+        .min(0, i18n.t('correct-period-stopped-age'))
+        .max(100, i18n.t('correct-period-stopped-age')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.needHormoneTreatmentAnswer,
@@ -179,6 +197,20 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           period_frequency: formData.periodFrequency,
         };
       }
+
+      if (formData.havingPeriods === periodValues.STOPPED) {
+        infos = {
+          ...infos,
+          period_stopped_age: parseInt(formData.periodStoppedAge, 10),
+        };
+      }
+
+      if (formData.havingPeriods === periodValues.PREGNANT) {
+        infos = {
+          ...infos,
+          pregnant_weeks: parseInt(formData.weeksPregnant, 10),
+        };
+      }
     }
 
     if (this.state.needHormoneTreatmentAnswer) {
@@ -210,6 +242,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...RaceEthnicityQuestion.initialFormValues(),
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
+            ...PeriodQuestion.initialFormValues(),
+            ...PeriodStoppedAge.initialFormValues(),
+            ...WeeksPregnant.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackfillData) => {

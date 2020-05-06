@@ -21,6 +21,8 @@ import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/Blo
 import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
 import { PeriodFrequencyQuestion } from './fields/PeriodFrequencyQuestion';
+import { WeeksPregnant } from './fields/WeeksPregnant';
+import { PeriodStoppedAge } from './fields/PeriodStoppedAge';
 
 export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
   isPregnant: string;
@@ -109,6 +111,22 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     periodFrequency: Yup.string().when('havingPeriods', {
       is: periodValues.CURRENTLY,
       then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
+    }),
+    weeksPregnant: Yup.number().when('havingPeriods', {
+      is: periodValues.PREGNANT,
+      then: Yup.number()
+        .typeError(i18n.t('correct-weeks-pregnant'))
+        .required(i18n.t('required-weeks-pregnant'))
+        .min(0, i18n.t('correct-weeks-pregnant'))
+        .max(50, i18n.t('correct-weeks-pregnant')),
+    }),
+    periodStoppedAge: Yup.number().when('havingPeriods', {
+      is: periodValues.STOPPED,
+      then: Yup.number()
+        .typeError(i18n.t('correct-period-stopped-age'))
+        .required(i18n.t('required-period-stopped-age'))
+        .min(0, i18n.t('correct-period-stopped-age'))
+        .max(100, i18n.t('correct-period-stopped-age')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.showHormoneTherapyQuestion,
@@ -232,6 +250,20 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           period_frequency: formData.periodFrequency,
         };
       }
+
+      if (formData.havingPeriods === periodValues.STOPPED) {
+        infos = {
+          ...infos,
+          period_stopped_age: parseInt(formData.periodStoppedAge, 10),
+        };
+      }
+
+      if (formData.havingPeriods === periodValues.PREGNANT) {
+        infos = {
+          ...infos,
+          pregnant_weeks: parseInt(formData.weeksPregnant, 10),
+        };
+      }
     }
 
     if (this.state.showHormoneTherapyQuestion && formData.hormoneTreatment.length) {
@@ -268,6 +300,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...PeriodQuestion.initialFormValues(),
             ...PeriodFrequencyQuestion.initialFormValues(),
+            ...PeriodStoppedAge.initialFormValues(),
+            ...WeeksPregnant.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
