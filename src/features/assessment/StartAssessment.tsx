@@ -21,9 +21,13 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
     const features = userService.getConfig();
 
     if (currentPatient.hasCompletedPatientDetails) {
-      if (features.showRaceQuestion && !currentPatient.hasRaceAnswer) {
-        this.props.navigation.replace('ProfileBackDate', { currentPatient });
-      } else if (!currentPatient.hasBloodPressureAnswer) {
+      const mustBackfillProfile =
+        (features.showRaceQuestion && !currentPatient.hasRaceAnswer) ||
+        !currentPatient.hasPeriodAnswer ||
+        !currentPatient.hasHormoneTreatmentAnswer ||
+        !currentPatient.hasBloodPressureAnswer;
+
+      if (mustBackfillProfile) {
         this.props.navigation.replace('ProfileBackDate', { currentPatient });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
         this.props.navigation.replace('LevelOfIsolation', { currentPatient, assessmentId });

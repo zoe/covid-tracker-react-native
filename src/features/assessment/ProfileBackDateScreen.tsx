@@ -14,9 +14,15 @@ import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
+import {
+  HormoneTreatmentData,
+  HormoneTreatmentQuestion,
+  TreatmentValue,
+} from '../patient/fields/HormoneTreatmentQuestion';
+import { PeriodData, PeriodQuestion } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
 
-interface BackData extends BloodPressureData, RaceEthnicityData {}
+interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -27,12 +33,16 @@ type State = {
   errorMessage: string;
   needBloodPressureAnswer: boolean;
   needRaceAnswer: boolean;
+  needPeriodStatusAnswer: boolean;
+  needHormoneTreatmentAnswer: boolean;
 };
 
 const initialState: State = {
   errorMessage: '',
   needBloodPressureAnswer: false,
   needRaceAnswer: false,
+  needPeriodStatusAnswer: false,
+  needHormoneTreatmentAnswer: false,
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
@@ -63,12 +73,21 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       then: Yup.array<string>().min(1, i18n.t('please-select-race')),
     }),
     raceOther: Yup.string().when('race', {
-      is: (val: string[]) => val.includes('other'),
+      is: (val: string[]) => this.state.needRaceAnswer && val.includes('other'),
       then: Yup.string().required(),
     }),
     ethnicity: Yup.string().when([], {
-      is: () => isUSCountry(),
+      is: () => this.state.needRaceAnswer && isUSCountry(),
       then: Yup.string().required(),
+    }),
+
+    havingPeriods: Yup.string().when([], {
+      is: () => this.state.needPeriodStatusAnswer,
+      then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+    }),
+    hormoneTreatment: Yup.array<string>().when([], {
+      is: () => this.state.needHormoneTreatmentAnswer,
+      then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
     }),
   });
 
@@ -76,62 +95,90 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     const currentPatient = this.props.route.params.currentPatient;
     this.setState({ needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer });
     this.setState({ needRaceAnswer: !currentPatient.hasRaceAnswer });
+    this.setState({ needPeriodStatusAnswer: !currentPatient.hasPeriodAnswer });
+    this.setState({ needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer });
   }
 
-  handleProfileUpdate(formData: BackData) {
+  handleProfileUpdate(formData: BackfillData) {
     const { currentPatient } = this.props.route.params;
     const patientId = currentPatient.patientId;
 
     const userService = new UserService();
-
-    let infos: Partial<PatientInfosRequest> = {};
-
-    if (formData.takesAnyBloodPressureMedications) {
-      infos = {
-        ...infos,
-        takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
-      };
-    }
-
-    if (infos.takes_any_blood_pressure_medications) {
-      infos = {
-        ...infos,
-        takes_blood_pressure_medications: formData.takesBloodPressureMedications === 'yes', // pril
-        takes_blood_pressure_medications_sartan: formData.takesBloodPressureMedicationsSartan === 'yes',
-      };
-    }
-
-    if (formData.race) {
-      infos = {
-        ...infos,
-        race: formData.race,
-      };
-    }
-
-    if (formData.ethnicity) {
-      infos = {
-        ...infos,
-        ethnicity: formData.ethnicity,
-      };
-    }
-
-    if (formData.raceOther) {
-      infos = {
-        ...infos,
-        race_other: formData.raceOther,
-      };
-    }
+    const infos = this.createPatientInfos(formData);
 
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
         if (formData.race) currentPatient.hasRaceAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
+        if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
+        if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
         this.props.navigation.replace('StartAssessment', { currentPatient });
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });
+  }
+
+  createPatientInfos(formData: BackfillData) {
+    let infos: Partial<PatientInfosRequest> = {};
+
+    if (this.state.needBloodPressureAnswer) {
+      if (formData.takesAnyBloodPressureMedications) {
+        infos = {
+          ...infos,
+          takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
+        };
+      }
+
+      if (infos.takes_any_blood_pressure_medications) {
+        infos = {
+          ...infos,
+          takes_blood_pressure_medications: formData.takesBloodPressureMedications === 'yes', // pril
+          takes_blood_pressure_medications_sartan: formData.takesBloodPressureMedicationsSartan === 'yes',
+        };
+      }
+    }
+
+    if (this.state.needRaceAnswer) {
+      if (formData.race) {
+        infos = {
+          ...infos,
+          race: formData.race,
+        };
+      }
+
+      if (formData.ethnicity) {
+        infos = {
+          ...infos,
+          ethnicity: formData.ethnicity,
+        };
+      }
+
+      if (formData.raceOther) {
+        infos = {
+          ...infos,
+          race_other: formData.raceOther,
+        };
+      }
+    }
+
+    if (this.state.needPeriodStatusAnswer) {
+      infos = {
+        ...infos,
+        period_status: formData.havingPeriods,
+      };
+    }
+
+    if (this.state.needHormoneTreatmentAnswer) {
+      const treatmentsDoc = HormoneTreatmentQuestion.createTreatmentsDoc(formData.hormoneTreatment as TreatmentValue[]);
+      infos = {
+        ...infos,
+        ...treatmentsDoc,
+      };
+    }
+
+    return infos;
   }
 
   render() {
@@ -151,9 +198,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           initialValues={{
             ...RaceEthnicityQuestion.initialFormValues(),
             ...BloodPressureMedicationQuestion.initialFormValues(),
+            ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
-          onSubmit={(values: BackData) => {
+          onSubmit={(values: BackfillData) => {
             return this.handleProfileUpdate(values);
           }}>
           {(props) => {
@@ -169,6 +217,12 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
                     formikProps={props as FormikProps<RaceEthnicityData>}
                   />
+                )}
+
+                {this.state.needPeriodStatusAnswer && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
+
+                {this.state.needHormoneTreatmentAnswer && (
+                  <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
