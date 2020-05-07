@@ -217,11 +217,6 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   render() {
-    const androidOption = isAndroid && {
-      label: i18n.t('choose-one-of-these-options'),
-      value: '',
-    };
-
     const currentPatient = this.props.route.params.currentPatient;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
@@ -239,17 +234,15 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       { label: i18n.t('describe-symptoms.picker-shortness-of-breath-severe'), value: 'severe' },
     ];
     const headacheFrequencyItems = [
-      androidOption,
       { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'all_of_the_day' },
       { label: i18n.t('describe-symptoms.picker-headache-frequency-mostday'), value: 'most_of_day' },
       { label: i18n.t('describe-symptoms.picker-headache-frequency-someday'), value: 'some_of_day' },
-    ].filter(Boolean) as IOption[];
+    ];
     const diarrhoeaFrequencyItems = [
-      androidOption,
       { label: '1-2', value: 'one_to_two' },
       { label: '3-4', value: 'three_to_four' },
       { label: '5+', value: 'five_or_more' },
-    ].filter(Boolean) as IOption[];
+    ];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
