@@ -97,55 +97,73 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const patientId = currentPatient.patientId;
     const covidTestService = new CovidTestService();
 
-    if (this.state.dateTakenSpecific || (!!this.state.dateTakenBetweenStart && !!this.state.dateTakenBetweenStart)) {
-      let postTest = {
-        patient: patientId,
-        ...(formData.result && { result: formData.result }),
-        ...(formData.knowsDateOfTest === 'yes' && {
+    if (formData.knowsDateOfTest === 'yes' && !this.state.dateTakenSpecific) {
+      this.setState({ errorMessage: i18n.t('covid-test.required-date') });
+      return;
+    }
+
+    if (
+      formData.knowsDateOfTest === 'no' &&
+      (this.state.dateTakenBetweenStart === undefined || this.state.dateTakenBetweenEnd === undefined)
+    ) {
+      this.setState({ errorMessage: i18n.t('covid-test.required-dates') });
+      return;
+    }
+
+    let postTest = {
+      patient: patientId,
+      ...(formData.result && { result: formData.result }),
+      ...(formData.knowsDateOfTest === 'yes' &&
+        this.state.dateTakenSpecific && {
           date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
         }),
-        ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
-        ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
-        // TODO: Pass two dates back to the server
-      } as Partial<CovidTest>;
-      if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
-        postTest = {
-          ...postTest,
-          date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
-          date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
-        };
-      }
+      ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
+      ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
+    } as Partial<CovidTest>;
 
-      if (test?.id) {
-        covidTestService
-          .updateTest(test.id, postTest)
-          .then((response) => {
-            this.props.navigation.goBack();
-          })
-          .catch((err) => {
-            this.setState({ errorMessage: i18n.t('something-went-wrong') });
-          });
-      } else {
-        covidTestService
-          .addTest(postTest)
-          .then((response) => {
-            this.props.navigation.goBack();
-          })
-          .catch(() => {
-            this.setState({ errorMessage: i18n.t('something-went-wrong') });
-          });
-      }
+    if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
+      postTest = {
+        ...postTest,
+        date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
+        date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
+      };
+    }
+
+    if (test?.id) {
+      covidTestService
+        .updateTest(test.id, postTest)
+        .then((response) => {
+          this.props.navigation.goBack();
+        })
+        .catch((err) => {
+          this.setState({ errorMessage: i18n.t('something-went-wrong') });
+        });
     } else {
-      this.setState({ errorMessage: i18n.t('covid-test.required-date') });
+      covidTestService
+        .addTest(postTest)
+        .then((response) => {
+          this.props.navigation.goBack();
+        })
+        .catch(() => {
+          this.setState({ errorMessage: i18n.t('something-went-wrong') });
+        });
     }
   }
+
+  getInitialKnowsDateOfTest = (test: CovidTest | undefined): string => {
+    if (test === undefined) {
+      return '';
+    } else {
+      return test.date_taken_specific ? 'yes' : 'no';
+    }
+  };
 
   render() {
     const { currentPatient, test } = this.props.route.params;
     const testId = test?.id;
-    const dateTakenSpecific = test?.date_taken_specific;
+
     const initialFormValues = {
-      knowsDateOfTest: dateTakenSpecific ? 'yes' : 'no', // only for ux logic
+      knowsDateOfTest: this.getInitialKnowsDateOfTest(test), // only for ux logic
       mechanism: test?.mechanism ? test.mechanism : '',
       mechanismSpecify: '',
       result: test?.result ? test.result : '',
@@ -160,6 +178,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       }),
       mechanismSpecify: Yup.string(),
       result: Yup.string().required(i18n.t('covid-test.required-result')),
+      knowsDateOfTest: Yup.string().required(),
     });
 
     const androidOption = isAndroid && {
@@ -261,27 +280,31 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   </FieldWrapper>
                 )}
 
-                <DropdownField
-                  selectedValue={props.values.mechanism}
-                  onValueChange={props.handleChange('mechanism')}
-                  label={i18n.t('covid-test.question-mechanism')}
-                  items={mechanismItems}
-                />
+                {props.values.knowsDateOfTest !== '' && (
+                  <>
+                    <DropdownField
+                      selectedValue={props.values.mechanism}
+                      onValueChange={props.handleChange('mechanism')}
+                      label={i18n.t('covid-test.question-mechanism')}
+                      items={mechanismItems}
+                    />
 
-                {props.values.mechanism === 'other' && (
-                  <GenericTextField
-                    formikProps={props}
-                    label={i18n.t('covid-test.question-mechanism-specify')}
-                    name="mechanismSpecify"
-                  />
+                    {props.values.mechanism === 'other' && (
+                      <GenericTextField
+                        formikProps={props}
+                        label={i18n.t('covid-test.question-mechanism-specify')}
+                        name="mechanismSpecify"
+                      />
+                    )}
+
+                    <DropdownField
+                      selectedValue={props.values.result}
+                      onValueChange={props.handleChange('result')}
+                      label={i18n.t('covid-test.question-result')}
+                      items={resultItems}
+                    />
+                  </>
                 )}
-
-                <DropdownField
-                  selectedValue={props.values.result}
-                  onValueChange={props.handleChange('result')}
-                  label={i18n.t('covid-test.question-result')}
-                  items={resultItems}
-                />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
