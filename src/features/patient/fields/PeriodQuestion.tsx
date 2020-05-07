@@ -6,8 +6,6 @@ import i18n from '../../../locale/i18n';
 import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';
 import { WeeksPregnant, WeeksPregnantData } from './WeeksPregnant';
-import { TreatmentValue } from './HormoneTreatmentQuestion';
-import { YourHealthData } from '../YourHealthScreen';
 
 export interface PeriodData {
   havingPeriods: string;
@@ -46,7 +44,7 @@ export class PeriodQuestion extends Component<Props, object> {
     };
   };
 
-  static createPeriodDoc = (formData: YourHealthData) => {
+  static createPeriodDoc = (formData: PeriodData) => {
     return {
       period_status: formData.havingPeriods,
       ...(formData.havingPeriods === periodValues.CURRENTLY && {
