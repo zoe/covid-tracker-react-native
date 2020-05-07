@@ -307,7 +307,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
 
                 <BrandedButton onPress={props.handleSubmit}>
                   <Text>{i18n.t(testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
