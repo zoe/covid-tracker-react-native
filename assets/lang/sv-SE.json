@@ -234,7 +234,7 @@
     "question-result": "Var ditt test för COVID-19 positivt?",
 
     "picker-waiting": "Väntar på mina resultat",
-    "picker-test-failed": "Testet misslyckades",
+    "picker-test-failed": "Inkonklusivt/provtagning misslyckades",
 
     "question-knows-date-of-test": "Vet du vilket datum du testades?",
     "question-date-test-occurred": "När testades du?",

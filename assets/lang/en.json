@@ -270,7 +270,7 @@
     "question-result": "Did you test positive for COVID-19?",
 
     "picker-waiting": "Waiting for results",
-    "picker-test-failed": "Test failed",
+    "picker-test-failed": "Not clear/Test Failed",
     "picker-never-had-test": "Never had test",
 
     "question-knows-date-of-test": "Do you know the date of your test?",
