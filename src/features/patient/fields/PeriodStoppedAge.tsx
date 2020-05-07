@@ -35,7 +35,9 @@ export class PeriodStoppedAge extends Component<Props, object> {
             keyboardType="numeric"
           />
         </Item>
-        {!!formikProps.errors.periodStoppedAge && <ValidationError error={formikProps.errors.periodStoppedAge} />}
+        {!!formikProps.errors.periodStoppedAge && formikProps.submitCount > 0 && (
+          <ValidationError error={formikProps.errors.periodStoppedAge} />
+        )}
       </FieldWrapper>
     );
   }

@@ -35,7 +35,9 @@ export class WeeksPregnant extends Component<Props, object> {
             keyboardType="numeric"
           />
         </Item>
-        {!!formikProps.errors.weeksPregnant && <ValidationError error={formikProps.errors.weeksPregnant} />}
+        {!!formikProps.errors.weeksPregnant && formikProps.submitCount > 0 && (
+          <ValidationError error={formikProps.errors.weeksPregnant} />
+        )}
       </FieldWrapper>
     );
   }

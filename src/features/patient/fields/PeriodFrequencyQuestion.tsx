@@ -32,7 +32,7 @@ export class PeriodFrequencyQuestion extends Component<Props, object> {
         selectedValue={formikProps.values.periodFrequency}
         onValueChange={formikProps.handleChange('periodFrequency')}
         label={i18n.t('your-health.period-frequency')}
-        error={formikProps.touched.periodFrequency && formikProps.errors.periodFrequency}
+        error={formikProps.touched.periodFrequency && formikProps.submitCount > 0 && formikProps.errors.periodFrequency}
         items={periodFrequencyItems}
       />
     );
