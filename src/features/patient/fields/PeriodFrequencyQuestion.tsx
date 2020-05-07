@@ -19,15 +19,16 @@ const periodFrequencyValues = {
 };
 
 export class PeriodFrequencyQuestion extends Component<Props, object> {
+  periodFrequencyItems = [
+    { label: i18n.t('your-health.picker-period-frequency-regular'), value: periodFrequencyValues.REGULAR },
+    {
+      label: i18n.t('your-health.picker-period-frequency-less-frequent'),
+      value: periodFrequencyValues.LESS_FREQUENT,
+    },
+    { label: i18n.t('your-health.picker-period-frequency-irregular'), value: periodFrequencyValues.IRREGULAR },
+  ];
+
   render() {
-    const periodFrequencyItems = [
-      { label: i18n.t('your-health.picker-period-frequency-regular'), value: periodFrequencyValues.REGULAR },
-      {
-        label: i18n.t('your-health.picker-period-frequency-less-frequent'),
-        value: periodFrequencyValues.LESS_FREQUENT,
-      },
-      { label: i18n.t('your-health.picker-period-frequency-irregular'), value: periodFrequencyValues.IRREGULAR },
-    ];
     const formikProps = this.props.formikProps;
     return (
       <DropdownField
@@ -35,7 +36,7 @@ export class PeriodFrequencyQuestion extends Component<Props, object> {
         onValueChange={formikProps.handleChange('periodFrequency')}
         label={i18n.t('your-health.period-frequency')}
         error={formikProps.touched.periodFrequency && formikProps.submitCount > 0 && formikProps.errors.periodFrequency}
-        items={periodFrequencyItems}
+        items={this.periodFrequencyItems}
       />
     );
   }
