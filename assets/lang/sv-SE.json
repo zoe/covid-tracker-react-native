@@ -264,7 +264,7 @@
     "question-result": "Var ditt test för COVID-19 positivt?",
 
     "picker-waiting": "Väntar på mina resultat",
-    "picker-test-failed": "Testet misslyckades",
+    "picker-test-failed": "Inkonklusivt/provtagning misslyckades",
 
     "question-knows-date-of-test": "Vet du vilket datum du testades?",
     "question-date-test-occurred": "När testades du?",
@@ -394,7 +394,7 @@
   },
 
   "welcome": {
-    "title": "COVID Symptom Tracker",
+    "title": "COVID Symptom Study",
     "sign-in": "Logga in",
     "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa COVID-19.",
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
