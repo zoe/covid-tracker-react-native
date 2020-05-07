@@ -195,15 +195,15 @@ export default class UserService extends ApiClientBase {
     const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
     const hasHormoneTreatmentAnswer =
       !isPeriodCapable ||
-      patient.ht_none ||
-      patient.ht_combined_oral_contraceptive_pill ||
-      patient.ht_progestone_only_pill ||
-      patient.ht_mirena_or_other_coil ||
-      patient.ht_depot_injection_or_implant ||
-      patient.ht_hormone_treatment_therapy ||
-      patient.ht_oestrogen_hormone_therapy ||
-      patient.ht_testosterone_hormone_therapy ||
-      patient.ht_pfnts;
+      !!patient.ht_none ||
+      !!patient.ht_combined_oral_contraceptive_pill ||
+      !!patient.ht_progestone_only_pill ||
+      !!patient.ht_mirena_or_other_coil ||
+      !!patient.ht_depot_injection_or_implant ||
+      !!patient.ht_hormone_treatment_therapy ||
+      !!patient.ht_oestrogen_hormone_therapy ||
+      !!patient.ht_testosterone_hormone_therapy ||
+      !!patient.ht_pfnts;
 
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
