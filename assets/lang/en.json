@@ -362,7 +362,7 @@
     "question-has-eye-soreness": "Do your eyes have any unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)?"
   },
 
-  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients?",
+  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
   "health-worker-exposure-question-treated-patients-with-covid": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
   "health-worker-exposure-picker-patient-interaction-yes-documented": "Yes, documented COVID-19 cases only",
   "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",

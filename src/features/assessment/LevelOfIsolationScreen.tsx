@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
