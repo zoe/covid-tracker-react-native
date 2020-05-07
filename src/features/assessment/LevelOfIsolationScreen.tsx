@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
@@ -73,18 +73,18 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   registerSchema = Yup.object().shape({
     isolationLittleInteraction: Yup.number()
       .required(i18n.t('level-of-isolation.required-answer'))
-      .typeError(i18n.t('level-of-isolation.correct-answer'))
-      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .typeError(i18n.t('level-of-isolation.whole-number'))
+      .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
     isolationLotsOfPeople: Yup.number()
       .required(i18n.t('level-of-isolation.required-answer'))
-      .typeError(i18n.t('level-of-isolation.correct-answer'))
-      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .typeError(i18n.t('level-of-isolation.whole-number'))
+      .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
     isolationHealthcareProvider: Yup.number()
       .required(i18n.t('level-of-isolation.required-answer'))
-      .typeError(i18n.t('level-of-isolation.correct-answer'))
-      .integer(i18n.t('level-of-isolation.correct-answer'))
+      .typeError(i18n.t('level-of-isolation.whole-number'))
+      .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
   });
 

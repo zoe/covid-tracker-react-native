@@ -127,6 +127,24 @@
     "page-title": "Om din hälsa",
     "health-problems-that-limit-activity": "Har du några hälsoproblem som vanligtvis kräver att du begränsar dina aktiviteter?",
     "are-you-pregnant": "Är du gravid?",
+    "having-periods": "Menstruerar du?",
+    "picker-never-had-periods": "Jag har aldrig menstruerat",
+    "picker-currently-having-periods": "Jag har menstruationer (oavsett regelbundenhet)",
+    "picker-stopped-having-periods": "Jag har inga menstruationer längre",
+    "picker-pregnant": "Jag är gravid",
+    "picker-pfnts": "Vill ej uppge",
+    "please-select-periods": "Välj ett alternativ",
+    "label-taking-hormone-treatment" : "Tar du hormonella preventivmedel eller annan könshormonbehandling?",
+    "checkbox-hormone-treatment-none": "Nej",
+    "checkbox-oral-contraceptive-pill": "Kombinerade p-piller (östrogen och gestagen)",
+    "checkbox-progesterone-only-pill": "P-piller med enbart gestagen",
+    "checkbox-mirena-or-other-coil": "Mirena eller annan hormonspiral",
+    "checkbox-depot-injection-or-implant": "P-spruta eller p-stav",
+    "checkbox-hormone-treatment-therapy": "Östrogenbehandling pga klimakteriebesvär",
+    "checkbox-oestrogen-hormone-therapy": "Östrogenbehandling pga könsdysfori",
+    "checkbox-testosterone-hormone-therapy": "Testosteronbehandling",
+    "checkbox-hormone-treatment-pfnts": "Vill ej uppge",
+    "please-select-hormone-treatments": "Välj ett eller flera av alternativen ovan",
     "have-heart-disease": "Har du någon hjärtsjukdom?",
     "have-diabetes": "Har du diabetes?",
     "have-lung-disease": "Har du någon lungsjukdom eller astma?",
@@ -178,7 +196,7 @@
   "label-past-symptoms-classic": "Har du haft de klassiska symtomen (hög feber och ihållande hosta) i flera dagar?",
 
   "title-health-worker-exposure": "Exponering för COVID-19 för vårdpersonal",
-  "health-worker-exposure-question-interacted-any-patients": "Har du under det senaste dygnet träffat någon patient?",
+  "health-worker-exposure-question-interacted-any-patients": "Har du det senaste dygnet träffat patienter (ej via telefon eller videolänk)?",
   "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik COVID-19-infektion?",
   "health-worker-exposure-picker-patient-interaction-yes-documented": "Ja, bekräftat COVID-19-fall",
   "health-worker-exposure-picker-patient-interaction-yes-suspected": "Ja, sannolikt COVID-19-fall",
@@ -211,7 +229,8 @@
     "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
     "placeholder-frequency": "Antal tillfällen",
     "required-answer": "Ange antal tillfällen",
-    "correct-answer": "Var snäll och granska ditt svar"
+    "correct-answer": "Var snäll och granska ditt svar",
+    "whole-number": "Ange ett helt nummer"
   },
 
   "covid-test": {
@@ -234,12 +253,12 @@
     "question-result": "Var ditt test för COVID-19 positivt?",
 
     "picker-waiting": "Väntar på mina resultat",
-    "picker-test-failed": "Testet misslyckades",
+    "picker-test-failed": "Inkonklusivt/provtagning misslyckades",
 
     "question-knows-date-of-test": "Vet du vilket datum du testades?",
     "question-date-test-occurred": "När testades du?",
 
-    "question-date-test-occurred-guess": "När (ungefär) testades du?",
+    "question-date-test-occurred-guess": "Mellan vilka två datum tror du att testet utfördes?",
     "picker-less-than-7-days-ago": "För mindre än sju dagar sedan",
     "picker-over-1-week-ago": "Över en vecka sedan",
     "picker-over-2-week-ago": "Över två veckor sedan",
@@ -247,6 +266,7 @@
     "picker-over-1-month-ago": "Över en månad sedan",
 
     "required-date": "Ange datum när testet utfördes",
+    "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
     "required-result": "Ange testresultatet",
 
@@ -363,7 +383,7 @@
   },
 
   "welcome": {
-    "title": "COVID Symptom Tracker",
+    "title": "COVID Symptom Study",
     "sign-in": "Logga in",
     "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa COVID-19.",
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",

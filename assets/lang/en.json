@@ -58,7 +58,7 @@
   },
 
   "welcome": {
-    "title": "COVID Symptom Tracker",
+    "title": "COVID Symptom Study",
     "sign-in": "Sign in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
@@ -288,13 +288,13 @@
     "question-result": "Did you test positive for COVID-19?",
 
     "picker-waiting": "Waiting for results",
-    "picker-test-failed": "Test failed",
+    "picker-test-failed": "Not clear/Test Failed",
     "picker-never-had-test": "Never had test",
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
 
-    "question-date-test-occurred-guess": "When was your test (roughly)?",
+    "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
     "picker-less-than-7-days-ago": "Less than 7 days ago",
     "picker-over-1-week-ago": "Over 1 week ago",
     "picker-over-2-week-ago": "Over 2 weeks ago",
@@ -302,6 +302,7 @@
     "picker-over-1-month-ago": "Over 1 month ago",
 
     "required-date": "Please indicate the date this test occurred",
+    "required-dates": "Please indicate between which two date this test occurred",
     "required-mechanism": "Please indicate how the test was performed",
     "required-result": "Please indicate the result of the test"
   },
@@ -350,7 +351,7 @@
     "question-has-eye-soreness": "Do your eyes have any unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)?"
   },
 
-  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients?",
+  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
   "health-worker-exposure-question-treated-patients-with-covid": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
   "health-worker-exposure-picker-patient-interaction-yes-documented": "Yes, documented COVID-19 cases only",
   "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",
@@ -381,7 +382,8 @@
     "question-healthcare-provider": "In the last week, how many times have you visited a healthcare provider (e.g. hospital, clinic, dentist, pharmacy)?",
     "placeholder-frequency": "Number of times this occurred",
     "required-answer": "Please indicate the number of times this occurred",
-    "correct-answer": "Please correct your answer"
+    "correct-answer": "Please correct your answer",
+    "whole-number": "Please enter a whole number"
   },
 
   "where-are-you": {
