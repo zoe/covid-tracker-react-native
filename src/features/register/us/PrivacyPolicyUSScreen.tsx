@@ -197,6 +197,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             {'\n'}
             UK National Health Service
             {'\n'}
+            Swansea University (SAIL Databank)
+            {'\n'}
             Nottingham University
             {'\n'}
             University of Trento
