@@ -26,14 +26,6 @@ export const periodValues = {
   PFNTS: 'pfnts',
 };
 
-const periodItems = [
-  { label: i18n.t('your-health.picker-never-had-periods'), value: periodValues.NEVER },
-  { label: i18n.t('your-health.picker-currently-having-periods'), value: periodValues.CURRENTLY },
-  { label: i18n.t('your-health.picker-stopped-having-periods'), value: periodValues.STOPPED },
-  { label: i18n.t('your-health.picker-pregnant'), value: periodValues.PREGNANT },
-  { label: i18n.t('your-health.picker-pfnts'), value: periodValues.PFNTS },
-];
-
 export class PeriodQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
@@ -59,8 +51,17 @@ export class PeriodQuestion extends Component<Props, object> {
     };
   };
 
+  periodItems = [
+    { label: i18n.t('your-health.picker-never-had-periods'), value: periodValues.NEVER },
+    { label: i18n.t('your-health.picker-currently-having-periods'), value: periodValues.CURRENTLY },
+    { label: i18n.t('your-health.picker-stopped-having-periods'), value: periodValues.STOPPED },
+    { label: i18n.t('your-health.picker-pregnant'), value: periodValues.PREGNANT },
+    { label: i18n.t('your-health.picker-pfnts'), value: periodValues.PFNTS },
+  ];
+
   render() {
     const formikProps = this.props.formikProps;
+
     return (
       <>
         <DropdownField
@@ -68,7 +69,7 @@ export class PeriodQuestion extends Component<Props, object> {
           onValueChange={formikProps.handleChange('havingPeriods')}
           label={i18n.t('your-health.having-periods')}
           error={formikProps.touched.havingPeriods && formikProps.errors.havingPeriods}
-          items={periodItems}
+          items={this.periodItems}
         />
         {formikProps.values.havingPeriods === periodValues.CURRENTLY && (
           <PeriodFrequencyQuestion formikProps={formikProps as FormikProps<PeriodFrequencyData>} />
