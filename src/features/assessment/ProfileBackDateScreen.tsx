@@ -112,9 +112,11 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   });
 
   async componentDidMount() {
+    const userService = new UserService();
+    const features = userService.getConfig();
     const currentPatient = this.props.route.params.currentPatient;
     this.setState({ needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer });
-    this.setState({ needRaceAnswer: !currentPatient.hasRaceAnswer });
+    this.setState({ needRaceAnswer: features.showRaceQuestion && !currentPatient.hasRaceAnswer });
     this.setState({ needPeriodStatusAnswer: !currentPatient.hasPeriodAnswer });
     this.setState({ needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer });
   }
