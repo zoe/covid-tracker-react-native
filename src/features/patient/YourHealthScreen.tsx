@@ -236,7 +236,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }
 
     if (this.state.showPeriodQuestion) {
-      infos = PeriodQuestion.createPeriodDoc(infos, formData);
+      const periodDoc = PeriodQuestion.createPeriodDoc(formData);
+      infos = {
+        ...infos,
+        ...periodDoc,
+      };
     }
 
     if (this.state.showHormoneTherapyQuestion && formData.hormoneTreatment.length) {

@@ -7,6 +7,7 @@ import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQ
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';
 import { WeeksPregnant, WeeksPregnantData } from './WeeksPregnant';
 import { TreatmentValue } from './HormoneTreatmentQuestion';
+import { YourHealthData } from '../YourHealthScreen';
 
 export interface PeriodData {
   havingPeriods: string;
@@ -45,34 +46,19 @@ export class PeriodQuestion extends Component<Props, object> {
     };
   };
 
-  static createPeriodDoc = (infos: object, formData: any) => {
-    infos = {
-      ...infos,
+  static createPeriodDoc = (formData: YourHealthData) => {
+    return {
       period_status: formData.havingPeriods,
-    };
-
-    if (formData.havingPeriods === periodValues.CURRENTLY) {
-      infos = {
-        ...infos,
+      ...(formData.havingPeriods === periodValues.CURRENTLY && {
         period_frequency: formData.periodFrequency,
-      };
-    }
-
-    if (formData.havingPeriods === periodValues.STOPPED) {
-      infos = {
-        ...infos,
+      }),
+      ...(formData.havingPeriods === periodValues.STOPPED && {
         period_stopped_age: parseInt(formData.periodStoppedAge, 10),
-      };
-    }
-
-    if (formData.havingPeriods === periodValues.PREGNANT) {
-      infos = {
-        ...infos,
+      }),
+      ...(formData.havingPeriods === periodValues.PREGNANT && {
         pregnant_weeks: parseInt(formData.weeksPregnant, 10),
-      };
-    }
-
-    return infos;
+      }),
+    };
   };
 
   render() {

@@ -184,7 +184,11 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     }
 
     if (this.state.needPeriodStatusAnswer) {
-      infos = PeriodQuestion.createPeriodDoc(infos, formData);
+      const periodDoc = PeriodQuestion.createPeriodDoc(formData);
+      infos = {
+        ...infos,
+        ...periodDoc,
+      };
     }
 
     if (this.state.needHormoneTreatmentAnswer) {
