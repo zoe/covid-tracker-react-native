@@ -305,7 +305,7 @@
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
 
-    "question-date-test-occurred-guess": "When was your test (roughly)?",
+    "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
     "picker-less-than-7-days-ago": "Less than 7 days ago",
     "picker-over-1-week-ago": "Over 1 week ago",
     "picker-over-2-week-ago": "Over 2 weeks ago",
@@ -313,6 +313,7 @@
     "picker-over-1-month-ago": "Over 1 month ago",
 
     "required-date": "Please indicate the date this test occurred",
+    "required-dates": "Please indicate between which two date this test occurred",
     "required-mechanism": "Please indicate how the test was performed",
     "required-result": "Please indicate the result of the test"
   },

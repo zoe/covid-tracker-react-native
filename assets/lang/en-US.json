@@ -17,6 +17,10 @@
     "picker-location-back-from-hospital-already-reported": "I am back from the clinic or hospital, I've already told you about my treatment."
   },
 
+  "your-health": {
+    "checkbox-oestrogen-hormone-therapy": "Estrogen hormone therapy for gender transitioning"
+  },
+
   "describe-symptoms": {
     "question-has-diarrhoea": "Are you experiencing diarrhea?"
   },

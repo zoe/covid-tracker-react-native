@@ -46,24 +46,6 @@ type TreatmentCheckBoxData = {
   value: string;
 };
 
-const HormoneTreatmentCheckboxes = [
-  { label: i18n.t('your-health.checkbox-hormone-treatment-none'), value: treatmentValues.NONE },
-  { label: i18n.t('your-health.checkbox-oral-contraceptive-pill'), value: treatmentValues.ORAL_CONTRACEPTIVE_PILL },
-  { label: i18n.t('your-health.checkbox-progesterone-only-pill'), value: treatmentValues.PROGESTERONE_ONLY_PILL },
-  { label: i18n.t('your-health.checkbox-mirena-or-other-coil'), value: treatmentValues.MIRENA_OR_OTHER_COIL },
-  {
-    label: i18n.t('your-health.checkbox-depot-injection-or-implant'),
-    value: treatmentValues.DEPOT_INJECTION_OR_IMPLANT,
-  },
-  { label: i18n.t('your-health.checkbox-hormone-treatment-therapy'), value: treatmentValues.HORMONE_TREATMENT_THERAPY },
-  { label: i18n.t('your-health.checkbox-oestrogen-hormone-therapy'), value: treatmentValues.OESTROGEN_HORMONE_THERAPY },
-  {
-    label: i18n.t('your-health.checkbox-testosterone-hormone-therapy'),
-    value: treatmentValues.TESTOSTERONE_HORMONE_THERAPY,
-  },
-  { label: i18n.t('your-health.checkbox-hormone-treatment-pfnts'), value: treatmentValues.PREFER_NOT_TO_SAY },
-];
-
 const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikProps<HormoneTreatmentData>) => {
   return data.map((checkBoxData) => {
     return (
@@ -113,13 +95,39 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
     return treatments;
   };
 
+  HormoneTreatmentCheckboxes = [
+    { label: i18n.t('your-health.checkbox-hormone-treatment-none'), value: treatmentValues.NONE },
+    { label: i18n.t('your-health.checkbox-oral-contraceptive-pill'), value: treatmentValues.ORAL_CONTRACEPTIVE_PILL },
+    { label: i18n.t('your-health.checkbox-progesterone-only-pill'), value: treatmentValues.PROGESTERONE_ONLY_PILL },
+    { label: i18n.t('your-health.checkbox-mirena-or-other-coil'), value: treatmentValues.MIRENA_OR_OTHER_COIL },
+    {
+      label: i18n.t('your-health.checkbox-depot-injection-or-implant'),
+      value: treatmentValues.DEPOT_INJECTION_OR_IMPLANT,
+    },
+    {
+      label: i18n.t('your-health.checkbox-hormone-treatment-therapy'),
+      value: treatmentValues.HORMONE_TREATMENT_THERAPY,
+    },
+    {
+      label: i18n.t('your-health.checkbox-oestrogen-hormone-therapy'),
+      value: treatmentValues.OESTROGEN_HORMONE_THERAPY,
+    },
+    {
+      label: i18n.t('your-health.checkbox-testosterone-hormone-therapy'),
+      value: treatmentValues.TESTOSTERONE_HORMONE_THERAPY,
+    },
+    { label: i18n.t('your-health.checkbox-hormone-treatment-pfnts'), value: treatmentValues.PREFER_NOT_TO_SAY },
+  ];
+
   render() {
     const formikProps = this.props.formikProps;
     return (
       <FieldWrapper>
         <Item stackedLabel style={styles.textItemStyle}>
           <Label>{i18n.t('your-health.label-taking-hormone-treatment')}</Label>
-          <CheckboxList>{createTreatmentCheckboxes(HormoneTreatmentCheckboxes, this.props.formikProps)}</CheckboxList>
+          <CheckboxList>
+            {createTreatmentCheckboxes(this.HormoneTreatmentCheckboxes, this.props.formikProps)}
+          </CheckboxList>
         </Item>
         {!!formikProps.errors.hormoneTreatment && (
           <ValidationError error={formikProps.errors.hormoneTreatment as string} />
