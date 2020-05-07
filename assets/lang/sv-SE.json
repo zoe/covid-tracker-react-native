@@ -280,16 +280,6 @@
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
     "required-result": "Ange testresultatet",
-
-    "add-new-test": "Lägg till nytt test",
-    "your-covid-tests": "Dina covid-19-tester",
-    "positive": "Positivt",
-    "negative": "Negativt",
-    "failed": "Misslyckades",
-    "pending": "Väntar",
-    "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
-    "never-had-test" : "Jag har aldrig testats för covid-19",
-    "above-list-correct": "Listan ovan är korrekt"
   },
 
   "how-you-feel": {
@@ -519,5 +509,15 @@
   "share-with-friends-url": "https://covid19app.lu.se/",
 
   "back-date-profile-title": "Några fler frågor om dig",
-  "update-profile": "Uppdatera profilen"
+  "update-profile": "Uppdatera profilen",
+
+  "add-new-test": "Lägg till nytt test",
+  "your-covid-tests": "Dina covid-19-tester",
+  "positive": "Positivt",
+  "negative": "Negativt",
+  "failed": "Misslyckades",
+  "pending": "Väntar",
+  "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
+  "never-had-test" : "Jag har aldrig testats för covid-19",
+  "above-list-correct": "Listan ovan är korrekt"
 }
