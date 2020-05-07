@@ -18,14 +18,16 @@ const periodFrequencyValues = {
   IRREGULAR: 'irregular',
 };
 
-const periodFrequencyItems = [
-  { label: i18n.t('your-health.picker-period-frequency-regular'), value: periodFrequencyValues.REGULAR },
-  { label: i18n.t('your-health.picker-period-frequency-less-frequent'), value: periodFrequencyValues.LESS_FREQUENT },
-  { label: i18n.t('your-health.picker-period-frequency-irregular'), value: periodFrequencyValues.IRREGULAR },
-];
-
 export class PeriodFrequencyQuestion extends Component<Props, object> {
   render() {
+    const periodFrequencyItems = [
+      { label: i18n.t('your-health.picker-period-frequency-regular'), value: periodFrequencyValues.REGULAR },
+      {
+        label: i18n.t('your-health.picker-period-frequency-less-frequent'),
+        value: periodFrequencyValues.LESS_FREQUENT,
+      },
+      { label: i18n.t('your-health.picker-period-frequency-irregular'), value: periodFrequencyValues.IRREGULAR },
+    ];
     const formikProps = this.props.formikProps;
     return (
       <DropdownField

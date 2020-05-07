@@ -26,14 +26,6 @@ export const periodValues = {
   PFNTS: 'pfnts',
 };
 
-const periodItems = [
-  { label: i18n.t('your-health.picker-never-had-periods'), value: periodValues.NEVER },
-  { label: i18n.t('your-health.picker-currently-having-periods'), value: periodValues.CURRENTLY },
-  { label: i18n.t('your-health.picker-stopped-having-periods'), value: periodValues.STOPPED },
-  { label: i18n.t('your-health.picker-pregnant'), value: periodValues.PREGNANT },
-  { label: i18n.t('your-health.picker-pfnts'), value: periodValues.PFNTS },
-];
-
 export class PeriodQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
@@ -61,6 +53,14 @@ export class PeriodQuestion extends Component<Props, object> {
 
   render() {
     const formikProps = this.props.formikProps;
+    const periodItems = [
+      { label: i18n.t('your-health.picker-never-had-periods'), value: periodValues.NEVER },
+      { label: i18n.t('your-health.picker-currently-having-periods'), value: periodValues.CURRENTLY },
+      { label: i18n.t('your-health.picker-stopped-having-periods'), value: periodValues.STOPPED },
+      { label: i18n.t('your-health.picker-pregnant'), value: periodValues.PREGNANT },
+      { label: i18n.t('your-health.picker-pfnts'), value: periodValues.PFNTS },
+    ];
+
     return (
       <>
         <DropdownField
