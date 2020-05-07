@@ -66,6 +66,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
   handleUSAgreeClicked = async () => {
     if (this.state.processingChecked && this.state.termsOfUseChecked) {
       await this.userService.setConsentSigned('US', consentVersionUS, privacyPolicyVersionUS);
+      UserService.countryConfig.enablePersonalInformation = false;
       this.props.navigation.navigate('Register');
     }
   };
