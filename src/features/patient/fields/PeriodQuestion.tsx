@@ -23,6 +23,7 @@ export const periodValues = {
   CURRENTLY: 'currently',
   STOPPED: 'stopped',
   PREGNANT: 'pregnant',
+  NOT_CURRENTLY: 'not_currently',
   PFNTS: 'pfnts',
 };
 
@@ -56,6 +57,7 @@ export class PeriodQuestion extends Component<Props, object> {
     { label: i18n.t('your-health.picker-currently-having-periods'), value: periodValues.CURRENTLY },
     { label: i18n.t('your-health.picker-stopped-having-periods'), value: periodValues.STOPPED },
     { label: i18n.t('your-health.picker-pregnant'), value: periodValues.PREGNANT },
+    { label: i18n.t('your-health.picker-not-currently-having-periods'), value: periodValues.NOT_CURRENTLY },
     { label: i18n.t('your-health.picker-pfnts'), value: periodValues.PFNTS },
   ];
 

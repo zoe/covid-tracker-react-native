@@ -132,6 +132,7 @@
     "picker-currently-having-periods": "Jag har menstruationer (oavsett regelbundenhet)",
     "picker-stopped-having-periods": "Jag har inga menstruationer längre",
     "picker-pregnant": "Jag är gravid",
+    "picker-not-currently-having-periods": "Min mens har inte kommit tillbaka ännu",
     "picker-pfnts": "Vill ej uppge",
     "please-select-periods": "Välj ett alternativ",
     "period-frequency": "Hur ofta menstruerar du vanligen?",
@@ -279,7 +280,7 @@
     "required-date": "Ange datum när testet utfördes",
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
-    "required-result": "Ange testresultatet",
+    "required-result": "Ange testresultatet"
   },
 
   "how-you-feel": {
