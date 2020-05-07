@@ -58,7 +58,7 @@
   },
 
   "welcome": {
-    "title": "COVID Symptom Tracker",
+    "title": "COVID Symptom Study",
     "sign-in": "Sign in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
@@ -299,7 +299,7 @@
     "question-result": "Did you test positive for COVID-19?",
 
     "picker-waiting": "Waiting for results",
-    "picker-test-failed": "Test failed",
+    "picker-test-failed": "Not clear/Test Failed",
     "picker-never-had-test": "Never had test",
 
     "question-knows-date-of-test": "Do you know the date of your test?",
