@@ -6,6 +6,7 @@ import i18n from '../../../locale/i18n';
 import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';
 import { WeeksPregnant, WeeksPregnantData } from './WeeksPregnant';
+import { TreatmentValue } from './HormoneTreatmentQuestion';
 
 export interface PeriodData {
   havingPeriods: string;
@@ -38,7 +39,40 @@ export class PeriodQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
       havingPeriods: '',
+      weeksPregnant: '',
+      periodFrequency: '',
+      periodStoppedAge: '',
     };
+  };
+
+  static createPeriodDoc = (infos: object, formData: any) => {
+    infos = {
+      ...infos,
+      period_status: formData.havingPeriods,
+    };
+
+    if (formData.havingPeriods === periodValues.CURRENTLY) {
+      infos = {
+        ...infos,
+        period_frequency: formData.periodFrequency,
+      };
+    }
+
+    if (formData.havingPeriods === periodValues.STOPPED) {
+      infos = {
+        ...infos,
+        period_stopped_age: parseInt(formData.periodStoppedAge, 10),
+      };
+    }
+
+    if (formData.havingPeriods === periodValues.PREGNANT) {
+      infos = {
+        ...infos,
+        pregnant_weeks: parseInt(formData.weeksPregnant, 10),
+      };
+    }
+
+    return infos;
   };
 
   render() {

@@ -16,12 +16,6 @@ interface Props {
 }
 
 export class PeriodStoppedAge extends Component<Props, object> {
-  static initialFormValues = () => {
-    return {
-      periodStoppedAge: '',
-    };
-  };
-
   render() {
     const formikProps = this.props.formikProps;
     return (

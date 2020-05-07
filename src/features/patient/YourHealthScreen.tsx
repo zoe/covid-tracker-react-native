@@ -20,9 +20,6 @@ import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
-import { PeriodFrequencyQuestion } from './fields/PeriodFrequencyQuestion';
-import { WeeksPregnant } from './fields/WeeksPregnant';
-import { PeriodStoppedAge } from './fields/PeriodStoppedAge';
 
 export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
   isPregnant: string;
@@ -239,31 +236,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }
 
     if (this.state.showPeriodQuestion) {
-      infos = {
-        ...infos,
-        period_status: formData.havingPeriods,
-      };
-
-      if (formData.havingPeriods === periodValues.CURRENTLY) {
-        infos = {
-          ...infos,
-          period_frequency: formData.periodFrequency,
-        };
-      }
-
-      if (formData.havingPeriods === periodValues.STOPPED) {
-        infos = {
-          ...infos,
-          period_stopped_age: parseInt(formData.periodStoppedAge, 10),
-        };
-      }
-
-      if (formData.havingPeriods === periodValues.PREGNANT) {
-        infos = {
-          ...infos,
-          pregnant_weeks: parseInt(formData.weeksPregnant, 10),
-        };
-      }
+      infos = PeriodQuestion.createPeriodDoc(infos, formData);
     }
 
     if (this.state.showHormoneTherapyQuestion && formData.hormoneTreatment.length) {
@@ -299,9 +272,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...initialFormValues,
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...PeriodQuestion.initialFormValues(),
-            ...PeriodFrequencyQuestion.initialFormValues(),
-            ...PeriodStoppedAge.initialFormValues(),
-            ...WeeksPregnant.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}

@@ -25,12 +25,6 @@ const periodFrequencyItems = [
 ];
 
 export class PeriodFrequencyQuestion extends Component<Props, object> {
-  static initialFormValues = () => {
-    return {
-      periodFrequency: '',
-    };
-  };
-
   render() {
     const formikProps = this.props.formikProps;
     return (

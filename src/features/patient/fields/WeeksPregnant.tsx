@@ -16,12 +16,6 @@ interface Props {
 }
 
 export class WeeksPregnant extends Component<Props, object> {
-  static initialFormValues = () => {
-    return {
-      weeksPregnant: '',
-    };
-  };
-
   render() {
     const formikProps = this.props.formikProps;
     return (

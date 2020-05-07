@@ -21,8 +21,6 @@ import {
 } from '../patient/fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
-import { PeriodStoppedAge } from '../patient/fields/PeriodStoppedAge';
-import { WeeksPregnant } from '../patient/fields/WeeksPregnant';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
@@ -186,31 +184,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     }
 
     if (this.state.needPeriodStatusAnswer) {
-      infos = {
-        ...infos,
-        period_status: formData.havingPeriods,
-      };
-
-      if (formData.havingPeriods === periodValues.CURRENTLY) {
-        infos = {
-          ...infos,
-          period_frequency: formData.periodFrequency,
-        };
-      }
-
-      if (formData.havingPeriods === periodValues.STOPPED) {
-        infos = {
-          ...infos,
-          period_stopped_age: parseInt(formData.periodStoppedAge, 10),
-        };
-      }
-
-      if (formData.havingPeriods === periodValues.PREGNANT) {
-        infos = {
-          ...infos,
-          pregnant_weeks: parseInt(formData.weeksPregnant, 10),
-        };
-      }
+      infos = PeriodQuestion.createPeriodDoc(infos, formData);
     }
 
     if (this.state.needHormoneTreatmentAnswer) {
@@ -243,8 +217,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
             ...PeriodQuestion.initialFormValues(),
-            ...PeriodStoppedAge.initialFormValues(),
-            ...WeeksPregnant.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackfillData) => {

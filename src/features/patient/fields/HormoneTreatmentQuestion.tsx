@@ -91,8 +91,6 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
 export class HormoneTreatmentQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
-      havingPeriods: '',
-      periodFrequency: '',
       hormoneTreatment: [] as string[],
     };
   };
