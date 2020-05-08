@@ -111,7 +111,6 @@
   "picker-yes": "Ja",
   "picker-no": "Nej",
   "placeholder-optional-question": "*Optional",
-  "placeholder-optional": "Valfri",
 
   "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
@@ -133,7 +132,7 @@
     "picker-currently-having-periods": "Jag har menstruationer (oavsett regelbundenhet)",
     "picker-stopped-having-periods": "Jag har inga menstruationer längre",
     "picker-pregnant": "Jag är gravid",
-    "picker-not-currently-having-periods": "Min mens har inte kommit tillbaka ännu",
+    "picker-not-currently-having-periods": "Jag menstruerar för närvarande inte",
     "picker-pfnts": "Vill ej uppge",
     "picker-other": "Annat",
     "please-select-periods": "Välj ett alternativ",
