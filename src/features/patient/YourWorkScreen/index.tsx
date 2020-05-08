@@ -128,13 +128,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   render() {
     const currentPatient = this.props.route.params.currentPatient;
 
-    const androidOption = isAndroid && {
-      label: i18n.t('choose-one-of-these-options'),
-      value: '',
-    };
-
     const healthcareStaffOptions = [
-      androidOption,
       {
         label: i18n.t('picker-no'),
         value: HealthCareStaffOptions.NO,
@@ -147,10 +141,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         label: i18n.t('yes-not-interacting-patients'),
         value: HealthCareStaffOptions.DOES_NOT_INTERACT,
       },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const equipmentUsageOptions = [
-      androidOption,
       {
         label: i18n.t('health-worker-exposure-picker-ppe-always'),
         value: EquipmentUsageOptions.ALWAYS,
@@ -163,10 +156,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         label: i18n.t('health-worker-exposure-picker-ppe-never'),
         value: EquipmentUsageOptions.NEVER,
       },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const availabilityAlwaysOptions = [
-      androidOption,
       {
         label: i18n.t('health-worker-exposure-picker-ppe-always-all-needed'),
         value: AvailabilityAlwaysOptions.ALL_NEEDED,
@@ -175,10 +167,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         label: i18n.t('health-worker-exposure-picker-ppe-always-reused'),
         value: AvailabilityAlwaysOptions.REUSED,
       },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const availabilitySometimesOptions = [
-      androidOption,
       {
         label: i18n.t('health-worker-exposure-picker-ppe-sometimes-all-needed'),
         value: AvailabilitySometimesOptions.ALL_NEEDED,
@@ -191,10 +182,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         label: i18n.t('health-worker-exposure-picker-ppe-sometimes-reused'),
         value: AvailabilitySometimesOptions.REUSED,
       },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const availabilityNeverOptions = [
-      androidOption,
       {
         label: i18n.t('health-worker-exposure-picker-ppe-never-not-needed'),
         value: AvailabilityNeverOptions.NOT_NEEDED,
@@ -203,10 +193,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         label: i18n.t('health-worker-exposure-picker-ppe-never-not-available'),
         value: AvailabilityNeverOptions.NOT_AVAILABLE,
       },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const patientInteractionOptions = [
-      androidOption,
       {
         label: i18n.t('exposed-yes-documented'),
         value: PatientInteractions.YES_DOCUMENTED,
@@ -220,7 +209,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
         value: PatientInteractions.YES_DOCUMENTED_SUSPECTED,
       },
       { label: i18n.t('exposed-no'), value: PatientInteractions.NO },
-    ].filter(Boolean) as IOption[];
+    ];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

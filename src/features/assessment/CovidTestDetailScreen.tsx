@@ -181,27 +181,20 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       knowsDateOfTest: Yup.string().required(),
     });
 
-    const androidOption = isAndroid && {
-      label: i18n.t('choose-one-of-these-options'),
-      value: '',
-    };
-
     const mechanismItems = [
-      androidOption,
       { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
       { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
       { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
       { label: i18n.t('covid-test.picker-other'), value: 'other' },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const resultItems = [
-      androidOption,
       { label: i18n.t('picker-no'), value: 'negative' },
       { label: i18n.t('picker-yes'), value: 'positive' },
       { label: i18n.t('covid-test.picker-test-failed'), value: 'failed' },
       { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
-    ].filter(Boolean) as IOption[];
+    ];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -307,7 +300,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
 
                 <BrandedButton onPress={props.handleSubmit}>
                   <Text>{i18n.t(testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>

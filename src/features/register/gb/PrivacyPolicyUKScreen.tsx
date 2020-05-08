@@ -190,6 +190,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             King’s College London{'\n'}
             Guys & St Thomas' Hospitals{'\n'}
             NHS{'\n'}
+            Swansea University (SAIL Databank){'\n'}
             Harvard University{'\n'}
             Stanford University{'\n'}
             Massachusetts General Hospital{'\n'}
