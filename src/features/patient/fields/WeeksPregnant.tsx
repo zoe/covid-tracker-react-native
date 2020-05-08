@@ -27,6 +27,7 @@ export class WeeksPregnant extends Component<Props, object> {
           }}>
           <Label>{i18n.t('your-health.weeks-pregnant')}</Label>
           <ValidatedTextInput
+            placeholder={i18n.t('placeholder-optional')}
             value={formikProps.values.weeksPregnant}
             onChangeText={formikProps.handleChange('weeksPregnant')}
             onBlur={formikProps.handleBlur('weeksPregnant')}

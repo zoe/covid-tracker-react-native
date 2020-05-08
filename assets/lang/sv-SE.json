@@ -111,6 +111,7 @@
   "picker-yes": "Ja",
   "picker-no": "Nej",
   "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Valfri",
 
   "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",

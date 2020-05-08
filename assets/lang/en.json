@@ -197,6 +197,7 @@
   "picker-yes": "Yes",
   "picker-no": "No",
   "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Optional",
 
   "previous-exposure-title": "Previous exposure to COVID",
   "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
