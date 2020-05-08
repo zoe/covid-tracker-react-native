@@ -100,10 +100,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     periodStoppedAge: Yup.number().when('havingPeriods', {
       is: periodValues.STOPPED,
       then: Yup.number()
-        .typeError(i18n.t('correct-period-stopped-age'))
-        .required(i18n.t('required-period-stopped-age'))
-        .min(0, i18n.t('correct-period-stopped-age'))
-        .max(100, i18n.t('correct-period-stopped-age')),
+        .typeError(i18n.t('your-health.correct-period-stopped-age'))
+        .required(i18n.t('your-health.required-period-stopped-age'))
+        .min(0, i18n.t('your-health.correct-period-stopped-age'))
+        .max(100, i18n.t('your-health.correct-period-stopped-age')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.needHormoneTreatmentAnswer,
