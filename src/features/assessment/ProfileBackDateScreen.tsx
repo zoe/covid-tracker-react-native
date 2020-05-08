@@ -93,7 +93,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       is: periodValues.PREGNANT,
       then: Yup.number()
         .typeError(i18n.t('your-health.correct-weeks-pregnant'))
-        .required(i18n.t('your-health.required-weeks-pregnant'))
         .min(0, i18n.t('your-health.correct-weeks-pregnant'))
         .max(50, i18n.t('your-health.correct-weeks-pregnant')),
     }),
@@ -101,7 +100,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       is: periodValues.STOPPED,
       then: Yup.number()
         .typeError(i18n.t('your-health.correct-period-stopped-age'))
-        .required(i18n.t('your-health.required-period-stopped-age'))
         .min(0, i18n.t('your-health.correct-period-stopped-age'))
         .max(100, i18n.t('your-health.correct-period-stopped-age')),
     }),
