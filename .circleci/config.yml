@@ -169,7 +169,7 @@ workflows:
           requires:
             - wait_for_approval
 
-  leagacy_ota_release:
+  legacy_ota_release:
     jobs:
       - build_and_test:
           filters: *legacy_ota_filter
