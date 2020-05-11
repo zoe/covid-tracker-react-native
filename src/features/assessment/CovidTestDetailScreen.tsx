@@ -54,7 +54,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const dateTakenBetweenEnd = updatingTest?.date_taken_between_end;
     const initialState: State = {
       errorMessage: '',
-      dateTakenSpecific: dateTakenSpecific && !dateTakenBetweenStart ? moment(dateTakenSpecific).toDate() : undefined,
+      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : undefined,
       today: now,
       showDatePicker: !!dateTakenSpecific,
       showRangePicker: !dateTakenSpecific,
