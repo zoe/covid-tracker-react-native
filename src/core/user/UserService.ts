@@ -337,11 +337,11 @@ export default class UserService extends ApiClientBase {
   async setUserCountry(countryCode: string) {
     UserService.userCountry = countryCode;
     UserService.setLocaleFromCountry(countryCode);
-    this.initCountry(countryCode);
+    this.initCountryConfig(countryCode);
     await AsyncStorageService.setUserCountry(countryCode);
   }
 
-  initCountry(countryCode: string) {
+  initCountryConfig(countryCode: string) {
     UserService.countryConfig = getCountryConfig(countryCode);
   }
 
