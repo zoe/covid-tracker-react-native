@@ -5,14 +5,21 @@ platform :ios do
   desc "iOS Dev Channel (AppCenter)"
   lane :dev do |options|
     appcenter_upload(
+      api_token: options[:app_token],
+      owner_name: "Joinzoe",
+      owner_type: "organization",
       app_name: options[:app_name],
       file: Dir.pwd + "/app.ipa",
       notify_testers: true,
     )
   end
 
-  desc "TODO: iOS Stage Channel (AppCenter/TestFlight)"
+  desc "iOS Stage Channel (TestFlight)"
   lane :stage do
+    upload_to_testflight(
+      username: ENV["ITUNES_CONNECT_USER"],
+      ipa: Dir.pwd + "/app.ipa",
+    )
   end
 
   desc "TODO: iOS Production Channel (App Store)"
@@ -25,14 +32,25 @@ platform :android do
   desc "Android Dev Channel (AppCenter)"
   lane :dev do |options|
     appcenter_upload(
+      api_token: options[:app_token],
+      owner_name: "Joinzoe",
+      owner_type: "organization",
       app_name: options[:app_name],
-      file: Dir.pwd + "/app.apk",
+      file: Dir.pwd + "/app.aab",
       notify_testers: true,
     )
   end
 
-  desc "TODO: Android Stage Channel (AppCenter/Play Store Beta)"
+  desc "Android Stage Channel (Play Store Beta)"
   lane :stage do
+    upload_to_play_store(
+      track: "beta",
+      aab: Dir.pwd + "/app.aab",
+      json_key: Dir.pwd + "/playstore.json",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
   end
 
   desc "TODO: Android Production Channel (Play Store)"
