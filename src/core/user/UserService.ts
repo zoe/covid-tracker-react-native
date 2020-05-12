@@ -91,7 +91,7 @@ export interface IDontKnowService {
 
 export default class UserService extends ApiClientBase
   implements
-    IUserService,   // TODO: ideally a UserService should only implement this, everything else is a separate service
+    IUserService, // TODO: ideally a UserService should only implement this, everything else is a separate service
     IProfileService,
     IConsentService,
     IPatientService,
