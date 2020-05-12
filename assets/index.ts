@@ -9,6 +9,7 @@ export const gbMap = require('./gbMap.png');
 export const closeIcon = require('./icons/close.png');
 export const chevronRight = require('./icons/chevron-right.png');
 export const pending = require('./icons/pending.png');
+export const arrowDown = require('./icons/arrow-down.png');
 
 // Flags
 export const svFlag = require('./icons/sv-flag.png');

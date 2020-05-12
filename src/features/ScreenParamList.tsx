@@ -15,6 +15,9 @@ export type ScreenParamList = {
   Welcome2: undefined;
   WelcomeRepeat: { patientId: string };
 
+  // Report
+  ReportOverview: undefined;
+
   // Terms & consent screens
   Consent: { viewOnly: boolean };
   PrivacyPolicyUK: { viewOnly: boolean };

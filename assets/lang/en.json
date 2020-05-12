@@ -250,7 +250,7 @@
     "required-weeks-pregnant": "Please correct how many weeks pregnant you are",
     "correct-period-stopped-age": "Please enter your age when you periods stopped",
     "required-period-stopped-age": "Please correct your age when you periods stopped",
-    "label-taking-hormone-treatment" : "Are you taking any of the following forms of hormone treatment?",
+    "label-taking-hormone-treatment": "Are you taking any of the following forms of hormone treatment?",
     "checkbox-hormone-treatment-none": "No",
     "checkbox-oral-contraceptive-pill": "Combined oral contraceptive pill",
     "checkbox-progesterone-only-pill": "Progesterone only pill",
@@ -571,5 +571,24 @@
   "pending": "Pending",
   "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. You can edit these at any time in the future.",
   "never-had-test": "I have never had a COVID test",
-  "above-list-correct": "The above list is correct"
+  "above-list-correct": "The above list is correct",
+
+  "fetch-report-overview-error": {
+    "title": "Error",
+    "message": "There was a problem while fetching report information",
+    "primary-action-title": "OK",
+    "secondary-action-title": "Cancel"
+  },
+
+  "menu": {
+    "drawer": {
+      "report": "Report symptoms"
+    }
+  },
+
+  "user-report-overview-card": {
+    "symptoms-reported": "Symptoms reported",
+    "last-reported": "Last reported",
+    "cta": "Report now"
+  }
 }

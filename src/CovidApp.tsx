@@ -50,6 +50,7 @@ import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
+import { ReportOverviewScreen } from './features/report/ReportOveviewScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -102,6 +103,11 @@ export default class ZoeApp extends Component<object, State> {
         <Stack.Screen name="Welcome2" component={Welcome2Screen} options={{ headerShown: false }} />
         <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Consent" component={ConsentScreen} options={{ headerShown: true, title: 'Consent' }} />
+        <Stack.Screen
+          name="ReportOverview"
+          component={ReportOverviewScreen}
+          options={{ headerShown: false, title: 'Contributing' }}
+        />
         <Stack.Screen
           name="TermsOfUseUS"
           component={TermsOfUseUSScreen}

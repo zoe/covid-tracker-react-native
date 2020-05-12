@@ -54,11 +54,17 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <TouchableOpacity
           style={styles.iconNameRow}
           onPress={() => {
+            props.navigation.navigate('ReportOverview');
+          }}>
+          <HeaderText>{i18n.t('menu.drawer.report')}</HeaderText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.iconNameRow}
+          onPress={() => {
             Linking.openURL(i18n.t('blog-link'));
           }}>
           <HeaderText>{i18n.t('research-updates')}</HeaderText>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.iconNameRow}
           onPress={() => {

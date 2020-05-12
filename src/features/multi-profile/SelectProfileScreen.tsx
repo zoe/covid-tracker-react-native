@@ -21,7 +21,7 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
 
-type Patient = {
+export type Patient = {
   id: string;
   name?: string;
   avatar_name?: string;
