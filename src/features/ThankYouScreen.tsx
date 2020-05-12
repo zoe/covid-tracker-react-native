@@ -11,7 +11,6 @@ import { CovidRating, shouldAskForRating } from '../components/CovidRating';
 import ProgressStatus from '../components/ProgressStatus';
 import { Header, isAndroid, ProgressBlock } from '../components/Screen';
 import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '../components/Text';
-import UserService from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 
@@ -31,7 +30,7 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
   shareApp = async () => {
     const message = this.shareMessage + (isAndroid ? ' ' + this.shareUrl : ''); // On Android add link to end of message
     try {
-      const result = await Share.share({
+      await Share.share({
         message,
         url: this.shareUrl, // IOS has separate field for URL
       });
@@ -105,13 +104,11 @@ const styles = StyleSheet.create({
     marginVertical: 32,
     marginHorizontal: 18,
   },
-
   scrollView: {
     flexGrow: 1,
     backgroundColor: colors.backgroundSecondary,
     justifyContent: 'space-between',
   },
-
   rootContainer: {
     padding: 10,
   },
@@ -124,7 +121,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
-
   newsFeed: {
     paddingVertical: 20,
     paddingHorizontal: 40,
@@ -143,7 +139,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.secondary,
   },
-
   shareButton: {
     marginVertical: 20,
     marginHorizontal: 30,
