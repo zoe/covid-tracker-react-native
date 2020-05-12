@@ -1,8 +1,8 @@
+import { Badge } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 import { colors } from '../../theme';
-import { Badge } from 'native-base';
 
 type BadgeProps = {
   children: React.ReactNode;

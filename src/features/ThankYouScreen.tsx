@@ -2,17 +2,18 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+
 import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
+import Donate from '../components/Donate';
 import ProgressStatus from '../components/ProgressStatus';
 import { Header, ProgressBlock } from '../components/Screen';
+import ShareThisApp from '../components/ShareThisApp';
 import { ClickableText, HeaderText, RegularText } from '../components/Text';
+import VisitWebsite from '../components/VisitWebsite';
+import { isGBCountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
-import ShareThisApp from '../components/ShareThisApp';
-import Donate from '../components/Donate';
-import { isGBCountry } from '../core/user/UserService';
-import VisitWebsite from '../components/VisitWebsite';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
@@ -54,11 +55,11 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <>
                   <Donate />
                   <VisitWebsite />
-                  <ShareThisApp />
+                  <ShareThisApp ctaStyle="link" />
                 </>
               ) : (
                 <>
-                  <ShareThisApp />
+                  <ShareThisApp ctaStyle="button" />
                   <VisitWebsite />
                 </>
               )}
