@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, Share, StyleSheet, View } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
-import { covidIcon } from '../../assets';
+import { social } from '../../assets';
 import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
 import ProgressStatus from '../components/ProgressStatus';
@@ -65,8 +65,8 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
               </View>
 
               <View style={styles.shareContainer}>
-                <View style={styles.covidIconContainer}>
-                  <Image source={covidIcon} style={styles.covidIcon} />
+                <View style={styles.socialIconContainer}>
+                  <Image source={social} style={styles.socialIcon} />
                 </View>
                 <RegularBoldText style={styles.share}>{i18n.t('thank-you.please-share-app')}</RegularBoldText>
                 <RegularText style={styles.shareSubtitle}>{i18n.t('thank-you.share-text')}</RegularText>
@@ -148,17 +148,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginHorizontal: 30,
   },
-  covidIconContainer: {
-    height: 60,
-    width: 60,
+  socialIconContainer: {
     borderRadius: 10,
     margin: 30,
-    backgroundColor: colors.predict,
     alignSelf: 'center',
   },
-  covidIcon: {
-    height: 50,
-    width: 50,
+  socialIcon: {
+    height: 60,
     marginLeft: 5,
     marginTop: 5,
     resizeMode: 'contain',
