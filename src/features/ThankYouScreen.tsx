@@ -7,7 +7,7 @@ import {colors} from "../../theme"
 import {ScreenParamList} from "./ScreenParamList";
 import {RouteProp} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {covidIcon} from "../../assets";
+import {social} from "../../assets";
 import i18n from "../locale/i18n"
 import {Linking} from "expo";
 import { CovidRating, shouldAskForRating } from "../components/CovidRating";
@@ -62,8 +62,8 @@ export default class ThankYouScreen extends Component<RenderProps, {askForRating
                         </View>
 
                         <View style={styles.shareContainer}>
-                            <View style={styles.covidIconContainer}>
-                                <Image source={covidIcon} style={styles.covidIcon}/>
+                            <View style={styles.socialIconContainer}>
+                                <Image source={social} style={styles.socialIcon}/>
                             </View>
                             <RegularBoldText style={styles.share}>Please share this app</RegularBoldText>
                             <RegularText style={styles.shareSubtitle}>
@@ -139,17 +139,13 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         marginHorizontal: 30,
     },
-    covidIconContainer: {
-        height: 60,
-        width: 60,
+    socialIconContainer: {
         borderRadius: 10,
         margin: 30,
-        backgroundColor: colors.predict,
         alignSelf: "center"
     },
-    covidIcon: {
-        height: 50,
-        width: 50,
+    socialIcon: {
+        height: 60,
         marginLeft: 5,
         marginTop: 5,
         resizeMode: "contain"
