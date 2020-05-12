@@ -199,6 +199,7 @@ export type PatientInfosRequest = {
   ht_oestrogen_hormone_therapy: boolean;
   ht_testosterone_hormone_therapy: boolean;
   ht_pfnts: boolean;
+  ht_other: boolean;
 };
 
 export type AssessmentInfosRequest = {

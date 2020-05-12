@@ -111,6 +111,7 @@
   "picker-yes": "Ja",
   "picker-no": "Nej",
   "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Valfri",
 
   "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
@@ -132,7 +133,9 @@
     "picker-currently-having-periods": "Jag har menstruationer (oavsett regelbundenhet)",
     "picker-stopped-having-periods": "Jag har inga menstruationer längre",
     "picker-pregnant": "Jag är gravid",
+    "picker-not-currently-having-periods": "Jag menstruerar för närvarande inte",
     "picker-pfnts": "Vill ej uppge",
+    "picker-other": "Annat",
     "please-select-periods": "Välj ett alternativ",
     "period-frequency": "Hur ofta menstruerar du vanligen?",
     "picker-period-frequency-regular": "Regelbundet, var 3-6 vecka",
@@ -155,6 +158,7 @@
     "checkbox-oestrogen-hormone-therapy": "Östrogenbehandling pga könsdysfori",
     "checkbox-testosterone-hormone-therapy": "Testosteronbehandling",
     "checkbox-hormone-treatment-pfnts": "Vill ej uppge",
+    "checkbox-hormone-treatment-other": "Annat",
     "please-select-hormone-treatments": "Välj ett eller flera av alternativen ovan",
     "have-heart-disease": "Har du någon hjärtsjukdom?",
     "have-diabetes": "Har du diabetes?",
@@ -279,7 +283,7 @@
     "required-date": "Ange datum när testet utfördes",
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
-    "required-result": "Ange testresultatet",
+    "required-result": "Ange testresultatet"
   },
 
   "how-you-feel": {

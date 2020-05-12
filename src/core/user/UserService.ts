@@ -26,7 +26,7 @@ import {
 import { camelizeKeys } from './utils';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
@@ -203,7 +203,8 @@ export default class UserService extends ApiClientBase {
       !!patient.ht_hormone_treatment_therapy ||
       !!patient.ht_oestrogen_hormone_therapy ||
       !!patient.ht_testosterone_hormone_therapy ||
-      !!patient.ht_pfnts;
+      !!patient.ht_pfnts ||
+      !!patient.ht_other;
 
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
