@@ -24,6 +24,7 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
+import { handleServiceError } from '../ApiServiceErrors';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -409,9 +410,13 @@ export default class UserService extends ApiClientBase
   }
 
   async getStartupInfo() {
-    const response = await this.client.get<StartupInfo>('/users/startup_info/');
-    UserService.ipCountry = response.data.ip_country;
-    await AsyncStorageService.setUserCount(response.data.users_count.toString());
+    try {
+      const response = await this.client.get<StartupInfo>('/users/startup_info/');
+      UserService.ipCountry = response.data.ip_country;
+      await AsyncStorageService.setUserCount(response.data.users_count.toString());
+    } catch (error) {
+      handleServiceError(error);
+    }
   }
 
   async setUserCountry(countryCode: string) {

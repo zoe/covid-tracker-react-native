@@ -53,18 +53,19 @@ import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
 import OfflineService from './core/offline/OfflineService';
 import { OfflineNotice } from './components/OfflineNotice';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { offlineService } from './Services';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
 
 class State {
-  fontLoaded: boolean;
+  isLoaded: boolean;
   isOnline: boolean;
   isApiOnline: boolean;
 }
 
 const initialState = {
-  fontLoaded: false,
+  isLoaded: false,
   isOnline: true,
   isApiOnline: true,
 };
@@ -81,18 +82,17 @@ export default class CovidApp extends Component<object, State> {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
 
-    const offlineService = new OfflineService();
     await offlineService.checkStatus();
     console.log(`[OFFLINE] isOnline: ${offlineService.isOnline}, isApiOnline: ${offlineService.isApiOnline}`);
     this.setState({ isOnline: offlineService.isOnline, isApiOnline: offlineService.isApiOnline });
     // offlineService
     //   .on('status.online', (value: boolean) => this.setState({isOnline: value}))
     //   .on('status.apiOnline', (value: boolean) => this.setState({isOnline: value}));
-    this.setState({ fontLoaded: true });
+    this.setState({ isLoaded: true });
   }
 
   render() {
-    if (!this.state.fontLoaded) return <View />;
+    if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
 
     return (
       <SafeAreaProvider>

@@ -36,18 +36,24 @@ export default class OfflineService implements IOfflineService {
   lastUpdated: string;
   lastChecked: string;
 
-  private updateOnlineStatus = (newStatus: boolean, updateTime: string) => {
+  updateOnlineStatus = (newStatus: boolean, updateTime: string | null = null) => {
     if (this.isOnline !== newStatus) {
+      // console.log('[STATUS] isOnline:', this.isApiOnline, '->', newStatus);
       this.isOnline = newStatus;
-      this.lastUpdated = updateTime;
+      if (updateTime) {
+        this.lastUpdated = updateTime;
+      }
       // TODO: triggerEvent(EVENT_STATUS_ONLINE, newStatus)
     }
   };
 
-  private updateApiOnlineStatus = (newStatus: boolean, updateTime: string) => {
+  updateApiOnlineStatus = (newStatus: boolean, updateTime: string | null = null) => {
     if (this.isApiOnline !== newStatus) {
+      // console.log('[STATUS] isAPIOnline:', this.isApiOnline, '->', newStatus);
       this.isApiOnline = newStatus;
-      this.lastUpdated = updateTime;
+      if (updateTime) {
+        this.lastUpdated = updateTime;
+      }
       // TODO: triggerEvent(EVENT_STATUS_API_ONLINE, newStatus);
     }
   };

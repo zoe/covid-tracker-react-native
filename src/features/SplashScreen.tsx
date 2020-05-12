@@ -9,6 +9,9 @@ import UserService from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
+import Splash from '../components/Splash';
+import { offlineService } from '../Services';
+import { ApiException } from '../core/ApiServiceErrors';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {
@@ -22,13 +25,31 @@ type AuthenticatedUser = {
   userId: string;
 };
 
-export class SplashScreen extends Component<Props, object> {
+type SplashState = {
+  isOnline: boolean;
+  isApiOnline: boolean;
+  isLoaded: boolean;
+  status: string;
+};
+
+const initialState = {
+  isOnline: false,
+  isApiOnline: false,
+  isLoaded: false,
+  status: '',
+};
+
+export class SplashScreen extends Component<Props, SplashState> {
   private userService = new UserService();
 
   constructor(props: Props) {
     super(props);
+    this.state = {
+      ...initialState,
+      isOnline: offlineService.isOnline,
+      isApiOnline: offlineService.isApiOnline,
+    };
     this.initNavigator();
-    this.gotoWelcomeScreen();
   }
 
   private initNavigator = () => {
@@ -37,8 +58,19 @@ export class SplashScreen extends Component<Props, object> {
     Navigator.setNavigation(navigation as NavigationType);
   };
 
-  private gotoWelcomeScreen = async () => {
+  componentDidMount() {
+    this.setState({ status: 'Loading...' });
+    this.loadAppState();
+  }
+
+  private loadAppState = async () => {
     const patientId: string | null = await this.bootstrapAsync();
+    if (true || this.state.isLoaded) {
+      this.gotoWelcomeScreen(patientId);
+    }
+  };
+
+  private gotoWelcomeScreen = async (patientId: string | null) => {
     if (patientId) {
       Navigator.replaceScreen('WelcomeRepeat', { patientId });
     } else {
@@ -46,24 +78,35 @@ export class SplashScreen extends Component<Props, object> {
     }
   };
 
-  private handleBootstrapError = (error: Error) => {
+  showAlert(message: string) {
     Alert.alert(
       i18n.t('splash-error.title'),
-      i18n.t('splash-error.message') + ': ' + error.message,
+      i18n.t('splash-error.message') + ': ' + message,
       [
         {
           text: i18n.t('splash-error.secondary-action-title'),
           style: 'cancel',
         },
-        { text: i18n.t('splash-error.primary-action-title'), onPress: () => this.gotoWelcomeScreen() },
+        { text: i18n.t('splash-error.primary-action-title'), onPress: () => this.loadAppState() },
       ],
       { cancelable: false }
     );
+  }
+
+  private handleBootstrapError = (error: ApiException) => {
+    console.log('Caught an error', error.isRetryable);
+    if (error.isRetryable) {
+      console.log('Updating online status');
+      offlineService.updateApiOnlineStatus(false);
+    }
+
+    this.setState({ status: error.message });
+    this.showAlert(error.message);
   };
 
   private bootstrapAsync = async (): Promise<string | null> => {
     try {
-      this.updateUserCount();
+      await this.updateUserCount();
       const user = await this.loadUser();
       const hasUser = !user || (!!user.userToken && !!user.userId);
       this.updateUserCountry(hasUser);
@@ -98,9 +141,9 @@ export class SplashScreen extends Component<Props, object> {
       // GB users before selector was included.
       if (country === null) {
         await this.userService.setUserCountry('GB');
-      } else {
-        await this.userService.defaultCountryFromLocale();
       }
+    } else {
+      await this.userService.defaultCountryFromLocale();
     }
   };
 
@@ -123,7 +166,11 @@ export class SplashScreen extends Component<Props, object> {
   };
 
   public render() {
-    return <View style={styles.container} />;
+    return (
+      <View style={styles.container}>
+        <Splash status={this.state.status} />
+      </View>
+    );
   }
 }
 
