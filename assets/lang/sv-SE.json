@@ -421,11 +421,16 @@
   "sweden": "Sverige",
 
   "thank-you": {
-    "please-share-app": "Hjälp till att sprida appen",
-    "share-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
-    "btn-share": "Dela appen",
     "check-for-updates": "Håll gärna utkik efter uppdateringar i vårt %{link}.",
     "news-feed": "nyhetsflöde"
+  },
+
+  "share-this-app": {
+    "message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
+    "url": "https://covid19app.lu.se/",
+    "primary-text": "Hjälp till att sprida appen",
+    "secondary-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
+    "button-text": "Dela appen"
   },
 
   "thank-you-title": "Stort tack för din hjälp och ditt värdefulla bidrag till forskningen.",
@@ -509,8 +514,6 @@
   "validation-error-text-no-info": "Fyll i eller korrigera informationen ovan",
 
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
-  "share-with-friends-url": "https://covid19app.lu.se/",
 
   "back-date-profile-title": "Några fler frågor om dig",
   "update-profile": "Uppdatera profilen",

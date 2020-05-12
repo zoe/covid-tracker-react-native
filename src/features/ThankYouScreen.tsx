@@ -13,6 +13,7 @@ import { Header, isAndroid, ProgressBlock } from '../components/Screen';
 import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '../components/Text';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
+import ShareThisApp from '../components/ShareThisApp';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
@@ -22,19 +23,6 @@ type RenderProps = {
 export default class ThankYouScreen extends Component<RenderProps, { askForRating: boolean }> {
   state = {
     askForRating: false,
-  };
-
-  shareMessage = i18n.t('share-with-friends-message');
-  shareUrl = i18n.t('share-with-friends-url');
-
-  shareApp = async () => {
-    const message = this.shareMessage + (isAndroid ? ' ' + this.shareUrl : ''); // On Android add link to end of message
-    try {
-      await Share.share({
-        message,
-        url: this.shareUrl, // IOS has separate field for URL
-      });
-    } catch (error) {}
   };
 
   async componentDidMount() {
@@ -63,16 +51,7 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              <View style={styles.shareContainer}>
-                <View style={styles.socialIconContainer}>
-                  <Image source={social} style={styles.socialIcon} />
-                </View>
-                <RegularBoldText style={styles.share}>{i18n.t('thank-you.please-share-app')}</RegularBoldText>
-                <RegularText style={styles.shareSubtitle}>{i18n.t('thank-you.share-text')}</RegularText>
-                <BrandedButton onPress={this.shareApp} style={styles.shareButton}>
-                  {i18n.t('thank-you.btn-share')}
-                </BrandedButton>
-              </View>
+              <ShareThisApp />
 
               <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
                 {reactStringReplace(
@@ -112,15 +91,6 @@ const styles = StyleSheet.create({
   rootContainer: {
     padding: 10,
   },
-  shareContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    marginHorizontal: 20,
-  },
-  share: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
   newsFeed: {
     paddingVertical: 20,
     paddingHorizontal: 40,
@@ -138,15 +108,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     textAlign: 'center',
     color: colors.secondary,
-  },
-  shareButton: {
-    marginVertical: 20,
-    marginHorizontal: 30,
-  },
-  socialIconContainer: {
-    borderRadius: 10,
-    margin: 30,
-    alignSelf: 'center',
   },
   socialIcon: {
     height: 60,

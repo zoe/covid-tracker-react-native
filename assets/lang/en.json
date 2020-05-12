@@ -439,8 +439,6 @@
 
   "select-country": "Select country of residence",
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well  🙏. Download the app",
-  "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
   "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
@@ -450,11 +448,16 @@
   "required-ppe-availability-never": "Please indicate the availability of PPE equipment to you",
 
   "thank-you": {
-    "please-share-app": "Please share this app",
-    "share-text": "The more people report their symptoms, the more we can help those at risk.",
-    "btn-share": "Share this app",
     "check-for-updates": "Please check our %{link} for updates.",
     "news-feed": "news feed"
+  },
+
+  "share-this-app": {
+    "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
+    "url": "https://covid.joinzoe.com/",
+    "primary-text": "Please share this app",
+    "secondary-text": "The more people report their symptoms, the more we can help those at risk.",
+    "button-text": "Share this app"
   },
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
