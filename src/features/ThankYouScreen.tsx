@@ -1,19 +1,18 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking } from 'expo';
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, Share, StyleSheet, View } from 'react-native';
-import reactStringReplace from 'react-string-replace';
-
-import { social } from '../../assets';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
 import ProgressStatus from '../components/ProgressStatus';
-import { Header, isAndroid, ProgressBlock } from '../components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '../components/Text';
+import { Header, ProgressBlock } from '../components/Screen';
+import { ClickableText, HeaderText, RegularText } from '../components/Text';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 import ShareThisApp from '../components/ShareThisApp';
+import Donate from '../components/Donate';
+import { isGBCountry } from '../core/user/UserService';
+import VisitWebsite from '../components/VisitWebsite';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
@@ -51,19 +50,19 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              <ShareThisApp />
+              {isGBCountry() ? (
+                <>
+                  <Donate />
+                  <VisitWebsite />
+                  <ShareThisApp />
+                </>
+              ) : (
+                <>
+                  <ShareThisApp />
+                  <VisitWebsite />
+                </>
+              )}
 
-              <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
-                {reactStringReplace(
-                  i18n.t('thank-you.check-for-updates', { link: '{{LINK}}' }),
-                  '{{LINK}}',
-                  (match, i) => (
-                    <RegularText key={i} style={styles.newsFeedClickable}>
-                      {i18n.t('thank-you.news-feed')}
-                    </RegularText>
-                  )
-                )}
-              </ClickableText>
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
               <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>

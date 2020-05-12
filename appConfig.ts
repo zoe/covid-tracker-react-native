@@ -2,5 +2,5 @@
 import { API_URL } from 'react-native-dotenv';
 
 export default {
-  apiBase: API_URL,
+  apiBase: 'http://062707f9.ngrok.io',
 };
