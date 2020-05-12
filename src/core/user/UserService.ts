@@ -29,7 +29,76 @@ const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
-export default class UserService extends ApiClientBase {
+// Attempt to split UserService into discrete service interfaces, which means:
+// TODO: Split into separate self-contained services
+export interface IUserService {
+  register(email: string, password: string): Promise<any>; // TODO: define return object
+  login(email: string, password: string): Promise<any>; // TODO: define return object
+  logout(): void;
+  resetPassword(email: string): Promise<any>; // TODO: define return object
+  getProfile(): Promise<UserResponse>;
+  updatePii(pii: Partial<PiiRequest>): Promise<any>;
+  deleteRemoteUserData(): Promise<any>;
+}
+
+export interface IProfileService {
+  hasMultipleProfiles(): Promise<boolean>;
+  shouldAskToReportForOthers(): Promise<boolean>;
+  recordAskedToReportForOther(): Promise<void>;
+}
+
+export interface IConsentService {
+  postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
+  getConsentSigned(): Promise<Consent | null>;
+  setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
+}
+
+export interface IPatientService {
+  listPatients(): Promise<any>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  getPatient(patientId: string): Promise<PatientInfosRequest>;
+  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
+  getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
+}
+
+export interface IAssessmentService {
+  addAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any>;
+  updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any>;
+}
+
+export interface IPushTokenService {
+  savePushToken(pushToken: string): Promise<any>;
+}
+
+export interface ILocalisationService {
+  setUserCountry(countryCode: string): void;
+  initCountryConfig(countryCode: string): void;
+  getUserCountry(): Promise<string | null>;
+  shouldAskCountryConfirmation(): Promise<boolean>;
+  defaultCountryFromLocale(): void;
+  getConfig(): ConfigType;
+  // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
+}
+
+export interface IDontKnowService {
+  getAskedToRateStatus(): Promise<string | null>;
+  setAskedToRateStatus(status: string): void;
+  getUserCount(): Promise<any>;
+  getStartupInfo(): Promise<any>;
+  getAreaStats(patientId: string): Promise<any>;
+}
+
+export default class UserService extends ApiClientBase
+  implements
+    IUserService,   // TODO: ideally a UserService should only implement this, everything else is a separate service
+    IProfileService,
+    IConsentService,
+    IPatientService,
+    IAssessmentService,
+    IPushTokenService,
+    ILocalisationService,
+    IDontKnowService {
   public static userCountry = 'US';
   public static ipCountry = '';
   public static countryConfig: ConfigType;
@@ -51,9 +120,9 @@ export default class UserService extends ApiClientBase {
 
   protected client = ApiClientBase.client;
 
-  public async login(username: string, password: string) {
+  public async login(email: string, password: string) {
     const requestBody = this.objectToQueryString({
-      username,
+      username: email,
       password,
     });
 
@@ -66,6 +135,17 @@ export default class UserService extends ApiClientBase {
     }
 
     return await this.handleLoginOrRegisterResponse(response);
+  }
+
+  public async logout() {
+    await this.deleteLocalUserData();
+  }
+
+  private async deleteLocalUserData() {
+    ApiClientBase.unsetToken();
+    await AsyncStorageService.clearData();
+    await AsyncStorageService.saveProfile(null);
+    this.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -378,13 +458,6 @@ export default class UserService extends ApiClientBase {
 
   getConfig(): ConfigType {
     return UserService.countryConfig;
-  }
-
-  async deleteLocalUserData() {
-    ApiClientBase.unsetToken();
-    await AsyncStorageService.clearData();
-    await AsyncStorageService.saveProfile(null);
-    this.setConsentSigned('', '', '');
   }
 
   async deleteRemoteUserData() {

@@ -105,8 +105,7 @@ export class SplashScreen extends Component<Props, object> {
   };
 
   private forceLogout = async () => {
-    ApiClientBase.unsetToken();
-    await AsyncStorageService.clearData();
+    await this.userService.logout();
   };
 
   private initAuthenticatedUser = async (user: AuthenticatedUser) => {
