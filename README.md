@@ -127,3 +127,28 @@ ZOE Engineering - engineering@joinzoe.com
 ## Acknowledgements
 
 - [Contributor Covenant](https://www.contributor-covenant.org)
+
+## Potential improvements
+
+If there is more time:
+
+- Get animation working on Android (Seems to skip to end of animation)
+- Write test (Behavior, Snapshot & maybe one e2e?) for components & screen.
+
+Potenial refactor / improvement:
+
+- Uses Dependencies injection
+- Folder restructoring (Subjective)
+- Increase ES supported level to have more typescript features (E.g accessors)
+- Routing bootstrap code seems large
+- Maybe uses Storybook?
+- Might use MobX for some state management
+
+Things to watch out:
+
+- FontAwesome requries installation of fonts (A bit obvious?)
+- DotEnv didn't work out of the box, had to override `API_URL`
+
+Thoughts:
+
+- Not sure is mock server in this repo is a good idea?
