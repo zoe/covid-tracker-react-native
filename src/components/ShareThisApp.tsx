@@ -29,12 +29,12 @@ export default class ShareThisApp extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.shareContainer}>
+      <View style={styles.container}>
         <View style={styles.socialIconContainer}>
           <Image source={social} style={styles.socialIcon} />
         </View>
-        <RegularBoldText style={styles.share}>{i18n.t('share-this-app.primary-text')}</RegularBoldText>
-        <RegularText style={styles.shareSubtitle}>{i18n.t('share-this-app.secondary-text')}</RegularText>
+        <RegularBoldText style={styles.primaryText}>{i18n.t('share-this-app.primary-text')}</RegularBoldText>
+        <RegularText style={styles.secondaryText}>{i18n.t('share-this-app.secondary-text')}</RegularText>
         {this.props.ctaStyle === 'button' ? (
           <BrandedButton onPress={this.shareApp} style={styles.shareButton}>
             {i18n.t('share-this-app.button-text')}
@@ -50,16 +50,16 @@ export default class ShareThisApp extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  shareContainer: {
+  container: {
     backgroundColor: colors.white,
     borderRadius: 10,
     marginHorizontal: 20,
   },
-  share: {
+  primaryText: {
     fontSize: 20,
     textAlign: 'center',
   },
-  shareSubtitle: {
+  secondaryText: {
     paddingVertical: 10,
     paddingHorizontal: 40,
     textAlign: 'center',
