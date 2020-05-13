@@ -79,10 +79,17 @@ export class SplashScreen extends Component<Props, SplashState> {
     }
   };
 
-  private reloadAppState = async () => {
-    this.setState({ status: 'Retrying...' });
-    setTimeout(() => this.loadAppState(), BACKOFF_TIME_TO_RETRY);
+  private getBackoffDelay() {
+    return BACKOFF_TIME_TO_RETRY;
   }
+
+  private reloadAppState = async () => {
+    this.setState({
+      status: 'Retrying...',
+      isRetryEnabled: false,
+    });
+    setTimeout(() => this.loadAppState(), this.getBackoffDelay());
+  };
 
   private gotoWelcomeScreen = async (patientId: string | null) => {
     if (patientId) {
