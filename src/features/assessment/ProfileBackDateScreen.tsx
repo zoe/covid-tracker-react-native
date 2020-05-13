@@ -21,6 +21,7 @@ import {
 } from '../patient/fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
+import Navigator from '../Navigation';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
@@ -136,7 +137,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
-        this.props.navigation.replace('StartAssessment', { currentPatient });
+        Navigator.startAssessment(currentPatient, null)
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });

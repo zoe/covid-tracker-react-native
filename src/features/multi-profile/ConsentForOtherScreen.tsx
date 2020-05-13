@@ -4,7 +4,6 @@ import { Body, CheckBox, Item, ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
 import { colors } from '../../../theme';
 import Screen, { Header, screenWidth } from '../../components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
@@ -12,6 +11,7 @@ import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
+import Navigator from '../Navigation';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
@@ -64,18 +64,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   async startAssessment(patientId: string) {
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
-
-    this.props.navigation.dispatch((state) => {
-      const newStack = state.routes;
-      while (newStack[newStack.length - 1].name != 'SelectProfile') {
-        newStack.pop();
-      }
-
-      return CommonActions.reset({
-        index: 1,
-        routes: [...newStack, { name: 'StartAssessment', params: { currentPatient } }],
-      });
-    });
+    Navigator.resetToProfileStartAssessment(currentPatient);
   }
 
   createProfile() {

@@ -15,6 +15,8 @@ import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import { ScreenParamList } from '../ScreenParamList';
+import Navigator from '../Navigation';
+
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -71,7 +73,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async startAssessment(patientId: string) {
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
-    this.props.navigation.navigate('StartAssessment', { currentPatient });
+    Navigator.startAssessment(currentPatient, null)
   }
 
   getNextAvatarName() {

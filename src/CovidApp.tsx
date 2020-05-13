@@ -19,7 +19,6 @@ import HealthWorkerExposureScreen from './features/assessment/HealthWorkerExposu
 import HowYouFeelScreen from './features/assessment/HowYouFeelScreen';
 import LevelOfIsolationScreen from './features/assessment/LevelOfIsolationScreen';
 import ProfileBackDateScreen from './features/assessment/ProfileBackDateScreen';
-import StartAssessmentScreen from './features/assessment/StartAssessment';
 import TreatmentOtherScreen from './features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from './features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from './features/assessment/WhereAreYouScreen';
@@ -142,7 +141,6 @@ export default class ZoeApp extends Component<object, State> {
         <Stack.Screen name="YourHealth" component={YourHealthScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AboutYou" component={AboutYouScreen} options={{ headerShown: false }} />
         <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="StartAssessment" component={StartAssessmentScreen} options={{ headerShown: false }} />
         <Stack.Screen
           name="HealthWorkerExposure"
           component={HealthWorkerExposureScreen}
