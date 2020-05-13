@@ -4,6 +4,7 @@ import { Image, Share, StyleSheet, View } from 'react-native';
 import { social } from '../../assets';
 import { colors } from '../../theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../components/Text';
+import Analytics, { events } from '../core/Analytics';
 import i18n from '../locale/i18n';
 import { isAndroid } from './Screen';
 
@@ -24,6 +25,7 @@ export default class ShareThisApp extends Component<Props> {
         message,
         url: this.shareUrl, // IOS has separate field for URL
       });
+      Analytics.track(events.SHARE_THIS_APP);
     } catch (error) {}
   };
 
