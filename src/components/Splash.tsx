@@ -4,26 +4,27 @@ import { RegularBoldText, BrandedButton } from './Text';
 import { covidIcon } from '../../assets';
 import { colors } from '../../theme';
 import { FlexView } from './FlexView';
+import i18n from '../locale/i18n';
 
 type SplashProps = {
   status: string;
-  onRetry?: any;
+  onRetry: () => void;
 };
 
-const Splash = ({ status, onRetry = null }: SplashProps) => {
+const Splash = (props: SplashProps) => {
   return (
     <FlexView>
       <FlexView />
       <View style={styles.mainBlock}>
         <Image source={covidIcon} />
         <View style={styles.textBox}>
-          <RegularBoldText style={styles.statusText}>{status}</RegularBoldText>
+          <RegularBoldText style={styles.statusText}>{props.status}</RegularBoldText>
         </View>
       </View>
       <FlexView>
-        {onRetry && (
+        {!!props.onRetry && (
           <View style={styles.ctaBlock}>
-            <BrandedButton onPress={onRetry}>Retry</BrandedButton>
+            <BrandedButton onPress={props.onRetry}>{i18n.t("errors.button-retry")}</BrandedButton>
           </View>
         )}
       </FlexView>

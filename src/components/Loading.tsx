@@ -9,7 +9,7 @@ type LoadingProps = {
   error: AppException | null;
   status: string;
   style: StyleSheet | object;
-  onRetry?: any;
+  onRetry?: () => void;
 };
 
 export const Loading = ({ error, status, onRetry }: LoadingProps) => {
@@ -29,9 +29,9 @@ export const Loading = ({ error, status, onRetry }: LoadingProps) => {
         <View>
           {!!message && <ErrorText>{message}</ErrorText>}
           {!message && status && <RegularText>{status}</RegularText>}
-          {shouldRetry && (
+          {shouldRetry && !!onRetry && (
             <View style={styles.ctaBlock}>
-              <BrandedButton onPress={onRetry}>Retry</BrandedButton>
+              <BrandedButton onPress={onRetry}>{i18n.t("errors.button-retry")}</BrandedButton>
             </View>
           )}
         </View>
