@@ -136,7 +136,12 @@ const ScreenFlow: any = {
     const { patientId } = routeParams;
     const config = navigator.getConfig();
 
-    if (config.enablePersonalInformation) {
+    let askPersonalInfo = config.enablePersonalInformation;
+    if (isUSCountry() && UserService.consentSigned.document != 'US Nurses') {
+      askPersonalInfo = false;
+    }
+
+    if (askPersonalInfo) {
       await navigator.replaceScreen('OptionalInfo', { patientId });
     } else if (patientId) {
       const currentPatient = await navigator.getCurrentPatient(patientId);
