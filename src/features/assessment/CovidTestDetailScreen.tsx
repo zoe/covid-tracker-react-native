@@ -35,7 +35,7 @@ type CovidProps = {
 
 type State = {
   errorMessage: string;
-  dateTakenSpecific: Date;
+  dateTakenSpecific: Date | undefined;
   today: Date;
   showDatePicker: boolean;
   showRangePicker: boolean;
@@ -54,7 +54,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const dateTakenBetweenEnd = updatingTest?.date_taken_between_end;
     const initialState: State = {
       errorMessage: '',
-      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : now,
+      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : undefined,
       today: now,
       showDatePicker: !!dateTakenSpecific,
       showRangePicker: !dateTakenSpecific,
@@ -90,7 +90,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   };
 
-  formatDateToPost = (date: Date) => moment(date).format('YYYY-MM-DD');
+  formatDateToPost = (date: Date | undefined) => {
+    return date ? moment(date).format('YYYY-MM-DD') : null;
+  };
 
   handleAction(formData: CovidTestData) {
     const { currentPatient, test } = this.props.route.params;
@@ -113,21 +115,12 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     let postTest = {
       patient: patientId,
       ...(formData.result && { result: formData.result }),
-      ...(formData.knowsDateOfTest === 'yes' &&
-        this.state.dateTakenSpecific && {
-          date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
-        }),
       ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
       ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
+      date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
+      date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
+      date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
     } as Partial<CovidTest>;
-
-    if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
-      postTest = {
-        ...postTest,
-        date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
-        date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
-      };
-    }
 
     if (test?.id) {
       covidTestService
@@ -219,7 +212,20 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
               <Form>
                 <DropdownField
                   selectedValue={props.values.knowsDateOfTest}
-                  onValueChange={props.handleChange('knowsDateOfTest')}
+                  onValueChange={(value: string) => {
+                    if (value === 'yes') {
+                      this.setState({
+                        dateTakenBetweenStart: undefined,
+                        dateTakenBetweenEnd: undefined,
+                        dateTakenSpecific: now,
+                      });
+                    } else {
+                      this.setState({
+                        dateTakenSpecific: undefined,
+                      });
+                    }
+                    props.setFieldValue('knowsDateOfTest', value);
+                  }}
                   label={i18n.t('covid-test.question-knows-date-of-test')}
                 />
 

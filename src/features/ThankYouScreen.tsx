@@ -1,17 +1,17 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking } from 'expo';
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, Share, StyleSheet, View } from 'react-native';
-import reactStringReplace from 'react-string-replace';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { covidIcon } from '../../assets';
 import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
+import Donate from '../components/Donate';
 import ProgressStatus from '../components/ProgressStatus';
-import { Header, isAndroid, ProgressBlock } from '../components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '../components/Text';
-import UserService from '../core/user/UserService';
+import { Header, ProgressBlock } from '../components/Screen';
+import ShareThisApp from '../components/ShareThisApp';
+import { ClickableText, HeaderText, RegularText } from '../components/Text';
+import VisitWebsite from '../components/VisitWebsite';
+import { isGBCountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 
@@ -23,19 +23,6 @@ type RenderProps = {
 export default class ThankYouScreen extends Component<RenderProps, { askForRating: boolean }> {
   state = {
     askForRating: false,
-  };
-
-  shareMessage = i18n.t('share-with-friends-message');
-  shareUrl = i18n.t('share-with-friends-url');
-
-  shareApp = async () => {
-    const message = this.shareMessage + (isAndroid ? ' ' + this.shareUrl : ''); // On Android add link to end of message
-    try {
-      const result = await Share.share({
-        message,
-        url: this.shareUrl, // IOS has separate field for URL
-      });
-    } catch (error) {}
   };
 
   async componentDidMount() {
@@ -64,28 +51,19 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              <View style={styles.shareContainer}>
-                <View style={styles.covidIconContainer}>
-                  <Image source={covidIcon} style={styles.covidIcon} />
-                </View>
-                <RegularBoldText style={styles.share}>{i18n.t('thank-you.please-share-app')}</RegularBoldText>
-                <RegularText style={styles.shareSubtitle}>{i18n.t('thank-you.share-text')}</RegularText>
-                <BrandedButton onPress={this.shareApp} style={styles.shareButton}>
-                  {i18n.t('thank-you.btn-share')}
-                </BrandedButton>
-              </View>
+              {isGBCountry() ? (
+                <>
+                  <Donate />
+                  <VisitWebsite />
+                  <ShareThisApp ctaStyle="link" />
+                </>
+              ) : (
+                <>
+                  <ShareThisApp ctaStyle="button" />
+                  <VisitWebsite />
+                </>
+              )}
 
-              <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))} style={styles.newsFeed}>
-                {reactStringReplace(
-                  i18n.t('thank-you.check-for-updates', { link: '{{LINK}}' }),
-                  '{{LINK}}',
-                  (match, i) => (
-                    <RegularText key={i} style={styles.newsFeedClickable}>
-                      {i18n.t('thank-you.news-feed')}
-                    </RegularText>
-                  )
-                )}
-              </ClickableText>
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
               <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>
@@ -105,26 +83,14 @@ const styles = StyleSheet.create({
     marginVertical: 32,
     marginHorizontal: 18,
   },
-
   scrollView: {
     flexGrow: 1,
     backgroundColor: colors.backgroundSecondary,
     justifyContent: 'space-between',
   },
-
   rootContainer: {
     padding: 10,
   },
-  shareContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    marginHorizontal: 20,
-  },
-  share: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
-
   newsFeed: {
     paddingVertical: 20,
     paddingHorizontal: 40,
@@ -143,22 +109,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.secondary,
   },
-
-  shareButton: {
-    marginVertical: 20,
-    marginHorizontal: 30,
-  },
-  covidIconContainer: {
+  socialIcon: {
     height: 60,
-    width: 60,
-    borderRadius: 10,
-    margin: 30,
-    backgroundColor: colors.predict,
-    alignSelf: 'center',
-  },
-  covidIcon: {
-    height: 50,
-    width: 50,
     marginLeft: 5,
     marginTop: 5,
     resizeMode: 'contain',
