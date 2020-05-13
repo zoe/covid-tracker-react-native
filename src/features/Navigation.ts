@@ -64,7 +64,7 @@ class Navigator {
 
   async gotoStartReport(patientId: string) {
     const config = this.getConfig();
-    if (config.enablePersonalInformation) {
+    if (config.enableMultiplePatients) {
       navigator.gotoScreen('SelectProfile', { patientId });
     } else {
       const currentPatient = await this.getCurrentPatient(patientId);
