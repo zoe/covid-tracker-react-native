@@ -8,7 +8,7 @@ import i18n from '../locale/i18n';
 
 type SplashProps = {
   status: string;
-  onRetry: () => void;
+  onRetry?: () => void;
 };
 
 const Splash = (props: SplashProps) => {

@@ -191,7 +191,10 @@ export class SplashScreen extends Component<Props, SplashState> {
     const canRetry = this.state.isRetryable && this.state.isRetryEnabled;
     return (
       <View style={styles.container}>
-        <Splash status={this.state.status} onRetry={canRetry && this.reloadAppState} />
+        <Splash
+          status={this.state.status}
+          {...(canRetry ? {onRetry: this.reloadAppState} : {})}
+        />
       </View>
     );
   }
