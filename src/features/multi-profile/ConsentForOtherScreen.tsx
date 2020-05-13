@@ -4,14 +4,15 @@ import { Body, CheckBox, Item, ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
 import { colors } from '../../../theme';
 import Screen, { Header, screenWidth } from '../../components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
 import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
-import { ConsentType, ScreenParamList } from '../ScreenParamList';
 import Navigator from '../Navigation';
+import { ConsentType, ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;

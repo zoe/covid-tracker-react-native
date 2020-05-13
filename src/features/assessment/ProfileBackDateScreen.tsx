@@ -12,6 +12,7 @@ import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
+import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
 import {
@@ -21,7 +22,6 @@ import {
 } from '../patient/fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
-import Navigator from '../Navigation';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
 
@@ -137,7 +137,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
-        Navigator.startAssessment(currentPatient, null)
+        Navigator.startAssessment(currentPatient, null);
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
