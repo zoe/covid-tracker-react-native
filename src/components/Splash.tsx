@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { RegularBoldText } from './Text';
+import { RegularBoldText, BrandedButton } from './Text';
 import { covidIcon } from '../../assets';
 import { colors } from '../../theme';
 
 type SplashProps = {
   status: string;
+  onRetry?: any;
 };
 
-const Splash = ({ status }: SplashProps) => {
+const Splash = ({ status, onRetry = null }: SplashProps) => {
   return (
     <View style={styles.flexView}>
       <View style={styles.flexView} />
@@ -18,7 +19,13 @@ const Splash = ({ status }: SplashProps) => {
           <RegularBoldText style={styles.statusText}>{status}</RegularBoldText>
         </View>
       </View>
-      <View style={styles.flexView} />
+      <View style={styles.flexView}>
+        {onRetry && (
+          <View style={styles.ctaBlock}>
+            <BrandedButton onPress={onRetry}>Retry</BrandedButton>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -32,6 +39,10 @@ const styles = StyleSheet.create({
   },
   textBox: {
     marginVertical: 10,
+  },
+  ctaBlock: {
+    width: '80%',
+    alignSelf: 'center',
   },
   statusText: {
     color: colors.tertiary,

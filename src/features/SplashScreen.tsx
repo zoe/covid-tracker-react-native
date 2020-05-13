@@ -30,6 +30,7 @@ type SplashState = {
   isApiOnline: boolean;
   isLoaded: boolean;
   status: string;
+  isRetryable: boolean;
 };
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   isApiOnline: false,
   isLoaded: false,
   status: '',
+  isRetryable: false,
 };
 
 export class SplashScreen extends Component<Props, SplashState> {
@@ -64,9 +66,11 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   private loadAppState = async () => {
-    const patientId: string | null = await this.bootstrapAsync();
-    if (true || this.state.isLoaded) {
+    try {
+      const patientId: string | null = await this.bootstrapAsync();
       this.gotoWelcomeScreen(patientId);
+    } catch (error) {
+      this.handleBootstrapError(error);
     }
   };
 
@@ -95,32 +99,27 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   private handleBootstrapError = (error: ApiException) => {
     console.log('Caught an error', error.isRetryable);
-    if (error.isRetryable) {
-      console.log('Updating online status');
-      offlineService.updateApiOnlineStatus(false);
-    }
-
-    this.setState({ status: error.message });
-    this.showAlert(error.message);
+    console.log('[ERROR]', error);
+    this.setState({
+      status: error.message,
+      isRetryable: !!error.isRetryable,
+    });
+    // this.showAlert(error.message);
   };
 
   private bootstrapAsync = async (): Promise<string | null> => {
-    try {
-      await this.updateUserCount();
-      const user = await this.loadUser();
-      const hasUser = !user || (!!user.userToken && !!user.userId);
-      this.updateUserCountry(hasUser);
-      if (hasUser) {
-        this.initAuthenticatedUser(user);
-        const patientId: string | null = await this.getUserPatientId(user);
-        if (!patientId) {
-          // Logged in with an account doesn't exist. Force logout.
-          await this.forceLogout();
-        }
-        return patientId;
+    await this.updateUserCount();
+    const user = await this.loadUser();
+    const hasUser = !user || (!!user.userToken && !!user.userId);
+    this.updateUserCountry(hasUser);
+    if (hasUser) {
+      this.initAuthenticatedUser(user);
+      const patientId: string | null = await this.getUserPatientId(user);
+      if (!patientId) {
+        // Logged in with an account doesn't exist. Force logout.
+        await this.forceLogout();
       }
-    } catch (error) {
-      this.handleBootstrapError(error);
+      return patientId;
     }
     return null;
   };
@@ -168,7 +167,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   public render() {
     return (
       <View style={styles.container}>
-        <Splash status={this.state.status} />
+        <Splash status={this.state.status} onRetry={this.state.isRetryable && this.loadAppState} />
       </View>
     );
   }
