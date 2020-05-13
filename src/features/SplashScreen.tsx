@@ -31,6 +31,7 @@ type SplashState = {
   isLoaded: boolean;
   status: string;
   isRetryable: boolean;
+  isRetryEnabled: boolean;
 };
 
 const initialState = {
@@ -39,7 +40,11 @@ const initialState = {
   isLoaded: false,
   status: '',
   isRetryable: false,
+  isRetryEnabled: false,
 };
+
+const TIME_TO_RETRY = 2000;
+const BACKOFF_TIME_TO_RETRY = 5000;
 
 export class SplashScreen extends Component<Props, SplashState> {
   private userService = new UserService();
@@ -61,11 +66,11 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   componentDidMount() {
-    this.setState({ status: 'Loading...' });
     this.loadAppState();
   }
 
   private loadAppState = async () => {
+    this.setState({ status: 'Loading...' });
     try {
       const patientId: string | null = await this.bootstrapAsync();
       this.gotoWelcomeScreen(patientId);
@@ -73,6 +78,11 @@ export class SplashScreen extends Component<Props, SplashState> {
       this.handleBootstrapError(error);
     }
   };
+
+  private reloadAppState = async () => {
+    this.setState({ status: 'Retrying...' });
+    setTimeout(() => this.loadAppState(), BACKOFF_TIME_TO_RETRY);
+  }
 
   private gotoWelcomeScreen = async (patientId: string | null) => {
     if (patientId) {
@@ -103,7 +113,10 @@ export class SplashScreen extends Component<Props, SplashState> {
     this.setState({
       status: error.message,
       isRetryable: !!error.isRetryable,
+      isRetryEnabled: false,
     });
+
+    setTimeout(() => this.setState({ isRetryEnabled: true }), TIME_TO_RETRY);
     // this.showAlert(error.message);
   };
 
@@ -165,9 +178,10 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   public render() {
+    const canRetry = this.state.isRetryable && this.state.isRetryEnabled;
     return (
       <View style={styles.container}>
-        <Splash status={this.state.status} onRetry={this.state.isRetryable && this.loadAppState} />
+        <Splash status={this.state.status} onRetry={canRetry && this.reloadAppState} />
       </View>
     );
   }

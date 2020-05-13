@@ -9,24 +9,34 @@ type SplashProps = {
   onRetry?: any;
 };
 
+type FlexViewProps = {
+  children?: React.ReactNode;
+}
+
+const FlexView = ({children}: FlexViewProps) => {
+  return (
+    <View style={styles.flexView}>{children}</View>
+  )
+}
+
 const Splash = ({ status, onRetry = null }: SplashProps) => {
   return (
-    <View style={styles.flexView}>
-      <View style={styles.flexView} />
+    <FlexView>
+      <FlexView />
       <View style={styles.mainBlock}>
         <Image source={covidIcon} />
         <View style={styles.textBox}>
           <RegularBoldText style={styles.statusText}>{status}</RegularBoldText>
         </View>
       </View>
-      <View style={styles.flexView}>
+      <FlexView>
         {onRetry && (
           <View style={styles.ctaBlock}>
             <BrandedButton onPress={onRetry}>Retry</BrandedButton>
           </View>
         )}
-      </View>
-    </View>
+      </FlexView>
+    </FlexView>
   );
 };
 
