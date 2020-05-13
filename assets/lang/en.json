@@ -95,6 +95,14 @@
     "no": "No, I am not"
   },
 
+  "validation-study-intro": {
+    "title": "Would you like a free test for COVID if you are sick?",
+    "subtitle": "King's College London is launching a new study. Everyone using this app who gets sick may have a chance to get tested for COVID.",
+    "info": "All you have to do is to keep reporting regularly on the app.",
+    "yes": "I am interested",
+    "no": "No, thank you"
+  },
+
   "legal": {
     "i-agree": "I agree",
     "back": "Back"

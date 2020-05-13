@@ -4,7 +4,6 @@ import { Card } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
-
 import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '../../../assets';
 import { colors } from '../../../theme';
 import { offlineService, userService } from '../../Services';
@@ -12,8 +11,9 @@ import DaysAgo from '../../components/DaysAgo';
 import { getDaysAgo } from '../../utils/datetime';
 import { Loading, LoadingModal } from '../../components/Loading';
 import { Header } from '../../components/Screen';
-import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
+import { isGBCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import Navigator from '../Navigation';
@@ -85,11 +85,16 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     }
   }
 
-  async startAssessment(patientId: string) {
+  async startAssessment(patientId: string, index: number) {
     try {
       const currentPatient = await userService.getCurrentPatient(patientId);
       this.setState({ isApiError: false });
-      Navigator.startAssessment(currentPatient);
+      if (isGBCountry() && index == 0) {
+        // TODO && ask backend
+        this.props.navigation.navigate('ValidationStudyIntro', { currentPatient });
+      } else {
+        Navigator.startAssessment(currentPatient);
+      }
     } catch (error) {
       this.setState({
         isApiError: true,
@@ -101,7 +106,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
-            this.startAssessment(patientId);
+            this.startAssessment(patientId, index);
           }, offlineService.getRetryDelay());
         },
       });
@@ -149,12 +154,12 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
               {this.state.isLoaded ? (
                 <View style={styles.profileList}>
-                  {this.state.patients.map((patient, _) => {
+                  {this.state.patients.map((patient, i) => {
                     const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
                     const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
                     return (
                       <View style={styles.cardContainer} key={key(patient)}>
-                        <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
+                        <TouchableOpacity onPress={() => this.startAssessment(patient.id, i)}>
                           <Card style={styles.card}>
                             <View style={styles.avatarContainer}>
                               {hasReportedToday && (
