@@ -22,12 +22,15 @@ const listeners = {
   'status.apiOnline': [] as Function[],
 };
 
+const RETRY_DELAY = 5000; // in microseconds
+
 export interface IOfflineService {
   isOnline: boolean;
   isApiOnline: boolean;
   lastUpdated: string;
   lastChecked: string;
   checkStatus(): void;
+  getRetryDelay(): number;
 }
 
 export default class OfflineService implements IOfflineService {
@@ -81,5 +84,10 @@ export default class OfflineService implements IOfflineService {
     }
 
     this.lastChecked = checkTime;
+  }
+
+  getRetryDelay() {
+    // Can implement an exponential backing-off here later.
+    return RETRY_DELAY;
   }
 }

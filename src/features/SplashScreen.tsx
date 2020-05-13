@@ -5,12 +5,11 @@ import { Alert, StyleSheet, View } from 'react-native';
 import { colors } from '../../theme';
 import { AsyncStorageService } from '../core/AsyncStorageService';
 import { ApiClientBase } from '../core/user/ApiClientBase';
-import UserService from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
 import Splash from '../components/Splash';
-import { offlineService } from '../Services';
+import { offlineService, userService } from '../Services';
 import { ApiException } from '../core/ApiServiceErrors';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
@@ -43,12 +42,9 @@ const initialState = {
   isRetryEnabled: false,
 };
 
-const TIME_TO_RETRY = 2000;
-const BACKOFF_TIME_TO_RETRY = 5000;
+const PAUSE_TO_RETRY = 2000;
 
 export class SplashScreen extends Component<Props, SplashState> {
-  private userService = new UserService();
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -79,16 +75,12 @@ export class SplashScreen extends Component<Props, SplashState> {
     }
   };
 
-  private getBackoffDelay() {
-    return BACKOFF_TIME_TO_RETRY;
-  }
-
   private reloadAppState = async () => {
     this.setState({
       status: i18n.t('errors.status-retrying'),
       isRetryEnabled: false,
     });
-    setTimeout(() => this.loadAppState(), this.getBackoffDelay());
+    setTimeout(() => this.loadAppState(), offlineService.getRetryDelay());
   };
 
   private gotoWelcomeScreen = async (patientId: string | null) => {
@@ -99,24 +91,7 @@ export class SplashScreen extends Component<Props, SplashState> {
     }
   };
 
-  showAlert(message: string) {
-    Alert.alert(
-      i18n.t('splash-error.title'),
-      i18n.t('splash-error.message') + ': ' + message,
-      [
-        {
-          text: i18n.t('splash-error.secondary-action-title'),
-          style: 'cancel',
-        },
-        { text: i18n.t('splash-error.primary-action-title'), onPress: () => this.loadAppState() },
-      ],
-      { cancelable: false }
-    );
-  }
-
   private handleBootstrapError = (error: ApiException) => {
-    console.log('Caught an error', error.isRetryable, error.response?.status);
-
     const messageKey = error.friendlyI18n;
     const message = messageKey ? i18n.t(messageKey) : error.message;
 
@@ -126,8 +101,7 @@ export class SplashScreen extends Component<Props, SplashState> {
       isRetryEnabled: false,
     });
 
-    setTimeout(() => this.setState({ isRetryEnabled: true }), TIME_TO_RETRY);
-    // this.showAlert(error.message);
+    setTimeout(() => this.setState({ isRetryEnabled: true }), PAUSE_TO_RETRY);
   };
 
   private bootstrapAsync = async (): Promise<string | null> => {
@@ -148,7 +122,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   private updateUserCount = async () => {
-    await this.userService.getStartupInfo();
+    await userService.getStartupInfo();
   };
 
   private loadUser = async (): Promise<AuthenticatedUser> => {
@@ -156,21 +130,21 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   private updateUserCountry = async (isLoggedIn: boolean) => {
-    const country: string | null = await this.userService.getUserCountry();
-    this.userService.initCountryConfig(country || 'GB');
+    const country: string | null = await userService.getUserCountry();
+    userService.initCountryConfig(country || 'GB');
     if (isLoggedIn) {
       // If logged in with no country default to GB as this will handle all
       // GB users before selector was included.
       if (country === null) {
-        await this.userService.setUserCountry('GB');
+        await userService.setUserCountry('GB');
       }
     } else {
-      await this.userService.defaultCountryFromLocale();
+      await userService.defaultCountryFromLocale();
     }
   };
 
   private forceLogout = async () => {
-    await this.userService.logout();
+    await userService.logout();
   };
 
   private initAuthenticatedUser = async (user: AuthenticatedUser) => {
@@ -179,7 +153,7 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   private getUserPatientId = async (user: AuthenticatedUser): Promise<string | null> => {
     try {
-      const profile = await this.userService.getProfile();
+      const profile = await userService.getProfile();
       const patientId = profile.patients[0];
       return patientId;
     } catch (error) {
@@ -191,10 +165,7 @@ export class SplashScreen extends Component<Props, SplashState> {
     const canRetry = this.state.isRetryable && this.state.isRetryEnabled;
     return (
       <View style={styles.container}>
-        <Splash
-          status={this.state.status}
-          {...(canRetry ? {onRetry: this.reloadAppState} : {})}
-        />
+        <Splash status={this.state.status} {...(canRetry ? { onRetry: this.reloadAppState } : {})} />
       </View>
     );
   }

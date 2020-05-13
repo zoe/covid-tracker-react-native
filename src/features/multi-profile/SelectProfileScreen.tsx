@@ -9,14 +9,13 @@ import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS } from '../../../assets
 import { colors } from '../../../theme';
 import DaysAgo from '../../components/DaysAgo';
 import { Header } from '../../components/Screen';
-import { ClippedText, ErrorText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
-import UserService from '../../core/user/UserService';
+import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import { ScreenParamList } from '../ScreenParamList';
 import { AppException } from '../../core/ApiServiceErrors';
 import { Loading } from '../../components/Loading';
-import { offlineService } from '../../Services';
+import { offlineService, userService } from '../../Services';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -68,12 +67,11 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
   private retryListProfiles() {
     this.setState({ status: i18n.t('errors.status-retrying'), error: null });
-    setTimeout(() => this.listProfiles(), 5000);
+    setTimeout(() => this.listProfiles(), offlineService.getRetryDelay());
   }
 
   async listProfiles() {
     this.setState({ status: i18n.t('errors.status-loading'), error: null });
-    const userService = new UserService();
     try {
       const response = await userService.listPatients();
       response &&
@@ -87,7 +85,6 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   async startAssessment(patientId: string) {
-    const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
     this.props.navigation.navigate('StartAssessment', { currentPatient });
   }
