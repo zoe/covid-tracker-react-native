@@ -3,7 +3,9 @@ import { AxiosResponse } from 'axios';
 const NETWORK_ERROR = 'Network Error';
 
 const STATUS_NOT_FOUND = 404;
+const STATUS_REQUEST_ERROR = 400;
 const STATUS_SERVER_BUSY = 429;
+const STATUS_SERVER_ERROR = 500;
 
 type ReceivedError = {
   message: string;
@@ -11,34 +13,43 @@ type ReceivedError = {
   response?: AxiosResponse;
 };
 
-class OfflineException extends Error {}
-export class ApiException extends Error {
+class AppException extends Error {
+  friendlyI18n: string | null;
+  status: number;
+}
+
+class OfflineException extends AppException {
+  isRetryable = true;
+}
+
+export class ApiException extends AppException {
   isApiException = true;
   isRetryable = false;
   response: AxiosResponse;
 
-  constructor(message: string, response: any) {
+  constructor(message: string, status: number, i18nString: string | null = null) {
     super(message);
     this.message = message;
-    this.response = response;
+    this.status = status;
+    this.friendlyI18n = i18nString || this.friendlyI18n;
   }
 }
 class RetryableApiException extends ApiException {
   isRetryable = true;
 }
-class ServerBusyException extends RetryableApiException {}
 
 export const handleServiceError = (error: ReceivedError) => {
   if (error.isAxiosError && error.response) {
     switch (error.response.status) {
+      case STATUS_NOT_FOUND:
+        throw new ApiException(error.message, error.response.status, 'errors.resource-not-found');
       case STATUS_SERVER_BUSY:
-      case STATUS_NOT_FOUND:
-        throw new ServerBusyException(error.message, error.response);
-      case STATUS_NOT_FOUND:
-        throw new ApiException(error.message, error.response);
+        throw new RetryableApiException(error.message, error.response.status, 'errors.server-is-busy');
+      case STATUS_SERVER_ERROR:
+        throw new RetryableApiException(error.message, error.response.status, 'errors.server-error');
       default:
-        console.log('[ERROR] Unhandled:', error.response.status, ':', error.message);
-        throw error;
+        console.log('[ERROR] Unhandled status:', error.response.status, ':', error.message);
+        throw new ApiException(error.message, error.response.status);
     }
   } else if (error.message === NETWORK_ERROR) {
     throw new OfflineException(error.message);

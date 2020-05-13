@@ -115,10 +115,13 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   private handleBootstrapError = (error: ApiException) => {
-    console.log('Caught an error', error.isRetryable);
-    console.log('[ERROR]', error);
+    console.log('Caught an error', error.isRetryable, error.response?.status);
+
+    const messageKey = error.friendlyI18n;
+    const message = messageKey ? i18n.t(messageKey) : error.message;
+
     this.setState({
-      status: error.message,
+      status: message,
       isRetryable: !!error.isRetryable,
       isRetryEnabled: false,
     });
