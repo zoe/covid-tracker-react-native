@@ -129,6 +129,8 @@ app.get('/patients/:patientId', (req, res) => {
     ht_hormone_treatment_therapy: null,
     ht_oestrogen_hormone_therapy: null,
     ht_testosterone_hormone_therapy: null,
+    ht_pfnts: null,
+    ht_other: null,
     BooleanField: null,
     interacted_with_covid: null,
     smoker_status: null,

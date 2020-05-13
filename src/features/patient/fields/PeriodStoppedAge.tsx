@@ -27,6 +27,7 @@ export class PeriodStoppedAge extends Component<Props, object> {
           }}>
           <Label>{i18n.t('your-health.period-stopped-age')}</Label>
           <ValidatedTextInput
+            placeholder={i18n.t('placeholder-optional')}
             value={formikProps.values.periodStoppedAge}
             onChangeText={formikProps.handleChange('periodStoppedAge')}
             onBlur={formikProps.handleBlur('periodStoppedAge')}

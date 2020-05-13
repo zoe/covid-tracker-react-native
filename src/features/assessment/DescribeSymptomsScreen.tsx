@@ -97,12 +97,6 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     this.handleUpdateSymptoms = this.handleUpdateSymptoms.bind(this);
   }
 
-  async componentDidMount() {
-    const userService = new UserService();
-    const features = userService.getConfig();
-    initialFormValues.temperatureUnit = features.defaultTemperatureUnit;
-  }
-
   registerSchema = Yup.object().shape({
     hasFever: Yup.string().required(),
     hasChills: Yup.string().required(),
@@ -244,6 +238,16 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       { label: '5+', value: 'five_or_more' },
     ];
 
+    const getInitialFormValues = (): DescribeSymptomsData => {
+      const userService = new UserService();
+      const features = userService.getConfig();
+
+      return {
+        ...initialFormValues,
+        temperatureUnit: features.defaultTemperatureUnit,
+      };
+    };
+
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
@@ -255,8 +259,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues}
-          enableReinitialize
+          initialValues={getInitialFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: DescribeSymptomsData) => {
             return this.handleUpdateSymptoms(values);
