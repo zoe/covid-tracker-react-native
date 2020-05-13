@@ -187,4 +187,4 @@ workflows:
           filters: *legacy_ota_filter
           context: react-covid-tracker-prod
           requires:
-            - build_and_test
+            - wait_for_approval
