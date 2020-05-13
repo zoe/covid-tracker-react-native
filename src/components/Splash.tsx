@@ -3,21 +3,12 @@ import { View, Image, StyleSheet } from 'react-native';
 import { RegularBoldText, BrandedButton } from './Text';
 import { covidIcon } from '../../assets';
 import { colors } from '../../theme';
+import { FlexView } from './FlexView';
 
 type SplashProps = {
   status: string;
   onRetry?: any;
 };
-
-type FlexViewProps = {
-  children?: React.ReactNode;
-}
-
-const FlexView = ({children}: FlexViewProps) => {
-  return (
-    <View style={styles.flexView}>{children}</View>
-  )
-}
 
 const Splash = ({ status, onRetry = null }: SplashProps) => {
   return (
@@ -41,9 +32,6 @@ const Splash = ({ status, onRetry = null }: SplashProps) => {
 };
 
 const styles = StyleSheet.create({
-  flexView: {
-    flex: 1,
-  },
   mainBlock: {
     alignItems: 'center',
   },

@@ -210,7 +210,13 @@ export default class UserService extends ApiClientBase
   }
 
   public async listPatients() {
-    return this.client.get(`/patient_list/`);
+    try {
+      const response = await this.client.get(`/patient_list/`);
+      return response;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
   }
 
   public async createPatient(infos: Partial<PatientInfosRequest>) {
@@ -482,7 +488,7 @@ export default class UserService extends ApiClientBase
   public async hasMultipleProfiles() {
     try {
       const response = await this.listPatients();
-      return response.data.length > 1;
+      return !!response && response.data.length > 1;
     } catch (e) {
       return false;
     }

@@ -70,7 +70,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   private loadAppState = async () => {
-    this.setState({ status: 'Loading...' });
+    this.setState({ status: i18n.t('errors.status-loading') });
     try {
       const patientId: string | null = await this.bootstrapAsync();
       this.gotoWelcomeScreen(patientId);
@@ -85,7 +85,7 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   private reloadAppState = async () => {
     this.setState({
-      status: 'Retrying...',
+      status: i18n.t('errors.status-retrying'),
       isRetryEnabled: false,
     });
     setTimeout(() => this.loadAppState(), this.getBackoffDelay());

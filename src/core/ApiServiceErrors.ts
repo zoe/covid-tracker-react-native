@@ -13,18 +13,19 @@ type ReceivedError = {
   response?: AxiosResponse;
 };
 
-class AppException extends Error {
+export class AppException extends Error {
   friendlyI18n: string | null;
+  isRetryable = false;
   status: number;
 }
 
 class OfflineException extends AppException {
   isRetryable = true;
+  friendlyI18n = 'errors.user-is-offline';
 }
 
 export class ApiException extends AppException {
   isApiException = true;
-  isRetryable = false;
   response: AxiosResponse;
 
   constructor(message: string, status: number, i18nString: string | null = null) {

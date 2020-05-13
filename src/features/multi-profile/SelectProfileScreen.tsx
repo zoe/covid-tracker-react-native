@@ -1,6 +1,5 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Card } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -15,6 +14,9 @@ import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import { ScreenParamList } from '../ScreenParamList';
+import { AppException } from '../../core/ApiServiceErrors';
+import { Loading } from '../../components/Loading';
+import { offlineService } from '../../Services';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -33,18 +35,24 @@ type Patient = {
 
 interface State {
   patients: Patient[];
-  errorMessage: string;
+  isLoaded: boolean;
+  error: AppException | null;
+  status: string;
   shouldRefresh: boolean;
 }
+
+const initialState = {
+  patients: [],
+  isLoaded: false,
+  error: null,
+  status: '',
+  shouldRefresh: false,
+};
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {
   constructor(props: RenderProps) {
     super(props);
-    this.state = {
-      patients: [],
-      errorMessage: '',
-      shouldRefresh: false,
-    };
+    this.state = initialState;
   }
 
   async componentDidMount() {
@@ -58,13 +66,23 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     this.setState({ shouldRefresh: true });
   }
 
+  private retryListProfiles() {
+    this.setState({ status: i18n.t('errors.status-retrying'), error: null });
+    setTimeout(() => this.listProfiles(), 5000);
+  }
+
   async listProfiles() {
+    this.setState({ status: i18n.t('errors.status-loading'), error: null });
     const userService = new UserService();
     try {
       const response = await userService.listPatients();
-      this.setState({ patients: response.data });
-    } catch (err) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      response &&
+        this.setState({
+          patients: response.data,
+          isLoaded: true,
+        });
+    } catch (error) {
+      this.setState({ error: error });
     }
   }
 
@@ -105,31 +123,38 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                 <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
               </Header>
 
-              <ErrorText>{this.state.errorMessage}</ErrorText>
+              {this.state.isLoaded ? (
+                <View style={styles.profileList}>
+                  {this.state.patients.map((patient, i) => {
+                    const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
+                    return (
+                      <View style={styles.cardContainer} key={key(patient)}>
+                        <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
+                          <Card style={styles.card}>
+                            <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
+                            <ClippedText>{patient.name}</ClippedText>
+                            <DaysAgo timeAgo={patient.last_reported_at} />
+                          </Card>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
 
-              <View style={styles.profileList}>
-                {this.state.patients.map((patient, i) => {
-                  const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
-                  return (
-                    <View style={styles.cardContainer} key={key(patient)}>
-                      <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
-                        <Card style={styles.card}>
-                          <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
-                          <ClippedText>{patient.name}</ClippedText>
-                          <DaysAgo timeAgo={patient.last_reported_at} />
-                        </Card>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
-
-                <TouchableOpacity style={styles.cardContainer} key="new" onPress={() => this.gotoCreateProfile()}>
-                  <Card style={styles.card}>
-                    <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
-                    <RegularText>{i18n.t('select-profile-button')}</RegularText>
-                  </Card>
-                </TouchableOpacity>
-              </View>
+                  <TouchableOpacity style={styles.cardContainer} key="new" onPress={() => this.gotoCreateProfile()}>
+                    <Card style={styles.card}>
+                      <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
+                      <RegularText>{i18n.t('select-profile-button')}</RegularText>
+                    </Card>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <Loading
+                  status={this.state.status}
+                  error={this.state.error}
+                  style={{ borderColor: 'green', borderWidth: 1 }}
+                  onRetry={() => this.retryListProfiles()}
+                />
+              )}
             </View>
           </ScrollView>
         </SafeAreaView>
