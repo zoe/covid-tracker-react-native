@@ -121,7 +121,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       userService
         .updatePatient(patientId, infos)
         .then((response) => {
-          currentPatient.hasRaceAnswer = formData.race.length > 0;
+          currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
