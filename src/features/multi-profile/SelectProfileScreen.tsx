@@ -13,7 +13,7 @@ import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../compo
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import { ScreenParamList } from '../ScreenParamList';
-import { AppException } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { Loading, LoadingModal } from '../../components/Loading';
 import { offlineService, userService } from '../../Services';
 
@@ -32,28 +32,19 @@ type Patient = {
   created_at?: Date;
 };
 
-interface PatientListState {
+type PatientListState = {
   isLoaded: boolean;
   patients: Patient[];
   shouldRefresh: boolean;
 }
 
-interface ApiErrorState {
-  isApiError: boolean;
-  error: AppException | null;
-  status: string;
-  onRetry?: () => void;
-}
-
-interface State extends PatientListState, ApiErrorState {}
+type State = PatientListState & ApiErrorState;
 
 const initialState = {
+  ...initialErrorState,
   patients: [],
   isLoaded: false,
-  error: null,
-  status: '',
   shouldRefresh: false,
-  isApiError: false,
 };
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {

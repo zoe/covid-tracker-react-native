@@ -13,6 +13,20 @@ type ReceivedError = {
   response?: AxiosResponse;
 };
 
+export type ApiErrorState = {
+  isApiError: boolean;
+  error: AppException | null;
+  status: string;
+  onRetry?: () => void;
+}
+
+export const initialErrorState = {
+  isApiError: false,
+  error: null,
+  status: '',
+}
+
+
 export class AppException extends Error {
   friendlyI18n: string | null;
   isRetryable = false;

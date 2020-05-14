@@ -60,7 +60,12 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   handleButtonPress = async () => {
     const patientId = this.props.route.params.patientId;
-    Navigator.gotoNextScreen(this.props.route.name, { patientId });
+
+    try {
+      await Navigator.gotoNextScreen(this.props.route.name, { patientId });
+    } catch(error) {
+      console.log("[ERROR] Welcome repeat", error);
+    }
   };
 
   navigateToPrivacyPolicy = () => {

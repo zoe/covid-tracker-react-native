@@ -90,8 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
-    borderWidth: 1,
-    borderColor: 'red',
   },
   modalView: {
     margin: 20,
