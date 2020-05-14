@@ -18,7 +18,7 @@ export type PatientStateType = {
   isSameHousehold: boolean;
   shouldAskLevelOfIsolation: boolean;
   shouldAskStudy: boolean;
-  hasRaceAnswer: boolean;
+  hasRaceEthnicityAnswer: boolean;
   hasPeriodAnswer: boolean;
   hasHormoneTreatmentAnswer: boolean;
 };
@@ -38,7 +38,7 @@ const initPatientState = {
   isSameHousehold: false,
   shouldAskLevelOfIsolation: false,
   shouldAskStudy: false,
-  hasRaceAnswer: true,
+  hasRaceEthnicityAnswer: true,
   hasPeriodAnswer: true,
   hasHormoneTreatmentAnswer: true,
 } as Partial<PatientStateType>;
