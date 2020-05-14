@@ -14,7 +14,7 @@ import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/u
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { ApiErrorState, initialErrorState, retryHandler } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
 
@@ -32,8 +32,6 @@ type WelcomeRepeatScreenState = {
 const initialState = {
   ...initialErrorState,
   userCount: null,
-  // status: '',
-  // error: null,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {

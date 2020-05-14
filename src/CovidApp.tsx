@@ -50,10 +50,8 @@ import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
-import OfflineService from './core/offline/OfflineService';
 import { OfflineNotice } from './components/OfflineNotice';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import { offlineService } from './Services';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -81,13 +79,6 @@ export default class CovidApp extends Component<object, State> {
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
-
-    await offlineService.checkStatus();
-    console.log(`[OFFLINE] isOnline: ${offlineService.isOnline}, isApiOnline: ${offlineService.isApiOnline}`);
-    this.setState({ isOnline: offlineService.isOnline, isApiOnline: offlineService.isApiOnline });
-    // offlineService
-    //   .on('status.online', (value: boolean) => this.setState({isOnline: value}))
-    //   .on('status.apiOnline', (value: boolean) => this.setState({isOnline: value}));
     this.setState({ isLoaded: true });
   }
 
