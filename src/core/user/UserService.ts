@@ -58,7 +58,7 @@ export interface IPatientService {
   listPatients(): Promise<any>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
-  getPatient(patientId: string): Promise<PatientInfosRequest>;
+  getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
 }
@@ -239,10 +239,14 @@ export default class UserService extends ApiClientBase
     return PATIENT_VERSION;
   }
 
-  public async getPatient(patientId: string): Promise<PatientInfosRequest> {
-    // TODO: Cache this in AsyncStorage?
-    const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
-    return patientResponse.data;
+  public async getPatient(patientId: string): Promise<PatientInfosRequest | null> {
+    try {
+      const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
+      return patientResponse.data;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
   }
 
   public async updatePatientState(
@@ -328,14 +332,15 @@ export default class UserService extends ApiClientBase
 
     try {
       if (!patient) {
-        patient = await this.getPatient(patientId);
-      }
-
-      if (patient) {
-        currentPatient = await this.updatePatientState(currentPatient, patient);
+        const loadPatient = await this.getPatient(patientId);
+        patient = loadPatient || patient;
       }
     } catch (error) {
-      // Something wrong with the request, fallback to defaults
+      handleServiceError(error);
+    }
+
+    if (patient) {
+      currentPatient = await this.updatePatientState(currentPatient, patient);
     }
 
     return currentPatient;

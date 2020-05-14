@@ -24,7 +24,7 @@ const Splash = (props: SplashProps) => {
       <FlexView>
         {!!props.onRetry && (
           <View style={styles.ctaBlock}>
-            <BrandedButton onPress={props.onRetry}>{i18n.t("errors.button-retry")}</BrandedButton>
+            <BrandedButton onPress={props.onRetry}>{i18n.t('errors.button-retry')}</BrandedButton>
           </View>
         )}
       </FlexView>

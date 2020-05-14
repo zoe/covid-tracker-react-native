@@ -14,7 +14,7 @@ import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import { ScreenParamList } from '../ScreenParamList';
 import { AppException } from '../../core/ApiServiceErrors';
-import { Loading } from '../../components/Loading';
+import { Loading, LoadingModal } from '../../components/Loading';
 import { offlineService, userService } from '../../Services';
 
 type RenderProps = {
@@ -32,13 +32,20 @@ type Patient = {
   created_at?: Date;
 };
 
-interface State {
-  patients: Patient[];
+interface PatientListState {
   isLoaded: boolean;
-  error: AppException | null;
-  status: string;
+  patients: Patient[];
   shouldRefresh: boolean;
 }
+
+interface ApiErrorState {
+  isApiError: boolean;
+  error: AppException | null;
+  status: string;
+  onRetry?: () => void;
+}
+
+interface State extends PatientListState, ApiErrorState {}
 
 const initialState = {
   patients: [],
@@ -46,6 +53,7 @@ const initialState = {
   error: null,
   status: '',
   shouldRefresh: false,
+  isApiError: false,
 };
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {
@@ -85,8 +93,25 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   async startAssessment(patientId: string) {
-    const currentPatient = await userService.getCurrentPatient(patientId);
-    this.props.navigation.navigate('StartAssessment', { currentPatient });
+    try {
+      const currentPatient = await userService.getCurrentPatient(patientId);
+      this.props.navigation.navigate('StartAssessment', { currentPatient });
+    } catch (error) {
+      this.setState({
+        isApiError: true,
+        error: error,
+        onRetry: () => {
+          this.setState({
+            status: i18n.t('errors.status-retrying'),
+            error: null,
+          });
+          setTimeout(() => {
+            this.setState({ status: i18n.t('errors.status-loading') });
+            this.startAssessment(patientId);
+          }, offlineService.getRetryDelay());
+        },
+      });
+    }
   }
 
   getNextAvatarName() {
@@ -106,6 +131,14 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     return (
       <View style={styles.view}>
         <SafeAreaView>
+          {this.state.isApiError && (
+            <LoadingModal
+              error={this.state.error}
+              status={this.state.status}
+              onRetry={this.state.onRetry}
+              onPress={() => this.setState({ isApiError: false })}
+            />
+          )}
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
               <TouchableOpacity
