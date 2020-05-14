@@ -10,6 +10,11 @@ import { Linking } from 'expo';
 import Analytics, { events } from '../core/Analytics';
 
 export default class Donate extends Component {
+  constructor(props: any) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick() {
     Analytics.track(events.DONATE);
     Linking.openURL(i18n.t('donate.url'));
@@ -21,7 +26,7 @@ export default class Donate extends Component {
         <CoralBadge>{i18n.t('donate.banner')}</CoralBadge>
         <RegularBoldText style={styles.primary}>{i18n.t('donate.primary-text')}</RegularBoldText>
         <SecondaryText style={styles.secondary}>{i18n.t('donate.secondary-text')}</SecondaryText>
-        <BrandedButton onPress={this.handleClick.bind(this)} style={styles.button}>
+        <BrandedButton onPress={this.handleClick} style={styles.button}>
           {i18n.t('donate.button-text')}
         </BrandedButton>
       </View>
