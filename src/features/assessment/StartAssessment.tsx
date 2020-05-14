@@ -22,7 +22,7 @@ export default class StartAssessmentScreen extends Component<StartAssessmentProp
 
     if (currentPatient.hasCompletedPatientDetails) {
       const mustBackfillProfile =
-        (features.showRaceQuestion && !currentPatient.hasRaceAnswer) ||
+        ((features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
         !currentPatient.hasPeriodAnswer ||
         !currentPatient.hasHormoneTreatmentAnswer ||
         !currentPatient.hasBloodPressureAnswer;
