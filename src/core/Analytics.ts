@@ -54,7 +54,7 @@ export function identify(): void {
   const payload = {
     appCountry: UserService.userCountry,
     expoVersion: Constants.expoVersion,
-    apoVersion: Constants.manifest.version,
+    appVersion: Constants.manifest.version,
     revisionId: Constants.manifest.revisionId,
     releaseChannel: Constants.manifest.releaseChannel,
   };
