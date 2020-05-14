@@ -36,7 +36,7 @@ type PatientListState = {
   isLoaded: boolean;
   patients: Patient[];
   shouldRefresh: boolean;
-}
+};
 
 type State = PatientListState & ApiErrorState;
 

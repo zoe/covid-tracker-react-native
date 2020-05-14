@@ -18,14 +18,13 @@ export type ApiErrorState = {
   error: AppException | null;
   status: string;
   onRetry?: () => void;
-}
+};
 
 export const initialErrorState = {
   isApiError: false,
   error: null,
   status: '',
-}
-
+};
 
 export class AppException extends Error {
   friendlyI18n: string | null;
