@@ -64,8 +64,6 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
     revisionId: Constants.manifest.revisionId,
     releaseChannel: Constants.manifest.releaseChannel,
   };
-  console.log(payload);
-
   Amplitude.setUserProperties(payload);
 }
 
