@@ -163,7 +163,7 @@ export default class UserService extends ApiClientBase {
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
-    const hasRaceAnswer = patient.race.length > 0;
+    const hasRaceEthnicityAnswer = patient.race.length > 0;
     const isFemale = patient.gender === 0;
     const isSexNotMale = ![null, 1, 2].includes(patient.gender);
     const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
@@ -224,7 +224,7 @@ export default class UserService extends ApiClientBase {
       isFemale,
       isPeriodCapable,
       isHealthWorker,
-      hasRaceEthnicityAnswer: hasRaceAnswer,
+      hasRaceEthnicityAnswer,
       hasBloodPressureAnswer,
       hasPeriodAnswer,
       hasHormoneTreatmentAnswer,
