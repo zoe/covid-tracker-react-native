@@ -47,9 +47,15 @@ export function track(event: string, eventProperties?: object): void {
 
   if (eventProperties) {
     Amplitude.logEventWithProperties(event, eventProperties);
+    console.log(event);
+    console.log(eventProperties);
   } else {
     Amplitude.logEvent(event);
   }
+}
+
+export function trackScreenView(screenName: string): void {
+  track(events.VIEW_SCREEN, { screenName });
 }
 
 export function identify(additionalProps?: AdditionalUserProperties): void {
@@ -69,6 +75,7 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
 
 export default {
   track,
+  trackScreenView,
   events,
   identify,
 };
