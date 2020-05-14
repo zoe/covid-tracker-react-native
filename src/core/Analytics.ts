@@ -24,6 +24,7 @@ export const events = {
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
 // https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey
+// These are disabled at the project level by Amplitude via a support ticket.
 const trackingOptions = {
   disableCarrier: true,
   disableCity: true,
