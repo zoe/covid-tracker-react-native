@@ -17,6 +17,7 @@ import UserService from '../core/user/UserService';
 import { AreaStatsResponse } from '../core/user/dto/UserAPIContracts';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
+import Analytics, { events } from '../core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;
@@ -101,6 +102,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         message,
         url: this.shareUrl, // IOS has separate field for URL
       });
+      Analytics.track(events.SHARE_THIS_APP);
     } catch (error) {}
   };
 
