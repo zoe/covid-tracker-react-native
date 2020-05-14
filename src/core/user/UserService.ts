@@ -224,7 +224,7 @@ export default class UserService extends ApiClientBase {
       isFemale,
       isPeriodCapable,
       isHealthWorker,
-      hasRaceAnswer,
+      hasRaceEthnicityAnswer: hasRaceAnswer,
       hasBloodPressureAnswer,
       hasPeriodAnswer,
       hasHormoneTreatmentAnswer,
