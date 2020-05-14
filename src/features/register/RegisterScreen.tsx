@@ -65,7 +65,9 @@ export class RegisterScreen extends Component<PropsType, State> {
       userService
         .register(formData.email, formData.password)
         .then((response) => {
-          Analytics.identify();
+          const isTester = response.data.user.is_tester;
+          Analytics.identify({ isTester });
+
           const patientId = response.data.user.patients[0];
           Navigator.gotoNextScreen(this.props.route.name, { patientId });
         })

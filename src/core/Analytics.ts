@@ -6,6 +6,10 @@ import UserService from './user/UserService';
 
 let isInitialized = false;
 
+type AdditionalUserProperties = {
+  isTester: boolean;
+};
+
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
   SIGNUP: 'SIGNUP',
@@ -47,17 +51,19 @@ export function track(event: string, eventProperties?: object): void {
   }
 }
 
-export function identify(): void {
+export function identify(additionalProps?: AdditionalUserProperties): void {
   initialize();
 
   // WARNING: Do not send any PII or Health Data here!
   const payload = {
+    ...additionalProps,
     appCountry: UserService.userCountry,
     expoVersion: Constants.expoVersion,
     appVersion: Constants.manifest.version,
     revisionId: Constants.manifest.revisionId,
     releaseChannel: Constants.manifest.releaseChannel,
   };
+  console.log(payload);
 
   Amplitude.setUserProperties(payload);
 }

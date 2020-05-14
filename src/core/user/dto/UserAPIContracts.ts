@@ -47,6 +47,7 @@ export type UserResponse = {
   authorizations: string[];
   patients: string[];
   ask_for_rating: boolean;
+  is_tester: boolean;
 };
 
 export type PiiRequest = {
