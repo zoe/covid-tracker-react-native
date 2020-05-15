@@ -50,7 +50,6 @@ import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
-import { OfflineNotice } from './components/OfflineNotice';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -88,9 +87,6 @@ export default class CovidApp extends Component<object, State> {
     return (
       <SafeAreaProvider>
         <Root>
-          <SafeAreaView>
-            <OfflineNotice isOnline={this.state.isOnline} isApiOnline={this.state.isApiOnline} />
-          </SafeAreaView>
           <Header style={{ display: 'none' }}>
             <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
           </Header>
