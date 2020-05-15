@@ -1,35 +1,41 @@
 import { CommonActions, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Body, CheckBox, Item, ListItem } from 'native-base';
+import { Body, CheckBox, ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import { colors } from '../../../theme';
 import Screen, { Header, screenWidth } from '../../components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
+import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '../../components/Text';
 import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
+import { initialErrorState, ApiErrorState, OfflineException } from '../../core/ApiServiceErrors';
+import { LoadingModal } from '../../components/Loading';
+import { userService, offlineService } from '../../Services';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
   route: RouteProp<ScreenParamList, 'ConsentForOther'>;
 };
 
-interface ConsentState {
+type ConsentState = {
   consentChecked: boolean;
   errorMessage: string;
-}
+} & ApiErrorState;
+
+const initialState: ConsentState = {
+  ...initialErrorState,
+  consentChecked: false,
+  errorMessage: '',
+};
 
 export default class ConsentForOtherScreen extends Component<RenderProps, ConsentState> {
   constructor(props: RenderProps) {
     super(props);
-    this.state = {
-      consentChecked: false,
-      errorMessage: '',
-    };
+    this.state = initialState;
     this.createProfile = this.createProfile.bind(this);
   }
 
@@ -78,10 +84,9 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     });
   }
 
-  createProfile() {
+  async createProfile(): Promise<string> {
     const name = this.props.route.params.profileName;
     const avatarName = this.props.route.params.avatarName;
-    const userService = new UserService();
 
     const newPatient = {
       name,
@@ -89,17 +94,45 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
       reported_by_another: true,
     } as Partial<PatientInfosRequest>;
 
-    userService
-      .createPatient(newPatient)
-      .then((response) => {
-        this.startAssessment(response.data.id);
-      })
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+    const response = await userService.createPatient(newPatient);
+    const patientId = response.data.id;
+    return patientId;
   }
+
+  handleCreateProfile = async () => {
+    try {
+      const patientId = await this.createProfile();
+      await this.startAssessment(patientId);
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      this.setState({
+        isApiError: true,
+        error: error,
+        onRetry: () => {
+          this.setState({
+            status: i18n.t('errors.status-retrying'),
+            error: null,
+          });
+          setTimeout(() => {
+            this.setState({ status: i18n.t('errors.status-loading') });
+            this.handleCreateProfile();
+          }, offlineService.getRetryDelay());
+        },
+      });
+    }
+  };
 
   render() {
     return (
       <Screen>
+        {this.state.isApiError && (
+          <LoadingModal
+            error={this.state.error}
+            status={this.state.status}
+            onRetry={this.state.onRetry}
+            onPress={() => this.setState({ isApiError: false })}
+          />
+        )}
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{this.headerText}</HeaderText>
           {this.secondaryText}
@@ -116,7 +149,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
-        <BrandedButton enable={this.state.consentChecked} hideLoading onPress={this.createProfile}>
+        <BrandedButton enable={this.state.consentChecked} hideLoading onPress={this.handleCreateProfile}>
           {i18n.t('consent-create-profile')}
         </BrandedButton>
       </Screen>
