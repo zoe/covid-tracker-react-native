@@ -9,7 +9,6 @@ import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import AnalyticsService from '../../core/Analytics';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
