@@ -12,6 +12,7 @@ import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
+import { CheckboxItem } from '../../components/Checkbox';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
@@ -33,8 +34,8 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     this.createProfile = this.createProfile.bind(this);
   }
 
-  handleConsentClick = () => {
-    this.setState({ consentChecked: !this.state.consentChecked });
+  handleConsentClick = (checked: boolean) => {
+    this.setState({ consentChecked: checked });
   };
 
   isAdultConsent = () => {
@@ -106,12 +107,9 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         </Header>
 
         <ListItem>
-          <CheckBox checked={this.state.consentChecked} onPress={this.handleConsentClick} />
-          <TouchableWithoutFeedback onPress={this.handleConsentClick}>
-            <Body style={styles.label}>
-              <RegularText>{this.consentLabel}</RegularText>
-            </Body>
-          </TouchableWithoutFeedback>
+          <CheckboxItem value={this.state.consentChecked} onChange={this.handleConsentClick}>
+            {this.consentLabel}
+          </CheckboxItem>
         </ListItem>
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
