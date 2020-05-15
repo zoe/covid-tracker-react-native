@@ -64,7 +64,7 @@ class Navigator {
 
   async gotoStartReport(patientId: string) {
     const config = this.getConfig();
-    if (config.enablePersonalInformation) {
+    if (config.enableMultiplePatients) {
       navigator.gotoScreen('SelectProfile', { patientId });
     } else {
       const currentPatient = await this.getCurrentPatient(patientId);
@@ -136,7 +136,12 @@ const ScreenFlow: any = {
     const { patientId } = routeParams;
     const config = navigator.getConfig();
 
-    if (config.enablePersonalInformation) {
+    let askPersonalInfo = config.enablePersonalInformation;
+    if (isUSCountry() && UserService.consentSigned.document != 'US Nurses') {
+      askPersonalInfo = false;
+    }
+
+    if (askPersonalInfo) {
       await navigator.replaceScreen('OptionalInfo', { patientId });
     } else if (patientId) {
       const currentPatient = await navigator.getCurrentPatient(patientId);
