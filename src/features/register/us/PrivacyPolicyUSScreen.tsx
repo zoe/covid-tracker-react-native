@@ -29,13 +29,13 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
     return (
       <View style={styles.rootContainer}>
         <ScrollView>
-          <HeaderText text="COVID-19 Symptom Tracker App Privacy Policy" />
+          <HeaderText text="COVID-19 Symptom Study App Privacy Policy" />
           <RegularText>
-            Effective Date: March 27, 2020
+            Effective Date: May 7, 2020
             {'\n\n'}
             At Zoe Global Limited (together with its affiliates, “Zoe,” “we,” “us”) we take your privacy seriously.
             Please read the following to learn how we treat your personal information. By using or accessing the
-            COVID-19 Symptom Tracker app and associated website covid.joinzoe.com (together, the “Services”) in any
+            COVID-19 Symptom Study app and associated website covid.joinzoe.com (together, the “Services”) in any
             manner, you acknowledge that you accept the practices and policies outlined in this Privacy Policy, and you
             hereby consent that we will collect, use, and share your information in the following ways.
             {'\n\n'}
@@ -59,8 +59,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             {'\n\n'}• You:
             {'\n\n'}- when you provide such information directly to us, and
             {'\n'}- when Personal Data about you is automatically collected in connection with your use of our Services
-            {'\n\n'}• On our COVID-19 Tracker website https://covid.joinzoe.com/ we collect Personal Data through
-            cookies and similar technologies such as pixel tags, web beacons, clear GIFs, and JavaScript (collectively,
+            {'\n\n'}• On our COVID-19 Study website https://covid.joinzoe.com/ we collect Personal Data through cookies
+            and similar technologies such as pixel tags, web beacons, clear GIFs, and JavaScript (collectively,
             “Cookies”) to enable our servers to recognize your web browser and tell us how and when you visit and use
             our website, to analyze trends, learn about our user base and operate and improve our website. Cookies are
             small pieces of data– usually text files – placed on your computer, tablet, phone, or similar device when
@@ -145,19 +145,19 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             requires them only to process the data on our instructions and to take proper care in using it.
             {'\n\n'}
             These processors include:
-            {'\n\n'}• Amazon Web Services
-            {'\n'}• Google Cloud Platform
+            {'\n\n'}• Google Cloud Platform
             {'\n'}• SurveyMonkey
             {'\n'}• Segment
-            {'\n'}• Google Analytics
-            {'\n'}• Mixpanel
+            {'\n'}• Expo
+            {'\n'}• Google Firebase
+            {'\n'}• Amplitude
             {'\n'}• Google G Suite
             {'\n'}• MailChimp
             {'\n'}• Mailgun
             {'\n'}• Intercom
             {'\n'}• Sentry
-            {'\n'}• Google Firebase
-            {'\n'}• SwiftyBeaver
+            {'\n'}• Cloudflare
+            {'\n'}• Sqreen
             {'\n\n'}
             Research Partners and Other Third Parties:
             {'\n\n'}
@@ -196,6 +196,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             Guys & St Thomas' Hospitals
             {'\n'}
             UK National Health Service
+            {'\n'}
+            Swansea University (SAIL Databank)
             {'\n'}
             Nottingham University
             {'\n'}

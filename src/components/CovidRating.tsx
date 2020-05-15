@@ -15,9 +15,9 @@ type State = {
   showTakeToStore: boolean;
 };
 
-const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-tracker/id1503529611`;
-const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-tracker/id1503529611`;
-const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-tracker/id1503529611`;
+const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
+const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
+const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 const ModalContainer = (props: any) => (

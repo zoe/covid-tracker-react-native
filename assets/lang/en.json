@@ -58,7 +58,7 @@
   },
 
   "welcome": {
-    "title": "COVID Symptom Tracker",
+    "title": "COVID Symptom Study",
     "sign-in": "Sign in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
@@ -197,6 +197,7 @@
   "picker-yes": "Yes",
   "picker-no": "No",
   "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Optional",
 
   "previous-exposure-title": "Previous exposure to COVID",
   "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
@@ -229,6 +230,38 @@
     "page-title": "About your health",
     "health-problems-that-limit-activity": "In general, do you have any health problems that require you to limit your activities?",
     "are-you-pregnant": "Are you pregnant?",
+    "having-periods": "Are you currently having periods?",
+    "picker-never-had-periods": "I've never had periods",
+    "picker-currently-having-periods": "I'm currently having periods",
+    "picker-stopped-having-periods": "I've stopped having periods",
+    "picker-pregnant": "I'm pregnant",
+    "picker-not-currently-having-periods": "I'm not currently having periods",
+    "picker-pfnts": "Prefer not to say",
+    "picker-other": "Other",
+    "please-select-periods": "Please select an option",
+    "period-frequency": "Do your periods usually occur?",
+    "picker-period-frequency-regular": "Regularly every 3-6 weeks",
+    "picker-period-frequency-less-frequent": "Regularly, but less often than every 6 weeks",
+    "picker-period-frequency-irregular": "At irregular intervals",
+    "please-select-period-frequency": "Please select an option",
+    "period-stopped-age": "At what age did your periods stop?",
+    "weeks-pregnant": "How many weeks pregnant are you?",
+    "correct-weeks-pregnant": "Please enter how many weeks pregnant you are",
+    "required-weeks-pregnant": "Please correct how many weeks pregnant you are",
+    "correct-period-stopped-age": "Please enter your age when you periods stopped",
+    "required-period-stopped-age": "Please correct your age when you periods stopped",
+    "label-taking-hormone-treatment" : "Are you taking any of the following forms of hormone treatment?",
+    "checkbox-hormone-treatment-none": "No",
+    "checkbox-oral-contraceptive-pill": "Combined oral contraceptive pill",
+    "checkbox-progesterone-only-pill": "Progesterone only pill",
+    "checkbox-mirena-or-other-coil": "Mirena or other hormone coil",
+    "checkbox-depot-injection-or-implant": "Depot injection or implant",
+    "checkbox-hormone-treatment-therapy": "Hormone Replacement Therapy",
+    "checkbox-oestrogen-hormone-therapy": "Oestrogen hormone therapy for gender transitioning",
+    "checkbox-testosterone-hormone-therapy": "Testosterone hormone therapy",
+    "checkbox-hormone-treatment-pfnts": "Prefer not to say",
+    "checkbox-hormone-treatment-other": "Other",
+    "please-select-hormone-treatments": "Please select one or more of the above",
     "have-heart-disease": "Do you have heart disease?",
     "have-diabetes": "Do you have diabetes?",
     "have-lung-disease": "Do you have lung disease or asthma?",
@@ -251,33 +284,42 @@
 
   "covid-test": {
     "page-title": "COVID-19 status",
-    "question-has-covid-test": "Have you had a test for COVID-19?",
-    "question-tested-covid-positive": "Did you test positive for COVID-19?",
-    "question-ever-had-covid-test": "Have you ever had a test for COVID-19?",
-    "picker-waiting": "Waiting for results",
-    "picker-test-failed": "Test failed",
-    "question-takes-any-blood-pressure-medications": "Are you regularly taking any blood pressure medications?",
-    "question-covid-test-result-status": "Have you received results?",
-    "question-covid-test-result-status-waiting": "You recently told us you were waiting for results of a COVID-19 test. Have you received results?",
-    "picker-never-had-test": "Never had test",
-    "question-had-new-covid-test": "Since you last reported, have you had a new test for COVID-19?",
-    "question-knows-date-of-test": "Do you know the date of your test?",
-    "question-date-test-occurred": "When was your test?",
-    "question-date-test-occurred-guess": "When was your test (roughly)?",
-    "picker-less-than-7-days-ago": "Less than 7 days ago",
-    "picker-over-1-week-ago": "Over 1 week ago",
-    "picker-over-2-week-ago": "Over 2 weeks ago",
-    "picker-over-3-week-ago": "Over 3 weeks ago",
-    "picker-over-1-month-ago": "Over 1 month ago",
-    "question-covid-test-mechanism": "How was this test performed?",
-    "question-covid-test-mechanism-specify": "Please specify how the test was performed:",
+    "page-title-detail-add": "Add new test",
+    "page-title-detail-update": "Update test",
+    "add-test": "Add test",
+    "update-test": "Update test",
+
+    "question-select-a-date-range": "Select a date range",
+
+    "question-mechanism": "How was this test performed?",
     "picker-nose-swab": "Someone swabbed my nose",
     "picker-throat-swab": "Someone swabbed my throat",
     "picker-saliva-sample": "I spat in a cup/tube",
     "picker-blood-sample": "I gave a blood sample",
     "picker-other": "Other, please specify",
-    "indicate-test-mechanism": "Please indicate how the test was performed",
-    "indicate-test-occurred": "Please indicate when the test was performed"
+
+    "question-mechanism-specify": "Please indicate how the test was performed",
+
+    "question-result": "Did you test positive for COVID-19?",
+
+    "picker-waiting": "Waiting for results",
+    "picker-test-failed": "Not clear/Test Failed",
+    "picker-never-had-test": "Never had test",
+
+    "question-knows-date-of-test": "Do you know the date of your test?",
+    "question-date-test-occurred": "When was your test?",
+
+    "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
+    "picker-less-than-7-days-ago": "Less than 7 days ago",
+    "picker-over-1-week-ago": "Over 1 week ago",
+    "picker-over-2-week-ago": "Over 2 weeks ago",
+    "picker-over-3-week-ago": "Over 3 weeks ago",
+    "picker-over-1-month-ago": "Over 1 month ago",
+
+    "required-date": "Please indicate the date this test occurred",
+    "required-dates": "Please indicate between which two date this test occurred",
+    "required-mechanism": "Please indicate how the test was performed",
+    "required-result": "Please indicate the result of the test"
   },
 
   "describe-symptoms": {
@@ -293,6 +335,11 @@
     "picker-fatigue-mild": "Mild fatigue",
     "picker-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
     "question-has-headache": "Do you have a headache?",
+    "question-headache-frequency": "How often are you experiencing headaches?",
+    "picker-headache-frequency-allday": "All of the day",
+    "picker-headache-frequency-mostday": "Most of the day",
+    "picker-headache-frequency-someday": "Some of the day",
+    "required-headache-frequency": "Please specify the frequency of your headaches ",
     "question-has-unusual-shortness-of-breath": "Are you experiencing unusual shortness of breath or have trouble breathing?",
     "picker-shortness-of-breath-none": "No",
     "picker-shortness-of-breath-mild": "Yes. Mild symptoms - slight shortness of breath during ordinary activity",
@@ -304,6 +351,8 @@
     "question-has-chest-pain": "Are you feeling an unusual chest pain or tightness in your chest?",
     "question-has-abdominal-pain": "Do you have unusual abdominal pain or stomach ache?",
     "question-has-diarrhoea": "Are you experiencing diarrhoea?",
+    "question-diarrhoea-frequency": "How many loose stools in the last 24 hours?",
+    "required-diarrhoea-frequency": "Please specify how many loose stools in the last day",
     "question-has-unusual-muscle-pains": "Do you have unusual strong muscle pains or aches?",
     "question-has-delirium": "Do you have any of the following symptoms: confusion, disorientation or drowsiness?",
     "question-is-skipping-meals": "Have you been skipping meals?",
@@ -317,13 +366,13 @@
     "question-has-eye-soreness": "Do your eyes have any unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)?"
   },
 
-  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients?",
+  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
   "health-worker-exposure-question-treated-patients-with-covid": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
   "health-worker-exposure-picker-patient-interaction-yes-documented": "Yes, documented COVID-19 cases only",
   "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",
   "health-worker-exposure-picker-patient-interaction-yes-both": "Yes, both documented and suspected COVID-19 cases",
   "health-worker-exposure-picker-patient-interaction-no": "Not that I know of",
-  "health-worker-exposure-question-has-used-ppe-equipment" : "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "health-worker-exposure-question-has-used-ppe-equipment": "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
   "health-worker-exposure-picker-ppe-always": "Always",
   "health-worker-exposure-picker-ppe-sometimes": "Sometimes",
   "health-worker-exposure-picker-ppe-never": "Never",
@@ -348,7 +397,8 @@
     "question-healthcare-provider": "In the last week, how many times have you visited a healthcare provider (e.g. hospital, clinic, dentist, pharmacy)?",
     "placeholder-frequency": "Number of times this occurred",
     "required-answer": "Please indicate the number of times this occurred",
-    "correct-answer": "Please correct your answer"
+    "correct-answer": "Please correct your answer",
+    "whole-number": "Please enter a whole number"
   },
 
   "where-are-you": {
@@ -377,11 +427,11 @@
 
   "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
-  "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
-  "exposed-yes-documented" : "Yes, documented COVID-19 cases only",
-  "exposed-yes-undocumented" : "Yes, suspected COVID-19 case only",
+  "have-you-been-exposed": "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
+  "exposed-yes-documented": "Yes, documented COVID-19 cases only",
+  "exposed-yes-undocumented": "Yes, suspected COVID-19 case only",
   "exposed-both": "Yes, both documented & suspected COVID-19 cases",
-  "exposed-no" : "Not that I know of",
+  "exposed-no": "Not that I know of",
   "housebound-problems": "In general, do you have any health problems that require you to stay at home?",
   "needs-help": "Do you need someone to help you on a regular basis?",
   "help-available": "If you need help, can you count on someone close to you?",
@@ -389,8 +439,6 @@
 
   "select-country": "Select country of residence",
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well  🙏. Download the app",
-  "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
   "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
@@ -400,18 +448,32 @@
   "required-ppe-availability-never": "Please indicate the availability of PPE equipment to you",
 
   "thank-you": {
-    "please-share-app": "Please share this app",
-    "share-text": "The more people report their symptoms, the more we can help those at risk.",
-    "btn-share": "Share this app",
     "check-for-updates": "Please check our %{link} for updates.",
     "news-feed": "news feed"
   },
+
+  "share-this-app": {
+    "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
+    "url": "https://covid.joinzoe.com/",
+    "primary-text": "Please share this app",
+    "secondary-text": "The more people report their symptoms, the more we can help those at risk.",
+    "button-text": "Share this app"
+  },
+
+  "donate": {
+    "banner": "URGENT APPEAL",
+    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
+    "primary-text": "Keep the COVID Symptom Study alive",
+    "secondary-text": "Without funding, critical COVID research supporting the NHS cannot continue. Will you help?",
+    "button-text": "Donate now"
+  },
+
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Thank you for joining millions of people supporting scientists at King’s College London to help our health services.",
   "check-in-tomorrow": "We would appreciate it if you could check back in tomorrow if you feel up to it.",
-  "check-news-feed" : "Please check our <b>news feed</b> for updates.",
+  "check-news-feed": "Please check our <b>news feed</b> for updates.",
   "faq-link": "https://covid.joinzoe.com/faq",
 
   "rating": {
@@ -511,5 +573,15 @@
   "answer-for": "Answer for %{name}",
   "profile-name-too-long": "Enter a profile name with less that 32 characters",
   "total-people-contributing": "%{total} people contributing",
-  "join-total-people-contributing": "Join %{total} people contributing worldwide"
+  "join-total-people-contributing": "Join %{total} people contributing worldwide",
+
+  "add-new-test": "Add new test",
+  "your-covid-tests": "Your COVID-19 tests",
+  "positive": "Positive",
+  "negative": "Negative",
+  "failed": "Failed",
+  "pending": "Pending",
+  "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. You can edit these at any time in the future.",
+  "never-had-test": "I have never had a COVID test",
+  "above-list-correct": "The above list is correct"
 }

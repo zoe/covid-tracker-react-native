@@ -8,6 +8,8 @@ import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersRetu
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
+import AnalyticsService from '../../core/Analytics';
+import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
@@ -30,6 +32,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   async componentDidMount() {
     this.updateUserCount();
     this.refreshPushToken();
+    AnalyticsService.identify();
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
   }
 
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   discoveriesTitleBackground: {
-    backgroundColor: colors.slashBlue,
+    backgroundColor: colors.lightBlueBrand,
     paddingHorizontal: 4,
     borderRadius: 4,
   },

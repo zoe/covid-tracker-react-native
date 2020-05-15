@@ -15,6 +15,7 @@ import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import Analytics from '../../core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;
@@ -64,6 +65,9 @@ export class RegisterScreen extends Component<PropsType, State> {
       userService
         .register(formData.email, formData.password)
         .then((response) => {
+          const isTester = response.data.user.is_tester;
+          Analytics.identify({ isTester });
+
           const patientId = response.data.user.patients[0];
           Navigator.gotoNextScreen(this.props.route.name, { patientId });
         })

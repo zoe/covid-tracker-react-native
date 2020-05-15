@@ -11,6 +11,7 @@ export type ConfigType = {
 
   showEthnicityQuestion: boolean;
   showRaceQuestion: boolean;
+  showPregnancyQuestion: boolean;
 
   defaultHeightUnit: string;
   defaultWeightUnit: string;

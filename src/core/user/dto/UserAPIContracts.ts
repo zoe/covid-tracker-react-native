@@ -47,6 +47,7 @@ export type UserResponse = {
   authorizations: string[];
   patients: string[];
   ask_for_rating: boolean;
+  is_tester: boolean;
 };
 
 export type PiiRequest = {
@@ -182,6 +183,24 @@ export type PatientInfosRequest = {
   race_other: string;
   ethnicity: string;
   last_asked_level_of_isolation: Date;
+
+  // period fields
+  period_status: string;
+  period_frequency: string;
+  period_stopped_age: number;
+  pregnant_weeks: number;
+
+  // Hormone therapy fields
+  ht_none: boolean;
+  ht_combined_oral_contraceptive_pill: boolean;
+  ht_progestone_only_pill: boolean;
+  ht_mirena_or_other_coil: boolean;
+  ht_depot_injection_or_implant: boolean;
+  ht_hormone_treatment_therapy: boolean;
+  ht_oestrogen_hormone_therapy: boolean;
+  ht_testosterone_hormone_therapy: boolean;
+  ht_pfnts: boolean;
+  ht_other: boolean;
 };
 
 export type AssessmentInfosRequest = {
@@ -201,6 +220,8 @@ export type AssessmentInfosRequest = {
   temperature_unit: string; //'C' for centigrade, 'F' for Fahrenheit
   persistent_cough: boolean; //defaults to False
   fatigue: string; //'no', 'mild' or 'severe', defaults to 'no'
+  headache: boolean; // defaults to False
+  headache_frequency: string; // 'all_of_the_day', 'most_of_day', 'some_of_day'
   shortness_of_breath: string; //'no', 'mild', 'significant' or 'severe', defaults to 'no'
   red_welts_on_face_or_lips: string; // defaults to False
   blisters_on_feet: string; // defaults to False
@@ -212,6 +233,7 @@ export type AssessmentInfosRequest = {
   other_symptoms: string;
 
   diarrhoea: boolean; //	defaults to False
+  diarrhoea_frequency: string; // 'one_to_two', 'three_to_four', 'five_or_more'
   unusual_muscle_pains: boolean; //	defaults to False
   delirium: boolean; //defaults to False
   skipped_meals: boolean; //defaults to False

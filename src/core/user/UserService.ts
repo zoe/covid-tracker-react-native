@@ -25,8 +25,8 @@ import {
 import { camelizeKeys } from './utils';
 import { PushToken, IPushTokenRemoteClient } from '../types';
 
-const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.3.1'; // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase implements IPushTokenRemoteClient {
@@ -49,7 +49,7 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     },
   };
 
-  private client = ApiClientBase.client;
+  protected client = ApiClientBase.client;
 
   public async login(username: string, password: string) {
     const requestBody = this.objectToQueryString({
@@ -163,8 +163,11 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
-    const hasRaceAnswer = patient.race.length > 0;
-    const isFemale = patient.gender == 0;
+    const hasRaceEthnicityAnswer = patient.race.length > 0;
+    const isFemale = patient.gender === 0;
+    const isSexNotMale = ![null, 1, 2].includes(patient.gender);
+    const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
+    const isPeriodCapable = isSexNotMale || isGenderNotMale;
     const isHealthWorker =
       ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
       patient.is_carer_for_community;
@@ -189,6 +192,20 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
 
+    const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
+    const hasHormoneTreatmentAnswer =
+      !isPeriodCapable ||
+      !!patient.ht_none ||
+      !!patient.ht_combined_oral_contraceptive_pill ||
+      !!patient.ht_progestone_only_pill ||
+      !!patient.ht_mirena_or_other_coil ||
+      !!patient.ht_depot_injection_or_implant ||
+      !!patient.ht_hormone_treatment_therapy ||
+      !!patient.ht_oestrogen_hormone_therapy ||
+      !!patient.ht_testosterone_hormone_therapy ||
+      !!patient.ht_pfnts ||
+      !!patient.ht_other;
+
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
     let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
@@ -205,9 +222,12 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
       ...patientState,
       profile,
       isFemale,
+      isPeriodCapable,
       isHealthWorker,
-      hasRaceAnswer,
+      hasRaceEthnicityAnswer,
       hasBloodPressureAnswer,
+      hasPeriodAnswer,
+      hasHormoneTreatmentAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
@@ -394,7 +414,7 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     try {
       const response = await AsyncStorageService.getAskedToReportForOthers();
       if (response) {
-        return parseInt(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+        return parseInt(response, 10) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
       } else {
         await AsyncStorageService.setAskedToReportForOthers('0');
         return true;
@@ -407,7 +427,7 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
   public async recordAskedToReportForOther() {
     const response = await AsyncStorageService.getAskedToReportForOthers();
     if (response) {
-      const value = parseInt(response) + 1;
+      const value = parseInt(response, 10) + 1;
       await AsyncStorageService.setAskedToReportForOthers(value.toString());
     } else {
       await AsyncStorageService.setAskedToReportForOthers('0');

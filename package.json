@@ -25,11 +25,14 @@
     "@react-navigation/stack": "^5.1.0",
     "@types/i18n-js": "^3.0.1",
     "@types/node": "^13.9.0",
+    "@types/react-native-calendar-picker": "^6.0.0",
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-redux": "^7.1.7",
     "@types/yup": "^0.26.33",
     "axios": "^0.19.2",
     "expo": "~36.0.0",
+    "expo-analytics-amplitude": "~8.0.0",
+    "expo-constants": "~8.0.0",
     "expo-font": "^8.0.0",
     "expo-localization": "~8.0.0",
     "formik": "^2.1.4",
@@ -41,6 +44,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-calendar-picker": "^6.0.6",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-progress": "^4.0.3",
@@ -55,8 +59,7 @@
     "redux-thunk": "^2.3.0",
     "typesafe-actions": "^5.1.0",
     "weak-key": "^1.0.2",
-    "yup": "^0.28.3",
-    "expo-constants": "~8.0.0"
+    "yup": "^0.28.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
