@@ -113,7 +113,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        Navigator.startAssessment(currentPatient, null);
+        Navigator.startAssessment(currentPatient);
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });

@@ -137,7 +137,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
-        Navigator.startAssessment(currentPatient, null);
+        Navigator.startAssessment(currentPatient);
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });

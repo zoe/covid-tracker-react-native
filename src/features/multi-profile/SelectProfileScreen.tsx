@@ -72,7 +72,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async startAssessment(patientId: string) {
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
-    Navigator.startAssessment(currentPatient, null);
+    Navigator.startAssessment(currentPatient);
   }
 
   getNextAvatarName() {

@@ -68,7 +68,7 @@ class Navigator {
       navigator.gotoScreen('SelectProfile', { patientId });
     } else {
       const currentPatient = await this.getCurrentPatient(patientId);
-      this.startAssessment(currentPatient, null);
+      this.startAssessment(currentPatient);
     }
   }
 
@@ -105,10 +105,10 @@ class Navigator {
       });
     });
 
-    this.startAssessment(currentPatient, null);
+    this.startAssessment(currentPatient);
   }
 
-  startAssessment(currentPatient: PatientStateType, assessmentId: string | null) {
+  startAssessment(currentPatient: PatientStateType) {
     const userService = new UserService();
     const features = userService.getConfig();
 
@@ -122,13 +122,13 @@ class Navigator {
       if (mustBackfillProfile) {
         this.navigation.navigate('ProfileBackDate', { currentPatient });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
-        this.navigation.navigate('LevelOfIsolation', { currentPatient, assessmentId });
+        this.navigation.navigate('LevelOfIsolation', { currentPatient, assessmentId: null });
       } else {
         // Everything in this block should be replicated in Level Of Isolation navigation for now
         if (currentPatient.isHealthWorker) {
-          this.navigation.navigate('HealthWorkerExposure', { currentPatient, assessmentId });
+          this.navigation.navigate('HealthWorkerExposure', { currentPatient, assessmentId: null });
         } else {
-          this.navigation.navigate('CovidTest', { currentPatient, assessmentId });
+          this.navigation.navigate('CovidTest', { currentPatient, assessmentId: null });
         }
       }
     } else {
