@@ -47,8 +47,6 @@ export function track(event: string, eventProperties?: object): void {
 
   if (eventProperties) {
     Amplitude.logEventWithProperties(event, eventProperties);
-    console.log(event);
-    console.log(eventProperties);
   } else {
     Amplitude.logEvent(event);
   }
