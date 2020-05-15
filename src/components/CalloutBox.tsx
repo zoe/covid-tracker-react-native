@@ -1,15 +1,15 @@
-import React from "react";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
-import { RegularText } from "./Text";
-import { Linking } from "expo";
-import { colors } from "../../theme";
-import { CalloutBoxContent } from "../core/ContentService";
+import React from 'react';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { RegularText } from './Text';
+import { Linking } from 'expo';
+import { colors } from '../../theme';
+import { CalloutBoxContent } from '../core/ContentService';
 
 type CalloutBoxProps = {
-  content: CalloutBoxContent
-}
+  content: CalloutBoxContent;
+};
 
-export const CalloutBox = ({content}: CalloutBoxProps) => {
+export const CalloutBox = ({ content }: CalloutBoxProps) => {
   return (
     <TouchableOpacity style={styles.discoveriesContainer} onPress={() => Linking.openURL(content.link.url)}>
       <View style={styles.discoveriesTitleBackground}>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
-})
+});
