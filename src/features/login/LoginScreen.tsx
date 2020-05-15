@@ -18,6 +18,7 @@ import { UserNotFoundException } from '../../core/Exception';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import Analytics from '../../core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
@@ -66,6 +67,9 @@ export class LoginScreen extends Component<PropsType, StateType> {
     userService
       .login(username, this.password)
       .then((response) => {
+        const isTester = response.user.is_tester;
+        Analytics.identify({ isTester });
+
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
         this.props.navigation.reset({

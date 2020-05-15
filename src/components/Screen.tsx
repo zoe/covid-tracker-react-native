@@ -7,6 +7,7 @@ import { colors } from '../../theme';
 import { PatientProfile } from '../core/patient/PatientState';
 import { ScreenParamList } from '../features/ScreenParamList';
 import PatientHeader from './PatientHeader';
+import Analytics from '../core/Analytics';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
@@ -59,6 +60,21 @@ type ScreenProps = {
 export default class Screen extends Component<ScreenProps> {
   screenWidth: number = screenWidth;
   screenHeight: number = screenHeight;
+
+  getCurrentRoute(navigation?: StackNavigationProp<any>): string | null {
+    if (navigation) {
+      const navigationState = navigation.dangerouslyGetState();
+      const currentRoute = navigationState.routes[navigationState.index];
+      return currentRoute.name;
+    } else {
+      return null;
+    }
+  }
+
+  componentDidMount() {
+    const screenName = this.getCurrentRoute(this.props.navigation);
+    if (screenName) Analytics.trackScreenView(screenName);
+  }
 
   render() {
     const profile = this.props.profile;

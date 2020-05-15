@@ -17,6 +17,7 @@ import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersRetu
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, ClickableText, RegularText } from '../../components/Text';
+import AnalyticsService from '../../core/Analytics';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
@@ -42,6 +43,8 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const userService = new UserService();
     const userCount = await userService.getUserCount();
     this.setState({ userCount });
+
+    AnalyticsService.identify();
 
     // Refresh push token if we don't have one
     const hasPushToken = await AsyncStorageService.getPushToken();
