@@ -6,6 +6,7 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../../theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
+import Analytics from '../../core/Analytics';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
@@ -48,6 +49,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
 
   componentDidMount(): void {
     if (isSECountry()) this.props.navigation.setOptions({ title: 'Information till studiedeltagare' });
+    Analytics.trackScreenView('Consent');
   }
 
   viewOnly = this.props.route.params.viewOnly;
