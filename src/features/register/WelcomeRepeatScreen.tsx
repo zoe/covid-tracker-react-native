@@ -18,6 +18,7 @@ import { ScreenParamList } from '../ScreenParamList';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
+import Analytics from '../../core/Analytics';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -45,6 +46,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     this.setState({ userCount: parseInt(userCount as string, 10) });
 
     AnalyticsService.identify();
+    Analytics.trackScreenView('WelcomeRepeat');
 
     // Refresh push token if we don't have one
     const hasPushToken = await AsyncStorageService.getPushToken();

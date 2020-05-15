@@ -9,6 +9,7 @@ import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/u
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import CountryIpModal from './CountryIpModal';
+import Analytics from '../../core/Analytics';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
@@ -60,6 +61,7 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
     const userService = new UserService();
     const userCount = await userService.getUserCount();
     this.setState({ userCount });
+    Analytics.trackScreenView('Welcome2');
   }
 
   render() {

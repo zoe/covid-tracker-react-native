@@ -9,6 +9,7 @@ import { BrandedButton, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import Analytics from '../../core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
@@ -49,6 +50,7 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
         setState({ userCount });
       }
     });
+    Analytics.trackScreenView('Welcome1');
   }, []);
 
   return (

@@ -51,6 +51,7 @@ export class RegisterScreen extends Component<PropsType, State> {
     super(props);
     this.state = initialState;
     Navigator.setNavigation(this.props.navigation);
+    Analytics.trackScreenView('Register');
   }
 
   private checkFieldsFilled = (props: any) => {
