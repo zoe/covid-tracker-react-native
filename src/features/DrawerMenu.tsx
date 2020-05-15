@@ -9,7 +9,7 @@ import { colors, fontStyles } from '../../theme';
 import { CaptionText, HeaderText } from '../components/Text';
 import UserService, { isGBCountry, isUSCountry, isSECountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
-import Analytics from '../core/Analytics';
+import Analytics, { events } from '../core/Analytics';
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = new UserService();
