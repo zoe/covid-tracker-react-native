@@ -1,9 +1,8 @@
 import { CommonActions, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Body, CheckBox, ListItem } from 'native-base';
+import { ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import { colors } from '../../../theme';
 import Screen, { Header, screenWidth } from '../../components/Screen';
