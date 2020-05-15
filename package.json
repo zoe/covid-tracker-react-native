@@ -58,7 +58,8 @@
     "typesafe-actions": "^5.1.0",
     "weak-key": "^1.0.2",
     "yup": "^0.28.3",
-    "expo-analytics-amplitude": "~8.0.0"
+    "expo-analytics-amplitude": "~8.0.0",
+    "react-native-svg": "9.13.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
