@@ -25,7 +25,8 @@ export type TreatmentValue =
   | 'ht_hormone_treatment_therapy'
   | 'ht_oestrogen_hormone_therapy'
   | 'ht_testosterone_hormone_therapy'
-  | 'ht_pfnts';
+  | 'ht_pfnts'
+  | 'ht_other';
 
 const treatmentValues = {
   NONE: 'ht_none',
@@ -37,6 +38,7 @@ const treatmentValues = {
   OESTROGEN_HORMONE_THERAPY: 'ht_oestrogen_hormone_therapy',
   TESTOSTERONE_HORMONE_THERAPY: 'ht_testosterone_hormone_therapy',
   PREFER_NOT_TO_SAY: 'ht_pfnts',
+  OTHER: 'ht_other',
 };
 
 const singleOptions = [treatmentValues.NONE, treatmentValues.PREFER_NOT_TO_SAY];
@@ -73,7 +75,6 @@ const createTreatmentCheckboxes = (data: TreatmentCheckBoxData[], props: FormikP
 export class HormoneTreatmentQuestion extends Component<Props, object> {
   static initialFormValues = () => {
     return {
-      havingPeriods: '',
       hormoneTreatment: [] as string[],
     };
   };
@@ -89,6 +90,7 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
       ht_oestrogen_hormone_therapy: false,
       ht_testosterone_hormone_therapy: false,
       ht_pfnts: false,
+      ht_other: false,
     };
     selectedTreatments.forEach((item: TreatmentValue) => {
       treatments[item] = true;
@@ -118,6 +120,7 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
       value: treatmentValues.TESTOSTERONE_HORMONE_THERAPY,
     },
     { label: i18n.t('your-health.checkbox-hormone-treatment-pfnts'), value: treatmentValues.PREFER_NOT_TO_SAY },
+    { label: i18n.t('your-health.checkbox-hormone-treatment-other'), value: treatmentValues.OTHER },
   ];
 
   render() {
@@ -130,7 +133,7 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
             {createTreatmentCheckboxes(this.HormoneTreatmentCheckboxes, this.props.formikProps)}
           </CheckboxList>
         </Item>
-        {!!formikProps.errors.hormoneTreatment && (
+        {!!formikProps.errors.hormoneTreatment && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.hormoneTreatment as string} />
         )}
       </FieldWrapper>

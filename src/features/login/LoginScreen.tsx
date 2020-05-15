@@ -152,7 +152,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
           </View>
 
           <View>
-            <BrandedButton onPress={this.handleLogin} enable={this.checkFieldsFilled()}>
+            <BrandedButton onPress={this.handleLogin} hideLoading enable={this.checkFieldsFilled()}>
               <Text>{i18n.t('login.button')}</Text>
             </BrandedButton>
             <View style={styles.bottomTextView}>

@@ -185,6 +185,9 @@ export type PatientInfosRequest = {
 
   // period fields
   period_status: string;
+  period_frequency: string;
+  period_stopped_age: number;
+  pregnant_weeks: number;
 
   // Hormone therapy fields
   ht_none: boolean;
@@ -196,6 +199,7 @@ export type PatientInfosRequest = {
   ht_oestrogen_hormone_therapy: boolean;
   ht_testosterone_hormone_therapy: boolean;
   ht_pfnts: boolean;
+  ht_other: boolean;
 };
 
 export type AssessmentInfosRequest = {

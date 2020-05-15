@@ -10,7 +10,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -19,7 +19,7 @@ import { stripAndRound } from '../../utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion } from './fields/PeriodQuestion';
+import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
 
 export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
   isPregnant: string;
@@ -104,6 +104,24 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     havingPeriods: Yup.string().when([], {
       is: () => this.state.showPeriodQuestion,
       then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+    }),
+    periodFrequency: Yup.string().when('havingPeriods', {
+      is: periodValues.CURRENTLY,
+      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
+    }),
+    weeksPregnant: Yup.number().when('havingPeriods', {
+      is: periodValues.PREGNANT,
+      then: Yup.number()
+        .typeError(i18n.t('your-health.correct-weeks-pregnant'))
+        .min(0, i18n.t('your-health.correct-weeks-pregnant'))
+        .max(50, i18n.t('your-health.correct-weeks-pregnant')),
+    }),
+    periodStoppedAge: Yup.number().when('havingPeriods', {
+      is: periodValues.STOPPED,
+      then: Yup.number()
+        .typeError(i18n.t('your-health.correct-period-stopped-age'))
+        .min(0, i18n.t('your-health.correct-period-stopped-age'))
+        .max(100, i18n.t('your-health.correct-period-stopped-age')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.showHormoneTherapyQuestion,
@@ -216,9 +234,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     }
 
     if (this.state.showPeriodQuestion) {
+      const periodDoc = PeriodQuestion.createPeriodDoc(formData);
       infos = {
         ...infos,
-        period_status: formData.havingPeriods,
+        ...periodDoc,
       };
     }
 
@@ -271,8 +290,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     label={i18n.t('your-health.health-problems-that-limit-activity')}
                   />
 
-                  <Divider />
-
                   {this.state.showPregnancyQuestion && (
                     <>
                       <DropdownField
@@ -280,7 +297,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                         onValueChange={props.handleChange('isPregnant')}
                         label={i18n.t('your-health.are-you-pregnant')}
                       />
-                      <Divider />
                     </>
                   )}
 
@@ -301,8 +317,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     onValueChange={props.handleChange('hasDiabetes')}
                     label={i18n.t('your-health.have-diabetes')}
                   />
-
-                  <Divider />
 
                   <DropdownField
                     selectedValue={props.values.hasLungDisease}
@@ -327,15 +341,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                     />
                   )}
 
-                  <Divider />
-
                   <DropdownField
                     selectedValue={props.values.hasKidneyDisease}
                     onValueChange={props.handleChange('hasKidneyDisease')}
                     label={i18n.t('your-health.has-kidney-disease')}
                   />
-
-                  <Divider />
 
                   <DropdownField
                     selectedValue={props.values.hasCancer}

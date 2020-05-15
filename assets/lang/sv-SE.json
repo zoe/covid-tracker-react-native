@@ -111,6 +111,7 @@
   "picker-yes": "Ja",
   "picker-no": "Nej",
   "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Valfri",
 
   "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
@@ -132,8 +133,21 @@
     "picker-currently-having-periods": "Jag har menstruationer (oavsett regelbundenhet)",
     "picker-stopped-having-periods": "Jag har inga menstruationer längre",
     "picker-pregnant": "Jag är gravid",
+    "picker-not-currently-having-periods": "Jag menstruerar för närvarande inte",
     "picker-pfnts": "Vill ej uppge",
+    "picker-other": "Annat",
     "please-select-periods": "Välj ett alternativ",
+    "period-frequency": "Hur ofta menstruerar du vanligen?",
+    "picker-period-frequency-regular": "Regelbundet, var 3-6 vecka",
+    "picker-period-frequency-less-frequent": "Regelbundet, men mindre ofta än var sjätte vecka",
+    "picker-period-frequency-irregular": "Oregelbundet",
+    "please-select-period-frequency": "Välj ett alternativ",
+    "period-stopped-age": "Hur gammal var du när mensen upphörde?",
+    "weeks-pregnant": "I vilken graviditetsvecka är du?",
+    "correct-weeks-pregnant": "Ange i vilken graviditetsvecka du är",
+    "required-weeks-pregnant": "Ändra graviditetsvecka",
+    "correct-period-stopped-age": "Ange din ålder när mensen upphörde",
+    "required-period-stopped-age": "Ändra din ålder när mensen upphörde",
     "label-taking-hormone-treatment" : "Tar du hormonella preventivmedel eller annan könshormonbehandling?",
     "checkbox-hormone-treatment-none": "Nej",
     "checkbox-oral-contraceptive-pill": "Kombinerade p-piller (östrogen och gestagen)",
@@ -144,6 +158,7 @@
     "checkbox-oestrogen-hormone-therapy": "Östrogenbehandling pga könsdysfori",
     "checkbox-testosterone-hormone-therapy": "Testosteronbehandling",
     "checkbox-hormone-treatment-pfnts": "Vill ej uppge",
+    "checkbox-hormone-treatment-other": "Annat",
     "please-select-hormone-treatments": "Välj ett eller flera av alternativen ovan",
     "have-heart-disease": "Har du någon hjärtsjukdom?",
     "have-diabetes": "Har du diabetes?",
@@ -268,17 +283,7 @@
     "required-date": "Ange datum när testet utfördes",
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
-    "required-result": "Ange testresultatet",
-
-    "add-new-test": "Lägg till nytt test",
-    "your-covid-tests": "Dina covid-19-tester",
-    "positive": "Positivt",
-    "negative": "Negativt",
-    "failed": "Misslyckades",
-    "pending": "Väntar",
-    "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
-    "never-had-test" : "Jag har aldrig testats för covid-19",
-    "above-list-correct": "Listan ovan är korrekt"
+    "required-result": "Ange testresultatet"
   },
 
   "how-you-feel": {
@@ -416,11 +421,16 @@
   "sweden": "Sverige",
 
   "thank-you": {
-    "please-share-app": "Hjälp till att sprida appen",
-    "share-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
-    "btn-share": "Dela appen",
     "check-for-updates": "Håll gärna utkik efter uppdateringar i vårt %{link}.",
     "news-feed": "nyhetsflöde"
+  },
+
+  "share-this-app": {
+    "message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
+    "url": "https://covid19app.lu.se/",
+    "primary-text": "Hjälp till att sprida appen",
+    "secondary-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
+    "button-text": "Dela appen"
   },
 
   "thank-you-title": "Stort tack för din hjälp och ditt värdefulla bidrag till forskningen.",
@@ -504,9 +514,17 @@
   "validation-error-text-no-info": "Fyll i eller korrigera informationen ovan",
 
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
-  "share-with-friends-url": "https://covid19app.lu.se/",
 
   "back-date-profile-title": "Några fler frågor om dig",
-  "update-profile": "Uppdatera profilen"
+  "update-profile": "Uppdatera profilen",
+
+  "add-new-test": "Lägg till nytt test",
+  "your-covid-tests": "Dina covid-19-tester",
+  "positive": "Positivt",
+  "negative": "Negativt",
+  "failed": "Misslyckades",
+  "pending": "Väntar",
+  "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
+  "never-had-test" : "Jag har aldrig testats för covid-19",
+  "above-list-correct": "Listan ovan är korrekt"
 }

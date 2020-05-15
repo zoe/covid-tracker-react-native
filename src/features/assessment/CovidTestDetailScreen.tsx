@@ -35,12 +35,13 @@ type CovidProps = {
 
 type State = {
   errorMessage: string;
-  dateTakenSpecific: Date;
+  dateTakenSpecific: Date | undefined;
   today: Date;
   showDatePicker: boolean;
   showRangePicker: boolean;
   dateTakenBetweenStart: Date | undefined;
   dateTakenBetweenEnd: Date | undefined;
+  submitting: boolean;
 };
 
 const now = moment().add(moment().utcOffset(), 'minutes').toDate();
@@ -54,12 +55,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const dateTakenBetweenEnd = updatingTest?.date_taken_between_end;
     const initialState: State = {
       errorMessage: '',
-      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : now,
+      dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : undefined,
       today: now,
       showDatePicker: !!dateTakenSpecific,
       showRangePicker: !dateTakenSpecific,
       dateTakenBetweenStart: dateTakenBetweenStart ? moment(dateTakenBetweenStart).toDate() : undefined,
       dateTakenBetweenEnd: dateTakenBetweenEnd ? moment(dateTakenBetweenEnd).toDate() : undefined,
+      submitting: false,
     };
     this.state = initialState;
   }
@@ -90,63 +92,63 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   };
 
-  formatDateToPost = (date: Date) => moment(date).format('YYYY-MM-DD');
+  formatDateToPost = (date: Date | undefined) => {
+    return date ? moment(date).format('YYYY-MM-DD') : null;
+  };
 
   handleAction(formData: CovidTestData) {
-    const { currentPatient, test } = this.props.route.params;
-    const patientId = currentPatient.patientId;
-    const covidTestService = new CovidTestService();
+    if (!this.state.submitting) {
+      this.setState({ submitting: true });
+      const { currentPatient, test } = this.props.route.params;
+      const patientId = currentPatient.patientId;
+      const covidTestService = new CovidTestService();
 
-    if (formData.knowsDateOfTest === 'yes' && !this.state.dateTakenSpecific) {
-      this.setState({ errorMessage: i18n.t('covid-test.required-date') });
-      return;
-    }
+      if (formData.knowsDateOfTest === 'yes' && !this.state.dateTakenSpecific) {
+        this.setState({ errorMessage: i18n.t('covid-test.required-date') });
+        this.setState({ submitting: false });
+        return;
+      }
 
-    if (
-      formData.knowsDateOfTest === 'no' &&
-      (this.state.dateTakenBetweenStart === undefined || this.state.dateTakenBetweenEnd === undefined)
-    ) {
-      this.setState({ errorMessage: i18n.t('covid-test.required-dates') });
-      return;
-    }
+      if (
+        formData.knowsDateOfTest === 'no' &&
+        (this.state.dateTakenBetweenStart === undefined || this.state.dateTakenBetweenEnd === undefined)
+      ) {
+        this.setState({ errorMessage: i18n.t('covid-test.required-dates') });
+        this.setState({ submitting: false });
+        return;
+      }
 
-    let postTest = {
-      patient: patientId,
-      ...(formData.result && { result: formData.result }),
-      ...(formData.knowsDateOfTest === 'yes' &&
-        this.state.dateTakenSpecific && {
-          date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
-        }),
-      ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
-      ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
-    } as Partial<CovidTest>;
-
-    if (formData.knowsDateOfTest === 'no' && this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd) {
-      postTest = {
-        ...postTest,
+      let postTest = {
+        patient: patientId,
+        ...(formData.result && { result: formData.result }),
+        ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
+        ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
+        date_taken_specific: this.formatDateToPost(this.state.dateTakenSpecific),
         date_taken_between_start: this.formatDateToPost(this.state.dateTakenBetweenStart),
         date_taken_between_end: this.formatDateToPost(this.state.dateTakenBetweenEnd),
-      };
-    }
+      } as Partial<CovidTest>;
 
-    if (test?.id) {
-      covidTestService
-        .updateTest(test.id, postTest)
-        .then((response) => {
-          this.props.navigation.goBack();
-        })
-        .catch((err) => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
-    } else {
-      covidTestService
-        .addTest(postTest)
-        .then((response) => {
-          this.props.navigation.goBack();
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
+      if (test?.id) {
+        covidTestService
+          .updateTest(test.id, postTest)
+          .then((response) => {
+            this.props.navigation.goBack();
+          })
+          .catch((err) => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+            this.setState({ submitting: false });
+          });
+      } else {
+        covidTestService
+          .addTest(postTest)
+          .then((response) => {
+            this.props.navigation.goBack();
+          })
+          .catch(() => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+            this.setState({ submitting: false });
+          });
+      }
     }
   }
 
@@ -181,27 +183,20 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       knowsDateOfTest: Yup.string().required(),
     });
 
-    const androidOption = isAndroid && {
-      label: i18n.t('choose-one-of-these-options'),
-      value: '',
-    };
-
     const mechanismItems = [
-      androidOption,
       { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
       { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
       { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
       { label: i18n.t('covid-test.picker-other'), value: 'other' },
-    ].filter(Boolean) as IOption[];
+    ];
 
     const resultItems = [
-      androidOption,
       { label: i18n.t('picker-no'), value: 'negative' },
       { label: i18n.t('picker-yes'), value: 'positive' },
       { label: i18n.t('covid-test.picker-test-failed'), value: 'failed' },
       { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
-    ].filter(Boolean) as IOption[];
+    ];
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -226,7 +221,20 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
               <Form>
                 <DropdownField
                   selectedValue={props.values.knowsDateOfTest}
-                  onValueChange={props.handleChange('knowsDateOfTest')}
+                  onValueChange={(value: string) => {
+                    if (value === 'yes') {
+                      this.setState({
+                        dateTakenBetweenStart: undefined,
+                        dateTakenBetweenEnd: undefined,
+                        dateTakenSpecific: now,
+                      });
+                    } else {
+                      this.setState({
+                        dateTakenSpecific: undefined,
+                      });
+                    }
+                    props.setFieldValue('knowsDateOfTest', value);
+                  }}
                   label={i18n.t('covid-test.question-knows-date-of-test')}
                 />
 
@@ -307,7 +315,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
 
                 <BrandedButton onPress={props.handleSubmit}>
                   <Text>{i18n.t(testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>

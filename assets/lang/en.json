@@ -197,6 +197,7 @@
   "picker-yes": "Yes",
   "picker-no": "No",
   "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Optional",
 
   "previous-exposure-title": "Previous exposure to COVID",
   "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
@@ -234,8 +235,21 @@
     "picker-currently-having-periods": "I'm currently having periods",
     "picker-stopped-having-periods": "I've stopped having periods",
     "picker-pregnant": "I'm pregnant",
+    "picker-not-currently-having-periods": "I'm not currently having periods",
     "picker-pfnts": "Prefer not to say",
+    "picker-other": "Other",
     "please-select-periods": "Please select an option",
+    "period-frequency": "Do your periods usually occur?",
+    "picker-period-frequency-regular": "Regularly every 3-6 weeks",
+    "picker-period-frequency-less-frequent": "Regularly, but less often than every 6 weeks",
+    "picker-period-frequency-irregular": "At irregular intervals",
+    "please-select-period-frequency": "Please select an option",
+    "period-stopped-age": "At what age did your periods stop?",
+    "weeks-pregnant": "How many weeks pregnant are you?",
+    "correct-weeks-pregnant": "Please enter how many weeks pregnant you are",
+    "required-weeks-pregnant": "Please correct how many weeks pregnant you are",
+    "correct-period-stopped-age": "Please enter your age when you periods stopped",
+    "required-period-stopped-age": "Please correct your age when you periods stopped",
     "label-taking-hormone-treatment" : "Are you taking any of the following forms of hormone treatment?",
     "checkbox-hormone-treatment-none": "No",
     "checkbox-oral-contraceptive-pill": "Combined oral contraceptive pill",
@@ -246,6 +260,7 @@
     "checkbox-oestrogen-hormone-therapy": "Oestrogen hormone therapy for gender transitioning",
     "checkbox-testosterone-hormone-therapy": "Testosterone hormone therapy",
     "checkbox-hormone-treatment-pfnts": "Prefer not to say",
+    "checkbox-hormone-treatment-other": "Other",
     "please-select-hormone-treatments": "Please select one or more of the above",
     "have-heart-disease": "Do you have heart disease?",
     "have-diabetes": "Do you have diabetes?",
@@ -424,8 +439,6 @@
 
   "select-country": "Select country of residence",
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well  🙏. Download the app",
-  "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
   "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
@@ -435,12 +448,26 @@
   "required-ppe-availability-never": "Please indicate the availability of PPE equipment to you",
 
   "thank-you": {
-    "please-share-app": "Please share this app",
-    "share-text": "The more people report their symptoms, the more we can help those at risk.",
-    "btn-share": "Share this app",
     "check-for-updates": "Please check our %{link} for updates.",
     "news-feed": "news feed"
   },
+
+  "share-this-app": {
+    "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
+    "url": "https://covid.joinzoe.com/",
+    "primary-text": "Please share this app",
+    "secondary-text": "The more people report their symptoms, the more we can help those at risk.",
+    "button-text": "Share this app"
+  },
+
+  "donate": {
+    "banner": "URGENT APPEAL",
+    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
+    "primary-text": "Keep the COVID Symptom Study alive",
+    "secondary-text": "Without funding, critical COVID research supporting the NHS cannot continue. Will you help?",
+    "button-text": "Donate now"
+  },
+
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",

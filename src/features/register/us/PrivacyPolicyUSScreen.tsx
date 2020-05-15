@@ -31,7 +31,7 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
         <ScrollView>
           <HeaderText text="COVID-19 Symptom Study App Privacy Policy" />
           <RegularText>
-            Effective Date: March 27, 2020
+            Effective Date: May 7, 2020
             {'\n\n'}
             At Zoe Global Limited (together with its affiliates, “Zoe,” “we,” “us”) we take your privacy seriously.
             Please read the following to learn how we treat your personal information. By using or accessing the
@@ -196,6 +196,8 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
             Guys & St Thomas' Hospitals
             {'\n'}
             UK National Health Service
+            {'\n'}
+            Swansea University (SAIL Databank)
             {'\n'}
             Nottingham University
             {'\n'}

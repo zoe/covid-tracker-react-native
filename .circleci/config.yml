@@ -12,6 +12,9 @@ stage_filter: &stage_filter
   branches:
     only: stage
 
+legacy_ota_filter: &legacy_ota_filter
+  branches:
+    only: release-0.x-legacy
 
 feature_filter: &feature_filter
   branches:
@@ -19,6 +22,7 @@ feature_filter: &feature_filter
       - master
       - develop
       - stage
+      - release-0.x-legacy
 
 orbs:
   node: circleci/node@2.0.1
@@ -77,7 +81,14 @@ commands:
       - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
       - store_artifacts:
           path: ~/covid-react/fastlane/app.ipa
-
+  legacy_ota_publish:
+    steps:
+      - login_to_expo
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.9-prod
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
 jobs:
   build_and_test:
     executor: node
@@ -95,6 +106,12 @@ jobs:
       - publish_to_expo
       - deploy_ios
       - deploy_android
+  legacy_deploy:
+    executor: node
+    working_directory: ~/covid-react
+    steps:
+      - build
+      - legacy_ota_publish
 
 workflows:
   build_and_test:
@@ -120,7 +137,7 @@ workflows:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-            - build_and_test
+            - wait_for_approval
 
   develop:
     jobs:
@@ -148,6 +165,26 @@ workflows:
           filters: *master_filter
       - deploy:
           filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+            - wait_for_approval
+
+  legacy_ota_release:
+    jobs:
+      - build_and_test:
+          filters: *legacy_ota_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to OTA 0.9-prod, 0.12-prd and 0.13-prod
+          requires:
+            - build_and_test
+          filters: *legacy_ota_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build_and_test
+          filters: *legacy_ota_filter
+      - legacy_deploy:
+          filters: *legacy_ota_filter
           context: react-covid-tracker-prod
           requires:
             - wait_for_approval

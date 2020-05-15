@@ -19,7 +19,7 @@ import {
   HormoneTreatmentQuestion,
   TreatmentValue,
 } from '../patient/fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion } from '../patient/fields/PeriodQuestion';
+import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
 
 interface BackfillData extends BloodPressureData, RaceEthnicityData, PeriodData, HormoneTreatmentData {}
@@ -32,7 +32,7 @@ type BackDateProps = {
 type State = {
   errorMessage: string;
   needBloodPressureAnswer: boolean;
-  needRaceAnswer: boolean;
+  needRaceEthnicityAnswer: boolean;
   needPeriodStatusAnswer: boolean;
   needHormoneTreatmentAnswer: boolean;
 };
@@ -40,7 +40,7 @@ type State = {
 const initialState: State = {
   errorMessage: '',
   needBloodPressureAnswer: false,
-  needRaceAnswer: false,
+  needRaceEthnicityAnswer: false,
   needPeriodStatusAnswer: false,
   needHormoneTreatmentAnswer: false,
 };
@@ -69,21 +69,39 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     }),
 
     race: Yup.array<string>().when([], {
-      is: () => this.state.needRaceAnswer,
+      is: () => this.state.needRaceEthnicityAnswer,
       then: Yup.array<string>().min(1, i18n.t('please-select-race')),
     }),
     raceOther: Yup.string().when('race', {
-      is: (val: string[]) => this.state.needRaceAnswer && val.includes('other'),
+      is: (val: string[]) => this.state.needRaceEthnicityAnswer && val.includes('other'),
       then: Yup.string().required(),
     }),
     ethnicity: Yup.string().when([], {
-      is: () => this.state.needRaceAnswer && isUSCountry(),
+      is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
       then: Yup.string().required(),
     }),
 
     havingPeriods: Yup.string().when([], {
       is: () => this.state.needPeriodStatusAnswer,
       then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+    }),
+    periodFrequency: Yup.string().when('havingPeriods', {
+      is: periodValues.CURRENTLY,
+      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
+    }),
+    weeksPregnant: Yup.number().when('havingPeriods', {
+      is: periodValues.PREGNANT,
+      then: Yup.number()
+        .typeError(i18n.t('your-health.correct-weeks-pregnant'))
+        .min(0, i18n.t('your-health.correct-weeks-pregnant'))
+        .max(50, i18n.t('your-health.correct-weeks-pregnant')),
+    }),
+    periodStoppedAge: Yup.number().when('havingPeriods', {
+      is: periodValues.STOPPED,
+      then: Yup.number()
+        .typeError(i18n.t('your-health.correct-period-stopped-age'))
+        .min(0, i18n.t('your-health.correct-period-stopped-age'))
+        .max(100, i18n.t('your-health.correct-period-stopped-age')),
     }),
     hormoneTreatment: Yup.array<string>().when([], {
       is: () => this.state.needHormoneTreatmentAnswer,
@@ -92,9 +110,14 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   });
 
   async componentDidMount() {
+    const userService = new UserService();
+    const features = userService.getConfig();
     const currentPatient = this.props.route.params.currentPatient;
     this.setState({ needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer });
-    this.setState({ needRaceAnswer: !currentPatient.hasRaceAnswer });
+    this.setState({
+      needRaceEthnicityAnswer:
+        (features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer,
+    });
     this.setState({ needPeriodStatusAnswer: !currentPatient.hasPeriodAnswer });
     this.setState({ needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer });
   }
@@ -109,7 +132,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        if (formData.race) currentPatient.hasRaceAnswer = true;
+        if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
@@ -140,7 +163,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       }
     }
 
-    if (this.state.needRaceAnswer) {
+    if (this.state.needRaceEthnicityAnswer) {
       if (formData.race) {
         infos = {
           ...infos,
@@ -164,9 +187,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     }
 
     if (this.state.needPeriodStatusAnswer) {
+      const periodDoc = PeriodQuestion.createPeriodDoc(formData);
       infos = {
         ...infos,
-        period_status: formData.havingPeriods,
+        ...periodDoc,
       };
     }
 
@@ -199,6 +223,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...RaceEthnicityQuestion.initialFormValues(),
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
+            ...PeriodQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackfillData) => {
@@ -211,7 +236,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                   <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
                 )}
 
-                {this.state.needRaceAnswer && (
+                {this.state.needRaceEthnicityAnswer && (
                   <RaceEthnicityQuestion
                     showRaceQuestion={this.features.showRaceQuestion}
                     showEthnicityQuestion={this.features.showEthnicityQuestion}

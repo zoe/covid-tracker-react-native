@@ -25,8 +25,8 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 
-const ASSESSMENT_VERSION = '1.3.2'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
+const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
 export default class UserService extends ApiClientBase {
@@ -163,7 +163,7 @@ export default class UserService extends ApiClientBase {
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
-    const hasRaceAnswer = patient.race.length > 0;
+    const hasRaceEthnicityAnswer = patient.race.length > 0;
     const isFemale = patient.gender === 0;
     const isSexNotMale = ![null, 1, 2].includes(patient.gender);
     const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
@@ -195,15 +195,16 @@ export default class UserService extends ApiClientBase {
     const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
     const hasHormoneTreatmentAnswer =
       !isPeriodCapable ||
-      patient.ht_none ||
-      patient.ht_combined_oral_contraceptive_pill ||
-      patient.ht_progestone_only_pill ||
-      patient.ht_mirena_or_other_coil ||
-      patient.ht_depot_injection_or_implant ||
-      patient.ht_hormone_treatment_therapy ||
-      patient.ht_oestrogen_hormone_therapy ||
-      patient.ht_testosterone_hormone_therapy ||
-      patient.ht_pfnts;
+      !!patient.ht_none ||
+      !!patient.ht_combined_oral_contraceptive_pill ||
+      !!patient.ht_progestone_only_pill ||
+      !!patient.ht_mirena_or_other_coil ||
+      !!patient.ht_depot_injection_or_implant ||
+      !!patient.ht_hormone_treatment_therapy ||
+      !!patient.ht_oestrogen_hormone_therapy ||
+      !!patient.ht_testosterone_hormone_therapy ||
+      !!patient.ht_pfnts ||
+      !!patient.ht_other;
 
     // Last asked level_of_isolation a week or more ago, or never asked
     const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
@@ -223,7 +224,7 @@ export default class UserService extends ApiClientBase {
       isFemale,
       isPeriodCapable,
       isHealthWorker,
-      hasRaceAnswer,
+      hasRaceEthnicityAnswer,
       hasBloodPressureAnswer,
       hasPeriodAnswer,
       hasHormoneTreatmentAnswer,
