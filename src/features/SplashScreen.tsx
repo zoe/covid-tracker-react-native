@@ -11,6 +11,7 @@ import { ScreenParamList } from './ScreenParamList';
 import Splash from '../components/Splash';
 import { offlineService, userService } from '../Services';
 import { ApiException } from '../core/ApiServiceErrors';
+import Analytics from '../core/Analytics';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {
@@ -66,6 +67,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   private loadAppState = async () => {
+    Analytics.trackScreenView('SplashScreen');
     this.setState({ status: i18n.t('errors.status-loading') });
     try {
       const patientId: string | null = await this.bootstrapAsync();

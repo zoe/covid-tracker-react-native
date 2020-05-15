@@ -9,6 +9,7 @@ import { colors, fontStyles } from '../../theme';
 import { CaptionText, HeaderText } from '../components/Text';
 import UserService, { isGBCountry, isUSCountry, isSECountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
+import Analytics from '../core/Analytics';
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = new UserService();
@@ -26,6 +27,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           text: i18n.t('delete'),
           style: 'destructive',
           onPress: async () => {
+            Analytics.track(events.DELETE_ACCOUNT_DATA);
             await userService.deleteRemoteUserData();
             logout();
           },
