@@ -85,10 +85,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
-  openWebsite = () => {
-    Linking.openURL(this.getWebsiteUrl());
-  };
-
   partnersLogos = () => {
     if (isGBCountry()) {
       return gbPartnersReturn;
