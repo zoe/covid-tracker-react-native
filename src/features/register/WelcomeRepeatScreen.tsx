@@ -4,21 +4,20 @@ import { Linking } from 'expo';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '../../../assets';
+import { covidIcon, gbPartnersReturn, menuIcon, svPartnersReturn, usPartnersReturn } from '../../../assets';
 import { colors } from '../../../theme';
+import { offlineService } from '../../Services';
 import { ContributionCounter } from '../../components/ContributionCounter';
+import { LoadingModal } from '../../components/Loading';
 import { BrandedButton, RegularText } from '../../components/Text';
-import AnalyticsService from '../../core/Analytics';
+import Analytics from '../../core/Analytics';
+import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
-import { offlineService } from '../../Services';
-import { LoadingModal } from '../../components/Loading';
-import Analytics from '../../core/Analytics';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -45,7 +44,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const userCount = await userService.getUserCount();
     this.setState({ userCount: parseInt(userCount as string, 10) });
 
-    AnalyticsService.identify();
+    Analytics.identify();
     Analytics.trackScreenView('WelcomeRepeat');
 
     // Refresh push token if we don't have one
@@ -71,7 +70,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     } catch (error) {
       this.setState({
         isApiError: true,
-        error: error,
+        error,
         onRetry: () => {
           this.setState({
             status: i18n.t('errors.status-retrying'),
