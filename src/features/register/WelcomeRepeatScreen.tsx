@@ -2,21 +2,12 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { Linking } from 'expo';
 import React, { Component } from 'react';
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '../../../assets';
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
-import { BrandedButton, ClickableText, RegularText } from '../../components/Text';
+import { BrandedButton, RegularText } from '../../components/Text';
 import AnalyticsService from '../../core/Analytics';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
@@ -25,6 +16,9 @@ import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { CalloutBox } from '../../components/CalloutBox';
+import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { offlineService } from '../../Services';
+import { LoadingModal } from '../../components/Loading';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -33,17 +27,23 @@ type PropsType = {
 };
 
 type WelcomeRepeatScreenState = {
-  userCount: string | null;
+  userCount: number | null;
+  onRetry?: () => void;
+} & ApiErrorState;
+
+const initialState = {
+  ...initialErrorState,
+  userCount: null,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
-  state = { userCount: null };
+  state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
     const userService = new UserService();
     const userCount = await userService.getUserCount();
-    this.setState({ userCount });
+    this.setState({ userCount: parseInt(userCount as string, 10) });
 
     AnalyticsService.identify();
 
@@ -62,9 +62,27 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   }
 
-  handleButtonPress = async () => {
+  gotoNextScreen = async () => {
     const patientId = this.props.route.params.patientId;
-    Navigator.gotoNextScreen(this.props.route.name, { patientId });
+
+    try {
+      await Navigator.gotoNextScreen(this.props.route.name, { patientId });
+    } catch (error) {
+      this.setState({
+        isApiError: true,
+        error: error,
+        onRetry: () => {
+          this.setState({
+            status: i18n.t('errors.status-retrying'),
+            error: null,
+          });
+          setTimeout(() => {
+            this.setState({ status: i18n.t('errors.status-loading') });
+            this.gotoNextScreen();
+          }, offlineService.getRetryDelay());
+        },
+      });
+    }
   };
 
   navigateToPrivacyPolicy = () => {
@@ -107,6 +125,14 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
     return (
       <SafeAreaView style={styles.safeView}>
+        {this.state.isApiError && (
+          <LoadingModal
+            error={this.state.error}
+            status={this.state.status}
+            onRetry={this.state.onRetry}
+            onPress={() => this.setState({ isApiError: false })}
+          />
+        )}
         <ScrollView>
           <View style={styles.rootContainer}>
             <View style={styles.headerRow}>
@@ -136,7 +162,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>
-          <BrandedButton style={styles.reportButton} onPress={this.handleButtonPress}>
+          <BrandedButton style={styles.reportButton} onPress={this.gotoNextScreen}>
             {i18n.t('welcome.report-button')}
           </BrandedButton>
         </View>
