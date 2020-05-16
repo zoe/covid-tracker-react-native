@@ -20,6 +20,7 @@ const checkboxStyles = StyleSheet.create({
 
   checkboxLabel: {
     marginLeft: 16,
+    marginRight: 32,
   },
 
   unselectedCheckBoxLabel: {
