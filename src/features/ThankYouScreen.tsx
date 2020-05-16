@@ -31,7 +31,6 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
     if (await shouldAskForRating()) {
       this.setState({ askForRating: true });
     }
-    Analytics.trackScreenView('ThankYou');
   }
 
   render() {

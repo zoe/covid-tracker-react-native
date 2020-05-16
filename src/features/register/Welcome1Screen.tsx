@@ -50,7 +50,6 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
         setState({ userCount });
       }
     });
-    Analytics.trackScreenView('Welcome1');
   }, []);
 
   return (

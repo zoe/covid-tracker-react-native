@@ -49,7 +49,6 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
 
   componentDidMount(): void {
     if (isSECountry()) this.props.navigation.setOptions({ title: 'Information till studiedeltagare' });
-    Analytics.trackScreenView('Consent');
   }
 
   viewOnly = this.props.route.params.viewOnly;

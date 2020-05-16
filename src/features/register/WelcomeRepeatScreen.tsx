@@ -45,7 +45,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     this.setState({ userCount: parseInt(userCount as string, 10) });
 
     Analytics.identify();
-    Analytics.trackScreenView('WelcomeRepeat');
 
     // Refresh push token if we don't have one
     const hasPushToken = await AsyncStorageService.getPushToken();

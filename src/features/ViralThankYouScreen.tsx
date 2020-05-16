@@ -45,7 +45,6 @@ export default class ViralThankYouScreen extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    Analytics.trackScreenView('ThankYou');
     const userService = new UserService();
     const profile = await userService.getProfile();
 

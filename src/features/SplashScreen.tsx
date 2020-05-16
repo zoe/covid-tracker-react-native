@@ -67,7 +67,6 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   private loadAppState = async () => {
-    Analytics.trackScreenView('SplashScreen');
     this.setState({ status: i18n.t('errors.status-loading') });
     try {
       const patientId: string | null = await this.bootstrapAsync();

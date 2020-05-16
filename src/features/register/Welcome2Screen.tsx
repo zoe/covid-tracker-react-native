@@ -61,7 +61,6 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
     const userService = new UserService();
     const userCount = await userService.getUserCount();
     this.setState({ userCount });
-    Analytics.trackScreenView('Welcome2');
   }
 
   render() {

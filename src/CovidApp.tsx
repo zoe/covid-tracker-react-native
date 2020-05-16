@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
@@ -51,6 +51,7 @@ import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import Analytics from './core/Analytics';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -67,10 +68,26 @@ const initialState = {
   isApiOnline: true,
 };
 
+const getCurrentRouteName = (navigationState?: NavigationState): string | null => {
+  if (!navigationState) return null;
+
+  const route = navigationState.routes[navigationState.index];
+  if (route.state) {
+    // Nested navigators
+    return getCurrentRouteName(route.state);
+  }
+  return route.name;
+};
+
 export default class CovidApp extends Component<object, State> {
+  private readonly navigationRef = React.createRef<HTMLDivElement>();
+  private routeNameRef = React.createRef<string>();
+
   constructor(props: object) {
     super(props);
     this.state = initialState;
+    this.navigationRef = React.createRef();
+    this.routeNameRef = React.createRef();
   }
 
   async componentDidMount() {
@@ -79,6 +96,10 @@ export default class CovidApp extends Component<object, State> {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
     this.setState({ isLoaded: true });
+
+    // Store the RouteName
+    const state = this.navigationRef.current.getRootState();
+    this.routeNameRef.current = getCurrentRouteName(state);
   }
 
   render() {
@@ -91,7 +112,19 @@ export default class CovidApp extends Component<object, State> {
             <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
           </Header>
 
-          <NavigationContainer>
+          <NavigationContainer
+            ref={this.navigationRef as any}
+            onStateChange={(state) => {
+              const previousRouteName = this.routeNameRef.current;
+              const currentRouteName = getCurrentRouteName(state);
+
+              if (currentRouteName) {
+                if (previousRouteName !== currentRouteName) {
+                  Analytics.trackScreenView(currentRouteName);
+                }
+                this.routeNameRef.current = currentRouteName;
+              }
+            }}>
             <Drawer.Navigator
               drawerContent={(props) => <DrawerMenu {...props} />}
               screenOptions={{ swipeEnabled: false }}
