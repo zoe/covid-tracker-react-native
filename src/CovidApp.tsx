@@ -80,13 +80,13 @@ const getCurrentRouteName = (navigationState: NavigationState): string | null =>
 };
 
 export default class CovidApp extends Component<object, State> {
-  private readonly navigationRef = React.createRef<HTMLDivElement>();
+  private readonly navigationRef = React.createRef<NavigationState>();
   private routeNameRef = React.createRef<string>();
 
   constructor(props: object) {
     super(props);
     this.state = initialState;
-    this.navigationRef = React.createRef<HTMLDivElement>();
+    this.navigationRef = React.createRef();
     this.routeNameRef = React.createRef();
     this.handleStateChange = this.handleStateChange.bind(this);
   }
@@ -99,7 +99,8 @@ export default class CovidApp extends Component<object, State> {
     this.setState({ isLoaded: true });
 
     // Store the RouteName
-    const state = this.navigationRef.current!.getRootState();
+    // @ts-ignore
+    const state = this.navigationRef.current?.getRootState();
     this.routeNameRef.current = getCurrentRouteName(state);
   }
 
