@@ -74,20 +74,21 @@ const getCurrentRouteName = (navigationState: NavigationState): string | null =>
   const route = navigationState.routes[navigationState.index];
   if (route.state) {
     // Nested navigators
+    // @ts-ignore
     return getCurrentRouteName(route.state);
   }
   return route.name;
 };
 
 export default class CovidApp extends Component<object, State> {
-  private readonly navigationRef = React.createRef<NavigationState>();
-  private routeNameRef = React.createRef<string>();
+  navigationRef = React.createRef<NavigationState>();
+  currentRouteName: string | null;
 
   constructor(props: object) {
     super(props);
     this.state = initialState;
     this.navigationRef = React.createRef();
-    this.routeNameRef = React.createRef();
+    this.currentRouteName = '';
     this.handleStateChange = this.handleStateChange.bind(this);
   }
 
@@ -101,20 +102,20 @@ export default class CovidApp extends Component<object, State> {
     // Store the RouteName
     // @ts-ignore
     const state = this.navigationRef.current?.getRootState();
-    this.routeNameRef.current = getCurrentRouteName(state);
+    this.currentRouteName = getCurrentRouteName(state);
   }
 
   handleStateChange(state: NavigationState | undefined) {
     if (!state) return;
 
-    const previousRouteName = this.routeNameRef.current;
-    const currentRouteName = getCurrentRouteName(state);
+    const previousRouteName = this.currentRouteName;
+    const newRouteName = getCurrentRouteName(state);
 
-    if (currentRouteName) {
-      if (previousRouteName !== currentRouteName) {
-        Analytics.trackScreenView(currentRouteName);
+    if (newRouteName) {
+      if (previousRouteName !== newRouteName) {
+        Analytics.trackScreenView(newRouteName);
       }
-      this.routeNameRef.current = currentRouteName;
+      this.currentRouteName = newRouteName;
     }
   }
 
