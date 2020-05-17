@@ -1,7 +1,6 @@
 import { Item, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import Check from '../../assets/icons/Check';
 import { colors } from '../../theme/colors';
@@ -21,6 +20,10 @@ const checkboxStyles = StyleSheet.create({
   checkboxLabel: {
     marginLeft: 16,
     marginRight: 32,
+  },
+
+  checkBoxText: {
+    borderColor: 'transparent',
   },
 
   unselectedCheckBoxLabel: {
@@ -57,9 +60,9 @@ export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
       <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
         {props.value && <Check />}
       </TouchableOpacity>
-      <TouchableWithoutFeedback onPress={() => props.onChange(!props.value)}>
+      <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
         <RegularText style={{ ...checkboxStyles.checkboxLabel, ...labelStyle }}>{props.children}</RegularText>
-      </TouchableWithoutFeedback>
+      </Item>
     </Item>
   );
 };
