@@ -1,24 +1,9 @@
-import { Patient, Assessment } from './types';
+import config from './config';
+import { Patient, Assessment, CovidTest } from './types';
 import fs = require('fs');
 
-const dbObjects: { [x: string]: { path: string; defaultData?: unknown } } = {
-  patients: {
-    path: './mock-server/patients.json',
-    defaultData: {
-      '00000000-0000-0000-0000-000000000000': {
-        id: '00000000-0000-0000-0000-000000000000',
-        avatar_name: 'profile1',
-        name: 'Me',
-      },
-    },
-  },
-  assessments: {
-    path: './mock-server/assassments.json',
-  },
-};
-
 export default () => {
-  Object.values(dbObjects).forEach((dbObject) => {
+  Object.values(config).forEach((dbObject) => {
     const { path, defaultData } = dbObject;
     fs.exists(path, (exists) => {
       if (exists) {
@@ -43,13 +28,17 @@ export default () => {
 
   return {
     patients: {
-      get: (patientId?: string) => get<Patient>(dbObjects.patients.path)(patientId),
-      save: (patientId: string, patient: Patient) => save<Patient>(dbObjects.patients.path)(patientId, patient),
+      get: (patientId?: string) => get<Patient>(config.patients.path)(patientId),
+      save: (patientId: string, patient: Patient) => save<Patient>(config.patients.path)(patientId, patient),
     },
     assessments: {
-      get: (assessmentId?: string) => get<Assessment>(dbObjects.assessments.path)(assessmentId),
+      get: (assessmentId?: string) => get<Assessment>(config.assessments.path)(assessmentId),
       save: (assessmentId: string, assessment: Assessment): Assessment =>
-        save<Assessment>(dbObjects.assessments.path)(assessmentId, assessment),
+        save<Assessment>(config.assessments.path)(assessmentId, assessment),
+    },
+    covidTests: {
+      get: (testId?: string) => get<CovidTest>(config.covidTests.path)(testId),
+      save: (testId: string, test: CovidTest): CovidTest => save<CovidTest>(config.covidTests.path)(testId, test),
     },
   };
 };

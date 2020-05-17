@@ -157,4 +157,29 @@ app.get('/area_stats', (_, res) => {
   });
 });
 
+app.get('/covid_tests', (_, res) => res.status(200).send(db.covidTests.get()));
+
+app.post('/covid_tests', (req, res) => {
+  const id = uuid.v1();
+  res.header('Content-type', 'application/json');
+  return res.send(db.covidTests.save(id, { id, ...req.body }));
+});
+
+app.get('/covid_tests/:testId', (req, res) => {
+  const { testId } = req.params;
+  return res.status(200).send(db.covidTests.get(testId));
+});
+
+app.patch('/covid_tests/:testId', (req, res) => {
+  const { testId } = req.params;
+
+  res.header('Content-type', 'application/json');
+  return res.send(
+    db.covidTests.save(testId, {
+      ...db.covidTests.get(testId),
+      ...req.body,
+    })
+  );
+});
+
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

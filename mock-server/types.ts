@@ -8,3 +8,8 @@ export interface Assessment {
   patient: string;
   profile_attributes_updated_at: string;
 }
+
+export interface CovidTest {
+  id: string;
+  patient: string;
+}
