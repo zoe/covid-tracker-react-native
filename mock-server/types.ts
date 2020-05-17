@@ -1,3 +1,6 @@
+export interface DbConfig {
+  [x: string]: { path: string; defaultData?: unknown };
+}
 export interface Patient {
   id: string;
   last_reported_at: string;

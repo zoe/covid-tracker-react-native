@@ -69,6 +69,44 @@ app.get('/patients/:patientId', (req, res) => {
   return res.status(200).send(patient);
 });
 
+app.get('/profile', (_, res) => {
+  return res.status(200).send({
+    username: 'testuser@example.com',
+    authorizations: [],
+    patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
+    pii: '00000000-0000-0000-0000-000000000000',
+    push_tokens: [],
+    country_code: 'GB',
+  });
+});
+
+app.patch('/information/:userId', (_, res) => {
+  return res.send();
+});
+
+app.get('/users/startup_info/', (_, res) => {
+  return res.status(200).send({
+    users_count: '3000000',
+    ip_country: 'GB',
+  });
+});
+
+app.get('/area_stats', (_, res) => {
+  return res.status(200).send({
+    locked: false,
+    rank: 768,
+    number_of_areas: 1000,
+    rank_delta: 24,
+    area_name: 'Suffolk County',
+    number_of_missing_contributors: 100,
+    predicted_cases: 698,
+    population: 42000,
+  });
+});
+
+/**
+ * patients endpoints
+ */
 app.patch('/patients/:patientId', (req, res) => {
   const { patientId } = req.params;
 
@@ -88,25 +126,15 @@ app.post('/patients/', (req, res) => {
   return res.send(db.patients.save(id, { ...req.body, id }));
 });
 
+// Why not just patients?
 app.get('/patient_list/', (_, res) => {
   res.header('Content-type', 'application/json');
   return res.send(db.patients.get());
 });
 
-app.get('/profile', (_, res) => {
-  return res.status(200).send({
-    username: 'testuser@example.com',
-    authorizations: [],
-    patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
-    pii: '00000000-0000-0000-0000-000000000000',
-    push_tokens: [],
-    country_code: 'GB',
-  });
-});
-
-app.patch('/information/:userId', (_, res) => {
-  return res.send();
-});
+/**
+ * assessments endpoints
+ */
 
 app.post('/assessments', (req, res) => {
   const { body: assessment } = req as { body: Assessment };
@@ -137,26 +165,9 @@ app.patch('/assessments/:assessmentId', (req, res) => {
   );
 });
 
-app.get('/users/startup_info/', (_, res) => {
-  return res.status(200).send({
-    users_count: '3000000',
-    ip_country: 'GB',
-  });
-});
-
-app.get('/area_stats', (_, res) => {
-  return res.status(200).send({
-    locked: false,
-    rank: 768,
-    number_of_areas: 1000,
-    rank_delta: 24,
-    area_name: 'Suffolk County',
-    number_of_missing_contributors: 100,
-    predicted_cases: 698,
-    population: 42000,
-  });
-});
-
+/**
+ * covid_tests endpoints
+ */
 app.get('/covid_tests', (_, res) => res.status(200).send(db.covidTests.get()));
 
 app.post('/covid_tests', (req, res) => {

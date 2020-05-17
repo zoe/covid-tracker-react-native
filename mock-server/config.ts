@@ -1,6 +1,8 @@
-const config: { [x: string]: { path: string; defaultData?: unknown } } = {
+import { DbConfig } from './types';
+
+const config: DbConfig = {
   patients: {
-    path: './mock-server/patients.json',
+    path: 'patients.json',
     defaultData: {
       '00000000-0000-0000-0000-000000000000': {
         id: '00000000-0000-0000-0000-000000000000',
@@ -10,10 +12,10 @@ const config: { [x: string]: { path: string; defaultData?: unknown } } = {
     },
   },
   assessments: {
-    path: './mock-server/assassments.json',
+    path: 'assassments.json',
   },
   covidTests: {
-    path: './mock-server/covid_tests.json',
+    path: 'covid_tests.json',
   },
 };
 
