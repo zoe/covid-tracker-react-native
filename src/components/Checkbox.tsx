@@ -23,6 +23,10 @@ const checkboxStyles = StyleSheet.create({
     marginRight: 32,
   },
 
+  checkBoxText: {
+    borderColor: 'transparent',
+  },
+
   unselectedCheckBoxLabel: {
     color: colors.tertiary,
   },
@@ -57,9 +61,9 @@ export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
       <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
         {props.value && <Check />}
       </TouchableOpacity>
-      <TouchableWithoutFeedback onPress={() => props.onChange(!props.value)}>
+      <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
         <RegularText style={{ ...checkboxStyles.checkboxLabel, ...labelStyle }}>{props.children}</RegularText>
-      </TouchableWithoutFeedback>
+      </Item>
     </Item>
   );
 };
