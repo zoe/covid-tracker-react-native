@@ -1,7 +1,6 @@
 import { Item, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import Check from '../../assets/icons/Check';
 import { colors } from '../../theme/colors';
