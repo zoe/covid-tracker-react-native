@@ -3,7 +3,7 @@ import { NavigationContainer, NavigationState } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
-import React, { Component } from 'react';
+import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 
 import { colors } from '../theme/colors';
@@ -81,7 +81,7 @@ const getCurrentRouteName = (navigationState: NavigationState): string | null =>
 };
 
 export default class CovidApp extends Component<object, State> {
-  navigationRef = React.createRef<NavigationState>();
+  navigationRef: RefObject<NavigationState>;
   currentRouteName: string | null;
 
   constructor(props: object) {
