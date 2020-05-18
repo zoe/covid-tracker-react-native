@@ -29,6 +29,7 @@ import { handleServiceError } from '../ApiServiceErrors';
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
+const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
 // Attempt to split UserService into discrete service interfaces, which means:
 // TODO: Split into separate self-contained services
@@ -249,6 +250,14 @@ export default class UserService extends ApiClientBase
     return null;
   }
 
+  static shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
+    if (!dateLastAsked) return true;
+
+    const lastAsked = moment(dateLastAsked);
+    const today = moment();
+    return today.diff(lastAsked, 'days') >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
+  }
+
   public async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
@@ -297,13 +306,7 @@ export default class UserService extends ApiClientBase
       !!patient.ht_pfnts ||
       !!patient.ht_other;
 
-    // Last asked level_of_isolation a week or more ago, or never asked
-    const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
-    let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
-    if (lastAskedLevelOfIsolation) {
-      const lastAsked = moment(lastAskedLevelOfIsolation);
-      shouldAskLevelOfIsolation = moment().diff(lastAsked, 'days') >= 7;
-    }
+    const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
