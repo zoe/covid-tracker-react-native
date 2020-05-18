@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
 import { colors } from '@theme';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ClickableText, RegularText } from './Text';
 
 export default class VisitWebsite extends Component {

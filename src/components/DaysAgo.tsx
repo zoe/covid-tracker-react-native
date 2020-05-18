@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { SecondaryText } from './Text';
 
 type ProgressProps = {

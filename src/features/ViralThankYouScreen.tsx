@@ -15,7 +15,7 @@ import BrandedSpinner from '@covid/components/Spinner';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 import Analytics, { events } from '@covid/core/Analytics';
 

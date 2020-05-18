@@ -4,7 +4,7 @@ import { RegularBoldText, BrandedButton } from './Text';
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { FlexView } from './FlexView';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 
 type SplashProps = {
   status: string;

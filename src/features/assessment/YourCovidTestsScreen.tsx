@@ -15,7 +15,7 @@ import CovidTestService from '@covid/core/user/CovidTestService';
 import UserService from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n, { getDayName, getMonthName } from '../../locale/i18n';
+import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {

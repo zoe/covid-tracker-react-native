@@ -6,7 +6,7 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import { ApplicationVersion } from '@covid/components/AppVersion';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import i18n from '../../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '../LegalComponents';
 

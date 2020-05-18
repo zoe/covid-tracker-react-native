@@ -16,7 +16,7 @@ import {
   SecondaryText,
 } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 

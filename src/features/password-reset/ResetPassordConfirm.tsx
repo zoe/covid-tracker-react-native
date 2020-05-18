@@ -4,7 +4,7 @@ import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-nati
 
 import { colors } from '@theme';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {

@@ -6,7 +6,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { gbFlag, svFlag, usFlag } from '@assets';
 import { colors } from '@theme';
 import UserService from '@covid/core/user/UserService';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 
 type Props = {

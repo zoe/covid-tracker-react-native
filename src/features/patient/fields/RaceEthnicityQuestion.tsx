@@ -7,7 +7,7 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { isUSCountry } from '@covid/core/user/UserService';
-import i18n from '../../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 
 export interface RaceEthnicityData {
   race: string[];
