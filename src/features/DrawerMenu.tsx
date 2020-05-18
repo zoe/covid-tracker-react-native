@@ -8,6 +8,7 @@ import { closeIcon } from '../../assets';
 import { CaptionText, HeaderText } from '../components/Text';
 import UserService, { isGBCountry, isSECountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
+import Analytics, { events } from '../core/Analytics';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -29,6 +30,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           text: i18n.t('delete'),
           style: 'destructive',
           onPress: async () => {
+            Analytics.track(events.DELETE_ACCOUNT_DATA);
             await userService.deleteRemoteUserData();
             logout();
           },

@@ -9,7 +9,7 @@ import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import AnalyticsService from '../../core/Analytics';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
+import { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
@@ -53,7 +53,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     } catch (error) {
       this.setState({
         isApiError: true,
-        error: error,
+        error,
         onRetry: () => {
           this.setState({
             status: i18n.t('errors.status-retrying'),
