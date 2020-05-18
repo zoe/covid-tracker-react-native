@@ -116,3 +116,5 @@ RNTester/Pods/*
 
 # Fastlane
 report.xml
+
+mock-server/db/*.json
