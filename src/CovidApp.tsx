@@ -49,46 +49,59 @@ import BeforeWeStartUS from './features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
 
 class State {
-  fontLoaded: boolean;
+  isLoaded: boolean;
+  isOnline: boolean;
+  isApiOnline: boolean;
 }
 
-export default class ZoeApp extends Component<object, State> {
-  state = new State();
+const initialState = {
+  isLoaded: false,
+  isOnline: true,
+  isApiOnline: true,
+};
+
+export default class CovidApp extends Component<object, State> {
+  constructor(props: object) {
+    super(props);
+    this.state = initialState;
+  }
 
   async componentDidMount() {
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
-
-    this.setState({ fontLoaded: true });
+    this.setState({ isLoaded: true });
   }
 
   render() {
-    if (!this.state.fontLoaded) return <View />;
+    if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
 
     return (
-      <Root>
-        <Header style={{ display: 'none' }}>
-          <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-        </Header>
+      <SafeAreaProvider>
+        <Root>
+          <Header style={{ display: 'none' }}>
+            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+          </Header>
 
-        <NavigationContainer>
-          <Drawer.Navigator
-            drawerContent={(props) => <DrawerMenu {...props} />}
-            screenOptions={{ swipeEnabled: false }}
-            drawerStyle={{
-              width: Dimensions.get('screen').width,
-            }}>
-            <Drawer.Screen name="Main" component={this.mainNavStack} />
-          </Drawer.Navigator>
-        </NavigationContainer>
-      </Root>
+          <NavigationContainer>
+            <Drawer.Navigator
+              drawerContent={(props) => <DrawerMenu {...props} />}
+              screenOptions={{ swipeEnabled: false }}
+              drawerStyle={{
+                width: Dimensions.get('screen').width,
+              }}>
+              <Drawer.Screen name="Main" component={this.mainNavStack} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </Root>
+      </SafeAreaProvider>
     );
   }
 
