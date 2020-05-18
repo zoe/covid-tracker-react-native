@@ -10,6 +10,7 @@ import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from
 import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
+import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 import { userService, offlineService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
@@ -70,18 +71,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   async startAssessment(patientId: string) {
     const userService = new UserService();
     const currentPatient = await userService.getCurrentPatient(patientId);
-
-    this.props.navigation.dispatch((state) => {
-      const newStack = state.routes;
-      while (newStack[newStack.length - 1].name != 'SelectProfile') {
-        newStack.pop();
-      }
-
-      return CommonActions.reset({
-        index: 1,
-        routes: [...newStack, { name: 'StartAssessment', params: { currentPatient } }],
-      });
-    });
+    Navigator.resetToProfileStartAssessment(currentPatient);
   }
 
   async createProfile(): Promise<string> {
