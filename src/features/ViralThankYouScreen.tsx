@@ -9,10 +9,10 @@ import { Image, ScrollView, Share, StyleSheet, View, Text, Modal, TouchableOpaci
 
 import { social } from '@assets';
 import { colors } from '@theme';
-import { CovidRating, shouldAskForRating } from '../components/CovidRating';
-import { isAndroid } from '../components/Screen';
-import BrandedSpinner from '../components/Spinner';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../components/Text';
+import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { isAndroid } from '@covid/components/Screen';
+import BrandedSpinner from '@covid/components/Spinner';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import UserService from '../core/user/UserService';
 import { AreaStatsResponse } from '../core/user/dto/UserAPIContracts';
 import i18n from '../locale/i18n';

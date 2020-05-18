@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {

@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import { GenericTextField } from '../../components/GenericTextField';
-import Screen, { Header } from '../../components/Screen';
-import { BrandedButton, HeaderText, SecondaryText } from '../../components/Text';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 

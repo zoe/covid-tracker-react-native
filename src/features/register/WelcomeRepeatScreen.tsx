@@ -6,8 +6,8 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, Vi
 
 import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '@assets';
 import { colors } from '@theme';
-import { ContributionCounter } from '../../components/ContributionCounter';
-import { BrandedButton, RegularText } from '../../components/Text';
+import { ContributionCounter } from '@covid/components/ContributionCounter';
+import { BrandedButton, RegularText } from '@covid/components/Text';
 import Analytics from '../../core/Analytics';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
@@ -15,10 +15,10 @@ import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/u
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { CalloutBox } from '../../components/CalloutBox';
+import { CalloutBox } from '@covid/components/CalloutBox';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService } from '../../Services';
-import { LoadingModal } from '../../components/Loading';
+import { LoadingModal } from '@covid/components/Loading';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;

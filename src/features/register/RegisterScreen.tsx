@@ -8,9 +8,9 @@ import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutF
 import * as Yup from 'yup';
 
 import { colors } from '@theme';
-import { Field, FieldError } from '../../components/Forms';
-import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '../../components/Text';
-import { ValidatedTextInput } from '../../components/ValidatedTextInput';
+import { Field, FieldError } from '@covid/components/Forms';
+import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';

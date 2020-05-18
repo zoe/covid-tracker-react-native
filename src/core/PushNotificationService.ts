@@ -1,7 +1,7 @@
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
-import { isAndroid } from '../components/Screen';
+import { isAndroid } from '@covid/components/Screen';
 import { AsyncStorageService } from './AsyncStorageService';
 
 export class PushNotificationService {

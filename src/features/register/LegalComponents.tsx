@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RegularBoldText, RegularText } from '../../components/Text';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
 
 export const HeaderText = (props: { text: string }) => {
   return (

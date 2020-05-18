@@ -1,7 +1,7 @@
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 
-import DropdownField from '../../../components/DropdownField';
+import DropdownField from '@covid/components/DropdownField';
 import i18n from '../../../locale/i18n';
 import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';

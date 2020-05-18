@@ -6,8 +6,8 @@ import key from 'weak-key';
 
 import { closeIcon } from '@assets';
 import { colors } from '@theme';
-import { isAndroid } from '../../components/Screen';
-import { RegularText } from '../../components/Text';
+import { isAndroid } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';

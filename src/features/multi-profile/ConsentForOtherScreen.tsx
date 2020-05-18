@@ -5,17 +5,17 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors } from '@theme';
-import Screen, { Header, screenWidth } from '../../components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '../../components/Text';
+import Screen, { Header, screenWidth } from '@covid/components/Screen';
+import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 import { userService, offlineService } from '../../Services';
-import { LoadingModal } from '../../components/Loading';
+import { LoadingModal } from '@covid/components/Loading';
 import { initialErrorState, ApiErrorState, OfflineException } from '../../core/ApiServiceErrors';
-import { CheckboxItem } from '../../components/Checkbox';
+import { CheckboxItem } from '@covid/components/Checkbox';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;

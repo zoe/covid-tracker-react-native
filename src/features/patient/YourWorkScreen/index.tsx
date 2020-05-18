@@ -4,12 +4,12 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
-import DropdownField from '../../../components/DropdownField';
-import ProgressStatus from '../../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
-import { ValidationErrors } from '../../../components/ValidationError';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService from '../../../core/user/UserService';
 import {
   AvailabilityAlwaysOptions,

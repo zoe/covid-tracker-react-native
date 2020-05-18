@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, HeaderText } from '../../components/Text';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, HeaderText } from '@covid/components/Text';
 import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';

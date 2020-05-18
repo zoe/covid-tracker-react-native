@@ -6,10 +6,10 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '../../components/DropdownField';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, isAndroid, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';

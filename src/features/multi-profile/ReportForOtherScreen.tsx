@@ -6,7 +6,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 import { profilesIcon } from '@assets';
 import { colors } from '@theme';
-import { Header } from '../../components/Screen';
+import { Header } from '@covid/components/Screen';
 import {
   BrandedButton,
   ClickableText,
@@ -14,7 +14,7 @@ import {
   RegularBoldText,
   RegularText,
   SecondaryText,
-} from '../../components/Text';
+} from '@covid/components/Text';
 import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
