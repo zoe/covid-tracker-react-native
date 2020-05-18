@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 import moment from 'moment';
 
-import { isAndroid } from '../../components/Screen';
+import { isAndroid } from '../utils/platform';
 import i18n from '../../locale/i18n';
 import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
