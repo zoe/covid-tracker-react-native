@@ -263,68 +263,66 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
           onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
           {(props) => {
             return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  <FieldWrapper>
-                    <Item stackedLabel style={styles.textItemStyle}>
-                      <Label>{i18n.t('label-cohort')}</Label>
-                      <CheckboxList>
-                        {this.state.cohorts.map((cohort) => (
-                          <CheckboxItem
-                            key={cohort.key}
-                            value={this.state.selected[cohort.key]}
-                            onChange={(value: boolean) => {
-                              const newSelection = cloneDeep(this.state.selected);
-                              newSelection[cohort.key] = value;
-                              this.setState({ selected: newSelection });
-                            }}>
-                            {cohort.label}
-                          </CheckboxItem>
-                        ))}
-                      </CheckboxList>
-                    </Item>
-                  </FieldWrapper>
+              <Form>
+                <FieldWrapper>
+                  <Item stackedLabel style={styles.textItemStyle}>
+                    <Label>{i18n.t('label-cohort')}</Label>
+                    <CheckboxList>
+                      {this.state.cohorts.map((cohort) => (
+                        <CheckboxItem
+                          key={cohort.key}
+                          value={this.state.selected[cohort.key]}
+                          onChange={(value: boolean) => {
+                            const newSelection = cloneDeep(this.state.selected);
+                            newSelection[cohort.key] = value;
+                            this.setState({ selected: newSelection });
+                          }}>
+                          {cohort.label}
+                        </CheckboxItem>
+                      ))}
+                    </CheckboxList>
+                  </Item>
+                </FieldWrapper>
 
-                  {isUSCountry() && (
+                {isUSCountry() && (
+                  <>
+                    <RegularText style={styles.standaloneLabel}>If not</RegularText>
+
+                    <GenericTextField
+                      formikProps={props}
+                      label="Add the names of your studies"
+                      name="clinicalStudyNames"
+                      placeholder="Optional"
+                    />
                     <>
-                      <RegularText style={styles.standaloneLabel}>If not</RegularText>
+                      <GenericTextField
+                        formikProps={props}
+                        label="If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?"
+                        name="clinicalStudyContacts"
+                        placeholder="Optional"
+                      />
+                      <GenericTextField
+                        formikProps={props}
+                        label="If you know it, what university or hospital runs this study?"
+                        name="clinicalStudyInstitutions"
+                        placeholder="Optional"
+                      />
 
                       <GenericTextField
                         formikProps={props}
-                        label="Add the names of your studies"
-                        name="clinicalStudyNames"
+                        label="What is the NCT number (if you know it)?"
+                        name="clinicalStudyNctIds"
                         placeholder="Optional"
                       />
-                      <>
-                        <GenericTextField
-                          formikProps={props}
-                          label="If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?"
-                          name="clinicalStudyContacts"
-                          placeholder="Optional"
-                        />
-                        <GenericTextField
-                          formikProps={props}
-                          label="If you know it, what university or hospital runs this study?"
-                          name="clinicalStudyInstitutions"
-                          placeholder="Optional"
-                        />
-
-                        <GenericTextField
-                          formikProps={props}
-                          label="What is the NCT number (if you know it)?"
-                          name="clinicalStudyNctIds"
-                          placeholder="Optional"
-                        />
-                      </>
                     </>
-                  )}
+                  </>
+                )}
 
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors} />}
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors} />}
 
-                  <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
+                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+              </Form>
             );
           }}
         </Formik>
