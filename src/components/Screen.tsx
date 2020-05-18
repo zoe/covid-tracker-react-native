@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Dimensions, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '../../theme';
@@ -72,9 +72,11 @@ export default class Screen extends Component<ScreenProps> {
           <View style={styles.statusBarBlock} />
         )}
 
-        <ScrollView>
-          <View style={styles.pageBlock}>{this.props.children}</View>
-        </ScrollView>
+        <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScrollView>
+            <View style={styles.pageBlock}>{this.props.children}</View>
+          </ScrollView>
+        </KeyboardAvoidingView>
 
         {/* TODO: Put any fixed footer component */}
       </SafeAreaView>
