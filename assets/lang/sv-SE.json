@@ -397,7 +397,7 @@
     "more-info": "%{link} för mer information",
     "more-info-link": "Besök vår webbplats",
     "visit-the-website": "Besök webbplatsen",
-    "see-how-your-area-is-affected": "Se hur ditt område påverkas och vilka resultat du bidragit till",
+    "see-how-your-area-is-affected": "Se hur ditt län påverkas av covid-19 just nu. Ditt deltagande är viktigt. Besök webbplatsen ",
     "report-button": "Rapportera i dag, även om du är frisk",
     "privacy-policy": "Integritetsmeddelande",
     "privacy-policy-subtext": "(inkl. hur du tar bort dina uppgifter)",
@@ -526,5 +526,16 @@
   "pending": "Väntar",
   "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
   "never-had-test" : "Jag har aldrig testats för covid-19",
-  "above-list-correct": "Listan ovan är korrekt"
+  "above-list-correct": "Listan ovan är korrekt",
+
+  "errors" : {
+    "button-retry": "Försök igen",
+    "button-okay": "Ok",
+    "status-loading": "Hämtar...",
+    "status-retrying": "Försöker igen...",
+    "user-is-offline": "Du är för närvarande offline. Kontrollera din anslutning.",
+    "resource-not-found": "Servern kunde inte hitta dina uppgifter",
+    "server-is-busy": "Servern är upptagen. Vänta och försök sedan igen",
+    "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen."
+  }
 }

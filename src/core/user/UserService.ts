@@ -24,12 +24,82 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 import { PushToken, IPushTokenRemoteClient } from '../types';
+import { handleServiceError } from '../ApiServiceErrors';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
-export default class UserService extends ApiClientBase implements IPushTokenRemoteClient {
+// Attempt to split UserService into discrete service interfaces, which means:
+// TODO: Split into separate self-contained services
+export interface IUserService {
+  register(email: string, password: string): Promise<any>; // TODO: define return object
+  login(email: string, password: string): Promise<any>; // TODO: define return object
+  logout(): void;
+  resetPassword(email: string): Promise<any>; // TODO: define return object
+  getProfile(): Promise<UserResponse>;
+  updatePii(pii: Partial<PiiRequest>): Promise<any>;
+  deleteRemoteUserData(): Promise<any>;
+}
+
+export interface IProfileService {
+  hasMultipleProfiles(): Promise<boolean>;
+  shouldAskToReportForOthers(): Promise<boolean>;
+  recordAskedToReportForOther(): Promise<void>;
+}
+
+export interface IConsentService {
+  postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
+  getConsentSigned(): Promise<Consent | null>;
+  setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
+}
+
+export interface IPatientService {
+  listPatients(): Promise<any>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  getPatient(patientId: string): Promise<PatientInfosRequest | null>;
+  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
+  getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
+}
+
+export interface IAssessmentService {
+  addAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any>;
+  updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any>;
+}
+
+export interface IPushTokenService {
+  savePushToken(pushToken: string): Promise<any>;
+}
+
+export interface ILocalisationService {
+  setUserCountry(countryCode: string): void;
+  initCountryConfig(countryCode: string): void;
+  getUserCountry(): Promise<string | null>;
+  shouldAskCountryConfirmation(): Promise<boolean>;
+  defaultCountryFromLocale(): void;
+  getConfig(): ConfigType;
+  // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
+}
+
+export interface IDontKnowService {
+  getAskedToRateStatus(): Promise<string | null>;
+  setAskedToRateStatus(status: string): void;
+  getUserCount(): Promise<any>;
+  getStartupInfo(): Promise<any>;
+  getAreaStats(patientId: string): Promise<any>;
+}
+
+export default class UserService extends ApiClientBase
+  implements
+    IUserService, // TODO: ideally a UserService should only implement this, everything else is a separate service
+    IProfileService,
+    IConsentService,
+    IPatientService,
+    IAssessmentService,
+    IPushTokenRemoteClient,
+    ILocalisationService,
+    IDontKnowService {
   public static userCountry = 'US';
   public static ipCountry = '';
   public static countryConfig: ConfigType;
@@ -51,9 +121,9 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
 
   protected client = ApiClientBase.client;
 
-  public async login(username: string, password: string) {
+  public async login(email: string, password: string) {
     const requestBody = this.objectToQueryString({
-      username,
+      username: email,
       password,
     });
 
@@ -66,6 +136,17 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     }
 
     return await this.handleLoginOrRegisterResponse(response);
+  }
+
+  public async logout() {
+    await this.deleteLocalUserData();
+  }
+
+  private async deleteLocalUserData() {
+    ApiClientBase.unsetToken();
+    await AsyncStorageService.clearData();
+    await AsyncStorageService.saveProfile(null);
+    this.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -129,7 +210,13 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
   }
 
   public async listPatients() {
-    return this.client.get(`/patient_list/`);
+    try {
+      const response = await this.client.get(`/patient_list/`);
+      return response;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
   }
 
   public async createPatient(infos: Partial<PatientInfosRequest>) {
@@ -152,10 +239,14 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     return PATIENT_VERSION;
   }
 
-  public async getPatient(patientId: string): Promise<PatientInfosRequest> {
-    // TODO: Cache this in AsyncStorage?
-    const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
-    return patientResponse.data;
+  public async getPatient(patientId: string): Promise<PatientInfosRequest | null> {
+    try {
+      const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
+      return patientResponse.data;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
   }
 
   public async updatePatientState(
@@ -241,14 +332,15 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
 
     try {
       if (!patient) {
-        patient = await this.getPatient(patientId);
-      }
-
-      if (patient) {
-        currentPatient = await this.updatePatientState(currentPatient, patient);
+        const loadPatient = await this.getPatient(patientId);
+        patient = loadPatient || patient;
       }
     } catch (error) {
-      // Something wrong with the request, fallback to defaults
+      handleServiceError(error);
+    }
+
+    if (patient) {
+      currentPatient = await this.updatePatientState(currentPatient, patient);
     }
 
     return currentPatient;
@@ -329,19 +421,23 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
   }
 
   async getStartupInfo() {
-    const response = await this.client.get<StartupInfo>('/users/startup_info/');
-    UserService.ipCountry = response.data.ip_country;
-    await AsyncStorageService.setUserCount(response.data.users_count.toString());
+    try {
+      const response = await this.client.get<StartupInfo>('/users/startup_info/');
+      UserService.ipCountry = response.data.ip_country;
+      await AsyncStorageService.setUserCount(response.data.users_count.toString());
+    } catch (error) {
+      handleServiceError(error);
+    }
   }
 
   async setUserCountry(countryCode: string) {
     UserService.userCountry = countryCode;
     UserService.setLocaleFromCountry(countryCode);
-    this.initCountry(countryCode);
+    this.initCountryConfig(countryCode);
     await AsyncStorageService.setUserCountry(countryCode);
   }
 
-  initCountry(countryCode: string) {
+  initCountryConfig(countryCode: string) {
     UserService.countryConfig = getCountryConfig(countryCode);
   }
 
@@ -380,13 +476,6 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
     return UserService.countryConfig;
   }
 
-  async deleteLocalUserData() {
-    ApiClientBase.unsetToken();
-    await AsyncStorageService.clearData();
-    await AsyncStorageService.saveProfile(null);
-    this.setConsentSigned('', '', '');
-  }
-
   async deleteRemoteUserData() {
     const profile = await AsyncStorageService.getProfile();
     const payload = {
@@ -404,7 +493,7 @@ export default class UserService extends ApiClientBase implements IPushTokenRemo
   public async hasMultipleProfiles() {
     try {
       const response = await this.listPatients();
-      return response.data.length > 1;
+      return !!response && response.data.length > 1;
     } catch (e) {
       return false;
     }

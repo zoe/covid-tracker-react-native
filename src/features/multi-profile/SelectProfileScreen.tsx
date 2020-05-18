@@ -1,19 +1,21 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Card } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS } from '../../../assets';
+import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '../../../assets';
 import { colors } from '../../../theme';
-import DaysAgo from '../../components/DaysAgo';
+import { offlineService, userService } from '../../Services';
+import DaysAgo, { getDaysAgo } from '../../components/DaysAgo';
+import { Loading, LoadingModal } from '../../components/Loading';
 import { Header } from '../../components/Screen';
-import { ClippedText, ErrorText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
-import UserService from '../../core/user/UserService';
+import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
+import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
+import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
@@ -31,20 +33,25 @@ type Patient = {
   created_at?: Date;
 };
 
-interface State {
+type PatientListState = {
+  isLoaded: boolean;
   patients: Patient[];
-  errorMessage: string;
   shouldRefresh: boolean;
-}
+};
+
+type State = PatientListState & ApiErrorState;
+
+const initialState = {
+  ...initialErrorState,
+  patients: [],
+  isLoaded: false,
+  shouldRefresh: false,
+};
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {
   constructor(props: RenderProps) {
     super(props);
-    this.state = {
-      patients: [],
-      errorMessage: '',
-      shouldRefresh: false,
-    };
+    this.state = initialState;
   }
 
   async componentDidMount() {
@@ -58,20 +65,45 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     this.setState({ shouldRefresh: true });
   }
 
+  private retryListProfiles() {
+    this.setState({ status: i18n.t('errors.status-retrying'), error: null });
+    setTimeout(() => this.listProfiles(), offlineService.getRetryDelay());
+  }
+
   async listProfiles() {
-    const userService = new UserService();
+    this.setState({ status: i18n.t('errors.status-loading'), error: null });
     try {
       const response = await userService.listPatients();
-      this.setState({ patients: response.data });
-    } catch (err) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      response &&
+        this.setState({
+          patients: response.data,
+          isLoaded: true,
+        });
+    } catch (error) {
+      this.setState({ error });
     }
   }
 
   async startAssessment(patientId: string) {
-    const userService = new UserService();
-    const currentPatient = await userService.getCurrentPatient(patientId);
-    this.props.navigation.navigate('StartAssessment', { currentPatient });
+    try {
+      const currentPatient = await userService.getCurrentPatient(patientId);
+      Navigator.startAssessment(currentPatient);
+    } catch (error) {
+      this.setState({
+        isApiError: true,
+        error,
+        onRetry: () => {
+          this.setState({
+            status: i18n.t('errors.status-retrying'),
+            error: null,
+          });
+          setTimeout(() => {
+            this.setState({ status: i18n.t('errors.status-loading') });
+            this.startAssessment(patientId);
+          }, offlineService.getRetryDelay());
+        },
+      });
+    }
   }
 
   getNextAvatarName() {
@@ -91,6 +123,14 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     return (
       <View style={styles.view}>
         <SafeAreaView>
+          {this.state.isApiError && (
+            <LoadingModal
+              error={this.state.error}
+              status={this.state.status}
+              onRetry={this.state.onRetry}
+              onPress={() => this.setState({ isApiError: false })}
+            />
+          )}
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
               <TouchableOpacity
@@ -105,31 +145,46 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                 <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
               </Header>
 
-              <ErrorText>{this.state.errorMessage}</ErrorText>
+              {this.state.isLoaded ? (
+                <View style={styles.profileList}>
+                  {this.state.patients.map((patient, _) => {
+                    const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
+                    const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
+                    return (
+                      <View style={styles.cardContainer} key={key(patient)}>
+                        <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
+                          <Card style={styles.card}>
+                            <View style={styles.avatarContainer}>
+                              {hasReportedToday && (
+                                <View style={styles.circle}>
+                                  <Image source={tick} style={styles.tick} />
+                                </View>
+                              )}
+                              <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
+                            </View>
+                            <ClippedText>{patient.name}</ClippedText>
+                            <DaysAgo timeAgo={patient.last_reported_at} />
+                          </Card>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
 
-              <View style={styles.profileList}>
-                {this.state.patients.map((patient, i) => {
-                  const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
-                  return (
-                    <View style={styles.cardContainer} key={key(patient)}>
-                      <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
-                        <Card style={styles.card}>
-                          <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
-                          <ClippedText>{patient.name}</ClippedText>
-                          <DaysAgo timeAgo={patient.last_reported_at} />
-                        </Card>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
-
-                <TouchableOpacity style={styles.cardContainer} key="new" onPress={() => this.gotoCreateProfile()}>
-                  <Card style={styles.card}>
-                    <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
-                    <RegularText>{i18n.t('select-profile-button')}</RegularText>
-                  </Card>
-                </TouchableOpacity>
-              </View>
+                  <TouchableOpacity style={styles.cardContainer} key="new" onPress={() => this.gotoCreateProfile()}>
+                    <Card style={styles.card}>
+                      <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
+                      <RegularText>{i18n.t('select-profile-button')}</RegularText>
+                    </Card>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <Loading
+                  status={this.state.status}
+                  error={this.state.error}
+                  style={{ borderColor: 'green', borderWidth: 1 }}
+                  onRetry={() => this.retryListProfiles()}
+                />
+              )}
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -153,10 +208,33 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 
-  avatar: {
-    width: '80%',
-    height: 100,
+  avatarContainer: {
+    alignItems: 'center',
+    width: 100,
     marginBottom: 10,
+  },
+
+  avatar: {
+    height: 100,
+    width: 100,
+  },
+
+  tick: {
+    height: 30,
+    width: 30,
+  },
+
+  circle: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+    top: 0,
+    right: -5,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'white',
   },
 
   addImage: {

@@ -1,8 +1,9 @@
-import { Item, CheckBox, View } from 'native-base';
+import { Item, View } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
+import Check from '../../assets/icons/Check';
+import { colors } from '../../theme/colors';
 import { RegularText } from './Text';
 
 const checkboxStyles = StyleSheet.create({
@@ -18,6 +19,26 @@ const checkboxStyles = StyleSheet.create({
 
   checkboxLabel: {
     marginLeft: 16,
+    marginRight: 32,
+  },
+
+  checkBoxText: {
+    borderColor: 'transparent',
+  },
+
+  unselectedCheckBoxLabel: {
+    color: colors.tertiary,
+  },
+
+  checkBox: {
+    borderRadius: 8,
+    backgroundColor: colors.backgroundTertiary,
+    borderColor: 'transparent',
+    width: 32,
+    height: 32,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
 });
 
@@ -32,12 +53,16 @@ type CheckboxListProps = {
 };
 
 export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
+  const labelStyle = !props.value ? checkboxStyles.unselectedCheckBoxLabel : undefined;
+
   return (
     <Item style={checkboxStyles.checkboxRow}>
-      <CheckBox checked={props.value} onPress={() => props.onChange(!props.value)} />
-      <TouchableWithoutFeedback onPress={() => props.onChange(!props.value)}>
-        <RegularText style={checkboxStyles.checkboxLabel}>{props.children}</RegularText>
-      </TouchableWithoutFeedback>
+      <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
+        {props.value && <Check />}
+      </TouchableOpacity>
+      <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
+        <RegularText style={{ ...checkboxStyles.checkboxLabel, ...labelStyle }}>{props.children}</RegularText>
+      </Item>
     </Item>
   );
 };

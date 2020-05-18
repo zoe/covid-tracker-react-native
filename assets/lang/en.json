@@ -67,7 +67,7 @@
     "more-info": "For more info %{link}",
     "more-info-link": "visit our website",
     "visit-the-website": "Visit the website",
-    "see-how-your-area-is-affected": "Follow the discoveries you made possible",
+    "see-how-your-area-is-affected": "Follow the discoveries \nyou made possible",
     "report-button": "Report today, even if you're well",
     "privacy-policy": "Privacy policy",
     "privacy-policy-subtext": "(incl. how to delete your data)",
@@ -583,5 +583,16 @@
   "pending": "Pending",
   "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. You can edit these at any time in the future.",
   "never-had-test": "I have never had a COVID test",
-  "above-list-correct": "The above list is correct"
+  "above-list-correct": "The above list is correct",
+
+  "errors" : {
+    "button-retry": "Retry",
+    "button-okay": "Ok",
+    "status-loading": "Loading...",
+    "status-retrying": "Retrying...",
+    "user-is-offline": "You are currently offline. Please check your connection.",
+    "resource-not-found": "The server couldn't find your details",
+    "server-is-busy": "Server is busy. Please wait, then try again",
+    "server-error": "Server couldn't respond at this time. Please wait, then try again."
+  }
 }
