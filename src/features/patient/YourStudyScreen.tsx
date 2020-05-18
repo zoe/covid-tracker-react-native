@@ -175,6 +175,26 @@ const AllCohorts: CohortDefinition[] = [
     label: 'Stanford Nutrition Studies Group',
     country: 'US',
   },
+  {
+    key: 'is_in_us_md_anderson_d3code',
+    label: 'MD Anderson D3CODE Study',
+    country: 'US',
+  },
+  {
+    key: 'is_in_us_hispanic_colorectal_cancer',
+    label: 'Hispanic Colorectal Cancer Study',
+    country: 'US',
+  },
+  {
+    key: 'is_in_us_colon_cancer_family_registry',
+    label: 'Colon Cancer Family Registry',
+    country: 'US',
+  },
+  {
+    key: 'is_in_us_louisiana_state_university',
+    label: 'Louisiana State University',
+    country: 'US',
+  },
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
