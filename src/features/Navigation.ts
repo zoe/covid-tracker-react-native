@@ -1,4 +1,4 @@
-import { PartialState, NavigationState } from '@react-navigation/native';
+import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '../core/Config';
@@ -55,7 +55,7 @@ class Navigator {
     return 'WelcomeRepeat';
   }
 
-  async getStartPatientScreenName(currentPatient: PatientStateType) {
+  getStartPatientScreenName(currentPatient: PatientStateType) {
     const config = this.getConfig();
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     const page = shouldAskStudy ? 'YourStudy' : 'YourWork';
@@ -68,12 +68,12 @@ class Navigator {
       navigator.gotoScreen('SelectProfile', { patientId });
     } else {
       const currentPatient = await this.getCurrentPatient(patientId);
-      this.navigation.navigate('StartAssessment', { currentPatient });
+      this.startAssessment(currentPatient);
     }
   }
 
   async gotoStartPatient(currentPatient: PatientStateType) {
-    const nextPage = await this.getStartPatientScreenName(currentPatient);
+    const nextPage = this.getStartPatientScreenName(currentPatient);
     this.gotoScreen(nextPage, { currentPatient });
   }
 
@@ -90,6 +90,51 @@ class Navigator {
         { name: nextPage, params: { currentPatient } },
       ],
     });
+  }
+
+  resetToProfileStartAssessment(currentPatient: PatientStateType) {
+    this.navigation.dispatch((state) => {
+      const newStack = state.routes;
+      while (newStack[newStack.length - 1].name != 'SelectProfile') {
+        newStack.pop();
+      }
+
+      return CommonActions.reset({
+        index: 0,
+        routes: [...newStack],
+      });
+    });
+
+    this.startAssessment(currentPatient);
+  }
+
+  startAssessment(currentPatient: PatientStateType) {
+    const userService = new UserService();
+    const features = userService.getConfig();
+
+    if (currentPatient.hasCompletedPatientDetails) {
+      const mustBackfillProfile =
+        ((features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
+        !currentPatient.hasPeriodAnswer ||
+        !currentPatient.hasHormoneTreatmentAnswer ||
+        !currentPatient.hasBloodPressureAnswer;
+
+      if (mustBackfillProfile) {
+        this.navigation.navigate('ProfileBackDate', { currentPatient });
+      } else if (currentPatient.shouldAskLevelOfIsolation) {
+        this.navigation.navigate('LevelOfIsolation', { currentPatient, assessmentId: null });
+      } else {
+        // Everything in this block should be replicated in Level Of Isolation navigation for now
+        if (currentPatient.isHealthWorker) {
+          this.navigation.navigate('HealthWorkerExposure', { currentPatient, assessmentId: null });
+        } else {
+          this.navigation.navigate('CovidTest', { currentPatient, assessmentId: null });
+        }
+      }
+    } else {
+      const nextPage = this.getStartPatientScreenName(currentPatient);
+      this.gotoScreen(nextPage, { currentPatient });
+    }
   }
 
   async gotoEndAssessment() {
@@ -115,15 +160,15 @@ class Navigator {
     }
   }
 
-  async gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
+  gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
     this.navigation.navigate(screenName, params);
   }
 
-  async replaceScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
+  replaceScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
     this.navigation.replace(screenName, params);
   }
 
-  async resetAndGo(navStack: PartialState<NavigationState>) {
+  resetAndGo(navStack: PartialState<NavigationState>) {
     this.navigation.reset(navStack);
   }
 }

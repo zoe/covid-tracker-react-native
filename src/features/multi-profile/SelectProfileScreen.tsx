@@ -15,6 +15,7 @@ import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../compo
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
+import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
@@ -86,7 +87,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async startAssessment(patientId: string) {
     try {
       const currentPatient = await userService.getCurrentPatient(patientId);
-      this.props.navigation.navigate('StartAssessment', { currentPatient });
+      Navigator.startAssessment(currentPatient);
     } catch (error) {
       this.setState({
         isApiError: true,
