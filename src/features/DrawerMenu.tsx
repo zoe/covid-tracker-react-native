@@ -39,7 +39,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function logout() {
-    userService.deleteLocalUserData();
+    userService.logout();
     props.navigation.reset({
       index: 0,
       routes: [{ name: 'Welcome' }],

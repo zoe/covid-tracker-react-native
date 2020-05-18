@@ -108,7 +108,7 @@ class Navigator {
 
   async gotoNextScreen(screenName: ScreenName, params: RouteParamsType) {
     if (ScreenFlow[screenName]) {
-      ScreenFlow[screenName](params);
+      await ScreenFlow[screenName](params);
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
@@ -159,9 +159,6 @@ const ScreenFlow: any = {
 
   // Start of reporting flow
   WelcomeRepeat: async (routeParams: PatientIdParamType) => {
-    await navigator.gotoStartReport(routeParams.patientId);
-  },
-  WelcomeRepeatUS: async (routeParams: PatientIdParamType) => {
     await navigator.gotoStartReport(routeParams.patientId);
   },
 
