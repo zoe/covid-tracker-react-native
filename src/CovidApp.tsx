@@ -6,7 +6,7 @@ import { Header, Root, View } from 'native-base';
 import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 
-import { colors } from '../theme/colors';
+import { colors } from '@theme/colors';
 import { CountrySelectScreen } from './features/CountrySelectScreen';
 import { DrawerMenu } from './features/DrawerMenu';
 import { ScreenParamList } from './features/ScreenParamList';

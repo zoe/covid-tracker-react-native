@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '@assets';
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import Analytics from '../../core/Analytics';

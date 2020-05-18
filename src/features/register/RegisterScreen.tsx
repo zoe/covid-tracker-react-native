@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import { Field, FieldError } from '../../components/Forms';
 import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';

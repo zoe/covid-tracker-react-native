@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import CalendarPicker, { CalendarPickerProps } from 'react-native-calendar-picker';
 
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import { isUSCountry } from '../core/user/UserService';
 import { screenWidth } from './Screen';
 

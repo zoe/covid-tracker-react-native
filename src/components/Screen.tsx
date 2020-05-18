@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Dimensions, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import { PatientProfile } from '../core/patient/PatientState';
 import { ScreenParamList } from '../features/ScreenParamList';
 import PatientHeader from './PatientHeader';

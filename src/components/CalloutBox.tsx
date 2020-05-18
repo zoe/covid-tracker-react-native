@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { RegularText } from './Text';
 import { Linking } from 'expo';
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import { CalloutBoxContent } from '../core/ContentService';
 
 type CalloutBoxProps = {

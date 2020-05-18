@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry } from '../../core/user/UserService';

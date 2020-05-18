@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { RegularBoldText, BrandedButton } from './Text';
 import { covidIcon } from '@assets';
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import { FlexView } from './FlexView';
 import i18n from '../locale/i18n';
 

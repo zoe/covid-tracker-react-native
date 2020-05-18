@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import Check from '@assets/icons/Check';
-import { colors } from '../../theme/colors';
+import { colors } from '@theme/colors';
 import { RegularText } from './Text';
 
 const checkboxStyles = StyleSheet.create({

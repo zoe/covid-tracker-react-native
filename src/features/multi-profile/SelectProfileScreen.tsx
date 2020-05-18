@@ -6,7 +6,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } f
 import key from 'weak-key';
 
 import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '@assets';
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import { offlineService, userService } from '../../Services';
 import DaysAgo, { getDaysAgo } from '../../components/DaysAgo';
 import { Loading, LoadingModal } from '../../components/Loading';

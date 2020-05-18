@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 
-import { colors, fontStyles } from '../../../theme';
+import { colors, fontStyles } from '@theme';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '../../components/Text';
 import { UserNotFoundException } from '../../core/Exception';
 import UserService, { isUSCountry } from '../../core/user/UserService';
