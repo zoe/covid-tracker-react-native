@@ -144,193 +144,191 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
           onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
           {(props) => {
             return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  {/* UK-only cohorts */}
-                  {isGBCountry() && (
+              <Form>
+                {/* UK-only cohorts */}
+                {isGBCountry() && (
+                  <FieldWrapper>
+                    <Item stackedLabel style={styles.textItemStyle}>
+                      <Label>{i18n.t('label-cohort')}</Label>
+                      <CheckboxList>
+                        <CheckboxItem
+                          value={this.state.isTwinsUkCohort}
+                          onChange={(value: boolean) => this.setState({ isTwinsUkCohort: value })}>
+                          Twins UK
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.isUkBiobank}
+                          onChange={(value: boolean) => this.setState({ isUkBiobank: value })}>
+                          UK Biobank
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.isStThomasTrust}
+                          onChange={(value: boolean) => this.setState({ isStThomasTrust: value })}>
+                          Guys &amp; St Thomas' Hospital Trust
+                        </CheckboxItem>
+                      </CheckboxList>
+                    </Item>
+                  </FieldWrapper>
+                )}
+
+                {/* US-only cohorts */}
+                {isUSCountry() && (
+                  <>
                     <FieldWrapper>
                       <Item stackedLabel style={styles.textItemStyle}>
                         <Label>{i18n.t('label-cohort')}</Label>
                         <CheckboxList>
                           <CheckboxItem
-                            value={this.state.isTwinsUkCohort}
-                            onChange={(value: boolean) => this.setState({ isTwinsUkCohort: value })}>
-                            Twins UK
+                            value={this.state.isNurseHealthStudies}
+                            onChange={(value: boolean) => this.setState({ isNurseHealthStudies: value })}>
+                            Harvard Nurses' Health Studies
                           </CheckboxItem>
                           <CheckboxItem
-                            value={this.state.isUkBiobank}
-                            onChange={(value: boolean) => this.setState({ isUkBiobank: value })}>
-                            UK Biobank
+                            value={this.state.isGrowingUpTodayStudy}
+                            onChange={(value: boolean) => this.setState({ isGrowingUpTodayStudy: value })}>
+                            Harvard Growing Up Today Study
                           </CheckboxItem>
                           <CheckboxItem
-                            value={this.state.isStThomasTrust}
-                            onChange={(value: boolean) => this.setState({ isStThomasTrust: value })}>
-                            Guys &amp; St Thomas' Hospital Trust
+                            value={this.state.isHarvardHealthProfessional}
+                            onChange={(value: boolean) => this.setState({ isHarvardHealthProfessional: value })}>
+                            Harvard Health Professionals Follow Up Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isMassGeneral}
+                            onChange={(value: boolean) => this.setState({ isMassGeneral: value })}>
+                            Mass General / Brigham
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isPartnersBiobank}
+                            onChange={(value: boolean) => this.setState({ isPartnersBiobank: value })}>
+                            Partners Biobank
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isMassEyeEarInfirmary}
+                            onChange={(value: boolean) => this.setState({ isMassEyeEarInfirmary: value })}>
+                            Mass Eye and Ear Infirmary
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isBwhs}
+                            onChange={(value: boolean) => this.setState({ isBwhs: value })}>
+                            Black Women's Health Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isAmericanCancer3}
+                            onChange={(value: boolean) => this.setState({ isAmericanCancer3: value })}>
+                            American Cancer Society Cancer Prevention Study-3
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isCaliforniaTeacher}
+                            onChange={(value: boolean) => this.setState({ isCaliforniaTeacher: value })}>
+                            UCSD/COH California Teachers Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isAspreeXt}
+                            onChange={(value: boolean) => this.setState({ isAspreeXt: value })}>
+                            ASPREE-XT
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isMultiEthnicCohortStudy}
+                            onChange={(value: boolean) => this.setState({ isMultiEthnicCohortStudy: value })}>
+                            Multiethnic Cohort Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isSister}
+                            onChange={(value: boolean) => this.setState({ isSister: value })}>
+                            The Sister Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isCovidFluNearYou}
+                            onChange={(value: boolean) => this.setState({ isCovidFluNearYou: value })}>
+                            CovidNearYou / FluNearYou
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isChasingCovid}
+                            onChange={(value: boolean) => this.setState({ isChasingCovid: value })}>
+                            CHASING COVID - CUNY ISPH
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isEnvironmentalPolymorphisms}
+                            onChange={(value: boolean) => this.setState({ isEnvironmentalPolymorphisms: value })}>
+                            NIEHS Environmental Polymorphisms Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isAgriculturalHealth}
+                            onChange={(value: boolean) => this.setState({ isAgriculturalHealth: value })}>
+                            The Agricultural Health Study (AHS)
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isGulf}
+                            onChange={(value: boolean) => this.setState({ isGulf: value })}>
+                            The GuLF Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isPredetermine}
+                            onChange={(value: boolean) => this.setState({ isPredetermine: value })}>
+                            PREDETERMINE Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isPromisePcrowd}
+                            onChange={(value: boolean) => this.setState({ isPromisePcrowd: value })}>
+                            PROMISE/PCROWD Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isColocare}
+                            onChange={(value: boolean) => this.setState({ isColocare: value })}>
+                            ColoCare Study
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isPredict2Study}
+                            onChange={(value: boolean) => this.setState({ isPredict2Study: value })}>
+                            PREDICT 2
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.isStanfordNutritionStudy}
+                            onChange={(value: boolean) => this.setState({ isStanfordNutritionStudy: value })}>
+                            Stanford Nutrition Studies Group
                           </CheckboxItem>
                         </CheckboxList>
                       </Item>
                     </FieldWrapper>
-                  )}
 
-                  {/* US-only cohorts */}
-                  {isUSCountry() && (
+                    <RegularText style={styles.standaloneLabel}>If not</RegularText>
+
+                    <GenericTextField
+                      formikProps={props}
+                      label="Add the names of your studies"
+                      name="clinicalStudyNames"
+                      placeholder="Optional"
+                    />
                     <>
-                      <FieldWrapper>
-                        <Item stackedLabel style={styles.textItemStyle}>
-                          <Label>{i18n.t('label-cohort')}</Label>
-                          <CheckboxList>
-                            <CheckboxItem
-                              value={this.state.isNurseHealthStudies}
-                              onChange={(value: boolean) => this.setState({ isNurseHealthStudies: value })}>
-                              Harvard Nurses' Health Studies
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isGrowingUpTodayStudy}
-                              onChange={(value: boolean) => this.setState({ isGrowingUpTodayStudy: value })}>
-                              Harvard Growing Up Today Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isHarvardHealthProfessional}
-                              onChange={(value: boolean) => this.setState({ isHarvardHealthProfessional: value })}>
-                              Harvard Health Professionals Follow Up Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isMassGeneral}
-                              onChange={(value: boolean) => this.setState({ isMassGeneral: value })}>
-                              Mass General / Brigham
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isPartnersBiobank}
-                              onChange={(value: boolean) => this.setState({ isPartnersBiobank: value })}>
-                              Partners Biobank
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isMassEyeEarInfirmary}
-                              onChange={(value: boolean) => this.setState({ isMassEyeEarInfirmary: value })}>
-                              Mass Eye and Ear Infirmary
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isBwhs}
-                              onChange={(value: boolean) => this.setState({ isBwhs: value })}>
-                              Black Women's Health Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isAmericanCancer3}
-                              onChange={(value: boolean) => this.setState({ isAmericanCancer3: value })}>
-                              American Cancer Society Cancer Prevention Study-3
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isCaliforniaTeacher}
-                              onChange={(value: boolean) => this.setState({ isCaliforniaTeacher: value })}>
-                              UCSD/COH California Teachers Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isAspreeXt}
-                              onChange={(value: boolean) => this.setState({ isAspreeXt: value })}>
-                              ASPREE-XT
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isMultiEthnicCohortStudy}
-                              onChange={(value: boolean) => this.setState({ isMultiEthnicCohortStudy: value })}>
-                              Multiethnic Cohort Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isSister}
-                              onChange={(value: boolean) => this.setState({ isSister: value })}>
-                              The Sister Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isCovidFluNearYou}
-                              onChange={(value: boolean) => this.setState({ isCovidFluNearYou: value })}>
-                              CovidNearYou / FluNearYou
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isChasingCovid}
-                              onChange={(value: boolean) => this.setState({ isChasingCovid: value })}>
-                              CHASING COVID - CUNY ISPH
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isEnvironmentalPolymorphisms}
-                              onChange={(value: boolean) => this.setState({ isEnvironmentalPolymorphisms: value })}>
-                              NIEHS Environmental Polymorphisms Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isAgriculturalHealth}
-                              onChange={(value: boolean) => this.setState({ isAgriculturalHealth: value })}>
-                              The Agricultural Health Study (AHS)
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isGulf}
-                              onChange={(value: boolean) => this.setState({ isGulf: value })}>
-                              The GuLF Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isPredetermine}
-                              onChange={(value: boolean) => this.setState({ isPredetermine: value })}>
-                              PREDETERMINE Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isPromisePcrowd}
-                              onChange={(value: boolean) => this.setState({ isPromisePcrowd: value })}>
-                              PROMISE/PCROWD Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isColocare}
-                              onChange={(value: boolean) => this.setState({ isColocare: value })}>
-                              ColoCare Study
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isPredict2Study}
-                              onChange={(value: boolean) => this.setState({ isPredict2Study: value })}>
-                              PREDICT 2
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.isStanfordNutritionStudy}
-                              onChange={(value: boolean) => this.setState({ isStanfordNutritionStudy: value })}>
-                              Stanford Nutrition Studies Group
-                            </CheckboxItem>
-                          </CheckboxList>
-                        </Item>
-                      </FieldWrapper>
-
-                      <RegularText style={styles.standaloneLabel}>If not</RegularText>
+                      <GenericTextField
+                        formikProps={props}
+                        label="If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?"
+                        name="clinicalStudyContacts"
+                        placeholder="Optional"
+                      />
+                      <GenericTextField
+                        formikProps={props}
+                        label="If you know it, what university or hospital runs this study?"
+                        name="clinicalStudyInstitutions"
+                        placeholder="Optional"
+                      />
 
                       <GenericTextField
                         formikProps={props}
-                        label="Add the names of your studies"
-                        name="clinicalStudyNames"
+                        label="What is the NCT number (if you know it)?"
+                        name="clinicalStudyNctIds"
                         placeholder="Optional"
                       />
-                      <>
-                        <GenericTextField
-                          formikProps={props}
-                          label="If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?"
-                          name="clinicalStudyContacts"
-                          placeholder="Optional"
-                        />
-                        <GenericTextField
-                          formikProps={props}
-                          label="If you know it, what university or hospital runs this study?"
-                          name="clinicalStudyInstitutions"
-                          placeholder="Optional"
-                        />
-
-                        <GenericTextField
-                          formikProps={props}
-                          label="What is the NCT number (if you know it)?"
-                          name="clinicalStudyNctIds"
-                          placeholder="Optional"
-                        />
-                      </>
                     </>
-                  )}
+                  </>
+                )}
 
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors} />}
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors} />}
 
-                  <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
+                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+              </Form>
             );
           }}
         </Formik>

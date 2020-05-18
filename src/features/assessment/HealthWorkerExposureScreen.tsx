@@ -176,69 +176,65 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
           onSubmit={(values: HealthWorkerExposureData) => this.handleUpdate(values)}>
           {(props) => {
             return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  <View>
-                    <DropdownField
-                      selectedValue={props.values.interactedAnyPatients}
-                      onValueChange={props.handleChange('interactedAnyPatients')}
-                      label={i18n.t('health-worker-exposure-question-interacted-any-patients')}
-                    />
+              <Form>
+                <View>
+                  <DropdownField
+                    selectedValue={props.values.interactedAnyPatients}
+                    onValueChange={props.handleChange('interactedAnyPatients')}
+                    label={i18n.t('health-worker-exposure-question-interacted-any-patients')}
+                  />
 
-                    {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' && (
-                      <>
+                  {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' && (
+                    <>
+                      <DropdownField
+                        selectedValue={props.values.treatedPatientsWithCovid}
+                        onValueChange={props.handleChange('treatedPatientsWithCovid')}
+                        label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
+                        items={patientInteractionOptions}
+                      />
+
+                      <DropdownField
+                        selectedValue={props.values.hasUsedPPEEquipment}
+                        onValueChange={props.handleChange('hasUsedPPEEquipment')}
+                        label={i18n.t('health-worker-exposure-question-has-used-ppe-equipment')}
+                        items={equipmentUsageOptions}
+                      />
+
+                      {props.values.hasUsedPPEEquipment === 'always' && (
                         <DropdownField
-                          selectedValue={props.values.treatedPatientsWithCovid}
-                          onValueChange={props.handleChange('treatedPatientsWithCovid')}
-                          label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
-                          items={patientInteractionOptions}
+                          selectedValue={props.values.ppeAvailabilityAlways}
+                          onValueChange={props.handleChange('ppeAvailabilityAlways')}
+                          label={i18n.t('label-chose-an-option')}
+                          items={availabilityAlwaysOptions}
                         />
+                      )}
 
+                      {props.values.hasUsedPPEEquipment === 'sometimes' && (
                         <DropdownField
-                          selectedValue={props.values.hasUsedPPEEquipment}
-                          onValueChange={props.handleChange('hasUsedPPEEquipment')}
-                          label={i18n.t('health-worker-exposure-question-has-used-ppe-equipment')}
-                          items={equipmentUsageOptions}
+                          selectedValue={props.values.ppeAvailabilitySometimes}
+                          onValueChange={props.handleChange('ppeAvailabilitySometimes')}
+                          label={i18n.t('label-chose-an-option')}
+                          items={availabilitySometimesOptions}
                         />
+                      )}
 
-                        {props.values.hasUsedPPEEquipment === 'always' && (
-                          <DropdownField
-                            selectedValue={props.values.ppeAvailabilityAlways}
-                            onValueChange={props.handleChange('ppeAvailabilityAlways')}
-                            label={i18n.t('label-chose-an-option')}
-                            items={availabilityAlwaysOptions}
-                          />
-                        )}
-
-                        {props.values.hasUsedPPEEquipment === 'sometimes' && (
-                          <DropdownField
-                            selectedValue={props.values.ppeAvailabilitySometimes}
-                            onValueChange={props.handleChange('ppeAvailabilitySometimes')}
-                            label={i18n.t('label-chose-an-option')}
-                            items={availabilitySometimesOptions}
-                          />
-                        )}
-
-                        {props.values.hasUsedPPEEquipment === 'never' && (
-                          <DropdownField
-                            selectedValue={props.values.ppeAvailabilityNever}
-                            onValueChange={props.handleChange('ppeAvailabilityNever')}
-                            label={i18n.t('label-chose-an-option')}
-                            items={availabilityNeverOptions}
-                          />
-                        )}
-                      </>
-                    )}
-                  </View>
-
-                  {!!Object.keys(props.errors).length && (
-                    <ErrorText>{i18n.t('validation-error-text-no-info')}</ErrorText>
+                      {props.values.hasUsedPPEEquipment === 'never' && (
+                        <DropdownField
+                          selectedValue={props.values.ppeAvailabilityNever}
+                          onValueChange={props.handleChange('ppeAvailabilityNever')}
+                          label={i18n.t('label-chose-an-option')}
+                          items={availabilityNeverOptions}
+                        />
+                      )}
+                    </>
                   )}
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
+                </View>
 
-                  <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
+                {!!Object.keys(props.errors).length && <ErrorText>{i18n.t('validation-error-text-no-info')}</ErrorText>}
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+
+                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+              </Form>
             );
           }}
         </Formik>
