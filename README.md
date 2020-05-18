@@ -75,13 +75,19 @@ npm install expo-cli --g
    echo "API_URL=http://123.456.7.890:3000" > .env
    ```
 
-4. Create an empty `./google-services.json` file in the root of the application.
+4. Run the following command to create `AMPLITUDE_KEY` environment variable:
+
+   ```sh
+   echo "AMPLITUDE_KEY=test_key" > .env
+   ```
+
+5. Create an empty `./google-services.json` file in the root of the application.
 
    ```sh
    echo "{}" > google-services.json
    ```
 
-5. Run the following commands
+6. Run the following commands
 
    ```bash
    npm install
@@ -114,7 +120,7 @@ These are some known, common issues and their solutions:
 
 1. Changes to .env don't get picked up.
 
-- Solution: Change some of the source code.
+- Solution: Change some of the source code or restart the expo project running `expo start -c`
 
 ## License
 

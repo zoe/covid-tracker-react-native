@@ -1,10 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Body, CheckBox, ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../../theme';
+import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
@@ -152,40 +152,30 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         </RegularText>
 
         {!this.viewOnly && (
-          <View>
-            <ListItem style={styles.permission}>
-              <CheckBox checked={this.state.processingChecked} onPress={() => this.handleToggle('processingChecked')} />
-              <Body style={styles.label}>
-                <RegularText>
-                  I consent to the processing of my personal data (including without limitation data I provide relating
-                  to my health) as set forth in this consent and in the{' '}
-                  <ClickableText
-                    onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-                    Privacy Policy
-                  </ClickableText>
-                  .
-                </RegularText>
-              </Body>
-            </ListItem>
-            <ListItem>
-              <CheckBox checked={this.state.termsOfUseChecked} onPress={() => this.handleToggle('termsOfUseChecked')} />
-              <Body style={styles.label}>
-                <RegularText>
-                  I have read and accept Zoe Global’s{' '}
-                  <ClickableText
-                    onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
-                    Terms of Use
-                  </ClickableText>{' '}
-                  and{' '}
-                  <ClickableText
-                    onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-                    Privacy Policy
-                  </ClickableText>
-                  .
-                </RegularText>
-              </Body>
-            </ListItem>
-          </View>
+          <CheckboxList>
+            <CheckboxItem value={this.state.processingChecked} onChange={() => this.handleToggle('processingChecked')}>
+              I consent to the processing of my personal data (including without limitation data I provide relating to
+              my health) as set forth in this consent and in the{' '}
+              <ClickableText
+                onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                Privacy Policy
+              </ClickableText>
+              .
+            </CheckboxItem>
+            <CheckboxItem value={this.state.termsOfUseChecked} onChange={() => this.handleToggle('termsOfUseChecked')}>
+              I have read and accept Zoe Global’s{' '}
+              <ClickableText
+                onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
+                Terms of Use
+              </ClickableText>{' '}
+              and{' '}
+              <ClickableText
+                onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                Privacy Policy
+              </ClickableText>
+              .
+            </CheckboxItem>
+          </CheckboxList>
         )}
       </ScrollView>
     );
@@ -380,46 +370,29 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         </RegularText>
 
         {!this.viewOnly && (
-          <View>
-            <ListItem style={styles.permission}>
-              <CheckBox
-                checked={this.state.swedenParticipateChecked}
-                onPress={() => this.handleToggle('swedenParticipateChecked')}
-              />
-              <Body style={styles.label}>
-                <RegularText>
-                  Jag är 18 år eller äldre och jag samtycker till att delta i studien ”Nationellt initiativ för att via
-                  en app i realtid kartlägga samhällspridningen av covid-19 i Sverige samt riskfaktorer för att drabbas
-                  av en allvarlig sjukdomsbild vid covid-19”.
-                </RegularText>
-              </Body>
-            </ListItem>
-            <ListItem>
-              <CheckBox
-                checked={this.state.swedenProcessingChecked}
-                onPress={() => this.handleToggle('swedenProcessingChecked')}
-              />
-              <Body style={styles.label}>
-                <RegularText>
-                  Jag samtycker till att personuppgifter om mig behandlas på det sätt som beskrivs i informationen till
-                  studiedeltagare ovan.
-                </RegularText>
-              </Body>
-            </ListItem>
-            <ListItem>
-              <CheckBox checked={this.state.swedenAgreeZoe} onPress={() => this.handleToggle('swedenAgreeZoe')} />
-              <Body style={styles.label}>
-                <RegularText>
-                  Jag har läst och accepterar Zoe Global Ltd{' '}
-                  <ClickableText
-                    onPress={() => this.props.navigation.navigate('PrivacyPolicySV', { viewOnly: this.viewOnly })}>
-                    integritetspolicy
-                  </ClickableText>
-                  .
-                </RegularText>
-              </Body>
-            </ListItem>
-          </View>
+          <CheckboxList>
+            <CheckboxItem
+              value={this.state.swedenParticipateChecked}
+              onChange={() => this.handleToggle('swedenParticipateChecked')}>
+              Jag är 18 år eller äldre och jag samtycker till att delta i studien ”Nationellt initiativ för att via en
+              app i realtid kartlägga samhällspridningen av covid-19 i Sverige samt riskfaktorer för att drabbas av en
+              allvarlig sjukdomsbild vid covid-19”.
+            </CheckboxItem>
+            <CheckboxItem
+              value={this.state.swedenProcessingChecked}
+              onChange={() => this.handleToggle('swedenProcessingChecked')}>
+              Jag samtycker till att personuppgifter om mig behandlas på det sätt som beskrivs i informationen till
+              studiedeltagare ovan.
+            </CheckboxItem>
+            <CheckboxItem value={this.state.swedenAgreeZoe} onChange={() => this.handleToggle('swedenAgreeZoe')}>
+              Jag har läst och accepterar Zoe Global Ltd{' '}
+              <ClickableText
+                onPress={() => this.props.navigation.navigate('PrivacyPolicySV', { viewOnly: this.viewOnly })}>
+                integritetspolicy
+              </ClickableText>
+              .
+            </CheckboxItem>
+          </CheckboxList>
         )}
       </ScrollView>
     );
@@ -461,11 +434,5 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-  },
-  permission: {
-    alignItems: 'flex-start',
-  },
-  label: {
-    marginLeft: 10,
   },
 });
