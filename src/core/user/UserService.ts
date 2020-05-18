@@ -302,7 +302,7 @@ export default class UserService extends ApiClientBase
     let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
     if (lastAskedLevelOfIsolation) {
       const lastAsked = moment(lastAskedLevelOfIsolation);
-      shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7;
+      shouldAskLevelOfIsolation = moment().diff(lastAsked, 'days') >= 7;
     }
 
     // Decide whether patient needs to answer YourStudy questions
