@@ -8,7 +8,7 @@ import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersRetu
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
-import AnalyticsService from '../../core/Analytics';
+import Analytics from '../../core/Analytics';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
@@ -45,7 +45,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const userCount = await userService.getUserCount();
     this.setState({ userCount: parseInt(userCount as string, 10) });
 
-    AnalyticsService.identify();
+    Analytics.identify();
 
     // Refresh push token if we don't have one
     const hasPushToken = await AsyncStorageService.getPushToken();
@@ -70,7 +70,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     } catch (error) {
       this.setState({
         isApiError: true,
-        error: error,
+        error,
         onRetry: () => {
           this.setState({
             status: i18n.t('errors.status-retrying'),

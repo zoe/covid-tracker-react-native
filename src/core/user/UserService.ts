@@ -254,7 +254,7 @@ export default class UserService extends ApiClientBase
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
     // Calculate the flags based on patient info
-    const hasRaceEthnicityAnswer = patient.race.length > 0;
+    const hasRaceEthnicityAnswer = Array.isArray(patient.race) && patient.race.length > 0;
     const isFemale = patient.gender === 0;
     const isSexNotMale = ![null, 1, 2].includes(patient.gender);
     const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
@@ -333,7 +333,7 @@ export default class UserService extends ApiClientBase
     try {
       if (!patient) {
         const loadPatient = await this.getPatient(patientId);
-        patient = loadPatient || patient;
+        patient = loadPatient ?? patient;
       }
     } catch (error) {
       handleServiceError(error);
