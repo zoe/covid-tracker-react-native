@@ -6,7 +6,6 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '../../../theme';
 import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
-import Analytics from '../../core/Analytics';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';

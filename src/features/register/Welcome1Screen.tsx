@@ -9,7 +9,6 @@ import { BrandedButton, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import Analytics from '../../core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;

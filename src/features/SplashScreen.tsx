@@ -11,7 +11,6 @@ import { ScreenParamList } from './ScreenParamList';
 import Splash from '../components/Splash';
 import { offlineService, userService } from '../Services';
 import { ApiException } from '../core/ApiServiceErrors';
-import Analytics from '../core/Analytics';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {

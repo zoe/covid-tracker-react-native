@@ -14,7 +14,6 @@ import VisitWebsite from '../components/VisitWebsite';
 import { isGBCountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
-import Analytics from '../core/Analytics';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
