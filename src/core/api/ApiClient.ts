@@ -11,7 +11,6 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
   async post<T>(path: string, payload: T): Promise<T> {
     try {
       const response = await this.client.post<T>(path, payload);
-      console.log("[RESPONSE]:", response);
       return response.data;
     } catch (error) {
       handleServiceError(error);
