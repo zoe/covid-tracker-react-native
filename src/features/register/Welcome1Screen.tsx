@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '../../../assets';
+import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
