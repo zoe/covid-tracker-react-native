@@ -7,12 +7,12 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '../../components/DropdownField';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock, FieldWrapper } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
-import { ValidatedTextInput } from '../../components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '../../components/ValidationError';
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock, FieldWrapper } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
 import { PatientStateType } from '../../core/patient/PatientState';
 import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';

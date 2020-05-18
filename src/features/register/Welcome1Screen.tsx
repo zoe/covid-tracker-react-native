@@ -4,8 +4,8 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-nat
 
 import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
 import { colors } from '@theme';
-import { ContributionCounter } from '../../components/ContributionCounter';
-import { BrandedButton, RegularText } from '../../components/Text';
+import { ContributionCounter } from '@covid/components/ContributionCounter';
+import { BrandedButton, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import { colors } from '@theme';
-import { BrandedButton, HeaderText, RegularText } from '../../components/Text';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 

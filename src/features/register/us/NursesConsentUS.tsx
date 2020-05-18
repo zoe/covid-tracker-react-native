@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import UserService from '../../../core/user/UserService';
 import { ScreenParamList } from '../../ScreenParamList';
 import { NursesConsentVersionUS, privacyPolicyVersionUS } from '../constants';

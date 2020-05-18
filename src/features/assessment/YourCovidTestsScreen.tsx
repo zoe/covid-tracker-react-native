@@ -8,9 +8,9 @@ import key from 'weak-key';
 
 import { chevronRight, pending, tick } from '@assets';
 import { colors } from '@theme';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '../../components/Text';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import CovidTestService from '../../core/user/CovidTestService';
 import UserService from '../../core/user/UserService';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';

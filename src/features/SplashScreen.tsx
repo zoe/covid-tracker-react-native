@@ -8,7 +8,7 @@ import { ApiClientBase } from '../core/user/ApiClientBase';
 import i18n from '../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
-import Splash from '../components/Splash';
+import Splash from '@covid/components/Splash';
 import { offlineService, userService } from '../Services';
 import { ApiException } from '../core/ApiServiceErrors';
 

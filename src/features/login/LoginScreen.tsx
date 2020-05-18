@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
-import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '../../components/Text';
+import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { UserNotFoundException } from '../../core/Exception';
 import UserService, { isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';

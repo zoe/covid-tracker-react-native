@@ -8,8 +8,8 @@ import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutF
 import * as Yup from 'yup';
 
 import { colors } from '@theme';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
-import { ValidatedTextInput } from '../../components/ValidatedTextInput';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { AsyncStorageService } from '../../core/AsyncStorageService';
 import { PushNotificationService } from '../../core/PushNotificationService';
 import { PiiRequest } from '../../core/user/dto/UserAPIContracts';
@@ -18,7 +18,7 @@ import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { userService, offlineService } from '../../Services';
-import { LoadingModal } from '../../components/Loading';
+import { LoadingModal } from '@covid/components/Loading';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;

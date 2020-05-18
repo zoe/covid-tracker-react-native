@@ -3,7 +3,7 @@ import { Image, Share, StyleSheet, View } from 'react-native';
 
 import { social } from '@assets';
 import { colors } from '@theme';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../components/Text';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '../core/Analytics';
 import i18n from '../locale/i18n';
 import { isAndroid } from './Screen';
