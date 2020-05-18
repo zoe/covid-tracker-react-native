@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { isAndroid } from '@covid/components/Screen';
 import i18n from '@covid/locale/i18n';
-import { AvatarName } from '../../utils/avatar';
+import { AvatarName } from '@covid/utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';

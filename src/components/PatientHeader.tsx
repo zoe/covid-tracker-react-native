@@ -8,7 +8,7 @@ import { colors } from '@theme';
 import { PatientProfile } from '@covid/core/patient/PatientState';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { getAvatarByName } from '../utils/avatar';
+import { getAvatarByName } from '@covid/utils/avatar';
 import { ClippedText, RegularText } from './Text';
 
 type BackButtonProps = {

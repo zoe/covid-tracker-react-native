@@ -15,7 +15,7 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import { stripAndRound } from '../../utils/helpers';
+import { stripAndRound } from '@covid/utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';

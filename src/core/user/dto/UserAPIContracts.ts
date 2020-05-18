@@ -1,4 +1,4 @@
-import { AvatarName } from '../../../utils/avatar';
+import { AvatarName } from '@covid/utils/avatar';
 
 export enum HealthCareStaffOptions {
   NO = 'no',

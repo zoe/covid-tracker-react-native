@@ -14,7 +14,7 @@ import { Header } from '@covid/components/Screen';
 import { ClippedText, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
-import { AvatarName, getAvatarByName } from '../../utils/avatar';
+import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
