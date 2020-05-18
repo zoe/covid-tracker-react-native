@@ -15,6 +15,7 @@ import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/u
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import { CalloutBox } from '../../components/CalloutBox';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
@@ -92,13 +93,13 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
-  openWebsite = () => {
+  getWebsiteUrl = () => {
     if (isUSCountry()) {
-      Linking.openURL('https://covid.joinzoe.com/us');
+      return 'https://covid.joinzoe.com/us';
     } else if (isSECountry()) {
-      Linking.openURL('https://covid19app.lu.se/');
+      return 'https://covid19app.lu.se/';
     } else {
-      Linking.openURL('https://covid.joinzoe.com/');
+      return 'https://covid.joinzoe.com/';
     }
   };
 
@@ -113,6 +114,15 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   };
 
   render() {
+    const calloutContent = {
+      title: i18n.t('welcome.research'),
+      description: i18n.t('welcome.see-how-your-area-is-affected'),
+      link: {
+        title: i18n.t('welcome.visit-the-website'),
+        url: this.getWebsiteUrl(),
+      },
+    };
+
     return (
       <SafeAreaView style={styles.safeView}>
         {this.state.isApiError && (
@@ -148,15 +158,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <View style={{ flex: 1 }} />
 
-            <TouchableOpacity style={styles.discoveriesContainer} onPress={this.openWebsite}>
-              <View style={styles.discoveriesTitleBackground}>
-                <RegularText style={styles.discoveriesTitle}>{i18n.t('welcome.research')}</RegularText>
-              </View>
-              <RegularText style={styles.discoveriesText}>
-                {i18n.t('welcome.see-how-your-area-is-affected')}
-              </RegularText>
-              <RegularText style={styles.discoveriesVisitText}>{i18n.t('welcome.visit-the-website')}</RegularText>
-            </TouchableOpacity>
+            <CalloutBox content={calloutContent} />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>
@@ -206,45 +208,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 16,
   },
-  discoveriesButton: {
-    backgroundColor: colors.backgroundTertiary,
-    alignSelf: 'center',
-    width: 180,
-    margin: 10,
-    elevation: 0,
-  },
-  discoveriesVisitText: {
-    color: colors.lightBrand,
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  discoveriesTitleBackground: {
-    backgroundColor: colors.lightBlueBrand,
-    paddingHorizontal: 4,
-    borderRadius: 4,
-  },
-  discoveriesTitle: {
-    fontSize: 12,
-    color: colors.white,
-    letterSpacing: 0.2,
-  },
-  discoveriesText: {
-    textAlign: 'center',
-    marginHorizontal: 100,
-    marginVertical: 8,
-    color: colors.white,
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  discoveriesContainer: {
-    paddingVertical: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.backgroundSecondary,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 36,
-  },
+
   partnersLogo: {
     width: '95%',
     height: 100,
