@@ -17,6 +17,7 @@ import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { stripAndRound } from '../../utils/helpers';
+import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 interface YourHealthData {
@@ -112,7 +113,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        this.props.navigation.navigate('StartAssessment', { currentPatient });
+        Navigator.startAssessment(currentPatient);
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
