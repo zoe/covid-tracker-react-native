@@ -37,7 +37,7 @@ const getPushTokenFromExpo = async (): Promise<string | null> => {
   return token;
 };
 
-export class PushNotificationService {
+export default class PushNotificationService {
   apiClient: IPushTokenRemoteClient;
   storage: IStorageService;
 

@@ -9,14 +9,13 @@ import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import AnalyticsService from '../../core/Analytics';
-import { PushNotificationService } from '../../core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { CalloutBox } from '../../components/CalloutBox';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
-import { offlineService } from '../../Services';
+import { offlineService, pushNotificationService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
 
 type PropsType = {
@@ -52,8 +51,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   }
 
   async refreshPushToken() {
-    const pushTokenService = new PushNotificationService();
-    pushTokenService.refreshPushToken();
+    pushNotificationService.refreshPushToken();
   }
 
   gotoNextScreen = async () => {

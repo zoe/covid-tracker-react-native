@@ -9,15 +9,13 @@ import * as Yup from 'yup';
 import { colors } from '../../../theme';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
-import { PushNotificationService } from '../../core/PushNotificationService';
 import { PiiRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
-import { userService, offlineService } from '../../Services';
+import { userService, offlineService, pushNotificationService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
-import { Constants } from 'expo';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;
@@ -47,8 +45,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   }
 
   private async setPushToken() {
-    const pushService = new PushNotificationService();
-    await pushService.initPushToken();
+    await pushNotificationService.initPushToken();
   }
 
   private async savePiiData(formData: OptionalInfoData) {
