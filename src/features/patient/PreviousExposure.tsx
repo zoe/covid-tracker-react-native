@@ -16,7 +16,7 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import { stripAndRound } from '../../utils/helpers';
+import { stripAndRound } from '@covid/utils/helpers';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
