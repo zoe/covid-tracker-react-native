@@ -24,6 +24,7 @@ export const CalloutBox = ({ content }: CalloutBoxProps) => {
 const styles = StyleSheet.create({
   discoveriesContainer: {
     paddingVertical: 16,
+    width: '100%',
     borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.backgroundSecondary,
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   },
   discoveriesText: {
     textAlign: 'center',
-    marginHorizontal: 100,
+    marginHorizontal: 50,
     marginVertical: 8,
     color: colors.white,
     fontSize: 16,
