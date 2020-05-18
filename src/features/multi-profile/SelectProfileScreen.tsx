@@ -5,17 +5,18 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS } from '../../../assets';
+import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '../../../assets';
 import { colors } from '../../../theme';
-import DaysAgo from '../../components/DaysAgo';
+import { offlineService, userService } from '../../Services';
+import DaysAgo, { getDaysAgo } from '../../components/DaysAgo';
+import { Loading, LoadingModal } from '../../components/Loading';
 import { Header } from '../../components/Screen';
 import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
+import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
+import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
-import { Loading, LoadingModal } from '../../components/Loading';
-import { offlineService, userService } from '../../Services';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -79,18 +80,18 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
           isLoaded: true,
         });
     } catch (error) {
-      this.setState({ error: error });
+      this.setState({ error });
     }
   }
 
   async startAssessment(patientId: string) {
     try {
       const currentPatient = await userService.getCurrentPatient(patientId);
-      this.props.navigation.navigate('StartAssessment', { currentPatient });
+      Navigator.startAssessment(currentPatient);
     } catch (error) {
       this.setState({
         isApiError: true,
-        error: error,
+        error,
         onRetry: () => {
           this.setState({
             status: i18n.t('errors.status-retrying'),
@@ -146,13 +147,21 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
               {this.state.isLoaded ? (
                 <View style={styles.profileList}>
-                  {this.state.patients.map((patient, i) => {
+                  {this.state.patients.map((patient, _) => {
                     const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
+                    const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
                     return (
                       <View style={styles.cardContainer} key={key(patient)}>
                         <TouchableOpacity onPress={() => this.startAssessment(patient.id)}>
                           <Card style={styles.card}>
-                            <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
+                            <View style={styles.avatarContainer}>
+                              {hasReportedToday && (
+                                <View style={styles.circle}>
+                                  <Image source={tick} style={styles.tick} />
+                                </View>
+                              )}
+                              <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
+                            </View>
                             <ClippedText>{patient.name}</ClippedText>
                             <DaysAgo timeAgo={patient.last_reported_at} />
                           </Card>
@@ -199,10 +208,33 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 
-  avatar: {
-    width: '80%',
-    height: 100,
+  avatarContainer: {
+    alignItems: 'center',
+    width: 100,
     marginBottom: 10,
+  },
+
+  avatar: {
+    height: 100,
+    width: 100,
+  },
+
+  tick: {
+    height: 30,
+    width: 30,
+  },
+
+  circle: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+    top: 0,
+    right: -5,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'white',
   },
 
   addImage: {

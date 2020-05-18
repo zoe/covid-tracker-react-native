@@ -2,14 +2,17 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import React from 'react';
-import { Alert, Image, Linking, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
 import { closeIcon } from '../../assets';
-import { colors, fontStyles } from '../../theme';
 import { CaptionText, HeaderText } from '../components/Text';
-import UserService, { isGBCountry, isUSCountry, isSECountry } from '../core/user/UserService';
+import UserService, { isGBCountry, isSECountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import Analytics, { events } from '../core/Analytics';
+
+const isDevChannel = () => {
+  return Constants.manifest.releaseChannel === '0-dev';
+};
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = new UserService();
@@ -89,7 +92,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <CaptionText style={[styles.versionText]}>
           {Constants.manifest.version}
           {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
-          {Constants.manifest.releaseChannel === 'dev' && ` (DEV)`}
+          {isDevChannel() && ` (DEV)`}
         </CaptionText>
       </View>
     </SafeAreaView>
