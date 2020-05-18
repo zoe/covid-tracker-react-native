@@ -5,7 +5,7 @@ import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, SecondaryText } from '@covid/components/Text';
 import i18n from '../locale/i18n';
 import { CoralBadge } from './Badge';
-import Analytics, { events } from '../core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 
 export default class Donate extends Component {
   constructor(props: any) {

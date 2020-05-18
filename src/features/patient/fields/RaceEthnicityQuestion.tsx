@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
-import { isUSCountry } from '../../../core/user/UserService';
+import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '../../../locale/i18n';
 
 export interface RaceEthnicityData {

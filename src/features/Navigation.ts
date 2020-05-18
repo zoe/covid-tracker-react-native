@@ -1,9 +1,9 @@
 import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { ConfigType } from '../core/Config';
-import { PatientStateType } from '../core/patient/PatientState';
-import UserService, { isUSCountry } from '../core/user/UserService';
+import { ConfigType } from '@covid/core/Config';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { ScreenParamList } from './ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;

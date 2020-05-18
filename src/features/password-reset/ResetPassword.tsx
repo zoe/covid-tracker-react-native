@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { colors } from '@theme';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import UserService from '../../core/user/UserService';
+import UserService from '@covid/core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 

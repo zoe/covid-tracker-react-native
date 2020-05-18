@@ -10,7 +10,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationErrors } from '@covid/components/ValidationError';
-import UserService from '../../../core/user/UserService';
+import UserService from '@covid/core/user/UserService';
 import {
   AvailabilityAlwaysOptions,
   AvailabilityNeverOptions,
@@ -19,7 +19,7 @@ import {
   HealthCareStaffOptions,
   PatientInfosRequest,
   PatientInteractions,
-} from '../../../core/user/dto/UserAPIContracts';
+} from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '../../../locale/i18n';
 import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
 

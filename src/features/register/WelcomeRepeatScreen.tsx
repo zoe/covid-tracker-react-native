@@ -8,15 +8,15 @@ import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersRetu
 import { colors } from '@theme';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
-import Analytics from '../../core/Analytics';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
-import { PushNotificationService } from '../../core/PushNotificationService';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
+import Analytics from '@covid/core/Analytics';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { PushNotificationService } from '@covid/core/PushNotificationService';
+import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { CalloutBox } from '@covid/components/CalloutBox';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
 import { offlineService } from '../../Services';
 import { LoadingModal } from '@covid/components/Loading';
 

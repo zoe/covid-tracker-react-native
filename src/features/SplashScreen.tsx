@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { AsyncStorageService } from '../core/AsyncStorageService';
-import { ApiClientBase } from '../core/user/ApiClientBase';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { ApiClientBase } from '@covid/core/user/ApiClientBase';
 import i18n from '../locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
 import Splash from '@covid/components/Splash';
 import { offlineService, userService } from '../Services';
-import { ApiException } from '../core/ApiServiceErrors';
+import { ApiException } from '@covid/core/ApiServiceErrors';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {

@@ -13,11 +13,11 @@ import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { isAndroid } from '@covid/components/Screen';
 import BrandedSpinner from '@covid/components/Spinner';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService from '../core/user/UserService';
-import { AreaStatsResponse } from '../core/user/dto/UserAPIContracts';
+import UserService from '@covid/core/user/UserService';
+import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
-import Analytics, { events } from '../core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;

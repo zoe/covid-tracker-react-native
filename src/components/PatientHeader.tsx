@@ -5,7 +5,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
-import { PatientProfile } from '../core/patient/PatientState';
+import { PatientProfile } from '@covid/core/patient/PatientState';
 import { ScreenParamList } from '../features/ScreenParamList';
 import i18n from '../locale/i18n';
 import { getAvatarByName } from '../utils/avatar';

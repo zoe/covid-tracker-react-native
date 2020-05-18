@@ -5,7 +5,7 @@ import { Dimensions, Image, Linking, SafeAreaView, ScrollView, StyleSheet, Touch
 import { usPartners, gbPartners, svPartners, svFlag, gbFlag, usFlag } from '@assets';
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
+import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import CountryIpModal from './CountryIpModal';

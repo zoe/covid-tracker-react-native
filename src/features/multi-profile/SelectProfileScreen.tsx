@@ -12,7 +12,7 @@ import DaysAgo, { getDaysAgo } from '@covid/components/DaysAgo';
 import { Loading, LoadingModal } from '@covid/components/Loading';
 import { Header } from '@covid/components/Screen';
 import { ClippedText, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
 import i18n from '../../locale/i18n';
 import { AvatarName, getAvatarByName } from '../../utils/avatar';
 import Navigator from '../Navigation';

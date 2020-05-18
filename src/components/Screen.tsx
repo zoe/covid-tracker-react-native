@@ -4,10 +4,10 @@ import { Dimensions, Platform, ScrollView, StyleSheet, View } from 'react-native
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '@theme';
-import { PatientProfile } from '../core/patient/PatientState';
+import { PatientProfile } from '@covid/core/patient/PatientState';
 import { ScreenParamList } from '../features/ScreenParamList';
 import PatientHeader from './PatientHeader';
-import Analytics from '../core/Analytics';
+import Analytics from '@covid/core/Analytics';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
