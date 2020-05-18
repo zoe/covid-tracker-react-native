@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Share, StyleSheet, View } from 'react-native';
 
-import { social } from '../../assets';
+import { social } from '@assets';
 import { colors } from '../../theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../components/Text';
 import Analytics, { events } from '../core/Analytics';

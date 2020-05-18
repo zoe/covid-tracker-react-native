@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '../../../assets';
+import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '@assets';
 import { colors } from '../../../theme';
 import { offlineService, userService } from '../../Services';
 import DaysAgo, { getDaysAgo } from '../../components/DaysAgo';

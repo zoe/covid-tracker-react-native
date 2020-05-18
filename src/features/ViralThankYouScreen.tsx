@@ -7,7 +7,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Image, ScrollView, Share, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
 
-import { social } from '../../assets';
+import { social } from '@assets';
 import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
 import { isAndroid } from '../components/Screen';

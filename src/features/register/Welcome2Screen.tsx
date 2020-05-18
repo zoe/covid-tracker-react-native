@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Dimensions, Image, Linking, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { usPartners, gbPartners, svPartners, svFlag, gbFlag, usFlag } from '../../../assets';
+import { usPartners, gbPartners, svPartners, svFlag, gbFlag, usFlag } from '@assets';
 import { colors } from '../../../theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';

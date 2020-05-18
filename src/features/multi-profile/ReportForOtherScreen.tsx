@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { profilesIcon } from '../../../assets';
+import { profilesIcon } from '@assets';
 import { colors } from '../../../theme';
 import { Header } from '../../components/Screen';
 import {

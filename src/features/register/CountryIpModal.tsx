@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { closeIcon } from '../../../assets';
+import { closeIcon } from '@assets';
 import { colors } from '../../../theme';
 import { isAndroid } from '../../components/Screen';
 import { RegularText } from '../../components/Text';
