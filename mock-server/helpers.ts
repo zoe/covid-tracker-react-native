@@ -12,18 +12,20 @@ export default (dbPath: string) => {
   return {
     bootstrap: (config: DbConfig) => {
       // Bootstrap: creates the db folder and files
-      fs.exists(dbPath, (dbExists) => {
-        if (!dbExists) {
+      fs.access(dbPath, fs.constants.F_OK, (err) => {
+        if (err) {
+          console.log(`~~ mockDb: create folder ${dbPath}`);
           fs.mkdirSync(dbPath);
         }
 
         Object.values(config).forEach((dbObject) => {
           const { path, defaultData } = dbObject;
-          fs.exists(path, (exists) => {
-            if (exists) {
+          fs.access(`${dbPath}/${path}`, fs.constants.F_OK, (err) => {
+            if (!err) {
               return;
             }
 
+            console.log(`~~ mockDb: create file ${dbPath}/${path}`);
             fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData ?? {}, null, ' '), () => {});
           });
         });
