@@ -266,201 +266,199 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
           }}>
           {(props) => {
             return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  <DropdownField
-                    selectedValue={props.values.hasFever}
-                    onValueChange={props.handleChange('hasFever')}
-                    label={i18n.t('describe-symptoms.question-has-fever')}
-                    error={props.touched.hasFever && props.errors.hasFever}
-                  />
+              <Form>
+                <DropdownField
+                  selectedValue={props.values.hasFever}
+                  onValueChange={props.handleChange('hasFever')}
+                  label={i18n.t('describe-symptoms.question-has-fever')}
+                  error={props.touched.hasFever && props.errors.hasFever}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.hasChills}
-                    onValueChange={props.handleChange('hasChills')}
-                    label={i18n.t('describe-symptoms.question-has-chills')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.hasChills}
+                  onValueChange={props.handleChange('hasChills')}
+                  label={i18n.t('describe-symptoms.question-has-chills')}
+                />
 
-                  <FieldWrapper>
-                    <Item stackedLabel style={styles.textItemStyle}>
-                      <Label>{i18n.t('describe-symptoms.question-your-temperature')}</Label>
-                      <View style={styles.fieldRow}>
-                        <View style={styles.primaryField}>
-                          <ValidatedTextInput
-                            placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
-                            value={props.values.temperature}
-                            onChangeText={props.handleChange('temperature')}
-                            onBlur={props.handleBlur('temperature')}
-                            error={props.touched.temperature && props.errors.temperature}
-                            returnKeyType="next"
-                            onSubmitEditing={() => {
-                              /* this.passwordComponent.focus(); */
-                            }}
-                            keyboardType="numeric"
-                          />
-                        </View>
-
-                        <View style={styles.secondaryField}>
-                          <DropdownField
-                            selectedValue={props.values.temperatureUnit}
-                            onValueChange={props.handleChange('temperatureUnit')}
-                            error={props.touched.temperatureUnit && props.errors.temperatureUnit}
-                            items={temperatureItems}
-                            onlyPicker
-                          />
-                        </View>
+                <FieldWrapper>
+                  <Item stackedLabel style={styles.textItemStyle}>
+                    <Label>{i18n.t('describe-symptoms.question-your-temperature')}</Label>
+                    <View style={styles.fieldRow}>
+                      <View style={styles.primaryField}>
+                        <ValidatedTextInput
+                          placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
+                          value={props.values.temperature}
+                          onChangeText={props.handleChange('temperature')}
+                          onBlur={props.handleBlur('temperature')}
+                          error={props.touched.temperature && props.errors.temperature}
+                          returnKeyType="next"
+                          onSubmitEditing={() => {
+                            /* this.passwordComponent.focus(); */
+                          }}
+                          keyboardType="numeric"
+                        />
                       </View>
-                    </Item>
-                  </FieldWrapper>
 
+                      <View style={styles.secondaryField}>
+                        <DropdownField
+                          selectedValue={props.values.temperatureUnit}
+                          onValueChange={props.handleChange('temperatureUnit')}
+                          error={props.touched.temperatureUnit && props.errors.temperatureUnit}
+                          items={temperatureItems}
+                          onlyPicker
+                        />
+                      </View>
+                    </View>
+                  </Item>
+                </FieldWrapper>
+
+                <DropdownField
+                  label={i18n.t('describe-symptoms.question-has-persistent-cough')}
+                  selectedValue={props.values.hasPersistentCough}
+                  onValueChange={props.handleChange('hasPersistentCough')}
+                />
+
+                {/* Horizontal rule */}
+
+                <DropdownField
+                  label={i18n.t('describe-symptoms.question-has-unusual-fatigue')}
+                  selectedValue={props.values.hasUnusualFatigue}
+                  onValueChange={props.handleChange('hasUnusualFatigue')}
+                  items={fatigueItems}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasHeadache}
+                  onValueChange={props.handleChange('hasHeadache')}
+                  label={i18n.t('describe-symptoms.question-has-headache')}
+                />
+
+                {props.values.hasHeadache === 'yes' && (
                   <DropdownField
-                    label={i18n.t('describe-symptoms.question-has-persistent-cough')}
-                    selectedValue={props.values.hasPersistentCough}
-                    onValueChange={props.handleChange('hasPersistentCough')}
+                    selectedValue={props.values.headacheFrequency}
+                    onValueChange={props.handleChange('headacheFrequency')}
+                    label={i18n.t('describe-symptoms.question-headache-frequency')}
+                    items={headacheFrequencyItems}
+                    error={props.touched.headacheFrequency && props.errors.headacheFrequency}
                   />
+                )}
 
-                  {/* Horizontal rule */}
+                <DropdownField
+                  selectedValue={props.values.hasNausea}
+                  onValueChange={props.handleChange('hasNausea')}
+                  label={i18n.t('describe-symptoms.question-has-nausea')}
+                />
 
+                <DropdownField
+                  selectedValue={props.values.hasDizziness}
+                  onValueChange={props.handleChange('hasDizziness')}
+                  label={i18n.t('describe-symptoms.question-has-dizziness')}
+                />
+
+                <DropdownField
+                  label={i18n.t('describe-symptoms.question-has-unusual-shortness-of-breath')}
+                  selectedValue={props.values.hasUnusualShortnessOfBreath}
+                  onValueChange={props.handleChange('hasUnusualShortnessOfBreath')}
+                  error={props.touched.hasUnusualShortnessOfBreath && props.errors.hasUnusualShortnessOfBreath}
+                  items={shortnessOfBreathItems}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasSoreThroat}
+                  onValueChange={props.handleChange('hasSoreThroat')}
+                  label={i18n.t('describe-symptoms.question-has-sore-throat')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasLossOfSmell}
+                  onValueChange={props.handleChange('hasLossOfSmell')}
+                  label={i18n.t('describe-symptoms.question-has-loss-of-smell')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasHoarseVoice}
+                  onValueChange={props.handleChange('hasHoarseVoice')}
+                  label={i18n.t('describe-symptoms.question-has-hoarse-voice')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasChestPain}
+                  onValueChange={props.handleChange('hasChestPain')}
+                  label={i18n.t('describe-symptoms.question-has-chest-pain')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasAbdominalPain}
+                  onValueChange={props.handleChange('hasAbdominalPain')}
+                  label={i18n.t('describe-symptoms.question-has-abdominal-pain')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasDiarrhoea}
+                  onValueChange={props.handleChange('hasDiarrhoea')}
+                  label={i18n.t('describe-symptoms.question-has-diarrhoea')}
+                />
+
+                {props.values.hasDiarrhoea === 'yes' && (
                   <DropdownField
-                    label={i18n.t('describe-symptoms.question-has-unusual-fatigue')}
-                    selectedValue={props.values.hasUnusualFatigue}
-                    onValueChange={props.handleChange('hasUnusualFatigue')}
-                    items={fatigueItems}
+                    selectedValue={props.values.diarrhoeaFrequency}
+                    onValueChange={props.handleChange('diarrhoeaFrequency')}
+                    label={i18n.t('describe-symptoms.question-diarrhoea-frequency')}
+                    items={diarrhoeaFrequencyItems}
+                    error={props.touched.diarrhoeaFrequency && props.errors.diarrhoeaFrequency}
                   />
+                )}
 
-                  <DropdownField
-                    selectedValue={props.values.hasHeadache}
-                    onValueChange={props.handleChange('hasHeadache')}
-                    label={i18n.t('describe-symptoms.question-has-headache')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.hasUnusualMusclePains}
+                  onValueChange={props.handleChange('hasUnusualMusclePains')}
+                  label={i18n.t('describe-symptoms.question-has-unusual-muscle-pains')}
+                />
 
-                  {props.values.hasHeadache === 'yes' && (
-                    <DropdownField
-                      selectedValue={props.values.headacheFrequency}
-                      onValueChange={props.handleChange('headacheFrequency')}
-                      label={i18n.t('describe-symptoms.question-headache-frequency')}
-                      items={headacheFrequencyItems}
-                      error={props.touched.headacheFrequency && props.errors.headacheFrequency}
-                    />
-                  )}
+                <DropdownField
+                  label={i18n.t('describe-symptoms.question-red-welts-on-face')}
+                  selectedValue={props.values.hasRedWeltsOnFace}
+                  onValueChange={props.handleChange('hasRedWeltsOnFace')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.hasNausea}
-                    onValueChange={props.handleChange('hasNausea')}
-                    label={i18n.t('describe-symptoms.question-has-nausea')}
-                  />
+                <DropdownField
+                  label={i18n.t('describe-symptoms.question-blisters-on-feet')}
+                  selectedValue={props.values.hasBlistersOnFeet}
+                  onValueChange={props.handleChange('hasBlistersOnFeet')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.hasDizziness}
-                    onValueChange={props.handleChange('hasDizziness')}
-                    label={i18n.t('describe-symptoms.question-has-dizziness')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.hasDelirium}
+                  onValueChange={props.handleChange('hasDelirium')}
+                  label={i18n.t('describe-symptoms.question-has-delirium')}
+                />
 
-                  <DropdownField
-                    label={i18n.t('describe-symptoms.question-has-unusual-shortness-of-breath')}
-                    selectedValue={props.values.hasUnusualShortnessOfBreath}
-                    onValueChange={props.handleChange('hasUnusualShortnessOfBreath')}
-                    error={props.touched.hasUnusualShortnessOfBreath && props.errors.hasUnusualShortnessOfBreath}
-                    items={shortnessOfBreathItems}
-                  />
+                <DropdownField
+                  selectedValue={props.values.hasEyeSoreness}
+                  onValueChange={props.handleChange('hasEyeSoreness')}
+                  label={i18n.t('describe-symptoms.question-has-eye-soreness')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.hasSoreThroat}
-                    onValueChange={props.handleChange('hasSoreThroat')}
-                    label={i18n.t('describe-symptoms.question-has-sore-throat')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.isSkippingMeals}
+                  onValueChange={props.handleChange('isSkippingMeals')}
+                  label={i18n.t('describe-symptoms.question-is-skipping-meals')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.hasLossOfSmell}
-                    onValueChange={props.handleChange('hasLossOfSmell')}
-                    label={i18n.t('describe-symptoms.question-has-loss-of-smell')}
-                  />
+                <GenericTextField
+                  formikProps={props}
+                  label={i18n.t('describe-symptoms.question-other-symptoms')}
+                  name="otherSymptoms"
+                  placeholder={i18n.t('describe-symptoms.placeholder-other-symptoms')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.hasHoarseVoice}
-                    onValueChange={props.handleChange('hasHoarseVoice')}
-                    label={i18n.t('describe-symptoms.question-has-hoarse-voice')}
-                  />
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
 
-                  <DropdownField
-                    selectedValue={props.values.hasChestPain}
-                    onValueChange={props.handleChange('hasChestPain')}
-                    label={i18n.t('describe-symptoms.question-has-chest-pain')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.hasAbdominalPain}
-                    onValueChange={props.handleChange('hasAbdominalPain')}
-                    label={i18n.t('describe-symptoms.question-has-abdominal-pain')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.hasDiarrhoea}
-                    onValueChange={props.handleChange('hasDiarrhoea')}
-                    label={i18n.t('describe-symptoms.question-has-diarrhoea')}
-                  />
-
-                  {props.values.hasDiarrhoea === 'yes' && (
-                    <DropdownField
-                      selectedValue={props.values.diarrhoeaFrequency}
-                      onValueChange={props.handleChange('diarrhoeaFrequency')}
-                      label={i18n.t('describe-symptoms.question-diarrhoea-frequency')}
-                      items={diarrhoeaFrequencyItems}
-                      error={props.touched.diarrhoeaFrequency && props.errors.diarrhoeaFrequency}
-                    />
-                  )}
-
-                  <DropdownField
-                    selectedValue={props.values.hasUnusualMusclePains}
-                    onValueChange={props.handleChange('hasUnusualMusclePains')}
-                    label={i18n.t('describe-symptoms.question-has-unusual-muscle-pains')}
-                  />
-
-                  <DropdownField
-                    label={i18n.t('describe-symptoms.question-red-welts-on-face')}
-                    selectedValue={props.values.hasRedWeltsOnFace}
-                    onValueChange={props.handleChange('hasRedWeltsOnFace')}
-                  />
-
-                  <DropdownField
-                    label={i18n.t('describe-symptoms.question-blisters-on-feet')}
-                    selectedValue={props.values.hasBlistersOnFeet}
-                    onValueChange={props.handleChange('hasBlistersOnFeet')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.hasDelirium}
-                    onValueChange={props.handleChange('hasDelirium')}
-                    label={i18n.t('describe-symptoms.question-has-delirium')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.hasEyeSoreness}
-                    onValueChange={props.handleChange('hasEyeSoreness')}
-                    label={i18n.t('describe-symptoms.question-has-eye-soreness')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.isSkippingMeals}
-                    onValueChange={props.handleChange('isSkippingMeals')}
-                    label={i18n.t('describe-symptoms.question-is-skipping-meals')}
-                  />
-
-                  <GenericTextField
-                    formikProps={props}
-                    label={i18n.t('describe-symptoms.question-other-symptoms')}
-                    name="otherSymptoms"
-                    placeholder={i18n.t('describe-symptoms.placeholder-other-symptoms')}
-                  />
-
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
-
-                  <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
-                    <Text>{i18n.t('next-question')}</Text>
-                  </BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
+                <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
+                  <Text>{i18n.t('next-question')}</Text>
+                </BrandedButton>
+              </Form>
             );
           }}
         </Formik>
