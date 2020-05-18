@@ -185,13 +185,15 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     clinicalStudyNctId: Yup.string(),
   });
 
-  buildInitCohortsValues(country: string): { [index: string]: boolean } {
-    const countryCohorts = AllCohorts.filter((cohort) => {
+  filterCohortsByCountry(allCohorts: CohortDefinition[], country: string) {
+    return AllCohorts.filter((cohort) => {
       return cohort.country === country;
     });
+  }
 
+  buildInitCohortsValues(cohorts: CohortDefinition[]): { [index: string]: boolean } {
     const initialValues: { [index: string]: boolean } = {};
-    countryCohorts.forEach((cohort) => {
+    cohorts.forEach((cohort) => {
       initialValues[cohort.key] = false;
     });
     return initialValues;
@@ -199,9 +201,11 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
   constructor(props: YourStudyProps) {
     super(props);
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, UserService.userCountry);
+
     this.state = {
-      cohorts: AllCohorts,
-      selected: this.buildInitCohortsValues(UserService.userCountry),
+      cohorts: countrySpecificCohorts,
+      selected: this.buildInitCohortsValues(countrySpecificCohorts),
       errorMessage: '',
     };
   }
@@ -245,21 +249,18 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                     <Item stackedLabel style={styles.textItemStyle}>
                       <Label>{i18n.t('label-cohort')}</Label>
                       <CheckboxList>
-                        {AllCohorts.map(
-                          (cohort) =>
-                            UserService.userCountry === cohort.country && (
-                              <CheckboxItem
-                                key={cohort.key}
-                                value={this.state.selected[cohort.key]}
-                                onChange={(value: boolean) => {
-                                  const newSelection = cloneDeep(this.state.selected);
-                                  newSelection[cohort.key] = value;
-                                  this.setState({ selected: newSelection });
-                                }}>
-                                {cohort.label}
-                              </CheckboxItem>
-                            )
-                        )}
+                        {this.state.cohorts.map((cohort) => (
+                          <CheckboxItem
+                            key={cohort.key}
+                            value={this.state.selected[cohort.key]}
+                            onChange={(value: boolean) => {
+                              const newSelection = cloneDeep(this.state.selected);
+                              newSelection[cohort.key] = value;
+                              this.setState({ selected: newSelection });
+                            }}>
+                            {cohort.label}
+                          </CheckboxItem>
+                        ))}
                       </CheckboxList>
                     </Item>
                   </FieldWrapper>
