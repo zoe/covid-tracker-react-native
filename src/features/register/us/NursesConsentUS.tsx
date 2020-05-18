@@ -1,10 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Body, CheckBox, ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../../../theme';
+import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
 import UserService from '../../../core/user/UserService';
 import { ScreenParamList } from '../../ScreenParamList';
@@ -300,40 +300,30 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularText>
 
           {!this.viewOnly && (
-            <>
-              <ListItem style={styles.permission}>
-                <CheckBox checked={this.state.processingChecked} onPress={this.handleProcessingChange} />
-                <Body style={styles.label}>
-                  <RegularText>
-                    I consent to the processing of my personal data (including without limitation data I provide
-                    relating to my health) as set forth in this consent and in the{' '}
-                    <ClickableText
-                      onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-                      Privacy Policy
-                    </ClickableText>
-                    .
-                  </RegularText>
-                </Body>
-              </ListItem>
-              <ListItem>
-                <CheckBox checked={this.state.termsOfUseChecked} onPress={this.handleTermsOfUseChange} />
-                <Body style={styles.label}>
-                  <RegularText>
-                    I have read and accept Zoe Global’s{' '}
-                    <ClickableText
-                      onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
-                      Terms of Use
-                    </ClickableText>{' '}
-                    and{' '}
-                    <ClickableText
-                      onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-                      Privacy Policy
-                    </ClickableText>
-                    .
-                  </RegularText>
-                </Body>
-              </ListItem>
-            </>
+            <CheckboxList>
+              <CheckboxItem value={this.state.processingChecked} onChange={this.handleProcessingChange}>
+                I consent to the processing of my personal data (including without limitation data I provide relating to
+                my health) as set forth in this consent and in the{' '}
+                <ClickableText
+                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                  Privacy Policy
+                </ClickableText>
+                .
+              </CheckboxItem>
+              <CheckboxItem value={this.state.termsOfUseChecked} onChange={this.handleTermsOfUseChange}>
+                I have read and accept Zoe Global’s{' '}
+                <ClickableText
+                  onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
+                  Terms of Use
+                </ClickableText>{' '}
+                and{' '}
+                <ClickableText
+                  onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+                  Privacy Policy
+                </ClickableText>
+                .
+              </CheckboxItem>
+            </CheckboxList>
           )}
         </ScrollView>
 
@@ -365,11 +355,5 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-  },
-  permission: {
-    alignItems: 'flex-start',
-  },
-  label: {
-    marginLeft: 10,
   },
 });
