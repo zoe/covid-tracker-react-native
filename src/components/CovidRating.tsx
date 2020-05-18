@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '@theme';
-import UserService, { isGBCountry, isUSCountry, isSECountry } from '../core/user/UserService';
+import UserService, { isGBCountry, isUSCountry, isSECountry } from '@covid/core/user/UserService';
 import i18n from '../locale/i18n';
 import { RegularBoldText, RegularText } from './Text';
 

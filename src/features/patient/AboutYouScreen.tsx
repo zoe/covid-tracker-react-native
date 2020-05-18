@@ -14,8 +14,8 @@ import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '@covid
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
-import UserService, { isUSCountry } from '../../core/user/UserService';
-import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
+import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';

@@ -14,11 +14,11 @@ import {
 
 import { colors, fontStyles } from '@theme';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
-import { UserNotFoundException } from '../../core/Exception';
-import UserService, { isUSCountry } from '../../core/user/UserService';
+import { UserNotFoundException } from '@covid/core/Exception';
+import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import Analytics from '../../core/Analytics';
+import Analytics from '@covid/core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;

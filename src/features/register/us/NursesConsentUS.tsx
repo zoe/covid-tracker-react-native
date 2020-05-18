@@ -6,7 +6,7 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService from '../../../core/user/UserService';
+import UserService from '@covid/core/user/UserService';
 import { ScreenParamList } from '../../ScreenParamList';
 import { NursesConsentVersionUS, privacyPolicyVersionUS } from '../constants';
 

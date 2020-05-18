@@ -11,7 +11,7 @@ import { Header, ProgressBlock } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
-import { isGBCountry } from '../core/user/UserService';
+import { isGBCountry } from '@covid/core/user/UserService';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 

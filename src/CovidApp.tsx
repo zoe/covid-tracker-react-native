@@ -50,7 +50,7 @@ import { NursesConsentUSScreen } from './features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from './features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from './features/register/us/TermsOfUseUSScreen';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import Analytics from './core/Analytics';
+import Analytics from '@covid/core/Analytics';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();

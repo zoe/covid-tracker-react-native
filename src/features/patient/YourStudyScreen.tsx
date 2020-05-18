@@ -12,8 +12,8 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationErrors } from '@covid/components/ValidationError';
-import UserService, { isGBCountry, isUSCountry } from '../../core/user/UserService';
-import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
+import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 

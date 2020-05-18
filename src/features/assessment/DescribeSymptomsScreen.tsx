@@ -13,8 +13,8 @@ import Screen, { FieldWrapper, Header, ProgressBlock, isAndroid } from '@covid/c
 import { BrandedButton, Divider, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationErrors } from '@covid/components/ValidationError';
-import UserService from '../../core/user/UserService';
-import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
+import UserService from '@covid/core/user/UserService';
+import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';

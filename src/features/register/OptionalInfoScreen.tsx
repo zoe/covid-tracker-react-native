@@ -10,13 +10,13 @@ import * as Yup from 'yup';
 import { colors } from '@theme';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
-import { PushNotificationService } from '../../core/PushNotificationService';
-import { PiiRequest } from '../../core/user/dto/UserAPIContracts';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { PushNotificationService } from '@covid/core/PushNotificationService';
+import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
 import { userService, offlineService } from '../../Services';
 import { LoadingModal } from '@covid/components/Loading';
 
