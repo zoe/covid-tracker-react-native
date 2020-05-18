@@ -1,6 +1,11 @@
+import mockDb from './mockDb';
+import { Patient, Assessment } from './types';
 import express = require('express');
 import bodyParser = require('body-parser');
+import uuid = require('uuid');
 import moment = require('moment');
+
+const db = mockDb();
 
 const app = express();
 const port = 3000;
@@ -8,7 +13,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/auth/login', (req, res) => {
+app.post('/auth/login', (_, res) => {
   return res.status(200).send({
     key: 'abc',
     user: {
@@ -22,11 +27,11 @@ app.post('/auth/login', (req, res) => {
   });
 });
 
-app.post('/auth/password/reset', (req, res) => {
+app.post('/auth/password/reset', (_, res) => {
   return res.send();
 });
 
-app.post('/auth/signup', (req, res) => {
+app.post('/auth/signup', (_, res) => {
   return res.status(201).send({
     key: 'abc',
     user: {
@@ -40,7 +45,7 @@ app.post('/auth/signup', (req, res) => {
   });
 });
 
-app.post('/tokens', (req, res) => {
+app.post('/tokens', (_, res) => {
   return res.send({
     token: 'abcd',
     active: true,
@@ -48,176 +53,45 @@ app.post('/tokens', (req, res) => {
   });
 });
 
-app.patch('/consent', (req, res) => {
+app.patch('/consent', (_, res) => {
   return res.send();
 });
 
 app.get('/patients/:patientId', (req, res) => {
-  return res.status(200).send({
-    year_of_birth: null,
-    height_cm: null,
-    height_feet: null,
-    weight_kg: null,
-    weight_pounds: null,
-    gender: null,
-    gender_identity: null,
-    postcode: null,
-    needs_help: null,
-    housebound_problems: null,
-    help_available: null,
-    mobility_aid: null,
-    is_in_uk_twins: null,
-    is_in_uk_biobank: null,
-    is_in_uk_guys_trust: null,
-    is_in_us_nurses_study: null,
-    is_in_us_mass_general_brigham: null,
-    is_in_us_stanford_diabetes: null,
-    is_in_us_stanford_well: null,
-    is_in_us_growing_up_today: null,
-    is_in_us_stanford_nutrition: null,
-    is_in_us_multiethnic_cohort: null,
-    is_in_us_predict2: null,
-    is_in_us_american_cancer_society_cancer_prevention_study_3: null,
-    is_in_us_harvard_health_professionals: null,
-    is_in_us_california_teachers: null,
-    is_in_us_sister: null,
-    is_in_us_agricultural_health: null,
-    is_in_us_gulf: null,
-    is_in_us_aspree_xt: null,
-    is_in_us_bwhs: null,
-    contact_health_worker: null,
-    healthcare_professional: null,
-    is_carer_for_community: null,
-    have_worked_in_hospital_inpatient: null,
-    have_worked_in_hospital_outpatient: null,
-    have_worked_in_hospital_clinic: null,
-    have_worked_in_hospital_care_facility: null,
-    have_worked_in_hospital_home_health: null,
-    have_worked_in_hospital_school_clinic: null,
-    have_worked_in_hospital_other: null,
-    interacted_patients_with_covid: null,
-    have_used_PPE: null,
-    always_used_shortage: null,
-    sometimes_used_shortage: null,
-    never_used_shortage: null,
-    limited_activity: null,
-    has_heart_disease: null,
-    has_diabetes: null,
-    has_lung_disease: null,
-    is_smoker: null,
-    need_outside_help: null,
-    need_inside_help: null,
-    has_kidney_disease: null,
-    does_chemiotherapy: null,
-    takes_immunosuppressants: null,
-    takes_corticosteroids: null,
-    takes_blood_pressure_medications: null,
-    takes_any_blood_pressure_medications: null,
-    takes_blood_pressure_medications_sartan: null,
-    already_had_covid: null,
-    classic_symptoms: null,
-    is_pregnant: null,
-    pregnant_weeks: null,
-    period_stopped_age: null,
-    period_status: null,
-    period_frequency: null,
-    ht_none: null,
-    ht_combined_oral_contraceptive_pill: null,
-    ht_progestone_only_pill: null,
-    ht_mirena_or_other_coil: null,
-    ht_depot_injection_or_implant: null,
-    ht_hormone_treatment_therapy: null,
-    ht_oestrogen_hormone_therapy: null,
-    ht_testosterone_hormone_therapy: null,
-    ht_pfnts: null,
-    ht_other: null,
-    BooleanField: null,
-    interacted_with_covid: null,
-    smoker_status: null,
-    smoked_years_ago: null,
-    takes_aspirin: null,
-    has_cancer: null,
-    classic_symptoms_days_ago: null,
-    cancer_type: null,
-    on_cancer_clinical_trial: null,
-    cancer_clinical_trial_site: null,
-    cancer_clinical_trial_nct_id: null,
-    cancer_physician_name: null,
-    version: '',
-    last_asked_level_of_isolation: null,
-    profile_attributes_updated_at: null,
-    is_waiting_for_covid_test_result: null,
-    ever_had_covid_test: null,
-  });
+  const { patientId } = req.params;
+  const patient = db.patients.get(patientId);
+
+  if (!patient) {
+    return res.status(404).send;
+  }
+
+  res.header('Content-type', 'application/json');
+  return res.status(200).send(patient);
 });
 
-app.patch('/patients/:patientId', (req, res) => {
-  // TODO: return different patients on different patientId
-  return res.send();
-});
-
-app.get('/patient_list/', (req, res) => {
-  return res.send([
-    {
-      id: '00000000-0000-0000-0000-000000000000',
-      avatar_name: 'profile1',
-      name: 'Me',
-      last_reported_at: moment().subtract(6, 'hours').format(),
-    },
-    {
-      id: '00000000-0000-0000-0000-000000000001',
-      avatar_name: 'profile2',
-      name: 'Alice',
-      last_reported_at: '2020-04-20T15:07:00Z',
-    },
-    {
-      id: '00000000-0000-0000-0000-000000000002',
-      avatar_name: 'profile3',
-      name: 'Bob',
-      last_reported_at: moment().subtract(1, 'days').format(),
-    },
-  ]);
-});
-
-app.get('/profile', (req, res) => {
+app.get('/profile', (_, res) => {
   return res.status(200).send({
     username: 'testuser@example.com',
     authorizations: [],
-    patients: [
-      '00000000-0000-0000-0000-000000000000',
-      '00000000-0000-0000-0000-000000000001',
-      '00000000-0000-0000-0000-000000000002',
-    ],
+    patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
     pii: '00000000-0000-0000-0000-000000000000',
     push_tokens: [],
     country_code: 'GB',
   });
 });
 
-app.patch('/information/:userId', (req, res) => {
+app.patch('/information/:userId', (_, res) => {
   return res.send();
 });
 
-app.post('/assessments', (req, res) => {
-  return res.send({
-    id: 'abcde',
-  });
-});
-
-app.patch('/assessments/:assessmentId', (req, res) => {
-  return res.send({
-    id: 'abcde',
-  });
-});
-
-app.get('/users/startup_info/', (req, res) => {
+app.get('/users/startup_info/', (_, res) => {
   return res.status(200).send({
-    users_count: '2000000',
+    users_count: '3000000',
     ip_country: 'GB',
   });
 });
 
-app.get('/area_stats', (req, res) => {
+app.get('/area_stats', (_, res) => {
   return res.status(200).send({
     locked: false,
     rank: 768,
@@ -228,6 +102,95 @@ app.get('/area_stats', (req, res) => {
     predicted_cases: 698,
     population: 42000,
   });
+});
+
+/**
+ * patients endpoints
+ */
+app.patch('/patients/:patientId', (req, res) => {
+  const { patientId } = req.params;
+
+  res.header('Content-type', 'application/json');
+  return res.send(
+    db.patients.save(patientId, {
+      ...db.patients.get(patientId),
+      ...req.body,
+      profile_attributes_updated_at: moment().format(),
+    })
+  );
+});
+
+app.post('/patients/', (req, res) => {
+  const id = uuid.v1();
+  res.header('Content-type', 'application/json');
+  return res.send(db.patients.save(id, { ...req.body, id }));
+});
+
+// Why not just patients?
+app.get('/patient_list/', (_, res) => {
+  res.header('Content-type', 'application/json');
+  return res.send(db.patients.get());
+});
+
+/**
+ * assessments endpoints
+ */
+
+app.post('/assessments', (req, res) => {
+  const { body: assessment } = req as { body: Assessment };
+  const id = uuid.v1();
+
+  const patient = db.patients.get(assessment.patient) as Patient;
+  db.patients.save(patient.id, { ...patient, last_reported_at: moment().format() });
+
+  res.header('Content-type', 'application/json');
+  return res.send(db.assessments.save(id, { ...assessment, id }));
+});
+
+app.patch('/assessments/:assessmentId', (req, res) => {
+  const { body: updatedAssessment } = req as { body: Assessment };
+  const { assessmentId } = req.params;
+  const assessment = db.assessments.get(assessmentId) as Assessment;
+
+  const patient = db.patients.get(assessment.patient) as Patient;
+  db.patients.save(patient.id, { ...patient, last_reported_at: moment().format() });
+
+  res.header('Content-type', 'application/json');
+  return res.send(
+    db.assessments.save(assessmentId, {
+      ...db.assessments.get(assessmentId),
+      ...updatedAssessment,
+      profile_attributes_updated_at: moment().format(),
+    })
+  );
+});
+
+/**
+ * covid_tests endpoints
+ */
+app.get('/covid_tests', (_, res) => res.status(200).send(db.covidTests.get()));
+
+app.post('/covid_tests', (req, res) => {
+  const id = uuid.v1();
+  res.header('Content-type', 'application/json');
+  return res.send(db.covidTests.save(id, { id, ...req.body }));
+});
+
+app.get('/covid_tests/:testId', (req, res) => {
+  const { testId } = req.params;
+  return res.status(200).send(db.covidTests.get(testId));
+});
+
+app.patch('/covid_tests/:testId', (req, res) => {
+  const { testId } = req.params;
+
+  res.header('Content-type', 'application/json');
+  return res.send(
+    db.covidTests.save(testId, {
+      ...db.covidTests.get(testId),
+      ...req.body,
+    })
+  );
 });
 
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
