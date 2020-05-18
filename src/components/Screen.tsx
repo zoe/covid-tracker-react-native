@@ -72,7 +72,7 @@ export default class Screen extends Component<ScreenProps> {
           <View style={styles.statusBarBlock} />
         )}
 
-        <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView>
             <View style={styles.pageBlock}>{this.props.children}</View>
           </ScrollView>
