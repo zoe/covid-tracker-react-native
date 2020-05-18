@@ -5,7 +5,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { ApiClientBase } from '@covid/core/user/ApiClientBase';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
 import Splash from '@covid/components/Splash';

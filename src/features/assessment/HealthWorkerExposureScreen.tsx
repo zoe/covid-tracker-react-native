@@ -12,7 +12,7 @@ import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Scre
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {

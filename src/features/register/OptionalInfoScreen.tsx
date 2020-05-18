@@ -13,7 +13,7 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { PushNotificationService } from '@covid/core/PushNotificationService';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';

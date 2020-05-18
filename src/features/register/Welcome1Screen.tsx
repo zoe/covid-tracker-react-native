@@ -7,7 +7,7 @@ import { colors } from '@theme';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {

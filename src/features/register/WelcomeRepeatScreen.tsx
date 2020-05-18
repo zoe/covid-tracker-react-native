@@ -12,7 +12,7 @@ import Analytics from '@covid/core/Analytics';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { PushNotificationService } from '@covid/core/PushNotificationService';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { CalloutBox } from '@covid/components/CalloutBox';

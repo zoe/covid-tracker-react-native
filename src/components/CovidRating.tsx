@@ -5,7 +5,7 @@ import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from 'react-na
 
 import { colors } from '@theme';
 import UserService, { isGBCountry, isUSCountry, isSECountry } from '@covid/core/user/UserService';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { RegularBoldText, RegularText } from './Text';
 
 type PropsType = object;

@@ -5,7 +5,7 @@ import { social } from '@assets';
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { isAndroid } from './Screen';
 
 type CtaStyles = 'button' | 'link';

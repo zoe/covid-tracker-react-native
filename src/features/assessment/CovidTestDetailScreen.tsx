@@ -16,7 +16,7 @@ import { BrandedButton, ClickableText, ErrorText, HeaderText } from '@covid/comp
 import { ValidationErrors } from '@covid/components/ValidationError';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';

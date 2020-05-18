@@ -3,7 +3,7 @@ import * as Localization from 'expo-localization';
 import moment from 'moment';
 
 import { isAndroid } from '@covid/components/Screen';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';

@@ -9,7 +9,7 @@ import Screen, { Header, screenWidth } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
+import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 import { userService, offlineService } from '../../Services';
