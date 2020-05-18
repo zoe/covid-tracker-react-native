@@ -4,7 +4,7 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { colors, fontStyles } from '../../../theme';
+import { colors, fontStyles } from '@theme';
 import { BigButton } from '../../components/Button';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';

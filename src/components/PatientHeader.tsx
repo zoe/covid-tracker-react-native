@@ -4,7 +4,7 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import { PatientProfile } from '../core/patient/PatientState';
 import { ScreenParamList } from '../features/ScreenParamList';
 import i18n from '../locale/i18n';

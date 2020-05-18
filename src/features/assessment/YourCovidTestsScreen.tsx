@@ -7,7 +7,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
 import { chevronRight, pending, tick } from '@assets';
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '../../components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '../../components/Text';

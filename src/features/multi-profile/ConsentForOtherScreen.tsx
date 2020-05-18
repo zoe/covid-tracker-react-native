@@ -4,7 +4,7 @@ import { ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import Screen, { Header, screenWidth } from '../../components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '../../components/Text';
 import UserService from '../../core/user/UserService';

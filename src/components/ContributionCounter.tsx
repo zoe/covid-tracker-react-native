@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import UserService from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { RegularBoldText, RegularText } from './Text';

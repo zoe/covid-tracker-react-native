@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, Linking, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { usPartners, gbPartners, svPartners, svFlag, gbFlag, usFlag } from '@assets';
-import { colors } from '../../../theme';
+import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';

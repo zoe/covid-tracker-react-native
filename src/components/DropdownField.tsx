@@ -3,7 +3,7 @@ import React from 'react';
 import { PickerItemProps, StyleSheet, PickerProps } from 'react-native';
 import key from 'weak-key';
 
-import { colors } from '../../theme';
+import { colors } from '@theme';
 import i18n from '../locale/i18n';
 import { FieldWrapper, screenWidth, isAndroid } from './Screen';
 import { ValidationError } from './ValidationError';
