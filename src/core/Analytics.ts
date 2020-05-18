@@ -13,11 +13,7 @@ type AdditionalUserProperties = {
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
   SIGNUP: 'SIGNUP',
-  COMPLETE_PROFILE: 'COMPLETE_PROFILE',
-  BACKDATE_PROFILE: 'BACKDATE_PROFILE',
   DELETE_ACCOUNT_DATA: 'DELETE_ACCOUNT_DATA',
-  START_ASSESSMENT: 'START_ASSESSMENT',
-  COMPLETE_ASSESSMENT: 'COMPLETE_ASSESSMENT',
   SHARE_THIS_APP: 'SHARE_THIS_APP',
   DONATE: 'DONATE',
 };
@@ -47,8 +43,6 @@ export function track(event: string, eventProperties?: object): void {
 
   if (eventProperties) {
     Amplitude.logEventWithProperties(event, eventProperties);
-    console.log(event);
-    console.log(eventProperties);
   } else {
     Amplitude.logEvent(event);
   }

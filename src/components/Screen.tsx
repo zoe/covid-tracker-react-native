@@ -61,21 +61,6 @@ export default class Screen extends Component<ScreenProps> {
   screenWidth: number = screenWidth;
   screenHeight: number = screenHeight;
 
-  getCurrentRoute(navigation?: StackNavigationProp<any>): string | null {
-    if (navigation) {
-      const navigationState = navigation.dangerouslyGetState();
-      const currentRoute = navigationState.routes[navigationState.index];
-      return currentRoute.name;
-    } else {
-      return null;
-    }
-  }
-
-  componentDidMount() {
-    const screenName = this.getCurrentRoute(this.props.navigation);
-    if (screenName) Analytics.trackScreenView(screenName);
-  }
-
   render() {
     const profile = this.props.profile;
 
