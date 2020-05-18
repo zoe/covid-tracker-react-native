@@ -153,87 +153,85 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
           }}>
           {(props) => {
             return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  <FieldWrapper>
-                    <Item stackedLabel style={styles.textItemStyle}>
-                      <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
-                      <ValidatedTextInput
-                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                        value={props.values.isolationLittleInteraction}
-                        onChangeText={props.handleChange('isolationLittleInteraction')}
-                        onBlur={props.handleBlur('isolationLittleInteraction')}
-                        error={
-                          props.touched.isolationLittleInteraction &&
-                          props.errors.isolationLittleInteraction &&
-                          props.submitCount > 0
-                        }
-                        returnKeyType="next"
-                        keyboardType="numeric"
-                      />
-                    </Item>
-                    {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
-                      <ValidationError error={props.errors.isolationLittleInteraction} />
-                    )}
-                  </FieldWrapper>
-
-                  <FieldWrapper>
-                    <Item stackedLabel style={styles.textItemStyle}>
-                      <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
-                      <ValidatedTextInput
-                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                        value={props.values.isolationLotsOfPeople}
-                        onChangeText={props.handleChange('isolationLotsOfPeople')}
-                        onBlur={props.handleBlur('isolationLotsOfPeople')}
-                        error={
-                          props.touched.isolationLotsOfPeople &&
-                          props.errors.isolationLotsOfPeople &&
-                          props.submitCount > 0
-                        }
-                        returnKeyType="next"
-                        keyboardType="numeric"
-                      />
-                    </Item>
-                    {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
-                      <ValidationError error={props.errors.isolationLotsOfPeople} />
-                    )}
-                  </FieldWrapper>
-
-                  <FieldWrapper>
-                    <Item stackedLabel style={styles.textItemStyle}>
-                      <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
-                      <ValidatedTextInput
-                        placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                        value={props.values.isolationHealthcareProvider}
-                        onChangeText={props.handleChange('isolationHealthcareProvider')}
-                        onBlur={props.handleBlur('isolationHealthcareProvider')}
-                        error={
-                          props.touched.isolationHealthcareProvider &&
-                          props.errors.isolationHealthcareProvider &&
-                          props.submitCount > 0
-                        }
-                        returnKeyType="next"
-                        keyboardType="numeric"
-                      />
-                    </Item>
-                    {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
-                      <ValidationError error={props.errors.isolationHealthcareProvider} />
-                    )}
-                  </FieldWrapper>
-
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                    <ValidationErrors errors={props.errors as string[]} />
+              <Form>
+                <FieldWrapper>
+                  <Item stackedLabel style={styles.textItemStyle}>
+                    <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
+                    <ValidatedTextInput
+                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                      value={props.values.isolationLittleInteraction}
+                      onChangeText={props.handleChange('isolationLittleInteraction')}
+                      onBlur={props.handleBlur('isolationLittleInteraction')}
+                      error={
+                        props.touched.isolationLittleInteraction &&
+                        props.errors.isolationLittleInteraction &&
+                        props.submitCount > 0
+                      }
+                      returnKeyType="next"
+                      keyboardType="numeric"
+                    />
+                  </Item>
+                  {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
+                    <ValidationError error={props.errors.isolationLittleInteraction} />
                   )}
+                </FieldWrapper>
 
-                  <BrandedButton
-                    onPress={props.handleSubmit}
-                    enable={checkFormFilled(props)}
-                    hideLoading={!props.isSubmitting}>
-                    {i18n.t('next-question')}
-                  </BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
+                <FieldWrapper>
+                  <Item stackedLabel style={styles.textItemStyle}>
+                    <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
+                    <ValidatedTextInput
+                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                      value={props.values.isolationLotsOfPeople}
+                      onChangeText={props.handleChange('isolationLotsOfPeople')}
+                      onBlur={props.handleBlur('isolationLotsOfPeople')}
+                      error={
+                        props.touched.isolationLotsOfPeople &&
+                        props.errors.isolationLotsOfPeople &&
+                        props.submitCount > 0
+                      }
+                      returnKeyType="next"
+                      keyboardType="numeric"
+                    />
+                  </Item>
+                  {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
+                    <ValidationError error={props.errors.isolationLotsOfPeople} />
+                  )}
+                </FieldWrapper>
+
+                <FieldWrapper>
+                  <Item stackedLabel style={styles.textItemStyle}>
+                    <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
+                    <ValidatedTextInput
+                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                      value={props.values.isolationHealthcareProvider}
+                      onChangeText={props.handleChange('isolationHealthcareProvider')}
+                      onBlur={props.handleBlur('isolationHealthcareProvider')}
+                      error={
+                        props.touched.isolationHealthcareProvider &&
+                        props.errors.isolationHealthcareProvider &&
+                        props.submitCount > 0
+                      }
+                      returnKeyType="next"
+                      keyboardType="numeric"
+                    />
+                  </Item>
+                  {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
+                    <ValidationError error={props.errors.isolationHealthcareProvider} />
+                  )}
+                </FieldWrapper>
+
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
+
+                <BrandedButton
+                  onPress={props.handleSubmit}
+                  enable={checkFormFilled(props)}
+                  hideLoading={!props.isSubmitting}>
+                  {i18n.t('next-question')}
+                </BrandedButton>
+              </Form>
             );
           }}
         </Formik>

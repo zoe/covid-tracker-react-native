@@ -282,122 +282,120 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           }}>
           {(props) => {
             return (
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-                <Form>
-                  <DropdownField
-                    selectedValue={props.values.limitedActivity}
-                    onValueChange={props.handleChange('limitedActivity')}
-                    label={i18n.t('your-health.health-problems-that-limit-activity')}
-                  />
+              <Form>
+                <DropdownField
+                  selectedValue={props.values.limitedActivity}
+                  onValueChange={props.handleChange('limitedActivity')}
+                  label={i18n.t('your-health.health-problems-that-limit-activity')}
+                />
 
-                  {this.state.showPregnancyQuestion && (
-                    <>
-                      <DropdownField
-                        selectedValue={props.values.isPregnant}
-                        onValueChange={props.handleChange('isPregnant')}
-                        label={i18n.t('your-health.are-you-pregnant')}
-                      />
-                    </>
-                  )}
-
-                  {this.state.showPeriodQuestion && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
-
-                  {this.state.showHormoneTherapyQuestion && (
-                    <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
-                  )}
-
-                  <DropdownField
-                    selectedValue={props.values.hasHeartDisease}
-                    onValueChange={props.handleChange('hasHeartDisease')}
-                    label={i18n.t('your-health.have-heart-disease')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.hasDiabetes}
-                    onValueChange={props.handleChange('hasDiabetes')}
-                    label={i18n.t('your-health.have-diabetes')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.hasLungDisease}
-                    onValueChange={props.handleChange('hasLungDisease')}
-                    label={i18n.t('your-health.have-lung-disease')}
-                  />
-
-                  <DropdownField
-                    selectedValue={props.values.smokerStatus}
-                    onValueChange={props.handleChange('smokerStatus')}
-                    label={i18n.t('your-health.is-smoker')}
-                    items={smokerStatusItems}
-                    error={props.touched.smokerStatus && props.errors.smokerStatus}
-                  />
-
-                  {props.values.smokerStatus === 'not_currently' && (
-                    <GenericTextField
-                      formikProps={props}
-                      label={i18n.t('your-health.years-since-last-smoked')}
-                      name="smokedYearsAgo"
-                      keyboardType="numeric"
+                {this.state.showPregnancyQuestion && (
+                  <>
+                    <DropdownField
+                      selectedValue={props.values.isPregnant}
+                      onValueChange={props.handleChange('isPregnant')}
+                      label={i18n.t('your-health.are-you-pregnant')}
                     />
-                  )}
+                  </>
+                )}
 
-                  <DropdownField
-                    selectedValue={props.values.hasKidneyDisease}
-                    onValueChange={props.handleChange('hasKidneyDisease')}
-                    label={i18n.t('your-health.has-kidney-disease')}
+                {this.state.showPeriodQuestion && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
+
+                {this.state.showHormoneTherapyQuestion && (
+                  <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
+                )}
+
+                <DropdownField
+                  selectedValue={props.values.hasHeartDisease}
+                  onValueChange={props.handleChange('hasHeartDisease')}
+                  label={i18n.t('your-health.have-heart-disease')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasDiabetes}
+                  onValueChange={props.handleChange('hasDiabetes')}
+                  label={i18n.t('your-health.have-diabetes')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.hasLungDisease}
+                  onValueChange={props.handleChange('hasLungDisease')}
+                  label={i18n.t('your-health.have-lung-disease')}
+                />
+
+                <DropdownField
+                  selectedValue={props.values.smokerStatus}
+                  onValueChange={props.handleChange('smokerStatus')}
+                  label={i18n.t('your-health.is-smoker')}
+                  items={smokerStatusItems}
+                  error={props.touched.smokerStatus && props.errors.smokerStatus}
+                />
+
+                {props.values.smokerStatus === 'not_currently' && (
+                  <GenericTextField
+                    formikProps={props}
+                    label={i18n.t('your-health.years-since-last-smoked')}
+                    name="smokedYearsAgo"
+                    keyboardType="numeric"
                   />
+                )}
 
-                  <DropdownField
-                    selectedValue={props.values.hasCancer}
-                    onValueChange={props.handleChange('hasCancer')}
-                    label={i18n.t('your-health.has-cancer')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.hasKidneyDisease}
+                  onValueChange={props.handleChange('hasKidneyDisease')}
+                  label={i18n.t('your-health.has-kidney-disease')}
+                />
 
-                  {props.values.hasCancer === 'yes' && (
-                    <>
-                      {isUSCountry() && (
-                        <>
-                          <GenericTextField
-                            formikProps={props}
-                            label={i18n.t('your-health.what-cancer-type')}
-                            name="cancerType"
-                          />
-                        </>
-                      )}
-                      <DropdownField
-                        selectedValue={props.values.doesChemiotherapy}
-                        onValueChange={props.handleChange('doesChemiotherapy')}
-                        label={i18n.t('your-health.is-on-chemotherapy')}
-                      />
-                    </>
-                  )}
+                <DropdownField
+                  selectedValue={props.values.hasCancer}
+                  onValueChange={props.handleChange('hasCancer')}
+                  label={i18n.t('your-health.has-cancer')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.takesImmunosuppressants}
-                    onValueChange={props.handleChange('takesImmunosuppressants')}
-                    label={i18n.t('your-health.takes-immunosuppressant')}
-                  />
+                {props.values.hasCancer === 'yes' && (
+                  <>
+                    {isUSCountry() && (
+                      <>
+                        <GenericTextField
+                          formikProps={props}
+                          label={i18n.t('your-health.what-cancer-type')}
+                          name="cancerType"
+                        />
+                      </>
+                    )}
+                    <DropdownField
+                      selectedValue={props.values.doesChemiotherapy}
+                      onValueChange={props.handleChange('doesChemiotherapy')}
+                      label={i18n.t('your-health.is-on-chemotherapy')}
+                    />
+                  </>
+                )}
 
-                  <DropdownField
-                    selectedValue={props.values.takesAspirin}
-                    onValueChange={props.handleChange('takesAspirin')}
-                    label={i18n.t('your-health.takes-asprin')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.takesImmunosuppressants}
+                  onValueChange={props.handleChange('takesImmunosuppressants')}
+                  label={i18n.t('your-health.takes-immunosuppressant')}
+                />
 
-                  <DropdownField
-                    selectedValue={props.values.takesCorticosteroids}
-                    onValueChange={props.handleChange('takesCorticosteroids')}
-                    label={i18n.t('your-health.takes-nsaids')}
-                  />
+                <DropdownField
+                  selectedValue={props.values.takesAspirin}
+                  onValueChange={props.handleChange('takesAspirin')}
+                  label={i18n.t('your-health.takes-asprin')}
+                />
 
-                  <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
+                <DropdownField
+                  selectedValue={props.values.takesCorticosteroids}
+                  onValueChange={props.handleChange('takesCorticosteroids')}
+                  label={i18n.t('your-health.takes-nsaids')}
+                />
 
-                  <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
 
-                  <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
-                </Form>
-              </KeyboardAvoidingView>
+                <ErrorText>{this.state.errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+
+                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+              </Form>
             );
           }}
         </Formik>
