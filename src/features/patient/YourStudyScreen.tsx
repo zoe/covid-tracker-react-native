@@ -298,7 +298,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                 {isUSCountry() && (
                   <>
-                    <RegularText style={styles.standaloneLabel}>If not</RegularText>
+                    <RegularText style={styles.standaloneLabel}>{i18n.t('your-study.if-not')}</RegularText>
 
                     <GenericTextField
                       formikProps={props}

@@ -250,7 +250,7 @@
     "required-weeks-pregnant": "Corrija cuántas semanas tiene de embarazo",
     "correct-period-stopped-age": "Ingrese la edad en que se detuvo su menstruación",
     "required-period-stopped-age": "Corrija la edad en que se detuvo su menstruación",
-    "label-taking-hormone-treatment" : "Toma alguna de las siguientes formas de tratamiento hormonal?",
+    "label-taking-hormone-treatment": "Toma alguna de las siguientes formas de tratamiento hormonal?",
     "checkbox-hormone-treatment-none": "No",
     "checkbox-oral-contraceptive-pill": "Píldora anticonceptiva oral combinada",
     "checkbox-progesterone-only-pill": "Píldora solo de progesterona",
@@ -406,7 +406,7 @@
     "picker-location-home": "En casa. No he ido a una clínica u hospital por síntomas sospechosos de COVID-19.",
     "picker-location-hospital": "Estoy en la clínica u hospital con síntomas sospechosos de COVID-19.",
     "picker-location-back-from-hospital": "Volví de la clínica u hospital, me gustaría contarles sobre mi tratamiento.",
-    "picker-location-back-from-hospital-already-reported": "Volví de la clínica u hospital, ya les conté sobre mi tratamiento.",
+    "picker-location-back-from-hospital-already-reported": "Volví de la clínica u hospital, ya les conté sobre mi tratamiento."
   },
 
   "treatment-other-title-after": "¿Qué tratamiento recibió en el hospital?",
@@ -467,7 +467,6 @@
     "secondary-text": "Sin financiamiento, el apoyo fundamental para la investigación del COVID, NHS no puede continuar. ¿Nos ayudaría?",
     "button-text": "Donar ahora"
   },
-
 
   "thank-you-title": "Gracias por su ayuda y contribución vital para el estudio del COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
@@ -585,5 +584,5 @@
   "never-had-test": "Nunca me he hecho un examen de COVID",
   "above-list-correct": "La lista anterior es correcta",
 
-  "share-with-friends-message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad . ð Descargue la aplicación",
+  "share-with-friends-message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad . ð Descargue la aplicación"
 }

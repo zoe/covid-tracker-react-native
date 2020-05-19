@@ -79,13 +79,11 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
     if (area.locked)
       // Be careful with extra tabs or space, they would appear in the message.
-      return (
-          i18n.t('thank-you.share-area-locked', {missing: area.number_of_missing_contributors, area: area.area_name})
-      );
-    else
-      return (
-          i18n.t('thank-you.share-area-unlocked', {cases: area.predicted_cases, area: area.area_name})
-      );
+      return i18n.t('thank-you.share-area-locked', {
+        missing: area.number_of_missing_contributors,
+        area: area.area_name,
+      });
+    else return i18n.t('thank-you.share-area-unlocked', { cases: area.predicted_cases, area: area.area_name });
   };
 
   shareApp = async () => {
