@@ -97,6 +97,8 @@ jobs:
       - build
       - run: npm run lint
       - run: npm run prettier
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
       - run: npm test
   deploy:
     executor: node
