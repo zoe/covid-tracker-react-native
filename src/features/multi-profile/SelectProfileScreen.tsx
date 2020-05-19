@@ -87,6 +87,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async startAssessment(patientId: string) {
     try {
       const currentPatient = await userService.getCurrentPatient(patientId);
+      this.setState({isApiError: false});
       Navigator.startAssessment(currentPatient);
     } catch (error) {
       this.setState({
