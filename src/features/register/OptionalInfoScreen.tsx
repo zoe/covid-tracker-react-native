@@ -49,6 +49,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
   private async gotoNextScreen(patientId: string) {
     const currentPatient = await userService.getCurrentPatient(patientId);
+    this.setState({ isApiError: false });
     Navigator.gotoNextScreen(this.props.route.name, { currentPatient });
   }
 

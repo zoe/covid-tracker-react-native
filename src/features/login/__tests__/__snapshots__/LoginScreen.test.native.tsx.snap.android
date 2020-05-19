@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<TouchableWithoutFeedback
+  onPress={[Function]}
+>
+  <KeyboardAvoidingView
+    enabled={true}
+    keyboardVerticalOffset={0}
+    style={
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "flex": 1,
+        "justifyContent": "space-between",
+        "paddingHorizontal": 24,
+        "paddingTop": 56,
+      }
+    }
+  >
+    <View>
+      <HeaderLightText
+        style={
+          Object {
+            "paddingBottom": 16,
+            "paddingHorizontal": 16,
+          }
+        }
+      >
+        Log in to
+your account
+      </HeaderLightText>
+      <View
+        style={
+          Object {
+            "paddingHorizontal": 16,
+            "paddingVertical": 4,
+          }
+        }
+      >
+        <Styled(Item)
+          error={false}
+          floatingLabel={true}
+          style={
+            Object {
+              "paddingBottom": 8,
+            }
+          }
+        >
+          <Styled(Label)
+            style={
+              Object {
+                "color": "#AAACAD",
+                "fontSize": 16,
+              }
+            }
+          >
+            Email
+          </Styled(Label)>
+          <Styled(Input)
+            autoCapitalize="none"
+            autoCompleteType="email"
+            blurOnSubmit={false}
+            keyboardType="email-address"
+            onChangeText={[Function]}
+            onSubmitEditing={[Function]}
+            returnKeyType="next"
+          />
+        </Styled(Item)>
+      </View>
+      <View
+        style={
+          Object {
+            "paddingHorizontal": 16,
+            "paddingVertical": 4,
+          }
+        }
+      >
+        <Styled(Item)
+          error={false}
+          floatingLabel={true}
+          style={
+            Object {
+              "paddingBottom": 8,
+            }
+          }
+        >
+          <Styled(Label)
+            style={
+              Object {
+                "color": "#AAACAD",
+                "fontSize": 16,
+              }
+            }
+          >
+            Password
+          </Styled(Label)>
+          <Styled(Input)
+            getRef={[Function]}
+            onChangeText={[Function]}
+            onSubmitEditing={[Function]}
+            returnKeyType="go"
+            secureTextEntry={true}
+          />
+        </Styled(Item)>
+      </View>
+    </View>
+    <View>
+      <BrandedButton
+        enable={true}
+        hideLoading={true}
+        onPress={[Function]}
+      >
+        <Text>
+          Log in
+        </Text>
+      </BrandedButton>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingBottom": 6,
+            "paddingHorizontal": 23,
+            "paddingTop": 24,
+          }
+        }
+      >
+        <RegularText>
+          Don't have an account?
+        </RegularText>
+        <RegularText>
+           
+        </RegularText>
+        <ClickableText
+          onPress={[Function]}
+        >
+          Create account
+        </ClickableText>
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingBottom": 24,
+          }
+        }
+      >
+        <ClickableText
+          onPress={[Function]}
+        >
+          Forgot your password?
+        </ClickableText>
+      </View>
+    </View>
+  </KeyboardAvoidingView>
+</TouchableWithoutFeedback>
+`;
