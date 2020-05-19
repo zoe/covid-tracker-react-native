@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import i18n from '../locale/i18n';
-import { SecondaryText } from './Text';
 import { getDaysAgo } from '../utils/datetime';
+import { SecondaryText } from './Text';
 
 type ProgressProps = {
   timeAgo: Date | undefined;
