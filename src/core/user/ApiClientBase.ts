@@ -11,6 +11,7 @@ export class ApiClientBase {
     headers: {
       'Content-Type': 'application/json',
     },
+    timeout: 5 * 1000,
     // transformResponse: ApiClientBase.camelizeKeys,
     // transformRequest: ApiClientBase.camelToSnakeCase,
   });
