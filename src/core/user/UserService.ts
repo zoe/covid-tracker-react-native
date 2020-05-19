@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
-import moment from 'moment';
 
 import { isAndroid } from '../utils/platform';
 import i18n from '../../locale/i18n';
@@ -8,6 +7,7 @@ import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
+import { getDaysAgo } from '../utils/datetime';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { ApiClientBase } from './ApiClientBase';
 import {
@@ -253,9 +253,7 @@ export default class UserService extends ApiClientBase
   static shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
     if (!dateLastAsked) return true;
 
-    const lastAsked = moment(dateLastAsked);
-    const today = moment();
-    return today.diff(lastAsked, 'days') >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
+    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
   }
 
   public async updatePatientState(
