@@ -30,7 +30,7 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: LoadingProps) => {
   return (
     <View>
       {!!message && <ErrorText style={{ color: colors.coral }}>{message}</ErrorText>}
-      {!message && status && <RegularText>{status}</RegularText>}
+      {!message && !!status && <RegularText>{status}</RegularText>}
       {shouldRetry && !!onRetry && (
         <View style={styles.ctaBlock}>
           <BrandedButton onPress={onRetry}>{i18n.t('errors.button-retry')}</BrandedButton>
