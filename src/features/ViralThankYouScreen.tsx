@@ -80,17 +80,11 @@ export default class ViralThankYouScreen extends Component<Props, State> {
     if (area.locked)
       // Be careful with extra tabs or space, they would appear in the message.
       return (
-        'I’m helping to fight #COVID19 – ' +
-        `We only need ${area.number_of_missing_contributors} more people on the app to get a COVID ` +
-        `estimate for ${area.area_name}. ` +
-        'Please help by taking 1 min daily to report how you feel 🙏. ' +
-        'You also get an estimate of COVID in your area. Download the app'
+          i18n.t('thank-you.share-area-locked', {missing: area.number_of_missing_contributors, area: area.area_name})
       );
     else
       return (
-        `I’m helping to fight #COVID19 – ${area.predicted_cases} people are estimated to have COVID ` +
-        `symptoms in ${area.area_name} today. Please help by taking 1 min daily to report how you ` +
-        'feel 🙏. You also get an estimate of COVID in your area. Download the app'
+          i18n.t('thank-you.share-area-unlocked', {cases: area.predicted_cases, area: area.area_name})
       );
   };
 
@@ -127,39 +121,30 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             <MaterialIcons name="close" size={32} style={styles.modalCloseIcon} />
           </TouchableOpacity>
           <ScrollView style={styles.modalText}>
-            <RegularText style={styles.modalTitle}>The methodology behind our estimates</RegularText>
+            <RegularText style={styles.modalTitle}>{i18n.t('thank-you.our-methodology-title')}</RegularText>
             <RegularText style={styles.modalContent}>
-              We have developed machine learning models to estimate the number of people who currently have COVID
-              symptoms.{'\n\n'}
-              These estimates could be an earlier signal of COVID in your area today vs the confirmed cases which only
-              come later and include only the people who tested.{'\n\n'}
-              Our estimates are calculated in 3 steps:{'\n\n'}
-              1. We learn which symptoms best predict COVID, based on app users who have been tested all around the
-              world (
+              {i18n.t('thank-you.method-body-1')}
               <ClickableText
                 onPress={() =>
                   Linking.openURL(
                     'https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19'
                   )
                 }>
-                read more here
+                {i18n.t('thank-you.read-more-here')}
               </ClickableText>
-              ){'\n\n'}
-              2. We estimate total number of app users in your county with COVID today by applying those rules to all
-              users’ logged symptoms in your county{'\n\n'}
-              3. We extrapolate to the whole county population from app users, based on geography, age & gender
-              proportions
+              {i18n.t('thank-you.method-body-2')}
             </RegularText>
 
             <View style={styles.divider} />
-            <RegularText style={styles.smallPrint}>
-              *Our estimates do not include people aged under 20 or over 70 or with asymptomatic COVID infections, since
-              we have too little data to model these.
-            </RegularText>
+            <RegularText style={styles.smallPrint}>{i18n.t('thank-you.estimate-exclusions')}</RegularText>
             <View style={styles.divider} />
 
             <RegularText style={styles.readBlog}>
-              Read more on our <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>blog</ClickableText>
+              {i18n.t('thank-you.read-more-on')} +{' '}
+              <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
+                {' '}
+                + {i18n.t('thank-you.blog')}
+              </ClickableText>
             </RegularText>
           </ScrollView>
         </View>
@@ -168,8 +153,8 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
     const peopleWithSymptoms = (
       <Text style={styles.estimatedCases}>
-        People with COVID symptoms in{'\n'}
-        <RegularBoldText>{area?.area_name}</RegularBoldText> today
+        {i18n.t('thank-you.people-with-covid-in')}
+        <RegularBoldText>{area?.area_name}</RegularBoldText> + {i18n.t('thank-you.today')}
       </Text>
     );
 
@@ -182,12 +167,12 @@ export default class ViralThankYouScreen extends Component<Props, State> {
               {modal}
 
               <AntDesign name="checkcircle" style={styles.checkIcon} size={32} />
-              <Text style={styles.thankYou}>Thank you, please report again tomorrow, even if you’re well.</Text>
+              <Text style={styles.thankYou}>{i18n.t('thank-you.report-tomorrow')}</Text>
 
               {loading && (
                 <View>
                   <BrandedSpinner />
-                  <Text style={styles.loading}>Loading data for your area</Text>
+                  <Text style={styles.loading}>{i18n.t('thank-you.loading-data')}</Text>
                 </View>
               )}
 
@@ -202,15 +187,15 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                       <Text style={styles.estimatedCasesPercentageText}>{casePercentage}%</Text>
                     </View>
                     <Text style={styles.estimatedCasesPopulation}>
-                      of {this.formatNumber(area?.population)} residents
+                      {i18n.t('thank-you.of-residents', { number: this.formatNumber(area?.population) })}
                     </Text>
                   </View>
                   <View style={styles.divider} />
                   <View style={styles.estimatedCaseSecondRow}>
                     <Text style={styles.estimate}>
-                      Estimate for {date.format('MMMM D, YYYY')}{' '}
+                      {i18n.t('thank-you.estimate-for')} {date.format('MMMM D, YYYY')}{' '}
                       <ClickableText style={styles.learnMore} onPress={() => this.setState({ modalVisible: true })}>
-                        Learn more
+                        {i18n.t('thank-you.learn-more')}
                       </ClickableText>
                     </Text>
                   </View>
@@ -225,13 +210,15 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                   </View>
                   <View>
                     <Text style={styles.almostThere}>
-                      Almost there! We only need{' '}
-                      <Text style={styles.almostThereCount}>{area?.number_of_missing_contributors} more people</Text>{' '}
-                      from your county to report via the app, to provide accurate daily COVID estimates
+                      {i18n.t('thank-you.almost-there')}{' '}
+                      <Text style={styles.almostThereCount}>
+                        {i18n.t('thank-you.more-people', { number: area?.number_of_missing_contributors })}
+                      </Text>{' '}
+                      {i18n.t('thank-you.from-your-country')}
                     </Text>
 
                     <ClickableText onPress={this.shareApp} style={styles.pleaseShare}>
-                      Please share the app
+                      {i18n.t('thank-you.please-share')}
                     </ClickableText>
                   </View>
                 </View>
@@ -240,16 +227,19 @@ export default class ViralThankYouScreen extends Component<Props, State> {
               {displayStats && (
                 <View>
                   <RegularText style={styles.countyRank}>
-                    <RegularBoldText>{area?.area_name}</RegularBoldText>'s rank in contribution
+                    <RegularBoldText>{area?.area_name}</RegularBoldText>
+                    {i18n.t('thank-you.contribution-rank')}
                   </RegularText>
                   <Text style={styles.dailyDelta}>
                     {sign}
-                    {area?.rank_delta} places since yesterday
+                    {area?.rank_delta} {i18n.t('thank-you.places-since-yesterday')}
                   </Text>
 
                   <Text style={styles.position}>
-                    <Text style={styles.positionBold}>{this.formatNumber(area?.rank)}</Text> out of{' '}
-                    <Text style={styles.positionBold}>{this.formatNumber(area?.number_of_areas)}</Text> counties
+                    <Text style={styles.positionBold}>{this.formatNumber(area?.rank)}</Text>{' '}
+                    {i18n.t('thank-you.out-of')}{' '}
+                    <Text style={styles.positionBold}>{this.formatNumber(area?.number_of_areas)}</Text>{' '}
+                    {i18n.t('thank-you.counties')}
                   </Text>
                 </View>
               )}
@@ -258,29 +248,30 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 <View style={styles.socialIconContainer}>
                   <Image source={social} style={styles.socialIcon} />
                 </View>
-                <Text style={styles.share}>Sharing is caring</Text>
-                <RegularText style={styles.shareSubtitle}>
-                  The more people report, the better our estimates & the faster you can help your community fight COVID
-                </RegularText>
+                <Text style={styles.share}>{i18n.t('thank-you.sharing-is-caring')}</Text>
+                <RegularText style={styles.shareSubtitle}>{i18n.t('thank-you.the-more-reports')}</RegularText>
                 <BrandedButton onPress={this.shareApp} style={styles.shareButton}>
-                  Share this app
+                  {i18n.t('thank-you.share-this-app')}
                 </BrandedButton>
               </View>
 
               <RegularText style={styles.partnerContainer}>
-                Thank you for joining millions of people supporting scientists at{' '}
+                {i18n.t('thank-you.thank-you-for-joining')}{' '}
                 <Text style={styles.partner}>Massachusetts General Hospital</Text>,{' '}
                 <Text style={styles.partner}>Stanford University School of Medicine</Text> &{' '}
-                <Text style={styles.partner}>King's College London</Text> to help our communities.
+                <Text style={styles.partner}>King's College London</Text> {i18n.t('thank-you.to-help-communities')}
               </RegularText>
 
               <RegularText style={styles.visitWebsite}>
-                Visit our <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>website</ClickableText> to
-                see the discoveries you made possible
+                {i18n.t('thank-you.visit-our')}{' '}
+                <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
+                  {i18n.t('thank-you.website')}
+                </ClickableText>{' '}
+                {i18n.t('thank-you.to-see-discoveries')}
               </RegularText>
 
               <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>
-                Done
+                {i18n.t('thank-you.done')}
               </ClickableText>
             </View>
           </ScrollView>

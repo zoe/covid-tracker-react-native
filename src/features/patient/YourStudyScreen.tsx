@@ -260,7 +260,9 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
-          <HeaderText>{isGBCountry() ? 'Population studies' : isUSCountry() ? 'Your clinical study' : ''}</HeaderText>
+          <HeaderText>
+            {isGBCountry() ? 'Population studies' : isUSCountry() ? i18n.t('your-study.your-clinical-study') : ''}
+          </HeaderText>
         </Header>
 
         <ProgressBlock>
@@ -300,27 +302,27 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
                     <GenericTextField
                       formikProps={props}
-                      label="Add the names of your studies"
+                      label={i18n.t('your-study.add-study-names')}
                       name="clinicalStudyNames"
                       placeholder="Optional"
                     />
                     <>
                       <GenericTextField
                         formikProps={props}
-                        label="If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?"
+                        label={i18n.t('your-study.contact-name')}
                         name="clinicalStudyContacts"
                         placeholder="Optional"
                       />
                       <GenericTextField
                         formikProps={props}
-                        label="If you know it, what university or hospital runs this study?"
+                        label={i18n.t('your-study.uni-hospital')}
                         name="clinicalStudyInstitutions"
                         placeholder="Optional"
                       />
 
                       <GenericTextField
                         formikProps={props}
-                        label="What is the NCT number (if you know it)?"
+                        label={i18n.t('your-study.nct-number')}
                         name="clinicalStudyNctIds"
                         placeholder="Optional"
                       />
