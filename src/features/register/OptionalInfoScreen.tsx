@@ -1,6 +1,5 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
@@ -11,13 +10,12 @@ import { colors } from '@theme';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { PushNotificationService } from '@covid/core/PushNotificationService';
 import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
-import { userService, offlineService } from '../../Services';
+import { userService, offlineService, PushNotificationService } from '../../Services';
 import { LoadingModal } from '@covid/components/Loading';
 
 type PropsType = {
@@ -54,17 +52,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   }
 
   private async setPushToken() {
-    if (Constants.appOwnership !== 'expo') {
-      const pushToken = await PushNotificationService.getPushToken(false);
-      if (pushToken) {
-        try {
-          await userService.savePushToken(pushToken);
-          await AsyncStorageService.setPushToken(pushToken);
-        } catch (error) {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        }
-      }
-    }
+    pushNotificationService.initPushToken();
   }
 
   private async savePiiData(formData: OptionalInfoData) {
