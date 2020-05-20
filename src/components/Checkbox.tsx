@@ -26,10 +26,6 @@ const checkboxStyles = StyleSheet.create({
     borderColor: 'transparent',
   },
 
-  unselectedCheckBoxLabel: {
-    color: colors.tertiary,
-  },
-
   checkBox: {
     borderRadius: 8,
     backgroundColor: colors.backgroundTertiary,
@@ -53,15 +49,13 @@ type CheckboxListProps = {
 };
 
 export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
-  const labelStyle = !props.value ? checkboxStyles.unselectedCheckBoxLabel : undefined;
-
   return (
     <Item style={checkboxStyles.checkboxRow}>
       <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
         {props.value && <Check />}
       </TouchableOpacity>
       <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
-        <RegularText style={{ ...checkboxStyles.checkboxLabel, ...labelStyle }}>{props.children}</RegularText>
+        <RegularText style={{ ...checkboxStyles.checkboxLabel }}>{props.children}</RegularText>
       </Item>
     </Item>
   );
