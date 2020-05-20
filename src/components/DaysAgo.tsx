@@ -1,16 +1,11 @@
-import moment from 'moment';
 import React, { Component } from 'react';
 
 import i18n from '../locale/i18n';
+import { getDaysAgo } from '../utils/datetime';
 import { SecondaryText } from './Text';
 
 type ProgressProps = {
   timeAgo: Date | undefined;
-};
-
-export const getDaysAgo = (date: Date) => {
-  const today = moment().utc().startOf('day');
-  return today.diff(moment(date).startOf('day'), 'days');
 };
 
 export default class DaysAgo extends Component<ProgressProps> {
