@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
-import moment from 'moment';
 
 import { isAndroid } from '../utils/platform';
 import i18n from '../../locale/i18n';
@@ -8,6 +7,7 @@ import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
+import { getDaysAgo } from '../../utils/datetime';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { ApiClientBase } from './ApiClientBase';
 import {
@@ -27,6 +27,7 @@ import { handleServiceError } from '../ApiServiceErrors';
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
+const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
 // Attempt to split UserService into discrete service interfaces, which means:
 // TODO: Split into separate self-contained services
@@ -242,6 +243,12 @@ export default class UserService extends ApiClientBase
     return null;
   }
 
+  static shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
+    if (!dateLastAsked) return true;
+
+    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
+  }
+
   public async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
@@ -290,13 +297,7 @@ export default class UserService extends ApiClientBase
       !!patient.ht_pfnts ||
       !!patient.ht_other;
 
-    // Last asked level_of_isolation a week or more ago, or never asked
-    const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
-    let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
-    if (lastAskedLevelOfIsolation) {
-      const lastAsked = moment(lastAskedLevelOfIsolation);
-      shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7;
-    }
+    const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
