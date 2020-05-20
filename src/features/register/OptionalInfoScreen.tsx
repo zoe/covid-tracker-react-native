@@ -15,7 +15,7 @@ import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
-import { userService, offlineService, PushNotificationService } from '../../Services';
+import { userService, offlineService, pushNotificationService } from '../../Services';
 import { LoadingModal } from '@covid/components/Loading';
 
 type PropsType = {
