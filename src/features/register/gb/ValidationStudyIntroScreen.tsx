@@ -10,6 +10,8 @@ import { icon } from '../../../../assets';
 import { colors } from '../../../../theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RouteProp } from '@react-navigation/native';
+import Navigator from '../../Navigation';
+import UserService from '../../../core/user/UserService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
@@ -17,6 +19,8 @@ type Props = {
 };
 
 export default class ValidationStudyIntroScreen extends Component<Props, object> {
+  userService = new UserService();
+
   constructor(props: Props) {
     super(props);
   }
@@ -40,22 +44,21 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => {
-              // TODO Correct the navigation stack to start from profile screen
-              this.props.navigation.navigate('StartAssessment', {
-                currentPatient: this.props.route.params.currentPatient,
-              });
+              this.userService.setValidationStudyResponse(false);
+              Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
             }}>
             <Text>{i18n.t('validation-study-intro.no')}</Text>
           </TouchableOpacity>
 
           <BrandedButton
             style={styles.mainButton}
-            onPress={() =>
+            onPress={() => {
+              this.userService.setValidationStudyResponse(true);
               this.props.navigation.navigate('ValidationStudyConsent', {
                 viewOnly: false,
                 currentPatient: this.props.route.params.currentPatient,
-              })
-            }>
+              });
+            }}>
             <Text>{i18n.t('validation-study-intro.yes')}</Text>
           </BrandedButton>
         </View>

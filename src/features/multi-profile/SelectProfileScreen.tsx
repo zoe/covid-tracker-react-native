@@ -89,8 +89,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     try {
       const currentPatient = await userService.getCurrentPatient(patientId);
       this.setState({ isApiError: false });
-      if (isGBCountry() && index == 0) {
-        // TODO && ask backend
+      if (isGBCountry() && index == 0 && await userService.shouldAskForValidationStudy()) {
         this.props.navigation.navigate('ValidationStudyIntro', { currentPatient });
       } else {
         Navigator.startAssessment(currentPatient);

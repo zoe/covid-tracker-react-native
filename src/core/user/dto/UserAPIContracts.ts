@@ -266,3 +266,7 @@ export type StartupInfo = {
   users_count: number;
   ip_country: string;
 };
+
+export type AskValidationStudy = {
+  should_ask_uk_validation_study: boolean
+}
