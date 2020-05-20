@@ -69,7 +69,7 @@ commands:
           no_output_timeout: 2h
       - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
       - run: echo "$PLAY_STORE_JSON" | base64 --decode > fastlane/playstore.json
-      - run: bundle exec fastlane android $FASTLANE_LANE --app_name $APPCENTER_APP_NAME_ANDROID --app_token $APPCENTER_API_TOKEN
+      - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
       - store_artifacts:
           path: ~/covid-react/fastlane/app.apk
   deploy_ios:
@@ -79,7 +79,7 @@ commands:
           no_output_timeout: 2h
       - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
       - run: bundle exec fastlane fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
-      - run: bundle exec fastlane ios $FASTLANE_LANE --app_name $APPCENTER_APP_NAME_IOS --app_token $APPCENTER_API_TOKEN
+      - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
       - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
       - store_artifacts:
           path: ~/covid-react/fastlane/app.ipa
