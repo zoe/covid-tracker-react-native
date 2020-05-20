@@ -524,6 +524,24 @@
   "adult-consent-text-2": "pantalla a la persona por la que ingresa los datos, que son mayores de 18 años y que dieron su consentimiento para compartir sus datos con nosotros.",
   "consent-create-profile": "Crear perfil",
 
+  "consent-normal-us": {
+    "existing-study": "Si usted está en un estudio clínico o de investigación vigente (p. ej., los estudios Nurses Health Study) y desea que sus datos se compartan con los investigadores en ese estudio,",
+    "click-here": "haga clic aquí",
+    "purpose": "Propósito",
+    "purpose-body": "Mediante su uso de esta app y el seguimiento de si se siente bien o tiene síntomas, usted ayudará a la ciencia médica y los proveedores de atención de salud (como Massachusetts General Hospital) a comprender mejor el Coronavirus (COVID-19).\n\nEsta app le permite ayudar a las otras personas, pero no le entrega consejos de salud. Si necesita consejos de salud, visite el sitio web sobre el Coronavirus de los CDC ",
+    "information-sharing": "Información compartida",
+    "information-sharing-body": "Esta app fue diseñada por médicos y científicos de Massachusetts General Hospital, Harvard School of Public Health, Stanford University, King's College London y Zoe Global Limited, una empresa de tecnología de la salud. Ellos tienen acceso a la información que ingrese, que también puede compartirse con los hospitales que se indican en nuestro aviso de privacidad.\n\nNinguna información que comparta se usará con fines comerciales. Se usará un código anónimo para reemplazar sus datos personales cuando comparta información con los investigadores aparte de la que se mencionó antes.",
+    "your-consent": "Su consentimiento",
+    "your-consent-body": "Haciendo clic en la casilla a continuación, da su consentimiento a que usemos la información personal que recopilemos a través del uso que haga de esta app de la forma que describimos.\n\nPara obtener más información acerca de cómo usamos y compartimos la información personal sobre usted, consulte nuestra",
+    "privacy-policy": "Política de Privacidad ",
+    "you-may-withdraw": "Puede retirar su consentimiento en cualquier momento si nos envía un correo electrónico a",
+    "any-questions": "Cualquier pregunta que tenga puede enviarla a",
+    "i-consent": "Doy mi consentimiento para el procesamiento de mis datos personales (incluidos, entre otros, los datos que proporcione en relación con mi salud) como se establece en este consentimiento y en la",
+    "terms": "Términos de Uso",
+    "and": "y",
+    "read-accepted": "Leí y acepto los "
+  },
+
   "create-profile-title": "Dar un nombre al perfil nuevo",
   "create-profile-text": "Este nombre es solo para usted. Elija un nombre que le permita saber la persona por la que está informando.",
   "create-profile-placeholder": "por ej., nombre, alias o relación",

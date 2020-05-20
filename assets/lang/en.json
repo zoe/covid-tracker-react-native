@@ -554,6 +554,24 @@
   "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
   "consent-create-profile": "Create profile",
 
+  "consent-normal-us": {
+    "existing-study": "If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study,",
+    "click-here": "click here",
+    "purpose": "Purpose",
+    "purpose-body": "By using this app and tracking if you are well or have symptoms, you will be helping medical science and healthcare providers across the country (such as Massachusetts General Hospital) to better understand Coronavirus (COVID-19).\n\nThis app allows you to help others, but does not give health advice. If you need health advice please visit the CDC Coronavirus website",
+    "information-sharing": "Information sharing",
+    "information-sharing-body": "This app is designed by doctors and scientists at Massachusetts General Hospital, Harvard School of Public Health, Stanford University, King's College London and Zoe Global Limited, a health technology company. They have access to the information you enter, which may also be shared with hospitals listed in our privacy notice.\n\nNo information you share will be used for commercial purposes. An anonymous code will be used to replace your personal details when sharing information with researchers beyond those mentioned above.",
+    "your-consent": "Your consent",
+    "your-consent-body": "By checking the box below, you consent to our using the personal information we collect through your use of this app in the way we have described.\n\nFor more information about how we use and share personal information about you, please see our",
+    "privacy-policy": "Privacy Policy",
+    "you-may-withdraw": "You may withdraw your consent at any time by emailing",
+    "any-questions": "Any questions may be sent to",
+    "i-consent": "I consent to the processing of my personal data (including without limitation data I provide relating to my health) as set forth in this consent and in the",
+    "terms": "Terms of Use",
+    "and": "and",
+    "read-accepted": "I have read and accept Zoe Global’s"
+  },
+
   "create-profile-title": "Give new profile a name",
   "create-profile-text": "This name is just for you. Choose a name that would allow you to know which person you are reporting for.",
   "create-profile-placeholder": "e.g. name, nickname or relation",
