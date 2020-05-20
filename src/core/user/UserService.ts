@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 import moment from 'moment';
 
-import { isAndroid } from '../../components/Screen';
+import { isAndroid } from '../utils/platform';
 import i18n from '../../locale/i18n';
 import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
@@ -19,8 +19,6 @@ import {
   PatientInfosRequest,
   PiiRequest,
   StartupInfo,
-  TokenInfoRequest,
-  TokenInfoResponse,
   UserResponse,
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
@@ -68,10 +66,6 @@ export interface IAssessmentService {
   updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any>;
 }
 
-export interface IPushTokenService {
-  savePushToken(pushToken: string): Promise<any>;
-}
-
 export interface ILocalisationService {
   setUserCountry(countryCode: string): void;
   initCountryConfig(countryCode: string): void;
@@ -97,7 +91,6 @@ export default class UserService extends ApiClientBase
     IConsentService,
     IPatientService,
     IAssessmentService,
-    IPushTokenService,
     ILocalisationService,
     IDontKnowService {
   public static userCountry = 'US';
@@ -390,15 +383,6 @@ export default class UserService extends ApiClientBase
 
   public async updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>) {
     return this.client.patch<AssessmentResponse>(`/assessments/${assessmentId}/`, assessment);
-  }
-
-  public async savePushToken(pushToken: string) {
-    const tokenDoc = {
-      token: pushToken,
-      active: true,
-      platform: isAndroid ? 'ANDROID' : 'IOS',
-    } as TokenInfoRequest;
-    return this.client.post<TokenInfoResponse>(`/tokens/`, tokenDoc);
   }
 
   async getConsentSigned(): Promise<Consent | null> {

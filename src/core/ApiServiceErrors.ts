@@ -1,6 +1,8 @@
 import { AxiosResponse } from 'axios';
 
 const NETWORK_ERROR = 'Network Error';
+const CONNECTION_ABORTED = 'ECONNABORTED';
+const TIMED_OUT = 'ETIMEDOUT';
 
 const STATUS_NOT_FOUND = 404;
 const STATUS_REQUEST_ERROR = 400;
@@ -11,6 +13,7 @@ type ReceivedError = {
   message: string;
   isAxiosError?: boolean;
   response?: AxiosResponse;
+  code?: string;
 };
 
 export type ApiErrorState = {
@@ -67,6 +70,10 @@ export const handleServiceError = (error: ReceivedError) => {
     }
   } else if (error.message === NETWORK_ERROR) {
     throw new OfflineException(error.message);
+  } else if (error.code && [CONNECTION_ABORTED, TIMED_OUT].includes(error.code)) {
+    throw new OfflineException(error.message);
+  } else {
+    console.log('[ERROR] Unhandled error:', error.message);
   }
 
   // Rethrow error if we get here
