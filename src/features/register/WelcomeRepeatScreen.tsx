@@ -8,16 +8,14 @@ import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersRetu
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
-import Analytics from '../../core/Analytics';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
-import { PushNotificationService } from '../../core/PushNotificationService';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
+import AnalyticsService from '../../core/Analytics';
+import { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { CalloutBox } from '../../components/CalloutBox';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
-import { offlineService } from '../../Services';
+import { offlineService, pushNotificationService, userService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
 
 type PropsType = {
@@ -41,25 +39,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
-    const userService = new UserService();
     const userCount = await userService.getUserCount();
     this.setState({ userCount: parseInt(userCount as string, 10) });
-
-    Analytics.identify();
-
-    // Refresh push token if we don't have one
-    const hasPushToken = await AsyncStorageService.getPushToken();
-    if (!hasPushToken) {
-      const pushToken = await PushNotificationService.getPushToken(false);
-      if (pushToken) {
-        try {
-          await userService.savePushToken(pushToken);
-          AsyncStorageService.setPushToken(pushToken);
-        } catch (error) {
-          // Ignore failure.
-        }
-      }
-    }
+    AnalyticsService.identify();
+    await pushNotificationService.refreshPushToken();
   }
 
   gotoNextScreen = async () => {
