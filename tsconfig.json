@@ -12,7 +12,13 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noImplicitAny": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "baseUrl": ".",
+        "paths": {
+            "@assets": ["./assets"],
+            "@theme": ["./theme"],
+            "@covid": ["./src"]
+        }
     },
     "exclude": ["node_modules/"]
 }
