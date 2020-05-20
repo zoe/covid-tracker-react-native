@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 import moment from 'moment';
 
-import { isAndroid } from '@covid/utils/platform';
+import { isAndroid } from '@covid/core/utils/platform';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
