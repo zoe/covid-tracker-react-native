@@ -21,11 +21,13 @@ export default class ShareThisApp extends Component<Props> {
   shareApp = async () => {
     const message = this.shareMessage + (isAndroid ? ' ' + this.shareUrl : ''); // On Android add link to end of message
     try {
-      await Share.share({
+      const result = await Share.share({
         message,
         url: this.shareUrl, // IOS has separate field for URL
       });
-      Analytics.track(events.SHARE_THIS_APP);
+
+      const sharedOn = result.action === Share.sharedAction && result.activityType ? result.activityType : 'unknown';
+      Analytics.track(events.SHARE_THIS_APP, { sharedOn });
     } catch (error) {}
   };
 
