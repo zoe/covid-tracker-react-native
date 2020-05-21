@@ -4,6 +4,7 @@ import { Body, CheckBox, ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '../../../../theme';
+import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
 import UserService from '../../../core/user/UserService';
 import { ScreenParamList } from '../../ScreenParamList';
@@ -298,31 +299,18 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             </RegularText>
 
             {!this.viewOnly && (
-              <>
-                <ListItem style={styles.permission}>
-                  <CheckBox checked={this.state.agreeToAbove} onPress={this.handleAgreeToAboveChange} />
-                  <Body style={styles.label}>
-                    <RegularText>I agree to the above.</RegularText>
-                  </Body>
-                </ListItem>
-                <ListItem>
-                  <CheckBox checked={this.state.anonymizedData} onPress={this.handleAnonymizedChange} />
-                  <Body style={styles.label}>
-                    <RegularText>
-                      I agree that the research team may use my anonymised data for future research (optional)
-                    </RegularText>
-                  </Body>
-                </ListItem>
-                <ListItem>
-                  <CheckBox checked={this.state.reContacted} onPress={this.handleReContactedChange} />
-                  <Body style={styles.label}>
-                    <RegularText>
-                      I agree to be re-contacted in the future by Zoe Global Ltd on behalf of King’s College London
-                      researchers regarding this project (optional)
-                    </RegularText>
-                  </Body>
-                </ListItem>
-              </>
+              <CheckboxList>
+                <CheckboxItem value={this.state.agreeToAbove} onChange={this.handleAgreeToAboveChange}>
+                  I agree to the above.
+                </CheckboxItem>
+                <CheckboxItem value={this.state.anonymizedData} onChange={this.handleAnonymizedChange}>
+                  I agree that the research team may use my anonymised data for future research (optional)
+                </CheckboxItem>
+                <CheckboxItem value={this.state.reContacted} onChange={this.handleReContactedChange}>
+                  I agree to be re-contacted in the future by Zoe Global Ltd on behalf of King’s College London
+                  researchers regarding this project (optional)
+                </CheckboxItem>
+              </CheckboxList>
             )}
           </ScrollView>
 
@@ -355,11 +343,5 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-  },
-  permission: {
-    alignItems: 'flex-start',
-  },
-  label: {
-    marginLeft: 10,
   },
 });
