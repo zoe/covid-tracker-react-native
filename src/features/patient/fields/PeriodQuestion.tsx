@@ -6,6 +6,7 @@ import i18n from '../../../locale/i18n';
 import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';
 import { WeeksPregnant, WeeksPregnantData } from './WeeksPregnant';
+import { cleanIntegerVal } from '../../../core/utils/number';
 
 export interface PeriodData {
   havingPeriods: string;
@@ -45,10 +46,10 @@ export class PeriodQuestion extends Component<Props, object> {
         period_frequency: formData.periodFrequency,
       }),
       ...(formData.havingPeriods === periodValues.STOPPED && {
-        period_stopped_age: parseInt(formData.periodStoppedAge, 10),
+        period_stopped_age: cleanIntegerVal(formData.periodStoppedAge),
       }),
       ...(formData.havingPeriods === periodValues.PREGNANT && {
-        pregnant_weeks: parseInt(formData.weeksPregnant, 10),
+        pregnant_weeks: cleanIntegerVal(formData.weeksPregnant),
       }),
     };
   };
