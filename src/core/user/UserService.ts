@@ -428,7 +428,7 @@ export default class UserService extends ApiClientBase
 
   async getUserCountry() {
     const country = await AsyncStorageService.getUserCountry();
-    if (country != null) {
+    if (!!country) {
       UserService.userCountry = country;
       UserService.setLocaleFromCountry(country);
     }
