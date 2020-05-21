@@ -304,7 +304,6 @@
 
     "picker-waiting": "Waiting for results",
     "picker-test-failed": "Not clear/Test Failed",
-    "picker-never-had-test": "Never had test",
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
@@ -424,8 +423,6 @@
   "treatment-selection-picker-invasive-ventilation": "Invasive ventilation*",
   "treatment-selection-picker-subtext-invasive-ventilation": "* Breathing support through an inserted tube. People are usually asleep for this procedure.",
   "treatment-selection-picker-other": "Other",
-
-  "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
   "have-you-been-exposed": "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
   "exposed-yes-documented": "Yes, documented COVID-19 cases only",
