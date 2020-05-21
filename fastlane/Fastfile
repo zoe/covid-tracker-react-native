@@ -18,6 +18,7 @@ platform :ios do
   lane :stage do
     upload_to_testflight(
       username: ENV["ITUNES_CONNECT_USER"],
+      password: ENV["ITUNES_CONNECT_PASSWORD"],
       ipa: Dir.pwd + "/app.ipa",
     )
   end
