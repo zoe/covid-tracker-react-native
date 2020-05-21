@@ -94,15 +94,11 @@ class Navigator {
 
   resetToProfileStartAssessment(currentPatient: PatientStateType) {
     this.navigation.dispatch((state) => {
-      const newStack = state.routes;
-      while (newStack[newStack.length - 1].name != 'SelectProfile') {
-        newStack.pop();
-      }
+    const profileScreen = state.routes.find((screen) => {
+      return screen.name == 'SelectProfile'
+    })
 
-      return CommonActions.reset({
-        index: 0,
-        routes: [...newStack],
-      });
+      return CommonActions.navigate({key: profileScreen!.key})
     });
 
     this.startAssessment(currentPatient);
