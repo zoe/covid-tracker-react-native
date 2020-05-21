@@ -54,12 +54,13 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Image style={styles.mapImage} source={getMapImage()} />
+        <Image testID="map" style={styles.mapImage} source={getMapImage()} />
 
         <TouchableOpacity
+          testID="selectCountry"
           style={styles.countryFlag}
           onPress={() => props.navigation.navigate('CountrySelect', { patientId: null })}>
-          <Image style={styles.flagIcon} source={getFlagIcon()} />
+          <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
         </TouchableOpacity>
 
         <View style={styles.rootContainer}>
@@ -68,11 +69,11 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
           </View>
         </View>
         <View style={styles.contributors}>
-          <ContributionCounter variant={1} count={state.userCount} />
+          <ContributionCounter testID="counter" variant={1} count={state.userCount} />
         </View>
 
         <View style={styles.nextButtonContainer}>
-          <BrandedButton style={styles.nextButton} onPress={() => props.navigation.navigate('Welcome2')}>
+          <BrandedButton testID="more" style={styles.nextButton} onPress={() => props.navigation.navigate('Welcome2')}>
             {i18n.t('welcome.tell-me-more')}
           </BrandedButton>
         </View>
