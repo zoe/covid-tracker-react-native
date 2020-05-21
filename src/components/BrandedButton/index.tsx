@@ -4,8 +4,9 @@ import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 
 import { colors, fontStyles } from '../../../theme';
 import { ClickableProps } from '../Text';
+import { ITest } from '../types';
 
-interface BrandedButtonProps {
+interface BrandedButtonProps extends ITest {
   buttonProps?: any;
   textProps?: any;
 }

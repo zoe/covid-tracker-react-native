@@ -7,8 +7,13 @@ import { colors } from '../../theme';
 import UserService from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { RegularBoldText, RegularText } from './Text';
+import { ITest } from './types';
 
-type ContributionCounterProps = { variant: number; count: number | null };
+interface ContributionCounterProps extends ITest {
+  variant: number;
+  count: number | null;
+}
+
 export const ContributionCounter = (props: ContributionCounterProps) => {
   if (props.count) {
     const userService = new UserService();
