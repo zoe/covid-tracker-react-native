@@ -3,8 +3,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '../core/Config';
 import { PatientStateType } from '../core/patient/PatientState';
-import UserService, { isUSCountry } from '../core/user/UserService';
+import UserService, { isGBCountry, isUSCountry } from '../core/user/UserService';
 import { ScreenParamList } from './ScreenParamList';
+import { userService } from '../Services';
 
 type ScreenName = keyof ScreenParamList;
 
@@ -166,6 +167,14 @@ class Navigator {
 
   resetAndGo(navStack: PartialState<NavigationState>) {
     this.navigation.reset(navStack);
+  }
+
+  async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
+    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy())) {
+      this.navigation.navigate('ValidationStudyIntro', { currentPatient });
+    } else {
+      this.startAssessment(currentPatient);
+    }
   }
 }
 

@@ -85,15 +85,11 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     }
   }
 
-  async startAssessment(patientId: string, index: number) {
+  async profileSelected(patientId: string, index: number) {
     try {
       const currentPatient = await userService.getCurrentPatient(patientId);
       this.setState({ isApiError: false });
-      if (isGBCountry() && index == 0 && (await userService.shouldAskForValidationStudy())) {
-        this.props.navigation.navigate('ValidationStudyIntro', { currentPatient });
-      } else {
-        Navigator.startAssessment(currentPatient);
-      }
+      await Navigator.profileSelected(index == 0, currentPatient);
     } catch (error) {
       this.setState({
         isApiError: true,
@@ -105,7 +101,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
-            this.startAssessment(patientId, index);
+            this.profileSelected(patientId, index);
           }, offlineService.getRetryDelay());
         },
       });
@@ -158,7 +154,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                     const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
                     return (
                       <View style={styles.cardContainer} key={key(patient)}>
-                        <TouchableOpacity onPress={() => this.startAssessment(patient.id, i)}>
+                        <TouchableOpacity onPress={() => this.profileSelected(patient.id, i)}>
                           <Card style={styles.card}>
                             <View style={styles.avatarContainer}>
                               {hasReportedToday && (
