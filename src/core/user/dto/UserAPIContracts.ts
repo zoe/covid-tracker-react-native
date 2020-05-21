@@ -268,5 +268,5 @@ export type StartupInfo = {
 };
 
 export type AskValidationStudy = {
-  should_ask_uk_validation_study: boolean
-}
+  should_ask_uk_validation_study: boolean;
+};
