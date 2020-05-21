@@ -17,6 +17,7 @@ import { CalloutBox } from '../../components/CalloutBox';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService, pushNotificationService, userService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
+import { cleanIntegerVal } from '../../core/utils/number';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -40,7 +41,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
     const userCount = await userService.getUserCount();
-    this.setState({ userCount: parseInt(userCount as string, 10) });
+    this.setState({ userCount: cleanIntegerVal(userCount as string) });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
   }

@@ -24,6 +24,7 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 import { handleServiceError } from '../ApiServiceErrors';
+import { cleanIntegerVal } from '../utils/number';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -489,7 +490,7 @@ export default class UserService extends ApiClientBase
     try {
       const response = await AsyncStorageService.getAskedToReportForOthers();
       if (response) {
-        return parseInt(response, 10) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+        return cleanIntegerVal(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
       } else {
         await AsyncStorageService.setAskedToReportForOthers('0');
         return true;
@@ -502,7 +503,7 @@ export default class UserService extends ApiClientBase
   public async recordAskedToReportForOther() {
     const response = await AsyncStorageService.getAskedToReportForOthers();
     if (response) {
-      const value = parseInt(response, 10) + 1;
+      const value = cleanIntegerVal(response) + 1;
       await AsyncStorageService.setAskedToReportForOthers(value.toString());
     } else {
       await AsyncStorageService.setAskedToReportForOthers('0');
