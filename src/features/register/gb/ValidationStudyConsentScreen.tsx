@@ -8,6 +8,7 @@ import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../.
 import UserService from '../../../core/user/UserService';
 import { ScreenParamList } from '../../ScreenParamList';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Navigator from '../../Navigation';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -46,9 +47,10 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
   handleAgreeClicked = async () => {
     if (this.state.agreeToAbove) {
-      // TODO Send to backend
-      // TODO Correct the navigation stack to start from profile screen
-      this.props.navigation.navigate('StartAssessment', { currentPatient: this.props.route.params.currentPatient });
+      this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted).then((i) => {
+        console.log(JSON.stringify(i.data));
+      });
+      Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
     }
   };
 

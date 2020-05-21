@@ -53,7 +53,6 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
           <BrandedButton
             style={styles.mainButton}
             onPress={() => {
-              this.userService.setValidationStudyResponse(true);
               this.props.navigation.navigate('ValidationStudyConsent', {
                 viewOnly: false,
                 currentPatient: this.props.route.params.currentPatient,

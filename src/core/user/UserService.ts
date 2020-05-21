@@ -11,7 +11,8 @@ import { getDaysAgo } from '../../utils/datetime';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { ApiClientBase } from './ApiClientBase';
 import {
-  AreaStatsResponse, AskValidationStudy,
+  AreaStatsResponse,
+  AskValidationStudy,
   AssessmentInfosRequest,
   AssessmentResponse,
   Consent,
@@ -520,14 +521,16 @@ export default class UserService extends ApiClientBase
 
   async shouldAskForValidationStudy() {
     const response = await this.client.get<AskValidationStudy>('/study_consent/status/');
-    return response.data.should_ask_uk_validation_study
+    return response.data.should_ask_uk_validation_study;
   }
 
-  setValidationStudyResponse(response: boolean) {
+  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
     return this.client.post('/study_consent/', {
-      study: "UK Validation Study",
-      version: "v1",
-      status: response ? "signed" : "declined"
+      study: 'UK Validation Study',
+      version: 'v1',
+      status: response ? 'signed' : 'declined',
+      allow_future_data_use: anonymizedData,
+      allow_contact_by_zoe: reContacted,
     });
   }
 }
