@@ -258,7 +258,7 @@
     "required-weeks-pregnant": "Please correct how many weeks pregnant you are",
     "correct-period-stopped-age": "Please enter your age when you periods stopped",
     "required-period-stopped-age": "Please correct your age when you periods stopped",
-    "label-taking-hormone-treatment" : "Are you taking any of the following forms of hormone treatment?",
+    "label-taking-hormone-treatment": "Are you taking any of the following forms of hormone treatment?",
     "checkbox-hormone-treatment-none": "No",
     "checkbox-oral-contraceptive-pill": "Combined oral contraceptive pill",
     "checkbox-progesterone-only-pill": "Progesterone only pill",
@@ -473,7 +473,6 @@
     "button-text": "Donate now"
   },
 
-
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Thank you for joining millions of people supporting scientists at King’s College London to help our health services.",
@@ -590,7 +589,7 @@
   "never-had-test": "I have never had a COVID test",
   "above-list-correct": "The above list is correct",
 
-  "errors" : {
+  "errors": {
     "button-retry": "Retry",
     "button-okay": "Ok",
     "status-loading": "Loading...",
