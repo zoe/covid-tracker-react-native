@@ -1,9 +1,11 @@
 import React from 'react';
 import Markdown from 'react-native-easy-markdown';
 import { fontStyles, colors } from '../../theme';
+import { View } from 'react-native';
 
 type FormattingProps = {
   text: string;
+  textAlign?: 'center' | "left" | "right";
 };
 
 const defaultStyles = {
@@ -19,6 +21,13 @@ const defaultStyles = {
   },
 };
 
-export const InlineFormatting = ({ text }: FormattingProps) => {
-  return <Markdown markdownStyles={defaultStyles}>{text}</Markdown>;
+export const InlineFormatting = ({ text, textAlign }: FormattingProps) => {
+  if (textAlign) {
+    defaultStyles.text.textAlign = textAlign;
+  }
+  return (
+      <Markdown markdownStyles={defaultStyles}>
+        {text}
+      </Markdown>
+  );
 };

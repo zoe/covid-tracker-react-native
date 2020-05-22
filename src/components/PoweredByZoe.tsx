@@ -4,6 +4,7 @@ import { zoe } from '../../assets';
 import { RegularText } from './Text';
 import { colors } from '../../theme';
 import i18n from '../locale/i18n';
+import { InlineFormatting } from './InlineFormatting';
 
 export const PoweredByZoe = () => {
   return (
@@ -13,9 +14,7 @@ export const PoweredByZoe = () => {
         <Image style={styles.zoeLogo} source={zoe} />
       </View>
       <View style={styles.analysisBlock}>
-        <RegularText style={styles.lightRegularText}>
-          {i18n.t("partners.data-analysis")}
-        </RegularText>
+        <InlineFormatting text={i18n.t("partners.data-analysis")} textAlign="center" />
       </View>
     </View>
   );
@@ -23,6 +22,7 @@ export const PoweredByZoe = () => {
 
 const styles = StyleSheet.create({
   block: {
+    width: '85%',
     marginVertical: 20,
     flex: 0,
   },
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   analysisBlock: {
-    width: '80%',
   },
   lightRegularText: {
     color: colors.lightBrand,
