@@ -10,11 +10,11 @@ export const PoweredByZoe = () => {
   return (
     <View style={styles.block}>
       <View style={styles.poweredBy}>
-        <RegularText style={styles.whiteRegularText}>{i18n.t("partners.powered-by")}</RegularText>
+        <RegularText style={styles.whiteRegularText}>{i18n.t('partners.powered-by')}</RegularText>
         <Image style={styles.zoeLogo} source={zoe} />
       </View>
       <View style={styles.analysisBlock}>
-        <InlineFormatting text={i18n.t("partners.data-analysis")} textAlign="center" />
+        <InlineFormatting text={i18n.t('partners.data-analysis')} textAlign="center" />
       </View>
     </View>
   );
@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
   whiteRegularText: {
     color: colors.white,
   },
-  analysisBlock: {
-  },
+  analysisBlock: {},
   lightRegularText: {
     color: colors.lightBrand,
     textAlign: 'center',

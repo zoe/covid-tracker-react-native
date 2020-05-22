@@ -45,7 +45,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     const userCount = await userService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
     const feature = userService.getConfig();
-    this.setState({showPartnerLogos: feature.showPartnerLogos});
+    this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
   }
@@ -132,7 +132,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            { this.state.showPartnerLogos ? <Partnership/> : <PoweredByZoe/> }
+            {this.state.showPartnerLogos ? <Partnership /> : <PoweredByZoe />}
 
             <View style={{ flex: 1 }} />
 

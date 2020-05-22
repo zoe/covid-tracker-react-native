@@ -5,7 +5,7 @@ import { View } from 'react-native';
 
 type FormattingProps = {
   text: string;
-  textAlign?: 'center' | "left" | "right";
+  textAlign?: 'center' | 'left' | 'right';
 };
 
 const defaultStyles = {
@@ -25,9 +25,5 @@ export const InlineFormatting = ({ text, textAlign }: FormattingProps) => {
   if (textAlign) {
     defaultStyles.text.textAlign = textAlign;
   }
-  return (
-      <Markdown markdownStyles={defaultStyles}>
-        {text}
-      </Markdown>
-  );
+  return <Markdown markdownStyles={defaultStyles}>{text}</Markdown>;
 };
