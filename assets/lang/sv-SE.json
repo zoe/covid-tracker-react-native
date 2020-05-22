@@ -252,6 +252,7 @@
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
+    "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
     "picker-other": "Annat sätt, ange vilket",
@@ -512,7 +513,7 @@
   "negative": "Negativt",
   "failed": "Misslyckades",
   "pending": "Väntar",
-  "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
+  "please-add-test-below": "Om du har gjort ett covid-19-test någon gång, lägg till det nedan. Detta innefattar PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
   "never-had-test": "Jag har aldrig testats för covid-19",
   "above-list-correct": "Listan ovan är korrekt",
 
