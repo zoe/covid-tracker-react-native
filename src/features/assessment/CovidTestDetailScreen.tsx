@@ -226,7 +226,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                       this.setState({
                         dateTakenBetweenStart: undefined,
                         dateTakenBetweenEnd: undefined,
-                        dateTakenSpecific: now,
+                        dateTakenSpecific: undefined,
                       });
                     } else {
                       this.setState({
@@ -245,8 +245,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                       {this.state.showDatePicker ? (
                         <CalendarPicker
                           onDateChange={this.setTestDate}
-                          initialDate={this.state.dateTakenSpecific}
-                          selectedStartDate={this.state.dateTakenSpecific}
+                          maxDate={this.state.today}
+                          {...(!!this.state.dateTakenSpecific && { selectedStartDate: this.state.dateTakenSpecific })}
                         />
                       ) : (
                         <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
@@ -270,6 +270,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           initialDate={this.state.dateTakenBetweenStart}
                           selectedStartDate={this.state.dateTakenBetweenStart}
                           selectedEndDate={this.state.dateTakenBetweenEnd}
+                          maxDate={this.state.today}
                         />
                       ) : (
                         <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
