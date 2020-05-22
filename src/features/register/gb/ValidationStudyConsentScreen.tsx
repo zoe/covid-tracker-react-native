@@ -77,7 +77,10 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               Covid-19 research. Before you decide whether you want to take part, it is important for you to understand
               why the research is being done and what your participation will involve. Please take time to read the
               following information carefully and discuss it with others if you wish. Ask study researchers if there is
-              anything that is not clear or if you would like more information.
+              anything that is not clear or if you would like more information by emailing us at{' '}
+              <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions@kcl.ac.uk')}>
+                covidtrackingquestion@kcl.ac.uk
+              </ClickableText>
               {'\n'}
             </RegularText>
 
@@ -121,15 +124,20 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
             <RegularText>
               If you choose to take part in this study, you may be asked to have a Covid-19 swab test, and to report
-              your test result in the app. If you are asked to be tested, it does not mean we think you have Covid-19.
+              your test result in the app. Taking part requires you to continue reporting in the app and eligibility for
+              swab testing will be determined by app reporting. If you are asked to be tested, it does not mean we think
+              you have Covid-19.
               {'\n\n'}
               On behalf of King’s College London, Zoe Global Ltd (Zoe, the creator of the Covid-19 Symptom Study app)
-              will oversee the arrangements for swab testing. You will receive instructions from Zoe in the app or by
-              email, on how to organise your swab test, either by ordering a testing kit in the mail or visiting a
-              Regional Testing Centre. Alternatively, Zoe may apply for testing on your behalf to the Department of
-              Health and Social Care, through an online platform where Zoe will share your name, mobile phone number,
-              and email address to register you for testing. Organising and completing the Covid-19 test is optional.
-              Once you have received your test result, you will be asked to report it in the Covid-19 Symptom Study app.
+              will oversee the arrangements for swab testing. All swab testing will be managed by the Department of
+              Health. You will receive instructions from Zoe in the app or by email, on how to organise your swab test,
+              either by ordering a testing kit in the mail or visiting a Regional Testing Centre. Alternatively, Zoe may
+              apply for testing on your behalf to the Department of Health and Social Care, through an online platform
+              where Zoe will share your name, mobile phone number, and email address to register you for testing. Swab
+              testing involves collecting a sample to test if you have COVID by inserting a long swab (like a long
+              cotton wool bud) into the back of your nose or mouth and rotating the swab several times. Organising and
+              completing the Covid-19 test is optional. Once you have received your test result, you will be asked to
+              report it in the Covid-19 Symptom Study app.
               {'\n\n'}
               The researchers conducting this study have been granted the allowance to test up to 10,000 individuals per
               week in this way. This number of swab tests may be insufficient to test all the participants in this study
@@ -190,18 +198,21 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               personal information about you will be shared by Zoe with King’s College London as a result of this
               research. Before sharing your data with King’s College London, an anonymous code will be used to replace
               your personal details (your name, email address and phone number if you have provided them) and your
-              postcode will be replaced by a broader location identification.
+              postcode will be replaced by a broader location identification. KCL investigators will not be able to
+              identify your data nor will they have access to any key linking unique identifiers to personal data.
               {'\n'}
             </RegularText>
 
             <RegularBoldText>What if I change my mind about taking part?{'\n'}</RegularBoldText>
             <RegularText>
-              You are free to withdraw at any point from this study, without having to give a reason, up until 10th May
-              2021. You can withdraw by contacting Zoe at{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions@kcl.ac.uk')}>
-                covidtrackingquestion@kcl.ac.uk
+              You are free to withdraw at any point from this study, without having to give a reason, by contacting ZOE
+              Global Ltd at{' '}
+              <ClickableText onPress={() => this.openUrl('mailto:clinicaltrialwithdrawal@joinzoe.com')}>
+                clinicaltrialwithdrawal@joinzoe.com
               </ClickableText>{' '}
-              and quoting in the subject line: “Validation Study Withdrawal”.
+              . If you choose to withdraw from the study, the information you have given us at the point of withdrawal
+              for the purpose of this research will be withdrawn, however once the anonymised data set has been created
+              it will not be possible to remove your anonymised data from the analysis.
               {'\n\n'}
               Withdrawing from the study will not affect you in any way and you can continue to take part in reporting
               in the Covid-19 app as you did before you joined this study. If you choose to withdraw from this study
@@ -214,7 +225,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             <RegularBoldText>How is this study being funded?{'\n'}</RegularBoldText>
             <RegularText>
               This study is being funded by King’s College London and Zoe in order to help with the coronavirus
-              pandemic.
+              pandemic. The Department of Health is paying for the swab tests as part of its program of testing people
+              in the community for COVID.
               {'\n'}
             </RegularText>
 
@@ -229,12 +241,16 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
             <RegularBoldText>Who should I contact for further information?{'\n'}</RegularBoldText>
             <RegularText>
-              If you have any questions or require more information about this study, please contact the study staff
-              using the following contact details that are dedicated to this study:
-              {'\n'}
+              If you have any questions or require more information about this study, please contact the study Principle
+              Investigator, Professor Tim Spector at:{' '}
               <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions@kcl.ac.uk')}>
                 covidtrackingquestion@kcl.ac.uk
               </ClickableText>
+              {'\n'}
+              For withdrawal from the study please contact Zoe Global Ltd at{' '}
+              <ClickableText onPress={() => this.openUrl('mailto:clinicaltrialwithdrawal@joinzoe.com')}>
+                clinicaltrialwithdrawal@joinzoe.com
+              </ClickableText>{' '}
               {'\n'}
             </RegularText>
 
@@ -242,9 +258,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             <RegularText>
               If this research has harmed you in any way or if you wish to make a complaint about the conduct of the
               study you can contact King's College London using the details below for further advice and information:{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions@kcl.ac.uk')}>
-                covidtrackingquestion@kcl.ac.uk
-              </ClickableText>
+              The Chair, BDM Research Ethics Subcommittee, King’s College London, rec@kcl.ac.uk.{' '}
+              <ClickableText onPress={() => this.openUrl('mailto:rec@kcl.ac.uk')}>rec@kcl.ac.uk</ClickableText>
               {'\n'}
             </RegularText>
 
@@ -254,7 +269,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
             <RegularBoldText>Statement of consent:{'\n'}</RegularBoldText>
             <RegularText>
-              - I confirm that I have read and understood the information sheet dated 07/05/20, version number 1.0, for
+              - I confirm that I have read and understood the information sheet dated 19/05/20, version number 2.0, for
               the above project. I have had the opportunity to consider the information and asked questions which have
               been answered to my satisfaction.
               {'\n'}
@@ -262,9 +277,9 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
             <RegularText>
               - I consent voluntarily to be a participant in this project and understand that I can refuse to take part
-              and can withdraw from the project at any time, up until 10th May 2021, without having to give a reason. I
-              understand that any information collected about me through this study will not be retained, except when
-              already included in aggregated data analyses at the time of my withdrawal.{'\n'}
+              and can withdraw from the project at any time, without having to give a reason. I understand that any
+              information collected about me through this study will not be retained, except when already included in
+              anonymised data analyses at the time of my withdrawal.{'\n'}
             </RegularText>
 
             <RegularText>
