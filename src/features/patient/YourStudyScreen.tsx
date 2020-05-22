@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { cloneDeep } from 'lodash';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
@@ -64,6 +64,11 @@ const AllCohorts: CohortDefinition[] = [
     key: 'is_in_uk_guys_trust',
     label: "Guys & St Thomas' Hospital Trust",
     country: 'GB',
+  },
+  {
+    key: 'is_in_us_covid_siren',
+    label: 'COVID SIREN',
+    country: 'US',
   },
   {
     key: 'is_in_us_nurses_study',
@@ -193,6 +198,11 @@ const AllCohorts: CohortDefinition[] = [
   {
     key: 'is_in_us_louisiana_state_university',
     label: 'Louisiana State University',
+    country: 'US',
+  },
+  {
+    key: 'is_in_us_northshore_genomic_health_initiative',
+    label: 'NorthShore Genomic Health Initiative',
     country: 'US',
   },
 ];
