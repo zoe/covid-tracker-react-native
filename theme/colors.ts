@@ -13,7 +13,7 @@ export const colors = {
   backgroundFour: '#E2E2E2',
   backgroundFive: '#E5E5E5',
 
-  feedbackBad: '#FF9600',
+  feedbackBad: '#FA7268',
   feedbackPoor: '#FFD519',
   feedbackGood: '#C0D904',
   feedbackExcellent: '#A0B406',
