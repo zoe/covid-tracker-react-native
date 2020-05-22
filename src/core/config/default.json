@@ -1,5 +1,6 @@
 {
     "country": "ZZ",
+    "showPartnerLogos": true,
     "enableMultiplePatients": true,
     "enablePersonalInformation": true,
     "enableCohorts": true,

@@ -17,6 +17,7 @@ import { offlineService, pushNotificationService, userService } from '../../Serv
 import { LoadingModal } from '../../components/Loading';
 import { cleanIntegerVal } from '../../core/utils/number';
 import { Partnership } from '../../components/Partnership';
+import { PoweredByZoe } from '../../components/PoweredByZoe';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -26,12 +27,14 @@ type PropsType = {
 
 type WelcomeRepeatScreenState = {
   userCount: number | null;
+  showPartnerLogos: boolean;
   onRetry?: () => void;
 } & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
   userCount: null,
+  showPartnerLogos: true,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -41,6 +44,8 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
     const userCount = await userService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
+    const feature = userService.getConfig();
+    this.setState({showPartnerLogos: feature.showPartnerLogos});
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
   }
@@ -127,7 +132,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            <Partnership />
+            { this.state.showPartnerLogos ? <Partnership/> : <PoweredByZoe/> }
 
             <View style={{ flex: 1 }} />
 
