@@ -1,15 +1,13 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import { Linking } from 'expo';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '../../../assets';
+import { covidIcon, menuIcon } from '../../../assets';
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import AnalyticsService from '../../core/Analytics';
-import { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
+import { isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
@@ -18,6 +16,7 @@ import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService, pushNotificationService, userService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
 import { cleanIntegerVal } from '../../core/utils/number';
+import { Partnership } from '../../components/Partnership';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -87,16 +86,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
-  partnersLogos = () => {
-    if (isGBCountry()) {
-      return gbPartnersReturn;
-    } else if (isSECountry()) {
-      return svPartnersReturn;
-    } else {
-      return usPartnersReturn;
-    }
-  };
-
   render() {
     const calloutContent = {
       title: i18n.t('welcome.research'),
@@ -138,7 +127,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            <Image style={styles.partnersLogo} source={this.partnersLogos()} />
+            <Partnership />
 
             <View style={{ flex: 1 }} />
 
@@ -193,11 +182,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 
-  partnersLogo: {
-    width: '95%',
-    height: 100,
-    resizeMode: 'contain',
-  },
   menuIcon: {
     height: 20,
     width: 20,
