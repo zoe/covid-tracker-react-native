@@ -283,6 +283,7 @@
     "question-mechanism": "How was this test performed?",
     "picker-nose-swab": "Someone swabbed my nose",
     "picker-throat-swab": "Someone swabbed my throat",
+    "picker-nose-throat-swab": "A swab of my nose or throat",
     "picker-saliva-sample": "I spat in a cup/tube",
     "picker-blood-sample": "I gave a blood sample",
     "picker-other": "Other, please specify",
@@ -566,7 +567,7 @@
   "negative": "Negative",
   "failed": "Failed",
   "pending": "Pending",
-  "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. You can edit these at any time in the future.",
+  "please-add-test-below": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
   "never-had-test": "I have never had a COVID test",
   "above-list-correct": "The above list is correct",
 

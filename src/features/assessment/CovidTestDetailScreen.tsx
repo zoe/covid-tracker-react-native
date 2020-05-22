@@ -184,8 +184,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     });
 
     const mechanismItems = [
-      { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
-      { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
+      { label: i18n.t('covid-test.picker-nose-throat-swab'), value: 'nose_throat_swab' },
+      ...(test?.mechanism === 'nose_swab'
+        ? [{ label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' }]
+        : []),
+      ...(test?.mechanism === 'throat_swab'
+        ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' }]
+        : []),
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
       { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
       { label: i18n.t('covid-test.picker-other'), value: 'other' },
