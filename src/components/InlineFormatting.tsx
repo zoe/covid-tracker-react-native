@@ -8,22 +8,20 @@ type FormattingProps = {
   textAlign?: 'center' | 'left' | 'right';
 };
 
-const defaultStyles = {
-  text: {
-    ...fontStyles.bodyReg,
-    color: colors.lightBrand,
-  },
-  em: {
-    color: colors.white,
-  },
-  strong: {
-    color: colors.white,
-  },
-};
-
 export const InlineFormatting = ({ text, textAlign }: FormattingProps) => {
-  if (textAlign) {
-    defaultStyles.text.textAlign = textAlign;
-  }
+  const defaultStyles = {
+    text: {
+      ...fontStyles.bodyReg,
+      ...(textAlign && { textAlign }),
+      color: colors.lightBrand,
+    },
+    em: {
+      color: colors.white,
+    },
+    strong: {
+      color: colors.white,
+    },
+  };
+
   return <Markdown markdownStyles={defaultStyles}>{text}</Markdown>;
 };
