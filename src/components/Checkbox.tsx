@@ -13,6 +13,7 @@ const checkboxStyles = StyleSheet.create({
   },
 
   checkboxRow: {
+    alignItems: 'flex-start',
     paddingVertical: 6,
     borderColor: 'transparent',
   },
@@ -27,6 +28,7 @@ const checkboxStyles = StyleSheet.create({
   },
 
   checkBox: {
+    marginTop: 4,
     borderRadius: 8,
     backgroundColor: colors.backgroundTertiary,
     borderColor: 'transparent',
