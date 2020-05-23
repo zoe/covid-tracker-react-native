@@ -28,14 +28,18 @@ type TreatmentOtherProps = {
   route: RouteProp<ScreenParamList, 'TreatmentOther'>;
 };
 
-export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
+type State = {
+  isFocused: boolean;
+};
+
+export default class TreatmentOtherScreen extends Component<TreatmentOtherProps, State> {
   constructor(props: TreatmentOtherProps) {
     super(props);
     Navigator.resetNavigation(props.navigation);
     this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
-    this.focus = this.focus.bind(this)
-    this.blur = this.blur.bind(this)
-    this.state = {isFocused: false}
+    this.focus = this.focus.bind(this);
+    this.blur = this.blur.bind(this);
+    this.state = { isFocused: false };
   }
 
   registerSchema = Yup.object().shape({
@@ -43,11 +47,11 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   });
 
   focus() {
-    this.setState({isFocused:true})
+    this.setState({ isFocused: true });
   }
 
   blur() {
-    this.setState({isFocused:false})
+    this.setState({ isFocused: false });
   }
 
   handleUpdateTreatment(formData: TreatmentData) {
