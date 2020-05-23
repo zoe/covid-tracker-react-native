@@ -94,7 +94,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 
         {this.props.showEthnicityQuestion && (
           <FieldWrapper>
-              <Label>{i18n.t('race-question')}</Label>
+              <LabelText>{i18n.t('race-question')}</LabelText>
               <CheckboxList>{createRaceCheckboxes(USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
           </FieldWrapper>
         )}
