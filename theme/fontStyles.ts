@@ -46,4 +46,11 @@ export const fontStyles = StyleSheet.create({
     lineHeight: 20,
     color: colors.tertiary,
   },
+
+  menuLight: {
+    // Label Text
+    fontSize: 12,
+    lineHeight: 16,
+    color: colors.secondary,
+  }
 });

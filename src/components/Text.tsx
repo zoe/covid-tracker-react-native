@@ -36,6 +36,8 @@ export const CaptionText = ({ style, children }: Props) => <Text style={[styles.
 
 export const ErrorText = ({ style, children }: Props) => <Text style={[styles.errorText, style]}>{children}</Text>;
 
+export const LabelText = ({ style, children }: Props) => <Text style={[styles.labelText, style]}>{children}</Text>;
+
 export const RegularBoldText = ({ style, children }: Props) => (
   <Text style={[styles.regularBoldText, style]}>{children}</Text>
 );
@@ -79,6 +81,10 @@ const styles = StyleSheet.create({
 
   captionText: {
     ...fontStyles.bodySmallLight,
+  },
+
+  labelText: {
+    ...fontStyles.menuLight,
   },
 
   errorText: {
