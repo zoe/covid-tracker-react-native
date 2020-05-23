@@ -1,7 +1,7 @@
-import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
+import Error from '../../assets/icons/Error';
 import { colors } from '../../theme';
 
 interface Props extends TextInputProps {
@@ -18,19 +18,20 @@ export class ValidatedTextInput extends Component<Props, object> {
   render() {
     const { error } = this.props;
     return (
-      <View style={styles.inputWrapper}>
+      <View
+        style={[
+          styles.inputWrapper,
+          {
+            borderColor: error ? colors.feedbackBad : 'transparent',
+          },
+        ]}>
         <TextInput
           ref={(input) => (this.textInput = input)}
-          placeholderTextColor={colors.tertiary}
+          style={styles.inputStyle}
+          placeholderTextColor={colors.secondary}
           {...this.props}
-          style={[
-            styles.inputStyle,
-            {
-              borderBottomColor: error ? colors.feedbackBad : colors.primary,
-            },
-          ]}
         />
-        {error && <Icon name="close" style={styles.errorIcon} />}
+        {error && <Error />}
       </View>
     );
   }
@@ -38,22 +39,20 @@ export class ValidatedTextInput extends Component<Props, object> {
 
 const styles = StyleSheet.create({
   inputWrapper: {
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 16,
+    borderWidth: 2,
+    paddingRight: 8,
   },
   inputStyle: {
+    color: colors.primary,
     flex: 1,
     height: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.primary,
     fontSize: 16,
-    paddingLeft: 8,
+    paddingLeft: 12,
     paddingRight: 16,
-    marginVertical: 10,
-  },
-  errorIcon: {
-    color: colors.feedbackBad,
-    height: 38,
-    marginLeft: -16,
   },
 });
