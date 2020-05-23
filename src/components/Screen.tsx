@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '../../theme';
@@ -16,10 +16,11 @@ export const isIos = Platform.OS === 'ios';
 
 type HeaderProp = {
   children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const Header = (props: HeaderProp) => {
-  return <View style={styles.headerBlock}>{props.children}</View>;
+  return <View style={[styles.headerBlock, props.style]}>{props.children}</View>;
 };
 
 type OverviewProp = {

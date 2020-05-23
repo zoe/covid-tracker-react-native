@@ -142,7 +142,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
                 <Image source={menuIcon} style={styles.menuIcon} />
               </TouchableOpacity>
 
-              <Header>
+              <Header style={styles.headerContainer}>
                 <HeaderText style={{ marginBottom: 12 }}>{i18n.t('select-profile-title')}</HeaderText>
                 <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
               </Header>
@@ -196,6 +196,10 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    marginHorizontal: 16,
+  },
+
   profileList: {
     flex: 1,
     flexDirection: 'row',
