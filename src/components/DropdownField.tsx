@@ -27,7 +27,7 @@ type DropdownPickerProps = Omit<DropdownFieldProps, 'label'>;
 
 const DropdownPicker = (props: DropdownPickerProps) => {
   const { placeholder, selectedValue, onValueChange, androidDefaultLabel, onlyPicker, error, ...pickerProps } = props;
-  const pickerStyle = onlyPicker ? {} : styles.picker;
+  const pickerStyle = onlyPicker ? [styles.picker, { width: '100%' }] : styles.picker;
   const itemStyle = error ? styles.errorHighlight : {};
   const items = props.items ?? [
     { label: i18n.t('picker-no'), value: 'no' },
@@ -48,7 +48,7 @@ const DropdownPicker = (props: DropdownPickerProps) => {
       placeholder={placeholder} // Placeholder not supported on android
       selectedValue={selectedValue}
       onValueChange={onValueChange}
-      iosIcon={<Icon name="arrow-down" />}
+      iosIcon={<Icon name="md-arrow-dropdown" />}
       textStyle={{ color: colors.secondary }}
       itemTextStyle={{ textAlign: 'left' }}
       style={pickerStyle}
@@ -65,7 +65,9 @@ const DropdownField = (props: DropdownFieldProps) => {
   const { label, error, onlyPicker, info, ...more } = props;
 
   return onlyPicker ? (
-    <DropdownPicker onlyPicker={onlyPicker} {...more} />
+    <View style={styles.dropdownWrapper}>
+      <DropdownPicker onlyPicker={onlyPicker} {...more} />
+    </View>
   ) : (
     <FieldWrapper style={styles.fieldWrapper}>
       <LabelText>{label}</LabelText>
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
   },
   dropdownWrapper: {
     backgroundColor: colors.backgroundTertiary,
+    borderColor: 'transparent',
     borderWidth: 1,
     borderRadius: 8,
     marginTop: 8,

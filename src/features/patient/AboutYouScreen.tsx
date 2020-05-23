@@ -633,6 +633,7 @@ const styles = StyleSheet.create({
 
   primaryField: {
     flex: 6,
+    marginRight: 8,
   },
 
   primaryFieldRow: {
