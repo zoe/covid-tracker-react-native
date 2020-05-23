@@ -18,7 +18,7 @@ export const fontStyles = StyleSheet.create({
   bodyLight: {
     // Selector Button
     fontSize: 16,
-    lineHeight: 24,
+    lineHeight: 30,
     color: colors.primary,
   },
   bodyReg: {

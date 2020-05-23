@@ -23,7 +23,7 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
   return (
     <FieldWrapper>
       <Item stackedLabel style={styles.textItemStyle}>
-        {!!label && <Label>{label}</Label>}
+        {!!label && <LabelText>{label}</LabelText>}
         <ValidatedTextInput
           placeholder={placeholder ?? ''}
           value={formikProps.values[name]}

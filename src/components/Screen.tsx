@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
   },
 
   pageBlock: {
-    marginHorizontal: 16,
+    marginHorizontal: 32,
     marginBottom: 40,
   },
 
   headerBlock: {
     marginVertical: 16,
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
   },
 
   overviewBlock: {
@@ -110,10 +110,11 @@ const styles = StyleSheet.create({
   },
 
   progressBlock: {
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
   },
 
   fieldWrapper: {
+    // flex: 1,
     marginVertical: 16,
   },
 });

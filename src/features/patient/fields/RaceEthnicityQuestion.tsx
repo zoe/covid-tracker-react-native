@@ -8,6 +8,7 @@ import { GenericTextField } from '../../../components/GenericTextField';
 import { FieldWrapper } from '../../../components/Screen';
 import { isUSCountry } from '../../../core/user/UserService';
 import i18n from '../../../locale/i18n';
+import { LabelText } from '@covid/components/Text';
 
 export interface RaceEthnicityData {
   race: string[];
@@ -86,19 +87,15 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
       <View>
         {this.props.showRaceQuestion && (
           <FieldWrapper>
-            <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{i18n.t('race-question')}</Label>
+              <LabelText>{i18n.t('race-question')}</LabelText>
               <CheckboxList>{createRaceCheckboxes(UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
-            </Item>
           </FieldWrapper>
         )}
 
         {this.props.showEthnicityQuestion && (
           <FieldWrapper>
-            <Item stackedLabel style={styles.textItemStyle}>
               <Label>{i18n.t('race-question')}</Label>
               <CheckboxList>{createRaceCheckboxes(USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
-            </Item>
           </FieldWrapper>
         )}
 

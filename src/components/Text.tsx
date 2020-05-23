@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
 
   labelText: {
-    ...fontStyles.menuLight,
+    ...fontStyles.bodyLight,
   },
 
   errorText: {

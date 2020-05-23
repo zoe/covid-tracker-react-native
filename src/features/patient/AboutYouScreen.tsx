@@ -11,7 +11,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '../../components/ValidationError';
 import { isUSCountry } from '../../core/user/UserService';
@@ -21,6 +21,7 @@ import { ScreenParamList } from '../ScreenParamList';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 import { cleanIntegerVal, cleanFloatVal } from '../../core/utils/number';
 import { userService } from '../../Services';
+import { colors } from '@theme';
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -322,21 +323,19 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             return (
               <Form>
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('what-year-were-you-born')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-year-of-birth')}
-                      value={props.values.yearOfBirth}
-                      onChangeText={props.handleChange('yearOfBirth')}
-                      onBlur={props.handleBlur('yearOfBirth')}
-                      error={props.touched.yearOfBirth && props.errors.yearOfBirth}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
-                      keyboardType="numeric"
-                    />
-                  </Item>
+                  <LabelText>{i18n.t('what-year-were-you-born')}</LabelText>
+                  <ValidatedTextInput
+                    placeholder={i18n.t('placeholder-year-of-birth')}
+                    value={props.values.yearOfBirth}
+                    onChangeText={props.handleChange('yearOfBirth')}
+                    onBlur={props.handleBlur('yearOfBirth')}
+                    error={props.touched.yearOfBirth && props.errors.yearOfBirth}
+                    returnKeyType="next"
+                    onSubmitEditing={() => {
+                      /* this.passwordComponent.focus(); */
+                    }}
+                    keyboardType="numeric"
+                  />
                   {!!props.errors.yearOfBirth && <ValidationError error={props.errors.yearOfBirth} />}
                 </FieldWrapper>
 

@@ -68,7 +68,7 @@ const DropdownField = (props: DropdownFieldProps) => {
     <DropdownPicker onlyPicker={onlyPicker} {...more} />
   ) : (
     <FieldWrapper style={styles.fieldWrapper}>
-      <Label style={styles.labelStyle}>{label}</Label>
+      <LabelText>{label}</LabelText>
       <View
         style={[
           styles.dropdownWrapper,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
     // marginVertical: 32,
-    marginLeft: 16,
+    // marginLeft: 16,
   },
   labelStyle: {
     fontSize: 15,
