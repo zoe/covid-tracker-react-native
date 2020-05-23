@@ -3,9 +3,11 @@ import React from 'react';
 import { PickerItemProps, StyleSheet, PickerProps } from 'react-native';
 import key from 'weak-key';
 
+import Info from '../../assets/icons/Info';
 import { colors } from '../../theme';
 import i18n from '../locale/i18n';
 import { FieldWrapper, screenWidth, isAndroid } from './Screen';
+import { LabelText } from './Text';
 import { ValidationError } from './ValidationError';
 
 interface DropdownFieldProps {
@@ -18,6 +20,7 @@ interface DropdownFieldProps {
   androidDefaultLabel?: string;
   error?: any;
   onlyPicker?: boolean;
+  info?: string;
 }
 
 type DropdownPickerProps = Omit<DropdownFieldProps, 'label'>;
@@ -58,7 +61,7 @@ const DropdownPicker = (props: DropdownPickerProps) => {
 
 const DropdownField = (props: DropdownFieldProps) => {
   // Can be used as a yes/no dropdown field by leaving props.items blank.
-  const { label, error, onlyPicker, ...more } = props;
+  const { label, error, onlyPicker, info, ...more } = props;
 
   return onlyPicker ? (
     <DropdownPicker onlyPicker={onlyPicker} {...more} />
@@ -71,6 +74,12 @@ const DropdownField = (props: DropdownFieldProps) => {
       {!!error && (
         <View style={{ marginTop: 10 }}>
           <ValidationError error={error} />
+        </View>
+      )}
+      {!!info && (
+        <View style={styles.infoContainer}>
+          <Info style={styles.infoIcon} />
+          <LabelText>{info}</LabelText>
         </View>
       )}
     </FieldWrapper>
@@ -99,6 +108,15 @@ const styles = StyleSheet.create({
   errorHighlight: {
     borderBottomWidth: 1,
     borderColor: colors.feedbackBad,
+  },
+  infoContainer: {
+    marginVertical: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  infoIcon: {
+    paddingHorizontal: 5,
   },
 });
 
