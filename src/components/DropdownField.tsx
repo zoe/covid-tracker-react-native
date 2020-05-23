@@ -101,13 +101,14 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   picker: {
-    width: screenWidth - 16,
+    width: '100%',
     height: 48,
   },
   dropdownWrapper: {
     backgroundColor: colors.backgroundTertiary,
     borderWidth: 1,
     borderRadius: 8,
+    marginTop: 8,
   },
   errorHighlight: {
     borderBottomWidth: 1,
