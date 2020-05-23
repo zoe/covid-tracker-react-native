@@ -8,7 +8,7 @@ import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import DropdownField from '../../../components/DropdownField';
 import ProgressStatus from '../../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../../components/Text';
 import { ValidationErrors } from '../../../components/ValidationError';
 import UserService from '../../../core/user/UserService';
 import {
@@ -263,75 +263,73 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   {showWorkerAndCarerQuestions && (
                     <View>
                       <FieldWrapper>
-                        <Item stackedLabel style={styles.textItemStyle}>
-                          <Label>{i18n.t('label-physically-worked-in-places')}</Label>
+                        <LabelText>{i18n.t('label-physically-worked-in-places')}</LabelText>
 
-                          <CheckboxList>
-                            <CheckboxItem
-                              value={this.state.atHospitalInpatient}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atHospitalInpatient: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-hospital-inpatient')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atHospitalOutpatient}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atHospitalOutpatient: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-hospital-outpatient')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atClinicOutsideHospital}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atClinicOutsideHospital: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-clinic-outside-hospital')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atCareFacility}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atCareFacility: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-nursing-home')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atHomeHealth}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atHomeHealth: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-home-health')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atSchoolClinic}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atSchoolClinic: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-school-clinic')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atOtherFacility}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atOtherFacility: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-other-facility')}
-                            </CheckboxItem>
-                          </CheckboxList>
-                        </Item>
+                        <CheckboxList>
+                          <CheckboxItem
+                            value={this.state.atHospitalInpatient}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atHospitalInpatient: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-hospital-inpatient')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.atHospitalOutpatient}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atHospitalOutpatient: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-hospital-outpatient')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.atClinicOutsideHospital}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atClinicOutsideHospital: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-clinic-outside-hospital')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.atCareFacility}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atCareFacility: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-nursing-home')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.atHomeHealth}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atHomeHealth: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-home-health')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.atSchoolClinic}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atSchoolClinic: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-school-clinic')}
+                          </CheckboxItem>
+                          <CheckboxItem
+                            value={this.state.atOtherFacility}
+                            onChange={(value: boolean) =>
+                              this.setState({
+                                atOtherFacility: value,
+                              })
+                            }>
+                            {i18n.t('your-work.worked-other-facility')}
+                          </CheckboxItem>
+                        </CheckboxList>
                       </FieldWrapper>
 
                       <DropdownField

@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import DropdownField from '../../components/DropdownField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { Header, ProgressBlock, FieldWrapper } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '../../components/ValidationError';
 import { PatientStateType } from '../../core/patient/PatientState';
@@ -156,66 +156,60 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
             return (
               <Form>
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                      value={props.values.isolationLittleInteraction}
-                      onChangeText={props.handleChange('isolationLittleInteraction')}
-                      onBlur={props.handleBlur('isolationLittleInteraction')}
-                      error={
-                        props.touched.isolationLittleInteraction &&
-                        props.errors.isolationLittleInteraction &&
-                        props.submitCount > 0
-                      }
-                      returnKeyType="next"
-                      keyboardType="numeric"
-                    />
-                  </Item>
+                  <LabelText>{i18n.t('level-of-isolation.question-little-interaction')}</LabelText>
+                  <ValidatedTextInput
+                    placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                    value={props.values.isolationLittleInteraction}
+                    onChangeText={props.handleChange('isolationLittleInteraction')}
+                    onBlur={props.handleBlur('isolationLittleInteraction')}
+                    error={
+                      props.touched.isolationLittleInteraction &&
+                      props.errors.isolationLittleInteraction &&
+                      props.submitCount > 0
+                    }
+                    returnKeyType="next"
+                    keyboardType="numeric"
+                  />
                   {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
                     <ValidationError error={props.errors.isolationLittleInteraction} />
                   )}
                 </FieldWrapper>
 
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                      value={props.values.isolationLotsOfPeople}
-                      onChangeText={props.handleChange('isolationLotsOfPeople')}
-                      onBlur={props.handleBlur('isolationLotsOfPeople')}
-                      error={
-                        props.touched.isolationLotsOfPeople &&
-                        props.errors.isolationLotsOfPeople &&
-                        props.submitCount > 0
-                      }
-                      returnKeyType="next"
-                      keyboardType="numeric"
-                    />
-                  </Item>
+                  <LabelText>{i18n.t('level-of-isolation.question-lots-of-people')}</LabelText>
+                  <ValidatedTextInput
+                    placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                    value={props.values.isolationLotsOfPeople}
+                    onChangeText={props.handleChange('isolationLotsOfPeople')}
+                    onBlur={props.handleBlur('isolationLotsOfPeople')}
+                    error={
+                      props.touched.isolationLotsOfPeople && props.errors.isolationLotsOfPeople && props.submitCount > 0
+                    }
+                    returnKeyType="next"
+                    keyboardType="numeric"
+                  />
+
                   {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
                     <ValidationError error={props.errors.isolationLotsOfPeople} />
                   )}
                 </FieldWrapper>
 
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                      value={props.values.isolationHealthcareProvider}
-                      onChangeText={props.handleChange('isolationHealthcareProvider')}
-                      onBlur={props.handleBlur('isolationHealthcareProvider')}
-                      error={
-                        props.touched.isolationHealthcareProvider &&
-                        props.errors.isolationHealthcareProvider &&
-                        props.submitCount > 0
-                      }
-                      returnKeyType="next"
-                      keyboardType="numeric"
-                    />
-                  </Item>
+                  <LabelText>{i18n.t('level-of-isolation.question-healthcare-provider')}</LabelText>
+                  <ValidatedTextInput
+                    placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                    value={props.values.isolationHealthcareProvider}
+                    onChangeText={props.handleChange('isolationHealthcareProvider')}
+                    onBlur={props.handleBlur('isolationHealthcareProvider')}
+                    error={
+                      props.touched.isolationHealthcareProvider &&
+                      props.errors.isolationHealthcareProvider &&
+                      props.submitCount > 0
+                    }
+                    returnKeyType="next"
+                    keyboardType="numeric"
+                  />
+
                   {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
                     <ValidationError error={props.errors.isolationHealthcareProvider} />
                   )}

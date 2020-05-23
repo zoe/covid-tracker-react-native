@@ -22,7 +22,6 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
   const { formikProps, name, label, placeholder, info, keyboardType, ...inputProps } = props;
   return (
     <FieldWrapper>
-      <Item stackedLabel style={styles.textItemStyle}>
         {!!label && <LabelText>{label}</LabelText>}
         <ValidatedTextInput
           placeholder={placeholder ?? ''}
@@ -35,7 +34,6 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
           keyboardType={keyboardType}
           {...inputProps}
         />
-      </Item>
       {!!info && (
         <View style={styles.infoContainer}>
           <Info style={styles.infoIcon} />

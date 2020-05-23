@@ -11,7 +11,7 @@ import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText, LabelText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService, { isGBCountry, isUSCountry } from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -275,23 +275,21 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
             return (
               <Form>
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('label-cohort')}</Label>
-                    <CheckboxList>
-                      {this.state.cohorts.map((cohort) => (
-                        <CheckboxItem
-                          key={cohort.key}
-                          value={this.state.selected[cohort.key]}
-                          onChange={(value: boolean) => {
-                            const newSelection = cloneDeep(this.state.selected);
-                            newSelection[cohort.key] = value;
-                            this.setState({ selected: newSelection });
-                          }}>
-                          {cohort.label}
-                        </CheckboxItem>
-                      ))}
-                    </CheckboxList>
-                  </Item>
+                  <LabelText>{i18n.t('label-cohort')}</LabelText>
+                  <CheckboxList>
+                    {this.state.cohorts.map((cohort) => (
+                      <CheckboxItem
+                        key={cohort.key}
+                        value={this.state.selected[cohort.key]}
+                        onChange={(value: boolean) => {
+                          const newSelection = cloneDeep(this.state.selected);
+                          newSelection[cohort.key] = value;
+                          this.setState({ selected: newSelection });
+                        }}>
+                        {cohort.label}
+                      </CheckboxItem>
+                    ))}
+                  </CheckboxList>
                 </FieldWrapper>
 
                 {isUSCountry() && (

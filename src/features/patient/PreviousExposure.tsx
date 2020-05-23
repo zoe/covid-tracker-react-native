@@ -11,7 +11,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService from '../../core/user/UserService';
 import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
@@ -199,66 +199,64 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                 {props.values.unwellMonthBefore === 'yes' && (
                   <>
                     <FieldWrapper>
-                      <Item stackedLabel style={styles.textItemStyle}>
-                        <Label>{i18n.t('label-past-symptoms')}</Label>
-                        <CheckboxList>
-                          <CheckboxItem
-                            value={this.state.pastSymptomAnosmia}
-                            onChange={(value: boolean) => this.setState({ pastSymptomAnosmia: value })}>
-                            {i18n.t('label-past-symptom-anosmia')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomShortnessOfBreath}
-                            onChange={(value: boolean) => this.setState({ pastSymptomShortnessOfBreath: value })}>
-                            {i18n.t('label-past-symptom-breath')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomFatigue}
-                            onChange={(value: boolean) => this.setState({ pastSymptomFatigue: value })}>
-                            {i18n.t('label-past-symptom-fatigue')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomFever}
-                            onChange={(value: boolean) => this.setState({ pastSymptomFever: value })}>
-                            {i18n.t('label-past-symptom-fever')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomSkippedMeals}
-                            onChange={(value: boolean) => this.setState({ pastSymptomSkippedMeals: value })}>
-                            {i18n.t('label-past-symptom-skipped-meals')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomPersistentCough}
-                            onChange={(value: boolean) => this.setState({ pastSymptomPersistentCough: value })}>
-                            {i18n.t('label-past-symptom-cough')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomDiarrhoea}
-                            onChange={(value: boolean) => this.setState({ pastSymptomDiarrhoea: value })}>
-                            {i18n.t('label-past-symptom-diarrhoea')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomChestPain}
-                            onChange={(value: boolean) => this.setState({ pastSymptomChestPain: value })}>
-                            {i18n.t('label-past-symptom-chest-pain')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomHoarseVoice}
-                            onChange={(value: boolean) => this.setState({ pastSymptomHoarseVoice: value })}>
-                            {i18n.t('label-past-symptom-hoarse-voice')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomAbdominalPain}
-                            onChange={(value: boolean) => this.setState({ pastSymptomAbdominalPain: value })}>
-                            {i18n.t('label-past-symptom-abdominal-pain')}
-                          </CheckboxItem>
-                          <CheckboxItem
-                            value={this.state.pastSymptomDelirium}
-                            onChange={(value: boolean) => this.setState({ pastSymptomDelirium: value })}>
-                            {i18n.t('label-past-symptom-confusion')}
-                          </CheckboxItem>
-                        </CheckboxList>
-                      </Item>
+                      <LabelText>{i18n.t('label-past-symptoms')}</LabelText>
+                      <CheckboxList>
+                        <CheckboxItem
+                          value={this.state.pastSymptomAnosmia}
+                          onChange={(value: boolean) => this.setState({ pastSymptomAnosmia: value })}>
+                          {i18n.t('label-past-symptom-anosmia')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomShortnessOfBreath}
+                          onChange={(value: boolean) => this.setState({ pastSymptomShortnessOfBreath: value })}>
+                          {i18n.t('label-past-symptom-breath')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomFatigue}
+                          onChange={(value: boolean) => this.setState({ pastSymptomFatigue: value })}>
+                          {i18n.t('label-past-symptom-fatigue')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomFever}
+                          onChange={(value: boolean) => this.setState({ pastSymptomFever: value })}>
+                          {i18n.t('label-past-symptom-fever')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomSkippedMeals}
+                          onChange={(value: boolean) => this.setState({ pastSymptomSkippedMeals: value })}>
+                          {i18n.t('label-past-symptom-skipped-meals')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomPersistentCough}
+                          onChange={(value: boolean) => this.setState({ pastSymptomPersistentCough: value })}>
+                          {i18n.t('label-past-symptom-cough')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomDiarrhoea}
+                          onChange={(value: boolean) => this.setState({ pastSymptomDiarrhoea: value })}>
+                          {i18n.t('label-past-symptom-diarrhoea')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomChestPain}
+                          onChange={(value: boolean) => this.setState({ pastSymptomChestPain: value })}>
+                          {i18n.t('label-past-symptom-chest-pain')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomHoarseVoice}
+                          onChange={(value: boolean) => this.setState({ pastSymptomHoarseVoice: value })}>
+                          {i18n.t('label-past-symptom-hoarse-voice')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomAbdominalPain}
+                          onChange={(value: boolean) => this.setState({ pastSymptomAbdominalPain: value })}>
+                          {i18n.t('label-past-symptom-abdominal-pain')}
+                        </CheckboxItem>
+                        <CheckboxItem
+                          value={this.state.pastSymptomDelirium}
+                          onChange={(value: boolean) => this.setState({ pastSymptomDelirium: value })}>
+                          {i18n.t('label-past-symptom-confusion')}
+                        </CheckboxItem>
+                      </CheckboxList>
                     </FieldWrapper>
 
                     <GenericTextField

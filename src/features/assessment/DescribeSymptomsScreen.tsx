@@ -10,7 +10,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock, isAndroid } from '../../components/Screen';
-import { BrandedButton, Divider, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, Divider, ErrorText, HeaderText, LabelText } from '../../components/Text';
 import { ValidatedTextInput } from '../../components/ValidatedTextInput';
 import { ValidationErrors } from '../../components/ValidationError';
 import UserService from '../../core/user/UserService';
@@ -282,35 +282,33 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                 />
 
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('describe-symptoms.question-your-temperature')}</Label>
-                    <View style={styles.fieldRow}>
-                      <View style={styles.primaryField}>
-                        <ValidatedTextInput
-                          placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
-                          value={props.values.temperature}
-                          onChangeText={props.handleChange('temperature')}
-                          onBlur={props.handleBlur('temperature')}
-                          error={props.touched.temperature && props.errors.temperature}
-                          returnKeyType="next"
-                          onSubmitEditing={() => {
-                            /* this.passwordComponent.focus(); */
-                          }}
-                          keyboardType="numeric"
-                        />
-                      </View>
-
-                      <View style={styles.secondaryField}>
-                        <DropdownField
-                          selectedValue={props.values.temperatureUnit}
-                          onValueChange={props.handleChange('temperatureUnit')}
-                          error={props.touched.temperatureUnit && props.errors.temperatureUnit}
-                          items={temperatureItems}
-                          onlyPicker
-                        />
-                      </View>
+                  <LabelText>{i18n.t('describe-symptoms.question-your-temperature')}</LabelText>
+                  <View style={styles.fieldRow}>
+                    <View style={styles.primaryField}>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
+                        value={props.values.temperature}
+                        onChangeText={props.handleChange('temperature')}
+                        onBlur={props.handleBlur('temperature')}
+                        error={props.touched.temperature && props.errors.temperature}
+                        returnKeyType="next"
+                        onSubmitEditing={() => {
+                          /* this.passwordComponent.focus(); */
+                        }}
+                        keyboardType="numeric"
+                      />
                     </View>
-                  </Item>
+
+                    <View style={styles.secondaryField}>
+                      <DropdownField
+                        selectedValue={props.values.temperatureUnit}
+                        onValueChange={props.handleChange('temperatureUnit')}
+                        error={props.touched.temperatureUnit && props.errors.temperatureUnit}
+                        items={temperatureItems}
+                        onlyPicker
+                      />
+                    </View>
+                  </View>
                 </FieldWrapper>
 
                 <DropdownField

@@ -372,8 +372,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 />
 
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-height')}</Label>
+                    <LabelText>{i18n.t('your-height')}</LabelText>
                     {isUSCountry() ? (
                       <View style={styles.primaryFieldRow}>
                         <View style={styles.tertiaryField}>
@@ -467,7 +466,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                         </View>
                       </View>
                     )}
-                  </Item>
                   {props.errors.height && <ValidationError error={props.errors.height} />}
                   {props.errors.feet && <ValidationError error={props.errors.feet} />}
                   {props.errors.inches && <ValidationError error={props.errors.inches} />}
@@ -475,8 +473,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </FieldWrapper>
 
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-weight')}</Label>
+                    <LabelText>{i18n.t('your-weight')}</LabelText>
                     {isUSCountry() ? (
                       <ValidatedTextInput
                         placeholder={i18n.t('placeholder-pounds')}
@@ -552,7 +549,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                         </View>
                       </View>
                     )}
-                  </Item>
                   {props.errors.weight && <ValidationError error={props.errors.weight} />}
                   {props.errors.pounds && <ValidationError error={props.errors.pounds} />}
                   {props.errors.stones && <ValidationError error={props.errors.stones} />}
@@ -560,8 +556,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </FieldWrapper>
 
                 <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-postcode')}</Label>
+                    <LabelText>{i18n.t('your-postcode')}</LabelText>
                     <ValidatedTextInput
                       placeholder={i18n.t('placeholder-postcode')}
                       value={props.values.postcode}
@@ -574,7 +569,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                       }}
                       autoCompleteType="postal-code"
                     />
-                  </Item>
                   {!!props.errors.postcode && <ValidationError error={props.errors.postcode} />}
                 </FieldWrapper>
 

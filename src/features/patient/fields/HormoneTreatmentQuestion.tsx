@@ -7,6 +7,7 @@ import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
 import { FieldWrapper } from '../../../components/Screen';
 import { ValidationError } from '../../../components/ValidationError';
 import i18n from '../../../locale/i18n';
+import { LabelText } from '@covid/components/Text';
 
 export interface HormoneTreatmentData {
   hormoneTreatment: string[];
@@ -127,12 +128,10 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
     const formikProps = this.props.formikProps;
     return (
       <FieldWrapper>
-        <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('your-health.label-taking-hormone-treatment')}</Label>
-          <CheckboxList>
-            {createTreatmentCheckboxes(this.HormoneTreatmentCheckboxes, this.props.formikProps)}
-          </CheckboxList>
-        </Item>
+        <LabelText>{i18n.t('your-health.label-taking-hormone-treatment')}</LabelText>
+        <CheckboxList>
+          {createTreatmentCheckboxes(this.HormoneTreatmentCheckboxes, this.props.formikProps)}
+        </CheckboxList>
         {!!formikProps.errors.hormoneTreatment && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.hormoneTreatment as string} />
         )}

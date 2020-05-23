@@ -109,8 +109,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 
         {isUSCountry() && (
           <FieldWrapper>
-            <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{i18n.t('ethnicity-question')}</Label>
+              <LabelText>{i18n.t('ethnicity-question')}</LabelText>
               <CheckboxList>
                 <CheckboxItem
                   value={this.props.formikProps.values.ethnicity == 'hispanic'}
@@ -134,7 +133,6 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
                   {i18n.t('prefer-not-to-say')}
                 </CheckboxItem>
               </CheckboxList>
-            </Item>
           </FieldWrapper>
         )}
       </View>

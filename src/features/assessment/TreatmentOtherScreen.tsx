@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, HeaderText } from '../../components/Text';
+import { BrandedButton, HeaderText, LabelText } from '../../components/Text';
 import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
@@ -82,19 +82,17 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
           {(props) => {
             return (
               <Form>
-                <FieldWrapper style={{ marginVertical: 64 }}>
-                  <Item stackedLabel>
-                    <Label style={{ marginBottom: 16 }}>{question}</Label>
-                    <Textarea
-                      style={styles.textarea}
-                      rowSpan={5}
-                      bordered
-                      placeholder={i18n.t('placeholder-optional-question')}
-                      value={props.values.description}
-                      onChangeText={props.handleChange('description')}
-                      underline={false}
-                    />
-                  </Item>
+                <FieldWrapper style={{ marginVertical: 32 }}>
+                  <LabelText style={{ marginBottom: 16 }}>{question}</LabelText>
+                  <Textarea
+                    style={styles.textarea}
+                    rowSpan={5}
+                    bordered
+                    placeholder={i18n.t('placeholder-optional-question')}
+                    value={props.values.description}
+                    onChangeText={props.handleChange('description')}
+                    underline={false}
+                  />
                 </FieldWrapper>
 
                 <BrandedButton onPress={props.handleSubmit}>
@@ -112,5 +110,6 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 const styles = StyleSheet.create({
   textarea: {
     width: '100%',
+    borderRadius: 8,
   },
 });

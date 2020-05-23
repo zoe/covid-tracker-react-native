@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     width: 12,
   },
   topText: {
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
     marginVertical: 8,
   },
   pendingText: {
