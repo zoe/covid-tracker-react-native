@@ -49,6 +49,7 @@ const DropdownPicker = (props: DropdownPickerProps) => {
       selectedValue={selectedValue}
       onValueChange={onValueChange}
       iosIcon={<Icon name="arrow-down" />}
+      textStyle={{ color: colors.secondary }}
       itemTextStyle={{ textAlign: 'left' }}
       style={pickerStyle}
       {...pickerProps}>
@@ -68,14 +69,16 @@ const DropdownField = (props: DropdownFieldProps) => {
   ) : (
     <FieldWrapper style={styles.fieldWrapper}>
       <Label style={styles.labelStyle}>{label}</Label>
-      <View style={styles.dropdownWrapper}>
+      <View
+        style={[
+          styles.dropdownWrapper,
+          {
+            borderColor: error ? colors.feedbackBad : 'transparent',
+          },
+        ]}>
         <DropdownPicker {...more} />
       </View>
-      {!!error && (
-        <View style={{ marginTop: 10 }}>
-          <ValidationError error={error} />
-        </View>
-      )}
+      {!!error && <ValidationError error={error} />}
       {!!info && (
         <View style={styles.infoContainer}>
           <Info style={styles.infoIcon} />
@@ -89,8 +92,8 @@ const DropdownField = (props: DropdownFieldProps) => {
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginVertical: 32,
-    marginHorizontal: 16,
+    // marginVertical: 32,
+    marginLeft: 16,
   },
   labelStyle: {
     fontSize: 15,
@@ -99,11 +102,12 @@ const styles = StyleSheet.create({
   },
   picker: {
     width: screenWidth - 16,
-    marginTop: 12,
+    height: 48,
   },
   dropdownWrapper: {
-    borderBottomWidth: 1,
-    borderColor: colors.tertiary,
+    backgroundColor: colors.backgroundTertiary,
+    borderWidth: 1,
+    borderRadius: 8,
   },
   errorHighlight: {
     borderBottomWidth: 1,
