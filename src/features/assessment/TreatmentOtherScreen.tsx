@@ -13,6 +13,7 @@ import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import { colors } from '@theme';
 
 const initialFormValues = {
   description: '',
@@ -32,11 +33,22 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     super(props);
     Navigator.resetNavigation(props.navigation);
     this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
+    this.focus = this.focus.bind(this)
+    this.blur = this.blur.bind(this)
+    this.state = {isFocused: false}
   }
 
   registerSchema = Yup.object().shape({
     description: Yup.string(),
   });
+
+  focus() {
+    this.setState({isFocused:true})
+  }
+
+  blur() {
+    this.setState({isFocused:false})
+  }
 
   handleUpdateTreatment(formData: TreatmentData) {
     const { currentPatient, assessmentId, location } = this.props.route.params;
@@ -83,14 +95,16 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
             return (
               <Form>
                 <FieldWrapper style={{ marginVertical: 32 }}>
-                  <LabelText style={{ marginBottom: 16 }}>{question}</LabelText>
+                  <LabelText>{question}</LabelText>
                   <Textarea
                     style={styles.textarea}
                     rowSpan={5}
-                    bordered
+                    bordered={this.state.isFocused}
                     placeholder={i18n.t('placeholder-optional-question')}
                     value={props.values.description}
+                    onFocus={this.focus}
                     onChangeText={props.handleChange('description')}
+                    onBlur={this.blur}
                     underline={false}
                   />
                 </FieldWrapper>
@@ -109,7 +123,10 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
 
 const styles = StyleSheet.create({
   textarea: {
+    backgroundColor: colors.backgroundTertiary,
+    borderColor: colors.primary,
     width: '100%',
     borderRadius: 8,
+    marginTop: 8,
   },
 });
