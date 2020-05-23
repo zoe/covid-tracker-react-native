@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   errorText: {
     ...fontStyles.bodyReg,
     color: colors.feedbackBad,
+    fontSize: 12,
   },
 
   regularBoldText: {
