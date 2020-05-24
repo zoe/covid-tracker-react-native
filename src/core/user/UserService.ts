@@ -12,6 +12,7 @@ import { getInitialPatientState, PatientStateType, PatientProfile } from '../pat
 import { ApiClientBase } from './ApiClientBase';
 import {
   AreaStatsResponse,
+  AskValidationStudy,
   AssessmentInfosRequest,
   AssessmentResponse,
   Consent,
@@ -23,6 +24,7 @@ import {
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
 import { handleServiceError } from '../ApiServiceErrors';
+import { cleanIntegerVal } from '../utils/number';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -428,7 +430,7 @@ export default class UserService extends ApiClientBase
 
   async getUserCountry() {
     const country = await AsyncStorageService.getUserCountry();
-    if (country != null) {
+    if (!!country) {
       UserService.userCountry = country;
       UserService.setLocaleFromCountry(country);
     }
@@ -488,7 +490,7 @@ export default class UserService extends ApiClientBase
     try {
       const response = await AsyncStorageService.getAskedToReportForOthers();
       if (response) {
-        return parseInt(response, 10) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+        return cleanIntegerVal(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
       } else {
         await AsyncStorageService.setAskedToReportForOthers('0');
         return true;
@@ -501,7 +503,7 @@ export default class UserService extends ApiClientBase
   public async recordAskedToReportForOther() {
     const response = await AsyncStorageService.getAskedToReportForOthers();
     if (response) {
-      const value = parseInt(response, 10) + 1;
+      const value = cleanIntegerVal(response) + 1;
       await AsyncStorageService.setAskedToReportForOthers(value.toString());
     } else {
       await AsyncStorageService.setAskedToReportForOthers('0');
@@ -516,6 +518,21 @@ export default class UserService extends ApiClientBase
     };
 
     i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
+  }
+
+  async shouldAskForValidationStudy() {
+    const response = await this.client.get<AskValidationStudy>('/study_consent/status/');
+    return response.data.should_ask_uk_validation_study;
+  }
+
+  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
+    return this.client.post('/study_consent/', {
+      study: 'UK Validation Study',
+      version: 'v1',
+      status: response ? 'signed' : 'declined',
+      allow_future_data_use: anonymizedData,
+      allow_contact_by_zoe: reContacted,
+    });
   }
 }
 

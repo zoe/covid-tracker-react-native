@@ -16,8 +16,10 @@
         "baseUrl": ".",
         "paths": {
             "@assets": ["./assets"],
+            "@assets/*": ["./assets/*"],
             "@theme": ["./theme"],
-            "@covid": ["./src"]
+            "@theme/*": ["./theme/*"],
+            "@covid/*": ["./src/*"]
         }
     },
     "exclude": ["node_modules/"]
