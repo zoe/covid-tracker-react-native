@@ -72,7 +72,9 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
                 <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>
                   {i18n.t('welcome.sign-in')}
                 </ClickableText>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('CountrySelect', { patientId: null })}>
+                <TouchableOpacity
+                  testID="selectCountry"
+                  onPress={() => this.props.navigation.navigate('CountrySelect', { patientId: null })}>
                   <Image style={styles.flagIcon} source={this.flagIcon()} />
                 </TouchableOpacity>
               </View>
@@ -122,6 +124,7 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
         </View>
 
         <CountryIpModal
+          testID="countryIpModal"
           navigation={this.props.navigation}
           isModalVisible={this.state.ipModalVisible}
           closeModal={() => this.setState({ ipModalVisible: false })}
@@ -129,6 +132,7 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
 
         <View style={styles.buttonContainer}>
           <BrandedButton
+            testID="createAccount"
             onPress={async () => {
               if (await this.userService.shouldAskCountryConfirmation()) {
                 this.setState({ ipModalVisible: true });

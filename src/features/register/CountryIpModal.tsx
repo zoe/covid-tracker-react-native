@@ -1,3 +1,4 @@
+import { ITest } from '@covid/components/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Icon, Label, Picker } from 'native-base';
 import React, { Component } from 'react';
@@ -13,11 +14,11 @@ import UserService from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
-type PropsType = {
+interface PropsType extends ITest {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
   isModalVisible: boolean;
   closeModal: () => void;
-};
+}
 
 type StateType = {
   countrySelected: string;
