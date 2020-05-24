@@ -21,13 +21,6 @@
     "back": "Tillbaka"
   },
 
-  "splash-error": {
-    "title": "Fel",
-    "message": "Det uppstod ett fel vid hämtningen av startinformation",
-    "primary-action-title": "Försök igen",
-    "secondary-action-title": "Avbryt"
-  },
-
   "title-about-work": "Om ditt arbete",
   "are-you-healthcare-staff": "Arbetar du inom hälso- och sjukvården (sjukhus, primärvård, kommunal omsorg, privat vård eller omsorg)?",
   "yes-interacting-patients": "Ja, och jag träffar patienter",
@@ -259,6 +252,7 @@
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
+    "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
     "picker-other": "Annat sätt, ange vilket",
@@ -393,13 +387,9 @@
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
     "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
-    "more-info": "%{link} för mer information",
-    "more-info-link": "Besök vår webbplats",
     "visit-the-website": "Besök webbplatsen",
     "see-how-your-area-is-affected": "Se hur ditt län påverkas av covid-19 just nu. Ditt deltagande är viktigt. Besök webbplatsen ",
     "report-button": "Rapportera i dag, även om du är frisk",
-    "privacy-policy": "Integritetsmeddelande",
-    "privacy-policy-subtext": "(inkl. hur du tar bort dina uppgifter)",
     "how-you-can-help": {
       "title": "Så här kan du hjälpa till",
       "text1": "Lägg 1 minut om dagen på att rapportera hur du mår, även om du känner dig frisk. Se sedan hur smittspridningen ser ut i ditt område.",
@@ -523,7 +513,7 @@
   "negative": "Negativt",
   "failed": "Misslyckades",
   "pending": "Väntar",
-  "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
+  "please-add-test-below": "Om du har gjort ett covid-19-test någon gång, lägg till det nedan. Detta innefattar PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
   "never-had-test": "Jag har aldrig testats för covid-19",
   "above-list-correct": "Listan ovan är korrekt",
 
@@ -539,6 +529,11 @@
   },
 
   "__IGNORE__": {
+    "validation-study-intro.title": false,
+    "validation-study-intro.subtitle": false,
+    "validation-study-intro.info": false,
+    "validation-study-intro.yes": false,
+    "validation-study-intro.no": false,
     "optional-info.title": false,
     "optional-info.description": false,
     "optional-info.name-placeholder": false,
@@ -550,12 +545,7 @@
     "names.kings-college-london": false,
     "names.stanford-university-school-of-medicine": false,
     "names.zoe": false,
-    "before-we-start.title": false,
-    "before-we-start.yes": false,
-    "before-we-start.no": false,
     "label-cohort": false,
-    "are-you-a-member-of-twins": false,
-    "placeholder-twins": false,
     "donate.banner": false,
     "donate.url": false,
     "donate.primary-text": false,
