@@ -2,6 +2,7 @@ import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -22,7 +23,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   useEffect(() => {
     userService.getUserCount().then((response) => {
       if (response) {
-        const userCount = parseInt(response, 10);
+        const userCount = cleanIntegerVal(response);
         setUserCount(userCount);
       }
     });

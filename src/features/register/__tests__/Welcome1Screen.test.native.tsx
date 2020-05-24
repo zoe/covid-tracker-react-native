@@ -27,7 +27,7 @@ describe('Welcome1Screen', () => {
   });
 
   it('should update the user count on mount', async () => {
-    mockedGetUserCount.mockImplementationOnce(() => Promise.resolve(123));
+    mockedGetUserCount.mockImplementationOnce(() => Promise.resolve(' 123 '));
     const { getByTestId } = await render(<Welcome1Screen {...props} />);
     expect(getByTestId('counter').props.count).toBe(123);
   });
