@@ -1,5 +1,6 @@
 import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
 import * as UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import * as React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
 
@@ -21,15 +22,31 @@ beforeEach(() => {
 mockedGetUserCount.mockImplementation(() => Promise.resolve());
 
 describe('Welcome1Screen', () => {
-  it('should render', () => {
+  it('should render for US', () => {
+    i18n.locale = 'en-US';
+    const mockedIsUSCountry = jest.spyOn(UserService, 'isUSCountry');
+    mockedIsUSCountry.mockImplementation(() => true);
     const { toJSON } = render(<Welcome1Screen {...props} />);
     expect(toJSON()).toMatchSnapshot();
+    mockedIsUSCountry.mockReset();
   });
 
-  it('should update the user count on mount', async () => {
-    mockedGetUserCount.mockImplementationOnce(() => Promise.resolve(' 123 '));
-    const { getByTestId } = await render(<Welcome1Screen {...props} />);
-    expect(getByTestId('counter').props.count).toBe(123);
+  it('should render for UK', () => {
+    i18n.locale = 'en-UK';
+    const mockedIsGBCountry = jest.spyOn(UserService, 'isGBCountry');
+    mockedIsGBCountry.mockImplementation(() => true);
+    const { toJSON } = render(<Welcome1Screen {...props} />);
+    expect(toJSON()).toMatchSnapshot();
+    mockedIsGBCountry.mockReset();
+  });
+
+  it('should render for Sweden', () => {
+    i18n.locale = 'sv-SE';
+    const mockedIsSECountry = jest.spyOn(UserService, 'isSECountry');
+    mockedIsSECountry.mockImplementation(() => true);
+    const { toJSON } = render(<Welcome1Screen {...props} />);
+    expect(toJSON()).toMatchSnapshot();
+    mockedIsSECountry.mockReset();
   });
 
   it('should display UK flag and map', () => {
@@ -57,6 +74,12 @@ describe('Welcome1Screen', () => {
     expect(getByTestId('map').props.source).toBe(usMap);
     expect(getByTestId('flag').props.source).toBe(usFlag);
     mockedIsUSCountry.mockReset();
+  });
+
+  it('should update the user count on mount', async () => {
+    mockedGetUserCount.mockImplementationOnce(() => Promise.resolve(' 123 '));
+    const { getByTestId } = await render(<Welcome1Screen {...props} />);
+    expect(getByTestId('counter').props.count).toBe(123);
   });
 
   it('should go to page 2 on press', () => {
