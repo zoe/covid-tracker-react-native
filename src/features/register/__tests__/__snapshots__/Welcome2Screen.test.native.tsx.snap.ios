@@ -84,6 +84,7 @@ exports[`Welcome2Screen should render for Sweden 1`] = `
                     "width": 32,
                   }
                 }
+                testID="flag"
               />
             </View>
           </View>
@@ -964,6 +965,7 @@ exports[`Welcome2Screen should render for UK 1`] = `
                     "width": 32,
                   }
                 }
+                testID="flag"
               />
             </View>
           </View>
@@ -1846,6 +1848,7 @@ exports[`Welcome2Screen should render for US 1`] = `
                     "width": 32,
                   }
                 }
+                testID="flag"
               />
             </View>
           </View>
