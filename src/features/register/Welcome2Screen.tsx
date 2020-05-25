@@ -69,13 +69,16 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.covidContainer}>
               <View style={styles.headerRow}>
-                <ClickableText style={styles.login} onPress={() => this.props.navigation.navigate('Login')}>
+                <ClickableText
+                  testID="login"
+                  style={styles.login}
+                  onPress={() => this.props.navigation.navigate('Login')}>
                   {i18n.t('welcome.sign-in')}
                 </ClickableText>
                 <TouchableOpacity
                   testID="selectCountry"
                   onPress={() => this.props.navigation.navigate('CountrySelect', { patientId: null })}>
-                  <Image style={styles.flagIcon} source={this.flagIcon()} />
+                  <Image testID="flag" style={styles.flagIcon} source={this.flagIcon()} />
                 </TouchableOpacity>
               </View>
               <View>
@@ -90,7 +93,10 @@ export class Welcome2Screen extends Component<PropsType, WelcomeScreenState> {
                   <RegularText style={styles.subheader2}>
                     {'\n'}
                     {i18n.t('welcome.disclaimer')}{' '}
-                    <ClickableText style={[styles.subheader2, styles.nhsWebsite]} onPress={this.helpUrl}>
+                    <ClickableText
+                      testID="disclaimer"
+                      style={[styles.subheader2, styles.nhsWebsite]}
+                      onPress={this.helpUrl}>
                       {i18n.t('welcome.disclaimer-link')}
                     </ClickableText>
                     .
