@@ -1,5 +1,5 @@
-import * as React from 'react';
+import { memo } from 'react';
 
 import Screen from './Welcome1Screen';
 
-export const Welcome1Screen = React.memo(Screen);
+export const Welcome1Screen = memo(Screen);
