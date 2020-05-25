@@ -22,18 +22,18 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
   const { formikProps, name, label, placeholder, info, keyboardType, ...inputProps } = props;
   return (
     <FieldWrapper>
-        {!!label && <LabelText>{label}</LabelText>}
-        <ValidatedTextInput
-          placeholder={placeholder ?? ''}
-          value={formikProps.values[name]}
-          onChangeText={formikProps.handleChange(name)}
-          onBlur={formikProps.handleBlur(name)}
-          error={formikProps.touched[name] && formikProps.errors[name]}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
-          keyboardType={keyboardType}
-          {...inputProps}
-        />
+      {!!label && <LabelText>{label}</LabelText>}
+      <ValidatedTextInput
+        placeholder={placeholder ?? ''}
+        value={formikProps.values[name]}
+        onChangeText={formikProps.handleChange(name)}
+        onBlur={formikProps.handleBlur(name)}
+        error={formikProps.touched[name] && formikProps.errors[name]}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+        keyboardType={keyboardType}
+        {...inputProps}
+      />
       {!!info && (
         <View style={styles.infoContainer}>
           <Info style={styles.infoIcon} />

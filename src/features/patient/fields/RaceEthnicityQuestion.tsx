@@ -87,15 +87,15 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
       <View>
         {this.props.showRaceQuestion && (
           <FieldWrapper>
-              <LabelText>{i18n.t('race-question')}</LabelText>
-              <CheckboxList>{createRaceCheckboxes(UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+            <LabelText>{i18n.t('race-question')}</LabelText>
+            <CheckboxList>{createRaceCheckboxes(UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
           </FieldWrapper>
         )}
 
         {this.props.showEthnicityQuestion && (
           <FieldWrapper>
-              <LabelText>{i18n.t('race-question')}</LabelText>
-              <CheckboxList>{createRaceCheckboxes(USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+            <LabelText>{i18n.t('race-question')}</LabelText>
+            <CheckboxList>{createRaceCheckboxes(USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
           </FieldWrapper>
         )}
 
@@ -109,30 +109,30 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 
         {isUSCountry() && (
           <FieldWrapper>
-              <LabelText>{i18n.t('ethnicity-question')}</LabelText>
-              <CheckboxList>
-                <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity == 'hispanic'}
-                  onChange={(value: boolean) => {
-                    this.props.formikProps.setFieldValue('ethnicity', value ? 'hispanic' : '');
-                  }}>
-                  {i18n.t('hispanic')}
-                </CheckboxItem>
-                <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity == 'not_hispanic'}
-                  onChange={(value: boolean) => {
-                    this.props.formikProps.setFieldValue('ethnicity', value ? 'not_hispanic' : '');
-                  }}>
-                  {i18n.t('not-hispanic')}
-                </CheckboxItem>
-                <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity == 'prefer_not_to_say'}
-                  onChange={(value: boolean) => {
-                    this.props.formikProps.setFieldValue('ethnicity', value ? 'prefer_not_to_say' : '');
-                  }}>
-                  {i18n.t('prefer-not-to-say')}
-                </CheckboxItem>
-              </CheckboxList>
+            <LabelText>{i18n.t('ethnicity-question')}</LabelText>
+            <CheckboxList>
+              <CheckboxItem
+                value={this.props.formikProps.values.ethnicity == 'hispanic'}
+                onChange={(value: boolean) => {
+                  this.props.formikProps.setFieldValue('ethnicity', value ? 'hispanic' : '');
+                }}>
+                {i18n.t('hispanic')}
+              </CheckboxItem>
+              <CheckboxItem
+                value={this.props.formikProps.values.ethnicity == 'not_hispanic'}
+                onChange={(value: boolean) => {
+                  this.props.formikProps.setFieldValue('ethnicity', value ? 'not_hispanic' : '');
+                }}>
+                {i18n.t('not-hispanic')}
+              </CheckboxItem>
+              <CheckboxItem
+                value={this.props.formikProps.values.ethnicity == 'prefer_not_to_say'}
+                onChange={(value: boolean) => {
+                  this.props.formikProps.setFieldValue('ethnicity', value ? 'prefer_not_to_say' : '');
+                }}>
+                {i18n.t('prefer-not-to-say')}
+              </CheckboxItem>
+            </CheckboxList>
           </FieldWrapper>
         )}
       </View>

@@ -372,48 +372,64 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 />
 
                 <FieldWrapper>
-                    <LabelText>{i18n.t('your-height')}</LabelText>
-                    {isUSCountry() ? (
-                      <View style={styles.primaryFieldRow}>
-                        <View style={styles.tertiaryField}>
-                          <ValidatedTextInput
-                            placeholder={i18n.t('placeholder-feet')}
-                            value={props.values.feet}
-                            onChangeText={props.handleChange('feet')}
-                            onBlur={props.handleBlur('feet')}
-                            error={props.touched.feet && props.errors.feet}
-                            returnKeyType="next"
-                            onSubmitEditing={() => {
-                              /* this.passwordComponent.focus(); */
-                            }}
-                            keyboardType="numeric"
-                          />
-                        </View>
-                        <View style={styles.tertiaryField}>
-                          <ValidatedTextInput
-                            placeholder={i18n.t('placeholder-inches')}
-                            value={props.values.inches}
-                            onChangeText={props.handleChange('inches')}
-                            onBlur={props.handleBlur('inches')}
-                            error={props.touched.inches && props.errors.inches}
-                            returnKeyType="next"
-                            onSubmitEditing={() => {
-                              /* this.passwordComponent.focus(); */
-                            }}
-                            keyboardType="numeric"
-                          />
-                        </View>
+                  <LabelText>{i18n.t('your-height')}</LabelText>
+                  {isUSCountry() ? (
+                    <View style={styles.primaryFieldRow}>
+                      <View style={styles.tertiaryField}>
+                        <ValidatedTextInput
+                          placeholder={i18n.t('placeholder-feet')}
+                          value={props.values.feet}
+                          onChangeText={props.handleChange('feet')}
+                          onBlur={props.handleBlur('feet')}
+                          error={props.touched.feet && props.errors.feet}
+                          returnKeyType="next"
+                          onSubmitEditing={() => {
+                            /* this.passwordComponent.focus(); */
+                          }}
+                          keyboardType="numeric"
+                        />
                       </View>
-                    ) : (
-                      <View style={styles.fieldRow}>
-                        {props.values.heightUnit === 'cm' ? (
-                          <View style={styles.primaryField}>
+                      <View style={styles.tertiaryField}>
+                        <ValidatedTextInput
+                          placeholder={i18n.t('placeholder-inches')}
+                          value={props.values.inches}
+                          onChangeText={props.handleChange('inches')}
+                          onBlur={props.handleBlur('inches')}
+                          error={props.touched.inches && props.errors.inches}
+                          returnKeyType="next"
+                          onSubmitEditing={() => {
+                            /* this.passwordComponent.focus(); */
+                          }}
+                          keyboardType="numeric"
+                        />
+                      </View>
+                    </View>
+                  ) : (
+                    <View style={styles.fieldRow}>
+                      {props.values.heightUnit === 'cm' ? (
+                        <View style={styles.primaryField}>
+                          <ValidatedTextInput
+                            placeholder={i18n.t('placeholder-height')}
+                            value={props.values.height}
+                            onChangeText={props.handleChange('height')}
+                            onBlur={props.handleBlur('height')}
+                            error={props.touched.height && props.errors.height}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                              /* this.passwordComponent.focus(); */
+                            }}
+                            keyboardType="numeric"
+                          />
+                        </View>
+                      ) : (
+                        <View style={styles.primaryFieldRow}>
+                          <View style={styles.tertiaryField}>
                             <ValidatedTextInput
-                              placeholder={i18n.t('placeholder-height')}
-                              value={props.values.height}
-                              onChangeText={props.handleChange('height')}
-                              onBlur={props.handleBlur('height')}
-                              error={props.touched.height && props.errors.height}
+                              placeholder={i18n.t('placeholder-feet')}
+                              value={props.values.feet}
+                              onChangeText={props.handleChange('feet')}
+                              onBlur={props.handleBlur('feet')}
+                              error={props.touched.feet && props.errors.feet}
                               returnKeyType="next"
                               onSubmitEditing={() => {
                                 /* this.passwordComponent.focus(); */
@@ -421,51 +437,35 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                               keyboardType="numeric"
                             />
                           </View>
-                        ) : (
-                          <View style={styles.primaryFieldRow}>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-feet')}
-                                value={props.values.feet}
-                                onChangeText={props.handleChange('feet')}
-                                onBlur={props.handleBlur('feet')}
-                                error={props.touched.feet && props.errors.feet}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-inches')}
-                                value={props.values.inches}
-                                onChangeText={props.handleChange('inches')}
-                                onBlur={props.handleBlur('inches')}
-                                error={props.touched.inches && props.errors.inches}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
+                          <View style={styles.tertiaryField}>
+                            <ValidatedTextInput
+                              placeholder={i18n.t('placeholder-inches')}
+                              value={props.values.inches}
+                              onChangeText={props.handleChange('inches')}
+                              onBlur={props.handleBlur('inches')}
+                              error={props.touched.inches && props.errors.inches}
+                              returnKeyType="next"
+                              onSubmitEditing={() => {
+                                /* this.passwordComponent.focus(); */
+                              }}
+                              keyboardType="numeric"
+                            />
                           </View>
-                        )}
-                        <View style={styles.secondaryField}>
-                          <DropdownField
-                            onlyPicker
-                            selectedValue={props.values.heightUnit}
-                            onValueChange={props.handleChange('heightUnit')}
-                            items={[
-                              { label: 'ft', value: 'ft' },
-                              { label: 'cm', value: 'cm' },
-                            ]}
-                          />
                         </View>
+                      )}
+                      <View style={styles.secondaryField}>
+                        <DropdownField
+                          onlyPicker
+                          selectedValue={props.values.heightUnit}
+                          onValueChange={props.handleChange('heightUnit')}
+                          items={[
+                            { label: 'ft', value: 'ft' },
+                            { label: 'cm', value: 'cm' },
+                          ]}
+                        />
                       </View>
-                    )}
+                    </View>
+                  )}
                   {props.errors.height && <ValidationError error={props.errors.height} />}
                   {props.errors.feet && <ValidationError error={props.errors.feet} />}
                   {props.errors.inches && <ValidationError error={props.errors.inches} />}
@@ -473,30 +473,46 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </FieldWrapper>
 
                 <FieldWrapper>
-                    <LabelText>{i18n.t('your-weight')}</LabelText>
-                    {isUSCountry() ? (
-                      <ValidatedTextInput
-                        placeholder={i18n.t('placeholder-pounds')}
-                        value={props.values.pounds}
-                        onChangeText={props.handleChange('pounds')}
-                        onBlur={props.handleBlur('pounds')}
-                        error={props.touched.pounds && props.errors.pounds}
-                        returnKeyType="next"
-                        onSubmitEditing={() => {
-                          /* this.passwordComponent.focus(); */
-                        }}
-                        keyboardType="numeric"
-                      />
-                    ) : (
-                      <View style={styles.fieldRow}>
-                        {props.values.weightUnit === 'kg' ? (
-                          <View style={styles.primaryField}>
+                  <LabelText>{i18n.t('your-weight')}</LabelText>
+                  {isUSCountry() ? (
+                    <ValidatedTextInput
+                      placeholder={i18n.t('placeholder-pounds')}
+                      value={props.values.pounds}
+                      onChangeText={props.handleChange('pounds')}
+                      onBlur={props.handleBlur('pounds')}
+                      error={props.touched.pounds && props.errors.pounds}
+                      returnKeyType="next"
+                      onSubmitEditing={() => {
+                        /* this.passwordComponent.focus(); */
+                      }}
+                      keyboardType="numeric"
+                    />
+                  ) : (
+                    <View style={styles.fieldRow}>
+                      {props.values.weightUnit === 'kg' ? (
+                        <View style={styles.primaryField}>
+                          <ValidatedTextInput
+                            placeholder={i18n.t('placeholder-weight')}
+                            value={props.values.weight}
+                            onChangeText={props.handleChange('weight')}
+                            onBlur={props.handleBlur('weight')}
+                            error={props.touched.weight && props.errors.weight}
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                              /* this.passwordComponent.focus(); */
+                            }}
+                            keyboardType="numeric"
+                          />
+                        </View>
+                      ) : (
+                        <View style={styles.primaryFieldRow}>
+                          <View style={styles.tertiaryField}>
                             <ValidatedTextInput
-                              placeholder={i18n.t('placeholder-weight')}
-                              value={props.values.weight}
-                              onChangeText={props.handleChange('weight')}
-                              onBlur={props.handleBlur('weight')}
-                              error={props.touched.weight && props.errors.weight}
+                              placeholder={i18n.t('placeholder-stones')}
+                              value={props.values.stones}
+                              onChangeText={props.handleChange('stones')}
+                              onBlur={props.handleBlur('stones')}
+                              error={props.touched.stones && props.errors.stones}
                               returnKeyType="next"
                               onSubmitEditing={() => {
                                 /* this.passwordComponent.focus(); */
@@ -504,51 +520,35 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                               keyboardType="numeric"
                             />
                           </View>
-                        ) : (
-                          <View style={styles.primaryFieldRow}>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-stones')}
-                                value={props.values.stones}
-                                onChangeText={props.handleChange('stones')}
-                                onBlur={props.handleBlur('stones')}
-                                error={props.touched.stones && props.errors.stones}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-pounds')}
-                                value={props.values.pounds}
-                                onChangeText={props.handleChange('pounds')}
-                                onBlur={props.handleBlur('pounds')}
-                                error={props.touched.pounds && props.errors.pounds}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
+                          <View style={styles.tertiaryField}>
+                            <ValidatedTextInput
+                              placeholder={i18n.t('placeholder-pounds')}
+                              value={props.values.pounds}
+                              onChangeText={props.handleChange('pounds')}
+                              onBlur={props.handleBlur('pounds')}
+                              error={props.touched.pounds && props.errors.pounds}
+                              returnKeyType="next"
+                              onSubmitEditing={() => {
+                                /* this.passwordComponent.focus(); */
+                              }}
+                              keyboardType="numeric"
+                            />
                           </View>
-                        )}
-                        <View style={styles.secondaryField}>
-                          <DropdownField
-                            onlyPicker
-                            selectedValue={props.values.weightUnit}
-                            onValueChange={props.handleChange('weightUnit')}
-                            items={[
-                              { label: 'lbs', value: 'lbs' },
-                              { label: 'kg', value: 'kg' },
-                            ]}
-                          />
                         </View>
+                      )}
+                      <View style={styles.secondaryField}>
+                        <DropdownField
+                          onlyPicker
+                          selectedValue={props.values.weightUnit}
+                          onValueChange={props.handleChange('weightUnit')}
+                          items={[
+                            { label: 'lbs', value: 'lbs' },
+                            { label: 'kg', value: 'kg' },
+                          ]}
+                        />
                       </View>
-                    )}
+                    </View>
+                  )}
                   {props.errors.weight && <ValidationError error={props.errors.weight} />}
                   {props.errors.pounds && <ValidationError error={props.errors.pounds} />}
                   {props.errors.stones && <ValidationError error={props.errors.stones} />}
@@ -556,19 +556,19 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                 </FieldWrapper>
 
                 <FieldWrapper>
-                    <LabelText>{i18n.t('your-postcode')}</LabelText>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-postcode')}
-                      value={props.values.postcode}
-                      onChangeText={props.handleChange('postcode')}
-                      onBlur={props.handleBlur('postcode')}
-                      error={props.touched.postcode && props.errors.postcode}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
-                      autoCompleteType="postal-code"
-                    />
+                  <LabelText>{i18n.t('your-postcode')}</LabelText>
+                  <ValidatedTextInput
+                    placeholder={i18n.t('placeholder-postcode')}
+                    value={props.values.postcode}
+                    onChangeText={props.handleChange('postcode')}
+                    onBlur={props.handleBlur('postcode')}
+                    error={props.touched.postcode && props.errors.postcode}
+                    returnKeyType="next"
+                    onSubmitEditing={() => {
+                      /* this.passwordComponent.focus(); */
+                    }}
+                    autoCompleteType="postal-code"
+                  />
                   {!!props.errors.postcode && <ValidationError error={props.errors.postcode} />}
                 </FieldWrapper>
 

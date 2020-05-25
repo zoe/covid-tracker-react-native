@@ -21,16 +21,16 @@ export class PeriodStoppedAge extends Component<Props, object> {
     const formikProps = this.props.formikProps;
     return (
       <FieldWrapper>
-          <LabelText>{i18n.t('your-health.period-stopped-age')}</LabelText>
-          <ValidatedTextInput
-            placeholder={i18n.t('placeholder-optional')}
-            value={formikProps.values.periodStoppedAge}
-            onChangeText={formikProps.handleChange('periodStoppedAge')}
-            onBlur={formikProps.handleBlur('periodStoppedAge')}
-            error={formikProps.touched.periodStoppedAge && formikProps.errors.periodStoppedAge}
-            returnKeyType="next"
-            keyboardType="numeric"
-          />
+        <LabelText>{i18n.t('your-health.period-stopped-age')}</LabelText>
+        <ValidatedTextInput
+          placeholder={i18n.t('placeholder-optional')}
+          value={formikProps.values.periodStoppedAge}
+          onChangeText={formikProps.handleChange('periodStoppedAge')}
+          onBlur={formikProps.handleBlur('periodStoppedAge')}
+          error={formikProps.touched.periodStoppedAge && formikProps.errors.periodStoppedAge}
+          returnKeyType="next"
+          keyboardType="numeric"
+        />
         {!!formikProps.errors.periodStoppedAge && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.periodStoppedAge} />
         )}

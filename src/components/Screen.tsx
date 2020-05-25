@@ -1,6 +1,15 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import {
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '../../theme';
