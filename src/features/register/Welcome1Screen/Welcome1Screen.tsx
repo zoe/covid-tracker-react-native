@@ -27,7 +27,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
         setUserCount(userCount);
       }
     });
-  }, []);
+  }, [userService.getUserCount, cleanIntegerVal, setUserCount]);
 
   const getMapImage = useCallback(() => {
     if (isGBCountry()) {
@@ -37,7 +37,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       return svMap;
     }
     return usMap;
-  }, [isGBCountry, isSECountry]);
+  }, [isGBCountry, isSECountry, gbMap, svMap, usMap]);
 
   const getFlagIcon = useCallback(() => {
     if (isGBCountry()) {
@@ -47,7 +47,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       return svFlag;
     }
     return usFlag;
-  }, [isGBCountry, isSECountry]);
+  }, [isGBCountry, isSECountry, gbFlag, svFlag, usFlag]);
 
   const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect', { patientId: null }), [
     navigation.navigate,
