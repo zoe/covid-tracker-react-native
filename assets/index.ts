@@ -17,12 +17,15 @@ export const gbFlag = require('./icons/gb-flag.png');
 export const menuIcon = require('./icons/menu.png');
 export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
+
+// Partner logos
 export const gbPartners = require('./logos/gb_partners.png');
 export const gbPartnersReturn = require('./logos/gb_partners_return.png');
 export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
+export const zoe = require('./logos/zoe.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');
