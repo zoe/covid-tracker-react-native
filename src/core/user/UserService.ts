@@ -9,7 +9,7 @@ import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { getDaysAgo } from '../../utils/datetime';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
-import { ApiClientBase } from './ApiClientBase';
+import { ApiClientBase } from '../api/ApiClientBase';
 import {
   AreaStatsResponse,
   AskValidationStudy,
@@ -23,7 +23,7 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
-import { handleServiceError } from '../ApiServiceErrors';
+import { handleServiceError } from '../api/ApiServiceErrors';
 import { cleanIntegerVal } from '../utils/number';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.

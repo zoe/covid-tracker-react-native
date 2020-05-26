@@ -14,7 +14,7 @@ import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 import { userService, offlineService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
-import { initialErrorState, ApiErrorState, OfflineException } from '../../core/ApiServiceErrors';
+import { initialErrorState, ApiErrorState } from '../../core/api/ApiServiceErrors';
 import { CheckboxItem } from '../../components/Checkbox';
 
 type RenderProps = {
