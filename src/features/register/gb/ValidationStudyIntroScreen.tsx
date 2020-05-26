@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   appName: {
     marginVertical: 16,
-    color: colors.brand
+    color: colors.brand,
   },
   contentContainer: {
     marginHorizontal: 16,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    margin: 24
+    margin: 24,
   },
   header: {
     textAlign: 'center',
@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
   mainButton: {
     marginTop: 32,
     marginHorizontal: 16,
-    backgroundColor: colors.purple
+    backgroundColor: colors.purple,
   },
   buttonText: {
-    color: colors.white
-  }
+    color: colors.white,
+  },
 });
