@@ -27,10 +27,11 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, marginHorizontal: 16 }}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={styles.logoContainer}>
             <Image source={icon} style={styles.covidIcon} resizeMode="contain" />
+            <RegularText style={styles.appName}>{i18n.t('validation-study-intro.app-name')}</RegularText>
           </View>
 
           <Header>
@@ -47,7 +48,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
               this.userService.setValidationStudyResponse(false);
               Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
             }}>
-            <Text>{i18n.t('validation-study-intro.no')}</Text>
+            <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
           </TouchableOpacity>
 
           <BrandedButton
@@ -58,7 +59,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
                 currentPatient: this.props.route.params.currentPatient,
               });
             }}>
-            <Text>{i18n.t('validation-study-intro.yes')}</Text>
+            <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
           </BrandedButton>
         </View>
       </SafeAreaView>
@@ -68,9 +69,13 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
 
 const styles = StyleSheet.create({
   covidIcon: {
-    height: 48,
-    width: 48,
-    borderRadius: 8,
+    height: 64,
+    width: 64,
+    borderRadius: 12,
+  },
+  appName: {
+    marginVertical: 16,
+    color: colors.brand,
   },
   contentContainer: {
     marginHorizontal: 16,
@@ -82,7 +87,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoContainer: {
-    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 24,
   },
   header: {
     textAlign: 'center',
@@ -100,5 +106,9 @@ const styles = StyleSheet.create({
   mainButton: {
     marginTop: 32,
     marginHorizontal: 16,
+    backgroundColor: colors.purple,
+  },
+  buttonText: {
+    color: colors.white,
   },
 });

@@ -248,6 +248,7 @@
     "add-test": "Lägg till test",
     "update-test": "Uppdatera test",
     "question-select-a-date-range": "Välj ett datumintervall",
+    "question-select-a-date": "Välj ett datum",
 
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
@@ -529,11 +530,6 @@
   },
 
   "__IGNORE__": {
-    "validation-study-intro.title": false,
-    "validation-study-intro.subtitle": false,
-    "validation-study-intro.info": false,
-    "validation-study-intro.yes": false,
-    "validation-study-intro.no": false,
     "optional-info.title": false,
     "optional-info.description": false,
     "optional-info.name-placeholder": false,
