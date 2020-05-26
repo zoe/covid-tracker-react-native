@@ -9,6 +9,7 @@
     "subtitle": "King's College London is launching a new study on diagnosing COVID with this app. If you report feeling unwell we may ask you to be tested.",
     "info": "All you have to do is to keep reporting regularly on this app and we pass the data to them",
     "yes": "I am interested",
-    "no": "No, thank you"
+    "no": "No, thank you",
+    "app-name": "COVID Symptom Study"
   }
 }
