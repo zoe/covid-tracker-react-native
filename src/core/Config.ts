@@ -5,6 +5,7 @@ import DefaultConfig from './config/default.json';
 
 export type ConfigType = {
   country: string;
+  showPartnerLogos: boolean;
   enableMultiplePatients: boolean;
   enablePersonalInformation: boolean;
   enableCohorts: boolean;
