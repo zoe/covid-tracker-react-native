@@ -9,6 +9,7 @@ import { BrandedButton, RegularText } from '../../components/Text';
 import UserService, { isGBCountry, isSECountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import { cleanIntegerVal } from '../../core/utils/number';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
@@ -45,7 +46,7 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
   useEffect(() => {
     userService.getUserCount().then((response) => {
       if (response) {
-        const userCount = parseInt(response, 10);
+        const userCount = cleanIntegerVal(response);
         setState({ userCount });
       }
     });

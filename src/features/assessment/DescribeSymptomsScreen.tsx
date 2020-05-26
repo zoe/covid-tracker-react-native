@@ -18,6 +18,7 @@ import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';
+import { cleanFloatVal } from '../../core/utils/number';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -188,7 +189,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       // Temperature is optional.
       infos = {
         ...infos,
-        temperature: parseFloat(formData.temperature),
+        temperature: cleanFloatVal(formData.temperature),
         temperature_unit: formData.temperatureUnit,
       };
     }

@@ -1,15 +1,13 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import { Linking } from 'expo';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import { covidIcon, menuIcon, gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '../../../assets';
+import { covidIcon, menuIcon } from '../../../assets';
 import { colors } from '../../../theme';
 import { ContributionCounter } from '../../components/ContributionCounter';
 import { BrandedButton, RegularText } from '../../components/Text';
 import AnalyticsService from '../../core/Analytics';
-import { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
+import { isSECountry, isUSCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
@@ -17,6 +15,9 @@ import { CalloutBox } from '../../components/CalloutBox';
 import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
 import { offlineService, pushNotificationService, userService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
+import { cleanIntegerVal } from '../../core/utils/number';
+import { Partnership } from '../../components/Partnership';
+import { PoweredByZoe } from '../../components/PoweredByZoe';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -26,12 +27,14 @@ type PropsType = {
 
 type WelcomeRepeatScreenState = {
   userCount: number | null;
+  showPartnerLogos: boolean;
   onRetry?: () => void;
 } & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
   userCount: null,
+  showPartnerLogos: true,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -40,7 +43,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
     const userCount = await userService.getUserCount();
-    this.setState({ userCount: parseInt(userCount as string, 10) });
+    this.setState({ userCount: cleanIntegerVal(userCount as string) });
+    const feature = userService.getConfig();
+    this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
   }
@@ -86,16 +91,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
-  partnersLogos = () => {
-    if (isGBCountry()) {
-      return gbPartnersReturn;
-    } else if (isSECountry()) {
-      return svPartnersReturn;
-    } else {
-      return usPartnersReturn;
-    }
-  };
-
   render() {
     const calloutContent = {
       title: i18n.t('welcome.research'),
@@ -137,7 +132,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            <Image style={styles.partnersLogo} source={this.partnersLogos()} />
+            {this.state.showPartnerLogos ? <Partnership /> : <PoweredByZoe />}
 
             <View style={{ flex: 1 }} />
 
@@ -192,11 +187,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 
-  partnersLogo: {
-    width: '95%',
-    height: 100,
-    resizeMode: 'contain',
-  },
   menuIcon: {
     height: 20,
     width: 20,

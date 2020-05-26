@@ -21,13 +21,6 @@
     "back": "Tillbaka"
   },
 
-  "splash-error": {
-    "title": "Fel",
-    "message": "Det uppstod ett fel vid hämtningen av startinformation",
-    "primary-action-title": "Försök igen",
-    "secondary-action-title": "Avbryt"
-  },
-
   "title-about-work": "Om ditt arbete",
   "are-you-healthcare-staff": "Arbetar du inom hälso- och sjukvården (sjukhus, primärvård, kommunal omsorg, privat vård eller omsorg)?",
   "yes-interacting-patients": "Ja, och jag träffar patienter",
@@ -148,7 +141,7 @@
     "required-weeks-pregnant": "Ändra graviditetsvecka",
     "correct-period-stopped-age": "Ange din ålder när mensen upphörde",
     "required-period-stopped-age": "Ändra din ålder när mensen upphörde",
-    "label-taking-hormone-treatment" : "Tar du hormonella preventivmedel eller annan könshormonbehandling?",
+    "label-taking-hormone-treatment": "Tar du hormonella preventivmedel eller annan könshormonbehandling?",
     "checkbox-hormone-treatment-none": "Nej",
     "checkbox-oral-contraceptive-pill": "Kombinerade p-piller (östrogen och gestagen)",
     "checkbox-progesterone-only-pill": "P-piller med enbart gestagen",
@@ -255,10 +248,12 @@
     "add-test": "Lägg till test",
     "update-test": "Uppdatera test",
     "question-select-a-date-range": "Välj ett datumintervall",
+    "question-select-a-date": "Välj ett datum",
 
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
+    "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
     "picker-other": "Annat sätt, ange vilket",
@@ -314,7 +309,6 @@
       "question-has-chest-pain": "Känner du ovanlig smärta eller stramhet i bröstet?",
       "question-has-abdominal-pain": "Har du ont i magen/buken på ett sätt som du inte brukar ha?",
       "question-has-diarrhoea": "Har du diarré?",
-      "placeholder-has-diarrhoea": "Har du diarré?",
       "question-diarrhoea-frequency": "Hur många lösa avföringar har du haft under det senaste dygnet?",
       "required-diarrhoea-frequency": "Ange hur många lösa avföringar du har haft det senaste dygnet",
       "question-has-delirium": "Har du något av följande symtom: förvirring, desorientering eller dåsighet?",
@@ -394,13 +388,9 @@
     "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
     "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
-    "more-info": "%{link} för mer information",
-    "more-info-link": "Besök vår webbplats",
     "visit-the-website": "Besök webbplatsen",
     "see-how-your-area-is-affected": "Se hur ditt län påverkas av covid-19 just nu. Ditt deltagande är viktigt. Besök webbplatsen ",
     "report-button": "Rapportera i dag, även om du är frisk",
-    "privacy-policy": "Integritetsmeddelande",
-    "privacy-policy-subtext": "(inkl. hur du tar bort dina uppgifter)",
     "how-you-can-help": {
       "title": "Så här kan du hjälpa till",
       "text1": "Lägg 1 minut om dagen på att rapportera hur du mår, även om du känner dig frisk. Se sedan hur smittspridningen ser ut i ditt område.",
@@ -524,11 +514,11 @@
   "negative": "Negativt",
   "failed": "Misslyckades",
   "pending": "Väntar",
-  "please-add-test-below": "Om du har testats för covid-19, lägg till testet nedan. Du kan redigera dessa tester när som helst i framtiden.",
-  "never-had-test" : "Jag har aldrig testats för covid-19",
+  "please-add-test-below": "Om du har gjort ett covid-19-test någon gång, lägg till det nedan. Detta innefattar PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
+  "never-had-test": "Jag har aldrig testats för covid-19",
   "above-list-correct": "Listan ovan är korrekt",
 
-  "errors" : {
+  "errors": {
     "button-retry": "Försök igen",
     "button-okay": "Ok",
     "status-loading": "Hämtar...",
@@ -537,5 +527,45 @@
     "resource-not-found": "Servern kunde inte hitta dina uppgifter",
     "server-is-busy": "Servern är upptagen. Vänta och försök sedan igen",
     "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen."
+  },
+
+  "__IGNORE__": {
+    "optional-info.title": false,
+    "optional-info.description": false,
+    "optional-info.name-placeholder": false,
+    "optional-info.phone-placeholder": false,
+    "optional-info.button": false,
+    "name.zoe": false,
+    "names.harvard-th-chan-school-of-public-health": false,
+    "names.mass-general-hospital": false,
+    "names.kings-college-london": false,
+    "names.stanford-university-school-of-medicine": false,
+    "names.zoe": false,
+    "label-cohort": false,
+    "donate.banner": false,
+    "donate.url": false,
+    "donate.primary-text": false,
+    "donate.secondary-text": false,
+    "donate.button-text": false,
+    "race-question": false,
+    "race-other-question": false,
+    "ethnicity-question": false,
+    "please-select-race": false,
+    "uk-asian": false,
+    "uk-black": false,
+    "uk-mixed-white-black": false,
+    "uk-mixed-other": false,
+    "uk-white": false,
+    "uk-chinese": false,
+    "uk-middle-eastern": false,
+    "uk-other": false,
+    "us-indian_native": false,
+    "us-asian": false,
+    "us-black": false,
+    "us-hawaiian_pacific": false,
+    "us-white": false,
+    "us-other": false,
+    "hispanic": false,
+    "not-hispanic": false
   }
 }
