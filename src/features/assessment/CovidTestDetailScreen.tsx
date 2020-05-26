@@ -255,12 +255,12 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           {...(!!this.state.dateTakenSpecific && { selectedStartDate: this.state.dateTakenSpecific })}
                         />
                       ) : (
-                        <ClickableText
-                          onPress={() => this.setState({ showDatePicker: true })}
-                          style={styles.placeholderText}>
-                          {!!this.state.dateTakenSpecific
-                            ? moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')
-                            : i18n.t('covid-test.required-date')}
+                        <ClickableText onPress={() => this.setState({ showDatePicker: true })} style={styles.fieldText}>
+                          {!!this.state.dateTakenSpecific ? (
+                            moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')
+                          ) : (
+                            <RegularText>{i18n.t('covid-test.required-date')}</RegularText>
+                          )}
                         </ClickableText>
                       )}
                     </Item>
@@ -283,7 +283,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           maxDate={this.state.today}
                         />
                       ) : (
-                        <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
+                        <ClickableText
+                          onPress={() => this.setState({ showRangePicker: true })}
+                          style={styles.fieldText}>
                           {this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd ? (
                             <>
                               {'Between '}
@@ -347,8 +349,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 
-  placeholderText: {
+  fieldText: {
     ...fontStyles.bodyReg,
+    color: colors.black,
     alignSelf: 'flex-start',
     paddingLeft: 20,
     paddingBottom: 10,
