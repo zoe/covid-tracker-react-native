@@ -160,7 +160,10 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
             {'\n'}
           </RegularText>
 
-          <RegularBoldText>{i18n.t('consent-nurses-us.header-12')}{'\n'}</RegularBoldText>
+          <RegularBoldText>
+            {i18n.t('consent-nurses-us.header-12')}
+            {'\n'}
+          </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-12')}{' '}
             <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions-us@joinzoe.com')}>
