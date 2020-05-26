@@ -12,7 +12,7 @@ import DropdownField from '../../components/DropdownField';
 import { GenericTextField } from '../../components/GenericTextField';
 import ProgressStatus from '../../components/ProgressStatus';
 import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock, screenWidth } from '../../components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText } from '../../components/Text';
+import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText, CaptionText } from '../../components/Text';
 import { ValidationErrors } from '../../components/ValidationError';
 import CovidTestService from '../../core/user/CovidTestService';
 import { CovidTest } from '../../core/user/dto/CovidTestContracts';
@@ -20,6 +20,7 @@ import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { IOption } from '../patient/YourWorkScreen/helpers';
+import { colors, fontStyles } from '../../../theme';
 
 interface CovidTestData {
   knowsDateOfTest: string; // only for ux logic
@@ -184,8 +185,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     });
 
     const mechanismItems = [
-      { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
-      { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
+      { label: i18n.t('covid-test.picker-nose-throat-swab'), value: 'nose_throat_swab' },
+      ...(test?.mechanism === 'nose_swab'
+        ? [{ label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' }]
+        : []),
+      ...(test?.mechanism === 'throat_swab'
+        ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' }]
+        : []),
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
       { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
       { label: i18n.t('covid-test.picker-other'), value: 'other' },
@@ -226,7 +232,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                       this.setState({
                         dateTakenBetweenStart: undefined,
                         dateTakenBetweenEnd: undefined,
-                        dateTakenSpecific: now,
+                        dateTakenSpecific: undefined,
                       });
                     } else {
                       this.setState({
@@ -245,12 +251,16 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                       {this.state.showDatePicker ? (
                         <CalendarPicker
                           onDateChange={this.setTestDate}
-                          initialDate={this.state.dateTakenSpecific}
-                          selectedStartDate={this.state.dateTakenSpecific}
+                          maxDate={this.state.today}
+                          {...(!!this.state.dateTakenSpecific && { selectedStartDate: this.state.dateTakenSpecific })}
                         />
                       ) : (
-                        <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
-                          {moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')}
+                        <ClickableText onPress={() => this.setState({ showDatePicker: true })} style={styles.fieldText}>
+                          {!!this.state.dateTakenSpecific ? (
+                            moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')
+                          ) : (
+                            <RegularText>{i18n.t('covid-test.required-date')}</RegularText>
+                          )}
                         </ClickableText>
                       )}
                     </Item>
@@ -270,9 +280,12 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           initialDate={this.state.dateTakenBetweenStart}
                           selectedStartDate={this.state.dateTakenBetweenStart}
                           selectedEndDate={this.state.dateTakenBetweenEnd}
+                          maxDate={this.state.today}
                         />
                       ) : (
-                        <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
+                        <ClickableText
+                          onPress={() => this.setState({ showRangePicker: true })}
+                          style={styles.fieldText}>
                           {this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd ? (
                             <>
                               {'Between '}
@@ -334,5 +347,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 const styles = StyleSheet.create({
   labelStyle: {
     marginBottom: 30,
+  },
+
+  fieldText: {
+    ...fontStyles.bodyReg,
+    color: colors.black,
+    alignSelf: 'flex-start',
+    paddingLeft: 20,
+    paddingBottom: 10,
   },
 });

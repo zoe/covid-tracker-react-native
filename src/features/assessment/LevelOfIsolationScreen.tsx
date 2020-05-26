@@ -18,6 +18,7 @@ import UserService from '../../core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import { cleanIntegerVal } from '../../core/utils/number';
 
 const initialFormValues = {
   isolationLittleInteraction: '',
@@ -64,9 +65,9 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return {
       patient: patientId,
-      isolation_little_interaction: parseInt(formData.isolationLittleInteraction, 10),
-      isolation_lots_of_people: parseInt(formData.isolationLotsOfPeople, 10),
-      isolation_healthcare_provider: parseInt(formData.isolationHealthcareProvider, 10),
+      isolation_little_interaction: cleanIntegerVal(formData.isolationLittleInteraction),
+      isolation_lots_of_people: cleanIntegerVal(formData.isolationLotsOfPeople),
+      isolation_healthcare_provider: cleanIntegerVal(formData.isolationHealthcareProvider),
     } as Partial<AssessmentInfosRequest>;
   }
 
