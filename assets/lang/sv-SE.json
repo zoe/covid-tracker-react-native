@@ -248,6 +248,7 @@
     "add-test": "Lägg till test",
     "update-test": "Uppdatera test",
     "question-select-a-date-range": "Välj ett datumintervall",
+    "question-select-a-date": "Välj ett datum",
 
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
