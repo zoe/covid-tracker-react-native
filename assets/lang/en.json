@@ -279,6 +279,7 @@
     "update-test": "Update test",
 
     "question-select-a-date-range": "Select a date range",
+    "question-select-a-date": "Select a date",
 
     "question-mechanism": "How was this test performed?",
     "picker-nose-swab": "Someone swabbed my nose",
