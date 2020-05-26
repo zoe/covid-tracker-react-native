@@ -22,7 +22,7 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { camelizeKeys } from './utils';
+import { camelizeKeys } from '../api/utils';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { cleanIntegerVal } from '../utils/number';
 
