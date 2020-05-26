@@ -5,13 +5,11 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../theme';
 import { CovidRating, shouldAskForRating } from '../components/CovidRating';
-import Donate from '../components/Donate';
 import ProgressStatus from '../components/ProgressStatus';
 import { Header, ProgressBlock } from '../components/Screen';
 import ShareThisApp from '../components/ShareThisApp';
 import { ClickableText, HeaderText, RegularText } from '../components/Text';
 import VisitWebsite from '../components/VisitWebsite';
-import { isGBCountry } from '../core/user/UserService';
 import i18n from '../locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 
@@ -51,18 +49,8 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              {isGBCountry() ? (
-                <>
-                  <Donate />
-                  <VisitWebsite />
-                  <ShareThisApp ctaStyle="link" />
-                </>
-              ) : (
-                <>
-                  <ShareThisApp ctaStyle="button" />
-                  <VisitWebsite />
-                </>
-              )}
+              <ShareThisApp ctaStyle="button" />
+              <VisitWebsite />
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
