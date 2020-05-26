@@ -1,4 +1,4 @@
-import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
+import { usMap, gbMap, svMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
@@ -9,6 +9,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { ScreenParamList } from '../../ScreenParamList';
+import { getLocaleFlagIcon } from '../helpers';
 import styles from './styles';
 
 const userService = new UserService();
@@ -39,15 +40,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
     return usMap;
   }, [isGBCountry, isSECountry, gbMap, svMap, usMap]);
 
-  const getFlagIcon = useCallback(() => {
-    if (isGBCountry()) {
-      return gbFlag;
-    }
-    if (isSECountry()) {
-      return svFlag;
-    }
-    return usFlag;
-  }, [isGBCountry, isSECountry, gbFlag, svFlag, usFlag]);
+  const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 
   const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect', { patientId: null }), [
     navigation.navigate,

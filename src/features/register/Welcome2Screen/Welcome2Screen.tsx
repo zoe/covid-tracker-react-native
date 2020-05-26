@@ -1,4 +1,4 @@
-import { usPartners, gbPartners, svPartners, svFlag, gbFlag, usFlag } from '@assets';
+import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
@@ -8,6 +8,7 @@ import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from
 
 import { ScreenParamList } from '../../ScreenParamList';
 import CountryIpModal from '../CountryIpModal';
+import { getLocaleFlagIcon } from '../helpers';
 import styles from './styles';
 
 const userService = new UserService();
@@ -37,15 +38,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
     }
   }, [userService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
 
-  const flagIcon = useCallback(() => {
-    if (isGBCountry()) {
-      return gbFlag;
-    }
-    if (isSECountry()) {
-      return svFlag;
-    }
-    return usFlag;
-  }, [isGBCountry, isSECountry, gbFlag, svFlag, usFlag]);
+  const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 
   const helpUrl = useCallback(() => {
     if (isGBCountry()) {
@@ -77,7 +70,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
               <TouchableOpacity
                 testID="selectCountry"
                 onPress={() => navigation.navigate('CountrySelect', { patientId: null })}>
-                <Image testID="flag" style={styles.flagIcon} source={flagIcon()} />
+                <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
               </TouchableOpacity>
             </View>
             <View>
