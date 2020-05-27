@@ -95,8 +95,9 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   picker: {
-    width: screenWidth - 16,
-    marginTop: 12,
+    width: '100%',
+    height: 48,
+    paddingRight: 32,
   },
   dropdownWrapper: {
     borderBottomWidth: 1,
