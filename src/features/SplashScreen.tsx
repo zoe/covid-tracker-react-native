@@ -1,16 +1,16 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
+import { offlineService, userService } from '@covid/Services';
+import Splash from '@covid/components/Splash';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { ApiClientBase } from '@covid/core/user/ApiClientBase';
+import { ApiClientBase } from '@covid/core/api/ApiClientBase';
+import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
-import Splash from '@covid/components/Splash';
-import { offlineService, userService } from '../Services';
-import { ApiException } from '@covid/core/ApiServiceErrors';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {
@@ -131,7 +131,7 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   private updateUserCountry = async (isLoggedIn: boolean) => {
     const country: string | null = await userService.getUserCountry();
-    userService.initCountryConfig(country || 'GB');
+    userService.initCountryConfig(country ?? 'GB');
     if (isLoggedIn) {
       // If logged in with no country default to GB as this will handle all
       // GB users before selector was included.

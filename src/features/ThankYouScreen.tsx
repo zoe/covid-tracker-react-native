@@ -1,18 +1,16 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
-import Donate from '@covid/components/Donate';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
-import { isGBCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+
 import { ScreenParamList } from './ScreenParamList';
 
 type RenderProps = {
@@ -51,18 +49,8 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              {isGBCountry() ? (
-                <>
-                  <Donate />
-                  <VisitWebsite />
-                  <ShareThisApp ctaStyle="link" />
-                </>
-              ) : (
-                <>
-                  <ShareThisApp ctaStyle="button" />
-                  <VisitWebsite />
-                </>
-              )}
+              <ShareThisApp ctaStyle="button" />
+              <VisitWebsite />
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 

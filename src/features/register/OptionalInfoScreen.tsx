@@ -1,22 +1,21 @@
+import { userService, offlineService, pushNotificationService } from '@covid/Services';
+import { LoadingModal } from '@covid/components/Loading';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
-import { colors } from '@theme';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
-import { userService, offlineService, pushNotificationService } from '../../Services';
-import { LoadingModal } from '@covid/components/Loading';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;
@@ -76,7 +75,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     } catch (error) {
       this.setState({
         isApiError: true,
-        error: error,
+        error,
         onRetry: () => {
           this.setState({
             status: i18n.t('errors.status-retrying'),

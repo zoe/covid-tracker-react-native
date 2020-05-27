@@ -223,7 +223,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen
           name="ValidationStudyConsent"
           component={ValidationStudyConsentScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: true, title: 'Study Consent' }}
         />
       </Stack.Navigator>
     );

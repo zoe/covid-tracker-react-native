@@ -4,13 +4,14 @@ import { getDaysAgo } from '@covid/utils/datetime';
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 
-import { handleServiceError } from '../ApiServiceErrors';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
+import { ApiClientBase } from '../api/ApiClientBase';
+import { handleServiceError } from '../api/ApiServiceErrors';
+import { camelizeKeys } from '../api/utils';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
-import { ApiClientBase } from './ApiClientBase';
 import {
   AreaStatsResponse,
   AskValidationStudy,
@@ -23,7 +24,6 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { camelizeKeys } from './utils';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -510,8 +510,13 @@ export default class UserService extends ApiClientBase
   }
 
   private static setLocaleFromCountry(countryCode: string) {
+    let USLocale = 'en';
+    if (Localization.locale == 'es-US') {
+      USLocale = 'es';
+    }
+
     const localeMap: { [key: string]: string } = {
-      US: 'en',
+      US: USLocale,
       GB: 'en',
       SE: 'sv',
     };

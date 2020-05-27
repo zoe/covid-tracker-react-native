@@ -1,25 +1,24 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
-import moment, { Moment } from 'moment';
-import { Form, Item, Label, Text, View } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import * as Yup from 'yup';
-
 import CalendarPicker from '@covid/components/CalendarPicker';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock, screenWidth } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText } from '@covid/components/Text';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationErrors } from '@covid/components/ValidationError';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import i18n from '@covid/locale/i18n';
-import Navigator from '../Navigation';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors, fontStyles } from '@theme';
+import { Formik } from 'formik';
+import moment, { Moment } from 'moment';
+import { Form, Item, Label, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
+
 import { ScreenParamList } from '../ScreenParamList';
-import { IOption } from '../patient/YourWorkScreen/helpers';
 
 interface CovidTestData {
   knowsDateOfTest: string; // only for ux logic
@@ -118,7 +117,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         return;
       }
 
-      let postTest = {
+      const postTest = {
         patient: patientId,
         ...(formData.result && { result: formData.result }),
         ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
@@ -131,17 +130,17 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       if (test?.id) {
         covidTestService
           .updateTest(test.id, postTest)
-          .then((response) => {
+          .then(() => {
             this.props.navigation.goBack();
           })
-          .catch((err) => {
+          .catch(() => {
             this.setState({ errorMessage: i18n.t('something-went-wrong') });
             this.setState({ submitting: false });
           });
       } else {
         covidTestService
           .addTest(postTest)
-          .then((response) => {
+          .then(() => {
             this.props.navigation.goBack();
           })
           .catch(() => {
@@ -254,8 +253,12 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           {...(!!this.state.dateTakenSpecific && { selectedStartDate: this.state.dateTakenSpecific })}
                         />
                       ) : (
-                        <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
-                          {moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')}
+                        <ClickableText onPress={() => this.setState({ showDatePicker: true })} style={styles.fieldText}>
+                          {this.state.dateTakenSpecific ? (
+                            moment(this.state.dateTakenSpecific).format('Do of MMMM YYYY')
+                          ) : (
+                            <RegularText>{i18n.t('covid-test.required-date')}</RegularText>
+                          )}
                         </ClickableText>
                       )}
                     </Item>
@@ -278,7 +281,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           maxDate={this.state.today}
                         />
                       ) : (
-                        <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
+                        <ClickableText
+                          onPress={() => this.setState({ showRangePicker: true })}
+                          style={styles.fieldText}>
                           {this.state.dateTakenBetweenStart && this.state.dateTakenBetweenEnd ? (
                             <>
                               {'Between '}
@@ -340,5 +345,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 const styles = StyleSheet.create({
   labelStyle: {
     marginBottom: 30,
+  },
+
+  fieldText: {
+    ...fontStyles.bodyReg,
+    color: colors.black,
+    alignSelf: 'flex-start',
+    paddingLeft: 20,
+    paddingBottom: 10,
   },
 });

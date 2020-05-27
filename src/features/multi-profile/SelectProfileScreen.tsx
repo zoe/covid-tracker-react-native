@@ -4,7 +4,7 @@ import DaysAgo from '@covid/components/DaysAgo';
 import { Loading, LoadingModal } from '@covid/components/Loading';
 import { Header } from '@covid/components/Screen';
 import { ClippedText, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
-import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
@@ -56,7 +56,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   async componentDidMount() {
-    this.props.navigation.addListener('focus', async (e) => {
+    this.props.navigation.addListener('focus', async () => {
       if (this.state.shouldRefresh) {
         await this.listProfiles();
       }
