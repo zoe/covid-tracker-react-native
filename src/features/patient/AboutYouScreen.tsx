@@ -1,12 +1,4 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import { cloneDeep } from 'lodash';
-import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
-import * as Yup from 'yup';
-
+import { userService } from '@covid/Services';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -14,9 +6,18 @@ import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '@covid
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { cleanIntegerVal, cleanFloatVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
+
 import { ScreenParamList } from '../ScreenParamList';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 
@@ -100,7 +101,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   }
 
   async componentDidMount() {
-    const userService = new UserService();
     const features = userService.getConfig();
 
     this.setState({
@@ -115,19 +115,18 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
       const currentPatient = this.props.route.params.currentPatient;
       const patientId = currentPatient.patientId;
-      const userService = new UserService();
       var infos = this.createPatientInfos(formData);
 
       userService
         .updatePatient(patientId, infos)
-        .then((response) => {
+        .then(() => {
           currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
           this.props.navigation.navigate('YourHealth', { currentPatient });
         })
-        .catch((err) => {
+        .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
         })
         .then(() => {
@@ -138,7 +137,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
   private createPatientInfos(formData: AboutYouData) {
     let infos = {
-      year_of_birth: parseInt(formData.yearOfBirth),
+      year_of_birth: cleanIntegerVal(formData.yearOfBirth),
       gender: formData.sex === 'male' ? 1 : formData.sex === 'female' ? 0 : formData.sex === 'pfnts' ? 2 : 3,
       gender_identity: formData.genderIdentity,
       interacted_with_covid: formData.everExposed,
@@ -183,25 +182,25 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     }
 
     if (formData.heightUnit === 'ft') {
-      let inches = parseFloat(formData.inches);
+      let inches = cleanFloatVal(formData.inches);
       if (formData.feet) {
-        const feet = parseFloat(formData.feet) || 0;
+        const feet = cleanFloatVal(formData.feet) || 0;
         inches += feet * 12;
       }
       infos = { ...infos, height_feet: inches / 12.0 };
     } else {
-      infos = { ...infos, height_cm: parseFloat(formData.height) };
+      infos = { ...infos, height_cm: cleanFloatVal(formData.height) };
     }
 
     if (formData.weightUnit === 'lbs') {
-      let pounds = parseFloat(formData.pounds);
+      let pounds = cleanFloatVal(formData.pounds);
       if (formData.stones) {
-        const stones = parseFloat(formData.stones) || 0;
+        const stones = cleanFloatVal(formData.stones) || 0;
         pounds += stones * 14;
       }
       infos = { ...infos, weight_pounds: pounds };
     } else {
-      infos = { ...infos, weight_kg: parseFloat(formData.weight) };
+      infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
     }
 
     return infos;
@@ -211,6 +210,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     yearOfBirth: Yup.number()
       .typeError(i18n.t('correct-year-of-birth'))
       .required(i18n.t('required-year-of-birth'))
+      .integer(i18n.t('correct-year-of-birth'))
       .min(1900, i18n.t('correct-year-of-birth'))
       .max(2020, i18n.t('correct-year-of-birth')),
     sex: Yup.string().required(i18n.t('required-sex-at-birth')),
@@ -291,7 +291,6 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     ];
 
     const getInitialFormValues = (): AboutYouData => {
-      const userService = new UserService();
       const features = userService.getConfig();
 
       return {

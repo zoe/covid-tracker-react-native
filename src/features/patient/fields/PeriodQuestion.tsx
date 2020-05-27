@@ -1,8 +1,9 @@
+import DropdownField from '@covid/components/DropdownField';
+import { cleanIntegerVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 
-import DropdownField from '@covid/components/DropdownField';
-import i18n from '@covid/locale/i18n';
 import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';
 import { WeeksPregnant, WeeksPregnantData } from './WeeksPregnant';
@@ -45,10 +46,10 @@ export class PeriodQuestion extends Component<Props, object> {
         period_frequency: formData.periodFrequency,
       }),
       ...(formData.havingPeriods === periodValues.STOPPED && {
-        period_stopped_age: parseInt(formData.periodStoppedAge, 10),
+        period_stopped_age: cleanIntegerVal(formData.periodStoppedAge),
       }),
       ...(formData.havingPeriods === periodValues.PREGNANT && {
-        pregnant_weeks: parseInt(formData.weeksPregnant, 10),
+        pregnant_weeks: cleanIntegerVal(formData.weeksPregnant),
       }),
     };
   };

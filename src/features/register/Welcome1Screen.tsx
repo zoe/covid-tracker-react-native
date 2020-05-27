@@ -1,13 +1,14 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState, useEffect } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-
 import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
-import { colors } from '@theme';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { useState, useEffect } from 'react';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
@@ -45,7 +46,7 @@ export const Welcome1Screen: React.FC<PropsType> = (props) => {
   useEffect(() => {
     userService.getUserCount().then((response) => {
       if (response) {
-        const userCount = parseInt(response, 10);
+        const userCount = cleanIntegerVal(response);
         setState({ userCount });
       }
     });

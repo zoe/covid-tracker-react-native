@@ -1,23 +1,23 @@
+import DropdownField from '@covid/components/DropdownField';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationErrors } from '@covid/components/ValidationError';
+import UserService from '@covid/core/user/UserService';
+import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { cleanFloatVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form, Item, Label, Text } from 'native-base';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '@covid/components/DropdownField';
-import { GenericTextField } from '@covid/components/GenericTextField';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock, isAndroid } from '@covid/components/Screen';
-import { BrandedButton, Divider, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationErrors } from '@covid/components/ValidationError';
-import UserService from '@covid/core/user/UserService';
-import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { IOption } from '../patient/YourWorkScreen/helpers';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -141,10 +141,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
       userService
         .updateAssessment(assessmentId, infos)
-        .then((response) => {
+        .then(() => {
           this.props.navigation.navigate('WhereAreYou', { currentPatient, assessmentId });
         })
-        .catch((err) => {
+        .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
         })
         .then(() => {
@@ -188,7 +188,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       // Temperature is optional.
       infos = {
         ...infos,
-        temperature: parseFloat(formData.temperature),
+        temperature: cleanFloatVal(formData.temperature),
         temperature_unit: formData.temperatureUnit,
       };
     }

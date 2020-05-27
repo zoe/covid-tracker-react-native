@@ -1,13 +1,3 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import moment from 'moment';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
-import * as Yup from 'yup';
-
-import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock, FieldWrapper } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
@@ -16,7 +6,17 @@ import { ValidationError, ValidationErrors } from '@covid/components/ValidationE
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import moment from 'moment';
+import { Form, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
+
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
@@ -64,9 +64,9 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return {
       patient: patientId,
-      isolation_little_interaction: parseInt(formData.isolationLittleInteraction, 10),
-      isolation_lots_of_people: parseInt(formData.isolationLotsOfPeople, 10),
-      isolation_healthcare_provider: parseInt(formData.isolationHealthcareProvider, 10),
+      isolation_little_interaction: cleanIntegerVal(formData.isolationLittleInteraction),
+      isolation_lots_of_people: cleanIntegerVal(formData.isolationLotsOfPeople),
+      isolation_healthcare_provider: cleanIntegerVal(formData.isolationHealthcareProvider),
     } as Partial<AssessmentInfosRequest>;
   }
 
@@ -98,7 +98,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return userService
       .updatePatient(patientId, infos)
-      .then((response) => (currentPatient.shouldAskLevelOfIsolation = false))
+      .then(() => (currentPatient.shouldAskLevelOfIsolation = false))
       .catch(() => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });

@@ -184,8 +184,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     });
 
     const mechanismItems = [
-      { label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' },
-      { label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' },
+      { label: i18n.t('covid-test.picker-nose-throat-swab'), value: 'nose_throat_swab' },
+      ...(test?.mechanism === 'nose_swab'
+        ? [{ label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' }]
+        : []),
+      ...(test?.mechanism === 'throat_swab'
+        ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' }]
+        : []),
       { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
       { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
       { label: i18n.t('covid-test.picker-other'), value: 'other' },
@@ -226,7 +231,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                       this.setState({
                         dateTakenBetweenStart: undefined,
                         dateTakenBetweenEnd: undefined,
-                        dateTakenSpecific: now,
+                        dateTakenSpecific: undefined,
                       });
                     } else {
                       this.setState({
@@ -245,8 +250,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                       {this.state.showDatePicker ? (
                         <CalendarPicker
                           onDateChange={this.setTestDate}
-                          initialDate={this.state.dateTakenSpecific}
-                          selectedStartDate={this.state.dateTakenSpecific}
+                          maxDate={this.state.today}
+                          {...(!!this.state.dateTakenSpecific && { selectedStartDate: this.state.dateTakenSpecific })}
                         />
                       ) : (
                         <ClickableText onPress={() => this.setState({ showDatePicker: true })}>
@@ -270,6 +275,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                           initialDate={this.state.dateTakenBetweenStart}
                           selectedStartDate={this.state.dateTakenBetweenStart}
                           selectedEndDate={this.state.dateTakenBetweenEnd}
+                          maxDate={this.state.today}
                         />
                       ) : (
                         <ClickableText onPress={() => this.setState({ showRangePicker: true })}>
