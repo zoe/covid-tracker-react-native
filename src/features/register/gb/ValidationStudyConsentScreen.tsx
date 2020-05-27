@@ -10,6 +10,7 @@ import UserService from '../../../core/user/UserService';
 import { ScreenParamList } from '../../ScreenParamList';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Navigator from '../../Navigation';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -48,6 +49,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
   handleAgreeClicked = async () => {
     if (this.state.agreeToAbove) {
+      Analytics.track(events.JOIN_STUDY);
       this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
       Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
     }
