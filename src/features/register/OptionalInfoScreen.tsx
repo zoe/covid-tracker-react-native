@@ -13,7 +13,7 @@ import { PiiRequest } from '../../core/user/dto/UserAPIContracts';
 import i18n from '../../locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '../../core/api/ApiServiceErrors';
 import { userService, offlineService, pushNotificationService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
 
