@@ -1,15 +1,15 @@
+import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
+import { ContributionCounter } from '@covid/components/ContributionCounter';
+import { BrandedButton, RegularText } from '@covid/components/Text';
+import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { cleanIntegerVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { useState, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '../../../assets';
-import { colors } from '../../../theme';
-import { ContributionCounter } from '../../components/ContributionCounter';
-import { BrandedButton, RegularText } from '../../components/Text';
-import UserService, { isGBCountry, isSECountry } from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { cleanIntegerVal } from '../../core/utils/number';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;

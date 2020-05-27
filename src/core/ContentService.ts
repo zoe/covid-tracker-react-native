@@ -1,4 +1,4 @@
-import { ApiClientBase } from './user/ApiClientBase';
+import { ApiClientBase } from './api/ApiClientBase';
 
 type Link = {
   title: string;

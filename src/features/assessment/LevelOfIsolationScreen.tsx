@@ -1,24 +1,23 @@
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock, FieldWrapper } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import UserService from '@covid/core/user/UserService';
+import { AssessmentInfosRequest, PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { cleanIntegerVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '../../components/DropdownField';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock, FieldWrapper } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../components/Text';
-import { ValidatedTextInput } from '../../components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '../../components/ValidationError';
-import { PatientStateType } from '../../core/patient/PatientState';
-import UserService from '../../core/user/UserService';
-import { AssessmentInfosRequest, PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import { cleanIntegerVal } from '../../core/utils/number';
 
 const initialFormValues = {
   isolationLittleInteraction: '',
@@ -99,7 +98,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return userService
       .updatePatient(patientId, infos)
-      .then((response) => (currentPatient.shouldAskLevelOfIsolation = false))
+      .then(() => (currentPatient.shouldAskLevelOfIsolation = false))
       .catch(() => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });

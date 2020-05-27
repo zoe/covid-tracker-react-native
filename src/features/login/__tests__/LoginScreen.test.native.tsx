@@ -1,19 +1,19 @@
+import { UserNotFoundException } from '@covid/core/Exception';
+import * as UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { shallow } from 'enzyme';
 import { Toast } from 'native-base';
 import * as React from 'react';
 
-import { UserNotFoundException } from '../../../core/Exception';
-import * as UserService from '../../../core/user/UserService';
-import i18n from '../../../locale/i18n';
 import { LoginScreen } from '../LoginScreen';
 
 /**
  * MOCKS
  */
 const mockedLogin = jest.fn();
-jest.mock('../../../core/user/UserService', () => ({
+jest.mock('@covid/core/user/UserService', () => ({
   __esModule: true,
-  ...jest.requireActual('../../../core/user/UserService'),
+  ...jest.requireActual('@covid/core/user/UserService'),
   default: jest.fn().mockImplementation(() => ({
     login: mockedLogin,
   })),

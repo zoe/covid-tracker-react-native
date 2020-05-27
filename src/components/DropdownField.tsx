@@ -3,9 +3,9 @@ import React from 'react';
 import { PickerItemProps, StyleSheet, PickerProps } from 'react-native';
 import key from 'weak-key';
 
-import Info from '../../assets/icons/Info';
-import { colors } from '../../theme';
-import i18n from '../locale/i18n';
+import Info from '@assets/icons/Info';
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
 import { FieldWrapper, screenWidth, isAndroid } from './Screen';
 import { LabelText } from './Text';
 import { ValidationError } from './ValidationError';
@@ -70,7 +70,7 @@ const DropdownField = (props: DropdownFieldProps) => {
     </View>
   ) : (
     <FieldWrapper style={styles.fieldWrapper}>
-      <LabelText>{label}</LabelText>
+      <Label style={styles.labelStyle}>{label}</Label>
       <View
         style={[
           styles.dropdownWrapper,
@@ -123,11 +123,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-
   infoIcon: {
     paddingHorizontal: 5,
   },
-
   arrowStyle: {
     right: 0,
     position: 'absolute',

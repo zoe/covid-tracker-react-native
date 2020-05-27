@@ -8,7 +8,7 @@ import {
   AvailabilitySometimesOptions,
   AvailabilityNeverOptions,
   PatientInteractions,
-} from '../../../core/user/dto/UserAPIContracts';
+} from '@covid/core/user/dto/UserAPIContracts';
 import { ScreenParamList } from '../../ScreenParamList';
 
 export interface IOption {

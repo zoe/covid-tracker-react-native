@@ -6,17 +6,17 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
-import DropdownField from '../../components/DropdownField';
-import { GenericTextField } from '../../components/GenericTextField';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../components/Text';
-import { ValidationErrors } from '../../components/ValidationError';
-import UserService from '../../core/user/UserService';
-import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
-import { stripAndRound } from '../../utils/helpers';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import DropdownField from '@covid/components/DropdownField';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '@covid/components/Text';
+import { ValidationErrors } from '@covid/components/ValidationError';
+import UserService from '@covid/core/user/UserService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { stripAndRound } from '@covid/utils/helpers';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 

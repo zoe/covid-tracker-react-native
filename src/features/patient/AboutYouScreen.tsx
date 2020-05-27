@@ -1,27 +1,25 @@
+import { userService } from '@covid/Services';
+import DropdownField from '@covid/components/DropdownField';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
+import { isUSCountry } from '@covid/core/user/UserService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { cleanIntegerVal, cleanFloatVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { cloneDeep } from 'lodash';
 import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '../../components/DropdownField';
-import { GenericTextField } from '../../components/GenericTextField';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../components/Text';
-import { ValidatedTextInput } from '../../components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '../../components/ValidationError';
-import { isUSCountry } from '../../core/user/UserService';
-import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
-import { cleanIntegerVal, cleanFloatVal } from '../../core/utils/number';
-import { userService } from '../../Services';
-import { colors } from '@theme';
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -121,14 +119,14 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
       userService
         .updatePatient(patientId, infos)
-        .then((response) => {
+        .then(() => {
           currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
           this.props.navigation.navigate('YourHealth', { currentPatient });
         })
-        .catch((err) => {
+        .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
         })
         .then(() => {

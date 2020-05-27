@@ -2,10 +2,10 @@ import { FormikProps } from 'formik';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 
-import { FieldWrapper } from '../../../components/Screen';
-import { ValidatedTextInput } from '../../../components/ValidatedTextInput';
-import { ValidationError } from '../../../components/ValidationError';
-import i18n from '../../../locale/i18n';
+import { FieldWrapper } from '@covid/components/Screen';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
+import i18n from '@covid/locale/i18n';
 import { LabelText } from '@covid/components/Text';
 
 export interface PeriodStoppedAgeData {

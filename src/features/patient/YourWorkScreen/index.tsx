@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
-import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
-import DropdownField from '../../../components/DropdownField';
-import ProgressStatus from '../../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '../../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, LabelText } from '../../../components/Text';
-import { ValidationErrors } from '../../../components/ValidationError';
-import UserService from '../../../core/user/UserService';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText, LabelText } from '@covid/components/Text';
+import { ValidationErrors } from '@covid/components/ValidationError';
+import UserService from '@covid/core/user/UserService';
 import {
   AvailabilityAlwaysOptions,
   AvailabilityNeverOptions,
@@ -19,8 +19,8 @@ import {
   HealthCareStaffOptions,
   PatientInfosRequest,
   PatientInteractions,
-} from '../../../core/user/dto/UserAPIContracts';
-import i18n from '../../../locale/i18n';
+} from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
 import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
