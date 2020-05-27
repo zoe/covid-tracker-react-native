@@ -5,13 +5,13 @@ import React, { Component } from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { closeIcon } from '../../../assets';
-import { colors } from '../../../theme';
-import { isAndroid } from '../../components/Screen';
-import { RegularText } from '../../components/Text';
-import { AsyncStorageService } from '../../core/AsyncStorageService';
-import UserService from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
+import { closeIcon } from '@assets';
+import { colors } from '@theme';
+import { isAndroid } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 interface PropsType extends ITest {

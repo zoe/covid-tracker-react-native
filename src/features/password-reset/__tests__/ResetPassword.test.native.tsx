@@ -1,7 +1,7 @@
+import i18n from '@covid/locale/i18n';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
-import i18n from '../../../locale/i18n';
 import { ResetPasswordScreen } from '../ResetPassword';
 import ResetPasswordForm, { Props as FormProps } from '../ResetPassword/ResetPasswordForm';
 
@@ -9,9 +9,9 @@ import ResetPasswordForm, { Props as FormProps } from '../ResetPassword/ResetPas
  * MOCKS
  */
 const mockedResetPassword = jest.fn();
-jest.mock('../../../core/user/UserService', () => ({
+jest.mock('@covid/core/user/UserService', () => ({
   __esModule: true,
-  ...jest.requireActual('../../../core/user/UserService'),
+  ...jest.requireActual('@covid/core/user/UserService'),
   default: jest.fn().mockImplementation(() => ({
     resetPassword: mockedResetPassword,
   })),

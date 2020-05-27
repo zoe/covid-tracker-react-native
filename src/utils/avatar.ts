@@ -1,4 +1,4 @@
-import * as AvatarImages from '../../assets';
+import * as AvatarImages from '@assets';
 
 export type AvatarName =
   | 'profile1'
