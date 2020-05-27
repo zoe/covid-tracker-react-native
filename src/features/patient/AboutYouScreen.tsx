@@ -549,7 +549,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                               { label: 'kg', value: 'kg' },
                             ]}
                           />
-                          </View>
+                        </View>
                       </View>
                     )}
                   </Item>
