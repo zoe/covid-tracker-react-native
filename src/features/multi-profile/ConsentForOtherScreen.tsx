@@ -1,21 +1,21 @@
-import { CommonActions, RouteProp } from '@react-navigation/native';
+import { userService, offlineService } from '@covid/Services';
+import { CheckboxItem } from '@covid/components/Checkbox';
+import { LoadingModal } from '@covid/components/Loading';
+import Screen, { Header, screenWidth } from '@covid/components/Screen';
+import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { initialErrorState, ApiErrorState } from '@covid/core/api/ApiServiceErrors';
+import UserService from '@covid/core/user/UserService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { ListItem } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { colors } from '@theme';
-import Screen, { Header, screenWidth } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
-import { userService, offlineService } from '../../Services';
-import { LoadingModal } from '@covid/components/Loading';
-import { initialErrorState, ApiErrorState, OfflineException } from '@covid/core/ApiServiceErrors';
-import { CheckboxItem } from '@covid/components/Checkbox';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
@@ -97,7 +97,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       this.setState({
         isApiError: true,
-        error: error,
+        error,
         onRetry: () => {
           this.setState({
             status: i18n.t('errors.status-retrying'),

@@ -7,7 +7,7 @@ import { Partnership } from '@covid/components/Partnership';
 import { PoweredByZoe } from '@covid/components/PoweredByZoe';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
-import { ApiErrorState, initialErrorState } from '@covid/core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
