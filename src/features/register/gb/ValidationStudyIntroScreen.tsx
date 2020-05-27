@@ -57,7 +57,6 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
           <BrandedButton
             style={styles.mainButton}
             onPress={() => {
-              Analytics.track(events.JOIN_STUDY);
               this.props.navigation.navigate('ValidationStudyConsent', {
                 viewOnly: false,
                 currentPatient: this.props.route.params.currentPatient,
