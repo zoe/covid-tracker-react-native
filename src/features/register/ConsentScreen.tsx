@@ -1,13 +1,13 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+
 import { ScreenParamList } from '../ScreenParamList';
 import { HeaderText, SimpleTextBlock } from './LegalComponents';
 import {
@@ -99,7 +99,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
       <ScrollView>
         <RegularText>
           {i18n.t('consent-normal-us.existing-study')}{' '}
-          <ClickableText onPress={() => this.props.navigation.replace('NursesConsentUS', { viewOnly: this.viewOnly })}>
+          <ClickableText
+            testID="nurseConsent"
+            onPress={() => this.props.navigation.replace('NursesConsentUS', { viewOnly: this.viewOnly })}>
             {i18n.t('consent-normal-us.click-here')}
           </ClickableText>
           {'\n'}
@@ -111,7 +113,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         </RegularBoldText>
         <RegularText>
           {i18n.t('consent-normal-us.purpose-body')}{' '}
-          <ClickableText onPress={() => this.openUrl('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
+          <ClickableText
+            testID="infoLink"
+            onPress={() => this.openUrl('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
             https://www.cdc.gov/coronavirus/2019-ncov/index.html
           </ClickableText>
           {'\n'}
@@ -130,7 +134,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         </RegularBoldText>
         <RegularText>
           {i18n.t('consent-normal-us.your-consent-body')}{' '}
-          <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
+          <ClickableText
+            testID="privacyPolicy1"
+            onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
             {i18n.t('consent-normal-us.privacy-policy')}
           </ClickableText>
           .{'\n\n'}
@@ -143,22 +149,31 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
 
         {!this.viewOnly && (
           <CheckboxList>
-            <CheckboxItem value={this.state.processingChecked} onChange={() => this.handleToggle('processingChecked')}>
+            <CheckboxItem
+              testID="processingCheck"
+              value={this.state.processingChecked}
+              onChange={() => this.handleToggle('processingChecked')}>
               {i18n.t('consent-normal-us.i-consent')}{' '}
               <ClickableText
+                testID="privacyPolicy2"
                 onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
                 {i18n.t('consent-normal-us.privacy-policy')}
               </ClickableText>
               .
             </CheckboxItem>
-            <CheckboxItem value={this.state.termsOfUseChecked} onChange={() => this.handleToggle('termsOfUseChecked')}>
+            <CheckboxItem
+              testID="termsOfUseCheck"
+              value={this.state.termsOfUseChecked}
+              onChange={() => this.handleToggle('termsOfUseChecked')}>
               {i18n.t('consent-normal-us.read-accepted')}{' '}
               <ClickableText
+                testID="termsOfUs"
                 onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
                 {i18n.t('consent-normal-us.terms')}
               </ClickableText>{' '}
               {i18n.t('consent-normal-us.and')}{' '}
               <ClickableText
+                testID="privacyPolicy3"
                 onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
                 {i18n.t('consent-normal-us.privacy-policy')}
               </ClickableText>
@@ -179,7 +194,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
           {'\n\n'}
           This app allows you to help others, but does not give health advice. If you need health advice please visit
           the NHS website:{' '}
-          <ClickableText onPress={() => this.openUrl('https://www.nhs.uk/conditions/coronavirus-covid-19/')}>
+          <ClickableText
+            testID="infoLink"
+            onPress={() => this.openUrl('https://www.nhs.uk/conditions/coronavirus-covid-19/')}>
             https://www.nhs.uk/conditions/coronavirus-covid-19/
           </ClickableText>
           {'\n'}
@@ -190,7 +207,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
           This app is designed by doctors and scientists at Kings’ College London, Guys and St Thomas’ Hospitals and Zoe
           Global Limited, a health technology company. They have access to the information you enter, which may also be
           shared with the NHS and other medical researchers as outlined in our{' '}
-          <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}>
+          <ClickableText
+            testID="privacyPolicy1"
+            onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}>
             privacy notice
           </ClickableText>
           .{'\n\n'}
@@ -216,7 +235,9 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
           {'\n\n'}
           We adhere to the General Data Protection Regulation ‘GDPR’. For more information about how we use and share
           personal information about you, please see our{' '}
-          <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}>
+          <ClickableText
+            testID="privacyPolicy2"
+            onPress={() => this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: this.viewOnly })}>
             privacy notice
           </ClickableText>
           .{'\n\n'}
@@ -284,7 +305,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
           analyseras på gruppnivå, och inga individuella karakteristika kommer att kunna identifieras. Resultaten från
           sammanställningarna och analyserna kommer att skickas löpande till Folkhälsomyndigheten och andra myndigheter
           och ansvariga inom hälso- och sjukvård. Resultaten kommer också att publiceras löpande på studiens hemsida (
-          <ClickableText onPress={() => Linking.openURL('https://Covid19app.lu.se')}>Covid19app.lu.se</ClickableText>).
+          <ClickableText testID="infoLink1" onPress={() => Linking.openURL('https://Covid19app.lu.se')}>Covid19app.lu.se</ClickableText>).
           Vi kommer också att publicera resultat på gruppnivå i medicinska tidskrifter.
         </RegularText>
         <SimpleTextBlock
@@ -308,6 +329,7 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
           tillsynsmyndigheten (<RegularBoldText>datainspektionen@datainspektionen.se</RegularBoldText>). Mer information
           om detta hittar du via{' '}
           <ClickableText
+            testID="infoLink2"
             onPress={() =>
               Linking.openURL(
                 'https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/'
@@ -355,12 +377,16 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
         <RegularText>
           Jag har härmed läst den skriftliga informationen om studien, och jag har haft möjlighet att ställa frågor via
           epost till den ansvariga forskaren. Om jag vill läsa den skriftliga informationen igen så finns den på{' '}
-          <ClickableText onPress={() => Linking.openURL('https://Covid19app.lu.se')}>Covid19app.lu.se</ClickableText>.
+          <ClickableText testID="infoLink3" onPress={() => Linking.openURL('https://Covid19app.lu.se')}>
+            Covid19app.lu.se
+          </ClickableText>
+          .
         </RegularText>
 
         {!this.viewOnly && (
           <CheckboxList>
             <CheckboxItem
+              testID="partecipateCheck"
               value={this.state.swedenParticipateChecked}
               onChange={() => this.handleToggle('swedenParticipateChecked')}>
               Jag är 18 år eller äldre och jag samtycker till att delta i studien ”Nationellt initiativ för att via en
@@ -368,14 +394,19 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
               allvarlig sjukdomsbild vid covid-19”.
             </CheckboxItem>
             <CheckboxItem
+              testID="processingCheck"
               value={this.state.swedenProcessingChecked}
               onChange={() => this.handleToggle('swedenProcessingChecked')}>
               Jag samtycker till att personuppgifter om mig behandlas på det sätt som beskrivs i informationen till
               studiedeltagare ovan.
             </CheckboxItem>
-            <CheckboxItem value={this.state.swedenAgreeZoe} onChange={() => this.handleToggle('swedenAgreeZoe')}>
+            <CheckboxItem
+              testID="agreeCheck"
+              value={this.state.swedenAgreeZoe}
+              onChange={() => this.handleToggle('swedenAgreeZoe')}>
               Jag har läst och accepterar Zoe Global Ltd{' '}
               <ClickableText
+                testID="privacyPolicy"
                 onPress={() => this.props.navigation.navigate('PrivacyPolicySV', { viewOnly: this.viewOnly })}>
                 integritetspolicy
               </ClickableText>
@@ -400,7 +431,12 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
       <View style={styles.rootContainer}>
         {this.renderConsent()}
         {!this.viewOnly && (
-          <BrandedButton style={styles.button} enable={this.canAgree()} hideLoading onPress={this.handleAgreeClicked}>
+          <BrandedButton
+            testID="agree"
+            style={styles.button}
+            enable={this.canAgree()}
+            hideLoading
+            onPress={this.handleAgreeClicked}>
             {i18n.t('legal.i-agree')}
           </BrandedButton>
         )}
