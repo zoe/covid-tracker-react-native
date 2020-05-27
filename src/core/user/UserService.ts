@@ -1,17 +1,19 @@
-import { AxiosResponse } from 'axios';
-import * as Localization from 'expo-localization';
-import moment from 'moment';
-
-import { isAndroid } from '@covid/core/utils/platform';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
+import { getDaysAgo } from '@covid/utils/datetime';
+import { AxiosResponse } from 'axios';
+import * as Localization from 'expo-localization';
+
+import { handleServiceError } from '../ApiServiceErrors';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
+import { cleanIntegerVal } from '../utils/number';
 import { ApiClientBase } from './ApiClientBase';
 import {
   AreaStatsResponse,
+  AskValidationStudy,
   AssessmentInfosRequest,
   AssessmentResponse,
   Consent,
@@ -22,11 +24,11 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 import { camelizeKeys } from './utils';
-import { handleServiceError } from '../ApiServiceErrors';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
+const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
 // Attempt to split UserService into discrete service interfaces, which means:
 // TODO: Split into separate self-contained services
@@ -242,6 +244,12 @@ export default class UserService extends ApiClientBase
     return null;
   }
 
+  static shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
+    if (!dateLastAsked) return true;
+
+    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
+  }
+
   public async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
@@ -290,13 +298,7 @@ export default class UserService extends ApiClientBase
       !!patient.ht_pfnts ||
       !!patient.ht_other;
 
-    // Last asked level_of_isolation a week or more ago, or never asked
-    const lastAskedLevelOfIsolation = patient.last_asked_level_of_isolation;
-    let shouldAskLevelOfIsolation = !lastAskedLevelOfIsolation;
-    if (lastAskedLevelOfIsolation) {
-      const lastAsked = moment(lastAskedLevelOfIsolation);
-      shouldAskLevelOfIsolation = lastAsked.diff(moment(), 'days') >= 7;
-    }
+    const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
@@ -427,7 +429,7 @@ export default class UserService extends ApiClientBase
 
   async getUserCountry() {
     const country = await AsyncStorageService.getUserCountry();
-    if (country != null) {
+    if (country) {
       UserService.userCountry = country;
       UserService.setLocaleFromCountry(country);
     }
@@ -487,7 +489,7 @@ export default class UserService extends ApiClientBase
     try {
       const response = await AsyncStorageService.getAskedToReportForOthers();
       if (response) {
-        return parseInt(response, 10) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
+        return cleanIntegerVal(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
       } else {
         await AsyncStorageService.setAskedToReportForOthers('0');
         return true;
@@ -500,7 +502,7 @@ export default class UserService extends ApiClientBase
   public async recordAskedToReportForOther() {
     const response = await AsyncStorageService.getAskedToReportForOthers();
     if (response) {
-      const value = parseInt(response, 10) + 1;
+      const value = cleanIntegerVal(response) + 1;
       await AsyncStorageService.setAskedToReportForOthers(value.toString());
     } else {
       await AsyncStorageService.setAskedToReportForOthers('0');
@@ -515,6 +517,21 @@ export default class UserService extends ApiClientBase
     };
 
     i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
+  }
+
+  async shouldAskForValidationStudy() {
+    const response = await this.client.get<AskValidationStudy>('/study_consent/status/');
+    return response.data.should_ask_uk_validation_study;
+  }
+
+  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
+    return this.client.post('/study_consent/', {
+      study: 'UK Validation Study',
+      version: 'v1',
+      status: response ? 'signed' : 'declined',
+      allow_future_data_use: anonymizedData,
+      allow_contact_by_zoe: reContacted,
+    });
   }
 }
 

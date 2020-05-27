@@ -7,6 +7,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Tests](#tests)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Common Issues](#common-issues)
@@ -94,10 +95,24 @@ npm install expo-cli --g
    expo start
    ```
 
-6. Run the mock server
+7. Run the mock server
 
    ```bash
    npm run mock-server
+   ```
+
+### Tests
+
+1. Run the standard suite of integration tests
+
+   ```bash
+   npm test
+   ```
+
+2. Check the i18n strings for a locale are complete
+
+   ```bash
+   npm test:i18n sv-SE
    ```
 
 ## Roadmap

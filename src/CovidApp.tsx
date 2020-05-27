@@ -1,12 +1,4 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, NavigationState } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as Font from 'expo-font';
-import { Header, Root, View } from 'native-base';
-import React, { Component, RefObject } from 'react';
-import { Dimensions, StatusBar } from 'react-native';
-
-import { colors } from '@theme/colors';
+import Analytics from '@covid/core/Analytics';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -44,13 +36,22 @@ import { Welcome1Screen } from '@covid/features/register/Welcome1Screen';
 import { Welcome2Screen } from '@covid/features/register/Welcome2Screen';
 import { WelcomeRepeatScreen } from '@covid/features/register/WelcomeRepeatScreen';
 import { PrivacyPolicyUKScreen } from '@covid/features/register/gb/PrivacyPolicyUKScreen';
+import ValidationStudyConsentScreen from '@covid/features/register/gb/ValidationStudyConsentScreen';
+import ValidationStudyIntroScreen from '@covid/features/register/gb/ValidationStudyIntroScreen';
 import PrivacyPolicySVScreen from '@covid/features/register/sv/PrivacyPolicySVScreen';
 import BeforeWeStartUS from '@covid/features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from '@covid/features/register/us/NursesConsentUS';
 import { PrivacyPolicyUSScreen } from '@covid/features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from '@covid/features/register/us/TermsOfUseUSScreen';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import Analytics from '@covid/core/Analytics';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer, NavigationState } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { colors } from '@theme/colors';
+import * as Font from 'expo-font';
+import { Header, Root, View } from 'native-base';
+import React, { Component, RefObject } from 'react';
+import { Dimensions, StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -214,6 +215,16 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="ValidationStudyIntro"
+          component={ValidationStudyIntroScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ValidationStudyConsent"
+          component={ValidationStudyConsentScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
   }

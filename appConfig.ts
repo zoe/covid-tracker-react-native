@@ -1,4 +1,3 @@
-// @ts-ignore
 import { API_URL, AMPLITUDE_KEY } from 'react-native-dotenv';
 
 export default {

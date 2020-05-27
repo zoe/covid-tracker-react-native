@@ -1,9 +1,10 @@
+import { userService } from '@covid/Services';
+import { ConfigType } from '@covid/core/Config';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { ConfigType } from '@covid/core/Config';
-import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { ScreenParamList } from './ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;
@@ -94,15 +95,11 @@ class Navigator {
 
   resetToProfileStartAssessment(currentPatient: PatientStateType) {
     this.navigation.dispatch((state) => {
-      const newStack = state.routes;
-      while (newStack[newStack.length - 1].name != 'SelectProfile') {
-        newStack.pop();
-      }
-
-      return CommonActions.reset({
-        index: 0,
-        routes: [...newStack],
+      const profileScreen = state.routes.find((screen) => {
+        return screen.name == 'SelectProfile';
       });
+
+      return CommonActions.navigate({ key: profileScreen!.key });
     });
 
     this.startAssessment(currentPatient);
@@ -170,6 +167,14 @@ class Navigator {
 
   resetAndGo(navStack: PartialState<NavigationState>) {
     this.navigation.reset(navStack);
+  }
+
+  async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
+    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy())) {
+      this.navigation.navigate('ValidationStudyIntro', { currentPatient });
+    } else {
+      this.startAssessment(currentPatient);
+    }
   }
 }
 

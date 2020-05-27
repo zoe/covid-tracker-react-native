@@ -64,4 +64,7 @@ export type ScreenParamList = {
   // Completion screens
   ThankYou: undefined;
   ViralThankYou: undefined;
+
+  ValidationStudyIntro: { currentPatient: PatientStateType };
+  ValidationStudyConsent: { viewOnly: boolean; currentPatient: PatientStateType };
 };

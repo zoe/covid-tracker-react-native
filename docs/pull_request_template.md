@@ -14,7 +14,10 @@ _Description of the feature or fix with link to the issue if existing_
 _Please attach screenshots showing the change if relevant_
 
 ## Checklist
+
 - [ ] I have updated mockServer
+- [ ] I have run `npm test`
+- [ ] I have run `npm run test:i18n`
 
 ## Out of scope and potential follow-up
 
