@@ -1,3 +1,5 @@
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
@@ -5,8 +7,6 @@ import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
 import * as Yup from 'yup';
 
-import UserService from '../../../core/user/UserService';
-import i18n from '../../../locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
 import ResetPasswordForm, { Props as FormProps } from './ResetPasswordForm';
 import styles from './styles';

@@ -4,13 +4,13 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { colors, fontStyles } from '../../../theme';
-import { BigButton } from '../../components/Button';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { CaptionText, HeaderText } from '../../components/Text';
-import UserService from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
+import { colors, fontStyles } from '@theme';
+import { BigButton } from '@covid/components/Button';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { CaptionText, HeaderText } from '@covid/components/Text';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
