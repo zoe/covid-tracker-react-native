@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
-import { AppException } from '../core/ApiServiceErrors';
+import { AppException } from '../core/api/ApiServiceErrors';
 import { colors } from '../../theme';
 import { ErrorText, BrandedButton, RegularText } from './Text';
 import i18n from '../locale/i18n';

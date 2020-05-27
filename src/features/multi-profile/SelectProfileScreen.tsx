@@ -11,7 +11,7 @@ import DaysAgo from '../../components/DaysAgo';
 import { getDaysAgo } from '../../utils/datetime';
 import { Loading, LoadingModal } from '../../components/Loading';
 import { Header } from '../../components/Screen';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '../../core/api/ApiServiceErrors';
 import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
 import { isGBCountry } from '../../core/user/UserService';
 import i18n from '../../locale/i18n';

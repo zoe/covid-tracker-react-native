@@ -9,7 +9,7 @@ import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { getDaysAgo } from '../../utils/datetime';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
-import { ApiClientBase } from './ApiClientBase';
+import { ApiClientBase } from '../api/ApiClientBase';
 import {
   AreaStatsResponse,
   AskValidationStudy,
@@ -22,8 +22,8 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { camelizeKeys } from './utils';
-import { handleServiceError } from '../ApiServiceErrors';
+import { camelizeKeys } from '../api/utils';
+import { handleServiceError } from '../api/ApiServiceErrors';
 import { cleanIntegerVal } from '../utils/number';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
@@ -511,8 +511,13 @@ export default class UserService extends ApiClientBase
   }
 
   private static setLocaleFromCountry(countryCode: string) {
+    let USLocale = 'en';
+    if (Localization.locale == 'es-US') {
+      USLocale = 'es';
+    }
+
     const localeMap: { [key: string]: string } = {
-      US: 'en',
+      US: USLocale,
       GB: 'en',
       SE: 'sv',
     };

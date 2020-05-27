@@ -1,5 +1,5 @@
-import { ApiClientBase } from '../user/ApiClientBase';
-import { handleServiceError } from '../ApiServiceErrors';
+import { ApiClientBase } from './ApiClientBase';
+import { handleServiceError } from './ApiServiceErrors';
 
 export interface IApiClient {
   post<T>(path: string, object: T): Promise<T>;

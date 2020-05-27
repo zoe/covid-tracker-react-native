@@ -12,7 +12,7 @@ import i18n from '../../locale/i18n';
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { CalloutBox } from '../../components/CalloutBox';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '../../core/api/ApiServiceErrors';
 import { offlineService, pushNotificationService, userService } from '../../Services';
 import { LoadingModal } from '../../components/Loading';
 import { cleanIntegerVal } from '../../core/utils/number';
