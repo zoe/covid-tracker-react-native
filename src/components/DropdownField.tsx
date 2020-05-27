@@ -45,7 +45,7 @@ const DropdownPicker = (props: DropdownPickerProps) => {
       placeholder={placeholder} // Placeholder not supported on android
       selectedValue={selectedValue}
       onValueChange={onValueChange}
-      iosIcon={<Icon name="arrow-down" />}
+      iosIcon={<Icon style={styles.arrowStyle} name="md-arrow-dropdown" />}
       itemTextStyle={{ textAlign: 'left' }}
       style={pickerStyle}
       {...pickerProps}>
@@ -99,6 +99,11 @@ const styles = StyleSheet.create({
   errorHighlight: {
     borderBottomWidth: 1,
     borderColor: colors.feedbackBad,
+  },
+
+  arrowStyle: {
+    right: 0,
+    position: 'absolute',
   },
 });
 
