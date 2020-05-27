@@ -511,8 +511,13 @@ export default class UserService extends ApiClientBase
   }
 
   private static setLocaleFromCountry(countryCode: string) {
+    let USLocale = 'en';
+    if (Localization.locale == 'es-US') {
+      USLocale = 'es';
+    }
+
     const localeMap: { [key: string]: string } = {
-      US: 'en',
+      US: USLocale,
       GB: 'en',
       SE: 'sv',
     };
