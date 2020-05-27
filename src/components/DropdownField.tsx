@@ -65,7 +65,13 @@ const DropdownField = (props: DropdownFieldProps) => {
   ) : (
     <FieldWrapper style={styles.fieldWrapper}>
       <Label style={styles.labelStyle}>{label}</Label>
-      <View style={styles.dropdownWrapper}>
+      <View
+        style={[
+          styles.dropdownWrapper,
+          {
+            borderColor: error ? colors.feedbackBad : colors.tertiary,
+          },
+        ]}>
         <DropdownPicker {...more} />
       </View>
       {!!error && (
@@ -94,7 +100,6 @@ const styles = StyleSheet.create({
   },
   dropdownWrapper: {
     borderBottomWidth: 1,
-    borderColor: colors.tertiary,
   },
   errorHighlight: {
     borderBottomWidth: 1,
