@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
@@ -46,6 +47,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => {
+              Analytics.track(events.DECLINE_STUDY);
               this.userService.setValidationStudyResponse(false);
               Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
             }}>
@@ -55,6 +57,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
           <BrandedButton
             style={styles.mainButton}
             onPress={() => {
+              Analytics.track(events.JOIN_STUDY);
               this.props.navigation.navigate('ValidationStudyConsent', {
                 viewOnly: false,
                 currentPatient: this.props.route.params.currentPatient,
