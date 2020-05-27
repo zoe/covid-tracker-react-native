@@ -1,6 +1,6 @@
 import React from 'react';
 import { ErrorMessageBar } from './ErrorMessageBar';
-import i18n from '../locale/i18n';
+import i18n from '@covid/locale/i18n';
 
 type NoticeProps = {
   isOnline: boolean;

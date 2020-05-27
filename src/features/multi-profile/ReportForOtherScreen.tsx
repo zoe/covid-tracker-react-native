@@ -4,9 +4,9 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { profilesIcon } from '../../../assets';
-import { colors } from '../../../theme';
-import { Header } from '../../components/Screen';
+import { profilesIcon } from '@assets';
+import { colors } from '@theme';
+import { Header } from '@covid/components/Screen';
 import {
   BrandedButton,
   ClickableText,
@@ -14,9 +14,9 @@ import {
   RegularBoldText,
   RegularText,
   SecondaryText,
-} from '../../components/Text';
-import UserService from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
+} from '@covid/components/Text';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
