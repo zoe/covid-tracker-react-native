@@ -3,11 +3,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
-import { colors } from '../../../theme';
-import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
+import { colors } from '@theme';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { HeaderText, SimpleTextBlock } from './LegalComponents';
 import {
@@ -98,80 +98,69 @@ export class ConsentScreen extends Component<PropsType, TermsState> {
     return (
       <ScrollView>
         <RegularText>
-          If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to
-          be shared with investigators on that study,{' '}
-          <ClickableText onPress={() => this.props.navigation.navigate('NursesConsentUS', { viewOnly: this.viewOnly })}>
-            click here
+          {i18n.t('consent-normal-us.existing-study')}{' '}
+          <ClickableText onPress={() => this.props.navigation.replace('NursesConsentUS', { viewOnly: this.viewOnly })}>
+            {i18n.t('consent-normal-us.click-here')}
           </ClickableText>
           {'\n'}
         </RegularText>
 
-        <RegularBoldText>Purpose{'\n'}</RegularBoldText>
+        <RegularBoldText>
+          {i18n.t('consent-normal-us.purpose')}
+          {'\n'}
+        </RegularBoldText>
         <RegularText>
-          By using this app and tracking if you are well or have symptoms, you will be helping medical science and
-          healthcare providers across the country (such as Massachusetts General Hospital) to better understand
-          Coronavirus (COVID-19).
-          {'\n\n'}
-          This app allows you to help others, but does not give health advice. If you need health advice please visit
-          the CDC Coronavirus website{' '}
+          {i18n.t('consent-normal-us.purpose-body')}{' '}
           <ClickableText onPress={() => this.openUrl('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
             https://www.cdc.gov/coronavirus/2019-ncov/index.html
           </ClickableText>
           {'\n'}
         </RegularText>
 
-        <RegularBoldText>Information sharing{'\n'}</RegularBoldText>
-        <RegularText>
-          This app is designed by doctors and scientists at Massachusetts General Hospital, Harvard School of Public
-          Health, Stanford University, King's College London and Zoe Global Limited, a health technology company. They
-          have access to the information you enter, which may also be shared with hospitals listed in our privacy
-          notice.
-          {'\n\n'}
-          No information you share will be used for commercial purposes. An anonymous code will be used to replace your
-          personal details when sharing information with researchers beyond those mentioned above.
-        </RegularText>
+        <RegularBoldText>
+          {i18n.t('consent-normal-us.information-sharing')}
+          {'\n'}
+        </RegularBoldText>
+        <RegularText>{i18n.t('consent-normal-us.information-sharing-body')}</RegularText>
 
         <RegularBoldText>
           {'\n'}
-          Your consent
+          {i18n.t('consent-normal-us.your-consent')}
           {'\n'}
         </RegularBoldText>
         <RegularText>
-          By checking the box below, you consent to our using the personal information we collect through your use of
-          this app in the way we have described.
-          {'\n\n'}
-          For more information about how we use and share personal information about you, please see our{' '}
+          {i18n.t('consent-normal-us.your-consent-body')}{' '}
           <ClickableText onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-            privacy policy
+            {i18n.t('consent-normal-us.privacy-policy')}
           </ClickableText>
           .{'\n\n'}
-          You may withdraw your consent at any time by emailing{' '}
+          {i18n.t('consent-normal-us.you-may-withdraw')}{' '}
           <RegularBoldText>leavecovidtracking-us@joinzoe.com</RegularBoldText>
           {'\n\n'}
-          Any questions may be sent to <RegularBoldText>covidtrackingquestions-us@joinzoe.com</RegularBoldText>
+          {i18n.t('consent-normal-us.any-questions')}{' '}
+          <RegularBoldText>covidtrackingquestions-us@joinzoe.com</RegularBoldText>
         </RegularText>
 
         {!this.viewOnly && (
           <CheckboxList>
             <CheckboxItem value={this.state.processingChecked} onChange={() => this.handleToggle('processingChecked')}>
-              I consent to the processing of my personal data (including without limitation data I provide relating to
-              my health) as set forth in this consent and in the{' '}
+              {i18n.t('consent-normal-us.i-consent')}{' '}
               <ClickableText
                 onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-                Privacy Policy
+                {i18n.t('consent-normal-us.privacy-policy')}
               </ClickableText>
               .
             </CheckboxItem>
             <CheckboxItem value={this.state.termsOfUseChecked} onChange={() => this.handleToggle('termsOfUseChecked')}>
-              I have read and accept Zoe Global’s{' '}
+              {i18n.t('consent-normal-us.read-accepted')}{' '}
               <ClickableText
                 onPress={() => this.props.navigation.navigate('TermsOfUseUS', { viewOnly: this.viewOnly })}>
-                Terms of Use
+                {i18n.t('consent-normal-us.terms')}
               </ClickableText>{' '}
-              and{' '}
+              {i18n.t('consent-normal-us.and')}{' '}
               <ClickableText
                 onPress={() => this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: this.viewOnly })}>
-                Privacy Policy
+                {i18n.t('consent-normal-us.privacy-policy')}
               </ClickableText>
               .
             </CheckboxItem>

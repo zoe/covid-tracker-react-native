@@ -1,11 +1,11 @@
+import { userService } from '@covid/Services';
+import { ConfigType } from '@covid/core/Config';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { ConfigType } from '../core/Config';
-import { PatientStateType } from '../core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry } from '../core/user/UserService';
 import { ScreenParamList } from './ScreenParamList';
-import { userService } from '../Services';
 
 type ScreenName = keyof ScreenParamList;
 

@@ -1,9 +1,10 @@
+import { AppException } from '@covid/core/api/ApiServiceErrors';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
-import { AppException } from '../core/ApiServiceErrors';
-import { colors } from '../../theme';
+
 import { ErrorText, BrandedButton, RegularText } from './Text';
-import i18n from '../locale/i18n';
 
 type LoadingProps = {
   error: AppException | null;
@@ -48,7 +49,7 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: LoadingProps) => {
 export const Loading = (props: LoadingProps) => {
   return (
     <View style={styles.loadingView}>
-      {!!props.error ? (
+      {props.error ? (
         <ErrorMessaging {...props} />
       ) : (
         <>

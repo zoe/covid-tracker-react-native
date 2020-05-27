@@ -1,21 +1,21 @@
+import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '@assets';
+import { offlineService, userService } from '@covid/Services';
+import DaysAgo from '@covid/components/DaysAgo';
+import { Loading, LoadingModal } from '@covid/components/Loading';
+import { Header } from '@covid/components/Screen';
+import { ClippedText, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import i18n from '@covid/locale/i18n';
+import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
+import { getDaysAgo } from '@covid/utils/datetime';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import { colors } from '@theme';
 import { Card } from 'native-base';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
-import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '../../../assets';
-import { colors } from '../../../theme';
-import { offlineService, userService } from '../../Services';
-import DaysAgo from '../../components/DaysAgo';
-import { getDaysAgo } from '../../utils/datetime';
-import { Loading, LoadingModal } from '../../components/Loading';
-import { Header } from '../../components/Screen';
-import { ApiErrorState, initialErrorState } from '../../core/ApiServiceErrors';
-import { ClippedText, HeaderText, RegularText, SecondaryText } from '../../components/Text';
-import { isGBCountry } from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
-import { AvatarName, getAvatarByName } from '../../utils/avatar';
+
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -56,7 +56,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   async componentDidMount() {
-    this.props.navigation.addListener('focus', async (e) => {
+    this.props.navigation.addListener('focus', async () => {
       if (this.state.shouldRefresh) {
         await this.listProfiles();
       }

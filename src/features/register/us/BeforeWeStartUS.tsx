@@ -3,10 +3,10 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { BigButton } from '../../../components/Button';
-import Screen, { FieldWrapper, Header } from '../../../components/Screen';
-import { HeaderText } from '../../../components/Text';
-import i18n from '../../../locale/i18n';
+import { BigButton } from '@covid/components/Button';
+import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type HowYouFeelProps = {

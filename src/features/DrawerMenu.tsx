@@ -4,11 +4,11 @@ import Constants from 'expo-constants';
 import React from 'react';
 import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
-import { closeIcon } from '../../assets';
-import { CaptionText, HeaderText } from '../components/Text';
-import UserService, { isGBCountry, isSECountry } from '../core/user/UserService';
-import i18n from '../locale/i18n';
-import Analytics, { events } from '../core/Analytics';
+import { closeIcon } from '@assets';
+import { CaptionText, HeaderText } from '@covid/components/Text';
+import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
+import Analytics, { events } from '@covid/core/Analytics';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';

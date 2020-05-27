@@ -6,16 +6,16 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { chevronRight, pending, tick } from '../../../assets';
-import { colors } from '../../../theme';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '../../components/Text';
-import CovidTestService from '../../core/user/CovidTestService';
-import UserService from '../../core/user/UserService';
-import { CovidTest } from '../../core/user/dto/CovidTestContracts';
-import { AssessmentInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import i18n, { getDayName, getMonthName } from '../../locale/i18n';
+import { chevronRight, pending, tick } from '@assets';
+import { colors } from '@theme';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import CovidTestService from '@covid/core/user/CovidTestService';
+import UserService from '@covid/core/user/UserService';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
