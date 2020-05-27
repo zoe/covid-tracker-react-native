@@ -1,17 +1,18 @@
+import { icon } from '@assets';
+import { Header } from '@covid/components/Screen';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Header } from '../../../components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '../../../components/Text';
-import i18n from '../../../locale/i18n';
-import { ScreenParamList } from '../../ScreenParamList';
-import { icon } from '../../../../assets';
-import { colors } from '../../../../theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { RouteProp } from '@react-navigation/native';
+
 import Navigator from '../../Navigation';
-import UserService from '../../../core/user/UserService';
+import { ScreenParamList } from '../../ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;

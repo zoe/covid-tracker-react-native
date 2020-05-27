@@ -1,7 +1,7 @@
+import { gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '@assets';
+import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { isGBCountry, isSECountry } from '../core/user/UserService';
-import { gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '../../assets';
 
 const partnerLogos = () => {
   if (isGBCountry()) {

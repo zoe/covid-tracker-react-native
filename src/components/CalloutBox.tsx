@@ -2,8 +2,8 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { RegularText } from './Text';
 import { Linking } from 'expo';
-import { colors } from '../../theme';
-import { CalloutBoxContent } from '../core/ContentService';
+import { colors } from '@theme';
+import { CalloutBoxContent } from '@covid/core/ContentService';
 
 type CalloutBoxProps = {
   content: CalloutBoxContent;

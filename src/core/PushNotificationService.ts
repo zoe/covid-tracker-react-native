@@ -1,12 +1,13 @@
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+
+import { IStorageService } from './LocalStorageService';
+import { IApiClient } from './api/ApiClient';
 import { PushToken, IPushTokenRemoteClient } from './types';
+import { TokenInfoResponse, TokenInfoRequest } from './user/dto/UserAPIContracts';
 import { now, aWeekAgo, isDateBefore } from './utils/datetime';
 import { isAndroid } from './utils/platform';
-import { IStorageService } from './LocalStorageService';
-import { TokenInfoResponse, TokenInfoRequest } from './user/dto/UserAPIContracts';
-import { IApiClient } from './api/ApiClient';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -19,7 +20,7 @@ const getPlatform = () => {
 
 const createTokenDoc = (token: string): PushToken => {
   return {
-    token: token,
+    token,
     lastUpdated: now(),
     platform: getPlatform(),
   };
@@ -70,7 +71,7 @@ export default class PushNotificationService {
 
   private async getSavedPushToken(): Promise<PushToken | null> {
     const pushToken = await this.storage.getObject<PushToken>(KEY_PUSH_TOKEN);
-    return pushToken || null;
+    return pushToken ?? null;
   }
 
   private async savePushToken(pushToken: PushToken) {

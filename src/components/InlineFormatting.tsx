@@ -1,7 +1,6 @@
+import { fontStyles, colors } from '@theme';
 import React from 'react';
 import Markdown from 'react-native-easy-markdown';
-import { fontStyles, colors } from '../../theme';
-import { View } from 'react-native';
 
 type FormattingProps = {
   text: string;

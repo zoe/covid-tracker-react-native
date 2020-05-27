@@ -1,23 +1,24 @@
+import { covidIcon, menuIcon } from '@assets';
+import { offlineService, pushNotificationService, userService } from '@covid/Services';
+import { CalloutBox } from '@covid/components/CalloutBox';
+import { ContributionCounter } from '@covid/components/ContributionCounter';
+import { LoadingModal } from '@covid/components/Loading';
+import { Partnership } from '@covid/components/Partnership';
+import { PoweredByZoe } from '@covid/components/PoweredByZoe';
+import { BrandedButton, RegularText } from '@covid/components/Text';
+import AnalyticsService from '@covid/core/Analytics';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { cleanIntegerVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { covidIcon, menuIcon } from '../../../assets';
-import { colors } from '../../../theme';
-import { ContributionCounter } from '../../components/ContributionCounter';
-import { BrandedButton, RegularText } from '../../components/Text';
-import AnalyticsService from '../../core/Analytics';
-import { isSECountry, isUSCountry } from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
+
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { CalloutBox } from '../../components/CalloutBox';
-import { ApiErrorState, initialErrorState } from '../../core/api/ApiServiceErrors';
-import { offlineService, pushNotificationService, userService } from '../../Services';
-import { LoadingModal } from '../../components/Loading';
-import { cleanIntegerVal } from '../../core/utils/number';
-import { Partnership } from '../../components/Partnership';
-import { PoweredByZoe } from '../../components/PoweredByZoe';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;

@@ -3,11 +3,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
-import { colors } from '../../../theme';
-import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../components/Text';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '../../core/user/UserService';
-import i18n from '../../locale/i18n';
+import { colors } from '@theme';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import { HeaderText, SimpleTextBlock } from './LegalComponents';
 import {

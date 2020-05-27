@@ -1,10 +1,10 @@
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import i18n from '@covid/locale/i18n';
 import { Form } from 'native-base';
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
-import { BrandedButton, ErrorText, HeaderText } from '../../../components/Text';
-import { ValidatedTextInput } from '../../../components/ValidatedTextInput';
-import i18n from '../../../locale/i18n';
 import styles from './styles';
 
 export interface Props {

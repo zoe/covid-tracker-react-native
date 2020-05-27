@@ -3,9 +3,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
-import { colors } from '../../../../theme';
-import { ApplicationVersion } from '../../../components/AppVersion';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
+import { colors } from '@theme';
+import { ApplicationVersion } from '@covid/components/AppVersion';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '../../ScreenParamList';
 import i18n from '../../../locale/i18n';
 

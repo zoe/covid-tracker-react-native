@@ -1,8 +1,8 @@
-import UserService from './core/user/UserService';
-import LocalStorageService from './core/LocalStorageService';
-import OfflineService from './core/offline/OfflineService';
-import PushNotificationService, { PushNotificationApiClient } from './core/PushNotificationService';
-import ApiClient from './core/api/ApiClient';
+import UserService from '@covid/core/user/UserService';
+import LocalStorageService from '@covid/core/LocalStorageService';
+import OfflineService from '@covid/core/offline/OfflineService';
+import PushNotificationService, { PushNotificationApiClient } from '@covid/core/PushNotificationService';
+import ApiClient from '@covid/core/api/ApiClient';
 
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();

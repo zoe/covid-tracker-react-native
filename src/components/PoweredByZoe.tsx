@@ -1,10 +1,11 @@
+import { zoe } from '@assets';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { zoe } from '../../assets';
-import { RegularText } from './Text';
-import { colors } from '../../theme';
-import i18n from '../locale/i18n';
+
 import { InlineFormatting } from './InlineFormatting';
+import { RegularText } from './Text';
 
 export const PoweredByZoe = () => {
   return (
