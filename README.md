@@ -100,6 +100,10 @@ npm install expo-cli --g
    ```bash
    npm run mock-server
    ```
+   
+### Git Hooks
+
+The git hook checks can be manually disabled calling git commit and git push with the --no-verify flag if needed.
 
 ### Tests
 
