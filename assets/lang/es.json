@@ -50,13 +50,6 @@
     "button": "Continuar"
   },
 
-  "splash-error": {
-    "title": "Error",
-    "message": "Hubo un problema al capturar la información de inicio",
-    "primary-action-title": "Intente nuevamente",
-    "secondary-action-title": "Cancelar"
-  },
-
   "welcome": {
     "title": "COVID Symptom Study",
     "sign-in": "Iniciar sesión",
@@ -64,13 +57,9 @@
     "disclaimer": "Esta aplicación le permite ayudar a los demás, pero \n no da consejos de salud. Si necesita \n consejos de salud",
     "disclaimer-link": "visite el sitio web de NHS",
     "tell-me-more": "Más información",
-    "more-info": "Para más información %{link}",
-    "more-info-link": "visite nuestro sitio web",
     "visit-the-website": "Visite el sitio web",
     "see-how-your-area-is-affected": "Siga los hallazgos que usted hizo posibles",
     "report-button": "Informe hoy, incluso si está bien",
-    "privacy-policy": "Política de privacidad",
-    "privacy-policy-subtext": "(incl. cómo eliminar sus datos)",
     "how-you-can-help": {
       "title": "Cómo puede ayudar",
       "text1": "Tómese 1 minuto diario para informar cómo se siente, aunque esté bien. Luego, vea cómo está afectada su área.",
@@ -201,8 +190,6 @@
   "required-postcode": "Ingrese su código postal",
   "postcode-too-long": "Corrija su código postal",
 
-  "are-you-a-member-of-twins": "¿Es miembro del estudio de gemelos del Reino Unido?",
-  "placeholder-twins": "Estudio de gemelos",
   "picker-yes": "Sí",
   "picker-no": "No",
   "placeholder-optional-question": "*Opcional",
@@ -433,8 +420,6 @@
   "treatment-selection-picker-invasive-ventilation": "Ventilación invasiva*",
   "treatment-selection-picker-subtext-invasive-ventilation": "* Apoyo respiratorio a través de un tubo insertado. Las personas generalmente están dormidas para esto.",
   "treatment-selection-picker-other": "Otro",
-
-  "do-you-use-a-stick": "¿Regularmente usa un bastón, andador o silla de ruedas para moverse?",
 
   "have-you-been-exposed": "¿Ha estado ALGUNA VEZ expuesto a alguien con infección documentada o sospechada por COVID-19 (como compañeros de trabajo, familiares, etc.)",
   "exposed-yes-documented": "Sí, solo casos de COVID-19 documentados",
