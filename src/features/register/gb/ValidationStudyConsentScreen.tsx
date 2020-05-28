@@ -1,15 +1,15 @@
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import UserService from '@covid/core/user/UserService';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Body, CheckBox, ListItem } from 'native-base';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
-import { colors } from '../../../../theme';
-import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '../../../components/Text';
-import UserService from '../../../core/user/UserService';
-import { ScreenParamList } from '../../ScreenParamList';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import Navigator from '../../Navigation';
+import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;

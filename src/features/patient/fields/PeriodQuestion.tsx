@@ -1,12 +1,12 @@
+import DropdownField from '@covid/components/DropdownField';
+import { cleanIntegerVal } from '@covid/core/utils/number';
+import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 
-import DropdownField from '../../../components/DropdownField';
-import i18n from '../../../locale/i18n';
 import { PeriodFrequencyQuestion, PeriodFrequencyData } from './PeriodFrequencyQuestion';
 import { PeriodStoppedAge, PeriodStoppedAgeData } from './PeriodStoppedAge';
 import { WeeksPregnant, WeeksPregnantData } from './WeeksPregnant';
-import { cleanIntegerVal } from '../../../core/utils/number';
 
 export interface PeriodData {
   havingPeriods: string;

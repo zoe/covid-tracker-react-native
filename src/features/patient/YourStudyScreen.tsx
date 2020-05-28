@@ -7,15 +7,15 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import { CheckboxItem, CheckboxList } from '../../components/Checkbox';
-import { GenericTextField } from '../../components/GenericTextField';
-import ProgressStatus from '../../components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '../../components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '../../components/Text';
-import { ValidationErrors } from '../../components/ValidationError';
-import UserService, { isGBCountry, isUSCountry } from '../../core/user/UserService';
-import { PatientInfosRequest } from '../../core/user/dto/UserAPIContracts';
-import i18n from '../../locale/i18n';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { ValidationErrors } from '@covid/components/ValidationError';
+import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 type YourStudyProps = {
@@ -278,7 +278,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
               <Form>
                 <FieldWrapper>
                   <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('label-cohort')}</Label>
+                    <Label>{i18n.t('your-study.label-cohort')}</Label>
                     <CheckboxList>
                       {this.state.cohorts.map((cohort) => (
                         <CheckboxItem

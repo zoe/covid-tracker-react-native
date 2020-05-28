@@ -3,10 +3,10 @@ import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { CheckboxItem, CheckboxList } from '../../../components/Checkbox';
-import { FieldWrapper } from '../../../components/Screen';
-import { ValidationError } from '../../../components/ValidationError';
-import i18n from '../../../locale/i18n';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { FieldWrapper } from '@covid/components/Screen';
+import { ValidationError } from '@covid/components/ValidationError';
+import i18n from '@covid/locale/i18n';
 
 export interface HormoneTreatmentData {
   hormoneTreatment: string[];

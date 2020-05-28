@@ -1,15 +1,17 @@
+import i18n from '@covid/locale/i18n';
+import { AvatarName } from '@covid/utils/avatar';
+import { getDaysAgo } from '@covid/utils/datetime';
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 
-import { isAndroid } from '../utils/platform';
-import i18n from '../../locale/i18n';
-import { AvatarName } from '../../utils/avatar';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
-import { getDaysAgo } from '../../utils/datetime';
-import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { ApiClientBase } from '../api/ApiClientBase';
+import { handleServiceError } from '../api/ApiServiceErrors';
+import { camelizeKeys } from '../api/utils';
+import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
+import { cleanIntegerVal } from '../utils/number';
 import {
   AreaStatsResponse,
   AskValidationStudy,
@@ -22,9 +24,6 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { camelizeKeys } from '../api/utils';
-import { handleServiceError } from '../api/ApiServiceErrors';
-import { cleanIntegerVal } from '../utils/number';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -430,7 +429,7 @@ export default class UserService extends ApiClientBase
 
   async getUserCountry() {
     const country = await AsyncStorageService.getUserCountry();
-    if (!!country) {
+    if (country) {
       UserService.userCountry = country;
       UserService.setLocaleFromCountry(country);
     }
