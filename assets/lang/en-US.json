@@ -3,12 +3,6 @@
     "take-a-minute": "Take 1 minute each day and help fight the outbreak in your community."
   },
 
-  "before-we-start": {
-    "title": "I am in an existing research study or trial, and I want my data to be shared with investigators on that study.",
-    "yes": "Yes, I am",
-    "no": "No, I am not"
-  },
-
   "your-postcode": "Your zipcode?",
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
@@ -33,8 +27,11 @@
 
   "mobility-aid": "Do you regularly use a cane, walker or wheelchair to get about?",
 
-  "share-with-friends-message": "We can help beat #COVID19 together! Join me and take one minute a day to help fight the outbreak in our community. 🙏 Download the app",
-  "share-with-friends-url": "https://covid.joinzoe.com",
+  "share-this-app": {
+    "message": "We can help beat #COVID19 together! Join me and take one minute a day to help fight the outbreak in our community. 🙏 Download the app",
+    "url": "https://covid.joinzoe.com/us"
+  },
+
   "website-home": "https://covid.joinzoe.com/us",
 
   "thank-you-body": "Thank you for joining millions of people supporting scientists at Massachusetts General Hospital, Stanford University School of Medicine & King's College London to help our health services.",
