@@ -95,6 +95,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - build
+      - run: npm run test:i18n 'sv-SE'
       - run: npm run lint
       - run: npm run prettier
       - run: echo "API_URL=" > .env
