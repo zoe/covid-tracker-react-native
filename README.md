@@ -105,6 +105,13 @@ npm install expo-cli --g
 
 The git hook checks can be manually disabled calling git commit and git push with the --no-verify flag if needed.
 
+
+### Internatlisation
+
+Translations files are stored under `/assests/lang/` in nested json files. Use [BabelEdit](https://www.codeandweb.com/babeledit) to keep these files in sync.
+
+Open the `./covid-symptom-study.babel` in BabelEdit, which allows you to edit all translations at once, move keys, or filter by translations that have require changes. BabelEdit will keep all the json files in sync. You'll need to ensure changes are reflected in the source code.    
+
 ### Tests
 
 1. Run the standard suite of integration tests

@@ -10,7 +10,7 @@
     -->
     <preset_collections/>
     <framework>generic-json</framework>
-    <filename>config.babel</filename>
+    <filename>covid-symptom-study.babel</filename>
     <source_root_dir></source_root_dir>
     <folder_node>
         <name></name>
