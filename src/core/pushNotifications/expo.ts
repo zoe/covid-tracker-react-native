@@ -1,5 +1,6 @@
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
+
 import { IPushTokenEnvironment } from './PushNotificationService';
 
 const STATUS_GRANTED = 'granted';

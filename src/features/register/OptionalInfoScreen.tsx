@@ -8,6 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
+import { Constants } from 'expo';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
@@ -16,7 +17,6 @@ import * as Yup from 'yup';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { Constants } from 'expo';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;

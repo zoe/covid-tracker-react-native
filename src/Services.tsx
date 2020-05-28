@@ -1,8 +1,11 @@
-import UserService from '@covid/core/user/UserService';
 import LocalStorageService from '@covid/core/LocalStorageService';
-import OfflineService from '@covid/core/offline/OfflineService';
-import PushNotificationService, { PushNotificationApiClient } from '@covid/core/pushNotifications/PushNotificationService';
 import ApiClient from '@covid/core/api/ApiClient';
+import OfflineService from '@covid/core/offline/OfflineService';
+import PushNotificationService, {
+  PushNotificationApiClient,
+} from '@covid/core/pushNotifications/PushNotificationService';
+import UserService from '@covid/core/user/UserService';
+
 import ExpoPushTokenEnvironment from './core/pushNotifications/expo';
 
 const apiClient = new ApiClient();
