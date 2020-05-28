@@ -302,7 +302,6 @@
 
     "picker-waiting": "Esperando resultados",
     "picker-test-failed": "No está claro/Falló el examen",
-    "picker-never-had-test": "Nunca me hice el examen",
 
     "question-knows-date-of-test": "¿Sabe la fecha de su examen?",
     "question-date-test-occurred": "¿Cuándo fue su examen?",
@@ -482,8 +481,8 @@
   },
 
   "share-this-app": {
-    "message": "Para ayudar a frenar el contagio de #COVID19 e identificar casos más temprano, informe sus síntomas a diario, incluso si se siente bien ð. Descargue la aplicación",
-    "url": "https://covid.joinzoe.com/",
+    "message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad. Descargue la aplicación",
+    "url": "https://covid.joinzoe.com/us",
     "primary-text": "Comparta esta aplicación",
     "secondary-text": "Mientras más personas informen sus síntomas, más podemos ayudar a quienes están en riesgo.",
     "button-text": "Compartir la aplicación"
@@ -784,8 +783,6 @@
   "please-add-test-below": "Si se realizó un examen de COVID-19, agregue a continuación. Puede editarlos en cualquier momento.",
   "never-had-test": "Nunca me he hecho un examen de COVID",
   "above-list-correct": "La lista anterior es correcta",
-
-  "share-with-friends-message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad. Descargue la aplicación",
 
   "errors": {
     "button-retry": "Reintentar",
