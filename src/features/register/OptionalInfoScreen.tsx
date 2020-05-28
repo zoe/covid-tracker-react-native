@@ -16,6 +16,7 @@ import * as Yup from 'yup';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import { Constants } from 'expo';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;
@@ -51,7 +52,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   }
 
   private async setPushToken() {
-    pushNotificationService.initPushToken();
+    if (Constants.appOwnership !== 'expo') {
+      pushNotificationService.initPushToken();
+    }
   }
 
   private async savePiiData(formData: OptionalInfoData) {
