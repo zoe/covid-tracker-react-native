@@ -121,7 +121,13 @@
   "title-about-work": "Acerca de su trabajo",
 
   "your-study": {
-    "label-cohort": "¿Es parte de uno de estudios de población u organizaciones?"
+    "label-cohort": "Eres parte de alguno de estos estudios de pobalación o alguna de estas organizaciones?",
+    "add-study-names": "Añada los numbres de tus estudios",
+    "your-clinical-study": "Tu estudio clínico",
+    "contact-name": "Si lo sabes, cuál es el nombre de la persona de contacto en tu estudio (investigador, médico, coordinador del estudio, etc.)",
+    "uni-hospital": "Si lo sabes, qué universidad o hospital lleva a cabo este estudio?",
+    "nct-number": "Si lo sabes, cuál es el número NCT?",
+    "if-not": "Sino"
   },
 
   "required-is-healthcare-worker": "Indique si trabaja en el área de la salud",
