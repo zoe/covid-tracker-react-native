@@ -17,7 +17,6 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Image, ScrollView, Share, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
 
-
 import { ScreenParamList } from './ScreenParamList';
 
 type Props = {
