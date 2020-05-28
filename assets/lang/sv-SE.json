@@ -569,6 +569,13 @@
     "us-other": false,
     "hispanic": false,
     "not-hispanic": false,
+
+    "before-we-start": {
+      "title": false,
+      "yes": false,
+      "no": false
+    },
+
     "thank-you": {
       "check-for-updates": false,
       "news-feed": false,
