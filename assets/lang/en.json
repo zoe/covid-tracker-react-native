@@ -615,5 +615,7 @@
     "resource-not-found": "The server couldn't find your details",
     "server-is-busy": "Server is busy. Please wait, then try again",
     "server-error": "Server couldn't respond at this time. Please wait, then try again."
-  }
+  },
+
+  "back": "Back"
 }
