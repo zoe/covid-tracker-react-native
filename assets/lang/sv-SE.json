@@ -529,6 +529,8 @@
     "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen."
   },
 
+  "back": "Tillbaka",
+
   "__IGNORE__": {
     "optional-info.title": false,
     "optional-info.description": false,

@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -48,6 +49,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
   handleAgreeClicked = async () => {
     if (this.state.agreeToAbove) {
+      Analytics.track(events.JOIN_STUDY);
       this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
       Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
     }
@@ -122,7 +124,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               either by ordering a testing kit in the mail or visiting a Regional Testing Centre. Alternatively, Zoe may
               apply for testing on your behalf to the Department of Health and Social Care, through an online platform
               where Zoe will share your name, mobile phone number, and email address to register you for testing. Swab
-              testing involves collecting a sample to test if you have COVID by inserting a long swab (like a long
+              testing involves collecting a sample to test if you have COVID by inserting a long swab (like a long
               cotton wool bud) into the back of your nose or mouth and rotating the swab several times. Organising and
               completing the Covid-19 test is optional. Once you have received your test result, you will be asked to
               report it in the Covid-19 Symptom Study app.
