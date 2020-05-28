@@ -286,10 +286,12 @@
     "update-test": "Actualizar examen",
 
     "question-select-a-date-range": "Seleccione un intervalo de fechas",
+    "question-select-a-date": "Seleccione una fecha",
 
     "question-mechanism": "¿Cómo se realizó este examen?",
     "picker-nose-swab": "Usaron un hisopo en mi nariz",
     "picker-throat-swab": "Usaron un hisopo en mi garganta",
+    "picker-nose-throat-swab": "Con un hisopo en mi nariz o garganta",
     "picker-saliva-sample": "Escupí en un vaso/tubo",
     "picker-blood-sample": "Di una muestra de sangre",
     "picker-other": "Otro, especifique",
