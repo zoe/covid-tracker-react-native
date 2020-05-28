@@ -800,5 +800,32 @@
 
   "share-with-friends-message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad . ð Descargue la aplicación",
 
-  "back": "Volver"
+  "errors": {
+    "button-retry": "Reintentar",
+    "button-okay": "Aceptar",
+    "status-loading": "Cargando...",
+    "status-retrying": "Reintentando...",
+    "user-is-offline": "Actualmente está desconectado. Revise su conexión.",
+    "resource-not-found": "El servidor no pudo encontrar sus detalles",
+    "server-is-busy": "El servidor está ocupado. Espere, luego intente nuevamente",
+    "server-error": "El servidor no pudo responder en este momento. Espere, luego intente nuevamente."
+  },
+
+  "back": "Volver",
+
+  "__IGNORE__": {
+    "partners": {
+      "powered-by": false,
+      "data-analysis": false
+    },
+
+    "validation-study-intro": {
+      "title": false,
+      "subtitle": false,
+      "info": false,
+      "yes": false,
+      "no": false,
+      "app-name": false
+    }
+  }
 }
