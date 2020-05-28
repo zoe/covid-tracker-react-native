@@ -119,7 +119,10 @@
   "update-profile": "Actualizar perfil",
 
   "title-about-work": "Acerca de su trabajo",
-  "label-cohort": "¿Es parte de uno de estudios de población u organizaciones?",
+
+  "your-study": {
+    "label-cohort": "¿Es parte de uno de estudios de población u organizaciones?"
+  },
 
   "required-is-healthcare-worker": "Indique si trabaja en el área de la salud",
   "required-is-carer": "Indique si es un cuidador",

@@ -278,7 +278,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
               <Form>
                 <FieldWrapper>
                   <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('label-cohort')}</Label>
+                    <Label>{i18n.t('your-study.label-cohort')}</Label>
                     <CheckboxList>
                       {this.state.cohorts.map((cohort) => (
                         <CheckboxItem
