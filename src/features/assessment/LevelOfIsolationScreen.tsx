@@ -155,7 +155,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   <Item stackedLabel style={styles.textItemStyle}>
                     <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
                     <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                      placeholder={i18n.t('level-of-isolation.placeholder-optional')}
                       value={props.values.isolationLittleInteraction}
                       onChangeText={props.handleChange('isolationLittleInteraction')}
                       onBlur={props.handleBlur('isolationLittleInteraction')}
@@ -177,7 +177,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   <Item stackedLabel style={styles.textItemStyle}>
                     <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
                     <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                      placeholder={i18n.t('level-of-isolation.placeholder-optional')}
                       value={props.values.isolationLotsOfPeople}
                       onChangeText={props.handleChange('isolationLotsOfPeople')}
                       onBlur={props.handleBlur('isolationLotsOfPeople')}
@@ -199,7 +199,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   <Item stackedLabel style={styles.textItemStyle}>
                     <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
                     <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                      placeholder={i18n.t('level-of-isolation.placeholder-optional')}
                       value={props.values.isolationHealthcareProvider}
                       onChangeText={props.handleChange('isolationHealthcareProvider')}
                       onBlur={props.handleBlur('isolationHealthcareProvider')}
