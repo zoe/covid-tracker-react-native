@@ -59,7 +59,7 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
       <Modal animationType="fade" transparent visible={isModalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <TouchableOpacity style={{ alignSelf: 'flex-end' }} onPress={this.props.closeModal}>
+            <TouchableOpacity testID="close" style={{ alignSelf: 'flex-end' }} onPress={this.props.closeModal}>
               <Image source={closeIcon} />
             </TouchableOpacity>
             <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>
@@ -68,6 +68,7 @@ export default class CountryIpModal extends Component<PropsType, StateType> {
             <Form style={{ marginTop: 32, width: 300 }}>
               <Label style={styles.labelStyle}>{i18n.t('select-country')}</Label>
               <Picker
+                testID="countryPicker"
                 selectedValue={this.state.countrySelected}
                 onValueChange={this.onValueChange.bind(this)}
                 iosIcon={<Icon name="arrow-down" />}
