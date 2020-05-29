@@ -51,16 +51,16 @@ export type ScreenParamList = {
   PreviousExposure: { currentPatient: PatientStateType };
 
   // Assessment screens
-  HealthWorkerExposure: { coordinator: AssessmentData };
-  CovidTest: { coordinator: AssessmentData; tests?: CovidTest[] };
-  CovidTestDetail: { coordinator: AssessmentData; test?: CovidTest };
-  HowYouFeel: { coordinator: AssessmentData };
-  DescribeSymptoms: { coordinator: AssessmentData };
-  WhereAreYou: { coordinator: AssessmentData };
-  LevelOfIsolation: { coordinator: AssessmentData };
-  TreatmentSelection: { coordinator: AssessmentData; location: string };
-  TreatmentOther: { coordinator: AssessmentData; location: string };
-  ProfileBackDate: { coordinator: AssessmentData };
+  HealthWorkerExposure: { assessmentData: AssessmentData };
+  CovidTest: { assessmentData: AssessmentData; tests?: CovidTest[] };
+  CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
+  HowYouFeel: { assessmentData: AssessmentData };
+  DescribeSymptoms: { assessmentData: AssessmentData };
+  WhereAreYou: { assessmentData: AssessmentData };
+  LevelOfIsolation: { assessmentData: AssessmentData };
+  TreatmentSelection: { assessmentData: AssessmentData; location: string };
+  TreatmentOther: { assessmentData: AssessmentData; location: string };
+  ProfileBackDate: { assessmentData: AssessmentData };
 
   // Completion screens
   ThankYou: undefined;

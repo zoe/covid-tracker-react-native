@@ -1,6 +1,6 @@
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -26,66 +26,66 @@ class AssessmentCoordinator {
   assessmentData: AssessmentData;
 
   ScreenFlow: any = {
-    ProfileBackDate: async () => {
-      await this.startAssessment();
+    ProfileBackDate: () => {
+      this.startAssessment();
     },
-    LevelOfIsolation: async () => {
+    LevelOfIsolation: () => {
       if (this.assessmentData.currentPatient.isHealthWorker) {
-        this.navigation.navigate('HealthWorkerExposure', { coordinator: this.assessmentData });
+        this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
-        this.navigation.navigate('CovidTest', { coordinator: this.assessmentData });
+        this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
       }
     },
-    HealthWorkerExposure: async () => {
-      this.navigation.navigate('CovidTest', { coordinator: this.assessmentData });
+    HealthWorkerExposure: () => {
+      this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
     },
-    CovidTest: async () => {
-      this.navigation.navigate('HowYouFeel', { coordinator: this.assessmentData });
+    CovidTest: () => {
+      this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
-    CovidTestDetail: async () => {
+    CovidTestDetail: () => {
       this.navigation.goBack();
     },
-    DescribeSymptoms: async () => {
-      this.navigation.navigate('WhereAreYou', { coordinator: this.assessmentData });
+    DescribeSymptoms: () => {
+      this.navigation.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
-    TreatmentOther: async () => {
-      await this.gotoEndAssessment();
+    TreatmentOther: () => {
+      this.gotoEndAssessment();
     },
   };
 
-  init(navigation: NavigationType, assessmentData: AssessmentData) {
+  init = (navigation: NavigationType, assessmentData: AssessmentData) => {
     this.navigation = navigation;
     this.assessmentData = assessmentData;
-  }
+  };
 
   // Workaround for Expo save/refresh nixing the navigation.
-  resetNavigation(navigation: NavigationType) {
+  resetNavigation = (navigation: NavigationType) => {
     if (!this.navigation) {
       console.log('[ROUTE] Resetting navigation');
     }
     this.navigation = this.navigation || navigation;
-  }
+  };
 
-  getConfig(): ConfigType {
+  getConfig = (): ConfigType => {
     return this.userService.getConfig();
-  }
+  };
 
-  async getCurrentPatient(patientId: string): Promise<PatientStateType> {
+  getCurrentPatient = async (patientId: string): Promise<PatientStateType> => {
     return await this.userService.getCurrentPatient(patientId);
-  }
+  };
 
-  getThankYouScreenName() {
+  getThankYouScreenName = () => {
     return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
-  }
+  };
 
-  getPatientDetailsScreenName(currentPatient: PatientStateType) {
+  getPatientDetailsScreenName = (currentPatient: PatientStateType) => {
     const config = this.getConfig();
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     const page = shouldAskStudy ? 'YourStudy' : 'YourWork';
     return page;
-  }
+  };
 
-  startAssessment() {
+  startAssessment = () => {
     const { currentPatient } = this.assessmentData;
 
     const userService = new UserService();
@@ -99,24 +99,24 @@ class AssessmentCoordinator {
         !currentPatient.hasBloodPressureAnswer;
 
       if (mustBackfillProfile) {
-        this.navigation.navigate('ProfileBackDate', { coordinator: this.assessmentData });
+        this.navigation.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
-        this.navigation.navigate('LevelOfIsolation', { coordinator: this.assessmentData });
+        this.navigation.navigate('LevelOfIsolation', { assessmentData: this.assessmentData });
       } else {
         // Everything in this block should be replicated in Level Of Isolation navigation for now
         if (currentPatient.isHealthWorker) {
-          this.navigation.navigate('HealthWorkerExposure', { coordinator: this.assessmentData });
+          this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
         } else {
-          this.navigation.navigate('CovidTest', { coordinator: this.assessmentData });
+          this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
         }
       }
     } else {
       const nextPage = this.getPatientDetailsScreenName(currentPatient);
-      this.gotoScreen(nextPage); //TODO
+      this.gotoScreen(nextPage);
     }
-  }
+  };
 
-  async gotoEndAssessment() {
+  gotoEndAssessment = async () => {
     const config = this.getConfig();
     const shouldShowReportForOthers =
       config.enableMultiplePatients &&
@@ -128,42 +128,42 @@ class AssessmentCoordinator {
     } else {
       this.gotoScreen(this.getThankYouScreenName());
     }
-  }
+  };
 
-  async gotoNextScreen(screenName: ScreenName) {
+  gotoNextScreen = (screenName: ScreenName) => {
     if (this.ScreenFlow[screenName]) {
-      await this.ScreenFlow[screenName];
+      this.ScreenFlow[screenName]();
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
     }
-  }
+  };
 
-  gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
-    this.navigation.navigate(screenName, params); //TODO
-  }
+  gotoScreen = (screenName: ScreenName, params: RouteParamsType | undefined = undefined) => {  //TODO Fix params on this
+    this.navigation.navigate(screenName, params);
+  };
 
-  goToAddEditTest(covidTest?: CovidTest) {
-    this.navigation.navigate('CovidTestDetail', { coordinator: this.assessmentData, test: covidTest });
-  }
+  goToAddEditTest = (covidTest?: CovidTest) => {
+    this.navigation.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
+  };
 
-  goToNextHowYouFeelScreen(healthy: boolean) {
+  goToNextHowYouFeelScreen = (healthy: boolean) => {
     healthy
       ? this.gotoEndAssessment()
-      : this.navigation.navigate('DescribeSymptoms', { coordinator: this.assessmentData });
-  }
+      : this.navigation.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
+  };
 
-  goToNextWhereAreYouScreen(location: string, endAssessment: boolean) {
+  goToNextWhereAreYouScreen = (location: string, endAssessment: boolean) => {
     endAssessment
       ? this.gotoEndAssessment()
-      : this.navigation.navigate('TreatmentSelection', { coordinator: this.assessmentData, location });
-  }
+      : this.navigation.navigate('TreatmentSelection', { assessmentData: this.assessmentData, location });
+  };
 
-  goToNextTreatmentSelectionScreen(other: boolean, location: string) {
+  goToNextTreatmentSelectionScreen = (other: boolean, location: string) => {
     other
-      ? this.navigation.navigate('TreatmentOther', { coordinator: this.assessmentData, location })
+      ? this.navigation.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
       : this.gotoEndAssessment();
-  }
+  };
 }
 
 const assessmentCoordinator = new AssessmentCoordinator();
