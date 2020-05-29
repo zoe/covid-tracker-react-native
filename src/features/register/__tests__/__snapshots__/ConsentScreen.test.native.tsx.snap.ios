@@ -1681,7 +1681,7 @@ exports[`US should render with viewOnly false 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.existing-study" translation]
+        If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study,
          
         <Text
           onPress={[Function]}
@@ -1693,7 +1693,7 @@ exports[`US should render with viewOnly false 1`] = `
             }
           }
         >
-          [missing "en.consent-normal-us.click-here" translation]
+          click here
         </Text>
         
 
@@ -1708,7 +1708,7 @@ exports[`US should render with viewOnly false 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.purpose" translation]
+        Purpose
         
 
       </Text>
@@ -1721,7 +1721,9 @@ exports[`US should render with viewOnly false 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.purpose-body" translation]
+        By using this app and tracking if you are well or have symptoms, you will be helping medical science and healthcare providers across the country (such as Massachusetts General Hospital) to better understand Coronavirus (COVID-19).
+
+This app allows you to help others, but does not give health advice. If you need health advice please visit the CDC Coronavirus website
          
         <Text
           onPress={[Function]}
@@ -1748,7 +1750,7 @@ exports[`US should render with viewOnly false 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.information-sharing" translation]
+        Information sharing
         
 
       </Text>
@@ -1761,7 +1763,9 @@ exports[`US should render with viewOnly false 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.information-sharing-body" translation]
+        This app is designed by doctors and scientists at Massachusetts General Hospital, Harvard School of Public Health, Stanford University, King's College London and Zoe Global Limited, a health technology company. They have access to the information you enter, which may also be shared with hospitals listed in our privacy notice.
+
+No information you share will be used for commercial purposes. An anonymous code will be used to replace your personal details when sharing information with researchers beyond those mentioned above.
       </Text>
       <Text
         style={
@@ -1775,7 +1779,7 @@ exports[`US should render with viewOnly false 1`] = `
       >
         
 
-        [missing "en.consent-normal-us.your-consent" translation]
+        Your consent
         
 
       </Text>
@@ -1788,7 +1792,9 @@ exports[`US should render with viewOnly false 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.your-consent-body" translation]
+        By checking the box below, you consent to our using the personal information we collect through your use of this app in the way we have described.
+
+For more information about how we use and share personal information about you, please see our
          
         <Text
           onPress={[Function]}
@@ -1800,13 +1806,13 @@ exports[`US should render with viewOnly false 1`] = `
             }
           }
         >
-          [missing "en.consent-normal-us.privacy-policy" translation]
+          Privacy Policy
         </Text>
         .
         
 
 
-        [missing "en.consent-normal-us.you-may-withdraw" translation]
+        You may withdraw your consent at any time by emailing
          
         <Text
           style={
@@ -1823,7 +1829,7 @@ exports[`US should render with viewOnly false 1`] = `
         
 
 
-        [missing "en.consent-normal-us.any-questions" translation]
+        Any questions may be sent to
          
         <Text
           style={
@@ -1939,7 +1945,7 @@ exports[`US should render with viewOnly false 1`] = `
                 }
               }
             >
-              [missing "en.consent-normal-us.i-consent" translation]
+              I consent to the processing of my personal data (including without limitation data I provide relating to my health) as set forth in this consent and in the
                
               <Text
                 onPress={[Function]}
@@ -1951,7 +1957,7 @@ exports[`US should render with viewOnly false 1`] = `
                   }
                 }
               >
-                [missing "en.consent-normal-us.privacy-policy" translation]
+                Privacy Policy
               </Text>
               .
             </Text>
@@ -2050,7 +2056,7 @@ exports[`US should render with viewOnly false 1`] = `
                 }
               }
             >
-              [missing "en.consent-normal-us.read-accepted" translation]
+              I have read and accept Zoe Global’s
                
               <Text
                 onPress={[Function]}
@@ -2062,10 +2068,10 @@ exports[`US should render with viewOnly false 1`] = `
                   }
                 }
               >
-                [missing "en.consent-normal-us.terms" translation]
+                Terms of Use
               </Text>
                
-              [missing "en.consent-normal-us.and" translation]
+              and
                
               <Text
                 onPress={[Function]}
@@ -2077,7 +2083,7 @@ exports[`US should render with viewOnly false 1`] = `
                   }
                 }
               >
-                [missing "en.consent-normal-us.privacy-policy" translation]
+                Privacy Policy
               </Text>
               .
             </Text>
@@ -2162,7 +2168,7 @@ exports[`US should render with viewOnly true 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.existing-study" translation]
+        If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study,
          
         <Text
           onPress={[Function]}
@@ -2174,7 +2180,7 @@ exports[`US should render with viewOnly true 1`] = `
             }
           }
         >
-          [missing "en.consent-normal-us.click-here" translation]
+          click here
         </Text>
         
 
@@ -2189,7 +2195,7 @@ exports[`US should render with viewOnly true 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.purpose" translation]
+        Purpose
         
 
       </Text>
@@ -2202,7 +2208,9 @@ exports[`US should render with viewOnly true 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.purpose-body" translation]
+        By using this app and tracking if you are well or have symptoms, you will be helping medical science and healthcare providers across the country (such as Massachusetts General Hospital) to better understand Coronavirus (COVID-19).
+
+This app allows you to help others, but does not give health advice. If you need health advice please visit the CDC Coronavirus website
          
         <Text
           onPress={[Function]}
@@ -2229,7 +2237,7 @@ exports[`US should render with viewOnly true 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.information-sharing" translation]
+        Information sharing
         
 
       </Text>
@@ -2242,7 +2250,9 @@ exports[`US should render with viewOnly true 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.information-sharing-body" translation]
+        This app is designed by doctors and scientists at Massachusetts General Hospital, Harvard School of Public Health, Stanford University, King's College London and Zoe Global Limited, a health technology company. They have access to the information you enter, which may also be shared with hospitals listed in our privacy notice.
+
+No information you share will be used for commercial purposes. An anonymous code will be used to replace your personal details when sharing information with researchers beyond those mentioned above.
       </Text>
       <Text
         style={
@@ -2256,7 +2266,7 @@ exports[`US should render with viewOnly true 1`] = `
       >
         
 
-        [missing "en.consent-normal-us.your-consent" translation]
+        Your consent
         
 
       </Text>
@@ -2269,7 +2279,9 @@ exports[`US should render with viewOnly true 1`] = `
           }
         }
       >
-        [missing "en.consent-normal-us.your-consent-body" translation]
+        By checking the box below, you consent to our using the personal information we collect through your use of this app in the way we have described.
+
+For more information about how we use and share personal information about you, please see our
          
         <Text
           onPress={[Function]}
@@ -2281,13 +2293,13 @@ exports[`US should render with viewOnly true 1`] = `
             }
           }
         >
-          [missing "en.consent-normal-us.privacy-policy" translation]
+          Privacy Policy
         </Text>
         .
         
 
 
-        [missing "en.consent-normal-us.you-may-withdraw" translation]
+        You may withdraw your consent at any time by emailing
          
         <Text
           style={
@@ -2304,7 +2316,7 @@ exports[`US should render with viewOnly true 1`] = `
         
 
 
-        [missing "en.consent-normal-us.any-questions" translation]
+        Any questions may be sent to
          
         <Text
           style={
