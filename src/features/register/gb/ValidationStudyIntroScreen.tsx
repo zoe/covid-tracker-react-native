@@ -1,6 +1,7 @@
 import { icon } from '@assets';
 import { Header } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -13,7 +14,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';
-import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
