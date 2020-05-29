@@ -45,19 +45,7 @@ const ConsentScreen: FC<PropsType> = (props) => {
       await userService.setConsentSigned('SE', consentVersionSE, privacyPolicyVersionSE);
     }
     props.navigation.navigate('Register');
-  }, [
-    agreed,
-    isUSCountry,
-    isGBCountry,
-    isSECountry,
-    userService.setConsentSigned,
-    consentVersionSE,
-    consentVersionUK,
-    consentVersionUS,
-    privacyPolicyVersionSE,
-    privacyPolicyVersionUK,
-    privacyPolicyVersionUS,
-  ]);
+  }, [agreed, userService.setConsentSigned]);
 
   const renderConsent = useCallback(() => {
     if (isUSCountry()) {
@@ -70,7 +58,7 @@ const ConsentScreen: FC<PropsType> = (props) => {
       return <ConsentScreenSE {...props} setAgreed={setAgreed} />;
     }
     return <ConsentScreenGB {...props} setAgreed={setAgreed} />;
-  }, [props, isUSCountry, isGBCountry, isSECountry, ConsentScreenUS, ConsentScreenGB, ConsentScreenSE]);
+  }, [props, setAgreed]);
 
   return (
     <View style={styles.rootContainer}>

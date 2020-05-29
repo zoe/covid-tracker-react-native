@@ -12,9 +12,7 @@ type PropsType = {
 };
 
 const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
-  const onInfoLinkPress = useCallback(() => Linking.openURL('https://www.nhs.uk/conditions/coronavirus-covid-19/'), [
-    Linking.openURL,
-  ]);
+  const onInfoLinkPress = useCallback(() => Linking.openURL('https://www.nhs.uk/conditions/coronavirus-covid-19/'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),

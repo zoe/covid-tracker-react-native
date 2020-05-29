@@ -22,9 +22,10 @@ const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
     [navigation.replace, route.params.viewOnly]
   );
 
-  const onInfoLinkPress = useCallback(() => Linking.openURL('https://www.cdc.gov/coronavirus/2019-ncov/index.html'), [
-    Linking.openURL,
-  ]);
+  const onInfoLinkPress = useCallback(
+    () => Linking.openURL('https://www.cdc.gov/coronavirus/2019-ncov/index.html'),
+    []
+  );
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params.viewOnly }),

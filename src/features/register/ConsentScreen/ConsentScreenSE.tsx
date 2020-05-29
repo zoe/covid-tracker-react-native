@@ -19,7 +19,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
   const [processingChecked, setProcessingChecked] = useState(false);
   const [agreeChecked, setAgreeChecked] = useState(false);
 
-  const onInfoLinkPress = useCallback(() => Linking.openURL('https://Covid19app.lu.se'), [Linking.openURL]);
+  const onInfoLinkPress = useCallback(() => Linking.openURL('https://Covid19app.lu.se'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params.viewOnly }),
