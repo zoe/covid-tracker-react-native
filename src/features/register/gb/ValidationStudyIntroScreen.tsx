@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RouteProp } from '@react-navigation/native';
 import Navigator from '../../Navigation';
 import UserService from '../../../core/user/UserService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
@@ -45,6 +46,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => {
+              Analytics.track(events.DECLINE_STUDY);
               this.userService.setValidationStudyResponse(false);
               Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
             }}>

@@ -25,6 +25,7 @@ import {
 import { camelizeKeys } from './utils';
 import { handleServiceError } from '../ApiServiceErrors';
 import { cleanIntegerVal } from '../utils/number';
+import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -521,14 +522,16 @@ export default class UserService extends ApiClientBase
   }
 
   async shouldAskForValidationStudy() {
-    const response = await this.client.get<AskValidationStudy>('/study_consent/status/');
+    const response = await this.client.get<AskValidationStudy>(
+      `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`
+    );
     return response.data.should_ask_uk_validation_study;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
     return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
-      version: 'v1',
+      version: ukValidationStudyConsentVersion,
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
