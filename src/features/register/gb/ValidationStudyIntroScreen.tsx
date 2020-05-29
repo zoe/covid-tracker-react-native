@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   mainButton: {
     marginTop: 32,
+    marginBottom: 16,
     marginHorizontal: 16,
     backgroundColor: colors.purple,
   },
