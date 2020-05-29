@@ -45,7 +45,7 @@ const DropdownPicker = (props: DropdownPickerProps) => {
       placeholder={placeholder} // Placeholder not supported on android
       selectedValue={selectedValue}
       onValueChange={onValueChange}
-      iosIcon={<Icon name="arrow-down" />}
+      iosIcon={<Icon style={styles.arrowStyle} name="md-arrow-dropdown" />}
       itemTextStyle={{ textAlign: 'left' }}
       style={pickerStyle}
       {...pickerProps}>
@@ -65,7 +65,13 @@ const DropdownField = (props: DropdownFieldProps) => {
   ) : (
     <FieldWrapper style={styles.fieldWrapper}>
       <Label style={styles.labelStyle}>{label}</Label>
-      <View style={styles.dropdownWrapper}>
+      <View
+        style={[
+          styles.dropdownWrapper,
+          {
+            borderColor: error ? colors.feedbackBad : colors.tertiary,
+          },
+        ]}>
         <DropdownPicker {...more} />
       </View>
       {!!error && (
@@ -89,16 +95,21 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   picker: {
-    width: screenWidth - 16,
-    marginTop: 12,
+    width: '100%',
+    height: 48,
+    paddingRight: 32,
   },
   dropdownWrapper: {
     borderBottomWidth: 1,
-    borderColor: colors.tertiary,
   },
   errorHighlight: {
     borderBottomWidth: 1,
     borderColor: colors.feedbackBad,
+  },
+
+  arrowStyle: {
+    right: 0,
+    position: 'absolute',
   },
 });
 

@@ -540,15 +540,15 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                           </View>
                         )}
                         <View style={styles.secondaryField}>
-                          <Picker
-                            mode="dropdown"
-                            placeholder="weightUnit"
+                          <DropdownField
+                            onlyPicker
                             selectedValue={props.values.weightUnit}
                             onValueChange={props.handleChange('weightUnit')}
-                            iosIcon={<Icon name="arrow-down" />}>
-                            <Picker.Item label="lbs" value="lbs" />
-                            <Picker.Item label="kg" value="kg" />
-                          </Picker>
+                            items={[
+                              { label: 'lbs', value: 'lbs' },
+                              { label: 'kg', value: 'kg' },
+                            ]}
+                          />
                         </View>
                       </View>
                     )}
@@ -586,65 +586,29 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   error={props.touched.everExposed && props.errors.everExposed}
                 />
 
-                <FieldWrapper>
-                  <Item stackedLabel>
-                    <Label>{i18n.t('housebound-problems')}</Label>
-                    <Picker
-                      mode="dropdown"
-                      selectedValue={props.values.houseboundProblems}
-                      onValueChange={props.handleChange('houseboundProblems')}
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={styles.picker}>
-                      <Picker.Item label={i18n.t('picker-no')} value="no" />
-                      <Picker.Item label={i18n.t('picker-yes')} value="yes" />
-                    </Picker>
-                  </Item>
-                </FieldWrapper>
+                <DropdownField
+                  label={i18n.t('housebound-problems')}
+                  selectedValue={props.values.houseboundProblems}
+                  onValueChange={props.handleChange('houseboundProblems')}
+                />
 
-                <FieldWrapper>
-                  <Item stackedLabel>
-                    <Label>{i18n.t('needs-help')}</Label>
-                    <Picker
-                      mode="dropdown"
-                      selectedValue={props.values.needsHelp}
-                      onValueChange={props.handleChange('needsHelp')}
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={styles.picker}>
-                      <Picker.Item label={i18n.t('picker-no')} value="no" />
-                      <Picker.Item label={i18n.t('picker-yes')} value="yes" />
-                    </Picker>
-                  </Item>
-                </FieldWrapper>
+                <DropdownField
+                  label={i18n.t('needs-help')}
+                  selectedValue={props.values.needsHelp}
+                  onValueChange={props.handleChange('needsHelp')}
+                />
 
-                <FieldWrapper>
-                  <Item stackedLabel>
-                    <Label>{i18n.t('help-available')}</Label>
-                    <Picker
-                      mode="dropdown"
-                      selectedValue={props.values.helpAvailable}
-                      onValueChange={props.handleChange('helpAvailable')}
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={styles.picker}>
-                      <Picker.Item label={i18n.t('picker-no')} value="no" />
-                      <Picker.Item label={i18n.t('picker-yes')} value="yes" />
-                    </Picker>
-                  </Item>
-                </FieldWrapper>
+                <DropdownField
+                  label={i18n.t('help-available')}
+                  selectedValue={props.values.helpAvailable}
+                  onValueChange={props.handleChange('helpAvailable')}
+                />
 
-                <FieldWrapper>
-                  <Item stackedLabel>
-                    <Label>{i18n.t('mobility-aid')}</Label>
-                    <Picker
-                      mode="dropdown"
-                      selectedValue={props.values.mobilityAid}
-                      onValueChange={props.handleChange('mobilityAid')}
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={styles.picker}>
-                      <Picker.Item label={i18n.t('picker-no')} value="no" />
-                      <Picker.Item label={i18n.t('picker-yes')} value="yes" />
-                    </Picker>
-                  </Item>
-                </FieldWrapper>
+                <DropdownField
+                  label={i18n.t('mobility-aid')}
+                  selectedValue={props.values.mobilityAid}
+                  onValueChange={props.handleChange('mobilityAid')}
+                />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
