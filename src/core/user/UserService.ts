@@ -298,6 +298,17 @@ export default class UserService extends ApiClientBase
       !!patient.ht_pfnts ||
       !!patient.ht_other;
 
+    const hasVitaminAnswer =
+      !!patient.vs_none ||
+      !!patient.vs_vitamin_c ||
+      !!patient.vs_vitamin_d ||
+      !!patient.vs_omega_3 ||
+      !!patient.vs_zinc ||
+      !!patient.vs_garlic ||
+      !!patient.vs_probiotics ||
+      !!patient.vs_multivitamins ||
+      !!patient.vs_pftns;
+
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
@@ -314,6 +325,7 @@ export default class UserService extends ApiClientBase
       hasBloodPressureAnswer,
       hasPeriodAnswer,
       hasHormoneTreatmentAnswer,
+      hasVitaminAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
