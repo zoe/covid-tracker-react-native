@@ -1,6 +1,7 @@
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -30,7 +31,6 @@ export type ScreenParamList = {
   Register: undefined;
   Login: { terms: string };
   CountrySelect: { patientId: string | null };
-  ProfileBackDate: { currentPatient: PatientStateType };
 
   // PII screens
   OptionalInfo: { patientId: string };
@@ -51,15 +51,16 @@ export type ScreenParamList = {
   PreviousExposure: { currentPatient: PatientStateType };
 
   // Assessment screens
-  HealthWorkerExposure: { currentPatient: PatientStateType; assessmentId: string | null };
-  CovidTest: { currentPatient: PatientStateType; assessmentId: string | null; tests?: CovidTest[] };
-  CovidTestDetail: { currentPatient: PatientStateType; test?: CovidTest };
-  HowYouFeel: { currentPatient: PatientStateType; assessmentId: string };
-  DescribeSymptoms: { currentPatient: PatientStateType; assessmentId: string };
-  WhereAreYou: { currentPatient: PatientStateType; assessmentId: string };
-  LevelOfIsolation: { currentPatient: PatientStateType; assessmentId: string | null };
-  TreatmentSelection: { currentPatient: PatientStateType; assessmentId: string; location?: string };
-  TreatmentOther: { currentPatient: PatientStateType; assessmentId: string; location?: string };
+  HealthWorkerExposure: { coordinator: AssessmentCoordinator };
+  CovidTest: { coordinator: AssessmentCoordinator; tests?: CovidTest[] };
+  CovidTestDetail: { coordinator: AssessmentCoordinator; test?: CovidTest };
+  HowYouFeel: { coordinator: AssessmentCoordinator };
+  DescribeSymptoms: { coordinator: AssessmentCoordinator };
+  WhereAreYou: { coordinator: AssessmentCoordinator };
+  LevelOfIsolation: { coordinator: AssessmentCoordinator };
+  TreatmentSelection: { coordinator: AssessmentCoordinator; location: string };
+  TreatmentOther: { coordinator: AssessmentCoordinator; location: string };
+  ProfileBackDate: { coordinator: AssessmentCoordinator };
 
   // Completion screens
   ThankYou: undefined;

@@ -10,7 +10,6 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 type LocationProps = {
@@ -21,64 +20,23 @@ type LocationProps = {
 export default class WhereAreYouScreen extends Component<LocationProps> {
   constructor(props: LocationProps) {
     super(props);
-    Navigator.resetNavigation(props.navigation);
-    this.handleAtHome = this.handleAtHome.bind(this);
-    this.handleAtHospital = this.handleAtHospital.bind(this);
-    this.handleBackAtHome = this.handleBackAtHome.bind(this);
-    this.handleStillAtHome = this.handleStillAtHome.bind(this);
+    this.props.route.params.coordinator.resetNavigation(props.navigation);
   }
 
-  handleAtHome() {
-    this.updateAssessment('home')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
-
-  handleAtHospital() {
-    const { currentPatient, assessmentId } = this.props.route.params;
-    const location = 'hospital';
+  handleLocationSelection = (location: string, endAssessment: boolean) => {
     this.updateAssessment(location)
-      .then((response) =>
-        this.props.navigation.navigate('TreatmentSelection', {
-          currentPatient,
-          assessmentId,
-          location,
-        })
-      )
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
-
-  handleBackAtHome() {
-    const { currentPatient, assessmentId } = this.props.route.params;
-    const location = 'back_from_hospital';
-    this.updateAssessment(location)
-      .then((response) =>
-        this.props.navigation.navigate('TreatmentSelection', {
-          currentPatient,
-          assessmentId,
-          location,
-        })
-      )
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
-
-  handleStillAtHome() {
-    this.updateAssessment('back_from_hospital')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+      .then(() => this.props.route.params.coordinator.goToNextWhereAreYouScreen(location, endAssessment))
+      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  };
 
   private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.assessmentId;
+    const assessmentId = this.props.route.params.coordinator.assessmentId;
     const userService = new UserService();
-    const promise = userService.updateAssessment(assessmentId, {
-      location: status,
-    });
-    return promise;
+    return userService.updateAssessment(assessmentId!!, { location: status });
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -91,26 +49,26 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         </ProgressBlock>
 
         <Form style={styles.form}>
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleAtHome}>
+          <FieldWrapper>
+            <BigButton onPress={() => this.handleLocationSelection('home', true)}>
               <Text>{i18n.t('where-are-you.picker-location-home')}</Text>
             </BigButton>
           </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleAtHospital}>
+          <FieldWrapper>
+            <BigButton onPress={() => this.handleLocationSelection('hospital', false)}>
               <Text>{i18n.t('where-are-you.picker-location-hospital')}</Text>
             </BigButton>
           </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleBackAtHome}>
+          <FieldWrapper>
+            <BigButton onPress={() => this.handleLocationSelection('back_from_hospital', false)}>
               <Text>{i18n.t('where-are-you.picker-location-back-from-hospital')}</Text>
             </BigButton>
           </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleStillAtHome}>
+          <FieldWrapper>
+            <BigButton onPress={() => this.handleLocationSelection('back_from_hospital', true)}>
               <Text>{i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}</Text>
             </BigButton>
           </FieldWrapper>
@@ -123,9 +81,5 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
 const styles = StyleSheet.create({
   form: {
     marginVertical: 32,
-  },
-
-  fieldWrapper: {
-    // marginVertical: 32,
   },
 });

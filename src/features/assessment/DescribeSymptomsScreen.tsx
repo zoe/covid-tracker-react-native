@@ -135,14 +135,14 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const { currentPatient, assessmentId } = this.props.route.params;
+      const { currentPatient, assessmentId } = this.props.route.params.coordinator;
       const userService = new UserService();
       var infos = this.createAssessmentInfos(formData);
 
       userService
-        .updateAssessment(assessmentId, infos)
+        .updateAssessment(assessmentId!!, infos)
         .then(() => {
-          this.props.navigation.navigate('WhereAreYou', { currentPatient, assessmentId });
+          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -211,7 +211,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
       { label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F' },

@@ -41,7 +41,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     this._unsubscribe = this.props.navigation.addListener('focus', async () => {
       const covidTestService = new CovidTestService();
       const tests = (await covidTestService.listTests()).data;
-      const patientId = this.props.route.params.currentPatient.patientId;
+      const patientId = this.props.route.params.coordinator.currentPatient.patientId;
       const patientTests = tests.filter((t) => t.patient === patientId);
       this.setState({ covidTests: patientTests });
     });
@@ -51,18 +51,8 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     this._unsubscribe();
   }
 
-  handleAddNewTest = () => {
-    const { currentPatient } = this.props.route.params;
-    this.props.navigation.navigate('CovidTestDetail', { currentPatient });
-  };
-
-  handleEditTest = (test: CovidTest) => {
-    const { currentPatient } = this.props.route.params;
-    this.props.navigation.navigate('CovidTestDetail', { currentPatient, test });
-  };
-
   handleNextQuestion = () => {
-    const { currentPatient, assessmentId } = this.props.route.params;
+    const { currentPatient, assessmentId } = this.props.route.params.coordinator;
     const patientId = currentPatient.patientId;
 
     const assessment = {
@@ -73,8 +63,8 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
       this.userService
         .addAssessment(assessment)
         .then((response) => {
-          this.props.navigation.setParams({ assessmentId: response.data.id });
-          this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId: response.data.id });
+          this.props.route.params.coordinator.assessmentId = response.data.id;
+          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err) => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -83,7 +73,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
       this.userService
         .updateAssessment(assessmentId, assessment)
         .then((response) => {
-          this.props.navigation.navigate('HowYouFeel', { currentPatient, assessmentId });
+          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err) => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -92,7 +82,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
   };
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
 
     const resultString = (result: string) => {
       switch (result) {
@@ -144,7 +134,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
                 <TouchableOpacity
                   key={key(item)}
                   style={styles.itemTouchable}
-                  onPress={() => this.handleEditTest(item)}>
+                  onPress={() => this.props.route.params.coordinator.goToAddEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
                   <RegularText style={item.result == 'waiting' ? styles.pendingText : []}>
                     {dateString(item)}
@@ -160,7 +150,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
           </View>
         </Screen>
 
-        <Button block style={styles.newTestButton} onPress={this.handleAddNewTest}>
+        <Button block style={styles.newTestButton} onPress={this.props.route.params.coordinator.goToAddEditTest}>
           <Text style={styles.newTestText}>{i18n.t('add-new-test')}</Text>
         </Button>
 

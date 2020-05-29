@@ -53,8 +53,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   }
 
   handleUpdate(formData: HealthWorkerExposureData) {
-    const currentPatient = this.props.route.params.currentPatient;
-    const assessmentId = this.props.route.params.assessmentId;
+    let { currentPatient, assessmentId } = this.props.route.params.coordinator;
     const userService = new UserService();
     var assessment = this.createAssessment(formData);
 
@@ -62,22 +61,22 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
       userService
         .addAssessment(assessment)
         .then((response) => {
-          this.props.navigation.setParams({ assessmentId: response.data.id });
-          this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId: response.data.id });
+          this.props.route.params.coordinator.assessmentId = response.data.id
+          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
     } else {
       userService
         .updateAssessment(assessmentId, assessment)
         .then((response) => {
-          this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId });
+          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name)
         })
         .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
     }
   }
 
   private createAssessment(formData: HealthWorkerExposureData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -122,7 +121,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },

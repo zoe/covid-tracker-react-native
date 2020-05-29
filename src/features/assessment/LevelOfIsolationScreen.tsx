@@ -53,13 +53,14 @@ const initialState: State = {
 };
 
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
+
   constructor(props: LocationProps) {
     super(props);
     this.state = initialState;
   }
 
   private createAssessment(formData: LevelOfIsolationData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -104,18 +105,10 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       });
   }
 
-  navigateToStart = (currentPatient: PatientStateType, assessmentId: string) => {
-    if (currentPatient.isHealthWorker) {
-      this.props.navigation.navigate('HealthWorkerExposure', { currentPatient, assessmentId });
-    } else {
-      this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId });
-    }
-  };
-
   handleUpdate(formData: LevelOfIsolationData) {
     const userService = new UserService();
-    let { currentPatient, assessmentId } = this.props.route.params;
-    var assessment = this.createAssessment(formData);
+    let { currentPatient, assessmentId } = this.props.route.params.coordinator;
+    let assessment = this.createAssessment(formData);
 
     const promise =
       assessmentId == null
@@ -124,16 +117,15 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     promise
       .then((response) => {
-        this.props.navigation.setParams({ assessmentId: response.data.id });
-        assessmentId = response.data.id;
+        this.props.route.params.coordinator.assessmentId = response.data.id;
       })
       .then(() => this.updatePatientsLastAskedDate(currentPatient))
-      .then(() => this.navigateToStart(currentPatient, assessmentId as string))
+      .then(() => this.props.route.params.coordinator.gotoNextScreen(this.props.route.name))
       .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

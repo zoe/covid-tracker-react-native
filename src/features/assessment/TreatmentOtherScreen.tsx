@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form, Item, Label, Text, Textarea } from 'native-base';
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -11,7 +11,6 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { BrandedButton, HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
@@ -30,7 +29,7 @@ type TreatmentOtherProps = {
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
   constructor(props: TreatmentOtherProps) {
     super(props);
-    Navigator.resetNavigation(props.navigation);
+    this.props.route.params.coordinator.resetNavigation(props.navigation);
     this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
   }
 
@@ -39,21 +38,21 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   });
 
   handleUpdateTreatment(formData: TreatmentData) {
-    const { currentPatient, assessmentId, location } = this.props.route.params;
+    const { assessmentId } = this.props.route.params.coordinator;
     if (!formData.description) {
-      Navigator.gotoEndAssessment();
+      this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
     } else {
       const userService = new UserService();
       userService
-        .updateAssessment(assessmentId, {
+        .updateAssessment(assessmentId!!, {
           treatment: formData.description,
         })
-        .then((r) => Navigator.gotoEndAssessment());
+        .then((r) => this.props.route.params.coordinator.gotoNextScreen(this.props.route.name));
     }
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
     const title =
       this.props.route.params.location == 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')

@@ -12,7 +12,6 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
 import {
@@ -113,7 +112,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   async componentDidMount() {
     const userService = new UserService();
     const features = userService.getConfig();
-    const currentPatient = this.props.route.params.currentPatient;
+    const { currentPatient } = this.props.route.params.coordinator;
     this.setState({ needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer });
     this.setState({
       needRaceEthnicityAnswer:
@@ -124,7 +123,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   }
 
   handleProfileUpdate(formData: BackfillData) {
-    const { currentPatient } = this.props.route.params;
+    const { currentPatient } = this.props.route.params.coordinator;
     const patientId = currentPatient.patientId;
 
     const userService = new UserService();
@@ -137,7 +136,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
         if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
-        Navigator.startAssessment(currentPatient);
+        this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -207,7 +206,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

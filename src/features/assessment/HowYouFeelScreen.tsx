@@ -12,6 +12,7 @@ import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type HowYouFeelProps = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -30,39 +31,32 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   constructor(props: HowYouFeelProps) {
     super(props);
     this.state = initialState;
-    Navigator.resetNavigation(props.navigation);
-
-    // Fix reference to `this` inside these functions
-    this.handleFeelNormal = this.handleFeelNormal.bind(this);
-    this.handleHaveSymptoms = this.handleHaveSymptoms.bind(this);
+    this.props.route.params.coordinator.resetNavigation(props.navigation);
   }
 
-  handleFeelNormal() {
+  handleFeelNormal = () => {
     this.updateAssessment('healthy')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+      .then(() => this.props.route.params.coordinator.goToNextHowYouFeelScreen(true))
+      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  };
 
-  handleHaveSymptoms() {
-    const currentPatient = this.props.route.params.currentPatient;
+  handleHaveSymptoms = () => {
     this.updateAssessment('not_healthy')
-      .then((response) =>
-        this.props.navigation.navigate('DescribeSymptoms', { currentPatient, assessmentId: response.data.id })
-      ) // todo julien: thank you
+      .then(() => this.props.route.params.coordinator.goToNextHowYouFeelScreen(false))
       .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+  };
 
   private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.assessmentId;
+    const assessmentId = this.props.route.params.coordinator.assessmentId;
     const userService = new UserService();
-    const promise = userService.updateAssessment(assessmentId, {
+    const promise = userService.updateAssessment(assessmentId!!, {
       health_status: status,
     });
     return promise;
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = this.props.route.params.coordinator.currentPatient;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
