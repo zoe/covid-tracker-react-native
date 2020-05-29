@@ -62,7 +62,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
           <ScrollView>
             <RegularBoldText>INFORMATION SHEET FOR PARTICIPANTS{'\n'}</RegularBoldText>
 
-            <RegularText>Ethical Clearance Reference Number: MOD-19/20-18856{'\n'}</RegularText>
+            <RegularText>Ethical Clearance Reference Number: LRS-19/20-18856{'\n'}</RegularText>
 
             <RegularBoldText>YOU WILL BE EMAILED A COPY OF THIS INFORMATION SHEET{'\n'}</RegularBoldText>
 
