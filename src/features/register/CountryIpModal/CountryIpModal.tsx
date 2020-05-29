@@ -95,7 +95,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
     <Modal animationType="fade" transparent visible={isModalVisible}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <TouchableOpacity testID="close" style={{ alignSelf: 'flex-end' }} onPress={closeModal}>
+          <TouchableOpacity testID="closeModal" style={{ alignSelf: 'flex-end' }} onPress={closeModal}>
             <Image source={closeIcon} />
           </TouchableOpacity>
           <RegularText style={styles.titleText}>{i18n.t('your-country-title')}</RegularText>

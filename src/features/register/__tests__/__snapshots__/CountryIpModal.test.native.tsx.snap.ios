@@ -54,7 +54,7 @@ exports[`should render 1`] = `
             "opacity": 1,
           }
         }
-        testID="close"
+        testID="closeModal"
       >
         <Image
           source={1}

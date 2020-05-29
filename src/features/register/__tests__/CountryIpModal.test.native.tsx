@@ -26,7 +26,7 @@ it('should render', () => {
 
 it('should close the modal', () => {
   const { getByTestId } = render(<CountryIpModal {...props} />);
-  fireEvent(getByTestId('close'), 'onPress');
+  fireEvent(getByTestId('closeModal'), 'onPress');
   expect(props.closeModal).toHaveBeenCalledTimes(1);
 });
 
