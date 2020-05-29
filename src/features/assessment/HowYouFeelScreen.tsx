@@ -31,23 +31,23 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   constructor(props: HowYouFeelProps) {
     super(props);
     this.state = initialState;
-    this.props.route.params.coordinator.resetNavigation(props.navigation);
+    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
   handleFeelNormal = () => {
     this.updateAssessment('healthy')
-      .then(() => this.props.route.params.coordinator.goToNextHowYouFeelScreen(true))
+      .then(() => AssessmentCoordinator.goToNextHowYouFeelScreen(true))
       .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   };
 
   handleHaveSymptoms = () => {
     this.updateAssessment('not_healthy')
-      .then(() => this.props.route.params.coordinator.goToNextHowYouFeelScreen(false))
+      .then(() => AssessmentCoordinator.goToNextHowYouFeelScreen(false))
       .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   };
 
   private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.coordinator.assessmentId;
+    const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
     const userService = new UserService();
     const promise = userService.updateAssessment(assessmentId!!, {
       health_status: status,
@@ -56,7 +56,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   }
 
   render() {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>

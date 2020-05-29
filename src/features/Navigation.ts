@@ -126,7 +126,8 @@ class Navigator {
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    new AssessmentCoordinator(this.navigation).startAssessment(currentPatient);
+    AssessmentCoordinator.init(this.navigation, { currentPatient });
+    AssessmentCoordinator.startAssessment();
   }
 
   async gotoNextScreen(screenName: ScreenName, params: RouteParamsType) {

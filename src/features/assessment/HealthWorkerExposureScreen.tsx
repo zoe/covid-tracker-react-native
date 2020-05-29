@@ -14,6 +14,7 @@ import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from "@covid/features/assessment/AssessmentCoordinator";
 
 const initialFormValues = {
   interactedAnyPatients: 'no',
@@ -53,7 +54,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   }
 
   handleUpdate(formData: HealthWorkerExposureData) {
-    let { currentPatient, assessmentId } = this.props.route.params.coordinator;
+    let { assessmentId } = AssessmentCoordinator.assessmentData;
     const userService = new UserService();
     var assessment = this.createAssessment(formData);
 
@@ -61,22 +62,22 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
       userService
         .addAssessment(assessment)
         .then((response) => {
-          this.props.route.params.coordinator.assessmentId = response.data.id
-          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
+          AssessmentCoordinator.assessmentData.assessmentId = response.data.id;
+          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
-        .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+        .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
     } else {
       userService
         .updateAssessment(assessmentId, assessment)
         .then((response) => {
-          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name)
+          AssessmentCoordinator.gotoNextScreen(this.props.route.name)
         })
         .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
     }
   }
 
   private createAssessment(formData: HealthWorkerExposureData) {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -121,7 +122,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },

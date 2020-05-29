@@ -19,6 +19,7 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 interface CovidTestData {
   knowsDateOfTest: string; // only for ux logic
@@ -98,7 +99,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   handleAction(formData: CovidTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
-      const { currentPatient } = this.props.route.params.coordinator;
+      const { currentPatient } = AssessmentCoordinator.assessmentData;
       const { test } = this.props.route.params;
       const patientId = currentPatient.patientId;
       const covidTestService = new CovidTestService();
@@ -132,7 +133,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         covidTestService
           .updateTest(test.id, postTest)
           .then(() => {
-            this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
+            AssessmentCoordinator.gotoNextScreen(this.props.route.name);
           })
           .catch(() => {
             this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -142,7 +143,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         covidTestService
           .addTest(postTest)
           .then(() => {
-            this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
+            AssessmentCoordinator.gotoNextScreen(this.props.route.name);
           })
           .catch(() => {
             this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -161,7 +162,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   };
 
   render() {
-    const { currentPatient } = this.props.route.params.coordinator;
+    const { currentPatient } = AssessmentCoordinator.assessmentData;
     const { test } = this.props.route.params;
     const testId = test?.id;
 

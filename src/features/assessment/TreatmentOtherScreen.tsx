@@ -12,6 +12,7 @@ import { BrandedButton, HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   description: '',
@@ -29,7 +30,7 @@ type TreatmentOtherProps = {
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
   constructor(props: TreatmentOtherProps) {
     super(props);
-    this.props.route.params.coordinator.resetNavigation(props.navigation);
+    AssessmentCoordinator.resetNavigation(props.navigation);
     this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
   }
 
@@ -38,21 +39,21 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   });
 
   handleUpdateTreatment(formData: TreatmentData) {
-    const { assessmentId } = this.props.route.params.coordinator;
+    const { assessmentId } = AssessmentCoordinator.assessmentData;
     if (!formData.description) {
-      this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
+      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } else {
       const userService = new UserService();
       userService
         .updateAssessment(assessmentId!!, {
           treatment: formData.description,
         })
-        .then((r) => this.props.route.params.coordinator.gotoNextScreen(this.props.route.name));
+        .then((r) => AssessmentCoordinator.gotoNextScreen(this.props.route.name));
     }
   }
 
   render() {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const title =
       this.props.route.params.location == 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')

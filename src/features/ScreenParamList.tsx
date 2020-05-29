@@ -1,7 +1,7 @@
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator, { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -51,16 +51,16 @@ export type ScreenParamList = {
   PreviousExposure: { currentPatient: PatientStateType };
 
   // Assessment screens
-  HealthWorkerExposure: { coordinator: AssessmentCoordinator };
-  CovidTest: { coordinator: AssessmentCoordinator; tests?: CovidTest[] };
-  CovidTestDetail: { coordinator: AssessmentCoordinator; test?: CovidTest };
-  HowYouFeel: { coordinator: AssessmentCoordinator };
-  DescribeSymptoms: { coordinator: AssessmentCoordinator };
-  WhereAreYou: { coordinator: AssessmentCoordinator };
-  LevelOfIsolation: { coordinator: AssessmentCoordinator };
-  TreatmentSelection: { coordinator: AssessmentCoordinator; location: string };
-  TreatmentOther: { coordinator: AssessmentCoordinator; location: string };
-  ProfileBackDate: { coordinator: AssessmentCoordinator };
+  HealthWorkerExposure: { coordinator: AssessmentData };
+  CovidTest: { coordinator: AssessmentData; tests?: CovidTest[] };
+  CovidTestDetail: { coordinator: AssessmentData; test?: CovidTest };
+  HowYouFeel: { coordinator: AssessmentData };
+  DescribeSymptoms: { coordinator: AssessmentData };
+  WhereAreYou: { coordinator: AssessmentData };
+  LevelOfIsolation: { coordinator: AssessmentData };
+  TreatmentSelection: { coordinator: AssessmentData; location: string };
+  TreatmentOther: { coordinator: AssessmentData; location: string };
+  ProfileBackDate: { coordinator: AssessmentData };
 
   // Completion screens
   ThankYou: undefined;

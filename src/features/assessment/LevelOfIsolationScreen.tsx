@@ -18,6 +18,7 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from "@covid/features/assessment/AssessmentCoordinator";
 
 const initialFormValues = {
   isolationLittleInteraction: '',
@@ -60,7 +61,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   }
 
   private createAssessment(formData: LevelOfIsolationData) {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -107,7 +108,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
   handleUpdate(formData: LevelOfIsolationData) {
     const userService = new UserService();
-    let { currentPatient, assessmentId } = this.props.route.params.coordinator;
+    let { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
     let assessment = this.createAssessment(formData);
 
     const promise =
@@ -117,15 +118,15 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     promise
       .then((response) => {
-        this.props.route.params.coordinator.assessmentId = response.data.id;
+        AssessmentCoordinator.assessmentData.assessmentId = response.data.id;
       })
       .then(() => this.updatePatientsLastAskedDate(currentPatient))
-      .then(() => this.props.route.params.coordinator.gotoNextScreen(this.props.route.name))
+      .then(() => AssessmentCoordinator.gotoNextScreen(this.props.route.name))
       .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

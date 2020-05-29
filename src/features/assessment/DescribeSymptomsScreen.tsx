@@ -18,6 +18,7 @@ import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -135,14 +136,14 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const { currentPatient, assessmentId } = this.props.route.params.coordinator;
+      const { assessmentId } = AssessmentCoordinator.assessmentData;
       const userService = new UserService();
       var infos = this.createAssessmentInfos(formData);
 
       userService
         .updateAssessment(assessmentId!!, infos)
         .then(() => {
-          this.props.route.params.coordinator.gotoNextScreen(this.props.route.name);
+          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -211,7 +212,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   render() {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
       { label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F' },

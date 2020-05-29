@@ -1,8 +1,6 @@
-import { userService } from '@covid/Services';
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
-import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -17,43 +15,47 @@ type RouteParamsType = PatientIdParamType | CurrentPatientParamType;
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-export default class AssessmentCoordinator {
-  navigation: NavigationType;
-  userService: UserService;
-  assessmentId: string | null;
+export type AssessmentData = {
+  assessmentId?: string;
   currentPatient: PatientStateType;
+};
+
+class AssessmentCoordinator {
+  navigation: NavigationType;
+  userService: UserService = new UserService();
+  assessmentData: AssessmentData;
 
   ScreenFlow: any = {
     ProfileBackDate: async () => {
-      await this.startAssessment(this.currentPatient);
+      await this.startAssessment();
     },
     LevelOfIsolation: async () => {
-      if (this.currentPatient.isHealthWorker) {
-        this.navigation.navigate('HealthWorkerExposure', { coordinator: this });
+      if (this.assessmentData.currentPatient.isHealthWorker) {
+        this.navigation.navigate('HealthWorkerExposure', { coordinator: this.assessmentData });
       } else {
-        this.navigation.navigate('CovidTest', { coordinator: this });
+        this.navigation.navigate('CovidTest', { coordinator: this.assessmentData });
       }
     },
     HealthWorkerExposure: async () => {
-      this.navigation.navigate('CovidTest', { coordinator: this });
+      this.navigation.navigate('CovidTest', { coordinator: this.assessmentData });
     },
     CovidTest: async () => {
-      this.navigation.navigate('HowYouFeel', { coordinator: this });
+      this.navigation.navigate('HowYouFeel', { coordinator: this.assessmentData });
     },
     CovidTestDetail: async () => {
       this.navigation.goBack();
     },
     DescribeSymptoms: async () => {
-      this.navigation.navigate('WhereAreYou', { coordinator: this });
+      this.navigation.navigate('WhereAreYou', { coordinator: this.assessmentData });
     },
     TreatmentOther: async () => {
       await this.gotoEndAssessment();
     },
   };
 
-  constructor(navigation: NavigationType) {
-    this.userService = new UserService();
+  init(navigation: NavigationType, assessmentData: AssessmentData) {
     this.navigation = navigation;
+    this.assessmentData = assessmentData;
   }
 
   // Workaround for Expo save/refresh nixing the navigation.
@@ -83,35 +85,33 @@ export default class AssessmentCoordinator {
     return page;
   }
 
-  startAssessment(currentPatient?: PatientStateType) {
-    if (currentPatient) {
-      this.currentPatient = currentPatient;
-    }
+  startAssessment() {
+    const { currentPatient } = this.assessmentData;
+
     const userService = new UserService();
     const features = userService.getConfig();
 
-    if (this.currentPatient.hasCompletedPatientDetails) {
+    if (currentPatient.hasCompletedPatientDetails) {
       const mustBackfillProfile =
-        ((features.showRaceQuestion || features.showEthnicityQuestion) &&
-          !this.currentPatient.hasRaceEthnicityAnswer) ||
-        !this.currentPatient.hasPeriodAnswer ||
-        !this.currentPatient.hasHormoneTreatmentAnswer ||
-        !this.currentPatient.hasBloodPressureAnswer;
+        ((features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
+        !currentPatient.hasPeriodAnswer ||
+        !currentPatient.hasHormoneTreatmentAnswer ||
+        !currentPatient.hasBloodPressureAnswer;
 
       if (mustBackfillProfile) {
-        this.navigation.navigate('ProfileBackDate', { coordinator: this });
-      } else if (this.currentPatient.shouldAskLevelOfIsolation) {
-        this.navigation.navigate('LevelOfIsolation', { coordinator: this });
+        this.navigation.navigate('ProfileBackDate', { coordinator: this.assessmentData });
+      } else if (currentPatient.shouldAskLevelOfIsolation) {
+        this.navigation.navigate('LevelOfIsolation', { coordinator: this.assessmentData });
       } else {
         // Everything in this block should be replicated in Level Of Isolation navigation for now
-        if (this.currentPatient.isHealthWorker) {
-          this.navigation.navigate('HealthWorkerExposure', { coordinator: this });
+        if (currentPatient.isHealthWorker) {
+          this.navigation.navigate('HealthWorkerExposure', { coordinator: this.assessmentData });
         } else {
-          this.navigation.navigate('CovidTest', { coordinator: this });
+          this.navigation.navigate('CovidTest', { coordinator: this.assessmentData });
         }
       }
     } else {
-      const nextPage = this.getPatientDetailsScreenName(this.currentPatient);
+      const nextPage = this.getPatientDetailsScreenName(currentPatient);
       this.gotoScreen(nextPage); //TODO
     }
   }
@@ -140,24 +140,31 @@ export default class AssessmentCoordinator {
   }
 
   gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
-    this.navigation.navigate(screenName, params);
+    this.navigation.navigate(screenName, params); //TODO
   }
 
   goToAddEditTest(covidTest?: CovidTest) {
-    this.navigation.navigate('CovidTestDetail', { coordinator: this, test: covidTest });
+    this.navigation.navigate('CovidTestDetail', { coordinator: this.assessmentData, test: covidTest });
   }
 
   goToNextHowYouFeelScreen(healthy: boolean) {
-    healthy ? this.gotoEndAssessment() : this.navigation.navigate('DescribeSymptoms', { coordinator: this });
+    healthy
+      ? this.gotoEndAssessment()
+      : this.navigation.navigate('DescribeSymptoms', { coordinator: this.assessmentData });
   }
 
   goToNextWhereAreYouScreen(location: string, endAssessment: boolean) {
     endAssessment
       ? this.gotoEndAssessment()
-      : this.navigation.navigate('TreatmentSelection', { coordinator: this, location });
+      : this.navigation.navigate('TreatmentSelection', { coordinator: this.assessmentData, location });
   }
 
   goToNextTreatmentSelectionScreen(other: boolean, location: string) {
-    other ? this.navigation.navigate('TreatmentOther', { coordinator: this, location }) : this.gotoEndAssessment();
+    other
+      ? this.navigation.navigate('TreatmentOther', { coordinator: this.assessmentData, location })
+      : this.gotoEndAssessment();
   }
 }
+
+const assessmentCoordinator = new AssessmentCoordinator();
+export default assessmentCoordinator;

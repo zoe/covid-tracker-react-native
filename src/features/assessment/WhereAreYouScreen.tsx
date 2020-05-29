@@ -11,6 +11,7 @@ import { HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type LocationProps = {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
@@ -20,23 +21,23 @@ type LocationProps = {
 export default class WhereAreYouScreen extends Component<LocationProps> {
   constructor(props: LocationProps) {
     super(props);
-    this.props.route.params.coordinator.resetNavigation(props.navigation);
+    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
   handleLocationSelection = (location: string, endAssessment: boolean) => {
     this.updateAssessment(location)
-      .then(() => this.props.route.params.coordinator.goToNextWhereAreYouScreen(location, endAssessment))
+      .then(() => AssessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment))
       .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   };
 
   private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.coordinator.assessmentId;
+    const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
     const userService = new UserService();
     return userService.updateAssessment(assessmentId!!, { location: status });
   }
 
   render() {
-    const currentPatient = this.props.route.params.coordinator.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
