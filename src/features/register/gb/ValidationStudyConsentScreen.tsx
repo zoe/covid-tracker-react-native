@@ -161,8 +161,10 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             <RegularText>
               By participating in this research, you will be contributing to the advancement of science and research on
               Covid-19. You may receive a prediction of the likelihood that you are infected with SARS-CoV-2 based on
-              your reported symptoms. This is provided for your interest. The prediction is not a clinical diagnostic
-              tool, it has not been validated and you must not use it to make any health decisions.
+              your reported symptoms; feedback will be provided if our prediction algorithm is approved by the Medicines
+              and Healthcare products Regulatory Agency (MHRA). This is provided for your interest. The prediction is
+              not a clinical diagnostic tool, it has not been validated and you must not use it to make any health
+              decisions.
               {'\n'}
             </RegularText>
 
