@@ -26,8 +26,23 @@ export type SupplementValue =
   | 'vs_garlic'
   | 'vs_probiotics'
   | 'vs_multivitamins'
-  | 'vs_other'
+  | 'vs_other_bool'
   | 'vs_pftns';
+
+type SupplementDoc = {
+  // Vitamin supplement fields
+  vs_none: boolean;
+  vs_vitamin_c: boolean;
+  vs_vitamin_d: boolean;
+  vs_omega_3: boolean;
+  vs_zinc: boolean;
+  vs_garlic: boolean;
+  vs_probiotics: boolean;
+  vs_multivitamins: boolean;
+  vs_pftns: boolean;
+  vs_other_bool?: boolean;
+  vs_other?: string;
+};
 
 export const supplementValues = {
   NONE: 'vs_none',
@@ -39,7 +54,7 @@ export const supplementValues = {
   PROBIOTICS: 'vs_probiotics',
   MULTIVITAMINS_AND_MINERALS: 'vs_multivitamins',
   PREFER_NOT_TO_SAY: 'vs_pftns',
-  OTHER: 'vs_other',
+  OTHER: 'vs_other_bool',
 };
 
 const singleOptions = [supplementValues.NONE, supplementValues.PREFER_NOT_TO_SAY];
@@ -82,7 +97,7 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
   };
 
   static createSupplementsDoc = (selectedSupplements: SupplementValue[], vitaminOther: string) => {
-    const supplements = {
+    let supplements = {
       vs_none: false,
       vs_vitamin_c: false,
       vs_vitamin_d: false,
@@ -91,34 +106,40 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
       vs_garlic: false,
       vs_probiotics: false,
       vs_multivitamins: false,
-      vs_other: false,
+      vs_other_bool: false,
       vs_pftns: false,
-    };
+    } as SupplementDoc;
+
     selectedSupplements.forEach((item: SupplementValue) => {
       supplements[item] = true;
     });
 
-    if (supplements.vs_other) {
-      supplements.vs_other = vitaminOther;
+    if (supplements.vs_other_bool && vitaminOther) {
+      supplements = {
+        ...supplements,
+        vs_other: vitaminOther,
+      };
     }
+
+    delete supplements['vs_other_bool'];
 
     return supplements;
   };
 
   vitaminSupplementsCheckboxes = [
-    { label: i18n.t('your-health.checkbox-vitamins-no'), value: supplementValues.NONE },
-    { label: i18n.t('your-health.checkbox-vitamin-c'), value: supplementValues.VITAMIN_C },
-    { label: i18n.t('your-health.checkbox-vitamin-d'), value: supplementValues.VITAMIN_D },
-    { label: i18n.t('your-health.checkbox-omega-3-fish-oil'), value: supplementValues.OMEGA_3_OR_FISH_OIL },
-    { label: i18n.t('your-health.checkbox-zinc'), value: supplementValues.ZINC },
-    { label: i18n.t('your-health.checkbox-garlic'), value: supplementValues.GARLIC },
-    { label: i18n.t('your-health.checkbox-probiotics'), value: supplementValues.PROBIOTICS },
+    { label: i18n.t('your-health.vitamins.checkbox-no'), value: supplementValues.NONE },
+    { label: i18n.t('your-health.vitamins.checkbox-vitamin-c'), value: supplementValues.VITAMIN_C },
+    { label: i18n.t('your-health.vitamins.checkbox-vitamin-d'), value: supplementValues.VITAMIN_D },
+    { label: i18n.t('your-health.vitamins.checkbox-omega-3-fish-oil'), value: supplementValues.OMEGA_3_OR_FISH_OIL },
+    { label: i18n.t('your-health.vitamins.checkbox-zinc'), value: supplementValues.ZINC },
+    { label: i18n.t('your-health.vitamins.checkbox-garlic'), value: supplementValues.GARLIC },
+    { label: i18n.t('your-health.vitamins.checkbox-probiotics'), value: supplementValues.PROBIOTICS },
     {
-      label: i18n.t('your-health.checkbox-multivitamins-minerals'),
+      label: i18n.t('your-health.vitamins.checkbox-multivitamins-minerals'),
       value: supplementValues.MULTIVITAMINS_AND_MINERALS,
     },
-    { label: i18n.t('your-health.checkbox-other-specify'), value: supplementValues.OTHER },
-    { label: i18n.t('your-health.checkbox-pfnts'), value: supplementValues.PREFER_NOT_TO_SAY },
+    { label: i18n.t('your-health.vitamins.checkbox-other-specify'), value: supplementValues.OTHER },
+    { label: i18n.t('your-health.vitamins.checkbox-pfnts'), value: supplementValues.PREFER_NOT_TO_SAY },
   ];
 
   render() {
@@ -126,7 +147,7 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
     return (
       <FieldWrapper>
         <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('your-health.label-taking-vitamins-supplements')}</Label>
+          <Label>{i18n.t('your-health.vitamins.question-taking-vitamins')}</Label>
           <CheckboxList>
             {createSupplementCheckboxes(this.vitaminSupplementsCheckboxes, this.props.formikProps)}
           </CheckboxList>
@@ -135,7 +156,12 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
           <ValidationError error={formikProps.errors.vitaminSupplements as string} />
         )}
         {formikProps.values.vitaminSupplements.includes(supplementValues.OTHER) && (
-          <GenericTextField formikProps={formikProps} label="Test" name="vitaminOther" />
+          <GenericTextField
+            formikProps={formikProps}
+            label={i18n.t('your-health.vitamins.question-please-specify')}
+            placeholder={i18n.t('your-health.vitamins.placeholder-optional')}
+            name="vitaminOther"
+          />
         )}
       </FieldWrapper>
     );

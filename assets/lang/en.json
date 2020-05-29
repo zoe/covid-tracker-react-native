@@ -275,7 +275,22 @@
     "takes-nsaids": "Do you regularly take \"NSAIDs\" like ibuprofen, nurofen, diclofenac, naproxen?",
     "takes-any-blood-pressure-medication": "Are you regularly taking any blood pressure medications?",
     "takes-pril-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-pril\", such as enalapril, lisinopril, captopril, ramipril?",
-    "takes-sartan-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"
+    "takes-sartan-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?",
+    "vitamins": {
+      "question-taking-vitamins": "Have you been taking any vitamins or other supplements regularly for more than 3 months? Regularly means more than 3 times a week on average. Select all that apply.",
+      "checkbox-no": "No",
+      "checkbox-vitamin-c": "Vitamin C",
+      "checkbox-vitamin-d": "Vitamin D",
+      "checkbox-omega-3-fish-oil": "Omega-3 or Fish Oil",
+      "checkbox-zinc": "Zinc",
+      "checkbox-garlic": "Garlic",
+      "checkbox-probiotics": "Probiotics",
+      "checkbox-multivitamins-minerals": "Multi-vitamins and minerals",
+      "checkbox-other-specify": "Other, please specify",
+      "checkbox-pfnts": "Prefer not to say",
+      "question-please-specify": "Please specify the vitamins or supplements",
+      "placeholder-optional": "*Optional"
+    }
   },
 
   "covid-test": {

@@ -160,7 +160,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     vitaminSupplements: Yup.array<string>().required(),
     vitaminOther: Yup.string().when('vitaminSupplements', {
       is: (val: string[]) => val.includes(supplementValues.OTHER),
-      then: Yup.string().required(),
+      then: Yup.string(),
     }),
   });
 
@@ -172,19 +172,19 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     var infos = this.createPatientInfos(formData);
 
     console.log(infos);
-    // userService
-    //   .updatePatient(patientId, infos)
-    //   .then((response) => {
-    //     currentPatient.hasCompletedPatientDetails = true;
-    //     currentPatient.hasBloodPressureAnswer = true;
-    //     currentPatient.hasPeriodAnswer = true;
-    //     currentPatient.hasHormoneTreatmentAnswer = true;
+    userService
+      .updatePatient(patientId, infos)
+      .then((response) => {
+        currentPatient.hasCompletedPatientDetails = true;
+        currentPatient.hasBloodPressureAnswer = true;
+        currentPatient.hasPeriodAnswer = true;
+        currentPatient.hasHormoneTreatmentAnswer = true;
 
-    //     this.props.navigation.navigate('PreviousExposure', { currentPatient });
-    //   })
-    //   .catch((err) => {
-    //     this.setState({ errorMessage: 'Something went wrong, please try again later' });
-    // });
+        this.props.navigation.navigate('PreviousExposure', { currentPatient });
+      })
+      .catch((err) => {
+        this.setState({ errorMessage: 'Something went wrong, please try again later' });
+      });
   }
 
   private createPatientInfos(formData: YourHealthData) {
