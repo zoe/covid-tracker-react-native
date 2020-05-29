@@ -12,8 +12,10 @@
     "test:i18n": "ts-node ./scripts/i18n-check-locale.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:pre-commit": "eslint --fix",
     "prettier": "prettier --check 'src/**/*.(js|jsx|ts|tsx)'",
     "prettier:fix": "prettier --check 'src/**/*.(js|jsx|ts|tsx)' --write",
+    "prettier:pre-commit": "prettier --write",
     "ts-node": "ts-node",
     "mock-server": "ts-node ./mock-server/mockServer.ts --watch",
     "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
@@ -86,6 +88,7 @@
     "jest-expo": "^37.0.0",
     "jest-expo-enzyme": "^1.0.0",
     "prettier": "^2.0.4",
+    "react-native-testing-library": "^1.14.0",
     "react-test-renderer": "^16.13.1",
     "redux-mock-store": "^1.5.4",
     "ts-jest": "^25.3.1",
@@ -114,5 +117,11 @@
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
     ]
   },
-  "private": true
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "git-hooks/pre-commit.js",
+      "pre-push": "git-hooks/pre-push.sh"
+    }
+  }
 }

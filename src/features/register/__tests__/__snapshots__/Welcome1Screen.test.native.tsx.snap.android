@@ -1,0 +1,532 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome1Screen should render for Sweden 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#024364",
+      "flexGrow": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "backgroundColor": "#024364",
+        "flexGrow": 1,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View>
+      <Image
+        source={1}
+        style={
+          Object {
+            "alignSelf": "center",
+            "height": 300,
+            "resizeMode": "contain",
+            "width": "100%",
+          }
+        }
+        testID="map"
+      />
+      <View
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "end": 32,
+            "opacity": 1,
+            "position": "absolute",
+            "top": 56,
+          }
+        }
+        testID="selectCountry"
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 32,
+              "width": 32,
+            }
+          }
+          testID="flag"
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#024364",
+            "flex": 1,
+            "marginTop": 32,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "paddingBottom": 14,
+              "paddingHorizontal": 14,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 32,
+                "fontWeight": "300",
+                "lineHeight": 48,
+                "paddingHorizontal": 40,
+                "paddingVertical": 24,
+                "textAlign": "center",
+              }
+            }
+          >
+            Lägg 1 minut om dagen på att hjälpa oss bekämpa covid-19.
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginBottom": 32,
+            "paddingHorizontal": 32,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "padding": 20,
+            "paddingBottom": 30,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          block={true}
+          focusable={true}
+          isTVSelectable={true}
+          nativeBackgroundAndroid={
+            Object {
+              "borderless": false,
+              "color": 1308622847,
+              "type": "RippleAndroid",
+            }
+          }
+          onClick={[Function]}
+          onPress={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "backgroundColor": "#A10056",
+              "borderBottomWidth": null,
+              "borderColor": "#3F51B5",
+              "borderLeftWidth": null,
+              "borderRadius": 100,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 0,
+              "flexDirection": "row",
+              "fontSize": 16,
+              "height": 56,
+              "justifyContent": "center",
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": undefined,
+              "shadowOffset": undefined,
+              "shadowOpacity": undefined,
+              "shadowRadius": undefined,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 16,
+                "lineHeight": 24,
+              }
+            }
+          >
+            Berätta mer
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`Welcome1Screen should render for UK 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#024364",
+      "flexGrow": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "backgroundColor": "#024364",
+        "flexGrow": 1,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View>
+      <Image
+        source={1}
+        style={
+          Object {
+            "alignSelf": "center",
+            "height": 300,
+            "resizeMode": "contain",
+            "width": "100%",
+          }
+        }
+        testID="map"
+      />
+      <View
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "end": 32,
+            "opacity": 1,
+            "position": "absolute",
+            "top": 56,
+          }
+        }
+        testID="selectCountry"
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 32,
+              "width": 32,
+            }
+          }
+          testID="flag"
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#024364",
+            "flex": 1,
+            "marginTop": 32,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "paddingBottom": 14,
+              "paddingHorizontal": 14,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 32,
+                "fontWeight": "300",
+                "lineHeight": 48,
+                "paddingHorizontal": 40,
+                "paddingVertical": 24,
+                "textAlign": "center",
+              }
+            }
+          >
+            Take 1 minute each day and help fight the outbreak.
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginBottom": 32,
+            "paddingHorizontal": 32,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "padding": 20,
+            "paddingBottom": 30,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          block={true}
+          focusable={true}
+          isTVSelectable={true}
+          nativeBackgroundAndroid={
+            Object {
+              "borderless": false,
+              "color": 1308622847,
+              "type": "RippleAndroid",
+            }
+          }
+          onClick={[Function]}
+          onPress={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "backgroundColor": "#A10056",
+              "borderBottomWidth": null,
+              "borderColor": "#3F51B5",
+              "borderLeftWidth": null,
+              "borderRadius": 100,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 0,
+              "flexDirection": "row",
+              "fontSize": 16,
+              "height": 56,
+              "justifyContent": "center",
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": undefined,
+              "shadowOffset": undefined,
+              "shadowOpacity": undefined,
+              "shadowRadius": undefined,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 16,
+                "lineHeight": 24,
+              }
+            }
+          >
+            Tell me more
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`Welcome1Screen should render for US 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#024364",
+      "flexGrow": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "backgroundColor": "#024364",
+        "flexGrow": 1,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View>
+      <Image
+        source={1}
+        style={
+          Object {
+            "alignSelf": "center",
+            "height": 300,
+            "resizeMode": "contain",
+            "width": "100%",
+          }
+        }
+        testID="map"
+      />
+      <View
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "end": 32,
+            "opacity": 1,
+            "position": "absolute",
+            "top": 56,
+          }
+        }
+        testID="selectCountry"
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 32,
+              "width": 32,
+            }
+          }
+          testID="flag"
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#024364",
+            "flex": 1,
+            "marginTop": 32,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "paddingBottom": 14,
+              "paddingHorizontal": 14,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 32,
+                "fontWeight": "300",
+                "lineHeight": 48,
+                "paddingHorizontal": 40,
+                "paddingVertical": 24,
+                "textAlign": "center",
+              }
+            }
+          >
+            Take 1 minute each day and help fight the outbreak in your community.
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginBottom": 32,
+            "paddingHorizontal": 32,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "padding": 20,
+            "paddingBottom": 30,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          block={true}
+          focusable={true}
+          isTVSelectable={true}
+          nativeBackgroundAndroid={
+            Object {
+              "borderless": false,
+              "color": 1308622847,
+              "type": "RippleAndroid",
+            }
+          }
+          onClick={[Function]}
+          onPress={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "backgroundColor": "#A10056",
+              "borderBottomWidth": null,
+              "borderColor": "#3F51B5",
+              "borderLeftWidth": null,
+              "borderRadius": 100,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 0,
+              "flexDirection": "row",
+              "fontSize": 16,
+              "height": 56,
+              "justifyContent": "center",
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": undefined,
+              "shadowOffset": undefined,
+              "shadowOpacity": undefined,
+              "shadowRadius": undefined,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 16,
+                "lineHeight": 24,
+              }
+            }
+          >
+            Tell me more
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

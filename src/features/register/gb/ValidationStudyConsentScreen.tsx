@@ -1,5 +1,6 @@
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -48,6 +49,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
   handleAgreeClicked = async () => {
     if (this.state.agreeToAbove) {
+      Analytics.track(events.JOIN_STUDY);
       this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
       Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
     }
@@ -122,7 +124,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               either by ordering a testing kit in the mail or visiting a Regional Testing Centre. Alternatively, Zoe may
               apply for testing on your behalf to the Department of Health and Social Care, through an online platform
               where Zoe will share your name, mobile phone number, and email address to register you for testing. Swab
-              testing involves collecting a sample to test if you have COVID by inserting a long swab (like a long
+              testing involves collecting a sample to test if you have COVID by inserting a long swab (like a long
               cotton wool bud) into the back of your nose or mouth and rotating the swab several times. Organising and
               completing the Covid-19 test is optional. Once you have received your test result, you will be asked to
               report it in the Covid-19 Symptom Study app.
@@ -130,8 +132,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               The researchers conducting this study have been granted the allowance to test up to 10,000 individuals per
               week in this way. This number of swab tests may be insufficient to test all the participants in this study
               who qualify for testing. Participants who are eligible for swab testing, but do not complete their test or
-              do not report their test result, will receive feedback on the likelihood that they have SARS-CoV-2 based
-              on their individual reported symptoms as predicted by the prediction model. These predictions will be
+              do not report their test result, may receive feedback on the likelihood that they have SARS-CoV-2 based on
+              their individual reported symptoms as predicted by the prediction model. These predictions will be
               communicated to the participant using the app on behalf of researchers at King’s College London.
               {'\n'}
             </RegularText>
@@ -158,9 +160,9 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
             <RegularText>
               By participating in this research, you will be contributing to the advancement of science and research on
-              Covid-19. You will also receive your personal prediction of the likelihood that you are infected with
-              SARS-CoV-2 based on your reported symptoms. This is provided for your interest. The prediction is not a
-              clinical diagnostic tool, it has not been validated and you must not use it to make any health decisions.
+              Covid-19. You may receive a prediction of the likelihood that you are infected with SARS-CoV-2 based on
+              your reported symptoms. This is provided for your interest. The prediction is not a clinical diagnostic
+              tool, it has not been validated and you must not use it to make any health decisions.
               {'\n'}
             </RegularText>
 
@@ -207,7 +209,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             <RegularText>
               This study is being funded by King’s College London and Zoe in order to help with the coronavirus
               pandemic. The Department of Health is paying for the swab tests as part of its program of testing people
-              in the community for COVID.
+              in the community for Covid-19.
               {'\n'}
             </RegularText>
 
@@ -255,7 +257,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
 
             <RegularBoldText>Statement of consent:{'\n'}</RegularBoldText>
             <RegularText>
-              - I confirm that I have read and understood the information sheet dated 19/05/20, version number 2.0, for
+              - I confirm that I have read and understood the information sheet dated 27/05/20, version number 3.0, for
               the above project. I have had the opportunity to consider the information and asked questions which have
               been answered to my satisfaction.
               {'\n'}

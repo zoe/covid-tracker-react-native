@@ -43,18 +43,11 @@
   },
 
   "optional-info": {
-    "title": "Información de contacto opcional",
+    "title": "Información opcional de contacto",
     "description": "Indique su nombre y número de teléfono. Esto es opcional. Si desea compartir su información con otro estudio, esto nos permitirá identificarlo.",
     "name-placeholder": "Su nombre",
     "phone-placeholder": "Número de teléfono",
     "button": "Continuar"
-  },
-
-  "splash-error": {
-    "title": "Error",
-    "message": "Hubo un problema al capturar la información de inicio",
-    "primary-action-title": "Intente nuevamente",
-    "secondary-action-title": "Cancelar"
   },
 
   "welcome": {
@@ -64,13 +57,9 @@
     "disclaimer": "Esta aplicación le permite ayudar a los demás, pero \n no da consejos de salud. Si necesita \n consejos de salud",
     "disclaimer-link": "visite el sitio web de NHS",
     "tell-me-more": "Más información",
-    "more-info": "Para más información %{link}",
-    "more-info-link": "visite nuestro sitio web",
     "visit-the-website": "Visite el sitio web",
     "see-how-your-area-is-affected": "Siga los hallazgos que usted hizo posibles",
     "report-button": "Informe hoy, incluso si está bien",
-    "privacy-policy": "Política de privacidad",
-    "privacy-policy-subtext": "(incl. cómo eliminar sus datos)",
     "how-you-can-help": {
       "title": "Cómo puede ayudar",
       "text1": "Tómese 1 minuto diario para informar cómo se siente, aunque esté bien. Luego, vea cómo está afectada su área.",
@@ -121,7 +110,13 @@
   "title-about-work": "Acerca de su trabajo",
 
   "your-study": {
-    "label-cohort": "¿Es parte de uno de estudios de población u organizaciones?"
+    "label-cohort": "Eres parte de alguno de estos estudios de pobalación o alguna de estas organizaciones?",
+    "add-study-names": "Añada los nombres de tus estudios",
+    "your-clinical-study": "Tu estudio clínico",
+    "contact-name": "Si lo sabes, cuál es el nombre de la persona de contacto en tu estudio (investigador, médico, coordinador del estudio, etc.)",
+    "uni-hospital": "Si lo sabes, qué universidad o hospital lleva a cabo este estudio?",
+    "nct-number": "Si lo sabes, cuál es el número NCT?",
+    "if-not": "Sino"
   },
 
   "required-is-healthcare-worker": "Indique si trabaja en el área de la salud",
@@ -195,8 +190,6 @@
   "required-postcode": "Ingrese su código postal",
   "postcode-too-long": "Corrija su código postal",
 
-  "are-you-a-member-of-twins": "¿Es miembro del estudio de gemelos del Reino Unido?",
-  "placeholder-twins": "Estudio de gemelos",
   "picker-yes": "Sí",
   "picker-no": "No",
   "placeholder-optional-question": "*Opcional",
@@ -293,10 +286,12 @@
     "update-test": "Actualizar examen",
 
     "question-select-a-date-range": "Seleccione un intervalo de fechas",
+    "question-select-a-date": "Seleccione una fecha",
 
     "question-mechanism": "¿Cómo se realizó este examen?",
     "picker-nose-swab": "Usaron un hisopo en mi nariz",
     "picker-throat-swab": "Usaron un hisopo en mi garganta",
+    "picker-nose-throat-swab": "Con un hisopo en mi nariz o garganta",
     "picker-saliva-sample": "Escupí en un vaso/tubo",
     "picker-blood-sample": "Di una muestra de sangre",
     "picker-other": "Otro, especifique",
@@ -307,7 +302,6 @@
 
     "picker-waiting": "Esperando resultados",
     "picker-test-failed": "No está claro/Falló el examen",
-    "picker-never-had-test": "Nunca me hice el examen",
 
     "question-knows-date-of-test": "¿Sabe la fecha de su examen?",
     "question-date-test-occurred": "¿Cuándo fue su examen?",
@@ -428,8 +422,6 @@
   "treatment-selection-picker-subtext-invasive-ventilation": "* Apoyo respiratorio a través de un tubo insertado. Las personas generalmente están dormidas para esto.",
   "treatment-selection-picker-other": "Otro",
 
-  "do-you-use-a-stick": "¿Regularmente usa un bastón, andador o silla de ruedas para moverse?",
-
   "have-you-been-exposed": "¿Ha estado ALGUNA VEZ expuesto a alguien con infección documentada o sospechada por COVID-19 (como compañeros de trabajo, familiares, etc.)",
   "exposed-yes-documented": "Sí, solo casos de COVID-19 documentados",
   "exposed-yes-undocumented": "Sí, solo casos sospechosos de COVID-19",
@@ -452,12 +444,45 @@
 
   "thank-you": {
     "check-for-updates": "Revise nuestro %{link} para ver noticias.",
-    "news-feed": "noticias"
+    "news-feed": "noticias",
+    "our-methodology-title": "La metodología detrás de nuestros cálculos",
+    "methodology-body-1": "Hemos desarrollado modelos de aprendizaje mecánicos para calcular la cantidad de personas que actualmente tiene síntomas de COVID.\n\nEstos valores podrían ser una señal temprana de COVID en su zona hoy, en comparación con los casos confirmados que llegan después e incluyen solo a personas que se hicieron el examen.\n\nNuestros valores se calculan en 3 pasos:\n\n1. Conocemos qué síntomas predicen mejor el COVID, según los usuarios de la aplicación que se han sometido a exámenes en todo el mundo (",
+    "methodology-body-2": ")\n\n2. Calculamos la cantidad total de usuarios de la aplicación en su país actualmente con COVID, ya que aplicamos esas reglas a los síntomas registrados de todos los usuarios en su país\n\n3. Extrapolamos a toda la población del país a partir de los usuarios de la aplicación, según las proporciones según geografía, edad y género",
+    "read-more-here": "lea más aquí",
+    "estimate-exclusions": "*Nuestros valores no incluyen a personas menores de 20 años o mayores de 70 o con infecciones asintomáticas por COVID, ya que no tenemos suficientes datos para modelar esto.",
+    "read-more-on": "Lea más en nuestro",
+    "blog": "blog.",
+    "people-with-covid-in": "Personas con síntomas de COVID\n",
+    "today": "hoy",
+    "report-tomorrow": "Gracias, informe nuevamente mañana, incluso si se siente bien.",
+    "loading-data": "Cargando datos de su zona",
+    "estimate-for": "Valores de",
+    "of-residents": "de %{number} residentes",
+    "learn-more": "Obtenga más información",
+    "almost-there": "¡Ya casi terminamos! Solo necesitamos",
+    "more-people": "%{number} personas más",
+    "from-your-country": "de su país que informen a través de la aplicación, para proporcionar valores diarios precisos de COVID",
+    "please-share": "Comparta la aplicación",
+    "contribution-rank": ": clasificación en contribución",
+    "places-since-yesterday": "lugares desde ayer",
+    "out-of": "de",
+    "counties": "condados",
+    "sharing-is-caring": "Compartir es cuidarse",
+    "the-more-reports": "Mientras más personas informen, mejores serán los cálculos y más rápido podrá ayudar a su comunidad a combatir el COVID",
+    "share-this-app": "Compartir la aplicación",
+    "thank-you-for-joining": "Gracias por unirse a millones de personas que apoyan a los científicos de",
+    "to-help-communities": "para ayudar a nuestras comunidades.",
+    "visit-our": "Visite nuestro",
+    "website": "sitio web",
+    "to-see-discoveries": "para ver los hallazgos que usted hizo posibles",
+    "done": "Listo",
+    "share-area-locked": "Estoy ayudando a combatir el #COVID19 – Solo necesitamos %{missing} personas más en la aplicación para obtener los valores de COVID para %{area}. Para ayudar, tómese 1 minuto diario para informar cómo se siente. También recibirá los valores de COVID de su zona. Descargue la aplicación",
+    "share-area-unlocked": "Estoy ayudando a combatir el #COVID19 – Se calcula que %{cases} personas tienen síntomas de COVID hoy en %{area}. Para ayudar, tómese 1 minuto diario para informar cómo se siente. También recibirá los valores de COVID de su zona. Descargue la aplicación"
   },
 
   "share-this-app": {
-    "message": "Para ayudar a frenar el contagio de #COVID19 e identificar casos más temprano, informe sus síntomas a diario, incluso si se siente bien ð. Descargue la aplicación",
-    "url": "https://covid.joinzoe.com/",
+    "message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad. Descargue la aplicación",
+    "url": "https://covid.joinzoe.com/us",
     "primary-text": "Comparta esta aplicación",
     "secondary-text": "Mientras más personas informen sus síntomas, más podemos ayudar a quienes están en riesgo.",
     "button-text": "Compartir la aplicación"
@@ -513,12 +538,12 @@
 
   "adult-or-child-title": "¿Para quién le gustaría informar?",
   "adult-or-child-text": "Por el momento, solo puede crear perfiles adicionales para residentes de EE. UU.",
-  "person-over-18": "Persona sobre 18",
-  "person-under-18": "Persona bajo 18",
+  "person-over-18": "Persona mayor de 18",
+  "person-under-18": "Persona menor de 18",
 
   "adult-consent-title": "Consentimiento de adulto",
   "child-consent-title": "Consentimiento de niño",
-  "adult-consent-confirm": "Confirmo l anterior",
+  "adult-consent-confirm": "Confirmo lo anterior",
   "child-consent-confirm": "Confirmo que soy el tutor legal del niño y que he hecho lo anterior",
   "consent": "consentimiento",
   "child-consent-text-1": "Si su hijo tiene edad suficiente para comprender nuestros",
@@ -750,7 +775,7 @@
   "join-total-people-contributing": "Únase a las %{total} personas que contribuyen en todo el mundo",
 
   "add-new-test": "Agregar nuevo examen",
-  "your-covid-tests": "Sus exámenes de COVID-19",
+  "your-covid-tests": "Sus tests de COVID-19",
   "positive": "Positivo",
   "negative": "Negativo",
   "failed": "Falló",
@@ -759,5 +784,32 @@
   "never-had-test": "Nunca me he hecho un examen de COVID",
   "above-list-correct": "La lista anterior es correcta",
 
-  "share-with-friends-message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad . ð Descargue la aplicación"
+  "errors": {
+    "button-retry": "Reintentar",
+    "button-okay": "Aceptar",
+    "status-loading": "Cargando...",
+    "status-retrying": "Reintentando...",
+    "user-is-offline": "Actualmente está desconectado. Revise su conexión.",
+    "resource-not-found": "El servidor no pudo encontrar sus detalles",
+    "server-is-busy": "El servidor está ocupado. Espere, luego intente nuevamente",
+    "server-error": "El servidor no pudo responder en este momento. Espere, luego intente nuevamente."
+  },
+
+  "back": "Volver",
+
+  "__IGNORE__": {
+    "partners": {
+      "powered-by": false,
+      "data-analysis": false
+    },
+
+    "validation-study-intro": {
+      "title": false,
+      "subtitle": false,
+      "info": false,
+      "yes": false,
+      "no": false,
+      "app-name": false
+    }
+  }
 }
