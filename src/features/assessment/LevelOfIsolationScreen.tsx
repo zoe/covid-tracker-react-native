@@ -18,7 +18,7 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from "@covid/features/assessment/AssessmentCoordinator";
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   isolationLittleInteraction: '',
@@ -54,7 +54,6 @@ const initialState: State = {
 };
 
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
-
   constructor(props: LocationProps) {
     super(props);
     this.state = initialState;

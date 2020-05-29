@@ -139,7 +139,8 @@ class AssessmentCoordinator {
     }
   };
 
-  gotoScreen = (screenName: ScreenName, params: RouteParamsType | undefined = undefined) => {  //TODO Fix params on this
+  gotoScreen = (screenName: ScreenName, params: RouteParamsType | undefined = undefined) => {
+    //TODO Fix params on this
     this.navigation.navigate(screenName, params);
   };
 

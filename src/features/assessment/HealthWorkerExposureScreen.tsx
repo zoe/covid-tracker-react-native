@@ -14,7 +14,7 @@ import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from "@covid/features/assessment/AssessmentCoordinator";
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   interactedAnyPatients: 'no',
@@ -70,7 +70,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
       userService
         .updateAssessment(assessmentId, assessment)
         .then((response) => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name)
+          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
     }
