@@ -1,17 +1,17 @@
+import { closeIcon } from '@assets';
+import { isAndroid } from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Form, Icon, Label, Picker } from 'native-base';
 import React, { Component } from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { closeIcon } from '@assets';
-import { colors } from '@theme';
-import { isAndroid } from '@covid/components/Screen';
-import { RegularText } from '@covid/components/Text';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 interface PropsType extends ITest {
