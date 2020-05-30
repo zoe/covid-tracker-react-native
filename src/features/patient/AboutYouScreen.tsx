@@ -19,6 +19,7 @@ import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
+import { HeightData, HeightQuestion } from './fields/HeightQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 
 const initialFormValues = {
@@ -27,10 +28,6 @@ const initialFormValues = {
   genderIdentity: '',
   genderIdentityDescription: '',
   postcode: '',
-  height: '',
-  feet: '',
-  inches: '',
-  heightUnit: 'ft',
   weight: '',
   stones: '',
   pounds: '',
@@ -43,16 +40,12 @@ const initialFormValues = {
   mobilityAid: 'no',
 };
 
-export interface AboutYouData extends RaceEthnicityData {
+export interface AboutYouData extends RaceEthnicityData, HeightData {
   yearOfBirth: string;
   sex: string;
   genderIdentity: string;
   genderIdentityDescription: string;
 
-  height: string;
-  feet: string;
-  inches: string;
-  heightUnit: string;
   weight: string;
   stones: string;
   pounds: string;
@@ -295,9 +288,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
       return {
         ...initialFormValues,
-        heightUnit: features.defaultHeightUnit,
         weightUnit: features.defaultWeightUnit,
         ...RaceEthnicityQuestion.initialFormValues(),
+        ...HeightQuestion.initialFormValues(),
       };
     };
 
@@ -371,108 +364,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   formikProps={props as FormikProps<RaceEthnicityData>}
                 />
 
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-height')}</Label>
-                    {isUSCountry() ? (
-                      <View style={styles.primaryFieldRow}>
-                        <View style={styles.tertiaryField}>
-                          <ValidatedTextInput
-                            placeholder={i18n.t('placeholder-feet')}
-                            value={props.values.feet}
-                            onChangeText={props.handleChange('feet')}
-                            onBlur={props.handleBlur('feet')}
-                            error={props.touched.feet && props.errors.feet}
-                            returnKeyType="next"
-                            onSubmitEditing={() => {
-                              /* this.passwordComponent.focus(); */
-                            }}
-                            keyboardType="numeric"
-                          />
-                        </View>
-                        <View style={styles.tertiaryField}>
-                          <ValidatedTextInput
-                            placeholder={i18n.t('placeholder-inches')}
-                            value={props.values.inches}
-                            onChangeText={props.handleChange('inches')}
-                            onBlur={props.handleBlur('inches')}
-                            error={props.touched.inches && props.errors.inches}
-                            returnKeyType="next"
-                            onSubmitEditing={() => {
-                              /* this.passwordComponent.focus(); */
-                            }}
-                            keyboardType="numeric"
-                          />
-                        </View>
-                      </View>
-                    ) : (
-                      <View style={styles.fieldRow}>
-                        {props.values.heightUnit === 'cm' ? (
-                          <View style={styles.primaryField}>
-                            <ValidatedTextInput
-                              placeholder={i18n.t('placeholder-height')}
-                              value={props.values.height}
-                              onChangeText={props.handleChange('height')}
-                              onBlur={props.handleBlur('height')}
-                              error={props.touched.height && props.errors.height}
-                              returnKeyType="next"
-                              onSubmitEditing={() => {
-                                /* this.passwordComponent.focus(); */
-                              }}
-                              keyboardType="numeric"
-                            />
-                          </View>
-                        ) : (
-                          <View style={styles.primaryFieldRow}>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-feet')}
-                                value={props.values.feet}
-                                onChangeText={props.handleChange('feet')}
-                                onBlur={props.handleBlur('feet')}
-                                error={props.touched.feet && props.errors.feet}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-inches')}
-                                value={props.values.inches}
-                                onChangeText={props.handleChange('inches')}
-                                onBlur={props.handleBlur('inches')}
-                                error={props.touched.inches && props.errors.inches}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
-                          </View>
-                        )}
-                        <View style={styles.secondaryField}>
-                          <DropdownField
-                            onlyPicker
-                            selectedValue={props.values.heightUnit}
-                            onValueChange={props.handleChange('heightUnit')}
-                            items={[
-                              { label: 'ft', value: 'ft' },
-                              { label: 'cm', value: 'cm' },
-                            ]}
-                          />
-                        </View>
-                      </View>
-                    )}
-                  </Item>
-                  {props.errors.height && <ValidationError error={props.errors.height} />}
-                  {props.errors.feet && <ValidationError error={props.errors.feet} />}
-                  {props.errors.inches && <ValidationError error={props.errors.inches} />}
-                  {props.errors.heightUnit && <ValidationError error={props.errors.heightUnit} />}
-                </FieldWrapper>
+                <HeightQuestion formikProps={props as FormikProps<HeightData>} />
 
                 <FieldWrapper>
                   <Item stackedLabel style={styles.textItemStyle}>
