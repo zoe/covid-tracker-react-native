@@ -1,11 +1,7 @@
-import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
-import React, { Component } from 'react';
-
-import { FieldWrapper } from '@covid/components/Screen';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError } from '@covid/components/ValidationError';
+import { GenericTextField } from '@covid/components/GenericTextField';
 import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import React, { Component } from 'react';
 
 export interface WeeksPregnantData {
   weeksPregnant: string;
@@ -19,27 +15,13 @@ export class WeeksPregnant extends Component<Props, object> {
   render() {
     const formikProps = this.props.formikProps;
     return (
-      <FieldWrapper>
-        <Item
-          stackedLabel
-          style={{
-            borderColor: 'transparent',
-          }}>
-          <Label>{i18n.t('your-health.weeks-pregnant')}</Label>
-          <ValidatedTextInput
-            placeholder={i18n.t('placeholder-optional')}
-            value={formikProps.values.weeksPregnant}
-            onChangeText={formikProps.handleChange('weeksPregnant')}
-            onBlur={formikProps.handleBlur('weeksPregnant')}
-            error={formikProps.touched.weeksPregnant && formikProps.errors.weeksPregnant}
-            returnKeyType="next"
-            keyboardType="numeric"
-          />
-        </Item>
-        {!!formikProps.errors.weeksPregnant && formikProps.submitCount > 0 && (
-          <ValidationError error={formikProps.errors.weeksPregnant} />
-        )}
-      </FieldWrapper>
+      <GenericTextField
+        formikProps={formikProps}
+        label={i18n.t('your-health.weeks-pregnant')}
+        placeholder={i18n.t('placeholder-optional')}
+        name="weeksPregnant"
+        keyboardType="numeric"
+      />
     );
   }
 }
