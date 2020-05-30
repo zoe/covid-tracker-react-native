@@ -101,7 +101,7 @@ jobs:
       - run: npm run prettier
       - run: echo "API_URL=" > .env
       - run: echo "AMPLITUDE_KEY=" >> .env
-      - run: npm test -- --maxWorkers=4
+      - run: npm test -- --maxWorkers=2
   deploy:
     executor: node
     working_directory: ~/covid-react
