@@ -21,6 +21,7 @@ export class PeriodStoppedAge extends Component<Props, object> {
         placeholder={i18n.t('placeholder-optional')}
         name="periodStoppedage"
         keyboardType="numeric"
+        showError
       />
     );
   }

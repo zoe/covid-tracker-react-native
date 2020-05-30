@@ -156,6 +156,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   label={i18n.t('level-of-isolation.question-little-interaction')}
                   name="isolationLittleInteraction"
                   keyboardType="numeric"
+                  showError
                 />
 
                 <GenericTextField
@@ -164,6 +165,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   label={i18n.t('level-of-isolation.question-lots-of-people')}
                   name="isolationLotsOfPeople"
                   keyboardType="numeric"
+                  showError
                 />
 
                 <GenericTextField
@@ -172,6 +174,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   label={i18n.t('level-of-isolation.question-healthcare-provider')}
                   name="isolationHealthcareProvider"
                   keyboardType="numeric"
+                  showError
                 />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>

@@ -326,6 +326,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   placeholder={i18n.t('placeholder-year-of-birth')}
                   name="yearOfBirth"
                   keyboardType="numeric"
+                  showError
                 />
 
                 <DropdownField
@@ -554,6 +555,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   placeholder={i18n.t('placeholder-postcode')}
                   name="postcode"
                   inputProps={{ autoCompleteType: 'postal-code' }}
+                  showError
                 />
 
                 <DropdownField

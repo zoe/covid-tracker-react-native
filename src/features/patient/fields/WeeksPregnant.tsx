@@ -21,6 +21,7 @@ export class WeeksPregnant extends Component<Props, object> {
         placeholder={i18n.t('placeholder-optional')}
         name="weeksPregnant"
         keyboardType="numeric"
+        showError
       />
     );
   }

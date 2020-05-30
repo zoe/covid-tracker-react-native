@@ -13,11 +13,12 @@ interface GenericTextFieldProps {
   label?: string;
   placeholder?: string;
   keyboardType?: KeyboardTypeOptions;
+  showError?: boolean;
   inputProps?: any;
 }
 
 export const GenericTextField = (props: GenericTextFieldProps) => {
-  const { formikProps, name, label, placeholder, keyboardType, ...inputProps } = props;
+  const { formikProps, name, label, placeholder, keyboardType, showError, ...inputProps } = props;
   return (
     <FieldWrapper>
       <Item stackedLabel style={styles.textItemStyle}>
@@ -35,7 +36,7 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
         />
       </Item>
 
-      {!!formikProps.errors[name] && (
+      {showError && !!formikProps.errors[name] && (
         <ValidationError
           // @ts-ignore - need to solve type for ValidationError error prop
           error={formikProps.errors[name]}
