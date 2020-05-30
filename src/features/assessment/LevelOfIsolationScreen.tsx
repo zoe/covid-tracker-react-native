@@ -1,8 +1,8 @@
+import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock, FieldWrapper } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
+import { ValidationErrors } from '@covid/components/ValidationError';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -12,9 +12,8 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form, Item, Label } from 'native-base';
+import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -151,71 +150,32 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
           {(props) => {
             return (
               <Form>
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('level-of-isolation.question-little-interaction')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-optional')}
-                      value={props.values.isolationLittleInteraction}
-                      onChangeText={props.handleChange('isolationLittleInteraction')}
-                      onBlur={props.handleBlur('isolationLittleInteraction')}
-                      error={
-                        props.touched.isolationLittleInteraction &&
-                        props.errors.isolationLittleInteraction &&
-                        props.submitCount > 0
-                      }
-                      returnKeyType="next"
-                      keyboardType="numeric"
-                    />
-                  </Item>
-                  {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
-                    <ValidationError error={props.errors.isolationLittleInteraction} />
-                  )}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
+                  label={i18n.t('level-of-isolation.question-little-interaction')}
+                  name="isolationLittleInteraction"
+                  keyboardType="numeric"
+                  showError
+                />
 
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('level-of-isolation.question-lots-of-people')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-optional')}
-                      value={props.values.isolationLotsOfPeople}
-                      onChangeText={props.handleChange('isolationLotsOfPeople')}
-                      onBlur={props.handleBlur('isolationLotsOfPeople')}
-                      error={
-                        props.touched.isolationLotsOfPeople &&
-                        props.errors.isolationLotsOfPeople &&
-                        props.submitCount > 0
-                      }
-                      returnKeyType="next"
-                      keyboardType="numeric"
-                    />
-                  </Item>
-                  {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
-                    <ValidationError error={props.errors.isolationLotsOfPeople} />
-                  )}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
+                  label={i18n.t('level-of-isolation.question-lots-of-people')}
+                  name="isolationLotsOfPeople"
+                  keyboardType="numeric"
+                  showError
+                />
 
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('level-of-isolation.question-healthcare-provider')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('level-of-isolation.placeholder-optional')}
-                      value={props.values.isolationHealthcareProvider}
-                      onChangeText={props.handleChange('isolationHealthcareProvider')}
-                      onBlur={props.handleBlur('isolationHealthcareProvider')}
-                      error={
-                        props.touched.isolationHealthcareProvider &&
-                        props.errors.isolationHealthcareProvider &&
-                        props.submitCount > 0
-                      }
-                      returnKeyType="next"
-                      keyboardType="numeric"
-                    />
-                  </Item>
-                  {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
-                    <ValidationError error={props.errors.isolationHealthcareProvider} />
-                  )}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
+                  label={i18n.t('level-of-isolation.question-healthcare-provider')}
+                  name="isolationHealthcareProvider"
+                  keyboardType="numeric"
+                  showError
+                />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
@@ -236,9 +196,3 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});
