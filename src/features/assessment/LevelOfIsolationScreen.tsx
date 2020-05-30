@@ -71,17 +71,14 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
   registerSchema = Yup.object().shape({
     isolationLittleInteraction: Yup.number()
-      .required(i18n.t('level-of-isolation.required-answer'))
       .typeError(i18n.t('level-of-isolation.whole-number'))
       .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
     isolationLotsOfPeople: Yup.number()
-      .required(i18n.t('level-of-isolation.required-answer'))
       .typeError(i18n.t('level-of-isolation.whole-number'))
       .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
     isolationHealthcareProvider: Yup.number()
-      .required(i18n.t('level-of-isolation.required-answer'))
       .typeError(i18n.t('level-of-isolation.whole-number'))
       .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
@@ -155,7 +152,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
               <Form>
                 <GenericTextField
                   formikProps={props}
-                  placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
                   label={i18n.t('level-of-isolation.question-little-interaction')}
                   name="isolationLittleInteraction"
                   keyboardType="numeric"
@@ -163,7 +160,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
                 <GenericTextField
                   formikProps={props}
-                  placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
                   label={i18n.t('level-of-isolation.question-lots-of-people')}
                   name="isolationLotsOfPeople"
                   keyboardType="numeric"
@@ -171,7 +168,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
                 <GenericTextField
                   formikProps={props}
-                  placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
                   label={i18n.t('level-of-isolation.question-healthcare-provider')}
                   name="isolationHealthcareProvider"
                   keyboardType="numeric"
