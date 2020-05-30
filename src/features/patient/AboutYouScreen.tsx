@@ -2,9 +2,10 @@ import { userService } from '@covid/Services';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidationErrors } from '@covid/components/ValidationError';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
 import { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal, cleanFloatVal } from '@covid/core/utils/number';
@@ -12,8 +13,9 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form, Text } from 'native-base';
+import { Form, Item, Label, Text } from 'native-base';
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -424,3 +426,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textItemStyle: {
+    borderColor: 'transparent',
+  },
+});
