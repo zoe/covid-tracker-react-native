@@ -2,10 +2,9 @@ import { userService } from '@covid/Services';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock, screenWidth } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
+import { ValidationErrors } from '@covid/components/ValidationError';
 import { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal, cleanFloatVal } from '@covid/core/utils/number';
@@ -13,14 +12,14 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
-import { Form, Icon, Item, Label, Picker, Text } from 'native-base';
+import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
 import { HeightData, HeightQuestion } from './fields/HeightQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
+import { WeightData, WeightQuestion } from './fields/WeightQuestion';
 
 const initialFormValues = {
   yearOfBirth: '',
@@ -28,10 +27,6 @@ const initialFormValues = {
   genderIdentity: '',
   genderIdentityDescription: '',
   postcode: '',
-  weight: '',
-  stones: '',
-  pounds: '',
-  weightUnit: 'lbs',
 
   everExposed: '',
   houseboundProblems: 'no',
@@ -40,16 +35,11 @@ const initialFormValues = {
   mobilityAid: 'no',
 };
 
-export interface AboutYouData extends RaceEthnicityData, HeightData {
+export interface AboutYouData extends RaceEthnicityData, HeightData, WeightData {
   yearOfBirth: string;
   sex: string;
   genderIdentity: string;
   genderIdentityDescription: string;
-
-  weight: string;
-  stones: string;
-  pounds: string;
-  weightUnit: string;
 
   postcode: string;
 
@@ -284,13 +274,11 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     ];
 
     const getInitialFormValues = (): AboutYouData => {
-      const features = userService.getConfig();
-
       return {
         ...initialFormValues,
-        weightUnit: features.defaultWeightUnit,
         ...RaceEthnicityQuestion.initialFormValues(),
         ...HeightQuestion.initialFormValues(),
+        ...WeightQuestion.initialFormValues(),
       };
     };
 
@@ -366,90 +354,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                 <HeightQuestion formikProps={props as FormikProps<HeightData>} />
 
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-weight')}</Label>
-                    {isUSCountry() ? (
-                      <ValidatedTextInput
-                        placeholder={i18n.t('placeholder-pounds')}
-                        value={props.values.pounds}
-                        onChangeText={props.handleChange('pounds')}
-                        onBlur={props.handleBlur('pounds')}
-                        error={props.touched.pounds && props.errors.pounds}
-                        returnKeyType="next"
-                        onSubmitEditing={() => {
-                          /* this.passwordComponent.focus(); */
-                        }}
-                        keyboardType="numeric"
-                      />
-                    ) : (
-                      <View style={styles.fieldRow}>
-                        {props.values.weightUnit === 'kg' ? (
-                          <View style={styles.primaryField}>
-                            <ValidatedTextInput
-                              placeholder={i18n.t('placeholder-weight')}
-                              value={props.values.weight}
-                              onChangeText={props.handleChange('weight')}
-                              onBlur={props.handleBlur('weight')}
-                              error={props.touched.weight && props.errors.weight}
-                              returnKeyType="next"
-                              onSubmitEditing={() => {
-                                /* this.passwordComponent.focus(); */
-                              }}
-                              keyboardType="numeric"
-                            />
-                          </View>
-                        ) : (
-                          <View style={styles.primaryFieldRow}>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-stones')}
-                                value={props.values.stones}
-                                onChangeText={props.handleChange('stones')}
-                                onBlur={props.handleBlur('stones')}
-                                error={props.touched.stones && props.errors.stones}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
-                            <View style={styles.tertiaryField}>
-                              <ValidatedTextInput
-                                placeholder={i18n.t('placeholder-pounds')}
-                                value={props.values.pounds}
-                                onChangeText={props.handleChange('pounds')}
-                                onBlur={props.handleBlur('pounds')}
-                                error={props.touched.pounds && props.errors.pounds}
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                  /* this.passwordComponent.focus(); */
-                                }}
-                                keyboardType="numeric"
-                              />
-                            </View>
-                          </View>
-                        )}
-                        <View style={styles.secondaryField}>
-                          <DropdownField
-                            onlyPicker
-                            selectedValue={props.values.weightUnit}
-                            onValueChange={props.handleChange('weightUnit')}
-                            items={[
-                              { label: 'lbs', value: 'lbs' },
-                              { label: 'kg', value: 'kg' },
-                            ]}
-                          />
-                        </View>
-                      </View>
-                    )}
-                  </Item>
-                  {props.errors.weight && <ValidationError error={props.errors.weight} />}
-                  {props.errors.pounds && <ValidationError error={props.errors.pounds} />}
-                  {props.errors.stones && <ValidationError error={props.errors.stones} />}
-                  {props.errors.weightUnit && <ValidationError error={props.errors.weightUnit} />}
-                </FieldWrapper>
+                <WeightQuestion formikProps={props as FormikProps<WeightData>} />
 
                 <FieldWrapper>
                   <Item stackedLabel style={styles.textItemStyle}>
@@ -519,36 +424,3 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  fieldRow: {
-    flexDirection: 'row',
-  },
-
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-
-  primaryField: {
-    flex: 6,
-  },
-
-  primaryFieldRow: {
-    flex: 6,
-    flexDirection: 'row',
-  },
-
-  tertiaryField: {
-    flex: 5,
-    marginRight: 8,
-  },
-
-  secondaryField: {
-    flex: 2,
-  },
-
-  picker: {
-    // width: '68%',
-    width: screenWidth - 16, // TODO: Fix width to something sensible
-  },
-});
