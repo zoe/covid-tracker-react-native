@@ -46,9 +46,7 @@ export class WeightQuestion extends Component<Props, object> {
               onBlur={props.handleBlur('pounds')}
               error={props.touched.pounds && props.errors.pounds}
               returnKeyType="next"
-              onSubmitEditing={() => {
-                /* this.passwordComponent.focus(); */
-              }}
+              onSubmitEditing={() => {}}
               keyboardType="numeric"
             />
           ) : (
@@ -62,9 +60,7 @@ export class WeightQuestion extends Component<Props, object> {
                     onBlur={props.handleBlur('weight')}
                     error={props.touched.weight && props.errors.weight}
                     returnKeyType="next"
-                    onSubmitEditing={() => {
-                      /* this.passwordComponent.focus(); */
-                    }}
+                    onSubmitEditing={() => {}}
                     keyboardType="numeric"
                   />
                 </View>
@@ -78,9 +74,7 @@ export class WeightQuestion extends Component<Props, object> {
                       onBlur={props.handleBlur('stones')}
                       error={props.touched.stones && props.errors.stones}
                       returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
+                      onSubmitEditing={() => {}}
                       keyboardType="numeric"
                     />
                   </View>
@@ -92,9 +86,7 @@ export class WeightQuestion extends Component<Props, object> {
                       onBlur={props.handleBlur('pounds')}
                       error={props.touched.pounds && props.errors.pounds}
                       returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
+                      onSubmitEditing={() => {}}
                       keyboardType="numeric"
                     />
                   </View>

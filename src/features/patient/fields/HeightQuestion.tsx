@@ -48,9 +48,7 @@ export class HeightQuestion extends Component<Props, object> {
                   onBlur={props.handleBlur('feet')}
                   error={props.touched.feet && props.errors.feet}
                   returnKeyType="next"
-                  onSubmitEditing={() => {
-                    /* this.passwordComponent.focus(); */
-                  }}
+                  onSubmitEditing={() => {}}
                   keyboardType="numeric"
                 />
               </View>
@@ -62,9 +60,7 @@ export class HeightQuestion extends Component<Props, object> {
                   onBlur={props.handleBlur('inches')}
                   error={props.touched.inches && props.errors.inches}
                   returnKeyType="next"
-                  onSubmitEditing={() => {
-                    /* this.passwordComponent.focus(); */
-                  }}
+                  onSubmitEditing={() => {}}
                   keyboardType="numeric"
                 />
               </View>
@@ -80,9 +76,7 @@ export class HeightQuestion extends Component<Props, object> {
                     onBlur={props.handleBlur('height')}
                     error={props.touched.height && props.errors.height}
                     returnKeyType="next"
-                    onSubmitEditing={() => {
-                      /* this.passwordComponent.focus(); */
-                    }}
+                    onSubmitEditing={() => {}}
                     keyboardType="numeric"
                   />
                 </View>
@@ -96,9 +90,7 @@ export class HeightQuestion extends Component<Props, object> {
                       onBlur={props.handleBlur('feet')}
                       error={props.touched.feet && props.errors.feet}
                       returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
+                      onSubmitEditing={() => {}}
                       keyboardType="numeric"
                     />
                   </View>
@@ -110,9 +102,7 @@ export class HeightQuestion extends Component<Props, object> {
                       onBlur={props.handleBlur('inches')}
                       error={props.touched.inches && props.errors.inches}
                       returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
+                      onSubmitEditing={() => {}}
                       keyboardType="numeric"
                     />
                   </View>
