@@ -393,6 +393,7 @@
     "question-lots-of-people": "En las últimas semanas, ¿cuántas veces visitó lugares con muchas personas (por ej., tiendas, transporte público, trabajo)?",
     "question-healthcare-provider": "En la última semana, ¿cuántas veces visitó a un proveedor de atención de salud (por ej., hospital, clínica, dentista, farmacia)?",
     "placeholder-frequency": "Cantidad de veces",
+    "placeholder-optional": "*Opcional",
     "required-answer": "Indique la cantidad de veces que ocurrió",
     "correct-answer": "Corrija su respuesta",
     "whole-number": "Ingrese un número entero"
