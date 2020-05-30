@@ -320,24 +320,13 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           {(props) => {
             return (
               <Form>
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('what-year-were-you-born')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-year-of-birth')}
-                      value={props.values.yearOfBirth}
-                      onChangeText={props.handleChange('yearOfBirth')}
-                      onBlur={props.handleBlur('yearOfBirth')}
-                      error={props.touched.yearOfBirth && props.errors.yearOfBirth}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
-                      keyboardType="numeric"
-                    />
-                  </Item>
-                  {!!props.errors.yearOfBirth && <ValidationError error={props.errors.yearOfBirth} />}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  label={i18n.t('what-year-were-you-born')}
+                  placeholder={i18n.t('placeholder-year-of-birth')}
+                  name="yearOfBirth"
+                  keyboardType="numeric"
+                />
 
                 <DropdownField
                   placeholder={i18n.t('placeholder-sex')}
@@ -559,24 +548,13 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   {props.errors.weightUnit && <ValidationError error={props.errors.weightUnit} />}
                 </FieldWrapper>
 
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-postcode')}</Label>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-postcode')}
-                      value={props.values.postcode}
-                      onChangeText={props.handleChange('postcode')}
-                      onBlur={props.handleBlur('postcode')}
-                      error={props.touched.postcode && props.errors.postcode}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {
-                        /* this.passwordComponent.focus(); */
-                      }}
-                      autoCompleteType="postal-code"
-                    />
-                  </Item>
-                  {!!props.errors.postcode && <ValidationError error={props.errors.postcode} />}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  label={i18n.t('your-postcode')}
+                  placeholder={i18n.t('placeholder-postcode')}
+                  name="postcode"
+                  inputProps={{ autoCompleteType: 'postal-code' }}
+                />
 
                 <DropdownField
                   selectedValue={props.values.everExposed}
