@@ -5,6 +5,7 @@ import { KeyboardTypeOptions, StyleSheet } from 'react-native';
 
 import { FieldWrapper } from './Screen';
 import { ValidatedTextInput } from './ValidatedTextInput';
+import { ValidationError } from './ValidationError';
 
 interface GenericTextFieldProps {
   formikProps: FormikProps<any>;
@@ -33,6 +34,8 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
           {...inputProps}
         />
       </Item>
+      // @ts-ignore - need to solve type for ValidationError error prop
+      {!!formikProps.errors[name] && <ValidationError error={formikProps.errors[name]} />}
     </FieldWrapper>
   );
 };
