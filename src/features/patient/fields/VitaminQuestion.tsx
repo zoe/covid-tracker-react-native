@@ -4,6 +4,7 @@ import { FieldWrapper } from '@covid/components/Screen';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
+import moment from 'moment';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
@@ -31,6 +32,7 @@ export type SupplementValue =
 
 type SupplementDoc = {
   // Vitamin supplement fields
+  vs_asked_at: Date;
   vs_none: boolean;
   vs_vitamin_c: boolean;
   vs_vitamin_d: boolean;
@@ -98,6 +100,7 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
 
   static createSupplementsDoc = (selectedSupplements: SupplementValue[], vitaminOther: string) => {
     let supplements = {
+      vs_asked_at: moment().toDate(),
       vs_none: false,
       vs_vitamin_c: false,
       vs_vitamin_d: false,

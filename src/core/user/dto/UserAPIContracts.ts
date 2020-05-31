@@ -184,6 +184,7 @@ export type PatientInfosRequest = {
   vs_multivitamins: boolean;
   vs_pftns: boolean;
   vs_other: string;
+  vs_asked_at: Date;
 };
 
 export type AssessmentInfosRequest = {

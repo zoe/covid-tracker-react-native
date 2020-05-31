@@ -179,6 +179,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         currentPatient.hasBloodPressureAnswer = true;
         currentPatient.hasPeriodAnswer = true;
         currentPatient.hasHormoneTreatmentAnswer = true;
+        currentPatient.hasVitaminAnswer = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })
