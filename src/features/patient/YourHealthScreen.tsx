@@ -171,7 +171,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     const userService = new UserService();
     var infos = this.createPatientInfos(formData);
 
-    console.log(infos);
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
