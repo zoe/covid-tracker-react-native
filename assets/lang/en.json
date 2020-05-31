@@ -408,6 +408,7 @@
     "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work)?",
     "question-healthcare-provider": "In the last week, how many times have you visited a healthcare provider (e.g. hospital, clinic, dentist, pharmacy)?",
     "placeholder-frequency": "Number of times this occurred",
+    "placeholder-optional": "*Optional",
     "required-answer": "Please indicate the number of times this occurred",
     "correct-answer": "Please correct your answer",
     "whole-number": "Please enter a whole number"

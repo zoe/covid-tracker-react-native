@@ -251,6 +251,7 @@
     "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats som besöks av många människor (t.ex. mataffär, kollektivtrafik, arbetsplats)?",
     "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
     "placeholder-frequency": "Antal tillfällen",
+    "placeholder-optional": "Valfri",
     "required-answer": "Ange antal tillfällen",
     "correct-answer": "Var snäll och granska ditt svar",
     "whole-number": "Ange ett helt nummer"
