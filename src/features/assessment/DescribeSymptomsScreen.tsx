@@ -6,7 +6,7 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService from '@covid/core/user/UserService';
-import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { cleanFloatVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';

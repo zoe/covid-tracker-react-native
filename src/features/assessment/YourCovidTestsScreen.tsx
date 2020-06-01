@@ -14,7 +14,7 @@ import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import UserService from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 

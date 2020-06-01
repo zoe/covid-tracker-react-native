@@ -15,8 +15,6 @@ import { cleanIntegerVal } from '../utils/number';
 import {
   AreaStatsResponse,
   AskValidationStudy,
-  AssessmentInfosRequest,
-  AssessmentResponse,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
@@ -24,6 +22,8 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
+import { AssessmentInfosRequest } from '../assessment/dto/AssessmentInfosRequest';
+import { AssessmentResponse } from '../assessment/dto/AssessmentInfosResponse';
 import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
