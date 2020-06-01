@@ -462,7 +462,7 @@ exports[`Sweden should render with viewOnly false 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "backgroundColor": "transparent",
               "borderBottomWidth": 1,
               "borderColor": "transparent",
@@ -498,6 +498,7 @@ exports[`Sweden should render with viewOnly false 1`] = `
                 "display": "flex",
                 "height": 32,
                 "justifyContent": "space-evenly",
+                "marginTop": 4,
                 "opacity": 1,
                 "width": 32,
               }
@@ -559,7 +560,7 @@ exports[`Sweden should render with viewOnly false 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "backgroundColor": "transparent",
               "borderBottomWidth": 1,
               "borderColor": "transparent",
@@ -595,6 +596,7 @@ exports[`Sweden should render with viewOnly false 1`] = `
                 "display": "flex",
                 "height": 32,
                 "justifyContent": "space-evenly",
+                "marginTop": 4,
                 "opacity": 1,
                 "width": 32,
               }
@@ -656,7 +658,7 @@ exports[`Sweden should render with viewOnly false 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "backgroundColor": "transparent",
               "borderBottomWidth": 1,
               "borderColor": "transparent",
@@ -692,6 +694,7 @@ exports[`Sweden should render with viewOnly false 1`] = `
                 "display": "flex",
                 "height": 32,
                 "justifyContent": "space-evenly",
+                "marginTop": 4,
                 "opacity": 1,
                 "width": 32,
               }
@@ -1881,7 +1884,7 @@ For more information about how we use and share personal information about you, 
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "backgroundColor": "transparent",
               "borderBottomWidth": 1,
               "borderColor": "transparent",
@@ -1917,6 +1920,7 @@ For more information about how we use and share personal information about you, 
                 "display": "flex",
                 "height": 32,
                 "justifyContent": "space-evenly",
+                "marginTop": 4,
                 "opacity": 1,
                 "width": 32,
               }
@@ -1992,7 +1996,7 @@ For more information about how we use and share personal information about you, 
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "backgroundColor": "transparent",
               "borderBottomWidth": 1,
               "borderColor": "transparent",
@@ -2028,6 +2032,7 @@ For more information about how we use and share personal information about you, 
                 "display": "flex",
                 "height": 32,
                 "justifyContent": "space-evenly",
+                "marginTop": 4,
                 "opacity": 1,
                 "width": 32,
               }
