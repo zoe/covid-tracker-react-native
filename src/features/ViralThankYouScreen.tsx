@@ -121,7 +121,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
           <ScrollView style={styles.modalText}>
             <RegularText style={styles.modalTitle}>{i18n.t('thank-you.our-methodology-title')}</RegularText>
             <RegularText style={styles.modalContent}>
-              {i18n.t('thank-you.method-body-1')}
+              {i18n.t('thank-you.methodology-body-1')}
               <ClickableText
                 onPress={() =>
                   Linking.openURL(
@@ -130,7 +130,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 }>
                 {i18n.t('thank-you.read-more-here')}
               </ClickableText>
-              {i18n.t('thank-you.method-body-2')}
+              {i18n.t('thank-you.methodology-body-2')}
             </RegularText>
 
             <View style={styles.divider} />
@@ -138,10 +138,9 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             <View style={styles.divider} />
 
             <RegularText style={styles.readBlog}>
-              {i18n.t('thank-you.read-more-on')} +{' '}
+              {i18n.t('thank-you.read-more-on')}{' '}
               <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
-                {' '}
-                + {i18n.t('thank-you.blog')}
+                {i18n.t('thank-you.blog')}
               </ClickableText>
             </RegularText>
           </ScrollView>
