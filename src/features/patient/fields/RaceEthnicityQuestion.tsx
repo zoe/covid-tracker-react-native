@@ -1,14 +1,13 @@
-import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { LabelText } from '@covid/components/Text';
+import { FormikProps } from 'formik';
+import { Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export interface RaceEthnicityData {
   race: string[];
@@ -26,28 +25,6 @@ type RaceCheckBoxData = {
   label: string;
   value: string;
 };
-
-const UKRaceCheckboxes = [
-  { label: i18n.t('uk-asian'), value: 'uk_asian' },
-  { label: i18n.t('uk-black'), value: 'uk_black' },
-  { label: i18n.t('uk-mixed-white-black'), value: 'uk_mixed_white_black' },
-  { label: i18n.t('uk-mixed-other'), value: 'uk_mixed_other' },
-  { label: i18n.t('uk-white'), value: 'uk_white' },
-  { label: i18n.t('uk-chinese'), value: 'uk_chinese' },
-  { label: i18n.t('uk-middle-eastern'), value: 'uk_middle_eastern' },
-  { label: i18n.t('uk-other'), value: 'other' },
-  { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
-];
-
-const USRaceCheckboxes = [
-  { label: i18n.t('us-indian_native'), value: 'us_indian_native' },
-  { label: i18n.t('us-asian'), value: 'us_asian' },
-  { label: i18n.t('us-black'), value: 'us_black' },
-  { label: i18n.t('us-hawaiian_pacific'), value: 'us_hawaiian_pacific' },
-  { label: i18n.t('us-white'), value: 'us_white' },
-  { label: i18n.t('us-other'), value: 'other' },
-  { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
-];
 
 const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<RaceEthnicityData>) => {
   return data.map((checkBoxData) => {
@@ -74,6 +51,28 @@ const createRaceCheckboxes = (data: RaceCheckBoxData[], props: FormikProps<RaceE
 };
 
 export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps, object> {
+  UKRaceCheckboxes = [
+    { label: i18n.t('uk-asian'), value: 'uk_asian' },
+    { label: i18n.t('uk-black'), value: 'uk_black' },
+    { label: i18n.t('uk-mixed-white-black'), value: 'uk_mixed_white_black' },
+    { label: i18n.t('uk-mixed-other'), value: 'uk_mixed_other' },
+    { label: i18n.t('uk-white'), value: 'uk_white' },
+    { label: i18n.t('uk-chinese'), value: 'uk_chinese' },
+    { label: i18n.t('uk-middle-eastern'), value: 'uk_middle_eastern' },
+    { label: i18n.t('uk-other'), value: 'other' },
+    { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
+  ];
+
+  USRaceCheckboxes = [
+    { label: i18n.t('us-indian_native'), value: 'us_indian_native' },
+    { label: i18n.t('us-asian'), value: 'us_asian' },
+    { label: i18n.t('us-black'), value: 'us_black' },
+    { label: i18n.t('us-hawaiian_pacific'), value: 'us_hawaiian_pacific' },
+    { label: i18n.t('us-white'), value: 'us_white' },
+    { label: i18n.t('us-other'), value: 'other' },
+    { label: i18n.t('prefer-not-to-say'), value: 'prefer_not_to_say' },
+  ];
+
   static initialFormValues = () => {
     return {
       race: [] as string[],
@@ -88,14 +87,14 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {this.props.showRaceQuestion && (
           <FieldWrapper>
             <LabelText>{i18n.t('race-question')}</LabelText>
-            <CheckboxList>{createRaceCheckboxes(UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+            <CheckboxList>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
           </FieldWrapper>
         )}
 
         {this.props.showEthnicityQuestion && (
           <FieldWrapper>
             <LabelText>{i18n.t('race-question')}</LabelText>
-            <CheckboxList>{createRaceCheckboxes(USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
+            <CheckboxList>{createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
           </FieldWrapper>
         )}
 

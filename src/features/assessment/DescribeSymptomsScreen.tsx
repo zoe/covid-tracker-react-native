@@ -291,9 +291,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                         onBlur={props.handleBlur('temperature')}
                         error={props.touched.temperature && props.errors.temperature}
                         returnKeyType="next"
-                        onSubmitEditing={() => {
-                          /* this.passwordComponent.focus(); */
-                        }}
+                        onSubmitEditing={() => {}}
                         keyboardType="numeric"
                       />
                     </View>

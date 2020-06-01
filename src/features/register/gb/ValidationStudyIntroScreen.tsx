@@ -1,6 +1,7 @@
 import { icon } from '@assets';
 import { Header } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -46,6 +47,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => {
+              Analytics.track(events.DECLINE_STUDY);
               this.userService.setValidationStudyResponse(false);
               Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
             }}>
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
   },
   mainButton: {
     marginTop: 32,
+    marginBottom: 16,
     marginHorizontal: 16,
     backgroundColor: colors.purple,
   },

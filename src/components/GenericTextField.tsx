@@ -7,6 +7,7 @@ import Info from '../../assets/icons/Info';
 import { FieldWrapper } from './Screen';
 import { LabelText } from './Text';
 import { ValidatedTextInput } from './ValidatedTextInput';
+import { ValidationError } from './ValidationError';
 
 interface GenericTextFieldProps {
   formikProps: FormikProps<any>;
@@ -15,6 +16,7 @@ interface GenericTextFieldProps {
   placeholder?: string;
   info?: string;
   keyboardType?: KeyboardTypeOptions;
+  showError?: boolean;
   inputProps?: any;
 }
 

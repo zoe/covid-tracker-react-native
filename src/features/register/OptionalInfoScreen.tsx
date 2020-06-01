@@ -8,6 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
+import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
@@ -51,7 +52,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   }
 
   private async setPushToken() {
-    pushNotificationService.initPushToken();
+    if (Constants.appOwnership !== 'expo') {
+      pushNotificationService.initPushToken();
+    }
   }
 
   private async savePiiData(formData: OptionalInfoData) {

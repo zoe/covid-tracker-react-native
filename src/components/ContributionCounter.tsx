@@ -1,14 +1,19 @@
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import I18n from 'i18n-js';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
-import { colors } from '@theme';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { RegularBoldText, RegularText } from './Text';
+import { ITest } from './types';
 
-type ContributionCounterProps = { variant: number; count: number | null };
+interface ContributionCounterProps extends ITest {
+  variant: number;
+  count: number | null;
+}
+
 export const ContributionCounter = (props: ContributionCounterProps) => {
   if (props.count) {
     const userService = new UserService();

@@ -1,7 +1,8 @@
+import { colors, fontStyles } from '@theme';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { colors, fontStyles } from '@theme';
+import { ITest } from './types';
 
 export * from './BrandedButton';
 
@@ -42,7 +43,7 @@ export const RegularBoldText = ({ style, children }: Props) => (
   <Text style={[styles.regularBoldText, style]}>{children}</Text>
 );
 
-export interface ClickableProps {
+export interface ClickableProps extends ITest {
   children: React.ReactNode;
   style?: any;
   onPress: () => void;

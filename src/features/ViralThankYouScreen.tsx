@@ -1,23 +1,23 @@
+import { social } from '@assets';
+import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { isAndroid } from '@covid/components/Screen';
+import BrandedSpinner from '@covid/components/Spinner';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
+import UserService from '@covid/core/user/UserService';
+import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
+import i18n from '@covid/locale/i18n';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Linking } from 'expo';
 import I18n from 'i18n-js';
 import moment from 'moment';
 import React, { Component } from 'react';
 import { Image, ScrollView, Share, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
 
-import { social } from '@assets';
-import { colors } from '@theme';
-import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
-import { isAndroid } from '@covid/components/Screen';
-import BrandedSpinner from '@covid/components/Spinner';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
-import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;
@@ -71,11 +71,11 @@ export default class ViralThankYouScreen extends Component<Props, State> {
       });
   }
 
-  shareUrl = i18n.t('share-with-friends-url');
+  shareUrl = i18n.t('share-this-app.url');
 
   getShareMessage = () => {
     const area = this.state.areaStats;
-    if (!area) return i18n.t('share-with-friends-message');
+    if (!area) return i18n.t('share-this-app.message');
 
     if (area.locked)
       // Be careful with extra tabs or space, they would appear in the message.
@@ -121,7 +121,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
           <ScrollView style={styles.modalText}>
             <RegularText style={styles.modalTitle}>{i18n.t('thank-you.our-methodology-title')}</RegularText>
             <RegularText style={styles.modalContent}>
-              {i18n.t('thank-you.method-body-1')}
+              {i18n.t('thank-you.methodology-body-1')}
               <ClickableText
                 onPress={() =>
                   Linking.openURL(
@@ -130,7 +130,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 }>
                 {i18n.t('thank-you.read-more-here')}
               </ClickableText>
-              {i18n.t('thank-you.method-body-2')}
+              {i18n.t('thank-you.methodology-body-2')}
             </RegularText>
 
             <View style={styles.divider} />
@@ -138,10 +138,9 @@ export default class ViralThankYouScreen extends Component<Props, State> {
             <View style={styles.divider} />
 
             <RegularText style={styles.readBlog}>
-              {i18n.t('thank-you.read-more-on')} +{' '}
+              {i18n.t('thank-you.read-more-on')}{' '}
               <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
-                {' '}
-                + {i18n.t('thank-you.blog')}
+                {i18n.t('thank-you.blog')}
               </ClickableText>
             </RegularText>
           </ScrollView>

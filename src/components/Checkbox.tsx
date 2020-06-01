@@ -1,10 +1,11 @@
+import Check from '@assets/icons/Check';
+import { colors } from '@theme/colors';
 import { Item, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import Check from '@assets/icons/Check';
-import { colors } from '@theme/colors';
 import { RegularText } from './Text';
+import { ITest } from './types';
 
 const checkboxStyles = StyleSheet.create({
   checkboxList: {
@@ -40,11 +41,11 @@ const checkboxStyles = StyleSheet.create({
   },
 });
 
-type CheckboxProps = {
+interface CheckboxProps extends ITest {
   value: boolean;
   onChange: (value: boolean) => void;
   children: React.ReactNode;
-};
+}
 
 type CheckboxListProps = {
   children: React.ReactNode;

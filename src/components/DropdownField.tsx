@@ -1,11 +1,11 @@
+import Info from '@assets/icons/Info';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import { Icon, Item, Label, Picker, View } from 'native-base';
 import React from 'react';
 import { PickerItemProps, StyleSheet, PickerProps } from 'react-native';
 import key from 'weak-key';
 
-import Info from '@assets/icons/Info';
-import { colors } from '@theme';
-import i18n from '@covid/locale/i18n';
 import { FieldWrapper, screenWidth, isAndroid } from './Screen';
 import { LabelText } from './Text';
 import { ValidationError } from './ValidationError';

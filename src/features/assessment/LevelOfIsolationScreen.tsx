@@ -1,8 +1,8 @@
+import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock, FieldWrapper } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, LabelText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { ValidationErrors } from '@covid/components/ValidationError';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest, PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -12,9 +12,8 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form, Item, Label } from 'native-base';
+import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -72,17 +71,14 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
   registerSchema = Yup.object().shape({
     isolationLittleInteraction: Yup.number()
-      .required(i18n.t('level-of-isolation.required-answer'))
       .typeError(i18n.t('level-of-isolation.whole-number'))
       .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
     isolationLotsOfPeople: Yup.number()
-      .required(i18n.t('level-of-isolation.required-answer'))
       .typeError(i18n.t('level-of-isolation.whole-number'))
       .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
     isolationHealthcareProvider: Yup.number()
-      .required(i18n.t('level-of-isolation.required-answer'))
       .typeError(i18n.t('level-of-isolation.whole-number'))
       .integer(i18n.t('level-of-isolation.whole-number'))
       .min(0, i18n.t('level-of-isolation.correct-answer')),
@@ -154,65 +150,32 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
           {(props) => {
             return (
               <Form>
-                <FieldWrapper>
-                  <LabelText>{i18n.t('level-of-isolation.question-little-interaction')}</LabelText>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                    value={props.values.isolationLittleInteraction}
-                    onChangeText={props.handleChange('isolationLittleInteraction')}
-                    onBlur={props.handleBlur('isolationLittleInteraction')}
-                    error={
-                      props.touched.isolationLittleInteraction &&
-                      props.errors.isolationLittleInteraction &&
-                      props.submitCount > 0
-                    }
-                    returnKeyType="next"
-                    keyboardType="numeric"
-                  />
-                  {!!props.errors.isolationLittleInteraction && props.submitCount > 0 && (
-                    <ValidationError error={props.errors.isolationLittleInteraction} />
-                  )}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
+                  label={i18n.t('level-of-isolation.question-little-interaction')}
+                  name="isolationLittleInteraction"
+                  keyboardType="numeric"
+                  showError
+                />
 
-                <FieldWrapper>
-                  <LabelText>{i18n.t('level-of-isolation.question-lots-of-people')}</LabelText>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                    value={props.values.isolationLotsOfPeople}
-                    onChangeText={props.handleChange('isolationLotsOfPeople')}
-                    onBlur={props.handleBlur('isolationLotsOfPeople')}
-                    error={
-                      props.touched.isolationLotsOfPeople && props.errors.isolationLotsOfPeople && props.submitCount > 0
-                    }
-                    returnKeyType="next"
-                    keyboardType="numeric"
-                  />
+                <GenericTextField
+                  formikProps={props}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
+                  label={i18n.t('level-of-isolation.question-lots-of-people')}
+                  name="isolationLotsOfPeople"
+                  keyboardType="numeric"
+                  showError
+                />
 
-                  {!!props.errors.isolationLotsOfPeople && props.submitCount > 0 && (
-                    <ValidationError error={props.errors.isolationLotsOfPeople} />
-                  )}
-                </FieldWrapper>
-
-                <FieldWrapper>
-                  <LabelText>{i18n.t('level-of-isolation.question-healthcare-provider')}</LabelText>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('level-of-isolation.placeholder-frequency')}
-                    value={props.values.isolationHealthcareProvider}
-                    onChangeText={props.handleChange('isolationHealthcareProvider')}
-                    onBlur={props.handleBlur('isolationHealthcareProvider')}
-                    error={
-                      props.touched.isolationHealthcareProvider &&
-                      props.errors.isolationHealthcareProvider &&
-                      props.submitCount > 0
-                    }
-                    returnKeyType="next"
-                    keyboardType="numeric"
-                  />
-
-                  {!!props.errors.isolationHealthcareProvider && props.submitCount > 0 && (
-                    <ValidationError error={props.errors.isolationHealthcareProvider} />
-                  )}
-                </FieldWrapper>
+                <GenericTextField
+                  formikProps={props}
+                  placeholder={i18n.t('level-of-isolation.placeholder-optional')}
+                  label={i18n.t('level-of-isolation.question-healthcare-provider')}
+                  name="isolationHealthcareProvider"
+                  keyboardType="numeric"
+                  showError
+                />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
@@ -233,9 +196,3 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});
