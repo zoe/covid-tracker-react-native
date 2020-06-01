@@ -70,19 +70,10 @@ class AssessmentCoordinator {
     return this.userService.getConfig();
   };
 
-  getCurrentPatient = async (patientId: string): Promise<PatientStateType> => {
-    return await this.userService.getCurrentPatient(patientId);
-  };
-
-  getThankYouScreenName = () => {
-    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
-  };
-
   getPatientDetailsScreenName = (currentPatient: PatientStateType) => {
     const config = this.getConfig();
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    const page = shouldAskStudy ? 'YourStudy' : 'YourWork';
-    return page;
+    return shouldAskStudy ? 'YourStudy' : 'YourWork';
   };
 
   startAssessment = () => {
@@ -111,8 +102,9 @@ class AssessmentCoordinator {
         }
       }
     } else {
-      const nextPage = this.getPatientDetailsScreenName(currentPatient);
-      this.gotoScreen(nextPage);
+      //TODO Start PatientCoordinator
+      const patientDetailsScreen = this.getPatientDetailsScreenName(currentPatient);
+      this.navigation.navigate(patientDetailsScreen, { currentPatient: this.assessmentData.currentPatient });
     }
   };
 
@@ -124,9 +116,10 @@ class AssessmentCoordinator {
       (await this.userService.shouldAskToReportForOthers());
 
     if (shouldShowReportForOthers) {
-      this.gotoScreen('ReportForOther');
+      this.navigation.navigate('ReportForOther');
     } else {
-      this.gotoScreen(this.getThankYouScreenName());
+      const thankYouScreen = isUSCountry() ? 'ViralThankYou' : 'ThankYou';
+      this.navigation.navigate(thankYouScreen);
     }
   };
 
@@ -137,11 +130,6 @@ class AssessmentCoordinator {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
     }
-  };
-
-  gotoScreen = (screenName: ScreenName, params: RouteParamsType | undefined = undefined) => {
-    //TODO Fix params on this
-    this.navigation.navigate(screenName, params);
   };
 
   goToAddEditTest = (covidTest?: CovidTest) => {
