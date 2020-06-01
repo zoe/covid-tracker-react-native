@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest",
+    "test": "jest --maxWorker=2",
     "test:watch": "jest --watch",
     "test:updateSnapshots": "jest -u",
     "test:i18n": "ts-node ./scripts/i18n-check-locale.ts",
@@ -108,7 +108,8 @@
           "jsx": "react"
         }
       },
-      "__DEV__": true
+      "__DEV__": true,
+      "testEnvironment": "node"
     },
     "setupFiles": [
       "dotenv/config"
