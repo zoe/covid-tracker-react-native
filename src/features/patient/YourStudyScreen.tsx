@@ -304,27 +304,27 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                       formikProps={props}
                       label={i18n.t('your-study.add-study-names')}
                       name="clinicalStudyNames"
-                      placeholder="Optional"
+                      placeholder={i18n.t('placeholder-optional')}
                     />
                     <>
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.contact-name')}
                         name="clinicalStudyContacts"
-                        placeholder="Optional"
+                        placeholder={i18n.t('placeholder-optional')}
                       />
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.uni-hospital')}
                         name="clinicalStudyInstitutions"
-                        placeholder="Optional"
+                        placeholder={i18n.t('placeholder-optional')}
                       />
 
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.nct-number')}
                         name="clinicalStudyNctIds"
-                        placeholder="Optional"
+                        placeholder={i18n.t('placeholder-optional')}
                       />
                     </>
                   </>
