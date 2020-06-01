@@ -1,4 +1,5 @@
 import Analytics from '@covid/core/Analytics';
+import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -53,6 +54,7 @@ import { Header, Root, View } from 'native-base';
 import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -125,22 +127,24 @@ export default class CovidApp extends Component<object, State> {
 
     return (
       <SafeAreaProvider>
-        <Root>
-          <Header style={{ display: 'none' }}>
-            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-          </Header>
+        <Provider store={store}>
+          <Root>
+            <Header style={{ display: 'none' }}>
+              <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+            </Header>
 
-          <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
-            <Drawer.Navigator
-              drawerContent={(props) => <DrawerMenu {...props} />}
-              screenOptions={{ swipeEnabled: false }}
-              drawerStyle={{
-                width: Dimensions.get('screen').width,
-              }}>
-              <Drawer.Screen name="Main" component={this.mainNavStack} />
-            </Drawer.Navigator>
-          </NavigationContainer>
-        </Root>
+            <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
+              <Drawer.Navigator
+                drawerContent={(props) => <DrawerMenu {...props} />}
+                screenOptions={{ swipeEnabled: false }}
+                drawerStyle={{
+                  width: Dimensions.get('screen').width,
+                }}>
+                <Drawer.Screen name="Main" component={this.mainNavStack} />
+              </Drawer.Navigator>
+            </NavigationContainer>
+          </Root>
+        </Provider>
       </SafeAreaProvider>
     );
   }
