@@ -8,11 +8,6 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 
 type ScreenName = keyof ScreenParamList;
 
-// Various route parameters
-type PatientIdParamType = { patientId: string };
-type CurrentPatientParamType = { currentPatient: PatientStateType };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType;
-
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export type AssessmentData = {
@@ -22,7 +17,7 @@ export type AssessmentData = {
 
 class AssessmentCoordinator {
   navigation: NavigationType;
-  userService: UserService = new UserService();
+  userService: UserService;
   assessmentData: AssessmentData;
 
   ScreenFlow: any = {
@@ -53,9 +48,10 @@ class AssessmentCoordinator {
     },
   };
 
-  init = (navigation: NavigationType, assessmentData: AssessmentData) => {
+  init = (navigation: NavigationType, assessmentData: AssessmentData, userService: UserService) => {
     this.navigation = navigation;
     this.assessmentData = assessmentData;
+    this.userService = userService;
   };
 
   // Workaround for Expo save/refresh nixing the navigation.
@@ -66,35 +62,16 @@ class AssessmentCoordinator {
     this.navigation = this.navigation || navigation;
   };
 
-  getConfig = (): ConfigType => {
-    return this.userService.getConfig();
-  };
-
-  getPatientDetailsScreenName = (currentPatient: PatientStateType) => {
-    const config = this.getConfig();
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    return shouldAskStudy ? 'YourStudy' : 'YourWork';
-  };
-
   startAssessment = () => {
     const { currentPatient } = this.assessmentData;
-
-    const userService = new UserService();
-    const features = userService.getConfig();
+    const config = this.userService.getConfig();
 
     if (currentPatient.hasCompletedPatientDetails) {
-      const mustBackfillProfile =
-        ((features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
-        !currentPatient.hasPeriodAnswer ||
-        !currentPatient.hasHormoneTreatmentAnswer ||
-        !currentPatient.hasBloodPressureAnswer;
-
-      if (mustBackfillProfile) {
+      if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
         this.navigation.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
         this.navigation.navigate('LevelOfIsolation', { assessmentData: this.assessmentData });
       } else {
-        // Everything in this block should be replicated in Level Of Isolation navigation for now
         if (currentPatient.isHealthWorker) {
           this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
         } else {
@@ -102,20 +79,16 @@ class AssessmentCoordinator {
         }
       }
     } else {
-      //TODO Start PatientCoordinator
-      const patientDetailsScreen = this.getPatientDetailsScreenName(currentPatient);
+      //TODO Start PatientCoordinator (when done..)
+      const patientDetailsScreen = AssessmentCoordinator.getPatientDetailsScreenName(config, currentPatient);
       this.navigation.navigate(patientDetailsScreen, { currentPatient: this.assessmentData.currentPatient });
     }
   };
 
   gotoEndAssessment = async () => {
-    const config = this.getConfig();
-    const shouldShowReportForOthers =
-      config.enableMultiplePatients &&
-      !(await this.userService.hasMultipleProfiles()) &&
-      (await this.userService.shouldAskToReportForOthers());
+    const config = this.userService.getConfig();
 
-    if (shouldShowReportForOthers) {
+    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
       this.navigation.navigate('ReportForOther');
     } else {
       const thankYouScreen = isUSCountry() ? 'ViralThankYou' : 'ThankYou';
@@ -132,6 +105,7 @@ class AssessmentCoordinator {
     }
   };
 
+  // The following navigations require the checking of some state and so these are passed in.
   goToAddEditTest = (covidTest?: CovidTest) => {
     this.navigation.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
   };
@@ -153,6 +127,29 @@ class AssessmentCoordinator {
       ? this.navigation.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
       : this.gotoEndAssessment();
   };
+
+  // Private helpers
+  private static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
+    return (
+      ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
+      !currentPatient.hasPeriodAnswer ||
+      !currentPatient.hasHormoneTreatmentAnswer ||
+      !currentPatient.hasBloodPressureAnswer
+    );
+  }
+
+  private static getPatientDetailsScreenName = (config: ConfigType, currentPatient: PatientStateType) => {
+    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
+    return shouldAskStudy ? 'YourStudy' : 'YourWork';
+  };
+
+  private static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {
+    return (
+      config.enableMultiplePatients &&
+      !(await userService.hasMultipleProfiles()) &&
+      (await userService.shouldAskToReportForOthers())
+    );
+  }
 }
 
 const assessmentCoordinator = new AssessmentCoordinator();

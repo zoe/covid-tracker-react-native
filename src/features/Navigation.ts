@@ -126,7 +126,7 @@ class Navigator {
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    AssessmentCoordinator.init(this.navigation, { currentPatient });
+    AssessmentCoordinator.init(this.navigation, { currentPatient }, this.userService);
     AssessmentCoordinator.startAssessment();
   }
 
