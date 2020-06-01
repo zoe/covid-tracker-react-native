@@ -334,7 +334,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     formikProps={props}
                     label={i18n.t('label-gender-identity-other')}
                     name="genderIdentityDescription"
-                    placeholder="Optional"
+                    placeholder={i18n.t('placeholder-optional')}
                   />
                 )}
 
