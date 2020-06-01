@@ -1,3 +1,4 @@
+import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
@@ -10,6 +11,8 @@ import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
+import { AssessmentInfosRequest } from '../assessment/dto/AssessmentInfosRequest';
+import { AssessmentResponse } from '../assessment/dto/AssessmentInfosResponse';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
 import {
@@ -22,9 +25,6 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { AssessmentInfosRequest } from '../assessment/dto/AssessmentInfosRequest';
-import { AssessmentResponse } from '../assessment/dto/AssessmentInfosResponse';
-import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
