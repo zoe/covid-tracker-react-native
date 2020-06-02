@@ -61,16 +61,15 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
   };
 
   handleNextQuestion = async () => {
-    const { currentPatient, assessmentId } = this.props.route.params;
-    const patientId = currentPatient.patientId;
-
-    const assessment = {
-      patient: patientId,
-    } as Partial<AssessmentInfosRequest>;
-
     try {
+      const { currentPatient, assessmentId } = this.props.route.params;
+      const patientId = currentPatient.patientId;
+
+      const assessment = {
+        patient: patientId,
+      } as Partial<AssessmentInfosRequest>;
+
       const response = await assessmentService.saveAssessment(assessmentId, assessment);
-      console.log('[ASSESSMENT] Response:', response.id);
       if (!assessmentId) {
         this.props.navigation.setParams({ assessmentId: response.id });
       }

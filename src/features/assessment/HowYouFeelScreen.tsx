@@ -1,17 +1,19 @@
+import { assessmentService } from '@covid/Services';
+import { BigButton } from '@covid/components/Button';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { BigButton } from '@covid/components/Button';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+
+const ASSESSMENT_COMPLETED = true;
 
 type HowYouFeelProps = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -37,28 +39,35 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     this.handleHaveSymptoms = this.handleHaveSymptoms.bind(this);
   }
 
-  handleFeelNormal() {
-    this.updateAssessment('healthy')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  async handleFeelNormal() {
+    if (await this.updateAssessment('healthy', ASSESSMENT_COMPLETED)) {
+      Navigator.gotoEndAssessment();
+    }
   }
 
-  handleHaveSymptoms() {
-    const currentPatient = this.props.route.params.currentPatient;
-    this.updateAssessment('not_healthy')
-      .then((response) =>
-        this.props.navigation.navigate('DescribeSymptoms', { currentPatient, assessmentId: response.data.id })
-      ) // todo julien: thank you
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  async handleHaveSymptoms() {
+    const { assessmentId, currentPatient } = this.props.route.params;
+    if (await this.updateAssessment('not_healthy')) {
+      this.props.navigation.navigate('DescribeSymptoms', { currentPatient, assessmentId });
+    }
   }
 
-  private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.assessmentId;
-    const userService = new UserService();
-    const promise = userService.updateAssessment(assessmentId, {
-      health_status: status,
-    });
-    return promise;
+  private async updateAssessment(status: string, isComplete: boolean = false) {
+    try {
+      const assessmentId = this.props.route.params.assessmentId;
+      const assessment = {
+        health_status: status,
+      };
+      if (isComplete) {
+        await assessmentService.completeAssessment(assessmentId, assessment);
+      } else {
+        await assessmentService.saveAssessment(assessmentId, assessment);
+      }
+      return true;
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      return false;
+    }
   }
 
   render() {

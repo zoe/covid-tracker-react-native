@@ -1,3 +1,4 @@
+import { assessmentService } from '@covid/Services';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -109,24 +110,20 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     }
   };
 
-  handleUpdate(formData: LevelOfIsolationData) {
-    const userService = new UserService();
-    let { currentPatient, assessmentId } = this.props.route.params;
-    var assessment = this.createAssessment(formData);
+  async handleUpdate(formData: LevelOfIsolationData) {
+    try {
+      const { currentPatient, assessmentId } = this.props.route.params;
+      var assessment = this.createAssessment(formData);
 
-    const promise =
-      assessmentId == null
-        ? userService.addAssessment(assessment)
-        : userService.updateAssessment(assessmentId, assessment);
-
-    promise
-      .then((response) => {
-        this.props.navigation.setParams({ assessmentId: response.data.id });
-        assessmentId = response.data.id;
-      })
-      .then(() => this.updatePatientsLastAskedDate(currentPatient))
-      .then(() => this.navigateToStart(currentPatient, assessmentId as string))
-      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+      const response = await assessmentService.saveAssessment(assessmentId, assessment);
+      if (!assessmentId) {
+        this.props.navigation.setParams({ assessmentId: response.id });
+      }
+      this.updatePatientsLastAskedDate(currentPatient);
+      this.navigateToStart(currentPatient, response.id);
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+    }
   }
 
   render() {
