@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<Modal
+  animationType="fade"
+  hardwareAccelerated={false}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 0, 0, 0.5)",
+        "flex": 1,
+        "justifyContent": "center",
+        "marginTop": 22,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderRadius": 8,
+          "elevation": 5,
+          "margin": 24,
+          "padding": 24,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.25,
+          "shadowRadius": 4,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignSelf": "flex-end",
+            "opacity": 1,
+          }
+        }
+        testID="closeModal"
+      >
+        <Image
+          source={1}
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "#565A5C",
+            "fontSize": 20,
+            "lineHeight": 24,
+            "marginVertical": 16,
+            "textAlign": "center",
+          }
+        }
+      >
+        Your country
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#565A5C",
+            "fontSize": 16,
+            "lineHeight": 24,
+            "textAlign": "center",
+          }
+        }
+      >
+        We're not certain which country you're in because of how your phone is configured.
+      </Text>
+      <View
+        style={
+          Object {
+            "marginTop": 32,
+            "width": 300,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#565A5C",
+              "fontSize": 15,
+              "lineHeight": 30,
+            }
+          }
+        >
+          Select country of residence
+        </Text>
+        <AndroidDialogPicker
+          items={
+            Array [
+              Object {
+                "color": -5591891,
+                "label": "Choose one of the options",
+              },
+              Object {
+                "color": null,
+                "label": "United States",
+              },
+              Object {
+                "color": null,
+                "label": "United Kingdom",
+              },
+              Object {
+                "color": null,
+                "label": "Sweden",
+              },
+            ]
+          }
+          onSelect={[Function]}
+          selected={0}
+          style={
+            Object {
+              "flexGrow": 1,
+              "height": 50,
+              "marginRight": -4,
+            }
+          }
+          testID="countryPicker"
+        />
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
