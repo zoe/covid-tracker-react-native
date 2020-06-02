@@ -13,6 +13,9 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+/**
+ * Auth
+ */
 app.post('/auth/login', (_, res) => {
   return res.status(200).send({
     key: 'abc',
@@ -45,6 +48,9 @@ app.post('/auth/signup', (_, res) => {
   });
 });
 
+/**
+ * Push Tokens
+ */
 app.post('/tokens', (_, res) => {
   return res.send({
     token: 'abcd',
@@ -53,22 +59,23 @@ app.post('/tokens', (_, res) => {
   });
 });
 
+/**
+ * Consent
+ */
 app.patch('/consent', (_, res) => {
   return res.send();
 });
 
-app.get('/patients/:patientId', (req, res) => {
-  const { patientId } = req.params;
-  const patient = db.patients.get(patientId);
-
-  if (!patient) {
-    return res.status(404).send;
-  }
-
-  res.header('Content-type', 'application/json');
-  return res.status(200).send(patient);
+/**
+ * Study Consent
+ */
+app.post('/study_consent', (_, res) => {
+  return res.send();
 });
 
+/**
+ * Profile
+ */
 app.get('/profile', (_, res) => {
   return res.status(200).send({
     username: 'testuser@example.com',
@@ -76,14 +83,13 @@ app.get('/profile', (_, res) => {
     patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
     pii: '00000000-0000-0000-0000-000000000000',
     push_tokens: [],
-    country_code: 'GB',
+    ask_for_rating: true,
   });
 });
 
-app.patch('/information/:userId', (_, res) => {
-  return res.send();
-});
-
+/**
+ * App Config / Startup Info
+ */
 app.get('/users/startup_info/', (_, res) => {
   return res.status(200).send({
     users_count: '3000000',
@@ -105,8 +111,20 @@ app.get('/area_stats', (_, res) => {
 });
 
 /**
- * patients endpoints
+ * Patient
  */
+app.get('/patients/:patientId', (req, res) => {
+  const { patientId } = req.params;
+  const patient = db.patients.get(patientId);
+
+  if (!patient) {
+    return res.status(404).send;
+  }
+
+  res.header('Content-type', 'application/json');
+  return res.status(200).send(patient);
+});
+
 app.patch('/patients/:patientId', (req, res) => {
   const { patientId } = req.params;
 
@@ -133,9 +151,8 @@ app.get('/patient_list/', (_, res) => {
 });
 
 /**
- * assessments endpoints
+ * Assessment
  */
-
 app.post('/assessments', (req, res) => {
   const { body: assessment } = req as { body: Assessment };
   const id = uuid.v1();
@@ -166,7 +183,7 @@ app.patch('/assessments/:assessmentId', (req, res) => {
 });
 
 /**
- * covid_tests endpoints
+ * COVID Tests
  */
 app.get('/covid_tests', (_, res) => res.status(200).send(db.covidTests.get()));
 
