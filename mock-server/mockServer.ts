@@ -10,13 +10,15 @@ const db = mockDb();
 const app = express();
 const port = 3000;
 
+const shouldAskUKValidationStudy = true;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 /**
  * Auth
  */
-app.post('/auth/login', (_, res) => {
+app.post('/auth/login/', (_, res) => {
   return res.status(200).send({
     key: 'abc',
     user: {
@@ -30,11 +32,11 @@ app.post('/auth/login', (_, res) => {
   });
 });
 
-app.post('/auth/password/reset', (_, res) => {
+app.post('/auth/password/reset/', (_, res) => {
   return res.send();
 });
 
-app.post('/auth/signup', (_, res) => {
+app.post('/auth/signup/', (_, res) => {
   return res.status(201).send({
     key: 'abc',
     user: {
@@ -51,7 +53,7 @@ app.post('/auth/signup', (_, res) => {
 /**
  * Push Tokens
  */
-app.post('/tokens', (_, res) => {
+app.post('/tokens/', (_, res) => {
   return res.send({
     token: 'abcd',
     active: true,
@@ -62,21 +64,27 @@ app.post('/tokens', (_, res) => {
 /**
  * Consent
  */
-app.patch('/consent', (_, res) => {
+app.patch('/consent/', (_, res) => {
   return res.send();
 });
 
 /**
  * Study Consent
  */
-app.post('/study_consent', (_, res) => {
+app.post('/study_consent/', (_, res) => {
   return res.send();
+});
+
+app.get('/study_consent/status/', (_, res) => {
+  return res.send({
+    should_ask_uk_validation_study: shouldAskUKValidationStudy,
+  });
 });
 
 /**
  * Profile
  */
-app.get('/profile', (_, res) => {
+app.get('/profile/', (_, res) => {
   return res.status(200).send({
     username: 'testuser@example.com',
     authorizations: [],
@@ -97,7 +105,7 @@ app.get('/users/startup_info/', (_, res) => {
   });
 });
 
-app.get('/area_stats', (_, res) => {
+app.get('/area_stats/', (_, res) => {
   return res.status(200).send({
     locked: false,
     rank: 768,
