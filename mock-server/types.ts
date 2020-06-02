@@ -16,3 +16,11 @@ export interface CovidTest {
   id: string;
   patient: string;
 }
+
+export interface Consent {
+  id: string;
+}
+
+export interface StudyConsent {
+  id: string;
+}

@@ -10,7 +10,9 @@ const db = mockDb();
 const app = express();
 const port = 3000;
 
+// Flags to change mockServer responses
 const shouldAskUKValidationStudy = true;
+const countryCode = 'GB';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -27,7 +29,7 @@ app.post('/auth/login/', (_, res) => {
       patients: ['00000000-0000-0000-0000-000000000000'],
       pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: 'GB',
+      country_code: countryCode,
     },
   });
 });
@@ -45,7 +47,7 @@ app.post('/auth/signup/', (_, res) => {
       patients: ['00000000-0000-0000-0000-000000000000'],
       pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: 'GB',
+      country_code: countryCode,
     },
   });
 });
@@ -101,7 +103,7 @@ app.get('/profile/', (_, res) => {
 app.get('/users/startup_info/', (_, res) => {
   return res.status(200).send({
     users_count: '3000000',
-    ip_country: 'GB',
+    ip_country: countryCode,
   });
 });
 
