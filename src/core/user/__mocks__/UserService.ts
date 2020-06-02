@@ -5,6 +5,7 @@ export const mockedSetConsentSigned = jest.fn();
 export const mockedGetUserCount = jest.fn();
 export const mockedGetConfig = jest.fn();
 export const mockedShouldAskCountryConfirmation = jest.fn();
+export const mockedSetUserCountry = jest.fn();
 
 export const isUSCountry = jest.fn();
 export const isGBCountry = jest.fn();
@@ -18,4 +19,5 @@ export default jest.fn().mockImplementation(() => ({
   getUserCount: mockedGetUserCount,
   getConfig: mockedGetConfig,
   shouldAskCountryConfirmation: mockedShouldAskCountryConfirmation,
+  setUserCountry: mockedSetUserCountry,
 }));
