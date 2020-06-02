@@ -15,7 +15,7 @@ export type AssessmentData = {
   currentPatient: PatientStateType;
 };
 
-class AssessmentCoordinator {
+export class AssessmentCoordinator {
   navigation: NavigationType;
   userService: UserService;
   assessmentData: AssessmentData;
@@ -129,7 +129,7 @@ class AssessmentCoordinator {
   };
 
   // Private helpers
-  private static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
+  static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
     return (
       ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
       !currentPatient.hasPeriodAnswer ||
@@ -138,12 +138,12 @@ class AssessmentCoordinator {
     );
   }
 
-  private static getPatientDetailsScreenName = (config: ConfigType, currentPatient: PatientStateType) => {
+  static getPatientDetailsScreenName = (config: ConfigType, currentPatient: PatientStateType) => {
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     return shouldAskStudy ? 'YourStudy' : 'YourWork';
   };
 
-  private static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {
+  static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {
     return (
       config.enableMultiplePatients &&
       !(await userService.hasMultipleProfiles()) &&
