@@ -170,7 +170,22 @@
     "takes-nsaids": "Tar du regelbundet icke-steroida antiinflammatoriska läkemedel (NSAID), t.ex. Ipren®, Brufen®, Eeze®, Voltaren®, eller Naproxen®?”",
     "takes-any-blood-pressure-medication": "Tar du regelbundet någon blodtryckssänkande medicin?",
     "takes-pril-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar med -pril, t.ex. enalapril (t.ex. Enalapril®, Renitec®), lisinopril (t.ex. Lisinopril®, Zestril®), captopril (t.ex. Captopril®) eller ramipril (t.ex. Ramipril®, Triatec®)?",
-    "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
+    "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?",
+    "vitamins": {
+      "question-taking-vitamins": "Har du tagit några vitaminer eller andra tillskott regelbundet under mer än tre månader? Med regelbundet avses fler än tre gånger i veckan i genomsnitt. Markera alla tillämpliga svar",
+      "checkbox-no": "Nej",
+      "checkbox-vitamin-c": "Vitamin C",
+      "checkbox-vitamin-d": "Vitamin D",
+      "checkbox-omega-3-fish-oil": "Omega-3 eller fiskolja",
+      "checkbox-zinc": "Zink",
+      "checkbox-garlic": "Vitlök",
+      "checkbox-probiotics": "Probiotika",
+      "checkbox-multivitamins-minerals": "Multivitaminer och mineraler",
+      "checkbox-other-specify": "Annat, var god ange",
+      "checkbox-pfnts": "Föredrar att inte berätta",
+      "question-please-specify": "Var god ange vilka vitaminer eller tillskott",
+      "placeholder-optional": "*Valfritt"
+    }
   },
 
   "previous-exposure-title": "Tidigare exponering för COVID-19",

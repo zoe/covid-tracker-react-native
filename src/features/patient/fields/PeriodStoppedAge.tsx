@@ -3,11 +3,6 @@ import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 
-import { FieldWrapper } from '@covid/components/Screen';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError } from '@covid/components/ValidationError';
-import { LabelText } from '@covid/components/Text';
-
 export interface PeriodStoppedAgeData {
   periodStoppedAge: string;
 }

@@ -114,7 +114,8 @@ class Navigator {
         ((features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
         !currentPatient.hasPeriodAnswer ||
         !currentPatient.hasHormoneTreatmentAnswer ||
-        !currentPatient.hasBloodPressureAnswer;
+        !currentPatient.hasBloodPressureAnswer ||
+        !currentPatient.hasVitaminAnswer;
 
       if (mustBackfillProfile) {
         this.navigation.navigate('ProfileBackDate', { currentPatient });

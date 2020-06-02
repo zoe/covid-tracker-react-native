@@ -21,7 +21,7 @@ interface GenericTextFieldProps {
 }
 
 export const GenericTextField = (props: GenericTextFieldProps) => {
-  const { formikProps, name, label, placeholder, info, keyboardType, ...inputProps } = props;
+  const { formikProps, name, label, placeholder, info, keyboardType, showError, ...inputProps } = props;
   return (
     <FieldWrapper>
       {!!label && <LabelText>{label}</LabelText>}
@@ -41,6 +41,12 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
           <Info style={styles.infoIcon} />
           <LabelText>{info}</LabelText>
         </View>
+      )}
+      {showError && !!formikProps.errors[name] && (
+        <ValidationError
+          // @ts-ignore - need to solve type for ValidationError error prop
+          error={formikProps.errors[name]}
+        />
       )}
     </FieldWrapper>
   );
