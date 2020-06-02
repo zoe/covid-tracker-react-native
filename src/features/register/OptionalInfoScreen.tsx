@@ -8,7 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
