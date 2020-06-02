@@ -1,3 +1,4 @@
+import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
@@ -24,7 +25,6 @@ import {
   StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
 const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
@@ -299,6 +299,8 @@ export default class UserService extends ApiClientBase
       !!patient.ht_pfnts ||
       !!patient.ht_other;
 
+    const hasVitaminAnswer = !!patient.vs_asked_at;
+
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
@@ -315,6 +317,7 @@ export default class UserService extends ApiClientBase
       hasBloodPressureAnswer,
       hasPeriodAnswer,
       hasHormoneTreatmentAnswer,
+      hasVitaminAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,

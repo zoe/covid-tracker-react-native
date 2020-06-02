@@ -1,11 +1,3 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import * as Yup from 'yup';
-
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -16,12 +8,26 @@ import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import { Form } from 'native-base';
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import * as Yup from 'yup';
+
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
 import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
+import {
+  VitaminSupplementsQuestion,
+  VitaminSupplementData,
+  SupplementValue,
+  supplementValues,
+} from './fields/VitaminQuestion';
 
-export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData {
+export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData, VitaminSupplementData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -151,6 +157,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     takesBloodPressureMedications: Yup.string().required(), // pril
     takesAnyBloodPressureMedications: Yup.string().required(),
     takesBloodPressureMedicationsSartan: Yup.string().required(),
+    vitaminSupplements: Yup.array<string>().required(),
+    vitaminOther: Yup.string().when('vitaminSupplements', {
+      is: (val: string[]) => val.includes(supplementValues.OTHER),
+      then: Yup.string(),
+    }),
   });
 
   handleUpdateHealth(formData: YourHealthData) {
@@ -167,6 +178,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         currentPatient.hasBloodPressureAnswer = true;
         currentPatient.hasPeriodAnswer = true;
         currentPatient.hasHormoneTreatmentAnswer = true;
+        currentPatient.hasVitaminAnswer = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })
@@ -177,6 +189,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
   private createPatientInfos(formData: YourHealthData) {
     const smokerStatus = formData.smokerStatus === 'no' ? 'never' : formData.smokerStatus;
+    const vitamin_supplements_doc = VitaminSupplementsQuestion.createSupplementsDoc(
+      formData.vitaminSupplements as SupplementValue[],
+      formData.vitaminOther as string
+    );
     let infos = {
       has_heart_disease: formData.hasHeartDisease === 'yes',
       has_diabetes: formData.hasDiabetes === 'yes',
@@ -188,6 +204,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       takes_corticosteroids: formData.takesCorticosteroids === 'yes',
       takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
       limited_activity: formData.limitedActivity === 'yes',
+      ...vitamin_supplements_doc,
     } as Partial<PatientInfosRequest>;
 
     if (this.state.showPregnancyQuestion) {
@@ -275,6 +292,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...BloodPressureMedicationQuestion.initialFormValues(),
             ...PeriodQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
+            ...VitaminSupplementsQuestion.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourHealthData) => {
@@ -390,6 +408,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 />
 
                 <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
+
+                <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
