@@ -1,12 +1,3 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
-import { cloneDeep } from 'lodash';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import * as Yup from 'yup';
-
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -16,6 +7,15 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import { cloneDeep } from 'lodash';
+import { Form, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
+
 import { ScreenParamList } from '../ScreenParamList';
 
 type YourStudyProps = {
@@ -304,27 +304,27 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                       formikProps={props}
                       label={i18n.t('your-study.add-study-names')}
                       name="clinicalStudyNames"
-                      placeholder="Optional"
+                      placeholder={i18n.t('placeholder-optional')}
                     />
                     <>
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.contact-name')}
                         name="clinicalStudyContacts"
-                        placeholder="Optional"
+                        placeholder={i18n.t('placeholder-optional')}
                       />
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.uni-hospital')}
                         name="clinicalStudyInstitutions"
-                        placeholder="Optional"
+                        placeholder={i18n.t('placeholder-optional')}
                       />
 
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.nct-number')}
                         name="clinicalStudyNctIds"
-                        placeholder="Optional"
+                        placeholder={i18n.t('placeholder-optional')}
                       />
                     </>
                   </>

@@ -172,6 +172,19 @@ export type PatientInfosRequest = {
   ht_testosterone_hormone_therapy: boolean;
   ht_pfnts: boolean;
   ht_other: boolean;
+
+  // Vitamin supplement fields
+  vs_none: boolean;
+  vs_vitamin_c: boolean;
+  vs_vitamin_d: boolean;
+  vs_omega_3: boolean;
+  vs_zinc: boolean;
+  vs_garlic: boolean;
+  vs_probiotics: boolean;
+  vs_multivitamins: boolean;
+  vs_pftns: boolean;
+  vs_other: string;
+  vs_asked_at: Date;
 };
 
 export type TokenInfoRequest = {
