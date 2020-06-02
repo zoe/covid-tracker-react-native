@@ -326,7 +326,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               hideLoading
               enable={this.state.agreeToAbove}
               onPress={this.handleAgreeClicked}>
-              Take part
+              {this.state.agreeToAbove ? 'Take part' : 'Scroll down to give consent'}
             </BrandedButton>
           )}
         </SafeAreaView>
@@ -348,6 +348,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 20,
+    marginVertical: 20,
   },
 });
