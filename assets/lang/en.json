@@ -289,6 +289,7 @@
       "checkbox-other-specify": "Other, please specify",
       "checkbox-pfnts": "Prefer not to say",
       "question-please-specify": "Please specify the vitamins or supplements",
+      "please-select-vitamins": "Please select an option",
       "placeholder-optional": "*Optional"
     }
   },
