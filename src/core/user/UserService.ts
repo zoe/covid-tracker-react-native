@@ -1,3 +1,4 @@
+import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
@@ -298,6 +299,8 @@ export default class UserService extends ApiClientBase
       !!patient.ht_pfnts ||
       !!patient.ht_other;
 
+    const hasVitaminAnswer = !!patient.vs_asked_at;
+
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
@@ -314,6 +317,7 @@ export default class UserService extends ApiClientBase
       hasBloodPressureAnswer,
       hasPeriodAnswer,
       hasHormoneTreatmentAnswer,
+      hasVitaminAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
@@ -525,14 +529,16 @@ export default class UserService extends ApiClientBase
   }
 
   async shouldAskForValidationStudy() {
-    const response = await this.client.get<AskValidationStudy>('/study_consent/status/');
+    const response = await this.client.get<AskValidationStudy>(
+      `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`
+    );
     return response.data.should_ask_uk_validation_study;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
     return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
-      version: 'v3',
+      version: ukValidationStudyConsentVersion,
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,

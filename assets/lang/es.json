@@ -161,7 +161,7 @@
   "gender-identity-pfnts": "Prefiero no decir",
   "placeholder-gender-identity": "Su identidad de género",
   "required-gender-identity": "Indique el género con el que más se identifica",
-  "gender-identity-other": "Otro, especifique",
+  "gender-identity-other": "Otras, por favor especifique",
   "error-gender-identity-length": "Máximo 30 caracteres",
 
   "your-height": "Su altura",
@@ -275,7 +275,24 @@
     "takes-nsaids": "¿Toma habitualmente \"AINE\", como ibuprofeno, nurofen, diclofenaco, naproxeno?",
     "takes-any-blood-pressure-medication": "¿Habitualmente toma medicamentos para la presión?",
     "takes-pril-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-pril\", como enalapril, lisinopril, captopril, ramipril?",
-    "takes-sartan-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-sartan\", como losartan, valsartan, irbesartan?"
+    "takes-sartan-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-sartan\", como losartan, valsartan, irbesartan?",
+    "vitamins": {
+      "question-taking-vitamins": "¿Has tomado vitaminas u otros suplementos regularmente durante más de 3 meses? Regularmente significa más de 3 días a la semana. Seleccione todas las que correspondan",
+      "question-justification": "Estamos explorando los posibles efectos de los suplementos vitamínicos sobre en la infeccion COVID-19",
+      "checkbox-no": "No",
+      "checkbox-vitamin-c": "Vitamina C",
+      "checkbox-vitamin-d": "Vitamina D",
+      "checkbox-omega-3-fish-oil": "Omega-3 o aceite de pescado",
+      "checkbox-zinc": "Zinc",
+      "checkbox-garlic": "Ajo",
+      "checkbox-probiotics": "Probióticos",
+      "checkbox-multivitamins-minerals": "Multivitamínicos y minerales",
+      "checkbox-other-specify": "Otras, por favor especifique",
+      "checkbox-pfnts": "Prefiero no decir",
+      "question-please-specify": "Por favor especifique que vitaminas o suplementos",
+      "please-select-vitamins": "Seleccione una opción",
+      "placeholder-optional": "*Opcional"
+    }
   },
 
   "covid-test": {
@@ -393,6 +410,7 @@
     "question-lots-of-people": "En las últimas semanas, ¿cuántas veces visitó lugares con muchas personas (por ej., tiendas, transporte público, trabajo)?",
     "question-healthcare-provider": "En la última semana, ¿cuántas veces visitó a un proveedor de atención de salud (por ej., hospital, clínica, dentista, farmacia)?",
     "placeholder-frequency": "Cantidad de veces",
+    "placeholder-optional": "*Opcional",
     "required-answer": "Indique la cantidad de veces que ocurrió",
     "correct-answer": "Corrija su respuesta",
     "whole-number": "Ingrese un número entero"
@@ -454,7 +472,7 @@
     "blog": "blog.",
     "people-with-covid-in": "Personas con síntomas de COVID\n",
     "today": "hoy",
-    "report-tomorrow": "Gracias, informe nuevamente mañana, incluso si se siente bien.",
+    "report-tomorrow": "Gracias! Por favor, reporte nuevamente mañana, incluso si siente bien",
     "loading-data": "Cargando datos de su zona",
     "estimate-for": "Valores de",
     "of-residents": "de %{number} residentes",
@@ -467,7 +485,7 @@
     "places-since-yesterday": "lugares desde ayer",
     "out-of": "de",
     "counties": "condados",
-    "sharing-is-caring": "Compartir es cuidarse",
+    "sharing-is-caring": "Compartir es amar",
     "the-more-reports": "Mientras más personas informen, mejores serán los cálculos y más rápido podrá ayudar a su comunidad a combatir el COVID",
     "share-this-app": "Compartir la aplicación",
     "thank-you-for-joining": "Gracias por unirse a millones de personas que apoyan a los científicos de",
@@ -775,7 +793,7 @@
   "join-total-people-contributing": "Únase a las %{total} personas que contribuyen en todo el mundo",
 
   "add-new-test": "Agregar nuevo examen",
-  "your-covid-tests": "Sus tests de COVID-19",
+  "your-covid-tests": "Sus exámenes de COVID-19",
   "positive": "Positivo",
   "negative": "Negativo",
   "failed": "Falló",

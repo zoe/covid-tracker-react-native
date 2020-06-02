@@ -8,6 +8,7 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService from '@covid/core/user/UserService';
 import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanFloatVal } from '@covid/core/utils/number';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,7 +19,6 @@ import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -141,7 +141,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       var infos = this.createAssessmentInfos(formData);
 
       userService
-        .updateAssessment(assessmentId!!, infos)
+        .updateAssessment(assessmentId!, infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
@@ -293,9 +293,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                           onBlur={props.handleBlur('temperature')}
                           error={props.touched.temperature && props.errors.temperature}
                           returnKeyType="next"
-                          onSubmitEditing={() => {
-                            /* this.passwordComponent.focus(); */
-                          }}
+                          onSubmitEditing={() => {}}
                           keyboardType="numeric"
                         />
                       </View>
