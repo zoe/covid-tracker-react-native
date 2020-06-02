@@ -61,10 +61,10 @@ export default class AssessmentService implements IAssessmentService {
     assessmentId: AssessmentId,
     assessment: Partial<AssessmentInfosRequest> | null = null
   ): Promise<boolean> {
+    let response;
     if (assessment) {
-      await this.saveAssessment(assessmentId, assessment);
+      response = await this.saveAssessment(assessmentId, assessment);
     }
-
-    throw new Error('Method not implemented.');
+    return !!response;
   }
 }
