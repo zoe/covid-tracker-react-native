@@ -123,7 +123,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     }),
     vitaminSupplements: Yup.array<string>().when([], {
       is: () => this.state.needVitaminAnswer,
-      then: Yup.array<string>().min(1),
+      then: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
     }),
     vitaminOther: Yup.string().when('vitaminSupplements', {
       is: (val: string[]) => val.includes(supplementValues.OTHER),
