@@ -1,17 +1,19 @@
+import { assessmentService } from '@covid/Services';
+import { BigButton } from '@covid/components/Button';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { BigButton } from '@covid/components/Button';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+
+const ASSESSMENT_COMPLETE = true;
 
 type LocationProps = {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
@@ -22,59 +24,61 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
   constructor(props: LocationProps) {
     super(props);
     Navigator.resetNavigation(props.navigation);
-    this.handleAtHome = this.handleAtHome.bind(this);
-    this.handleAtHospital = this.handleAtHospital.bind(this);
-    this.handleBackAtHome = this.handleBackAtHome.bind(this);
-    this.handleStillAtHome = this.handleStillAtHome.bind(this);
   }
 
-  handleAtHome() {
-    this.updateAssessment('home')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+  handleAtHome = async () => {
+    if (await this.updateAssessment('home', ASSESSMENT_COMPLETE)) {
+      Navigator.gotoEndAssessment();
+    }
+  };
 
-  handleAtHospital() {
+  handleAtHospital = async () => {
     const { currentPatient, assessmentId } = this.props.route.params;
     const location = 'hospital';
-    this.updateAssessment(location)
-      .then((response) =>
-        this.props.navigation.navigate('TreatmentSelection', {
-          currentPatient,
-          assessmentId,
-          location,
-        })
-      )
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+    if (await this.updateAssessment(location)) {
+      this.props.navigation.navigate('TreatmentSelection', {
+        currentPatient,
+        assessmentId,
+        location,
+      });
+    }
+  };
 
-  handleBackAtHome() {
+  handleBackAtHome = async () => {
     const { currentPatient, assessmentId } = this.props.route.params;
     const location = 'back_from_hospital';
-    this.updateAssessment(location)
-      .then((response) =>
-        this.props.navigation.navigate('TreatmentSelection', {
-          currentPatient,
-          assessmentId,
-          location,
-        })
-      )
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+    if (await this.updateAssessment(location)) {
+      this.props.navigation.navigate('TreatmentSelection', {
+        currentPatient,
+        assessmentId,
+        location,
+      });
+    }
+  };
 
-  handleStillAtHome() {
-    this.updateAssessment('back_from_hospital')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+  handleStillAtHome = async () => {
+    if (await this.updateAssessment('back_from_hospital', ASSESSMENT_COMPLETE)) {
+      Navigator.gotoEndAssessment();
+    }
+  };
 
-  private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.assessmentId;
-    const userService = new UserService();
-    const promise = userService.updateAssessment(assessmentId, {
-      location: status,
-    });
-    return promise;
+  private async updateAssessment(status: string, isComplete = false) {
+    try {
+      const assessmentId = this.props.route.params.assessmentId;
+      const assessment = {
+        location: status,
+      };
+
+      if (isComplete) {
+        await assessmentService.completeAssessment(assessmentId, assessment);
+      } else {
+        await assessmentService.saveAssessment(assessmentId, assessment);
+      }
+      return true;
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+    }
+    return false;
   }
 
   render() {

@@ -1,16 +1,16 @@
+import { assessmentService } from '@covid/Services';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, HeaderText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form, Item, Label, Text, Textarea } from 'native-base';
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -31,35 +31,34 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   constructor(props: TreatmentOtherProps) {
     super(props);
     Navigator.resetNavigation(props.navigation);
-    this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
   }
 
   registerSchema = Yup.object().shape({
     description: Yup.string(),
   });
 
-  handleUpdateTreatment(formData: TreatmentData) {
-    const { currentPatient, assessmentId, location } = this.props.route.params;
-    if (!formData.description) {
-      Navigator.gotoEndAssessment();
-    } else {
-      const userService = new UserService();
-      userService
-        .updateAssessment(assessmentId, {
-          treatment: formData.description,
-        })
-        .then((r) => Navigator.gotoEndAssessment());
+  handleUpdateTreatment = async (formData: TreatmentData) => {
+    const { assessmentId } = this.props.route.params;
+    let assessment;
+
+    if (formData.description) {
+      assessment = {
+        treatment: formData.description,
+      };
     }
-  }
+
+    await assessmentService.completeAssessment(assessmentId, assessment);
+    Navigator.gotoEndAssessment();
+  };
 
   render() {
     const currentPatient = this.props.route.params.currentPatient;
     const title =
-      this.props.route.params.location == 'back_from_hospital'
+      this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')
         : i18n.t('treatment-other-title-during');
     const question =
-      this.props.route.params.location == 'back_from_hospital'
+      this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-question-treatment-after')
         : i18n.t('treatment-other-question-treatment-during');
 
