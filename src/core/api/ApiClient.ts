@@ -2,19 +2,19 @@ import { ApiClientBase } from './ApiClientBase';
 import { handleServiceError } from './ApiServiceErrors';
 
 export interface IApiClient {
-  post<T>(path: string, object: T): Promise<T>;
+  post<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
 }
 
 export default class ApiClient extends ApiClientBase implements IApiClient {
   protected client = ApiClientBase.client;
 
-  async post<T>(path: string, payload: T): Promise<T> {
+  async post<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
     try {
-      const response = await this.client.post<T>(path, payload);
+      const response = await this.client.post<TResponse>(path, payload);
       return response.data;
     } catch (error) {
       handleServiceError(error);
     }
-    return {} as T;
+    return {} as TResponse;
   }
 }
