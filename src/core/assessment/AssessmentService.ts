@@ -26,8 +26,9 @@ export class AssessmentApiClient implements IAssessmentRemoteClient {
     return this.apiClient.post<AssessmentInfosRequest, AssessmentResponse>(API_ASSESSMENTS, assessment);
   }
 
-  updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any> {
-    throw new Error('Method not implemented.');
+  updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<any> {
+    const assessmentUrl = `/assessments/${assessmentId}/`;
+    return this.apiClient.patch<AssessmentInfosRequest, AssessmentResponse>(assessmentUrl, assessment);
   }
 }
 
