@@ -52,6 +52,10 @@ app.post('/auth/signup/', (_, res) => {
   });
 });
 
+app.delete('/users/delete/', (_, res) => {
+  return res.send();
+});
+
 /**
  * Push Tokens
  */
