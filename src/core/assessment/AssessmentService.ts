@@ -1,9 +1,15 @@
 import { IApiClient } from '../api/ApiClient';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
+import { AssessmentResponse } from './dto/AssessmentInfosResponse';
+
+const API_ASSESSMENTS = '/assessments/';
+const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
+
+type AssessmentId = string | null;
 
 export interface IAssessmentRemoteClient {
-  addAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any>;
-  updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any>;
+  addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
+  updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
 }
 
 export class AssessmentApiClient implements IAssessmentRemoteClient {
@@ -11,16 +17,23 @@ export class AssessmentApiClient implements IAssessmentRemoteClient {
   constructor(apiClient: IApiClient) {
     this.apiClient = apiClient;
   }
-  addAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any> {
-    throw new Error('Method not implemented.');
+
+  addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse> {
+    assessment = {
+      ...assessment,
+      version: ASSESSMENT_VERSION,
+    };
+    return this.apiClient.post<AssessmentInfosRequest, AssessmentResponse>(API_ASSESSMENTS, assessment);
   }
+
   updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any> {
     throw new Error('Method not implemented.');
   }
 }
 
 export interface IAssessmentService {
-  saveAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any>;
+  saveAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest>): Promise<AssessmentResponse>;
+  completeAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest> | null): Promise<boolean>;
 }
 
 export default class AssessmentService implements IAssessmentService {
@@ -29,7 +42,28 @@ export default class AssessmentService implements IAssessmentService {
   constructor(apiClient: IAssessmentRemoteClient) {
     this.apiClient = apiClient;
   }
-  saveAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any> {
+
+  async saveAssessment(
+    assessmentId: AssessmentId,
+    assessment: Partial<AssessmentInfosRequest>
+  ): Promise<AssessmentResponse> {
+    let response;
+    if (assessmentId) {
+      response = await this.apiClient.updateAssessment(assessmentId, assessment as AssessmentInfosRequest);
+    } else {
+      response = await this.apiClient.addAssessment(assessment as AssessmentInfosRequest);
+    }
+    return response;
+  }
+
+  async completeAssessment(
+    assessmentId: AssessmentId,
+    assessment: Partial<AssessmentInfosRequest> | null = null
+  ): Promise<boolean> {
+    if (assessment) {
+      await this.saveAssessment(assessmentId, assessment);
+    }
+
     throw new Error('Method not implemented.');
   }
 }
