@@ -143,8 +143,8 @@ export class AssessmentCoordinator {
     return shouldAskStudy ? 'YourStudy' : 'YourWork';
   };
 
-  static getThankYouScreen = () => {
-    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
+  static getThankYouScreen = (): string => {
+    return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 
   static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {

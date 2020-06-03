@@ -58,6 +58,18 @@ class Navigator {
         this.startAssessmentFlow(currentPatient);
       }
     },
+
+    ThankYouUK: async (routeParams: PatientIdParamType) => {
+      const hasMultipleProfiles = this.hasMultipleProfiles();
+
+      if (hasMultipleProfiles) {
+        this.gotoScreen('SelectProfile', { patientId: routeParams.patientId });
+      } else
+        this.resetAndGo({
+          index: 0,
+          routes: [{ name: 'WelcomeRepeat', params: { patientId: routeParams.patientId } }],
+        });
+    },
   };
 
   constructor() {
@@ -146,6 +158,11 @@ class Navigator {
 
   resetAndGo(navStack: PartialState<NavigationState>) {
     this.navigation.reset(navStack);
+  }
+
+  hasMultipleProfiles(): boolean {
+    // TODD: Determine if user has unreported profiles
+    return false;
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {

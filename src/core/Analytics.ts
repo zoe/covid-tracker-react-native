@@ -18,6 +18,7 @@ export const events = {
   DONATE: 'DONATE',
   JOIN_STUDY: 'JOIN_STUDY',
   DECLINE_STUDY: 'DECLINE_STUDY',
+  CLICK_CALLOUT: 'CLICK_CALLOUT',
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
