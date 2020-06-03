@@ -77,6 +77,9 @@ export type PatientInfosRequest = {
   // Your Health
   has_heart_disease: boolean;
   has_diabetes: boolean;
+  has_hayfever: boolean;
+  has_eczema: boolean;
+  has_asthma: boolean;
   has_lung_disease: boolean;
   is_smoker: boolean;
   smoker_status: string;

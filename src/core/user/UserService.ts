@@ -300,12 +300,13 @@ export default class UserService extends ApiClientBase
       !!patient.ht_other;
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
-
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
+
+    const hasAtopyAnswers = !!patient.has_hayfever;
 
     return {
       ...patientState,
@@ -323,6 +324,7 @@ export default class UserService extends ApiClientBase
       isSameHousehold,
       shouldAskLevelOfIsolation,
       shouldAskStudy,
+      hasAtopyAnswers,
     };
   }
 
