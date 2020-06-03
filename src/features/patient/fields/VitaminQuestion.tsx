@@ -1,4 +1,3 @@
-import Info from '@assets/icons/Info';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -7,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { fontStyles, colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment from 'moment';
-import { Item, Label, View, Text } from 'native-base';
+import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 

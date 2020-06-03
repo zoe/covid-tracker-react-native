@@ -383,7 +383,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   )}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(errors).length && <ValidationErrors errors={errors} />}
+                  {!!Object.keys(errors).length && props.submitCount > 0 && <ValidationErrors errors={errors} />}
 
                   <BrandedButton
                     onPress={handleSubmit}
