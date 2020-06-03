@@ -306,7 +306,7 @@ export default class UserService extends ApiClientBase
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
 
-    const hasAtopyAnswers = !!patient.has_hayfever;
+    const hasAtopyAnswers = patient.has_hayfever != null;
 
     return {
       ...patientState,
