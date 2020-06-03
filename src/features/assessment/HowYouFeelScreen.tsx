@@ -3,6 +3,7 @@ import { BigButton } from '@covid/components/Button';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -32,36 +33,31 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   constructor(props: HowYouFeelProps) {
     super(props);
     this.state = initialState;
-    Navigator.resetNavigation(props.navigation);
-
-    // Fix reference to `this` inside these functions
-    this.handleFeelNormal = this.handleFeelNormal.bind(this);
-    this.handleHaveSymptoms = this.handleHaveSymptoms.bind(this);
+    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
   async handleFeelNormal() {
     if (await this.updateAssessment('healthy', ASSESSMENT_COMPLETED)) {
-      Navigator.gotoEndAssessment();
+      AssessmentCoordinator.goToNextHowYouFeelScreen(true);
     }
   }
 
   async handleHaveSymptoms() {
-    const { assessmentId, currentPatient } = this.props.route.params;
     if (await this.updateAssessment('not_healthy')) {
-      this.props.navigation.navigate('DescribeSymptoms', { currentPatient, assessmentId });
+      AssessmentCoordinator.goToNextHowYouFeelScreen(false);
     }
   }
 
   private async updateAssessment(status: string, isComplete: boolean = false) {
     try {
-      const assessmentId = this.props.route.params.assessmentId;
+      const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
       const assessment = {
         health_status: status,
       };
       if (isComplete) {
-        await assessmentService.completeAssessment(assessmentId, assessment);
+        await assessmentService.completeAssessment(assessmentId!, assessment);
       } else {
-        await assessmentService.saveAssessment(assessmentId, assessment);
+        await assessmentService.saveAssessment(assessmentId!, assessment);
       }
       return true;
     } catch (error) {
@@ -71,7 +67,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>

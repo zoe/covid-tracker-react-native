@@ -4,6 +4,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -54,22 +55,21 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
 
   handleUpdate = async (formData: HealthWorkerExposureData) => {
     try {
-      const currentPatient = this.props.route.params.currentPatient;
-      const assessmentId = this.props.route.params.assessmentId;
+      const { assessmentId } = AssessmentCoordinator.assessmentData;
       var assessment = this.createAssessment(formData);
 
-      const response = await assessmentService.saveAssessment(assessmentId, assessment);
+      const response = await assessmentService.saveAssessment(assessmentId!, assessment);
       if (!assessmentId) {
-        this.props.navigation.setParams({ assessmentId: response.id });
+        AssessmentCoordinator.assessmentData.assessmentId = response.id;
       }
-      this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId: response.id });
+      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
   };
 
   private createAssessment(formData: HealthWorkerExposureData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -114,7 +114,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },

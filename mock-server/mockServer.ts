@@ -10,10 +10,48 @@ const db = mockDb();
 const app = express();
 const port = 3000;
 
+// Flags to change mockServer responses
+const shouldAskUKValidationStudy = true;
+const askForRating = true;
+const countryCode = 'GB';
+
+// Flags to change logging
+const logRequests = true;
+const logAuthorization = false;
+const logBody = true;
+
+function consoleLogBody(req: express.Request) {
+  try {
+    const prettyJson = JSON.stringify(req.body, null, 2);
+    if (prettyJson !== '{}') console.log(prettyJson);
+  } catch (e) {
+    console.log('Badly formed JSON:' + req.body);
+  }
+}
+
+function consoleLogAuthorization(req: express.Request) {
+  console.log('Auth: ' + req.get('Authorization'));
+}
+
+function consoleLogRequests(req: express.Request) {
+  console.log(req.method + ' ' + req.originalUrl);
+}
+
+function loggingMiddleware(req: express.Request, res: express.Response, next: express.NextFunction) {
+  if (logRequests) consoleLogRequests(req);
+  if (logAuthorization) consoleLogAuthorization(req);
+  if (logBody) consoleLogBody(req);
+  next();
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(loggingMiddleware);
 
-app.post('/auth/login', (_, res) => {
+/**
+ * Auth
+ */
+app.post('/auth/login/', (_, res) => {
   return res.status(200).send({
     key: 'abc',
     user: {
@@ -22,16 +60,16 @@ app.post('/auth/login', (_, res) => {
       patients: ['00000000-0000-0000-0000-000000000000'],
       pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: 'GB',
+      country_code: countryCode,
     },
   });
 });
 
-app.post('/auth/password/reset', (_, res) => {
+app.post('/auth/password/reset/', (_, res) => {
   return res.send();
 });
 
-app.post('/auth/signup', (_, res) => {
+app.post('/auth/signup/', (_, res) => {
   return res.status(201).send({
     key: 'abc',
     user: {
@@ -40,12 +78,19 @@ app.post('/auth/signup', (_, res) => {
       patients: ['00000000-0000-0000-0000-000000000000'],
       pii: '00000000-0000-0000-0000-000000000000',
       push_tokens: [],
-      country_code: 'GB',
+      country_code: countryCode,
     },
   });
 });
 
-app.post('/tokens', (_, res) => {
+app.delete('/users/delete/', (_, res) => {
+  return res.send();
+});
+
+/**
+ * Push Tokens
+ */
+app.post('/tokens/', (_, res) => {
   return res.send({
     token: 'abcd',
     active: true,
@@ -53,45 +98,51 @@ app.post('/tokens', (_, res) => {
   });
 });
 
-app.patch('/consent', (_, res) => {
+/**
+ * Consent
+ */
+app.patch('/consent/', (_, res) => {
   return res.send();
 });
 
-app.get('/patients/:patientId', (req, res) => {
-  const { patientId } = req.params;
-  const patient = db.patients.get(patientId);
-
-  if (!patient) {
-    return res.status(404).send;
-  }
-
-  res.header('Content-type', 'application/json');
-  return res.status(200).send(patient);
+/**
+ * Study Consent
+ */
+app.post('/study_consent/', (_, res) => {
+  return res.send();
 });
 
-app.get('/profile', (_, res) => {
+app.get('/study_consent/status/', (_, res) => {
+  return res.send({
+    should_ask_uk_validation_study: shouldAskUKValidationStudy,
+  });
+});
+
+/**
+ * Profile
+ */
+app.get('/profile/', (_, res) => {
   return res.status(200).send({
     username: 'testuser@example.com',
     authorizations: [],
     patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
     pii: '00000000-0000-0000-0000-000000000000',
     push_tokens: [],
-    country_code: 'GB',
+    ask_for_rating: askForRating,
   });
 });
 
-app.patch('/information/:userId', (_, res) => {
-  return res.send();
-});
-
+/**
+ * App Config / Startup Info
+ */
 app.get('/users/startup_info/', (_, res) => {
   return res.status(200).send({
     users_count: '3000000',
-    ip_country: 'GB',
+    ip_country: countryCode,
   });
 });
 
-app.get('/area_stats', (_, res) => {
+app.get('/area_stats/', (_, res) => {
   return res.status(200).send({
     locked: false,
     rank: 768,
@@ -105,8 +156,20 @@ app.get('/area_stats', (_, res) => {
 });
 
 /**
- * patients endpoints
+ * Patient
  */
+app.get('/patients/:patientId', (req, res) => {
+  const { patientId } = req.params;
+  const patient = db.patients.get(patientId);
+
+  if (!patient) {
+    return res.status(404).send;
+  }
+
+  res.header('Content-type', 'application/json');
+  return res.status(200).send(patient);
+});
+
 app.patch('/patients/:patientId', (req, res) => {
   const { patientId } = req.params;
 
@@ -133,9 +196,8 @@ app.get('/patient_list/', (_, res) => {
 });
 
 /**
- * assessments endpoints
+ * Assessment
  */
-
 app.post('/assessments', (req, res) => {
   const { body: assessment } = req as { body: Assessment };
   const id = uuid.v1();
@@ -166,7 +228,7 @@ app.patch('/assessments/:assessmentId', (req, res) => {
 });
 
 /**
- * covid_tests endpoints
+ * COVID Tests
  */
 app.get('/covid_tests', (_, res) => res.status(200).send(db.covidTests.get()));
 

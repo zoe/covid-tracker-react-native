@@ -9,6 +9,7 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import UserService from '@covid/core/user/UserService';
 import { cleanFloatVal } from '@covid/core/utils/number';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -137,10 +138,10 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
       try {
-        const { currentPatient, assessmentId } = this.props.route.params;
+        const { assessmentId } = AssessmentCoordinator.assessmentData;
         var infos = this.createAssessmentInfos(formData);
-        await assessmentService.saveAssessment(assessmentId, infos);
-        this.props.navigation.navigate('WhereAreYou', { currentPatient, assessmentId });
+        await assessmentService.saveAssessment(assessmentId!, infos);
+        AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       } catch (error) {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       }
@@ -207,7 +208,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
       { label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F' },

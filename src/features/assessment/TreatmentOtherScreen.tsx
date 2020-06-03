@@ -2,6 +2,7 @@ import { assessmentService } from '@covid/Services';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText } from '@covid/components/Text';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -30,7 +31,7 @@ type TreatmentOtherProps = {
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
   constructor(props: TreatmentOtherProps) {
     super(props);
-    Navigator.resetNavigation(props.navigation);
+    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
   registerSchema = Yup.object().shape({
@@ -38,7 +39,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   });
 
   handleUpdateTreatment = async (formData: TreatmentData) => {
-    const { assessmentId } = this.props.route.params;
+    const { assessmentId } = AssessmentCoordinator.assessmentData;
     let assessment;
 
     if (formData.description) {
@@ -47,12 +48,12 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
       };
     }
 
-    await assessmentService.completeAssessment(assessmentId, assessment);
-    Navigator.gotoEndAssessment();
+    await assessmentService.completeAssessment(assessmentId!, assessment);
+    AssessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const title =
       this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')
