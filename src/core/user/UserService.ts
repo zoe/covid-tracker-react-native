@@ -11,13 +11,13 @@ import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
+import { AssessmentInfosRequest } from '../assessment/dto/AssessmentInfosRequest';
+import { AssessmentResponse } from '../assessment/dto/AssessmentInfosResponse';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
 import {
   AreaStatsResponse,
   AskValidationStudy,
-  AssessmentInfosRequest,
-  AssessmentResponse,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,

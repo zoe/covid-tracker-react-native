@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -325,7 +326,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               hideLoading
               enable={this.state.agreeToAbove}
               onPress={this.handleAgreeClicked}>
-              Take part
+              {this.state.agreeToAbove ? 'Take part' : 'Scroll down to give consent'}
             </BrandedButton>
           )}
         </SafeAreaView>
@@ -347,6 +348,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 20,
+    marginVertical: 20,
   },
 });

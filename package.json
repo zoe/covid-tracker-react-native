@@ -85,6 +85,7 @@
     "eslint-config-universe": "^3.0.0",
     "express": "^4.17.1",
     "husky": "^4.2.5",
+    "jest": "^25.5.4",
     "jest-expo": "^37.0.0",
     "jest-expo-enzyme": "^1.0.0",
     "prettier": "^2.0.4",
