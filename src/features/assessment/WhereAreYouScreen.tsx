@@ -13,8 +13,6 @@ import { StyleSheet } from 'react-native';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-const ASSESSMENT_COMPLETE = true;
-
 type LocationProps = {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
   route: RouteProp<ScreenParamList, 'WhereAreYou'>;
