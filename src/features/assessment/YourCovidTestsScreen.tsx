@@ -1,21 +1,21 @@
+import { chevronRight, pending, tick } from '@assets';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import CovidTestService from '@covid/core/user/CovidTestService';
+import UserService from '@covid/core/user/UserService';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import moment from 'moment';
 import { Button, Text } from 'native-base';
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { chevronRight, pending, tick } from '@assets';
-import { colors } from '@theme';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
-import CovidTestService from '@covid/core/user/CovidTestService';
-import UserService from '@covid/core/user/UserService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
