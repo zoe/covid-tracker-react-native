@@ -11,10 +11,7 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-
-const ASSESSMENT_COMPLETED = true;
 
 type HowYouFeelProps = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -37,7 +34,8 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   }
 
   handleFeelNormal = async () => {
-    if (await this.updateAssessment('healthy', ASSESSMENT_COMPLETED)) {
+    const isAssessmentComplete = true;
+    if (await this.updateAssessment('healthy', isAssessmentComplete)) {
       AssessmentCoordinator.goToNextHowYouFeelScreen(true);
     }
   };
