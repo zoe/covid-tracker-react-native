@@ -17,6 +17,12 @@ const config: DbConfig = {
   covidTests: {
     path: 'covid_tests.json',
   },
+  consents: {
+    path: 'consents.json',
+  },
+  studyConsents: {
+    path: 'studyConsents.json',
+  },
 };
 
 export default config;
