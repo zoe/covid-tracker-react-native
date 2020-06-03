@@ -4,6 +4,7 @@ import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Scre
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import UserService from '@covid/core/user/UserService';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -14,7 +15,6 @@ import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   interactedAnyPatients: 'no',
@@ -54,7 +54,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   }
 
   handleUpdate(formData: HealthWorkerExposureData) {
-    let { assessmentId } = AssessmentCoordinator.assessmentData;
+    const { assessmentId } = AssessmentCoordinator.assessmentData;
     const userService = new UserService();
     var assessment = this.createAssessment(formData);
 

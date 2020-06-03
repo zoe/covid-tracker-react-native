@@ -2,6 +2,7 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -11,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
