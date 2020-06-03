@@ -44,10 +44,7 @@ export default class AssessmentService implements IAssessmentService {
     this.apiClient = apiClient;
   }
 
-  async saveAssessment(
-    assessmentId: AssessmentId,
-    assessment: Partial<AssessmentInfosRequest>
-  ): Promise<AssessmentResponse> {
+  private async saveToApi(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest>) {
     let response;
     if (assessmentId) {
       response = await this.apiClient.updateAssessment(assessmentId, assessment as AssessmentInfosRequest);
@@ -55,6 +52,13 @@ export default class AssessmentService implements IAssessmentService {
       response = await this.apiClient.addAssessment(assessment as AssessmentInfosRequest);
     }
     return response;
+  }
+
+  async saveAssessment(
+    assessmentId: AssessmentId,
+    assessment: Partial<AssessmentInfosRequest>
+  ): Promise<AssessmentResponse> {
+    return this.saveToApi(assessmentId, assessment);
   }
 
   async completeAssessment(
