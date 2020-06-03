@@ -34,15 +34,21 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   }
 
   handleFeelNormal = async () => {
-    const isAssessmentComplete = true;
-    if (await this.updateAssessment('healthy', isAssessmentComplete)) {
+    try {
+      const isAssessmentComplete = true;
+      await this.updateAssessment('healthy', isAssessmentComplete);
       AssessmentCoordinator.goToNextHowYouFeelScreen(true);
+    } catch (error) {
+      // Error already handled.
     }
   };
 
   handleHaveSymptoms = async () => {
-    if (await this.updateAssessment('not_healthy')) {
+    try {
+      await this.updateAssessment('not_healthy');
       AssessmentCoordinator.goToNextHowYouFeelScreen(false);
+    } catch (error) {
+      // Error already handled.
     }
   };
 
@@ -57,10 +63,9 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
       } else {
         await assessmentService.saveAssessment(assessmentId!, assessment);
       }
-      return true;
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      return false;
+      throw error;
     }
   }
 

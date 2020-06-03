@@ -27,27 +27,24 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
   }
 
   private async updateAssessment(status: string, isComplete = false) {
-    try {
-      const { assessmentId } = AssessmentCoordinator.assessmentData;
-      const assessment = {
-        location: status,
-      };
+    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const assessment = {
+      location: status,
+    };
 
-      if (isComplete) {
-        await assessmentService.completeAssessment(assessmentId!, assessment);
-      } else {
-        await assessmentService.saveAssessment(assessmentId!, assessment);
-      }
-      return true;
-    } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+    if (isComplete) {
+      await assessmentService.completeAssessment(assessmentId!, assessment);
+    } else {
+      await assessmentService.saveAssessment(assessmentId!, assessment);
     }
-    return false;
   }
 
   handleLocationSelection = async (location: string, endAssessment: boolean) => {
-    if (await this.updateAssessment(location, endAssessment)) {
+    try {
+      await this.updateAssessment(location, endAssessment);
       AssessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment);
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
   };
 
