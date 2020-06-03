@@ -14,13 +14,11 @@ export default class ReduxAssessmentState implements IAssessmentState {
   }
 
   updateAssessment(assessment: Partial<AssessmentInfosRequest>) {
-    console.log('[STATE] update:', assessment);
     return store.dispatch(updateAssessment(assessment));
   }
 
   getAssessment(): Partial<AssessmentInfosRequest> {
     const state = store.getState();
-    console.log('[STATE] Assessment:', state.assessment);
     return state.assessment;
   }
 }
