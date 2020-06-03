@@ -12,10 +12,41 @@ const port = 3000;
 
 // Flags to change mockServer responses
 const shouldAskUKValidationStudy = true;
+const askForRating = true;
 const countryCode = 'GB';
+
+// Flags to change logging
+const logRequests = true;
+const logAuthorization = false;
+const logBody = true;
+
+function consoleLogBody(req: express.Request) {
+  try {
+    const prettyJson = JSON.stringify(req.body, null, 2);
+    if (prettyJson !== '{}') console.log(prettyJson);
+  } catch (e) {
+    console.log('Badly formed JSON:' + req.body);
+  }
+}
+
+function consoleLogAuthorization(req: express.Request) {
+  console.log('Auth: ' + req.get('Authorization'));
+}
+
+function consoleLogRequests(req: express.Request) {
+  console.log(req.method + ' ' + req.originalUrl);
+}
+
+function loggingMiddleware(req: express.Request, res: express.Response, next: express.NextFunction) {
+  if (logRequests) consoleLogRequests(req);
+  if (logAuthorization) consoleLogAuthorization(req);
+  if (logBody) consoleLogBody(req);
+  next();
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(loggingMiddleware);
 
 /**
  * Auth
@@ -97,7 +128,7 @@ app.get('/profile/', (_, res) => {
     patients: (db.patients.get() as Patient[]).map((patient) => patient.id),
     pii: '00000000-0000-0000-0000-000000000000',
     push_tokens: [],
-    ask_for_rating: true,
+    ask_for_rating: askForRating,
   });
 });
 
