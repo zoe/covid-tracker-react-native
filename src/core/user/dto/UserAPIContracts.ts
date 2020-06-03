@@ -80,7 +80,7 @@ export type PatientInfosRequest = {
   has_hayfever: boolean;
   has_eczema: boolean;
   has_asthma: boolean;
-  has_lung_disease: boolean;
+  has_lung_disease_only: boolean;
   is_smoker: boolean;
   smoker_status: string;
   smoked_years_ago: number;

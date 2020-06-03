@@ -249,7 +249,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         has_hayfever: formData.hasHayfever === 'yes',
         has_eczema: formData.hasEczema === 'yes',
         has_asthma: formData.hasAsthma === 'yes',
-        has_lung_disease: formData.hasLungDisease === 'yes',
+        has_lung_disease_only: formData.hasLungDisease === 'yes',
       };
     }
 

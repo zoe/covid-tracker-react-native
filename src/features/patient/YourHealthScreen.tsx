@@ -207,7 +207,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       has_hayfever: formData.hasHayfever === 'yes',
       has_eczema: formData.hasEczema === 'yes',
       has_asthma: formData.hasAsthma === 'yes',
-      has_lung_disease: formData.hasLungDisease === 'yes',
+      has_lung_disease_only: formData.hasLungDisease === 'yes',
       has_kidney_disease: formData.hasKidneyDisease === 'yes',
       has_cancer: formData.hasCancer === 'yes',
       takes_immunosuppressants: formData.takesImmunosuppressants === 'yes',
