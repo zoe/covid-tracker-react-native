@@ -8,6 +8,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal } from '@covid/core/utils/number';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -59,7 +60,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   }
 
   private createAssessment(formData: LevelOfIsolationData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -101,18 +102,10 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       });
   }
 
-  navigateToStart = (currentPatient: PatientStateType, assessmentId: string) => {
-    if (currentPatient.isHealthWorker) {
-      this.props.navigation.navigate('HealthWorkerExposure', { currentPatient, assessmentId });
-    } else {
-      this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId });
-    }
-  };
-
   handleUpdate(formData: LevelOfIsolationData) {
     const userService = new UserService();
-    let { currentPatient, assessmentId } = this.props.route.params;
-    var assessment = this.createAssessment(formData);
+    const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
+    const assessment = this.createAssessment(formData);
 
     const promise =
       assessmentId == null
@@ -121,16 +114,15 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     promise
       .then((response) => {
-        this.props.navigation.setParams({ assessmentId: response.data.id });
-        assessmentId = response.data.id;
+        AssessmentCoordinator.assessmentData.assessmentId = response.data.id;
       })
       .then(() => this.updatePatientsLastAskedDate(currentPatient))
-      .then(() => this.navigateToStart(currentPatient, assessmentId as string))
+      .then(() => AssessmentCoordinator.gotoNextScreen(this.props.route.name))
       .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

@@ -6,6 +6,7 @@ import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from
 import { initialErrorState, ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

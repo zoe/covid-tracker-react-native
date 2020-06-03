@@ -2,6 +2,7 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -325,7 +326,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               hideLoading
               enable={this.state.agreeToAbove}
               onPress={this.handleAgreeClicked}>
-              Take part
+              {this.state.agreeToAbove ? 'Take part' : 'Scroll down to give consent'}
             </BrandedButton>
           )}
         </SafeAreaView>
@@ -347,6 +348,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 20,
+    marginVertical: 20,
   },
 });
