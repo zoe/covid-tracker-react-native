@@ -36,17 +36,17 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
-  async handleFeelNormal() {
+  handleFeelNormal = async () => {
     if (await this.updateAssessment('healthy', ASSESSMENT_COMPLETED)) {
       AssessmentCoordinator.goToNextHowYouFeelScreen(true);
     }
-  }
+  };
 
-  async handleHaveSymptoms() {
+  handleHaveSymptoms = async () => {
     if (await this.updateAssessment('not_healthy')) {
       AssessmentCoordinator.goToNextHowYouFeelScreen(false);
     }
-  }
+  };
 
   private async updateAssessment(status: string, isComplete: boolean = false) {
     try {
