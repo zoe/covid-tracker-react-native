@@ -1,3 +1,10 @@
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -6,13 +13,6 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '@covid/components/DropdownField';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
