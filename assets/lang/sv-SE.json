@@ -173,6 +173,7 @@
     "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?",
     "vitamins": {
       "question-taking-vitamins": "Har du tagit några vitaminer eller andra tillskott regelbundet under mer än tre månader? Med regelbundet avses fler än tre gånger i veckan i genomsnitt. Markera alla tillämpliga svar",
+      "question-justification": "Vi undersöker eventuella effekter av vitamintillskott på covid-19-infektion",
       "checkbox-no": "Nej",
       "checkbox-vitamin-c": "Vitamin C",
       "checkbox-vitamin-d": "Vitamin D",
@@ -184,6 +185,7 @@
       "checkbox-other-specify": "Annat, var god ange",
       "checkbox-pfnts": "Föredrar att inte berätta",
       "question-please-specify": "Var god ange vilka vitaminer eller tillskott",
+      "please-select-vitamins": "Välj ett alternativ",
       "placeholder-optional": "*Valfritt"
     }
   },

@@ -278,6 +278,7 @@
     "takes-sartan-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?",
     "vitamins": {
       "question-taking-vitamins": "Have you been taking any vitamins or other supplements regularly for more than 3 months? Regularly means more than 3 times a week on average. Select all that apply.",
+      "question-justification": "We are exploring the possible effects of vitamin supplements on COVID infection",
       "checkbox-no": "No",
       "checkbox-vitamin-c": "Vitamin C",
       "checkbox-vitamin-d": "Vitamin D",
@@ -289,6 +290,7 @@
       "checkbox-other-specify": "Other, please specify",
       "checkbox-pfnts": "Prefer not to say",
       "question-please-specify": "Please specify the vitamins or supplements",
+      "please-select-vitamins": "Please select an option",
       "placeholder-optional": "*Optional"
     }
   },

@@ -1,11 +1,13 @@
+import Info from '@assets/icons/Info';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
+import { fontStyles, colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment from 'moment';
-import { Item, Label } from 'native-base';
+import { Item, Label, View, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -146,11 +148,12 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
   ];
 
   render() {
-    const formikProps = this.props.formikProps;
+    const { formikProps } = this.props;
     return (
       <FieldWrapper>
         <Item stackedLabel style={styles.textItemStyle}>
           <Label>{i18n.t('your-health.vitamins.question-taking-vitamins')}</Label>
+          <Label style={styles.infoText}>{i18n.t('your-health.vitamins.question-justification')}</Label>
           <CheckboxList>
             {createSupplementCheckboxes(this.vitaminSupplementsCheckboxes, this.props.formikProps)}
           </CheckboxList>
@@ -174,5 +177,9 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
 const styles = StyleSheet.create({
   textItemStyle: {
     borderColor: 'transparent',
+  },
+  infoText: {
+    ...fontStyles.bodySmallLight,
+    color: colors.primary,
   },
 });

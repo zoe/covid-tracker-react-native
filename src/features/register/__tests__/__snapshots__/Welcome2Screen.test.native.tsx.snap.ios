@@ -223,6 +223,7 @@ exports[`Welcome2Screen should render for Sweden 1`] = `
               "opacity": 1,
             }
           }
+          testID="closeModal"
         >
           <Image
             source={1}
@@ -1106,6 +1107,7 @@ exports[`Welcome2Screen should render for UK 1`] = `
               "opacity": 1,
             }
           }
+          testID="closeModal"
         >
           <Image
             source={1}
@@ -2063,6 +2065,7 @@ exports[`Welcome2Screen should render for US 1`] = `
               "opacity": 1,
             }
           }
+          testID="closeModal"
         >
           <Image
             source={1}

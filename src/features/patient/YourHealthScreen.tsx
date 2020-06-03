@@ -157,7 +157,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     takesBloodPressureMedications: Yup.string().required(), // pril
     takesAnyBloodPressureMedications: Yup.string().required(),
     takesBloodPressureMedicationsSartan: Yup.string().required(),
-    vitaminSupplements: Yup.array<string>().required(),
+    vitaminSupplements: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
     vitaminOther: Yup.string().when('vitaminSupplements', {
       is: (val: string[]) => val.includes(supplementValues.OTHER),
       then: Yup.string(),
