@@ -11,7 +11,6 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 const ASSESSMENT_COMPLETE = true;

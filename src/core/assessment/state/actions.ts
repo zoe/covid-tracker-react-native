@@ -3,7 +3,7 @@ import { ActionTypes, AssessmentAction } from './types';
 
 export const updateAssessment = (assessment: Partial<AssessmentInfosRequest>): AssessmentAction => {
   return {
-    type: ActionTypes.UPDATE_ASSESSMENT,
+    type: ActionTypes.ASSESSMENT_UPDATED,
     payload: assessment,
   };
 };

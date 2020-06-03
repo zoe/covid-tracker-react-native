@@ -5,7 +5,7 @@ const initialState: Partial<AssessmentInfosRequest> = {};
 
 const reducer = (state = initialState, action: AssessmentAction): Partial<AssessmentInfosRequest> => {
   switch (action.type) {
-    case ActionTypes.UPDATE_ASSESSMENT:
+    case ActionTypes.ASSESSMENT_UPDATED:
       return {
         ...state,
         ...action.payload,

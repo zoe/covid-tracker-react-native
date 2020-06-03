@@ -1,7 +1,7 @@
 import { AssessmentInfosRequest } from '../dto/AssessmentInfosRequest';
 
 export enum ActionTypes {
-  UPDATE_ASSESSMENT = 'UPDATE_ASSESSMENT',
+  ASSESSMENT_UPDATED = 'ASSESSMENT_UPDATED',
 }
 
 export type AssessmentAction = {

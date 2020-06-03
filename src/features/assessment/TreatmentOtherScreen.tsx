@@ -12,7 +12,6 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
