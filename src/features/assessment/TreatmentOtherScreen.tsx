@@ -1,3 +1,9 @@
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, HeaderText } from '@covid/components/Text';
+import UserService from '@covid/core/user/UserService';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -6,13 +12,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   description: '',
@@ -45,7 +45,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     } else {
       const userService = new UserService();
       userService
-        .updateAssessment(assessmentId!!, {
+        .updateAssessment(assessmentId!, {
           treatment: formData.description,
         })
         .then((r) => AssessmentCoordinator.gotoNextScreen(this.props.route.name));
