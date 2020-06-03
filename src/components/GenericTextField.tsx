@@ -36,7 +36,7 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
         />
       </Item>
 
-      {showError && !!formikProps.errors[name] && (
+      {showError && !!formikProps.touched[name] && !!formikProps.errors[name] && (
         <ValidationError
           // @ts-ignore - need to solve type for ValidationError error prop
           error={formikProps.errors[name]}
