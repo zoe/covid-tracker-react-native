@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { fontStyles, colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment from 'moment';
-import { Item, Label, View, Text } from 'native-base';
+import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
