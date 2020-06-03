@@ -16,6 +16,7 @@ import { StyleSheet } from 'react-native';
 
 import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
