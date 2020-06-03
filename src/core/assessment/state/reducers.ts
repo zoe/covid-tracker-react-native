@@ -10,7 +10,7 @@ const reducer = (state = initialState, action: AssessmentActions): Partial<Asses
     case ActionTypes.ASSESSMENT_UPDATED:
       return {
         ...state,
-        ...(<PayloadActionType>action).payload,
+        ...(action as PayloadActionType).payload,
       };
     default:
       return state;
