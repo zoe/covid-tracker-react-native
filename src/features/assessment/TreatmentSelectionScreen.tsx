@@ -1,18 +1,18 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-
-import { colors, fontStyles } from '@theme';
 import { BigButton } from '@covid/components/Button';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '../ScreenParamList';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors, fontStyles } from '@theme';
+import { Form, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+
+import { ScreenParamList } from '../ScreenParamList';
 
 type TreatmentSelectionProps = {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;
@@ -35,7 +35,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
       AssessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
     } else {
       userService
-        .updateAssessment(assessmentId!!, { treatment })
+        .updateAssessment(assessmentId!, { treatment })
         .then((r) => AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location));
     }
   }

@@ -6,6 +6,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import CovidTestService from '@covid/core/user/CovidTestService';
 import UserService from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -17,7 +18,6 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;

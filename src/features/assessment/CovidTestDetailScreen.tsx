@@ -7,6 +7,7 @@ import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from
 import { ValidationErrors } from '@covid/components/ValidationError';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -19,7 +20,6 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 interface CovidTestData {
   knowsDateOfTest: string; // only for ux logic
