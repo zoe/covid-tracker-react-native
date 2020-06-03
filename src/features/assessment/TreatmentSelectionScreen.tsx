@@ -11,8 +11,8 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { CaptionText, HeaderText } from '@covid/components/Text';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 
 type TreatmentSelectionProps = {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;
@@ -22,23 +22,26 @@ type TreatmentSelectionProps = {
 export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
   constructor(props: TreatmentSelectionProps) {
     super(props);
-    Navigator.resetNavigation(props.navigation);
+    AssessmentCoordinator.resetNavigation(props.navigation);
     this.handleTreatment = this.handleTreatment.bind(this);
   }
 
   handleTreatment(treatment: string) {
-    const { currentPatient, assessmentId, location } = this.props.route.params;
+    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const { location } = this.props.route.params;
     const userService = new UserService();
 
     if (treatment == 'other') {
-      this.props.navigation.navigate('TreatmentOther', { currentPatient, assessmentId, location });
+      AssessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
     } else {
-      userService.updateAssessment(assessmentId, { treatment }).then((r) => Navigator.gotoEndAssessment());
+      userService
+        .updateAssessment(assessmentId!!, { treatment })
+        .then((r) => AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location));
     }
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const title =
       this.props.route.params.location == 'back_from_hospital'
         ? i18n.t('treatment-selection-title-after')
