@@ -1,3 +1,4 @@
+import { assessmentService } from '@covid/Services';
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
@@ -65,6 +66,7 @@ export class AssessmentCoordinator {
   startAssessment = () => {
     const { currentPatient } = this.assessmentData;
     const config = this.userService.getConfig();
+    assessmentService.initAssessment();
 
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
