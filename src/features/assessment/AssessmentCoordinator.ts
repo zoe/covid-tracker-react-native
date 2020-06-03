@@ -1,10 +1,10 @@
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ScreenParamList } from '../ScreenParamList';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 
 type ScreenName = keyof ScreenParamList;
 
