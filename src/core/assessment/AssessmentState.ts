@@ -1,15 +1,26 @@
+import store from '../state/store';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
+import { updateAssessment, clearAssessment } from './state/actions';
 
 export interface IAssessmentState {
-  updateAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<boolean>;
+  initAssessment(): void;
+  updateAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   getAssessment(): Partial<AssessmentInfosRequest>;
 }
 
 export default class ReduxAssessmentState implements IAssessmentState {
-  updateAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  initAssessment() {
+    store.dispatch(clearAssessment());
   }
+
+  updateAssessment(assessment: Partial<AssessmentInfosRequest>) {
+    console.log('[STATE] update:', assessment);
+    return store.dispatch(updateAssessment(assessment));
+  }
+
   getAssessment(): Partial<AssessmentInfosRequest> {
-    throw new Error('Method not implemented.');
+    const state = store.getState();
+    console.log('[STATE] Assessment:', state.assessment);
+    return state.assessment;
   }
 }

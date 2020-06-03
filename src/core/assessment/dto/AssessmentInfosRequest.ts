@@ -1,6 +1,7 @@
 export type AssessmentInfosRequest = {
   version: string; // document/schema version
   patient: string; //	Patient id
+  id: string; // Assessment id
 
   //Covid test
   had_covid_test: boolean;
