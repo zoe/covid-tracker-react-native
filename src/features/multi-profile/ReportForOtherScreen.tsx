@@ -19,6 +19,7 @@ import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import { AssessmentCoordinator } from '@covid/features/assessment/AssessmentCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ReportForOther'>;
@@ -29,7 +30,7 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
   handleSkip = async () => {
     const userService = new UserService();
     await userService.recordAskedToReportForOther();
-    this.props.navigation.navigate(Navigator.getThankYouScreenName());
+    this.props.navigation.navigate(AssessmentCoordinator.getThankYouScreen());
   };
 
   render() {
