@@ -530,7 +530,7 @@ export default class UserService extends ApiClientBase
   }
 
   private static getLocale() {
-    return Localization.locale.split("-")[0]
+    return Localization.locale.split('-')[0];
   }
 
   async shouldAskForValidationStudy() {
