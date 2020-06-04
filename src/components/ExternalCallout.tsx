@@ -30,15 +30,13 @@ const styles = StyleSheet.create({
   container: {},
 
   viewContainer: {
-    borderRadius: 10,
-    marginHorizontal: 10,
     marginVertical: 20,
     alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
   },
   image: {
     resizeMode: 'center',
     width: '100%',
-    height: undefined,
-    aspectRatio: 1,
   },
 });

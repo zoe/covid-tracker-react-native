@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
   },
   primaryText: {
     fontSize: 20,

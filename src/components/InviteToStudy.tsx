@@ -26,14 +26,15 @@ export default class InviteToStudy extends Component<{ placement: string }> {
 const styles = StyleSheet.create({
   socialIconContainer: {
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     marginTop: 40,
     alignSelf: 'center',
+    flex: 1,
+    flexDirection: 'row',
   },
   socialIcon: {
     resizeMode: 'contain',
     width: '100%',
-    height: undefined,
     aspectRatio: 1.205,
   },
 });
