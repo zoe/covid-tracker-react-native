@@ -1,7 +1,7 @@
 import { ConfigType } from '@covid/core/Config';
 import AssessmentService, { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -100,7 +100,7 @@ export class AssessmentCoordinator {
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
       this.navigation.navigate('ReportForOther');
     } else {
-      const thankYouScreen = isUSCountry() ? 'ViralThankYou' : 'ThankYou';
+      const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
       this.navigation.navigate(thankYouScreen);
     }
   };
@@ -150,6 +150,10 @@ export class AssessmentCoordinator {
   static getPatientDetailsScreenName = (config: ConfigType, currentPatient: PatientStateType) => {
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     return shouldAskStudy ? 'YourStudy' : 'YourWork';
+  };
+
+  static getThankYouScreen = () => {
+    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
   };
 
   static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {

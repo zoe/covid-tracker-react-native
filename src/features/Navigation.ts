@@ -1,7 +1,7 @@
 import { userService, assessmentService } from '@covid/Services';
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -82,10 +82,6 @@ class Navigator {
 
   async getCurrentPatient(patientId: string): Promise<PatientStateType> {
     return await this.userService.getCurrentPatient(patientId);
-  }
-
-  getThankYouScreenName() {
-    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
   }
 
   getWelcomeRepeatScreenName() {
