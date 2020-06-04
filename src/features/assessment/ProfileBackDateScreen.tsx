@@ -166,6 +166,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
         if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
+        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {

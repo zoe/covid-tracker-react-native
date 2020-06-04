@@ -45,6 +45,7 @@ const initialFormValues = {
   hasDelirium: 'no',
   hasEyeSoreness: 'no',
   isSkippingMeals: 'no',
+  typicalHayfever: 'yes',
   otherSymptoms: '',
 };
 
@@ -73,6 +74,7 @@ interface DescribeSymptomsData {
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
   hasEyeSoreness: string;
+  typicalHayfever: string;
   otherSymptoms: string;
 }
 
@@ -129,6 +131,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasRedWeltsOnFace: Yup.string().required(),
     hasBlistersOnFeet: Yup.string().required(),
     hasEyeSoreness: Yup.string().required(),
+    typicalHayfever: Yup.string().required(),
     otherSymptoms: Yup.string(),
   });
 
@@ -451,6 +454,14 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                         label={i18n.t('describe-symptoms.question-headache-frequency')}
                         items={headacheFrequencyItems}
                         error={props.touched.headacheFrequency && props.errors.headacheFrequency}
+                    />
+                )}
+
+                {currentPatient.hasHayfever && (
+                    <DropdownField
+                        selectedValue={props.values.typicalHayfever}
+                        onValueChange={props.handleChange('typicalHayfever')}
+                        label={i18n.t('describe-symptoms.question-typical-hayfever')}
                     />
                 )}
 

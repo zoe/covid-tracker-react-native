@@ -23,6 +23,7 @@ export type PatientStateType = {
   hasHormoneTreatmentAnswer: boolean;
   hasVitaminAnswer: boolean;
   hasAtopyAnswers: boolean;
+  hasHayfever: boolean;
 };
 
 const initPatientState = {
