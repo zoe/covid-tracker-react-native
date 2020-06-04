@@ -1,21 +1,23 @@
-import { Text } from 'native-base';
-
-import { blog001, incidence001, studyInvite, surveyInvite, webinar001 } from '@assets';
+import { blog001, incidence001, surveyInvite, webinar001 } from '@assets';
+import { userService } from '@covid/Services';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
+import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { experiments, startExperiment } from '@covid/core/Experiments';
 import Navigator from '@covid/features/Navigation';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
+import { Text } from 'native-base';
+
+import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from './ScreenParamList';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { experiments, startExperiment } from '@covid/core/Experiments';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -28,25 +30,32 @@ type State = {
   variant: string;
 };
 
+const initialState = {
+  askForRating: false,
+  inviteToStudy: false,
+  variant: '',
+};
+
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
-  state = {
-    askForRating: false,
-    inviteToStudy: false,
-    variant: '',
-  };
+  state = initialState;
 
   async componentDidMount() {
-    // Ask for rating if not asked before and server indicates eligible.
+    const newState = initialState;
+
     if (await shouldAskForRating()) {
-      this.setState({ askForRating: true });
+      newState.askForRating = true;
     }
 
     const variant = await startExperiment(experiments.Experiment_001, 4);
     if (variant) {
-      this.setState({ variant });
+      newState.variant = variant;
     }
 
-    // TODO: Set inviteToStudy based on eligibility
+    if (await userService.shouldAskForValidationStudy(true)) {
+      newState.inviteToStudy = true;
+    }
+
+    this.setState(newState);
   }
 
   gotoNextScreen = async () => {
@@ -115,11 +124,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ShareThisApp />
 
-              {this.state.inviteToStudy && (
-                <View style={styles.socialIconContainer}>
-                  <Image source={studyInvite} style={styles.socialIcon} />
-                </View>
-              )}
+              {this.state.inviteToStudy && <InviteToStudy />}
 
               <View style={styles.content}>
                 <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
