@@ -113,5 +113,4 @@ export default {
   events,
   experiments,
   identify,
-  startExperiment,
 };

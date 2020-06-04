@@ -60,7 +60,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   };
 
   render() {
-    console.log(this.state.variant);
     const showIncidenceCallout = this.state.variant === 'variant_1' || this.state.variant === 'variant_4';
     const showWebinarCallout = this.state.variant === 'variant_2' || this.state.variant === 'variant_4';
     const showBlogCallout = this.state.variant === 'variant_3' || this.state.variant === 'variant_4';
