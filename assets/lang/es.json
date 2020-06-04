@@ -828,6 +828,18 @@
       "yes": false,
       "no": false,
       "app-name": false
+    },
+
+    "validation-study-info": {
+      "title": false,
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "interested": false,
+      "visit-next": false
     }
   }
 }
