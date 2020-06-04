@@ -49,7 +49,7 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              <ShareThisApp ctaStyle="button" />
+              <ShareThisApp />
               <VisitWebsite />
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
