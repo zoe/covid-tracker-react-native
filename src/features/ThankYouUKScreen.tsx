@@ -104,16 +104,16 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
               </View>
 
               <BrandedButton
-                onPress={() => this.props.navigation.navigate('SelectProfile')}
-                style={styles.ctaMultipleProfile}>
-                <Text style={styles.ctaMultipleProfileText}>{i18n.t('thank-you-uk.cta-multi-profile')}</Text>
+                onPress={() => this.props.navigation.navigate('WelcomeRepeat')}
+                style={styles.ctaSingleProfile}>
+                <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
               </BrandedButton>
 
-              <View style={styles.ctaSingleProfile}>
+              <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('WelcomeRepeat')}
-                  style={styles.ctaSingleProfileText}>
-                  {i18n.t('thank-you-uk.cta-single-profile')}
+                  onPress={() => this.props.navigation.navigate('SelectProfile')}
+                  style={styles.ctaMultipleProfileText}>
+                  {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>
               </View>
             </View>
@@ -158,12 +158,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   ctaMultipleProfile: {
-    marginTop: 10,
-    marginBottom: 20,
-    marginHorizontal: 40,
-    backgroundColor: colors.backgroundSecondary,
-    borderColor: colors.primary,
-    borderWidth: 1,
+    paddingTop: 15,
+    paddingBottom: 24,
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   ctaMultipleProfileText: {
     color: colors.primary,
@@ -172,9 +170,11 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   ctaSingleProfile: {
-    paddingTop: 15,
-    paddingBottom: 24,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 20,
+    marginHorizontal: 40,
+    backgroundColor: colors.backgroundSecondary,
+    borderColor: colors.primary,
+    borderWidth: 1,
   },
 });
