@@ -5,14 +5,13 @@ import { getDaysAgo } from '@covid/utils/datetime';
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 
+import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
-import { AssessmentInfosRequest } from '../assessment/dto/AssessmentInfosRequest';
-import { AssessmentResponse } from '../assessment/dto/AssessmentInfosResponse';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
 import {
@@ -26,8 +25,6 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 
-const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
@@ -64,11 +61,6 @@ export interface IPatientService {
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
 }
 
-export interface IAssessmentService {
-  addAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any>;
-  updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any>;
-}
-
 export interface ILocalisationService {
   setUserCountry(countryCode: string): void;
   initCountryConfig(countryCode: string): void;
@@ -93,7 +85,6 @@ export default class UserService extends ApiClientBase
     IProfileService,
     IConsentService,
     IPatientService,
-    IAssessmentService,
     ILocalisationService,
     IDontKnowService {
   public static userCountry = 'US';
@@ -232,7 +223,7 @@ export default class UserService extends ApiClientBase
   }
 
   private getPatientVersion() {
-    return PATIENT_VERSION;
+    return appConfig.patientVersion;
   }
 
   public async getPatient(patientId: string): Promise<PatientInfosRequest | null> {
@@ -373,22 +364,6 @@ export default class UserService extends ApiClientBase
   public async updatePii(pii: Partial<PiiRequest>) {
     const userId = ApiClientBase.userId;
     return this.client.patch(`/information/${userId}/`, pii);
-  }
-
-  public async addAssessment(assessment: Partial<AssessmentInfosRequest>) {
-    assessment = {
-      ...assessment,
-      version: this.getAssessmentVersion(),
-    };
-    return this.client.post<AssessmentResponse>(`/assessments/`, assessment);
-  }
-
-  private getAssessmentVersion() {
-    return ASSESSMENT_VERSION;
-  }
-
-  public async updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>) {
-    return this.client.patch<AssessmentResponse>(`/assessments/${assessmentId}/`, assessment);
   }
 
   async getConsentSigned(): Promise<Consent | null> {

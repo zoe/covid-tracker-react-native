@@ -1,9 +1,9 @@
 import { IApiClient } from '../api/ApiClient';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
+import appConfig from '../../../appConfig';
 
 const API_ASSESSMENTS = '/assessments/';
-const ASSESSMENT_VERSION = '1.4.0'; // TODO: Move to top-level config
 
 export interface IAssessmentRemoteClient {
   addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
@@ -19,7 +19,7 @@ export class AssessmentApiClient implements IAssessmentRemoteClient {
   addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse> {
     assessment = {
       ...assessment,
-      version: ASSESSMENT_VERSION,
+      version: appConfig.assessmentVersion,
     };
     return this.apiClient.post<AssessmentInfosRequest, AssessmentResponse>(API_ASSESSMENTS, assessment);
   }
