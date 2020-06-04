@@ -1,4 +1,4 @@
-import { userService } from '@covid/Services';
+import { userService, assessmentService } from '@covid/Services';
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
@@ -127,7 +127,7 @@ class Navigator {
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    AssessmentCoordinator.init(this.navigation, { currentPatient }, this.userService);
+    AssessmentCoordinator.init(this.navigation, { currentPatient }, this.userService, assessmentService);
     AssessmentCoordinator.startAssessment();
   }
 
