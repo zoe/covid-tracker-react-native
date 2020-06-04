@@ -1,5 +1,5 @@
 import { ConfigType } from '@covid/core/Config';
-import AssessmentService, { IAssessmentService } from '@covid/core/assessment/AssessmentService';
+import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -54,7 +54,7 @@ export class AssessmentCoordinator {
     navigation: NavigationType,
     assessmentData: AssessmentData,
     userService: UserService,
-    assessmentService: AssessmentService
+    assessmentService: IAssessmentService
   ) => {
     this.navigation = navigation;
     this.assessmentData = assessmentData;
