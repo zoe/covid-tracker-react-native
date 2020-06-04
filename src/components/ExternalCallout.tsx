@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
   container: {},
 
   viewContainer: {
-    margin: 20,
+    marginVertical: 20,
+    marginHorizontal: 10,
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',

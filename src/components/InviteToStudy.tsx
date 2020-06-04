@@ -26,7 +26,7 @@ export default class InviteToStudy extends Component<{ placement: string }> {
 const styles = StyleSheet.create({
   socialIconContainer: {
     borderRadius: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginTop: 40,
     alignSelf: 'center',
     flex: 1,
