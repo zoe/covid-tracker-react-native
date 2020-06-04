@@ -1,20 +1,14 @@
+import { social } from '@assets';
+import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
+import i18n from '@covid/locale/i18n';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
 
-import { social } from '@assets';
-import { colors } from '@theme';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
-import i18n from '@covid/locale/i18n';
 import { isAndroid } from './Screen';
 
-type CtaStyles = 'button' | 'link';
-
-type Props = {
-  ctaStyle: CtaStyles;
-};
-
-export default class ShareThisApp extends Component<Props> {
+export default class ShareThisApp extends Component {
   shareMessage = i18n.t('share-this-app.message');
   shareUrl = i18n.t('share-this-app.url');
 
@@ -51,15 +45,10 @@ export default class ShareThisApp extends Component<Props> {
         </View>
         <RegularBoldText style={styles.primaryText}>{i18n.t('share-this-app.primary-text')}</RegularBoldText>
         <RegularText style={styles.secondaryText}>{i18n.t('share-this-app.secondary-text')}</RegularText>
-        {this.props.ctaStyle === 'button' ? (
-          <BrandedButton onPress={this.shareApp} style={styles.shareButton}>
-            {i18n.t('share-this-app.button-text')}
-          </BrandedButton>
-        ) : (
-          <ClickableText onPress={this.shareApp} style={styles.shareLink}>
-            {i18n.t('share-this-app.button-text')}
-          </ClickableText>
-        )}
+
+        <BrandedButton onPress={this.shareApp} style={styles.shareButton}>
+          {i18n.t('share-this-app.button-text')}
+        </BrandedButton>
       </View>
     );
   }

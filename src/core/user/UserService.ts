@@ -183,6 +183,7 @@ export default class UserService extends ApiClientBase
       password1: password,
       password2: password,
       country_code: UserService.userCountry,
+      language_code: UserService.getLocale(),
       consent_document: UserService.consentSigned.document,
       consent_version: UserService.consentSigned.version,
       privacy_policy_version: UserService.consentSigned.privacy_policy_version,
@@ -526,6 +527,10 @@ export default class UserService extends ApiClientBase
     };
 
     i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
+  }
+
+  private static getLocale() {
+    return Localization.locale.split('-')[0];
   }
 
   async shouldAskForValidationStudy() {
