@@ -443,22 +443,12 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                   label={i18n.t('describe-symptoms.question-is-skipping-meals')}
                 />
 
-                {props.values.hasHeadache === 'yes' && (
-                    <DropdownField
-                        selectedValue={props.values.headacheFrequency}
-                        onValueChange={props.handleChange('headacheFrequency')}
-                        label={i18n.t('describe-symptoms.question-headache-frequency')}
-                        items={headacheFrequencyItems}
-                        error={props.touched.headacheFrequency && props.errors.headacheFrequency}
-                    />
-                )}
-
                 {currentPatient.hasHayfever && (
-                    <DropdownField
-                        selectedValue={props.values.typicalHayfever}
-                        onValueChange={props.handleChange('typicalHayfever')}
-                        label={i18n.t('describe-symptoms.question-typical-hayfever')}
-                    />
+                  <DropdownField
+                    selectedValue={props.values.typicalHayfever}
+                    onValueChange={props.handleChange('typicalHayfever')}
+                    label={i18n.t('describe-symptoms.question-typical-hayfever')}
+                  />
                 )}
 
                 <GenericTextField
