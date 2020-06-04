@@ -1,3 +1,4 @@
+import { assessmentService } from '@covid/Services';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -132,25 +133,20 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     otherSymptoms: Yup.string(),
   });
 
-  handleUpdateSymptoms(formData: DescribeSymptomsData) {
+  async handleUpdateSymptoms(formData: DescribeSymptomsData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const { assessmentId } = AssessmentCoordinator.assessmentData;
-      const userService = new UserService();
-      var infos = this.createAssessmentInfos(formData);
+      try {
+        const { assessmentId } = AssessmentCoordinator.assessmentData;
+        var infos = this.createAssessmentInfos(formData);
+        await assessmentService.saveAssessment(assessmentId!, infos);
+        AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+      } catch (error) {
+        this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      }
 
-      userService
-        .updateAssessment(assessmentId!, infos)
-        .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        })
-        .then(() => {
-          this.setState({ enableSubmit: true });
-        });
+      this.setState({ enableSubmit: true });
     }
   }
 

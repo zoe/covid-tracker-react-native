@@ -1,7 +1,7 @@
+import { assessmentService } from '@covid/Services';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -31,35 +31,34 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   constructor(props: TreatmentOtherProps) {
     super(props);
     AssessmentCoordinator.resetNavigation(props.navigation);
-    this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
   }
 
   registerSchema = Yup.object().shape({
     description: Yup.string(),
   });
 
-  handleUpdateTreatment(formData: TreatmentData) {
+  handleUpdateTreatment = async (formData: TreatmentData) => {
     const { assessmentId } = AssessmentCoordinator.assessmentData;
-    if (!formData.description) {
-      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-    } else {
-      const userService = new UserService();
-      userService
-        .updateAssessment(assessmentId!, {
-          treatment: formData.description,
-        })
-        .then((r) => AssessmentCoordinator.gotoNextScreen(this.props.route.name));
+    let assessment;
+
+    if (formData.description) {
+      assessment = {
+        treatment: formData.description,
+      };
     }
-  }
+
+    await assessmentService.completeAssessment(assessmentId!, assessment);
+    AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+  };
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const title =
-      this.props.route.params.location == 'back_from_hospital'
+      this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')
         : i18n.t('treatment-other-title-during');
     const question =
-      this.props.route.params.location == 'back_from_hospital'
+      this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-question-treatment-after')
         : i18n.t('treatment-other-question-treatment-during');
 

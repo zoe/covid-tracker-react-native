@@ -1,13 +1,12 @@
+import { assessmentService } from '@covid/Services';
 import { BigButton } from '@covid/components/Button';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors, fontStyles } from '@theme';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
@@ -23,27 +22,25 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
   constructor(props: TreatmentSelectionProps) {
     super(props);
     AssessmentCoordinator.resetNavigation(props.navigation);
-    this.handleTreatment = this.handleTreatment.bind(this);
   }
 
-  handleTreatment(treatment: string) {
+  handleTreatment = async (treatment: string) => {
     const { assessmentId } = AssessmentCoordinator.assessmentData;
     const { location } = this.props.route.params;
-    const userService = new UserService();
 
-    if (treatment == 'other') {
+    if (treatment === 'other') {
       AssessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
     } else {
-      userService
-        .updateAssessment(assessmentId!, { treatment })
-        .then((r) => AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location));
+      const assessment = { treatment };
+      await assessmentService.completeAssessment(assessmentId!, assessment);
+      AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
     }
-  }
+  };
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const title =
-      this.props.route.params.location == 'back_from_hospital'
+      this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-selection-title-after')
         : i18n.t('treatment-selection-title-during');
 
