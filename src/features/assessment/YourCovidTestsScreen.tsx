@@ -1,10 +1,10 @@
 import { chevronRight, pending, tick } from '@assets';
+import { assessmentService } from '@covid/Services';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import CovidTestService from '@covid/core/user/CovidTestService';
-import UserService from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
@@ -30,7 +30,6 @@ type State = {
 };
 
 export default class YourCovidTestsScreen extends Component<Props, State> {
-  userService = new UserService();
   state: State = {
     errorMessage: '',
     covidTests: [],
@@ -52,33 +51,22 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     this._unsubscribe();
   }
 
-  handleNextQuestion = () => {
-    const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
-    const patientId = currentPatient.patientId;
+  handleNextQuestion = async () => {
+    try {
+      const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
+      const patientId = currentPatient.patientId;
 
-    const assessment = {
-      patient: patientId,
-    } as Partial<AssessmentInfosRequest>;
+      const assessment = {
+        patient: patientId,
+      } as Partial<AssessmentInfosRequest>;
 
-    if (assessmentId == null) {
-      this.userService
-        .addAssessment(assessment)
-        .then((response) => {
-          AssessmentCoordinator.assessmentData.assessmentId = response.data.id;
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch((err) => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
-    } else {
-      this.userService
-        .updateAssessment(assessmentId, assessment)
-        .then((response) => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch((err) => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-        });
+      const response = await assessmentService.saveAssessment(assessmentId ?? null, assessment);
+      if (!assessmentId) {
+        AssessmentCoordinator.assessmentData.assessmentId = response.id;
+      }
+      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
   };
 
@@ -99,7 +87,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
     };
 
     const icon = (result: string) => {
-      if (result == 'waiting') {
+      if (result === 'waiting') {
         return pending;
       } else {
         return tick;
@@ -137,11 +125,11 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
                   style={styles.itemTouchable}
                   onPress={() => AssessmentCoordinator.goToAddEditTest(item)}>
                   <Image source={icon(item.result)} style={styles.tick} />
-                  <RegularText style={item.result == 'waiting' ? styles.pendingText : []}>
+                  <RegularText style={item.result === 'waiting' ? styles.pendingText : []}>
                     {dateString(item)}
                   </RegularText>
                   <View style={{ flex: 1 }} />
-                  <RegularText style={item.result == 'waiting' ? styles.pendingText : []}>
+                  <RegularText style={item.result === 'waiting' ? styles.pendingText : []}>
                     {resultString(item.result)}
                   </RegularText>
                   <Image source={chevronRight} style={styles.chevron} />
@@ -156,7 +144,7 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
         </Button>
 
         <BrandedButton style={styles.bottomButton} onPress={this.handleNextQuestion}>
-          <Text>{this.state.covidTests.length == 0 ? i18n.t('never-had-test') : i18n.t('above-list-correct')}</Text>
+          <Text>{this.state.covidTests.length === 0 ? i18n.t('never-had-test') : i18n.t('above-list-correct')}</Text>
         </BrandedButton>
       </View>
     );
