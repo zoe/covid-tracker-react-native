@@ -24,7 +24,7 @@ export class AssessmentApiClient implements IAssessmentRemoteClient {
     return this.apiClient.post<AssessmentInfosRequest, AssessmentResponse>(API_ASSESSMENTS, assessment);
   }
 
-  updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<any> {
+  updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<AssessmentResponse> {
     const assessmentUrl = `/assessments/${assessmentId}/`;
     return this.apiClient.patch<AssessmentInfosRequest, AssessmentResponse>(assessmentUrl, assessment);
   }
