@@ -15,7 +15,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 import { ScreenParamList } from './ScreenParamList';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import { experiments, startExperiment } from '@covid/core/Analytics';
+import { experiments, startExperiment } from '@covid/core/Experiments';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
