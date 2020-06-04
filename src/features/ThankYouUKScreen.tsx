@@ -4,7 +4,7 @@ import { blog001, incidence001, studyInvite, surveyInvite, webinar001 } from '@a
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import Navigator from '@covid/features/Navigation';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -62,7 +62,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
               </View>
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/data"
+                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=app"
                 calloutID="incidence_001"
                 imageSource={incidence001}
                 aspectRatio={1.5}
@@ -76,14 +76,14 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/science-covid-diagnosis"
+                link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=app"
                 calloutID="blog_001"
                 imageSource={blog001}
                 aspectRatio={1.551}
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/"
+                link="https://www.surveymonkey.co.uk/r/LC26RN9"
                 calloutID="surveyInvite"
                 imageSource={surveyInvite}
                 aspectRatio={3.38}
@@ -103,9 +103,19 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
                 <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
               </View>
 
-              <BrandedButton onPress={this.gotoNextScreen} style={styles.done}>
-                <Text style={styles.doneText}>{i18n.t('thank-you-uk.cta-multi-profile')}</Text>
+              <BrandedButton
+                onPress={() => this.props.navigation.navigate('SelectProfile')}
+                style={styles.ctaMultipleProfile}>
+                <Text style={styles.ctaMultipleProfileText}>{i18n.t('thank-you-uk.cta-multi-profile')}</Text>
               </BrandedButton>
+
+              <View style={styles.ctaSingleProfile}>
+                <ClickableText
+                  onPress={() => this.props.navigation.navigate('WelcomeRepeat')}
+                  style={styles.ctaSingleProfileText}>
+                  {i18n.t('thank-you-uk.cta-single-profile')}
+                </ClickableText>
+              </View>
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -147,15 +157,24 @@ const styles = StyleSheet.create({
     height: undefined,
     aspectRatio: 1,
   },
-  done: {
+  ctaMultipleProfile: {
     marginTop: 10,
     marginBottom: 20,
-    marginHorizontal: 30,
+    marginHorizontal: 40,
     backgroundColor: colors.backgroundSecondary,
     borderColor: colors.primary,
     borderWidth: 1,
   },
-  doneText: {
+  ctaMultipleProfileText: {
     color: colors.primary,
+  },
+  ctaSingleProfileText: {
+    color: colors.primary,
+  },
+  ctaSingleProfile: {
+    paddingTop: 15,
+    paddingBottom: 24,
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
