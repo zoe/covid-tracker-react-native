@@ -15,22 +15,35 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 import { ScreenParamList } from './ScreenParamList';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
+import { experiments, startExperiment } from '@covid/core/Analytics';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
   route: RouteProp<ScreenParamList, 'ThankYouUK'>;
 };
 
-export default class ThankYouUKScreen extends Component<RenderProps, { askForRating: boolean }> {
+type State = {
+  askForRating: boolean;
+  inviteToStudy: boolean;
+  variant: string;
+};
+
+export default class ThankYouUKScreen extends Component<RenderProps, State> {
   state = {
     askForRating: false,
     inviteToStudy: false,
+    variant: '',
   };
 
   async componentDidMount() {
     // Ask for rating if not asked before and server indicates eligible.
     if (await shouldAskForRating()) {
       this.setState({ askForRating: true });
+    }
+
+    const variant = await startExperiment(experiments.Experiment_001, 4);
+    if (variant) {
+      this.setState({ variant });
     }
 
     // TODO: Set inviteToStudy based on eligibility
@@ -47,6 +60,10 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
   };
 
   render() {
+    console.log(this.state.variant);
+    const showIncidenceCallout = this.state.variant === 'variant_1' || this.state.variant === 'variant_4';
+    const showWebinarCallout = this.state.variant === 'variant_2' || this.state.variant === 'variant_4';
+    const showBlogCallout = this.state.variant === 'variant_3' || this.state.variant === 'variant_4';
     return (
       <>
         {this.state.askForRating && <CovidRating />}
@@ -61,26 +78,32 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=app"
-                calloutID="incidence_001"
-                imageSource={incidence001}
-                aspectRatio={1.5}
-              />
+              {showIncidenceCallout && (
+                <ExternalCallout
+                  link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=app"
+                  calloutID="incidence_001"
+                  imageSource={incidence001}
+                  aspectRatio={1.5}
+                />
+              )}
 
-              <ExternalCallout
-                link="https://www.youtube.com/watch?v=3nqlg0VPFi8&feature=emb_title"
-                calloutID="webinar_001"
-                imageSource={webinar001}
-                aspectRatio={1.178}
-              />
+              {showWebinarCallout && (
+                <ExternalCallout
+                  link="https://www.youtube.com/watch?v=3nqlg0VPFi8&feature=emb_title"
+                  calloutID="webinar_001"
+                  imageSource={webinar001}
+                  aspectRatio={1.178}
+                />
+              )}
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=app"
-                calloutID="blog_001"
-                imageSource={blog001}
-                aspectRatio={1.551}
-              />
+              {showBlogCallout && (
+                <ExternalCallout
+                  link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=app"
+                  calloutID="blog_001"
+                  imageSource={blog001}
+                  aspectRatio={1.551}
+                />
+              )}
 
               <ExternalCallout
                 link="https://www.surveymonkey.co.uk/r/LC26RN9"
@@ -127,9 +150,11 @@ export default class ThankYouUKScreen extends Component<RenderProps, { askForRat
 const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
+    marginTop: 15,
   },
   subTitle: {
     textAlign: 'center',
+    marginBottom: 15,
   },
   signOff: {
     textAlign: 'center',
