@@ -1,8 +1,8 @@
+import { assessmentService } from '@covid/Services';
 import { BigButton } from '@covid/components/Button';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -24,17 +24,27 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
     AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
-  handleLocationSelection = (location: string, endAssessment: boolean) => {
-    this.updateAssessment(location)
-      .then(() => AssessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment))
-      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  };
+  private async updateAssessment(status: string, isComplete = false) {
+    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const assessment = {
+      location: status,
+    };
 
-  private updateAssessment(status: string) {
-    const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
-    const userService = new UserService();
-    return userService.updateAssessment(assessmentId!, { location: status });
+    if (isComplete) {
+      await assessmentService.completeAssessment(assessmentId!, assessment);
+    } else {
+      await assessmentService.saveAssessment(assessmentId!, assessment);
+    }
   }
+
+  handleLocationSelection = async (location: string, endAssessment: boolean) => {
+    try {
+      await this.updateAssessment(location, endAssessment);
+      AssessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment);
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+    }
+  };
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
