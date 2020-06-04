@@ -149,7 +149,7 @@ class Navigator {
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
-    if (isGBCountry() && mainProfile) {
+    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy())) {
       this.navigation.navigate('ValidationStudyIntro', { currentPatient });
     } else {
       this.startAssessmentFlow(currentPatient);
