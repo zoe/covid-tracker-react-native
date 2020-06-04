@@ -6,6 +6,7 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
 import { RouteProp } from '@react-navigation/native';
@@ -26,7 +27,6 @@ import {
   SupplementValue,
   supplementValues,
 } from './fields/VitaminQuestion';
-import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 
 export interface YourHealthData
   extends BloodPressureData,
@@ -187,7 +187,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         currentPatient.hasHormoneTreatmentAnswer = true;
         currentPatient.hasVitaminAnswer = true;
         currentPatient.hasAtopyAnswers = true;
-        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true
+        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })

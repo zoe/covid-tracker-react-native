@@ -5,6 +5,7 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -28,7 +29,6 @@ import {
   supplementValues,
   SupplementValue,
 } from '../patient/fields/VitaminQuestion';
-import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 
 interface BackfillData
   extends BloodPressureData,
@@ -166,7 +166,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
         if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
-        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true
+        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
