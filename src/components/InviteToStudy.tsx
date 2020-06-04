@@ -3,16 +3,18 @@ import Navigator from '@covid/features/Navigation';
 
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import Analytics, { events } from '@covid/core/Analytics';
 
-export default class InviteToStudy extends Component {
+export default class InviteToStudy extends Component<{ placement: string }> {
   render() {
     return (
       <TouchableWithoutFeedback
-        onPress={() =>
+        onPress={() => {
+          Analytics.track(events.CLICK_STUDY_AD_CALLOUT, { placement: this.props.placement });
           Navigator.gotoScreen('ValidationStudyConsent', {
             viewOnly: false,
-          })
-        }>
+          });
+        }}>
         <View style={styles.socialIconContainer}>
           <Image source={studyInvite} style={styles.socialIcon} />
         </View>

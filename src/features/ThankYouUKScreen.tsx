@@ -124,7 +124,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ShareThisApp />
 
-              {this.state.inviteToStudy && <InviteToStudy />}
+              {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
 
               <View style={styles.content}>
                 <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
