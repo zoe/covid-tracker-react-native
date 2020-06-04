@@ -631,15 +631,6 @@
       "share-area-locked": false,
       "share-area-unlocked": false
     },
-
-    "thank-you-uk": {
-      "title": false,
-      "subtitle": false,
-      "sign-off": false,
-      "cta-single-profile": false,
-      "cta-multi-profile": false
-    },
-
     "your-study": {
       "label-cohort": false,
       "add-study-names": false,
