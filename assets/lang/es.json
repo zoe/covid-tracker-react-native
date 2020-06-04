@@ -260,10 +260,10 @@
     "please-select-hormone-treatments": "Seleccione uno o más de los anteriores",
     "have-heart-disease": "¿Tiene enfermedad cardíaca?",
     "have-diabetes": "¿Tiene diabetes?",
-    "have-hayfever": "Tiene la fiebre del heno (alergia al polen)?",
-    "have-eczema": "Tiene eccemas?",
-    "have-asthma": "Tiene asthma?",
-    "have-lung-disease": "¿Tiene enfermedad pulmonar?",
+    "have-hayfever": "¿Tiene la fiebre del heno (alergia al polen)?",
+    "have-eczema": "¿Tiene eccemas?",
+    "have-asthma": "¿Tiene asthma?",
+    "have-lung-disease": "¿Tiene alguna enfermedad pulmonar?",
     "is-smoker": "¿Fuma?",
     "never-smoked": "Nunca",
     "not-currently-smoking": "No actualmente",
@@ -381,7 +381,7 @@
     "question-has-dizziness": "¿Tiene mareos o aturdimiento?",
     "question-has-chills": "¿Siente escalofríos (siente demasiado frío)?",
     "question-has-eye-soreness": "¿Siente dolor o incomodidad inusual en los ojos (como sensibilidad a la luz, lágrimas excesivas u ojos rojos)?",
-    "question-typical-hayfever": "Son sus síntomas actuales los habituales de su fiebre del heno o alergia al polen?"
+    "question-typical-hayfever": "¿Son sus síntomas actuales los habituales de su fiebre del heno o alergia al polen?"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "En el último día, ¿ha interactuado en persona con pacientes?",
