@@ -6,7 +6,7 @@ export function getDaysAgo(startDate: Date): number {
 }
 
 export const calcDaysDiff = (startDate: Date, endDate: Date) => {
-  const startMoment = moment(startDate);
-  const endMoment = moment(endDate);
+  const startMoment = moment(startDate).startOf('day');
+  const endMoment = moment(endDate).startOf('day');
   return Math.abs(endMoment.diff(startMoment, 'days'));
 };
