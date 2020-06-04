@@ -66,9 +66,15 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     return {
       patient: patientId,
-      isolation_little_interaction: cleanIntegerVal(formData.isolationLittleInteraction),
-      isolation_lots_of_people: cleanIntegerVal(formData.isolationLotsOfPeople),
-      isolation_healthcare_provider: cleanIntegerVal(formData.isolationHealthcareProvider),
+      ...(formData.isolationLittleInteraction !== '' && {
+        isolation_little_interaction: cleanIntegerVal(formData.isolationLittleInteraction),
+      }),
+      ...(formData.isolationLotsOfPeople !== '' && {
+        isolation_lots_of_people: cleanIntegerVal(formData.isolationLotsOfPeople),
+      }),
+      ...(formData.isolationHealthcareProvider !== '' && {
+        isolation_healthcare_provider: cleanIntegerVal(formData.isolationHealthcareProvider),
+      }),
     } as Partial<AssessmentInfosRequest>;
   }
 
