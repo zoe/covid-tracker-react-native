@@ -27,35 +27,24 @@ type RenderProps = {
 type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
-  variant: string;
+  variant: string | null;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
-  variant: '',
+  variant: null,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
   state = initialState;
 
   async componentDidMount() {
-    const newState = initialState;
-
-    if (await shouldAskForRating()) {
-      newState.askForRating = true;
-    }
-
-    const variant = await startExperiment(experiments.Experiment_001, 4);
-    if (variant) {
-      newState.variant = variant;
-    }
-
-    if (await userService.shouldAskForValidationStudy(true)) {
-      newState.inviteToStudy = true;
-    }
-
-    this.setState(newState);
+    this.setState({
+      askForRating: await shouldAskForRating(),
+      variant: await startExperiment(experiments.Experiment_001, 4),
+      inviteToStudy: await userService.shouldAskForValidationStudy(true),
+    });
   }
 
   gotoNextScreen = async () => {

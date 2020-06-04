@@ -533,7 +533,7 @@ export default class UserService extends ApiClientBase
     return Localization.locale.split('-')[0];
   }
 
-  async shouldAskForValidationStudy(onThankYouScreen: boolean) {
+  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
     let url = `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`;
     if (onThankYouScreen) {
       url += '&thank_you_screen=true';
