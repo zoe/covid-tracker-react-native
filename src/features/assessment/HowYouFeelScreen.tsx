@@ -1,8 +1,8 @@
+import { assessmentService } from '@covid/Services';
 import { BigButton } from '@covid/components/Button';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
@@ -11,7 +11,6 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 type HowYouFeelProps = {
@@ -34,25 +33,40 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
-  handleFeelNormal = () => {
-    this.updateAssessment('healthy')
-      .then(() => AssessmentCoordinator.goToNextHowYouFeelScreen(true))
-      .catch(() => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  handleFeelNormal = async () => {
+    try {
+      const isAssessmentComplete = true;
+      await this.updateAssessment('healthy', isAssessmentComplete);
+      AssessmentCoordinator.goToNextHowYouFeelScreen(true);
+    } catch (error) {
+      // Error already handled.
+    }
   };
 
-  handleHaveSymptoms = () => {
-    this.updateAssessment('not_healthy')
-      .then(() => AssessmentCoordinator.goToNextHowYouFeelScreen(false))
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+  handleHaveSymptoms = async () => {
+    try {
+      await this.updateAssessment('not_healthy');
+      AssessmentCoordinator.goToNextHowYouFeelScreen(false);
+    } catch (error) {
+      // Error already handled.
+    }
   };
 
-  private updateAssessment(status: string) {
-    const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
-    const userService = new UserService();
-    const promise = userService.updateAssessment(assessmentId!, {
-      health_status: status,
-    });
-    return promise;
+  private async updateAssessment(status: string, isComplete: boolean = false) {
+    try {
+      const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
+      const assessment = {
+        health_status: status,
+      };
+      if (isComplete) {
+        await assessmentService.completeAssessment(assessmentId!, assessment);
+      } else {
+        await assessmentService.saveAssessment(assessmentId!, assessment);
+      }
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      throw error;
+    }
   }
 
   render() {
