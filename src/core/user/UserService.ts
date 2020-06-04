@@ -27,7 +27,7 @@ import {
 } from './dto/UserAPIContracts';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.4.2'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
