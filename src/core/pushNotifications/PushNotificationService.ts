@@ -37,7 +37,7 @@ export class PushNotificationApiClient implements IPushTokenRemoteClient {
       ...pushToken,
       active: true,
     } as TokenInfoRequest;
-    return this.apiClient.post<TokenInfoResponse>(`/tokens/`, tokenDoc);
+    return this.apiClient.post<TokenInfoRequest, TokenInfoResponse>(`/tokens/`, tokenDoc);
   }
 }
 
