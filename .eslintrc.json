@@ -1,11 +1,15 @@
 {
-    "extends": ["universe/native", "universe/shared/typescript-analysis"],
-    "overrides": [
-        {
-            "files": ["*.ts", "*.tsx", "*.d.ts", "*.js", "*.jsx"],
-            "parserOptions": {
-                "project": "./tsconfig.json"
-            }
-        }
-    ]
+  "extends": ["universe/native", "universe/shared/typescript-analysis"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.d.ts", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    }
+  ],
+
+  "rules": {
+    "import/order": ["error"]
+  }
 }
