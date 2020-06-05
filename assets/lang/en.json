@@ -381,7 +381,7 @@
     "question-has-dizziness": "Are you experiencing dizziness or light-headedness?",
     "question-has-chills": "Do you feel chills or shivers (feel too cold)?",
     "question-has-eye-soreness": "Do your eyes have any unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)?",
-    "question-typical-hayfever": "Are your current symptoms typical of your usual hay fever or seasonal allergies?"
+    "question-typical-hayfever": "Are your current symptoms unusual compared to your usual hay fever or seasonal allergies?"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",

@@ -26,6 +26,7 @@ export type AssessmentInfosRequest = {
   chest_pain: boolean; // defaults to False
   abdominal_pain: boolean; // defaults to False
   eye_soreness: boolean; //defaults to False
+  typical_hayfever: boolean; //defaults to False
   other_symptoms: string;
 
   diarrhoea: boolean; //	defaults to False

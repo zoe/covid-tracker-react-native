@@ -366,7 +366,6 @@ const styles = StyleSheet.create({
   backIcon: {
     alignSelf: 'flex-start',
     marginTop: 32,
-    rotation: 180,
   },
   header: {
     marginVertical: 24,

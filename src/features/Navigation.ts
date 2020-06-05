@@ -97,18 +97,17 @@ class Navigator {
     return page;
   }
 
-  resetToProfileStartAssessment(currentPatient: PatientStateType) {
-    this.navigation.dispatch((state) => {
-      const profileScreen = state.routes.find((screen) => {
-        return screen.name == 'SelectProfile';
-      });
-
-      return CommonActions.navigate({ key: profileScreen!.key });
-    });
-
+  resetToProfileStartAssessment(currentPatient?: PatientStateType) {
     if (!currentPatient) {
       this.gotoScreen(this.getWelcomeRepeatScreenName());
     } else {
+      this.navigation.dispatch((state) => {
+        const profileScreen = state.routes.find((screen) => {
+          return screen.name == 'SelectProfile';
+        });
+
+        return CommonActions.navigate({ key: profileScreen!.key });
+      });
       this.startAssessmentFlow(currentPatient);
     }
   }

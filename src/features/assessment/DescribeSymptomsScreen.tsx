@@ -47,7 +47,7 @@ const initialFormValues = {
   hasDelirium: 'no',
   hasEyeSoreness: 'no',
   isSkippingMeals: 'no',
-  typicalHayfever: 'yes',
+  hasUnusualHayfever: 'no',
   otherSymptoms: '',
 };
 
@@ -76,7 +76,7 @@ interface DescribeSymptomsData {
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
   hasEyeSoreness: string;
-  typicalHayfever: string;
+  hasUnusualHayfever: string;
   otherSymptoms: string;
 }
 
@@ -155,6 +155,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   createAssessmentInfos(formData: DescribeSymptomsData) {
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+
     let infos = ({
       fever: formData.hasFever === 'yes',
       chills_or_shivers: formData.hasChills === 'yes',
@@ -205,6 +207,13 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       infos = {
         ...infos,
         diarrhoea_frequency: formData.diarrhoeaFrequency,
+      };
+    }
+
+    if (currentPatient.hasHayfever && formData.hasUnusualHayfever) {
+      infos = {
+        ...infos,
+        typical_hayfever: formData.hasUnusualHayfever === 'no',
       };
     }
 
@@ -446,7 +455,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
                 {currentPatient.hasHayfever && (
                   <DropdownField
-                    selectedValue={props.values.typicalHayfever}
+                    selectedValue={props.values.hasUnusualHayfever}
                     onValueChange={props.handleChange('typicalHayfever')}
                     label={i18n.t('describe-symptoms.question-typical-hayfever')}
                   />
