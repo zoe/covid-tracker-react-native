@@ -1,8 +1,11 @@
+import { chevronLeft } from '@assets';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
@@ -12,9 +15,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';
-import { chevronLeft } from '@assets';
-import { Header } from '@covid/components/Screen';
-import i18n from '@covid/locale/i18n';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;

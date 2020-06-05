@@ -1,3 +1,4 @@
+import { chevronLeft } from '@assets';
 import { Header } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
@@ -7,8 +8,8 @@ import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { ScreenParamList } from '../../ScreenParamList';
-import { chevronLeft } from '@assets';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyInfo'>;
