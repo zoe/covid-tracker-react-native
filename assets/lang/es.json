@@ -260,7 +260,10 @@
     "please-select-hormone-treatments": "Seleccione uno o más de los anteriores",
     "have-heart-disease": "¿Tiene enfermedad cardíaca?",
     "have-diabetes": "¿Tiene diabetes?",
-    "have-lung-disease": "¿Tiene enfermedad pulmonar o asma?",
+    "have-hayfever": "¿Tiene la fiebre del heno (alergia al polen)?",
+    "have-eczema": "¿Tiene eccemas?",
+    "have-asthma": "¿Tiene asthma?",
+    "have-lung-disease": "¿Tiene alguna enfermedad pulmonar?",
     "is-smoker": "¿Fuma?",
     "never-smoked": "Nunca",
     "not-currently-smoking": "No actualmente",
@@ -377,7 +380,8 @@
     "question-has-nausea": "¿Ha sentido náuseas o ha vomitado?",
     "question-has-dizziness": "¿Tiene mareos o aturdimiento?",
     "question-has-chills": "¿Siente escalofríos (siente demasiado frío)?",
-    "question-has-eye-soreness": "¿Siente dolor o incomodidad inusual en los ojos (como sensibilidad a la luz, lágrimas excesivas u ojos rojos)?"
+    "question-has-eye-soreness": "¿Siente dolor o incomodidad inusual en los ojos (como sensibilidad a la luz, lágrimas excesivas u ojos rojos)?",
+    "question-typical-hayfever": "¿Son sus síntomas raros en comparación con su fiebre del heno o alergia al polen?"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "En el último día, ¿ha interactuado en persona con pacientes?",
@@ -828,6 +832,26 @@
       "yes": false,
       "no": false,
       "app-name": false
+    },
+
+    "validation-study-info": {
+      "title": false,
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "interested": false,
+      "visit-next": false
+    },
+
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
     }
   }
 }

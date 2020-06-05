@@ -5,6 +5,7 @@ import { getDaysAgo } from '@covid/utils/datetime';
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 
+import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
@@ -16,8 +17,6 @@ import { cleanIntegerVal } from '../utils/number';
 import {
   AreaStatsResponse,
   AskValidationStudy,
-  AssessmentInfosRequest,
-  AssessmentResponse,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
@@ -26,8 +25,6 @@ import {
   UserResponse,
 } from './dto/UserAPIContracts';
 
-const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
@@ -64,11 +61,6 @@ export interface IPatientService {
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
 }
 
-export interface IAssessmentService {
-  addAssessment(assessment: Partial<AssessmentInfosRequest>): Promise<any>;
-  updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>): Promise<any>;
-}
-
 export interface ILocalisationService {
   setUserCountry(countryCode: string): void;
   initCountryConfig(countryCode: string): void;
@@ -93,7 +85,6 @@ export default class UserService extends ApiClientBase
     IProfileService,
     IConsentService,
     IPatientService,
-    IAssessmentService,
     ILocalisationService,
     IDontKnowService {
   public static userCountry = 'US';
@@ -183,6 +174,7 @@ export default class UserService extends ApiClientBase
       password1: password,
       password2: password,
       country_code: UserService.userCountry,
+      language_code: UserService.getLocale(),
       consent_document: UserService.consentSigned.document,
       consent_version: UserService.consentSigned.version,
       privacy_policy_version: UserService.consentSigned.privacy_policy_version,
@@ -232,7 +224,7 @@ export default class UserService extends ApiClientBase
   }
 
   private getPatientVersion() {
-    return PATIENT_VERSION;
+    return appConfig.patientVersion;
   }
 
   public async getPatient(patientId: string): Promise<PatientInfosRequest | null> {
@@ -300,12 +292,14 @@ export default class UserService extends ApiClientBase
       !!patient.ht_other;
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
-
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
+
+    const hasAtopyAnswers = patient.has_hayfever != null;
+    const hasHayfever = patient.has_hayfever;
 
     return {
       ...patientState,
@@ -323,6 +317,8 @@ export default class UserService extends ApiClientBase
       isSameHousehold,
       shouldAskLevelOfIsolation,
       shouldAskStudy,
+      hasAtopyAnswers,
+      hasHayfever,
     };
   }
 
@@ -373,22 +369,6 @@ export default class UserService extends ApiClientBase
   public async updatePii(pii: Partial<PiiRequest>) {
     const userId = ApiClientBase.userId;
     return this.client.patch(`/information/${userId}/`, pii);
-  }
-
-  public async addAssessment(assessment: Partial<AssessmentInfosRequest>) {
-    assessment = {
-      ...assessment,
-      version: this.getAssessmentVersion(),
-    };
-    return this.client.post<AssessmentResponse>(`/assessments/`, assessment);
-  }
-
-  private getAssessmentVersion() {
-    return ASSESSMENT_VERSION;
-  }
-
-  public async updateAssessment(assessmentId: string, assessment: Partial<AssessmentInfosRequest>) {
-    return this.client.patch<AssessmentResponse>(`/assessments/${assessmentId}/`, assessment);
   }
 
   async getConsentSigned(): Promise<Consent | null> {
@@ -528,10 +508,17 @@ export default class UserService extends ApiClientBase
     i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
   }
 
-  async shouldAskForValidationStudy() {
-    const response = await this.client.get<AskValidationStudy>(
-      `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`
-    );
+  private static getLocale() {
+    return Localization.locale.split('-')[0];
+  }
+
+  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
+    let url = `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`;
+    if (onThankYouScreen) {
+      url += '&thank_you_screen=true';
+    }
+
+    const response = await this.client.get<AskValidationStudy>(url);
     return response.data.should_ask_uk_validation_study;
   }
 

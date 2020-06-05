@@ -1,16 +1,16 @@
+import { assessmentService } from '@covid/Services';
+import { BigButton } from '@covid/components/Button';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { BigButton } from '@covid/components/Button';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 type HowYouFeelProps = {
@@ -30,39 +30,47 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   constructor(props: HowYouFeelProps) {
     super(props);
     this.state = initialState;
-    Navigator.resetNavigation(props.navigation);
-
-    // Fix reference to `this` inside these functions
-    this.handleFeelNormal = this.handleFeelNormal.bind(this);
-    this.handleHaveSymptoms = this.handleHaveSymptoms.bind(this);
+    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
-  handleFeelNormal() {
-    this.updateAssessment('healthy')
-      .then((response) => Navigator.gotoEndAssessment())
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+  handleFeelNormal = async () => {
+    try {
+      const isAssessmentComplete = true;
+      await this.updateAssessment('healthy', isAssessmentComplete);
+      AssessmentCoordinator.goToNextHowYouFeelScreen(true);
+    } catch (error) {
+      // Error already handled.
+    }
+  };
 
-  handleHaveSymptoms() {
-    const currentPatient = this.props.route.params.currentPatient;
-    this.updateAssessment('not_healthy')
-      .then((response) =>
-        this.props.navigation.navigate('DescribeSymptoms', { currentPatient, assessmentId: response.data.id })
-      ) // todo julien: thank you
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-  }
+  handleHaveSymptoms = async () => {
+    try {
+      await this.updateAssessment('not_healthy');
+      AssessmentCoordinator.goToNextHowYouFeelScreen(false);
+    } catch (error) {
+      // Error already handled.
+    }
+  };
 
-  private updateAssessment(status: string) {
-    const assessmentId = this.props.route.params.assessmentId;
-    const userService = new UserService();
-    const promise = userService.updateAssessment(assessmentId, {
-      health_status: status,
-    });
-    return promise;
+  private async updateAssessment(status: string, isComplete: boolean = false) {
+    try {
+      const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
+      const assessment = {
+        health_status: status,
+      };
+      if (isComplete) {
+        await assessmentService.completeAssessment(assessmentId!, assessment);
+      } else {
+        await assessmentService.saveAssessment(assessmentId!, assessment);
+      }
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      throw error;
+    }
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>

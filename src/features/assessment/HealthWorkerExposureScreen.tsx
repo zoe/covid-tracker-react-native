@@ -1,18 +1,19 @@
+import { assessmentService } from '@covid/Services';
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { View } from 'react-native';
 import * as Yup from 'yup';
 
-import DropdownField from '@covid/components/DropdownField';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import { AssessmentInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
@@ -52,32 +53,23 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     this.state = initialState;
   }
 
-  handleUpdate(formData: HealthWorkerExposureData) {
-    const currentPatient = this.props.route.params.currentPatient;
-    const assessmentId = this.props.route.params.assessmentId;
-    const userService = new UserService();
-    var assessment = this.createAssessment(formData);
+  handleUpdate = async (formData: HealthWorkerExposureData) => {
+    try {
+      const { assessmentId } = AssessmentCoordinator.assessmentData;
+      var assessment = this.createAssessment(formData);
 
-    if (assessmentId == null) {
-      userService
-        .addAssessment(assessment)
-        .then((response) => {
-          this.props.navigation.setParams({ assessmentId: response.data.id });
-          this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId: response.data.id });
-        })
-        .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
-    } else {
-      userService
-        .updateAssessment(assessmentId, assessment)
-        .then((response) => {
-          this.props.navigation.navigate('CovidTest', { currentPatient, assessmentId });
-        })
-        .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+      const response = await assessmentService.saveAssessment(assessmentId!, assessment);
+      if (!assessmentId) {
+        AssessmentCoordinator.assessmentData.assessmentId = response.id;
+      }
+      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
-  }
+  };
 
   private createAssessment(formData: HealthWorkerExposureData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
     return {
@@ -122,7 +114,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },

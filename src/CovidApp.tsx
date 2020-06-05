@@ -1,9 +1,11 @@
 import Analytics from '@covid/core/Analytics';
+import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { SplashScreen } from '@covid/features/SplashScreen';
 import ThankYouScreen from '@covid/features/ThankYouScreen';
+import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
 import ViralThankYouScreen from '@covid/features/ViralThankYouScreen';
 import CovidTestDetailScreen from '@covid/features/assessment/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
@@ -37,6 +39,7 @@ import { Welcome2Screen } from '@covid/features/register/Welcome2Screen';
 import { WelcomeRepeatScreen } from '@covid/features/register/WelcomeRepeatScreen';
 import { PrivacyPolicyUKScreen } from '@covid/features/register/gb/PrivacyPolicyUKScreen';
 import ValidationStudyConsentScreen from '@covid/features/register/gb/ValidationStudyConsentScreen';
+import ValidationStudyInfoScreen from '@covid/features/register/gb/ValidationStudyInfoScreen';
 import ValidationStudyIntroScreen from '@covid/features/register/gb/ValidationStudyIntroScreen';
 import PrivacyPolicySVScreen from '@covid/features/register/sv/PrivacyPolicySVScreen';
 import BeforeWeStartUS from '@covid/features/register/us/BeforeWeStartUS';
@@ -53,6 +56,7 @@ import { Header, Root, View } from 'native-base';
 import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -125,22 +129,24 @@ export default class CovidApp extends Component<object, State> {
 
     return (
       <SafeAreaProvider>
-        <Root>
-          <Header style={{ display: 'none' }}>
-            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-          </Header>
+        <Provider store={store}>
+          <Root>
+            <Header style={{ display: 'none' }}>
+              <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+            </Header>
 
-          <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
-            <Drawer.Navigator
-              drawerContent={(props) => <DrawerMenu {...props} />}
-              screenOptions={{ swipeEnabled: false }}
-              drawerStyle={{
-                width: Dimensions.get('screen').width,
-              }}>
-              <Drawer.Screen name="Main" component={this.mainNavStack} />
-            </Drawer.Navigator>
-          </NavigationContainer>
-        </Root>
+            <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
+              <Drawer.Navigator
+                drawerContent={(props) => <DrawerMenu {...props} />}
+                screenOptions={{ swipeEnabled: false }}
+                drawerStyle={{
+                  width: Dimensions.get('screen').width,
+                }}>
+                <Drawer.Screen name="Main" component={this.mainNavStack} />
+              </Drawer.Navigator>
+            </NavigationContainer>
+          </Root>
+        </Provider>
       </SafeAreaProvider>
     );
   }
@@ -195,6 +201,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
         <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
         <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={noHeader} />
+        <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
         <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
         <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
         <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={noHeader} />
@@ -203,7 +210,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={noHeader} />
         <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
-        <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={simpleHeader} />
+        <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
+        <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
       </Stack.Navigator>
     );
   }

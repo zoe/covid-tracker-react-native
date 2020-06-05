@@ -122,10 +122,10 @@ export class HeightQuestion extends Component<Props, object> {
             </View>
           )}
         </Item>
-        {props.errors.height && <ValidationError error={props.errors.height} />}
-        {props.errors.feet && <ValidationError error={props.errors.feet} />}
-        {props.errors.inches && <ValidationError error={props.errors.inches} />}
-        {props.errors.heightUnit && <ValidationError error={props.errors.heightUnit} />}
+        {props.touched.height && props.errors.height && <ValidationError error={props.errors.height} />}
+        {props.touched.feet && props.errors.feet && <ValidationError error={props.errors.feet} />}
+        {props.touched.inches && props.errors.inches && <ValidationError error={props.errors.inches} />}
+        {props.touched.heightUnit && props.errors.heightUnit && <ValidationError error={props.errors.heightUnit} />}
       </FieldWrapper>
     );
   }
