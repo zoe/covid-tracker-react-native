@@ -8,12 +8,11 @@ import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { experiments, startExperiment } from '@covid/core/Experiments';
 import Navigator from '@covid/features/Navigation';
-import { RouteProp } from '@react-navigation/native';
-import { Text } from 'native-base';
-
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { colors } from '@theme';
+import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
