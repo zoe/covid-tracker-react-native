@@ -292,12 +292,14 @@ export default class UserService extends ApiClientBase
       !!patient.ht_other;
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
-
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
+
+    const hasAtopyAnswers = patient.has_hayfever != null;
+    const hasHayfever = patient.has_hayfever;
 
     return {
       ...patientState,
@@ -315,6 +317,8 @@ export default class UserService extends ApiClientBase
       isSameHousehold,
       shouldAskLevelOfIsolation,
       shouldAskStudy,
+      hasAtopyAnswers,
+      hasHayfever,
     };
   }
 
@@ -508,10 +512,13 @@ export default class UserService extends ApiClientBase
     return Localization.locale.split('-')[0];
   }
 
-  async shouldAskForValidationStudy() {
-    const response = await this.client.get<AskValidationStudy>(
-      `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`
-    );
+  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
+    let url = `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`;
+    if (onThankYouScreen) {
+      url += '&thank_you_screen=true';
+    }
+
+    const response = await this.client.get<AskValidationStudy>(url);
     return response.data.should_ask_uk_validation_study;
   }
 

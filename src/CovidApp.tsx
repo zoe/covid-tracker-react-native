@@ -5,6 +5,7 @@ import { DrawerMenu } from '@covid/features/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { SplashScreen } from '@covid/features/SplashScreen';
 import ThankYouScreen from '@covid/features/ThankYouScreen';
+import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
 import ViralThankYouScreen from '@covid/features/ViralThankYouScreen';
 import CovidTestDetailScreen from '@covid/features/assessment/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
@@ -199,6 +200,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
         <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
         <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={noHeader} />
+        <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
         <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
         <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
         <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={noHeader} />

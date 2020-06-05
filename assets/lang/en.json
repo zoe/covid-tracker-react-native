@@ -260,7 +260,10 @@
     "please-select-hormone-treatments": "Please select one or more of the above",
     "have-heart-disease": "Do you have heart disease?",
     "have-diabetes": "Do you have diabetes?",
-    "have-lung-disease": "Do you have lung disease or asthma?",
+    "have-hayfever": "Do you have hayfever (seasonal allergies)?",
+    "have-eczema": "Do you have eczema?",
+    "have-asthma": "Do you have asthma?",
+    "have-lung-disease": "Do you have lung disease?",
     "is-smoker": "Do you smoke?",
     "never-smoked": "Never",
     "not-currently-smoking": "Not currently",
@@ -377,7 +380,8 @@
     "question-has-nausea": "Have you felt nausea or experienced vomiting?",
     "question-has-dizziness": "Are you experiencing dizziness or light-headedness?",
     "question-has-chills": "Do you feel chills or shivers (feel too cold)?",
-    "question-has-eye-soreness": "Do your eyes have any unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)?"
+    "question-has-eye-soreness": "Do your eyes have any unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)?",
+    "question-typical-hayfever": "Are your current symptoms typical of your usual hay fever or seasonal allergies?"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
@@ -502,7 +506,7 @@
     "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
     "url": "https://covid.joinzoe.com/",
     "primary-text": "Please share this app",
-    "secondary-text": "The more people report their symptoms, the more we can help those at risk.",
+    "secondary-text": "As we ease lockdown, it's more important than ever that more people are reporting in you area.",
     "button-text": "Share this app"
   },
 
@@ -827,5 +831,13 @@
     "header-16": "About us",
     "para-16": "Our address is: Zoe Global Limited, 164 Westminster Bridge Road, London SE1 7RW, United Kingdom\nData Protection Officer: dpo@joinzoe.com",
     "back": "Back"
+  },
+
+  "thank-you-uk": {
+    "title": "Thank you for reporting.",
+    "subtitle": "As we ease lockdown, your daily reporting is more important than ever to avoid a second wave.",
+    "sign-off": "Than you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
+    "cta-single-profile": "Back to home screen",
+    "cta-multi-profile": "Report for others"
   }
 }

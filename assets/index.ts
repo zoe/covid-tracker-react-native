@@ -9,12 +9,12 @@ export const gbMap = require('./gbMap.png');
 // Icons
 export const closeIcon = require('./icons/close.png');
 export const chevronRight = require('./icons/chevron-right.png');
-export const pending = require('./icons/pending.png');
 
 // Flags
-export const svFlag = require('./icons/sv-flag.png');
 export const gbFlag = require('./icons/gb-flag.png');
 export const menuIcon = require('./icons/menu.png');
+export const pending = require('./icons/pending.png');
+export const svFlag = require('./icons/sv-flag.png');
 export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
 
@@ -43,3 +43,11 @@ export const profilesIcon = require('./profiles/profiles.png');
 export const svMap = require('./svMap.png');
 
 export const NUMBER_OF_PROFILE_AVATARS = 10;
+
+// ThankYou Modules
+export const blog001 = require('./thank-you-modules/blog_001.png');
+export const incidence001 = require('./thank-you-modules/incidence_001.png');
+export const webinar001 = require('./thank-you-modules/webinar_001.png');
+export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
+export const studyInvite = require('./thank-you-modules/studyInvite.png');
+export const shareApp = require('./thank-you-modules/shareApp.png');

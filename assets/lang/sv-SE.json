@@ -155,7 +155,10 @@
     "please-select-hormone-treatments": "Välj ett eller flera av alternativen ovan",
     "have-heart-disease": "Har du någon hjärtsjukdom?",
     "have-diabetes": "Har du diabetes?",
-    "have-lung-disease": "Har du någon lungsjukdom eller astma?",
+    "have-hayfever": "Har du pollenallergi (säsongsbetonad allergi)?",
+    "have-eczema": "Har du eksem?",
+    "have-asthma": "Har du astma?",
+    "have-lung-disease": "Har du en lungsjukdom?",
     "is-smoker": "Röker du?",
     "never-smoked": "Nej, aldrig rökt",
     "not-currently-smoking": "Nej, men tidigare varit rökare",
@@ -346,7 +349,8 @@
     "question-has-nausea": "Har du känt dig illamående eller kräkts?",
     "question-has-dizziness": "Känner du dig yr eller snurrig?",
     "question-has-chills": "Har du frossa eller huttrar du (känner dig kall)?",
-    "question-has-eye-soreness": "Gör dina ögon ont eller är irriterade (t.ex. ljuskänsliga, rinniga, eller röda)?"
+    "question-has-eye-soreness": "Gör dina ögon ont eller är irriterade (t.ex. ljuskänsliga, rinniga, eller röda)?",
+    "question-typical-hayfever": "Är dina aktuella symtom typiska för din vanliga pollenallergi eller säsongsbetonade allergi?"
   },
 
   "where-are-you": {
@@ -825,6 +829,13 @@
       "header-16": false,
       "para-16": false,
       "back": false
+    },
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
     }
   }
 }

@@ -13,7 +13,8 @@ type ScreenName = keyof ScreenParamList;
 // Various route parameters
 type PatientIdParamType = { patientId: string };
 type CurrentPatientParamType = { currentPatient: PatientStateType };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType;
+type ConsentView = { viewOnly: boolean };
+type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView;
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -149,7 +150,7 @@ class Navigator {
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
-    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy())) {
+    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy(false))) {
       this.navigation.navigate('ValidationStudyIntro', { currentPatient });
     } else {
       this.startAssessmentFlow(currentPatient);
