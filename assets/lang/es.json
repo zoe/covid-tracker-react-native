@@ -381,7 +381,7 @@
     "question-has-dizziness": "¿Tiene mareos o aturdimiento?",
     "question-has-chills": "¿Siente escalofríos (siente demasiado frío)?",
     "question-has-eye-soreness": "¿Siente dolor o incomodidad inusual en los ojos (como sensibilidad a la luz, lágrimas excesivas u ojos rojos)?",
-    "question-typical-hayfever": "¿Son sus síntomas actuales los habituales de su fiebre del heno o alergia al polen?"
+    "question-typical-hayfever": "¿Son sus síntomas raros en comparación con su fiebre del heno o alergia al polen?"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "En el último día, ¿ha interactuado en persona con pacientes?",

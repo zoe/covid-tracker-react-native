@@ -46,7 +46,7 @@ const initialFormValues = {
   hasDelirium: 'no',
   hasEyeSoreness: 'no',
   isSkippingMeals: 'no',
-  typicalHayfever: 'yes',
+  hasUnusualHayfever: 'no',
   otherSymptoms: '',
 };
 
@@ -75,7 +75,7 @@ interface DescribeSymptomsData {
   hasUnusualMusclePains: string;
   isSkippingMeals: string;
   hasEyeSoreness: string;
-  typicalHayfever: string;
+  hasUnusualHayfever: string;
   otherSymptoms: string;
 }
 
@@ -175,7 +175,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       red_welts_on_face_or_lips: formData.hasRedWeltsOnFace === 'yes',
       blisters_on_feet: formData.hasBlistersOnFeet === 'yes',
       eye_soreness: formData.hasEyeSoreness === 'yes',
-      typical_hayfever: formData.typicalHayfever === 'yes',
+      typical_hayfever: formData.hasUnusualHayfever === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
     if (formData.otherSymptoms) {
@@ -446,7 +446,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
 
                 {currentPatient.hasHayfever && (
                   <DropdownField
-                    selectedValue={props.values.typicalHayfever}
+                    selectedValue={props.values.hasUnusualHayfever}
                     onValueChange={props.handleChange('typicalHayfever')}
                     label={i18n.t('describe-symptoms.question-typical-hayfever')}
                   />
