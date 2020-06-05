@@ -64,7 +64,9 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
               onPress={() => {
                 this.props.navigation.navigate('ValidationStudyConsent', {
                   viewOnly: false,
-                  currentPatient: this.props.route.params.currentPatient,
+                  ...(this.props.route.params?.currentPatient && {
+                    currentPatient: this.props.route.params.currentPatient,
+                  }),
                 });
               }}>
               <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
@@ -90,7 +92,6 @@ const styles = StyleSheet.create({
   backIcon: {
     alignSelf: 'flex-start',
     marginTop: 32,
-    rotation: 180,
   },
   header: {
     marginTop: 24,
