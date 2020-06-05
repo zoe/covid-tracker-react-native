@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     borderRadius: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
   },
   primaryText: {
     fontSize: 20,
@@ -86,9 +86,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   socialIcon: {
-    height: 60,
-    marginLeft: 5,
-    marginTop: 5,
-    resizeMode: 'contain',
+    width: '100%',
+    height: 'auto',
+    aspectRatio: 3.438,
   },
 });
