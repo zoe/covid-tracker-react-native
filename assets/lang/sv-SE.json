@@ -829,6 +829,13 @@
       "header-16": false,
       "para-16": false,
       "back": false
+    },
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
     }
   }
 }

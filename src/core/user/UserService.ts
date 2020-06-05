@@ -537,10 +537,13 @@ export default class UserService extends ApiClientBase
     return Localization.locale.split('-')[0];
   }
 
-  async shouldAskForValidationStudy() {
-    const response = await this.client.get<AskValidationStudy>(
-      `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`
-    );
+  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
+    let url = `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`;
+    if (onThankYouScreen) {
+      url += '&thank_you_screen=true';
+    }
+
+    const response = await this.client.get<AskValidationStudy>(url);
     return response.data.should_ask_uk_validation_study;
   }
 

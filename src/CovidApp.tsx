@@ -55,6 +55,7 @@ import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -199,6 +200,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
         <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
         <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={noHeader} />
+        <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
         <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
         <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
         <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={noHeader} />

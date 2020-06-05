@@ -7,7 +7,8 @@ import UserService from './user/UserService';
 let isInitialized = false;
 
 type AdditionalUserProperties = {
-  isTester: boolean;
+  isTester?: boolean;
+  Experiment_001?: string;
 };
 
 export const events = {
@@ -18,6 +19,8 @@ export const events = {
   DONATE: 'DONATE',
   JOIN_STUDY: 'JOIN_STUDY',
   DECLINE_STUDY: 'DECLINE_STUDY',
+  CLICK_STUDY_AD_CALLOUT: 'CLICK_STUDY_AD_CALLOUT',
+  CLICK_CALLOUT: 'CLICK_CALLOUT',
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
