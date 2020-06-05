@@ -6,6 +6,7 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
 import { RouteProp } from '@react-navigation/native';
@@ -27,11 +28,15 @@ import {
   supplementValues,
 } from './fields/VitaminQuestion';
 
-export interface YourHealthData extends BloodPressureData, PeriodData, HormoneTreatmentData, VitaminSupplementData {
+export interface YourHealthData
+  extends BloodPressureData,
+    PeriodData,
+    HormoneTreatmentData,
+    VitaminSupplementData,
+    AtopyData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
-  hasLungDisease: string;
   smokerStatus: string;
   smokedYearsAgo: string;
   hasKidneyDisease: string;
@@ -51,7 +56,6 @@ const initialFormValues = {
   isPregnant: 'no',
   hasHeartDisease: 'no',
   hasDiabetes: 'no',
-  hasLungDisease: 'no',
   smokerStatus: 'never',
   smokedYearsAgo: '',
   hasKidneyDisease: 'no',
@@ -136,6 +140,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
     hasHeartDisease: Yup.string().required(),
     hasDiabetes: Yup.string().required(),
+    hasHayfever: Yup.string().required(),
+    hasEczema: Yup.string().required(),
+    hasAsthma: Yup.string().required(),
     hasLungDisease: Yup.string().required(),
     smokerStatus: Yup.string().required(),
     smokedYearsAgo: Yup.number().when('smokerStatus', {
@@ -179,6 +186,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         currentPatient.hasPeriodAnswer = true;
         currentPatient.hasHormoneTreatmentAnswer = true;
         currentPatient.hasVitaminAnswer = true;
+        currentPatient.hasAtopyAnswers = true;
+        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })
@@ -196,7 +205,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     let infos = {
       has_heart_disease: formData.hasHeartDisease === 'yes',
       has_diabetes: formData.hasDiabetes === 'yes',
-      has_lung_disease: formData.hasLungDisease === 'yes',
+      has_hayfever: formData.hasHayfever === 'yes',
+      has_eczema: formData.hasEczema === 'yes',
+      has_asthma: formData.hasAsthma === 'yes',
+      has_lung_disease_only: formData.hasLungDisease === 'yes',
       has_kidney_disease: formData.hasKidneyDisease === 'yes',
       has_cancer: formData.hasCancer === 'yes',
       takes_immunosuppressants: formData.takesImmunosuppressants === 'yes',
@@ -293,6 +305,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...PeriodQuestion.initialFormValues(),
             ...HormoneTreatmentQuestion.initialFormValues(),
             ...VitaminSupplementsQuestion.initialFormValues(),
+            ...AtopyQuestions.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourHealthData) => {
@@ -335,11 +348,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   label={i18n.t('your-health.have-diabetes')}
                 />
 
-                <DropdownField
-                  selectedValue={props.values.hasLungDisease}
-                  onValueChange={props.handleChange('hasLungDisease')}
-                  label={i18n.t('your-health.have-lung-disease')}
-                />
+                <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />
 
                 <DropdownField
                   selectedValue={props.values.smokerStatus}

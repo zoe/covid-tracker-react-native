@@ -5,6 +5,7 @@ import { ValidationErrors } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -34,7 +35,8 @@ interface BackfillData
     RaceEthnicityData,
     PeriodData,
     HormoneTreatmentData,
-    VitaminSupplementData {}
+    VitaminSupplementData,
+    AtopyData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -48,6 +50,7 @@ type State = {
   needPeriodStatusAnswer: boolean;
   needHormoneTreatmentAnswer: boolean;
   needVitaminAnswer: boolean;
+  needAtopyAnswers: boolean;
 };
 
 const initialState: State = {
@@ -57,6 +60,7 @@ const initialState: State = {
   needPeriodStatusAnswer: false,
   needHormoneTreatmentAnswer: false,
   needVitaminAnswer: false,
+  needAtopyAnswers: false,
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
@@ -142,6 +146,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needPeriodStatusAnswer: !currentPatient.hasPeriodAnswer,
       needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer,
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
+      needAtopyAnswers: !currentPatient.hasAtopyAnswers,
     });
   }
 
@@ -160,6 +165,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
         if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
+        if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
+        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
@@ -237,6 +244,16 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       };
     }
 
+    if (this.state.needAtopyAnswers) {
+      infos = {
+        ...infos,
+        has_hayfever: formData.hasHayfever === 'yes',
+        has_eczema: formData.hasEczema === 'yes',
+        has_asthma: formData.hasAsthma === 'yes',
+        has_lung_disease_only: formData.hasLungDisease === 'yes',
+      };
+    }
+
     return infos;
   }
 
@@ -260,6 +277,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...HormoneTreatmentQuestion.initialFormValues(),
             ...PeriodQuestion.initialFormValues(),
             ...VitaminSupplementsQuestion.initialFormValues(),
+            ...AtopyQuestions.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackfillData) => {
@@ -289,6 +307,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                 {this.state.needVitaminAnswer && (
                   <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
                 )}
+
+                {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
