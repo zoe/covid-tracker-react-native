@@ -9,9 +9,16 @@
     }
   ],
 
+  "settings": {
+    "import/internal-regex": "^@(covid)|(theme)|(assets)"
+  },
+
   "rules": {
     // Adding this because of difficulty to find - documentation for import/order
     // https://github.com/benmosher/eslint-plugin-import/blob/v2.20.2/docs/rules/order.md
-    "import/order": ["error"]
+    "import/order": [
+      "error",
+      { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"], "newlines-between": "always" }
+    ]
   }
 }
