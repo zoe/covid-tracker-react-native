@@ -1,50 +1,26 @@
-import { IApiClient } from '../api/ApiClient';
+import { IAssessmentRemoteClient } from './AssessmentApiClient';
+import { IAssessmentState } from './AssessmentState';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
 
-const API_ASSESSMENTS = '/assessments/';
-const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-
 type AssessmentId = string | null;
 
-export interface IAssessmentRemoteClient {
-  addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
-  updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<AssessmentResponse>;
-}
-
-export class AssessmentApiClient implements IAssessmentRemoteClient {
-  apiClient: IApiClient;
-  constructor(apiClient: IApiClient) {
-    this.apiClient = apiClient;
-  }
-
-  addAssessment(assessment: AssessmentInfosRequest): Promise<AssessmentResponse> {
-    assessment = {
-      ...assessment,
-      version: ASSESSMENT_VERSION,
-    };
-    return this.apiClient.post<AssessmentInfosRequest, AssessmentResponse>(API_ASSESSMENTS, assessment);
-  }
-
-  updateAssessment(assessmentId: string, assessment: AssessmentInfosRequest): Promise<any> {
-    const assessmentUrl = `/assessments/${assessmentId}/`;
-    return this.apiClient.patch<AssessmentInfosRequest, AssessmentResponse>(assessmentUrl, assessment);
-  }
-}
-
 export interface IAssessmentService {
+  initAssessment(): void;
   saveAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest>): Promise<AssessmentResponse>;
   completeAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest> | null): Promise<boolean>;
 }
 
 export default class AssessmentService implements IAssessmentService {
   apiClient: IAssessmentRemoteClient;
+  state: IAssessmentState;
 
-  constructor(apiClient: IAssessmentRemoteClient) {
+  constructor(apiClient: IAssessmentRemoteClient, state: IAssessmentState) {
     this.apiClient = apiClient;
+    this.state = state;
   }
 
-  async saveAssessment(
+  private async saveToApi(
     assessmentId: AssessmentId,
     assessment: Partial<AssessmentInfosRequest>
   ): Promise<AssessmentResponse> {
@@ -57,14 +33,44 @@ export default class AssessmentService implements IAssessmentService {
     return response;
   }
 
+  private async sendFullAssessmentToApi() {
+    try {
+      const assessment = this.state.getAssessment();
+      const response = await this.saveToApi(assessment.id!, assessment);
+      if (response.id) {
+        this.state.updateAssessment({ id: response.id });
+      }
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private async saveToState(assessment: Partial<AssessmentInfosRequest>) {
+    return this.state.updateAssessment(assessment);
+  }
+
+  initAssessment() {
+    this.state.initAssessment();
+  }
+
+  async saveAssessment(
+    assessmentId: AssessmentId,
+    assessment: Partial<AssessmentInfosRequest>
+  ): Promise<AssessmentResponse> {
+    await this.saveToState(assessment);
+    return {} as AssessmentResponse; // To fulfil interface requirement.
+  }
+
   async completeAssessment(
     assessmentId: AssessmentId,
     assessment: Partial<AssessmentInfosRequest> | null = null
   ): Promise<boolean> {
-    let response;
     if (assessment) {
-      response = await this.saveAssessment(assessmentId, assessment);
+      await this.saveAssessment(assessmentId, assessment);
     }
+
+    const response = this.sendFullAssessmentToApi();
     return !!response;
   }
 }
