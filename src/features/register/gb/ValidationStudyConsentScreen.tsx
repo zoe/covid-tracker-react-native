@@ -25,6 +25,7 @@ interface TermsState {
   agreeToAbove: boolean;
   anonymizedData: boolean;
   reContacted: boolean;
+  submitting: boolean;
 }
 
 export default class ValidationStudyConsentScreen extends Component<PropsType, TermsState> {
@@ -36,6 +37,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
       agreeToAbove: false,
       anonymizedData: false,
       reContacted: false,
+      submitting: false,
     };
   }
 
@@ -51,8 +53,9 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
     this.setState({ reContacted: !this.state.reContacted });
   };
 
-  handleAgreeClicked = async () => {
-    if (this.state.agreeToAbove) {
+  handleAgreeClicked = () => {
+    if (this.state.agreeToAbove && !this.state.submitting) {
+      this.setState({ submitting: true });
       Analytics.track(events.JOIN_STUDY);
       this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
       Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
