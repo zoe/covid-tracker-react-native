@@ -302,7 +302,9 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
               </Form>
