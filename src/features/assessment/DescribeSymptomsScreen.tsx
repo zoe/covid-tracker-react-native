@@ -175,6 +175,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       red_welts_on_face_or_lips: formData.hasRedWeltsOnFace === 'yes',
       blisters_on_feet: formData.hasBlistersOnFeet === 'yes',
       eye_soreness: formData.hasEyeSoreness === 'yes',
+      typical_hayfever: formData.typicalHayfever === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
     if (formData.otherSymptoms) {
