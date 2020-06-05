@@ -1,11 +1,5 @@
-import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
-import Analytics from '@covid/core/Analytics';
-import { UserNotFoundException } from '@covid/core/Exception';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors, fontStyles } from '@theme';
 import { Icon, Input, Item, Label, Toast } from 'native-base';
 import React, { Component } from 'react';
 import {
@@ -17,6 +11,13 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
+import { colors, fontStyles } from '@theme';
+import i18n from '@covid/locale/i18n';
+import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { UserNotFoundException } from '@covid/core/Exception';
+import Analytics from '@covid/core/Analytics';
+import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 
 import { ScreenParamList } from '../ScreenParamList';
 

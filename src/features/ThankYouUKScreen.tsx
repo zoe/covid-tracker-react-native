@@ -1,5 +1,11 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Text } from 'native-base';
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+
 import { blog001, incidence001, surveyInvite, webinar001 } from '@assets';
-import { userService } from '@covid/Services';
+import { colors } from '@theme';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
@@ -9,12 +15,7 @@ import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/co
 import { experiments, startExperiment } from '@covid/core/Experiments';
 import Navigator from '@covid/features/Navigation';
 import i18n from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import { Text } from 'native-base';
-import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { userService } from '@covid/Services';
 
 import { ScreenParamList } from './ScreenParamList';
 

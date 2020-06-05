@@ -1,6 +1,7 @@
+import React, { Component } from 'react';
+
 import i18n from '@covid/locale/i18n';
 import { getDaysAgo } from '@covid/utils/datetime';
-import React, { Component } from 'react';
 
 import { SecondaryText } from './Text';
 

@@ -1,8 +1,9 @@
-import { CalloutBoxContent } from '@covid/core/ContentService';
-import { colors } from '@theme';
 import { Linking } from 'expo';
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
+
+import { colors } from '@theme';
+import { CalloutBoxContent } from '@covid/core/ContentService';
 
 import { RegularText } from './Text';
 

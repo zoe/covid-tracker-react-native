@@ -1,3 +1,14 @@
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer, NavigationState } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as Font from 'expo-font';
+import { Header, Root, View } from 'native-base';
+import React, { Component, RefObject } from 'react';
+import { Dimensions, StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+
+import { colors } from '@theme/colors';
 import Analytics from '@covid/core/Analytics';
 import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
@@ -47,16 +58,6 @@ import { NursesConsentUSScreen } from '@covid/features/register/us/NursesConsent
 import { PrivacyPolicyUSScreen } from '@covid/features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from '@covid/features/register/us/TermsOfUseUSScreen';
 import i18n from '@covid/locale/i18n';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, NavigationState } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { colors } from '@theme/colors';
-import * as Font from 'expo-font';
-import { Header, Root, View } from 'native-base';
-import React, { Component, RefObject } from 'react';
-import { Dimensions, StatusBar } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();

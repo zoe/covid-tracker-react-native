@@ -1,7 +1,8 @@
-import { GenericTextField } from '@covid/components/GenericTextField';
-import i18n from '@covid/locale/i18n';
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
+
+import { GenericTextField } from '@covid/components/GenericTextField';
+import i18n from '@covid/locale/i18n';
 
 export interface WeeksPregnantData {
   weeksPregnant: string;

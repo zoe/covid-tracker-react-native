@@ -1,8 +1,9 @@
-import { isUSCountry } from '@covid/core/user/UserService';
-import { colors } from '@theme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import CalendarPicker, { CalendarPickerProps } from 'react-native-calendar-picker';
+
+import { colors } from '@theme';
+import { isUSCountry } from '@covid/core/user/UserService';
 
 import { screenWidth } from './Screen';
 

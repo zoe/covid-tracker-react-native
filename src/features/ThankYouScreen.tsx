@@ -1,3 +1,9 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+
+import { colors } from '@theme';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
@@ -5,11 +11,6 @@ import ShareThisApp from '@covid/components/ShareThisApp';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
 import i18n from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from './ScreenParamList';
 

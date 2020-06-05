@@ -1,4 +1,11 @@
-import { assessmentService } from '@covid/Services';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import { Form, Item, Label, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
+
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -11,13 +18,7 @@ import UserService from '@covid/core/user/UserService';
 import { cleanFloatVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
-import { Form, Item, Label, Text } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import * as Yup from 'yup';
+import { assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 

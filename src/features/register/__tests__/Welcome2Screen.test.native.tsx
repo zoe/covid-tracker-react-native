@@ -1,9 +1,10 @@
-import { svFlag, usFlag, gbFlag } from '@assets';
-import * as UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import * as React from 'react';
 import { Linking } from 'react-native';
 import { render, fireEvent } from 'react-native-testing-library';
+
+import { svFlag, usFlag, gbFlag } from '@assets';
+import i18n from '@covid/locale/i18n';
+import * as UserService from '@covid/core/user/UserService';
 
 import { Welcome2Screen } from '../Welcome2Screen';
 

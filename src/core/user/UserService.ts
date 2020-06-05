@@ -1,9 +1,10 @@
+import { AxiosResponse } from 'axios';
+import * as Localization from 'expo-localization';
+
 import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
-import { AxiosResponse } from 'axios';
-import * as Localization from 'expo-localization';
 
 import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
@@ -14,6 +15,7 @@ import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
+
 import {
   AreaStatsResponse,
   AskValidationStudy,

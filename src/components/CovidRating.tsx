@@ -1,10 +1,11 @@
-import UserService, { isGBCountry, isUSCountry, isSECountry } from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
 import Constants from 'expo-constants';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import UserService, { isGBCountry, isUSCountry, isSECountry } from '@covid/core/user/UserService';
 
 import { RegularBoldText, RegularText } from './Text';
 

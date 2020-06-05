@@ -1,11 +1,12 @@
-import { BigButton } from '@covid/components/Button';
-import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+
+import { BigButton } from '@covid/components/Button';
+import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 
 import { ScreenParamList } from '../../ScreenParamList';
 

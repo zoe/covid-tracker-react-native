@@ -1,10 +1,11 @@
-import { ApplicationVersion } from '@covid/components/AppVersion';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+
+import { colors } from '@theme';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ApplicationVersion } from '@covid/components/AppVersion';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock } from '../LegalComponents';

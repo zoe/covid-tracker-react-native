@@ -1,8 +1,9 @@
-import { covidIcon } from '@assets';
-import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+
+import { covidIcon } from '@assets';
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
 
 import { FlexView } from './FlexView';
 import { RegularBoldText, BrandedButton } from './Text';

@@ -1,7 +1,8 @@
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import * as UserService from '@covid/core/user/UserService';
 import * as React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
+
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import * as UserService from '@covid/core/user/UserService';
 
 import CountryIpModal from '../CountryIpModal';
 

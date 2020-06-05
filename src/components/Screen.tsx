@@ -1,11 +1,12 @@
-import Analytics from '@covid/core/Analytics';
-import { PatientProfile } from '@covid/core/patient/PatientState';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { colors } from '@theme';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { PatientProfile } from '@covid/core/patient/PatientState';
+import Analytics from '@covid/core/Analytics';
 
 import PatientHeader from './PatientHeader';
 

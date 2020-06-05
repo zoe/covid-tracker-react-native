@@ -1,5 +1,6 @@
-import i18n from '@covid/locale/i18n';
 import React from 'react';
+
+import i18n from '@covid/locale/i18n';
 
 import { ErrorMessageBar } from './ErrorMessageBar';
 
