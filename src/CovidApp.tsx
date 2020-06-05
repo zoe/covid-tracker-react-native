@@ -55,6 +55,7 @@ import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import ValidationStudyInfoScreen from '@covid/features/register/gb/ValidationStudyInfoScreen';
 import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -209,7 +210,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={noHeader} />
         <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
-        <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={simpleHeader} />
+        <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
+        <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
       </Stack.Navigator>
     );
   }

@@ -56,8 +56,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
           <BrandedButton
             style={styles.mainButton}
             onPress={() => {
-              this.props.navigation.navigate('ValidationStudyConsent', {
-                viewOnly: false,
+              this.props.navigation.navigate('ValidationStudyInfo', {
                 currentPatient: this.props.route.params.currentPatient,
               });
             }}>
