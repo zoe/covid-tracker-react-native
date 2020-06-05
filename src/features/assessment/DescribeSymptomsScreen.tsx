@@ -459,7 +459,9 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                 />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
 
                 <BrandedButton onPress={props.handleSubmit} enable={this.state.enableSubmit}>
                   <Text>{i18n.t('next-question')}</Text>
