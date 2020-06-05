@@ -28,7 +28,7 @@ const ModalContainer = (props: any) => (
   </Modal>
 );
 
-export async function shouldAskForRating() {
+export async function shouldAskForRating(): Promise<boolean> {
   const userService = new UserService();
   const profile = await userService.getProfile();
   const eligibleToAskForRating = profile.ask_for_rating;
