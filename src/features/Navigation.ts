@@ -96,7 +96,7 @@ class Navigator {
     return page;
   }
 
-  resetToProfileStartAssessment(currentPatient: PatientStateType) {
+  resetToProfileStartAssessment(currentPatient?: PatientStateType) {
     this.navigation.dispatch((state) => {
       const profileScreen = state.routes.find((screen) => {
         return screen.name == 'SelectProfile';
