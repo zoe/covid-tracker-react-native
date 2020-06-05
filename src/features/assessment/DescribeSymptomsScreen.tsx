@@ -154,6 +154,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   createAssessmentInfos(formData: DescribeSymptomsData) {
+    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+
     let infos = ({
       fever: formData.hasFever === 'yes',
       chills_or_shivers: formData.hasChills === 'yes',
@@ -175,7 +177,6 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       red_welts_on_face_or_lips: formData.hasRedWeltsOnFace === 'yes',
       blisters_on_feet: formData.hasBlistersOnFeet === 'yes',
       eye_soreness: formData.hasEyeSoreness === 'yes',
-      typical_hayfever: formData.hasUnusualHayfever === 'yes',
     } as unknown) as Partial<AssessmentInfosRequest>;
 
     if (formData.otherSymptoms) {
@@ -205,6 +206,13 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       infos = {
         ...infos,
         diarrhoea_frequency: formData.diarrhoeaFrequency,
+      };
+    }
+
+    if (currentPatient.hasHayfever && formData.hasUnusualHayfever) {
+      infos = {
+        ...infos,
+        typical_hayfever: formData.hasUnusualHayfever === 'yes',
       };
     }
 
