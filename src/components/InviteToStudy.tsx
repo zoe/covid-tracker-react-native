@@ -1,6 +1,6 @@
 import { studyInvite } from '@assets';
+import Analytics, { events } from '@covid/core/Analytics';
 import Navigator from '@covid/features/Navigation';
-
 import React, { Component } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Analytics, { events } from '@covid/core/Analytics';
