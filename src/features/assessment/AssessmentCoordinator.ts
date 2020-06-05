@@ -1,4 +1,5 @@
 import { ConfigType } from '@covid/core/Config';
+import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -18,6 +19,7 @@ export type AssessmentData = {
 export class AssessmentCoordinator {
   navigation: NavigationType;
   userService: UserService;
+  assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
 
   ScreenFlow: any = {
@@ -48,10 +50,16 @@ export class AssessmentCoordinator {
     },
   };
 
-  init = (navigation: NavigationType, assessmentData: AssessmentData, userService: UserService) => {
+  init = (
+    navigation: NavigationType,
+    assessmentData: AssessmentData,
+    userService: UserService,
+    assessmentService: IAssessmentService
+  ) => {
     this.navigation = navigation;
     this.assessmentData = assessmentData;
     this.userService = userService;
+    this.assessmentService = assessmentService;
   };
 
   // Workaround for Expo save/refresh nixing the navigation.
@@ -65,6 +73,7 @@ export class AssessmentCoordinator {
   startAssessment = () => {
     const { currentPatient } = this.assessmentData;
     const config = this.userService.getConfig();
+    this.assessmentService.initAssessment();
 
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
@@ -143,8 +152,8 @@ export class AssessmentCoordinator {
     return shouldAskStudy ? 'YourStudy' : 'YourWork';
   };
 
-  static getThankYouScreen = () => {
-    return isUSCountry() ? 'ViralThankYou' : 'ThankYou';
+  static getThankYouScreen = (): string => {
+    return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 
   static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {

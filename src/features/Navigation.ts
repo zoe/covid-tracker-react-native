@@ -1,4 +1,4 @@
-import { userService } from '@covid/Services';
+import { userService, assessmentService } from '@covid/Services';
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
@@ -13,7 +13,8 @@ type ScreenName = keyof ScreenParamList;
 // Various route parameters
 type PatientIdParamType = { patientId: string };
 type CurrentPatientParamType = { currentPatient: PatientStateType };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType;
+type ConsentView = { viewOnly: boolean };
+type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView;
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -123,7 +124,7 @@ class Navigator {
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    AssessmentCoordinator.init(this.navigation, { currentPatient }, this.userService);
+    AssessmentCoordinator.init(this.navigation, { currentPatient }, this.userService, assessmentService);
     AssessmentCoordinator.startAssessment();
   }
 
@@ -149,7 +150,7 @@ class Navigator {
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
-    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy())) {
+    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy(false))) {
       this.navigation.navigate('ValidationStudyIntro', { currentPatient });
     } else {
       this.startAssessmentFlow(currentPatient);
