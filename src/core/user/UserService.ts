@@ -27,7 +27,7 @@ import {
 } from './dto/UserAPIContracts';
 
 const ASSESSMENT_VERSION = '1.4.0'; // TODO: Wire this to something automatic.
-const PATIENT_VERSION = '1.4.1'; // TODO: Wire this to something automatic.
+const PATIENT_VERSION = '1.4.2'; // TODO: Wire this to something automatic.
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
@@ -301,12 +301,14 @@ export default class UserService extends ApiClientBase
       !!patient.ht_other;
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
-
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
+
+    const hasAtopyAnswers = patient.has_hayfever != null;
+    const hasHayfever = patient.has_hayfever;
 
     return {
       ...patientState,
@@ -324,6 +326,8 @@ export default class UserService extends ApiClientBase
       isSameHousehold,
       shouldAskLevelOfIsolation,
       shouldAskStudy,
+      hasAtopyAnswers,
+      hasHayfever,
     };
   }
 

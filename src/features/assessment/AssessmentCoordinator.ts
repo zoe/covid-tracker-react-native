@@ -143,7 +143,9 @@ export class AssessmentCoordinator {
       ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
       !currentPatient.hasPeriodAnswer ||
       !currentPatient.hasHormoneTreatmentAnswer ||
-      !currentPatient.hasBloodPressureAnswer
+      !currentPatient.hasBloodPressureAnswer ||
+      !currentPatient.hasVitaminAnswer ||
+      !currentPatient.hasAtopyAnswers
     );
   }
 
