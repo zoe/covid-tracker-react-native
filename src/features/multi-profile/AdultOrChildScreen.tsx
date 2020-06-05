@@ -1,14 +1,14 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-
-import { colors, fontStyles } from '@theme';
 import { BigButton } from '@covid/components/Button';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors, fontStyles } from '@theme';
+import { Form, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 
 type HowYouFeelProps = {

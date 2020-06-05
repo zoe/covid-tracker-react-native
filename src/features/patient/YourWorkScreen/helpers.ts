@@ -1,6 +1,3 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import {
   HealthCareStaffOptions,
   EquipmentUsageOptions,
@@ -9,6 +6,9 @@ import {
   AvailabilityNeverOptions,
   PatientInteractions,
 } from '@covid/core/user/dto/UserAPIContracts';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import { ScreenParamList } from '../../ScreenParamList';
 
 export interface IOption {

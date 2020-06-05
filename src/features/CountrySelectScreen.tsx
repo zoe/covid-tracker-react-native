@@ -1,12 +1,12 @@
+import { gbFlag, svFlag, usFlag } from '@assets';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { gbFlag, svFlag, usFlag } from '@assets';
-import { colors } from '@theme';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from './ScreenParamList';
 
 type Props = {

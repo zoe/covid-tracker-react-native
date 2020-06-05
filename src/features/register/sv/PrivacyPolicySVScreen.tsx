@@ -1,12 +1,12 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
-
-import { colors } from '@theme';
 import { ApplicationVersion } from '@covid/components/AppVersion';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
+import React, { Component } from 'react';
+import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '../LegalComponents';
 
