@@ -39,6 +39,7 @@ import { Welcome2Screen } from '@covid/features/register/Welcome2Screen';
 import { WelcomeRepeatScreen } from '@covid/features/register/WelcomeRepeatScreen';
 import { PrivacyPolicyUKScreen } from '@covid/features/register/gb/PrivacyPolicyUKScreen';
 import ValidationStudyConsentScreen from '@covid/features/register/gb/ValidationStudyConsentScreen';
+import ValidationStudyInfoScreen from '@covid/features/register/gb/ValidationStudyInfoScreen';
 import ValidationStudyIntroScreen from '@covid/features/register/gb/ValidationStudyIntroScreen';
 import PrivacyPolicySVScreen from '@covid/features/register/sv/PrivacyPolicySVScreen';
 import BeforeWeStartUS from '@covid/features/register/us/BeforeWeStartUS';
@@ -56,8 +57,6 @@ import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import ValidationStudyInfoScreen from '@covid/features/register/gb/ValidationStudyInfoScreen';
-import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
