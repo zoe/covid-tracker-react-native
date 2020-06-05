@@ -212,7 +212,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     if (currentPatient.hasHayfever && formData.hasUnusualHayfever) {
       infos = {
         ...infos,
-        typical_hayfever: formData.hasUnusualHayfever === 'yes',
+        typical_hayfever: formData.hasUnusualHayfever === 'no',
       };
     }
 
