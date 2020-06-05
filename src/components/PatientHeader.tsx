@@ -1,14 +1,14 @@
+import { PatientProfile } from '@covid/core/patient/PatientState';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
+import { getAvatarByName } from '@covid/utils/avatar';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { Icon } from 'native-base';
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { colors } from '@theme';
-import { PatientProfile } from '@covid/core/patient/PatientState';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import i18n from '@covid/locale/i18n';
-import { getAvatarByName } from '@covid/utils/avatar';
 import { ClippedText, RegularText } from './Text';
 
 type BackButtonProps = {

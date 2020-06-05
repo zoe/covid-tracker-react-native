@@ -1,5 +1,12 @@
+import { Field, FieldError } from '@covid/components/Forms';
+import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import Analytics, { events } from '@covid/core/Analytics';
+import UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { colors } from '@theme';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
 import { Form, Label } from 'native-base';
@@ -7,15 +14,8 @@ import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
-import { colors } from '@theme';
-import { Field, FieldError } from '@covid/components/Forms';
-import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import Analytics, { events } from '@covid/core/Analytics';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;

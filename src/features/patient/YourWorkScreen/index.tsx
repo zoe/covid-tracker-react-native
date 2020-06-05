@@ -1,9 +1,3 @@
-import { Formik, FormikProps } from 'formik';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
-import * as Yup from 'yup';
-
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -21,6 +15,12 @@ import {
   PatientInteractions,
 } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
+import { Formik, FormikProps } from 'formik';
+import { Form, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
+
 import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {

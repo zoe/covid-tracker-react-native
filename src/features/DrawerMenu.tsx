@@ -1,14 +1,13 @@
+import { closeIcon } from '@assets';
+import { CaptionText, HeaderText } from '@covid/components/Text';
+import Analytics, { events } from '@covid/core/Analytics';
+import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import React from 'react';
 import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
-
-import { closeIcon } from '@assets';
-import { CaptionText, HeaderText } from '@covid/components/Text';
-import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
-import Analytics, { events } from '@covid/core/Analytics';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';

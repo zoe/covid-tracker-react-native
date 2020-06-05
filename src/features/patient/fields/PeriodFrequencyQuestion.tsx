@@ -1,8 +1,7 @@
-import { FormikProps } from 'formik';
-import React, { Component } from 'react';
-
 import DropdownField from '@covid/components/DropdownField';
 import i18n from '@covid/locale/i18n';
+import { FormikProps } from 'formik';
+import React, { Component } from 'react';
 
 export interface PeriodFrequencyData {
   periodFrequency: string;
