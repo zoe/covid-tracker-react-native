@@ -105,7 +105,11 @@ class Navigator {
       return CommonActions.navigate({ key: profileScreen!.key });
     });
 
-    this.startAssessmentFlow(currentPatient);
+    if (!currentPatient.patientId) {
+      this.gotoScreen(this.getWelcomeRepeatScreenName());
+    } else {
+      this.startAssessmentFlow(currentPatient);
+    }
   }
 
   async resetToStartPatientDetails(currentPatient: PatientStateType) {
