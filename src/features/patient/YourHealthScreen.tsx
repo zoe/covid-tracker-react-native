@@ -421,7 +421,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && <ValidationErrors errors={props.errors as string[]} />}
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationErrors errors={props.errors as string[]} />
+                )}
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
               </Form>
