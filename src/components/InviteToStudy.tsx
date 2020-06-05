@@ -10,9 +10,7 @@ export default class InviteToStudy extends Component<{ placement: string }> {
       <TouchableWithoutFeedback
         onPress={() => {
           Analytics.track(events.CLICK_STUDY_AD_CALLOUT, { placement: this.props.placement });
-          Navigator.gotoScreen('ValidationStudyConsent', {
-            viewOnly: false,
-          });
+          Navigator.gotoScreen('ValidationStudyInfo');
         }}>
         <View style={styles.socialIconContainer}>
           <Image source={studyInvite} style={styles.socialIcon} />
