@@ -133,7 +133,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     hasRedWeltsOnFace: Yup.string().required(),
     hasBlistersOnFeet: Yup.string().required(),
     hasEyeSoreness: Yup.string().required(),
-    typicalHayfever: Yup.string().required(),
+    hasUnusualHayfever: Yup.string().required(),
     otherSymptoms: Yup.string(),
   });
 
@@ -456,7 +456,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                 {currentPatient.hasHayfever && (
                   <DropdownField
                     selectedValue={props.values.hasUnusualHayfever}
-                    onValueChange={props.handleChange('typicalHayfever')}
+                    onValueChange={props.handleChange('hasUnusualHayfever')}
                     label={i18n.t('describe-symptoms.question-typical-hayfever')}
                   />
                 )}
