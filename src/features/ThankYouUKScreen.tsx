@@ -13,7 +13,6 @@ import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { experiments, startExperiment } from '@covid/core/Experiments';
-import Navigator from '@covid/features/Navigation';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
 
@@ -47,16 +46,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
     });
   }
 
-  gotoNextScreen = async () => {
-    try {
-      // TODO Is PatientID needed here?
-      const patientId = '';
-      await Navigator.gotoNextScreen(this.props.route.name, { patientId });
-    } catch (error) {
-      // Pass
-    }
-  };
-
   render() {
     const showIncidenceCallout = this.state.variant === 'variant_1' || this.state.variant === 'variant_4';
     const showWebinarCallout = this.state.variant === 'variant_2' || this.state.variant === 'variant_4';
@@ -77,7 +66,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               {showIncidenceCallout && (
                 <ExternalCallout
-                  link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=app"
+                  link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
                   calloutID="incidence_001"
                   imageSource={incidence001}
                   aspectRatio={1.5}
@@ -86,7 +75,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               {showWebinarCallout && (
                 <ExternalCallout
-                  link="https://www.youtube.com/watch?v=3nqlg0VPFi8&feature=emb_title"
+                  link="https://youtu.be/oAmVPaxMQ1c"
                   calloutID="webinar_001"
                   imageSource={webinar001}
                   aspectRatio={1.178}
@@ -95,7 +84,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               {showBlogCallout && (
                 <ExternalCallout
-                  link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=app"
+                  link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=App"
                   calloutID="blog_001"
                   imageSource={blog001}
                   aspectRatio={1.551}
