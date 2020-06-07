@@ -1,7 +1,8 @@
-import Analytics, { events } from '@covid/core/Analytics';
 import { Linking } from 'expo';
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+
+import Analytics, { events } from '@covid/core/Analytics';
 
 type ExternalCalloutProps = {
   link: string;

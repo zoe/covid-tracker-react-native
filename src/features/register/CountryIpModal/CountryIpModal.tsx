@@ -1,18 +1,20 @@
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Form, Icon, Label, Picker } from 'native-base';
+import React, { FC, useState, useCallback } from 'react';
+import { Image, Modal, TouchableOpacity, View } from 'react-native';
+import key from 'weak-key';
+
 import { closeIcon } from '@assets';
+import { colors } from '@theme';
 import { isAndroid } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import { Form, Icon, Label, Picker } from 'native-base';
-import React, { FC, useState, useCallback } from 'react';
-import { Image, Modal, TouchableOpacity, View } from 'react-native';
-import key from 'weak-key';
 
 import { ScreenParamList } from '../../ScreenParamList';
+
 import styles from './styles';
 
 enum CountryCode {

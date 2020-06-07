@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
+
 import { BigButton, IButtonPress } from './Button';
 import { FieldWrapper } from './Screen';
 

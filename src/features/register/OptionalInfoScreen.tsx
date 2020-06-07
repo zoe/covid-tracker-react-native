@@ -1,19 +1,20 @@
-import { userService, offlineService, pushNotificationService } from '@covid/Services';
-import { LoadingModal } from '@covid/components/Loading';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
+
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import { PiiRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import { LoadingModal } from '@covid/components/Loading';
+import { userService, offlineService, pushNotificationService } from '@covid/Services';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';

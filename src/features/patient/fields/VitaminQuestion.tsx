@@ -1,14 +1,15 @@
-import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import { GenericTextField } from '@covid/components/GenericTextField';
-import { FieldWrapper } from '@covid/components/Screen';
-import { ValidationError } from '@covid/components/ValidationError';
-import i18n from '@covid/locale/i18n';
-import { fontStyles, colors } from '@theme';
 import { FormikProps } from 'formik';
 import moment from 'moment';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+
+import { fontStyles, colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import { ValidationError } from '@covid/components/ValidationError';
+import { FieldWrapper } from '@covid/components/Screen';
+import { GenericTextField } from '@covid/components/GenericTextField';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 
 export interface VitaminSupplementData {
   vitaminSupplements: string[];

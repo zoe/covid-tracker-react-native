@@ -1,8 +1,9 @@
-import Check from '@assets/icons/Check';
-import { colors } from '@theme/colors';
 import { Item, View } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+
+import { colors } from '@theme/colors';
+import Check from '@assets/icons/Check';
 
 import { RegularText } from './Text';
 import { ITest } from './types';

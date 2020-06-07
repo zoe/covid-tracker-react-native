@@ -1,21 +1,22 @@
-import { social } from '@assets';
-import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
-import { isAndroid } from '@covid/components/Screen';
-import BrandedSpinner from '@covid/components/Spinner';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
-import UserService from '@covid/core/user/UserService';
-import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import i18n from '@covid/locale/i18n';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import { Linking } from 'expo';
 import I18n from 'i18n-js';
 import moment from 'moment';
 import React, { Component } from 'react';
 import { Image, ScrollView, Share, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
+
+import { social } from '@assets';
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
+import UserService from '@covid/core/user/UserService';
+import Analytics, { events } from '@covid/core/Analytics';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import BrandedSpinner from '@covid/components/Spinner';
+import { isAndroid } from '@covid/components/Screen';
+import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 
 import { ScreenParamList } from './ScreenParamList';
 

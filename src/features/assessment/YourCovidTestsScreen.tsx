@@ -1,5 +1,13 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import moment from 'moment';
+import { Button, Text } from 'native-base';
+import React, { Component } from 'react';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import key from 'weak-key';
+
 import { chevronRight, pending, tick } from '@assets';
-import { assessmentService } from '@covid/Services';
+import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
@@ -8,14 +16,7 @@ import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import moment from 'moment';
-import { Button, Text } from 'native-base';
-import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import key from 'weak-key';
+import { assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 

@@ -1,9 +1,10 @@
-import { UserNotFoundException } from '@covid/core/Exception';
-import * as UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { shallow } from 'enzyme';
 import { Toast } from 'native-base';
 import * as React from 'react';
+
+import { UserNotFoundException } from '@covid/core/Exception';
+import * as UserService from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 
 import { LoginScreen } from '../LoginScreen';
 

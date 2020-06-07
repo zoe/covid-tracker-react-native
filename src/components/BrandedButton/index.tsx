@@ -1,7 +1,8 @@
-import { colors, fontStyles } from '@theme';
 import { Button } from 'native-base';
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text } from 'react-native';
+
+import { colors, fontStyles } from '@theme';
 
 import { ClickableProps } from '../Text';
 import { ITest } from '../types';

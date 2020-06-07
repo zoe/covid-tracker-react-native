@@ -1,7 +1,8 @@
-import * as UserService from '@covid/core/user/UserService';
 import * as React from 'react';
 import { Linking } from 'react-native';
 import { render, fireEvent } from 'react-native-testing-library';
+
+import * as UserService from '@covid/core/user/UserService';
 
 import { ConsentScreen } from '../ConsentScreen';
 import {

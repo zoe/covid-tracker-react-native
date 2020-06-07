@@ -1,12 +1,13 @@
-import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import UserService from '@covid/core/user/UserService';
+import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { NursesConsentVersionUS, privacyPolicyVersionUS } from '../constants';

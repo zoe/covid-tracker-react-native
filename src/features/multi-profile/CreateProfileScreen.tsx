@@ -6,10 +6,11 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import { GenericTextField } from '@covid/components/GenericTextField';
-import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { BrandedButton, HeaderText, SecondaryText } from '@covid/components/Text';
+import Screen, { Header } from '@covid/components/Screen';
+import { GenericTextField } from '@covid/components/GenericTextField';
+
 import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {

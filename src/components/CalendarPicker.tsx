@@ -4,6 +4,7 @@ import CalendarPicker, { CalendarPickerProps } from 'react-native-calendar-picke
 
 import { colors } from '@theme';
 import { isUSCountry } from '@covid/core/user/UserService';
+
 import { screenWidth } from './Screen';
 
 const ZoeCalendarPicker = (props: CalendarPickerProps) => (

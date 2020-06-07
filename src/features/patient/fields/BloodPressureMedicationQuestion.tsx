@@ -2,8 +2,8 @@ import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-import DropdownField from '@covid/components/DropdownField';
 import i18n from '@covid/locale/i18n';
+import DropdownField from '@covid/components/DropdownField';
 
 export interface BloodPressureData {
   takesBloodPressureMedications: string; // pril
