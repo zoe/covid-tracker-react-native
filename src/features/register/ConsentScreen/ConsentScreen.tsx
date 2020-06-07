@@ -1,10 +1,11 @@
-import { BrandedButton } from '@covid/components/Text';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useState, useCallback } from 'react';
 import { View } from 'react-native';
+
+import i18n from '@covid/locale/i18n';
+import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { BrandedButton } from '@covid/components/Text';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import {
@@ -15,6 +16,7 @@ import {
   privacyPolicyVersionUK,
   privacyPolicyVersionUS,
 } from '../constants';
+
 import ConsentScreenGB from './ConsentScreenGB';
 import ConsentScreenSE from './ConsentScreenSE';
 import ConsentScreenUS from './ConsentScreenUS';

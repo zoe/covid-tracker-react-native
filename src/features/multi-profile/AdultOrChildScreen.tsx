@@ -5,10 +5,11 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
-import { BigButton } from '@covid/components/Button';
-import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
+import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
+import { BigButton } from '@covid/components/Button';
+
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 
 type HowYouFeelProps = {

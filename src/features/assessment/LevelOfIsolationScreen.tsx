@@ -1,4 +1,11 @@
-import { assessmentService } from '@covid/Services';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik, FormikProps } from 'formik';
+import moment from 'moment';
+import { Form } from 'native-base';
+import React, { Component } from 'react';
+import * as Yup from 'yup';
+
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -11,13 +18,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik, FormikProps } from 'formik';
-import moment from 'moment';
-import { Form } from 'native-base';
-import React, { Component } from 'react';
-import * as Yup from 'yup';
+import { assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 

@@ -1,8 +1,9 @@
+import React, { Component } from 'react';
+import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+
 import { studyInvite } from '@assets';
 import Analytics, { events } from '@covid/core/Analytics';
 import Navigator from '@covid/features/Navigation';
-import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 export default class InviteToStudy extends Component<{ placement: string }> {
   render() {

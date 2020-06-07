@@ -1,5 +1,10 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { RouteProp } from '@react-navigation/native';
+import React, { Component } from 'react';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import { covidIcon, menuIcon } from '@assets';
-import { offlineService, pushNotificationService, userService } from '@covid/Services';
+import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { LoadingModal } from '@covid/components/Loading';
@@ -11,11 +16,7 @@ import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErro
 import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
-import { colors } from '@theme';
-import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { offlineService, pushNotificationService, userService } from '@covid/Services';
 
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';

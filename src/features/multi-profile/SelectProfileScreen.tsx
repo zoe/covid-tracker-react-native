@@ -1,5 +1,12 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { RouteProp } from '@react-navigation/native';
+import { Card } from 'native-base';
+import React, { Component } from 'react';
+import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import key from 'weak-key';
+
 import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '@assets';
-import { offlineService, userService } from '@covid/Services';
+import { colors } from '@theme';
 import DaysAgo from '@covid/components/DaysAgo';
 import { Loading, LoadingModal } from '@covid/components/Loading';
 import { Header } from '@covid/components/Screen';
@@ -8,13 +15,7 @@ import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErro
 import i18n from '@covid/locale/i18n';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
-import { colors } from '@theme';
-import { Card } from 'native-base';
-import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import key from 'weak-key';
+import { offlineService, userService } from '@covid/Services';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';

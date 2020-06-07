@@ -1,3 +1,7 @@
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
+
 import { usMap, gbMap, svMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
@@ -5,11 +9,9 @@ import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserServ
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState, useEffect, useCallback } from 'react';
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { getLocaleFlagIcon } from '../helpers';
+
 import styles from './styles';
 
 const userService = new UserService();

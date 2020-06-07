@@ -1,12 +1,13 @@
+import { FormikProps } from 'formik';
+import { Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
 
 export interface RaceEthnicityData {
   race: string[];

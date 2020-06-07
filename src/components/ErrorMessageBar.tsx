@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { RegularBoldText } from './Text';
+
 import { colors } from '@theme';
+
+import { RegularBoldText } from './Text';
 
 type ErrorMessageBarProps = {
   children: React.ReactNode;

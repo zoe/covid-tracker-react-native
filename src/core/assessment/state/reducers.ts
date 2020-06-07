@@ -1,4 +1,5 @@
 import { AssessmentInfosRequest } from '../dto/AssessmentInfosRequest';
+
 import { ActionTypes, AssessmentActions, PayloadActionType } from './types';
 
 const initialState: Partial<AssessmentInfosRequest> = {};

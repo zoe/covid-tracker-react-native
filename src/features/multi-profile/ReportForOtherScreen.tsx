@@ -1,5 +1,14 @@
+import { RouteProp, CommonActions } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Text } from 'native-base';
+import React, { Component } from 'react';
+import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+
 import { profilesIcon } from '@assets';
-import { Header } from '@covid/components/Screen';
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import { AssessmentCoordinator } from '@covid/features/assessment/AssessmentCoordinator';
+import UserService from '@covid/core/user/UserService';
 import {
   BrandedButton,
   ClickableText,
@@ -8,15 +17,7 @@ import {
   RegularText,
   SecondaryText,
 } from '@covid/components/Text';
-import UserService from '@covid/core/user/UserService';
-import { AssessmentCoordinator } from '@covid/features/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
-import { RouteProp, CommonActions } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import { Text } from 'native-base';
-import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Header } from '@covid/components/Screen';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
