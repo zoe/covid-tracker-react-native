@@ -506,7 +506,7 @@
     "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
     "url": "https://covid.joinzoe.com/",
     "primary-text": "Please share this app",
-    "secondary-text": "As we ease lockdown, it's more important than ever that more people are reporting in you area.",
+    "secondary-text": "As we ease lockdown, it's more important than ever that more people are reporting in your area.",
     "button-text": "Share this app"
   },
 
@@ -848,7 +848,7 @@
   "thank-you-uk": {
     "title": "Thank you for reporting.",
     "subtitle": "As we ease lockdown, your daily reporting is more important than ever to avoid a second wave.",
-    "sign-off": "Than you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
+    "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
     "cta-multi-profile": "Report for others"
   }
