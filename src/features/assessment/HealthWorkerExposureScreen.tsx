@@ -1,11 +1,3 @@
-import { assessmentService } from '@covid/Services';
-import DropdownField from '@covid/components/DropdownField';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
@@ -13,6 +5,15 @@ import { Form } from 'native-base';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import * as Yup from 'yup';
+
+import DropdownField from '@covid/components/DropdownField';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
+import { assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 

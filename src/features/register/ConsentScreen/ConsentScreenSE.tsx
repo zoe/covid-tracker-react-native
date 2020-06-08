@@ -1,10 +1,11 @@
-import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
-import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useState, useEffect } from 'react';
 import { ScrollView, Linking } from 'react-native';
+
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
+import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 
 import { HeaderText, SimpleTextBlock } from '../LegalComponents';
 

@@ -2,6 +2,7 @@ import * as Amplitude from 'expo-analytics-amplitude';
 import Constants from 'expo-constants';
 
 import appConfig from '../../appConfig';
+
 import UserService from './user/UserService';
 
 let isInitialized = false;

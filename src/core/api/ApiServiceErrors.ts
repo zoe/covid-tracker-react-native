@@ -48,7 +48,7 @@ export class ApiException extends AppException {
     super(message);
     this.message = message;
     this.status = status;
-    this.friendlyI18n = i18nString || this.friendlyI18n;
+    this.friendlyI18n = i18nString ?? this.friendlyI18n;
   }
 }
 class RetryableApiException extends ApiException {

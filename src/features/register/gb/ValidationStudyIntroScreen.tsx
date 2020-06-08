@@ -1,15 +1,16 @@
-import { icon } from '@assets';
-import { Header } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
-import Analytics, { events } from '@covid/core/Analytics';
-import UserService from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { icon } from '@assets';
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import UserService from '@covid/core/user/UserService';
+import Analytics, { events } from '@covid/core/Analytics';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { Header } from '@covid/components/Screen';
 
 import Navigator from '../../Navigation';
 import { ScreenParamList } from '../../ScreenParamList';

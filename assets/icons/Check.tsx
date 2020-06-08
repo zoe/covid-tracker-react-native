@@ -8,7 +8,7 @@ type CheckProps = {
 
 const Check: React.FC<CheckProps> = ({ width = 20, height = 20 }) => {
   return (
-    <Svg width={width} height={height} fill="none" viewBox={`0 0 20 22`}>
+    <Svg width={width} height={height} fill="none" viewBox="0 0 20 22">
       <Path
         stroke="#024364"
         strokeLinecap="round"

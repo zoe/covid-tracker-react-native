@@ -21,6 +21,7 @@ import {
   PatientInteractions,
 } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
+
 import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {

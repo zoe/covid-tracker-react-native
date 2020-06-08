@@ -4,10 +4,11 @@ import React, { Component } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { ApplicationVersion } from '@covid/components/AppVersion';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '../../ScreenParamList';
+import { ApplicationVersion } from '@covid/components/AppVersion';
+
 import i18n from '../../../locale/i18n';
+import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUS'>;

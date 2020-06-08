@@ -1,5 +1,5 @@
-import { userService } from '@covid/Services';
 import Analytics from '@covid/core/Analytics';
+import { userService } from '@covid/Services';
 
 export const experiments = {
   Experiment_001: 'Experiment_001', // Test alternative external callouts on UK Thank You Pags

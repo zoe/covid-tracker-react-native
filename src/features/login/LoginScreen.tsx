@@ -13,12 +13,13 @@ import {
 } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
-import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
-import { UserNotFoundException } from '@covid/core/Exception';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { ScreenParamList } from '../ScreenParamList';
+import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
+import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
+
+import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;

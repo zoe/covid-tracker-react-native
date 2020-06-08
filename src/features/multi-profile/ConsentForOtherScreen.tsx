@@ -1,4 +1,10 @@
-import { userService, offlineService } from '@covid/Services';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ListItem } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+
+import { colors } from '@theme';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { LoadingModal } from '@covid/components/Loading';
 import Screen, { Header, screenWidth } from '@covid/components/Screen';
@@ -8,12 +14,7 @@ import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors } from '@theme';
-import { ListItem } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { userService, offlineService } from '@covid/Services';
 
 import Navigator from '../Navigation';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
