@@ -851,5 +851,21 @@
     "sign-off": "Than you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
     "cta-multi-profile": "Report for others"
+  },
+
+  "face-mask": {
+    "worn-a-mask-question": "In the last week, did you wear a face mask when outside the house?",
+    "worn-a-mask-justification": "Why do we ask this: This information can help us understand if face masks reduce COVID infection risk. This question is completely optional.",
+    "never": "Never",
+    "sometimes": "Sometimes",
+    "most-of-the-time": "Most of the time",
+    "always": "Always",
+    "not-applicable": "Not applicable",
+    "type-of-mask-question": "What kind of face mask do you use? Check all that apply",
+    "cloth_scarf": "Cloth or scarf",
+    "surgical": "Surgical mask",
+    "respirator": "N95/FFP respirator",
+    "not-sure": "Not sure/prefer not to say",
+    "other": "Other, please specify:"
   }
 }
