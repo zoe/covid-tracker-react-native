@@ -1,6 +1,7 @@
 import React from 'react';
-import { CenteredView } from '@covid/components/CenteredView';
 import { View } from 'react-native';
+
+import { CenteredView } from '@covid/components/CenteredView';
 import { colors } from '@theme';
 
 export const CenterView = (fn: () => React.ReactNode) => <CenteredView>{fn()}</CenteredView>;

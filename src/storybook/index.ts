@@ -1,4 +1,5 @@
 import { getStorybookUI, configure, addDecorator } from '@storybook/react-native';
+
 import { CenterView } from '@covid/storybook/decorator';
 
 import './rn-addons';
