@@ -14,10 +14,10 @@ import { offlineService, userService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { NewProfileCard } from '@covid/components/NewProfileCard';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 
 import { ScreenParamList } from '../ScreenParamList';
 import Navigator from '../Navigation';
-import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;

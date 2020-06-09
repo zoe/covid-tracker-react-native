@@ -1,15 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import { Modal, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
-import { View } from 'native-base';
+import React from 'react';
 
 import i18n from '@covid/locale/i18n';
-import { HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, SecondaryText } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
-import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
-import { ArchiveReasonModal } from '@covid/features/multi-profile/ArchiveReasonModal';
-import { colors } from '@theme';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
 import { PatientProfile } from '@covid/core/patient/PatientState';
 import { AvatarName, DEFAULT_PROFILE } from '@covid/utils/avatar';

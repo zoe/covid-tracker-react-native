@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
 
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
+import { ModalContainer } from '@covid/components/ModalContainer';
 
 type Props = {
   cancelArchive: () => void;
@@ -12,52 +13,27 @@ type Props = {
 
 export const ArchiveConfirmationModal: React.FC<Props> = (props) => {
   return (
-    <Modal transparent>
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <RegularBoldText style={styles.ratingHeader}>Archive this profile?</RegularBoldText>
-          <RegularText style={styles.ratingText}>
-            You will no longer be able on behalf of this individual. Do you want to proceed?
-          </RegularText>
+    <ModalContainer>
+      <RegularBoldText style={styles.ratingHeader}>Archive this profile?</RegularBoldText>
+      <RegularText style={styles.ratingText}>
+        You will no longer be able on behalf of this individual. Do you want to proceed?
+      </RegularText>
 
-          <View style={styles.actionContainer}>
-            <TouchableOpacity style={styles.ratingButton} onPress={props.cancelArchive}>
-              <RegularText style={styles.buttonText}>Cancel</RegularText>
-            </TouchableOpacity>
-            <View style={styles.verticalDivider} />
-            <TouchableOpacity style={styles.ratingButton} onPress={props.confirmArchive}>
-              <RegularText style={styles.buttonText}>Archive</RegularText>
-            </TouchableOpacity>
-          </View>
-        </View>
+      <View style={styles.actionContainer}>
+        <TouchableOpacity style={styles.ratingButton} onPress={props.cancelArchive}>
+          <RegularText style={styles.buttonText}>Cancel</RegularText>
+        </TouchableOpacity>
+        <View style={styles.verticalDivider} />
+        <TouchableOpacity style={styles.ratingButton} onPress={props.confirmArchive}>
+          <RegularText style={styles.buttonText}>Archive</RegularText>
+        </TouchableOpacity>
       </View>
-    </Modal>
+    </ModalContainer>
   );
 };
 
 const actionButtonBorder = 'rgba(240, 240, 240, 1)';
 const styles = StyleSheet.create({
-  centeredView: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalView: {
-    margin: 30,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    paddingTop: 35,
-    alignItems: 'center',
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   verticalDivider: {
     height: '100%',
     width: 1,
