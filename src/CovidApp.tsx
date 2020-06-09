@@ -58,6 +58,7 @@ import { NursesConsentUSScreen } from '@covid/features/register/us/NursesConsent
 import { PrivacyPolicyUSScreen } from '@covid/features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from '@covid/features/register/us/TermsOfUseUSScreen';
 import i18n from '@covid/locale/i18n';
+import { EditProfileScreen } from '@covid/features/multi-profile/EditProfileScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -205,6 +206,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
         <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
         <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} options={noHeader} />
         <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={noHeader} />
         <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={noHeader} />
         <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={noHeader} />

@@ -17,6 +17,7 @@ import { NewProfileCard } from '@covid/components/NewProfileCard';
 
 import { ScreenParamList } from '../ScreenParamList';
 import Navigator from '../Navigation';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -112,7 +113,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
       const n = (this.state.profiles.length + 1) % NUMBER_OF_PROFILE_AVATARS;
       return 'profile' + n.toString();
     } else {
-      return 'profile1';
+      return DEFAULT_PROFILE;
     }
   }
 

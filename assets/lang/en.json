@@ -851,5 +851,15 @@
     "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
     "cta-multi-profile": "Report for others"
+  },
+
+  "edit-profile": {
+    "title": "profile",
+    "text": "",
+    "archive-cta": "Archive this profile",
+    "archive-confirmation-title": "Archive this profile?",
+    "archive-confirmation-text": "You cannot undo this process. Do you want to proceed?",
+    "archive-confirmation-remove": "Remove",
+    "archive-confirmation-cancel": "Cancel"
   }
 }

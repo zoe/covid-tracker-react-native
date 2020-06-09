@@ -1,7 +1,6 @@
-import { PatientStateType } from '@covid/core/patient/PatientState';
+import { PatientProfile, PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
-import AssessmentCoordinator, { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
+import { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 
 export enum ConsentType {

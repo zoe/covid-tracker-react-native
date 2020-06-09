@@ -2,11 +2,12 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Card } from 'native-base';
 
-import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
+import { AvatarName, DEFAULT_PROFILE, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { GreenTick } from '@covid/components/GreenTick';
 import Navigator from '@covid/features/Navigation';
+import { PatientProfile } from '@covid/core/patient/PatientState';
 
 import { Profile } from '../features/multi-profile/SelectProfileScreen';
 
@@ -24,7 +25,7 @@ export const ProfileCard: React.FC<Props> = (props) => {
   const hasReportedToday = profile.last_reported_at && getDaysAgo(profile.last_reported_at) === 0;
 
   function handleEdit() {
-    Navigator.gotoScreen('EditProfile');
+    Navigator.gotoScreen('EditProfile', { profile });
   }
 
   return (
