@@ -20,6 +20,7 @@ import { offlineService, pushNotificationService, userService } from '@covid/Ser
 
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import { DrawerToggle } from '@covid/components/DrawerToggle';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -114,16 +115,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
           />
         )}
         <ScrollView>
+          <View style={styles.headerContainer}>
+            <DrawerToggle navigation={this.props.navigation} style={{ tintColor: colors.white }} />
+          </View>
           <View style={styles.rootContainer}>
-            <View style={styles.headerRow}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.toggleDrawer();
-                }}>
-                <Image source={menuIcon} style={styles.menuIcon} />
-              </TouchableOpacity>
-            </View>
-
             <View style={styles.covidIconBackground}>
               <Image source={covidIcon} style={styles.covidIcon} resizeMode="contain" />
             </View>
@@ -156,16 +151,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.brand,
   },
+  headerContainer: {
+    paddingTop: 10,
+    paddingHorizontal: 10,
+  },
   rootContainer: {
     paddingHorizontal: 24,
-    paddingTop: 24,
-    flex: 1,
     alignItems: 'center',
-  },
-  headerRow: {
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    flex: 1,
   },
   covidIconBackground: {
     backgroundColor: colors.predict,
@@ -189,11 +182,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 
-  menuIcon: {
-    height: 20,
-    width: 20,
-    tintColor: colors.white,
-  },
   reportContainer: {
     padding: 20,
   },

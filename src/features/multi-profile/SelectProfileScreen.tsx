@@ -19,6 +19,7 @@ import { offlineService, userService } from '@covid/Services';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
+import { DrawerToggle } from '@covid/components/DrawerToggle';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -136,12 +137,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
           )}
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.toggleDrawer();
-                }}>
-                <Image source={menuIcon} style={styles.menuIcon} />
-              </TouchableOpacity>
+              <DrawerToggle navigation={this.props.navigation} style={{ tintColor: colors.primary }} />
 
               <Header>
                 <HeaderText style={{ marginBottom: 12 }}>{i18n.t('select-profile-title')}</HeaderText>
@@ -281,14 +277,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingHorizontal: 20,
     paddingVertical: 15,
-  },
-
-  menuIcon: {
-    height: 20,
-    width: 20,
-    tintColor: colors.primary,
-    alignSelf: 'flex-end',
-    marginRight: 15,
-    marginTop: 10,
   },
 });
