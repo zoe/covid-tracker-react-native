@@ -855,7 +855,7 @@
 
   "face-mask": {
     "worn-a-mask-question": "In the last week, did you wear a face mask when outside the house?",
-    "worn-a-mask-justification": "Why do we ask this: This information can help us understand if face masks reduce COVID infection risk. This question is completely optional.",
+    "worn-a-mask-justification": "This information can help us understand if face masks reduce COVID infection risk. This question is completely optional.",
     "never": "Never",
     "sometimes": "Sometimes",
     "most-of-the-time": "Most of the time",
