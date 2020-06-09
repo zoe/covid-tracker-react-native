@@ -5,11 +5,13 @@ import { Card } from 'native-base';
 import { tick } from '@assets';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
+import InfoCircle from '@assets/icons/InfoCircle';
+import { GreenTick } from '@covid/components/GreenTick';
 
 import { Patient } from '../features/multi-profile/SelectProfileScreen';
 
 import { ClippedText } from './Text';
-import DaysAgo from './DaysAgo';
+import LastReported from './LastReported';
 
 type Props = {
   patient: Patient;
@@ -22,21 +24,24 @@ export const ProfileCard: React.FC<Props> = (props) => {
   const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
   return (
     <Card style={styles.card}>
+      <View style={styles.infoContainer}>
+        <InfoCircle />
+      </View>
+
       <View style={styles.avatarContainer}>
-        {hasReportedToday && (
-          <View style={styles.circle}>
-            <Image source={tick} style={styles.tick} />
-          </View>
-        )}
+        {hasReportedToday && <GreenTick />}
         <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
       </View>
       <ClippedText>{patient.name}</ClippedText>
-      <DaysAgo timeAgo={patient.last_reported_at} />
+      <LastReported timeAgo={patient.last_reported_at} />
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
+  infoContainer: {
+    alignSelf: 'flex-end',
+  },
   avatarContainer: {
     alignItems: 'center',
     width: 100,
@@ -46,27 +51,12 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
   },
-  tick: {
-    height: 30,
-    width: 30,
-  },
-  circle: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1,
-    top: 0,
-    right: -5,
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: 'white',
-  },
   card: {
     width: '100%',
     borderRadius: 16,
     minHeight: 200,
-    paddingVertical: 20,
+    paddingTop: 10,
+    paddingBottom: 20,
     paddingHorizontal: 12,
     alignItems: 'center',
   },
