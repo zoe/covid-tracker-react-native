@@ -84,7 +84,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
-    let infos: Partial<PatientInfosRequest> = {
+    let infos = {
       patient: patientId,
       ...(formData.isolationLittleInteraction !== '' && {
         isolation_little_interaction: cleanIntegerVal(formData.isolationLittleInteraction),
@@ -97,7 +97,11 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       }),
     } as Partial<AssessmentInfosRequest>;
 
-    const masksDto = FaceMaskQuestion.createMasksDTO(formData.typesOfMask as TypeOfMaskValues[], formData.wornFaceMask, formData.otherMask);
+    const masksDto = FaceMaskQuestion.createMasksDTO(
+      formData.typesOfMask as TypeOfMaskValues[],
+      formData.wornFaceMask,
+      formData.otherMask
+    );
     infos = {
       ...infos,
       ...masksDto,
