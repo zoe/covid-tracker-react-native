@@ -25,12 +25,13 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
     isPrimaryPatient: !profile.reported_by_another,
   };
 
+  const titleText = profile.reported_by_another ? profile.name + "'s " : 'My ';
+
   return (
     <Screen profile={patientProfile} navigation={props.navigation}>
       <Header>
         <HeaderText style={{ marginBottom: 12 }}>
-          {profile.name}
-          {"'s "}
+          {titleText}
           {i18n.t('edit-profile.title')}
         </HeaderText>
         <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
