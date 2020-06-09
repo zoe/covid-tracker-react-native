@@ -24,10 +24,6 @@ export const ProfileCard: React.FC<Props> = (props) => {
   const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
   return (
     <Card style={styles.card}>
-      <View style={styles.infoContainer}>
-        <InfoCircle />
-      </View>
-
       <View style={styles.avatarContainer}>
         {hasReportedToday && <GreenTick />}
         <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
