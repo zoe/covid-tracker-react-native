@@ -22,33 +22,6 @@ const styles = StyleSheet.create({
     height: 100,
     marginBottom: 10,
   },
-  avatarContainer: {
-    alignItems: 'center',
-    width: 100,
-    marginBottom: 10,
-  },
-
-  avatar: {
-    height: 100,
-    width: 100,
-  },
-
-  tick: {
-    height: 30,
-    width: 30,
-  },
-  circle: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1,
-    top: 0,
-    right: -5,
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: 'white',
-  },
   card: {
     width: '100%',
     borderRadius: 16,

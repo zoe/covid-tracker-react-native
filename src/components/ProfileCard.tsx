@@ -42,12 +42,10 @@ const styles = StyleSheet.create({
     width: 100,
     marginBottom: 10,
   },
-
   avatar: {
     height: 100,
     width: 100,
   },
-
   tick: {
     height: 30,
     width: 30,
