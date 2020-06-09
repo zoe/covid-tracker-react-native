@@ -17,10 +17,10 @@ import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { offlineService, pushNotificationService, userService } from '@covid/Services';
+import { DrawerToggle } from '@covid/components/DrawerToggle';
 
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { DrawerToggle } from '@covid/components/DrawerToggle';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;

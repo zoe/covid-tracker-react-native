@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
-import { addProfile, menuIcon, NUMBER_OF_PROFILE_AVATARS, tick } from '@assets';
+import { addProfile, NUMBER_OF_PROFILE_AVATARS, tick } from '@assets';
 import { colors } from '@theme';
 import DaysAgo from '@covid/components/DaysAgo';
 import { Loading, LoadingModal } from '@covid/components/Loading';
@@ -16,10 +16,10 @@ import i18n from '@covid/locale/i18n';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { offlineService, userService } from '@covid/Services';
+import { DrawerToggle } from '@covid/components/DrawerToggle';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
-import { DrawerToggle } from '@covid/components/DrawerToggle';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
