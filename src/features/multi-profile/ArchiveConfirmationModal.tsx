@@ -16,7 +16,7 @@ export const ArchiveConfirmationModal: React.FC<Props> = (props) => {
     <ModalContainer>
       <RegularBoldText style={styles.ratingHeader}>Archive this profile?</RegularBoldText>
       <RegularText style={styles.ratingText}>
-        You will no longer be able on behalf of this individual. Do you want to proceed?
+        You'll no longer be able to report for this individual. Do you want to proceed?
       </RegularText>
 
       <View style={styles.actionContainer}>
