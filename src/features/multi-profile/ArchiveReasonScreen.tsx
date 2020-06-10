@@ -63,8 +63,6 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
         <SecondaryText>{i18n.t('archive-reason.text')}</SecondaryText>
       </Header>
 
-      <RegularBoldText style={{}}>{i18n.t('archive-reason.title')}</RegularBoldText>
-
       {reasons.map((reason, i) => {
         return (
           <FieldWrapper key={i}>
