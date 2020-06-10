@@ -818,31 +818,31 @@
   },
 
   "back": "Volver",
+  
+    "edit-profile": {
+      "title": "la configuración de perfil",
+      "text": "",
+      "archive-cta": "Archivar este perfil"
+    },
 
-  "edit-profile": {
-    "title": "Profile settings",
-    "text": "",
-    "archive-cta": "Archive this profile"
-  },
+    "archive-confirmation": {
+      "title": "Archivar este perfil?",
+      "text": "Ya no podras reportar esta persona. Quieres proceder?",
+      "confirm": "Archivo",
+      "cancel": "Canelar"
+    },
 
-  "archive-confirmation": {
-    "title": "Archive this profile?",
-    "text": "You'll no longer be able to report for this individual. Do you want to proceed?",
-    "confirm": "Archive",
-    "cancel": "Cancel"
-  },
-
-  "archive-reason": {
-    "title": "Profile archived",
-    "text": "Help us understand why you archived this profile. This will help to more accurately predict levels of COVID.",
-    "text2": "This question is optional.",
-    "choice-duplicate-account": "It's a duplicate account",
-    "choice-no-report": "I don't want to report for them",
-    "choice-moved-away": "This person has moved away",
-    "choice-other": "This person has moved away",
-    "choice-pfnts": "Prefer not to say",
-    "choice-passed-away": "This person has passed away"
-  },
+    "archive-reason": {
+      "title": "Perfil archivado",
+      "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+      "text2": "Esta pregunta es opcional",
+      "choice-duplicate-account": "Es una cuenta duplicada",
+      "choice-no-report": "No quiero reportar para ellos",
+      "choice-moved-away": "Esta persona se mudó",
+      "choice-other": "Otro",
+      "choice-pfnts":"Prefiero no decir",
+      "choice-passed-away": "Esta persona se murió"
+    },
 
     "face-mask": {
     "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
