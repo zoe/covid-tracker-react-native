@@ -26,13 +26,11 @@ type RenderProps = {
 type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
-  variant: string | null;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
-  variant: null,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
@@ -41,15 +39,11 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      variant: await startExperiment(experiments.Experiment_001, 4),
       inviteToStudy: await userService.shouldAskForValidationStudy(true),
     });
   }
 
   render() {
-    const showIncidenceCallout = this.state.variant === 'variant_1' || this.state.variant === 'variant_4';
-    const showWebinarCallout = this.state.variant === 'variant_2' || this.state.variant === 'variant_4';
-    const showBlogCallout = this.state.variant === 'variant_3' || this.state.variant === 'variant_4';
     return (
       <>
         {this.state.askForRating && <CovidRating />}
@@ -64,38 +58,25 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
-              {showIncidenceCallout && (
-                <ExternalCallout
-                  link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                  calloutID="incidence_001"
-                  imageSource={incidence001}
-                  aspectRatio={1.5}
-                />
-              )}
-
-              {showWebinarCallout && (
-                <ExternalCallout
-                  link="https://youtu.be/oAmVPaxMQ1c"
-                  calloutID="webinar_001"
-                  imageSource={webinar001}
-                  aspectRatio={1.178}
-                />
-              )}
-
-              {showBlogCallout && (
-                <ExternalCallout
-                  link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=App"
-                  calloutID="blog_001"
-                  imageSource={blog001}
-                  aspectRatio={1.551}
-                />
-              )}
+              <ExternalCallout
+                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
+                calloutID="incidence_001"
+                imageSource={incidence001}
+                aspectRatio={1.5}
+              />
 
               <ExternalCallout
-                link="https://www.surveymonkey.co.uk/r/LC26RN9"
-                calloutID="surveyInvite"
-                imageSource={surveyInvite}
-                aspectRatio={3.38}
+                link="https://youtu.be/oAmVPaxMQ1c"
+                calloutID="webinar_001"
+                imageSource={webinar001}
+                aspectRatio={1.178}
+              />
+
+              <ExternalCallout
+                link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=App"
+                calloutID="blog_001"
+                imageSource={blog001}
+                aspectRatio={1.551}
               />
 
               <View style={{ margin: 10 }} />
