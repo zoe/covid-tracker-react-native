@@ -5,6 +5,7 @@ import { View } from 'native-base';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { ModalContainer } from '@covid/components/ModalContainer';
+import i18n from '@covid/locale/i18n';
 
 type Props = {
   cancelArchive: () => void;
@@ -14,38 +15,35 @@ type Props = {
 export const ArchiveConfirmationModal: React.FC<Props> = (props) => {
   return (
     <ModalContainer>
-      <RegularBoldText style={styles.ratingHeader}>Archive this profile?</RegularBoldText>
-      <RegularText style={styles.ratingText}>
-        You'll no longer be able to report for this individual. Do you want to proceed?
-      </RegularText>
+      <RegularBoldText style={styles.header}>{i18n.t('archive-confirmation.title')}</RegularBoldText>
+      <RegularText style={styles.text}>{i18n.t('archive-confirmation.text')}</RegularText>
 
       <View style={styles.actionContainer}>
-        <TouchableOpacity style={styles.ratingButton} onPress={props.cancelArchive}>
-          <RegularText style={styles.buttonText}>Cancel</RegularText>
+        <TouchableOpacity style={styles.button} onPress={props.cancelArchive}>
+          <RegularText style={styles.buttonText}>{i18n.t('archive-confirmation.cancel')}</RegularText>
         </TouchableOpacity>
         <View style={styles.verticalDivider} />
-        <TouchableOpacity style={styles.ratingButton} onPress={props.confirmArchive}>
-          <RegularText style={styles.buttonText}>Archive</RegularText>
+        <TouchableOpacity style={styles.button} onPress={props.confirmArchive}>
+          <RegularText style={styles.buttonText2}>{i18n.t('archive-confirmation.confirm')}</RegularText>
         </TouchableOpacity>
       </View>
     </ModalContainer>
   );
 };
 
-const actionButtonBorder = 'rgba(240, 240, 240, 1)';
 const styles = StyleSheet.create({
   verticalDivider: {
     height: '100%',
     width: 1,
-    backgroundColor: actionButtonBorder,
+    backgroundColor: colors.actionButtonBorder,
   },
-  ratingText: {
-    paddingBottom: 30,
-    marginHorizontal: 60,
+  text: {
+    paddingBottom: 20,
+    marginHorizontal: 20,
     fontSize: 14,
     textAlign: 'center',
   },
-  ratingHeader: {
+  header: {
     paddingBottom: 10,
     fontSize: 18,
     textAlign: 'center',
@@ -54,16 +52,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderTopWidth: 1,
-    borderColor: actionButtonBorder,
+    borderColor: colors.actionButtonBorder,
   },
   buttonText: {
     textAlign: 'center',
     color: colors.linkBlue,
   },
-  ratingButton: {
+  buttonText2: {
+    textAlign: 'center',
+    color: colors.coral,
+  },
+  button: {
     width: '50%',
-    height: 60,
+    height: 50,
     justifyContent: 'center',
-    color: colors.linkBlue,
   },
 });

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Text } from 'native-base';
 
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { BigButton } from '@covid/components/Button';
 import { ModalContainer } from '@covid/components/ModalContainer';
+import i18n from '@covid/locale/i18n';
 
 type Props = {
   submitReason: (reason: string) => void;
@@ -14,39 +15,49 @@ type Props = {
 export const ArchiveReasonModal: React.FC<Props> = (props) => {
   const reasons = [
     {
-      text: 'Duplicate account',
+      text: i18n.t('archive-reason.choice-duplicate-account'),
       value: 'duplicate_account',
     },
     {
-      text: "I don't want to report for them",
+      text: i18n.t('archive-reason.choice-no-report'),
       value: 'no_longer_report',
     },
     {
-      text: 'This person has passed away',
+      text: i18n.t('archive-reason.choice-moved-away'),
+      value: 'moved_away',
+    },
+    {
+      text: i18n.t('archive-reason.choice-passed-away'),
       value: 'passed_away',
     },
     {
-      text: 'Prefer not to say',
+      text: i18n.t('archive-reason.choice-other'),
+      value: 'other',
+    },
+    {
+      text: i18n.t('archive-reason.choice-pfnts'),
       value: 'pfnts',
     },
   ];
 
   return (
     <ModalContainer>
-      <RegularBoldText style={styles.ratingHeader}>Profile Archived</RegularBoldText>
-      <RegularText style={styles.ratingText}>
-        Help us understand why you archived this profile, so we can more accurately predict levels of COVID
-      </RegularText>
+      <RegularBoldText style={styles.ratingHeader}>{i18n.t('archive-reason.title')}</RegularBoldText>
 
-      {reasons.map((reason, i) => {
-        return (
-          <FieldWrapper key={i}>
-            <BigButton onPress={() => props.submitReason(reason.value)}>
-              <Text>{reason.text}</Text>
-            </BigButton>
-          </FieldWrapper>
-        );
-      })}
+      <View style={{ paddingHorizontal: 20 }}>
+        <RegularText>{i18n.t('archive-reason.text')}</RegularText>
+        <RegularText style={{ marginTop: 20 }}>{i18n.t('archive-reason.text2')}</RegularText>
+
+        {reasons.map((reason, i) => {
+          return (
+            <FieldWrapper key={i}>
+              <BigButton onPress={() => props.submitReason(reason.value)}>
+                <RegularText>{reason.text}</RegularText>
+              </BigButton>
+            </FieldWrapper>
+          );
+        })}
+      </View>
     </ModalContainer>
   );
 };

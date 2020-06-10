@@ -3,7 +3,7 @@ import { Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
-import { RegularBoldText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
 import { ArchiveReasonModal } from '@covid/features/multi-profile/ArchiveReasonModal';
@@ -54,8 +54,15 @@ export const ArchiveProfile: React.FC<Props> = (props) => {
       {isReasonModalVisible && <ArchiveReasonModal submitReason={submitReason} />}
 
       <TouchableOpacity onPress={() => clickArchive()}>
-        <RegularText>{i18n.t('edit-profile.archive-cta')}</RegularText>
+        <HeaderText style={styles.archiveCta}>{i18n.t('edit-profile.archive-cta')}</HeaderText>
       </TouchableOpacity>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  archiveCta: {
+    textAlign: 'center',
+    color: colors.coral,
+  },
+});
