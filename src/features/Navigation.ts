@@ -17,7 +17,8 @@ type PatientIdParamType = { patientId: string };
 type CurrentPatientParamType = { currentPatient: PatientStateType };
 type ConsentView = { viewOnly: boolean };
 type ProfileParamType = { profile: Profile };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType;
+type ProfileIdType = { profileId: string };
+type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType;
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -88,7 +89,7 @@ class Navigator {
     return await this.userService.getCurrentPatient(patientId);
   }
 
-  getWelcomeRepeatScreenName() {
+  getWelcomeRepeatScreenName(): keyof ScreenParamList {
     return 'WelcomeRepeat';
   }
 

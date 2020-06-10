@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Modal, StyleSheet, TouchableOpacity } from 'react-native';
-import { View } from 'native-base';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { HeaderText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
-import { ArchiveReasonModal } from '@covid/features/multi-profile/ArchiveReasonModal';
 import Navigator from '@covid/features/Navigation';
-import UserService from '@covid/core/user/UserService';
 
 type Props = {
   profileId: string;
@@ -16,7 +13,6 @@ type Props = {
 
 export const ArchiveProfile: React.FC<Props> = (props) => {
   const [isConfirmModalVisible, setConfirmModalVisibility] = useState(false);
-  const [isReasonModalVisible, setReasonModalVisibility] = useState(false);
 
   function clickArchive() {
     setConfirmModalVisibility(true);
@@ -28,21 +24,7 @@ export const ArchiveProfile: React.FC<Props> = (props) => {
 
   function confirmArchive() {
     setConfirmModalVisibility(false);
-    setReasonModalVisibility(true);
-  }
-
-  function submitReason(reason: string) {
-    setReasonModalVisibility(false);
-
-    const infos = {
-      archived: true,
-      archived_reason: reason,
-    };
-
-    const userService = new UserService();
-    userService.updatePatient(props.profileId, infos).then((response) => {
-      Navigator.gotoScreen('SelectProfile');
-    });
+    Navigator.gotoScreen('ArchiveReason', { profileId: props.profileId });
   }
 
   return (
@@ -50,8 +32,6 @@ export const ArchiveProfile: React.FC<Props> = (props) => {
       {isConfirmModalVisible && (
         <ArchiveConfirmationModal cancelArchive={cancelArchive} confirmArchive={confirmArchive} />
       )}
-
-      {isReasonModalVisible && <ArchiveReasonModal submitReason={submitReason} />}
 
       <TouchableOpacity onPress={() => clickArchive()}>
         <HeaderText style={styles.archiveCta}>{i18n.t('edit-profile.archive-cta')}</HeaderText>

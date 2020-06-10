@@ -42,6 +42,7 @@ export type ScreenParamList = {
   AdultOrChild: { profileName: string; avatarName?: string };
   ConsentForOther: { profileName: string; avatarName?: string; consentType: ConsentType };
   EditProfile: { profile: Profile };
+  ArchiveReason: { profileId: string };
 
   // Patient screens
   StartPatient: { currentPatient: PatientStateType };
