@@ -2,15 +2,16 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form } from 'native-base';
+import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
+import { StyleSheet } from 'react-native';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidationErrors } from '@covid/components/ValidationError';
+import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
@@ -19,14 +20,22 @@ import { cleanIntegerVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import { CheckboxList } from '@covid/components/Checkbox';
+import {
+  SupplementValue,
+  supplementValues,
+  VitaminSupplementData,
+  VitaminSupplementsQuestion,
+} from '@covid/features/patient/fields/VitaminQuestion';
+import { colors, fontStyles } from '@theme';
+import { FaceMaskData, FaceMaskQuestion, TypeOfMaskValues } from '@covid/features/assessment/fields/FaceMaskQuestion';
+import { BloodPressureData } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
+import { RaceEthnicityData } from '@covid/features/patient/fields/RaceEthnicityQuestion';
+import { PeriodData } from '@covid/features/patient/fields/PeriodQuestion';
+import { HormoneTreatmentData } from '@covid/features/patient/fields/HormoneTreatmentQuestion';
+import { AtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 
 import { ScreenParamList } from '../ScreenParamList';
-
-const initialFormValues = {
-  isolationLittleInteraction: '',
-  isolationLotsOfPeople: '',
-  isolationHealthcareProvider: '',
-};
 
 interface LevelOfIsolationData {
   isolationLittleInteraction: string;
@@ -44,7 +53,9 @@ type State = {
   enableSubmit: boolean;
 };
 
-const checkFormFilled = (props: FormikProps<LevelOfIsolationData>) => {
+interface LevelOfIsolationScreenData extends LevelOfIsolationData, FaceMaskData {}
+
+const checkFormFilled = (props: FormikProps<any>) => {
   if (Object.keys(props.errors).length && props.submitCount > 0) return false;
   if (Object.keys(props.values).length === 0 && props.submitCount > 0) return false;
   return true;
@@ -61,11 +72,19 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     this.state = initialState;
   }
 
-  private createAssessment(formData: LevelOfIsolationData) {
+  static initialFormValues = (): LevelOfIsolationData => {
+    return {
+      isolationLittleInteraction: '',
+      isolationLotsOfPeople: '',
+      isolationHealthcareProvider: '',
+    };
+  };
+
+  private createAssessment(formData: LevelOfIsolationScreenData) {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const patientId = currentPatient.patientId;
 
-    return {
+    let infos = {
       patient: patientId,
       ...(formData.isolationLittleInteraction !== '' && {
         isolation_little_interaction: cleanIntegerVal(formData.isolationLittleInteraction),
@@ -77,6 +96,18 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
         isolation_healthcare_provider: cleanIntegerVal(formData.isolationHealthcareProvider),
       }),
     } as Partial<AssessmentInfosRequest>;
+
+    const masksDto = FaceMaskQuestion.createMasksDTO(
+      formData.typesOfMask as TypeOfMaskValues[],
+      formData.wornFaceMask,
+      formData.otherMask
+    );
+    infos = {
+      ...infos,
+      ...masksDto,
+    };
+
+    return infos;
   }
 
   registerSchema = Yup.object().shape({
@@ -110,7 +141,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       });
   }
 
-  async handleUpdate(formData: LevelOfIsolationData) {
+  async handleUpdate(formData: LevelOfIsolationScreenData) {
     try {
       const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
       var assessment = this.createAssessment(formData);
@@ -128,7 +159,6 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
-
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
@@ -140,9 +170,12 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues}
+          initialValues={{
+            ...LevelOfIsolationScreen.initialFormValues(),
+            ...FaceMaskQuestion.initialFormValues(),
+          }}
           validationSchema={this.registerSchema}
-          onSubmit={(values: LevelOfIsolationData) => {
+          onSubmit={(values: LevelOfIsolationScreenData) => {
             return this.handleUpdate(values);
           }}>
           {(props) => {
@@ -175,6 +208,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
                   showError
                 />
 
+                <FaceMaskQuestion formikProps={props as FormikProps<FaceMaskData>} />
+
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                   <ValidationErrors errors={props.errors as string[]} />
@@ -194,3 +229,13 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     );
   }
 }
+
+const styles = StyleSheet.create({
+  textItemStyle: {
+    borderColor: 'transparent',
+  },
+  infoText: {
+    ...fontStyles.bodySmallLight,
+    color: colors.primary,
+  },
+});
