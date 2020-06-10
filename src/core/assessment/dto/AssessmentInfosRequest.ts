@@ -50,4 +50,11 @@ export type AssessmentInfosRequest = {
   isolation_little_interaction: number;
   isolation_lots_of_people: number;
   isolation_healthcare_provider: number;
+
+  worn_face_mask: string;
+  mask_cloth_or_scarf: boolean;
+  mask_surgical: boolean;
+  mask_n95_ffp: boolean;
+  mask_not_sure_pfnts: boolean;
+  mask_other: string;
 };
