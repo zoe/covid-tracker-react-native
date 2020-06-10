@@ -2,8 +2,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import { covidIcon, menuIcon } from '@assets';
+import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
@@ -18,7 +17,6 @@ import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { offlineService, pushNotificationService, userService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
-
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
