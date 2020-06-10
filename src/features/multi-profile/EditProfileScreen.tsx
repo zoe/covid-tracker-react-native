@@ -35,7 +35,7 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
 
   return (
     <>
-      <Screen profile={patientProfile} navigation={props.navigation}>
+      <Screen profile={patientProfile} navigation={props.navigation} simpleCallout>
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.title')}</HeaderText>
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
