@@ -2,6 +2,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
@@ -15,8 +16,10 @@ import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErro
 import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
-import { offlineService, pushNotificationService, userService } from '@covid/Services';
+import { contentService, offlineService, pushNotificationService, userService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
+import { CalloutBoxContent } from '@covid/core/content/ContentService';
+
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -43,7 +46,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
-    const userCount = await userService.getUserCount();
+    const userCount = await contentService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
     const feature = userService.getConfig();
     this.setState({ showPartnerLogos: feature.showPartnerLogos });
@@ -82,26 +85,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
-  getWebsiteUrl = () => {
-    if (isUSCountry()) {
-      return 'https://covid.joinzoe.com/us';
-    } else if (isSECountry()) {
-      return 'https://covid19app.lu.se/';
-    } else {
-      return 'https://covid.joinzoe.com/';
-    }
-  };
-
   render() {
-    const calloutContent = {
-      title: i18n.t('welcome.research'),
-      description: i18n.t('welcome.see-how-your-area-is-affected'),
-      link: {
-        title: i18n.t('welcome.visit-the-website'),
-        url: this.getWebsiteUrl(),
-      },
-    };
-
     return (
       <SafeAreaView style={styles.safeView}>
         {this.state.isApiError && (
@@ -131,7 +115,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <View style={{ flex: 1 }} />
 
-            <CalloutBox content={calloutContent} />
+            <CalloutBox content={contentService.getCalloutBoxContent()} />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>

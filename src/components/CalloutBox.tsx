@@ -3,7 +3,8 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import { colors } from '@theme';
-import { CalloutBoxContent } from '@covid/core/ContentService';
+import { CalloutBoxContent } from '@covid/core/content/ContentService';
+import i18n from '@covid/locale/i18n';
 
 import { RegularText } from './Text';
 

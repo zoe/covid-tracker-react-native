@@ -9,6 +9,7 @@ import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserServ
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { contentService } from '@covid/Services';
 
 import { getLocaleFlagIcon } from '../helpers';
 
@@ -24,13 +25,13 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   const [userCount, setUserCount] = useState<number>(0);
 
   useEffect(() => {
-    userService.getUserCount().then((response) => {
+    contentService.getUserCount().then((response) => {
       if (response) {
         const userCount = cleanIntegerVal(response);
         setUserCount(userCount);
       }
     });
-  }, [userService.getUserCount, cleanIntegerVal, setUserCount]);
+  }, [contentService.getUserCount, cleanIntegerVal, setUserCount]);
 
   const getMapImage = useCallback(() => {
     if (isGBCountry()) {
