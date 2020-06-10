@@ -86,7 +86,7 @@ export class FaceMaskQuestion extends Component<Props, object> {
     } as Partial<AssessmentInfosRequest>;
 
     selectedMasks.forEach((selectedMask) => {
-      if (selectedMask != TypeOfMaskValues.OTHER) {
+      if (selectedMask !== TypeOfMaskValues.OTHER) {
         dto[selectedMask] = true;
       }
     });
