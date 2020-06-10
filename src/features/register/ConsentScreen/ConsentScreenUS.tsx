@@ -1,11 +1,12 @@
-import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
-import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
-import i18n from '@covid/locale/i18n';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useState, useEffect } from 'react';
 import { ScrollView, Linking } from 'react-native';
+
+import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
+import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import i18n from '@covid/locale/i18n';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;

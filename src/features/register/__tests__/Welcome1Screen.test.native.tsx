@@ -1,8 +1,9 @@
+import * as React from 'react';
+import { render, fireEvent } from 'react-native-testing-library';
+
 import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
 import * as UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import * as React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
 
 import { Welcome1Screen } from '../Welcome1Screen';
 

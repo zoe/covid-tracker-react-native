@@ -18,6 +18,7 @@
     "prettier:pre-commit": "prettier --write",
     "ts-node": "ts-node",
     "mock-server": "ts-node ./mock-server/mockServer.ts --watch",
+    "storybook": "start-storybook",
     "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
   },
   "dependencies": {
@@ -62,12 +63,15 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "typesafe-actions": "^5.1.0",
+    "logkitty": "^0.7.1",
     "uuid": "^8.0.0",
     "weak-key": "^1.0.2",
     "yup": "^0.28.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@storybook/react-native": "^5.3.19",
+    "@storybook/react-native-server": "^5.3.19",
     "@types/body-parser": "^1.19.0",
     "@types/enzyme": "^3.10.5",
     "@types/express": "^4.17.6",
@@ -79,6 +83,7 @@
     "@types/uuid": "^7.0.3",
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
+    "babel-loader": "^8.1.0",
     "babel-preset-expo": "~8.0.0",
     "body-parser": "^1.19.0",
     "eslint": "^6.8.0",

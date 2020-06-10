@@ -5,8 +5,9 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { ScreenParamList } from '../../ScreenParamList';
+
 import i18n from '../../../locale/i18n';
+import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'TermsOfUseUS'>;

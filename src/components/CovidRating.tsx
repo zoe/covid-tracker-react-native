@@ -1,10 +1,12 @@
-import UserService, { isGBCountry, isUSCountry, isSECountry } from '@covid/core/user/UserService';
-import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
 import Constants from 'expo-constants';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
-import { Linking, Modal, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { ModalContainer } from '@covid/components/ModalContainer';
 
 import { RegularBoldText, RegularText } from './Text';
 
@@ -19,14 +21,6 @@ const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id150352961
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
-
-const ModalContainer = (props: any) => (
-  <Modal transparent>
-    <View style={styles.centeredView}>
-      <View style={styles.modalView}>{props.children}</View>
-    </View>
-  </Modal>
-);
 
 export async function shouldAskForRating(): Promise<boolean> {
   const userService = new UserService();
@@ -158,26 +152,5 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     color: colors.linkBlue,
-  },
-  centeredView: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalView: {
-    margin: 30,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    paddingTop: 35,
-    alignItems: 'center',
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
 });

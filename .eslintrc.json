@@ -1,11 +1,24 @@
 {
-    "extends": ["universe/native", "universe/shared/typescript-analysis"],
-    "overrides": [
-        {
-            "files": ["*.ts", "*.tsx", "*.d.ts", "*.js", "*.jsx"],
-            "parserOptions": {
-                "project": "./tsconfig.json"
-            }
-        }
+  "extends": ["universe/native", "universe/shared/typescript-analysis"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.d.ts", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    }
+  ],
+
+  "settings": {
+    "import/internal-regex": "^@(covid)|(theme)|(assets)"
+  },
+
+  "rules": {
+    // Adding this because of difficulty to find - documentation for import/order
+    // https://github.com/benmosher/eslint-plugin-import/blob/v2.20.2/docs/rules/order.md
+    "import/order": [
+      "error",
+      { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"], "newlines-between": "always" }
     ]
+  }
 }

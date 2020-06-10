@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import { colors } from '@theme';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {

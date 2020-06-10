@@ -33,6 +33,7 @@ If you're doing research on COVID-19 and you want to contribute or believe this 
 
 - [React Native](https://reactnative.dev)
 - [Expo](https://expo.io)
+- [StoryBook](https://storybook.js.org/)
 
 ## Getting Started
 
@@ -118,6 +119,14 @@ The git hook checks can be manually disabled calling git commit and git push wit
    ```bash
    npm test:i18n sv-SE
    ```
+
+## Storybook
+
+We are trying to embrace Component Driven Design. To develop 
+
+1. Set `ENABLE_STORYBOOK=true` in `App.tsx`
+
+1. Start the storybook server with `npm run storybook`. This will open a webpage where you can flip through the stories in this project, after you've connected a iOS or Android device via `expo start`.  
 
 ## Roadmap
 

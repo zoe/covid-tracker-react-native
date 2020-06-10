@@ -1,8 +1,9 @@
-import { AppException } from '@covid/core/api/ApiServiceErrors';
-import i18n from '@covid/locale/i18n';
-import { colors } from '@theme';
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
+
+import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import { AppException } from '@covid/core/api/ApiServiceErrors';
 
 import { ErrorText, BrandedButton, RegularText } from './Text';
 

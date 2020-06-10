@@ -1,10 +1,11 @@
-import { userService, assessmentService } from '@covid/Services';
+import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
-import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { userService, assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from './ScreenParamList';
 

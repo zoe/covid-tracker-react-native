@@ -1,3 +1,13 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import moment, { Moment } from 'moment';
+import { Form, Item, Label, Text } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
+
+import { colors, fontStyles } from '@theme';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
@@ -9,15 +19,6 @@ import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { colors, fontStyles } from '@theme';
-import { Formik } from 'formik';
-import moment, { Moment } from 'moment';
-import { Form, Item, Label, Text } from 'native-base';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import * as Yup from 'yup';
 
 import { ScreenParamList } from '../ScreenParamList';
 

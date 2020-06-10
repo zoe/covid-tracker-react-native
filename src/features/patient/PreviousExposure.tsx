@@ -1,3 +1,11 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import { Form, Item, Label } from 'native-base';
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import * as Yup from 'yup';
+
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
@@ -9,13 +17,6 @@ import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
-import { Form, Item, Label } from 'native-base';
-import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
-import * as Yup from 'yup';
 
 import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';

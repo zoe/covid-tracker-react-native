@@ -1,14 +1,16 @@
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { FC, useState, useCallback } from 'react';
+import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+
 import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useState, useCallback } from 'react';
-import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
 
 import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
+
 import styles from './styles';
 
 const userService = new UserService();
