@@ -251,10 +251,11 @@
   "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
 
   "level-of-isolation": {
-    "question-level-of-isolation": "Till vilken grad har du isolerat dig den senaste veckan?",
-    "question-little-interaction": "Hur många gånger den senaste veckan har du varit utomhus med begränsad kontakt med personer utanför ditt hushåll (t.ex. för att motionera)?",
-    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats som besöks av många människor (t.ex. mataffär, kollektivtrafik, arbetsplats)?",
-    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
+    "screen-title": "Tid utanför hemmet",
+    "screen-justification": "Denna information kan hjälpa oss förstå hur fysisk distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga.",
+    "question-little-interaction": "Hur många gånger den senaste veckan har du lämnat din bostad (inkl. din trädgård) för att vistas utomhus med begränsad kontakt med personer du inte bor med (t.ex. för att motionera)?",
+    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats där många människor vistas (t.ex. mataffär, kollektivtrafik, arbetsplats, skola)?",
+    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare, t.ex. sjukhus, vårdcentral, tandläkare, apotek, antingen som besökare eller som personal?",
     "placeholder-frequency": "Antal tillfällen",
     "placeholder-optional": "Valfri",
     "required-answer": "Ange antal tillfällen",
