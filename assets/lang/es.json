@@ -819,6 +819,22 @@
 
   "back": "Volver",
 
+  "face-mask": {
+    "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
+    "worn-a-mask-justification": "Por qué preguntamos esto: Esta información puede ayudarnos a entender si el uso de máscaras reduce el riesgo de infección de COVID. Esta pregunta es totalmente opcional.",
+    "never": "Nunca",
+    "sometimes": "Alguna vez",
+    "most-of-the-time": "La mayoría de las veces",
+    "always": "Siempre",
+    "not-applicable": "No aplica",
+    "type-of-mask-question": "¿Qué tipo de máscara utiliza?",
+    "cloth_scarf": "Un paño o bufanda",
+    "surgical": "Máscara quirúrgica",
+    "respirator": "Máscara N95/FFP",
+    "not-sure": "No estoy seguro/prefiero no decir",
+    "other": "Otras, por favor especifique:"
+  },
+
   "__IGNORE__": {
     "partners": {
       "powered-by": false,
