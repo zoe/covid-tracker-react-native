@@ -37,7 +37,7 @@ export enum TypeOfMaskValues {
   SURGICAL = 'mask_surgical',
   RESPIRATOR = 'mask_n95_ffp',
   NOT_SURE = 'mask_not_sure_pfnts',
-  OTHER = 'mask_other'
+  OTHER = 'mask_other',
 }
 
 type FaceMaskCheckBoxData = {
@@ -71,12 +71,12 @@ export class FaceMaskQuestion extends Component<Props, object> {
     return {
       wornFaceMask: '',
       typesOfMask: [] as string[],
-      otherMask: null
+      otherMask: null,
     };
   };
 
   static createMasksDTO = (selectedMasks: TypeOfMaskValues[], wornFaceMask: string, otherMask: string | null) => {
-    let dto = {
+    const dto = {
       worn_face_mask: wornFaceMask,
       mask_cloth_or_scarf: false,
       mask_surgical: false,
@@ -133,10 +133,7 @@ export class FaceMaskQuestion extends Component<Props, object> {
           </Item>
         )}
         {formikProps.values.typesOfMask.includes(TypeOfMaskValues.OTHER) && (
-            <GenericTextField
-                formikProps={this.props.formikProps}
-                name="otherMask"
-            />
+          <GenericTextField formikProps={this.props.formikProps} name="otherMask" />
         )}
       </FieldWrapper>
     );

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
+import { StyleSheet } from 'react-native';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -19,8 +20,6 @@ import { cleanIntegerVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-
-import { ScreenParamList } from '../ScreenParamList';
 import { CheckboxList } from '@covid/components/Checkbox';
 import {
   SupplementValue,
@@ -28,7 +27,6 @@ import {
   VitaminSupplementData,
   VitaminSupplementsQuestion,
 } from '@covid/features/patient/fields/VitaminQuestion';
-import { StyleSheet } from 'react-native';
 import { colors, fontStyles } from '@theme';
 import { FaceMaskData, FaceMaskQuestion, TypeOfMaskValues } from '@covid/features/assessment/fields/FaceMaskQuestion';
 import { BloodPressureData } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
@@ -36,6 +34,8 @@ import { RaceEthnicityData } from '@covid/features/patient/fields/RaceEthnicityQ
 import { PeriodData } from '@covid/features/patient/fields/PeriodQuestion';
 import { HormoneTreatmentData } from '@covid/features/patient/fields/HormoneTreatmentQuestion';
 import { AtopyData } from '@covid/features/patient/fields/AtopyQuestions';
+
+import { ScreenParamList } from '../ScreenParamList';
 
 interface LevelOfIsolationData {
   isolationLittleInteraction: string;
