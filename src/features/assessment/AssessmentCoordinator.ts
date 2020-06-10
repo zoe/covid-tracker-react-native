@@ -121,19 +121,19 @@ export class AssessmentCoordinator {
   };
 
   goToNextHowYouFeelScreen = (healthy: boolean) => {
-    healthy
+    return healthy
       ? this.gotoEndAssessment()
       : this.navigation.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
   };
 
   goToNextWhereAreYouScreen = (location: string, endAssessment: boolean) => {
-    endAssessment
+    return endAssessment
       ? this.gotoEndAssessment()
       : this.navigation.navigate('TreatmentSelection', { assessmentData: this.assessmentData, location });
   };
 
   goToNextTreatmentSelectionScreen = (other: boolean, location: string) => {
-    other
+    return other
       ? this.navigation.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
       : this.gotoEndAssessment();
   };
@@ -150,12 +150,15 @@ export class AssessmentCoordinator {
     );
   }
 
-  static getPatientDetailsScreenName = (config: ConfigType, currentPatient: PatientStateType) => {
+  static getPatientDetailsScreenName = (
+    config: ConfigType,
+    currentPatient: PatientStateType
+  ): keyof ScreenParamList => {
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     return shouldAskStudy ? 'YourStudy' : 'YourWork';
   };
 
-  static getThankYouScreen = (): string => {
+  static getThankYouScreen = (): keyof ScreenParamList => {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 

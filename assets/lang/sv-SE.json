@@ -553,6 +553,22 @@
 
   "back": "Tillbaka",
 
+  "face-mask": {
+    "worn-a-mask-question": "Har du under den senaste veckan en ansiktsmask när du har lämnat ditt hem?",
+    "worn-a-mask-justification": "Denna information kan hjälpa oss förstå om ansiktsmasker minskar risken för covid-19-infektion. Det är helt frivilligt att svara på denna fråga.",
+    "never": "Aldrig",
+    "sometimes": "Ibland",
+    "most-of-the-time": "För det mesta",
+    "always": "Alltid",
+    "not-applicable": "Inte tillämpligt",
+    "type-of-mask-question": "Vilken typ av ansiktsmask använder du? Markera alla tillämpliga",
+    "cloth_scarf": "Tyg eller scarf",
+    "surgical": "Kirurgisk mask",
+    "respirator": "N95-/FFP-skyddsmask",
+    "not-sure": "Inte säker/föredrar att inte berätta",
+    "other": "Annan, ange vilken:"
+  },
+
   "__IGNORE__": {
     "optional-info.title": false,
     "optional-info.description": false,
