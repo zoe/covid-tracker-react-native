@@ -86,7 +86,7 @@ class Navigator {
     return await this.userService.getCurrentPatient(patientId);
   }
 
-  getWelcomeRepeatScreenName() {
+  getWelcomeRepeatScreenName(): ScreenName {
     return 'WelcomeRepeat';
   }
 
