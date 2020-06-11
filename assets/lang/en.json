@@ -653,9 +653,9 @@
   },
 
   "validation-study-intro": {
-    "title": "Please help with vital \nCOVID research",
-    "info": "King's College London has launched a study on diagnosing COVID with this app. This could help prevent future hotspots by catching new cases faster.",
-    "subtitle": "590,761 people like you have already joined the study. Please help us get to 700,000.",
+    "title": "We have a vital new COVID study and we need your help",
+    "info": "King's College London are studying using this app to diagnose whether you've had COVID, based on your symptoms alone. This could help prevent future hotspots by catching new cases faster.",
+    "subtitle": "590,761 people like you have already joined this new study. Please help us to get to 700,000.",
     "yes": "Learn more",
     "no": "No, thank you",
     "app-name": "COVID Symptom Study"
