@@ -114,11 +114,8 @@ export class FaceMaskQuestion extends Component<Props, object> {
     const { formikProps } = this.props;
     return (
       <FieldWrapper>
-        <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('face-mask.worn-a-mask-question')}</Label>
-          <Label style={styles.infoText}>{i18n.t('face-mask.worn-a-mask-justification')}</Label>
-        </Item>
         <DropdownField
+          label={i18n.t('face-mask.worn-a-mask-question')}
           selectedValue={formikProps.values.wornFaceMask}
           onValueChange={formikProps.handleChange('wornFaceMask')}
           androidDefaultLabel={i18n.t('choose-one-of-these-options')}
@@ -143,9 +140,5 @@ export class FaceMaskQuestion extends Component<Props, object> {
 const styles = StyleSheet.create({
   textItemStyle: {
     borderColor: 'transparent',
-  },
-  infoText: {
-    ...fontStyles.bodySmallLight,
-    color: colors.primary,
   },
 });
