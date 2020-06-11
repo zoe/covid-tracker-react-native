@@ -9,6 +9,7 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
+import { InfoCard } from '@covid/components/InfoCard';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -30,29 +31,21 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
             <HeaderText style={styles.header}>{i18n.t('validation-study-info.title')}</HeaderText>
           </Header>
 
-          <View style={styles.card}>
-            <RegularBoldText>
-              {i18n.t('validation-study-info.header-1')}
-              {'\n'}
-            </RegularBoldText>
-            <RegularText style={styles.paragraph}>{i18n.t('validation-study-info.para-1')}</RegularText>
-          </View>
-
-          <View style={styles.card}>
-            <RegularBoldText>
-              {i18n.t('validation-study-info.header-2')}
-              {'\n'}
-            </RegularBoldText>
-            <RegularText style={styles.paragraph}>{i18n.t('validation-study-info.para-2')}</RegularText>
-          </View>
-
-          <View style={styles.card}>
-            <RegularBoldText>
-              {i18n.t('validation-study-info.header-3')}
-              {'\n'}
-            </RegularBoldText>
-            <RegularText style={styles.paragraph}>{i18n.t('validation-study-info.para-3')}</RegularText>
-          </View>
+          <InfoCard
+            backgroundVariant={1}
+            header={i18n.t('validation-study-info.header-1')}
+            body={i18n.t('validation-study-info.para-1')}
+          />
+          <InfoCard
+            backgroundVariant={2}
+            header={i18n.t('validation-study-info.header-2')}
+            body={i18n.t('validation-study-info.para-2')}
+          />
+          <InfoCard
+            backgroundVariant={3}
+            header={i18n.t('validation-study-info.header-3')}
+            body={i18n.t('validation-study-info.para-3')}
+          />
 
           <RegularBoldText style={styles.interestedTitle}>
             {i18n.t('validation-study-info.interested')}
@@ -110,15 +103,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-  },
-  card: {
-    backgroundColor: colors.white,
-    marginVertical: 24,
-    width: '100%',
-    elevation: 0,
-    borderRadius: 16,
-    paddingVertical: 24,
-    paddingHorizontal: 32,
   },
   interestedTitle: {
     marginTop: 20,
