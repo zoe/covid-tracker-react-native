@@ -865,6 +865,31 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
+    },
+
+    "edit-profile": {
+      "title": false,
+      "text": false,
+      "archive-cta": false
+    },
+
+    "archive-confirmation": {
+      "title": false,
+      "text": false,
+      "confirm": false,
+      "cancel": false
+    },
+
+    "archive-reason": {
+      "title": false,
+      "text": false,
+      "text2": false,
+      "choice-duplicate-account": false,
+      "choice-no-report": false,
+      "choice-moved-away": false,
+      "choice-other": false,
+      "choice-pfnts": false,
+      "choice-passed-away": false
     }
   }
 }

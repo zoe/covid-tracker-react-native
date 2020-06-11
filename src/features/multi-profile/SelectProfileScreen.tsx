@@ -14,6 +14,7 @@ import { offlineService, userService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { NewProfileCard } from '@covid/components/NewProfileCard';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 
 import { ScreenParamList } from '../ScreenParamList';
 import Navigator from '../Navigation';
@@ -23,7 +24,7 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
 
-export type Patient = {
+export type Profile = {
   id: string;
   name?: string;
   avatar_name?: string;
@@ -33,17 +34,17 @@ export type Patient = {
   created_at?: Date;
 };
 
-type PatientListState = {
+type ProfileListState = {
   isLoaded: boolean;
-  patients: Patient[];
+  profiles: Profile[];
   shouldRefresh: boolean;
 };
 
-type State = PatientListState & ApiErrorState;
+type State = ProfileListState & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
-  patients: [],
+  profiles: [],
   isLoaded: false,
   shouldRefresh: false,
 };
@@ -76,7 +77,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
       const response = await userService.listPatients();
       response &&
         this.setState({
-          patients: response.data,
+          profiles: response.data,
           isLoaded: true,
         });
     } catch (error) {
@@ -84,9 +85,9 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     }
   }
 
-  async profileSelected(patientId: string, index: number) {
+  async profileSelected(profileId: string, index: number) {
     try {
-      const currentPatient = await userService.getCurrentPatient(patientId);
+      const currentPatient = await userService.getCurrentPatient(profileId);
       this.setState({ isApiError: false });
       await Navigator.profileSelected(index === 0, currentPatient);
     } catch (error) {
@@ -100,7 +101,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
-            this.profileSelected(patientId, index);
+            this.profileSelected(profileId, index);
           }, offlineService.getRetryDelay());
         },
       });
@@ -108,11 +109,11 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   getNextAvatarName() {
-    if (this.state.patients) {
-      const n = (this.state.patients.length + 1) % NUMBER_OF_PROFILE_AVATARS;
+    if (this.state.profiles) {
+      const n = (this.state.profiles.length + 1) % NUMBER_OF_PROFILE_AVATARS;
       return 'profile' + n.toString();
     } else {
-      return 'profile1';
+      return DEFAULT_PROFILE;
     }
   }
 
@@ -143,11 +144,11 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
               {this.state.isLoaded ? (
                 <View style={styles.profileList}>
-                  {this.state.patients.map((patient, i) => {
+                  {this.state.profiles.map((profile, i) => {
                     return (
-                      <View style={styles.cardContainer} key={patient.id}>
-                        <TouchableOpacity onPress={() => this.profileSelected(patient.id, i)}>
-                          <ProfileCard patient={patient} index={i} />
+                      <View style={styles.cardContainer} key={profile.id}>
+                        <TouchableOpacity onPress={() => this.profileSelected(profile.id, i)}>
+                          <ProfileCard profile={profile} index={i} />
                         </TouchableOpacity>
                       </View>
                     );
