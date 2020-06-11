@@ -99,9 +99,9 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
     if (formData.wornFaceMask !== '') {
       const masksDto = FaceMaskQuestion.createMasksDTO(
-          formData.typesOfMask as TypeOfMaskValues[],
-          formData.wornFaceMask,
-          formData.otherMask
+        formData.typesOfMask as TypeOfMaskValues[],
+        formData.wornFaceMask,
+        formData.otherMask
       );
       infos = {
         ...infos,
