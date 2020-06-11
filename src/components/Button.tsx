@@ -15,7 +15,7 @@ const buttonStyles = StyleSheet.create({
   bigButton: {
     borderRadius: 28,
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: colors.secondary,
     backgroundColor: colors.white,
     fontSize: 16,
     paddingVertical: 16,
@@ -23,7 +23,7 @@ const buttonStyles = StyleSheet.create({
   },
 
   buttonText: {
-    color: colors.primary,
+    color: colors.secondary,
     textAlign: 'center',
   },
 });

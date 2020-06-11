@@ -1,11 +1,12 @@
-import { PartialState, NavigationState, CommonActions } from '@react-navigation/native';
+import { CommonActions, NavigationState, PartialState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
-import { userService, assessmentService } from '@covid/Services';
+import { assessmentService, userService } from '@covid/Services';
+import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -15,7 +16,9 @@ type ScreenName = keyof ScreenParamList;
 type PatientIdParamType = { patientId: string };
 type CurrentPatientParamType = { currentPatient: PatientStateType };
 type ConsentView = { viewOnly: boolean };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView;
+type ProfileParamType = { profile: Profile };
+type ProfileIdType = { profileId: string };
+type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType;
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -86,7 +89,7 @@ class Navigator {
     return await this.userService.getCurrentPatient(patientId);
   }
 
-  getWelcomeRepeatScreenName() {
+  getWelcomeRepeatScreenName(): keyof ScreenParamList {
     return 'WelcomeRepeat';
   }
 

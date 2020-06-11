@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     margin: 30,
     backgroundColor: 'white',
     borderRadius: 20,
-    paddingTop: 35,
+    paddingTop: 20,
     alignItems: 'center',
     shadowColor: colors.black,
     shadowOffset: {
