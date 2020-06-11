@@ -111,8 +111,8 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>
             <HeaderText>{i18n.t('your-covid-tests')}</HeaderText>
+            <RegularText style={styles.topText}>{i18n.t('please-add-test-below')}</RegularText>
           </Header>
-          <RegularText style={styles.topText}>{i18n.t('please-add-test-below')}</RegularText>
 
           <ProgressBlock>
             <ProgressStatus step={2} maxSteps={5} />
@@ -195,8 +195,7 @@ const styles = StyleSheet.create({
     width: 12,
   },
   topText: {
-    marginHorizontal: 16,
-    marginVertical: 8,
+    marginTop: 8,
   },
   pendingText: {
     color: colors.secondary,
