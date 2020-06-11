@@ -53,3 +53,8 @@ export const webinar001 = require('./thank-you-modules/webinar_001.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
+
+export const studyIntro = require('./backgrounds/study_intro.png');
+export const cardBackground1 = require('./backgrounds/cardBackground1.png');
+export const cardBackground2 = require('./backgrounds/cardBackground2.png');
+export const cardBackground3 = require('./backgrounds/cardBackground3.png');

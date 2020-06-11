@@ -1,10 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { icon } from '@assets';
+import { icon, studyIntro } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import UserService from '@covid/core/user/UserService';
@@ -22,54 +22,58 @@ type Props = {
 
 export default class ValidationStudyIntroScreen extends Component<Props, object> {
   userService = new UserService();
-
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, marginHorizontal: 16 }}>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-          <View style={styles.logoContainer}>
-            <Image source={icon} style={styles.covidIcon} resizeMode="contain" />
-            <RegularText style={styles.appName}>{i18n.t('validation-study-intro.app-name')}</RegularText>
+      <View style={styles.backgroundContainer}>
+        <ImageBackground source={studyIntro} style={styles.backgroundImage}>
+          <ScrollView contentContainerStyle={styles.contentContainer}>
+            <View style={styles.logoContainer}>
+              <Image source={icon} style={styles.covidIcon} resizeMode="contain" />
+              <RegularText style={styles.appName}>{i18n.t('validation-study-intro.app-name')}</RegularText>
+            </View>
+
+            <Header>
+              <HeaderText style={styles.header}>{i18n.t('validation-study-intro.title')}</HeaderText>
+            </Header>
+
+            <RegularText style={styles.subtitle}>{i18n.t('validation-study-intro.subtitle')}</RegularText>
+            <RegularText style={styles.info}>{i18n.t('validation-study-intro.info')}</RegularText>
+          </ScrollView>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                Analytics.track(events.DECLINE_STUDY);
+                this.userService.setValidationStudyResponse(false);
+                Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
+              }}>
+              <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
+            </TouchableOpacity>
+
+            <BrandedButton
+              style={styles.mainButton}
+              onPress={() => {
+                this.props.navigation.navigate('ValidationStudyInfo', {
+                  currentPatient: this.props.route.params.currentPatient,
+                });
+              }}>
+              <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
+            </BrandedButton>
           </View>
-
-          <Header>
-            <HeaderText style={styles.header}>{i18n.t('validation-study-intro.title')}</HeaderText>
-          </Header>
-
-          <RegularText style={styles.subtitle}>{i18n.t('validation-study-intro.subtitle')}</RegularText>
-          <RegularText style={styles.info}>{i18n.t('validation-study-intro.info')}</RegularText>
-        </ScrollView>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              Analytics.track(events.DECLINE_STUDY);
-              this.userService.setValidationStudyResponse(false);
-              Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
-            }}>
-            <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
-          </TouchableOpacity>
-
-          <BrandedButton
-            style={styles.mainButton}
-            onPress={() => {
-              this.props.navigation.navigate('ValidationStudyInfo', {
-                currentPatient: this.props.route.params.currentPatient,
-              });
-            }}>
-            <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
-          </BrandedButton>
-        </View>
-      </SafeAreaView>
+        </ImageBackground>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  backgroundContainer: {
+    backgroundColor: colors.white,
+    flex: 1,
+  },
+  backgroundImage: {
+    height: '100%',
+  },
   covidIcon: {
     height: 64,
     width: 64,
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
     color: colors.brand,
   },
   contentContainer: {
-    marginHorizontal: 16,
+    marginHorizontal: 32,
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -107,7 +111,7 @@ const styles = StyleSheet.create({
   },
   mainButton: {
     marginTop: 32,
-    marginBottom: 16,
+    marginBottom: 32,
     marginHorizontal: 16,
     backgroundColor: colors.purple,
   },
