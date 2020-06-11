@@ -97,15 +97,17 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       }),
     } as Partial<AssessmentInfosRequest>;
 
-    const masksDto = FaceMaskQuestion.createMasksDTO(
-      formData.typesOfMask as TypeOfMaskValues[],
-      formData.wornFaceMask,
-      formData.otherMask
-    );
-    infos = {
-      ...infos,
-      ...masksDto,
-    };
+    if (formData.wornFaceMask !== '') {
+      const masksDto = FaceMaskQuestion.createMasksDTO(
+          formData.typesOfMask as TypeOfMaskValues[],
+          formData.wornFaceMask,
+          formData.otherMask
+      );
+      infos = {
+        ...infos,
+        ...masksDto,
+      };
+    }
 
     return infos;
   }
