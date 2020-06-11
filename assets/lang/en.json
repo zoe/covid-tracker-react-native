@@ -409,10 +409,11 @@
   },
 
   "level-of-isolation": {
-    "question-level-of-isolation": "How much have you been isolating over the last week?",
-    "question-little-interaction": "In the last week, how many times have you been outside, with little interaction with people outside your household (e.g. exercise)?",
-    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work)?",
-    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare provider (e.g. hospital, clinic, dentist, pharmacy)?",
+    "screen-title": "Your time outside the home",
+    "screen-justification": "This information can help us understand the impact of social distancing and face masks on infection rates. These questions are completely optional.",
+    "question-little-interaction": "In the last week, how many times have you been outside your house, with little interaction with people outside your household (e.g. exercise)?",
+    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work, school)?",
+    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare setting, including for work (e.g. hospital, clinic, dentist, pharmacy)?",
     "placeholder-frequency": "Number of times this occurred",
     "placeholder-optional": "*Optional",
     "required-answer": "Please indicate the number of times this occurred",
