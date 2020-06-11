@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog001, incidence001, surveyInvite, webinar001 } from '@assets';
+import { blog002, incidence002, webinar001 } from '@assets';
 import { colors } from '@theme';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -12,7 +12,6 @@ import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
-import { experiments, startExperiment } from '@covid/core/Experiments';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
 
@@ -60,8 +59,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_001"
-                imageSource={incidence001}
+                calloutID="incidence_002"
+                imageSource={incidence002}
                 aspectRatio={1.5}
               />
 
@@ -73,9 +72,9 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/science-covid-diagnosis?utm_source=App"
-                calloutID="blog_001"
-                imageSource={blog001}
+                link="https://covid.joinzoe.com/post/covid-long-term?utm_source=App"
+                calloutID="blog_002"
+                imageSource={blog002}
                 aspectRatio={1.551}
               />
 
