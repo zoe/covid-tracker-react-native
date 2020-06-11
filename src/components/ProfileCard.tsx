@@ -1,35 +1,46 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Card } from 'native-base';
 
-import { tick } from '@assets';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { GreenTick } from '@covid/components/GreenTick';
+import Navigator from '@covid/features/Navigation';
 
-import { Patient } from '../features/multi-profile/SelectProfileScreen';
+import { Profile } from '../features/multi-profile/SelectProfileScreen';
 
 import { ClippedText } from './Text';
 import LastReported from './LastReported';
 
 type Props = {
-  patient: Patient;
+  profile: Profile;
   index: number;
 };
 
 export const ProfileCard: React.FC<Props> = (props) => {
-  const patient = props.patient;
-  const avatarImage = getAvatarByName((patient.avatar_name ?? 'profile1') as AvatarName);
-  const hasReportedToday = patient.last_reported_at && getDaysAgo(patient.last_reported_at) === 0;
+  const profile = props.profile;
+  const avatarImage = getAvatarByName((profile.avatar_name ?? 'profile1') as AvatarName);
+  const hasReportedToday = profile.last_reported_at && getDaysAgo(profile.last_reported_at) === 0;
+
+  function handleEdit() {
+    Navigator.gotoScreen('EditProfile', { profile });
+  }
+
   return (
     <Card style={styles.card}>
+      <View style={styles.infoContainer}>
+        <TouchableOpacity onPress={() => handleEdit()}>
+          <InfoCircle />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.avatarContainer}>
         {hasReportedToday && <GreenTick />}
         <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
       </View>
-      <ClippedText>{patient.name}</ClippedText>
-      <LastReported timeAgo={patient.last_reported_at} />
+      <ClippedText>{profile.name}</ClippedText>
+      <LastReported timeAgo={profile.last_reported_at} />
     </Card>
   );
 };
@@ -51,7 +62,8 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 16,
     minHeight: 200,
-    paddingVertical: 20,
+    paddingTop: 10,
+    paddingBottom: 20,
     paddingHorizontal: 12,
     alignItems: 'center',
   },

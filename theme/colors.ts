@@ -28,4 +28,5 @@ export const colors = {
   lightBlueBrand: '#29C4CF',
 
   backgroundBrandDisabled: '#7C9CAD',
+  actionButtonBorder: 'rgba(240, 240, 240, 1)',
 };

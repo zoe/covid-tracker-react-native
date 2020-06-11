@@ -62,6 +62,8 @@ export type PatientInfosRequest = {
   avatar_name: AvatarName;
   reported_by_another: boolean;
   same_household_as_reporter: boolean;
+  archived: boolean;
+  archived_reason: string;
 
   year_of_birth: number;
   gender: number; // 0: female, 1: male, 2: pfnts 3: intersex

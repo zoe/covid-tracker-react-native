@@ -11,7 +11,7 @@ export type AvatarName =
   | 'profile8'
   | 'profile9'
   | 'profile10';
-const DEFAULT_PROFILE = 'profile10';
+export const DEFAULT_PROFILE = 'profile1';
 
 export const getAvatarByName = (name: AvatarName) => {
   return AvatarImages[name] || AvatarImages[DEFAULT_PROFILE];

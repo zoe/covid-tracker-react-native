@@ -29,9 +29,10 @@ const BackButton: React.FC<BackButtonProps> = ({ navigation }) => {
 type NavbarProps = {
   profile: PatientProfile;
   navigation: StackNavigationProp<ScreenParamList> | undefined;
+  simpleCallout?: boolean;
 };
 
-const PatientHeader: React.FC<NavbarProps> = ({ profile, navigation }) => {
+const PatientHeader: React.FC<NavbarProps> = ({ profile, navigation, simpleCallout = false }) => {
   const avatarImage = !!profile.avatarName && getAvatarByName(profile.avatarName);
 
   return (
@@ -39,7 +40,7 @@ const PatientHeader: React.FC<NavbarProps> = ({ profile, navigation }) => {
       <View style={styles.left}>{!!navigation && <BackButton navigation={navigation} />}</View>
       <View style={styles.center} />
       <View style={styles.right}>
-        {profile.isPrimaryPatient ? (
+        {profile.isPrimaryPatient || simpleCallout ? (
           <View style={styles.regularTextBox}>
             <RegularText style={styles.regularText}>{profile.name}</RegularText>
           </View>
