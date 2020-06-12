@@ -32,21 +32,23 @@ type State = {
 };
 
 class DropdownField extends React.Component<DropdownFieldProps, State> {
-  state = {
-    items: [],
-    options: [],
-    dropdownWidth: 0,
-    dropdownFocus: false,
-    selectedLabel: undefined,
-  };
+  constructor(props: DropdownFieldProps) {
+    super(props);
 
-  componentDidMount() {
-    const items = this.props.items ?? [
+    const items = this.props.items?.filter((item) => !!item.value) ?? [
       { label: i18n.t('picker-no'), value: 'no' },
       { label: i18n.t('picker-yes'), value: 'yes' },
     ];
+
     const selectedLabel = items.find((item) => item.value === this.props.selectedValue)?.label;
-    this.setState({ items, options: items.map((item) => item.label), selectedLabel });
+
+    this.state = {
+      items,
+      options: items.map((item) => item.label),
+      dropdownWidth: 0,
+      dropdownFocus: false,
+      selectedLabel,
+    };
   }
 
   setDropdownWidth = (event: any) => {
@@ -66,7 +68,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
   onValueChange = (id: any, label: any) => {
     this.setState({ selectedLabel: label });
     if (id !== -1) {
-      this.props.onValueChange(this.state.items.find((item: PickerItemProps) => item.label === label)?.value);
+      this.props.onValueChange(this.state?.items?.find((item: PickerItemProps) => item.label === label)?.value);
     }
   };
 
@@ -75,6 +77,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
     const { label, error, onlyPicker, selectedValue } = this.props;
     const { options, dropdownWidth, dropdownFocus, selectedLabel } = this.state;
     const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : {};
+    const dropdownErrorStyle = error ? styles.dropdownError : {};
 
     return (
       <FieldWrapper style={styles.fieldWrapper}>
@@ -83,13 +86,18 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
           style={styles.dropdownButton}
           dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth }}
           dropdownTextStyle={styles.dropdownTextStyle}
+          dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
           options={options}
           defaultValue={selectedValue}
           onSelect={this.onValueChange}
           onDropdownWillShow={this.handleOnDropdownWillShow}
           onDropdownWillHide={this.handleOnDropdownWillHide}>
-          <View onLayout={this.setDropdownWidth} style={{ ...styles.dropdownButtonContainer, ...dropdownFocusStyle }}>
-            <Label style={styles.dropdownLabel}>{selectedLabel ?? 'Choose one of the options'}</Label>
+          <View
+            onLayout={this.setDropdownWidth}
+            style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
+            <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
+              {selectedLabel ?? 'Choose one of the options'}
+            </Label>
             <DropdownIcon width={15} height={19} />
           </View>
         </ModalDropdown>
@@ -135,8 +143,10 @@ const styles = StyleSheet.create({
     height: 'auto',
     minHeight: 48,
     borderRadius: 8,
+    minWidth: 70,
   },
-  dropdownLabel: { color: colors.secondary, flex: 1 },
+  dropdownLabel: { color: colors.secondary, flex: 1, fontWeight: '300', lineHeight: 24 },
+  dropdownSelectedLabel: { color: colors.primary },
   dropdownStyle: {
     marginTop: 8,
     borderRadius: 8,
@@ -146,13 +156,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     fontSize: 16,
     lineHeight: 30,
-    color: colors.primary,
+    color: colors.secondary,
   },
   dropdownOnFocus: {
     borderWidth: 1,
     borderColor: 'black',
     borderStyle: 'solid',
     borderRadius: 8,
+  },
+  dropdownError: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: colors.coral,
+  },
+  dropdownTextHighlightStyle: {
+    backgroundColor: colors.backgroundTertiary,
+    color: colors.primary,
   },
 });
 
