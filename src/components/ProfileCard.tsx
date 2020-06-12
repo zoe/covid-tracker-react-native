@@ -29,11 +29,15 @@ export const ProfileCard: React.FC<Props> = (props) => {
 
   return (
     <Card style={styles.card}>
-      <View style={styles.infoContainer}>
-        <TouchableOpacity onPress={() => handleEdit()}>
-          <InfoCircle />
-        </TouchableOpacity>
-      </View>
+      {profile.reported_by_another ? (
+        <View style={styles.infoContainer}>
+          <TouchableOpacity onPress={() => handleEdit()}>
+            <InfoCircle />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.placeholder} />
+      )}
 
       <View style={styles.avatarContainer}>
         {hasReportedToday && <GreenTick />}
@@ -66,5 +70,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingHorizontal: 12,
     alignItems: 'center',
+  },
+  placeholder: {
+    height: 20,
+    width: 20,
   },
 });
