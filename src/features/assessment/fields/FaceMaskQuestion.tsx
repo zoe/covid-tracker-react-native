@@ -2,6 +2,7 @@ import { FormikProps } from 'formik';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import { GenericTextField } from '@covid/components/GenericTextField';
