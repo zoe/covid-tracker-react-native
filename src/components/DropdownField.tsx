@@ -29,6 +29,7 @@ type State = {
   dropdownWidth?: number;
   dropdownFocus?: boolean;
   selectedLabel?: string;
+  defaultIndex?: number;
 };
 
 class DropdownField extends React.Component<DropdownFieldProps, State> {
@@ -40,7 +41,17 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
       { label: i18n.t('picker-yes'), value: 'yes' },
     ];
 
-    const selectedLabel = items.find((item) => item.value === this.props.selectedValue)?.label;
+    //This only change the default highlight of the dropdown row
+    let defaultIndex = -1;
+
+    //This only change the default highlight of the dropdown row
+    const selectedLabel = items.find((item, index) => {
+      if (item.value === this.props.selectedValue) {
+        defaultIndex = index;
+        return true;
+      }
+      return false;
+    })?.label;
 
     this.state = {
       items,
@@ -48,6 +59,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
       dropdownWidth: 0,
       dropdownFocus: false,
       selectedLabel,
+      defaultIndex,
     };
   }
 
@@ -74,8 +86,8 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
 
   render() {
     // Can be used as a yes/no dropdown field by leaving props.items blank.
-    const { label, error, onlyPicker, selectedValue } = this.props;
-    const { options, dropdownWidth, dropdownFocus, selectedLabel } = this.state;
+    const { label, error, onlyPicker } = this.props;
+    const { options, dropdownWidth, dropdownFocus, selectedLabel, defaultIndex } = this.state;
     const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : {};
     const dropdownErrorStyle = error ? styles.dropdownError : {};
 
@@ -88,7 +100,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
           dropdownTextStyle={styles.dropdownTextStyle}
           dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
           options={options}
-          defaultValue={selectedValue}
+          defaultIndex={defaultIndex}
           onSelect={this.onValueChange}
           onDropdownWillShow={this.handleOnDropdownWillShow}
           onDropdownWillHide={this.handleOnDropdownWillHide}>
