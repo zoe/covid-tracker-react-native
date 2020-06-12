@@ -20,7 +20,7 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
   const reasons = [
     {
       text: i18n.t('archive-reason.choice-duplicate-account'),
-      value: 'duplicate',
+      value: 'duplicate_account',
     },
     {
       text: i18n.t('archive-reason.choice-no-report'),
