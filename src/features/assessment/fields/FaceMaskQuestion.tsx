@@ -1,17 +1,13 @@
 import { FormikProps } from 'formik';
-import moment from 'moment';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { fontStyles, colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ValidationError } from '@covid/components/ValidationError';
 import { FieldWrapper } from '@covid/components/Screen';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
-import { SupplementValue } from '@covid/features/patient/fields/VitaminQuestion';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 
 export interface FaceMaskData {
@@ -118,7 +114,6 @@ export class FaceMaskQuestion extends Component<Props, object> {
           label={i18n.t('face-mask.worn-a-mask-question')}
           selectedValue={formikProps.values.wornFaceMask}
           onValueChange={formikProps.handleChange('wornFaceMask')}
-          androidDefaultLabel={i18n.t('choose-one-of-these-options')}
           items={this.wornFaceMasksCheckboxes}
         />
         {(formikProps.values.wornFaceMask === WornMaskValues.SOMETIMES ||
