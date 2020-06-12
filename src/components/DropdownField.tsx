@@ -96,7 +96,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
         {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
         <ModalDropdown
           style={styles.dropdownButton}
-          dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth }}
+          dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 50.5 }}
           dropdownTextStyle={styles.dropdownTextStyle}
           dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
           options={options}
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: 8,
-    borderColor: colors.coral,
+    borderColor: colors.feedbackBad,
   },
   dropdownTextHighlightStyle: {
     backgroundColor: colors.backgroundTertiary,
