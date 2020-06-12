@@ -1,10 +1,12 @@
 import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { AppScreenContent } from '@covid/core/content/ScreenContentContracts';
 
 import { IApiClient } from '../api/ApiClient';
 
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getStartupInfo(): Promise<StartupInfo>;
+  getScreenContent(): Promise<AppScreenContent>;
 }
 
 export class ContentApiClient implements IContentApiClient {
@@ -13,11 +15,15 @@ export class ContentApiClient implements IContentApiClient {
     this.apiClient = apiClient;
   }
 
-  public getAreaStats(patientId: string): Promise<AreaStatsResponse> {
+  getAreaStats(patientId: string): Promise<AreaStatsResponse> {
     return this.apiClient.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
   }
 
-  public getStartupInfo(): Promise<StartupInfo> {
+  getStartupInfo(): Promise<StartupInfo> {
     return this.apiClient.get<StartupInfo>('/users/startup_info/');
+  }
+
+  getScreenContent(): Promise<AppScreenContent> {
+    return this.apiClient.get<AppScreenContent>('/text/list/');
   }
 }

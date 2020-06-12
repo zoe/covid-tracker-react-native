@@ -1,7 +1,7 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
@@ -13,12 +13,11 @@ import { PoweredByZoe } from '@covid/components/PoweredByZoe';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { contentService, offlineService, pushNotificationService, userService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
-import { CalloutBoxContent } from '@covid/core/content/ContentService';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
@@ -33,12 +32,14 @@ type WelcomeRepeatScreenState = {
   userCount: number | null;
   showPartnerLogos: boolean;
   onRetry?: () => void;
+  calloutBoxContent: ScreenContent;
 } & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
   userCount: null,
   showPartnerLogos: true,
+  calloutBoxContent: contentService.getCalloutBoxDefault(),
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -52,6 +53,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
+
+    const content = await contentService.getWelcomeRepeatContent();
+    console.log('CONTENT: ' + JSON.stringify(content));
+    this.setState({ calloutBoxContent: content });
   }
 
   gotoNextScreen = async () => {
@@ -74,14 +79,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
           }, offlineService.getRetryDelay());
         },
       });
-    }
-  };
-
-  navigateToPrivacyPolicy = () => {
-    if (isUSCountry()) {
-      this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
-    } else {
-      this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true });
     }
   };
 
@@ -115,7 +112,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <View style={{ flex: 1 }} />
 
-            <CalloutBox content={contentService.getCalloutBoxContent()} />
+            <CalloutBox content={this.state.calloutBoxContent} />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>
