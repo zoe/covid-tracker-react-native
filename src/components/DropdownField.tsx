@@ -102,7 +102,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
           </View>
         </ModalDropdown>
         {!!error && (
-          <View style={{ marginTop: 10 }}>
+          <View style={{ marginTop: 6, marginHorizontal: -16 }}>
             <ValidationError error={error} />
           </View>
         )}
@@ -114,12 +114,12 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginVertical: 32,
     marginHorizontal: 16,
   },
   labelStyle: {
     fontSize: 16,
     lineHeight: 30,
+    marginBottom: 8,
     color: colors.primary,
   },
   picker: {
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
   dropdownError: {
     borderWidth: 1,
     borderStyle: 'solid',
+    borderRadius: 8,
     borderColor: colors.coral,
   },
   dropdownTextHighlightStyle: {
