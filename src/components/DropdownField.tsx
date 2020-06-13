@@ -84,6 +84,10 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
     }
   };
 
+  renderDropdownSeparator = () => {
+    return <View style={styles.dropdonwSeparator} />;
+  };
+
   renderDropdownRow = (option: string, index: string, isSelected: boolean) => {
     let borderRadiusStyle = {};
     const lastIndex = (this.state.options?.length ?? 0) - 1;
@@ -122,6 +126,7 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
           onSelect={this.onValueChange}
           onDropdownWillShow={this.handleOnDropdownWillShow}
           onDropdownWillHide={this.handleOnDropdownWillHide}
+          renderSeparator={this.renderDropdownSeparator}
           renderRow={this.renderDropdownRow}>
           <View
             onLayout={this.setDropdownWidth}
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
   },
   dropdownOnFocus: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: colors.primary,
     borderStyle: 'solid',
     borderRadius: 8,
   },
@@ -218,6 +223,11 @@ const styles = StyleSheet.create({
   bottomBorderRadiusStyle: {
     borderBottomEndRadius: 8,
     borderBottomStartRadius: 8,
+  },
+  dropdonwSeparator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: colors.backgroundSecondary,
   },
 });
 
