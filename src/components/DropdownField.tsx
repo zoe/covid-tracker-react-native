@@ -1,6 +1,6 @@
 import { Label, View } from 'native-base';
 import React from 'react';
-import { PickerItemProps, StyleSheet, PickerProps } from 'react-native';
+import { PickerItemProps, StyleSheet, PickerProps, TouchableOpacity, Text } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { colors } from '@theme';
@@ -84,6 +84,26 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
     }
   };
 
+  renderDropdownRow = (option: string, index: string, isSelected: boolean) => {
+    let borderRadiusStyle = {};
+    const lastIndex = (this.state.options?.length ?? 0) - 1;
+
+    if (index === '0') borderRadiusStyle = styles.topBorderRadiusStyle;
+    else if (index === lastIndex.toString()) borderRadiusStyle = styles.bottomBorderRadiusStyle;
+
+    return (
+      <TouchableOpacity
+        style={[
+          styles.picker,
+          styles.dropdownTextStyle,
+          borderRadiusStyle,
+          isSelected && styles.dropdownTextHighlightStyle,
+        ]}>
+        <Text style={[styles.dropdownTextStyle, isSelected && styles.dropdownTextHighlightStyle]}>{option}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   render() {
     // Can be used as a yes/no dropdown field by leaving props.items blank.
     const { label, error, onlyPicker } = this.props;
@@ -96,14 +116,13 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
         {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
         <ModalDropdown
           style={styles.dropdownButton}
-          dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 50.5 }}
-          dropdownTextStyle={styles.dropdownTextStyle}
-          dropdownTextHighlightStyle={styles.dropdownTextHighlightStyle}
+          dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 48.6 }}
           options={options}
           defaultIndex={defaultIndex}
           onSelect={this.onValueChange}
           onDropdownWillShow={this.handleOnDropdownWillShow}
-          onDropdownWillHide={this.handleOnDropdownWillHide}>
+          onDropdownWillHide={this.handleOnDropdownWillHide}
+          renderRow={this.renderDropdownRow}>
           <View
             onLayout={this.setDropdownWidth}
             style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
@@ -136,8 +155,11 @@ const styles = StyleSheet.create({
   },
   picker: {
     width: '100%',
-    height: 48,
-    paddingRight: 32,
+    minHeight: 48,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
   },
   errorHighlight: {
     borderBottomWidth: 1,
@@ -163,11 +185,14 @@ const styles = StyleSheet.create({
     marginTop: 8,
     borderRadius: 8,
     elevation: 20,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
   },
   dropdownTextStyle: {
     backgroundColor: 'transparent',
     fontSize: 16,
-    lineHeight: 30,
+    lineHeight: 24,
     color: colors.secondary,
   },
   dropdownOnFocus: {
@@ -185,6 +210,14 @@ const styles = StyleSheet.create({
   dropdownTextHighlightStyle: {
     backgroundColor: colors.backgroundTertiary,
     color: colors.primary,
+  },
+  topBorderRadiusStyle: {
+    borderTopEndRadius: 8,
+    borderTopStartRadius: 8,
+  },
+  bottomBorderRadiusStyle: {
+    borderBottomEndRadius: 8,
+    borderBottomStartRadius: 8,
   },
 });
 
