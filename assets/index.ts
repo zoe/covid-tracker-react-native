@@ -60,3 +60,4 @@ export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');
 export const cardBackground2 = require('./backgrounds/cardBackground2.png');
 export const cardBackground3 = require('./backgrounds/cardBackground3.png');
+export const blobs = require('./blobs.png');

@@ -1,16 +1,20 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
+import { Form, Text, View } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 
 import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
+import { HeaderText, RegularBoldText, RegularText, BrandedButton } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import { ModalContainer } from '@covid/components/ModalContainer';
+import { colors, fontStyles } from '@theme';
+import { closeIcon } from '@assets';
+import { USStudyInvite } from '@covid/components/USStudyInvite';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -73,34 +77,44 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
-        </Header>
+      <>
+        <USStudyInvite />
+        <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+          <Header>
+            <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
+          </Header>
 
-        <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={5} />
-        </ProgressBlock>
+          <ProgressBlock>
+            <ProgressStatus step={3} maxSteps={5} />
+          </ProgressBlock>
 
-        <Form style={styles.form}>
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleFeelNormal}>
-              <Text>{i18n.t('how-you-feel.picker-health-status-healthy')}</Text>
-            </BigButton>
-          </FieldWrapper>
+          <Form style={styles.form}>
+            <FieldWrapper style={styles.fieldWrapper}>
+              <BigButton onPress={this.handleFeelNormal}>
+                <Text>{i18n.t('how-you-feel.picker-health-status-healthy')}</Text>
+              </BigButton>
+            </FieldWrapper>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleHaveSymptoms}>
-              <Text>{i18n.t('how-you-feel.picker-health-status-not-healthy')}</Text>
-            </BigButton>
-          </FieldWrapper>
-        </Form>
-      </Screen>
+            <FieldWrapper style={styles.fieldWrapper}>
+              <BigButton onPress={this.handleHaveSymptoms}>
+                <Text>{i18n.t('how-you-feel.picker-health-status-not-healthy')}</Text>
+              </BigButton>
+            </FieldWrapper>
+          </Form>
+        </Screen>
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  actionContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderTopWidth: 1,
+    borderColor: colors.actionButtonBorder,
+  },
+
   form: {
     marginVertical: 32,
   },
