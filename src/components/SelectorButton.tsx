@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
-import { BigButton, IButtonPress } from './Button';
+import { BigButton, IButtonPress } from './BigButton';
 import { FieldWrapper } from './Screen';
 
 interface SelectorButtonProps {

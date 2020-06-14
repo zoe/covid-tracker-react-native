@@ -4,7 +4,7 @@ import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { BigButton } from '@covid/components/Button';
+import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should match snapshot 1`] = `
+<RNGestureHandlerButton
+  collapsable={false}
+  onGestureEvent={[Function]}
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
+  onHandlerStateChange={[Function]}
+  rippleColor={0}
+  style={
+    Array [
+      Object {
+        "overflow": "hidden",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessible={true}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#888B8C",
+          "borderRadius": 28,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "paddingHorizontal": 24,
+          "paddingVertical": 16,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#888B8C",
+            "textAlign": "center",
+          }
+        }
+      >
+        Button Text
+      </Text>
+    </View>
+  </View>
+</RNGestureHandlerButton>
+`;

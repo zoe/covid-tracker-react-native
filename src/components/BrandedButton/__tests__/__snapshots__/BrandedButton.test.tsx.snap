@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BrandedButton tests renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "backgroundColor": "#024364",
+      "borderBottomWidth": null,
+      "borderColor": "#007aff",
+      "borderLeftWidth": null,
+      "borderRadius": 100,
+      "borderRightWidth": null,
+      "borderTopWidth": null,
+      "borderWidth": undefined,
+      "elevation": 0,
+      "flexDirection": "row",
+      "height": 56,
+      "justifyContent": "center",
+      "opacity": 1,
+      "paddingBottom": 6,
+      "paddingTop": 6,
+      "shadowColor": undefined,
+      "shadowOffset": undefined,
+      "shadowOpacity": undefined,
+      "shadowRadius": undefined,
+    }
+  }
+  testID="buttonTestID"
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#565A5C",
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        Object {
+          "color": "#FFFFFF",
+        },
+      ]
+    }
+  >
+    This is a branded button
+  </Text>
+</View>
+`;
