@@ -112,13 +112,15 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
     // Can be used as a yes/no dropdown field by leaving props.items blank.
     const { label, error, onlyPicker } = this.props;
     const { options, dropdownWidth, dropdownFocus, selectedLabel, defaultIndex } = this.state;
-    const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : {};
+    const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
     const dropdownErrorStyle = error ? styles.dropdownError : {};
 
     return (
       <FieldWrapper style={styles.fieldWrapper}>
         {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
         <ModalDropdown
+          animated={false}
+          showsVerticalScrollIndicator={false}
           style={styles.dropdownButton}
           dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 48.6 }}
           options={options}
@@ -199,6 +201,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: colors.secondary,
+  },
+  dropdownNoBorder: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'transparent',
+    borderRadius: 8,
   },
   dropdownOnFocus: {
     borderWidth: 1,
