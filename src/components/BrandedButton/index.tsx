@@ -29,6 +29,7 @@ export const BrandedButton = ({
 
   return (
     <Button
+      testID="buttonTestID"
       block
       style={btnStyle}
       onPress={() => {
@@ -38,7 +39,7 @@ export const BrandedButton = ({
       <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
         {children}
       </Text>
-      {isDisabled && !hideLoading && <ActivityIndicator size="small" />}
+      {isDisabled && !hideLoading && <ActivityIndicator testID="activityIndicator" size="small" />}
     </Button>
   );
 };

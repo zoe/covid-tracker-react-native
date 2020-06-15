@@ -8,7 +8,7 @@ import { colors, fontStyles } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
-import { BigButton } from '@covid/components/Button';
+import { BigButton } from '@covid/components/BigButton';
 
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
 
