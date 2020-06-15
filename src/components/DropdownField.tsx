@@ -142,7 +142,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
             {selectedLabel ?? i18n.t('choose-one-of-these-options')}
           </Label>
-          <DropdownIcon width={15} height={19} />
+          <DropdownIcon />
         </View>
       </ModalDropdown>
       {!!error && (
