@@ -5,8 +5,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-
-import DropdownIcon from '../../assets/icons/Dropdown';
+import DropdownIcon from '@assets/icons/Dropdown';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
@@ -27,6 +26,8 @@ interface SelectedItemI {
   index: number;
   label?: string;
 }
+
+const DROPDOWN_ROW_HEIGHT = 48.6;
 
 export const DropdownField: React.FC<DropdownFieldProps> = ({
   label,
@@ -90,7 +91,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
     }
   };
 
-  const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdonwSeparator} />;
+  const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
   const renderDropdownRow = (option: string, index: string, isSelected: boolean): React.ReactNode => {
     let borderRadiusStyle = {};
@@ -119,7 +120,11 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
         animated={false}
         showsVerticalScrollIndicator={false}
         style={styles.dropdownButton}
-        dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 48.6 }}
+        dropdownStyle={{
+          ...styles.dropdownStyle,
+          width: dropdownWidth,
+          height: (options?.length ?? 1) * DROPDOWN_ROW_HEIGHT,
+        }}
         options={options.map((item: PickerItemProps) => item.label)}
         defaultIndex={defaultIndex}
         onSelect={onSelect}
@@ -232,7 +237,7 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 8,
     borderBottomStartRadius: 8,
   },
-  dropdonwSeparator: {
+  dropdownSeparator: {
     height: 1,
     width: '100%',
     backgroundColor: colors.backgroundSecondary,
