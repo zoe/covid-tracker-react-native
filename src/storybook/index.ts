@@ -10,6 +10,7 @@ configure(() => {
   require('./stories/PoweredByZoe.stories');
   require('./stories/Spinner.stories');
   require('./stories/VisitWebsite.stories');
+  require('./stories/DropdownField.stories');
 }, module);
 
 // Global Decorator

@@ -42,6 +42,10 @@ storiesOf('DropdownField', module).add('multi lines items', () => (
   />
 ));
 
+storiesOf('DropdownField', module).add('no default items', () => (
+  <DropdownField selectedValue={null} onValueChange={ValueChangeHandler()} label="Test Label" error />
+));
+
 storiesOf('DropdownField', module).add('with default value', () => (
   <DropdownField
     selectedValue={SingleLineItems[0].value}
