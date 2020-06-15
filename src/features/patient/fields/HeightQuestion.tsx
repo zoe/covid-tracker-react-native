@@ -58,7 +58,7 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
   );
 };
 
-const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
+export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
       <RegularText>{i18n.t('your-height')}</RegularText>

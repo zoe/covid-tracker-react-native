@@ -26,7 +26,7 @@ interface Props {
   formikProps: FormikProps<WeightData>;
 }
 
-const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
+export const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
       <RegularText>{i18n.t('your-weight')}</RegularText>
