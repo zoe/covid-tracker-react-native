@@ -1,5 +1,5 @@
 import { FormikProps } from 'formik';
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import DropdownField from '@covid/components/DropdownField';
