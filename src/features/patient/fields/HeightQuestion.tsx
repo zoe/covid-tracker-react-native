@@ -19,117 +19,101 @@ export interface HeightData {
   heightUnit: string;
 }
 
+interface FCWithStatic<P> extends React.FC<P> {
+  initialFormValues: () => object;
+}
+
 interface Props {
   formikProps: FormikProps<HeightData>;
 }
 
-export class HeightQuestion extends Component<Props, object> {
-  static initialFormValues = () => {
-    const features = userService.getConfig();
-    return {
-      height: '',
-      feet: '',
-      inches: '',
-      heightUnit: features.defaultHeightUnit,
-    };
-  };
+const HeightInInches: React.FC<Props> = ({ formikProps }) => {
+  return (
+    <View style={styles.primaryFieldRow}>
+      <View style={styles.tertiaryField}>
+        <ValidatedTextInput
+          placeholder={i18n.t('placeholder-feet')}
+          value={formikProps.values.feet}
+          onChangeText={formikProps.handleChange('feet')}
+          onBlur={formikProps.handleBlur('feet')}
+          error={formikProps.touched.feet && formikProps.errors.feet}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </View>
+      <View style={styles.tertiaryField}>
+        <ValidatedTextInput
+          placeholder={i18n.t('placeholder-inches')}
+          value={formikProps.values.inches}
+          onChangeText={formikProps.handleChange('inches')}
+          onBlur={formikProps.handleBlur('inches')}
+          error={formikProps.touched.inches && formikProps.errors.inches}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </View>
+    </View>
+  );
+};
 
-  render() {
-    const props = this.props.formikProps;
-    return (
-      <FieldWrapper style={styles.fieldWrapper}>
-        <RegularText>{i18n.t('your-height')}</RegularText>
-        {isUSCountry() ? (
-          <View style={styles.primaryFieldRow}>
-            <View style={styles.tertiaryField}>
+const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
+  return (
+    <FieldWrapper style={styles.fieldWrapper}>
+      <RegularText>{i18n.t('your-height')}</RegularText>
+      {isUSCountry() ? (
+        <HeightInInches formikProps={formikProps} />
+      ) : (
+        <View style={styles.fieldRow}>
+          {formikProps.values.heightUnit === 'cm' ? (
+            <View style={styles.primaryField}>
               <ValidatedTextInput
-                placeholder={i18n.t('placeholder-feet')}
-                value={props.values.feet}
-                onChangeText={props.handleChange('feet')}
-                onBlur={props.handleBlur('feet')}
-                error={props.touched.feet && props.errors.feet}
+                placeholder={i18n.t('placeholder-height')}
+                value={formikProps.values.height}
+                onChangeText={formikProps.handleChange('height')}
+                onBlur={formikProps.handleBlur('height')}
+                error={formikProps.touched.height && formikProps.errors.height}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
                 keyboardType="numeric"
               />
             </View>
-            <View style={styles.tertiaryField}>
-              <ValidatedTextInput
-                placeholder={i18n.t('placeholder-inches')}
-                value={props.values.inches}
-                onChangeText={props.handleChange('inches')}
-                onBlur={props.handleBlur('inches')}
-                error={props.touched.inches && props.errors.inches}
-                returnKeyType="next"
-                onSubmitEditing={() => {}}
-                keyboardType="numeric"
-              />
-            </View>
+          ) : (
+            <HeightInInches formikProps={formikProps} />
+          )}
+          <View style={styles.secondaryField}>
+            <DropdownField
+              onlyPicker
+              selectedValue={formikProps.values.heightUnit}
+              onValueChange={formikProps.handleChange('heightUnit')}
+              items={[
+                { label: 'ft', value: 'ft' },
+                { label: 'cm', value: 'cm' },
+              ]}
+            />
           </View>
-        ) : (
-          <View style={styles.fieldRow}>
-            {props.values.heightUnit === 'cm' ? (
-              <View style={styles.primaryField}>
-                <ValidatedTextInput
-                  placeholder={i18n.t('placeholder-height')}
-                  value={props.values.height}
-                  onChangeText={props.handleChange('height')}
-                  onBlur={props.handleBlur('height')}
-                  error={props.touched.height && props.errors.height}
-                  returnKeyType="next"
-                  onSubmitEditing={() => {}}
-                  keyboardType="numeric"
-                />
-              </View>
-            ) : (
-              <View style={styles.primaryFieldRow}>
-                <View style={styles.tertiaryField}>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('placeholder-feet')}
-                    value={props.values.feet}
-                    onChangeText={props.handleChange('feet')}
-                    onBlur={props.handleBlur('feet')}
-                    error={props.touched.feet && props.errors.feet}
-                    returnKeyType="next"
-                    onSubmitEditing={() => {}}
-                    keyboardType="numeric"
-                  />
-                </View>
-                <View style={styles.tertiaryField}>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('placeholder-inches')}
-                    value={props.values.inches}
-                    onChangeText={props.handleChange('inches')}
-                    onBlur={props.handleBlur('inches')}
-                    error={props.touched.inches && props.errors.inches}
-                    returnKeyType="next"
-                    onSubmitEditing={() => {}}
-                    keyboardType="numeric"
-                  />
-                </View>
-              </View>
-            )}
-            <View style={styles.secondaryField}>
-              <DropdownField
-                onlyPicker
-                selectedValue={props.values.heightUnit}
-                onValueChange={props.handleChange('heightUnit')}
-                items={[
-                  { label: 'ft', value: 'ft' },
-                  { label: 'cm', value: 'cm' },
-                ]}
-              />
-            </View>
-          </View>
-        )}
-        {props.touched.height && props.errors.height && <ValidationError error={props.errors.height} />}
-        {props.touched.feet && props.errors.feet && <ValidationError error={props.errors.feet} />}
-        {props.touched.inches && props.errors.inches && <ValidationError error={props.errors.inches} />}
-        {props.touched.heightUnit && props.errors.heightUnit && <ValidationError error={props.errors.heightUnit} />}
-      </FieldWrapper>
-    );
-  }
-}
+        </View>
+      )}
+      {formikProps.touched.height && formikProps.errors.height && <ValidationError error={formikProps.errors.height} />}
+      {formikProps.touched.feet && formikProps.errors.feet && <ValidationError error={formikProps.errors.feet} />}
+      {formikProps.touched.inches && formikProps.errors.inches && <ValidationError error={formikProps.errors.inches} />}
+      {formikProps.touched.heightUnit && formikProps.errors.heightUnit && (
+        <ValidationError error={formikProps.errors.heightUnit} />
+      )}
+    </FieldWrapper>
+  );
+};
+
+HeightQuestion.initialFormValues = () => {
+  const features = userService.getConfig();
+  return {
+    height: '',
+    feet: '',
+    inches: '',
+    heightUnit: features.defaultHeightUnit,
+  };
+};
 
 const styles = StyleSheet.create({
   fieldWrapper: {
