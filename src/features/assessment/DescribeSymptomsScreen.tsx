@@ -10,7 +10,7 @@ import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationErrors } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
@@ -290,34 +290,32 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
                   label={i18n.t('describe-symptoms.question-has-chills')}
                 />
 
-                <FieldWrapper>
-                  <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('describe-symptoms.question-your-temperature')}</Label>
-                    <View style={styles.fieldRow}>
-                      <View style={styles.primaryField}>
-                        <ValidatedTextInput
-                          placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
-                          value={props.values.temperature}
-                          onChangeText={props.handleChange('temperature')}
-                          onBlur={props.handleBlur('temperature')}
-                          error={props.touched.temperature && props.errors.temperature}
-                          returnKeyType="next"
-                          onSubmitEditing={() => {}}
-                          keyboardType="numeric"
-                        />
-                      </View>
-
-                      <View style={styles.secondaryField}>
-                        <DropdownField
-                          selectedValue={props.values.temperatureUnit}
-                          onValueChange={props.handleChange('temperatureUnit')}
-                          error={props.touched.temperatureUnit && props.errors.temperatureUnit}
-                          items={temperatureItems}
-                          onlyPicker
-                        />
-                      </View>
+                <FieldWrapper style={styles.fieldWrapper}>
+                  <RegularText>{i18n.t('describe-symptoms.question-your-temperature')}</RegularText>
+                  <View style={styles.fieldRow}>
+                    <View style={styles.primaryField}>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
+                        value={props.values.temperature}
+                        onChangeText={props.handleChange('temperature')}
+                        onBlur={props.handleBlur('temperature')}
+                        error={props.touched.temperature && props.errors.temperature}
+                        returnKeyType="next"
+                        onSubmitEditing={() => {}}
+                        keyboardType="numeric"
+                      />
                     </View>
-                  </Item>
+
+                    <View style={styles.secondaryField}>
+                      <DropdownField
+                        selectedValue={props.values.temperatureUnit}
+                        onValueChange={props.handleChange('temperatureUnit')}
+                        error={props.touched.temperatureUnit && props.errors.temperatureUnit}
+                        items={temperatureItems}
+                        onlyPicker
+                      />
+                    </View>
+                  </View>
                 </FieldWrapper>
 
                 <DropdownField
@@ -490,6 +488,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  fieldWrapper: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+
   textItemStyle: {
     borderColor: 'transparent',
   },
@@ -500,5 +503,6 @@ const styles = StyleSheet.create({
 
   secondaryField: {
     flex: 1,
+    margin: -8,
   },
 });

@@ -10,6 +10,8 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
+import { RegularText } from '@covid/components/Text';
+import { colors } from '@theme';
 
 export interface HeightData {
   height: string;
@@ -36,93 +38,91 @@ export class HeightQuestion extends Component<Props, object> {
   render() {
     const props = this.props.formikProps;
     return (
-      <FieldWrapper>
-        <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('your-height')}</Label>
-          {isUSCountry() ? (
-            <View style={styles.primaryFieldRow}>
-              <View style={styles.tertiaryField}>
-                <ValidatedTextInput
-                  placeholder={i18n.t('placeholder-feet')}
-                  value={props.values.feet}
-                  onChangeText={props.handleChange('feet')}
-                  onBlur={props.handleBlur('feet')}
-                  error={props.touched.feet && props.errors.feet}
-                  returnKeyType="next"
-                  onSubmitEditing={() => {}}
-                  keyboardType="numeric"
-                />
-              </View>
-              <View style={styles.tertiaryField}>
-                <ValidatedTextInput
-                  placeholder={i18n.t('placeholder-inches')}
-                  value={props.values.inches}
-                  onChangeText={props.handleChange('inches')}
-                  onBlur={props.handleBlur('inches')}
-                  error={props.touched.inches && props.errors.inches}
-                  returnKeyType="next"
-                  onSubmitEditing={() => {}}
-                  keyboardType="numeric"
-                />
-              </View>
+      <FieldWrapper style={styles.fieldWrapper}>
+        <RegularText>{i18n.t('your-height')}</RegularText>
+        {isUSCountry() ? (
+          <View style={styles.primaryFieldRow}>
+            <View style={styles.tertiaryField}>
+              <ValidatedTextInput
+                placeholder={i18n.t('placeholder-feet')}
+                value={props.values.feet}
+                onChangeText={props.handleChange('feet')}
+                onBlur={props.handleBlur('feet')}
+                error={props.touched.feet && props.errors.feet}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+                keyboardType="numeric"
+              />
             </View>
-          ) : (
-            <View style={styles.fieldRow}>
-              {props.values.heightUnit === 'cm' ? (
-                <View style={styles.primaryField}>
+            <View style={styles.tertiaryField}>
+              <ValidatedTextInput
+                placeholder={i18n.t('placeholder-inches')}
+                value={props.values.inches}
+                onChangeText={props.handleChange('inches')}
+                onBlur={props.handleBlur('inches')}
+                error={props.touched.inches && props.errors.inches}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+                keyboardType="numeric"
+              />
+            </View>
+          </View>
+        ) : (
+          <View style={styles.fieldRow}>
+            {props.values.heightUnit === 'cm' ? (
+              <View style={styles.primaryField}>
+                <ValidatedTextInput
+                  placeholder={i18n.t('placeholder-height')}
+                  value={props.values.height}
+                  onChangeText={props.handleChange('height')}
+                  onBlur={props.handleBlur('height')}
+                  error={props.touched.height && props.errors.height}
+                  returnKeyType="next"
+                  onSubmitEditing={() => {}}
+                  keyboardType="numeric"
+                />
+              </View>
+            ) : (
+              <View style={styles.primaryFieldRow}>
+                <View style={styles.tertiaryField}>
                   <ValidatedTextInput
-                    placeholder={i18n.t('placeholder-height')}
-                    value={props.values.height}
-                    onChangeText={props.handleChange('height')}
-                    onBlur={props.handleBlur('height')}
-                    error={props.touched.height && props.errors.height}
+                    placeholder={i18n.t('placeholder-feet')}
+                    value={props.values.feet}
+                    onChangeText={props.handleChange('feet')}
+                    onBlur={props.handleBlur('feet')}
+                    error={props.touched.feet && props.errors.feet}
                     returnKeyType="next"
                     onSubmitEditing={() => {}}
                     keyboardType="numeric"
                   />
                 </View>
-              ) : (
-                <View style={styles.primaryFieldRow}>
-                  <View style={styles.tertiaryField}>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-feet')}
-                      value={props.values.feet}
-                      onChangeText={props.handleChange('feet')}
-                      onBlur={props.handleBlur('feet')}
-                      error={props.touched.feet && props.errors.feet}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {}}
-                      keyboardType="numeric"
-                    />
-                  </View>
-                  <View style={styles.tertiaryField}>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-inches')}
-                      value={props.values.inches}
-                      onChangeText={props.handleChange('inches')}
-                      onBlur={props.handleBlur('inches')}
-                      error={props.touched.inches && props.errors.inches}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {}}
-                      keyboardType="numeric"
-                    />
-                  </View>
+                <View style={styles.tertiaryField}>
+                  <ValidatedTextInput
+                    placeholder={i18n.t('placeholder-inches')}
+                    value={props.values.inches}
+                    onChangeText={props.handleChange('inches')}
+                    onBlur={props.handleBlur('inches')}
+                    error={props.touched.inches && props.errors.inches}
+                    returnKeyType="next"
+                    onSubmitEditing={() => {}}
+                    keyboardType="numeric"
+                  />
                 </View>
-              )}
-              <View style={styles.secondaryField}>
-                <DropdownField
-                  onlyPicker
-                  selectedValue={props.values.heightUnit}
-                  onValueChange={props.handleChange('heightUnit')}
-                  items={[
-                    { label: 'ft', value: 'ft' },
-                    { label: 'cm', value: 'cm' },
-                  ]}
-                />
               </View>
+            )}
+            <View style={styles.secondaryField}>
+              <DropdownField
+                onlyPicker
+                selectedValue={props.values.heightUnit}
+                onValueChange={props.handleChange('heightUnit')}
+                items={[
+                  { label: 'ft', value: 'ft' },
+                  { label: 'cm', value: 'cm' },
+                ]}
+              />
             </View>
-          )}
-        </Item>
+          </View>
+        )}
         {props.touched.height && props.errors.height && <ValidationError error={props.errors.height} />}
         {props.touched.feet && props.errors.feet && <ValidationError error={props.errors.feet} />}
         {props.touched.inches && props.errors.inches && <ValidationError error={props.errors.inches} />}
@@ -133,6 +133,11 @@ export class HeightQuestion extends Component<Props, object> {
 }
 
 const styles = StyleSheet.create({
+  fieldWrapper: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+
   fieldRow: {
     flexDirection: 'row',
   },
@@ -157,5 +162,6 @@ const styles = StyleSheet.create({
 
   secondaryField: {
     flex: 2,
+    margin: -8,
   },
 });
