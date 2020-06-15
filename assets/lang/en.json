@@ -654,10 +654,10 @@
   },
 
   "validation-study-intro": {
-    "title": "Want a test for COVID if you are sick, and help vital research?",
-    "subtitle": "King's College London is launching a new study on diagnosing COVID with this app. If you report feeling unwell we may ask you to be tested.",
-    "info": "All you have to do is to keep reporting regularly on this app and we pass the data to them",
-    "yes": "I am interested",
+    "title": "We have a vital new COVID study and we need your help",
+    "subtitle": "590,761 people like you have already joined the study. Please help us get to 700,000.",
+    "info": "You just need to keep logging on this app",
+    "yes": "Learn more",
     "no": "No, thank you",
     "app-name": "COVID Symptom Study"
   },
