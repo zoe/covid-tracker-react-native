@@ -2,13 +2,13 @@ import * as React from 'react';
 import { render, fireEvent } from 'react-native-testing-library';
 
 import { usMap, gbMap, svMap, svFlag, usFlag, gbFlag } from '@assets';
-import * as UserService from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 
 import { Welcome1Screen } from '../Welcome1Screen';
 
 jest.mock('@covid/core/user/UserService');
-const { mockedGetUserCount } = UserService as any;
+const UserService = require('@covid/core/user/UserService');
+jest.mock('@covid/core/content/ContentService');
 
 const props: any = {
   navigation: {
@@ -19,8 +19,6 @@ const props: any = {
 beforeEach(() => {
   jest.clearAllMocks();
 });
-
-mockedGetUserCount.mockImplementation(() => Promise.resolve());
 
 describe('Welcome1Screen', () => {
   it('should render for US', () => {
@@ -78,7 +76,6 @@ describe('Welcome1Screen', () => {
   });
 
   it('should update the user count on mount', async () => {
-    mockedGetUserCount.mockImplementationOnce(() => Promise.resolve(' 123 '));
     const { getByTestId } = await render(<Welcome1Screen {...props} />);
     expect(getByTestId('counter').props.count).toBe(123);
   });

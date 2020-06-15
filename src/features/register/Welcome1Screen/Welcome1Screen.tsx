@@ -5,17 +5,17 @@ import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { usMap, gbMap, svMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
-import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { contentService } from '@covid/Services';
+import ContentService from '@covid/core/content/ContentService';
+import ApiClient from '@covid/core/api/ApiClient';
+import { ContentApiClient } from '@covid/core/content/ContentApiClient';
 
 import { getLocaleFlagIcon } from '../helpers';
 
 import styles from './styles';
-
-const userService = new UserService();
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
@@ -23,6 +23,9 @@ type PropsType = {
 
 const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   const [userCount, setUserCount] = useState<number>(0);
+  const apiClient = new ApiClient();
+  const contentApiClient = new ContentApiClient(apiClient);
+  const contentService = new ContentService(contentApiClient);
 
   useEffect(() => {
     contentService.getUserCount().then((response) => {
