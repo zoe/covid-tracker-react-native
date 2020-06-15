@@ -1,5 +1,4 @@
 import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 

@@ -1,5 +1,4 @@
 import { FormikProps } from 'formik';
-import { Item, Label } from 'native-base';
 import React from 'react';
 import { KeyboardTypeOptions, StyleSheet } from 'react-native';
 
