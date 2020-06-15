@@ -7,7 +7,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Image, ScrollView, Share, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
 
-import { social } from '@assets';
+import { social, surveyInvite } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
@@ -18,6 +18,7 @@ import BrandedSpinner from '@covid/components/Spinner';
 import { isAndroid } from '@covid/components/Screen';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { contentService } from '@covid/Services';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -253,6 +254,13 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                   {i18n.t('thank-you.share-this-app')}
                 </BrandedButton>
               </View>
+
+              <ExternalCallout
+                link="https://www.surveymonkey.co.uk/r/RT8TKZJ"
+                calloutID="surveyInvite"
+                imageSource={surveyInvite}
+                aspectRatio={3.38}
+              />
 
               <RegularText style={styles.partnerContainer}>
                 {i18n.t('thank-you.thank-you-for-joining')}{' '}

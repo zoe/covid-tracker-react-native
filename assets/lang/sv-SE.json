@@ -251,10 +251,11 @@
   "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
 
   "level-of-isolation": {
-    "question-level-of-isolation": "Till vilken grad har du isolerat dig den senaste veckan?",
-    "question-little-interaction": "Hur många gånger den senaste veckan har du varit utomhus med begränsad kontakt med personer utanför ditt hushåll (t.ex. för att motionera)?",
-    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats som besöks av många människor (t.ex. mataffär, kollektivtrafik, arbetsplats)?",
-    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare (t.ex. sjukhus, vårdcentral, tandläkare, apotek)?",
+    "screen-title": "Tid utanför hemmet",
+    "screen-justification": "Denna information kan hjälpa oss förstå hur fysisk distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga.",
+    "question-little-interaction": "Hur många gånger den senaste veckan har du lämnat din bostad (inkl. din trädgård) för att vistas utomhus med begränsad kontakt med personer du inte bor med (t.ex. för att motionera)?",
+    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats där många människor vistas (t.ex. mataffär, kollektivtrafik, arbetsplats, skola)?",
+    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare, t.ex. sjukhus, vårdcentral, tandläkare, apotek, antingen som besökare eller som personal?",
     "placeholder-frequency": "Antal tillfällen",
     "placeholder-optional": "Valfri",
     "required-answer": "Ange antal tillfällen",
@@ -554,16 +555,16 @@
   "back": "Tillbaka",
 
   "face-mask": {
-    "worn-a-mask-question": "Har du under den senaste veckan en ansiktsmask när du har lämnat ditt hem?",
-    "worn-a-mask-justification": "Denna information kan hjälpa oss förstå om ansiktsmasker minskar risken för covid-19-infektion. Det är helt frivilligt att svara på denna fråga.",
+    "worn-a-mask-question": "Har du under den senaste veckan använt ett munskydd när du har lämnat ditt hem?",
+    "worn-a-mask-justification": "Varför frågar vi dig detta: Denna information kan hjälpa oss förstå om munskydd/andningsmasker minskar risken för covid-19-infektion. Det är helt frivilligt att svara på denna fråga.",
     "never": "Aldrig",
     "sometimes": "Ibland",
     "most-of-the-time": "För det mesta",
     "always": "Alltid",
     "not-applicable": "Inte tillämpligt",
-    "type-of-mask-question": "Vilken typ av ansiktsmask använder du? Markera alla tillämpliga",
+    "type-of-mask-question": "Vilken typ av munskydd/andningsmask använder du? Markera alla tillämpliga",
     "cloth_scarf": "Tyg eller scarf",
-    "surgical": "Kirurgisk mask",
+    "surgical": "Kirurgiskt munskydd",
     "respirator": "N95-/FFP-skyddsmask",
     "not-sure": "Inte säker/föredrar att inte berätta",
     "other": "Annan, ange vilken:"
@@ -864,6 +865,31 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
+    },
+
+    "edit-profile": {
+      "title": false,
+      "text": false,
+      "archive-cta": false
+    },
+
+    "archive-confirmation": {
+      "title": false,
+      "text": false,
+      "confirm": false,
+      "cancel": false
+    },
+
+    "archive-reason": {
+      "title": false,
+      "text": false,
+      "text2": false,
+      "choice-duplicate-account": false,
+      "choice-no-report": false,
+      "choice-moved-away": false,
+      "choice-other": false,
+      "choice-pfnts": false,
+      "choice-passed-away": false
     }
   }
 }

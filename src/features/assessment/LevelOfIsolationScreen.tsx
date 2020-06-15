@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form, Item, Label } from 'native-base';
+import { Form, Item, Label, Text } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
 import { StyleSheet } from 'react-native';
@@ -10,7 +10,7 @@ import { StyleSheet } from 'react-native';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { PatientStateType } from '@covid/core/patient/PatientState';
@@ -97,15 +97,17 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       }),
     } as Partial<AssessmentInfosRequest>;
 
-    const masksDto = FaceMaskQuestion.createMasksDTO(
-      formData.typesOfMask as TypeOfMaskValues[],
-      formData.wornFaceMask,
-      formData.otherMask
-    );
-    infos = {
-      ...infos,
-      ...masksDto,
-    };
+    if (formData.wornFaceMask !== '') {
+      const masksDto = FaceMaskQuestion.createMasksDTO(
+        formData.typesOfMask as TypeOfMaskValues[],
+        formData.wornFaceMask,
+        formData.otherMask
+      );
+      infos = {
+        ...infos,
+        ...masksDto,
+      };
+    }
 
     return infos;
   }
@@ -162,7 +164,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
-          <HeaderText>{i18n.t('level-of-isolation.question-level-of-isolation')}</HeaderText>
+          <HeaderText>{i18n.t('level-of-isolation.screen-title')}</HeaderText>
+          <RegularText style={styles.topText}>{i18n.t('level-of-isolation.screen-justification')}</RegularText>
         </Header>
 
         <ProgressBlock>
@@ -237,5 +240,8 @@ const styles = StyleSheet.create({
   infoText: {
     ...fontStyles.bodySmallLight,
     color: colors.primary,
+  },
+  topText: {
+    marginTop: 8,
   },
 });

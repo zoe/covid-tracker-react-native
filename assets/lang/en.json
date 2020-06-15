@@ -409,10 +409,11 @@
   },
 
   "level-of-isolation": {
-    "question-level-of-isolation": "How much have you been isolating over the last week?",
-    "question-little-interaction": "In the last week, how many times have you been outside, with little interaction with people outside your household (e.g. exercise)?",
-    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work)?",
-    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare provider (e.g. hospital, clinic, dentist, pharmacy)?",
+    "screen-title": "Your time outside the home",
+    "screen-justification": "This information can help us understand the impact of social distancing and face masks on infection rates. These questions are completely optional.",
+    "question-little-interaction": "In the last week, how many times have you been outside your house, with little interaction with people outside your household (e.g. exercise)?",
+    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work, school)?",
+    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare setting, including for work (e.g. hospital, clinic, dentist, pharmacy)?",
     "placeholder-frequency": "Number of times this occurred",
     "placeholder-optional": "*Optional",
     "required-answer": "Please indicate the number of times this occurred",
@@ -663,7 +664,7 @@
 
   "validation-study-info": {
     "title": "How does the study work?",
-    "header-1": "Help develop a new digital test for Covid-19",
+    "header-1": "Help develop a new \ndigital test for Covid-19",
     "para-1": "Physical tests like swabs and antibody testing for Covid-19 infection are not accessible to everyone and take time to produce results. This study, by researchers at King’s College London, aims to test the accuracy of computer software that could be used as a quicker, simpler ‘digital test’, based on symptoms reported in the Covid Symptom Study app.",
     "header-2": "What will I have to do?",
     "para-2": "Very little - just keep logging in the app as you have done already. You may be asked to get a swab test, and report your results in the app, to improve the prediction of the digital test. This test can be done at home (with a test kit posted to you) or at a testing centre.",
@@ -853,7 +854,32 @@
     "cta-multi-profile": "Report for others"
   },
 
-  "face-mask": {
+  "edit-profile": {
+    "title": "Profile settings",
+    "text": "",
+    "archive-cta": "Archive this profile"
+  },
+
+  "archive-confirmation": {
+    "title": "Archive this profile?",
+    "text": "You'll no longer be able to report for this individual. Do you want to proceed?",
+    "confirm": "Archive",
+    "cancel": "Cancel"
+  },
+
+  "archive-reason": {
+    "title": "Profile archived",
+    "text": "Help us understand why you archived this profile. This will help to more accurately predict levels of COVID.",
+    "text2": "This question is optional.",
+    "choice-duplicate-account": "It's a duplicate account",
+    "choice-no-report": "I don't want to report for them",
+    "choice-moved-away": "This person has moved away",
+    "choice-other": "Other",
+    "choice-pfnts": "Prefer not to say",
+    "choice-passed-away": "This person has passed away"
+  },
+
+    "face-mask": {
     "worn-a-mask-question": "In the last week, did you wear a face mask when outside the house?",
     "worn-a-mask-justification": "This information can help us understand if face masks reduce COVID infection risk. This question is completely optional.",
     "never": "Never",

@@ -119,12 +119,11 @@ export class CovidRating extends Component<PropsType, State> {
   }
 }
 
-const actionButtonBorder = 'rgba(240, 240, 240, 1)';
 const styles = StyleSheet.create({
   verticalDivider: {
     height: '100%',
     width: 1,
-    backgroundColor: actionButtonBorder,
+    backgroundColor: colors.actionButtonBorder,
   },
   ratingText: {
     paddingBottom: 30,
@@ -141,7 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderTopWidth: 1,
-    borderColor: actionButtonBorder,
+    borderColor: colors.actionButtonBorder,
   },
   buttonText: {
     textAlign: 'center',
