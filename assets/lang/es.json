@@ -409,10 +409,11 @@
   },
 
   "level-of-isolation": {
-    "question-level-of-isolation": "¿Cuánto se ha aislado durante la última semana?",
-    "question-little-interaction": "En la última semana, ¿cuántas veces salió, con poca interacción con personas fuera de su familia (por ej., ejercicio)?",
-    "question-lots-of-people": "En las últimas semanas, ¿cuántas veces visitó lugares con muchas personas (por ej., tiendas, transporte público, trabajo)?",
-    "question-healthcare-provider": "En la última semana, ¿cuántas veces visitó a un proveedor de atención de salud (por ej., hospital, clínica, dentista, farmacia)?",
+    "screen-title": "Su tiempo pasada a fuera de la casa",
+    "screen-justification": "Esta informacion se puede ayudarnos entender el impacto de la distancia social y máscaras faciales en la tasa de infección. Estas preguntas son opcionales.",
+    "question-little-interaction": "En la semana pasada, ¿cuántas veces has estado a fuera de la casa, con poca interacción con la gente a fuera su casa?",
+    "question-lots-of-people": "En la semana pasada, ¿cuántas veces visitó lugares con muchas personas (por ej., tiendas, transporte público, trabajo)?",
+    "question-healthcare-provider": "En la semana pasada, ¿cuántas veces has visitado un lugar de salud, incluyendo para trabajar (Ej. un hospital, clinica, dentista, farmacia o escuela)?",
     "placeholder-frequency": "Cantidad de veces",
     "placeholder-optional": "*Opcional",
     "required-answer": "Indique la cantidad de veces que ocurrió",
@@ -818,8 +819,33 @@
   },
 
   "back": "Volver",
+  
+    "edit-profile": {
+      "title": "la configuración de perfil",
+      "text": "",
+      "archive-cta": "Archivar este perfil"
+    },
 
-  "face-mask": {
+    "archive-confirmation": {
+      "title": "Archivar este perfil?",
+      "text": "Ya no podras reportar esta persona. Quieres proceder?",
+      "confirm": "Archivo",
+      "cancel": "Canelar"
+    },
+
+    "archive-reason": {
+      "title": "Perfil archivado",
+      "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+      "text2": "Esta pregunta es opcional",
+      "choice-duplicate-account": "Es una cuenta duplicada",
+      "choice-no-report": "No quiero reportar para ellos",
+      "choice-moved-away": "Esta persona se mudó",
+      "choice-other": "Otro",
+      "choice-pfnts":"Prefiero no decir",
+      "choice-passed-away": "Esta persona se murió"
+    },
+
+    "face-mask": {
     "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
     "worn-a-mask-justification": "Por qué preguntamos esto: Esta información puede ayudarnos a entender si el uso de máscaras reduce el riesgo de infección de COVID. Esta pregunta es totalmente opcional.",
     "never": "Nunca",
