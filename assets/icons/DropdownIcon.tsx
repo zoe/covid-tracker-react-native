@@ -7,7 +7,7 @@ type CheckProps = {
   style?: any;
 };
 
-const Check: React.FC<CheckProps> = ({ width = 14, height = 13, style = {} }) => {
+const Check: React.FC<CheckProps> = ({ width = 15, height = 19, style = {} }) => {
   return (
     <Svg style={style} width={width} height={height} fill="#024364" viewBox="0 0 14 13">
       <Path
