@@ -23,6 +23,11 @@ interface DropdownFieldProps {
   onlyPicker?: boolean;
 }
 
+interface SelectedItemI {
+  index: number;
+  label?: string;
+}
+
 export const DropdownField: React.FC<DropdownFieldProps> = ({
   label,
   error,
@@ -31,11 +36,8 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   selectedValue,
   onValueChange,
 }) => {
-  // Can be used as a yes/no dropdown field by leaving props.items blank.
-  // const { label, error, onlyPicker } = this.props;
-  let _defaultIndex = -1;
-
-  const _convertItems = (array?: PickerItemProps[]): PickerItemProps[] => {
+  // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
+  const convertItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
       array?.filter((item) => !!item.value) ?? [
         { label: i18n.t('picker-no'), value: 'no' },
@@ -43,47 +45,54 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
       ]
     );
   };
-  const _defaultItems = _convertItems(providedItems);
 
-  const _defaultSelectedLabel = _defaultItems.find((item, index) => {
-    if (item.value === selectedValue) {
-      _defaultIndex = index;
-      return true;
-    }
-    return false;
-  })?.label;
+  // Returns selected index & label
+  const getSelectedLabel = (items: PickerItemProps[], selected: string): SelectedItemI => {
+    let defaultIndex = -1;
+    const label = items.find((item, index) => {
+      const isSelected = item.value === selected;
+      if (isSelected) {
+        defaultIndex = index;
+      }
+      return isSelected;
+    })?.label;
+    return { index: defaultIndex, label };
+  };
 
-  const [options, setOptions] = useState(_defaultItems.map((item) => item.label));
+  // Get index & label from default value passed with props
+  const defaultItems = convertItems(providedItems);
+  const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, selectedValue);
+
+  const [options, setOptions] = useState(defaultItems);
   const [dropdownWidth, setDropdownWidth] = useState(0);
   const [dropdownFocus, setDropdownFocus] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState(_defaultSelectedLabel);
+  const [selectedLabel, setSelectedLabel] = useState(defaultSelectedLabel);
 
   const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
   const dropdownErrorStyle = error ? styles.dropdownError : {};
 
   // Update internal string items on props items change
   useEffect(() => {
-    setOptions(_convertItems(providedItems).map((item) => item.label));
+    setOptions(convertItems(providedItems));
   }, [providedItems]);
 
-  const _onValueChange = (id: any, label: any) => {
+  const onSelect = (id: any, label: any) => {
     setSelectedLabel(label);
     if (id !== -1) {
-      onValueChange(providedItems?.find((item: PickerItemProps) => item.label === label)?.value);
+      const value = options?.find((item: PickerItemProps) => item.label === label)?.value;
+      onValueChange(value);
     }
   };
 
-  const _updateDropdownWidth = (event: any) => {
+  const updateDropdownWidth = (event: any) => {
     if (dropdownWidth !== event.nativeEvent.layout.width) {
       setDropdownWidth(event.nativeEvent.layout.width);
     }
   };
 
-  const _renderDropdownSeparator = () => {
-    return <View style={styles.dropdonwSeparator} />;
-  };
+  const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdonwSeparator} />;
 
-  const _renderDropdownRow = (option: string, index: string, isSelected: boolean) => {
+  const renderDropdownRow = (option: string, index: string, isSelected: boolean): React.ReactNode => {
     let borderRadiusStyle = {};
     const lastIndex = (options?.length ?? 0) - 1;
 
@@ -111,19 +120,19 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
         showsVerticalScrollIndicator={false}
         style={styles.dropdownButton}
         dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 48.6 }}
-        options={options}
-        defaultIndex={_defaultIndex}
-        onSelect={_onValueChange}
+        options={options.map((item: PickerItemProps) => item.label)}
+        defaultIndex={defaultIndex}
+        onSelect={onSelect}
         onDropdownWillShow={() => {
           setDropdownFocus(true);
         }}
         onDropdownWillHide={() => {
           setDropdownFocus(false);
         }}
-        renderSeparator={_renderDropdownSeparator}
-        renderRow={_renderDropdownRow}>
+        renderSeparator={renderDropdownSeparator}
+        renderRow={renderDropdownRow}>
         <View
-          onLayout={_updateDropdownWidth}
+          onLayout={updateDropdownWidth}
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
             {selectedLabel ?? i18n.t('choose-one-of-these-options')}
