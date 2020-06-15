@@ -2,6 +2,7 @@ import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
+import Error from '@assets/icons/Error';
 import { colors } from '@theme';
 
 interface Props extends TextInputProps {
@@ -31,7 +32,7 @@ export class ValidatedTextInput extends Component<Props, object> {
           placeholderTextColor={colors.secondary}
           {...this.props}
         />
-        {error && <Icon name="close" style={styles.errorIcon} />}
+        {error && <Error />}
       </View>
     );
   }
@@ -55,9 +56,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 12,
     paddingRight: 16,
-  },
-  errorIcon: {
-    color: colors.feedbackBad,
-    marginLeft: -16,
   },
 });
