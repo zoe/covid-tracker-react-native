@@ -879,7 +879,7 @@
     "choice-passed-away": "This person has passed away"
   },
 
-    "face-mask": {
+  "face-mask": {
     "worn-a-mask-question": "In the last week, did you wear a face mask when outside the house?",
     "worn-a-mask-justification": "This information can help us understand if face masks reduce COVID infection risk. This question is completely optional.",
     "never": "Never",
@@ -893,5 +893,9 @@
     "respirator": "N95/FFP respirator",
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
+  },
+
+  "dropdown": {
+    "placeholder": "Choose one of the options"
   }
 }

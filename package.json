@@ -71,6 +71,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-ondevice-actions": "^5.3.19",
     "@storybook/react-native": "^5.3.19",
     "@storybook/react-native-server": "^5.3.19",
     "@types/body-parser": "^1.19.0",
