@@ -58,6 +58,23 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
   );
 };
 
+const HeightinCm: React.FC<Props> = ({ formikProps }) => {
+  return (
+    <View style={styles.primaryField}>
+      <ValidatedTextInput
+        placeholder={i18n.t('placeholder-height')}
+        value={formikProps.values.height}
+        onChangeText={formikProps.handleChange('height')}
+        onBlur={formikProps.handleBlur('height')}
+        error={formikProps.touched.height && formikProps.errors.height}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+        keyboardType="numeric"
+      />
+    </View>
+  );
+};
+
 export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
@@ -67,18 +84,7 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
       ) : (
         <View style={styles.fieldRow}>
           {formikProps.values.heightUnit === 'cm' ? (
-            <View style={styles.primaryField}>
-              <ValidatedTextInput
-                placeholder={i18n.t('placeholder-height')}
-                value={formikProps.values.height}
-                onChangeText={formikProps.handleChange('height')}
-                onBlur={formikProps.handleBlur('height')}
-                error={formikProps.touched.height && formikProps.errors.height}
-                returnKeyType="next"
-                onSubmitEditing={() => {}}
-                keyboardType="numeric"
-              />
-            </View>
+            <HeightinCm formikProps={formikProps} />
           ) : (
             <HeightInInches formikProps={formikProps} />
           )}
