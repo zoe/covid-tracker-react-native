@@ -47,6 +47,7 @@ export default class ContentService implements IContentService {
       title_text: i18n.t('welcome.research'),
       body_text: i18n.t('welcome.see-how-your-area-is-affected'),
       body_link: ContentService.getWebsiteUrl(),
+      link_text: i18n.t('welcome.visit-the-website'),
       body_photo: null,
       experiment_name: '',
       cohort_id: 0,
