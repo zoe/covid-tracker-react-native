@@ -126,7 +126,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
           onLayout={_updateDropdownWidth}
           style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
           <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-            {selectedLabel ?? i18n.t('dropdown.placeholder')}
+            {selectedLabel ?? i18n.t('choose-one-of-these-options')}
           </Label>
           <DropdownIcon width={15} height={19} />
         </View>

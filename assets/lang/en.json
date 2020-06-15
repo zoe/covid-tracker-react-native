@@ -893,9 +893,5 @@
     "respirator": "N95/FFP respirator",
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
-  },
-
-  "dropdown": {
-    "placeholder": "Choose one of the options"
   }
 }
