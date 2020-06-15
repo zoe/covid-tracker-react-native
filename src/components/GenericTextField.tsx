@@ -6,6 +6,7 @@ import { KeyboardTypeOptions, StyleSheet } from 'react-native';
 import { FieldWrapper } from './Screen';
 import { ValidatedTextInput } from './ValidatedTextInput';
 import { ValidationError } from './ValidationError';
+import { RegularText } from './Text';
 
 interface GenericTextFieldProps {
   formikProps: FormikProps<any>;
@@ -20,21 +21,19 @@ interface GenericTextFieldProps {
 export const GenericTextField = (props: GenericTextFieldProps) => {
   const { formikProps, name, label, placeholder, keyboardType, showError, ...inputProps } = props;
   return (
-    <FieldWrapper>
-      <Item stackedLabel style={styles.textItemStyle}>
-        {!!label && <Label>{label}</Label>}
-        <ValidatedTextInput
-          placeholder={placeholder ?? ''}
-          value={formikProps.values[name]}
-          onChangeText={formikProps.handleChange(name)}
-          onBlur={formikProps.handleBlur(name)}
-          error={formikProps.touched[name] && formikProps.errors[name]}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
-          keyboardType={keyboardType}
-          {...inputProps}
-        />
-      </Item>
+    <FieldWrapper style={styles.fieldWrapper}>
+      {!!label && <RegularText>{label}</RegularText>}
+      <ValidatedTextInput
+        placeholder={placeholder ?? ''}
+        value={formikProps.values[name]}
+        onChangeText={formikProps.handleChange(name)}
+        onBlur={formikProps.handleBlur(name)}
+        error={formikProps.touched[name] && formikProps.errors[name]}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+        keyboardType={keyboardType}
+        {...inputProps}
+      />
 
       {showError && !!formikProps.touched[name] && !!formikProps.errors[name] && (
         <ValidationError
@@ -47,7 +46,8 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
 };
 
 const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
+  fieldWrapper: {
+    flex: 1,
+    marginHorizontal: 16,
   },
 });
