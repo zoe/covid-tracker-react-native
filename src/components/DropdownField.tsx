@@ -37,7 +37,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   onValueChange,
 }) => {
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
-  const convertItems = (array?: PickerItemProps[]): PickerItemProps[] => {
+  const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
     return (
       array?.filter((item) => !!item.value) ?? [
         { label: i18n.t('picker-no'), value: 'no' },
@@ -60,7 +60,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   };
 
   // Get index & label from default value passed with props
-  const defaultItems = convertItems(providedItems);
+  const defaultItems = prepareItems(providedItems);
   const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, selectedValue);
 
   const [options, setOptions] = useState(defaultItems);
@@ -73,7 +73,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
 
   // Update internal string items on props items change
   useEffect(() => {
-    setOptions(convertItems(providedItems));
+    setOptions(prepareItems(providedItems));
   }, [providedItems]);
 
   const onSelect = (id: any, label: any) => {
