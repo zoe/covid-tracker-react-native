@@ -30,6 +30,12 @@ import {
   supplementValues,
   SupplementValue,
 } from '../patient/fields/VitaminQuestion';
+import {
+  DiabetesData,
+  DiabetesQuestions,
+  initialFormValues as DiabetesQuestionsInitialFormValues,
+  SchemaShape as DiabetesSchemaShape,
+} from '../patient/fields/DiabetesQuestions';
 
 interface BackfillData
   extends BloodPressureData,
@@ -37,7 +43,8 @@ interface BackfillData
     PeriodData,
     HormoneTreatmentData,
     VitaminSupplementData,
-    AtopyData {}
+    AtopyData,
+    DiabetesData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -134,6 +141,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       is: (val: string[]) => val.includes(supplementValues.OTHER),
       then: Yup.string(),
     }),
+
+    ...DiabetesSchemaShape,
   });
 
   async componentDidMount() {
@@ -279,6 +288,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...PeriodQuestion.initialFormValues(),
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
+            ...DiabetesQuestionsInitialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackfillData) => {
@@ -310,6 +320,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                 )}
 
                 {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />}
+
+                <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (

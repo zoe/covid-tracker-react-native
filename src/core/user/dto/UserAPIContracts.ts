@@ -190,6 +190,25 @@ export type PatientInfosRequest = {
   vs_pftns: boolean;
   vs_other: string;
   vs_asked_at: Date;
+
+  // Diabetes fields
+  diabetes_type: string;
+  a1c_measurement_percent: number;
+  a1c_measurement_mmol: number;
+  diabetes_diagnosis_year: number;
+  diabetes_treatment_none: boolean;
+  diabetes_treatment_lifestyle: boolean;
+  diabetes_treatment_basal_insulin: boolean;
+  diabetes_treatment_rapid_insulin: boolean;
+  diabetes_treatment_other_injection: boolean;
+  diabetes_treatment_other_oral: boolean;
+  diabetes_oral_biguanide: boolean;
+  diabetes_oral_sulfonylurea: boolean;
+  diabetes_oral_dpp4: boolean;
+  diabetes_oral_meglitinides: boolean;
+  diabetes_oral_thiazolidinediones: boolean;
+  diabetes_oral_sglt2: boolean;
+  diabetes_oral_other_medication: string;
 };
 
 export type TokenInfoRequest = {
