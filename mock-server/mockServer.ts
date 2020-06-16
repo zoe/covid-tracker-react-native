@@ -155,6 +155,23 @@ app.get('/area_stats/', (_, res) => {
   });
 });
 
+app.get('/text/list/', (_, res) => {
+  return res.status(200).send({
+    ThankYou: null,
+    Welcome: null,
+    WelcomeRepeat: {
+      title_text: 'RESEARCH',
+      body_text: 'Follow the discoveries \\nyou made possible"',
+      body_link: 'https://www.youtube.com/watch?v=oHg5SJYRHA0',
+      link_text: 'Visit the website',
+      body_photo: null,
+      experiment_name: null,
+      cohort_id: null,
+      analytics: null,
+    },
+  });
+});
+
 /**
  * Patient
  */
