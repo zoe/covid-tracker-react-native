@@ -20,7 +20,7 @@ export interface HeightData {
 }
 
 interface FCWithStatic<P> extends React.FC<P> {
-  initialFormValues: () => object;
+  initialFormValues: () => HeightData;
 }
 
 interface Props {

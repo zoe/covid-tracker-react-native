@@ -19,7 +19,7 @@ export interface WeightData {
 }
 
 interface FCWithStatic<P> extends React.FC<P> {
-  initialFormValues: () => object;
+  initialFormValues: () => WeightData;
 }
 
 interface Props {
@@ -82,17 +82,6 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
                   keyboardType="numeric"
                 />
               </View>
-            )}
-            <View style={styles.secondaryField}>
-              <DropdownField
-                onlyPicker
-                selectedValue={props.values.weightUnit}
-                onValueChange={props.handleChange('weightUnit')}
-                items={[
-                  { label: 'lbs', value: 'lbs' },
-                  { label: 'kg', value: 'kg' },
-                ]}
-              />
             </View>
           )}
           <View style={styles.secondaryField}>
