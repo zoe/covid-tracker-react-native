@@ -73,22 +73,13 @@ export interface ILocalisationService {
   // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
 }
 
-export interface IDontKnowService {
-  getAskedToRateStatus(): Promise<string | null>;
-  setAskedToRateStatus(status: string): void;
-  getUserCount(): Promise<any>;
-  getStartupInfo(): Promise<any>;
-  getAreaStats(patientId: string): Promise<any>;
-}
-
 export default class UserService extends ApiClientBase
   implements
     IUserService, // TODO: ideally a UserService should only implement this, everything else is a separate service
     IProfileService,
     IConsentService,
     IPatientService,
-    ILocalisationService,
-    IDontKnowService {
+    ILocalisationService {
   public static userCountry = 'US';
   public static ipCountry = '';
   public static countryConfig: ConfigType;
@@ -360,14 +351,6 @@ export default class UserService extends ApiClientBase
     return localProfile;
   }
 
-  public async getAskedToRateStatus() {
-    return AsyncStorageService.getAskedToRateStatus();
-  }
-
-  public setAskedToRateStatus(status: string) {
-    AsyncStorageService.setAskedToRateStatus(status);
-  }
-
   public async updatePii(pii: Partial<PiiRequest>) {
     const userId = ApiClientBase.userId;
     return this.client.patch(`/information/${userId}/`, pii);
@@ -386,20 +369,6 @@ export default class UserService extends ApiClientBase
     };
     UserService.consentSigned = consent;
     await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
-  }
-
-  async getUserCount() {
-    return await AsyncStorageService.getUserCount();
-  }
-
-  async getStartupInfo() {
-    try {
-      const response = await this.client.get<StartupInfo>('/users/startup_info/');
-      UserService.ipCountry = response.data.ip_country;
-      await AsyncStorageService.setUserCount(response.data.users_count.toString());
-    } catch (error) {
-      handleServiceError(error);
-    }
   }
 
   async setUserCountry(countryCode: string) {
@@ -456,10 +425,6 @@ export default class UserService extends ApiClientBase
     return this.client.delete(`/users/delete/`, {
       data: payload,
     });
-  }
-
-  public async getAreaStats(patientId: string) {
-    return this.client.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);
   }
 
   public async hasMultipleProfiles() {

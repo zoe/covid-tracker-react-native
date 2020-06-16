@@ -7,6 +7,7 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
+import { contentService, userService } from '@covid/Services';
 
 import { RegularBoldText, RegularText } from './Text';
 
@@ -23,10 +24,9 @@ const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id150352961
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
-  const userService = new UserService();
   const profile = await userService.getProfile();
   const eligibleToAskForRating = profile.ask_for_rating;
-  const askedToRateStatus = await userService.getAskedToRateStatus();
+  const askedToRateStatus = await contentService.getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;
 }
 
@@ -38,7 +38,7 @@ export class CovidRating extends Component<PropsType, State> {
   private userService = new UserService();
 
   decline = () => {
-    this.userService.setAskedToRateStatus('asked');
+    contentService.setAskedToRateStatus('asked');
     this.setState({ isModalOpen: false });
   };
 
@@ -54,7 +54,7 @@ export class CovidRating extends Component<PropsType, State> {
   };
 
   takeToStore = () => {
-    this.userService.setAskedToRateStatus('asked');
+    contentService.setAskedToRateStatus('asked');
     if (Platform.OS != 'ios') {
       Linking.openURL(AndroidLink).catch((err) => {});
     } else {

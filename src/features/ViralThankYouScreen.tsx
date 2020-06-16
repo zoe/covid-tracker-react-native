@@ -17,6 +17,7 @@ import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@cov
 import BrandedSpinner from '@covid/components/Spinner';
 import { isAndroid } from '@covid/components/Screen';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { contentService } from '@covid/Services';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 
 import { ScreenParamList } from './ScreenParamList';
@@ -54,13 +55,13 @@ export default class ViralThankYouScreen extends Component<Props, State> {
       this.setState({ askForRating: true });
     }
 
-    userService
+    contentService
       .getAreaStats(profile.patients[0]) // todo: multipatient
       .then((response) =>
         this.setState({
           areaStats: {
-            ...response.data,
-            area_name: response.data.area_name + ' County',
+            ...response,
+            area_name: response.area_name + ' County',
           },
           loading: false,
         })

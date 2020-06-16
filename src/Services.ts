@@ -5,6 +5,8 @@ import PushNotificationService, {
   PushNotificationApiClient,
 } from '@covid/core/pushNotifications/PushNotificationService';
 import UserService from '@covid/core/user/UserService';
+import ContentService from '@covid/core/content/ContentService';
+import { ContentApiClient } from '@covid/core/content/ContentApiClient';
 
 import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
@@ -16,6 +18,9 @@ const localStorageService = new LocalStorageService();
 
 export const userService = new UserService();
 export const offlineService = new OfflineService();
+
+const contentApiClient = new ContentApiClient(apiClient);
+export const contentService = new ContentService(contentApiClient);
 
 const pushTokenEnvironment = new ExpoPushTokenEnvironment();
 const pushNotificationApiClient = new PushNotificationApiClient(apiClient);
