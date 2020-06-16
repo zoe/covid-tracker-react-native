@@ -3,22 +3,22 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import { colors } from '@theme';
-import { CalloutBoxContent } from '@covid/core/ContentService';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 
 import { RegularText } from './Text';
 
 type CalloutBoxProps = {
-  content: CalloutBoxContent;
+  content: ScreenContent;
 };
 
 export const CalloutBox = ({ content }: CalloutBoxProps) => {
   return (
-    <TouchableOpacity style={styles.discoveriesContainer} onPress={() => Linking.openURL(content.link.url)}>
+    <TouchableOpacity style={styles.discoveriesContainer} onPress={() => Linking.openURL(content.body_link)}>
       <View style={styles.discoveriesTitleBackground}>
-        <RegularText style={styles.discoveriesTitle}>{content.title}</RegularText>
+        <RegularText style={styles.discoveriesTitle}>{content.title_text}</RegularText>
       </View>
-      <RegularText style={styles.discoveriesText}>{content.description}</RegularText>
-      <RegularText style={styles.discoveriesVisitText}>{content.link.title}</RegularText>
+      <RegularText style={styles.discoveriesText}>{content.body_text}</RegularText>
+      <RegularText style={styles.discoveriesVisitText}>{content.body_text}</RegularText>
     </TouchableOpacity>
   );
 };
