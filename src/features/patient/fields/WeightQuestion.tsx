@@ -1,5 +1,5 @@
 import { FormikProps } from 'formik';
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import DropdownField from '@covid/components/DropdownField';
@@ -18,101 +18,104 @@ export interface WeightData {
   weightUnit: string;
 }
 
+interface FCWithStatic<P> extends React.FC<P> {
+  initialFormValues: () => WeightData;
+}
+
 interface Props {
   formikProps: FormikProps<WeightData>;
 }
 
-export class WeightQuestion extends Component<Props, object> {
-  static initialFormValues = () => {
-    const features = userService.getConfig();
-    return {
-      weight: '',
-      stones: '',
-      pounds: '',
-      weightUnit: features.defaultWeightUnit,
-    };
-  };
-
-  render() {
-    const props = this.props.formikProps;
-    return (
-      <FieldWrapper style={styles.fieldWrapper}>
-        <RegularText>{i18n.t('your-weight')}</RegularText>
-        {isUSCountry() ? (
-          <ValidatedTextInput
-            placeholder={i18n.t('placeholder-pounds')}
-            value={props.values.pounds}
-            onChangeText={props.handleChange('pounds')}
-            onBlur={props.handleBlur('pounds')}
-            error={props.touched.pounds && props.errors.pounds}
-            returnKeyType="next"
-            onSubmitEditing={() => {}}
-            keyboardType="numeric"
-          />
-        ) : (
-          <View style={styles.fieldRow}>
-            {props.values.weightUnit === 'kg' ? (
-              <View style={styles.primaryField}>
+export const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
+  return (
+    <FieldWrapper style={styles.fieldWrapper}>
+      <RegularText>{i18n.t('your-weight')}</RegularText>
+      {isUSCountry() ? (
+        <ValidatedTextInput
+          placeholder={i18n.t('placeholder-pounds')}
+          value={formikProps.values.pounds}
+          onChangeText={formikProps.handleChange('pounds')}
+          onBlur={formikProps.handleBlur('pounds')}
+          error={formikProps.touched.pounds && formikProps.errors.pounds}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      ) : (
+        <View style={styles.fieldRow}>
+          {formikProps.values.weightUnit === 'kg' ? (
+            <View style={styles.primaryField}>
+              <ValidatedTextInput
+                placeholder={i18n.t('placeholder-weight')}
+                value={formikProps.values.weight}
+                onChangeText={formikProps.handleChange('weight')}
+                onBlur={formikProps.handleBlur('weight')}
+                error={formikProps.touched.weight && formikProps.errors.weight}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+                keyboardType="numeric"
+              />
+            </View>
+          ) : (
+            <View style={styles.primaryFieldRow}>
+              <View style={styles.tertiaryField}>
                 <ValidatedTextInput
-                  placeholder={i18n.t('placeholder-weight')}
-                  value={props.values.weight}
-                  onChangeText={props.handleChange('weight')}
-                  onBlur={props.handleBlur('weight')}
-                  error={props.touched.weight && props.errors.weight}
+                  placeholder={i18n.t('placeholder-stones')}
+                  value={formikProps.values.stones}
+                  onChangeText={formikProps.handleChange('stones')}
+                  onBlur={formikProps.handleBlur('stones')}
+                  error={formikProps.touched.stones && formikProps.errors.stones}
                   returnKeyType="next"
                   onSubmitEditing={() => {}}
                   keyboardType="numeric"
                 />
               </View>
-            ) : (
-              <View style={styles.primaryFieldRow}>
-                <View style={styles.tertiaryField}>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('placeholder-stones')}
-                    value={props.values.stones}
-                    onChangeText={props.handleChange('stones')}
-                    onBlur={props.handleBlur('stones')}
-                    error={props.touched.stones && props.errors.stones}
-                    returnKeyType="next"
-                    onSubmitEditing={() => {}}
-                    keyboardType="numeric"
-                  />
-                </View>
-                <View style={styles.tertiaryField}>
-                  <ValidatedTextInput
-                    placeholder={i18n.t('placeholder-pounds')}
-                    value={props.values.pounds}
-                    onChangeText={props.handleChange('pounds')}
-                    onBlur={props.handleBlur('pounds')}
-                    error={props.touched.pounds && props.errors.pounds}
-                    returnKeyType="next"
-                    onSubmitEditing={() => {}}
-                    keyboardType="numeric"
-                  />
-                </View>
+              <View style={styles.tertiaryField}>
+                <ValidatedTextInput
+                  placeholder={i18n.t('placeholder-pounds')}
+                  value={formikProps.values.pounds}
+                  onChangeText={formikProps.handleChange('pounds')}
+                  onBlur={formikProps.handleBlur('pounds')}
+                  error={formikProps.touched.pounds && formikProps.errors.pounds}
+                  returnKeyType="next"
+                  onSubmitEditing={() => {}}
+                  keyboardType="numeric"
+                />
               </View>
-            )}
-            <View style={styles.secondaryField}>
-              <DropdownField
-                onlyPicker
-                selectedValue={props.values.weightUnit}
-                onValueChange={props.handleChange('weightUnit')}
-                items={[
-                  { label: 'lbs', value: 'lbs' },
-                  { label: 'kg', value: 'kg' },
-                ]}
-              />
             </View>
+          )}
+          <View style={styles.secondaryField}>
+            <DropdownField
+              onlyPicker
+              selectedValue={formikProps.values.weightUnit}
+              onValueChange={formikProps.handleChange('weightUnit')}
+              items={[
+                { label: 'lbs', value: 'lbs' },
+                { label: 'kg', value: 'kg' },
+              ]}
+            />
           </View>
-        )}
-        {props.touched.weight && props.errors.weight && <ValidationError error={props.errors.weight} />}
-        {props.touched.pounds && props.errors.pounds && <ValidationError error={props.errors.pounds} />}
-        {props.touched.stones && props.errors.stones && <ValidationError error={props.errors.stones} />}
-        {props.touched.weightUnit && props.errors.weightUnit && <ValidationError error={props.errors.weightUnit} />}
-      </FieldWrapper>
-    );
-  }
-}
+        </View>
+      )}
+      {formikProps.touched.weight && formikProps.errors.weight && <ValidationError error={formikProps.errors.weight} />}
+      {formikProps.touched.pounds && formikProps.errors.pounds && <ValidationError error={formikProps.errors.pounds} />}
+      {formikProps.touched.stones && formikProps.errors.stones && <ValidationError error={formikProps.errors.stones} />}
+      {formikProps.touched.weightUnit && formikProps.errors.weightUnit && (
+        <ValidationError error={formikProps.errors.weightUnit} />
+      )}
+    </FieldWrapper>
+  );
+};
+
+WeightQuestion.initialFormValues = () => {
+  const features = userService.getConfig();
+  return {
+    weight: '',
+    stones: '',
+    pounds: '',
+    weightUnit: features.defaultWeightUnit,
+  };
+};
 
 const styles = StyleSheet.create({
   fieldWrapper: {
