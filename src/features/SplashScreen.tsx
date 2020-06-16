@@ -8,7 +8,7 @@ import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
-import { offlineService, userService } from '@covid/Services';
+import { contentService, offlineService, userService } from '@covid/Services';
 
 import Navigator from './Navigation';
 import { ScreenParamList } from './ScreenParamList';
@@ -123,7 +123,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   private updateUserCount = async () => {
-    await userService.getStartupInfo();
+    await contentService.getStartupInfo();
   };
 
   private loadUser = async (): Promise<AuthenticatedUser> => {

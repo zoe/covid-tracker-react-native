@@ -1,9 +1,9 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { covidIcon, menuIcon } from '@assets';
+import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
@@ -13,11 +13,11 @@ import { PoweredByZoe } from '@covid/components/PoweredByZoe';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
-import { offlineService, pushNotificationService, userService } from '@covid/Services';
+import { contentService, offlineService, pushNotificationService, userService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 
 import Navigator, { NavigationType } from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
@@ -32,12 +32,14 @@ type WelcomeRepeatScreenState = {
   userCount: number | null;
   showPartnerLogos: boolean;
   onRetry?: () => void;
+  calloutBoxContent: ScreenContent;
 } & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
   userCount: null,
   showPartnerLogos: true,
+  calloutBoxContent: contentService.getCalloutBoxDefault(),
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -45,12 +47,16 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
-    const userCount = await userService.getUserCount();
+    const userCount = await contentService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
     const feature = userService.getConfig();
     this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
+
+    const content = await contentService.getWelcomeRepeatContent();
+    console.log('CONTENT: ' + JSON.stringify(content));
+    this.setState({ calloutBoxContent: content });
   }
 
   gotoNextScreen = async () => {
@@ -76,34 +82,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
-  navigateToPrivacyPolicy = () => {
-    if (isUSCountry()) {
-      this.props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
-    } else {
-      this.props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true });
-    }
-  };
-
-  getWebsiteUrl = () => {
-    if (isUSCountry()) {
-      return 'https://covid.joinzoe.com/us';
-    } else if (isSECountry()) {
-      return 'https://covid19app.lu.se/';
-    } else {
-      return 'https://covid.joinzoe.com/';
-    }
-  };
-
   render() {
-    const calloutContent = {
-      title: i18n.t('welcome.research'),
-      description: i18n.t('welcome.see-how-your-area-is-affected'),
-      link: {
-        title: i18n.t('welcome.visit-the-website'),
-        url: this.getWebsiteUrl(),
-      },
-    };
-
     return (
       <SafeAreaView style={styles.safeView}>
         {this.state.isApiError && (
@@ -133,7 +112,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <View style={{ flex: 1 }} />
 
-            <CalloutBox content={calloutContent} />
+            <CalloutBox content={this.state.calloutBoxContent} />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>

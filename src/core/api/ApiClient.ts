@@ -4,6 +4,7 @@ import { handleServiceError } from './ApiServiceErrors';
 export interface IApiClient {
   post<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   patch<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
+  get<TResponse>(path: string): Promise<TResponse>;
 }
 
 export default class ApiClient extends ApiClientBase implements IApiClient {
@@ -22,6 +23,16 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
   async patch<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
     try {
       const response = await this.client.patch<TResponse>(path, payload);
+      return response.data;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return {} as TResponse;
+  }
+
+  async get<TResponse>(path: string): Promise<TResponse> {
+    try {
+      const response = await this.client.get<TResponse>(path);
       return response.data;
     } catch (error) {
       handleServiceError(error);
