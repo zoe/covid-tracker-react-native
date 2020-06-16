@@ -1,12 +1,11 @@
 import { Label, View } from 'native-base';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PickerItemProps, StyleSheet, PickerProps, TouchableOpacity, Text } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-
-import DropdownIcon from '../../assets/icons/Dropdown';
+import DropdownIcon from '@assets/icons/DropdownIcon';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
@@ -23,74 +22,80 @@ interface DropdownFieldProps {
   onlyPicker?: boolean;
 }
 
-type State = {
-  items?: PickerItemProps[];
-  options?: string[];
-  dropdownWidth?: number;
-  dropdownFocus?: boolean;
-  selectedLabel?: string;
-  defaultIndex?: number;
-};
+interface SelectedItemI {
+  index: number;
+  label?: string;
+}
 
-class DropdownField extends React.Component<DropdownFieldProps, State> {
-  constructor(props: DropdownFieldProps) {
-    super(props);
+const DROPDOWN_ROW_HEIGHT = 48.6;
 
-    const items = this.props.items?.filter((item) => !!item.value) ?? [
-      { label: i18n.t('picker-no'), value: 'no' },
-      { label: i18n.t('picker-yes'), value: 'yes' },
-    ];
+export const DropdownField: React.FC<DropdownFieldProps> = ({
+  label,
+  error,
+  onlyPicker,
+  items: providedItems,
+  selectedValue,
+  onValueChange,
+}) => {
+  // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
+  const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
+    return (
+      array?.filter((item) => !!item.value) ?? [
+        { label: i18n.t('picker-no'), value: 'no' },
+        { label: i18n.t('picker-yes'), value: 'yes' },
+      ]
+    );
+  };
 
-    //This only change the default highlight of the dropdown row
+  // Returns selected index & label
+  const getSelectedLabel = (items: PickerItemProps[], selected: string): SelectedItemI => {
     let defaultIndex = -1;
-
-    //This only change the default highlight of the dropdown row
-    const selectedLabel = items.find((item, index) => {
-      if (item.value === this.props.selectedValue) {
+    const label = items.find((item, index) => {
+      const isSelected = item.value === selected;
+      if (isSelected) {
         defaultIndex = index;
-        return true;
       }
-      return false;
+      return isSelected;
     })?.label;
-
-    this.state = {
-      items,
-      options: items.map((item) => item.label),
-      dropdownWidth: 0,
-      dropdownFocus: false,
-      selectedLabel,
-      defaultIndex,
-    };
-  }
-
-  setDropdownWidth = (event: any) => {
-    if (this.state.dropdownWidth !== event.nativeEvent.layout.width) {
-      this.setState({ dropdownWidth: event.nativeEvent.layout.width });
-    }
+    return { index: defaultIndex, label };
   };
 
-  handleOnDropdownWillShow = () => {
-    this.setState({ dropdownFocus: true });
-  };
+  // Get index & label from default value passed with props
+  const defaultItems = prepareItems(providedItems);
+  const { index: defaultIndex, label: defaultSelectedLabel } = getSelectedLabel(defaultItems, selectedValue);
 
-  handleOnDropdownWillHide = () => {
-    this.setState({ dropdownFocus: false });
-  };
+  const [options, setOptions] = useState(defaultItems);
+  const [dropdownWidth, setDropdownWidth] = useState(0);
+  const [dropdownFocus, setDropdownFocus] = useState(false);
+  const [selectedLabel, setSelectedLabel] = useState(defaultSelectedLabel);
 
-  onValueChange = (id: any, label: any) => {
-    this.setState({ selectedLabel: label });
+  const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
+  const dropdownErrorStyle = error ? styles.dropdownError : {};
+
+  // Update internal string items on props items change
+  useEffect(() => {
+    setOptions(prepareItems(providedItems));
+  }, [providedItems]);
+
+  const onSelect = (id: any, label: any) => {
+    setSelectedLabel(label);
     if (id !== -1) {
-      this.props.onValueChange(this.state?.items?.find((item: PickerItemProps) => item.label === label)?.value);
+      const value = options?.find((item: PickerItemProps) => item.label === label)?.value;
+      onValueChange(value);
     }
   };
 
-  renderDropdownSeparator = () => {
-    return <View style={styles.dropdonwSeparator} />;
+  const updateDropdownWidth = (event: any) => {
+    if (dropdownWidth !== event.nativeEvent.layout.width) {
+      setDropdownWidth(event.nativeEvent.layout.width);
+    }
   };
 
-  renderDropdownRow = (option: string, index: string, isSelected: boolean) => {
+  const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
+
+  const renderDropdownRow = (option: string, index: string, isSelected: boolean): React.ReactNode => {
     let borderRadiusStyle = {};
-    const lastIndex = (this.state.options?.length ?? 0) - 1;
+    const lastIndex = (options?.length ?? 0) - 1;
 
     if (index === '0') borderRadiusStyle = styles.topBorderRadiusStyle;
     else if (index === lastIndex.toString()) borderRadiusStyle = styles.bottomBorderRadiusStyle;
@@ -108,46 +113,46 @@ class DropdownField extends React.Component<DropdownFieldProps, State> {
     );
   };
 
-  render() {
-    // Can be used as a yes/no dropdown field by leaving props.items blank.
-    const { label, error, onlyPicker } = this.props;
-    const { options, dropdownWidth, dropdownFocus, selectedLabel, defaultIndex } = this.state;
-    const dropdownFocusStyle = dropdownFocus ? styles.dropdownOnFocus : styles.dropdownNoBorder;
-    const dropdownErrorStyle = error ? styles.dropdownError : {};
-
-    return (
-      <FieldWrapper style={styles.fieldWrapper}>
-        {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
-        <ModalDropdown
-          animated={false}
-          showsVerticalScrollIndicator={false}
-          style={styles.dropdownButton}
-          dropdownStyle={{ ...styles.dropdownStyle, width: dropdownWidth, height: (options?.length ?? 1) * 48.6 }}
-          options={options}
-          defaultIndex={defaultIndex}
-          onSelect={this.onValueChange}
-          onDropdownWillShow={this.handleOnDropdownWillShow}
-          onDropdownWillHide={this.handleOnDropdownWillHide}
-          renderSeparator={this.renderDropdownSeparator}
-          renderRow={this.renderDropdownRow}>
-          <View
-            onLayout={this.setDropdownWidth}
-            style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
-            <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
-              {selectedLabel ?? 'Choose one of the options'}
-            </Label>
-            <DropdownIcon width={15} height={19} />
-          </View>
-        </ModalDropdown>
-        {!!error && (
-          <View style={{ marginTop: 6, marginHorizontal: -16 }}>
-            <ValidationError error={error} />
-          </View>
-        )}
-      </FieldWrapper>
-    );
-  }
-}
+  return (
+    <FieldWrapper style={styles.fieldWrapper}>
+      {onlyPicker ? null : <Label style={styles.labelStyle}>{label}</Label>}
+      <ModalDropdown
+        animated={false}
+        showsVerticalScrollIndicator={false}
+        style={styles.dropdownButton}
+        dropdownStyle={{
+          ...styles.dropdownStyle,
+          width: dropdownWidth,
+          height: (options?.length ?? 1) * DROPDOWN_ROW_HEIGHT,
+        }}
+        options={options.map((item: PickerItemProps) => item.label)}
+        defaultIndex={defaultIndex}
+        onSelect={onSelect}
+        onDropdownWillShow={() => {
+          setDropdownFocus(true);
+        }}
+        onDropdownWillHide={() => {
+          setDropdownFocus(false);
+        }}
+        renderSeparator={renderDropdownSeparator}
+        renderRow={renderDropdownRow}>
+        <View
+          onLayout={updateDropdownWidth}
+          style={[styles.dropdownButtonContainer, dropdownFocusStyle, dropdownErrorStyle]}>
+          <Label style={[styles.dropdownLabel, selectedLabel ? styles.dropdownSelectedLabel : {}]}>
+            {selectedLabel ?? i18n.t('choose-one-of-these-options')}
+          </Label>
+          <DropdownIcon />
+        </View>
+      </ModalDropdown>
+      {!!error && (
+        <View style={{ marginTop: 6, marginHorizontal: -16 }}>
+          <ValidationError error={error} />
+        </View>
+      )}
+    </FieldWrapper>
+  );
+};
 
 const styles = StyleSheet.create({
   fieldWrapper: {
@@ -232,7 +237,7 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 8,
     borderBottomStartRadius: 8,
   },
-  dropdonwSeparator: {
+  dropdownSeparator: {
     height: 1,
     width: '100%',
     backgroundColor: colors.backgroundSecondary,
