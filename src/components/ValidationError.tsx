@@ -33,11 +33,13 @@ export const ValidationErrors: React.FC<ErrorsProps> = ({ errors }) => (
 
 const styles = StyleSheet.create({
   validationError: {
-    marginVertical: 0,
+    marginBottom: 0,
+    marginTop: 4,
+    marginHorizontal: 6,
   },
 
   validationErrors: {
-    marginVertical: 8,
-    marginHorizontal: 8,
+    marginVertical: 4,
+    marginHorizontal: 4,
   },
 });
