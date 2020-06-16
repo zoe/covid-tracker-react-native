@@ -475,7 +475,7 @@ export default class UserService extends ApiClientBase
     i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
   }
 
-  private static getLocale() {
+  static getLocale() {
     return Localization.locale.split('-')[0];
   }
 
