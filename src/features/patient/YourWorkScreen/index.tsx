@@ -7,9 +7,9 @@ import * as Yup from 'yup';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, isAndroid, ProgressBlock } from '@covid/components/Screen';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidationErrors } from '@covid/components/ValidationError';
+import { ValidationError } from '@covid/components/ValidationError';
 import UserService from '@covid/core/user/UserService';
 import {
   AvailabilityAlwaysOptions,
@@ -22,7 +22,7 @@ import {
 } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 
-import { initialState, IOption, State, YourWorkData, YourWorkProps } from './helpers';
+import { initialState, State, YourWorkData, YourWorkProps } from './helpers';
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
@@ -384,7 +384,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                   )}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
-                  {!!Object.keys(errors).length && props.submitCount > 0 && <ValidationErrors errors={errors} />}
+                  {!!Object.keys(errors).length && props.submitCount > 0 && (
+                    <ValidationError error={i18n.t('validation-error-text')} />
+                  )}
 
                   <BrandedButton
                     onPress={handleSubmit}
