@@ -890,6 +890,12 @@
       "choice-other": false,
       "choice-pfnts": false,
       "choice-passed-away": false
+    },
+
+    "us-study-invite": {
+      "title": false,
+      "body": false,
+      "button": false
     }
   }
 }
