@@ -1,55 +1,26 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Item, Label } from 'native-base';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
-
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
-import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { isSECountry } from '@covid/core/user/UserService';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 
-export interface DiabetesData {
+export interface DiabetesData extends DiabetesTreatmentsData {
   diabetesType: string;
-  diabetesTypeOther: string;
+  diabetesTypeOther?: string;
   hemoglobinMeasureUnit: string;
-  a1cMeasurementPercent: string;
-  a1cMeasurementMol: string;
+  a1cMeasurementPercent?: string;
+  a1cMeasurementMol?: string;
   diabetesDiagnosisYear: string;
-  diabetesTreatmentNone: boolean;
-  diabetesTreatmentLifestyle: boolean;
-  diabetesTreatmentBasalInsulin: boolean;
-  diabetesTreatmentRapidInsulin: boolean;
-  diabetesTreatmentOtherInjection: boolean;
-  diabetesTreatmentOtherOral: boolean;
-  diabetesOralBiguanide: boolean;
-  diabetesOralSulfonylurea: boolean;
-  diabetesOralDpp4: boolean;
-  diabetesOralMeglitinides: boolean;
-  diabetesOralThiazolidinediones: boolean;
-  diabetesOralSglt2: boolean;
-  diabetesOralOtherMedicationNotListed: boolean;
-  diabetesOralOtherMedication: string;
 }
-
-export const SchemaShape = {
-  diabetesDiagnosisYear: Yup.number()
-    .typeError(i18n.t('correct-year-of-birth'))
-    .required(i18n.t('required-year-of-birth'))
-    .integer(i18n.t('correct-year-of-birth'))
-    .min(1900, i18n.t('correct-year-of-birth'))
-    .max(2020, i18n.t('correct-year-of-birth')),
-
-  diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
-    is: true,
-    then: Yup.string().required(),
-  }),
-};
 
 export enum DiabetesTypeValues {
   TYPE_1 = 'type_1',
@@ -64,7 +35,7 @@ export enum HemoglobinMeasureUnits {
   MOL = 'mmol/mol',
 }
 
-const diabetesTypeDropdown = [
+const DIABETES_TYPE_DROPDOWN = [
   { label: i18n.t('diabetes.answer-type-1'), value: DiabetesTypeValues.TYPE_1 },
   { label: i18n.t('diabetes.answer-type-2'), value: DiabetesTypeValues.TYPE_2 },
   { label: i18n.t('diabetes.answer-gestational'), value: DiabetesTypeValues.GESTATIONAL },
@@ -72,123 +43,41 @@ const diabetesTypeDropdown = [
   { label: i18n.t('diabetes.answer-other'), value: DiabetesTypeValues.OTHER },
 ];
 
-const hemoglobinMeasureUnitsDropdown = [
+const HEMOGLOBIN_MEASURE_UNITS_DROPDOWN = [
   { label: i18n.t('diabetes.hemoglobin-measurement-unit-percent'), value: HemoglobinMeasureUnits.PERCENT },
   { label: i18n.t('diabetes.hemoglobin-measurement-unit-mol'), value: HemoglobinMeasureUnits.MOL },
 ];
 
-const diabetesTreatmentCheckboxes = [
-  { fieldName: 'diabetesTreatmentNone', label: i18n.t('diabetes.answer-none'), value: false },
-  { fieldName: 'diabetesTreatmentLifestyle', label: i18n.t('diabetes.answer-lifestyle-mod'), value: false },
-  { fieldName: 'diabetesTreatmentBasalInsulin', label: i18n.t('diabetes.answer-daily-injections'), value: false },
-  { fieldName: 'diabetesTreatmentRapidInsulin', label: i18n.t('diabetes.answer-rapid-injections'), value: false },
-  {
-    fieldName: 'diabetesTreatmentOtherInjection',
-    label: i18n.t('diabetes.answer-non-insulin-injections'),
-    value: false,
-  },
-  { fieldName: 'diabetesTreatmentOtherOral', label: i18n.t('diabetes.answer-other-oral-meds'), value: false },
-];
-
-const diabetesOralMedsCheckboxes = [
-  { fieldName: 'diabetesOralBiguanide', label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
-  { fieldName: 'diabetesOralSulfonylurea', label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
-  { fieldName: 'diabetesOralDpp4', label: i18n.t('diabetes.answer-dpp'), value: false },
-  { fieldName: 'diabetesOralMeglitinides', label: i18n.t('diabetes.answer-meglitinides'), value: false },
-  { fieldName: 'diabetesOralThiazolidinediones', label: i18n.t('diabetes.answer-thiazolidinediones'), value: false },
-  { fieldName: 'diabetesOralSglt2', label: i18n.t('diabetes.answer-sglt'), value: false },
-  {
-    fieldName: 'diabetesOralOtherMedicationNotListed',
-    label: i18n.t('diabetes.answer-other-oral-meds-not-listed'),
-    value: false,
-  },
-];
-
-interface DiabetesQuestionsProps {
+interface Props {
   formikProps: FormikProps<DiabetesData>;
 }
 
-export const initialFormValues = () => {
-  const defaultUnitKey = isSECountry() === true ? 'mol' : 'percent';
-  return {
-    diabetesType: '',
-    diabetesTypeOther: '',
-    hemoglobinMeasureUnit: i18n.t(`diabetes.hemoglobin-measurement-unit-${defaultUnitKey}`),
-    a1cMeasurementPercent: '',
-    a1cMeasurementMol: '',
-    diabetesDiagnosisYear: '',
-    diabetesTreatmentNone: false,
-    diabetesTreatmentLifestyle: false,
-    diabetesTreatmentBasalInsulin: false,
-    diabetesTreatmentRapidInsulin: false,
-    diabetesTreatmentOtherInjection: false,
-    diabetesTreatmentOtherOral: false,
-    diabetesOralBiguanide: false,
-    diabetesOralSulfonylurea: false,
-    diabetesOralDpp4: false,
-    diabetesOralMeglitinides: false,
-    diabetesOralThiazolidinediones: false,
-    diabetesOralSglt2: false,
-    diabetesOralOtherMedication: '',
-  };
-};
+export interface FormikDiabetesInputFC<P, Data> extends React.FC<P> {
+  initialFormValues: () => Data;
+  schema: Yup.ObjectSchema;
+  createDTO: (data: Data) => Partial<PatientInfosRequest>;
+}
 
-// TODO: make this more generic?
-type DiabetesTreatmentCheckBoxData = {
-  fieldName: string;
-  label: string;
-  value: boolean;
-};
-
-const createDiabetesCheckboxes = (data: DiabetesTreatmentCheckBoxData[], props: FormikProps<DiabetesData>) => {
-  const entries = Object.entries(props.values);
-  return data.map((checkBoxData) => {
-    const isChecked = entries.filter((item) => item[0] === checkBoxData.fieldName && item[1] === true).length > 0;
-    return (
-      <CheckboxItem
-        key={checkBoxData.fieldName}
-        value={isChecked}
-        onChange={(checked: boolean) => {
-          props.setFieldValue(checkBoxData.fieldName, checked);
-        }}>
-        {checkBoxData.label}
-      </CheckboxItem>
-    );
-  });
-};
-
-export const createDiabetesDTO = () => {
-  // TODO: Actuall create the dTO correctly
+export const createDiabetesDTO = (data: DiabetesData) => {
   const dto = {
-    diabetes_type: '',
-    a1c_measurement_percent: 0,
-    a1c_measurement_mmol: 0,
-    diabetes_diagnosis_year: 0,
-    diabetes_treatment_none: false,
-    diabetes_treatment_lifestyle: false,
-    diabetes_treatment_basal_insulin: false,
-    diabetes_treatment_rapid_insulin: false,
-    diabetes_treatment_other_injection: false,
-    diabetes_treatment_other_oral: false,
-    diabetes_oral_biguanide: false,
-    diabetes_oral_sulfonylurea: false,
-    diabetes_oral_dpp4: false,
-    diabetes_oral_meglitinides: false,
-    diabetes_oral_thiazolidinediones: false,
-    diabetes_oral_sglt2: false,
-    diabetes_oral_other_medication: '',
+    diabetes_type: data.diabetesType,
+    diabetes_type_other: data.diabetesTypeOther,
+    a1c_measurement_percent: cleanFloatVal(data.a1cMeasurementPercent ?? '0'),
+    a1c_measurement_mmol: cleanFloatVal(data.a1cMeasurementMol ?? '0'),
+    diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
   } as Partial<PatientInfosRequest>;
   return dto;
 };
 
-export const DiabetesQuestions: React.FC<DiabetesQuestionsProps> = ({ formikProps }) => {
+export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ formikProps }) => {
   return (
     <View>
       <DropdownField
-        items={diabetesTypeDropdown}
+        items={DIABETES_TYPE_DROPDOWN}
         selectedValue={formikProps.values.diabetesType}
         onValueChange={formikProps.handleChange('diabetesType')}
         label={i18n.t('diabetes.which-type')}
+        error={formikProps.touched.diabetesType && formikProps.errors.diabetesType}
       />
 
       {formikProps.values.diabetesType === DiabetesTypeValues.OTHER && (
@@ -207,7 +96,7 @@ export const DiabetesQuestions: React.FC<DiabetesQuestionsProps> = ({ formikProp
                 onBlur={formikProps.handleBlur('a1cMeasurementPercent')}
                 error={formikProps.touched.a1cMeasurementPercent && formikProps.errors.a1cMeasurementPercent}
                 returnKeyType="next"
-                onSubmitEditing={() => {}}
+                onSubmitEditing={() => { }}
                 keyboardType="numeric"
               />
             )}
@@ -219,14 +108,14 @@ export const DiabetesQuestions: React.FC<DiabetesQuestionsProps> = ({ formikProp
                 onBlur={formikProps.handleBlur('a1cMeasurementMol')}
                 error={formikProps.touched.a1cMeasurementMol && formikProps.errors.a1cMeasurementMol}
                 returnKeyType="next"
-                onSubmitEditing={() => {}}
+                onSubmitEditing={() => { }}
                 keyboardType="numeric"
               />
             )}
           </View>
           <View style={styles.secondaryField}>
             <DropdownField
-              items={hemoglobinMeasureUnitsDropdown}
+              items={HEMOGLOBIN_MEASURE_UNITS_DROPDOWN}
               selectedValue={formikProps.values.hemoglobinMeasureUnit}
               onValueChange={formikProps.handleChange('hemoglobinMeasureUnit')}
               placeholder=""
@@ -245,24 +134,67 @@ export const DiabetesQuestions: React.FC<DiabetesQuestionsProps> = ({ formikProp
         showError
       />
 
-      <Item stackedLabel style={styles.textItemStyle}>
-        <Label>{i18n.t('diabetes.which-treatment')}</Label>
-        <CheckboxList>{createDiabetesCheckboxes(diabetesTreatmentCheckboxes, formikProps)}</CheckboxList>
-      </Item>
-
-      {formikProps.values.diabetesTreatmentOtherOral && (
-        <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('diabetes.which-oral-treatment')}</Label>
-          <CheckboxList>{createDiabetesCheckboxes(diabetesOralMedsCheckboxes, formikProps)}</CheckboxList>
-        </Item>
-      )}
-
-      {formikProps.values.diabetesOralOtherMedicationNotListed && (
-        <GenericTextField formikProps={formikProps} name="diabetesOralOtherMedication" />
-      )}
+      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
     </View>
   );
 };
+
+DiabetesQuestions.initialFormValues = () => {
+  // Default Hemoglobin Measure Unit to mmol/mol for Sweden.
+  const defaultUnitKey = isSECountry() === true ? 'mol' : 'percent';
+  return {
+    diabetesType: '',
+    diabetesTypeOther: undefined,
+    hemoglobinMeasureUnit: i18n.t(`diabetes.hemoglobin-measurement-unit-${defaultUnitKey}`),
+    a1cMeasurementPercent: undefined,
+    a1cMeasurementMol: undefined,
+    diabetesDiagnosisYear: '',
+    ...DiabetesTreamentsQuestion.initialFormValues()
+  };
+};
+
+DiabetesQuestions.schema = Yup.object().shape({
+
+  diabetesType: Yup.string().required(),
+
+  diabetesTypeOther: Yup.string().when('diabetesType', {
+    is: (val: string) => val === DiabetesTypeValues.OTHER,
+    then: Yup.string().required()
+  }),
+
+  a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
+    is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
+    then: Yup.number().required()
+  }),
+
+  a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
+    is: (val: string) => val === HemoglobinMeasureUnits.MOL,
+    then: Yup.number().required()
+  }),
+
+  diabetesDiagnosisYear: Yup.number()
+    .typeError(i18n.t('correct-year-of-diagnosis'))
+    .required(i18n.t('required-year-of-diagnosis'))
+    .integer(i18n.t('correct-year-of-diagnosis'))
+    .min(1900, i18n.t('correct-year-of-diagnosis'))
+    .max(2020, i18n.t('correct-year-of-diagnosis')),
+
+  diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
+    is: (val: boolean) => val,
+    then: Yup.string().required(),
+  }),
+}).concat(DiabetesTreamentsQuestion.schema);
+
+DiabetesQuestions.createDTO = (data) => {
+  return { 
+    diabetes_type: data.diabetesType,
+    diabetes_type_other: data.diabetesTypeOther,
+    a1c_measurement_percent: cleanFloatVal(data.a1cMeasurementPercent ?? '0'),
+    a1c_measurement_mmol: cleanFloatVal(data.a1cMeasurementMol ?? '0'),
+    diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
+    ...DiabetesTreamentsQuestion.createDTO(data)
+  }
+}
 
 const styles = StyleSheet.create({
   textItemStyle: {
@@ -276,10 +208,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   primaryField: {
-    flex: 5,
+    flex: 4,
   },
   secondaryField: {
-    flex: 3,
+    flex: 4,
     margin: -8,
   },
 });

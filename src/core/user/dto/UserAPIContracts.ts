@@ -193,6 +193,7 @@ export type PatientInfosRequest = {
 
   // Diabetes fields
   diabetes_type: string;
+  diabetes_type_other: string;
   a1c_measurement_percent: number;
   a1c_measurement_mmol: number;
   diabetes_diagnosis_year: number;

@@ -33,8 +33,6 @@ import {
 import {
   DiabetesData,
   DiabetesQuestions,
-  initialFormValues as DiabetesQuestionsInitialFormValues,
-  SchemaShape as DiabetesSchemaShape,
 } from '../patient/fields/DiabetesQuestions';
 
 interface BackfillData
@@ -142,8 +140,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       then: Yup.string(),
     }),
 
-    ...DiabetesSchemaShape,
-  });
+  }).concat(DiabetesQuestions.schema);
 
   async componentDidMount() {
     const userService = new UserService();
@@ -288,7 +285,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...PeriodQuestion.initialFormValues(),
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
-            ...DiabetesQuestionsInitialFormValues(),
+            ...DiabetesQuestions.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: BackfillData) => {

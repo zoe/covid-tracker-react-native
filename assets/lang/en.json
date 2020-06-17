@@ -920,6 +920,7 @@
     "answer-meglitinides": "Meglitinides (e.g. repaglinide, nateglinide)",
     "answer-thiazolidinediones": "Thiazolidinediones or Glitazones (e.g. rosiglitazone, pioglitazone)",
     "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
-    "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed:"
+    "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed:",
+    "correct-year-of-diagnosis": "Please correct your year of diagnosis"
   }
 }
