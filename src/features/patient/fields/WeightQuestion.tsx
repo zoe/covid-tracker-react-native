@@ -58,7 +58,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
             </View>
           ) : (
             <View style={styles.primaryFieldRow}>
-              <View style={styles.tertiaryField}>
+              <View style={styles.stonesField}>
                 <ValidatedTextInput
                   placeholder={i18n.t('placeholder-stones')}
                   value={formikProps.values.stones}
@@ -70,7 +70,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
                   keyboardType="numeric"
                 />
               </View>
-              <View style={styles.tertiaryField}>
+              <View style={styles.poundsField}>
                 <ValidatedTextInput
                   placeholder={i18n.t('placeholder-pounds')}
                   value={formikProps.values.pounds}
@@ -143,6 +143,16 @@ const styles = StyleSheet.create({
   tertiaryField: {
     flex: 5,
     marginRight: 8,
+  },
+
+  stonesField: {
+    flex: 5,
+    marginRight: 4,
+  },
+
+  poundsField: {
+    flex: 5,
+    marginLeft: 4,
   },
 
   secondaryField: {

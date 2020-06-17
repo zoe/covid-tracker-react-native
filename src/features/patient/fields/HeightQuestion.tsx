@@ -30,7 +30,7 @@ interface Props {
 const HeightInInches: React.FC<Props> = ({ formikProps }) => {
   return (
     <View style={styles.primaryFieldRow}>
-      <View style={styles.tertiaryField}>
+      <View style={styles.feetField}>
         <ValidatedTextInput
           placeholder={i18n.t('placeholder-feet')}
           value={formikProps.values.feet}
@@ -42,7 +42,7 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
           keyboardType="numeric"
         />
       </View>
-      <View style={styles.tertiaryField}>
+      <View style={styles.inchesField}>
         <ValidatedTextInput
           placeholder={i18n.t('placeholder-inches')}
           value={formikProps.values.inches}
@@ -58,9 +58,9 @@ const HeightInInches: React.FC<Props> = ({ formikProps }) => {
   );
 };
 
-const HeightinCm: React.FC<Props> = ({ formikProps }) => {
+const HeightInCm: React.FC<Props> = ({ formikProps }) => {
   return (
-    <View style={styles.primaryField}>
+    <View style={styles.cmField}>
       <ValidatedTextInput
         placeholder={i18n.t('placeholder-height')}
         value={formikProps.values.height}
@@ -84,11 +84,11 @@ export const HeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
       ) : (
         <View style={styles.fieldRow}>
           {formikProps.values.heightUnit === 'cm' ? (
-            <HeightinCm formikProps={formikProps} />
+            <HeightInCm formikProps={formikProps} />
           ) : (
             <HeightInInches formikProps={formikProps} />
           )}
-          <View style={styles.secondaryField}>
+          <View style={styles.unitsField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.heightUnit}
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
 
-  primaryField: {
+  cmField: {
     flex: 6,
   },
 
@@ -144,12 +144,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  tertiaryField: {
+  feetField: {
     flex: 5,
-    marginRight: 8,
+    marginRight: 4,
   },
 
-  secondaryField: {
+  inchesField: {
+    marginLeft: 4,
+    flex: 5,
+  },
+
+  unitsField: {
     flex: 2,
     margin: -8,
   },
