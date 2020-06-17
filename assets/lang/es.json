@@ -894,6 +894,12 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
+    },
+
+    "us-study-invite": {
+      "title": false,
+      "body": false,
+      "button": false
     }
   }
 }
