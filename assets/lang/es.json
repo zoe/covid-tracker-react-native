@@ -819,33 +819,33 @@
   },
 
   "back": "Volver",
-  
-    "edit-profile": {
-      "title": "la configuración de perfil",
-      "text": "",
-      "archive-cta": "Archivar este perfil"
-    },
 
-    "archive-confirmation": {
-      "title": "Archivar este perfil?",
-      "text": "Ya no podras reportar esta persona. Quieres proceder?",
-      "confirm": "Archivo",
-      "cancel": "Canelar"
-    },
+  "edit-profile": {
+    "title": "la configuración de perfil",
+    "text": "",
+    "archive-cta": "Archivar este perfil"
+  },
 
-    "archive-reason": {
-      "title": "Perfil archivado",
-      "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
-      "text2": "Esta pregunta es opcional",
-      "choice-duplicate-account": "Es una cuenta duplicada",
-      "choice-no-report": "No quiero reportar para ellos",
-      "choice-moved-away": "Esta persona se mudó",
-      "choice-other": "Otro",
-      "choice-pfnts":"Prefiero no decir",
-      "choice-passed-away": "Esta persona se murió"
-    },
+  "archive-confirmation": {
+    "title": "Archivar este perfil?",
+    "text": "Ya no podras reportar esta persona. Quieres proceder?",
+    "confirm": "Archivo",
+    "cancel": "Canelar"
+  },
 
-    "face-mask": {
+  "archive-reason": {
+    "title": "Perfil archivado",
+    "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+    "text2": "Esta pregunta es opcional",
+    "choice-duplicate-account": "Es una cuenta duplicada",
+    "choice-no-report": "No quiero reportar para ellos",
+    "choice-moved-away": "Esta persona se mudó",
+    "choice-other": "Otro",
+    "choice-pfnts": "Prefiero no decir",
+    "choice-passed-away": "Esta persona se murió"
+  },
+
+  "face-mask": {
     "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
     "worn-a-mask-justification": "Por qué preguntamos esto: Esta información puede ayudarnos a entender si el uso de máscaras reduce el riesgo de infección de COVID. Esta pregunta es totalmente opcional.",
     "never": "Nunca",
@@ -859,6 +859,12 @@
     "respirator": "Máscara N95/FFP",
     "not-sure": "No estoy seguro/prefiero no decir",
     "other": "Otras, por favor especifique:"
+  },
+
+  "us-study-invite": {
+    "title": "Estudios nuevos de COVID\ny como se puede ayudar",
+    "body": "Está interesado en ser contactado para obtener información sobre estudios adicionales relacionados con COVID-19 o el uso de esta aplicación?",
+    "button": "Estoy interesado"
   },
 
   "__IGNORE__": {
@@ -894,12 +900,6 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
-    },
-
-    "us-study-invite": {
-      "title": false,
-      "body": false,
-      "button": false
     }
   }
 }
