@@ -1,19 +1,17 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text, View } from 'native-base';
+import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { Image, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText, RegularBoldText, RegularText, BrandedButton } from '@covid/components/Text';
+import { HeaderText } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
-import { ModalContainer } from '@covid/components/ModalContainer';
-import { colors, fontStyles } from '@theme';
-import { closeIcon } from '@assets';
+import { assessmentService, userService } from '@covid/Services';
+import { colors } from '@theme';
 import { USStudyInvite } from '@covid/components/USStudyInvite';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -78,7 +76,8 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     return (
       <>
-        <USStudyInvite />
+        <USStudyInvite assessmentData={AssessmentCoordinator.assessmentData} />
+
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>
             <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>

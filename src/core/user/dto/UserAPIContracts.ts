@@ -190,6 +190,8 @@ export type PatientInfosRequest = {
   vs_pftns: boolean;
   vs_other: string;
   vs_asked_at: Date;
+
+  contact_additional_studies: boolean;
 };
 
 export type TokenInfoRequest = {

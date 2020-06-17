@@ -293,6 +293,7 @@ export default class UserService extends ApiClientBase
 
     const hasAtopyAnswers = patient.has_hayfever != null;
     const hasHayfever = patient.has_hayfever;
+    const shouldShowUSStudyInvite = patient.contact_additional_studies;
 
     return {
       ...patientState,
@@ -312,6 +313,7 @@ export default class UserService extends ApiClientBase
       shouldAskStudy,
       hasAtopyAnswers,
       hasHayfever,
+      shouldShowUSStudyInvite,
     };
   }
 
@@ -498,6 +500,10 @@ export default class UserService extends ApiClientBase
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
     });
+  }
+
+  setUSStudyInviteResponse(patientId: string, response: boolean) {
+    this.updatePatient(patientId, { contact_additional_studies: response });
   }
 }
 

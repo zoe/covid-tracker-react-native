@@ -893,5 +893,10 @@
     "respirator": "N95/FFP respirator",
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
+  },
+  "us-study-invite": {
+    "title": "New COVID Studies\n& how you can help",
+    "body": "Are you interested in being contacted to learn about additional studies related to COVID-19 or use of this app?",
+    "button": "I am interested"
   }
 }

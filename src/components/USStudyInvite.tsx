@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground } from 'react-native';
 
 import { closeIcon, blobs } from '@assets';
-import { RegularText, RegularBoldText, HeaderText } from '@covid/components/Text';
+import { RegularText, HeaderText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
+import { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
+import { isUSCountry } from '@covid/core/user/UserService';
+import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
 
 import { BrandedButton } from './BrandedButton';
@@ -12,26 +15,35 @@ type State = {
   isModalOpen: boolean;
 };
 
-const initialState = {
-  isModalOpen: true,
+type Props = {
+  assessmentData: AssessmentData;
 };
 
-export class USStudyInvite extends Component<object, State> {
+const initialState = {
+  isModalOpen: false,
+};
+
+export class USStudyInvite extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = initialState;
   }
 
-  async componentDidMount() {
-    console.log(await userService.shouldAskForUSAdditionalStudies(false));
+  componentDidMount() {
+    const { currentPatient } = this.props.assessmentData;
+    if (isUSCountry() && !currentPatient.isReportedByAnother && currentPatient.shouldShowUSStudyInvite) {
+      this.setState({ isModalOpen: true });
+    }
   }
 
   handleAgree = () => {
     this.setState({ isModalOpen: false });
+    userService.setUSStudyInviteResponse(this.props.assessmentData.currentPatient.patientId, true);
   };
 
   handleClose = () => {
     this.setState({ isModalOpen: false });
+    userService.setUSStudyInviteResponse(this.props.assessmentData.currentPatient.patientId, false);
   };
 
   render() {
@@ -52,13 +64,10 @@ export class USStudyInvite extends Component<object, State> {
                   <TouchableOpacity onPress={this.handleClose} style={{ alignSelf: 'flex-end' }}>
                     <Image source={closeIcon} />
                   </TouchableOpacity>
-                  <HeaderText style={styles.title}>{'New COVID Studies \n& how you can help'} </HeaderText>
-                  <RegularText style={styles.body}>
-                    Are you interested in being contacted to learn about additional studies related to COVID-19 or use
-                    of this app?
-                  </RegularText>
+                  <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
+                  <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
                   <BrandedButton style={buttonStyle} onPress={this.handleAgree}>
-                    <RegularText style={styles.buttonText}>I am interested</RegularText>
+                    <RegularText style={styles.buttonText}>{i18n.t('us-study-invite.button')}</RegularText>
                   </BrandedButton>
                 </View>
               </ImageBackground>
