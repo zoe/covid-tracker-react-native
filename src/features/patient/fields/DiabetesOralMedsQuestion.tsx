@@ -17,6 +17,42 @@ export interface DiabetesOralMedsData {
   diabetesOralOtherMedication?: string;
 }
 
+enum DiabetesOralMedsFieldnames {
+  BIGUANIDE = 'diabetesOralBiguanide',
+  SULFONYLUREA = 'diabetesOralSulfonylurea',
+  DPP4 = 'diabetesOralDpp4',
+  MEGLITINIDES = 'diabetesOralMeglitinides',
+  THIAZOLIDNEDIONES = 'diabetesOralThiazolidinediones',
+  OTHER_MED_NOT_LISTED = 'diabetesOralOtherMedicationNotListed',
+}
+
+enum DiabetesOralMedsDTOKeys {
+  BIGUANIDE = 'diabetes_oral_biguanide',
+  SULFONYLUREA = 'diabetes_oral_sulfonylurea',
+  DPP4 = 'diabetes_oral_dpp4',
+  MEGLITINIDES = 'diabetes_oral_meglitinides',
+  THIAZOLIDNEDIONES = 'diabetes_oral_thiazolidinediones',
+}
+
+const getDiabetesOralMedsDTOKey = (key: string): DiabetesOralMedsDTOKeys | null => {
+  switch (key) {
+    case DiabetesOralMedsFieldnames.BIGUANIDE:
+      return DiabetesOralMedsDTOKeys.BIGUANIDE;
+    case DiabetesOralMedsFieldnames.SULFONYLUREA:
+      return DiabetesOralMedsDTOKeys.SULFONYLUREA;
+    case DiabetesOralMedsFieldnames.DPP4:
+      return DiabetesOralMedsDTOKeys.DPP4;
+    case DiabetesOralMedsFieldnames.MEGLITINIDES:
+      return DiabetesOralMedsDTOKeys.MEGLITINIDES;
+    case DiabetesOralMedsFieldnames.THIAZOLIDNEDIONES:
+      return DiabetesOralMedsDTOKeys.THIAZOLIDNEDIONES;
+    default:
+      return null;
+  }
+};
+
+type getDiabetesOralMedsMap = { [key in DiabetesOralMedsDTOKeys]: boolean };
+
 const DIABETES_ORAL_MEDS_CHECKBOXES = [
   { fieldName: 'diabetesOralBiguanide', label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
   { fieldName: 'diabetesOralSulfonylurea', label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
@@ -108,7 +144,23 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
 });
 
 DiabetesOralMedsQuestion.createDTO = (data) => {
-  return {};
+  const bools: getDiabetesOralMedsMap = {
+    diabetes_oral_biguanide: false,
+    diabetes_oral_sulfonylurea: false,
+    diabetes_oral_dpp4: false,
+    diabetes_oral_meglitinides: false,
+    diabetes_oral_thiazolidinediones: false,
+  };
+  Object.entries(data.diabetesOralMeds).forEach((item) => {
+    const key = getDiabetesOralMedsDTOKey(item[1]);
+    if (key !== null) {
+      bools[key] = true;
+    }
+  });
+  return {
+    diabetes_oral_other_medication: data.diabetesOralOtherMedication,
+    ...bools,
+  };
 };
 
 const styles = StyleSheet.create({

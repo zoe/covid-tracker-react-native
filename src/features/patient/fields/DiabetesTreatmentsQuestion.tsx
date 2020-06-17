@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Item, Label } from 'native-base';
-import { FormikProps } from 'formik';
+import { FormikProps, FastField } from 'formik';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
@@ -16,17 +16,47 @@ export interface DiabetesTreatmentsData extends DiabetesOralMedsData {
   diabetesTreatmentOtherOral: boolean;
 }
 
+enum DiabetesTreatmentsFieldnames {
+  NONE = 'diabetesTreatmentNone',
+  LIFESTYLE = 'diabetesTreatmentLifestyle',
+  BASAL_INSULIN = 'diabetesTreatmentBasalInsulin',
+  RAPID_INSULIN = 'diabetesTreatmentRapidInsulin',
+  OTHER_INJECTION = 'diabetesTreatmentOtherInjection',
+  OTHER_ORAL = 'diabetesTreatmentOtherOral',
+}
+
+enum DiabetesTreatmentsDTOKeys {
+  NONE = 'diabetes_treatment_none',
+  LIFESTYLE = 'diabetes_treatment_lifestyle',
+  BASAL_INSULIN = 'diabetes_treatment_basal_insulin',
+  RAPID_INSULIN = 'diabetes_treatment_rapid_insulin',
+  OTHER_INJECTION = 'diabetes_treatment_other_injection',
+  OTHER_ORAL = 'diabetes_treatment_other_oral',
+}
+
 const DIABETES_TREATMENT_CHECKBOXES = [
-  { fieldName: 'diabetesTreatmentNone', label: i18n.t('diabetes.answer-none'), value: false },
-  { fieldName: 'diabetesTreatmentLifestyle', label: i18n.t('diabetes.answer-lifestyle-mod'), value: false },
-  { fieldName: 'diabetesTreatmentBasalInsulin', label: i18n.t('diabetes.answer-daily-injections'), value: false },
-  { fieldName: 'diabetesTreatmentRapidInsulin', label: i18n.t('diabetes.answer-rapid-injections'), value: false },
+  { fieldName: DiabetesTreatmentsFieldnames.NONE, label: i18n.t('diabetes.answer-none'), value: false },
+  { fieldName: DiabetesTreatmentsFieldnames.LIFESTYLE, label: i18n.t('diabetes.answer-lifestyle-mod'), value: false },
   {
-    fieldName: 'diabetesTreatmentOtherInjection',
+    fieldName: DiabetesTreatmentsFieldnames.BASAL_INSULIN,
+    label: i18n.t('diabetes.answer-daily-injections'),
+    value: false,
+  },
+  {
+    fieldName: DiabetesTreatmentsFieldnames.RAPID_INSULIN,
+    label: i18n.t('diabetes.answer-rapid-injections'),
+    value: false,
+  },
+  {
+    fieldName: DiabetesTreatmentsFieldnames.OTHER_INJECTION,
     label: i18n.t('diabetes.answer-non-insulin-injections'),
     value: false,
   },
-  { fieldName: 'diabetesTreatmentOtherOral', label: i18n.t('diabetes.answer-other-oral-meds'), value: false },
+  {
+    fieldName: DiabetesTreatmentsFieldnames.OTHER_ORAL,
+    label: i18n.t('diabetes.answer-other-oral-meds'),
+    value: false,
+  },
 ];
 
 interface Props {
@@ -37,6 +67,27 @@ type DiabetesTreatmentCheckBoxData = {
   fieldName: string;
   label: string;
 };
+
+const getDiabetesTreatmentsDTOKey = (key: string): DiabetesTreatmentsDTOKeys | null => {
+  switch (key) {
+    case DiabetesTreatmentsFieldnames.NONE:
+      return DiabetesTreatmentsDTOKeys.NONE;
+    case DiabetesTreatmentsFieldnames.LIFESTYLE:
+      return DiabetesTreatmentsDTOKeys.LIFESTYLE;
+    case DiabetesTreatmentsFieldnames.BASAL_INSULIN:
+      return DiabetesTreatmentsDTOKeys.BASAL_INSULIN;
+    case DiabetesTreatmentsFieldnames.RAPID_INSULIN:
+      return DiabetesTreatmentsDTOKeys.RAPID_INSULIN;
+    case DiabetesTreatmentsFieldnames.OTHER_INJECTION:
+      return DiabetesTreatmentsDTOKeys.OTHER_INJECTION;
+    case DiabetesTreatmentsFieldnames.OTHER_ORAL:
+      return DiabetesTreatmentsDTOKeys.OTHER_ORAL;
+    default:
+      return null;
+  }
+};
+
+type DiabetesTreatmentsMap = { [key in DiabetesTreatmentsDTOKeys]: boolean };
 
 export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTreatmentsData> = ({ formikProps }) => {
   const createDiabetesCheckboxes = (
@@ -63,6 +114,7 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
               props.setFieldValue('diabetesOralMeds', []);
               props.setFieldValue('diabetesOralOtherMedication', '');
               props.setFieldValue('diabetesOralOtherMedicationNotListed', false);
+              DiabetesTreamentsQuestion.createDTO(props.values);
             }
           }}>
           {item.label}
@@ -104,7 +156,22 @@ DiabetesTreamentsQuestion.schema = Yup.object()
   .concat(DiabetesOralMedsQuestion.schema);
 
 DiabetesTreamentsQuestion.createDTO = (data) => {
+  const treatmentBools: DiabetesTreatmentsMap = {
+    diabetes_treatment_none: false,
+    diabetes_treatment_lifestyle: false,
+    diabetes_treatment_basal_insulin: false,
+    diabetes_treatment_rapid_insulin: false,
+    diabetes_treatment_other_injection: false,
+    diabetes_treatment_other_oral: false,
+  };
+  Object.entries(data.diabetesTreatments).forEach((item) => {
+    const key = getDiabetesTreatmentsDTOKey(item[1]);
+    if (key !== null) {
+      treatmentBools[key] = true;
+    }
+  });
   return {
+    ...treatmentBools,
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
 };

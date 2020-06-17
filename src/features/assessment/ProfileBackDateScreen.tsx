@@ -54,6 +54,7 @@ type State = {
   needHormoneTreatmentAnswer: boolean;
   needVitaminAnswer: boolean;
   needAtopyAnswers: boolean;
+  needDiabetesAnswers: boolean;
 };
 
 const initialState: State = {
@@ -64,6 +65,7 @@ const initialState: State = {
   needHormoneTreatmentAnswer: false,
   needVitaminAnswer: false,
   needAtopyAnswers: false,
+  needDiabetesAnswers: false,
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
@@ -152,6 +154,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer,
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
+      needDiabetesAnswers: !currentPatient.hasDiabetesAnswers,
     });
   }
 
@@ -256,6 +259,13 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         has_eczema: formData.hasEczema === 'yes',
         has_asthma: formData.hasAsthma === 'yes',
         has_lung_disease_only: formData.hasLungDisease === 'yes',
+      };
+    }
+
+    if (this.state.needDiabetesAnswers) {
+      infos = {
+        ...infos,
+        ...DiabetesQuestions.createDTO(formData),
       };
     }
 

@@ -76,6 +76,9 @@ export class AssessmentCoordinator {
     const config = this.userService.getConfig();
     this.assessmentService.initAssessment();
 
+    // this.navigation.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
+    // return;
+
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
         this.navigation.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
@@ -146,7 +149,8 @@ export class AssessmentCoordinator {
       !currentPatient.hasHormoneTreatmentAnswer ||
       !currentPatient.hasBloodPressureAnswer ||
       !currentPatient.hasVitaminAnswer ||
-      !currentPatient.hasAtopyAnswers
+      !currentPatient.hasAtopyAnswers ||
+      !currentPatient.hasDiabetesAnswers
     );
   }
 

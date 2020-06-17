@@ -60,17 +60,6 @@ export interface FormikDiabetesInputFC<P, Data> extends React.FC<P> {
   createDTO: (data: Data) => Partial<PatientInfosRequest>;
 }
 
-export const createDiabetesDTO = (data: DiabetesData) => {
-  const dto = {
-    diabetes_type: data.diabetesType,
-    diabetes_type_other: data.diabetesTypeOther,
-    a1c_measurement_percent: cleanFloatVal(data.a1cMeasurementPercent ?? '0'),
-    a1c_measurement_mmol: cleanFloatVal(data.a1cMeasurementMol ?? '0'),
-    diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
-  } as Partial<PatientInfosRequest>;
-  return dto;
-};
-
 export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ formikProps }) => {
   return (
     <View>
