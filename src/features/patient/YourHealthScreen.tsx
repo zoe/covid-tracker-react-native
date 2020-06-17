@@ -29,6 +29,7 @@ import {
   SupplementValue,
   supplementValues,
 } from './fields/VitaminQuestion';
+import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
 
 export interface YourHealthData
   extends BloodPressureData,
@@ -308,6 +309,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...HormoneTreatmentQuestion.initialFormValues(),
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
+            ...DiabetesQuestions.initialFormValues(),
           }}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourHealthData) => {
@@ -349,6 +351,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   onValueChange={props.handleChange('hasDiabetes')}
                   label={i18n.t('your-health.have-diabetes')}
                 />
+
+                {props.values.hasDiabetes === 'yes' && (
+                  <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                )}
 
                 <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />
 

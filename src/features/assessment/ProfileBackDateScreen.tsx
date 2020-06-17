@@ -326,7 +326,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
 
                 {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />}
 
-                <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                {this.state.needDiabetesAnswers && (
+                  <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
