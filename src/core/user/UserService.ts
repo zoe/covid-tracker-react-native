@@ -403,9 +403,9 @@ export default class UserService extends ApiClientBase
 
   async defaultCountryFromLocale() {
     const country = () => {
-      if (Localization.locale == 'en-GB') {
+      if (Localization.locale === 'en-GB') {
         return 'GB';
-      } else if (Localization.locale == 'sv-SE') {
+      } else if (Localization.locale === 'sv-SE') {
         return 'SE';
       } else {
         return 'US';
@@ -464,7 +464,7 @@ export default class UserService extends ApiClientBase
 
   private static setLocaleFromCountry(countryCode: string) {
     let USLocale = 'en';
-    if (Localization.locale == 'es-US') {
+    if (Localization.locale === 'es-US') {
       USLocale = 'es';
     }
 
@@ -478,7 +478,7 @@ export default class UserService extends ApiClientBase
   }
 
   static getLocale() {
-    return Localization.locale.split('-')[0];
+    return i18n.locale.split('-')[0];
   }
 
   async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
