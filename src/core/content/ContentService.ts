@@ -38,7 +38,7 @@ export default class ContentService implements IContentService {
 
   async getWelcomeRepeatContent() {
     if (!this.screenContent) {
-      this.screenContent = await this.apiClient.getScreenContent(UserService.getLocale(), UserService.userCountry);
+      this.screenContent = await this.apiClient.getScreenContent(UserService.userCountry, UserService.getLocale());
     }
     return this.screenContent.WelcomeRepeat;
   }
