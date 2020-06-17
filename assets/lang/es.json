@@ -819,33 +819,33 @@
   },
 
   "back": "Volver",
-  
-    "edit-profile": {
-      "title": "la configuración de perfil",
-      "text": "",
-      "archive-cta": "Archivar este perfil"
-    },
 
-    "archive-confirmation": {
-      "title": "Archivar este perfil?",
-      "text": "Ya no podras reportar esta persona. Quieres proceder?",
-      "confirm": "Archivo",
-      "cancel": "Canelar"
-    },
+  "edit-profile": {
+    "title": "la configuración de perfil",
+    "text": "",
+    "archive-cta": "Archivar este perfil"
+  },
 
-    "archive-reason": {
-      "title": "Perfil archivado",
-      "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
-      "text2": "Esta pregunta es opcional",
-      "choice-duplicate-account": "Es una cuenta duplicada",
-      "choice-no-report": "No quiero reportar para ellos",
-      "choice-moved-away": "Esta persona se mudó",
-      "choice-other": "Otro",
-      "choice-pfnts":"Prefiero no decir",
-      "choice-passed-away": "Esta persona se murió"
-    },
+  "archive-confirmation": {
+    "title": "Archivar este perfil?",
+    "text": "Ya no podras reportar esta persona. Quieres proceder?",
+    "confirm": "Archivo",
+    "cancel": "Canelar"
+  },
 
-    "face-mask": {
+  "archive-reason": {
+    "title": "Perfil archivado",
+    "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+    "text2": "Esta pregunta es opcional",
+    "choice-duplicate-account": "Es una cuenta duplicada",
+    "choice-no-report": "No quiero reportar para ellos",
+    "choice-moved-away": "Esta persona se mudó",
+    "choice-other": "Otro",
+    "choice-pfnts": "Prefiero no decir",
+    "choice-passed-away": "Esta persona se murió"
+  },
+
+  "face-mask": {
     "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
     "worn-a-mask-justification": "Por qué preguntamos esto: Esta información puede ayudarnos a entender si el uso de máscaras reduce el riesgo de infección de COVID. Esta pregunta es totalmente opcional.",
     "never": "Nunca",
@@ -895,5 +895,33 @@
       "cta-single-profile": false,
       "cta-multi-profile": false
     }
+  },
+
+  "diabetes": {
+    "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
+    "answer-type-1": "Diabetes tipo 1",
+    "answer-type-2": "Diabetes tipo 2",
+    "answer-gestational": "Diabetes gestacional (durante el embarazo)",
+    "answer-unsure": "No estoy seguro del tipo de diabetes que tengo",
+    "answer-other": "Otra forma de diabetes, por favor especifique",
+    "most-recent-hemoglobin-measure": "¿Cuál fue su valor de hemoglobina A1c más reciente?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "¿En qué año le diagnosticaron diabetes?",
+    "which-treatment": "¿Qué tratamientos para lo diabetes toma? Selecciona todas las opciones que correspondan:",
+    "answer-none": "Ninguno",
+    "answer-lifestyle-mod": "Modificaciones del estilo de vida (ej. ejercicio, dieta, control del peso)",
+    "answer-daily-injections": "Inyecciones de insulina de acción prolongada una o dos veces al día o insulina \"basal\" (ej. glargine, detemir, degludec o NPH en una mezcla de insulinas)",
+    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\", or given as a continuous infusion in an insulin pump (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-non-insulin-injections": "Inyecciones de un medicamento para la diabetes sin insulina o agonistas del receptor GLP-1 (ej. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Otros medicamentos para la diabetes tomados por vía oral",
+    "which-oral-treatment": "¿Qué medicamentos para la diabetes tomados por vía oral toma? Selecciona todas las opciones que correspondan:",
+    "answer-oral-biguanide": "Metformina",
+    "answer-sulfonylurea": "Sulfonilurea (ej. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "Inhibidores del DPP-4 (ej. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinidas (ej. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
+    "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista"
   }
 }

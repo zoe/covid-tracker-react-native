@@ -891,5 +891,33 @@
       "choice-pfnts": false,
       "choice-passed-away": false
     }
+  },
+
+  "diabetes": {
+    "which-type": "Du angav tidigare att du har diabetes, vilket är en viktig riskfaktor för covid-19. Våra forskare har några uppföljande frågor för att de ska förstå mer om detta.",
+    "answer-type-1": "Diabetes typ 1",
+    "answer-type-2": "Diabetes typ 2",
+    "answer-gestational": "Graviditetsdiabetes",
+    "answer-unsure": "Osäker",
+    "answer-other": "Annan typ, ange vilken-",
+    "most-recent-hemoglobin-measure": "Vad var ditt senaste HbA1c? ",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "Vilket år blev du diagnosticerad?",
+    "which-treatment": "Vilken diabetesbehandling har du? Markera alla som stämmer för dig:",
+    "answer-none": "Ingen",
+    "answer-lifestyle-mod": "Enbart livsstilsförändring (t.ex. fysisk aktivitet, kostomläggning eller viktnedgång)",
+    "answer-daily-injections": "Långverkande insulin/basinsulin eller mixinsulin (t.ex. Lantus®, Toujeo®, Levemir®, Tresiba®, Insulatard® eller Novomix®)",
+    "answer-rapid-injections": "Snabbverkande insulin (t.ex. Novorapid®, Humalog®, Fiasp®, Actrapid® eller Apidra®) som ges som måltidsinuslin och/eller hyperglykemi, eller som infusion med en insulinpump",
+    "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
+    "answer-other-oral-meds": "Tablettbehandling",
+    "which-oral-treatment": "Vilka tabletter tar du för din diabetes? Markera alla alternativ som stämmer för dig (kryssruta)",
+    "answer-oral-biguanide": "Metformin (t.ex. Metformin®, Janumet® eller Glucophage®)",
+    "answer-sulfonylurea": "Sulfonylurea (t.ex. Mindiab®, Daonil®, Glibenklamid® eller Glimepirid®)",
+    "answer-dpp": "DPP-4-hämmare (t.ex. Januvia®, Onglyza® eller Trajenta®)",
+    "answer-meglitinides": "Meglitinider (t.ex. NovoNorm® eller Repaglinid®)",
+    "answer-thiazolidinediones": "Glitazoner (t.ex. Actos® eller Pioglitazone®)",
+    "answer-sglt": "SGLT-2-hämmare (t.ex. Jardiance®, Forxiga®, Steglatro® eller Invokana®)",
+    "answer-other-oral-meds-not-listed": "Annan sorts tabletter som inte finns med i listan (fritext)"
   }
 }
