@@ -14,8 +14,9 @@ import { FieldWrapper } from '@covid/components/Screen';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
 
 import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
+import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';
 
-export interface DiabetesData extends DiabetesTreatmentsData {
+export interface DiabetesData extends DiabetesTreatmentsData, DiabetesOralMedsData {
   diabetesType: string;
   diabetesTypeOther?: string;
   hemoglobinMeasureUnit: string;
@@ -126,6 +127,10 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
       />
 
       <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
+
+      {formikProps.values.diabetesTreatmentOtherOral && (
+        <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
+      )}
     </View>
   );
 };
@@ -141,6 +146,7 @@ DiabetesQuestions.initialFormValues = () => {
     a1cMeasurementMol: undefined,
     diabetesDiagnosisYear: '',
     ...DiabetesTreamentsQuestion.initialFormValues(),
+    ...DiabetesOralMedsQuestion.initialFormValues(),
   };
 };
 
@@ -170,7 +176,8 @@ DiabetesQuestions.schema = Yup.object()
       then: Yup.string().required(),
     }),
   })
-  .concat(DiabetesTreamentsQuestion.schema);
+  .concat(DiabetesTreamentsQuestion.schema)
+  .concat(DiabetesOralMedsQuestion.schema);
 
 DiabetesQuestions.createDTO = (data) => {
   return {
@@ -180,6 +187,7 @@ DiabetesQuestions.createDTO = (data) => {
     a1c_measurement_mmol: cleanFloatVal(data.a1cMeasurementMol ?? '0'),
     diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
     ...DiabetesTreamentsQuestion.createDTO(data),
+    ...DiabetesOralMedsQuestion.createDTO(data),
   };
 };
 

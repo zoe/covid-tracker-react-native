@@ -8,10 +8,9 @@ import i18n from '@covid/locale/i18n';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
 
-import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
-export interface DiabetesTreatmentsData extends DiabetesOralMedsData {
+export interface DiabetesTreatmentsData {
   diabetesTreatments: string[];
   diabetesTreatmentOtherOral: boolean;
 }
@@ -134,9 +133,6 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
           <ValidationError error={formikProps.errors.diabetesTreatments as string} />
         )}
       </View>
-      {formikProps.values.diabetesTreatmentOtherOral && (
-        <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
-      )}
     </View>
   );
 };
@@ -145,15 +141,12 @@ DiabetesTreamentsQuestion.initialFormValues = (): DiabetesTreatmentsData => {
   return {
     diabetesTreatments: [],
     diabetesTreatmentOtherOral: false,
-    ...DiabetesOralMedsQuestion.initialFormValues(),
   };
 };
 
-DiabetesTreamentsQuestion.schema = Yup.object()
-  .shape({
-    diabetesTreatments: Yup.array<string>().min(1),
-  })
-  .concat(DiabetesOralMedsQuestion.schema);
+DiabetesTreamentsQuestion.schema = Yup.object().shape({
+  diabetesTreatments: Yup.array<string>().min(1),
+});
 
 DiabetesTreamentsQuestion.createDTO = (data) => {
   const treatmentBools: DiabetesTreatmentsMap = {
@@ -172,7 +165,6 @@ DiabetesTreamentsQuestion.createDTO = (data) => {
   });
   return {
     ...treatmentBools,
-    ...DiabetesOralMedsQuestion.createDTO(data),
   };
 };
 
