@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
+
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -11,6 +12,7 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+
 import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 
 export interface DiabetesData extends DiabetesTreatmentsData {
@@ -96,7 +98,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
                 onBlur={formikProps.handleBlur('a1cMeasurementPercent')}
                 error={formikProps.touched.a1cMeasurementPercent && formikProps.errors.a1cMeasurementPercent}
                 returnKeyType="next"
-                onSubmitEditing={() => { }}
+                onSubmitEditing={() => {}}
                 keyboardType="numeric"
               />
             )}
@@ -108,7 +110,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
                 onBlur={formikProps.handleBlur('a1cMeasurementMol')}
                 error={formikProps.touched.a1cMeasurementMol && formikProps.errors.a1cMeasurementMol}
                 returnKeyType="next"
-                onSubmitEditing={() => { }}
+                onSubmitEditing={() => {}}
                 keyboardType="numeric"
               />
             )}
@@ -149,52 +151,53 @@ DiabetesQuestions.initialFormValues = () => {
     a1cMeasurementPercent: undefined,
     a1cMeasurementMol: undefined,
     diabetesDiagnosisYear: '',
-    ...DiabetesTreamentsQuestion.initialFormValues()
+    ...DiabetesTreamentsQuestion.initialFormValues(),
   };
 };
 
-DiabetesQuestions.schema = Yup.object().shape({
+DiabetesQuestions.schema = Yup.object()
+  .shape({
+    diabetesType: Yup.string().required(),
 
-  diabetesType: Yup.string().required(),
+    diabetesTypeOther: Yup.string().when('diabetesType', {
+      is: (val: string) => val === DiabetesTypeValues.OTHER,
+      then: Yup.string().required(),
+    }),
 
-  diabetesTypeOther: Yup.string().when('diabetesType', {
-    is: (val: string) => val === DiabetesTypeValues.OTHER,
-    then: Yup.string().required()
-  }),
+    a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
+      is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
+      then: Yup.number().required(),
+    }),
 
-  a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
-    is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
-    then: Yup.number().required()
-  }),
+    a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
+      is: (val: string) => val === HemoglobinMeasureUnits.MOL,
+      then: Yup.number().required(),
+    }),
 
-  a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
-    is: (val: string) => val === HemoglobinMeasureUnits.MOL,
-    then: Yup.number().required()
-  }),
+    diabetesDiagnosisYear: Yup.number()
+      .typeError(i18n.t('correct-year-of-diagnosis'))
+      .required(i18n.t('required-year-of-diagnosis'))
+      .integer(i18n.t('correct-year-of-diagnosis'))
+      .min(1900, i18n.t('correct-year-of-diagnosis'))
+      .max(2020, i18n.t('correct-year-of-diagnosis')),
 
-  diabetesDiagnosisYear: Yup.number()
-    .typeError(i18n.t('correct-year-of-diagnosis'))
-    .required(i18n.t('required-year-of-diagnosis'))
-    .integer(i18n.t('correct-year-of-diagnosis'))
-    .min(1900, i18n.t('correct-year-of-diagnosis'))
-    .max(2020, i18n.t('correct-year-of-diagnosis')),
-
-  diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
-    is: (val: boolean) => val,
-    then: Yup.string().required(),
-  }),
-}).concat(DiabetesTreamentsQuestion.schema);
+    diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
+      is: (val: boolean) => val,
+      then: Yup.string().required(),
+    }),
+  })
+  .concat(DiabetesTreamentsQuestion.schema);
 
 DiabetesQuestions.createDTO = (data) => {
-  return { 
+  return {
     diabetes_type: data.diabetesType,
     diabetes_type_other: data.diabetesTypeOther,
     a1c_measurement_percent: cleanFloatVal(data.a1cMeasurementPercent ?? '0'),
     a1c_measurement_mmol: cleanFloatVal(data.a1cMeasurementMol ?? '0'),
     diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
-    ...DiabetesTreamentsQuestion.createDTO(data)
-  }
-}
+    ...DiabetesTreamentsQuestion.createDTO(data),
+  };
+};
 
 const styles = StyleSheet.create({
   textItemStyle: {

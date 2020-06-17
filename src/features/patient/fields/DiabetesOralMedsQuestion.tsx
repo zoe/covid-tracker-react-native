@@ -3,10 +3,12 @@ import { View, StyleSheet } from 'react-native';
 import { Item, Label } from 'native-base';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
+
 import i18n from '@covid/locale/i18n';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
 import { GenericTextField } from '@covid/components/GenericTextField';
+
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
 export interface DiabetesOralMedsData {
@@ -39,7 +41,6 @@ type CheckboxType = {
 };
 
 export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOralMedsData> = ({ formikProps }) => {
-
   const createDiabetesCheckboxes = (data: CheckboxType[], props: FormikProps<DiabetesOralMedsData>) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesOralMeds.includes(item.fieldName);
@@ -48,11 +49,17 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
           key={item.fieldName}
           value={isChecked}
           onChange={(checked: boolean) => {
-            let result = props.values.diabetesOralMeds
-            if (checked) { result.push(item.fieldName) }
-            else { result = result.filter(o => o !== item.fieldName); }
+            let result = props.values.diabetesOralMeds;
+            if (checked) {
+              result.push(item.fieldName);
+            } else {
+              result = result.filter((o) => o !== item.fieldName);
+            }
             props.setFieldValue('diabetesOralMeds', result);
-            props.setFieldValue('diabetesOralOtherMedicationNotListed', result.includes('diabetesOralOtherMedicationNotListed'));
+            props.setFieldValue(
+              'diabetesOralOtherMedicationNotListed',
+              result.includes('diabetesOralOtherMedicationNotListed')
+            );
             // Clear provided text for other oral medication on Other unchecked
             if (item.fieldName === 'diabetesOralOtherMedicationNotListed' && !checked) {
               props.setFieldValue('diabetesOralOtherMedication', '');
@@ -88,7 +95,7 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
 DiabetesOralMedsQuestion.initialFormValues = (): DiabetesOralMedsData => {
   return {
     diabetesOralMeds: [],
-    diabetesOralOtherMedicationNotListed: false
+    diabetesOralOtherMedicationNotListed: false,
   };
 };
 
@@ -96,13 +103,13 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
   diabetesOralMeds: Yup.array<string>().min(1),
   diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
     is: (val: boolean) => val,
-    then: Yup.string().required()
-  })
+    then: Yup.string().required(),
+  }),
 });
 
 DiabetesOralMedsQuestion.createDTO = (data) => {
-  return {}
-}
+  return {};
+};
 
 const styles = StyleSheet.create({
   textItemStyle: {

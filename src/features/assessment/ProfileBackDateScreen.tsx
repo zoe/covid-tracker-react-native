@@ -30,10 +30,7 @@ import {
   supplementValues,
   SupplementValue,
 } from '../patient/fields/VitaminQuestion';
-import {
-  DiabetesData,
-  DiabetesQuestions,
-} from '../patient/fields/DiabetesQuestions';
+import { DiabetesData, DiabetesQuestions } from '../patient/fields/DiabetesQuestions';
 
 interface BackfillData
   extends BloodPressureData,
@@ -78,69 +75,70 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     this.state = initialState;
   }
 
-  registerSchema = Yup.object().shape({
-    takesAnyBloodPressureMedications: Yup.string().when([], {
-      is: () => this.state.needBloodPressureAnswer,
-      then: Yup.string().required(),
-    }),
-    takesBloodPressureMedications: Yup.string().when([], {
-      is: () => this.state.needBloodPressureAnswer,
-      then: Yup.string().required(),
-    }),
-    takesBloodPressureMedicationsSartan: Yup.string().when([], {
-      is: () => this.state.needBloodPressureAnswer,
-      then: Yup.string().required(),
-    }),
+  registerSchema = Yup.object()
+    .shape({
+      takesAnyBloodPressureMedications: Yup.string().when([], {
+        is: () => this.state.needBloodPressureAnswer,
+        then: Yup.string().required(),
+      }),
+      takesBloodPressureMedications: Yup.string().when([], {
+        is: () => this.state.needBloodPressureAnswer,
+        then: Yup.string().required(),
+      }),
+      takesBloodPressureMedicationsSartan: Yup.string().when([], {
+        is: () => this.state.needBloodPressureAnswer,
+        then: Yup.string().required(),
+      }),
 
-    race: Yup.array<string>().when([], {
-      is: () => this.state.needRaceEthnicityAnswer,
-      then: Yup.array<string>().min(1, i18n.t('please-select-race')),
-    }),
-    raceOther: Yup.string().when('race', {
-      is: (val: string[]) => this.state.needRaceEthnicityAnswer && val.includes('other'),
-      then: Yup.string().required(),
-    }),
-    ethnicity: Yup.string().when([], {
-      is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
-      then: Yup.string().required(),
-    }),
+      race: Yup.array<string>().when([], {
+        is: () => this.state.needRaceEthnicityAnswer,
+        then: Yup.array<string>().min(1, i18n.t('please-select-race')),
+      }),
+      raceOther: Yup.string().when('race', {
+        is: (val: string[]) => this.state.needRaceEthnicityAnswer && val.includes('other'),
+        then: Yup.string().required(),
+      }),
+      ethnicity: Yup.string().when([], {
+        is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
+        then: Yup.string().required(),
+      }),
 
-    havingPeriods: Yup.string().when([], {
-      is: () => this.state.needPeriodStatusAnswer,
-      then: Yup.string().required(i18n.t('your-health.please-select-periods')),
-    }),
-    periodFrequency: Yup.string().when('havingPeriods', {
-      is: periodValues.CURRENTLY,
-      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
-    }),
-    weeksPregnant: Yup.number().when('havingPeriods', {
-      is: periodValues.PREGNANT,
-      then: Yup.number()
-        .typeError(i18n.t('your-health.correct-weeks-pregnant'))
-        .min(0, i18n.t('your-health.correct-weeks-pregnant'))
-        .max(50, i18n.t('your-health.correct-weeks-pregnant')),
-    }),
-    periodStoppedAge: Yup.number().when('havingPeriods', {
-      is: periodValues.STOPPED,
-      then: Yup.number()
-        .typeError(i18n.t('your-health.correct-period-stopped-age'))
-        .min(0, i18n.t('your-health.correct-period-stopped-age'))
-        .max(100, i18n.t('your-health.correct-period-stopped-age')),
-    }),
-    hormoneTreatment: Yup.array<string>().when([], {
-      is: () => this.state.needHormoneTreatmentAnswer,
-      then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
-    }),
-    vitaminSupplements: Yup.array<string>().when([], {
-      is: () => this.state.needVitaminAnswer,
-      then: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
-    }),
-    vitaminOther: Yup.string().when('vitaminSupplements', {
-      is: (val: string[]) => val.includes(supplementValues.OTHER),
-      then: Yup.string(),
-    }),
-
-  }).concat(DiabetesQuestions.schema);
+      havingPeriods: Yup.string().when([], {
+        is: () => this.state.needPeriodStatusAnswer,
+        then: Yup.string().required(i18n.t('your-health.please-select-periods')),
+      }),
+      periodFrequency: Yup.string().when('havingPeriods', {
+        is: periodValues.CURRENTLY,
+        then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
+      }),
+      weeksPregnant: Yup.number().when('havingPeriods', {
+        is: periodValues.PREGNANT,
+        then: Yup.number()
+          .typeError(i18n.t('your-health.correct-weeks-pregnant'))
+          .min(0, i18n.t('your-health.correct-weeks-pregnant'))
+          .max(50, i18n.t('your-health.correct-weeks-pregnant')),
+      }),
+      periodStoppedAge: Yup.number().when('havingPeriods', {
+        is: periodValues.STOPPED,
+        then: Yup.number()
+          .typeError(i18n.t('your-health.correct-period-stopped-age'))
+          .min(0, i18n.t('your-health.correct-period-stopped-age'))
+          .max(100, i18n.t('your-health.correct-period-stopped-age')),
+      }),
+      hormoneTreatment: Yup.array<string>().when([], {
+        is: () => this.state.needHormoneTreatmentAnswer,
+        then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
+      }),
+      vitaminSupplements: Yup.array<string>().when([], {
+        is: () => this.state.needVitaminAnswer,
+        then: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
+      }),
+      vitaminOther: Yup.string().when('vitaminSupplements', {
+        is: (val: string[]) => val.includes(supplementValues.OTHER),
+        then: Yup.string(),
+      }),
+    })
+    .concat(DiabetesQuestions.schema);
 
   async componentDidMount() {
     const userService = new UserService();

@@ -3,9 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import { Item, Label } from 'native-base';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
+
 import i18n from '@covid/locale/i18n';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
+
 import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
@@ -37,8 +39,10 @@ type DiabetesTreatmentCheckBoxData = {
 };
 
 export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTreatmentsData> = ({ formikProps }) => {
-
-  const createDiabetesCheckboxes = (data: DiabetesTreatmentCheckBoxData[], props: FormikProps<DiabetesTreatmentsData>) => {
+  const createDiabetesCheckboxes = (
+    data: DiabetesTreatmentCheckBoxData[],
+    props: FormikProps<DiabetesTreatmentsData>
+  ) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesTreatments.includes(item.fieldName);
       return (
@@ -46,9 +50,12 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
           key={item.fieldName}
           value={isChecked}
           onChange={(checked: boolean) => {
-            let result = props.values.diabetesTreatments
-            if (checked) { result.push(item.fieldName) }
-            else { result = result.filter(o => o !== item.fieldName); }
+            let result = props.values.diabetesTreatments;
+            if (checked) {
+              result.push(item.fieldName);
+            } else {
+              result = result.filter((o) => o !== item.fieldName);
+            }
             props.setFieldValue('diabetesTreatments', result);
             props.setFieldValue('diabetesTreatmentOtherOral', result.includes('diabetesTreatmentOtherOral'));
             // Reset conditional fields on unchecked
@@ -86,19 +93,21 @@ DiabetesTreamentsQuestion.initialFormValues = (): DiabetesTreatmentsData => {
   return {
     diabetesTreatments: [],
     diabetesTreatmentOtherOral: false,
-    ...DiabetesOralMedsQuestion.initialFormValues()
+    ...DiabetesOralMedsQuestion.initialFormValues(),
   };
 };
 
-DiabetesTreamentsQuestion.schema = Yup.object().shape({
-  diabetesTreatments: Yup.array<string>().min(1),
-}).concat(DiabetesOralMedsQuestion.schema);
+DiabetesTreamentsQuestion.schema = Yup.object()
+  .shape({
+    diabetesTreatments: Yup.array<string>().min(1),
+  })
+  .concat(DiabetesOralMedsQuestion.schema);
 
 DiabetesTreamentsQuestion.createDTO = (data) => {
   return {
-    ...DiabetesOralMedsQuestion.createDTO(data)
-  }
-}
+    ...DiabetesOralMedsQuestion.createDTO(data),
+  };
+};
 
 const styles = StyleSheet.create({
   textItemStyle: {
