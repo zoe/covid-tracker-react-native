@@ -55,7 +55,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     await pushNotificationService.refreshPushToken();
 
     const content = await contentService.getWelcomeRepeatContent();
-    console.log('CONTENT: ' + JSON.stringify(content));
     this.setState({ calloutBoxContent: content });
   }
 
