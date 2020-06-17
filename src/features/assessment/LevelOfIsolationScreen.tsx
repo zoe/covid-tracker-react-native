@@ -2,16 +2,16 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import moment from 'moment';
-import { Form, Item, Label, Text } from 'native-base';
+import { Form } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
 import { StyleSheet } from 'react-native';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { ValidationError, ValidationErrors } from '@covid/components/ValidationError';
+import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
@@ -20,20 +20,8 @@ import { cleanIntegerVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import { CheckboxList } from '@covid/components/Checkbox';
-import {
-  SupplementValue,
-  supplementValues,
-  VitaminSupplementData,
-  VitaminSupplementsQuestion,
-} from '@covid/features/patient/fields/VitaminQuestion';
 import { colors, fontStyles } from '@theme';
 import { FaceMaskData, FaceMaskQuestion, TypeOfMaskValues } from '@covid/features/assessment/fields/FaceMaskQuestion';
-import { BloodPressureData } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
-import { RaceEthnicityData } from '@covid/features/patient/fields/RaceEthnicityQuestion';
-import { PeriodData } from '@covid/features/patient/fields/PeriodQuestion';
-import { HormoneTreatmentData } from '@covid/features/patient/fields/HormoneTreatmentQuestion';
-import { AtopyData } from '@covid/features/patient/fields/AtopyQuestions';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -215,7 +203,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationErrors errors={props.errors as string[]} />
+                  <ValidationError error={i18n.t('validation-error-text')} />
                 )}
 
                 <BrandedButton

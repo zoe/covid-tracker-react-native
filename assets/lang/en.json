@@ -593,8 +593,7 @@
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
 
-  "validation-error-text": "Please fill in or correct the above information: %{info}",
-  "validation-error-text-no-info": "Please fill in or correct the above information",
+  "validation-error-text": "Please fill in or correct the above information",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
