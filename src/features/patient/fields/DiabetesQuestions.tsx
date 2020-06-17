@@ -163,12 +163,7 @@ DiabetesQuestions.schema = Yup.object()
       then: Yup.number().required(),
     }),
 
-    diabetesDiagnosisYear: Yup.number()
-      .typeError(i18n.t('correct-year-of-diagnosis'))
-      .required(i18n.t('required-year-of-diagnosis'))
-      .integer(i18n.t('correct-year-of-diagnosis'))
-      .min(1900, i18n.t('correct-year-of-diagnosis'))
-      .max(2020, i18n.t('correct-year-of-diagnosis')),
+    diabetesDiagnosisYear: Yup.number().typeError().required().integer().min(1900).max(2020),
 
     diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
       is: (val: boolean) => val,
