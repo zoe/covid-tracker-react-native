@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import i18n from '@covid/locale/i18n';
-
 import { ErrorText } from './Text';
 
 type ErrorProps = {
@@ -17,27 +15,10 @@ export const ValidationError: React.FC<ErrorProps> = ({ error }) => {
   );
 };
 
-type ErrorsProps = {
-  errors: object;
-};
-
-export const ValidationErrors: React.FC<ErrorsProps> = ({ errors }) => (
-  <View style={styles.validationErrors}>
-    <ErrorText>
-      {i18n.t('validation-error-text', {
-        info: Object.keys(errors).join(', '),
-      })}
-    </ErrorText>
-  </View>
-);
-
 const styles = StyleSheet.create({
   validationError: {
-    marginVertical: 0,
-  },
-
-  validationErrors: {
-    marginVertical: 8,
-    marginHorizontal: 8,
+    marginBottom: 0,
+    marginTop: 4,
+    marginHorizontal: 6,
   },
 });
