@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 
-import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
+import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
@@ -493,6 +493,7 @@ export default class UserService extends ApiClientBase
     return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
       version: ukValidationStudyConsentVersion,
+      ad_version: ukValidationStudyAdVersion,
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
