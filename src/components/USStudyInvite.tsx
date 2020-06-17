@@ -47,26 +47,19 @@ export class USStudyInvite extends Component<Props, State> {
   };
 
   render() {
-    const isModal = true;
-    const backgroundStyle = isModal ? styles.centeredView : styles.endView;
-    const containerStyle = [isModal ? styles.modalView : styles.popUpView, styles.shadow];
-    const buttonStyle = isModal ? styles.modalButton : styles.popUpButton;
-    const imageStyle = isModal ? { borderRadius: 16 } : {};
-    // const backgroundImage = isModal ? modalBackground : popUpBackground;
-
     return (
       this.state.isModalOpen && (
         <Modal animationType="fade" transparent>
-          <View style={backgroundStyle}>
-            <View style={containerStyle}>
-              <ImageBackground source={blobs} style={{}} imageStyle={[styles.backgroundImage, imageStyle]}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ImageBackground source={blobs} style={{}} imageStyle={[styles.backgroundImage, { borderRadius: 16 }]}>
                 <View style={styles.contentContainer}>
                   <TouchableOpacity onPress={this.handleClose} style={{ alignSelf: 'flex-end' }}>
                     <Image source={closeIcon} />
                   </TouchableOpacity>
                   <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
                   <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
-                  <BrandedButton style={buttonStyle} onPress={this.handleAgree}>
+                  <BrandedButton style={styles.modalButton} onPress={this.handleAgree}>
                     <RegularText style={styles.buttonText}>{i18n.t('us-study-invite.button')}</RegularText>
                   </BrandedButton>
                 </View>
