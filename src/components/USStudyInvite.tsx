@@ -28,7 +28,7 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
 
   const handleAgree = () => {
     setModalVisible(false);
-    Analytics.track(events.JOIN_STUDY_CONTACT);
+    Analytics.track(events.ACCEPT_STUDY_CONTACT);
     userService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, true);
   };
 
