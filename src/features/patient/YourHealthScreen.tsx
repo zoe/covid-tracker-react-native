@@ -288,7 +288,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       };
     }
 
-    if (infos.has_diabetes) {
+    if (this.state.showDiabetesQuestion) {
       infos = {
         ...infos,
         ...DiabetesQuestions.createDTO(formData),
@@ -375,7 +375,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   label={i18n.t('your-health.have-diabetes')}
                 />
 
-                {props.values.hasDiabetes === 'yes' && (
+                {this.state.showDiabetesQuestion && (
                   <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
                 )}
 
