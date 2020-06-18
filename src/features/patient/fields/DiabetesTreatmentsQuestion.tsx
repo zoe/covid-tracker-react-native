@@ -19,8 +19,6 @@ enum DiabetesTreatmentsFieldnames {
   OTHER_ORAL = 'diabetes_treatment_other_oral',
 }
 
-type DiabetesTreatmentsMap = { [key in DiabetesTreatmentsFieldnames]: boolean };
-
 const DIABETES_TREATMENT_CHECKBOXES = [
   { fieldName: DiabetesTreatmentsFieldnames.NONE, label: i18n.t('diabetes.answer-none'), value: false },
   { fieldName: DiabetesTreatmentsFieldnames.LIFESTYLE, label: i18n.t('diabetes.answer-lifestyle-mod'), value: false },
@@ -137,7 +135,7 @@ DiabetesTreamentsQuestion.schema = Yup.object().shape({
 });
 
 DiabetesTreamentsQuestion.createDTO = (data) => {
-  const bools: DiabetesTreatmentsMap = {
+  const bools = {
     diabetes_treatment_none: false,
     diabetes_treatment_lifestyle: false,
     diabetes_treatment_basal_insulin: false,

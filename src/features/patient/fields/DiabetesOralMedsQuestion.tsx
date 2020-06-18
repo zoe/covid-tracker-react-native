@@ -21,8 +21,6 @@ enum DiabetesOralMedsFieldnames {
   OTHER_MED_NOT_LISTED = 'diabetes_oral_other_medication_not_listed',
 }
 
-type DiabetesOralMedsMap = { [key in DiabetesOralMedsFieldnames]: boolean };
-
 export interface DiabetesOralMedsData {
   diabetesOralMeds: DiabetesOralMedsFieldnames[];
   diabetesOralOtherMedicationNotListed: boolean;
@@ -144,7 +142,7 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
 });
 
 DiabetesOralMedsQuestion.createDTO = (data) => {
-  const bools: DiabetesOralMedsMap = {
+  const bools = {
     diabetes_oral_biguanide: false,
     diabetes_oral_sulfonylurea: false,
     diabetes_oral_dpp4: false,
