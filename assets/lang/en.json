@@ -912,7 +912,7 @@
     "answer-daily-injections": "Once or twice daily injections of long acting insulin or \"basal\" insulin (e.g. glargine, detemir, degludec or NPH in premixed insulin)",
     "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\", or given as a continuous infusion in an insulin pump (e.g. lispro, aspart, glulisine, or in premixed insulin)",
     "answer-non-insulin-injections": "Injections of a non-insulin diabetes medication or GLP-1 receptor agonists (e.g. semaglutide, dulaglutide, liraglutide)",
-    "answer-other-oral-meds": "Other diabetes medication taken by mouth",
+    "answer-other-oral-meds": "Medications taken by mouth",
     "which-oral-treatment": "Which oral treatments do you uses? Select all that apply",
     "answer-oral-biguanide": "Biguanide (Metformin)",
     "answer-sulfonylurea": "Sulfonylurea (e.g. glipizide, glyburide, glimepiride, gliclazide)",
