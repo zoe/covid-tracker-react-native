@@ -23,6 +23,7 @@ export type PatientStateType = {
   hasHormoneTreatmentAnswer: boolean;
   hasVitaminAnswer: boolean;
   hasAtopyAnswers: boolean;
+  hasDiabetesAnswers: boolean;
   hasHayfever: boolean;
 };
 
@@ -46,6 +47,7 @@ const initPatientState = {
   hasHormoneTreatmentAnswer: true,
   hasVitaminAnswer: true,
   hasAtopyAnswers: true,
+  hasDiabetesAnswers: true,
 } as Partial<PatientStateType>;
 
 export const getInitialPatientState = (patientId: string): PatientStateType => {

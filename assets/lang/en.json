@@ -892,5 +892,34 @@
     "respirator": "N95/FFP respirator",
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
+  },
+
+  "diabetes": {
+    "justification": "You previously indicated that you had diabetes, which is an important risk factor for COVID. Our scientists have a couple of follow up questions to understand more about this.",
+    "which-type": "What kind of diabetes do you have?",
+    "answer-type-1": "Type 1 diabetes",
+    "answer-type-2": "Type 2 diabetes",
+    "answer-gestational": "Gestational diabetes (during pregnancy)",
+    "answer-unsure": "Unsure",
+    "answer-other": "Other, please specify",
+    "most-recent-hemoglobin-measure": "What was your most recent hemoglobin A1c?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "What year were you diagnosed with diabetes?",
+    "which-treatment": "Which diabetes treatments do you use? Select all that apply:",
+    "answer-none": "None",
+    "answer-lifestyle-mod": "Lifestyle modification (e.g. exercise, diet, weight management)",
+    "answer-daily-injections": "Once or twice daily injections of long acting insulin or \"basal\" insulin (e.g. glargine, detemir, degludec or NPH in premixed insulin)",
+    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\", or given as a continuous infusion in an insulin pump (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-non-insulin-injections": "Injections of a non-insulin diabetes medication or GLP-1 receptor agonists (e.g. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Other diabetes medication taken by mouth",
+    "which-oral-treatment": "Which oral treatments do you uses? Select all that apply",
+    "answer-oral-biguanide": "Biguanide (Metformin)",
+    "answer-sulfonylurea": "Sulfonylurea (e.g. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "DPP-4 inhibitors (e.g. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinides (e.g. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones or Glitazones (e.g. rosiglitazone, pioglitazone)",
+    "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed:"
   }
 }
