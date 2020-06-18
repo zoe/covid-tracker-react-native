@@ -4,7 +4,6 @@ import { Form, View } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Formik, FormikProps } from 'formik';
-import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -16,12 +15,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-import {
-  createLifestyleDTO,
-  LifestyleData,
-  lifeStyleInitialValues,
-  LifestyleQuestion,
-} from './fields/LifestyleQuestion';
+import { LifestyleData, LifestyleQuestion } from './fields/LifestyleQuestion';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Lifestyle'>;
@@ -58,7 +52,7 @@ export default class LifestyleScreen extends Component<Props, State> {
 
     try {
       const patientID = AssessmentCoordinator.assessmentData.currentPatient.patientId;
-      const payload = createLifestyleDTO(values);
+      const payload = LifestyleQuestion.createDTO(values);
       await assessmentService.saveLifestyle(patientID, payload);
       AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
@@ -66,14 +60,6 @@ export default class LifestyleScreen extends Component<Props, State> {
       throw error;
     }
   }
-
-  registerSchema = Yup.object().shape({
-    weightChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-    dietChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-    snackingChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-    activityChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-    alcoholChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-  });
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
@@ -97,8 +83,8 @@ export default class LifestyleScreen extends Component<Props, State> {
         </View>
 
         <Formik
-          initialValues={lifeStyleInitialValues()}
-          validationSchema={this.registerSchema}
+          initialValues={LifestyleQuestion.initialFormValues()}
+          validationSchema={LifestyleQuestion.schema}
           onSubmit={(values: LifestyleData) => {
             return this.updateLifestyle(values);
           }}>

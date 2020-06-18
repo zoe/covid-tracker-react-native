@@ -1,5 +1,6 @@
 import { FormikProps } from 'formik';
 import React from 'react';
+import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -33,45 +34,13 @@ export enum ChangeValue {
   NO_ALCOHOL = 'no_alcohol',
 }
 
-export function lifeStyleInitialValues(): LifestyleData {
-  const features = userService.getConfig();
-
-  return {
-    weightChange: '',
-    dietChange: '',
-    snackingChange: '',
-    activityChange: '',
-    alcoholChange: '',
-    weight: '',
-    stones: '',
-    pounds: '',
-    weightUnit: features.defaultWeightUnit,
-  };
+export interface FormikLifestyleQuestionInputFC<P, Data> extends React.FC<P> {
+  initialFormValues: () => Data;
+  schema: Yup.ObjectSchema;
+  createDTO: (data: Data) => Partial<LifestyleRequest>;
 }
 
-export function createLifestyleDTO(formData: LifestyleData) {
-  let dto = {
-    weight_change: formData.weightChange,
-    diet_change: formData.dietChange,
-    snacking_change: formData.snackingChange,
-    activity_change: formData.activityChange,
-    alcohol_change: formData.alcoholChange,
-  } as Partial<LifestyleRequest>;
-
-  if (formData.weightUnit === 'lbs') {
-    let pounds = cleanFloatVal(formData.pounds);
-    if (formData.stones) {
-      const stones = cleanFloatVal(formData.stones) || 0;
-      pounds += stones * 14;
-    }
-    dto = { ...dto, weight_change_pounds: pounds };
-  } else {
-    dto = { ...dto, weight_change_kg: cleanFloatVal(formData.weight) };
-  }
-  return dto;
-}
-
-export const LifestyleQuestion: React.FC<Props> = (props: Props) => {
+export const LifestyleQuestion: FormikLifestyleQuestionInputFC<Props, LifestyleData> = (props: Props) => {
   const weightChangeOptions = [
     { label: i18n.t('lifestyle.weight-change.increased'), value: ChangeValue.INCREASED },
     { label: i18n.t('lifestyle.weight-change.decreased'), value: ChangeValue.DECREASED },
@@ -161,4 +130,50 @@ export const LifestyleQuestion: React.FC<Props> = (props: Props) => {
       />
     </FieldWrapper>
   );
+};
+
+LifestyleQuestion.initialFormValues = (): LifestyleData => {
+  const features = userService.getConfig();
+
+  return {
+    weightChange: '',
+    dietChange: '',
+    snackingChange: '',
+    activityChange: '',
+    alcoholChange: '',
+    weight: '',
+    stones: '',
+    pounds: '',
+    weightUnit: features.defaultWeightUnit,
+  };
+};
+
+LifestyleQuestion.schema = Yup.object().shape({
+  weightChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+  dietChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+  snackingChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+  activityChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+  alcoholChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+});
+
+LifestyleQuestion.createDTO = (formData: LifestyleData): Partial<LifestyleRequest> => {
+  let dto = {
+    weight_change: formData.weightChange,
+    diet_change: formData.dietChange,
+    snacking_change: formData.snackingChange,
+    activity_change: formData.activityChange,
+    alcohol_change: formData.alcoholChange,
+  } as Partial<LifestyleRequest>;
+
+  if (formData.weightUnit === 'lbs') {
+    let pounds = cleanFloatVal(formData.pounds);
+    if (formData.stones) {
+      const stones = cleanFloatVal(formData.stones) || 0;
+      pounds += stones * 14;
+    }
+    dto = { ...dto, weight_change_pounds: pounds };
+  } else {
+    dto = { ...dto, weight_change_kg: cleanFloatVal(formData.weight) };
+  }
+  return dto;
 };
