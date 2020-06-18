@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Item, Label } from 'native-base';
-import { FormikProps, FastField } from 'formik';
+import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
@@ -10,21 +10,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
-export interface DiabetesTreatmentsData {
-  diabetesTreatments: string[];
-  diabetesTreatmentOtherOral: boolean;
-}
-
 enum DiabetesTreatmentsFieldnames {
-  NONE = 'diabetesTreatmentNone',
-  LIFESTYLE = 'diabetesTreatmentLifestyle',
-  BASAL_INSULIN = 'diabetesTreatmentBasalInsulin',
-  RAPID_INSULIN = 'diabetesTreatmentRapidInsulin',
-  OTHER_INJECTION = 'diabetesTreatmentOtherInjection',
-  OTHER_ORAL = 'diabetesTreatmentOtherOral',
-}
-
-enum DiabetesTreatmentsDTOKeys {
   NONE = 'diabetes_treatment_none',
   LIFESTYLE = 'diabetes_treatment_lifestyle',
   BASAL_INSULIN = 'diabetes_treatment_basal_insulin',
@@ -32,6 +18,8 @@ enum DiabetesTreatmentsDTOKeys {
   OTHER_INJECTION = 'diabetes_treatment_other_injection',
   OTHER_ORAL = 'diabetes_treatment_other_oral',
 }
+
+type DiabetesTreatmentsMap = { [key in DiabetesTreatmentsFieldnames]: boolean };
 
 const DIABETES_TREATMENT_CHECKBOXES = [
   { fieldName: DiabetesTreatmentsFieldnames.NONE, label: i18n.t('diabetes.answer-none'), value: false },
@@ -58,35 +46,58 @@ const DIABETES_TREATMENT_CHECKBOXES = [
   },
 ];
 
+export interface DiabetesTreatmentsData {
+  diabetesTreatments: DiabetesTreatmentsFieldnames[];
+  diabetesTreatmentOtherOral: boolean;
+}
+
 interface Props {
   formikProps: FormikProps<DiabetesTreatmentsData>;
 }
 
 type DiabetesTreatmentCheckBoxData = {
-  fieldName: string;
+  fieldName: DiabetesTreatmentsFieldnames;
   label: string;
 };
 
-const getDiabetesTreatmentsDTOKey = (key: string): DiabetesTreatmentsDTOKeys | null => {
-  switch (key) {
-    case DiabetesTreatmentsFieldnames.NONE:
-      return DiabetesTreatmentsDTOKeys.NONE;
-    case DiabetesTreatmentsFieldnames.LIFESTYLE:
-      return DiabetesTreatmentsDTOKeys.LIFESTYLE;
-    case DiabetesTreatmentsFieldnames.BASAL_INSULIN:
-      return DiabetesTreatmentsDTOKeys.BASAL_INSULIN;
-    case DiabetesTreatmentsFieldnames.RAPID_INSULIN:
-      return DiabetesTreatmentsDTOKeys.RAPID_INSULIN;
-    case DiabetesTreatmentsFieldnames.OTHER_INJECTION:
-      return DiabetesTreatmentsDTOKeys.OTHER_INJECTION;
-    case DiabetesTreatmentsFieldnames.OTHER_ORAL:
-      return DiabetesTreatmentsDTOKeys.OTHER_ORAL;
-    default:
-      return null;
-  }
-};
+interface DiabetesTreamentsCheckboxProps {
+  data: DiabetesTreatmentCheckBoxData;
+  formikProps: FormikProps<DiabetesTreatmentsData>;
+  value: boolean;
+}
 
-type DiabetesTreatmentsMap = { [key in DiabetesTreatmentsDTOKeys]: boolean };
+const DiabetesTreamentsCheckbox: React.FC<DiabetesTreamentsCheckboxProps> = ({ data, formikProps, value }) => {
+  const toggled = (checked: boolean) => {
+    let result = formikProps.values.diabetesTreatments;
+    if (checked) {
+      result.push(data.fieldName);
+    } else {
+      result = result.filter((o) => o !== data.fieldName);
+    }
+    formikProps.setFieldValue('diabetesTreatments', result);
+    formikProps.setFieldValue('diabetesTreatmentOtherOral', result.includes(DiabetesTreatmentsFieldnames.OTHER_ORAL));
+  };
+
+  const reset = () => {
+    formikProps.setFieldValue('diabetesOralMeds', []);
+    formikProps.setFieldValue('diabetesOralOtherMedication', '');
+    formikProps.setFieldValue('diabetesOralOtherMedicationNotListed', false);
+  };
+
+  return (
+    <CheckboxItem
+      value={value}
+      onChange={(checked: boolean) => {
+        toggled(checked);
+        // Reset conditional fields on unchecked
+        if (data.fieldName === DiabetesTreatmentsFieldnames.OTHER_ORAL && !checked) {
+          reset();
+        }
+      }}>
+      {data.label}
+    </CheckboxItem>
+  );
+};
 
 export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTreatmentsData> = ({ formikProps }) => {
   const createDiabetesCheckboxes = (
@@ -95,30 +106,7 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
   ) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesTreatments.includes(item.fieldName);
-      return (
-        <CheckboxItem
-          key={item.fieldName}
-          value={isChecked}
-          onChange={(checked: boolean) => {
-            let result = props.values.diabetesTreatments;
-            if (checked) {
-              result.push(item.fieldName);
-            } else {
-              result = result.filter((o) => o !== item.fieldName);
-            }
-            props.setFieldValue('diabetesTreatments', result);
-            props.setFieldValue('diabetesTreatmentOtherOral', result.includes('diabetesTreatmentOtherOral'));
-            // Reset conditional fields on unchecked
-            if (item.fieldName === 'diabetesTreatmentOtherOral' && !checked) {
-              props.setFieldValue('diabetesOralMeds', []);
-              props.setFieldValue('diabetesOralOtherMedication', '');
-              props.setFieldValue('diabetesOralOtherMedicationNotListed', false);
-              DiabetesTreamentsQuestion.createDTO(props.values);
-            }
-          }}>
-          {item.label}
-        </CheckboxItem>
-      );
+      return <DiabetesTreamentsCheckbox key={item.fieldName} data={item} formikProps={formikProps} value={isChecked} />;
     });
   };
 
@@ -157,10 +145,10 @@ DiabetesTreamentsQuestion.createDTO = (data) => {
     diabetes_treatment_other_injection: false,
     diabetes_treatment_other_oral: false,
   };
-  Object.entries(data.diabetesTreatments).forEach((item) => {
-    const key = getDiabetesTreatmentsDTOKey(item[1]);
-    if (key !== null) {
-      treatmentBools[key] = true;
+  data.diabetesTreatments.forEach((item) => {
+    const casted = item as DiabetesTreatmentsFieldnames;
+    if (Object.values(DiabetesTreatmentsFieldnames).includes(casted)) {
+      treatmentBools[casted] = true;
     }
   });
   return {

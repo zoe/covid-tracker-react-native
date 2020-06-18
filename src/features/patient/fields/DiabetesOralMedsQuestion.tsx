@@ -11,57 +11,37 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
-export interface DiabetesOralMedsData {
-  diabetesOralMeds: string[];
-  diabetesOralOtherMedicationNotListed: boolean;
-  diabetesOralOtherMedication?: string;
-}
-
 enum DiabetesOralMedsFieldnames {
-  BIGUANIDE = 'diabetesOralBiguanide',
-  SULFONYLUREA = 'diabetesOralSulfonylurea',
-  DPP4 = 'diabetesOralDpp4',
-  MEGLITINIDES = 'diabetesOralMeglitinides',
-  THIAZOLIDNEDIONES = 'diabetesOralThiazolidinediones',
-  OTHER_MED_NOT_LISTED = 'diabetesOralOtherMedicationNotListed',
-}
-
-enum DiabetesOralMedsDTOKeys {
   BIGUANIDE = 'diabetes_oral_biguanide',
   SULFONYLUREA = 'diabetes_oral_sulfonylurea',
   DPP4 = 'diabetes_oral_dpp4',
   MEGLITINIDES = 'diabetes_oral_meglitinides',
   THIAZOLIDNEDIONES = 'diabetes_oral_thiazolidinediones',
+  ORAL_SGLT2 = 'diabetes_oral_sglt2',
+  OTHER_MED_NOT_LISTED = 'diabetes_oral_other_medication_not_listed',
 }
 
-const getDiabetesOralMedsDTOKey = (key: string): DiabetesOralMedsDTOKeys | null => {
-  switch (key) {
-    case DiabetesOralMedsFieldnames.BIGUANIDE:
-      return DiabetesOralMedsDTOKeys.BIGUANIDE;
-    case DiabetesOralMedsFieldnames.SULFONYLUREA:
-      return DiabetesOralMedsDTOKeys.SULFONYLUREA;
-    case DiabetesOralMedsFieldnames.DPP4:
-      return DiabetesOralMedsDTOKeys.DPP4;
-    case DiabetesOralMedsFieldnames.MEGLITINIDES:
-      return DiabetesOralMedsDTOKeys.MEGLITINIDES;
-    case DiabetesOralMedsFieldnames.THIAZOLIDNEDIONES:
-      return DiabetesOralMedsDTOKeys.THIAZOLIDNEDIONES;
-    default:
-      return null;
-  }
-};
+type DiabetesOralMedsMap = { [key in DiabetesOralMedsFieldnames]: boolean };
 
-type getDiabetesOralMedsMap = { [key in DiabetesOralMedsDTOKeys]: boolean };
+export interface DiabetesOralMedsData {
+  diabetesOralMeds: DiabetesOralMedsFieldnames[];
+  diabetesOralOtherMedicationNotListed: boolean;
+  diabetesOralOtherMedication?: string;
+}
 
 const DIABETES_ORAL_MEDS_CHECKBOXES = [
-  { fieldName: 'diabetesOralBiguanide', label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
-  { fieldName: 'diabetesOralSulfonylurea', label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
-  { fieldName: 'diabetesOralDpp4', label: i18n.t('diabetes.answer-dpp'), value: false },
-  { fieldName: 'diabetesOralMeglitinides', label: i18n.t('diabetes.answer-meglitinides'), value: false },
-  { fieldName: 'diabetesOralThiazolidinediones', label: i18n.t('diabetes.answer-thiazolidinediones'), value: false },
-  { fieldName: 'diabetesOralSglt2', label: i18n.t('diabetes.answer-sglt'), value: false },
+  { fieldName: DiabetesOralMedsFieldnames.BIGUANIDE, label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
+  { fieldName: DiabetesOralMedsFieldnames.SULFONYLUREA, label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
+  { fieldName: DiabetesOralMedsFieldnames.DPP4, label: i18n.t('diabetes.answer-dpp'), value: false },
+  { fieldName: DiabetesOralMedsFieldnames.MEGLITINIDES, label: i18n.t('diabetes.answer-meglitinides'), value: false },
   {
-    fieldName: 'diabetesOralOtherMedicationNotListed',
+    fieldName: DiabetesOralMedsFieldnames.THIAZOLIDNEDIONES,
+    label: i18n.t('diabetes.answer-thiazolidinediones'),
+    value: false,
+  },
+  { fieldName: DiabetesOralMedsFieldnames.ORAL_SGLT2, label: i18n.t('diabetes.answer-sglt'), value: false },
+  {
+    fieldName: DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED,
     label: i18n.t('diabetes.answer-other-oral-meds-not-listed'),
     value: false,
   },
@@ -72,38 +52,55 @@ interface Props {
 }
 
 type CheckboxType = {
-  fieldName: string;
+  fieldName: DiabetesOralMedsFieldnames;
   label: string;
+};
+
+interface DiabetesOralMedsCheckboxProps {
+  data: CheckboxType;
+  formikProps: FormikProps<DiabetesOralMedsData>;
+  value: boolean;
+}
+
+const DiabetesOralMedsCheckbox: React.FC<DiabetesOralMedsCheckboxProps> = ({ data, formikProps, value }) => {
+  const toggled = (checked: boolean) => {
+    let result = formikProps.values.diabetesOralMeds;
+    if (checked) {
+      result.push(data.fieldName);
+    } else {
+      result = result.filter((o) => o !== data.fieldName);
+    }
+    formikProps.setFieldValue('diabetesOralMeds', result);
+    formikProps.setFieldValue(
+      'diabetesOralOtherMedicationNotListed',
+      result.includes(DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED)
+    );
+  };
+
+  const reset = () => {
+    formikProps.setFieldValue('diabetesOralOtherMedication', '');
+  };
+
+  return (
+    <CheckboxItem
+      value={value}
+      onChange={(checked: boolean) => {
+        toggled(checked);
+        // Clear provided text for other oral medication on Other unchecked
+        if (data.fieldName === DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED && !checked) {
+          reset();
+        }
+      }}>
+      {data.label}
+    </CheckboxItem>
+  );
 };
 
 export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOralMedsData> = ({ formikProps }) => {
   const createDiabetesCheckboxes = (data: CheckboxType[], props: FormikProps<DiabetesOralMedsData>) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesOralMeds.includes(item.fieldName);
-      return (
-        <CheckboxItem
-          key={item.fieldName}
-          value={isChecked}
-          onChange={(checked: boolean) => {
-            let result = props.values.diabetesOralMeds;
-            if (checked) {
-              result.push(item.fieldName);
-            } else {
-              result = result.filter((o) => o !== item.fieldName);
-            }
-            props.setFieldValue('diabetesOralMeds', result);
-            props.setFieldValue(
-              'diabetesOralOtherMedicationNotListed',
-              result.includes('diabetesOralOtherMedicationNotListed')
-            );
-            // Clear provided text for other oral medication on Other unchecked
-            if (item.fieldName === 'diabetesOralOtherMedicationNotListed' && !checked) {
-              props.setFieldValue('diabetesOralOtherMedication', '');
-            }
-          }}>
-          {item.label}
-        </CheckboxItem>
-      );
+      return <DiabetesOralMedsCheckbox key={item.fieldName} data={item} formikProps={formikProps} value={isChecked} />;
     });
   };
 
@@ -144,19 +141,24 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
 });
 
 DiabetesOralMedsQuestion.createDTO = (data) => {
-  const bools: getDiabetesOralMedsMap = {
+  const bools: DiabetesOralMedsMap = {
     diabetes_oral_biguanide: false,
     diabetes_oral_sulfonylurea: false,
     diabetes_oral_dpp4: false,
     diabetes_oral_meglitinides: false,
     diabetes_oral_thiazolidinediones: false,
+    diabetes_oral_sglt2: false,
+    diabetes_oral_other_medication_not_listed: false,
   };
-  Object.entries(data.diabetesOralMeds).forEach((item) => {
-    const key = getDiabetesOralMedsDTOKey(item[1]);
-    if (key !== null) {
-      bools[key] = true;
+  data.diabetesOralMeds.forEach((item) => {
+    const casted = item as DiabetesOralMedsFieldnames;
+    if (Object.values(DiabetesOralMedsFieldnames).includes(casted)) {
+      bools[casted] = true;
     }
   });
+  // This property is not needed for DTO.
+  // Instead diabetes_oral_other_medication will be used to describe the medication
+  delete bools.diabetes_oral_other_medication_not_listed;
   return {
     diabetes_oral_other_medication: data.diabetesOralOtherMedication,
     ...bools,
