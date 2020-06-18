@@ -191,7 +191,6 @@ DiabetesQuestions.createDTO = (data) => {
 
   switch (data.hemoglobinMeasureUnit) {
     case HemoglobinMeasureUnits.PERCENT:
-      console.log(data.a1cMeasurementPercent, !data.a1cMeasurementPercent);
       if (data.a1cMeasurementPercent) dto.a1c_measurement_percent = cleanFloatVal(data.a1cMeasurementPercent ?? '0');
       break;
     case HemoglobinMeasureUnits.MOL:
