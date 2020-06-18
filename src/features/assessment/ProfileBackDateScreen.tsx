@@ -152,7 +152,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer,
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
-      needDiabetesAnswers: !currentPatient.hasDiabetesAnswers && currentPatient.hasDiabetes,
+      needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
     });
   }
 

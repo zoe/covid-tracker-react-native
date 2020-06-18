@@ -294,6 +294,7 @@ export default class UserService extends ApiClientBase
     const hasAtopyAnswers = patient.has_hayfever != null;
     const hasDiabetes = patient.has_diabetes;
     const hasDiabetesAnswers = patient.diabetes_type != null;
+    const shouldAskExtendedDiabetes = !hasDiabetesAnswers && hasDiabetes;
     const hasHayfever = patient.has_hayfever;
 
     return {
