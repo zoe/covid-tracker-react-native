@@ -110,14 +110,15 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
         <CheckboxList>{createDiabetesCheckboxes(DIABETES_ORAL_MEDS_CHECKBOXES, formikProps)}</CheckboxList>
       </Item>
       {formikProps.values.diabetesOralOtherMedicationNotListed && (
-        <GenericTextField formikProps={formikProps} name="diabetesOralOtherMedication" />
+        <GenericTextField
+          formikProps={formikProps}
+          name="diabetesOralOtherMedication"
+          showError={!!formikProps.errors.diabetesOralOtherMedication && formikProps.submitCount > 0}
+        />
       )}
       <View style={{ marginHorizontal: 16 }}>
         {!!formikProps.errors.diabetesOralMeds && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.diabetesOralMeds as string} />
-        )}
-        {!!formikProps.errors.diabetesOralOtherMedication && formikProps.submitCount > 0 && (
-          <ValidationError error={formikProps.errors.diabetesOralOtherMedication as string} />
         )}
       </View>
     </View>
