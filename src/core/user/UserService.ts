@@ -293,7 +293,7 @@ export default class UserService extends ApiClientBase
 
     const hasAtopyAnswers = patient.has_hayfever != null;
     const hasHayfever = patient.has_hayfever;
-    const shouldShowUSStudyInvite = patient.contact_additional_studies;
+    const shouldShowUSStudyInvite = !patient.contact_additional_studies;
 
     return {
       ...patientState,

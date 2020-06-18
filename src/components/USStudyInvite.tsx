@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 32,
     fontSize: 20,
-    color: '#24262B',
+    fontWeight: '600',
+    color: colors.primary,
     textAlign: 'center',
   },
   body: {
@@ -96,10 +97,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalButton: {
+    width: '60%',
     height: 40,
     marginBottom: 16,
-    marginHorizontal: 75,
     backgroundColor: colors.purple,
+    alignSelf: 'center',
   },
   buttonText: {
     ...fontStyles.bodySmallLight,
