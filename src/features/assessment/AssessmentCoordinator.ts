@@ -38,6 +38,13 @@ export class AssessmentCoordinator {
       this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
     },
     CovidTest: () => {
+      if (this.assessmentData.currentPatient.shouldAskLifestyleQuestion) {
+        this.navigation.navigate('Lifestyle', { assessmentData: this.assessmentData });
+      } else {
+        this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
+    Lifestyle: () => {
       this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {

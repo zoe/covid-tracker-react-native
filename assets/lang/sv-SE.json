@@ -919,5 +919,48 @@
     "answer-thiazolidinediones": "Glitazoner (t.ex. Actos® eller Pioglitazone®)",
     "answer-sglt": "SGLT-2-hämmare (t.ex. Jardiance®, Forxiga®, Steglatro® eller Invokana®)",
     "answer-other-oral-meds-not-listed": "Annan sorts tabletter som inte finns med i listan (fritext)"
+  },
+
+  "lifestyle": {
+    "title": "",
+    "explanation": "",
+    "text": "",
+    "please-select-option": "Please select an option",
+    "weight-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "diet-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "snacking-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "alcohol-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "no-alcohol": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "activity-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    }
   }
 }

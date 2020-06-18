@@ -923,5 +923,48 @@
     "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
     "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
     "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista"
+  },
+
+  "lifestyle": {
+    "title": "",
+    "explanation": "",
+    "text": "",
+    "please-select-option": "Please select an option",
+    "weight-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "diet-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "snacking-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "alcohol-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "no-alcohol": "",
+      "same": "",
+      "pfnts": ""
+    },
+    "activity-change": {
+      "question": "",
+      "increased": "",
+      "decreased": "",
+      "same": "",
+      "pfnts": ""
+    }
   }
 }
