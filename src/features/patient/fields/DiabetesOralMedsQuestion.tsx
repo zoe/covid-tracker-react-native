@@ -154,9 +154,7 @@ DiabetesOralMedsQuestion.createDTO = (data) => {
     diabetes_oral_other_medication_not_listed: false,
   };
   data.diabetesOralMeds.forEach((item) => {
-    if (Object.values(DiabetesOralMedsFieldnames).includes(item)) {
-      bools[item] = true;
-    }
+    bools[item] = true;
   });
   const dto = {
     ...bools,
@@ -170,8 +168,6 @@ DiabetesOralMedsQuestion.createDTO = (data) => {
   if (!dto.diabetes_oral_other_medication) {
     delete dto.diabetes_oral_other_medication;
   }
-
-  console.log;
   return dto;
 };
 

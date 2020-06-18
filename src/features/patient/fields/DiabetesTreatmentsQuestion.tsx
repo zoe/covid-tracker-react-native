@@ -137,7 +137,7 @@ DiabetesTreamentsQuestion.schema = Yup.object().shape({
 });
 
 DiabetesTreamentsQuestion.createDTO = (data) => {
-  const treatmentBools: DiabetesTreatmentsMap = {
+  const bools: DiabetesTreatmentsMap = {
     diabetes_treatment_none: false,
     diabetes_treatment_lifestyle: false,
     diabetes_treatment_basal_insulin: false,
@@ -146,12 +146,10 @@ DiabetesTreamentsQuestion.createDTO = (data) => {
     diabetes_treatment_other_oral: false,
   };
   data.diabetesTreatments.forEach((item) => {
-    if (Object.values(DiabetesTreatmentsFieldnames).includes(item)) {
-      treatmentBools[item] = true;
-    }
+    bools[item] = true;
   });
   return {
-    ...treatmentBools,
+    ...bools,
   };
 };
 
