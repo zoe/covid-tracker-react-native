@@ -10,6 +10,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { GenericTextField } from '@covid/components/GenericTextField';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 enum DiabetesOralMedsFieldnames {
   BIGUANIDE = 'diabetes_oral_biguanide',
@@ -141,31 +142,23 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
   }),
 });
 
-DiabetesOralMedsQuestion.createDTO = (data) => {
-  const bools = {
+DiabetesOralMedsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
+  const dto: Partial<PatientInfosRequest> = {
     diabetes_oral_biguanide: false,
     diabetes_oral_sulfonylurea: false,
     diabetes_oral_dpp4: false,
     diabetes_oral_meglitinides: false,
     diabetes_oral_thiazolidinediones: false,
     diabetes_oral_sglt2: false,
-    diabetes_oral_other_medication_not_listed: false,
   };
   data.diabetesOralMeds.forEach((item) => {
-    bools[item] = true;
+    if (item === DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED) {
+      dto.diabetes_oral_other_medication = data.diabetesOralOtherMedication;
+    } else {
+      dto[item] = true;
+    }
   });
-  const dto = {
-    ...bools,
-    diabetes_oral_other_medication: data.diabetesOralOtherMedication,
-  };
-  // This property is not needed for DTO.
-  // Instead diabetes_oral_other_medication will be used to describe the medication
-  delete bools.diabetes_oral_other_medication_not_listed;
 
-  // Remove property if it is not defined
-  if (!dto.diabetes_oral_other_medication) {
-    delete dto.diabetes_oral_other_medication;
-  }
   return dto;
 };
 

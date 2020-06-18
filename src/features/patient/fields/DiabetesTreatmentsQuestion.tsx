@@ -9,6 +9,7 @@ import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 enum DiabetesTreatmentsFieldnames {
   NONE = 'diabetes_treatment_none',
@@ -134,8 +135,8 @@ DiabetesTreamentsQuestion.schema = Yup.object().shape({
   diabetesTreatments: Yup.array<string>().min(1),
 });
 
-DiabetesTreamentsQuestion.createDTO = (data) => {
-  const bools = {
+DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
+  const dto: Partial<PatientInfosRequest> = {
     diabetes_treatment_none: false,
     diabetes_treatment_lifestyle: false,
     diabetes_treatment_basal_insulin: false,
@@ -144,11 +145,9 @@ DiabetesTreamentsQuestion.createDTO = (data) => {
     diabetes_treatment_other_oral: false,
   };
   data.diabetesTreatments.forEach((item) => {
-    bools[item] = true;
+    dto[item] = true;
   });
-  return {
-    ...bools,
-  };
+  return dto;
 };
 
 const styles = StyleSheet.create({
