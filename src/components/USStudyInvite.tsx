@@ -8,9 +8,9 @@ import { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator
 import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { BrandedButton } from './BrandedButton';
-import Analytics, { events } from '@covid/core/Analytics';
 
 type StudyInviteProps = {
   assessmentData: AssessmentData;
