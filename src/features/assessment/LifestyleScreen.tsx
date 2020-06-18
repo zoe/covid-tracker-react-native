@@ -16,7 +16,12 @@ import { ValidationError } from '@covid/components/ValidationError';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-import { LifestyleData, LifestyleQuestion } from './fields/LifestyleQuestion';
+import {
+  createLifestyleDTO,
+  LifestyleData,
+  lifeStyleInitialValues,
+  LifestyleQuestion,
+} from './fields/LifestyleQuestion';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Lifestyle'>;
@@ -53,7 +58,7 @@ export default class LifestyleScreen extends Component<Props, State> {
 
     try {
       const patientID = AssessmentCoordinator.assessmentData.currentPatient.patientId;
-      const payload = LifestyleQuestion.createMasksDTO(values);
+      const payload = createLifestyleDTO(values);
       await assessmentService.saveLifestyle(patientID, payload);
       AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
@@ -92,7 +97,7 @@ export default class LifestyleScreen extends Component<Props, State> {
         </View>
 
         <Formik
-          initialValues={LifestyleQuestion.initialFormValues()}
+          initialValues={lifeStyleInitialValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: LifestyleData) => {
             return this.updateLifestyle(values);
