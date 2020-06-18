@@ -33,7 +33,7 @@ export enum DiabetesTypeValues {
   GESTATIONAL = 'gestational',
   OTHER = 'other',
   UNSURE = 'unsure',
-  PREFER_NOT_TO_SAY = 'prefer_not_to_say',
+  PREFER_NOT_TO_SAY = 'pfnts',
 }
 
 export enum HemoglobinMeasureUnits {
