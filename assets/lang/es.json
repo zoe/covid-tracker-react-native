@@ -924,6 +924,7 @@
     "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
     "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
     "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista",
+    "please-select-diabetes-type": "Seleccion una opción",
     "please-select-diabetes-treatment": "Seleccione uno o más de los anteriores",
     "question-use-cgm": "¿Utiliza un monitor continuo de glucosa (CGM)?"
   }
