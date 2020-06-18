@@ -895,7 +895,7 @@
   },
 
   "diabetes": {
-    "justification": "You previously indicated that you had diabetes, which is an important risk factor for COVID. Our scientists have a couple of follow up questions to understand more about this.",
+    "justification": "You previously indicated that you had diabetes, which is an important risk factor for COVID. Our scientists have a couple of follow up questions to understand more about this. These questions are completely optional.",
     "which-type": "What kind of diabetes do you have?",
     "answer-type-1": "Type 1 diabetes",
     "answer-type-2": "Type 2 diabetes",

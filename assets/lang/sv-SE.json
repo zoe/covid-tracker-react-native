@@ -893,7 +893,7 @@
   },
 
   "diabetes": {
-    "justification": "Du angav tidigare att du har diabetes, vilket är en viktig riskfaktor för covid-19. Våra forskare har några uppföljande frågor för att de ska förstå mer om detta.",
+    "justification": "Du angav tidigare att du har diabetes, vilket är en viktig riskfaktor för covid-19. Våra forskare har några uppföljande frågor för att de ska förstå mer om detta. Alla frågor är helt frivilliga.",
     "which-type": "Vilken typ av diabetes har du?",
     "answer-type-1": "Diabetes typ 1",
     "answer-type-2": "Diabetes typ 2",

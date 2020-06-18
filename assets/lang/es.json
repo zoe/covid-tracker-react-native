@@ -897,7 +897,7 @@
   },
 
   "diabetes": {
-    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor.",
+    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor. Estas preguntas son opcionales.",
     "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
     "answer-type-1": "Diabetes tipo 1",
     "answer-type-2": "Diabetes tipo 2",
