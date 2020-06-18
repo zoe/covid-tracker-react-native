@@ -11,6 +11,7 @@ configure(() => {
   require('./stories/Spinner.stories');
   require('./stories/VisitWebsite.stories');
   require('./stories/DropdownField.stories');
+  require('./stories/DiabetesQuestions.stories');
 }, module);
 
 // Global Decorator
