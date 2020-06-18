@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 
-import { ukValidationStudyConsentVersion } from '@covid/features/register/constants';
+import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
@@ -403,9 +403,9 @@ export default class UserService extends ApiClientBase
 
   async defaultCountryFromLocale() {
     const country = () => {
-      if (Localization.locale == 'en-GB') {
+      if (Localization.locale === 'en-GB') {
         return 'GB';
-      } else if (Localization.locale == 'sv-SE') {
+      } else if (Localization.locale === 'sv-SE') {
         return 'SE';
       } else {
         return 'US';
@@ -464,7 +464,7 @@ export default class UserService extends ApiClientBase
 
   private static setLocaleFromCountry(countryCode: string) {
     let USLocale = 'en';
-    if (Localization.locale == 'es-US') {
+    if (Localization.locale === 'es-US') {
       USLocale = 'es';
     }
 
@@ -477,8 +477,8 @@ export default class UserService extends ApiClientBase
     i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
   }
 
-  private static getLocale() {
-    return Localization.locale.split('-')[0];
+  static getLocale() {
+    return i18n.locale.split('-')[0];
   }
 
   async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
@@ -495,6 +495,7 @@ export default class UserService extends ApiClientBase
     return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
       version: ukValidationStudyConsentVersion,
+      ad_version: ukValidationStudyAdVersion,
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,

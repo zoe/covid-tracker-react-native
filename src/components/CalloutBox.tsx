@@ -18,7 +18,7 @@ export const CalloutBox = ({ content }: CalloutBoxProps) => {
         <RegularText style={styles.discoveriesTitle}>{content.title_text}</RegularText>
       </View>
       <RegularText style={styles.discoveriesText}>{content.body_text}</RegularText>
-      <RegularText style={styles.discoveriesVisitText}>{content.body_text}</RegularText>
+      <RegularText style={styles.discoveriesVisitText}>{content.link_text}</RegularText>
     </TouchableOpacity>
   );
 };
