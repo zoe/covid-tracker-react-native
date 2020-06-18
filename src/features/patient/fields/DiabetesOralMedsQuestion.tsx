@@ -133,7 +133,10 @@ DiabetesOralMedsQuestion.initialFormValues = (): DiabetesOralMedsData => {
 };
 
 DiabetesOralMedsQuestion.schema = Yup.object().shape({
-  diabetesOralMeds: Yup.array<string>().min(1),
+  diabetesOralMeds: Yup.array<string>().when('diabetesTreatmentOtherOral', {
+    is: (val: boolean) => val,
+    then: Yup.array<string>().min(1),
+  }),
   diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
     is: (val: boolean) => val,
     then: Yup.string().required(),
@@ -156,13 +159,21 @@ DiabetesOralMedsQuestion.createDTO = (data) => {
       bools[casted] = true;
     }
   });
+  const dto = {
+    ...bools,
+    diabetes_oral_other_medication: data.diabetesOralOtherMedication,
+  };
   // This property is not needed for DTO.
   // Instead diabetes_oral_other_medication will be used to describe the medication
   delete bools.diabetes_oral_other_medication_not_listed;
-  return {
-    diabetes_oral_other_medication: data.diabetesOralOtherMedication,
-    ...bools,
-  };
+
+  // Remove property if it is not defined
+  if (!dto.diabetes_oral_other_medication) {
+    delete dto.diabetes_oral_other_medication;
+  }
+
+  console.log;
+  return dto;
 };
 
 const styles = StyleSheet.create({

@@ -180,15 +180,29 @@ DiabetesQuestions.schema = Yup.object()
   .concat(DiabetesOralMedsQuestion.schema);
 
 DiabetesQuestions.createDTO = (data) => {
-  return {
+  const dto = {
     diabetes_type: data.diabetesType,
     diabetes_type_other: data.diabetesTypeOther,
-    a1c_measurement_percent: cleanFloatVal(data.a1cMeasurementPercent ?? '0'),
-    a1c_measurement_mmol: cleanFloatVal(data.a1cMeasurementMol ?? '0'),
     diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
     ...DiabetesTreamentsQuestion.createDTO(data),
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
+
+  // Remove property if it is not defined
+  if (!dto.diabetes_type_other) {
+    delete dto.diabetes_type_other;
+  }
+
+  switch (data.hemoglobinMeasureUnit) {
+    case HemoglobinMeasureUnits.PERCENT:
+      dto.a1c_measurement_percent = cleanFloatVal(data.a1cMeasurementPercent ?? '0');
+      break;
+    case HemoglobinMeasureUnits.MOL:
+      dto.a1c_measurement_mmol = cleanFloatVal(data.a1cMeasurementMol ?? '0');
+      break;
+  }
+
+  return dto;
 };
 
 const styles = StyleSheet.create({
