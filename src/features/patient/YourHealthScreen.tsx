@@ -288,6 +288,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       };
     }
 
+    if (infos.has_diabetes) {
+      infos = {
+        ...infos,
+        ...DiabetesQuestions.createDTO(formData),
+      };
+    }
+
     return infos;
   }
 
