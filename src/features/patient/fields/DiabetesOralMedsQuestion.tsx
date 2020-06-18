@@ -20,6 +20,7 @@ enum DiabetesOralMedsFieldnames {
   THIAZOLIDNEDIONES = 'diabetes_oral_thiazolidinediones',
   ORAL_SGLT2 = 'diabetes_oral_sglt2',
   OTHER_MED_NOT_LISTED = 'diabetes_oral_other_medication_not_listed',
+  PREFER_NOT_TO_SAY = 'prefer_not_to_say',
 }
 
 export interface DiabetesOralMedsData {
@@ -42,6 +43,11 @@ const DIABETES_ORAL_MEDS_CHECKBOXES = [
   {
     fieldName: DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED,
     label: i18n.t('diabetes.answer-other-oral-meds-not-listed'),
+    value: false,
+  },
+  {
+    fieldName: DiabetesOralMedsFieldnames.PREFER_NOT_TO_SAY,
+    label: i18n.t('prefer-not-to-say'),
     value: false,
   },
 ];
@@ -139,7 +145,7 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
   }),
   diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
     is: (val: boolean) => val,
-    then: Yup.string().required(),
+    then: Yup.string(),
   }),
 });
 
@@ -155,7 +161,7 @@ DiabetesOralMedsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
   data.diabetesOralMeds.forEach((item) => {
     if (item === DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED) {
       dto.diabetes_oral_other_medication = data.diabetesOralOtherMedication;
-    } else {
+    } else if (item !== DiabetesOralMedsFieldnames.PREFER_NOT_TO_SAY) {
       dto[item] = true;
     }
   });
