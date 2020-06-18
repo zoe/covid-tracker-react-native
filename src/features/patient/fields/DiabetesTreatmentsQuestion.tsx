@@ -146,9 +146,8 @@ DiabetesTreamentsQuestion.createDTO = (data) => {
     diabetes_treatment_other_oral: false,
   };
   data.diabetesTreatments.forEach((item) => {
-    const casted = item as DiabetesTreatmentsFieldnames;
-    if (Object.values(DiabetesTreatmentsFieldnames).includes(casted)) {
-      treatmentBools[casted] = true;
+    if (Object.values(DiabetesTreatmentsFieldnames).includes(item)) {
+      treatmentBools[item] = true;
     }
   });
   return {
