@@ -919,6 +919,7 @@
     "answer-thiazolidinediones": "Glitazoner (t.ex. Actos® eller Pioglitazone®)",
     "answer-sglt": "SGLT-2-hämmare (t.ex. Jardiance®, Forxiga®, Steglatro® eller Invokana®)",
     "answer-other-oral-meds-not-listed": "Annan sorts tabletter som inte finns med i listan (fritext)",
+    "please-select-diabetes-type": "Välj ett alternativ",
     "please-select-diabetes-treatment": "Välj ett eller flera av alternativen ovan"
   }
 }
