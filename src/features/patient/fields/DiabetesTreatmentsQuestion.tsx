@@ -16,6 +16,7 @@ enum DiabetesTreatmentsFieldnames {
   LIFESTYLE = 'diabetes_treatment_lifestyle',
   BASAL_INSULIN = 'diabetes_treatment_basal_insulin',
   RAPID_INSULIN = 'diabetes_treatment_rapid_insulin',
+  INSULIN_PUMP = 'diabetes_treatment_insulin_pump',
   OTHER_INJECTION = 'diabetes_treatment_other_injection',
   OTHER_ORAL = 'diabetes_treatment_other_oral',
   PREFER_NOT_TO_SAY = 'diabetes_treatment_pfnts',
@@ -89,6 +90,11 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
       value: false,
     },
     {
+      fieldName: DiabetesTreatmentsFieldnames.INSULIN_PUMP,
+      label: i18n.t('diabetes.answer-insulin-pump'),
+      value: false,
+    },
+    {
       fieldName: DiabetesTreatmentsFieldnames.OTHER_INJECTION,
       label: i18n.t('diabetes.answer-non-insulin-injections'),
       value: false,
@@ -149,6 +155,7 @@ DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
     diabetes_treatment_lifestyle: false,
     diabetes_treatment_basal_insulin: false,
     diabetes_treatment_rapid_insulin: false,
+    diabetes_treatment_insulin_pump: false,
     diabetes_treatment_other_injection: false,
     diabetes_treatment_other_oral: false,
     diabetes_treatment_pfnts: false,
