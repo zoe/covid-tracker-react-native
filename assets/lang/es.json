@@ -926,45 +926,45 @@
   },
 
   "lifestyle": {
-    "title": "",
-    "explanation": "",
-    "text": "",
-    "please-select-option": "Please select an option",
+    "title": "Dieta y estilo de vida",
+    "explanation": "Las siguientes preguntas sobre peso, nutrición y ejercicio nos ayudan a entender si COVID puede afectar nuestra salud en estas áreas y la importancia de estos efectos. Estas preguntas son opcionales.",
+    "text": "Hasta Marzo cuando COVID se hizo frecuente:",
+    "please-select-option": "Seleccione una opción",
     "weight-change": {
-      "question": "",
-      "increased": "",
-      "decreased": "",
-      "same": "",
-      "pfnts": ""
+      "question": "Cómo ha cambiado su peso?",
+      "increased": "Aumentado",
+      "decreased": "Disminuido",
+      "same": "Se ha mantenido igual",
+      "pfnts": "Prefiero no decir"
     },
     "diet-change": {
-      "question": "",
-      "increased": "",
-      "decreased": "",
-      "same": "",
-      "pfnts": ""
+      "question": "En su opinion, cómo ha cambiado su dieta?",
+      "increased": "Se ha vuelto más saludable",
+      "decreased": "Se ha vuelto menos saludable",
+      "same": "Se ha mantenido igual",
+      "pfnts": "Prefiero no decir"
     },
     "snacking-change": {
-      "question": "",
-      "increased": "",
-      "decreased": "",
-      "same": "",
-      "pfnts": ""
+      "question": "Cómo ha cambiado su snacking?",
+      "increased": "Estoy comiendo más snacks",
+      "decreased": "Estoy comiendo menos snacks",
+      "same": "Mi niveles de snacking son iguales",
+      "pfnts": "Prefiero no decir"
     },
     "alcohol-change": {
-      "question": "",
-      "increased": "",
-      "decreased": "",
-      "no-alcohol": "",
-      "same": "",
-      "pfnts": ""
+      "question": "Cómo ha cambiado su consumo de alcohol?",
+      "increased": "Estoy tomando más",
+      "decreased": "Estoy tomando menos",
+      "no-alcohol": "No tomo",
+      "same": "Mi consumo mantiene igual",
+      "pfnts": "Prefiero no decir"
     },
     "activity-change": {
-      "question": "",
-      "increased": "",
-      "decreased": "",
-      "same": "",
-      "pfnts": ""
+      "question": "Ha cambiado su nivel de la actividad física?",
+      "increased": "Sí, ha aumentado",
+      "decreased": "Sí, ha disminuido",
+      "same": "No, ha mantenido igual",
+      "pfnts": "Prefiero no decir"
     }
   }
 }
