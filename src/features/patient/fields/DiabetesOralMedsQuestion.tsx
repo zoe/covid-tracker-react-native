@@ -135,11 +135,11 @@ DiabetesOralMedsQuestion.initialFormValues = (): DiabetesOralMedsData => {
 DiabetesOralMedsQuestion.schema = Yup.object().shape({
   diabetesOralMeds: Yup.array<string>().when('diabetesTreatmentOtherOral', {
     is: (val: boolean) => val,
-    then: Yup.array<string>().min(1),
+    then: Yup.array<string>(),
   }),
   diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
     is: (val: boolean) => val,
-    then: Yup.string().required(),
+    then: Yup.string(),
   }),
 });
 

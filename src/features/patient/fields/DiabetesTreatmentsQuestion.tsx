@@ -18,6 +18,7 @@ enum DiabetesTreatmentsFieldnames {
   RAPID_INSULIN = 'diabetes_treatment_rapid_insulin',
   OTHER_INJECTION = 'diabetes_treatment_other_injection',
   OTHER_ORAL = 'diabetes_treatment_other_oral',
+  PREFER_NOT_TO_SAY = 'diabetes_treatment_pfnts',
 }
 
 const DIABETES_TREATMENT_CHECKBOXES = [
@@ -41,6 +42,11 @@ const DIABETES_TREATMENT_CHECKBOXES = [
   {
     fieldName: DiabetesTreatmentsFieldnames.OTHER_ORAL,
     label: i18n.t('diabetes.answer-other-oral-meds'),
+    value: false,
+  },
+  {
+    fieldName: DiabetesTreatmentsFieldnames.PREFER_NOT_TO_SAY,
+    label: i18n.t('prefer-not-to-say'),
     value: false,
   },
 ];
@@ -132,7 +138,7 @@ DiabetesTreamentsQuestion.initialFormValues = (): DiabetesTreatmentsData => {
 };
 
 DiabetesTreamentsQuestion.schema = Yup.object().shape({
-  diabetesTreatments: Yup.array<string>().min(1),
+  diabetesTreatments: Yup.array<string>().min(1, i18n.t('diabetes.please-select-diabetes-treatment')),
 });
 
 DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
@@ -143,6 +149,7 @@ DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
     diabetes_treatment_rapid_insulin: false,
     diabetes_treatment_other_injection: false,
     diabetes_treatment_other_oral: false,
+    diabetes_treatment_pfnts: false,
   };
   data.diabetesTreatments.forEach((item) => {
     dto[item] = true;

@@ -897,7 +897,7 @@
   },
 
   "diabetes": {
-    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor.",
+    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor. Estas preguntas son opcionales.",
     "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
     "answer-type-1": "Diabetes tipo 1",
     "answer-type-2": "Diabetes tipo 2",
@@ -922,7 +922,8 @@
     "answer-meglitinides": "Meglitinidas (ej. repaglinide, nateglinide)",
     "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
     "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
-    "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista"
+    "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista",
+    "please-select-diabetes-treatment": "Seleccione uno o más de los anteriores"
   },
 
   "lifestyle": {

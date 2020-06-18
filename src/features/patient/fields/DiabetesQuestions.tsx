@@ -33,6 +33,7 @@ export enum DiabetesTypeValues {
   GESTATIONAL = 'gestational',
   OTHER = 'other',
   UNSURE = 'unsure',
+  PREFER_NOT_TO_SAY = 'pfnts',
 }
 
 export enum HemoglobinMeasureUnits {
@@ -46,6 +47,7 @@ const DIABETES_TYPE_DROPDOWN = [
   { label: i18n.t('diabetes.answer-gestational'), value: DiabetesTypeValues.GESTATIONAL },
   { label: i18n.t('diabetes.answer-unsure'), value: DiabetesTypeValues.UNSURE },
   { label: i18n.t('diabetes.answer-other'), value: DiabetesTypeValues.OTHER },
+  { label: i18n.t('prefer-not-to-say'), value: DiabetesTypeValues.PREFER_NOT_TO_SAY },
 ];
 
 const HEMOGLOBIN_MEASURE_UNITS_DROPDOWN = [
@@ -155,20 +157,20 @@ DiabetesQuestions.schema = Yup.object()
 
     diabetesTypeOther: Yup.string().when('diabetesType', {
       is: (val: string) => val === DiabetesTypeValues.OTHER,
-      then: Yup.string().required(),
+      then: Yup.string(),
     }),
 
     a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
       is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
-      then: Yup.number().required(),
+      then: Yup.number(),
     }),
 
     a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
       is: (val: string) => val === HemoglobinMeasureUnits.MOL,
-      then: Yup.number().required(),
+      then: Yup.number(),
     }),
 
-    diabetesDiagnosisYear: Yup.number().typeError().required().integer().min(1900).max(2020),
+    diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
   })
   .concat(DiabetesTreamentsQuestion.schema)
   .concat(DiabetesOralMedsQuestion.schema);
@@ -177,7 +179,7 @@ DiabetesQuestions.createDTO = (data) => {
   const dto = {
     diabetes_type: data.diabetesType,
     diabetes_type_other: data.diabetesTypeOther,
-    diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
+    ...(data.diabetesDiagnosisYear && { diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear) }),
     ...DiabetesTreamentsQuestion.createDTO(data),
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
@@ -189,10 +191,10 @@ DiabetesQuestions.createDTO = (data) => {
 
   switch (data.hemoglobinMeasureUnit) {
     case HemoglobinMeasureUnits.PERCENT:
-      dto.a1c_measurement_percent = cleanFloatVal(data.a1cMeasurementPercent ?? '0');
+      if (data.a1cMeasurementPercent) dto.a1c_measurement_percent = cleanFloatVal(data.a1cMeasurementPercent ?? '0');
       break;
     case HemoglobinMeasureUnits.MOL:
-      dto.a1c_measurement_mmol = cleanFloatVal(data.a1cMeasurementMol ?? '0');
+      if (data.a1cMeasurementMol) dto.a1c_measurement_mmol = cleanFloatVal(data.a1cMeasurementMol ?? '0');
       break;
   }
 
