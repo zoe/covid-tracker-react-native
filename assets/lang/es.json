@@ -897,6 +897,7 @@
   },
 
   "diabetes": {
+    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor.",
     "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
     "answer-type-1": "Diabetes tipo 1",
     "answer-type-2": "Diabetes tipo 2",
@@ -911,7 +912,7 @@
     "answer-none": "Ninguno",
     "answer-lifestyle-mod": "Modificaciones del estilo de vida (ej. ejercicio, dieta, control del peso)",
     "answer-daily-injections": "Inyecciones de insulina de acción prolongada una o dos veces al día o insulina \"basal\" (ej. glargine, detemir, degludec o NPH en una mezcla de insulinas)",
-    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\", or given as a continuous infusion in an insulin pump (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-rapid-injections": "Inyecciones de insulina de acción rápida con las comidas o insulina \"en bolo\", o como un infusión continua en una bomba de insulina (ej. lispro, aspart, glulisine, o mezcla de insulinas)",
     "answer-non-insulin-injections": "Inyecciones de un medicamento para la diabetes sin insulina o agonistas del receptor GLP-1 (ej. semaglutide, dulaglutide, liraglutide)",
     "answer-other-oral-meds": "Otros medicamentos para la diabetes tomados por vía oral",
     "which-oral-treatment": "¿Qué medicamentos para la diabetes tomados por vía oral toma? Selecciona todas las opciones que correspondan:",

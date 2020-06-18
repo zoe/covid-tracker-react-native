@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { Label } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
@@ -12,6 +13,7 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+import { colors } from '@theme';
 
 import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';
@@ -64,6 +66,7 @@ export interface FormikDiabetesInputFC<P, Data> extends React.FC<P> {
 export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ formikProps }) => {
   return (
     <View>
+      <Label style={styles.labelStyle}>{i18n.t('diabetes.justification')}</Label>
       <DropdownField
         items={DIABETES_TYPE_DROPDOWN}
         selectedValue={formikProps.values.diabetesType}
@@ -71,7 +74,6 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
         label={i18n.t('diabetes.which-type')}
         error={formikProps.touched.diabetesType && formikProps.errors.diabetesType}
       />
-
       {formikProps.values.diabetesType === DiabetesTypeValues.OTHER && (
         <GenericTextField formikProps={formikProps} name="diabetesTypeOther" />
       )}
@@ -198,6 +200,13 @@ DiabetesQuestions.createDTO = (data) => {
 };
 
 const styles = StyleSheet.create({
+  labelStyle: {
+    fontSize: 16,
+    lineHeight: 30,
+    marginTop: 16,
+    marginHorizontal: 16,
+    color: colors.primary,
+  },
   textItemStyle: {
     borderColor: 'transparent',
   },
