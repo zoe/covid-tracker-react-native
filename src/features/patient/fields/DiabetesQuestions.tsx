@@ -25,6 +25,7 @@ export interface DiabetesData extends DiabetesTreatmentsData, DiabetesOralMedsDa
   a1cMeasurementPercent?: string;
   a1cMeasurementMol?: string;
   diabetesDiagnosisYear: string;
+  diabetesUsesCGM: string;
 }
 
 export enum DiabetesTypeValues {
@@ -135,6 +136,12 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
       {formikProps.values.diabetesTreatmentOtherOral && (
         <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
       )}
+
+      <DropdownField
+        selectedValue={formikProps.values.diabetesUsesCGM}
+        onValueChange={formikProps.handleChange('diabetesUsesCGM')}
+        label={i18n.t('diabetes.question-use-cgm')}
+      />
     </View>
   );
 };
@@ -149,6 +156,7 @@ DiabetesQuestions.initialFormValues = () => {
     a1cMeasurementPercent: undefined,
     a1cMeasurementMol: undefined,
     diabetesDiagnosisYear: '',
+    diabetesUsesCGM: '',
     ...DiabetesTreamentsQuestion.initialFormValues(),
     ...DiabetesOralMedsQuestion.initialFormValues(),
   };
@@ -175,6 +183,8 @@ DiabetesQuestions.schema = () => {
       }),
 
       diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
+
+      diabetesUsesCGM: Yup.string(),
     })
     .concat(DiabetesTreamentsQuestion.schema())
     .concat(DiabetesOralMedsQuestion.schema());
@@ -185,6 +195,7 @@ DiabetesQuestions.createDTO = (data) => {
     diabetes_type: data.diabetesType,
     diabetes_type_other: data.diabetesTypeOther,
     ...(data.diabetesDiagnosisYear && { diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear) }),
+    ...(data.diabetesUsesCGM && { diabetes_uses_cgm: data.diabetesUsesCGM === 'yes' }),
     ...DiabetesTreamentsQuestion.createDTO(data),
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
