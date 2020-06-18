@@ -192,7 +192,7 @@ export type PatientInfosRequest = {
   vs_asked_at: Date;
 
   contact_additional_studies: boolean;
-  
+
   // Diabetes fields
   diabetes_type: string;
   diabetes_type_other: string;
