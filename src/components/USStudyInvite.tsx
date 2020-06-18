@@ -97,18 +97,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  endView: {
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
   contentContainer: {
     padding: 24,
-  },
-  popUpView: {
-    backgroundColor: colors.white,
-    alignItems: 'center',
   },
   modalView: {
     margin: 24,
@@ -116,24 +106,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
   },
-  shadow: {
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   modalButton: {
     height: 40,
     marginBottom: 16,
     marginHorizontal: 75,
-    backgroundColor: colors.purple,
-  },
-  popUpButton: {
-    marginBottom: 16,
     backgroundColor: colors.purple,
   },
   buttonText: {
