@@ -28,24 +28,6 @@ export interface DiabetesOralMedsData {
   diabetesOralOtherMedication?: string;
 }
 
-const DIABETES_ORAL_MEDS_CHECKBOXES = [
-  { fieldName: DiabetesOralMedsFieldnames.BIGUANIDE, label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
-  { fieldName: DiabetesOralMedsFieldnames.SULFONYLUREA, label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
-  { fieldName: DiabetesOralMedsFieldnames.DPP4, label: i18n.t('diabetes.answer-dpp'), value: false },
-  { fieldName: DiabetesOralMedsFieldnames.MEGLITINIDES, label: i18n.t('diabetes.answer-meglitinides'), value: false },
-  {
-    fieldName: DiabetesOralMedsFieldnames.THIAZOLIDNEDIONES,
-    label: i18n.t('diabetes.answer-thiazolidinediones'),
-    value: false,
-  },
-  { fieldName: DiabetesOralMedsFieldnames.ORAL_SGLT2, label: i18n.t('diabetes.answer-sglt'), value: false },
-  {
-    fieldName: DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED,
-    label: i18n.t('diabetes.answer-other-oral-meds-not-listed'),
-    value: false,
-  },
-];
-
 interface Props {
   formikProps: FormikProps<DiabetesOralMedsData>;
 }
@@ -96,6 +78,24 @@ const DiabetesOralMedsCheckbox: React.FC<DiabetesOralMedsCheckboxProps> = ({ dat
 };
 
 export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOralMedsData> = ({ formikProps }) => {
+  const diabetesOralMedsOptions = [
+    { fieldName: DiabetesOralMedsFieldnames.BIGUANIDE, label: i18n.t('diabetes.answer-oral-biguanide'), value: false },
+    { fieldName: DiabetesOralMedsFieldnames.SULFONYLUREA, label: i18n.t('diabetes.answer-sulfonylurea'), value: false },
+    { fieldName: DiabetesOralMedsFieldnames.DPP4, label: i18n.t('diabetes.answer-dpp'), value: false },
+    { fieldName: DiabetesOralMedsFieldnames.MEGLITINIDES, label: i18n.t('diabetes.answer-meglitinides'), value: false },
+    {
+      fieldName: DiabetesOralMedsFieldnames.THIAZOLIDNEDIONES,
+      label: i18n.t('diabetes.answer-thiazolidinediones'),
+      value: false,
+    },
+    { fieldName: DiabetesOralMedsFieldnames.ORAL_SGLT2, label: i18n.t('diabetes.answer-sglt'), value: false },
+    {
+      fieldName: DiabetesOralMedsFieldnames.OTHER_MED_NOT_LISTED,
+      label: i18n.t('diabetes.answer-other-oral-meds-not-listed'),
+      value: false,
+    },
+  ];
+
   const createDiabetesCheckboxes = (data: CheckboxType[], props: FormikProps<DiabetesOralMedsData>) => {
     return data.map((item) => {
       const isChecked = props.values.diabetesOralMeds.includes(item.fieldName);
@@ -107,7 +107,7 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
     <View>
       <Item stackedLabel style={styles.textItemStyle}>
         <Label>{i18n.t('diabetes.which-oral-treatment')}</Label>
-        <CheckboxList>{createDiabetesCheckboxes(DIABETES_ORAL_MEDS_CHECKBOXES, formikProps)}</CheckboxList>
+        <CheckboxList>{createDiabetesCheckboxes(diabetesOralMedsOptions, formikProps)}</CheckboxList>
       </Item>
       {formikProps.values.diabetesOralOtherMedicationNotListed && (
         <GenericTextField

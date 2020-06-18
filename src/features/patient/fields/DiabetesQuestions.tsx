@@ -41,20 +41,6 @@ export enum HemoglobinMeasureUnits {
   MOL = 'mmol/mol',
 }
 
-const DIABETES_TYPE_DROPDOWN = [
-  { label: i18n.t('diabetes.answer-type-1'), value: DiabetesTypeValues.TYPE_1 },
-  { label: i18n.t('diabetes.answer-type-2'), value: DiabetesTypeValues.TYPE_2 },
-  { label: i18n.t('diabetes.answer-gestational'), value: DiabetesTypeValues.GESTATIONAL },
-  { label: i18n.t('diabetes.answer-unsure'), value: DiabetesTypeValues.UNSURE },
-  { label: i18n.t('diabetes.answer-other'), value: DiabetesTypeValues.OTHER },
-  { label: i18n.t('prefer-not-to-say'), value: DiabetesTypeValues.PREFER_NOT_TO_SAY },
-];
-
-const HEMOGLOBIN_MEASURE_UNITS_DROPDOWN = [
-  { label: i18n.t('diabetes.hemoglobin-measurement-unit-percent'), value: HemoglobinMeasureUnits.PERCENT },
-  { label: i18n.t('diabetes.hemoglobin-measurement-unit-mol'), value: HemoglobinMeasureUnits.MOL },
-];
-
 interface Props {
   formikProps: FormikProps<DiabetesData>;
 }
@@ -66,11 +52,25 @@ export interface FormikDiabetesInputFC<P, Data> extends React.FC<P> {
 }
 
 export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ formikProps }) => {
+  const diabetesTypeOptions = [
+    { label: i18n.t('diabetes.answer-type-1'), value: DiabetesTypeValues.TYPE_1 },
+    { label: i18n.t('diabetes.answer-type-2'), value: DiabetesTypeValues.TYPE_2 },
+    { label: i18n.t('diabetes.answer-gestational'), value: DiabetesTypeValues.GESTATIONAL },
+    { label: i18n.t('diabetes.answer-unsure'), value: DiabetesTypeValues.UNSURE },
+    { label: i18n.t('diabetes.answer-other'), value: DiabetesTypeValues.OTHER },
+    { label: i18n.t('prefer-not-to-say'), value: DiabetesTypeValues.PREFER_NOT_TO_SAY },
+  ];
+
+  const hemoglobinUnitsOptions = [
+    { label: i18n.t('diabetes.hemoglobin-measurement-unit-percent'), value: HemoglobinMeasureUnits.PERCENT },
+    { label: i18n.t('diabetes.hemoglobin-measurement-unit-mol'), value: HemoglobinMeasureUnits.MOL },
+  ];
+
   return (
     <View>
       <Label style={styles.labelStyle}>{i18n.t('diabetes.justification')}</Label>
       <DropdownField
-        items={DIABETES_TYPE_DROPDOWN}
+        items={diabetesTypeOptions}
         selectedValue={formikProps.values.diabetesType}
         onValueChange={formikProps.handleChange('diabetesType')}
         label={i18n.t('diabetes.which-type')}
@@ -109,7 +109,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
           </View>
           <View style={styles.secondaryField}>
             <DropdownField
-              items={HEMOGLOBIN_MEASURE_UNITS_DROPDOWN}
+              items={hemoglobinUnitsOptions}
               selectedValue={formikProps.values.hemoglobinMeasureUnit}
               onValueChange={formikProps.handleChange('hemoglobinMeasureUnit')}
               placeholder=""
