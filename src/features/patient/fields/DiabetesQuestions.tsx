@@ -33,7 +33,7 @@ export enum DiabetesTypeValues {
   GESTATIONAL = 'gestational',
   OTHER = 'other',
   UNSURE = 'unsure',
-  PREFER_NOT_TO_SAY = 'prefer_not_to_say',
+  PREFER_NOT_TO_SAY = 'pfnts',
 }
 
 export enum HemoglobinMeasureUnits {
@@ -179,7 +179,7 @@ DiabetesQuestions.createDTO = (data) => {
   const dto = {
     diabetes_type: data.diabetesType,
     diabetes_type_other: data.diabetesTypeOther,
-    diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear),
+    ...(data.diabetesDiagnosisYear && { diabetes_diagnosis_year: cleanIntegerVal(data.diabetesDiagnosisYear) }),
     ...DiabetesTreamentsQuestion.createDTO(data),
     ...DiabetesOralMedsQuestion.createDTO(data),
   };
@@ -191,10 +191,10 @@ DiabetesQuestions.createDTO = (data) => {
 
   switch (data.hemoglobinMeasureUnit) {
     case HemoglobinMeasureUnits.PERCENT:
-      dto.a1c_measurement_percent = cleanFloatVal(data.a1cMeasurementPercent ?? '0');
+      if (data.a1cMeasurementPercent) dto.a1c_measurement_percent = cleanFloatVal(data.a1cMeasurementPercent ?? '0');
       break;
     case HemoglobinMeasureUnits.MOL:
-      dto.a1c_measurement_mmol = cleanFloatVal(data.a1cMeasurementMol ?? '0');
+      if (data.a1cMeasurementMol) dto.a1c_measurement_mmol = cleanFloatVal(data.a1cMeasurementMol ?? '0');
       break;
   }
 
