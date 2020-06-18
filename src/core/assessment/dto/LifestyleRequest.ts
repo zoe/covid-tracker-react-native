@@ -4,6 +4,8 @@ export type LifestyleRequest = {
   patient: string; //	Patient id
 
   weight_change: string;
+  weight_change_pounds: number;
+  weight_change_kg: number;
   diet_change: string;
   snacking_change: string;
   activity_change: string;

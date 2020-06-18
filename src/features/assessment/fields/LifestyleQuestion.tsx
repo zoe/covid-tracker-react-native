@@ -1,11 +1,15 @@
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import DropdownField from '@covid/components/DropdownField';
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
+import { isUSCountry } from '@covid/core/user/UserService';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { userService } from '@covid/Services';
+import { cleanFloatVal } from '@covid/core/utils/number';
 
 export interface LifestyleData {
   weightChange: string;
@@ -13,6 +17,10 @@ export interface LifestyleData {
   snackingChange: string;
   activityChange: string;
   alcoholChange: string;
+  pounds: string;
+  stones: string;
+  weight: string;
+  weightUnit: string;
 }
 
 interface Props {
@@ -29,23 +37,41 @@ export enum ChangeValue {
 
 export class LifestyleQuestion extends Component<Props, object> {
   static initialFormValues = (): LifestyleData => {
+    const features = userService.getConfig();
+
     return {
       weightChange: '',
       dietChange: '',
       snackingChange: '',
       activityChange: '',
       alcoholChange: '',
+      weight: '',
+      stones: '',
+      pounds: '',
+      weightUnit: features.defaultWeightUnit,
     };
   };
 
-  static createMasksDTO = (form: LifestyleData) => {
-    return {
-      weight_change: form.weightChange,
-      diet_change: form.dietChange,
-      snacking_change: form.snackingChange,
-      activity_change: form.activityChange,
-      alcohol_change: form.alcoholChange,
+  static createMasksDTO = (formData: LifestyleData) => {
+    let dto = {
+      weight_change: formData.weightChange,
+      diet_change: formData.dietChange,
+      snacking_change: formData.snackingChange,
+      activity_change: formData.activityChange,
+      alcohol_change: formData.alcoholChange,
     } as Partial<LifestyleRequest>;
+
+    if (formData.weightUnit === 'lbs') {
+      let pounds = cleanFloatVal(formData.pounds);
+      if (formData.stones) {
+        const stones = cleanFloatVal(formData.stones) || 0;
+        pounds += stones * 14;
+      }
+      dto = { ...dto, weight_change_pounds: pounds };
+    } else {
+      dto = { ...dto, weight_change_kg: cleanFloatVal(formData.weight) };
+    }
+    return dto;
   };
 
   weightChangeOptions = [
@@ -96,6 +122,79 @@ export class LifestyleQuestion extends Component<Props, object> {
           items={this.weightChangeOptions}
         />
 
+        {(formikProps.values.weightChange === ChangeValue.INCREASED ||
+          formikProps.values.weightChange === ChangeValue.DECREASED) && (
+          <>
+            {isUSCountry() ? (
+              <ValidatedTextInput
+                placeholder={i18n.t('placeholder-pounds')}
+                value={formikProps.values.pounds}
+                onChangeText={formikProps.handleChange('pounds')}
+                onBlur={formikProps.handleBlur('pounds')}
+                error={formikProps.touched.pounds && formikProps.errors.pounds}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+                keyboardType="numeric"
+              />
+            ) : (
+              <View style={styles.fieldRow}>
+                {formikProps.values.weightUnit === 'kg' ? (
+                  <View style={styles.primaryField}>
+                    <ValidatedTextInput
+                      placeholder={i18n.t('placeholder-weight')}
+                      value={formikProps.values.weight}
+                      onChangeText={formikProps.handleChange('weight')}
+                      onBlur={formikProps.handleBlur('weight')}
+                      error={formikProps.touched.weight && formikProps.errors.weight}
+                      returnKeyType="next"
+                      onSubmitEditing={() => {}}
+                      keyboardType="numeric"
+                    />
+                  </View>
+                ) : (
+                  <View style={styles.primaryFieldRow}>
+                    <View style={styles.stonesField}>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('placeholder-stones')}
+                        value={formikProps.values.stones}
+                        onChangeText={formikProps.handleChange('stones')}
+                        onBlur={formikProps.handleBlur('stones')}
+                        error={formikProps.touched.stones && formikProps.errors.stones}
+                        returnKeyType="next"
+                        onSubmitEditing={() => {}}
+                        keyboardType="numeric"
+                      />
+                    </View>
+                    <View style={styles.poundsField}>
+                      <ValidatedTextInput
+                        placeholder={i18n.t('placeholder-pounds')}
+                        value={formikProps.values.pounds}
+                        onChangeText={formikProps.handleChange('pounds')}
+                        onBlur={formikProps.handleBlur('pounds')}
+                        error={formikProps.touched.pounds && formikProps.errors.pounds}
+                        returnKeyType="next"
+                        onSubmitEditing={() => {}}
+                        keyboardType="numeric"
+                      />
+                    </View>
+                  </View>
+                )}
+                <View style={styles.secondaryField}>
+                  <DropdownField
+                    onlyPicker
+                    selectedValue={formikProps.values.weightUnit}
+                    onValueChange={formikProps.handleChange('weightUnit')}
+                    items={[
+                      { label: 'lbs', value: 'lbs' },
+                      { label: 'kg', value: 'kg' },
+                    ]}
+                  />
+                </View>
+              </View>
+            )}
+          </>
+        )}
+
         <DropdownField
           label={i18n.t('lifestyle.diet-change.question')}
           selectedValue={formikProps.values.dietChange}
@@ -132,4 +231,36 @@ export class LifestyleQuestion extends Component<Props, object> {
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  fieldRow: {
+    flexDirection: 'row',
+  },
+  primaryField: {
+    flex: 6,
+  },
+
+  primaryFieldRow: {
+    flex: 6,
+    flexDirection: 'row',
+  },
+
+  tertiaryField: {
+    flex: 5,
+    marginRight: 8,
+  },
+
+  stonesField: {
+    flex: 5,
+    marginRight: 4,
+  },
+
+  poundsField: {
+    flex: 5,
+    marginLeft: 4,
+  },
+
+  secondaryField: {
+    flex: 2,
+    margin: -8,
+  },
+});
