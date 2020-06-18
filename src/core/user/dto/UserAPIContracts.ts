@@ -212,6 +212,7 @@ export type PatientInfosRequest = {
   diabetes_oral_thiazolidinediones: boolean;
   diabetes_oral_sglt2: boolean;
   diabetes_oral_other_medication: string;
+  diabetes_uses_cgm: boolean;
 };
 
 export type TokenInfoRequest = {

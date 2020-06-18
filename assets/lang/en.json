@@ -923,6 +923,7 @@
     "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
     "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed",
     "please-select-diabetes-type": "Please select an option",
-    "please-select-diabetes-treatment": "Please select one or more of the above"
+	"please-select-diabetes-treatment": "Please select one or more of the above",
+    "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
   }
 }
