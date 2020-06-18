@@ -193,7 +193,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         currentPatient.hasHormoneTreatmentAnswer = true;
         currentPatient.hasVitaminAnswer = true;
         currentPatient.hasAtopyAnswers = true;
-        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
+        if (formData.diabetesType) {
+          currentPatient.hasDiabetesAnswers = true;
+          currentPatient.shouldAskExtendedDiabetes = false;
+        }
+        if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })
