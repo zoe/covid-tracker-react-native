@@ -900,5 +900,34 @@
       "cta-single-profile": false,
       "cta-multi-profile": false
     }
+  },
+
+  "diabetes": {
+    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor.",
+    "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
+    "answer-type-1": "Diabetes tipo 1",
+    "answer-type-2": "Diabetes tipo 2",
+    "answer-gestational": "Diabetes gestacional (durante el embarazo)",
+    "answer-unsure": "No estoy seguro del tipo de diabetes que tengo",
+    "answer-other": "Otra forma de diabetes, por favor especifique",
+    "most-recent-hemoglobin-measure": "¿Cuál fue su valor de hemoglobina A1c más reciente?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "¿En qué año le diagnosticaron diabetes?",
+    "which-treatment": "¿Qué tratamientos para lo diabetes toma? Selecciona todas las opciones que correspondan:",
+    "answer-none": "Ninguno",
+    "answer-lifestyle-mod": "Modificaciones del estilo de vida (ej. ejercicio, dieta, control del peso)",
+    "answer-daily-injections": "Inyecciones de insulina de acción prolongada una o dos veces al día o insulina \"basal\" (ej. glargine, detemir, degludec o NPH en una mezcla de insulinas)",
+    "answer-rapid-injections": "Inyecciones de insulina de acción rápida con las comidas o insulina \"en bolo\", o como un infusión continua en una bomba de insulina (ej. lispro, aspart, glulisine, o mezcla de insulinas)",
+    "answer-non-insulin-injections": "Inyecciones de un medicamento para la diabetes sin insulina o agonistas del receptor GLP-1 (ej. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Otros medicamentos para la diabetes tomados por vía oral",
+    "which-oral-treatment": "¿Qué medicamentos para la diabetes tomados por vía oral toma? Selecciona todas las opciones que correspondan:",
+    "answer-oral-biguanide": "Metformina",
+    "answer-sulfonylurea": "Sulfonilurea (ej. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "Inhibidores del DPP-4 (ej. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinidas (ej. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
+    "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista"
   }
 }

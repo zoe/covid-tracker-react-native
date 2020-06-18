@@ -292,6 +292,7 @@ export default class UserService extends ApiClientBase
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
 
     const hasAtopyAnswers = patient.has_hayfever != null;
+    const hasDiabetesAnswers = patient.diabetes_type != null;
     const hasHayfever = patient.has_hayfever;
     const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
 
@@ -312,6 +313,7 @@ export default class UserService extends ApiClientBase
       shouldAskLevelOfIsolation,
       shouldAskStudy,
       hasAtopyAnswers,
+      hasDiabetesAnswers,
       hasHayfever,
       shouldShowUSStudyInvite,
     };
