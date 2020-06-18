@@ -35,7 +35,8 @@ export interface YourHealthData
     PeriodData,
     HormoneTreatmentData,
     VitaminSupplementData,
-    AtopyData {
+    AtopyData,
+    DiabetesData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -83,6 +84,7 @@ type State = {
   showPregnancyQuestion: boolean;
   showPeriodQuestion: boolean;
   showHormoneTherapyQuestion: boolean;
+  showDiabetesQuestion: boolean;
 };
 
 const initialState: State = {
@@ -90,6 +92,7 @@ const initialState: State = {
   showPregnancyQuestion: false,
   showPeriodQuestion: false,
   showHormoneTherapyQuestion: false,
+  showDiabetesQuestion: false,
 };
 
 const maleOptions = ['', 'male', 'pfnts'];
@@ -105,6 +108,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,
       showPeriodQuestion: currentPatient.isPeriodCapable,
       showHormoneTherapyQuestion: currentPatient.isPeriodCapable,
+      showDiabetesQuestion: false,
     };
   }
 
@@ -310,7 +314,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
           }}
-          validationSchema={this.registerSchema}
+          validationSchema={() => {
+            let schema = this.registerSchema;
+            if (this.state.showDiabetesQuestion) {
+              schema = schema.concat(DiabetesQuestions.schema);
+            }
+            return schema;
+          }}
           onSubmit={(values: YourHealthData) => {
             return this.handleUpdateHealth(values);
           }}>
@@ -347,7 +357,10 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                 <DropdownField
                   selectedValue={props.values.hasDiabetes}
-                  onValueChange={props.handleChange('hasDiabetes')}
+                  onValueChange={(value: string) => {
+                    props.handleChange('hasDiabetes');
+                    this.setState({ showDiabetesQuestion: value === 'yes' });
+                  }}
                   label={i18n.t('your-health.have-diabetes')}
                 />
 
