@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground } from 'react-native';
 
 import { closeIcon, blobs } from '@assets';
@@ -11,55 +11,44 @@ import { userService } from '@covid/Services';
 
 import { BrandedButton } from './BrandedButton';
 
-type State = {
-  isModalOpen: boolean;
-};
-
-type Props = {
+type StudyInviteProps = {
   assessmentData: AssessmentData;
 };
 
-const initialState = {
-  isModalOpen: false,
-};
+export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProps) => {
+  const [modalVisible, setModalVisible] = useState(false);
 
-export class USStudyInvite extends Component<Props, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = initialState;
-  }
-
-  componentDidMount() {
-    const { currentPatient } = this.props.assessmentData;
+  useEffect(() => {
+    const { currentPatient } = props.assessmentData;
     if (isUSCountry() && !currentPatient.isReportedByAnother && currentPatient.shouldShowUSStudyInvite) {
-      this.setState({ isModalOpen: true });
+      setModalVisible(true);
     }
-  }
+  });
 
-  handleAgree = () => {
-    this.setState({ isModalOpen: false });
-    userService.setUSStudyInviteResponse(this.props.assessmentData.currentPatient.patientId, true);
+  const handleAgree = () => {
+    setModalVisible(false);
+    userService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, true);
   };
 
-  handleClose = () => {
-    this.setState({ isModalOpen: false });
-    userService.setUSStudyInviteResponse(this.props.assessmentData.currentPatient.patientId, false);
+  const handleClose = () => {
+    setModalVisible(false);
+    userService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, false);
   };
 
-  render() {
-    return (
-      this.state.isModalOpen && (
+  return (
+    <>
+      {modalVisible && (
         <Modal animationType="fade" transparent>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <ImageBackground source={blobs} style={{}} imageStyle={[styles.backgroundImage, { borderRadius: 16 }]}>
                 <View style={styles.contentContainer}>
-                  <TouchableOpacity onPress={this.handleClose} style={{ alignSelf: 'flex-end' }}>
+                  <TouchableOpacity onPress={handleClose} style={{ alignSelf: 'flex-end' }}>
                     <Image source={closeIcon} />
                   </TouchableOpacity>
                   <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
                   <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
-                  <BrandedButton style={styles.modalButton} onPress={this.handleAgree}>
+                  <BrandedButton style={styles.modalButton} onPress={handleAgree}>
                     <RegularText style={styles.buttonText}>{i18n.t('us-study-invite.button')}</RegularText>
                   </BrandedButton>
                 </View>
@@ -67,10 +56,10 @@ export class USStudyInvite extends Component<Props, State> {
             </View>
           </View>
         </Modal>
-      )
-    );
-  }
-}
+      )}
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   title: {
