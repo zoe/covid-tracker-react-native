@@ -139,7 +139,7 @@ DiabetesOralMedsQuestion.schema = Yup.object().shape({
   }),
   diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
     is: (val: boolean) => val,
-    then: Yup.string().required(),
+    then: Yup.string(),
   }),
 });
 

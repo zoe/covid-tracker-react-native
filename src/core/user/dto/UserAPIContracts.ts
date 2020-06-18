@@ -205,6 +205,7 @@ export type PatientInfosRequest = {
   diabetes_treatment_rapid_insulin: boolean;
   diabetes_treatment_other_injection: boolean;
   diabetes_treatment_other_oral: boolean;
+  diabetes_treatment_pfnts: boolean;
   diabetes_oral_biguanide: boolean;
   diabetes_oral_sulfonylurea: boolean;
   diabetes_oral_dpp4: boolean;

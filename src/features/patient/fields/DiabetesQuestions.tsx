@@ -33,6 +33,7 @@ export enum DiabetesTypeValues {
   GESTATIONAL = 'gestational',
   OTHER = 'other',
   UNSURE = 'unsure',
+  PREFER_NOT_TO_SAY = 'prefer_not_to_say',
 }
 
 export enum HemoglobinMeasureUnits {
@@ -46,6 +47,7 @@ const DIABETES_TYPE_DROPDOWN = [
   { label: i18n.t('diabetes.answer-gestational'), value: DiabetesTypeValues.GESTATIONAL },
   { label: i18n.t('diabetes.answer-unsure'), value: DiabetesTypeValues.UNSURE },
   { label: i18n.t('diabetes.answer-other'), value: DiabetesTypeValues.OTHER },
+  { label: i18n.t('prefer-not-to-say'), value: DiabetesTypeValues.PREFER_NOT_TO_SAY },
 ];
 
 const HEMOGLOBIN_MEASURE_UNITS_DROPDOWN = [
@@ -155,20 +157,20 @@ DiabetesQuestions.schema = Yup.object()
 
     diabetesTypeOther: Yup.string().when('diabetesType', {
       is: (val: string) => val === DiabetesTypeValues.OTHER,
-      then: Yup.string().required(),
+      then: Yup.string(),
     }),
 
     a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
       is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
-      then: Yup.number().required(),
+      then: Yup.number(),
     }),
 
     a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
       is: (val: string) => val === HemoglobinMeasureUnits.MOL,
-      then: Yup.number().required(),
+      then: Yup.number(),
     }),
 
-    diabetesDiagnosisYear: Yup.number().typeError().required().integer().min(1900).max(2020),
+    diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
   })
   .concat(DiabetesTreamentsQuestion.schema)
   .concat(DiabetesOralMedsQuestion.schema);
