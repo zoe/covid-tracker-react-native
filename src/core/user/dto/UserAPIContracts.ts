@@ -201,6 +201,7 @@ export type PatientInfosRequest = {
   diabetes_treatment_lifestyle: boolean;
   diabetes_treatment_basal_insulin: boolean;
   diabetes_treatment_rapid_insulin: boolean;
+  diabetes_treatment_insulin_pump: boolean;
   diabetes_treatment_other_injection: boolean;
   diabetes_treatment_other_oral: boolean;
   diabetes_treatment_pfnts: boolean;
