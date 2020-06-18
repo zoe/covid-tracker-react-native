@@ -8,9 +8,9 @@ import i18n from '@covid/locale/i18n';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 enum DiabetesOralMedsFieldnames {
   BIGUANIDE = 'diabetes_oral_biguanide',

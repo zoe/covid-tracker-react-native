@@ -7,9 +7,9 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 enum DiabetesTreatmentsFieldnames {
   NONE = 'diabetes_treatment_none',
