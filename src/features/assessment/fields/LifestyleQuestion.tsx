@@ -1,6 +1,7 @@
 import { FormikProps } from 'formik';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Form } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -10,6 +11,7 @@ import { isUSCountry } from '@covid/core/user/UserService';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { userService } from '@covid/Services';
 import { cleanFloatVal } from '@covid/core/utils/number';
+import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 
 export interface LifestyleData {
   weightChange: string;
@@ -124,75 +126,10 @@ export class LifestyleQuestion extends Component<Props, object> {
 
         {(formikProps.values.weightChange === ChangeValue.INCREASED ||
           formikProps.values.weightChange === ChangeValue.DECREASED) && (
-          <>
-            {isUSCountry() ? (
-              <ValidatedTextInput
-                placeholder={i18n.t('placeholder-pounds')}
-                value={formikProps.values.pounds}
-                onChangeText={formikProps.handleChange('pounds')}
-                onBlur={formikProps.handleBlur('pounds')}
-                error={formikProps.touched.pounds && formikProps.errors.pounds}
-                returnKeyType="next"
-                onSubmitEditing={() => {}}
-                keyboardType="numeric"
-              />
-            ) : (
-              <View style={styles.fieldRow}>
-                {formikProps.values.weightUnit === 'kg' ? (
-                  <View style={styles.primaryField}>
-                    <ValidatedTextInput
-                      placeholder={i18n.t('placeholder-weight')}
-                      value={formikProps.values.weight}
-                      onChangeText={formikProps.handleChange('weight')}
-                      onBlur={formikProps.handleBlur('weight')}
-                      error={formikProps.touched.weight && formikProps.errors.weight}
-                      returnKeyType="next"
-                      onSubmitEditing={() => {}}
-                      keyboardType="numeric"
-                    />
-                  </View>
-                ) : (
-                  <View style={styles.primaryFieldRow}>
-                    <View style={styles.stonesField}>
-                      <ValidatedTextInput
-                        placeholder={i18n.t('placeholder-stones')}
-                        value={formikProps.values.stones}
-                        onChangeText={formikProps.handleChange('stones')}
-                        onBlur={formikProps.handleBlur('stones')}
-                        error={formikProps.touched.stones && formikProps.errors.stones}
-                        returnKeyType="next"
-                        onSubmitEditing={() => {}}
-                        keyboardType="numeric"
-                      />
-                    </View>
-                    <View style={styles.poundsField}>
-                      <ValidatedTextInput
-                        placeholder={i18n.t('placeholder-pounds')}
-                        value={formikProps.values.pounds}
-                        onChangeText={formikProps.handleChange('pounds')}
-                        onBlur={formikProps.handleBlur('pounds')}
-                        error={formikProps.touched.pounds && formikProps.errors.pounds}
-                        returnKeyType="next"
-                        onSubmitEditing={() => {}}
-                        keyboardType="numeric"
-                      />
-                    </View>
-                  </View>
-                )}
-                <View style={styles.secondaryField}>
-                  <DropdownField
-                    onlyPicker
-                    selectedValue={formikProps.values.weightUnit}
-                    onValueChange={formikProps.handleChange('weightUnit')}
-                    items={[
-                      { label: 'lbs', value: 'lbs' },
-                      { label: 'kg', value: 'kg' },
-                    ]}
-                  />
-                </View>
-              </View>
-            )}
-          </>
+          <WeightQuestion
+            formikProps={formikProps as FormikProps<WeightData>}
+            label={i18n.t('lifestyle.weight-difference')}
+          />
         )}
 
         <DropdownField

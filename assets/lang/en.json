@@ -935,6 +935,7 @@
       "same": "Stayed the same",
       "pfnts": "Prefer not to say"
     },
+    "weight-difference": "By how much (an estimate is fine)?",
     "diet-change": {
       "question": "How was your diet changed in your opinion?",
       "increased": "It has become healthier",

@@ -937,6 +937,7 @@
       "same": "Se ha mantenido igual",
       "pfnts": "Prefiero no decir"
     },
+    "weight-difference": "Cuánto ha cambiado (un estimado está bien)?",
     "diet-change": {
       "question": "En su opinion, cómo ha cambiado su dieta?",
       "increased": "Se ha vuelto más saludable",
