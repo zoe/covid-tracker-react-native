@@ -167,11 +167,6 @@ DiabetesQuestions.schema = Yup.object()
     }),
 
     diabetesDiagnosisYear: Yup.number().typeError().required().integer().min(1900).max(2020),
-
-    diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
-      is: (val: boolean) => val,
-      then: Yup.string().required(),
-    }),
   })
   .concat(DiabetesTreamentsQuestion.schema)
   .concat(DiabetesOralMedsQuestion.schema);
