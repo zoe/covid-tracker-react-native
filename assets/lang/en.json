@@ -634,8 +634,6 @@
   "never-had-test": "I have never had a COVID test",
   "above-list-correct": "The above list is correct",
 
-  "unsure": "Unsure",
-
   "errors": {
     "button-retry": "Retry",
     "button-okay": "Ok",

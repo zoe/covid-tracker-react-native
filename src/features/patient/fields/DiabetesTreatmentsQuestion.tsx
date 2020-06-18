@@ -19,7 +19,6 @@ enum DiabetesTreatmentsFieldnames {
   OTHER_INJECTION = 'diabetes_treatment_other_injection',
   OTHER_ORAL = 'diabetes_treatment_other_oral',
   PREFER_NOT_TO_SAY = 'diabetes_treatment_pfnts',
-  UNSURE = 'unsure',
 }
 
 const DIABETES_TREATMENT_CHECKBOXES = [
@@ -48,11 +47,6 @@ const DIABETES_TREATMENT_CHECKBOXES = [
   {
     fieldName: DiabetesTreatmentsFieldnames.PREFER_NOT_TO_SAY,
     label: i18n.t('prefer-not-to-say'),
-    value: false,
-  },
-  {
-    fieldName: DiabetesTreatmentsFieldnames.UNSURE,
-    label: i18n.t('unsure'),
     value: false,
   },
 ];
@@ -158,9 +152,7 @@ DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
     diabetes_treatment_pfnts: false,
   };
   data.diabetesTreatments.forEach((item) => {
-    if (item !== DiabetesTreatmentsFieldnames.UNSURE) {
-      dto[item] = true;
-    }
+    dto[item] = true;
   });
   return dto;
 };
