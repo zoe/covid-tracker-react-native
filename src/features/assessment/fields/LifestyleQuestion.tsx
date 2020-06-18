@@ -36,7 +36,7 @@ export enum ChangeValue {
 
 export interface FormikLifestyleQuestionInputFC<P, Data> extends React.FC<P> {
   initialFormValues: () => Data;
-  schema: Yup.ObjectSchema;
+  schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<LifestyleRequest>;
 }
 
@@ -148,13 +148,15 @@ LifestyleQuestion.initialFormValues = (): LifestyleData => {
   };
 };
 
-LifestyleQuestion.schema = Yup.object().shape({
-  weightChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-  dietChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-  snackingChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-  activityChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-  alcoholChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
-});
+LifestyleQuestion.schema = () => {
+  return Yup.object().shape({
+    weightChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+    dietChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+    snackingChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+    activityChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+    alcoholChange: Yup.string().required(i18n.t('lifestyle.please-select-option')),
+  });
+};
 
 LifestyleQuestion.createDTO = (formData: LifestyleData): Partial<LifestyleRequest> => {
   let dto = {

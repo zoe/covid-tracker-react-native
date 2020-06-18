@@ -2,7 +2,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, View } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -73,7 +72,7 @@ export default class LifestyleScreen extends Component<Props, State> {
           <ProgressStatus step={3} maxSteps={5} />
         </ProgressBlock>
 
-        <View style={styles.container}>
+        <View style={{ margin: 16 }}>
           <RegularText>
             {i18n.t('lifestyle.explanation')}
             {'\n'}
@@ -84,13 +83,13 @@ export default class LifestyleScreen extends Component<Props, State> {
 
         <Formik
           initialValues={LifestyleQuestion.initialFormValues()}
-          validationSchema={LifestyleQuestion.schema}
+          validationSchema={LifestyleQuestion.schema()}
           onSubmit={(values: LifestyleData) => {
             return this.updateLifestyle(values);
           }}>
           {(props) => {
             return (
-              <Form style={styles.form}>
+              <Form>
                 <LifestyleQuestion formikProps={props} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
@@ -112,11 +111,3 @@ export default class LifestyleScreen extends Component<Props, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 16,
-    marginHorizontal: 16,
-  },
-  form: {},
-});
