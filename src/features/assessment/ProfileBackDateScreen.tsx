@@ -152,7 +152,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer,
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
-      needDiabetesAnswers: !currentPatient.hasDiabetesAnswers && currentPatient.hasDiabetes,
+      needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
     });
   }
 
@@ -173,7 +173,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
         if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
-        if (formData.diabetesType) currentPatient.hasDiabetesAnswers = true;
+        if (formData.diabetesType) {
+          currentPatient.hasDiabetesAnswers = true;
+          currentPatient.shouldAskExtendedDiabetes = false;
+        }
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
