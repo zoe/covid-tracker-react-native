@@ -312,6 +312,7 @@ export default class UserService extends ApiClientBase
       isReportedByAnother,
       isSameHousehold,
       shouldAskLevelOfIsolation,
+      shouldAskExtendedDiabetes,
       shouldAskStudy,
       hasAtopyAnswers,
       hasDiabetes,
