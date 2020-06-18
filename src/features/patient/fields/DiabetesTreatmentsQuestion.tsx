@@ -138,7 +138,7 @@ DiabetesTreamentsQuestion.initialFormValues = (): DiabetesTreatmentsData => {
 };
 
 DiabetesTreamentsQuestion.schema = Yup.object().shape({
-  diabetesTreatments: Yup.array<string>().min(1, i18n.t('please-select-diabetes-treatment')),
+  diabetesTreatments: Yup.array<string>().min(1, i18n.t('diabetes.please-select-diabetes-treatment')),
 });
 
 DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
