@@ -48,7 +48,7 @@ const initPatientState = {
   hasHormoneTreatmentAnswer: true,
   hasVitaminAnswer: true,
   hasAtopyAnswers: true,
-  hasDiabetes: true,
+  hasDiabetes: false,
   hasDiabetesAnswers: true,
 } as Partial<PatientStateType>;
 
