@@ -6,6 +6,7 @@ import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserServ
 import i18n from '@covid/locale/i18n';
 import { WelcomeRepeatScreen } from '@covid/features/register/WelcomeRepeatScreen';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { userService } from '@covid/Services';
 
 export interface IContentService {
   getUserCount(): Promise<string | null>;
@@ -37,7 +38,7 @@ export default class ContentService implements IContentService {
 
   async getWelcomeRepeatContent() {
     if (!this.screenContent) {
-      this.screenContent = await this.apiClient.getScreenContent();
+      this.screenContent = await this.apiClient.getScreenContent(UserService.userCountry, UserService.getLocale());
     }
     return this.screenContent.WelcomeRepeat;
   }

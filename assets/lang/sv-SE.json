@@ -523,8 +523,7 @@
   "choose-one-of-these-options": "Välj ett av alternativen",
   "prefer-not-to-say": "Föredrar att inte svara",
 
-  "validation-error-text": "Fyll i eller korrigera informationen ovan: %{info}",
-  "validation-error-text-no-info": "Fyll i eller korrigera informationen ovan",
+  "validation-error-text": "Fyll i eller korrigera informationen ovan",
 
   "website-home": "https://covid.joinzoe.com/",
 

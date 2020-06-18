@@ -3,7 +3,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
 
 import DropdownField from '@covid/components/DropdownField';
@@ -11,7 +10,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { ValidationErrors } from '@covid/components/ValidationError';
+import { ValidationError } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
@@ -21,13 +20,13 @@ import { stripAndRound } from '@covid/utils/helpers';
 import { ScreenParamList } from '../ScreenParamList';
 
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
-import { HormoneTreatmentQuestion, HormoneTreatmentData, TreatmentValue } from './fields/HormoneTreatmentQuestion';
+import { HormoneTreatmentData, HormoneTreatmentQuestion, TreatmentValue } from './fields/HormoneTreatmentQuestion';
 import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
 import {
-  VitaminSupplementsQuestion,
-  VitaminSupplementData,
   SupplementValue,
   supplementValues,
+  VitaminSupplementData,
+  VitaminSupplementsQuestion,
 } from './fields/VitaminQuestion';
 import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
 
@@ -430,7 +429,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationErrors errors={props.errors as string[]} />
+                  <ValidationError error={i18n.t('validation-error-text')} />
                 )}
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>

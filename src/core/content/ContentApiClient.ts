@@ -6,7 +6,7 @@ import { IApiClient } from '../api/ApiClient';
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getStartupInfo(): Promise<StartupInfo>;
-  getScreenContent(): Promise<AppScreenContent>;
+  getScreenContent(countryCode: string, languageCode: string): Promise<AppScreenContent>;
 }
 
 export class ContentApiClient implements IContentApiClient {
@@ -23,7 +23,9 @@ export class ContentApiClient implements IContentApiClient {
     return this.apiClient.get<StartupInfo>('/users/startup_info/');
   }
 
-  getScreenContent(): Promise<AppScreenContent> {
-    return this.apiClient.get<AppScreenContent>('/text/list/');
+  getScreenContent(countryCode: string, languageCode: string): Promise<AppScreenContent> {
+    return this.apiClient.get<AppScreenContent>(
+      `/text/list/?country_code=${countryCode}&language_code=${languageCode}`
+    );
   }
 }

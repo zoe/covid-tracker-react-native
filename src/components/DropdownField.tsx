@@ -146,7 +146,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
         </View>
       </ModalDropdown>
       {!!error && (
-        <View style={{ marginTop: 6, marginHorizontal: -16 }}>
+        <View style={{ marginTop: 4, marginHorizontal: 4 }}>
           <ValidationError error={error} />
         </View>
       )}
