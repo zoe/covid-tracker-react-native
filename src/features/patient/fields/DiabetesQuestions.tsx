@@ -184,7 +184,7 @@ DiabetesQuestions.schema = () => {
 
       diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
 
-	  diabetesUsesCGM: Yup.string(),
+      diabetesUsesCGM: Yup.string(),
     })
     .concat(DiabetesTreamentsQuestion.schema())
     .concat(DiabetesOralMedsQuestion.schema());
