@@ -923,5 +923,49 @@
     "please-select-diabetes-type": "Välj ett alternativ",
     "please-select-diabetes-treatment": "Välj ett eller flera av alternativen ovan",
     "question-use-cgm": "Använder du en kontinuerlig glukosmonitor (CGM)?"
+  },
+
+  "lifestyle": {
+    "title": "Kost & livsstil",
+    "explanation": "Följande frågor om vikt, kost och fysisk aktivitet ska hjälpa oss att förstå om covid-19 eventuellt påverkar din hälsa inom dessa områden och hur betydande dessa effekter är. Det är helt frivilligt att svara på frågorna.",
+    "text": "Sedan mars månad när covid-19 blev allmänt förekommande i samhället:",
+    "please-select-option": "Välj ett alternativ",
+    "weight-change": {
+      "question": "Hur har din vikt förändrats?",
+      "increased": "Ökat",
+      "decreased": "Minskat",
+      "same": "Oförändrad",
+      "pfnts": "Föredrar att inte berätta"
+    },
+    "weight-difference": "Med hur mycket (en uppskattning räcker)?",
+    "diet-change": {
+      "question": "Hur tycker du att din kost har förändrats?",
+      "increased": "Den har blivit hälsosammare",
+      "decreased": "Den har blivit ohälsosammare",
+      "same": "Den är oförändrad",
+      "pfnts": "Föredrar att inte berätta"
+    },
+    "snacking-change": {
+      "question": "Hur har ditt småätande förändrats?",
+      "increased": "Jag småäter mer (snacks)",
+      "decreased": "Jag småäter mindre (snacks)",
+      "same": "Jag småäter lika mycket som innan",
+      "pfnts": "Föredrar att inte berätta"
+    },
+    "alcohol-change": {
+      "question": "Hur har din alkoholkonsumtion förändrats?",
+      "increased": "Jag dricker mer alkohol",
+      "decreased": "Jag dricker mindre alkohol",
+      "no-alcohol": "Jag dricker inte alkohol",
+      "same": "Min alkoholkonsumtion är oförändrad",
+      "pfnts": "Föredrar att inte berätta"
+    },
+    "activity-change": {
+      "question": "Har dina nivåer av fysisk aktivitet förändrats?",
+      "increased": "Ja, ökat",
+      "decreased": "Ja, minskat",
+      "same": "Ingen förändring, oförändrade",
+      "pfnts": "Föredrar att inte berätta"
+    }
   }
 }

@@ -347,7 +347,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                 <HeightQuestion formikProps={props as FormikProps<HeightData>} />
 
-                <WeightQuestion formikProps={props as FormikProps<WeightData>} />
+                <WeightQuestion formikProps={props as FormikProps<WeightData>} label={i18n.t('your-weight')} />
 
                 <GenericTextField
                   formikProps={props}

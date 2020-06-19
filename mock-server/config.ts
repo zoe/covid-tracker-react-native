@@ -17,6 +17,9 @@ const config: DbConfig = {
   covidTests: {
     path: 'covid_tests.json',
   },
+  lifestyle: {
+    path: 'lifestyles.json',
+  },
   consents: {
     path: 'consents.json',
   },

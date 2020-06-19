@@ -923,7 +923,51 @@
     "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
     "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed",
     "please-select-diabetes-type": "Please select an option",
-	"please-select-diabetes-treatment": "Please select one or more of the above",
+	  "please-select-diabetes-treatment": "Please select one or more of the above",
     "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
+  },
+
+  "lifestyle": {
+    "title": "Diet & lifestyle",
+    "explanation": "The following questions on weight, nutrition and exercise are to help us understand whether COVID may be impacting our health in these areas and how significant these effects are. These questions are all optional.",
+    "text": "Since March when COVID became prevalent:",
+    "please-select-option": "Please select an option",
+    "weight-change": {
+      "question": "How has your weight changed?",
+      "increased": "Increased",
+      "decreased": "Decreased",
+      "same": "Stayed the same",
+      "pfnts": "Prefer not to say"
+    },
+    "weight-difference": "By how much (an estimate is fine)?",
+    "diet-change": {
+      "question": "How was your diet changed in your opinion?",
+      "increased": "It has become healthier",
+      "decreased": "It has become more unhealthy",
+      "same": "It has stayed the same",
+      "pfnts": "Prefer not to say"
+    },
+    "snacking-change": {
+      "question": "How has your snacking changed?",
+      "increased": "I am snacking more",
+      "decreased": "I am snacking less",
+      "same": "My snacking levels are the same",
+      "pfnts": "Prefer not to say"
+    },
+    "alcohol-change": {
+      "question": "How has your alcohol consumption changed? ",
+      "no-alcohol": "I don't drink alcohol",
+      "increased": "I am drinking more alcohol",
+      "decreased": "I am drinking less alcohol",
+      "same": "I am drinking less alcohol",
+      "pfnts": "Prefer not to say"
+    },
+    "activity-change": {
+      "question": "Have your physical activity levels changed?",
+      "increased": "Yes, increased",
+      "decreased": "Yes, decreased",
+      "same": "No change, has remained the same",
+      "pfnts": "Prefer not to say"
+    }
   }
 }
