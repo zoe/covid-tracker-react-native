@@ -153,7 +153,7 @@ DiabetesQuestions.initialFormValues = () => {
 
 DiabetesQuestions.schema = Yup.object()
   .shape({
-    diabetesType: Yup.string().required(),
+    diabetesType: Yup.string().required(i18n.t('diabetes.please-select-diabetes-type')),
 
     diabetesTypeOther: Yup.string().when('diabetesType', {
       is: (val: string) => val === DiabetesTypeValues.OTHER,
