@@ -48,7 +48,7 @@ interface Props {
 
 export interface FormikDiabetesInputFC<P, Data> extends React.FC<P> {
   initialFormValues: () => Data;
-  schema: Yup.ObjectSchema;
+  schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<PatientInfosRequest>;
 }
 
@@ -159,31 +159,33 @@ DiabetesQuestions.initialFormValues = () => {
   };
 };
 
-DiabetesQuestions.schema = Yup.object()
-  .shape({
-    diabetesType: Yup.string().required(i18n.t('diabetes.please-select-diabetes-type')),
+DiabetesQuestions.schema = () => {
+  return Yup.object()
+    .shape({
+      diabetesType: Yup.string().required(i18n.t('diabetes.please-select-diabetes-type')),
 
-    diabetesTypeOther: Yup.string().when('diabetesType', {
-      is: (val: string) => val === DiabetesTypeValues.OTHER,
-      then: Yup.string(),
-    }),
+      diabetesTypeOther: Yup.string().when('diabetesType', {
+        is: (val: string) => val === DiabetesTypeValues.OTHER,
+        then: Yup.string(),
+      }),
 
-    a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
-      is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
-      then: Yup.number(),
-    }),
+      a1cMeasurementPercent: Yup.number().when('hemoglobinMeasureUnit', {
+        is: (val: string) => val === HemoglobinMeasureUnits.PERCENT,
+        then: Yup.number(),
+      }),
 
-    a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
-      is: (val: string) => val === HemoglobinMeasureUnits.MOL,
-      then: Yup.number(),
-    }),
+      a1cMeasurementMol: Yup.number().when('hemoglobinMeasureUnit', {
+        is: (val: string) => val === HemoglobinMeasureUnits.MOL,
+        then: Yup.number(),
+      }),
 
-    diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
+      diabetesDiagnosisYear: Yup.number().typeError().integer().min(1900).max(2020),
 
-    diabetesUsesCGM: Yup.string(),
-  })
-  .concat(DiabetesTreamentsQuestion.schema)
-  .concat(DiabetesOralMedsQuestion.schema);
+      diabetesUsesCGM: Yup.string(),
+    })
+    .concat(DiabetesTreamentsQuestion.schema())
+    .concat(DiabetesOralMedsQuestion.schema());
+};
 
 DiabetesQuestions.createDTO = (data) => {
   const dto = {
