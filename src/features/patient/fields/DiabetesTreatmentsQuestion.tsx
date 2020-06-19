@@ -137,9 +137,11 @@ DiabetesTreamentsQuestion.initialFormValues = (): DiabetesTreatmentsData => {
   };
 };
 
-DiabetesTreamentsQuestion.schema = Yup.object().shape({
-  diabetesTreatments: Yup.array<string>().min(1, i18n.t('diabetes.please-select-diabetes-treatment')),
-});
+DiabetesTreamentsQuestion.schema = () => {
+  return Yup.object().shape({
+    diabetesTreatments: Yup.array<string>().min(1, i18n.t('diabetes.please-select-diabetes-treatment')),
+  });
+};
 
 DiabetesTreamentsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
   const dto: Partial<PatientInfosRequest> = {

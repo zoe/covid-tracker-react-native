@@ -132,16 +132,18 @@ DiabetesOralMedsQuestion.initialFormValues = (): DiabetesOralMedsData => {
   };
 };
 
-DiabetesOralMedsQuestion.schema = Yup.object().shape({
-  diabetesOralMeds: Yup.array<string>().when('diabetesTreatmentOtherOral', {
-    is: (val: boolean) => val,
-    then: Yup.array<string>(),
-  }),
-  diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
-    is: (val: boolean) => val,
-    then: Yup.string(),
-  }),
-});
+DiabetesOralMedsQuestion.schema = () => {
+  return Yup.object().shape({
+    diabetesOralMeds: Yup.array<string>().when('diabetesTreatmentOtherOral', {
+      is: (val: boolean) => val,
+      then: Yup.array<string>(),
+    }),
+    diabetesOralOtherMedication: Yup.string().when('diabetesOralOtherMedicationNotListed', {
+      is: (val: boolean) => val,
+      then: Yup.string(),
+    }),
+  });
+};
 
 DiabetesOralMedsQuestion.createDTO = (data): Partial<PatientInfosRequest> => {
   const dto: Partial<PatientInfosRequest> = {
