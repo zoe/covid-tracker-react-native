@@ -87,6 +87,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
           <View style={styles.primaryField}>
             {formikProps.values.hemoglobinMeasureUnit === '%' && (
               <ValidatedTextInput
+                placeholder={i18n.t('placeholder-optional')}
                 value={formikProps.values.a1cMeasurementPercent}
                 onChangeText={formikProps.handleChange('a1cMeasurementPercent')}
                 onBlur={formikProps.handleBlur('a1cMeasurementPercent')}
@@ -98,6 +99,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
             )}
             {formikProps.values.hemoglobinMeasureUnit === 'mmol/mol' && (
               <ValidatedTextInput
+                placeholder={i18n.t('placeholder-optional')}
                 value={formikProps.values.a1cMeasurementMol}
                 onChangeText={formikProps.handleChange('a1cMeasurementMol')}
                 onBlur={formikProps.handleBlur('a1cMeasurementMol')}
@@ -121,6 +123,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
       </FieldWrapper>
 
       <GenericTextField
+        placeholder={i18n.t('placeholder-optional')}
         formikProps={formikProps}
         label={i18n.t('diabetes.when-was-diagnosed')}
         name="diabetesDiagnosisYear"
