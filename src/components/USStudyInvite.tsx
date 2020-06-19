@@ -24,7 +24,7 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
     if (isUSCountry() && !currentPatient.isReportedByAnother && currentPatient.shouldShowUSStudyInvite) {
       setModalVisible(true);
     }
-  });
+  }, [props.assessmentData]);
 
   const handleAgree = () => {
     setModalVisible(false);
