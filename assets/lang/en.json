@@ -966,7 +966,7 @@
       "no-alcohol": "I don't drink alcohol",
       "increased": "I am drinking more alcohol",
       "decreased": "I am drinking less alcohol",
-      "same": "I am drinking less alcohol",
+      "same": "My alcohol consumption is the same",
       "pfnts": "Prefer not to say"
     },
     "activity-change": {
