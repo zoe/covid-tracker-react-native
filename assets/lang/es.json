@@ -860,6 +860,12 @@
     "other": "Otras, por favor especifique:"
   },
 
+  "us-study-invite": {
+    "title": "Estudios nuevos de COVID\ny como se puede ayudar",
+    "body": "Está interesado en ser contactado para obtener información sobre estudios adicionales relacionados con COVID-19 o el uso de esta aplicación?",
+    "button": "Estoy interesado"
+  },
+
   "__IGNORE__": {
     "partners": {
       "powered-by": false,

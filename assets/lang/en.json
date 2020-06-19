@@ -893,6 +893,12 @@
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
   },
+  
+  "us-study-invite": {
+    "title": "New COVID studies\n& how you can help",
+    "body": "Are you interested in being contacted to learn about additional studies related to COVID-19 or use of this app?",
+    "button": "I am interested"
+  },
 
   "diabetes": {
     "justification": "You previously indicated that you had diabetes, which is an important risk factor for COVID. Our scientists have a couple of follow up questions to understand more about this. These questions are completely optional.",
