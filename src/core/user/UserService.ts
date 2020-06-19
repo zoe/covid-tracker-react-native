@@ -297,6 +297,7 @@ export default class UserService extends ApiClientBase
     const hasDiabetesAnswers = patient.diabetes_type != null;
     const shouldAskExtendedDiabetes = !hasDiabetesAnswers && hasDiabetes;
     const hasHayfever = patient.has_hayfever;
+    const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
 
     return {
       ...patientState,
@@ -319,6 +320,7 @@ export default class UserService extends ApiClientBase
       hasDiabetes,
       hasDiabetesAnswers,
       hasHayfever,
+      shouldShowUSStudyInvite,
       shouldAskLifestyleQuestion,
     };
   }
@@ -506,6 +508,10 @@ export default class UserService extends ApiClientBase
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
     });
+  }
+
+  setUSStudyInviteResponse(patientId: string, response: boolean) {
+    this.updatePatient(patientId, { contact_additional_studies: response });
   }
 }
 
