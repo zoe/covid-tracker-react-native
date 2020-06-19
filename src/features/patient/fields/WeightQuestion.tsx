@@ -24,12 +24,13 @@ interface FCWithStatic<P> extends React.FC<P> {
 
 interface Props {
   formikProps: FormikProps<WeightData>;
+  label: string;
 }
 
-export const WeightQuestion: FCWithStatic<Props> = ({ formikProps }) => {
+export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
   return (
     <FieldWrapper style={styles.fieldWrapper}>
-      <RegularText>{i18n.t('your-weight')}</RegularText>
+      <RegularText>{label}</RegularText>
       {isUSCountry() ? (
         <ValidatedTextInput
           placeholder={i18n.t('placeholder-pounds')}

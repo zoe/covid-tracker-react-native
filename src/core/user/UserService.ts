@@ -286,6 +286,7 @@ export default class UserService extends ApiClientBase
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
+    const shouldAskLifestyleQuestion = patient.should_ask_lifestyle_questions;
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
@@ -318,6 +319,7 @@ export default class UserService extends ApiClientBase
       hasDiabetes,
       hasDiabetesAnswers,
       hasHayfever,
+      shouldAskLifestyleQuestion,
     };
   }
 
