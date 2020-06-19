@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   backgroundImage: {
-    bottom: 145,
-    resizeMode: 'cover',
+    height: '50%',
+    resizeMode: 'stretch',
   },
   centeredView: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
