@@ -53,6 +53,7 @@ export default class LifestyleScreen extends Component<Props, State> {
       const patientID = AssessmentCoordinator.assessmentData.currentPatient.patientId;
       const payload = LifestyleQuestion.createDTO(values);
       await assessmentService.saveLifestyle(patientID, payload);
+      this.setState({ submitting: false });
       AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
