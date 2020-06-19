@@ -300,7 +300,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           validationSchema={() => {
             let schema = this.registerSchema;
             if (this.state.needDiabetesAnswers) {
-              schema = schema.concat(DiabetesQuestions.schema);
+              schema = schema.concat(DiabetesQuestions.schema());
             }
             return schema;
           }}
