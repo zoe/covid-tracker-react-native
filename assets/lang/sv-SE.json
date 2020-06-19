@@ -908,7 +908,8 @@
     "answer-none": "Ingen",
     "answer-lifestyle-mod": "Enbart livsstilsförändring (t.ex. fysisk aktivitet, kostomläggning eller viktnedgång)",
     "answer-daily-injections": "Långverkande insulin/basinsulin eller mixinsulin (t.ex. Lantus®, Toujeo®, Levemir®, Tresiba®, Insulatard® eller Novomix®)",
-    "answer-rapid-injections": "Snabbverkande insulin (t.ex. Novorapid®, Humalog®, Fiasp®, Actrapid® eller Apidra®) som ges som måltidsinuslin och/eller hyperglykemi, eller som infusion med en insulinpump",
+    "answer-rapid-injections": "Snabbverkande insulin (t.ex. Novorapid®, Humalog®, Fiasp®, Actrapid® eller Apidra®) som ges som måltidsinuslin och/eller hyperglykemi",
+    "answer-insulin-pump": "Kontinuerlig infusion med en insulinpump",
     "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
     "answer-other-oral-meds": "Tablettbehandling",
     "which-oral-treatment": "Vilka tabletter tar du för din diabetes? Markera alla alternativ som stämmer för dig (kryssruta)",
@@ -920,7 +921,8 @@
     "answer-sglt": "SGLT-2-hämmare (t.ex. Jardiance®, Forxiga®, Steglatro® eller Invokana®)",
     "answer-other-oral-meds-not-listed": "Annan sorts tabletter som inte finns med i listan (fritext)",
     "please-select-diabetes-type": "Välj ett alternativ",
-    "please-select-diabetes-treatment": "Välj ett eller flera av alternativen ovan"
+    "please-select-diabetes-treatment": "Välj ett eller flera av alternativen ovan",
+    "question-use-cgm": "Använder du en kontinuerlig glukosmonitor (CGM)?"
   },
 
   "lifestyle": {
