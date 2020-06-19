@@ -893,7 +893,7 @@
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
   },
-  
+
   "us-study-invite": {
     "title": "New COVID studies\n& how you can help",
     "body": "Are you interested in being contacted to learn about additional studies related to COVID-19 or use of this app?",
@@ -930,7 +930,7 @@
     "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed",
     "please-specify-other-oral-meds": "Please specify the oral medications",
     "please-select-diabetes-type": "Please select an option",
-	  "please-select-diabetes-treatment": "Please select one or more of the above",
+    "please-select-diabetes-treatment": "Please select one or more of the above",
     "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
   },
 
