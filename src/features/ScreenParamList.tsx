@@ -63,6 +63,7 @@ export type ScreenParamList = {
   TreatmentSelection: { assessmentData: AssessmentData; location: string };
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
+  Lifestyle: { assessmentData: AssessmentData };
 
   // Completion screens
   ThankYou: undefined;
