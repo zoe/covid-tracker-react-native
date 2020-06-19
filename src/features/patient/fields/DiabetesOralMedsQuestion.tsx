@@ -113,6 +113,7 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
         <GenericTextField
           formikProps={formikProps}
           name="diabetesOralOtherMedication"
+          label={i18n.t('diabetes.please-specify-other-oral-meds')}
           showError={!!formikProps.errors.diabetesOralOtherMedication && formikProps.submitCount > 0}
         />
       )}
