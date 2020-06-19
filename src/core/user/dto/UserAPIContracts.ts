@@ -202,6 +202,7 @@ export type PatientInfosRequest = {
   diabetes_treatment_lifestyle: boolean;
   diabetes_treatment_basal_insulin: boolean;
   diabetes_treatment_rapid_insulin: boolean;
+  diabetes_treatment_insulin_pump: boolean;
   diabetes_treatment_other_injection: boolean;
   diabetes_treatment_other_oral: boolean;
   diabetes_treatment_pfnts: boolean;
@@ -212,6 +213,7 @@ export type PatientInfosRequest = {
   diabetes_oral_thiazolidinediones: boolean;
   diabetes_oral_sglt2: boolean;
   diabetes_oral_other_medication: string;
+  diabetes_uses_cgm: boolean;
 };
 
 export type TokenInfoRequest = {

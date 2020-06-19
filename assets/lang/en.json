@@ -910,9 +910,10 @@
     "answer-none": "None",
     "answer-lifestyle-mod": "Lifestyle modification (e.g. exercise, diet, weight management)",
     "answer-daily-injections": "Once or twice daily injections of long acting insulin or \"basal\" insulin (e.g. glargine, detemir, degludec or NPH in premixed insulin)",
-    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\", or given as a continuous infusion in an insulin pump (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\" (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-insulin-pump": "Continuous infusion in an insulin pump",
     "answer-non-insulin-injections": "Injections of a non-insulin diabetes medication or GLP-1 receptor agonists (e.g. semaglutide, dulaglutide, liraglutide)",
-    "answer-other-oral-meds": "Other diabetes medication taken by mouth",
+    "answer-other-oral-meds": "Medications taken by mouth",
     "which-oral-treatment": "Which oral treatments do you uses? Select all that apply",
     "answer-oral-biguanide": "Biguanide (Metformin)",
     "answer-sulfonylurea": "Sulfonylurea (e.g. glipizide, glyburide, glimepiride, gliclazide)",
@@ -922,7 +923,8 @@
     "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
     "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed",
     "please-select-diabetes-type": "Please select an option",
-    "please-select-diabetes-treatment": "Please select one or more of the above"
+	  "please-select-diabetes-treatment": "Please select one or more of the above",
+    "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
   },
 
   "lifestyle": {
