@@ -328,7 +328,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           validationSchema={() => {
             let schema = this.registerSchema;
             if (this.state.showDiabetesQuestion) {
-              schema = schema.concat(DiabetesQuestions.schema);
+              schema = schema.concat(DiabetesQuestions.schema());
             }
             return schema;
           }}
