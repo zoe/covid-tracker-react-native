@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog003, incidence003, timUpdate002 } from '@assets';
+import { blog003, dataPage0001, incidence003, timUpdate002 } from '@assets';
 import { colors } from '@theme';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -56,6 +56,13 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View>
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
+
+              <ExternalCallout
+                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
+                calloutID="data_page_001"
+                imageSource={dataPage0001}
+                aspectRatio={1.55}
+              />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
