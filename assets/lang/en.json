@@ -944,7 +944,7 @@
       "increased": "Increased",
       "decreased": "Decreased",
       "same": "Stayed the same",
-      "pfnts": "Prefer not to say"
+      "unsure-pfnts": "Unsure / Prefer not to say"
     },
     "weight-difference": "By how much (an estimate is fine)?",
     "diet-change": {
@@ -952,14 +952,14 @@
       "increased": "It has become healthier",
       "decreased": "It has become more unhealthy",
       "same": "It has stayed the same",
-      "pfnts": "Prefer not to say"
+      "unsure-pfnts": "Unsure / Prefer not to say"
     },
     "snacking-change": {
       "question": "How has your snacking changed?",
       "increased": "I am snacking more",
       "decreased": "I am snacking less",
       "same": "My snacking levels are the same",
-      "pfnts": "Prefer not to say"
+      "unsure-pfnts": "Unsure / Prefer not to say"
     },
     "alcohol-change": {
       "question": "How has your alcohol consumption changed? ",
@@ -967,14 +967,14 @@
       "increased": "I am drinking more alcohol",
       "decreased": "I am drinking less alcohol",
       "same": "My alcohol consumption is the same",
-      "pfnts": "Prefer not to say"
+      "unsure-pfnts": "Unsure / Prefer not to say"
     },
     "activity-change": {
       "question": "Have your physical activity levels changed?",
       "increased": "Yes, increased",
       "decreased": "Yes, decreased",
       "same": "No change, has remained the same",
-      "pfnts": "Prefer not to say"
+      "unsure-pfnts": "Unsure / Prefer not to say"
     }
   }
 }
