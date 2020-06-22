@@ -1,6 +1,8 @@
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { LifestyleResponse } from '@covid/core/assessment/dto/LifestyleResponse';
 
+import appConfig from '../../../appConfig';
+
 import { IAssessmentRemoteClient } from './AssessmentApiClient';
 import { IAssessmentState } from './AssessmentState';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
@@ -81,7 +83,7 @@ export default class AssessmentService implements IAssessmentService {
   async saveLifestyle(patientId: string, lifestyle: Partial<LifestyleRequest>): Promise<LifestyleResponse> {
     const response = await this.apiClient.addLifeStyle(patientId, {
       ...lifestyle,
-      verison: '1.0.1',
+      verison: appConfig.lifestyleVerison,
     } as LifestyleRequest);
     return response;
   }
