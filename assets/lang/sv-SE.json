@@ -942,7 +942,7 @@
       "increased": "Ökat",
       "decreased": "Minskat",
       "same": "Oförändrad",
-      "pfnts": "Föredrar att inte berätta"
+      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     },
     "weight-difference": "Med hur mycket (en uppskattning räcker)?",
     "diet-change": {
@@ -950,14 +950,14 @@
       "increased": "Den har blivit hälsosammare",
       "decreased": "Den har blivit ohälsosammare",
       "same": "Den är oförändrad",
-      "pfnts": "Föredrar att inte berätta"
+      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     },
     "snacking-change": {
       "question": "Hur har ditt småätande förändrats?",
       "increased": "Jag småäter mer (snacks)",
       "decreased": "Jag småäter mindre (snacks)",
       "same": "Jag småäter lika mycket som innan",
-      "pfnts": "Föredrar att inte berätta"
+      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     },
     "alcohol-change": {
       "question": "Hur har din alkoholkonsumtion förändrats?",
@@ -965,14 +965,14 @@
       "decreased": "Jag dricker mindre alkohol",
       "no-alcohol": "Jag dricker inte alkohol",
       "same": "Min alkoholkonsumtion är oförändrad",
-      "pfnts": "Föredrar att inte berätta"
+      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     },
     "activity-change": {
       "question": "Har dina nivåer av fysisk aktivitet förändrats?",
       "increased": "Ja, ökat",
       "decreased": "Ja, minskat",
       "same": "Ingen förändring, oförändrade",
-      "pfnts": "Föredrar att inte berätta"
+      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     }
   }
 }
