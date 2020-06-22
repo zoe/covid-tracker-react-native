@@ -45,21 +45,21 @@ export const LifestyleQuestion: FormikLifestyleQuestionInputFC<Props, LifestyleD
     { label: i18n.t('lifestyle.weight-change.increased'), value: ChangeValue.INCREASED },
     { label: i18n.t('lifestyle.weight-change.decreased'), value: ChangeValue.DECREASED },
     { label: i18n.t('lifestyle.weight-change.same'), value: ChangeValue.SAME },
-    { label: i18n.t('lifestyle.weight-change.pfnts'), value: ChangeValue.PFNTS },
+    { label: i18n.t('lifestyle.weight-change.unsure-pfnts'), value: ChangeValue.PFNTS },
   ];
 
   const dietChangeOptions = [
     { label: i18n.t('lifestyle.diet-change.increased'), value: ChangeValue.INCREASED },
     { label: i18n.t('lifestyle.diet-change.decreased'), value: ChangeValue.DECREASED },
     { label: i18n.t('lifestyle.diet-change.same'), value: ChangeValue.SAME },
-    { label: i18n.t('lifestyle.diet-change.pfnts'), value: ChangeValue.PFNTS },
+    { label: i18n.t('lifestyle.diet-change.unsure-pfnts'), value: ChangeValue.PFNTS },
   ];
 
   const snackChangeOptions = [
     { label: i18n.t('lifestyle.snacking-change.increased'), value: ChangeValue.INCREASED },
     { label: i18n.t('lifestyle.snacking-change.decreased'), value: ChangeValue.DECREASED },
     { label: i18n.t('lifestyle.snacking-change.same'), value: ChangeValue.SAME },
-    { label: i18n.t('lifestyle.snacking-change.pfnts'), value: ChangeValue.PFNTS },
+    { label: i18n.t('lifestyle.snacking-change.unsure-pfnts'), value: ChangeValue.PFNTS },
   ];
 
   const alcoholChangeOptions = [
@@ -67,14 +67,14 @@ export const LifestyleQuestion: FormikLifestyleQuestionInputFC<Props, LifestyleD
     { label: i18n.t('lifestyle.alcohol-change.decreased'), value: ChangeValue.DECREASED },
     { label: i18n.t('lifestyle.alcohol-change.no-alcohol'), value: ChangeValue.NO_ALCOHOL },
     { label: i18n.t('lifestyle.alcohol-change.same'), value: ChangeValue.SAME },
-    { label: i18n.t('lifestyle.alcohol-change.pfnts'), value: ChangeValue.PFNTS },
+    { label: i18n.t('lifestyle.alcohol-change.unsure-pfnts'), value: ChangeValue.PFNTS },
   ];
 
   const activityChangeOptions = [
     { label: i18n.t('lifestyle.activity-change.increased'), value: ChangeValue.INCREASED },
     { label: i18n.t('lifestyle.activity-change.decreased'), value: ChangeValue.DECREASED },
     { label: i18n.t('lifestyle.activity-change.same'), value: ChangeValue.SAME },
-    { label: i18n.t('lifestyle.activity-change.pfnts'), value: ChangeValue.PFNTS },
+    { label: i18n.t('lifestyle.activity-change.unsure-pfnts'), value: ChangeValue.PFNTS },
   ];
 
   const { formikProps } = props;
