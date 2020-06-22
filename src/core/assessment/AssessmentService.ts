@@ -79,7 +79,10 @@ export default class AssessmentService implements IAssessmentService {
   }
 
   async saveLifestyle(patientId: string, lifestyle: Partial<LifestyleRequest>): Promise<LifestyleResponse> {
-    const response = await this.apiClient.addLifeStyle(patientId, lifestyle as LifestyleRequest);
+    const response = await this.apiClient.addLifeStyle(patientId, {
+      ...lifestyle,
+      verison: '1.0.1',
+    } as LifestyleRequest);
     return response;
   }
 }
