@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService, userService } from '@covid/Services';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 
