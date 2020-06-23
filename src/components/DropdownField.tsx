@@ -93,12 +93,13 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
 
   const renderDropdownSeparator = (): React.ReactNode => <View style={styles.dropdownSeparator} />;
 
-  const renderDropdownRow = (option: string, index: string, isSelected: boolean): React.ReactNode => {
-    let borderRadiusStyle = {};
-    const lastIndex = (options?.length ?? 0) - 1;
+  const renderDropdownRow = (option: string, index: any, isSelected: boolean): React.ReactNode => {
+    // There is a type error in renderDropdownRow index is actually a number, not a string
 
-    if (index === '0') borderRadiusStyle = styles.topBorderRadiusStyle;
-    else if (index === lastIndex.toString()) borderRadiusStyle = styles.bottomBorderRadiusStyle;
+    const lastIndex = (options?.length ?? 0) - 1;
+    let borderRadiusStyle = {};
+    if (index === 0) borderRadiusStyle = styles.topBorderRadiusStyle;
+    else if (index === lastIndex) borderRadiusStyle = styles.bottomBorderRadiusStyle;
 
     return (
       <TouchableOpacity
@@ -108,7 +109,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
           borderRadiusStyle,
           isSelected && styles.dropdownTextHighlightStyle,
         ]}>
-        <Text style={[styles.dropdownTextStyle, isSelected && styles.dropdownTextHighlightStyle]}>{option}</Text>
+        <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </TouchableOpacity>
     );
   };
@@ -200,6 +201,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.15,
     shadowRadius: 20,
+    borderWidth: 0,
   },
   dropdownTextStyle: {
     backgroundColor: 'transparent',
