@@ -63,6 +63,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
       if (!assessmentId) {
         AssessmentCoordinator.assessmentData.assessmentId = response.id;
       }
+      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
