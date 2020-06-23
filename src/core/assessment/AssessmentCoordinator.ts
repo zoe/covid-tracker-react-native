@@ -91,7 +91,7 @@ export class AssessmentCoordinator {
         if (currentPatient.isHealthWorker) {
           this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
         } else {
-          this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
+          this.navigation.navigate('CovidTestList', { assessmentData: this.assessmentData });
         }
       }
     } else {
