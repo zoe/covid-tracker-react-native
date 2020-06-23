@@ -1,6 +1,5 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import key from 'weak-key';
 import moment from 'moment';
 
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -48,10 +47,7 @@ export const CovidTestRow: React.FC<Props> = ({ item }) => {
   };
 
   return (
-    <TouchableOpacity
-      key={key(item)}
-      style={styles.itemTouchable}
-      onPress={() => AssessmentCoordinator.goToAddEditTest(item)}>
+    <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(item)}>
       <Image source={icon(item.result)} style={styles.tick} />
       <RegularText style={item.result === 'waiting' ? styles.pendingText : []}>{dateString(item)}</RegularText>
       <View style={{ flex: 1 }} />

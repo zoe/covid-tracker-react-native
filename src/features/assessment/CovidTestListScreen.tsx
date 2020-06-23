@@ -1,6 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
+import key from 'weak-key';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -87,7 +88,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
           <View style={styles.content}>
             {this.state.covidTests.map((item: CovidTest) => {
-              return <CovidTestRow item={item} />;
+              return <CovidTestRow item={item} key={key(item)} />;
             })}
           </View>
         </Screen>
