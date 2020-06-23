@@ -4,8 +4,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
-
-import { ScreenParamList } from '../../features/ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {

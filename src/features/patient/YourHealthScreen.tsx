@@ -101,7 +101,7 @@ const maleOptions = ['', 'male', 'pfnts'];
 export default class YourHealthScreen extends Component<HealthProps, State> {
   constructor(props: HealthProps) {
     super(props);
-    const currentPatient = patientCoordinator.patientData.currentPatient
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const userService = new UserService();
     const features = userService.getConfig();
     this.state = {

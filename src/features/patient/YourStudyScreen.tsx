@@ -16,9 +16,9 @@ import { ValidationError } from '@covid/components/ValidationError';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 type YourStudyProps = {
   navigation: StackNavigationProp<ScreenParamList, 'YourStudy'>;
@@ -251,7 +251,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        patientCoordinator.gotoNextScreen(this.props.route.name)
+        patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
