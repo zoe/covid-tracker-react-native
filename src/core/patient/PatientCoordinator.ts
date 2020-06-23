@@ -16,7 +16,7 @@ export type PatientData = {
   currentPatient: PatientStateType;
 };
 
-export class PatientCoordinator {x
+export class PatientCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: UserService;

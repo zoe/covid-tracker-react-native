@@ -105,7 +105,6 @@ export class AppCoordinator {
       });
       this.startAssessmentFlow(currentPatient);
     }
-
   }
   startPatientFlow(currentPatient: PatientStateType) {
     patientCoordinator.init(this, this.navigation, { currentPatient }, this.userService);
