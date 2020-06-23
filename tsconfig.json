@@ -1,26 +1,29 @@
 {
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "jsx": "react-native",
-        "lib": ["dom", "esnext"],
-        "moduleResolution": "node",
-        "noEmit": true,
-        "skipLibCheck": true,
-        "resolveJsonModule": true,
-        "alwaysStrict": true,
-        "strictFunctionTypes": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "baseUrl": ".",
-        "paths": {
-            "@assets": ["./assets"],
-            "@assets/*": ["./assets/*"],
-            "@theme": ["./theme"],
-            "@theme/*": ["./theme/*"],
-            "@covid/*": ["./src/*"]
-        }
-    },
-    "exclude": ["node_modules/"]
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "lib": ["dom", "esnext"],
+    "target": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "alwaysStrict": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"],
+      "@theme": ["./theme"],
+      "@theme/*": ["./theme/*"],
+      "@covid/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules/"]
 }
