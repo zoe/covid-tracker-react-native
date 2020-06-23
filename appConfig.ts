@@ -6,5 +6,5 @@ export default {
 
   assessmentVersion: '1.5.0',
   patientVersion: '1.5.0',
-  lifestyleVerison: '1.0.1',
+  lifestyleVersion: '1.0.1',
 };

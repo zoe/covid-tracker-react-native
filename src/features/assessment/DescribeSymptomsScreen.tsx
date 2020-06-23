@@ -16,7 +16,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import UserService from '@covid/core/user/UserService';
 import { cleanFloatVal } from '@covid/core/utils/number';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 

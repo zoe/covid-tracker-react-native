@@ -11,7 +11,7 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import UserService, { isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 

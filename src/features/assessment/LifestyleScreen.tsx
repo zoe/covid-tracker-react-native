@@ -7,7 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { ValidationError } from '@covid/components/ValidationError';
