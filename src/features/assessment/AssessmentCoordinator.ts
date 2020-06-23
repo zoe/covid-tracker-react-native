@@ -38,6 +38,13 @@ export class AssessmentCoordinator {
       this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
     },
     CovidTest: () => {
+      if (this.assessmentData.currentPatient.shouldAskLifestyleQuestion) {
+        this.navigation.navigate('Lifestyle', { assessmentData: this.assessmentData });
+      } else {
+        this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
+    Lifestyle: () => {
       this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
@@ -142,6 +149,7 @@ export class AssessmentCoordinator {
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
     return (
       ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
+      currentPatient.shouldAskExtendedDiabetes ||
       !currentPatient.hasPeriodAnswer ||
       !currentPatient.hasHormoneTreatmentAnswer ||
       !currentPatient.hasBloodPressureAnswer ||

@@ -159,6 +159,7 @@ export type PatientInfosRequest = {
   race_other: string;
   ethnicity: string;
   last_asked_level_of_isolation: Date;
+  should_ask_lifestyle_questions: boolean;
 
   // period fields
   period_status: string;
@@ -190,6 +191,31 @@ export type PatientInfosRequest = {
   vs_pftns: boolean;
   vs_other: string;
   vs_asked_at: Date;
+
+  contact_additional_studies: boolean;
+
+  // Diabetes fields
+  diabetes_type: string;
+  diabetes_type_other: string;
+  a1c_measurement_percent: number;
+  a1c_measurement_mmol: number;
+  diabetes_diagnosis_year: number;
+  diabetes_treatment_none: boolean;
+  diabetes_treatment_lifestyle: boolean;
+  diabetes_treatment_basal_insulin: boolean;
+  diabetes_treatment_rapid_insulin: boolean;
+  diabetes_treatment_insulin_pump: boolean;
+  diabetes_treatment_other_injection: boolean;
+  diabetes_treatment_other_oral: boolean;
+  diabetes_treatment_pfnts: boolean;
+  diabetes_oral_biguanide: boolean;
+  diabetes_oral_sulfonylurea: boolean;
+  diabetes_oral_dpp4: boolean;
+  diabetes_oral_meglitinides: boolean;
+  diabetes_oral_thiazolidinediones: boolean;
+  diabetes_oral_sglt2: boolean;
+  diabetes_oral_other_medication: string;
+  diabetes_uses_cgm: boolean;
 };
 
 export type TokenInfoRequest = {

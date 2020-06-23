@@ -111,12 +111,15 @@ export default class YourCovidTestsScreen extends Component<Props, State> {
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>
             <HeaderText>{i18n.t('your-covid-tests')}</HeaderText>
-            <RegularText style={styles.topText}>{i18n.t('please-add-test-below')}</RegularText>
           </Header>
 
           <ProgressBlock>
             <ProgressStatus step={2} maxSteps={5} />
           </ProgressBlock>
+
+          <View style={styles.list}>
+            <RegularText style={styles.topText}>{i18n.t('please-add-test-below')}</RegularText>
+          </View>
 
           <View style={styles.list}>
             {this.state.covidTests.map((item: CovidTest) => {

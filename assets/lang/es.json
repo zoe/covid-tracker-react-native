@@ -818,33 +818,33 @@
   },
 
   "back": "Volver",
-  
-    "edit-profile": {
-      "title": "la configuración de perfil",
-      "text": "",
-      "archive-cta": "Archivar este perfil"
-    },
 
-    "archive-confirmation": {
-      "title": "Archivar este perfil?",
-      "text": "Ya no podras reportar esta persona. Quieres proceder?",
-      "confirm": "Archivo",
-      "cancel": "Canelar"
-    },
+  "edit-profile": {
+    "title": "la configuración de perfil",
+    "text": "",
+    "archive-cta": "Archivar este perfil"
+  },
 
-    "archive-reason": {
-      "title": "Perfil archivado",
-      "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
-      "text2": "Esta pregunta es opcional",
-      "choice-duplicate-account": "Es una cuenta duplicada",
-      "choice-no-report": "No quiero reportar para ellos",
-      "choice-moved-away": "Esta persona se mudó",
-      "choice-other": "Otro",
-      "choice-pfnts":"Prefiero no decir",
-      "choice-passed-away": "Esta persona se murió"
-    },
+  "archive-confirmation": {
+    "title": "Archivar este perfil?",
+    "text": "Ya no podras reportar esta persona. Quieres proceder?",
+    "confirm": "Archivo",
+    "cancel": "Canelar"
+  },
 
-    "face-mask": {
+  "archive-reason": {
+    "title": "Perfil archivado",
+    "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+    "text2": "Esta pregunta es opcional",
+    "choice-duplicate-account": "Es una cuenta duplicada",
+    "choice-no-report": "No quiero reportar para ellos",
+    "choice-moved-away": "Esta persona se mudó",
+    "choice-other": "Otro",
+    "choice-pfnts": "Prefiero no decir",
+    "choice-passed-away": "Esta persona se murió"
+  },
+
+  "face-mask": {
     "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
     "worn-a-mask-justification": "Por qué preguntamos esto: Esta información puede ayudarnos a entender si el uso de máscaras reduce el riesgo de infección de COVID. Esta pregunta es totalmente opcional.",
     "never": "Nunca",
@@ -858,6 +858,12 @@
     "respirator": "Máscara N95/FFP",
     "not-sure": "No estoy seguro/prefiero no decir",
     "other": "Otras, por favor especifique:"
+  },
+
+  "us-study-invite": {
+    "title": "Estudios nuevos de COVID\ny como se puede ayudar",
+    "body": "Está interesado en ser contactado para obtener información sobre estudios adicionales relacionados con COVID-19 o el uso de esta aplicación?",
+    "button": "Estoy interesado"
   },
 
   "__IGNORE__": {
@@ -893,6 +899,84 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
+    }
+  },
+
+  "diabetes": {
+    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor. Estas preguntas son opcionales.",
+    "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
+    "answer-type-1": "Diabetes tipo 1",
+    "answer-type-2": "Diabetes tipo 2",
+    "answer-gestational": "Diabetes gestacional (durante el embarazo)",
+    "answer-unsure": "No estoy seguro del tipo de diabetes que tengo",
+    "answer-other": "Otra forma de diabetes, por favor especifique",
+    "most-recent-hemoglobin-measure": "¿Cuál fue su valor de hemoglobina A1c más reciente?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "¿En qué año le diagnosticaron diabetes?",
+    "which-treatment": "¿Qué tratamientos para lo diabetes toma? Selecciona todas las opciones que correspondan:",
+    "answer-none": "Ninguno",
+    "answer-lifestyle-mod": "Modificaciones del estilo de vida (ej. ejercicio, dieta, control del peso)",
+    "answer-daily-injections": "Inyecciones de insulina de acción prolongada una o dos veces al día o insulina \"basal\" (ej. glargine, detemir, degludec o NPH en una mezcla de insulinas)",
+    "answer-rapid-injections": "Inyecciones de insulina de acción rápida con las comidas o insulina \"en bolo\" (ej. lispro, aspart, glulisine, o mezcla de insulinas)",
+    "answer-insulin-pump": "Infusión continua en una bomba de insulina",
+    "answer-non-insulin-injections": "Inyecciones de un medicamento para la diabetes sin insulina o agonistas del receptor GLP-1 (ej. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Medicamentos tomados por vía oral",
+    "which-oral-treatment": "¿Qué medicamentos para la diabetes tomados por vía oral toma? Selecciona todas las opciones que correspondan:",
+    "answer-oral-biguanide": "Metformina",
+    "answer-sulfonylurea": "Sulfonilurea (ej. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "Inhibidores del DPP-4 (ej. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinidas (ej. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
+    "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista",
+    "please-specify-other-oral-meds": "Especifique qué medicamentos toma por vía oral.",
+    "please-select-diabetes-type": "Seleccion una opción",
+    "please-select-diabetes-treatment": "Seleccione uno o más de los anteriores",
+    "question-use-cgm": "¿Utiliza un monitor continuo de glucosa (CGM)?"
+  },
+
+  "lifestyle": {
+    "title": "Dieta y estilo de vida",
+    "explanation": "Las siguientes preguntas sobre peso, nutrición y ejercicio nos ayudan a entender si COVID puede afectar nuestra salud en estas áreas y la importancia de estos efectos. Estas preguntas son opcionales.",
+    "text": "Hasta Marzo cuando COVID se hizo frecuente:",
+    "please-select-option": "Seleccione una opción",
+    "weight-change": {
+      "question": "Cómo ha cambiado su peso?",
+      "increased": "Aumentado",
+      "decreased": "Disminuido",
+      "same": "Se ha mantenido igual",
+      "unsure-pfnts": "Insegura / Prefiero no decir"
+    },
+    "weight-difference": "Cuánto ha cambiado (un estimado está bien)?",
+    "diet-change": {
+      "question": "En su opinion, cómo ha cambiado su dieta?",
+      "increased": "Se ha vuelto más saludable",
+      "decreased": "Se ha vuelto menos saludable",
+      "same": "Se ha mantenido igual",
+      "unsure-pfnts": "Insegura / Prefiero no decir"
+    },
+    "snacking-change": {
+      "question": "Cómo ha cambiado su snacking?",
+      "increased": "Estoy comiendo más snacks",
+      "decreased": "Estoy comiendo menos snacks",
+      "same": "Mi niveles de snacking son iguales",
+      "unsure-pfnts": "Insegura / Prefiero no decir"
+    },
+    "alcohol-change": {
+      "question": "Cómo ha cambiado su consumo de alcohol?",
+      "increased": "Estoy tomando más",
+      "decreased": "Estoy tomando menos",
+      "no-alcohol": "No tomo",
+      "same": "Mi consumo mantiene igual",
+      "unsure-pfnts": "Insegura / Prefiero no decir"
+    },
+    "activity-change": {
+      "question": "Ha cambiado su nivel de la actividad física?",
+      "increased": "Sí, ha aumentado",
+      "decreased": "Sí, ha disminuido",
+      "same": "No, ha mantenido igual",
+      "unsure-pfnts": "Insegura / Prefiero no decir"
     }
   }
 }

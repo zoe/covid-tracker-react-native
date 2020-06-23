@@ -12,6 +12,11 @@ export interface Assessment {
   profile_attributes_updated_at: string;
 }
 
+export interface Lifestyle {
+  id: string;
+  patient: string;
+}
+
 export interface CovidTest {
   id: string;
   patient: string;

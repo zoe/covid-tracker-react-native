@@ -60,6 +60,7 @@ import TermsOfUseUSScreen from '@covid/features/register/us/TermsOfUseUSScreen';
 import i18n from '@covid/locale/i18n';
 import { EditProfileScreen } from '@covid/features/multi-profile/EditProfileScreen';
 import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReasonScreen';
+import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -214,6 +215,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={noHeader} />
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={noHeader} />
         <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={noHeader} />
+        <Stack.Screen name="Lifestyle" component={LifestyleScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />

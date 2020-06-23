@@ -150,6 +150,10 @@ These are some known, common issues and their solutions:
 
 - Solution: Change some of the source code or restart the expo project running `expo start -c`
 
+2. Unable to resolve module `deprecated-react-native-listview`
+
+- Solution: Running `rm -rf $TMPDIR/metro-cache` has been reported to solve the problem. 
+
 ## License
 
 Distributed under the Apache 2.0 License. See `LICENSE` for more information.

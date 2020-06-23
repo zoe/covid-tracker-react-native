@@ -10,7 +10,9 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { HeaderText } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { assessmentService, userService } from '@covid/Services';
+import { colors } from '@theme';
+import { USStudyInvite } from '@covid/components/USStudyInvite';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -73,34 +75,45 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
-        </Header>
+      <>
+        <USStudyInvite assessmentData={AssessmentCoordinator.assessmentData} />
 
-        <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={5} />
-        </ProgressBlock>
+        <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+          <Header>
+            <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
+          </Header>
 
-        <Form style={styles.form}>
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleFeelNormal}>
-              <Text>{i18n.t('how-you-feel.picker-health-status-healthy')}</Text>
-            </BigButton>
-          </FieldWrapper>
+          <ProgressBlock>
+            <ProgressStatus step={3} maxSteps={5} />
+          </ProgressBlock>
 
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={this.handleHaveSymptoms}>
-              <Text>{i18n.t('how-you-feel.picker-health-status-not-healthy')}</Text>
-            </BigButton>
-          </FieldWrapper>
-        </Form>
-      </Screen>
+          <Form style={styles.form}>
+            <FieldWrapper style={styles.fieldWrapper}>
+              <BigButton onPress={this.handleFeelNormal}>
+                <Text>{i18n.t('how-you-feel.picker-health-status-healthy')}</Text>
+              </BigButton>
+            </FieldWrapper>
+
+            <FieldWrapper style={styles.fieldWrapper}>
+              <BigButton onPress={this.handleHaveSymptoms}>
+                <Text>{i18n.t('how-you-feel.picker-health-status-not-healthy')}</Text>
+              </BigButton>
+            </FieldWrapper>
+          </Form>
+        </Screen>
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  actionContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderTopWidth: 1,
+    borderColor: colors.actionButtonBorder,
+  },
+
   form: {
     marginVertical: 32,
   },

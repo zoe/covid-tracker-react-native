@@ -892,5 +892,89 @@
     "respirator": "N95/FFP respirator",
     "not-sure": "Not sure/prefer not to say",
     "other": "Other, please specify:"
+  },
+
+  "us-study-invite": {
+    "title": "New COVID studies\n& how you can help",
+    "body": "Are you interested in being contacted to learn about additional studies related to COVID-19 or use of this app?",
+    "button": "I am interested"
+  },
+
+  "diabetes": {
+    "justification": "You previously indicated that you had diabetes, which is an important risk factor for COVID. Our scientists have a couple of follow up questions to understand more about this. These questions are completely optional.",
+    "which-type": "What kind of diabetes do you have?",
+    "answer-type-1": "Type 1 diabetes",
+    "answer-type-2": "Type 2 diabetes",
+    "answer-gestational": "Gestational diabetes (during pregnancy)",
+    "answer-unsure": "Unsure",
+    "answer-other": "Other, please specify",
+    "most-recent-hemoglobin-measure": "What was your most recent hemoglobin A1c?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "What year were you diagnosed with diabetes?",
+    "which-treatment": "Which diabetes treatments do you use? Select all that apply:",
+    "answer-none": "None",
+    "answer-lifestyle-mod": "Lifestyle modification (e.g. exercise, diet, weight management)",
+    "answer-daily-injections": "Once or twice daily injections of long acting insulin or \"basal\" insulin (e.g. glargine, detemir, degludec or NPH in premixed insulin)",
+    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\" (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-insulin-pump": "Continuous infusion in an insulin pump",
+    "answer-non-insulin-injections": "Injections of a non-insulin diabetes medication or GLP-1 receptor agonists (e.g. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Medications taken by mouth",
+    "which-oral-treatment": "Which oral medications do you use? Select all that apply",
+    "answer-oral-biguanide": "Biguanide (Metformin)",
+    "answer-sulfonylurea": "Sulfonylurea (e.g. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "DPP-4 inhibitors (e.g. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinides (e.g. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones or Glitazones (e.g. rosiglitazone, pioglitazone)",
+    "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed",
+    "please-specify-other-oral-meds": "Please specify the oral medications",
+    "please-select-diabetes-type": "Please select an option",
+    "please-select-diabetes-treatment": "Please select one or more of the above",
+    "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
+  },
+
+  "lifestyle": {
+    "title": "Diet & lifestyle",
+    "explanation": "The following questions on weight, nutrition and exercise are to help us understand whether COVID may be impacting our health in these areas and how significant these effects are. These questions are all optional.",
+    "text": "Since March when COVID became prevalent:",
+    "please-select-option": "Please select an option",
+    "weight-change": {
+      "question": "How has your weight changed?",
+      "increased": "Increased",
+      "decreased": "Decreased",
+      "same": "Stayed the same",
+      "unsure-pfnts": "Unsure / Prefer not to say"
+    },
+    "weight-difference": "By how much (an estimate is fine)?",
+    "diet-change": {
+      "question": "How was your diet changed in your opinion?",
+      "increased": "It has become healthier",
+      "decreased": "It has become more unhealthy",
+      "same": "It has stayed the same",
+      "unsure-pfnts": "Unsure / Prefer not to say"
+    },
+    "snacking-change": {
+      "question": "How has your snacking changed?",
+      "increased": "I am snacking more",
+      "decreased": "I am snacking less",
+      "same": "My snacking levels are the same",
+      "unsure-pfnts": "Unsure / Prefer not to say"
+    },
+    "alcohol-change": {
+      "question": "How has your alcohol consumption changed? ",
+      "no-alcohol": "I don't drink alcohol",
+      "increased": "I am drinking more alcohol",
+      "decreased": "I am drinking less alcohol",
+      "same": "My alcohol consumption is the same",
+      "unsure-pfnts": "Unsure / Prefer not to say"
+    },
+    "activity-change": {
+      "question": "Have your physical activity levels changed?",
+      "increased": "Yes, increased",
+      "decreased": "Yes, decreased",
+      "same": "No change, has remained the same",
+      "unsure-pfnts": "Unsure / Prefer not to say"
+    }
   }
 }

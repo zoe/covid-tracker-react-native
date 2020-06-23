@@ -28,13 +28,15 @@ import {
   VitaminSupplementData,
   VitaminSupplementsQuestion,
 } from './fields/VitaminQuestion';
+import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
 
 export interface YourHealthData
   extends BloodPressureData,
     PeriodData,
     HormoneTreatmentData,
     VitaminSupplementData,
-    AtopyData {
+    AtopyData,
+    DiabetesData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -82,6 +84,7 @@ type State = {
   showPregnancyQuestion: boolean;
   showPeriodQuestion: boolean;
   showHormoneTherapyQuestion: boolean;
+  showDiabetesQuestion: boolean;
 };
 
 const initialState: State = {
@@ -89,6 +92,7 @@ const initialState: State = {
   showPregnancyQuestion: false,
   showPeriodQuestion: false,
   showHormoneTherapyQuestion: false,
+  showDiabetesQuestion: false,
 };
 
 const maleOptions = ['', 'male', 'pfnts'];
@@ -104,6 +108,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,
       showPeriodQuestion: currentPatient.isPeriodCapable,
       showHormoneTherapyQuestion: currentPatient.isPeriodCapable,
+      showDiabetesQuestion: false,
     };
   }
 
@@ -188,7 +193,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         currentPatient.hasHormoneTreatmentAnswer = true;
         currentPatient.hasVitaminAnswer = true;
         currentPatient.hasAtopyAnswers = true;
-        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
+        if (formData.diabetesType) {
+          currentPatient.hasDiabetesAnswers = true;
+          currentPatient.shouldAskExtendedDiabetes = false;
+        }
+        if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
 
         this.props.navigation.navigate('PreviousExposure', { currentPatient });
       })
@@ -279,6 +288,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       };
     }
 
+    if (this.state.showDiabetesQuestion) {
+      infos = {
+        ...infos,
+        ...DiabetesQuestions.createDTO(formData),
+      };
+    }
+
     return infos;
   }
 
@@ -307,8 +323,15 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...HormoneTreatmentQuestion.initialFormValues(),
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
+            ...DiabetesQuestions.initialFormValues(),
           }}
-          validationSchema={this.registerSchema}
+          validationSchema={() => {
+            let schema = this.registerSchema;
+            if (this.state.showDiabetesQuestion) {
+              schema = schema.concat(DiabetesQuestions.schema());
+            }
+            return schema;
+          }}
           onSubmit={(values: YourHealthData) => {
             return this.handleUpdateHealth(values);
           }}>
@@ -345,9 +368,16 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                 <DropdownField
                   selectedValue={props.values.hasDiabetes}
-                  onValueChange={props.handleChange('hasDiabetes')}
+                  onValueChange={(value: string) => {
+                    props.handleChange('hasDiabetes');
+                    this.setState({ showDiabetesQuestion: value === 'yes' });
+                  }}
                   label={i18n.t('your-health.have-diabetes')}
                 />
+
+                {this.state.showDiabetesQuestion && (
+                  <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                )}
 
                 <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />
 

@@ -16,6 +16,7 @@ _Please attach screenshots showing the change if relevant_
 ## Checklist
 
 - [ ] I have updated mockServer
+- [ ] I've added analytics as relevent
 - [ ] I have run `npm test`
 - [ ] I have run `npm run test:i18n`
 

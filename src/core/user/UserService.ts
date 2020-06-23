@@ -286,13 +286,18 @@ export default class UserService extends ApiClientBase
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
     const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
+    const shouldAskLifestyleQuestion = patient.should_ask_lifestyle_questions;
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
 
     const hasAtopyAnswers = patient.has_hayfever != null;
+    const hasDiabetes = patient.has_diabetes;
+    const hasDiabetesAnswers = patient.diabetes_type != null;
+    const shouldAskExtendedDiabetes = !hasDiabetesAnswers && hasDiabetes;
     const hasHayfever = patient.has_hayfever;
+    const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
 
     return {
       ...patientState,
@@ -309,9 +314,14 @@ export default class UserService extends ApiClientBase
       isReportedByAnother,
       isSameHousehold,
       shouldAskLevelOfIsolation,
+      shouldAskExtendedDiabetes,
       shouldAskStudy,
       hasAtopyAnswers,
+      hasDiabetes,
+      hasDiabetesAnswers,
       hasHayfever,
+      shouldShowUSStudyInvite,
+      shouldAskLifestyleQuestion,
     };
   }
 
@@ -498,6 +508,10 @@ export default class UserService extends ApiClientBase
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
     });
+  }
+
+  setUSStudyInviteResponse(patientId: string, response: boolean) {
+    this.updatePatient(patientId, { contact_additional_studies: response });
   }
 }
 
