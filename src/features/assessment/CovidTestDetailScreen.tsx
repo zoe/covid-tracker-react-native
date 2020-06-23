@@ -17,7 +17,7 @@ import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from
 import { ValidationError } from '@covid/components/ValidationError';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 
 import { ScreenParamList } from '../ScreenParamList';

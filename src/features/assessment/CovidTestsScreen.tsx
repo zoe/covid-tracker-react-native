@@ -14,7 +14,7 @@ import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 
@@ -30,7 +30,7 @@ type State = {
   covidTests: CovidTest[];
 };
 
-export default class YourCovidTestsScreen extends Component<Props, State> {
+export default class CovidTestsScreen extends Component<Props, State> {
   state: State = {
     errorMessage: '',
     covidTests: [],
