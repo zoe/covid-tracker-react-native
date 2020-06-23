@@ -17,6 +17,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -99,7 +100,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const currentPatient = this.props.route.params.currentPatient;
+      const currentPatient = patientCoordinator.patientData.currentPatient;
       const patientId = currentPatient.patientId;
       var infos = this.createPatientInfos(formData);
 
@@ -110,7 +111,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
-          this.props.navigation.navigate('YourHealth', { currentPatient });
+          patientCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -253,7 +254,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   });
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const sexAtBirthItems = [
       { label: i18n.t('choose-one-of-these-options'), value: '' },
       { label: i18n.t('sex-at-birth-male'), value: 'male' },

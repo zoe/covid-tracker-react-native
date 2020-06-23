@@ -15,7 +15,7 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Field, FieldError } from '@covid/components/Forms';
 
-import Navigator from '../Navigation';
+import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {

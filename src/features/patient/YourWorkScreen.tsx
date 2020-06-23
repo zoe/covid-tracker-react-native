@@ -3,6 +3,8 @@ import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
@@ -11,18 +13,65 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import UserService from '@covid/core/user/UserService';
-import {
-  AvailabilityAlwaysOptions,
-  AvailabilityNeverOptions,
-  AvailabilitySometimesOptions,
-  EquipmentUsageOptions,
-  HealthCareStaffOptions,
-  PatientInfosRequest,
-  PatientInteractions,
-} from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import {
+  HealthCareStaffOptions,
+  EquipmentUsageOptions,
+  AvailabilityAlwaysOptions,
+  AvailabilitySometimesOptions,
+  AvailabilityNeverOptions,
+  PatientInteractions,
+  PatientInfosRequest,
+} from '@covid/core/user/dto/UserAPIContracts';
 
-import { initialState, State, YourWorkData, YourWorkProps } from './helpers';
+import { ScreenParamList } from '../ScreenParamList';
+
+export interface IOption {
+  label: string;
+  value: string | number;
+}
+
+export interface YourWorkData {
+  isHealthcareStaff: HealthCareStaffOptions;
+  isCarer: 'yes' | 'no';
+  hasPatientInteraction: PatientInteractions;
+  hasUsedPPEEquipment: EquipmentUsageOptions;
+  ppeAvailabilityAlways: AvailabilityAlwaysOptions;
+  ppeAvailabilitySometimes: AvailabilitySometimesOptions;
+  ppeAvailabilityNever: AvailabilityNeverOptions;
+}
+
+export type YourWorkProps = {
+  navigation: StackNavigationProp<ScreenParamList, 'AboutYou'>;
+  route: RouteProp<ScreenParamList, 'AboutYou'>;
+};
+
+export type State = {
+  isDiabetesRegistry: boolean;
+  atHospitalInpatient: boolean;
+  atHospitalOutpatient: boolean;
+  atClinicOutsideHospital: boolean;
+  atCareFacility: boolean;
+  atHomeHealth: boolean;
+  atSchoolClinic: boolean;
+  atOtherFacility: boolean;
+
+  errorMessage: string;
+};
+
+const initialState: State = {
+  isDiabetesRegistry: false,
+  atHospitalInpatient: false,
+  atHospitalOutpatient: false,
+  atClinicOutsideHospital: false,
+  atCareFacility: false,
+  atHomeHealth: false,
+  atSchoolClinic: false,
+  atOtherFacility: false,
+
+  errorMessage: '',
+};
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
   constructor(props: YourWorkProps) {
@@ -37,7 +86,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   };
 
   handleUpdateWork(formData: YourWorkData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
     const userService = new UserService();
     const infos = this.createPatientInfos(formData);
@@ -47,7 +96,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
       .then((response) => {
         currentPatient.isHealthWorker =
           infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
-        this.props.navigation.navigate('AboutYou', { currentPatient });
+        patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch(() =>
         this.setState({
@@ -127,7 +176,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   });
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
 
     const healthcareStaffOptions = [
       {

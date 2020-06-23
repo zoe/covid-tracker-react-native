@@ -6,8 +6,12 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { AppCoordinator } from '@covid/features/AppCoordinator';
 
 type ScreenName = keyof ScreenParamList;
+type ScreenFlow = {
+  [key in ScreenName]: () => void;
+};
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -21,8 +25,9 @@ export class AssessmentCoordinator {
   userService: UserService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
+  appCoordinator: AppCoordinator;
 
-  ScreenFlow: any = {
+  screenFlow: ScreenFlow = {
     ProfileBackDate: () => {
       this.startAssessment();
     },
@@ -55,14 +60,16 @@ export class AssessmentCoordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-  };
+  } as ScreenFlow;
 
   init = (
+    appCoordinator: AppCoordinator,
     navigation: NavigationType,
     assessmentData: AssessmentData,
     userService: UserService,
     assessmentService: IAssessmentService
   ) => {
+    this.appCoordinator = appCoordinator;
     this.navigation = navigation;
     this.assessmentData = assessmentData;
     this.userService = userService;
@@ -95,9 +102,7 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      //TODO Start PatientCoordinator (when done..)
-      const patientDetailsScreen = AssessmentCoordinator.getPatientDetailsScreenName(config, currentPatient);
-      this.navigation.navigate(patientDetailsScreen, { currentPatient: this.assessmentData.currentPatient });
+      this.appCoordinator.startPatientFlow(this.assessmentData.currentPatient);
     }
   };
 
@@ -113,8 +118,8 @@ export class AssessmentCoordinator {
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
-    if (this.ScreenFlow[screenName]) {
-      this.ScreenFlow[screenName]();
+    if (this.screenFlow[screenName]) {
+      this.screenFlow[screenName]();
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
@@ -156,14 +161,6 @@ export class AssessmentCoordinator {
       !currentPatient.hasAtopyAnswers
     );
   }
-
-  static getPatientDetailsScreenName = (
-    config: ConfigType,
-    currentPatient: PatientStateType
-  ): keyof ScreenParamList => {
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    return shouldAskStudy ? 'YourStudy' : 'YourWork';
-  };
 
   static getThankYouScreen = (): keyof ScreenParamList => {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
