@@ -6,7 +6,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import Navigator from '@covid/features/Navigation';
+import { AppCoordinator } from '@covid/features/AppCoordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -25,6 +25,7 @@ export class AssessmentCoordinator {
   userService: UserService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
+  appCoordinator: AppCoordinator;
 
   screenFlow: ScreenFlow = {
     ProfileBackDate: () => {
@@ -62,11 +63,13 @@ export class AssessmentCoordinator {
   } as ScreenFlow;
 
   init = (
+    appCoordinator: AppCoordinator,
     navigation: NavigationType,
     assessmentData: AssessmentData,
     userService: UserService,
     assessmentService: IAssessmentService
   ) => {
+    this.appCoordinator = appCoordinator;
     this.navigation = navigation;
     this.assessmentData = assessmentData;
     this.userService = userService;
@@ -99,7 +102,7 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      Navigator.startPatientFlow(this.assessmentData.currentPatient);
+      this.appCoordinator.startPatientFlow(this.assessmentData.currentPatient);
     }
   };
 

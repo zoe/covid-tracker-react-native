@@ -23,7 +23,7 @@ type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentVie
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-class Navigator {
+export class AppCoordinator {
   navigation: NavigationType;
   userService: UserService;
 
@@ -98,22 +98,22 @@ class Navigator {
     } else {
       this.navigation.dispatch((state) => {
         const profileScreen = state.routes.find((screen) => {
-          return screen.name == 'SelectProfile';
+          return screen.name === 'SelectProfile';
         });
 
         return CommonActions.navigate({ key: profileScreen!.key });
       });
       this.startAssessmentFlow(currentPatient);
     }
-  }
 
+  }
   startPatientFlow(currentPatient: PatientStateType) {
-    patientCoordinator.init(this.navigation, { currentPatient }, this.userService);
+    patientCoordinator.init(this, this.navigation, { currentPatient }, this.userService);
     patientCoordinator.startPatient();
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    assessmentCoordinator.init(this.navigation, { currentPatient }, this.userService, assessmentService);
+    assessmentCoordinator.init(this, this.navigation, { currentPatient }, this.userService, assessmentService);
     assessmentCoordinator.startAssessment();
   }
 
@@ -143,6 +143,6 @@ class Navigator {
   }
 }
 
-const navigator = new Navigator();
+const navigator = new AppCoordinator();
 
 export default navigator;

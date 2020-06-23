@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import Navigator  from '@covid/features/Navigation';
+import { AppCoordinator } from '@covid/features/AppCoordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -16,7 +16,8 @@ export type PatientData = {
   currentPatient: PatientStateType;
 };
 
-export class PatientCoordinator {
+export class PatientCoordinator {x
+  appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: UserService;
   patientData: PatientData;
@@ -35,11 +36,17 @@ export class PatientCoordinator {
       this.navigation.navigate('PreviousExposure', { patientData: this.patientData });
     },
     PreviousExposure: () => {
-      Navigator.startAssessmentFlow(this.patientData.currentPatient);
+      this.appCoordinator.startAssessmentFlow(this.patientData.currentPatient);
     },
   } as ScreenFlow;
 
-  init = (navigation: NavigationType, patientData: PatientData, userService: UserService) => {
+  init = (
+    appCoordinator: AppCoordinator,
+    navigation: NavigationType,
+    patientData: PatientData,
+    userService: UserService
+  ) => {
+    this.appCoordinator = appCoordinator;
     this.navigation = navigation;
     this.patientData = patientData;
     this.userService = userService;

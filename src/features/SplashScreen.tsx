@@ -10,7 +10,7 @@ import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { contentService, offlineService, userService } from '@covid/Services';
 
-import Navigator from './Navigation';
+import Navigator from './AppCoordinator';
 import { ScreenParamList } from './ScreenParamList';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;

@@ -16,7 +16,7 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { LoadingModal } from '@covid/components/Loading';
 import { userService, offlineService, pushNotificationService } from '@covid/Services';
 
-import Navigator from '../Navigation';
+import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
