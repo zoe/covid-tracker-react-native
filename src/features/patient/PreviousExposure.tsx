@@ -17,8 +17,8 @@ import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
-import Navigator from '../Navigation';
 import { ScreenParamList } from '../ScreenParamList';
 
 interface YourHealthData {
@@ -105,7 +105,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   });
 
   handleUpdateHealth(formData: YourHealthData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
 
     const userService = new UserService();
@@ -114,7 +114,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        Navigator.startAssessmentFlow(currentPatient);
+        patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -164,7 +164,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const symptomChangeChoices = [
       { label: i18n.t('past-symptom-changed-much-better'), value: 'much_better' },
       { label: i18n.t('past-symptom-changed-little-better'), value: 'little_better' },

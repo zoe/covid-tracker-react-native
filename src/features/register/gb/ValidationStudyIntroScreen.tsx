@@ -12,7 +12,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 
-import Navigator from '../../Navigation';
+import Navigator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type Props = {

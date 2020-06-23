@@ -14,7 +14,7 @@ import UserService from '@covid/core/user/UserService';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 
-import Navigator from '../../Navigation';
+import Navigator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {
