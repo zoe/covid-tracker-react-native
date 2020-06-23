@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BrandedButton, HeaderText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import ProgressStatus from '@covid/components/ProgressStatus';

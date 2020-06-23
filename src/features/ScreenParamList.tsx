@@ -1,6 +1,6 @@
-import { PatientProfile, PatientStateType } from '@covid/core/patient/PatientState';
+import { PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
+import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 
 export enum ConsentType {
@@ -54,7 +54,7 @@ export type ScreenParamList = {
 
   // Assessment screens
   HealthWorkerExposure: { assessmentData: AssessmentData };
-  CovidTest: { assessmentData: AssessmentData; tests?: CovidTest[] };
+  CovidTestList: { assessmentData: AssessmentData; tests?: CovidTest[] };
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
   DescribeSymptoms: { assessmentData: AssessmentData };
