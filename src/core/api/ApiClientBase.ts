@@ -1,8 +1,10 @@
 import Axios from 'axios';
 import { camelCase } from 'lodash';
+import { injectable } from 'inversify';
 
 import appConfig from '../../../appConfig';
 
+@injectable()
 export class ApiClientBase {
   protected static userId: string;
   protected static client = Axios.create({
