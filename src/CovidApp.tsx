@@ -27,7 +27,7 @@ import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScr
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from '@covid/features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from '@covid/features/assessment/WhereAreYouScreen';
-import CovidTestsScreen from '@covid/features/assessment/CovidTestsScreen';
+import CovidTestListScreen from '@covid/features/assessment/CovidTestListScreen';
 import { LoginScreen } from '@covid/features/login/LoginScreen';
 import AdultOrChildScreen from '@covid/features/multi-profile/AdultOrChildScreen';
 import ConsentForOther from '@covid/features/multi-profile/ConsentForOtherScreen';
@@ -195,7 +195,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="AboutYou" component={AboutYouScreen} options={noHeader} />
         <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={noHeader} />
         <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={noHeader} />
-        <Stack.Screen name="CovidTest" component={CovidTestsScreen} options={noHeader} />
+        <Stack.Screen name="CovidTest" component={CovidTestListScreen} options={noHeader} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />

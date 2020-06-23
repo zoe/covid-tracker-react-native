@@ -30,7 +30,7 @@ type State = {
   covidTests: CovidTest[];
 };
 
-export default class CovidTestsScreen extends Component<Props, State> {
+export default class CovidTestListScreen extends Component<Props, State> {
   state: State = {
     errorMessage: '',
     covidTests: [],

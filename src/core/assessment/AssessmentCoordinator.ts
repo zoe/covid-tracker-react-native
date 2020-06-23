@@ -5,8 +5,7 @@ import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-
-import { ScreenParamList } from '../../features/ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;
 
