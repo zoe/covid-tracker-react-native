@@ -77,13 +77,13 @@ export default class CovidTestListScreen extends Component<Props, State> {
     const resultString = (result: string) => {
       switch (result) {
         case 'positive':
-          return i18n.t('positive');
+          return i18n.t('covid-test-list.positive');
         case 'negative':
-          return i18n.t('negative');
+          return i18n.t('covid-test-list.negative');
         case 'failed':
-          return i18n.t('failed');
+          return i18n.t('covid-test-list.failed');
         default:
-          return i18n.t('pending');
+          return i18n.t('covid-test-list.pending');
       }
     };
 
@@ -110,7 +110,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
       <View style={styles.rootContainer}>
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>
-            <HeaderText>{i18n.t('your-covid-tests')}</HeaderText>
+            <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
 
           <ProgressBlock>
@@ -118,7 +118,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
           </ProgressBlock>
 
           <View style={styles.list}>
-            <RegularText style={styles.topText}>{i18n.t('please-add-test-below')}</RegularText>
+            <RegularText style={styles.topText}>{i18n.t('covid-test-list.text')}</RegularText>
           </View>
 
           <View style={styles.list}>
@@ -144,11 +144,15 @@ export default class CovidTestListScreen extends Component<Props, State> {
         </Screen>
 
         <Button block style={styles.newTestButton} onPress={AssessmentCoordinator.goToAddEditTest}>
-          <Text style={styles.newTestText}>{i18n.t('add-new-test')}</Text>
+          <Text style={styles.newTestText}>{i18n.t('covid-test-list.add-new-test')}</Text>
         </Button>
 
         <BrandedButton style={styles.bottomButton} onPress={this.handleNextQuestion}>
-          <Text>{this.state.covidTests.length === 0 ? i18n.t('never-had-test') : i18n.t('above-list-correct')}</Text>
+          <Text>
+            {this.state.covidTests.length === 0
+              ? i18n.t('covid-test-list.never-had-test')
+              : i18n.t('covid-test-list.above-list-correct')}
+          </Text>
         </BrandedButton>
       </View>
     );

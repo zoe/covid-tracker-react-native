@@ -530,15 +530,17 @@
   "back-date-profile-title": "Några fler frågor om dig",
   "update-profile": "Uppdatera profilen",
 
-  "add-new-test": "Lägg till nytt test",
-  "your-covid-tests": "Dina covid-19-tester",
-  "positive": "Positivt",
-  "negative": "Negativt",
-  "failed": "Misslyckades",
-  "pending": "Väntar",
-  "please-add-test-below": "Om du har gjort ett covid-19-test någon gång, lägg till det nedan. Detta innefattar PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
-  "never-had-test": "Jag har aldrig testats för covid-19",
-  "above-list-correct": "Listan ovan är korrekt",
+  "covid-test-list": {
+    "title": "Dina covid-19-tester",
+    "text": "Om du har gjort ett covid-19-test någon gång, lägg till det nedan. Detta innefattar PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
+    "add-new-test": "Lägg till nytt test",
+    "positive": "Positivt",
+    "negative": "Negativt",
+    "failed": "Misslyckades",
+    "pending": "Väntar",
+    "never-had-test": "Jag har aldrig testats för covid-19",
+    "above-list-correct": "Listan ovan är korrekt"
+  },
 
   "errors": {
     "button-retry": "Försök igen",
@@ -975,4 +977,4 @@
       "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     }
   }
-}
+},
