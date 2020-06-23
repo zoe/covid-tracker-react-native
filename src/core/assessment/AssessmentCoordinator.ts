@@ -6,7 +6,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import Navigator from '@covid/features/Navigation';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -99,13 +99,8 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      this.startPatientFlow();
+      Navigator.startPatientFlow(this.assessmentData.currentPatient);
     }
-  };
-
-  startPatientFlow = () => {
-    patientCoordinator.init(this.navigation, { currentPatient: this.assessmentData.currentPatient }, this.userService);
-    patientCoordinator.startPatient();
   };
 
   gotoEndAssessment = async () => {

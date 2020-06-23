@@ -2,9 +2,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService from '@covid/core/user/UserService';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { assessmentService } from '@covid/Services';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import Navigator  from '@covid/features/Navigation';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -36,7 +35,7 @@ export class PatientCoordinator {
       this.navigation.navigate('PreviousExposure', { patientData: this.patientData });
     },
     PreviousExposure: () => {
-      this.startAssessmentFlow(this.patientData.currentPatient);
+      Navigator.startAssessmentFlow(this.patientData.currentPatient);
     },
   } as ScreenFlow;
 
@@ -72,11 +71,6 @@ export class PatientCoordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
-
-  startAssessmentFlow(currentPatient: PatientStateType) {
-    assessmentCoordinator.init(this.navigation, { currentPatient }, this.userService, assessmentService);
-    assessmentCoordinator.startAssessment();
-  }
 }
 
 const patientCoordinator = new PatientCoordinator();
