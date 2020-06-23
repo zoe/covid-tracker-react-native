@@ -1,8 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Button, Text } from 'native-base';
+import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -14,8 +15,7 @@ import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;
@@ -62,7 +62,6 @@ export default class CovidTestListScreen extends Component<Props, State> {
       if (!assessmentId) {
         AssessmentCoordinator.assessmentData.assessmentId = response.id;
       }
-      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
@@ -82,28 +81,30 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <ProgressStatus step={2} maxSteps={5} />
           </ProgressBlock>
 
-          <View style={styles.list}>
-            <RegularText style={styles.topText}>{i18n.t('covid-test-list.text')}</RegularText>
+          <View style={styles.content}>
+            <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
           </View>
 
-          <View style={styles.list}>
+          <View style={styles.content}>
             {this.state.covidTests.map((item: CovidTest) => {
               return <CovidTestRow item={item} />;
             })}
           </View>
         </Screen>
 
-        <Button block style={styles.newTestButton} onPress={AssessmentCoordinator.goToAddEditTest}>
-          <Text style={styles.newTestText}>{i18n.t('covid-test-list.add-new-test')}</Text>
-        </Button>
+        <View style={styles.content}>
+          <BrandedButton style={styles.newButton} onPress={AssessmentCoordinator.goToAddEditTest}>
+            <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
+          </BrandedButton>
 
-        <BrandedButton style={styles.bottomButton} onPress={this.handleNextQuestion}>
-          <Text>
-            {this.state.covidTests.length === 0
-              ? i18n.t('covid-test-list.never-had-test')
-              : i18n.t('covid-test-list.above-list-correct')}
-          </Text>
-        </BrandedButton>
+          <BrandedButton style={styles.continueButton} onPress={this.handleNextQuestion}>
+            <Text>
+              {this.state.covidTests.length === 0
+                ? i18n.t('covid-test-list.never-had-test')
+                : i18n.t('covid-test-list.above-list-correct')}
+            </Text>
+          </BrandedButton>
+        </View>
       </View>
     );
   }
@@ -114,29 +115,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundPrimary,
   },
-  bottomButton: {
+  content: {
     margin: 16,
-    marginBottom: 32,
   },
-  newTestButton: {
+  newButton: {
     marginHorizontal: 16,
     marginBottom: 16,
-    alignItems: 'center',
-    borderRadius: 100,
-    height: 56,
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.primary,
-    elevation: 0,
   },
-  newTestText: {
-    fontSize: 16,
+  newText: {
     color: colors.primary,
   },
-  list: {
-    margin: 16,
-  },
-  topText: {
-    marginTop: 8,
+  continueButton: {
+    marginHorizontal: 16,
+    marginBottom: 32,
   },
 });

@@ -93,7 +93,7 @@ export default class Screen extends Component<ScreenProps> {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.backgroundPrimary,
   },
 
   statusBarBlock: {
