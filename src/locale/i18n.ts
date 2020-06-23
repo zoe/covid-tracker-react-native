@@ -9,11 +9,3 @@ i18n.translations = {
 };
 
 export default i18n;
-
-export function getDayName(date: Date) {
-  return date.toLocaleDateString(i18n.currentLocale(), { weekday: 'short' });
-}
-
-export function getMonthName(date: Date) {
-  return date.toLocaleDateString(i18n.currentLocale(), { month: 'short' });
-}
