@@ -6,8 +6,12 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 type ScreenName = keyof ScreenParamList;
+type ScreenFlow = {
+  [key in ScreenName]: () => void;
+};
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -22,7 +26,7 @@ export class AssessmentCoordinator {
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
 
-  ScreenFlow: any = {
+  screenFlow: ScreenFlow = {
     ProfileBackDate: () => {
       this.startAssessment();
     },
@@ -55,7 +59,7 @@ export class AssessmentCoordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-  };
+  } as ScreenFlow;
 
   init = (
     navigation: NavigationType,
@@ -95,10 +99,13 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      //TODO Start PatientCoordinator (when done..)
-      const patientDetailsScreen = AssessmentCoordinator.getPatientDetailsScreenName(config, currentPatient);
-      this.navigation.navigate(patientDetailsScreen, { currentPatient: this.assessmentData.currentPatient });
+      this.startPatientFlow();
     }
+  };
+
+  startPatientFlow = () => {
+    patientCoordinator.init(this.navigation, { currentPatient: this.assessmentData.currentPatient }, this.userService);
+    patientCoordinator.startPatient();
   };
 
   gotoEndAssessment = async () => {
@@ -113,8 +120,8 @@ export class AssessmentCoordinator {
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
-    if (this.ScreenFlow[screenName]) {
-      this.ScreenFlow[screenName]();
+    if (this.screenFlow[screenName]) {
+      this.screenFlow[screenName]();
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
@@ -156,14 +163,6 @@ export class AssessmentCoordinator {
       !currentPatient.hasAtopyAnswers
     );
   }
-
-  static getPatientDetailsScreenName = (
-    config: ConfigType,
-    currentPatient: PatientStateType
-  ): keyof ScreenParamList => {
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    return shouldAskStudy ? 'YourStudy' : 'YourWork';
-  };
 
   static getThankYouScreen = (): keyof ScreenParamList => {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';

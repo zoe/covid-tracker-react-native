@@ -1,12 +1,13 @@
-import { CommonActions, NavigationState, PartialState } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService, userService } from '@covid/Services';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -26,7 +27,7 @@ class Navigator {
   navigation: NavigationType;
   userService: UserService;
 
-  ScreenFlow: any = {
+  screenFlow: any = {
     // End of registration flows
     Register: async (routeParams: PatientIdParamType) => {
       const { patientId } = routeParams;
@@ -41,19 +42,17 @@ class Navigator {
         await navigator.replaceScreen('OptionalInfo', { patientId });
       } else if (patientId) {
         const currentPatient = await navigator.getCurrentPatient(patientId);
-        navigator.resetToStartPatientDetails(currentPatient);
+        this.startPatientFlow(currentPatient);
       } else {
         // TODO: Warn: missing parameter -- critical error. DO NOT FAIL SILENTLY
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
     },
 
-    // End of Personal Information flow
     OptionalInfo: async (routeParams: CurrentPatientParamType) => {
-      await navigator.resetToStartPatientDetails(routeParams.currentPatient);
+      this.startPatientFlow(routeParams.currentPatient);
     },
 
-    // Start of reporting flow
     WelcomeRepeat: async (routeParams: PatientIdParamType) => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
@@ -93,13 +92,6 @@ class Navigator {
     return 'WelcomeRepeat';
   }
 
-  getStartPatientScreenName(currentPatient: PatientStateType) {
-    const config = this.getConfig();
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    const page = shouldAskStudy ? 'YourStudy' : 'YourWork';
-    return page;
-  }
-
   resetToProfileStartAssessment(currentPatient?: PatientStateType) {
     if (!currentPatient) {
       this.gotoScreen(this.getWelcomeRepeatScreenName());
@@ -115,29 +107,19 @@ class Navigator {
     }
   }
 
-  async resetToStartPatientDetails(currentPatient: PatientStateType) {
-    const patientId = currentPatient.patientId;
-    const startPage = navigator.getWelcomeRepeatScreenName();
-    const nextPage = await navigator.getStartPatientScreenName(currentPatient);
-
-    // OptionalInfo nav-stack cleanup.
-    navigator.resetAndGo({
-      index: 0,
-      routes: [
-        { name: startPage, params: { patientId } },
-        { name: nextPage, params: { currentPatient } },
-      ],
-    });
+  startPatientFlow(currentPatient: PatientStateType) {
+    patientCoordinator.init(this.navigation, { currentPatient }, this.userService);
+    patientCoordinator.startPatient();
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    AssessmentCoordinator.init(this.navigation, { currentPatient }, this.userService, assessmentService);
-    AssessmentCoordinator.startAssessment();
+    assessmentCoordinator.init(this.navigation, { currentPatient }, this.userService, assessmentService);
+    assessmentCoordinator.startAssessment();
   }
 
   async gotoNextScreen(screenName: ScreenName, params: RouteParamsType) {
-    if (this.ScreenFlow[screenName]) {
-      await this.ScreenFlow[screenName](params);
+    if (this.screenFlow[screenName]) {
+      await this.screenFlow[screenName](params);
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
@@ -150,10 +132,6 @@ class Navigator {
 
   replaceScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
     this.navigation.replace(screenName, params);
-  }
-
-  resetAndGo(navStack: PartialState<NavigationState>) {
-    this.navigation.reset(navStack);
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
