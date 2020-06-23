@@ -16,6 +16,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -242,7 +243,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   handleSubmit(formData: YourStudyData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
     const userService = new UserService();
     const infos = this.createPatientInfos(formData);
@@ -250,13 +251,13 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     userService
       .updatePatient(patientId, infos)
       .then((response) => {
-        this.props.navigation.navigate('YourWork', { currentPatient });
+        patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

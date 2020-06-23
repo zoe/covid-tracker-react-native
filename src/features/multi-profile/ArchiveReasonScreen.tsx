@@ -7,7 +7,7 @@ import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
 import { BigButton } from '@covid/components/BigButton';
 import i18n from '@covid/locale/i18n';
 import UserService from '@covid/core/user/UserService';
-import Navigator from '@covid/features/Navigation';
+import Navigator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 

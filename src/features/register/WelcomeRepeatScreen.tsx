@@ -19,7 +19,7 @@ import { contentService, offlineService, pushNotificationService, userService } 
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 
-import Navigator, { NavigationType } from '../Navigation';
+import Navigator, { NavigationType } from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {

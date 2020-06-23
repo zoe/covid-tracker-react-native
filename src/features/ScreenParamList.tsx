@@ -1,7 +1,8 @@
-import { PatientProfile, PatientStateType } from '@covid/core/patient/PatientState';
+import { PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
+import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
+import { PatientData } from '@covid/core/patient/PatientCoordinator';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -31,8 +32,6 @@ export type ScreenParamList = {
   Register: undefined;
   Login: { terms: string };
   CountrySelect: { patientId: string | null };
-
-  // PII screens
   OptionalInfo: { patientId: string };
 
   // Profile screens
@@ -45,16 +44,15 @@ export type ScreenParamList = {
   ArchiveReason: { profileId: string };
 
   // Patient screens
-  StartPatient: { currentPatient: PatientStateType };
-  YourStudy: { currentPatient: PatientStateType };
-  YourWork: { currentPatient: PatientStateType };
-  AboutYou: { currentPatient: PatientStateType };
-  YourHealth: { currentPatient: PatientStateType };
-  PreviousExposure: { currentPatient: PatientStateType };
+  YourStudy: { patientData: PatientData };
+  YourWork: { patientData: PatientData };
+  AboutYou: { patientData: PatientData };
+  YourHealth: { patientData: PatientData };
+  PreviousExposure: { patientData: PatientData };
 
   // Assessment screens
   HealthWorkerExposure: { assessmentData: AssessmentData };
-  CovidTest: { assessmentData: AssessmentData; tests?: CovidTest[] };
+  CovidTestList: { assessmentData: AssessmentData; tests?: CovidTest[] };
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
   DescribeSymptoms: { assessmentData: AssessmentData };

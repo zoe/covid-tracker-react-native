@@ -16,6 +16,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
+import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -100,7 +101,7 @@ const maleOptions = ['', 'male', 'pfnts'];
 export default class YourHealthScreen extends Component<HealthProps, State> {
   constructor(props: HealthProps) {
     super(props);
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const userService = new UserService();
     const features = userService.getConfig();
     this.state = {
@@ -178,7 +179,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   });
 
   handleUpdateHealth(formData: YourHealthData) {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
 
     const userService = new UserService();
@@ -199,7 +200,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
         }
         if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
 
-        this.props.navigation.navigate('PreviousExposure', { currentPatient });
+        patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
         this.setState({ errorMessage: 'Something went wrong, please try again later' });
@@ -299,7 +300,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   }
 
   render() {
-    const currentPatient = this.props.route.params.currentPatient;
+    const currentPatient = patientCoordinator.patientData.currentPatient;
     const smokerStatusItems = [
       { label: i18n.t('your-health.never-smoked'), value: 'never' },
       { label: i18n.t('your-health.not-currently-smoking'), value: 'not_currently' },

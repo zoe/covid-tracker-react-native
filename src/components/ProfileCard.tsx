@@ -6,7 +6,7 @@ import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { GreenTick } from '@covid/components/GreenTick';
-import Navigator from '@covid/features/Navigation';
+import Navigator from '@covid/features/AppCoordinator';
 
 import { Profile } from '../features/multi-profile/SelectProfileScreen';
 

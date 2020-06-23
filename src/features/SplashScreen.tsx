@@ -14,8 +14,8 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 
+import Navigator from './AppCoordinator';
 import { ScreenParamList } from './ScreenParamList';
-import Navigator from './Navigation';
 
 type SplashScreenNavigationProp = StackNavigationProp<ScreenParamList, 'Splash'>;
 type Props = {

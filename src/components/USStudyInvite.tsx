@@ -4,7 +4,7 @@ import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground } fro
 import { closeIcon, blobs } from '@assets';
 import { RegularText, HeaderText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
-import { AssessmentData } from '@covid/features/assessment/AssessmentCoordinator';
+import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';

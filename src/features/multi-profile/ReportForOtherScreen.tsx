@@ -7,7 +7,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import { profilesIcon } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { AssessmentCoordinator } from '@covid/features/assessment/AssessmentCoordinator';
+import { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import UserService from '@covid/core/user/UserService';
 import {
   BrandedButton,
@@ -19,7 +19,7 @@ import {
 } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 
-import Navigator from '../Navigation';
+import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {

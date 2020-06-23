@@ -17,7 +17,7 @@ import { NewProfileCard } from '@covid/components/NewProfileCard';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 
 import { ScreenParamList } from '../ScreenParamList';
-import Navigator from '../Navigation';
+import Navigator from '../AppCoordinator';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;

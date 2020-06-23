@@ -796,15 +796,17 @@
   "total-people-contributing": "%{total} personas que contribuyen",
   "join-total-people-contributing": "Únase a las %{total} personas que contribuyen en todo el mundo",
 
-  "add-new-test": "Agregar nuevo examen",
-  "your-covid-tests": "Sus exámenes de COVID-19",
-  "positive": "Positivo",
-  "negative": "Negativo",
-  "failed": "Falló",
-  "pending": "Pendiente",
-  "please-add-test-below": "Si se realizó un examen de COVID-19, agregue a continuación. Puede editarlos en cualquier momento.",
-  "never-had-test": "Nunca me he hecho un examen de COVID",
-  "above-list-correct": "La lista anterior es correcta",
+  "covid-test-list": {
+    "title": "Sus exámenes de COVID-19",
+    "text": "Si se realizó un examen de COVID-19, agregue a continuación. Puede editarlos en cualquier momento.",
+    "add-new-test": "Agregar nuevo examen",
+    "positive": "Positivo",
+    "negative": "Negativo",
+    "failed": "Falló",
+    "pending": "Pendiente",
+    "never-had-test": "Nunca me he hecho un examen de COVID",
+    "above-list-correct": "La lista anterior es correcta"
+  },
 
   "errors": {
     "button-retry": "Reintentar",

@@ -11,10 +11,10 @@ import { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import UserService from '@covid/core/user/UserService';
-import AssessmentCoordinator from '@covid/features/assessment/AssessmentCoordinator';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 
-import Navigator from '../../Navigation';
+import Navigator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {

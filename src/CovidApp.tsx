@@ -27,7 +27,7 @@ import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScr
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from '@covid/features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from '@covid/features/assessment/WhereAreYouScreen';
-import YourCovidTestsScreen from '@covid/features/assessment/YourCovidTestsScreen';
+import CovidTestListScreen from '@covid/features/assessment/CovidTestListScreen';
 import { LoginScreen } from '@covid/features/login/LoginScreen';
 import AdultOrChildScreen from '@covid/features/multi-profile/AdultOrChildScreen';
 import ConsentForOther from '@covid/features/multi-profile/ConsentForOtherScreen';
@@ -38,7 +38,6 @@ import { ResetPasswordConfirmScreen } from '@covid/features/password-reset/Reset
 import { ResetPasswordScreen } from '@covid/features/password-reset/ResetPassword';
 import AboutYouScreen from '@covid/features/patient/AboutYouScreen';
 import PreviousExposureScreen from '@covid/features/patient/PreviousExposure';
-import StartPatientScreen from '@covid/features/patient/StartPatient';
 import YourHealthScreen from '@covid/features/patient/YourHealthScreen';
 import YourStudyScreen from '@covid/features/patient/YourStudyScreen';
 import YourWorkScreen from '@covid/features/patient/YourWorkScreen';
@@ -188,14 +187,13 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={noHeader} />
         <Stack.Screen name="Register" component={RegisterScreen} options={noHeader} />
         <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={noHeader} />
-        <Stack.Screen name="StartPatient" component={StartPatientScreen} options={noHeader} />
         <Stack.Screen name="YourStudy" component={YourStudyScreen} options={noHeader} />
         <Stack.Screen name="YourWork" component={YourWorkScreen} options={noHeader} />
         <Stack.Screen name="YourHealth" component={YourHealthScreen} options={noHeader} />
         <Stack.Screen name="AboutYou" component={AboutYouScreen} options={noHeader} />
         <Stack.Screen name="PreviousExposure" component={PreviousExposureScreen} options={noHeader} />
         <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={noHeader} />
-        <Stack.Screen name="CovidTest" component={YourCovidTestsScreen} options={noHeader} />
+        <Stack.Screen name="CovidTestList" component={CovidTestListScreen} options={noHeader} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
