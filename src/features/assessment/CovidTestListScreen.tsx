@@ -1,12 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import moment from 'moment';
-import { Button, Text } from 'native-base';
-import React, { Component } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text } from 'native-base';
 import key from 'weak-key';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import { chevronRight, pending, tick } from '@assets';
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -15,10 +13,10 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n, { getDayName, getMonthName } from '@covid/locale/i18n';
+import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;
@@ -65,7 +63,6 @@ export default class CovidTestListScreen extends Component<Props, State> {
       if (!assessmentId) {
         AssessmentCoordinator.assessmentData.assessmentId = response.id;
       }
-      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
@@ -74,82 +71,41 @@ export default class CovidTestListScreen extends Component<Props, State> {
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
 
-    const resultString = (result: string) => {
-      switch (result) {
-        case 'positive':
-          return i18n.t('positive');
-        case 'negative':
-          return i18n.t('negative');
-        case 'failed':
-          return i18n.t('failed');
-        default:
-          return i18n.t('pending');
-      }
-    };
-
-    const icon = (result: string) => {
-      if (result === 'waiting') {
-        return pending;
-      } else {
-        return tick;
-      }
-    };
-
-    const dateString = (test: CovidTest) => {
-      if (test.date_taken_specific) {
-        const date = moment(test.date_taken_specific).toDate();
-        return `${getMonthName(date)} ${date.getDate()} (${getDayName(date)})`;
-      } else {
-        const stateDate = moment(test.date_taken_between_start).toDate();
-        const endDate = moment(test.date_taken_between_end).toDate();
-        return `${getMonthName(stateDate)} ${stateDate.getDate()} - ${getMonthName(endDate)} ${endDate.getDate()}`;
-      }
-    };
-
     return (
       <View style={styles.rootContainer}>
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>
-            <HeaderText>{i18n.t('your-covid-tests')}</HeaderText>
+            <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
 
           <ProgressBlock>
             <ProgressStatus step={2} maxSteps={5} />
           </ProgressBlock>
 
-          <View style={styles.list}>
-            <RegularText style={styles.topText}>{i18n.t('please-add-test-below')}</RegularText>
+          <View style={styles.content}>
+            <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
           </View>
 
-          <View style={styles.list}>
+          <View style={styles.content}>
             {this.state.covidTests.map((item: CovidTest) => {
-              return (
-                <TouchableOpacity
-                  key={key(item)}
-                  style={styles.itemTouchable}
-                  onPress={() => AssessmentCoordinator.goToAddEditTest(item)}>
-                  <Image source={icon(item.result)} style={styles.tick} />
-                  <RegularText style={item.result === 'waiting' ? styles.pendingText : []}>
-                    {dateString(item)}
-                  </RegularText>
-                  <View style={{ flex: 1 }} />
-                  <RegularText style={item.result === 'waiting' ? styles.pendingText : []}>
-                    {resultString(item.result)}
-                  </RegularText>
-                  <Image source={chevronRight} style={styles.chevron} />
-                </TouchableOpacity>
-              );
+              return <CovidTestRow item={item} key={key(item)} />;
             })}
           </View>
         </Screen>
 
-        <Button block style={styles.newTestButton} onPress={AssessmentCoordinator.goToAddEditTest}>
-          <Text style={styles.newTestText}>{i18n.t('add-new-test')}</Text>
-        </Button>
+        <View style={styles.content}>
+          <BrandedButton style={styles.newButton} onPress={AssessmentCoordinator.goToAddEditTest}>
+            <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
+          </BrandedButton>
 
-        <BrandedButton style={styles.bottomButton} onPress={this.handleNextQuestion}>
-          <Text>{this.state.covidTests.length === 0 ? i18n.t('never-had-test') : i18n.t('above-list-correct')}</Text>
-        </BrandedButton>
+          <BrandedButton style={styles.continueButton} onPress={this.handleNextQuestion}>
+            <Text>
+              {this.state.covidTests.length === 0
+                ? i18n.t('covid-test-list.never-had-test')
+                : i18n.t('covid-test-list.above-list-correct')}
+            </Text>
+          </BrandedButton>
+        </View>
       </View>
     );
   }
@@ -160,47 +116,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundPrimary,
   },
-  bottomButton: {
+  content: {
     margin: 16,
-    marginBottom: 32,
   },
-  newTestButton: {
+  newButton: {
     marginHorizontal: 16,
     marginBottom: 16,
-    alignItems: 'center',
-    borderRadius: 100,
-    height: 56,
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.primary,
-    elevation: 0,
   },
-  newTestText: {
-    fontSize: 16,
+  newText: {
     color: colors.primary,
   },
-  itemTouchable: {
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  list: {
-    margin: 16,
-  },
-  tick: {
-    marginEnd: 8,
-    height: 16,
-    width: 16,
-  },
-  chevron: {
-    marginStart: 4,
-    height: 12,
-    width: 12,
-  },
-  topText: {
-    marginTop: 8,
-  },
-  pendingText: {
-    color: colors.secondary,
+  continueButton: {
+    marginHorizontal: 16,
+    marginBottom: 32,
   },
 });
