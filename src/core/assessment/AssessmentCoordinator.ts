@@ -30,13 +30,13 @@ export class AssessmentCoordinator {
       if (this.assessmentData.currentPatient.isHealthWorker) {
         this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
-        this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
+        this.navigation.navigate('CovidTestList', { assessmentData: this.assessmentData });
       }
     },
     HealthWorkerExposure: () => {
-      this.navigation.navigate('CovidTest', { assessmentData: this.assessmentData });
+      this.navigation.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    CovidTest: () => {
+    CovidTestList: () => {
       if (this.assessmentData.currentPatient.shouldAskLifestyleQuestion) {
         this.navigation.navigate('Lifestyle', { assessmentData: this.assessmentData });
       } else {

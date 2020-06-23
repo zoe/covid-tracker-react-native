@@ -21,8 +21,8 @@ import { assessmentService } from '@covid/Services';
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'CovidTest'>;
-  route: RouteProp<ScreenParamList, 'CovidTest'>;
+  navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;
+  route: RouteProp<ScreenParamList, 'CovidTestList'>;
 };
 
 type State = {
