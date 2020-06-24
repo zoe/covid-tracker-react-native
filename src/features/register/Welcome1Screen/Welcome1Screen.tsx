@@ -9,9 +9,9 @@ import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import ContentService from '@covid/core/content/ContentService';
-import ApiClient from '@covid/core/api/ApiClient';
-import { ContentApiClient } from '@covid/core/content/ContentApiClient';
+import { IContentService } from '@covid/core/content/ContentService';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 import { getLocaleFlagIcon } from '../helpers';
 
@@ -23,9 +23,8 @@ type PropsType = {
 
 const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   const [userCount, setUserCount] = useState<number>(0);
-  const apiClient = new ApiClient();
-  const contentApiClient = new ContentApiClient(apiClient);
-  const contentService = new ContentService(contentApiClient);
+
+  const contentService = useInjection<IContentService>(Services.Content);
 
   useEffect(() => {
     contentService.getUserCount().then((response) => {

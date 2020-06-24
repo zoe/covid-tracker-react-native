@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
+import { injectable } from 'inversify';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
@@ -73,13 +74,17 @@ export interface ILocalisationService {
   // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
 }
 
-export default class UserService extends ApiClientBase
-  implements
-    IUserService, // TODO: ideally a UserService should only implement this, everything else is a separate service
+export interface ICoreService
+  extends IUserService,
     IProfileService,
     IConsentService,
     IPatientService,
-    ILocalisationService {
+    ILocalisationService {}
+
+// TODO: ideally a UserService should only implement this, everything else is a separate service
+
+@injectable()
+export default class UserService extends ApiClientBase implements ICoreService {
   public static userCountry = 'US';
   public static ipCountry = '';
   public static countryConfig: ConfigType;
