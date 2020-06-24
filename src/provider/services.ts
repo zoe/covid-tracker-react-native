@@ -1,6 +1,8 @@
 import { Container } from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
 
+import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
+
 import ApiClient, { IApiClient } from '../core/api/ApiClient';
 import { IContentApiClient, ContentApiClient } from '../core/content/ContentApiClient';
 import ContentService, { IContentService } from '../core/content/ContentService';
@@ -17,5 +19,7 @@ container.bind<ICoreService>(Services.User).to(UserService).inSingletonScope();
 container.bind<IContentApiClient>(Services.ContentApi).to(ContentApiClient).inSingletonScope();
 
 container.bind<IContentService>(Services.Content).to(ContentService).inSingletonScope();
+
+container.bind<IConsentService>(Services.Consent).to(ConsentService).inSingletonScope();
 
 export const { lazyInject } = getDecorators(container);

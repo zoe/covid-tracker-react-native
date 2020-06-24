@@ -4,8 +4,11 @@ import React, { FC, useState, useCallback } from 'react';
 import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { BrandedButton } from '@covid/components/Text';
+import { useInjection } from '@covid/provider/services.hooks';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import {
@@ -27,10 +30,10 @@ type PropsType = {
   route: RouteProp<ScreenParamList, 'Consent'>;
 };
 
-const userService = new UserService();
-
 const ConsentScreen: FC<PropsType> = (props) => {
   const [agreed, setAgreed] = useState(false);
+
+  const consentService = useInjection<IConsentService>(Services.Consent);
 
   const handleAgreeClicked = useCallback(async () => {
     if (!agreed) {
@@ -38,16 +41,16 @@ const ConsentScreen: FC<PropsType> = (props) => {
     }
 
     if (isUSCountry()) {
-      await userService.setConsentSigned('US', consentVersionUS, privacyPolicyVersionUS);
+      await consentService.setConsentSigned('US', consentVersionUS, privacyPolicyVersionUS);
     }
     if (isGBCountry()) {
-      await userService.setConsentSigned('UK', consentVersionUK, privacyPolicyVersionUK);
+      await consentService.setConsentSigned('UK', consentVersionUK, privacyPolicyVersionUK);
     }
     if (isSECountry()) {
-      await userService.setConsentSigned('SE', consentVersionSE, privacyPolicyVersionSE);
+      await consentService.setConsentSigned('SE', consentVersionSE, privacyPolicyVersionSE);
     }
     props.navigation.navigate('Register');
-  }, [agreed, userService.setConsentSigned]);
+  }, [agreed, consentService.setConsentSigned]);
 
   const renderConsent = useCallback(() => {
     if (isUSCountry()) {

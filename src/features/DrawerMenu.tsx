@@ -6,16 +6,18 @@ import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
-import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
 };
 
-export function DrawerMenu(props: DrawerContentComponentProps) {
-  const userService = new UserService();
+export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
+  const userService = useInjection<IUserService>(Services.User);
 
   function showDeleteAlert() {
     Alert.alert(
@@ -97,7 +99,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   drawerRoot: {

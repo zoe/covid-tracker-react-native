@@ -1,11 +1,12 @@
 import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
+import { Services } from '@covid/provider/services.types';
 
 import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
@@ -16,10 +17,10 @@ import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
+import { ConsentService, IConsentService } from '../consent/ConsentService';
 
 import {
   AskValidationStudy,
-  Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
   PiiRequest,
@@ -54,12 +55,6 @@ export interface IProfileService {
   recordAskedToReportForOther(): Promise<void>;
 }
 
-export interface IConsentService {
-  postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
-  getConsentSigned(): Promise<Consent | null>;
-  setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
-}
-
 export interface IPatientService {
   listPatients(): Promise<any>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
@@ -79,12 +74,7 @@ export interface ILocalisationService {
   // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
 }
 
-export interface ICoreService
-  extends IUserService,
-    IProfileService,
-    IConsentService,
-    IPatientService,
-    ILocalisationService {}
+export interface ICoreService extends IUserService, IProfileService, IPatientService, ILocalisationService {}
 
 // TODO: ideally a UserService should only implement this, everything else is a separate service
 
@@ -93,13 +83,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public static userCountry = 'US';
   public static ipCountry = '';
   public static countryConfig: ConfigType;
-  public static consentSigned: Consent = {
-    document: '',
-    version: '',
-    privacy_policy_version: '',
-  };
 
-  constructor(private useAsyncStorage: boolean = true) {
+  constructor(
+    private useAsyncStorage: boolean = true,
+    @inject(Services.Consent) private readonly consentService: IConsentService
+  ) {
     super();
     this.loadUser();
   }
@@ -137,7 +125,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
     await AsyncStorageService.saveProfile(null);
-    this.setConsentSigned('', '', '');
+    this.consentService.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -163,7 +151,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     this.updateUserCountry(hasUser);
     if (hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId(user!);
+      const patientId: string | null = await this.getFirstPatientId();
       if (!patientId) {
         // Logged in with an account doesn't exist. Force logout.
         await this.logout();
@@ -218,9 +206,9 @@ export default class UserService extends ApiClientBase implements ICoreService {
       password2: password,
       country_code: UserService.userCountry,
       language_code: UserService.getLocale(),
-      consent_document: UserService.consentSigned.document,
-      consent_version: UserService.consentSigned.version,
-      privacy_policy_version: UserService.consentSigned.privacy_policy_version,
+      consent_document: ConsentService.consentSigned.document,
+      consent_version: ConsentService.consentSigned.version,
+      privacy_policy_version: ConsentService.consentSigned.privacy_policy_version,
     };
     const requestBody = this.objectToQueryString(payload);
 
@@ -229,15 +217,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
     await promise.then(this.handleLoginOrRegisterResponse);
 
     return promise;
-  }
-
-  public async postConsent(document: string, version: string, privacy_policy_version: string) {
-    const payload = {
-      document,
-      version,
-      privacy_policy_version,
-    };
-    return this.client.patch(`/consent/`, payload);
   }
 
   public async listPatients() {
@@ -339,7 +318,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     const shouldAskLifestyleQuestion = patient.should_ask_lifestyle_questions;
 
     // Decide whether patient needs to answer YourStudy questions
-    const consent = await this.getConsentSigned();
+    const consent = await this.consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
 
     const hasAtopyAnswers = patient.has_hayfever != null;
@@ -414,21 +393,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async updatePii(pii: Partial<PiiRequest>) {
     const userId = ApiClientBase.userId;
     return this.client.patch(`/information/${userId}/`, pii);
-  }
-
-  async getConsentSigned(): Promise<Consent | null> {
-    const consent: string | null = await AsyncStorageService.getConsentSigned();
-    return consent ? JSON.parse(consent) : null;
-  }
-
-  async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
-    const consent = {
-      document,
-      version,
-      privacy_policy_version,
-    };
-    UserService.consentSigned = consent;
-    await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
   }
 
   async setUserCountry(countryCode: string) {
