@@ -14,6 +14,7 @@ import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
 import { colors } from '@theme';
+import YesNoField from '@covid/components/YesNoField';
 
 import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';
@@ -137,7 +138,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
         <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
       )}
 
-      <DropdownField
+      <YesNoField
         selectedValue={formikProps.values.diabetesUsesCGM}
         onValueChange={formikProps.handleChange('diabetesUsesCGM')}
         label={i18n.t('diabetes.question-use-cgm')}
