@@ -34,18 +34,11 @@ export interface CovidTestDateQuestion<P, Data> extends React.FC<P> {
 
 export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateData> = (props: Props) => {
   const { formikProps, test } = props;
-  const dateTakenSpecific = test?.date_taken_specific;
-  const dateTakenBetweenStart = test?.date_taken_between_start;
-  const dateTakenBetweenEnd = test?.date_taken_between_end;
-  const now = moment().add(moment().utcOffset(), 'minutes').toDate();
+  const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
   const [state, setState] = useState({
-    dateTakenSpecific: dateTakenSpecific ? moment(dateTakenSpecific).toDate() : undefined,
-    today: now,
-    showDatePicker: !!dateTakenSpecific,
-    showRangePicker: !dateTakenSpecific,
-    dateTakenBetweenStart: dateTakenBetweenStart ? moment(dateTakenBetweenStart).toDate() : undefined,
-    dateTakenBetweenEnd: dateTakenBetweenEnd ? moment(dateTakenBetweenEnd).toDate() : undefined,
+    showDatePicker: false,
+    showRangePicker: false,
   });
 
   function setTestDate(selectedDate: Moment): void {
@@ -54,7 +47,6 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
     formikProps.values.dateTakenSpecific = selectedDate.toDate();
     setState({
       ...state,
-      dateTakenSpecific: selectedDate.toDate(),
       showDatePicker: false,
     });
   }
@@ -67,16 +59,11 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       formikProps.values.dateTakenBetweenEnd = selectedDate.toDate();
       setState({
         ...state,
-        dateTakenBetweenEnd: selectedDate.toDate(),
         showRangePicker: false,
       });
     } else {
       formikProps.values.dateTakenBetweenStart = selectedDate.toDate();
-      setState({
-        ...state,
-        dateTakenBetweenStart: selectedDate.toDate(),
-        dateTakenBetweenEnd: undefined,
-      });
+      formikProps.values.dateTakenBetweenEnd = undefined;
     }
   }
 
@@ -86,17 +73,11 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
         selectedValue={formikProps.values.knowsDateOfTest}
         onValueChange={(value: string) => {
           if (value === 'yes') {
-            setState({
-              ...state,
-              dateTakenBetweenStart: undefined,
-              dateTakenBetweenEnd: undefined,
-              dateTakenSpecific: undefined,
-            });
+            formikProps.values.dateTakenBetweenStart = undefined;
+            formikProps.values.dateTakenBetweenEnd = undefined;
+            formikProps.values.dateTakenSpecific = undefined;
           } else {
-            setState({
-              ...state,
-              dateTakenSpecific: undefined,
-            });
+            formikProps.values.dateTakenSpecific = undefined;
           }
           formikProps.setFieldValue('knowsDateOfTest', value);
         }}
@@ -104,19 +85,21 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       />
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
-        <FieldWrapper>
+        <FieldWrapper style={{ paddingRight: 30 }}>
           <Item stackedLabel>
             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
             {state.showDatePicker ? (
               <CalendarPicker
                 onDateChange={setTestDate}
-                maxDate={state.today}
-                {...(!!state.dateTakenSpecific && { selectedStartDate: state.dateTakenSpecific })}
+                maxDate={today}
+                {...(!!formikProps.values.dateTakenSpecific && {
+                  selectedStartDate: formikProps.values.dateTakenSpecific,
+                })}
               />
             ) : (
               <ClickableText onPress={() => setState({ ...state, showDatePicker: true })} style={styles.fieldText}>
-                {state.dateTakenSpecific ? (
-                  moment(state.dateTakenSpecific).format('Do of MMMM YYYY')
+                {formikProps.values.dateTakenSpecific ? (
+                  moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
                 ) : (
                   <RegularText>{i18n.t('covid-test.required-date')}</RegularText>
                 )}
@@ -127,7 +110,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       )}
 
       {formikProps.values.knowsDateOfTest === 'no' && (
-        <FieldWrapper>
+        <FieldWrapper style={{ paddingRight: 30 }}>
           <Item stackedLabel>
             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</Label>
 
@@ -136,18 +119,17 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
                 allowRangeSelection
                 // @ts-ignore Incorrect types on onDateChange, ignore it.
                 onDateChange={setRangeTestDates}
-                initialDate={state.dateTakenBetweenStart}
-                selectedStartDate={state.dateTakenBetweenStart}
-                selectedEndDate={state.dateTakenBetweenEnd}
-                maxDate={state.today}
+                selectedStartDate={formikProps.values.dateTakenBetweenStart}
+                selectedEndDate={formikProps.values.dateTakenBetweenEnd}
+                maxDate={today}
               />
             ) : (
               <ClickableText onPress={() => setState({ ...state, showRangePicker: true })} style={styles.fieldText}>
-                {state.dateTakenBetweenStart && state.dateTakenBetweenEnd ? (
+                {formikProps.values.dateTakenBetweenStart && formikProps.values.dateTakenBetweenEnd ? (
                   <>
-                    {'Between '}
-                    {moment(state.dateTakenBetweenStart).format('Do of MMMM')} {' and '}
-                    {moment(state.dateTakenBetweenEnd).format('Do of MMMM')}
+                    {moment(formikProps.values.dateTakenBetweenStart).format('MMMM D')}
+                    {' - '}
+                    {moment(formikProps.values.dateTakenBetweenEnd).format('MMMM D')}
                   </>
                 ) : (
                   <Text>{i18n.t('covid-test.question-select-a-date-range')}</Text>
@@ -169,8 +151,8 @@ const styles = StyleSheet.create({
   fieldText: {
     ...fontStyles.bodyReg,
     color: colors.black,
-    alignSelf: 'flex-start',
-    paddingLeft: 20,
+    alignSelf: 'center',
+    paddingHorizontal: 40,
     paddingBottom: 10,
   },
 });
@@ -186,9 +168,9 @@ CovidTestDateQuestion.initialFormValues = (test?: CovidTest): CovidTestDateData 
 
   return {
     knowsDateOfTest: getInitialKnowsDateOfTest(test),
-    dateTakenSpecific: undefined,
-    dateTakenBetweenStart: undefined,
-    dateTakenBetweenEnd: undefined,
+    dateTakenSpecific: test?.date_taken_specific ? moment(test.date_taken_specific).toDate() : undefined,
+    dateTakenBetweenStart: test?.date_taken_between_start ? moment(test.date_taken_between_start).toDate() : undefined,
+    dateTakenBetweenEnd: test?.date_taken_between_end ? moment(test.date_taken_between_end).toDate() : undefined,
   };
 };
 
