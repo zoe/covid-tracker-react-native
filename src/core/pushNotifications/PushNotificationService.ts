@@ -1,3 +1,6 @@
+import { Platform, Linking } from 'react-native';
+import * as IntentLauncher from 'expo-intent-launcher';
+
 import { IStorageService } from '../LocalStorageService';
 import { IApiClient } from '../api/ApiClient';
 import { PushToken, IPushTokenRemoteClient } from '../types';
@@ -97,6 +100,19 @@ export default class PushNotificationService {
       } catch (error) {
         // Fail silently
       }
+    }
+  }
+
+  static async openSettings() {
+    switch (Platform.OS) {
+      case 'ios':
+        Linking.openURL('app-settings:');
+        break;
+      case 'android':
+        IntentLauncher.startActivityAsync(IntentLauncher.ACTION_NOTIFICATION_SETTINGS);
+        break;
+      default:
+        break;
     }
   }
 }

@@ -9,6 +9,7 @@ import i18n from '@covid/locale/i18n';
 import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
+import PushNotificationService from '@covid/core/pushNotifications/PushNotificationService';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -63,7 +64,13 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           }}>
           <HeaderText>{i18n.t('research-updates')}</HeaderText>
         </TouchableOpacity>
-
+        <TouchableOpacity
+          style={styles.iconNameRow}
+          onPress={async () => {
+            await PushNotificationService.openSettings();
+          }}>
+          <HeaderText>{i18n.t('push-notifications')}</HeaderText>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.iconNameRow}
           onPress={() => {

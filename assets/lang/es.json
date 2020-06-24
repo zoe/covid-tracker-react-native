@@ -544,6 +544,7 @@
   "delete-my-data": "Eliminar mis datos",
   "delete-data-alert-title": "¿Está seguro?",
   "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
+  "push-notifications": "Activa recordatorios",
   "cancel": "Cancelar",
   "delete": "Eliminar",
   "logout": "Cerrar sesión",
