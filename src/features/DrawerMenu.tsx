@@ -10,8 +10,21 @@ import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserServ
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
 
+type MenuItemProps = {
+  label: string;
+  onPress: () => void;
+};
+
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
+};
+
+const MenuItem = (props: MenuItemProps) => {
+  return (
+    <TouchableOpacity style={styles.iconNameRow} onPress={props.onPress}>
+      <HeaderText>{props.label}</HeaderText>
+    </TouchableOpacity>
+  );
 };
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
@@ -49,6 +62,14 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     props.navigation.dispatch(DrawerActions.closeDrawer());
   }
 
+  function goToPrivacy() {
+    isGBCountry()
+      ? props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
+      : isSECountry()
+      ? props.navigation.navigate('PrivacyPolicySV', { viewOnly: true })
+      : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
+  }
+
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <View style={styles.container}>
@@ -56,39 +77,22 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           <Image style={styles.closeIcon} source={closeIcon} />
         </TouchableOpacity>
         <View style={{ height: 40 }} />
-        <TouchableOpacity
-          style={styles.iconNameRow}
+        <MenuItem
+          label={i18n.t('research-updates')}
           onPress={() => {
             Linking.openURL(i18n.t('blog-link'));
-          }}>
-          <HeaderText>{i18n.t('research-updates')}</HeaderText>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.iconNameRow}
+          }}
+        />
+        <MenuItem
+          label={i18n.t('faqs')}
           onPress={() => {
             Linking.openURL(i18n.t('faq-link'));
-          }}>
-          <HeaderText>{i18n.t('faqs')}</HeaderText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconNameRow}
-          onPress={() => {
-            isGBCountry()
-              ? props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
-              : isSECountry()
-              ? props.navigation.navigate('PrivacyPolicySV', { viewOnly: true })
-              : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
-          }}>
-          <HeaderText>{i18n.t('privacy-policy')}</HeaderText>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconNameRow} onPress={() => showDeleteAlert()}>
-          <HeaderText>{i18n.t('delete-my-data')}</HeaderText>
-        </TouchableOpacity>
+          }}
+        />
+        <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
+        <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
         <View style={{ flex: 1 }} />
-        <TouchableOpacity style={styles.iconNameRow} onPress={() => logout()}>
-          <HeaderText>{i18n.t('logout')}</HeaderText>
-        </TouchableOpacity>
+        <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={[styles.versionText]}>
           {Constants.manifest.version}
           {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
