@@ -18,6 +18,7 @@ import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import YesNoField from '@covid/components/YesNoField';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -367,25 +368,25 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   error={props.touched.everExposed && props.errors.everExposed}
                 />
 
-                <DropdownField
+                <YesNoField
                   label={i18n.t('housebound-problems')}
                   selectedValue={props.values.houseboundProblems}
                   onValueChange={props.handleChange('houseboundProblems')}
                 />
 
-                <DropdownField
+                <YesNoField
                   label={i18n.t('needs-help')}
                   selectedValue={props.values.needsHelp}
                   onValueChange={props.handleChange('needsHelp')}
                 />
 
-                <DropdownField
+                <YesNoField
                   label={i18n.t('help-available')}
                   selectedValue={props.values.helpAvailable}
                   onValueChange={props.handleChange('helpAvailable')}
                 />
 
-                <DropdownField
+                <YesNoField
                   label={i18n.t('mobility-aid')}
                   selectedValue={props.values.mobilityAid}
                   onValueChange={props.handleChange('mobilityAid')}

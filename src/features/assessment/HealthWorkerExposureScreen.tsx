@@ -14,6 +14,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import YesNoField from '@covid/components/YesNoField';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -171,7 +172,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
             return (
               <Form>
                 <View>
-                  <DropdownField
+                  <YesNoField
                     selectedValue={props.values.interactedAnyPatients}
                     onValueChange={props.handleChange('interactedAnyPatients')}
                     label={i18n.t('health-worker-exposure-question-interacted-any-patients')}

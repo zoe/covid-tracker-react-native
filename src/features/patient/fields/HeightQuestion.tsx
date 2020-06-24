@@ -10,7 +10,6 @@ import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
 import { RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
 
 export interface HeightData {
   height: string;

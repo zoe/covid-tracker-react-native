@@ -1,12 +1,14 @@
-import { IContentApiClient } from '@covid/core/content/ContentApiClient';
+import { injectable, inject } from 'inversify';
+
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { WelcomeRepeatScreen } from '@covid/features/register/WelcomeRepeatScreen';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { userService } from '@covid/Services';
+import { Services } from '@covid/provider/services.types';
+
+import { IContentApiClient } from './ContentApiClient';
 
 export interface IContentService {
   getUserCount(): Promise<string | null>;
@@ -18,13 +20,11 @@ export interface IContentService {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
 }
 
+@injectable()
 export default class ContentService implements IContentService {
-  private apiClient: IContentApiClient;
   private screenContent: AppScreenContent;
 
-  constructor(apiClient: IContentApiClient) {
-    this.apiClient = apiClient;
-  }
+  constructor(@inject(Services.ContentApi) private apiClient: IContentApiClient) {}
 
   static getWebsiteUrl = () => {
     if (isUSCountry()) {

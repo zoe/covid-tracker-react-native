@@ -1,5 +1,8 @@
+import { injectable, inject } from 'inversify';
+
 import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { AppScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { Services } from '@covid/provider/services.types';
 
 import { IApiClient } from '../api/ApiClient';
 
@@ -9,11 +12,9 @@ export interface IContentApiClient {
   getScreenContent(countryCode: string, languageCode: string): Promise<AppScreenContent>;
 }
 
+@injectable()
 export class ContentApiClient implements IContentApiClient {
-  apiClient: IApiClient;
-  constructor(apiClient: IApiClient) {
-    this.apiClient = apiClient;
-  }
+  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
   getAreaStats(patientId: string): Promise<AreaStatsResponse> {
     return this.apiClient.get<AreaStatsResponse>(`/area_stats/?patient=${patientId}`);

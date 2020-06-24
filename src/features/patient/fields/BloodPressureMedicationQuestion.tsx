@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
+import YesNoField from '@covid/components/YesNoField';
 
 export interface BloodPressureData {
   takesBloodPressureMedications: string; // pril
@@ -27,7 +28,7 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
   render() {
     return (
       <View>
-        <DropdownField
+        <YesNoField
           selectedValue={this.props.formikProps.values.takesAnyBloodPressureMedications}
           onValueChange={this.props.formikProps.handleChange('takesAnyBloodPressureMedications')}
           label={i18n.t('your-health.takes-any-blood-pressure-medication')}
@@ -35,18 +36,17 @@ export class BloodPressureMedicationQuestion extends Component<Props, object> {
             this.props.formikProps.touched.takesAnyBloodPressureMedications &&
             this.props.formikProps.errors.takesAnyBloodPressureMedications
           }
-          androidDefaultLabel={i18n.t('label-chose-an-option')}
         />
 
         {this.props.formikProps.values.takesAnyBloodPressureMedications === 'yes' && (
           <>
-            <DropdownField
+            <YesNoField
               selectedValue={this.props.formikProps.values.takesBloodPressureMedications}
               onValueChange={this.props.formikProps.handleChange('takesBloodPressureMedications')}
               label={i18n.t('your-health.takes-pril-blood-pressure-medication')}
             />
 
-            <DropdownField
+            <YesNoField
               selectedValue={this.props.formikProps.values.takesBloodPressureMedicationsSartan}
               onValueChange={this.props.formikProps.handleChange('takesBloodPressureMedicationsSartan')}
               label={i18n.t('your-health.takes-sartan-blood-pressure-medication')}
