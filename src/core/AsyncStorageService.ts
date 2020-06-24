@@ -16,9 +16,6 @@ const ASKED_COUNTRY = 'askedCountry';
 
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
-const STR_YES = 'YES';
-const STR_NO = 'NO';
-
 export class AsyncStorageService {
   public static async GetStoredData(): Promise<AuthenticatedUser | null> {
     let userToken: string | null = '';

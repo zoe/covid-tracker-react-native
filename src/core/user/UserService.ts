@@ -18,13 +18,11 @@ import { getInitialPatientState, PatientStateType, PatientProfile } from '../pat
 import { cleanIntegerVal } from '../utils/number';
 
 import {
-  AreaStatsResponse,
   AskValidationStudy,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
   PiiRequest,
-  StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
 
@@ -200,7 +198,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
   getData = <T>(response: AxiosResponse<T>) => {
     if (typeof response.data === 'string') {
-      return <T>camelizeKeys(JSON.parse(response.data));
+      return camelizeKeys(JSON.parse(response.data)) as T;
     } else {
       return response.data;
     }
@@ -457,7 +455,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     if (await AsyncStorageService.getAskedCountryConfirmation()) {
       return false;
     } else {
-      return UserService.userCountry != UserService.ipCountry;
+      return UserService.userCountry !== UserService.ipCountry;
     }
   }
 

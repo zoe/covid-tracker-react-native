@@ -4,8 +4,6 @@ import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import Splash from '@covid/components/Splash';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
