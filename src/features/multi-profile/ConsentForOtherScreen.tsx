@@ -2,19 +2,16 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ListItem } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 
-import { colors } from '@theme';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { LoadingModal } from '@covid/components/Loading';
-import Screen, { Header, screenWidth } from '@covid/components/Screen';
+import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { initialErrorState, ApiErrorState } from '@covid/core/api/ApiServiceErrors';
+import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import UserService from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { userService, offlineService } from '@covid/Services';
+import { offlineService, userService } from '@covid/Services';
 
 import Navigator from '../AppCoordinator';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
@@ -47,7 +44,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   };
 
   isAdultConsent = () => {
-    return this.props.route.params.consentType == ConsentType.Adult;
+    return this.props.route.params.consentType === ConsentType.Adult;
   };
 
   headerText = this.isAdultConsent() ? i18n.t('adult-consent-title') : i18n.t('child-consent-title');
@@ -87,8 +84,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     } as Partial<PatientInfosRequest>;
 
     const response = await userService.createPatient(newPatient);
-    const patientId = response.data.id;
-    return patientId;
+    return response.data.id;
   }
 
   handleCreateProfile = async () => {
@@ -145,43 +141,3 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     );
   }
 }
-
-const styles = StyleSheet.create({
-  label: {
-    marginLeft: 10,
-  },
-
-  fieldRow: {
-    flexDirection: 'row',
-  },
-
-  primaryField: {
-    flex: 3,
-  },
-
-  secondaryField: {
-    flex: 1,
-  },
-
-  picker: {
-    width: screenWidth - 16,
-    marginTop: 16,
-  },
-
-  smallPicker: {
-    // width: 40,
-  },
-
-  textarea: {
-    width: '100%',
-  },
-
-  button: {
-    borderRadius: 8,
-    height: 56,
-    backgroundColor: colors.brand,
-  },
-  buttonText: {
-    color: colors.white,
-  },
-});

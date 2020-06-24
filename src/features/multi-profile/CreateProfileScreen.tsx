@@ -71,5 +71,3 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     );
   }
 }
-
-const styles = StyleSheet.create({});

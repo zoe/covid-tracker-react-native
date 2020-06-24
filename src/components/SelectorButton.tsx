@@ -1,5 +1,5 @@
 import { Text } from 'native-base';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
@@ -12,7 +12,7 @@ interface SelectorButtonProps {
   text: string;
 }
 
-export const SelectorButton = (props: SelectorButtonProps) => (
+export const SelectorButton: React.FC<SelectorButtonProps> = (props) => (
   <FieldWrapper style={styles.fieldWrapper}>
     <BigButton onPress={props.onPress}>
       <Text style={[fontStyles.bodyLight, styles.buttonText]}>{props.text}</Text>
@@ -21,7 +21,9 @@ export const SelectorButton = (props: SelectorButtonProps) => (
 );
 
 const styles = StyleSheet.create({
-  fieldWrapper: {},
+  fieldWrapper: {
+    marginVertical: 16,
+  },
 
   buttonText: {
     color: colors.primary,

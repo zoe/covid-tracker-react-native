@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
 import { BigButton } from '@covid/components/BigButton';
 import i18n from '@covid/locale/i18n';
