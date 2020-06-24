@@ -8,7 +8,6 @@ import DropdownField from '@covid/components/DropdownField';
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { CovidTestData } from '@covid/features/assessment/CovidTestDetailScreen';
 
 export interface CovidTestMechanismData {
   mechanism: string;
@@ -16,7 +15,7 @@ export interface CovidTestMechanismData {
 }
 
 interface Props {
-  formikProps: FormikProps<CovidTestData>;
+  formikProps: FormikProps<CovidTestMechanismData>;
   test?: CovidTest;
 }
 

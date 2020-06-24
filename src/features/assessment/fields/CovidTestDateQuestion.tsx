@@ -12,7 +12,6 @@ import CalendarPicker from '@covid/components/CalendarPicker';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { CovidTestData } from '@covid/features/assessment/CovidTestDetailScreen';
 
 export interface CovidTestDateData {
   knowsDateOfTest: string; // only for ux logic
@@ -22,7 +21,7 @@ export interface CovidTestDateData {
 }
 
 interface Props {
-  formikProps: FormikProps<CovidTestData>;
+  formikProps: FormikProps<CovidTestDateData>;
   test?: CovidTest;
 }
 
@@ -33,7 +32,7 @@ export interface CovidTestDateQuestion<P, Data> extends React.FC<P> {
 }
 
 export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateData> = (props: Props) => {
-  const { formikProps, test } = props;
+  const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
   const [state, setState] = useState({
@@ -41,10 +40,14 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
     showRangePicker: false,
   });
 
-  function setTestDate(selectedDate: Moment): void {
+  function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();
     selectedDate.add(offset, 'minutes');
-    formikProps.values.dateTakenSpecific = selectedDate.toDate();
+    return selectedDate.toDate();
+  }
+
+  function setTestDate(selectedDate: Moment): void {
+    formikProps.values.dateTakenSpecific = convertToDate(selectedDate);
     setState({
       ...state,
       showDatePicker: false,
@@ -52,17 +55,14 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
   }
 
   function setRangeTestDates(selectedDate: Moment, type: string): void {
-    const offset = selectedDate.utcOffset();
-    selectedDate.add(offset, 'minutes');
-
     if (type === 'END_DATE') {
-      formikProps.values.dateTakenBetweenEnd = selectedDate.toDate();
+      formikProps.values.dateTakenBetweenEnd = convertToDate(selectedDate);
       setState({
         ...state,
         showRangePicker: false,
       });
     } else {
-      formikProps.values.dateTakenBetweenStart = selectedDate.toDate();
+      formikProps.values.dateTakenBetweenStart = convertToDate(selectedDate);
       formikProps.values.dateTakenBetweenEnd = undefined;
     }
   }

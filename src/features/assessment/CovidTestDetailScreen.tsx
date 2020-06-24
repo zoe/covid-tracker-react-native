@@ -1,39 +1,31 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import moment, { Moment } from 'moment';
-import { Form, Item, Label, Text } from 'native-base';
+import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
-import { colors, fontStyles } from '@theme';
-import CalendarPicker from '@covid/components/CalendarPicker';
-import DropdownField from '@covid/components/DropdownField';
-import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { CovidTestDateQuestion } from '@covid/features/assessment/fields/CovidTestDateQuestion';
-import { CovidTestMechanismQuestionV1 } from '@covid/features/assessment/fields/CovidTestMechanismQuesionV1';
-import { CovidTestResultQuestion } from '@covid/features/assessment/fields/CovidTestResultQuestion';
+import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/assessment/fields/CovidTestDateQuestion';
+import {
+  CovidTestMechanismData,
+  CovidTestMechanismQuestionV1,
+} from '@covid/features/assessment/fields/CovidTestMechanismQuesionV1';
+import {
+  CovidTestResultData,
+  CovidTestResultQuestion,
+} from '@covid/features/assessment/fields/CovidTestResultQuestion';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-export interface CovidTestData {
-  knowsDateOfTest: string; // only for ux logic
-  dateTakenBetweenStart: Date | undefined;
-  dateTakenBetweenEnd: Date | undefined;
-  dateTakenSpecific: Date | undefined;
-  mechanism: string;
-  mechanismSpecify: string;
-  result: string;
-}
+export interface CovidTestData extends CovidTestDateData, CovidTestMechanismData, CovidTestResultData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestDetail'>;

@@ -5,14 +5,13 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { CovidTestData } from '@covid/features/assessment/CovidTestDetailScreen';
 
 export interface CovidTestResultData {
   result: string;
 }
 
 interface Props {
-  formikProps: FormikProps<CovidTestData>;
+  formikProps: FormikProps<CovidTestResultData>;
   test?: CovidTest;
 }
 
