@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground } from 'react-native';
+import { Image, Modal, TouchableOpacity, View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
 
 import { closeIcon, blobs } from '@assets';
 import { RegularText, HeaderText } from '@covid/components/Text';
@@ -44,15 +44,18 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
     <>
       {modalVisible && (
         <Modal animationType="fade" transparent>
-          <View style={styles.centeredView}>
+          <View style={styles.outsideView}>
             <View style={styles.modalView}>
               <ImageBackground source={blobs} style={{}} imageStyle={[styles.backgroundImage, { borderRadius: 16 }]}>
                 <View style={styles.contentContainer}>
                   <TouchableOpacity onPress={handleClose} style={{ alignSelf: 'flex-end' }}>
-                    <Image source={closeIcon} />
+                    <Image style={{ height: 24, width: 24 }} source={closeIcon} />
                   </TouchableOpacity>
-                  <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
-                  <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
+                  <ScrollView>
+                    <HeaderText style={styles.title}>{i18n.t('us-study-invite.title')}</HeaderText>
+                    <RegularText style={styles.body}>{i18n.t('us-study-invite.body')}</RegularText>
+                  </ScrollView>
+
                   <BrandedButton style={styles.modalButton} onPress={handleAgree}>
                     <RegularText style={styles.buttonText}>{i18n.t('us-study-invite.button')}</RegularText>
                   </BrandedButton>
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
     height: '50%',
     resizeMode: 'stretch',
   },
-  centeredView: {
+  outsideView: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     flex: 1,
     justifyContent: 'center',
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   modalView: {
+    maxHeight: '40%',
     margin: 24,
     backgroundColor: colors.white,
     borderRadius: 16,
