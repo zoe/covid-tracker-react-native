@@ -1,7 +1,7 @@
 import { API_URL, AMPLITUDE_KEY } from 'react-native-dotenv';
 
 export default {
-  apiBase: API_URL,
+  apiBase: 'http://145eb0a29131.ngrok.io',
   amplitudeKey: AMPLITUDE_KEY,
 
   assessmentVersion: '1.5.0',
