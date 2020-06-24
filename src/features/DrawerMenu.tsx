@@ -102,7 +102,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <View style={styles.versionDetails}>
           <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
-          <CaptionText style={[styles.versionText]}>
+          <CaptionText style={styles.versionText}>
             {Constants.manifest.version}
             {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
             {isDevChannel() && ` (DEV)`}
