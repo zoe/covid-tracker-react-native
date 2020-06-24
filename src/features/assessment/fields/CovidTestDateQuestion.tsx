@@ -51,6 +51,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
   function setTestDate(selectedDate: Moment): void {
     const offset = selectedDate.utcOffset();
     selectedDate.add(offset, 'minutes');
+    formikProps.values.dateTakenSpecific = selectedDate.toDate();
     setState({
       ...state,
       dateTakenSpecific: selectedDate.toDate(),
@@ -63,12 +64,14 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
     selectedDate.add(offset, 'minutes');
 
     if (type === 'END_DATE') {
+      formikProps.values.dateTakenBetweenEnd = selectedDate.toDate();
       setState({
         ...state,
         dateTakenBetweenEnd: selectedDate.toDate(),
         showRangePicker: false,
       });
     } else {
+      formikProps.values.dateTakenBetweenStart = selectedDate.toDate();
       setState({
         ...state,
         dateTakenBetweenStart: selectedDate.toDate(),
