@@ -84,7 +84,6 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <Image style={styles.closeIcon} source={closeIcon} />
         </TouchableOpacity>
-        <View style={{ height: 40 }} />
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
@@ -101,12 +100,14 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
-        <CaptionText style={[styles.versionText]}>
-          {`Logged in as ${userEmail}\n`}
-          {Constants.manifest.version}
-          {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
-          {isDevChannel() && ` (DEV)`}
-        </CaptionText>
+        <View style={styles.versionDetails}>
+          <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
+          <CaptionText style={[styles.versionText]}>
+            {Constants.manifest.version}
+            {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
+            {isDevChannel() && ` (DEV)`}
+          </CaptionText>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -135,9 +136,13 @@ const styles = StyleSheet.create({
     width: 24,
     marginEnd: 16,
   },
+  versionDetails: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 8,
+  },
   versionText: {
-    marginTop: 32,
-    alignSelf: 'center',
-    textAlign: 'center',
+    marginTop: 8,
   },
 });
