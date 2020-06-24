@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
@@ -140,12 +140,15 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           {(props) => {
             return (
               <Form>
-                <CovidTestDateQuestion formikProps={props} test={test} />
+                <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
 
                 {props.values.knowsDateOfTest !== '' && (
                   <>
-                    <CovidTestMechanismQuestionV1 formikProps={props} test={test} />
-                    <CovidTestResultQuestion formikProps={props} test={test} />
+                    <CovidTestMechanismQuestionV1
+                      formikProps={props as FormikProps<CovidTestMechanismData>}
+                      test={test}
+                    />
+                    <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
                   </>
                 )}
 
