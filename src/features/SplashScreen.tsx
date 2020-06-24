@@ -24,11 +24,6 @@ type Props = {
 
 type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-type AuthenticatedUser = {
-  userToken: string;
-  userId: string;
-};
-
 type SplashState = {
   isOnline: boolean;
   isApiOnline: boolean;
@@ -117,59 +112,11 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   private bootstrapAsync = async (): Promise<string | null> => {
     await this.updateUserCount();
-    const user = await this.loadUser();
-    const hasUser = !user || (!!user.userToken && !!user.userId);
-    this.updateUserCountry(hasUser);
-    if (hasUser) {
-      this.initAuthenticatedUser(user);
-      const patientId: string | null = await this.getUserPatientId(user);
-      if (!patientId) {
-        // Logged in with an account doesn't exist. Force logout.
-        await this.forceLogout();
-      }
-      return patientId;
-    }
-    return null;
+    return await this.userService.getFirstPatientId();
   };
 
   private updateUserCount = async () => {
     await this.contentService.getStartupInfo();
-  };
-
-  private loadUser = async (): Promise<AuthenticatedUser> => {
-    return (await AsyncStorageService.GetStoredData()) as AuthenticatedUser;
-  };
-
-  private updateUserCountry = async (isLoggedIn: boolean) => {
-    const country: string | null = await this.userService.getUserCountry();
-    this.userService.initCountryConfig(country ?? 'GB');
-    if (isLoggedIn) {
-      // If logged in with no country default to GB as this will handle all
-      // GB users before selector was included.
-      if (country === null) {
-        await this.userService.setUserCountry('GB');
-      }
-    } else {
-      await this.userService.defaultCountryFromLocale();
-    }
-  };
-
-  private forceLogout = async () => {
-    await this.userService.logout();
-  };
-
-  private initAuthenticatedUser = async (user: AuthenticatedUser) => {
-    await ApiClientBase.setToken(user.userToken, user.userId);
-  };
-
-  private getUserPatientId = async (user: AuthenticatedUser): Promise<string | null> => {
-    try {
-      const profile = await this.userService.getProfile();
-      const patientId = profile.patients[0];
-      return patientId;
-    } catch (error) {
-      return null;
-    }
   };
 
   public render() {
