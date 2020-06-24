@@ -6,7 +6,7 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { blog003, dataPage0001, incidence003, timUpdate002 } from '@assets';
 import { colors } from '@theme';
-import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
@@ -45,7 +45,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   render() {
     return (
       <>
-        {this.state.askForRating && <CovidRating />}
+        {this.state.askForRating && <AppRating />}
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
