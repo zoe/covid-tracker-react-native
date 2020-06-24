@@ -17,6 +17,7 @@ import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQ
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import YesNoField from '@covid/components/YesNoField';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -339,7 +340,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           {(props) => {
             return (
               <Form>
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.limitedActivity}
                   onValueChange={props.handleChange('limitedActivity')}
                   label={i18n.t('your-health.health-problems-that-limit-activity')}
@@ -347,7 +348,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
                 {this.state.showPregnancyQuestion && (
                   <>
-                    <DropdownField
+                    <YesNoField
                       selectedValue={props.values.isPregnant}
                       onValueChange={props.handleChange('isPregnant')}
                       label={i18n.t('your-health.are-you-pregnant')}
@@ -361,13 +362,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
                 )}
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.hasHeartDisease}
                   onValueChange={props.handleChange('hasHeartDisease')}
                   label={i18n.t('your-health.have-heart-disease')}
                 />
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.hasDiabetes}
                   onValueChange={(value: string) => {
                     props.handleChange('hasDiabetes');
@@ -399,13 +400,13 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   />
                 )}
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.hasKidneyDisease}
                   onValueChange={props.handleChange('hasKidneyDisease')}
                   label={i18n.t('your-health.has-kidney-disease')}
                 />
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.hasCancer}
                   onValueChange={props.handleChange('hasCancer')}
                   label={i18n.t('your-health.has-cancer')}
@@ -422,7 +423,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                         />
                       </>
                     )}
-                    <DropdownField
+                    <YesNoField
                       selectedValue={props.values.doesChemiotherapy}
                       onValueChange={props.handleChange('doesChemiotherapy')}
                       label={i18n.t('your-health.is-on-chemotherapy')}
@@ -430,19 +431,19 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   </>
                 )}
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.takesImmunosuppressants}
                   onValueChange={props.handleChange('takesImmunosuppressants')}
                   label={i18n.t('your-health.takes-immunosuppressant')}
                 />
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.takesAspirin}
                   onValueChange={props.handleChange('takesAspirin')}
                   label={i18n.t('your-health.takes-asprin')}
                 />
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.takesCorticosteroids}
                   onValueChange={props.handleChange('takesCorticosteroids')}
                   label={i18n.t('your-health.takes-nsaids')}
