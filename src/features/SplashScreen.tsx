@@ -8,7 +8,11 @@ import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
-import { contentService, offlineService, userService } from '@covid/Services';
+import { offlineService } from '@covid/Services';
+import { ICoreService } from '@covid/core/user/UserService';
+import { IContentService } from '@covid/core/content/ContentService';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 
 import Navigator from './AppCoordinator';
 import { ScreenParamList } from './ScreenParamList';
@@ -46,6 +50,12 @@ const initialState = {
 const PAUSE_TO_RETRY = 2000;
 
 export class SplashScreen extends Component<Props, SplashState> {
+  @lazyInject(Services.User)
+  userService: ICoreService;
+
+  @lazyInject(Services.Content)
+  contentService: IContentService;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -123,7 +133,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   private updateUserCount = async () => {
-    await contentService.getStartupInfo();
+    await this.contentService.getStartupInfo();
   };
 
   private loadUser = async (): Promise<AuthenticatedUser> => {
@@ -131,21 +141,21 @@ export class SplashScreen extends Component<Props, SplashState> {
   };
 
   private updateUserCountry = async (isLoggedIn: boolean) => {
-    const country: string | null = await userService.getUserCountry();
-    userService.initCountryConfig(country ?? 'GB');
+    const country: string | null = await this.userService.getUserCountry();
+    this.userService.initCountryConfig(country ?? 'GB');
     if (isLoggedIn) {
       // If logged in with no country default to GB as this will handle all
       // GB users before selector was included.
       if (country === null) {
-        await userService.setUserCountry('GB');
+        await this.userService.setUserCountry('GB');
       }
     } else {
-      await userService.defaultCountryFromLocale();
+      await this.userService.defaultCountryFromLocale();
     }
   };
 
   private forceLogout = async () => {
-    await userService.logout();
+    await this.userService.logout();
   };
 
   private initAuthenticatedUser = async (user: AuthenticatedUser) => {
@@ -154,7 +164,7 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   private getUserPatientId = async (user: AuthenticatedUser): Promise<string | null> => {
     try {
-      const profile = await userService.getProfile();
+      const profile = await this.userService.getProfile();
       const patientId = profile.patients[0];
       return patientId;
     } catch (error) {
