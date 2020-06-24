@@ -1,7 +1,7 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
 import { closeIcon } from '@assets';
@@ -29,6 +29,14 @@ const MenuItem = (props: MenuItemProps) => {
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = new UserService();
+
+  const [userEmail, setUserEmail] = useState<string>('');
+
+  useEffect(() => {
+    userService.getProfile().then((currentProfile) => {
+      setUserEmail(currentProfile.username);
+    });
+  });
 
   function showDeleteAlert() {
     Alert.alert(
@@ -94,6 +102,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={[styles.versionText]}>
+          {`Logged in as ${userEmail}\n`}
           {Constants.manifest.version}
           {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
           {isDevChannel() && ` (DEV)`}
@@ -129,5 +138,6 @@ const styles = StyleSheet.create({
   versionText: {
     marginTop: 32,
     alignSelf: 'center',
+    textAlign: 'center',
   },
 });
