@@ -18,6 +18,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import YesNoField from '@covid/components/YesNoField';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -191,7 +192,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
           {(props) => {
             return (
               <Form>
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.unwellMonthBefore}
                   onValueChange={props.handleChange('unwellMonthBefore')}
                   label={i18n.t('label-unwell-month-before')}
@@ -269,7 +270,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                       keyboardType="numeric"
                     />
 
-                    <DropdownField
+                    <YesNoField
                       selectedValue={props.values.stillHavePastSymptoms}
                       onValueChange={props.handleChange('stillHavePastSymptoms')}
                       label={i18n.t('label-past-symptoms-still-have')}
@@ -288,14 +289,14 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                   </>
                 )}
 
-                <DropdownField
+                <YesNoField
                   selectedValue={props.values.alreadyHadCovid}
                   onValueChange={props.handleChange('alreadyHadCovid')}
                   label={i18n.t('label-past-symptoms-had-covid')}
                 />
 
                 {props.values.alreadyHadCovid === 'yes' && (
-                  <DropdownField
+                  <YesNoField
                     selectedValue={props.values.classicSymptoms}
                     onValueChange={props.handleChange('classicSymptoms')}
                     label={i18n.t('label-past-symptoms-classic')}
