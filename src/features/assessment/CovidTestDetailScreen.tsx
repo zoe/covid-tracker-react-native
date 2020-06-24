@@ -86,8 +86,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
-      console.log(formData);
-
       if (formData.knowsDateOfTest === 'yes' && !formData.dateTakenSpecific) {
         this.setState({ errorMessage: i18n.t('covid-test.required-date') });
         this.setState({ submitting: false });
