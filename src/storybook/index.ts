@@ -12,6 +12,7 @@ configure(() => {
   require('./stories/VisitWebsite.stories');
   require('./stories/DropdownField.stories');
   require('./stories/DiabetesQuestions.stories');
+  require('./stories/YesNoField.stories');
 }, module);
 
 // Global Decorator
