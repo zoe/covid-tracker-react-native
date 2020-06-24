@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
-
 import { RegularText } from '@covid/components/Text';
 
 interface SelectableButtonButtonProps {
