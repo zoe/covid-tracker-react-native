@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog004, dataPage003, incidence004, timUpdate002 } from '@assets';
+import { blog004, dataPage003, incidence004, timUpdate002, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -14,6 +14,7 @@ import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { userService } from '@covid/Services';
+import PushNotificationService from '@covid/core/pushNotifications/PushNotificationService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -83,6 +84,16 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="blog_004"
                 imageSource={blog004}
                 aspectRatio={1.551}
+              />
+
+              <ExternalCallout
+                link=""
+                calloutID="notificationReminders"
+                imageSource={notificationReminders}
+                aspectRatio={1244.0 / 368.0}
+                action={() => {
+                  PushNotificationService.openSettings();
+                }}
               />
 
               <View style={{ margin: 10 }} />
