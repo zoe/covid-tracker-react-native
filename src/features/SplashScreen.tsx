@@ -7,7 +7,7 @@ import Splash from '@covid/components/Splash';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
@@ -44,7 +44,7 @@ const PAUSE_TO_RETRY = 2000;
 
 export class SplashScreen extends Component<Props, SplashState> {
   @lazyInject(Services.User)
-  userService: ICoreService;
+  userService: IUserService;
 
   @lazyInject(Services.Content)
   contentService: IContentService;

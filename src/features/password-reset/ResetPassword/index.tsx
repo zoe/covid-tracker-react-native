@@ -6,7 +6,7 @@ import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } fr
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
@@ -35,7 +35,7 @@ interface ResetPasswordData {
 
 export class ResetPasswordScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  private readonly userService: IUserService;
 
   constructor(props: PropsType) {
     super(props);

@@ -11,7 +11,7 @@ import { social, surveyInvite } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
@@ -39,7 +39,7 @@ type State = {
 
 export default class ViralThankYouScreen extends Component<Props, State> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  private readonly userService: IUserService;
 
   constructor(props: Props) {
     super(props);

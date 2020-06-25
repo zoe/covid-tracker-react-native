@@ -45,12 +45,10 @@ export interface IUserService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
 }
 
-export interface ICoreService extends IUserService {}
-
 // TODO: ideally a UserService should only implement this, everything else is a separate service
 
 @injectable()
-export default class UserService extends ApiClientBase implements ICoreService {
+export default class UserService extends ApiClientBase implements IUserService {
   @lazyInject(Services.Consent)
   private readonly consentService: IConsentService;
 

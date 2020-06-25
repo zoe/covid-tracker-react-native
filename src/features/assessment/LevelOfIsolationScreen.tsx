@@ -15,7 +15,7 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -59,7 +59,7 @@ const initialState: State = {
 
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  private readonly userService: IUserService;
 
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;

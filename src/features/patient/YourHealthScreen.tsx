@@ -11,7 +11,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
@@ -103,8 +103,8 @@ const initialState: State = {
 
 export default class YourHealthScreen extends Component<HealthProps, State> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
-  
+  private readonly userService: IUserService;
+
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

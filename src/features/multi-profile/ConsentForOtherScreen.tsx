@@ -35,7 +35,6 @@ const initialState: ConsentState = {
 };
 
 export default class ConsentForOtherScreen extends Component<RenderProps, ConsentState> {
-  
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 

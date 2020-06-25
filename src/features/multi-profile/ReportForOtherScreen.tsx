@@ -8,7 +8,7 @@ import { profilesIcon } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import {
   BrandedButton,
   ClickableText,
@@ -30,7 +30,7 @@ type RenderProps = {
 
 export default class ReportForOtherScreen extends Component<RenderProps, object> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  private readonly userService: IUserService;
 
   handleSkip = async () => {
     await this.userService.recordAskedToReportForOther();

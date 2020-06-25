@@ -5,7 +5,7 @@ import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
 import { contentService } from '@covid/Services';
 import { container } from '@covid/provider/services';
@@ -27,7 +27,7 @@ const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id150352961
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
-  const profile = await container.get<ICoreService>(Services.User).getProfile();
+  const profile = await container.get<IUserService>(Services.User).getProfile();
   const eligibleToAskForRating = profile.ask_for_rating;
   const askedToRateStatus = await contentService.getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;

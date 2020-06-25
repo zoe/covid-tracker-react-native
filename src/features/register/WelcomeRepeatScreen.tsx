@@ -20,7 +20,7 @@ import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from '../ScreenParamList';
 import Navigator, { NavigationType } from '../AppCoordinator';
@@ -47,7 +47,7 @@ const initialState = {
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  private readonly userService: IUserService;
 
   state: WelcomeRepeatScreenState = initialState;
 

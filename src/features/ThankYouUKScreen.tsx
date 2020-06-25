@@ -15,7 +15,7 @@ import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/co
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -36,7 +36,7 @@ const initialState = {
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  private readonly userService: IUserService;
 
   state = initialState;
 
