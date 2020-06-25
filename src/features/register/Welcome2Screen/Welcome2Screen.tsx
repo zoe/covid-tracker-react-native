@@ -4,11 +4,15 @@ import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from
 
 import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import {
+  isGBCountry,
+  isSECountry,
+  isUSCountry,
+  ILocalisationService,
+} from '@covid/core/localisation/LocalisationService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 
 import CountryIpModal from '../CountryIpModal';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 
 import { gbPartnersReturn, svPartnersReturn, usPartnersReturn } from '@assets';
-import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
 const partnerLogos = () => {
   if (isGBCountry()) {

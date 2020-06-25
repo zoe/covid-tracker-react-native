@@ -5,7 +5,7 @@ import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { usMap, gbMap, svMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
-import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';

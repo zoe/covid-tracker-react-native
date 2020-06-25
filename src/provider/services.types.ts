@@ -5,4 +5,6 @@ export const Services = {
   User: Symbol('User'),
   Consent: Symbol('Consent'),
   Localisation: Symbol('Localisation'),
+  Profile: Symbol('Profile'),
+  Patient: Symbol('Patient'),
 };

@@ -5,11 +5,12 @@ import { closeIcon, blobs } from '@assets';
 import { RegularText, HeaderText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 import { BrandedButton } from './BrandedButton';
 

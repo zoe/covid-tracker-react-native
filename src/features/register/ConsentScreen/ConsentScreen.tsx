@@ -4,7 +4,7 @@ import React, { FC, useState, useCallback } from 'react';
 import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { BrandedButton } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IConsentService } from '@covid/core/consent/ConsentService';

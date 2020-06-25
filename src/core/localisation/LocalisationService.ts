@@ -97,3 +97,7 @@ export class LocalisationService implements Partial<ILocalisationService> {
     return i18n.locale.split('-')[0];
   }
 }
+
+export const isUSCountry = () => LocalisationService.userCountry === 'US';
+export const isGBCountry = () => LocalisationService.userCountry === 'GB';
+export const isSECountry = () => LocalisationService.userCountry === 'SE';

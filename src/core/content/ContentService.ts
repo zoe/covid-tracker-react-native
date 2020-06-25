@@ -4,7 +4,7 @@ import getDecorators from 'inversify-inject-decorators';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
-import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';

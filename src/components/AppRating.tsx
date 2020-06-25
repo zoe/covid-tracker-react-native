@@ -5,11 +5,12 @@ import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
 import { contentService } from '@covid/Services';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
 import { RegularBoldText, RegularText } from './Text';
 
