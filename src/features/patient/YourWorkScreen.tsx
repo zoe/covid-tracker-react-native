@@ -24,6 +24,7 @@ import {
   PatientInteractions,
   PatientInfosRequest,
 } from '@covid/core/user/dto/UserAPIContracts';
+import YesNoField from '@covid/components/YesNoField';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -301,11 +302,10 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
                     error={touched.isHealthcareStaff && errors.isHealthcareStaff}
                   />
 
-                  <DropdownField
+                  <YesNoField
                     selectedValue={isCarer}
                     onValueChange={handleChange('isCarer')}
                     label={i18n.t('are-you-carer')}
-                    androidDefaultLabel={i18n.t('choose-one-of-these-options')}
                     error={touched.isCarer && errors.isCarer}
                   />
 

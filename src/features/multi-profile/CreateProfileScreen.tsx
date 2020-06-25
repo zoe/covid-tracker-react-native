@@ -3,7 +3,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
@@ -71,5 +70,3 @@ export default class CreateProfileScreen extends Component<RenderProps> {
     );
   }
 }
-
-const styles = StyleSheet.create({});

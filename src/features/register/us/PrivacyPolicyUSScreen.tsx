@@ -5,7 +5,6 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { ApplicationVersion } from '@covid/components/AppVersion';
 
 import i18n from '../../../locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
@@ -135,8 +134,6 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
         <BrandedButton style={styles.button} onPress={() => this.props.navigation.goBack()}>
           {i18n.t('privacy-policy-us.back')}
         </BrandedButton>
-
-        <ApplicationVersion />
       </View>
     );
   }
