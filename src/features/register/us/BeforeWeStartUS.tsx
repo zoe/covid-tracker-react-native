@@ -1,12 +1,11 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { BigButton } from '@covid/components/BigButton';
-import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
+import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -14,19 +13,9 @@ type HowYouFeelProps = {
   navigation: StackNavigationProp<ScreenParamList, 'BeforeWeStartUS'>;
 };
 
-type State = {
-  errorMessage: string;
-};
-
-const initialState: State = {
-  // TODO - This is not used
-  errorMessage: '',
-};
-
-export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
+export default class BeforeWeStart extends Component<HowYouFeelProps> {
   constructor(props: HowYouFeelProps) {
     super(props);
-    this.state = initialState;
   }
 
   render() {
@@ -36,29 +25,23 @@ export default class BeforeWeStart extends Component<HowYouFeelProps, State> {
           <HeaderText>{i18n.t('before-we-start.title')}</HeaderText>
         </Header>
 
-        <Form style={styles.form}>
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.props.navigation.navigate('NursesConsentUS', { viewOnly: false })}>
-              <Text>{i18n.t('before-we-start.yes')}</Text>
-            </BigButton>
-          </FieldWrapper>
-
-          <FieldWrapper style={styles.fieldWrapper}>
-            <BigButton onPress={() => this.props.navigation.navigate('Consent', { viewOnly: false })}>
-              <Text>{i18n.t('before-we-start.no')}</Text>
-            </BigButton>
-          </FieldWrapper>
-        </Form>
+        <View style={styles.content}>
+          <SelectorButton
+            onPress={() => this.props.navigation.navigate('NursesConsentUS', { viewOnly: false })}
+            text={i18n.t('before-we-start.yes')}
+          />
+          <SelectorButton
+            onPress={() => this.props.navigation.navigate('Consent', { viewOnly: false })}
+            text={i18n.t('before-we-start.no')}
+          />
+        </View>
       </Screen>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  form: {
-    marginVertical: 32,
-  },
-  fieldWrapper: {
+  content: {
     marginVertical: 32,
   },
 });

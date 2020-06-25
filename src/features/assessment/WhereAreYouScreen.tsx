@@ -1,16 +1,15 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -60,38 +59,31 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
           <ProgressStatus step={4} maxSteps={5} />
         </ProgressBlock>
 
-        <Form style={styles.form}>
-          <FieldWrapper>
-            <BigButton onPress={() => this.handleLocationSelection('home', true)}>
-              <Text>{i18n.t('where-are-you.picker-location-home')}</Text>
-            </BigButton>
-          </FieldWrapper>
-
-          <FieldWrapper>
-            <BigButton onPress={() => this.handleLocationSelection('hospital', false)}>
-              <Text>{i18n.t('where-are-you.picker-location-hospital')}</Text>
-            </BigButton>
-          </FieldWrapper>
-
-          <FieldWrapper>
-            <BigButton onPress={() => this.handleLocationSelection('back_from_hospital', false)}>
-              <Text>{i18n.t('where-are-you.picker-location-back-from-hospital')}</Text>
-            </BigButton>
-          </FieldWrapper>
-
-          <FieldWrapper>
-            <BigButton onPress={() => this.handleLocationSelection('back_from_hospital', true)}>
-              <Text>{i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}</Text>
-            </BigButton>
-          </FieldWrapper>
-        </Form>
+        <View style={styles.content}>
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('home', true)}
+            text={i18n.t('where-are-you.picker-location-home')}
+          />
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('hospital', false)}
+            text={i18n.t('where-are-you.picker-location-hospital')}
+          />
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('back_from_hospital', false)}
+            text={i18n.t('where-are-you.picker-location-back-from-hospital')}
+          />
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('back_from_hospital', true)}
+            text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
+          />
+        </View>
       </Screen>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  form: {
+  content: {
     marginVertical: 32,
   },
 });
