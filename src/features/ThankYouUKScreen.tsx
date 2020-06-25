@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog003, dataPage002, incidence004, timUpdate002 } from '@assets';
+import { blog004, dataPage003, incidence004, timUpdate002 } from '@assets';
 import { colors } from '@theme';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -59,8 +59,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
-                calloutID="data_page_002"
-                imageSource={dataPage002}
+                calloutID="data_page_003"
+                imageSource={dataPage003}
                 aspectRatio={1.55}
               />
 
@@ -80,8 +80,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/covid-obesity?utm_source=App"
-                calloutID="blog_003"
-                imageSource={blog003}
+                calloutID="blog_004"
+                imageSource={blog004}
                 aspectRatio={1.551}
               />
 
