@@ -41,7 +41,7 @@ export interface IUserService {
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse | null>;
+  getProfile(): Promise<UserResponse>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): Promise<AuthenticatedUser | null>;
@@ -175,9 +175,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      if (!profile) {
-        return null;
-      }
       const patientId = profile!.patients[0];
       return patientId;
     } catch (error) {
@@ -397,10 +394,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return currentPatient;
   }
 
-  public async getProfile(): Promise<UserResponse | null> {
+  public async getProfile(): Promise<UserResponse> {
     const localUser = await AsyncStorageService.GetStoredData();
     if (!localUser) {
-      return null;
+      this.logout();
+      throw Error("User not found. Can't fetch profile");
     }
 
     const localProfile = await AsyncStorageService.getProfile();

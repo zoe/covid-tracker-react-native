@@ -25,13 +25,14 @@ function getVariant(hash: string, totalVariants: number): string {
 }
 
 export async function startExperiment(experimentName: string, totalVariants: number): Promise<string | null> {
-  const profile = await userService.getProfile();
-  if (!profile) return null;
-
-  const variant = getVariant(profile.username, totalVariants);
-  const payload: { [index: string]: string } = {};
-  payload[experimentName] = variant;
-
-  Analytics.identify(payload);
-  return variant;
+  try {
+    const profile = await userService.getProfile();
+    const variant = getVariant(profile.username, totalVariants);
+    const payload: { [index: string]: string } = {};
+    payload[experimentName] = variant;
+    Analytics.identify(payload);
+    return variant;
+  } catch (_) {
+    return null;
+  }
 }
