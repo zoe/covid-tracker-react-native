@@ -49,32 +49,29 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
   async componentDidMount() {
     const userService = new UserService();
+    const profile = await userService.getProfile();
 
-    try {
-      const profile = await userService.getProfile();
+    if (await shouldAskForRating()) {
+      this.setState({ askForRating: true });
+    }
 
-      if (await shouldAskForRating()) {
-        this.setState({ askForRating: true });
-      }
-
-      contentService
-        .getAreaStats(profile.patients[0]) // todo: multipatient
-        .then((response) =>
-          this.setState({
-            areaStats: {
-              ...response,
-              area_name: response.area_name + ' County',
-            },
-            loading: false,
-          })
-        )
-        .catch(() => {
-          this.setState({
-            missingData: true,
-            loading: false,
-          });
+    contentService
+      .getAreaStats(profile.patients[0]) // todo: multipatient
+      .then((response) =>
+        this.setState({
+          areaStats: {
+            ...response,
+            area_name: response.area_name + ' County',
+          },
+          loading: false,
+        })
+      )
+      .catch(() => {
+        this.setState({
+          missingData: true,
+          loading: false,
         });
-    } catch (_) {}
+      });
   }
 
   shareUrl = i18n.t('share-this-app.url');

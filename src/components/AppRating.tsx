@@ -24,14 +24,10 @@ const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id150352961
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
-  try {
-    const profile = await userService.getProfile();
-    const eligibleToAskForRating = profile.ask_for_rating;
-    const askedToRateStatus = await contentService.getAskedToRateStatus();
-    return !askedToRateStatus && eligibleToAskForRating;
-  } catch (_) {
-    return false;
-  }
+  const profile = await userService.getProfile();
+  const eligibleToAskForRating = profile.ask_for_rating;
+  const askedToRateStatus = await contentService.getAskedToRateStatus();
+  return !askedToRateStatus && eligibleToAskForRating;
 }
 
 export class AppRating extends Component<PropsType, State> {

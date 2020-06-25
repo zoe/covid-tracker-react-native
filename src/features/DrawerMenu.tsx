@@ -33,8 +33,13 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const [userEmail, setUserEmail] = useState<string>('');
 
   useEffect(() => {
-    userService.getProfile().then((currentProfile) => {
-      setUserEmail(currentProfile.username);
+    userService.loadUser().then((user) => {
+      if (!user) {
+        return;
+      }
+      userService.getProfile().then((currentProfile) => {
+        setUserEmail(currentProfile.username);
+      });
     });
   });
 
