@@ -26,6 +26,7 @@ import {
   PiiRequest,
   UserResponse,
 } from './dto/UserAPIContracts';
+import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
@@ -47,6 +48,7 @@ export interface IUserService {
   deleteRemoteUserData(): Promise<any>;
   loadUser(): Promise<AuthenticatedUser | null>;
   getFirstPatientId(): Promise<string | null>;
+  getConfig(): ConfigType;
 }
 
 export interface IProfileService {
@@ -64,29 +66,17 @@ export interface IPatientService {
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
 }
 
-export interface ILocalisationService {
-  setUserCountry(countryCode: string): void;
-  initCountryConfig(countryCode: string): void;
-  getUserCountry(): Promise<string | null>;
-  shouldAskCountryConfirmation(): Promise<boolean>;
-  defaultCountryFromLocale(): void;
-  getConfig(): ConfigType;
-  // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
-}
-
-export interface ICoreService extends IUserService, IProfileService, IPatientService, ILocalisationService {}
+export interface ICoreService extends IUserService, IProfileService, IPatientService {}
 
 // TODO: ideally a UserService should only implement this, everything else is a separate service
 
 @injectable()
 export default class UserService extends ApiClientBase implements ICoreService {
-  public static userCountry = 'US';
-  public static ipCountry = '';
-  public static countryConfig: ConfigType;
 
   constructor(
     private useAsyncStorage: boolean = true,
-    @inject(Services.Consent) private readonly consentService: IConsentService
+    @inject(Services.Consent) private readonly consentService: IConsentService,
+    @inject(Services.Localisation) private readonly localisationService: ILocalisationService
   ) {
     super();
     this.loadUser();
@@ -148,7 +138,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async loadUser(): Promise<AuthenticatedUser | null> {
     const user = await AsyncStorageService.GetStoredData();
     const hasUser = !user || (!!user.userToken && !!user.userId);
-    this.updateUserCountry(hasUser);
+    this.localisationService.updateUserCountry(hasUser);
     if (hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
       const patientId: string | null = await this.getFirstPatientId();
@@ -170,19 +160,9 @@ export default class UserService extends ApiClientBase implements ICoreService {
     }
   }
 
-  private updateUserCountry = async (isLoggedIn: boolean) => {
-    const country: string | null = await this.getUserCountry();
-    this.initCountryConfig(country ?? 'GB');
-    if (isLoggedIn) {
-      // If logged in with no country default to GB as this will handle all
-      // GB users before selector was included.
-      if (country === null) {
-        await this.setUserCountry('GB');
-      }
-    } else {
-      await this.defaultCountryFromLocale();
-    }
-  };
+  getConfig(): ConfigType {
+    return LocalisationService.countryConfig;
+  }
 
   getData = <T>(response: AxiosResponse<T>) => {
     if (typeof response.data === 'string') {
@@ -204,8 +184,8 @@ export default class UserService extends ApiClientBase implements ICoreService {
       username: email,
       password1: password,
       password2: password,
-      country_code: UserService.userCountry,
-      language_code: UserService.getLocale(),
+      country_code: LocalisationService.userCountry,
+      language_code: LocalisationService.getLocale(),
       consent_document: ConsentService.consentSigned.document,
       consent_version: ConsentService.consentSigned.version,
       privacy_policy_version: ConsentService.consentSigned.privacy_policy_version,
@@ -395,52 +375,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return this.client.patch(`/information/${userId}/`, pii);
   }
 
-  async setUserCountry(countryCode: string) {
-    UserService.userCountry = countryCode;
-    UserService.setLocaleFromCountry(countryCode);
-    this.initCountryConfig(countryCode);
-    await AsyncStorageService.setUserCountry(countryCode);
-  }
-
-  initCountryConfig(countryCode: string) {
-    UserService.countryConfig = getCountryConfig(countryCode);
-  }
-
-  async getUserCountry() {
-    const country = await AsyncStorageService.getUserCountry();
-    if (country) {
-      UserService.userCountry = country;
-      UserService.setLocaleFromCountry(country);
-    }
-    return country;
-  }
-
-  async shouldAskCountryConfirmation() {
-    if (await AsyncStorageService.getAskedCountryConfirmation()) {
-      return false;
-    } else {
-      return UserService.userCountry !== UserService.ipCountry;
-    }
-  }
-
-  async defaultCountryFromLocale() {
-    const country = () => {
-      if (Localization.locale === 'en-GB') {
-        return 'GB';
-      } else if (Localization.locale === 'sv-SE') {
-        return 'SE';
-      } else {
-        return 'US';
-      }
-    };
-
-    await this.setUserCountry(country());
-  }
-
-  getConfig(): ConfigType {
-    return UserService.countryConfig;
-  }
-
   async deleteRemoteUserData() {
     const profile = await AsyncStorageService.getProfile();
     const payload = {
@@ -482,25 +416,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
     } else {
       await AsyncStorageService.setAskedToReportForOthers('0');
     }
-  }
-
-  private static setLocaleFromCountry(countryCode: string) {
-    let USLocale = 'en';
-    if (Localization.locale === 'es-US') {
-      USLocale = 'es';
-    }
-
-    const localeMap: { [key: string]: string } = {
-      US: USLocale,
-      GB: 'en',
-      SE: 'sv',
-    };
-
-    i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
-  }
-
-  static getLocale() {
-    return i18n.locale.split('-')[0];
   }
 
   async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {

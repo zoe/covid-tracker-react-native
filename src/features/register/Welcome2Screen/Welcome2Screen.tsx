@@ -4,7 +4,7 @@ import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from
 
 import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 
@@ -12,8 +12,9 @@ import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
 
 import styles from './styles';
-
-const userService = new UserService();
+import { useInjection } from '@covid/provider/services.hooks';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
@@ -22,6 +23,9 @@ type PropsType = {
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
+
+  const localisation = useInjection<ILocalisationService>(Services.Localisation);
+  
   const [ipModalVisible, setIpModalVisible] = useState(false);
 
   const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
@@ -29,7 +33,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
   const onCloseModal = useCallback(() => setIpModalVisible(false), [setIpModalVisible]);
 
   const onCreateAccountPress = useCallback(async () => {
-    if (await userService.shouldAskCountryConfirmation()) {
+    if (await localisation.shouldAskCountryConfirmation()) {
       setIpModalVisible(true);
     } else {
       if (isUSCountry()) {
@@ -38,7 +42,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
         navigation.navigate('Consent', { viewOnly: false });
       }
     }
-  }, [userService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
+  }, [localisation.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
 
   const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 

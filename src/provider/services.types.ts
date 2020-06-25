@@ -4,4 +4,5 @@ export const Services = {
   Content: Symbol('Content'),
   User: Symbol('User'),
   Consent: Symbol('Consent'),
+  Localisation: Symbol('Localisation'),
 };
