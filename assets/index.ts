@@ -47,9 +47,9 @@ export const svMap = require('./svMap.png');
 export const NUMBER_OF_PROFILE_AVATARS = 10;
 
 // ThankYou Modules
-export const dataPage0001 = require('./thank-you-modules/data_page_001.png');
-export const blog003 = require('./thank-you-modules/blog_003.png');
-export const incidence003 = require('./thank-you-modules/incidence_003.png');
+export const dataPage003 = require('./thank-you-modules/data_page_003.png');
+export const blog004 = require('./thank-you-modules/blog_004.png');
+export const incidence004 = require('./thank-you-modules/incidence_004.png');
 export const timUpdate002 = require('./thank-you-modules/tim_update_002.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
