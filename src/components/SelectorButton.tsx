@@ -1,5 +1,5 @@
 import { Text } from 'native-base';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
