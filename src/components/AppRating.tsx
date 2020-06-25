@@ -25,6 +25,9 @@ const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
   const profile = await userService.getProfile();
+  if (!profile) {
+    return false;
+  }
   const eligibleToAskForRating = profile.ask_for_rating;
   const askedToRateStatus = await contentService.getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;

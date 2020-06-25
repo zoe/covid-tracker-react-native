@@ -41,7 +41,7 @@ export interface IUserService {
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse>;
+  getProfile(): Promise<UserResponse | null>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): Promise<AuthenticatedUser | null>;
@@ -159,11 +159,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
   async loadUser(): Promise<AuthenticatedUser | null> {
     const user = await AsyncStorageService.GetStoredData();
-    const hasUser = !user || (!!user.userToken && !!user.userId);
+    const hasUser = !!user && !!user!.userToken && !!user!.userId;
     this.updateUserCountry(hasUser);
     if (hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId(user!);
+      const patientId: string | null = await this.getFirstPatientId();
       if (!patientId) {
         // Logged in with an account doesn't exist. Force logout.
         await this.logout();
@@ -175,7 +175,10 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      const patientId = profile.patients[0];
+      if (!profile) {
+        return null;
+      }
+      const patientId = profile!.patients[0];
       return patientId;
     } catch (error) {
       return null;
@@ -394,7 +397,12 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return currentPatient;
   }
 
-  public async getProfile(): Promise<UserResponse> {
+  public async getProfile(): Promise<UserResponse | null> {
+    const localUser = await AsyncStorageService.GetStoredData();
+    if (!localUser) {
+      return null;
+    }
+
     const localProfile = await AsyncStorageService.getProfile();
 
     // If not stored locally, wait for server response.
@@ -408,6 +416,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     this.client.get<UserResponse>(`/profile/`).then(async (profileResponse) => {
       await AsyncStorageService.saveProfile(profileResponse.data);
     });
+
     return localProfile;
   }
 

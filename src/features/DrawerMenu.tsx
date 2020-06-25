@@ -34,7 +34,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
 
   useEffect(() => {
     userService.getProfile().then((currentProfile) => {
-      setUserEmail(currentProfile.username);
+      setUserEmail(currentProfile?.username ?? '');
     });
   });
 

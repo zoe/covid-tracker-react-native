@@ -51,6 +51,9 @@ export default class ViralThankYouScreen extends Component<Props, State> {
     const userService = new UserService();
     const profile = await userService.getProfile();
 
+    if (!profile) {
+      return;
+    }
     if (await shouldAskForRating()) {
       this.setState({ askForRating: true });
     }
