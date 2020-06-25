@@ -1,11 +1,11 @@
 import { AxiosResponse } from 'axios';
-import { injectable, unmanaged } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
+import { injectable, unmanaged, inject, LazyServiceIdentifer } from 'inversify';
+// import getDecorators from 'inversify-inject-decorators';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { Services } from '@covid/provider/services.types';
-import { container } from '@covid/provider/services';
+// import { container, lazyInject } from '@covid/provider/services';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType } from '../Config';
@@ -18,17 +18,11 @@ import { IPatientService } from '../patient/PatientService';
 
 import { AskValidationStudy, LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
 
-const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
-
 export type AuthenticatedUser = {
   userToken: string;
   userId: string;
 };
 
-const { lazyInject } = getDecorators(container);
-
-// Attempt to split UserService into discrete service interfaces, which means:
-// TODO: Split into separate self-contained services
 export interface IUserService {
   register(email: string, password: string): Promise<any>; // TODO: define return object
   login(email: string, password: string): Promise<any>; // TODO: define return object
@@ -45,17 +39,15 @@ export interface IUserService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
 }
 
-// TODO: ideally a UserService should only implement this, everything else is a separate service
-
 @injectable()
 export default class UserService extends ApiClientBase implements IUserService {
-  @lazyInject(Services.Consent)
+  @inject(Services.Consent)
   private readonly consentService: IConsentService;
 
-  @lazyInject(Services.Localisation)
+  @inject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  @lazyInject(Services.Patient)
+  @inject(Services.Patient)
   private readonly patientService: IPatientService;
 
   constructor(@unmanaged() private useAsyncStorage: boolean = true) {
@@ -119,7 +111,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   async loadUser(): Promise<AuthenticatedUser | null> {
     const user = await AsyncStorageService.GetStoredData();
     const hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.updateUserCountry(hasUser);
+    this.localisationService.updateUserCountry(hasUser);
     if (hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
       const patientId: string | null = await this.getFirstPatientId();
@@ -178,12 +170,6 @@ export default class UserService extends ApiClientBase implements IUserService {
     await promise.then(this.handleLoginOrRegisterResponse);
 
     return promise;
-  }
-
-  static shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
-    if (!dateLastAsked) return true;
-
-    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
   }
 
   public async getProfile(): Promise<UserResponse> {

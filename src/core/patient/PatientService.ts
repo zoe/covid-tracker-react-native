@@ -1,13 +1,12 @@
-import { injectable } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
+import { injectable, inject, LazyServiceIdentifer } from 'inversify';
+// import getDecorators from 'inversify-inject-decorators';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
-import { container } from '@covid/provider/services';
 import { AvatarName } from '@covid/utils/avatar';
 import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { getDaysAgo } from '@covid/utils/datetime';
 
-import UserService from '../user/UserService';
 import { PatientInfosRequest } from '../user/dto/UserAPIContracts';
 import { IConsentService } from '../consent/ConsentService';
 import { ApiClientBase } from '../api/ApiClientBase';
@@ -16,7 +15,7 @@ import appConfig from '../../../appConfig';
 
 import { PatientStateType, PatientProfile, getInitialPatientState } from './PatientState';
 
-const { lazyInject } = getDecorators(container);
+const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
 export interface IPatientService {
   listPatients(): Promise<any>;
@@ -25,11 +24,12 @@ export interface IPatientService {
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
+  shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
 }
 
 @injectable()
 export class PatientService extends ApiClientBase implements IPatientService {
-  @lazyInject(Services.Consent)
+  @inject(Services.Consent)
   private readonly consentService: IConsentService;
 
   protected client = ApiClientBase.client;
@@ -123,7 +123,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       !!patient.ht_other;
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
-    const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
+    const shouldAskLevelOfIsolation = this.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
     const shouldAskLifestyleQuestion = patient.should_ask_lifestyle_questions;
 
     // Decide whether patient needs to answer YourStudy questions
@@ -180,5 +180,10 @@ export class PatientService extends ApiClientBase implements IPatientService {
     }
 
     return currentPatient;
+  }
+
+  public shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
+    if (!dateLastAsked) return true;
+    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
   }
 }

@@ -1,14 +1,14 @@
-import { injectable } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
+import { injectable, inject } from 'inversify';
+// import getDecorators from 'inversify-inject-decorators';
 
-import { container } from '@covid/provider/services';
+// import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { cleanIntegerVal } from '../utils/number';
 import { IPatientService } from '../patient/PatientService';
 
-const { lazyInject } = getDecorators(container);
+// const { lazyInject } = getDecorators(container);
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
@@ -20,7 +20,7 @@ export interface IProfileService {
 
 @injectable()
 export class ProfileService implements IProfileService {
-  @lazyInject(Services.Patient)
+  @inject(Services.Patient)
   private readonly patientService: IPatientService;
 
   public async hasMultipleProfiles() {

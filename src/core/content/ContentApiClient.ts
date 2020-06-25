@@ -1,14 +1,15 @@
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
 
 import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { AppScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
-import { container } from '@covid/provider/services';
+// import { container, lazyInject } from '@covid/provider/services';
 
 import { IApiClient } from '../api/ApiClient';
+// import { lazyInject } from '@covid/provider/services';
 
-const { lazyInject } = getDecorators(container);
+// const { lazyInject } = getDecorators(container);
 
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
@@ -18,7 +19,7 @@ export interface IContentApiClient {
 
 @injectable()
 export class ContentApiClient implements IContentApiClient {
-  @lazyInject(Services.Api)
+  @inject(Services.Api)
   private readonly apiClient: IApiClient;
 
   getAreaStats(patientId: string): Promise<AreaStatsResponse> {
