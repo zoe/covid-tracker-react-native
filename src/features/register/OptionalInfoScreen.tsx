@@ -18,6 +18,7 @@ import { offlineService, pushNotificationService } from '@covid/Services';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 import Navigator from '../AppCoordinator';
@@ -45,6 +46,9 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
   private readonly userService: ICoreService;
 
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+
   private phoneComponent: any;
 
   constructor(props: PropsType) {
@@ -53,7 +57,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   }
 
   private async gotoNextScreen(patientId: string) {
-    const currentPatient = await this.userService.getCurrentPatient(patientId);
+    const currentPatient = await this.patientService.getCurrentPatient(patientId);
     this.setState({ isApiError: false });
     Navigator.gotoNextScreen(this.props.route.name, { currentPatient });
   }

@@ -24,6 +24,7 @@ import { assessmentService } from '@covid/Services';
 import { FaceMaskData, FaceMaskQuestion, TypeOfMaskValues } from '@covid/features/assessment/fields/FaceMaskQuestion';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -59,6 +60,9 @@ const initialState: State = {
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
   @lazyInject(Services.User)
   private readonly userService: ICoreService;
+
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   constructor(props: LocationProps) {
     super(props);
@@ -127,7 +131,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       last_asked_level_of_isolation: timeNow,
     } as Partial<PatientInfosRequest>;
 
-    return this.userService
+    return this.patientService
       .updatePatient(patientId, infos)
       .then(() => (currentPatient.shouldAskLevelOfIsolation = false))
       .catch(() => {

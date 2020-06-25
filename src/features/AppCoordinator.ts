@@ -12,6 +12,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { ConsentService } from '@covid/core/consent/ConsentService';
 import { lazyInject } from '@covid/provider/services';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -30,6 +31,9 @@ export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenPa
 export class AppCoordinator {
   @lazyInject(Services.User)
   private readonly userService: ICoreService;
+  
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   navigation: NavigationType;
 
@@ -86,7 +90,7 @@ export class AppCoordinator {
   }
 
   async getCurrentPatient(patientId: string): Promise<PatientStateType> {
-    return await this.userService.getCurrentPatient(patientId);
+    return await this.patientService.getCurrentPatient(patientId);
   }
 
   getWelcomeRepeatScreenName(): keyof ScreenParamList {

@@ -9,7 +9,8 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
@@ -17,6 +18,7 @@ import i18n from '@covid/locale/i18n';
 import { ConfigType } from '@covid/core/Config';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
 import {
@@ -74,6 +76,9 @@ const initialState: State = {
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
   @lazyInject(Services.User)
   private readonly userService: ICoreService;
+
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   get features(): ConfigType {
     return this.userService.getConfig();
@@ -168,7 +173,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
 
     const infos = this.createPatientInfos(formData);
 
-    this.userService
+    this.patientService
       .updatePatient(patientId, infos)
       .then((response) => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;

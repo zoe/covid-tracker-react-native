@@ -8,6 +8,10 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
+
+import { IProfileService } from '../profile/ProfileService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -22,6 +26,9 @@ export type AssessmentData = {
 };
 
 export class AssessmentCoordinator {
+  @lazyInject(Services.Profile)
+  private readonly profileService: IProfileService;
+
   navigation: NavigationType;
   userService: ICoreService;
   assessmentService: IAssessmentService;
@@ -110,7 +117,7 @@ export class AssessmentCoordinator {
   gotoEndAssessment = async () => {
     const config = this.userService.getConfig();
 
-    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
+    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       this.navigation.navigate('ReportForOther');
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
@@ -167,11 +174,11 @@ export class AssessmentCoordinator {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 
-  static async shouldShowReportForOthers(config: ConfigType, userService: ICoreService) {
+  static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
     return (
       config.enableMultiplePatients &&
-      !(await userService.hasMultipleProfiles()) &&
-      (await userService.shouldAskToReportForOthers())
+      !(await profileService.hasMultipleProfiles()) &&
+      (await profileService.shouldAskToReportForOthers())
     );
   }
 }

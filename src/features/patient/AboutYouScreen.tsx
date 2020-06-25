@@ -11,7 +11,8 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
@@ -19,6 +20,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -86,6 +88,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.User)
   private readonly userService: ICoreService;
 
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+
   constructor(props: AboutYouProps) {
     super(props);
     this.state = initialState;
@@ -108,7 +113,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       const patientId = currentPatient.patientId;
       var infos = this.createPatientInfos(formData);
 
-      this.userService
+      this.patientService
         .updatePatient(patientId, infos)
         .then(() => {
           currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;

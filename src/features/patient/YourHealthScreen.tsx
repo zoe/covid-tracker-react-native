@@ -11,7 +11,8 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
@@ -20,6 +21,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -102,6 +104,9 @@ const initialState: State = {
 export default class YourHealthScreen extends Component<HealthProps, State> {
   @lazyInject(Services.User)
   private readonly userService: ICoreService;
+  
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   constructor(props: HealthProps) {
     super(props);
@@ -187,9 +192,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
     var infos = this.createPatientInfos(formData);
 
-    this.userService
+    this.patientService
       .updatePatient(patientId, infos)
-      .then((response) => {
+      .then((_) => {
         currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
         currentPatient.hasPeriodAnswer = true;

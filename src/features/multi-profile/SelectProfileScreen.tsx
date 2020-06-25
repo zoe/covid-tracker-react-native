@@ -17,7 +17,7 @@ import { NewProfileCard } from '@covid/components/NewProfileCard';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -53,8 +53,8 @@ const initialState = {
 };
 
 export default class SelectProfileScreen extends Component<RenderProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   constructor(props: RenderProps) {
     super(props);
@@ -80,7 +80,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async listProfiles() {
     this.setState({ status: i18n.t('errors.status-loading'), error: null });
     try {
-      const response = await this.userService.listPatients();
+      const response = await this.patientService.listPatients();
       response &&
         this.setState({
           profiles: response.data,
@@ -93,7 +93,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
   async profileSelected(profileId: string, index: number) {
     try {
-      const currentPatient = await this.userService.getCurrentPatient(profileId);
+      const currentPatient = await this.patientService.getCurrentPatient(profileId);
       this.setState({ isApiError: false });
       await Navigator.profileSelected(index === 0, currentPatient);
     } catch (error) {

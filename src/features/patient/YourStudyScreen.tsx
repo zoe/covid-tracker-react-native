@@ -13,13 +13,13 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { ICoreService } from '@covid/core/user/UserService';
 import { isGBCountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -213,8 +213,8 @@ const AllCohorts: CohortDefinition[] = [
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: ICoreService;
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   registerSchema = Yup.object().shape({
     clinicalStudyNames: Yup.string(),
@@ -253,7 +253,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
-    this.userService
+    this.patientService
       .updatePatient(patientId, infos)
       .then((_) => {
         patientCoordinator.gotoNextScreen(this.props.route.name);
