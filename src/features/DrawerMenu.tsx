@@ -6,9 +6,11 @@ import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
-import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 type MenuItemProps = {
   label: string;
@@ -28,21 +30,18 @@ const MenuItem = (props: MenuItemProps) => {
 };
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
-  const userService = new UserService();
-
+  const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
 
   useEffect(() => {
+    if (userEmail !== '') return;
     userService
-      .loadUser()
-      .then((user) => {
-        if (!user) {
-          return;
-        }
-        return userService.getProfile();
-      })
+      .getProfile()
       .then((currentProfile) => {
         setUserEmail(currentProfile?.username ?? '');
+      })
+      .catch((_) => {
+        setUserEmail('');
       });
   });
 
@@ -70,6 +69,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function logout() {
+    setUserEmail(''); // Reset email
     userService.logout();
     props.navigation.reset({
       index: 0,
