@@ -1,15 +1,10 @@
 import { injectable, inject } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
 
 import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { AppScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
-// import { container, lazyInject } from '@covid/provider/services';
 
 import { IApiClient } from '../api/ApiClient';
-// import { lazyInject } from '@covid/provider/services';
-
-// const { lazyInject } = getDecorators(container);
 
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;

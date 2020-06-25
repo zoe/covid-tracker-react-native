@@ -1,5 +1,4 @@
 import { injectable, inject } from 'inversify';
-// import getDecorators from 'inversify-inject-decorators';
 
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
@@ -8,13 +7,10 @@ import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationS
 import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
-// import { container } from '@covid/provider/services';
 
 import { LocalisationService } from '../localisation/LocalisationService';
 
 import { IContentApiClient } from './ContentApiClient';
-
-// const { lazyInject } = getDecorators(container);
 
 export interface IContentService {
   getUserCount(): Promise<string | null>;

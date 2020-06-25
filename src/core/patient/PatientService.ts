@@ -1,5 +1,4 @@
 import { injectable, inject, LazyServiceIdentifer } from 'inversify';
-// import getDecorators from 'inversify-inject-decorators';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';

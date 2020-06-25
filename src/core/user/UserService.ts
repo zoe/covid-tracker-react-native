@@ -1,11 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { injectable, unmanaged, inject, LazyServiceIdentifer } from 'inversify';
-// import getDecorators from 'inversify-inject-decorators';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
-import { getDaysAgo } from '@covid/utils/datetime';
 import { Services } from '@covid/provider/services.types';
-// import { container, lazyInject } from '@covid/provider/services';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType } from '../Config';
