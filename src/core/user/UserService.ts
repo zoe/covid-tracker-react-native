@@ -159,11 +159,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
   async loadUser(): Promise<AuthenticatedUser | null> {
     const user = await AsyncStorageService.GetStoredData();
-    const hasUser = !user || (!!user.userToken && !!user.userId);
+    const hasUser = !!user && !!user!.userToken && !!user!.userId;
     this.updateUserCountry(hasUser);
     if (hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId(user!);
+      const patientId: string | null = await this.getFirstPatientId();
       if (!patientId) {
         // Logged in with an account doesn't exist. Force logout.
         await this.logout();
@@ -175,7 +175,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      const patientId = profile.patients[0];
+      const patientId = profile!.patients[0];
       return patientId;
     } catch (error) {
       return null;
@@ -395,6 +395,12 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   public async getProfile(): Promise<UserResponse> {
+    const localUser = await AsyncStorageService.GetStoredData();
+    if (!localUser) {
+      this.logout();
+      throw Error("User not found. Can't fetch profile");
+    }
+
     const localProfile = await AsyncStorageService.getProfile();
 
     // If not stored locally, wait for server response.
@@ -408,6 +414,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     this.client.get<UserResponse>(`/profile/`).then(async (profileResponse) => {
       await AsyncStorageService.saveProfile(profileResponse.data);
     });
+
     return localProfile;
   }
 
