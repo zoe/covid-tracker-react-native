@@ -6,11 +6,11 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { gbFlag, svFlag, usFlag } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-
-import { ScreenParamList } from './ScreenParamList';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+
+import { ScreenParamList } from './ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
@@ -22,13 +22,8 @@ const GB_CODE = 'GB';
 const SV_CODE = 'SE';
 
 export class CountrySelectScreen extends Component<Props, object> {
-
   @lazyInject(Services.Localisation)
   private readonly localisationServce: ILocalisationService;
-
-  constructor(props: Props) {
-    super(props);
-  }
 
   private selectCountry = async (countryCode: string) => {
     await this.localisationServce.setUserCountry(countryCode);

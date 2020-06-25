@@ -8,8 +8,9 @@ import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
 
-import { IContentApiClient } from './ContentApiClient';
 import { LocalisationService } from '../localisation/LocalisationService';
+
+import { IContentApiClient } from './ContentApiClient';
 
 export interface IContentService {
   getUserCount(): Promise<string | null>;
@@ -25,9 +26,7 @@ export interface IContentService {
 export default class ContentService implements IContentService {
   private screenContent: AppScreenContent;
 
-  constructor(
-    @inject(Services.ContentApi) private readonly apiClient: IContentApiClient,
-  ) {}
+  constructor(@inject(Services.ContentApi) private readonly apiClient: IContentApiClient) {}
 
   static getWebsiteUrl = () => {
     if (isUSCountry()) {
@@ -41,7 +40,10 @@ export default class ContentService implements IContentService {
 
   async getWelcomeRepeatContent() {
     if (!this.screenContent) {
-      this.screenContent = await this.apiClient.getScreenContent(LocalisationService.userCountry, LocalisationService.getLocale());
+      this.screenContent = await this.apiClient.getScreenContent(
+        LocalisationService.userCountry,
+        LocalisationService.getLocale()
+      );
     }
     return this.screenContent.WelcomeRepeat;
   }

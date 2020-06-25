@@ -11,7 +11,7 @@ import { social, surveyInvite } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
@@ -19,6 +19,8 @@ import { isAndroid } from '@covid/components/Screen';
 import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
 import { contentService } from '@covid/Services';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -36,6 +38,9 @@ type State = {
 };
 
 export default class ViralThankYouScreen extends Component<Props, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -48,8 +53,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    const userService = new UserService();
-    const profile = await userService.getProfile();
+    const profile = await this.userService.getProfile();
 
     if (await shouldAskForRating()) {
       this.setState({ askForRating: true });

@@ -1,13 +1,16 @@
 import { CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { inject } from 'inversify';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import { isGBCountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { assessmentService, userService } from '@covid/Services';
+import { assessmentService } from '@covid/Services';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { Services } from '@covid/provider/services.types';
+import { ConsentService } from '@covid/core/consent/ConsentService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -24,8 +27,10 @@ type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentVie
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator {
+  @inject(Services.User)
+  private readonly userService: ICoreService;
+
   navigation: NavigationType;
-  userService: UserService;
 
   screenFlow: any = {
     // End of registration flows
@@ -34,7 +39,7 @@ export class AppCoordinator {
       const config = navigator.getConfig();
 
       let askPersonalInfo = config.enablePersonalInformation;
-      if (isUSCountry() && UserService.consentSigned.document != 'US Nurses') {
+      if (isUSCountry() && ConsentService.consentSigned.document !== 'US Nurses') {
         askPersonalInfo = false;
       }
 
@@ -63,11 +68,6 @@ export class AppCoordinator {
       }
     },
   };
-
-  constructor() {
-    this.userService = new UserService();
-  }
-
   setNavigation(navigation: NavigationType) {
     this.navigation = navigation;
   }
@@ -134,7 +134,7 @@ export class AppCoordinator {
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
-    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy(false))) {
+    if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.navigation.navigate('ValidationStudyIntro', { currentPatient });
     } else {
       this.startAssessmentFlow(currentPatient);

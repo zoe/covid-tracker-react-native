@@ -1,6 +1,5 @@
 import { Container } from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
-import { Services } from './services.types';
 
 import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
 import ApiClient, { IApiClient } from '@covid/core/api/ApiClient';
@@ -8,6 +7,8 @@ import { IContentApiClient, ContentApiClient } from '@covid/core/content/Content
 import ContentService, { IContentService } from '@covid/core/content/ContentService';
 import UserService, { ICoreService } from '@covid/core/user/UserService';
 import { LocalisationService, ILocalisationService } from '@covid/core/localisation/LocalisationService';
+
+import { Services } from './services.types';
 
 export const container = new Container();
 

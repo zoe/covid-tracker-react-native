@@ -6,7 +6,7 @@ import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
-import { isGBCountry, isSECountry, IUserService } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, ICoreService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -17,7 +17,7 @@ const isDevChannel = () => {
 };
 
 export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
-  const userService = useInjection<IUserService>(Services.User);
+  const userService = useInjection<ICoreService>(Services.User);
 
   function showDeleteAlert() {
     Alert.alert(

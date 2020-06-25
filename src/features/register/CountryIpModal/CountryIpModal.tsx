@@ -11,13 +11,13 @@ import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
 import styles from './styles';
-import { useInjection } from '@covid/provider/services.hooks';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { Services } from '@covid/provider/services.types';
 
 enum CountryCode {
   NONE = '',

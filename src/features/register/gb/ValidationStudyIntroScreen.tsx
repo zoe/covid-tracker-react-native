@@ -2,15 +2,16 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View, ImageBackground } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { icon, studyIntro } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import Navigator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
@@ -21,7 +22,9 @@ type Props = {
 };
 
 export default class ValidationStudyIntroScreen extends Component<Props, object> {
-  userService = new UserService();
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   render() {
     return (
       <View style={styles.backgroundContainer}>

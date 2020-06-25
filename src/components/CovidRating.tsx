@@ -5,9 +5,11 @@ import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
-import { contentService, userService } from '@covid/Services';
+import { contentService } from '@covid/Services';
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { RegularBoldText, RegularText } from './Text';
 
@@ -24,7 +26,7 @@ const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id150352961
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
-  const profile = await userService.getProfile();
+  const profile = await container.get<ICoreService>(Services.User).getProfile();
   const eligibleToAskForRating = profile.ask_for_rating;
   const askedToRateStatus = await contentService.getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;
@@ -35,7 +37,6 @@ export class CovidRating extends Component<PropsType, State> {
     isModalOpen: true,
     showTakeToStore: false,
   };
-  private userService = new UserService();
 
   decline = () => {
     contentService.setAskedToRateStatus('asked');
@@ -55,16 +56,16 @@ export class CovidRating extends Component<PropsType, State> {
 
   takeToStore = () => {
     contentService.setAskedToRateStatus('asked');
-    if (Platform.OS != 'ios') {
-      Linking.openURL(AndroidLink).catch((err) => {});
+    if (Platform.OS !== 'ios') {
+      Linking.openURL(AndroidLink);
     } else {
       const storeLink = isUSCountry() ? USiOSLink : isSECountry() ? SEiOSLink : UKiOSLink;
-      Linking.openURL(storeLink).catch((err) => {});
+      Linking.openURL(storeLink);
     }
     this.setState({ isModalOpen: false });
   };
 
-  askToRate = (e: any) => {
+  askToRate = (_: any) => {
     this.setState({ showTakeToStore: true });
   };
 

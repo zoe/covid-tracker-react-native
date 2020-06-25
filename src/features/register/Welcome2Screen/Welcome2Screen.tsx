@@ -7,14 +7,14 @@ import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@cov
 import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
 
 import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
 
 import styles from './styles';
-import { useInjection } from '@covid/provider/services.hooks';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
-import { Services } from '@covid/provider/services.types';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
@@ -23,9 +23,8 @@ type PropsType = {
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
-
   const localisation = useInjection<ILocalisationService>(Services.Localisation);
-  
+
   const [ipModalVisible, setIpModalVisible] = useState(false);
 
   const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);

@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import * as Localization from 'expo-localization';
 import { injectable, inject } from 'inversify';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
@@ -10,7 +9,7 @@ import { Services } from '@covid/provider/services.types';
 
 import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
-import { getCountryConfig, ConfigType } from '../Config';
+import { ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
@@ -18,6 +17,7 @@ import { camelizeKeys } from '../api/utils';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
 import { cleanIntegerVal } from '../utils/number';
 import { ConsentService, IConsentService } from '../consent/ConsentService';
+import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
 
 import {
   AskValidationStudy,
@@ -26,7 +26,6 @@ import {
   PiiRequest,
   UserResponse,
 } from './dto/UserAPIContracts';
-import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
@@ -49,6 +48,8 @@ export interface IUserService {
   loadUser(): Promise<AuthenticatedUser | null>;
   getFirstPatientId(): Promise<string | null>;
   getConfig(): ConfigType;
+  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
+  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
 }
 
 export interface IProfileService {
@@ -72,7 +73,6 @@ export interface ICoreService extends IUserService, IProfileService, IPatientSer
 
 @injectable()
 export default class UserService extends ApiClientBase implements ICoreService {
-
   constructor(
     private useAsyncStorage: boolean = true,
     @inject(Services.Consent) private readonly consentService: IConsentService,
@@ -444,6 +444,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 }
 
-export const isUSCountry = () => UserService.userCountry === 'US';
-export const isGBCountry = () => UserService.userCountry === 'GB';
-export const isSECountry = () => UserService.userCountry === 'SE';
+export const isUSCountry = () => LocalisationService.userCountry === 'US';
+export const isGBCountry = () => LocalisationService.userCountry === 'GB';
+export const isSECountry = () => LocalisationService.userCountry === 'SE';
