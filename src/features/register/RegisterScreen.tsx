@@ -9,14 +9,16 @@ import * as Yup from 'yup';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Field, FieldError } from '@covid/components/Forms';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
-import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
+import Navigator from '../AppCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;
@@ -46,6 +48,9 @@ const initialRegistrationValues = {
 };
 
 export class RegisterScreen extends Component<PropsType, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   private passwordComponent: any;
 
   constructor(props: PropsType) {
@@ -62,8 +67,7 @@ export class RegisterScreen extends Component<PropsType, State> {
   private handleCreateAccount(formData: RegistrationData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
-      const userService = new UserService(); // todo get gloval var
-      userService
+      this.userService
         .register(formData.email, formData.password)
         .then((response) => {
           const isTester = response.data.user.is_tester;

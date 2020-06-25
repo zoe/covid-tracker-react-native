@@ -11,13 +11,15 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -97,14 +99,14 @@ const initialState: State = {
   showDiabetesQuestion: false,
 };
 
-const maleOptions = ['', 'male', 'pfnts'];
-
 export default class YourHealthScreen extends Component<HealthProps, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   constructor(props: HealthProps) {
     super(props);
     const currentPatient = patientCoordinator.patientData.currentPatient;
-    const userService = new UserService();
-    const features = userService.getConfig();
+    const features = this.userService.getConfig();
     this.state = {
       ...initialState,
       showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,
@@ -183,10 +185,9 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
 
-    const userService = new UserService();
     var infos = this.createPatientInfos(formData);
 
-    userService
+    this.userService
       .updatePatient(patientId, infos)
       .then((response) => {
         currentPatient.hasCompletedPatientDetails = true;
@@ -203,7 +204,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
-      .catch((err) => {
+      .catch((_) => {
         this.setState({ errorMessage: 'Something went wrong, please try again later' });
       });
   }

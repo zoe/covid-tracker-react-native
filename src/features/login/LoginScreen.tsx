@@ -12,12 +12,14 @@ import {
   View,
 } from 'react-native';
 
-import { colors, fontStyles } from '@theme';
+import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -37,6 +39,8 @@ const initialState: StateType = {
 };
 
 export class LoginScreen extends Component<PropsType, StateType> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
   private passwordField: Input | null;
   private errorMessage = '';
   private username = '';
@@ -56,16 +60,15 @@ export class LoginScreen extends Component<PropsType, StateType> {
     this.errorMessage = '';
     const username = this.username.trim();
     this.setState({
-      hasUserValidationError: username == '',
-      hasPassValidationError: this.password == '',
+      hasUserValidationError: username === '',
+      hasPassValidationError: this.password === '',
     });
 
-    if (username == '' || this.password == '') {
+    if (username === '' || this.password === '') {
       return;
     }
 
-    const userService = new UserService();
-    userService
+    this.userService
       .login(username, this.password)
       .then((response) => {
         const isTester = response.user.is_tester;

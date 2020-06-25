@@ -8,13 +8,15 @@ import { LoadingModal } from '@covid/components/Loading';
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-import { offlineService, userService } from '@covid/Services';
+import { offlineService } from '@covid/Services';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
-import Navigator from '../AppCoordinator';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
+import Navigator from '../AppCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
@@ -33,6 +35,9 @@ const initialState: ConsentState = {
 };
 
 export default class ConsentForOtherScreen extends Component<RenderProps, ConsentState> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   constructor(props: RenderProps) {
     super(props);
     this.state = initialState;
@@ -68,8 +73,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
   async startAssessment(patientId: string) {
-    const userService = new UserService();
-    const currentPatient = await userService.getCurrentPatient(patientId);
+    const currentPatient = await this.userService.getCurrentPatient(patientId);
     Navigator.resetToProfileStartAssessment(currentPatient);
   }
 
@@ -83,7 +87,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
       reported_by_another: true,
     } as Partial<PatientInfosRequest>;
 
-    const response = await userService.createPatient(newPatient);
+    const response = await this.userService.createPatient(newPatient);
     return response.data.id;
   }
 

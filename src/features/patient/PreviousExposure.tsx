@@ -13,12 +13,14 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { stripAndRound } from '@covid/utils/helpers';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -76,6 +78,9 @@ const initialState: State = {
 };
 
 export default class PreviousExposureScreen extends Component<HealthProps, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   constructor(props: HealthProps) {
     super(props);
     this.state = initialState;
@@ -108,16 +113,14 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   handleUpdateHealth(formData: YourHealthData) {
     const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
-
-    const userService = new UserService();
     const infos = this.createPatientInfos(formData);
 
-    userService
+    this.userService
       .updatePatient(patientId, infos)
-      .then((response) => {
+      .then((_) => {
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
-      .catch((err) => {
+      .catch((_) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });
   }

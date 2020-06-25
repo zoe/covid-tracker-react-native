@@ -13,7 +13,9 @@ import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { userService } from '@covid/Services';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { ICoreService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -33,12 +35,15 @@ const initialState = {
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   state = initialState;
 
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      inviteToStudy: await userService.shouldAskForValidationStudy(true),
+      inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
     });
   }
 

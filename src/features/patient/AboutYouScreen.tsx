@@ -3,7 +3,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import DropdownField from '@covid/components/DropdownField';
@@ -12,13 +11,14 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
-import { userService } from '@covid/Services';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -83,13 +83,16 @@ const initialState: State = {
 };
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   constructor(props: AboutYouProps) {
     super(props);
     this.state = initialState;
   }
 
   async componentDidMount() {
-    const features = userService.getConfig();
+    const features = this.userService.getConfig();
 
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
@@ -105,7 +108,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       const patientId = currentPatient.patientId;
       var infos = this.createPatientInfos(formData);
 
-      userService
+      this.userService
         .updatePatient(patientId, infos)
         .then(() => {
           currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
@@ -411,9 +414,3 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});

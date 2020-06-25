@@ -6,7 +6,9 @@ import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } fr
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -32,6 +34,9 @@ interface ResetPasswordData {
 }
 
 export class ResetPasswordScreen extends Component<PropsType, State> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
@@ -42,8 +47,7 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
   private handleClick(formData: ResetPasswordData) {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
-      const userService = new UserService(); // todo get global var
-      userService
+      this.userService
         .resetPassword(formData.email)
         .then(() => this.props.navigation.navigate('ResetPasswordConfirm'))
         .catch((err: AxiosError) => {

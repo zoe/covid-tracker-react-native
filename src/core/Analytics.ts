@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 
 import appConfig from '../../appConfig';
 
-import UserService from './user/UserService';
+import { LocalisationService } from './localisation/LocalisationService';
 
 let isInitialized = false;
 
@@ -66,7 +66,7 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
   // WARNING: Do not send any PII or Health Data here!
   const payload = {
     ...additionalProps,
-    appCountry: UserService.userCountry,
+    appCountry: LocalisationService.userCountry,
     expoVersion: Constants.expoVersion,
     appVersion: Constants.manifest.version,
     revisionId: Constants.manifest.revisionId,

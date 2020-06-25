@@ -8,7 +8,7 @@ import { profilesIcon } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import {
   BrandedButton,
   ClickableText,
@@ -18,6 +18,8 @@ import {
   SecondaryText,
 } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -27,9 +29,11 @@ type RenderProps = {
 };
 
 export default class ReportForOtherScreen extends Component<RenderProps, object> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   handleSkip = async () => {
-    const userService = new UserService();
-    await userService.recordAskedToReportForOther();
+    await this.userService.recordAskedToReportForOther();
     this.props.navigation.navigate(AssessmentCoordinator.getThankYouScreen());
   };
 

@@ -6,7 +6,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientProfile } from '@covid/core/patient/PatientState';
-import Analytics from '@covid/core/Analytics';
 
 import PatientHeader from './PatientHeader';
 

@@ -16,10 +16,6 @@ type HowYouFeelProps = {
 };
 
 export default class BeforeWeStart extends Component<HowYouFeelProps> {
-  constructor(props: HowYouFeelProps) {
-    super(props);
-  }
-
   buildRouteParams = (consentType: ConsentType) => {
     return {
       consentType,

@@ -9,13 +9,15 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
+import { ConfigType } from '@covid/core/Config';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
-import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
 import {
   HormoneTreatmentData,
@@ -31,6 +33,7 @@ import {
   SupplementValue,
 } from '../patient/fields/VitaminQuestion';
 import { DiabetesData, DiabetesQuestions } from '../patient/fields/DiabetesQuestions';
+import { ScreenParamList } from '../ScreenParamList';
 
 interface BackfillData
   extends BloodPressureData,
@@ -69,8 +72,12 @@ const initialState: State = {
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
-  userService = new UserService();
-  features = this.userService.getConfig();
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
+  get features(): ConfigType {
+    return this.userService.getConfig();
+  }
 
   constructor(props: BackDateProps) {
     super(props);
@@ -141,13 +148,12 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   });
 
   async componentDidMount() {
-    const userService = new UserService();
-    const features = userService.getConfig();
     const { currentPatient } = AssessmentCoordinator.assessmentData;
     this.setState({
       needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer,
       needRaceEthnicityAnswer:
-        (features.showRaceQuestion || features.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer,
+        (this.features.showRaceQuestion || this.features.showEthnicityQuestion) &&
+        !currentPatient.hasRaceEthnicityAnswer,
       needPeriodStatusAnswer: !currentPatient.hasPeriodAnswer,
       needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer,
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
@@ -160,10 +166,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     const { currentPatient } = AssessmentCoordinator.assessmentData;
     const patientId = currentPatient.patientId;
 
-    const userService = new UserService();
     const infos = this.createPatientInfos(formData);
 
-    userService
+    this.userService
       .updatePatient(patientId, infos)
       .then((response) => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
@@ -172,14 +177,14 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
         if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
         if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
-        if (formData.hasHayfever == 'yes') currentPatient.hasHayfever = true;
+        if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
         if (formData.diabetesType) {
           currentPatient.hasDiabetesAnswers = true;
           currentPatient.shouldAskExtendedDiabetes = false;
         }
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
-      .catch((err) => {
+      .catch((_) => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
       });
   }

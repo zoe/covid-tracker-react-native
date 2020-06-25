@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { injectable, inject } from 'inversify';
+import { injectable, inject, unmanaged } from 'inversify';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
@@ -74,7 +74,7 @@ export interface ICoreService extends IUserService, IProfileService, IPatientSer
 @injectable()
 export default class UserService extends ApiClientBase implements ICoreService {
   constructor(
-    private useAsyncStorage: boolean = true,
+    @unmanaged() private useAsyncStorage: boolean = true,
     @inject(Services.Consent) private readonly consentService: IConsentService,
     @inject(Services.Localisation) private readonly localisationService: ILocalisationService
   ) {
