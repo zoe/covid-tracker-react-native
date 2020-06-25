@@ -1,11 +1,13 @@
 import { AxiosResponse } from 'axios';
-import { injectable, inject, unmanaged } from 'inversify';
+import { injectable, unmanaged } from 'inversify';
+import getDecorators from 'inversify-inject-decorators';
 
 import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { Services } from '@covid/provider/services.types';
+import { container } from '@covid/provider/services';
 
 import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
@@ -34,6 +36,8 @@ export type AuthenticatedUser = {
   userToken: string;
   userId: string;
 };
+
+const { lazyInject } = getDecorators(container);
 
 // Attempt to split UserService into discrete service interfaces, which means:
 // TODO: Split into separate self-contained services
@@ -74,11 +78,13 @@ export interface ICoreService extends IUserService, IProfileService, IPatientSer
 
 @injectable()
 export default class UserService extends ApiClientBase implements ICoreService {
-  constructor(
-    @unmanaged() private useAsyncStorage: boolean = true,
-    @inject(Services.Consent) private readonly consentService: IConsentService,
-    @inject(Services.Localisation) private readonly localisationService: ILocalisationService
-  ) {
+  @lazyInject(Services.Consent)
+  private readonly consentService: IConsentService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
+  constructor(@unmanaged() private useAsyncStorage: boolean = true) {
     super();
     this.loadUser();
   }

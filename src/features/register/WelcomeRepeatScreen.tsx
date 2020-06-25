@@ -15,12 +15,15 @@ import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
-import { contentService, offlineService, pushNotificationService, userService } from '@covid/Services';
+import { contentService, offlineService, pushNotificationService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { ICoreService } from '@covid/core/user/UserService';
 
-import Navigator, { NavigationType } from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
+import Navigator, { NavigationType } from '../AppCoordinator';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
@@ -43,13 +46,16 @@ const initialState = {
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
+  @lazyInject(Services.User)
+  private readonly userService: ICoreService;
+
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
     const userCount = await contentService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
-    const feature = userService.getConfig();
+    const feature = this.userService.getConfig();
     this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();

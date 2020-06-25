@@ -1,6 +1,5 @@
 import { CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { inject } from 'inversify';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
@@ -11,6 +10,7 @@ import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { ConsentService } from '@covid/core/consent/ConsentService';
+import { lazyInject } from '@covid/provider/services';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -27,7 +27,7 @@ type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentVie
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator {
-  @inject(Services.User)
+  @lazyInject(Services.User)
   private readonly userService: ICoreService;
 
   navigation: NavigationType;

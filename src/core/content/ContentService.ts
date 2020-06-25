@@ -1,4 +1,5 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
+import getDecorators from 'inversify-inject-decorators';
 
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
@@ -7,10 +8,13 @@ import { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
+import { container } from '@covid/provider/services';
 
 import { LocalisationService } from '../localisation/LocalisationService';
 
 import { IContentApiClient } from './ContentApiClient';
+
+const { lazyInject } = getDecorators(container);
 
 export interface IContentService {
   getUserCount(): Promise<string | null>;
@@ -24,9 +28,9 @@ export interface IContentService {
 
 @injectable()
 export default class ContentService implements IContentService {
+  @lazyInject(Services.ContentApi)
+  private readonly apiClient: IContentApiClient;
   private screenContent: AppScreenContent;
-
-  constructor(@inject(Services.ContentApi) private readonly apiClient: IContentApiClient) {}
 
   static getWebsiteUrl = () => {
     if (isUSCountry()) {
