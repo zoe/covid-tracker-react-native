@@ -34,7 +34,6 @@ export async function startExperiment(experimentName: string, totalVariants: num
   const variant = getVariant(profile.username, totalVariants);
   const payload: { [index: string]: string } = {};
   payload[experimentName] = variant;
-
   Analytics.identify(payload);
   return variant;
 }

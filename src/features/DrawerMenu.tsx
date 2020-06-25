@@ -36,9 +36,17 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const [userEmail, setUserEmail] = useState<string>('');
 
   useEffect(() => {
-    userService.getProfile().then((currentProfile) => {
-      setUserEmail(currentProfile.username);
-    });
+    userService
+      .loadUser()
+      .then((user) => {
+        if (!user) {
+          return;
+        }
+        return userService.getProfile();
+      })
+      .then((currentProfile) => {
+        setUserEmail(currentProfile?.username ?? '');
+      });
   });
 
   function showDeleteAlert() {
@@ -84,9 +92,15 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => props.navigation.goBack()}>
-          <Image style={styles.closeIcon} source={closeIcon} />
-        </TouchableOpacity>
+        <View style={styles.topBar}>
+          <CaptionText>
+            {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
+            {isDevChannel() && ` (DEV)`}
+          </CaptionText>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <Image style={styles.closeIcon} source={closeIcon} />
+          </TouchableOpacity>
+        </View>
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
@@ -103,14 +117,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
-        <View style={styles.versionDetails}>
-          <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
-          <CaptionText style={styles.versionText}>
-            {Constants.manifest.version}
-            {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
-            {isDevChannel() && ` (DEV)`}
-          </CaptionText>
-        </View>
+        <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
       </View>
     </SafeAreaView>
   );
@@ -139,7 +146,7 @@ const styles = StyleSheet.create({
     width: 24,
     marginEnd: 16,
   },
-  versionDetails: {
+  topBar: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -147,5 +154,6 @@ const styles = StyleSheet.create({
   },
   versionText: {
     marginTop: 8,
+    paddingLeft: 8,
   },
 });
