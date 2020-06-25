@@ -50,6 +50,7 @@ export interface IUserService {
   getConfig(): ConfigType;
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
+  setUSStudyInviteResponse(patientId: string, response: boolean): void;
 }
 
 export interface IProfileService {
