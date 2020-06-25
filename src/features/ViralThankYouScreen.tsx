@@ -16,7 +16,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
 import { isAndroid } from '@covid/components/Screen';
-import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { contentService } from '@covid/Services';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 
@@ -160,7 +160,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
     return (
       <>
-        {this.state.askForRating && <CovidRating />}
+        {this.state.askForRating && <AppRating />}
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
