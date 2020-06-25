@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
-import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
@@ -34,7 +34,7 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
   render() {
     return (
       <>
-        {this.state.askForRating && <CovidRating />}
+        {this.state.askForRating && <AppRating />}
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>

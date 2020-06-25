@@ -4,9 +4,9 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog003, dataPage0001, incidence003, timUpdate002 } from '@assets';
+import { blog004, dataPage003, incidence004, timUpdate002 } from '@assets';
 import { colors } from '@theme';
-import { CovidRating, shouldAskForRating } from '@covid/components/CovidRating';
+import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
@@ -45,7 +45,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   render() {
     return (
       <>
-        {this.state.askForRating && <CovidRating />}
+        {this.state.askForRating && <AppRating />}
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
@@ -59,15 +59,15 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
-                calloutID="data_page_001"
-                imageSource={dataPage0001}
+                calloutID="data_page_003"
+                imageSource={dataPage003}
                 aspectRatio={1.55}
               />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_003"
-                imageSource={incidence003}
+                calloutID="incidence_004"
+                imageSource={incidence004}
                 aspectRatio={1.5}
               />
 
@@ -79,9 +79,9 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-obesity?utm_source=App"
-                calloutID="blog_003"
-                imageSource={blog003}
+                link="https://covid.joinzoe.com/post/cancer-covid-risk?utm_source=App"
+                calloutID="blog_004"
+                imageSource={blog004}
                 aspectRatio={1.551}
               />
 

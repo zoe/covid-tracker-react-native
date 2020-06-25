@@ -1,8 +1,8 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
+import { Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -55,7 +55,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
           <ProgressStatus step={4} maxSteps={5} />
         </ProgressBlock>
 
-        <Form style={styles.form}>
+        <View style={styles.content}>
           <FieldWrapper style={styles.fieldWrapper}>
             <BigButton onPress={() => this.handleTreatment('none')}>
               <Text>{i18n.t('treatment-selection-picker-none')}</Text>
@@ -92,15 +92,15 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
               <Text>{i18n.t('treatment-selection-picker-other')}</Text>
             </BigButton>
           </FieldWrapper>
-        </Form>
+        </View>
       </Screen>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  form: {
-    marginVertical: 24,
+  content: {
+    marginVertical: 36,
   },
 
   fieldWrapper: {

@@ -19,7 +19,6 @@ import {
 } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 
-import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {

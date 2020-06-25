@@ -32,7 +32,7 @@ export async function shouldAskForRating(): Promise<boolean> {
   return !askedToRateStatus && eligibleToAskForRating;
 }
 
-export class CovidRating extends Component<PropsType, State> {
+export class AppRating extends Component<PropsType, State> {
   state = {
     isModalOpen: true,
     showTakeToStore: false,
