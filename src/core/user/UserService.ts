@@ -18,18 +18,21 @@ import { getInitialPatientState, PatientStateType, PatientProfile } from '../pat
 import { cleanIntegerVal } from '../utils/number';
 
 import {
-  AreaStatsResponse,
   AskValidationStudy,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
   PiiRequest,
-  StartupInfo,
   UserResponse,
 } from './dto/UserAPIContracts';
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
+
+export type AuthenticatedUser = {
+  userToken: string;
+  userId: string;
+};
 
 // Attempt to split UserService into discrete service interfaces, which means:
 // TODO: Split into separate self-contained services
@@ -41,6 +44,8 @@ export interface IUserService {
   getProfile(): Promise<UserResponse>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
+  loadUser(): Promise<AuthenticatedUser | null>;
+  getFirstPatientId(): Promise<string | null>;
 }
 
 export interface IProfileService {
@@ -96,6 +101,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
   constructor(private useAsyncStorage: boolean = true) {
     super();
+    this.loadUser();
   }
 
   configEncoded = {
@@ -151,9 +157,48 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return data;
   };
 
+  async loadUser(): Promise<AuthenticatedUser | null> {
+    const user = await AsyncStorageService.GetStoredData();
+    const hasUser = !user || (!!user.userToken && !!user.userId);
+    this.updateUserCountry(hasUser);
+    if (hasUser) {
+      await ApiClientBase.setToken(user!.userToken, user!.userId);
+      const patientId: string | null = await this.getFirstPatientId(user!);
+      if (!patientId) {
+        // Logged in with an account doesn't exist. Force logout.
+        await this.logout();
+      }
+    }
+    return user;
+  }
+
+  async getFirstPatientId(): Promise<string | null> {
+    try {
+      const profile = await this.getProfile();
+      const patientId = profile.patients[0];
+      return patientId;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  private updateUserCountry = async (isLoggedIn: boolean) => {
+    const country: string | null = await this.getUserCountry();
+    this.initCountryConfig(country ?? 'GB');
+    if (isLoggedIn) {
+      // If logged in with no country default to GB as this will handle all
+      // GB users before selector was included.
+      if (country === null) {
+        await this.setUserCountry('GB');
+      }
+    } else {
+      await this.defaultCountryFromLocale();
+    }
+  };
+
   getData = <T>(response: AxiosResponse<T>) => {
     if (typeof response.data === 'string') {
-      return <T>camelizeKeys(JSON.parse(response.data));
+      return camelizeKeys(JSON.parse(response.data)) as T;
     } else {
       return response.data;
     }
@@ -410,7 +455,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     if (await AsyncStorageService.getAskedCountryConfirmation()) {
       return false;
     } else {
-      return UserService.userCountry != UserService.ipCountry;
+      return UserService.userCountry !== UserService.ipCountry;
     }
   }
 

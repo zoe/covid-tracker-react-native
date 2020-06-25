@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
 import { UserResponse } from './user/dto/UserAPIContracts';
+import { AuthenticatedUser } from './user/UserService';
 
 const AUTH_TOKEN = 'authToken';
 const USER_ID = 'userId';
@@ -15,11 +16,8 @@ const ASKED_COUNTRY = 'askedCountry';
 
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
-const STR_YES = 'YES';
-const STR_NO = 'NO';
-
 export class AsyncStorageService {
-  public static async GetStoredData() {
+  public static async GetStoredData(): Promise<AuthenticatedUser | null> {
     let userToken: string | null = '';
     let userId: string | null = '';
     try {
@@ -28,6 +26,9 @@ export class AsyncStorageService {
     } catch (e) {
       // Swallow for now
       // todo: find a way to report the crash and an alternative
+    }
+    if (!userToken || !userId) {
+      return null;
     }
     return { userToken, userId };
   }
