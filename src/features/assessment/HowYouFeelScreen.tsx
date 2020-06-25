@@ -1,18 +1,16 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { assessmentService, userService } from '@covid/Services';
-import { colors } from '@theme';
+import { assessmentService } from '@covid/Services';
 import { USStudyInvite } from '@covid/components/USStudyInvite';
+import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -87,19 +85,17 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
             <ProgressStatus step={3} maxSteps={5} />
           </ProgressBlock>
 
-          <Form style={styles.form}>
-            <FieldWrapper style={styles.fieldWrapper}>
-              <BigButton onPress={this.handleFeelNormal}>
-                <Text>{i18n.t('how-you-feel.picker-health-status-healthy')}</Text>
-              </BigButton>
-            </FieldWrapper>
+          <View style={styles.content}>
+            <SelectorButton
+              onPress={this.handleFeelNormal}
+              text={i18n.t('how-you-feel.picker-health-status-healthy')}
+            />
 
-            <FieldWrapper style={styles.fieldWrapper}>
-              <BigButton onPress={this.handleHaveSymptoms}>
-                <Text>{i18n.t('how-you-feel.picker-health-status-not-healthy')}</Text>
-              </BigButton>
-            </FieldWrapper>
-          </Form>
+            <SelectorButton
+              onPress={this.handleHaveSymptoms}
+              text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
+            />
+          </View>
         </Screen>
       </>
     );
@@ -107,18 +103,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 }
 
 const styles = StyleSheet.create({
-  actionContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    borderTopWidth: 1,
-    borderColor: colors.actionButtonBorder,
-  },
-
-  form: {
-    marginVertical: 32,
-  },
-
-  fieldWrapper: {
+  content: {
     marginVertical: 32,
   },
 });

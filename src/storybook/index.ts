@@ -5,7 +5,6 @@ import { CenterView } from '@covid/storybook/decorator';
 import './rn-addons';
 
 configure(() => {
-  require('./stories/AppVersion.stories');
   require('./stories/Badge.stories');
   require('./stories/PoweredByZoe.stories');
   require('./stories/Spinner.stories');

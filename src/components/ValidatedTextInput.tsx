@@ -1,4 +1,3 @@
-import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
