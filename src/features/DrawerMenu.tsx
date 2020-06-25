@@ -32,20 +32,17 @@ const MenuItem = (props: MenuItemProps) => {
 
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
-
   const [userEmail, setUserEmail] = useState<string>('');
 
   useEffect(() => {
+    if (userEmail !== '') return;
     userService
-      .loadUser()
-      .then((user) => {
-        if (!user) {
-          return;
-        }
-        return userService.getProfile();
-      })
+      .getProfile()
       .then((currentProfile) => {
         setUserEmail(currentProfile?.username ?? '');
+      })
+      .catch((_) => {
+        setUserEmail('');
       });
   });
 
@@ -73,6 +70,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function logout() {
+    setUserEmail(''); // Reset email
     userService.logout();
     props.navigation.reset({
       index: 0,
