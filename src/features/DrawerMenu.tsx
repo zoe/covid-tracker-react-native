@@ -1,7 +1,7 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
 import { closeIcon } from '@assets';
@@ -10,12 +10,33 @@ import UserService, { isGBCountry, isSECountry } from '@covid/core/user/UserServ
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
 
+type MenuItemProps = {
+  label: string;
+  onPress: () => void;
+};
+
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
 };
 
+const MenuItem = (props: MenuItemProps) => {
+  return (
+    <TouchableOpacity style={styles.iconNameRow} onPress={props.onPress}>
+      <HeaderText>{props.label}</HeaderText>
+    </TouchableOpacity>
+  );
+};
+
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = new UserService();
+
+  const [userEmail, setUserEmail] = useState<string>('');
+
+  useEffect(() => {
+    userService.getProfile().then((currentProfile) => {
+      setUserEmail(currentProfile.username);
+    });
+  });
 
   function showDeleteAlert() {
     Alert.alert(
@@ -49,51 +70,44 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     props.navigation.dispatch(DrawerActions.closeDrawer());
   }
 
+  function goToPrivacy() {
+    isGBCountry()
+      ? props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
+      : isSECountry()
+      ? props.navigation.navigate('PrivacyPolicySV', { viewOnly: true })
+      : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
+  }
+
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <Image style={styles.closeIcon} source={closeIcon} />
         </TouchableOpacity>
-        <View style={{ height: 40 }} />
-        <TouchableOpacity
-          style={styles.iconNameRow}
+        <MenuItem
+          label={i18n.t('research-updates')}
           onPress={() => {
             Linking.openURL(i18n.t('blog-link'));
-          }}>
-          <HeaderText>{i18n.t('research-updates')}</HeaderText>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.iconNameRow}
+          }}
+        />
+        <MenuItem
+          label={i18n.t('faqs')}
           onPress={() => {
             Linking.openURL(i18n.t('faq-link'));
-          }}>
-          <HeaderText>{i18n.t('faqs')}</HeaderText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconNameRow}
-          onPress={() => {
-            isGBCountry()
-              ? props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
-              : isSECountry()
-              ? props.navigation.navigate('PrivacyPolicySV', { viewOnly: true })
-              : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
-          }}>
-          <HeaderText>{i18n.t('privacy-policy')}</HeaderText>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconNameRow} onPress={() => showDeleteAlert()}>
-          <HeaderText>{i18n.t('delete-my-data')}</HeaderText>
-        </TouchableOpacity>
+          }}
+        />
+        <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
+        <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
         <View style={{ flex: 1 }} />
-        <TouchableOpacity style={styles.iconNameRow} onPress={() => logout()}>
-          <HeaderText>{i18n.t('logout')}</HeaderText>
-        </TouchableOpacity>
-        <CaptionText style={[styles.versionText]}>
-          {Constants.manifest.version}
-          {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
-          {isDevChannel() && ` (DEV)`}
-        </CaptionText>
+        <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
+        <View style={styles.versionDetails}>
+          <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
+          <CaptionText style={styles.versionText}>
+            {Constants.manifest.version}
+            {Constants.manifest.revisionId && ` : ${Constants.manifest.revisionId}`}
+            {isDevChannel() && ` (DEV)`}
+          </CaptionText>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -122,8 +136,13 @@ const styles = StyleSheet.create({
     width: 24,
     marginEnd: 16,
   },
+  versionDetails: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 8,
+  },
   versionText: {
-    marginTop: 32,
-    alignSelf: 'center',
+    marginTop: 8,
   },
 });
