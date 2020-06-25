@@ -6,11 +6,12 @@ import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry, IUserService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { RegularText } from '@covid/components/Text';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface HeightData {
   height: string;

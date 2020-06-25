@@ -7,8 +7,8 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
-import { contentService } from '@covid/Services';
-import { container } from '@covid/provider/services';
+import { IContentService } from '@covid/core/content/ContentService';
+import { container, lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
@@ -29,18 +29,21 @@ const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 export async function shouldAskForRating(): Promise<boolean> {
   const profile = await container.get<IUserService>(Services.User).getProfile();
   const eligibleToAskForRating = profile.ask_for_rating;
-  const askedToRateStatus = await contentService.getAskedToRateStatus();
+  const askedToRateStatus = await container.get<IContentService>(Services.Content).getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;
 }
 
 export class AppRating extends Component<PropsType, State> {
+  @lazyInject(Services.Content)
+  private readonly contentService: IContentService;
+
   state = {
     isModalOpen: true,
     showTakeToStore: false,
   };
 
   decline = () => {
-    contentService.setAskedToRateStatus('asked');
+    this.contentService.setAskedToRateStatus('asked');
     this.setState({ isModalOpen: false });
   };
 
@@ -56,7 +59,7 @@ export class AppRating extends Component<PropsType, State> {
   };
 
   takeToStore = () => {
-    contentService.setAskedToRateStatus('asked');
+    this.contentService.setAskedToRateStatus('asked');
     if (Platform.OS !== 'ios') {
       Linking.openURL(AndroidLink);
     } else {

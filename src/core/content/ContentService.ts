@@ -19,6 +19,7 @@ const { lazyInject } = getDecorators(container);
 export interface IContentService {
   getUserCount(): Promise<string | null>;
   getWelcomeRepeatContent(): Promise<ScreenContent>;
+  getCalloutBoxDefault(): ScreenContent;
   getAskedToRateStatus(): Promise<string | null>;
   setAskedToRateStatus(status: string): void;
   getUserCount(): Promise<string | null>;

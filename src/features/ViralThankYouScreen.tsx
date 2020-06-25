@@ -17,10 +17,10 @@ import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@cov
 import BrandedSpinner from '@covid/components/Spinner';
 import { isAndroid } from '@covid/components/Screen';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
-import { contentService } from '@covid/Services';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
+import { IContentService } from '@covid/core/content/ContentService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -41,6 +41,9 @@ export default class ViralThankYouScreen extends Component<Props, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
+  @lazyInject(Services.Content)
+  private readonly contentService: IContentService;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -59,7 +62,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
       this.setState({ askForRating: true });
     }
 
-    contentService
+    this.contentService
       .getAreaStats(profile.patients[0]) // todo: multipatient
       .then((response) =>
         this.setState({

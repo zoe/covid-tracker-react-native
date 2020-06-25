@@ -15,12 +15,13 @@ import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import i18n from '@covid/locale/i18n';
-import { contentService, offlineService, pushNotificationService } from '@covid/Services';
+import { offlineService, pushNotificationService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { lazyInject } from '@covid/provider/services';
+import { lazyInject, container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IUserService } from '@covid/core/user/UserService';
+import { IContentService } from '@covid/core/content/ContentService';
 
 import { ScreenParamList } from '../ScreenParamList';
 import Navigator, { NavigationType } from '../AppCoordinator';
@@ -42,25 +43,28 @@ const initialState = {
   ...initialErrorState,
   userCount: null,
   showPartnerLogos: true,
-  calloutBoxContent: contentService.getCalloutBoxDefault(),
+  calloutBoxContent: container.get<IContentService>(Services.Content).getCalloutBoxDefault(),
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
+  @lazyInject(Services.Content)
+  private readonly contentService: IContentService;
+
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
     Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
-    const userCount = await contentService.getUserCount();
+    const userCount = await this.contentService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
     const feature = this.userService.getConfig();
     this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
-    const content = await contentService.getWelcomeRepeatContent();
+    const content = await this.contentService.getWelcomeRepeatContent();
     this.setState({ calloutBoxContent: content });
   }
 
