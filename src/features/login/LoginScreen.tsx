@@ -14,7 +14,8 @@ import {
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { isUSCountry, IUserService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
