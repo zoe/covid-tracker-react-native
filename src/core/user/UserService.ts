@@ -39,17 +39,19 @@ export interface IUserService {
 @injectable()
 export default class UserService extends ApiClientBase implements IUserService {
   @inject(Services.Consent)
-  private readonly consentService: IConsentService;
+  public consentService: IConsentService;
 
   @inject(Services.Localisation)
-  private readonly localisationService: ILocalisationService;
+  public localisationService: ILocalisationService;
 
   @inject(Services.Patient)
-  private readonly patientService: IPatientService;
+  public patientService: IPatientService;
 
   constructor(@unmanaged() private useAsyncStorage: boolean = true) {
     super();
-    this.loadUser();
+    if (this.constructor.name === UserService.name) {
+      this.loadUser();
+    }
   }
 
   configEncoded = {
@@ -105,7 +107,7 @@ export default class UserService extends ApiClientBase implements IUserService {
     return data;
   };
 
-  async loadUser(): Promise<AuthenticatedUser | null> {
+  public loadUser = async (): Promise<AuthenticatedUser | null> => {
     const user = await AsyncStorageService.GetStoredData();
     const hasUser = !!user && !!user!.userToken && !!user!.userId;
     this.localisationService.updateUserCountry(hasUser);
@@ -118,7 +120,7 @@ export default class UserService extends ApiClientBase implements IUserService {
       }
     }
     return user;
-  }
+  };
 
   async getFirstPatientId(): Promise<string | null> {
     try {

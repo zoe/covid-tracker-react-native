@@ -9,7 +9,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import CovidTestService from '@covid/core/user/CovidTestService';
+import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
@@ -22,6 +22,8 @@ import {
   CovidTestResultData,
   CovidTestResultQuestion,
 } from '@covid/features/assessment/fields/CovidTestResultQuestion';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -43,6 +45,9 @@ const initialState: State = {
 };
 
 export default class CovidTestDetailScreen extends Component<CovidProps, State> {
+  @lazyInject(Services.CovidTest)
+  private readonly covidTestService: ICovidTestService;
+
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
@@ -50,9 +55,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
   submitCovidTest(infos: Partial<CovidTest>) {
     const { test } = this.props.route.params;
-    const covidTestService = new CovidTestService();
     if (test?.id) {
-      covidTestService
+      this.covidTestService
         .updateTest(test.id, infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
@@ -62,7 +66,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           this.setState({ submitting: false });
         });
     } else {
-      covidTestService
+      this.covidTestService
         .addTest(infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
