@@ -22,6 +22,7 @@
     "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/bottom-tabs": "^5.1.1",
     "@react-navigation/drawer": "^5.4.0",
