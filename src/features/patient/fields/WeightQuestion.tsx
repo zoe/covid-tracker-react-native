@@ -6,10 +6,11 @@ import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { userService } from '@covid/Services';
 import { RegularText } from '@covid/components/Text';
+import { container } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 export interface WeightData {
   weight: string;
@@ -109,7 +110,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
 };
 
 WeightQuestion.initialFormValues = () => {
-  const features = userService.getConfig();
+  const features = container.get<ICoreService>(Services.User).getConfig();
   return {
     weight: '',
     stones: '',

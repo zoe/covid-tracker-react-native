@@ -34,7 +34,9 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const [userEmail, setUserEmail] = useState<string>('');
 
   useEffect(() => {
+    console.log('use effect');
     if (userEmail !== '') return;
+    console.log('about to fetch profile');
     userService
       .getProfile()
       .then((currentProfile) => {
@@ -43,7 +45,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
       .catch((_) => {
         setUserEmail('');
       });
-  });
+  }, []);
 
   function showDeleteAlert() {
     Alert.alert(
@@ -69,6 +71,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function logout() {
+    console.log('[Splash Screen] Logout');
     setUserEmail(''); // Reset email
     userService.logout();
     props.navigation.reset({

@@ -6,9 +6,11 @@ import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import DropdownField from '@covid/components/DropdownField';
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
-import { userService } from '@covid/Services';
 import { cleanFloatVal } from '@covid/core/utils/number';
 import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
+import { container } from '@covid/provider/services';
+import { ICoreService } from '@covid/core/user/UserService';
+import { Services } from '@covid/provider/services.types';
 
 export interface LifestyleData {
   weightChange: string;
@@ -133,8 +135,7 @@ export const LifestyleQuestion: FormikLifestyleQuestionInputFC<Props, LifestyleD
 };
 
 LifestyleQuestion.initialFormValues = (): LifestyleData => {
-  const features = userService.getConfig();
-
+  const features = container.get<ICoreService>(Services.User).getConfig();
   return {
     weightChange: '',
     dietChange: '',

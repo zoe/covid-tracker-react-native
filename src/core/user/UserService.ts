@@ -46,6 +46,9 @@ export interface IUserService {
   deleteRemoteUserData(): Promise<any>;
   loadUser(): Promise<AuthenticatedUser | null>;
   getFirstPatientId(): Promise<string | null>;
+  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
+  setUSStudyInviteResponse(patientId: string, response: boolean): void;
+  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
 }
 
 export interface IProfileService {
@@ -102,6 +105,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   constructor(private useAsyncStorage: boolean = true) {
     super();
     this.loadUser();
+    console.log('User service init');
   }
 
   configEncoded = {
@@ -130,6 +134,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   public async logout() {
+    console.log('[User Service] Logout');
     await this.deleteLocalUserData();
   }
 
@@ -158,6 +163,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   };
 
   async loadUser(): Promise<AuthenticatedUser | null> {
+    console.log('Load user');
     const user = await AsyncStorageService.GetStoredData();
     const hasUser = !!user && !!user!.userToken && !!user!.userId;
     this.updateUserCountry(hasUser);
@@ -166,6 +172,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       const patientId: string | null = await this.getFirstPatientId();
       if (!patientId) {
         // Logged in with an account doesn't exist. Force logout.
+        console.log('No user');
         await this.logout();
       }
     }
@@ -429,6 +436,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
+    console.log('setConsentSigned', document);
     const consent = {
       document,
       version,

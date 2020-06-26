@@ -10,9 +10,9 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import UserService from '@covid/core/user/UserService';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
+import { ICoreService } from '@covid/core/user/UserService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import Navigator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
@@ -30,7 +30,8 @@ interface TermsState {
 }
 
 export default class ValidationStudyConsentScreen extends Component<PropsType, TermsState> {
-  private userService = new UserService();
+  @lazyInject(Services.User)
+  private userService: ICoreService;
 
   constructor(props: PropsType) {
     super(props);
