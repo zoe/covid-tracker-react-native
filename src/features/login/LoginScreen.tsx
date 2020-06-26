@@ -12,12 +12,14 @@ import {
   View,
 } from 'react-native';
 
-import { colors, fontStyles } from '@theme';
+import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { ICoreService, isUSCountry } from '@covid/core/user/UserService';
 import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -42,6 +44,9 @@ export class LoginScreen extends Component<PropsType, StateType> {
   private username = '';
   private password = '';
 
+  @lazyInject(Services.User)
+  userService: ICoreService;
+
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
@@ -64,8 +69,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
       return;
     }
 
-    const userService = new UserService();
-    userService
+    this.userService
       .login(username, this.password)
       .then((response) => {
         const isTester = response.user.is_tester;
