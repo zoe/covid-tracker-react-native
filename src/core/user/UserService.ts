@@ -37,6 +37,7 @@ export type AuthenticatedUser = {
 // Attempt to split UserService into discrete service interfaces, which means:
 // TODO: Split into separate self-contained services
 export interface IUserService {
+  hasUser: boolean;
   register(email: string, password: string): Promise<any>; // TODO: define return object
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
@@ -46,6 +47,9 @@ export interface IUserService {
   deleteRemoteUserData(): Promise<any>;
   loadUser(): Promise<AuthenticatedUser | null>;
   getFirstPatientId(): Promise<string | null>;
+  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
+  setUSStudyInviteResponse(patientId: string, response: boolean): void;
+  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
 }
 
 export interface IProfileService {
@@ -99,6 +103,8 @@ export default class UserService extends ApiClientBase implements ICoreService {
     privacy_policy_version: '',
   };
 
+  public hasUser = false;
+
   constructor(private useAsyncStorage: boolean = true) {
     super();
     this.loadUser();
@@ -130,6 +136,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   public async logout() {
+    this.hasUser = false;
     await this.deleteLocalUserData();
   }
 
@@ -153,15 +160,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
     await this.storeTokenInAsyncStorage(authToken, data.user.pii);
     await AsyncStorageService.saveProfile(data.user);
     this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
-
+    this.hasUser = true;
     return data;
   };
 
   async loadUser(): Promise<AuthenticatedUser | null> {
     const user = await AsyncStorageService.GetStoredData();
-    const hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.updateUserCountry(hasUser);
-    if (hasUser) {
+    this.hasUser = !!user && !!user!.userToken && !!user!.userId;
+    this.updateUserCountry(this.hasUser);
+    if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
       const patientId: string | null = await this.getFirstPatientId();
       if (!patientId) {
@@ -429,6 +436,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
+    console.log('setConsentSigned', document);
     const consent = {
       document,
       version,

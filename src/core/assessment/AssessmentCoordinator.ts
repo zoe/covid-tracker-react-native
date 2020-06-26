@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import UserService, { isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
@@ -22,7 +22,7 @@ export type AssessmentData = {
 
 export class AssessmentCoordinator {
   navigation: NavigationType;
-  userService: UserService;
+  userService: ICoreService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
   appCoordinator: AppCoordinator;
@@ -66,7 +66,7 @@ export class AssessmentCoordinator {
     appCoordinator: AppCoordinator,
     navigation: NavigationType,
     assessmentData: AssessmentData,
-    userService: UserService,
+    userService: ICoreService,
     assessmentService: IAssessmentService
   ) => {
     this.appCoordinator = appCoordinator;

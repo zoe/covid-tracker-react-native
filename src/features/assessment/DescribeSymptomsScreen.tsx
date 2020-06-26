@@ -14,12 +14,14 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import UserService from '@covid/core/user/UserService';
+import UserService, { ICoreService } from '@covid/core/user/UserService';
 import { cleanFloatVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import YesNoField from '@covid/components/YesNoField';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -97,6 +99,9 @@ const initialState: State = {
 };
 
 export default class DescribeSymptomsScreen extends Component<SymptomProps, State> {
+  @lazyInject(Services.User)
+  private userService: ICoreService;
+
   constructor(props: SymptomProps) {
     super(props);
     this.state = initialState;
@@ -250,9 +255,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     ];
 
     const getInitialFormValues = (): DescribeSymptomsData => {
-      const userService = new UserService();
-      const features = userService.getConfig();
-
+      const features = this.userService.getConfig();
       return {
         ...initialFormValues,
         temperatureUnit: features.defaultTemperatureUnit,

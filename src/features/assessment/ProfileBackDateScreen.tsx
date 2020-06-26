@@ -9,10 +9,12 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import UserService, { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -69,7 +71,9 @@ const initialState: State = {
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
-  userService = new UserService();
+  @lazyInject(Services.User)
+  private userService: ICoreService;
+
   features = this.userService.getConfig();
 
   constructor(props: BackDateProps) {
@@ -141,8 +145,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   });
 
   async componentDidMount() {
-    const userService = new UserService();
-    const features = userService.getConfig();
+    const features = this.userService.getConfig();
     const { currentPatient } = AssessmentCoordinator.assessmentData;
     this.setState({
       needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer,
@@ -159,11 +162,9 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   handleProfileUpdate(formData: BackfillData) {
     const { currentPatient } = AssessmentCoordinator.assessmentData;
     const patientId = currentPatient.patientId;
-
-    const userService = new UserService();
     const infos = this.createPatientInfos(formData);
 
-    userService
+    this.userService
       .updatePatient(patientId, infos)
       .then((response) => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
