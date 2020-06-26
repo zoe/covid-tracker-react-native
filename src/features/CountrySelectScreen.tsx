@@ -6,7 +6,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { gbFlag, svFlag, usFlag } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -20,7 +22,8 @@ const GB_CODE = 'GB';
 const SV_CODE = 'SE';
 
 export class CountrySelectScreen extends Component<Props, object> {
-  private userService = new UserService();
+  @lazyInject(Services.User)
+  userService: ICoreService;
 
   constructor(props: Props) {
     super(props);
