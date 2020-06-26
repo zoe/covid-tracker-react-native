@@ -24,6 +24,7 @@ export const events = {
   CLICK_CALLOUT: 'CLICK_CALLOUT',
   ACCEPT_STUDY_CONTACT: 'ACCEPT_STUDY_CONTACT',
   DECLINE_STUDY_CONTACT: 'DECLINE_STUDY_CONTACT',
+  CLICKED_TURN_ON_REMINDERS: 'CLICKED_TURN_ON_REMINDERS',
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)

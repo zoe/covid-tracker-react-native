@@ -108,6 +108,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem
           label={i18n.t('push-notifications')}
           onPress={async () => {
+            Analytics.track(events.CLICKED_TURN_ON_REMINDERS);
             await PushNotificationService.openSettings();
           }}
         />
