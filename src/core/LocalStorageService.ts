@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import { AsyncStorage } from 'react-native';
 
 export interface IStorageService {
   setObject<T>(key: string, obj: T): Promise<void>;
