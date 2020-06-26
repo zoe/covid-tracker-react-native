@@ -33,19 +33,19 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
 
+  const fetchEmail = async () => {
+    try {
+      const profile = await userService.getProfile();
+      setUserEmail(profile?.username ?? '');
+    } catch (_) {
+      setUserEmail('');
+    }
+  };
+
   useEffect(() => {
-    console.log('use effect');
     if (userEmail !== '') return;
-    console.log('about to fetch profile');
-    userService
-      .getProfile()
-      .then((currentProfile) => {
-        setUserEmail(currentProfile?.username ?? '');
-      })
-      .catch((_) => {
-        setUserEmail('');
-      });
-  }, []);
+    fetchEmail();
+  }, [userService.hasUser]);
 
   function showDeleteAlert() {
     Alert.alert(
@@ -71,7 +71,6 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function logout() {
-    console.log('[Splash Screen] Logout');
     setUserEmail(''); // Reset email
     userService.logout();
     props.navigation.reset({
