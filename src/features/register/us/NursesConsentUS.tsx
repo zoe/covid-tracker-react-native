@@ -5,9 +5,11 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { NursesConsentVersionUS, privacyPolicyVersionUS } from '../constants';
@@ -23,7 +25,8 @@ interface TermsState {
 }
 
 export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
-  private userService = new UserService();
+  @lazyInject(Services.User)
+  private userService: ICoreService;
 
   constructor(props: PropsType) {
     super(props);

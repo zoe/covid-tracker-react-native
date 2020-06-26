@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -14,7 +14,10 @@ import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErro
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { LoadingModal } from '@covid/components/Loading';
-import { userService, offlineService, pushNotificationService } from '@covid/Services';
+import { offlineService, pushNotificationService } from '@covid/Services';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { ICoreService } from '@covid/core/user/UserService';
 
 import Navigator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -39,6 +42,9 @@ interface OptionalInfoData {
 }
 
 export class OptionalInfoScreen extends Component<PropsType, State> {
+  @lazyInject(Services.User)
+  private userService: ICoreService;
+
   private phoneComponent: any;
 
   constructor(props: PropsType) {
@@ -47,7 +53,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
   }
 
   private async gotoNextScreen(patientId: string) {
-    const currentPatient = await userService.getCurrentPatient(patientId);
+    const currentPatient = await this.userService.getCurrentPatient(patientId);
     this.setState({ isApiError: false });
     Navigator.gotoNextScreen(this.props.route.name, { currentPatient });
   }
@@ -66,7 +72,7 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
         ...(formData.name && { name: formData.name }),
         ...(formData.phone && { phone_number: formData.phone }),
       } as Partial<PiiRequest>;
-      await userService.updatePii(piiDoc);
+      await this.userService.updatePii(piiDoc);
     }
   }
 

@@ -33,17 +33,19 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
 
+  const fetchEmail = async () => {
+    try {
+      const profile = await userService.getProfile();
+      setUserEmail(profile?.username ?? '');
+    } catch (_) {
+      setUserEmail('');
+    }
+  };
+
   useEffect(() => {
     if (userEmail !== '') return;
-    userService
-      .getProfile()
-      .then((currentProfile) => {
-        setUserEmail(currentProfile?.username ?? '');
-      })
-      .catch((_) => {
-        setUserEmail('');
-      });
-  });
+    fetchEmail();
+  }, [userService.hasUser]);
 
   function showDeleteAlert() {
     Alert.alert(
