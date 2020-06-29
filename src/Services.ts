@@ -16,7 +16,6 @@ import ExpoPushTokenEnvironment from './core/pushNotifications/expo';
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();
 
-export const userService = new UserService();
 export const offlineService = new OfflineService();
 
 const contentApiClient = new ContentApiClient(apiClient);

@@ -5,7 +5,9 @@ import reactStringReplace from 'react-string-replace';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import UserService from '@covid/core/user/UserService';
+import UserService, { ICoreService } from '@covid/core/user/UserService';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 import { RegularBoldText, RegularText } from './Text';
 import { ITest } from './types';
@@ -17,7 +19,7 @@ interface ContributionCounterProps extends ITest {
 
 export const ContributionCounter = (props: ContributionCounterProps) => {
   if (props.count) {
-    const userService = new UserService();
+    const userService = useInjection<ICoreService>(Services.User);
     const features = userService.getConfig();
     const delimiter = features ? features.thousandSeparator : ',';
 

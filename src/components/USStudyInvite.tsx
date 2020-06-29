@@ -5,9 +5,10 @@ import { closeIcon, blobs } from '@assets';
 import { RegularText, HeaderText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
-import { userService } from '@covid/Services';
 import Analytics, { events } from '@covid/core/Analytics';
 
 import { BrandedButton } from './BrandedButton';
@@ -17,6 +18,7 @@ type StudyInviteProps = {
 };
 
 export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProps) => {
+  const userService = useInjection<ICoreService>(Services.User);
   const [modalVisible, setModalVisible] = useState(false);
   const { currentPatient } = props.assessmentData;
 

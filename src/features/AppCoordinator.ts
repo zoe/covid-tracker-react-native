@@ -3,11 +3,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import UserService, { isGBCountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { assessmentService, userService } from '@covid/Services';
+import { assessmentService } from '@covid/Services';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -24,8 +26,9 @@ type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentVie
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator {
+  @lazyInject(Services.User)
+  userService: ICoreService;
   navigation: NavigationType;
-  userService: UserService;
 
   screenFlow: any = {
     // End of registration flows
@@ -63,10 +66,6 @@ export class AppCoordinator {
       }
     },
   };
-
-  constructor() {
-    this.userService = new UserService();
-  }
 
   setNavigation(navigation: NavigationType) {
     this.navigation = navigation;
@@ -106,6 +105,7 @@ export class AppCoordinator {
       this.startAssessmentFlow(currentPatient);
     }
   }
+
   startPatientFlow(currentPatient: PatientStateType) {
     patientCoordinator.init(this, this.navigation, { currentPatient }, this.userService);
     patientCoordinator.startPatient();
@@ -134,7 +134,7 @@ export class AppCoordinator {
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
-    if (isGBCountry() && mainProfile && (await userService.shouldAskForValidationStudy(false))) {
+    if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.navigation.navigate('ValidationStudyIntro', { currentPatient });
     } else {
       this.startAssessmentFlow(currentPatient);

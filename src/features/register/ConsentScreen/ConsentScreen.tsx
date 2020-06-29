@@ -4,8 +4,10 @@ import React, { FC, useState, useCallback } from 'react';
 import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { BrandedButton } from '@covid/components/Text';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import {
@@ -27,9 +29,8 @@ type PropsType = {
   route: RouteProp<ScreenParamList, 'Consent'>;
 };
 
-const userService = new UserService();
-
 const ConsentScreen: FC<PropsType> = (props) => {
+  const userService = useInjection<ICoreService>(Services.User);
   const [agreed, setAgreed] = useState(false);
 
   const handleAgreeClicked = useCallback(async () => {

@@ -14,7 +14,7 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal } from '@covid/core/utils/number';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -22,6 +22,8 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { colors, fontStyles } from '@theme';
 import { FaceMaskData, FaceMaskQuestion, TypeOfMaskValues } from '@covid/features/assessment/fields/FaceMaskQuestion';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -55,6 +57,9 @@ const initialState: State = {
 };
 
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
+  @lazyInject(Services.User)
+  private userService: ICoreService;
+
   constructor(props: LocationProps) {
     super(props);
     this.state = initialState;
@@ -116,14 +121,13 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   });
 
   private updatePatientsLastAskedDate(currentPatient: PatientStateType) {
-    const userService = new UserService();
     const patientId = currentPatient.patientId;
     const timeNow = moment().toDate();
     const infos = {
       last_asked_level_of_isolation: timeNow,
     } as Partial<PatientInfosRequest>;
 
-    return userService
+    return this.userService
       .updatePatient(patientId, infos)
       .then(() => (currentPatient.shouldAskLevelOfIsolation = false))
       .catch(() => {

@@ -43,6 +43,7 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: LoadingProps) => {
           <BrandedButton onPress={onPress}>{i18n.t('errors.button-okay')}</BrandedButton>
         </View>
       )}
+      {error && console.log(error)}
     </View>
   );
 };

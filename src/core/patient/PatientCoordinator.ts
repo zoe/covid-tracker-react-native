@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService from '@covid/core/user/UserService';
+import UserService, { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 
@@ -19,7 +19,7 @@ export type PatientData = {
 export class PatientCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
-  userService: UserService;
+  userService: ICoreService;
   patientData: PatientData;
 
   screenFlow: ScreenFlow = {
@@ -44,7 +44,7 @@ export class PatientCoordinator {
     appCoordinator: AppCoordinator,
     navigation: NavigationType,
     patientData: PatientData,
-    userService: UserService
+    userService: ICoreService
   ) => {
     this.appCoordinator = appCoordinator;
     this.navigation = navigation;

@@ -4,16 +4,17 @@ import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from
 
 import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import UserService, { isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import UserService, { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { IContentService } from '@covid/core/content/ContentService';
+import { Services } from '@covid/provider/services.types';
 
 import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
 
 import styles from './styles';
-
-const userService = new UserService();
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
@@ -22,6 +23,8 @@ type PropsType = {
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
+  const userService = useInjection<ICoreService>(Services.User);
+
   const [ipModalVisible, setIpModalVisible] = useState(false);
 
   const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
