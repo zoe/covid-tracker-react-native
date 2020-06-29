@@ -12,12 +12,15 @@ import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/pushNotifications/PushNotificationService';
+import ExpoPushTokenEnvironment from '@covid/core/pushNotifications/expo';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ICoreService } from '@covid/core/user/UserService';
-import ExpoPushTokenEnvironment from '@covid/core/pushNotifications/expo';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -41,8 +44,7 @@ const initialState = {
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.User)
   private userService: ICoreService;
-
-  private pushServies: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
+  private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
 
@@ -50,7 +52,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
-      shouldShowReminders: !(await this.pushServies.isGranted()),
+      shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
 
