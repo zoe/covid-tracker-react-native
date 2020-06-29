@@ -976,5 +976,17 @@
       "same": "Ingen förändring, oförändrade",
       "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     }
+  },
+  "blood-group": {
+    "justification": "Vi frågar detta då andra studier har visat att vilken blodgrupp man har kan påverka både risken att drabbas av covid-19 samt hur allvarligt sjuk man blir. Vi vill undersöka detta i vår stora deltagargrupp.",
+    "question": "Känner du till vilken blodgrupp du har? Vilken?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
+      "pfnts": "Föredrar att inte berätta"
+    }
   }
 }

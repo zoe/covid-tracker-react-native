@@ -29,6 +29,7 @@ export type PatientStateType = {
   shouldAskExtendedDiabetes: boolean;
   hasHayfever: boolean;
   shouldShowUSStudyInvite: boolean;
+  hasBloodGroupAnswer: boolean;
 };
 
 const initPatientState = {
