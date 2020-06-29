@@ -232,7 +232,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
       limited_activity: formData.limitedActivity === 'yes',
       ...vitamin_supplements_doc,
-      ...BloodGroupQuestion.createDTO(formData)
+      ...BloodGroupQuestion.createDTO(formData),
     } as Partial<PatientInfosRequest>;
 
     if (this.state.showPregnancyQuestion) {
@@ -334,7 +334,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           }}
           validationSchema={() => {
             let schema = this.registerSchema;
-            schema = schema.concat(BloodGroupQuestion.schema())
+            schema = schema.concat(BloodGroupQuestion.schema());
             if (this.state.showDiabetesQuestion) {
               schema = schema.concat(DiabetesQuestions.schema());
             }
