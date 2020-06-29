@@ -162,6 +162,8 @@ export default class ViralThankYouScreen extends Component<Props, State> {
       </Text>
     );
 
+    const validArea = !!area?.area_name && !area?.area_name.includes('undefined');
+
     return (
       <>
         {this.state.askForRating && <AppRating />}
@@ -180,7 +182,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 </View>
               )}
 
-              {displayStats && !area?.locked && (
+              {displayStats && !area?.locked && validArea && (
                 <View style={styles.estimatedCaseContainer}>
                   <View style={styles.estimatedCaseFirstRow}>
                     {peopleWithSymptoms}
@@ -228,7 +230,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
                 </View>
               )}
 
-              {displayStats && (
+              {displayStats && validArea && (
                 <View>
                   <RegularText style={styles.countyRank}>
                     <RegularBoldText>{area?.area_name}</RegularBoldText>
