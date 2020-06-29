@@ -13,6 +13,7 @@ const PLATFORM_ANDROID = 'ANDROID';
 const PLATFORM_IOS = 'IOS';
 
 export interface IPushTokenEnvironment {
+  isGranted(): Promise<boolean>;
   getPushToken(): Promise<string | null>;
 }
 

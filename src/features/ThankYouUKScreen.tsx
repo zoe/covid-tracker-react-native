@@ -13,8 +13,10 @@ import { Header } from '@covid/components/Screen';
 import ShareThisApp from '@covid/components/ShareThisApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { userService } from '@covid/Services';
-import PushNotificationService from '@covid/core/pushNotifications/PushNotificationService';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/pushNotifications/PushNotificationService';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
+import { ICoreService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -26,20 +28,29 @@ type RenderProps = {
 type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
+  shouldShowReminders: boolean;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
+  shouldShowReminders: false,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
+  @lazyInject(Services.User)
+  private userService: ICoreService;
+
+  @lazyInject(Services.PushTokenEnv)
+  private pushServie: IPushTokenEnvironment;
+
   state = initialState;
 
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      inviteToStudy: await userService.shouldAskForValidationStudy(true),
+      inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
+      shouldShowReminders: !(await this.pushServie.isGranted()),
     });
   }
 
@@ -86,15 +97,17 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 aspectRatio={1.551}
               />
 
-              <ExternalCallout
-                link=""
-                calloutID="notificationReminders"
-                imageSource={notificationReminders}
-                aspectRatio={1244.0 / 368.0}
-                action={() => {
-                  PushNotificationService.openSettings();
-                }}
-              />
+              {this.state.shouldShowReminders && (
+                <ExternalCallout
+                  link=""
+                  calloutID="notificationReminders"
+                  imageSource={notificationReminders}
+                  aspectRatio={1244.0 / 368.0}
+                  action={() => {
+                    PushNotificationService.openSettings();
+                  }}
+                />
+              )}
 
               <View style={{ margin: 10 }} />
 
