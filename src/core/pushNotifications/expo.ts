@@ -4,7 +4,7 @@ import { injectable } from 'inversify';
 
 import { IPushTokenEnvironment } from './PushNotificationService';
 
-@injectable()
+// @injectable()
 export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
   async isGranted(): Promise<boolean> {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -14,8 +14,7 @@ export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
   async getPushToken(): Promise<string | null> {
     let token = null;
     try {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      if (status === Permissions.PermissionStatus.GRANTED) {
+      if (await this.isGranted()) {
         token = await Notifications.getExpoPushTokenAsync();
       }
     } catch (error) {
