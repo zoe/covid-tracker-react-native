@@ -30,6 +30,15 @@ const MenuItem = (props: MenuItemProps) => {
   );
 };
 
+enum DrawerMenuItem {
+  RESEARCH_UPDATE = 'RESEARCH_UPDATE',
+  TURN_ON_REMINDERS = 'TURN_ON_REMINDERS',
+  FAQ = 'FAQ',
+  PRIVACY_POLICY = 'PRIVACY_POLICY',
+  DELETE_MY_DATA = 'DELETE_MY_DATA',
+  LOGOUT = 'LOGOUT',
+}
+
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
@@ -62,6 +71,9 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           style: 'destructive',
           onPress: async () => {
             Analytics.track(events.DELETE_ACCOUNT_DATA);
+            Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+              name: DrawerMenuItem.DELETE_MY_DATA,
+            });
             await userService.deleteRemoteUserData();
             logout();
           },
@@ -72,6 +84,9 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function logout() {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+      name: DrawerMenuItem.LOGOUT,
+    });
     setUserEmail(''); // Reset email
     userService.logout();
     props.navigation.reset({
@@ -82,11 +97,35 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function goToPrivacy() {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+      name: DrawerMenuItem.PRIVACY_POLICY,
+    });
     isGBCountry()
       ? props.navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
       : isSECountry()
       ? props.navigation.navigate('PrivacyPolicySV', { viewOnly: true })
       : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
+  }
+
+  function showResearchUpdates() {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+      name: DrawerMenuItem.RESEARCH_UPDATE,
+    });
+    Linking.openURL(i18n.t('blog-link'));
+  }
+
+  function openFAQ() {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+      name: DrawerMenuItem.FAQ,
+    });
+    Linking.openURL(i18n.t('faq-link'));
+  }
+
+  async function openPushNoticationSettings() {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+      name: DrawerMenuItem.TURN_ON_REMINDERS,
+    });
+    await PushNotificationService.openSettings();
   }
 
   return (
@@ -104,20 +143,19 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
-            Linking.openURL(i18n.t('blog-link'));
+            showResearchUpdates();
           }}
         />
         <MenuItem
           label={i18n.t('push-notifications')}
-          onPress={async () => {
-            Analytics.track(events.CLICKED_TURN_ON_REMINDERS);
-            await PushNotificationService.openSettings();
+          onPress={() => {
+            openPushNoticationSettings();
           }}
         />
         <MenuItem
           label={i18n.t('faqs')}
           onPress={() => {
-            Linking.openURL(i18n.t('faq-link'));
+            openFAQ();
           }}
         />
         <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
