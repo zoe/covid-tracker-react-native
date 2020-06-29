@@ -3,5 +3,4 @@ export const Services = {
   ContentApi: Symbol('ContentApi'),
   Content: Symbol('Content'),
   User: Symbol('User'),
-  PushTokenEnv: Symbol('PushTokenEnv'),
 };

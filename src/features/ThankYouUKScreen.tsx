@@ -17,6 +17,7 @@ import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ICoreService } from '@covid/core/user/UserService';
+import ExpoPushTokenEnvironment from '@covid/core/pushNotifications/expo';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -41,8 +42,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.User)
   private userService: ICoreService;
 
-  @lazyInject(Services.PushTokenEnv)
-  private pushServie: IPushTokenEnvironment;
+  private pushServies: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
 
@@ -50,7 +50,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
-      shouldShowReminders: !(await this.pushServie.isGranted()),
+      shouldShowReminders: !(await this.pushServies.isGranted()),
     });
   }
 
