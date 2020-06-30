@@ -318,10 +318,11 @@
 
     "question-mechanism-specify": "Please indicate how the test was performed",
 
-    "question-result": "Did you test positive for COVID-19?",
-
+    "question-result": "What are the results of this test?",
+    "picker-positive": "Positive",
+    "picker-negative": "Negative",
     "picker-waiting": "Waiting for results",
-    "picker-test-failed": "Not clear/Test Failed",
+    "picker-test-failed": "Not clear / failed",
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",

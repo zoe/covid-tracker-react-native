@@ -318,10 +318,11 @@
 
     "question-mechanism-specify": "Indique cómo se realizó el examen",
 
-    "question-result": "¿Dio positivo para COVID-19?",
-
+    "question-result": "¿Cuáles son los resultados de esta prueba?",
+    "picker-positive": "Positivo",
+    "picker-negative": "Negativo",
     "picker-waiting": "Esperando resultados",
-    "picker-test-failed": "No está claro/Falló el examen",
+    "picker-test-failed": "No está claro / Falló el examen",
 
     "question-knows-date-of-test": "¿Sabe la fecha de su examen?",
     "question-date-test-occurred": "¿Cuándo fue su examen?",
