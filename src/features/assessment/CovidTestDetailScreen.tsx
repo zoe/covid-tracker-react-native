@@ -26,6 +26,7 @@ import {
   CovidTestInvitedData,
   CovidTestInvitedQuestion,
 } from '@covid/features/assessment/fields/CovidTestInvitedQuesetion';
+import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/assessment/fields/CovidTestLocation';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -33,6 +34,7 @@ export interface CovidTestData
   extends CovidTestDateData,
     CovidTestMechanismData,
     CovidTestResultData,
+    CovidTestLocationData,
     CovidTestInvitedData {}
 
 type CovidProps = {
@@ -107,6 +109,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         ...CovidTestMechanismQuestionV1.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
         ...CovidTestInvitedQuestion.createDTO(formData),
+        ...CovidTestLocationQuestion.createDTO(formData),
       } as Partial<CovidTest>;
 
       this.submitCovidTest(infos);
@@ -123,7 +126,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       .concat(CovidTestDateQuestion.schema())
       .concat(CovidTestMechanismQuestionV1.schema())
       .concat(CovidTestResultQuestion.schema())
-      .concat(CovidTestInvitedQuestion.schema());
+      .concat(CovidTestInvitedQuestion.schema())
+      .concat(CovidTestLocationQuestion.schema());
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -143,6 +147,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             ...CovidTestMechanismQuestionV1.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
             ...CovidTestInvitedQuestion.initialFormValues(test),
+            ...CovidTestLocationQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
           onSubmit={(values: CovidTestData) => {
@@ -153,6 +158,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
               <Form>
                 <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
                 <CovidTestMechanismQuestionV1 formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
+                <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
                 <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
                 <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
 

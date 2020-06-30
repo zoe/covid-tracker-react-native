@@ -318,6 +318,23 @@
 
     "question-mechanism-specify": "Indique cómo se realizó el examen",
 
+    "location": {
+      "question": "¿Dónde se realizó la prueba?",
+      "specify": "Por favor especifique",
+      "answers": {
+        "at-home": "Hogar",
+		"drive-through-rtc": "",
+        "drop-in-facility": "",
+		"hospital": "Centro hospitalario o clínica",
+		"gp": "",
+		"chemist-pharmacy": "",
+        "store-pharmacy": "Tienda o farmacia clínica",
+		"work": "Trabajo (excluyendo hospital)",
+        "local-health-department": "",
+		"other": "Otro sitio, por favor especifique"
+      }
+    },
+
     "question-result": "¿Cuáles son los resultados de esta prueba?",
     "picker-positive": "Positivo",
     "picker-negative": "Negativo",

@@ -282,6 +282,23 @@
 
     "question-mechanism-specify": "Ange hur testet utfördes:",
 
+    "location": {
+      "question": "Var utfördes testet?",
+      "specify": "Por favor especifique",
+      "answers": {
+        "at-home": "Hemma",
+		"drive-through-rtc": "",
+        "drop-in-facility": "Drop-in testcenter",
+		"hospital": "Sjukhus",
+		"gp": "Vårdcentral",
+		"chemist-pharmacy": "Apotek",
+        "store-pharmacy": "Tienda o farmacia clínica",
+		"work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
+        "local-health-department": "",
+		"other": "Annat, ange"
+      }
+    },
+
     "question-result": "Vilka är resultaten av detta test?",
     "picker-positive": "Positivt",
     "picker-negative": "Negativt",

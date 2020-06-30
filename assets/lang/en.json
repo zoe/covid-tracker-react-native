@@ -318,6 +318,23 @@
 
     "question-mechanism-specify": "Please indicate how the test was performed",
 
+    "location": {
+      "question": "Where was your test performed?",
+      "specify": "Please specify",
+      "answers": {
+        "at-home": "At Home",
+		"drive-through-rtc": "Drive-through Regional Testing Centre",
+        "drop-in-facility": "Drop-in testcenter",
+		"hospital": "Hospital (not drive-through)",
+		"gp": "GP",
+		"chemist-pharmacy": "Chemist / Pharmacy",
+        "store-pharmacy": "Store or pharmacy clinic",
+		"work": "Work (excluding hospital or GP)",
+        "local-health-department": "Local health department",
+		"other": "Other, please specify"
+      }
+    },
+
     "question-invite-to-test": "Did we invite you to perform this test?",
 
     "question-result": "What are the results of this test?",
