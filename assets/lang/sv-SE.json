@@ -471,6 +471,7 @@
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
+  "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
   "delete": "Ta bort",
   "logout": "Logga ut",
