@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Item, Label, Text, View } from 'native-base';
 import moment, { Moment } from 'moment';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -12,6 +12,7 @@ import CalendarPicker from '@covid/components/CalendarPicker';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import YesNoField from '@covid/components/YesNoField';
 
 export interface CovidTestDateData {
   knowsDateOfTest: string; // only for ux logic
@@ -69,7 +70,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
 
   return (
     <FieldWrapper>
-      <DropdownField
+      <YesNoField
         selectedValue={formikProps.values.knowsDateOfTest}
         onValueChange={(value: string) => {
           if (value === 'yes') {

@@ -318,20 +318,34 @@
 
     "question-mechanism-specify": "Please indicate how the test was performed",
 
-    "question-result": "Did you test positive for COVID-19?",
+    "location": {
+      "question": "Where was your test performed?",
+      "specify": "Please specify",
+      "answers": {
+        "at-home": "At Home",
+		"drive-through-rtc": "Drive-through Regional Testing Centre",
+        "drop-in-facility": "Drop-in testcenter",
+		"hospital": "Hospital (not drive-through)",
+		"gp": "GP",
+		"chemist-pharmacy": "Chemist / Pharmacy",
+        "store-pharmacy": "Store or pharmacy clinic",
+		"work": "Work (excluding hospital or GP)",
+        "local-health-department": "Local health department",
+		"other": "Other, please specify"
+      }
+    },
 
+    "question-invite-to-test": "Did we invite you to perform this test?",
+
+    "question-result": "What are the results of this test?",
+    "picker-positive": "Positive",
+    "picker-negative": "Negative",
     "picker-waiting": "Waiting for results",
-    "picker-test-failed": "Not clear/Test Failed",
+    "picker-test-failed": "Not clear / failed",
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
-
     "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
-    "picker-less-than-7-days-ago": "Less than 7 days ago",
-    "picker-over-1-week-ago": "Over 1 week ago",
-    "picker-over-2-week-ago": "Over 2 weeks ago",
-    "picker-over-3-week-ago": "Over 3 weeks ago",
-    "picker-over-1-month-ago": "Over 1 month ago",
 
     "required-date": "Please indicate the date this test occurred",
     "required-dates": "Please indicate between which two date this test occurred",
