@@ -36,7 +36,7 @@ export const BloodGroupQuestion = ({ formikProps }: Props) => {
   return (
     <DropdownField
       selectedValue={formikProps.values.bloodGroup}
-      onValueChange={formikProps.handleChange('periodFrequency')}
+      onValueChange={formikProps.handleChange('bloodGroup')}
       label={i18n.t('blood-group.question')}
       items={bloodTypeItems}
     />
