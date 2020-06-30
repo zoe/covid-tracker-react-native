@@ -980,5 +980,17 @@
       "same": "No, ha mantenido igual",
       "unsure-pfnts": "Insegura / Prefiero no decir"
     }
+  },
+  "blood-group": {
+    "justification": "Estamos preguntando esto porque otros estudios han demostrado que tu grupo sanguíneo puede afectar el riesgo y la severidad de la infección de COVID y vamos a explorar esto en nuestra gran base de datos",
+    "question": "Si lo sabes, ¿cuál es tu grupo sanguíneo?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "No sé mi grupo sanguíneo con certeza",
+      "pfnts": "Prefiero no decir"
+    }
   }
 }
