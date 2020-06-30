@@ -22,15 +22,13 @@ interface Props {
   test?: CovidTest;
 }
 
-export interface CovidTestMechanismQuestionV1<P, Data> extends React.FC<P> {
+export interface CovidTestMechanismQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
   createDTO: (data: Data) => Partial<LifestyleRequest>;
 }
 
-export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, CovidTestMechanismData> = (
-  props: Props
-) => {
+export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, CovidTestMechanismData> = (props: Props) => {
   const { formikProps, test } = props;
 
   const mechanismItems = [
@@ -92,7 +90,7 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
   );
 };
 
-CovidTestMechanismQuestionV1.initialFormValues = (test?: CovidTest): CovidTestMechanismData => {
+CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): CovidTestMechanismData => {
   return {
     mechanism: test?.mechanism ? test.mechanism : '',
     mechanismSpecify: '',
@@ -100,7 +98,7 @@ CovidTestMechanismQuestionV1.initialFormValues = (test?: CovidTest): CovidTestMe
   };
 };
 
-CovidTestMechanismQuestionV1.schema = () => {
+CovidTestMechanismQuestion.schema = () => {
   return Yup.object().shape({
     mechanism: Yup.string().when('mechanismSpecify', {
       is: (mechanismSpecify) => {
@@ -118,7 +116,7 @@ CovidTestMechanismQuestionV1.schema = () => {
   });
 };
 
-CovidTestMechanismQuestionV1.createDTO = (formData: CovidTestMechanismData): Partial<CovidTest> => {
+CovidTestMechanismQuestion.createDTO = (formData: CovidTestMechanismData): Partial<CovidTest> => {
   return {
     ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
     ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
