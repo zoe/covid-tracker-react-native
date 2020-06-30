@@ -318,6 +318,8 @@
 
     "question-mechanism-specify": "Please indicate how the test was performed",
 
+    "question-invite-to-test": "Did we invite you to perform this test?",
+
     "question-result": "What are the results of this test?",
     "picker-positive": "Positive",
     "picker-negative": "Negative",

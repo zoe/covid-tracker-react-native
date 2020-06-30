@@ -890,6 +890,10 @@
       "visit-next": false
     },
 
+    "covid-test": {
+      "question-invite-to-test": false
+    },
+
     "thank-you-uk": {
       "title": false,
       "subtitle": false,

@@ -5,6 +5,7 @@ export type CovidTest = {
 
   result: string;
   mechanism: string;
+  invited_to_test: boolean;
   date_taken_specific: string;
   date_taken_between_start: string;
   date_taken_between_end: string;
