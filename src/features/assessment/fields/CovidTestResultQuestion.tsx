@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import YesNoField from '@covid/components/YesNoField';
 
 export interface CovidTestResultData {
   result: string;
