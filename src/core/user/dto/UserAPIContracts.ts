@@ -88,6 +88,7 @@ export type PatientInfosRequest = {
   smoked_years_ago: number;
   has_kidney_disease: boolean;
   limited_activity: boolean;
+  blood_group: string;
 
   // Cancer questions
   has_cancer: boolean;
