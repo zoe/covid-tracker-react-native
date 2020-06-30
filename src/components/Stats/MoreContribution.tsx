@@ -7,7 +7,7 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 
 import { ClickableText } from '../Text';
-import { shareAppWithAreaStats } from '../Cards/ShareCard';
+import { shareAppWithAreaStats } from '../Cards/ShareApp';
 
 import { PeopleWithSymptomsText } from './PeopleWithSymptomsText';
 

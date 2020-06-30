@@ -10,7 +10,7 @@ import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
-import ShareThisApp from '@covid/components/ShareThisApp';
+import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -92,7 +92,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={{ margin: 10 }} />
 
-              <ShareThisApp />
+              <ShareAppCard />
 
               {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
 

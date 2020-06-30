@@ -20,7 +20,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { SymtomsCountStats } from '@covid/components/Stats/SymtomsCountStats';
 import { ContributionRank } from '@covid/components/Stats/ContributionRank';
-import { ShareCard } from '@covid/components/Cards/ShareCard';
+import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { MoreContribution } from '@covid/components/Stats/MoreContribution';
 
 import { ScreenParamList } from './ScreenParamList';
@@ -199,7 +199,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
               {displayStats && validArea && <ContributionRank areaStats={area} />}
 
-              <ShareCard area={area} />
+              <ShareAppCard area={area} />
 
               <ExternalCallout
                 link="https://www.surveymonkey.co.uk/r/RT8TKZJ"
