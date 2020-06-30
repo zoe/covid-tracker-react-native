@@ -315,6 +315,8 @@
     "picker-nose-throat-swab": "A swab of my nose or throat",
     "picker-saliva-sample": "I spat in a cup/tube",
     "picker-blood-sample": "I gave a blood sample",
+    "picker-finger-prick": "A finger-prick blood test",
+    "picker-blood-draw": "A blood test, done using a needle",
     "picker-other": "Other, please specify",
 
     "question-mechanism-specify": "Please indicate how the test was performed",

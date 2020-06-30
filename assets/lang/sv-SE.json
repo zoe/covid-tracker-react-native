@@ -279,6 +279,8 @@
     "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
+    "picker-finger-prick": "A finger-prick blood test",
+    "picker-blood-draw": "A blood test, done using a needle",
     "picker-other": "Annat sätt, ange vilket",
 
     "question-mechanism-specify": "Ange hur testet utfördes:",

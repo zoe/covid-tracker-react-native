@@ -38,7 +38,11 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
       ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' }]
       : []),
     { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
-    { label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' },
+    ...(test?.mechanism === 'blood_sample'
+      ? [{ label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' }]
+      : []),
+    { label: i18n.t('covid-test.picker-finger-prick'), value: 'blood_sample_finger_prick' },
+    { label: i18n.t('covid-test.picker-blood-draw'), value: 'blood_sample_needle_draw' },
     { label: i18n.t('covid-test.picker-other'), value: 'other' },
   ];
 
