@@ -4,7 +4,6 @@ import OfflineService from '@covid/core/offline/OfflineService';
 import PushNotificationService, {
   PushNotificationApiClient,
 } from '@covid/core/pushNotifications/PushNotificationService';
-import UserService from '@covid/core/user/UserService';
 import ContentService from '@covid/core/content/ContentService';
 import { ContentApiClient } from '@covid/core/content/ContentApiClient';
 
