@@ -192,6 +192,7 @@
 
   "picker-yes": "Yes",
   "picker-no": "No",
+  "picker-unsure": "Unsure",
   "placeholder-optional-question": "*Optional",
   "placeholder-optional": "Optional",
 
@@ -317,6 +318,8 @@
     "picker-other": "Other, please specify",
 
     "question-mechanism-specify": "Please indicate how the test was performed",
+
+    "question-trained-worker": "Did a trained worker swab you?",
 
     "location": {
       "question": "Where was your test performed?",

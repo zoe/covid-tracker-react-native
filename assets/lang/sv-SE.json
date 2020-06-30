@@ -103,6 +103,7 @@
 
   "picker-yes": "Ja",
   "picker-no": "Nej",
+  "picker-unsure": "Osäker",
   "placeholder-optional-question": "*Optional",
   "placeholder-optional": "Valfri",
 
@@ -281,6 +282,7 @@
     "picker-other": "Annat sätt, ange vilket",
 
     "question-mechanism-specify": "Ange hur testet utfördes:",
+    "question-trained-worker": "Utfördes testet av utbildad personal?",
 
     "location": {
       "question": "Var utfördes testet?",

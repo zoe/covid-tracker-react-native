@@ -6,6 +6,7 @@ export type CovidTest = {
   result: string;
   mechanism: string;
   invited_to_test: boolean;
+  trained_worker: string;
   location: string;
   location_other: string;
   date_taken_specific: string;

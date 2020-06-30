@@ -192,6 +192,7 @@
 
   "picker-yes": "Sí",
   "picker-no": "No",
+  "picker-unsure": "Insegura",
   "placeholder-optional-question": "*Opcional",
   "placeholder-optional": "Opcional",
 
@@ -316,7 +317,9 @@
     "picker-blood-sample": "Di una muestra de sangre",
     "picker-other": "Otro, especifique",
 
+
     "question-mechanism-specify": "Indique cómo se realizó el examen",
+    "question-trained-worker": "¿Un trabajador calificado te hizo la prueba mediante un hisopo?",
 
     "location": {
       "question": "¿Dónde se realizó la prueba?",

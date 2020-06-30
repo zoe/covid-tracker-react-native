@@ -12,6 +12,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 export interface CovidTestMechanismData {
   mechanism: string;
   mechanismSpecify: string;
+  trainedWorker: string;
 }
 
 interface Props {
@@ -41,6 +42,12 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
     { label: i18n.t('covid-test.picker-other'), value: 'other' },
   ];
 
+  const trainedWorkerItems = [
+    { label: i18n.t('picker-yes'), value: 'trained' },
+    { label: i18n.t('picker-no'), value: 'untrained' },
+    { label: i18n.t('picker-unsure'), value: 'unsure' },
+  ];
+
   return (
     <FieldWrapper>
       <DropdownField
@@ -57,6 +64,15 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
           name="mechanismSpecify"
         />
       )}
+
+      {formikProps.values.mechanism === 'nose_throat_swab' && (
+        <DropdownField
+          selectedValue={formikProps.values.trainedWorker}
+          onValueChange={formikProps.handleChange('trainedWorker')}
+          label={i18n.t('covid-test.question-trained-worker')}
+          items={trainedWorkerItems}
+        />
+      )}
     </FieldWrapper>
   );
 };
@@ -65,6 +81,7 @@ CovidTestMechanismQuestionV1.initialFormValues = (test?: CovidTest): CovidTestMe
   return {
     mechanism: test?.mechanism ? test.mechanism : '',
     mechanismSpecify: '',
+    trainedWorker: test?.trained_worker ? test.trained_worker : '',
   };
 };
 
@@ -77,6 +94,12 @@ CovidTestMechanismQuestionV1.schema = () => {
       then: Yup.string().required(i18n.t('covid-test.required-mechanism')),
     }),
     mechanismSpecify: Yup.string(),
+    trainedWorker: Yup.string().when('mechanism', {
+      is: (mechanism) => {
+        return mechanism === 'nose_throat_swab';
+      },
+      then: Yup.string().required(i18n.t('covid-test.required-trained-worker')),
+    }),
   });
 };
 
@@ -84,5 +107,6 @@ CovidTestMechanismQuestionV1.createDTO = (formData: CovidTestMechanismData): Par
   return {
     ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
     ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
+    ...(formData.mechanism === 'nose_throat_swab' && { trained_worker: formData.trainedWorker }),
   } as Partial<CovidTest>;
 };
