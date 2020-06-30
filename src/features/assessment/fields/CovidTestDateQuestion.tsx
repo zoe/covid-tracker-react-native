@@ -76,8 +76,16 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
             formikProps.values.dateTakenBetweenStart = undefined;
             formikProps.values.dateTakenBetweenEnd = undefined;
             formikProps.values.dateTakenSpecific = undefined;
+            setState({
+              ...state,
+              showDatePicker: true,
+            });
           } else {
             formikProps.values.dateTakenSpecific = undefined;
+            setState({
+              ...state,
+              showRangePicker: true,
+            });
           }
           formikProps.setFieldValue('knowsDateOfTest', value);
         }}
