@@ -46,7 +46,6 @@ export class AppCoordinator {
         this.navigation.replace('Welcome');
       }
     },
-    // End of registration flows
     Register: () => {
       const config = appCoordinator.getConfig();
 
@@ -63,11 +62,9 @@ export class AppCoordinator {
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
     },
-
     OptionalInfo: () => {
       this.startPatientFlow(this.currentPatient);
     },
-
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
@@ -75,6 +72,9 @@ export class AppCoordinator {
       } else {
         this.startAssessmentFlow(this.currentPatient);
       }
+    },
+    ArchiveReason: () => {
+      this.navigation.navigate('SelectProfile');
     },
   } as ScreenFlow;
 
@@ -122,17 +122,22 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
-  async gotoNextScreen(screenName: ScreenName) {
+  gotoNextScreen = (screenName: ScreenName) => {
     if (this.screenFlow[screenName]) {
-      await this.screenFlow[screenName];
+      this.screenFlow[screenName]();
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
     }
-  }
+  };
 
+  //TODO get rid of this
   gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
     this.navigation.navigate(screenName, params);
+  }
+
+  editProfile(profile: Profile) {
+    this.navigation.navigate('EditProfile', { profile });
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
