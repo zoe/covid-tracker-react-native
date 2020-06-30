@@ -436,7 +436,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
-    console.log('setConsentSigned', document);
     const consent = {
       document,
       version,
