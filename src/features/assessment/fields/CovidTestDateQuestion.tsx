@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     ...fontStyles.bodyReg,
     color: colors.black,
     alignSelf: 'center',
-    // paddingHorizontal: 40,
     paddingBottom: 10,
   },
 });
