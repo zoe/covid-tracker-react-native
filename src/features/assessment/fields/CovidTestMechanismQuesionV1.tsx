@@ -1,6 +1,7 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { ImageSourcePropType } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -8,6 +9,7 @@ import DropdownField from '@covid/components/DropdownField';
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { fingerPrick, noseSwab, otherTest, spit, syringe } from '@assets';
 
 export interface CovidTestMechanismData {
   mechanism: string;
@@ -52,6 +54,12 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
     { label: i18n.t('picker-unsure'), value: 'unsure' },
   ];
 
+  const noIcons = ['nose_swab', 'throat_swab', 'blood_sample'];
+  let mechanismItemIcons = undefined;
+  if (!test || (test && !noIcons.includes(test.mechanism))) {
+    mechanismItemIcons = [noseSwab, spit, fingerPrick, syringe, otherTest];
+  }
+
   return (
     <>
       <DropdownField
@@ -60,6 +68,7 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
         label={i18n.t('covid-test.question-mechanism')}
         error={formikProps.touched.mechanism && formikProps.errors.mechanism}
         items={mechanismItems}
+        itemIcons={mechanismItemIcons}
       />
 
       {formikProps.values.mechanism === 'other' && (

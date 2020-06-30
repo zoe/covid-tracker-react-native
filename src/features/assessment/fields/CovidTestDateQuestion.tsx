@@ -1,7 +1,7 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Item, Label, Text, View } from 'native-base';
+import { Item, Label, Text } from 'native-base';
 import moment, { Moment } from 'moment';
 import { StyleSheet, View } from 'react-native';
 
