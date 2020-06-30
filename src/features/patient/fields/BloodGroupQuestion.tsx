@@ -15,12 +15,12 @@ interface Props {
 }
 
 enum BloodGroupQuestionFields {
-  TYPE_A = 'A',
-  TYPE_B = 'B',
-  TYPE_AB = 'AB',
-  TYPE_O = 'O',
-  DONT_KNOW = "I don't know my blood group for certain",
-  PFNTS = 'Prefer not to say',
+  TYPE_A = 'a',
+  TYPE_B = 'b',
+  TYPE_AB = 'ab',
+  TYPE_O = 'o',
+  DONT_KNOW = 'dont_know',
+  PFNTS = 'pfnts',
 }
 
 export const BloodGroupQuestion = ({ formikProps }: Props) => {
