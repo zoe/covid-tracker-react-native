@@ -4,6 +4,7 @@ import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
 import { social } from '@assets';
 import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
+import { shareUrl } from '@covid/components/Cards/ShareCard';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 
@@ -11,7 +12,6 @@ import { isAndroid } from './Screen';
 
 export default class ShareThisApp extends Component {
   shareMessage = i18n.t('share-this-app.message');
-  shareUrl = i18n.t('share-this-app.url');
 
   extractSharedOn(shareAction: ShareAction): string | null {
     if (shareAction.action === Share.sharedAction) {
@@ -26,11 +26,11 @@ export default class ShareThisApp extends Component {
   }
 
   shareApp = async () => {
-    const message = this.shareMessage + (isAndroid ? ' ' + this.shareUrl : ''); // On Android add link to end of message
+    const message = this.shareMessage + (isAndroid ? ' ' + shareUrl() : ''); // On Android add link to end of message
     try {
       const shareAction = await Share.share({
         message,
-        url: this.shareUrl, // IOS has separate field for URL
+        url: shareUrl(), // IOS has separate field for URL
       });
 
       const sharedOn = this.extractSharedOn(shareAction);

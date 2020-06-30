@@ -15,7 +15,7 @@ interface Props {
   area: AreaStatsResponse | null;
 }
 
-const shareUrl = i18n.t('share-this-app.url');
+export const shareUrl = (): string => i18n.t('share-this-app.url');
 
 export const getShareMessage = (area: AreaStatsResponse | null) => {
   const base = () => {
@@ -28,14 +28,14 @@ export const getShareMessage = (area: AreaStatsResponse | null) => {
       });
     else return i18n.t('thank-you.share-area-unlocked', { cases: area.predicted_cases, area: area.area_name });
   };
-  return base() + (isAndroid ? ' ' + shareUrl : ''); // On Android add link to end of message
+  return base() + (isAndroid ? ' ' + shareUrl() : ''); // On Android add link to end of message
 };
 
 export const shareApp = async (message: string) => {
   try {
     await Share.share({
       message,
-      url: shareUrl, // IOS has separate field for URL
+      url: shareUrl(), // IOS has separate field for URL
     });
     Analytics.track(events.SHARE_THIS_APP);
   } catch (error) {}
