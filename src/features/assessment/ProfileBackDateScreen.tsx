@@ -16,6 +16,7 @@ import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQ
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
+import { BloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
 
 import { ScreenParamList } from '../ScreenParamList';
 import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
@@ -41,7 +42,8 @@ interface BackfillData
     HormoneTreatmentData,
     VitaminSupplementData,
     AtopyData,
-    DiabetesData {}
+    DiabetesData,
+    BloodGroupData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -57,6 +59,7 @@ type State = {
   needVitaminAnswer: boolean;
   needAtopyAnswers: boolean;
   needDiabetesAnswers: boolean;
+  needBloodGroupAnswer: boolean;
 };
 
 const initialState: State = {
@@ -68,6 +71,7 @@ const initialState: State = {
   needVitaminAnswer: false,
   needAtopyAnswers: false,
   needDiabetesAnswers: false,
+  needBloodGroupAnswer: false,
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
@@ -156,6 +160,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
       needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
+      needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
     });
   }
 
@@ -178,6 +183,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           currentPatient.hasDiabetesAnswers = true;
           currentPatient.shouldAskExtendedDiabetes = false;
         }
+        if (formData.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
+
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((err) => {
@@ -272,6 +279,13 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       };
     }
 
+    if (this.state.needBloodGroupAnswer) {
+      infos = {
+        ...infos,
+        ...BloodGroupQuestion.createDTO(formData),
+      };
+    }
+
     return infos;
   }
 
@@ -297,11 +311,15 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
+            ...BloodGroupQuestion.initialFormValues(),
           }}
           validationSchema={() => {
             let schema = this.registerSchema;
             if (this.state.needDiabetesAnswers) {
               schema = schema.concat(DiabetesQuestions.schema());
+            }
+            if (this.state.needBloodGroupAnswer) {
+              schema = schema.concat(BloodGroupQuestion.schema());
             }
             return schema;
           }}
@@ -337,6 +355,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
 
                 {this.state.needDiabetesAnswers && (
                   <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                )}
+
+                {this.state.needBloodGroupAnswer && (
+                  <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
