@@ -19,7 +19,7 @@ enum BloodGroupQuestionFields {
   TYPE_B = 'b',
   TYPE_AB = 'ab',
   TYPE_O = 'o',
-  DONT_KNOW = 'dont_know',
+  DONT_KNOW = 'unsure',
   PFNTS = 'pfnts',
 }
 
