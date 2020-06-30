@@ -193,6 +193,7 @@
   "picker-yes": "Yes",
   "picker-no": "No",
   "picker-unsure": "Unsure",
+  "please-select-option": "Please select an option",
   "placeholder-optional-question": "*Optional",
   "placeholder-optional": "Optional",
 
@@ -325,7 +326,7 @@
 
     "location": {
       "question": "Where was your test performed?",
-      "specify": "Please specify",
+      "specify": "Please specify the test location",
       "answers": {
         "at-home": "At Home",
 		"drive-through-rtc": "Drive-through Regional Testing Centre",

@@ -53,11 +53,12 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
   ];
 
   return (
-    <FieldWrapper>
+    <>
       <DropdownField
         selectedValue={formikProps.values.mechanism}
         onValueChange={formikProps.handleChange('mechanism')}
         label={i18n.t('covid-test.question-mechanism')}
+        error={formikProps.touched.mechanism && formikProps.errors.mechanism}
         items={mechanismItems}
       />
 
@@ -74,10 +75,11 @@ export const CovidTestMechanismQuestionV1: CovidTestMechanismQuestionV1<Props, C
           selectedValue={formikProps.values.trainedWorker}
           onValueChange={formikProps.handleChange('trainedWorker')}
           label={i18n.t('covid-test.question-trained-worker')}
+          error={formikProps.touched.trainedWorker && formikProps.errors.trainedWorker}
           items={trainedWorkerItems}
         />
       )}
-    </FieldWrapper>
+    </>
   );
 };
 
@@ -102,7 +104,7 @@ CovidTestMechanismQuestionV1.schema = () => {
       is: (mechanism) => {
         return mechanism === 'nose_throat_swab';
       },
-      then: Yup.string().required(i18n.t('covid-test.required-trained-worker')),
+      then: Yup.string().required(i18n.t('please-select-option')),
     }),
   });
 };
