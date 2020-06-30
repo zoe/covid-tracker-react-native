@@ -558,6 +558,7 @@
   "delete-my-data": "Delete my data",
   "delete-data-alert-title": "Are you sure?",
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
+  "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
   "delete": "Delete",
   "logout": "Log out",
@@ -991,6 +992,18 @@
       "decreased": "Yes, decreased",
       "same": "No change, has remained the same",
       "unsure-pfnts": "Unsure / Prefer not to say"
+    }
+  },
+  "blood-group": {
+    "justification": "We are asking this because other studies have shown that your blood group may affect both your risk and severity of COVID infection and we are exploring this in our large user base.",
+    "question": "If you know it, what is your blood group?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "I don't know my blood group for certain",
+      "pfnts": "Prefer not to say"
     }
   }
 }

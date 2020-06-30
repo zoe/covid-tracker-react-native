@@ -556,6 +556,7 @@
   "delete-my-data": "Eliminar mis datos",
   "delete-data-alert-title": "¿Está seguro?",
   "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
+  "push-notifications": "Activa los recordatorios",
   "cancel": "Cancelar",
   "delete": "Eliminar",
   "logout": "Cerrar sesión",
@@ -995,6 +996,18 @@
       "decreased": "Sí, ha disminuido",
       "same": "No, ha mantenido igual",
       "unsure-pfnts": "Insegura / Prefiero no decir"
+    }
+  },
+  "blood-group": {
+    "justification": "Estamos preguntando esto porque otros estudios han demostrado que tu grupo sanguíneo puede afectar el riesgo y la severidad de la infección de COVID y vamos a explorar esto en nuestra gran base de datos",
+    "question": "Si lo sabes, ¿cuál es tu grupo sanguíneo?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "No sé mi grupo sanguíneo con certeza",
+      "pfnts": "Prefiero no decir"
     }
   }
 }
