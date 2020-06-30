@@ -1,7 +1,7 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Item, Label, Text } from 'native-base';
+import { Item, Label, Text, View } from 'native-base';
 import moment, { Moment } from 'moment';
 import { StyleSheet } from 'react-native';
 
@@ -85,7 +85,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       />
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
-        <FieldWrapper style={{ paddingRight: 30 }}>
+        <View style={styles.field}>
           <Item stackedLabel>
             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
             {state.showDatePicker ? (
@@ -101,16 +101,16 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
                 {formikProps.values.dateTakenSpecific ? (
                   moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
                 ) : (
-                  <RegularText>{i18n.t('covid-test.required-date')}</RegularText>
+                  <Text>{i18n.t('covid-test.required-date')}</Text>
                 )}
               </ClickableText>
             )}
           </Item>
-        </FieldWrapper>
+        </View>
       )}
 
       {formikProps.values.knowsDateOfTest === 'no' && (
-        <FieldWrapper style={{ paddingRight: 30 }}>
+        <View style={styles.field}>
           <Item stackedLabel>
             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</Label>
 
@@ -137,7 +137,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
               </ClickableText>
             )}
           </Item>
-        </FieldWrapper>
+        </View>
       )}
     </FieldWrapper>
   );
@@ -145,14 +145,18 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
 
 const styles = StyleSheet.create({
   labelStyle: {
-    marginBottom: 30,
+    marginVertical: 16,
+  },
+
+  field: {
+    marginHorizontal: 16,
   },
 
   fieldText: {
     ...fontStyles.bodyReg,
     color: colors.black,
     alignSelf: 'center',
-    paddingHorizontal: 40,
+    // paddingHorizontal: 40,
     paddingBottom: 10,
   },
 });
