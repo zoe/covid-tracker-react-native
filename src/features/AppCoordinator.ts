@@ -25,7 +25,7 @@ type CurrentPatientParamType = { currentPatient: PatientStateType };
 type ConsentView = { viewOnly: boolean };
 type ProfileParamType = { profile: Profile };
 type ProfileIdType = { profileId: string };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType;
+type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType; //TODO Can be used for passing params to goToNextScreen
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
@@ -131,11 +131,6 @@ export class AppCoordinator {
     }
   };
 
-  //TODO get rid of this
-  gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
-    this.navigation.navigate(screenName, params);
-  }
-
   editProfile(profile: Profile) {
     this.navigation.navigate('EditProfile', { profile });
   }
@@ -151,6 +146,14 @@ export class AppCoordinator {
   async setPatientId(patientId: string) {
     this.patientId = patientId;
     this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+  }
+
+  goToUKValidationStudy() {
+    this.navigation.navigate('ValidationStudyIntro');
+  }
+
+  goToArchiveReason(profileId: string) {
+    this.navigation.navigate('ArchiveReason', { profileId });
   }
 }
 
