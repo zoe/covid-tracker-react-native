@@ -22,13 +22,12 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
 
-import Navigator, { NavigationType } from '../AppCoordinator';
+import appCoordinator, { NavigationType } from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: DrawerNavigationProp<ScreenParamList, 'WelcomeRepeat'>;
   route: RouteProp<ScreenParamList, 'WelcomeRepeat'>;
-  patientId: string;
 };
 
 type WelcomeRepeatScreenState = {
@@ -52,7 +51,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
-    Navigator.resetNavigation((this.props.navigation as unknown) as NavigationType);
+    appCoordinator.resetNavigation((this.props.navigation as unknown) as NavigationType);
     const userCount = await contentService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
     const feature = this.userService.getConfig();
@@ -65,10 +64,8 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   }
 
   gotoNextScreen = async () => {
-    const patientId = this.props.route.params.patientId;
-
     try {
-      await Navigator.gotoNextScreen(this.props.route.name, { patientId });
+      await appCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({
         isApiError: true,

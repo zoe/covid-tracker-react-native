@@ -166,7 +166,7 @@ export class AssessmentCoordinator {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 
-  static async shouldShowReportForOthers(config: ConfigType, userService: UserService) {
+  static async shouldShowReportForOthers(config: ConfigType, userService: ICoreService) {
     return (
       config.enableMultiplePatients &&
       !(await userService.hasMultipleProfiles()) &&
