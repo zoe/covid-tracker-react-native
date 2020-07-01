@@ -136,10 +136,10 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function version(): string {
-    let version = '0.?';
+    const version = '0.?';
     try {
       const value = manifest.revisionId ?? manifest.version;
-      return value ? value?.toString() : version
+      return value ? value?.toString() : version;
     } catch (_) {
       return version;
     }
