@@ -13,7 +13,8 @@ interface BrandedButtonProps extends ITest {
 }
 
 export const BrandedButton = ({
-  testID = "buttonTestID",
+  testID = 'buttonTestID',
+  accessibilityLabel,
   style,
   children,
   onPress,
@@ -31,6 +32,7 @@ export const BrandedButton = ({
   return (
     <Button
       block
+      testID={testID}
       style={btnStyle}
       onPress={() => {
         !isDisabled && onPress();

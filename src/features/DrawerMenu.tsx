@@ -1,6 +1,6 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
-import Constants from 'expo-constants';
+import * as Updates from 'expo-updates';
 import React, { useState, useEffect } from 'react';
 import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
@@ -13,17 +13,24 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 
 type MenuItemProps = {
+  testID?: string;
   label: string;
   onPress: () => void;
 };
 
+const manifest = Updates.manifest as Updates.Manifest;
+
 const isDevChannel = () => {
-  return Constants.manifest.releaseChannel === '0-dev';
+  try {
+    return manifest.releaseChannel === '0-dev';
+  } catch (_) {
+    return false;
+  }
 };
 
 const MenuItem = (props: MenuItemProps) => {
   return (
-    <TouchableOpacity style={styles.iconNameRow} onPress={props.onPress}>
+    <TouchableOpacity style={styles.iconNameRow} {...props}>
       <HeaderText>{props.label}</HeaderText>
     </TouchableOpacity>
   );
@@ -88,12 +95,22 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
       : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
   }
 
+  function version(): string {
+    const version = '0.?';
+    try {
+      const value = manifest.revisionId ? manifest.revisionId : manifest.version;
+      return value ? value.toString() : version;
+    } catch (e) {
+      return version;
+    }
+  }
+
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <View style={styles.container}>
         <View style={styles.topBar}>
           <CaptionText>
-            {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
+            {version()}
             {isDevChannel() && ` (DEV)`}
           </CaptionText>
           <TouchableOpacity onPress={() => props.navigation.goBack()}>
@@ -115,7 +132,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
         <View style={{ flex: 1 }} />
-        <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
+        <MenuItem testID="logout-nav-item" label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
       </View>
     </SafeAreaView>

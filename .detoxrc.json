@@ -4,7 +4,8 @@
   "configurations": {
     "ios.sim": {
       "type": "ios.simulator",
-      "binaryPath": ".bin/Exponent.app",
+      "binaryPath": "./ios/build/Build/Products/Debug-iphonesimulator/covid-zoe.app",
+      "build": "xcodebuild -workspace ./ios/Covid.xcworkspace -scheme Covid -configuration Debug -sdk iphonesimulator -derivedDataPath ./ios/build",
       "device": {
         "type": "iPhone 11"
       }

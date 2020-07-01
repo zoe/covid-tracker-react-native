@@ -118,6 +118,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
               <Item style={styles.labelPos} floatingLabel error={this.state.hasUserValidationError}>
                 <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
                 <Input
+                  accessibilityLabel="email"
                   testID="email"
                   keyboardType="email-address"
                   autoCapitalize="none"
@@ -143,6 +144,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
               <Item style={styles.labelPos} floatingLabel error={this.state.hasPassValidationError}>
                 <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
                 <Input
+                  accessibilityLabel="password"
                   testID="password"
                   secureTextEntry
                   returnKeyType="go"
@@ -163,7 +165,11 @@ export class LoginScreen extends Component<PropsType, StateType> {
           </View>
 
           <View>
-            <BrandedButton testID="loginButton" onPress={this.handleLogin} hideLoading enable={this.checkFieldsFilled()}>
+            <BrandedButton
+              testID="login-button"
+              onPress={this.handleLogin}
+              hideLoading
+              enable={this.checkFieldsFilled()}>
               <Text>{i18n.t('login.button')}</Text>
             </BrandedButton>
             <View style={styles.bottomTextView}>

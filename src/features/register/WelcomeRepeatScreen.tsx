@@ -121,7 +121,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>
-          <BrandedButton style={styles.reportButton} onPress={this.gotoNextScreen}>
+          <BrandedButton testID="report-button" style={styles.reportButton} onPress={this.gotoNextScreen}>
             {i18n.t('welcome.report-button')}
           </BrandedButton>
         </View>

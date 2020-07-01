@@ -58,13 +58,15 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image testID="map" style={styles.mapImage} source={getMapImage()} />
 
-        <TouchableOpacity testID="selectCountry" style={styles.countryFlag} onPress={onSelectCountryPress}>
+        <TouchableOpacity testID="select-country" style={styles.countryFlag} onPress={onSelectCountryPress}>
           <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
         </TouchableOpacity>
 
         <View style={styles.rootContainer}>
           <View style={styles.covidContainer}>
-            <RegularText testID="welcomeLabel" style={styles.subtitle}>{i18n.t('welcome.take-a-minute')}</RegularText>
+            <RegularText testID="welcome-label" style={styles.subtitle}>
+              {i18n.t('welcome.take-a-minute')}
+            </RegularText>
           </View>
         </View>
         <View style={styles.contributors}>

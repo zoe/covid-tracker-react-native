@@ -60,13 +60,13 @@ export class CountrySelectScreen extends Component<Props, object> {
       <View style={styles.container}>
         <Text style={styles.text}>{i18n.t('select-country')}</Text>
         <View style={styles.flagRow}>
-          <TouchableOpacity testID="usFlag" onPress={() => this.selectCountry(US_CODE)}>
+          <TouchableOpacity testID="us-flag" onPress={() => this.selectCountry(US_CODE)}>
             <Image source={usFlag} />
           </TouchableOpacity>
-          <TouchableOpacity testID="gbFlag" onPress={() => this.selectCountry(GB_CODE)}>
+          <TouchableOpacity testID="gb-flag" onPress={() => this.selectCountry(GB_CODE)}>
             <Image source={gbFlag} />
           </TouchableOpacity>
-          <TouchableOpacity testID="svFlag" onPress={() => this.selectCountry(SV_CODE)}>
+          <TouchableOpacity testID="sv-flag" onPress={() => this.selectCountry(SV_CODE)}>
             <Image source={svFlag} />
           </TouchableOpacity>
         </View>
