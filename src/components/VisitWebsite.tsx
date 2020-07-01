@@ -1,6 +1,5 @@
-import { Linking } from 'expo';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Linking } from 'react-native';
 import reactStringReplace from 'react-string-replace';
 
 import { colors } from '@theme';

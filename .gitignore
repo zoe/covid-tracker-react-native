@@ -65,7 +65,6 @@ buck-out
 .gradle
 local.properties
 *.iml
-/android/
 
 # Node
 node_modules
@@ -122,3 +121,7 @@ mock-server/db/*.json
 
 # Expo app for e2e tests
 .bin/
+
+# ios
+ios/build
+ios/Pods

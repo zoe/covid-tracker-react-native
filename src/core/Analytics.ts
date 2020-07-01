@@ -1,5 +1,5 @@
 import * as Amplitude from 'expo-analytics-amplitude';
-import Constants from 'expo-constants';
+import * as Updates from 'expo-updates';
 
 import appConfig from '../../appConfig';
 
@@ -24,6 +24,7 @@ export const events = {
   CLICK_CALLOUT: 'CLICK_CALLOUT',
   ACCEPT_STUDY_CONTACT: 'ACCEPT_STUDY_CONTACT',
   DECLINE_STUDY_CONTACT: 'DECLINE_STUDY_CONTACT',
+  CLICK_DRAWER_MENU_ITEM: 'CLICK_DRAWER_MENU_ITEM',
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
@@ -63,14 +64,23 @@ export function trackScreenView(screenName: string): void {
 export function identify(additionalProps?: AdditionalUserProperties): void {
   initialize();
 
+  let expo = {};
+
+  try {
+    const manifest = Updates.manifest as Updates.Manifest;
+    expo = {
+      expoVersion: manifest.expoVersion,
+      appVersion: manifest.version,
+      revisionId: manifest.revisionId,
+      releaseChannel: manifest.releaseChannel,
+    };
+  } catch (e) {}
+
   // WARNING: Do not send any PII or Health Data here!
   const payload = {
     ...additionalProps,
+    ...expo,
     appCountry: UserService.userCountry,
-    expoVersion: Constants.expoVersion,
-    appVersion: Constants.manifest.version,
-    revisionId: Constants.manifest.revisionId,
-    releaseChannel: Constants.manifest.releaseChannel,
   };
   Amplitude.setUserProperties(payload);
 }

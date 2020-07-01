@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Item, Label, Text } from 'native-base';
 import moment, { Moment } from 'moment';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
-import DropdownField from '@covid/components/DropdownField';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { ClickableText, RegularText } from '@covid/components/Text';
+import { ClickableText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import YesNoField from '@covid/components/YesNoField';
 
 export interface CovidTestDateData {
   knowsDateOfTest: string; // only for ux logic
@@ -69,15 +69,23 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
 
   return (
     <FieldWrapper>
-      <DropdownField
+      <YesNoField
         selectedValue={formikProps.values.knowsDateOfTest}
         onValueChange={(value: string) => {
           if (value === 'yes') {
             formikProps.values.dateTakenBetweenStart = undefined;
             formikProps.values.dateTakenBetweenEnd = undefined;
             formikProps.values.dateTakenSpecific = undefined;
+            setState({
+              ...state,
+              showDatePicker: true,
+            });
           } else {
             formikProps.values.dateTakenSpecific = undefined;
+            setState({
+              ...state,
+              showRangePicker: true,
+            });
           }
           formikProps.setFieldValue('knowsDateOfTest', value);
         }}
@@ -85,7 +93,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       />
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
-        <FieldWrapper style={{ paddingRight: 30 }}>
+        <View style={styles.field}>
           <Item stackedLabel>
             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
             {state.showDatePicker ? (
@@ -101,16 +109,16 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
                 {formikProps.values.dateTakenSpecific ? (
                   moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
                 ) : (
-                  <RegularText>{i18n.t('covid-test.required-date')}</RegularText>
+                  <Text>{i18n.t('covid-test.required-date')}</Text>
                 )}
               </ClickableText>
             )}
           </Item>
-        </FieldWrapper>
+        </View>
       )}
 
       {formikProps.values.knowsDateOfTest === 'no' && (
-        <FieldWrapper style={{ paddingRight: 30 }}>
+        <View style={styles.field}>
           <Item stackedLabel>
             <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</Label>
 
@@ -137,7 +145,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
               </ClickableText>
             )}
           </Item>
-        </FieldWrapper>
+        </View>
       )}
     </FieldWrapper>
   );
@@ -145,14 +153,17 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
 
 const styles = StyleSheet.create({
   labelStyle: {
-    marginBottom: 30,
+    marginVertical: 16,
+  },
+
+  field: {
+    marginHorizontal: 16,
   },
 
   fieldText: {
     ...fontStyles.bodyReg,
     color: colors.black,
     alignSelf: 'center',
-    paddingHorizontal: 40,
     paddingBottom: 10,
   },
 });

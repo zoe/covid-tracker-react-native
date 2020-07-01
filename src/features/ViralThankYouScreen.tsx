@@ -1,10 +1,9 @@
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking } from 'expo';
 import I18n from 'i18n-js';
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView, Linking } from 'react-native';
 
 import { surveyInvite } from '@assets';
 import { colors } from '@theme';

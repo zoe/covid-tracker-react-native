@@ -1,0 +1,42 @@
+<<<<<<< Updated upstream
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+import { injectable } from 'inversify';
+=======
+// import { Notifications } from 'expo';
+// import * as Permissions from 'expo-permissions';
+>>>>>>> Stashed changes
+
+import { IPushTokenEnvironment } from './PushNotificationService';
+
+export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
+  async isGranted(): Promise<boolean> {
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    return status === Permissions.PermissionStatus.GRANTED;
+  }
+
+  async getPushToken(): Promise<string | null> {
+    let token = null;
+<<<<<<< Updated upstream
+    try {
+      if (await this.isGranted()) {
+        token = await Notifications.getExpoPushTokenAsync();
+      }
+    } catch (error) {
+      // silently discard errors.
+      // TODO: Log with future-available service at some point.
+    }
+=======
+    // try {
+    //   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    //   if (status === STATUS_GRANTED) {
+    //     token = await Notifications.getExpoPushTokenAsync();
+    //   }
+    // } catch (error) {
+    //   // silently discard errors.
+    //   // TODO: Log with future-available service at some point.
+    // }
+>>>>>>> Stashed changes
+    return token;
+  }
+}
