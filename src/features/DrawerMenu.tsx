@@ -1,6 +1,6 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
-import Constants from 'expo-constants';
+import * as Updates from 'expo-updates';
 import React, { useState, useEffect } from 'react';
 import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
@@ -18,13 +18,19 @@ type MenuItemProps = {
   onPress: () => void;
 };
 
+const manifest = Updates.manifest as Updates.Manifest;
+
 const isDevChannel = () => {
-  return Constants.manifest.releaseChannel === '0-dev';
+  try {
+    return manifest.releaseChannel === '0-dev';
+  } catch (_) {
+    return false;
+  }
 };
 
 const MenuItem = (props: MenuItemProps) => {
   return (
-    <TouchableOpacity style={styles.iconNameRow} onPress={props.onPress}>
+    <TouchableOpacity style={styles.iconNameRow} {...props}>
       <HeaderText>{props.label}</HeaderText>
     </TouchableOpacity>
   );
@@ -128,12 +134,22 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     await PushNotificationService.openSettings();
   }
 
+  function version(): string {
+    let version = '0.?';
+    try {
+      const value = manifest.revisionId ?? manifest.version;
+      return value ? value?.toString() : version
+    } catch (_) {
+      return version;
+    }
+  }
+
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <View style={styles.container}>
         <View style={styles.topBar}>
           <CaptionText>
-            {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
+            {version()}
             {isDevChannel() && ` (DEV)`}
           </CaptionText>
           <TouchableOpacity onPress={() => props.navigation.goBack()}>
