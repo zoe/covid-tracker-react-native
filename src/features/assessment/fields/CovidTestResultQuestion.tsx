@@ -25,8 +25,8 @@ export const CovidTestResultQuestion: CovidTestResultQuestion<Props, CovidTestRe
   const { formikProps } = props;
 
   const resultItems = [
-    { label: i18n.t('picker-no'), value: 'negative' },
-    { label: i18n.t('picker-yes'), value: 'positive' },
+    { label: i18n.t('covid-test.picker-negative'), value: 'negative' },
+    { label: i18n.t('covid-test.picker-positive'), value: 'positive' },
     { label: i18n.t('covid-test.picker-test-failed'), value: 'failed' },
     { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
   ];
@@ -35,6 +35,7 @@ export const CovidTestResultQuestion: CovidTestResultQuestion<Props, CovidTestRe
     <DropdownField
       selectedValue={formikProps.values.result}
       onValueChange={formikProps.handleChange('result')}
+      error={formikProps.touched.result && formikProps.errors.result}
       label={i18n.t('covid-test.question-result')}
       items={resultItems}
     />

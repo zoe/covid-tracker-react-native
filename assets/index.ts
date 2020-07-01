@@ -20,6 +20,13 @@ export const svFlag = require('./icons/sv-flag.png');
 export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
 
+// Mechanism Icons
+export const fingerPrick = require('./mechanism-icons/fingerPrick.png');
+export const noseSwab = require('./mechanism-icons/noseSwab.png');
+export const otherTest = require('./mechanism-icons/other.png');
+export const spit = require('./mechanism-icons/spit.png');
+export const syringe = require('./mechanism-icons/syringe.png');
+
 // Partner logos
 export const gbPartners = require('./logos/gb_partners.png');
 export const gbPartnersReturn = require('./logos/gb_partners_return.png');
@@ -47,9 +54,10 @@ export const svMap = require('./svMap.png');
 export const NUMBER_OF_PROFILE_AVATARS = 10;
 
 // ThankYou Modules
+export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
 export const blog004 = require('./thank-you-modules/blog_004.png');
-export const incidence004 = require('./thank-you-modules/incidence_004.png');
+export const incidence005 = require('./thank-you-modules/incidence_005.png');
 export const timUpdate003 = require('./thank-you-modules/tim_update_003.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
