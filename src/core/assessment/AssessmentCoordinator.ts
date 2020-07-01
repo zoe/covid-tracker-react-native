@@ -158,7 +158,8 @@ export class AssessmentCoordinator {
       !currentPatient.hasHormoneTreatmentAnswer ||
       !currentPatient.hasBloodPressureAnswer ||
       !currentPatient.hasVitaminAnswer ||
-      !currentPatient.hasAtopyAnswers
+      !currentPatient.hasAtopyAnswers ||
+      !currentPatient.hasBloodGroupAnswer
     );
   }
 

@@ -355,6 +355,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     const shouldAskExtendedDiabetes = !hasDiabetesAnswers && hasDiabetes;
     const hasHayfever = patient.has_hayfever;
     const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
+    const hasBloodGroupAnswer = patient.blood_group != null;
 
     return {
       ...patientState,
@@ -379,6 +380,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       hasHayfever,
       shouldShowUSStudyInvite,
       shouldAskLifestyleQuestion,
+      hasBloodGroupAnswer,
     };
   }
 

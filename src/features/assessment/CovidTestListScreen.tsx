@@ -94,7 +94,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
           </View>
         </Screen>
 
-        <View style={styles.content}>
+        <View>
           <BrandedButton style={styles.newButton} onPress={AssessmentCoordinator.goToAddEditTest}>
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
