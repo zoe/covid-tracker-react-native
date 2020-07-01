@@ -20,6 +20,13 @@ export const svFlag = require('./icons/sv-flag.png');
 export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
 
+// Mechanism Icons
+export const fingerPrick = require('./mechanism-icons/fingerPrick.png');
+export const noseSwab = require('./mechanism-icons/noseSwab.png');
+export const otherTest = require('./mechanism-icons/other.png');
+export const spit = require('./mechanism-icons/spit.png');
+export const syringe = require('./mechanism-icons/syringe.png');
+
 // Partner logos
 export const gbPartners = require('./logos/gb_partners.png');
 export const gbPartnersReturn = require('./logos/gb_partners_return.png');

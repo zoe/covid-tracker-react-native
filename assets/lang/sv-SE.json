@@ -103,6 +103,8 @@
 
   "picker-yes": "Ja",
   "picker-no": "Nej",
+  "picker-unsure": "Osäker",
+  "please-select-option": "Välj ett alternativ",
   "placeholder-optional-question": "*Optional",
   "placeholder-optional": "Valfri",
 
@@ -278,9 +280,12 @@
     "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
+    "picker-finger-prick": "Blodprov via ett stick i fingret",
+    "picker-blood-draw": "Blodprov med hjälp av en nål",
     "picker-other": "Annat sätt, ange vilket",
 
     "question-mechanism-specify": "Ange hur testet utfördes:",
+    "question-trained-worker": "Utfördes testet av utbildad personal?",
 
     "location": {
       "question": "Var utfördes testet?",
@@ -299,7 +304,7 @@
       }
     },
 
-    "question-result": "Vilka är resultaten av detta test?",
+    "question-result": "Vad visar provsvaret?",
     "picker-positive": "Positivt",
     "picker-negative": "Negativt",
     "picker-waiting": "Väntar på mina resultat",

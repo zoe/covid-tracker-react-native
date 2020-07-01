@@ -35,6 +35,7 @@ export const CovidTestResultQuestion: CovidTestResultQuestion<Props, CovidTestRe
     <DropdownField
       selectedValue={formikProps.values.result}
       onValueChange={formikProps.handleChange('result')}
+      error={formikProps.touched.result && formikProps.errors.result}
       label={i18n.t('covid-test.question-result')}
       items={resultItems}
     />
