@@ -14,7 +14,6 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import DropdownIcon from '@assets/icons/DropdownIcon';
-import { fingerPrick } from '@assets';
 
 import { FieldWrapper } from './Screen';
 import { ValidationError } from './ValidationError';
