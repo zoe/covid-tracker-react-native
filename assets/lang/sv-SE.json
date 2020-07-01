@@ -280,8 +280,8 @@
     "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
-    "picker-finger-prick": "A finger-prick blood test",
-    "picker-blood-draw": "A blood test, done using a needle",
+    "picker-finger-prick": "Blodprov via ett stick i fingret",
+    "picker-blood-draw": "Blodprov med hjälp av en nål",
     "picker-other": "Annat sätt, ange vilket",
 
     "question-mechanism-specify": "Ange hur testet utfördes:",
@@ -304,7 +304,7 @@
       }
     },
 
-    "question-result": "Vilka är resultaten av detta test?",
+    "question-result": "Vad visar provsvaret?",
     "picker-positive": "Positivt",
     "picker-negative": "Negativt",
     "picker-waiting": "Väntar på mina resultat",
