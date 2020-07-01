@@ -129,7 +129,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
   render() {
     return (
-      <View style={styles.view}>
+      <View>
         <SafeAreaView>
           {this.state.isApiError && (
             <LoadingModal
@@ -144,7 +144,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
               <DrawerToggle navigation={this.props.navigation} style={{ tintColor: colors.primary }} />
 
               <Header>
-                <HeaderText style={{ marginBottom: 12 }}>{i18n.t('select-profile-title')}</HeaderText>
+                <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
                 <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
               </Header>
 
@@ -192,16 +192,12 @@ const styles = StyleSheet.create({
 
   cardContainer: {
     width: '45%',
-    margin: 5,
-  },
-
-  view: {
-    backgroundColor: colors.backgroundSecondary,
+    marginHorizontal: 8,
+    marginVertical: 4,
   },
 
   scrollView: {
     flexGrow: 1,
-    backgroundColor: colors.backgroundSecondary,
     justifyContent: 'space-between',
   },
 
