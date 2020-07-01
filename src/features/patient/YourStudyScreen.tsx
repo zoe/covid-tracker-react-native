@@ -209,6 +209,11 @@ const AllCohorts: CohortDefinition[] = [
     label: 'NorthShore Genomic Health Initiative',
     country: 'US',
   },
+  {
+    key: 'is_in_us_c19_human_genetics',
+    label: 'C19 Human Genetics Study',
+    country: 'US',
+  },
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {

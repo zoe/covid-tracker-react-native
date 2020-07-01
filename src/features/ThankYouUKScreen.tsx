@@ -4,13 +4,13 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog004, dataPage003, incidence004, timUpdate003, notificationReminders } from '@assets';
+import { blog004, dataPage003, incidence005, timUpdate003, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
-import ShareThisApp from '@covid/components/ShareThisApp';
+import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
@@ -77,8 +77,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_004"
-                imageSource={incidence004}
+                calloutID="incidence_005"
+                imageSource={incidence005}
                 aspectRatio={1.5}
               />
 
@@ -110,7 +110,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={{ margin: 10 }} />
 
-              <ShareThisApp />
+              <ShareAppCard />
 
               {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
 

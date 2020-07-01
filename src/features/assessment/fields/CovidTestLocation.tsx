@@ -60,10 +60,11 @@ export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, CovidTe
   const locationItems = isGBCountry() ? ukLocationItems : isUSCountry() ? usLocationItems : seLocationItems;
 
   return (
-    <FieldWrapper>
+    <>
       <DropdownField
         selectedValue={formikProps.values.location}
         onValueChange={formikProps.handleChange('location')}
+        error={formikProps.touched.location && formikProps.errors.location}
         label={i18n.t('covid-test.location.question')}
         items={locationItems}
       />
@@ -75,7 +76,7 @@ export const CovidTestLocationQuestion: CovidTestLocationQuestion<Props, CovidTe
           name="locationOther"
         />
       )}
-    </FieldWrapper>
+    </>
   );
 };
 
@@ -88,7 +89,7 @@ CovidTestLocationQuestion.initialFormValues = (test?: CovidTest): CovidTestLocat
 
 CovidTestLocationQuestion.schema = () => {
   return Yup.object().shape({
-    location: Yup.string().required(),
+    location: Yup.string().required(i18n.t('please-select-option')),
   });
 };
 
