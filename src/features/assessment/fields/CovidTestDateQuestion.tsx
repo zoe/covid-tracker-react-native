@@ -1,15 +1,14 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Item, Label, Text, View } from 'native-base';
+import { Item, Label, Text } from 'native-base';
 import moment, { Moment } from 'moment';
 import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
-import DropdownField from '@covid/components/DropdownField';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { ClickableText, RegularText } from '@covid/components/Text';
+import { ClickableText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
@@ -77,8 +76,16 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
             formikProps.values.dateTakenBetweenStart = undefined;
             formikProps.values.dateTakenBetweenEnd = undefined;
             formikProps.values.dateTakenSpecific = undefined;
+            setState({
+              ...state,
+              showDatePicker: true,
+            });
           } else {
             formikProps.values.dateTakenSpecific = undefined;
+            setState({
+              ...state,
+              showRangePicker: true,
+            });
           }
           formikProps.setFieldValue('knowsDateOfTest', value);
         }}

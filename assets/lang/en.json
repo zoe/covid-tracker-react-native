@@ -192,6 +192,8 @@
 
   "picker-yes": "Yes",
   "picker-no": "No",
+  "picker-unsure": "Unsure",
+  "please-select-option": "Please select an option",
   "placeholder-optional-question": "*Optional",
   "placeholder-optional": "Optional",
 
@@ -314,13 +316,17 @@
     "picker-nose-throat-swab": "A swab of my nose or throat",
     "picker-saliva-sample": "I spat in a cup/tube",
     "picker-blood-sample": "I gave a blood sample",
+    "picker-finger-prick": "A finger-prick blood test",
+    "picker-blood-draw": "A blood test, done using a needle",
     "picker-other": "Other, please specify",
 
     "question-mechanism-specify": "Please indicate how the test was performed",
 
+    "question-trained-worker": "Did a trained worker swab you?",
+
     "location": {
       "question": "Where was your test performed?",
-      "specify": "Please specify",
+      "specify": "Please specify the test location",
       "answers": {
         "at-home": "At Home",
 		"drive-through-rtc": "Drive-through Regional Testing Centre",

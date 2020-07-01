@@ -57,7 +57,7 @@ CovidTestInvitedQuestion.initialFormValues = (test?: CovidTest): CovidTestInvite
 CovidTestInvitedQuestion.schema = () => {
   return isGBCountry()
     ? Yup.object().shape({
-        invitedToTest: Yup.string().required(),
+        invitedToTest: Yup.string().required(i18n.t('please-select-option')),
       })
     : Yup.object().shape({});
 };
