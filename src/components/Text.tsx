@@ -10,39 +10,41 @@ export * from './BrandedButton';
 interface Props {
   children: React.ReactNode;
   style?: object;
+  testID?: string;
 }
 
-export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;
+export const HeaderText = ({ style, children, testID}: Props) => <Text testID={testID} style={[styles.headerText, style]}>{children}</Text>;
 
-export const HeaderLightText = ({ style, children }: Props) => (
-  <Text style={[styles.headerLightText, style]}>{children}</Text>
+export const HeaderLightText = ({ style, children, testID}: Props) => (
+  <Text testID={testID} style={[styles.headerLightText, style]}>{children}</Text>
 );
 
-export const RegularText = ({ style, children }: Props) => <Text style={[styles.regularText, style]}>{children}</Text>;
+export const RegularText = ({ style, children, testID}: Props) => <Text testID={testID} style={[styles.regularText, style]}>{children}</Text>;
 
-export const ClippedText = ({ style, children }: Props) => (
-  <Text style={[styles.regularText, style]} numberOfLines={1}>
+export const ClippedText = ({ style, children, testID}: Props) => (
+  <Text testID={testID} style={[styles.regularText, style]} numberOfLines={1}>
     {children}
   </Text>
 );
 
-export const SecondaryText = ({ style, children }: Props) => (
-  <Text style={[styles.secondaryText, style]}>{children}</Text>
+export const SecondaryText = ({ style, children, testID}: Props) => (
+  <Text testID={testID} style={[styles.secondaryText, style]}>{children}</Text>
 );
 
-export const MutedText = ({ style, children }: Props) => (
-  <Text style={[styles.regularMutedText, style]}>{children}</Text>
+export const MutedText = ({ style, children, testID}: Props) => (
+  <Text testID={testID} style={[styles.regularMutedText, style]}>{children}</Text>
 );
 
-export const CaptionText = ({ style, children }: Props) => <Text style={[styles.captionText, style]}>{children}</Text>;
+export const CaptionText = ({ style, children, testID}: Props) => <Text testID={testID} style={[styles.captionText, style]}>{children}</Text>;
 
-export const ErrorText = ({ style, children }: Props) => <Text style={[styles.errorText, style]}>{children}</Text>;
+export const ErrorText = ({ style, children, testID}: Props) => <Text testID={testID} style={[styles.errorText, style]}>{children}</Text>;
 
-export const RegularBoldText = ({ style, children }: Props) => (
-  <Text style={[styles.regularBoldText, style]}>{children}</Text>
+export const RegularBoldText = ({ style, children, testID}: Props) => (
+  <Text testID={testID} style={[styles.regularBoldText, style]}>{children}</Text>
 );
 
 export interface ClickableProps extends ITest {
+  testID: string,
   children: React.ReactNode;
   style?: any;
   onPress: () => void;
@@ -50,8 +52,8 @@ export interface ClickableProps extends ITest {
   hideLoading?: boolean;
 }
 
-export const ClickableText = ({ style, children, onPress }: ClickableProps) => (
-  <Text style={[styles.clickableText, style]} onPress={onPress}>
+export const ClickableText = ({ testID, style, children, onPress }: ClickableProps) => (
+  <Text testID={testID} style={[styles.clickableText, style]} onPress={onPress}>
     {children}
   </Text>
 );

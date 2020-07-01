@@ -64,7 +64,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 
         <View style={styles.rootContainer}>
           <View style={styles.covidContainer}>
-            <RegularText style={styles.subtitle}>{i18n.t('welcome.take-a-minute')}</RegularText>
+            <RegularText testID="welcomeLabel" style={styles.subtitle}>{i18n.t('welcome.take-a-minute')}</RegularText>
           </View>
         </View>
         <View style={styles.contributors}>

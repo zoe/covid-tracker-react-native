@@ -13,6 +13,7 @@ interface BrandedButtonProps extends ITest {
 }
 
 export const BrandedButton = ({
+  testID = "buttonTestID",
   style,
   children,
   onPress,
@@ -29,7 +30,6 @@ export const BrandedButton = ({
 
   return (
     <Button
-      testID="buttonTestID"
       block
       style={btnStyle}
       onPress={() => {
