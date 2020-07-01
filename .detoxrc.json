@@ -1,0 +1,20 @@
+{
+  "testRunner": "jest",
+  "runnerConfig": "e2e/config.json",
+  "configurations": {
+    "ios.sim": {
+      "type": "ios.simulator",
+      "binaryPath": ".bin/Exponent.app",
+      "device": {
+        "type": "iPhone 11"
+      }
+    },
+    "android.sim": {
+      "type": "android.emulator",
+      "binaryPath": ".bin/Exponent.apk",
+      "device": {
+        "avdName": "Pixel_2_API_29"
+      }
+    }
+  }
+}

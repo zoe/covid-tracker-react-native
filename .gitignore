@@ -118,3 +118,7 @@ RNTester/Pods/*
 report.xml
 
 mock-server/db/*.json
+
+
+# Expo app for e2e tests
+.bin/
