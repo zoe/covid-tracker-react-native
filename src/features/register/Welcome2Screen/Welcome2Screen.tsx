@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useState, useCallback } from 'react';
 import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 
 import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
@@ -10,13 +11,12 @@ import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
 
 import styles from './styles';
-import { RouteProp } from '@react-navigation/native';
-import appCoordinator from '@covid/features/AppCoordinator';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
