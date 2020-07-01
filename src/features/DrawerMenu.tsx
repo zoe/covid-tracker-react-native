@@ -135,6 +135,16 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     await PushNotificationService.openSettings();
   }
 
+  function version(): string {
+    let version = '0.?';
+    try {
+      const value = manifest.revisionId ?? manifest.version;
+      return value ? value?.toString() : version
+    } catch (_) {
+      return version;
+    }
+  }
+
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <View style={styles.container}>
