@@ -20,7 +20,7 @@ import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from '../ScreenParamList';
-import Navigator from '../AppCoordinator';
+import appCoordinator from '../AppCoordinator';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -95,7 +95,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     try {
       const currentPatient = await this.userService.getCurrentPatient(profileId);
       this.setState({ isApiError: false });
-      await Navigator.profileSelected(index === 0, currentPatient);
+      await appCoordinator.profileSelected(index === 0, currentPatient);
     } catch (error) {
       this.setState({
         isApiError: true,

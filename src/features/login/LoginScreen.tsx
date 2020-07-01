@@ -14,12 +14,13 @@ import {
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService, isUSCountry } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -77,10 +78,8 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
-        this.props.navigation.reset({
-          index: 0,
-          routes: [{ name: 'WelcomeRepeat', params: { patientId } }],
-        });
+        appCoordinator.setPatientId(patientId);
+        appCoordinator.gotoNextScreen(this.props.routeProp.name);
       })
       .catch((error) => {
         if (error.constructor === UserNotFoundException) {
@@ -98,16 +97,6 @@ export class LoginScreen extends Component<PropsType, StateType> {
   // todo: validation for email
 
   render() {
-    const registerStartLink = isUSCountry() ? (
-      <ClickableText onPress={() => this.props.navigation.navigate('BeforeWeStartUS')}>
-        {i18n.t('login.create-account')}
-      </ClickableText>
-    ) : (
-      <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: false })}>
-        {i18n.t('login.create-account')}
-      </ClickableText>
-    );
-
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -167,11 +156,13 @@ export class LoginScreen extends Component<PropsType, StateType> {
             <View style={styles.bottomTextView}>
               <RegularText>{i18n.t('login.dont-have-account')}</RegularText>
               <RegularText> </RegularText>
-              {registerStartLink}
+              <ClickableText onPress={() => appCoordinator.goToPreRegisterScreens()}>
+                {i18n.t('login.create-account')}
+              </ClickableText>
             </View>
 
             <View style={styles.bottomTextView2}>
-              <ClickableText onPress={() => this.props.navigation.navigate('ResetPassword')}>
+              <ClickableText onPress={() => appCoordinator.goToResetPassword()}>
                 {i18n.t('login.forgot-your-password')}
               </ClickableText>
             </View>

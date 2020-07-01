@@ -14,7 +14,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
-import Navigator from '../../AppCoordinator';
+import appCoordinator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type PropsType = {
@@ -60,7 +60,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
       this.setState({ submitting: true });
       Analytics.track(events.JOIN_STUDY);
       this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
-      Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
+      appCoordinator.resetToProfileStartAssessment();
     }
   };
 

@@ -15,11 +15,14 @@ import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
 
 import styles from './styles';
+import { RouteProp } from '@react-navigation/native';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
+  route: RouteProp<ScreenParamList, 'Welcome'>;
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
@@ -35,11 +38,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
     if (await userService.shouldAskCountryConfirmation()) {
       setIpModalVisible(true);
     } else {
-      if (isUSCountry()) {
-        navigation.navigate('BeforeWeStartUS');
-      } else {
-        navigation.navigate('Consent', { viewOnly: false });
-      }
+      appCoordinator.goToPreRegisterScreens();
     }
   }, [userService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
 

@@ -46,6 +46,12 @@ export class AppCoordinator {
         this.navigation.replace('Welcome');
       }
     },
+    Login: () => {
+      this.navigation.reset({
+        index: 0,
+        routes: [{ name: 'WelcomeRepeat' }],
+      });
+    },
     Register: () => {
       const config = appCoordinator.getConfig();
 
@@ -76,6 +82,14 @@ export class AppCoordinator {
     ArchiveReason: () => {
       this.navigation.navigate('SelectProfile');
     },
+    ValidationStudyIntro: () => {
+      this.navigation.navigate('ValidationStudyInfo');
+    },
+    ValidationStudyInfo: () => {
+      this.navigation.navigate('ValidationStudyConsent', {
+        viewOnly: false,
+      });
+    },
   } as ScreenFlow;
 
   async init(navigation: NavigationType) {
@@ -97,19 +111,9 @@ export class AppCoordinator {
     return this.userService.getConfig();
   }
 
-  resetToProfileStartAssessment(currentPatient?: PatientStateType) {
-    if (!currentPatient) {
-      this.navigation.navigate('WelcomeRepeat');
-    } else {
-      this.navigation.dispatch((state) => {
-        const profileScreen = state.routes.find((screen) => {
-          return screen.name === 'SelectProfile';
-        });
-
-        return CommonActions.navigate({ key: profileScreen!.key });
-      });
-      this.startAssessmentFlow(currentPatient);
-    }
+  resetToProfileStartAssessment() {
+    this.navigation.navigate('SelectProfile');
+    this.startAssessmentFlow(this.currentPatient);
   }
 
   startPatientFlow(currentPatient: PatientStateType) {
@@ -136,8 +140,10 @@ export class AppCoordinator {
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
+    this.currentPatient = currentPatient;
+    this.patientId = currentPatient.patientId;
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
-      this.navigation.navigate('ValidationStudyIntro', { currentPatient });
+      this.goToUKValidationStudy();
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -154,6 +160,18 @@ export class AppCoordinator {
 
   goToArchiveReason(profileId: string) {
     this.navigation.navigate('ArchiveReason', { profileId });
+  }
+
+  goToPreRegisterScreens() {
+    if (isUSCountry()) {
+      this.navigation.navigate('BeforeWeStartUS');
+    } else {
+      this.navigation.navigate('Consent', { viewOnly: false });
+    }
+  }
+
+  goToResetPassword() {
+    this.navigation.navigate('ResetPassword');
   }
 }
 
