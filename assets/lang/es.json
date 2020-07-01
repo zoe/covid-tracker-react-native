@@ -318,20 +318,32 @@
 
     "question-mechanism-specify": "Indique cómo se realizó el examen",
 
-    "question-result": "¿Dio positivo para COVID-19?",
+    "location": {
+      "question": "¿Dónde se realizó la prueba?",
+      "specify": "Por favor especifique",
+      "answers": {
+        "at-home": "Hogar",
+		"drive-through-rtc": "",
+        "drop-in-facility": "",
+		"hospital": "Centro hospitalario o clínica",
+		"gp": "",
+		"chemist-pharmacy": "",
+        "store-pharmacy": "Tienda o farmacia clínica",
+		"work": "Trabajo (excluyendo hospital)",
+        "local-health-department": "",
+		"other": "Otro sitio, por favor especifique"
+      }
+    },
 
+    "question-result": "¿Cuáles son los resultados de esta prueba?",
+    "picker-positive": "Positivo",
+    "picker-negative": "Negativo",
     "picker-waiting": "Esperando resultados",
-    "picker-test-failed": "No está claro/Falló el examen",
+    "picker-test-failed": "No está claro / Falló el examen",
 
     "question-knows-date-of-test": "¿Sabe la fecha de su examen?",
     "question-date-test-occurred": "¿Cuándo fue su examen?",
-
     "question-date-test-occurred-guess": "¿Entre qué fechas cree que se realizó el examen?",
-    "picker-less-than-7-days-ago": "Hace menos de 7 días",
-    "picker-over-1-week-ago": "Hace más de 1 semana",
-    "picker-over-2-week-ago": "Hace más de 2 semanas",
-    "picker-over-3-week-ago": "Hace más de 3 semanas",
-    "picker-over-1-month-ago": "Hace más de 1 mes",
 
     "required-date": "Indique la fecha de este examen",
     "required-dates": "Indique las fechas entre las que ocurrió este examen",
@@ -544,6 +556,7 @@
   "delete-my-data": "Eliminar mis datos",
   "delete-data-alert-title": "¿Está seguro?",
   "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
+  "push-notifications": "Activa los recordatorios",
   "cancel": "Cancelar",
   "delete": "Eliminar",
   "logout": "Cerrar sesión",
@@ -893,6 +906,10 @@
       "para-3": false,
       "interested": false,
       "visit-next": false
+    },
+
+    "covid-test": {
+      "question-invite-to-test": false
     },
 
     "thank-you-uk": {

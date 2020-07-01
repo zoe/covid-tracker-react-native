@@ -282,20 +282,32 @@
 
     "question-mechanism-specify": "Ange hur testet utfördes:",
 
-    "question-result": "Var ditt test för COVID-19 positivt?",
+    "location": {
+      "question": "Var utfördes testet?",
+      "specify": "Por favor especifique",
+      "answers": {
+        "at-home": "Hemma",
+		"drive-through-rtc": "",
+        "drop-in-facility": "Drop-in testcenter",
+		"hospital": "Sjukhus",
+		"gp": "Vårdcentral",
+		"chemist-pharmacy": "Apotek",
+        "store-pharmacy": "Tienda o farmacia clínica",
+		"work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
+        "local-health-department": "",
+		"other": "Annat, ange"
+      }
+    },
 
+    "question-result": "Vilka är resultaten av detta test?",
+    "picker-positive": "Positivt",
+    "picker-negative": "Negativt",
     "picker-waiting": "Väntar på mina resultat",
-    "picker-test-failed": "Inkonklusivt/provtagning misslyckades",
+    "picker-test-failed": "Inkonklusivt / provtagning misslyckades",
 
     "question-knows-date-of-test": "Vet du vilket datum du testades?",
     "question-date-test-occurred": "När testades du?",
-
     "question-date-test-occurred-guess": "Mellan vilka två datum tror du att testet utfördes?",
-    "picker-less-than-7-days-ago": "För mindre än sju dagar sedan",
-    "picker-over-1-week-ago": "Över en vecka sedan",
-    "picker-over-2-week-ago": "Över två veckor sedan",
-    "picker-over-3-week-ago": "Över tre veckor sedan",
-    "picker-over-1-month-ago": "Över en månad sedan",
 
     "required-date": "Ange datum när testet utfördes",
     "required-dates": "Ange mellan vilka två datum testet utfördes",
@@ -471,6 +483,7 @@
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
+  "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
   "delete": "Ta bort",
   "logout": "Logga ut",
@@ -661,6 +674,10 @@
       "uni-hospital": false,
       "nct-number": false,
       "if-not": false
+    },
+
+    "covid-test": {
+      "question-invite-to-test": false
     },
 
     "partners": {

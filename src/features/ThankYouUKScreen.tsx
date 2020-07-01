@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog004, dataPage003, incidence004, timUpdate003 } from '@assets';
+import { blog004, dataPage003, incidence004, timUpdate003, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -16,6 +16,8 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/pushNotifications/PushNotificationService';
+import ExpoPushTokenEnvironment from '@covid/core/pushNotifications/expo';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -27,16 +29,19 @@ type RenderProps = {
 type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
+  shouldShowReminders: boolean;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
+  shouldShowReminders: false,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.User)
   private userService: ICoreService;
+  private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
 
@@ -44,6 +49,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
+      shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
 
@@ -89,6 +95,18 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={blog004}
                 aspectRatio={1.551}
               />
+
+              {this.state.shouldShowReminders && (
+                <ExternalCallout
+                  link=""
+                  calloutID="notificationReminders"
+                  imageSource={notificationReminders}
+                  aspectRatio={1244.0 / 368.0}
+                  action={() => {
+                    PushNotificationService.openSettings();
+                  }}
+                />
+              )}
 
               <View style={{ margin: 10 }} />
 

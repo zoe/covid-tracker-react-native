@@ -25,8 +25,8 @@ export const CovidTestResultQuestion: CovidTestResultQuestion<Props, CovidTestRe
   const { formikProps } = props;
 
   const resultItems = [
-    { label: i18n.t('picker-no'), value: 'negative' },
-    { label: i18n.t('picker-yes'), value: 'positive' },
+    { label: i18n.t('covid-test.picker-negative'), value: 'negative' },
+    { label: i18n.t('covid-test.picker-positive'), value: 'positive' },
     { label: i18n.t('covid-test.picker-test-failed'), value: 'failed' },
     { label: i18n.t('covid-test.picker-waiting'), value: 'waiting' },
   ];

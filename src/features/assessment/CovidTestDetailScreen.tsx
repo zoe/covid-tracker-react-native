@@ -22,10 +22,20 @@ import {
   CovidTestResultData,
   CovidTestResultQuestion,
 } from '@covid/features/assessment/fields/CovidTestResultQuestion';
+import {
+  CovidTestInvitedData,
+  CovidTestInvitedQuestion,
+} from '@covid/features/assessment/fields/CovidTestInvitedQuesetion';
+import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/assessment/fields/CovidTestLocation';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-export interface CovidTestData extends CovidTestDateData, CovidTestMechanismData, CovidTestResultData {}
+export interface CovidTestData
+  extends CovidTestDateData,
+    CovidTestMechanismData,
+    CovidTestResultData,
+    CovidTestLocationData,
+    CovidTestInvitedData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestDetail'>;
@@ -98,6 +108,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         ...CovidTestDateQuestion.createDTO(formData),
         ...CovidTestMechanismQuestionV1.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
+        ...CovidTestInvitedQuestion.createDTO(formData),
+        ...CovidTestLocationQuestion.createDTO(formData),
       } as Partial<CovidTest>;
 
       this.submitCovidTest(infos);
@@ -113,7 +125,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       .shape({})
       .concat(CovidTestDateQuestion.schema())
       .concat(CovidTestMechanismQuestionV1.schema())
-      .concat(CovidTestResultQuestion.schema());
+      .concat(CovidTestResultQuestion.schema())
+      .concat(CovidTestInvitedQuestion.schema())
+      .concat(CovidTestLocationQuestion.schema());
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -132,6 +146,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             ...CovidTestDateQuestion.initialFormValues(test),
             ...CovidTestMechanismQuestionV1.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
+            ...CovidTestInvitedQuestion.initialFormValues(test),
+            ...CovidTestLocationQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
           onSubmit={(values: CovidTestData) => {
@@ -141,16 +157,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             return (
               <Form>
                 <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
-
-                {props.values.knowsDateOfTest !== '' && (
-                  <>
-                    <CovidTestMechanismQuestionV1
-                      formikProps={props as FormikProps<CovidTestMechanismData>}
-                      test={test}
-                    />
-                    <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
-                  </>
-                )}
+                <CovidTestMechanismQuestionV1 formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
+                <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
+                <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
