@@ -7,7 +7,7 @@ import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
-import ShareThisApp from '@covid/components/ShareThisApp';
+import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
 import i18n from '@covid/locale/i18n';
@@ -50,7 +50,7 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
                 <RegularText>{i18n.t('thank-you-body')}</RegularText>
               </View>
 
-              <ShareThisApp />
+              <ShareAppCard />
               <VisitWebsite />
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
