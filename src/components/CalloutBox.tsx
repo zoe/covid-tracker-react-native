@@ -1,6 +1,5 @@
-import { Linking } from 'expo';
 import React from 'react';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Linking } from 'react-native';
 
 import { colors } from '@theme';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';

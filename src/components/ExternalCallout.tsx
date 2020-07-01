@@ -1,6 +1,5 @@
-import { Linking } from 'expo';
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View, Linking } from 'react-native';
 
 import Analytics, { events } from '@covid/core/Analytics';
 

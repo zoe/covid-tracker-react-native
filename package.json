@@ -1,15 +1,16 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "react-native start",
+    "start:android": "react-native run-android",
+    "start:ios": "react-native run-ios",
     "web": "expo start --web",
-    "eject": "expo eject",
     "test": "jest --maxWorker=2",
     "test:watch": "jest --watch",
     "test:updateSnapshots": "jest -u",
     "test:i18n": "ts-node ./scripts/i18n-check-locale.ts",
+    "e2e:ios": "detox test -c ios.sim",
+    "e2e:ios:build": "detox build -c ios.sim",
+    "e2e:expo-prepare": "./scripts/download-expo-bins",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint:pre-commit": "eslint --fix",
@@ -22,6 +23,7 @@
     "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/bottom-tabs": "^5.1.1",
     "@react-navigation/drawer": "^5.4.0",
@@ -38,6 +40,7 @@
     "expo-analytics-amplitude": "~8.0.0",
     "expo-font": "^8.0.0",
     "expo-localization": "~8.0.0",
+    "expo-updates": "^0.2.11",
     "formik": "^2.1.4",
     "i18n-js": "^3.5.1",
     "immer": "^6.0.1",
@@ -49,7 +52,7 @@
     "query-string": "^6.11.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native": "~0.61.4",
     "react-native-calendar-picker": "^6.0.6",
     "react-native-dotenv": "^0.2.0",
     "react-native-easy-markdown": "^2.0.0",
@@ -60,6 +63,7 @@
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-svg": "9.13.3",
+    "react-native-unimodules": "~0.7.0",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
     "react-string-replace": "^0.4.4",
@@ -75,6 +79,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "babel-jest": "~24.9.0",
+    "jest": "^25.5.4",
+    "metro-react-native-babel-preset": "~0.56.0",
+    "react-test-renderer": "^16.13.1",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-ondevice-actions": "^5.3.19",
     "@storybook/react-native": "^5.3.19",
@@ -94,19 +102,20 @@
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "~8.0.0",
     "body-parser": "^1.19.0",
+    "detox": "^17.0.2",
+    "detox-expo-helpers": "^0.6.0",
+    "detox-getprops": "^0.1.2",
     "eslint": "^6.8.0",
     "eslint-config-universe": "^3.0.0",
     "express": "^4.17.1",
     "husky": "^4.2.5",
-    "jest": "^25.5.4",
     "jest-expo": "^37.0.0",
     "prettier": "^2.0.4",
-    "react-test-renderer": "^16.13.1",
+    "react-native-typescript-transformer": "^1.2.13",
     "redux-mock-store": "^1.5.4",
     "ts-jest": "^25.3.1",
     "ts-node": "^8.6.2",
-    "typescript": "~3.7.0",
-    "react-native-typescript-transformer": "^1.2.13"
+    "typescript": "~3.7.0"
   },
   "private": true,
   "husky": {
@@ -114,5 +123,7 @@
       "pre-commit": "git-hooks/pre-commit.js",
       "pre-push": "git-hooks/pre-push.sh"
     }
-  }
+  },
+  "name": "covid-tracker-react-native",
+  "version": "1.0.0"
 }

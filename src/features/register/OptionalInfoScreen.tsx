@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Constants from 'expo-constants';
+import { Constants } from 'react-native-unimodules';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component, lazy } from 'react';

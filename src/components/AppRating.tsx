@@ -1,7 +1,7 @@
-import Constants from 'expo-constants';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Constants } from 'react-native-unimodules';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
@@ -23,7 +23,7 @@ type State = {
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;
-const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
+const AndroidLink = Platform.OS == 'android' ? `market://details?id=${Constants.manifest.android.package}` : '';
 
 export async function shouldAskForRating(): Promise<boolean> {
   const profile = await container.get<ICoreService>(Services.User).getProfile();
