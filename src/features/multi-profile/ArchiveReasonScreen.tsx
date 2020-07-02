@@ -6,8 +6,8 @@ import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
 import { BigButton } from '@covid/components/BigButton';
 import i18n from '@covid/locale/i18n';
-import UserService, { ICoreService } from '@covid/core/user/UserService';
-import Navigator from '@covid/features/AppCoordinator';
+import { ICoreService } from '@covid/core/user/UserService';
+import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 
@@ -54,7 +54,7 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
     };
 
     userService.updatePatient(props.route.params.profileId, infos).then((response) => {
-      Navigator.gotoScreen('SelectProfile');
+      appCoordinator.gotoNextScreen(props.route.name);
     });
   }
 

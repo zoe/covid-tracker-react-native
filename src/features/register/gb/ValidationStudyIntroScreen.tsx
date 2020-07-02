@@ -13,7 +13,7 @@ import { Header } from '@covid/components/Screen';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
-import Navigator from '../../AppCoordinator';
+import appCoordinator from '../../AppCoordinator';
 import { ScreenParamList } from '../../ScreenParamList';
 
 type Props = {
@@ -48,7 +48,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
               onPress={() => {
                 Analytics.track(events.DECLINE_STUDY);
                 this.userService.setValidationStudyResponse(false);
-                Navigator.resetToProfileStartAssessment(this.props.route.params.currentPatient);
+                appCoordinator.resetToProfileStartAssessment();
               }}>
               <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>
             </TouchableOpacity>
@@ -56,9 +56,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
             <BrandedButton
               style={styles.mainButton}
               onPress={() => {
-                this.props.navigation.navigate('ValidationStudyInfo', {
-                  currentPatient: this.props.route.params.currentPatient,
-                });
+                appCoordinator.gotoNextScreen(this.props.route.name);
               }}>
               <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
             </BrandedButton>
