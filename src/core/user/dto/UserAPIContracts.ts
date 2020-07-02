@@ -35,6 +35,23 @@ export enum PatientInteractions {
   NO = 'no',
 }
 
+export enum CovidTestMechanismOptions {
+  NOSE_SWAB = 'nose_swab', // Deprecated
+  THROAT_SWAB = 'throat_swab', // Deprecated
+  NOSE_OR_THROAT_SWAB = 'nose_throat_swab',
+  SPIT_TUBE = 'spit_tube',
+  BLOOD_SAMPLE = 'blood_sample', // Deprecated
+  BLOOD_FINGER_PRICK = 'blood_sample_finger_prick',
+  BLOOD_NEEDLE_DRAW = 'blood_sample_needle_draw',
+  OTHER = 'other',
+}
+
+export enum CovidTestTrainedWorkerOptions {
+  TRAINED = 'trained',
+  UNTRAINED = 'untrained',
+  UNSURE = 'unsure',
+}
+
 export type LoginOrRegisterResponse = {
   key: string; // auth token
   user: UserResponse;
