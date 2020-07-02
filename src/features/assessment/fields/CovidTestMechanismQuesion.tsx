@@ -91,9 +91,32 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
 };
 
 CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): CovidTestMechanismData => {
+  const valid_options = [
+    'nose_throat_swab',
+    'nose_swab',
+    'throat_swab',
+    'spit_tube',
+    'blood_sample',
+    'blood_sample_finger_prick',
+    'blood_sample_needle_draw',
+    'other',
+  ];
+
+  let mechanism = '';
+  let mechanismSpecify = '';
+
+  if (test?.id) {
+    if (valid_options.includes(test.mechanism)) {
+      mechanism = test.mechanism;
+    } else {
+      mechanism = 'other';
+      mechanismSpecify = test.mechanism;
+    }
+  }
+
   return {
-    mechanism: test?.mechanism ? test.mechanism : '',
-    mechanismSpecify: '',
+    mechanism,
+    mechanismSpecify,
     trainedWorker: test?.trained_worker ? test.trained_worker : '',
   };
 };
