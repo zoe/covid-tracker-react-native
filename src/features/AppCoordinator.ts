@@ -173,6 +173,10 @@ export class AppCoordinator {
   goToResetPassword() {
     this.navigation.navigate('ResetPassword');
   }
+
+  goToCreateProfile(avatarName: string) {
+    this.navigation.navigate('CreateProfile', { avatarName });
+  }
 }
 
 const appCoordinator = new AppCoordinator();

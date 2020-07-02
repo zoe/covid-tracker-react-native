@@ -124,7 +124,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   gotoCreateProfile() {
-    this.props.navigation.navigate('CreateProfile', { avatarName: this.getNextAvatarName() });
+    appCoordinator.goToCreateProfile(this.getNextAvatarName());
   }
 
   render() {
