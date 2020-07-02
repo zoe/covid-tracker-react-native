@@ -1,15 +1,14 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { ImageSourcePropType } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { FieldWrapper } from '@covid/components/Screen';
 import DropdownField from '@covid/components/DropdownField';
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { fingerPrick, noseSwab, otherTest, spit, syringe } from '@assets';
+import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
 
 export interface CovidTestMechanismData {
   mechanism: string;
@@ -32,27 +31,33 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
   const { formikProps, test } = props;
 
   const mechanismItems = [
-    { label: i18n.t('covid-test.picker-nose-throat-swab'), value: 'nose_throat_swab' },
-    ...(test?.mechanism === 'nose_swab' ? [{ label: i18n.t('covid-test.picker-nose-swab'), value: 'nose_swab' }] : []),
-    ...(test?.mechanism === 'throat_swab'
-      ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: 'throat_swab' }]
+    { label: i18n.t('covid-test.picker-nose-throat-swab'), value: CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB },
+    ...(test?.mechanism === CovidTestMechanismOptions.NOSE_SWAB
+      ? [{ label: i18n.t('covid-test.picker-nose-swab'), value: CovidTestMechanismOptions.NOSE_SWAB }]
       : []),
-    { label: i18n.t('covid-test.picker-saliva-sample'), value: 'spit_tube' },
+    ...(test?.mechanism === CovidTestMechanismOptions.THROAT_SWAB
+      ? [{ label: i18n.t('covid-test.picker-throat-swab'), value: CovidTestMechanismOptions.THROAT_SWAB }]
+      : []),
+    { label: i18n.t('covid-test.picker-saliva-sample'), value: CovidTestMechanismOptions.SPIT_TUBE },
     ...(test?.mechanism === 'blood_sample'
-      ? [{ label: i18n.t('covid-test.picker-blood-sample'), value: 'blood_sample' }]
+      ? [{ label: i18n.t('covid-test.picker-blood-sample'), value: CovidTestMechanismOptions.BLOOD_SAMPLE }]
       : []),
-    { label: i18n.t('covid-test.picker-finger-prick'), value: 'blood_sample_finger_prick' },
-    { label: i18n.t('covid-test.picker-blood-draw'), value: 'blood_sample_needle_draw' },
-    { label: i18n.t('covid-test.picker-other'), value: 'other' },
+    { label: i18n.t('covid-test.picker-finger-prick'), value: CovidTestMechanismOptions.BLOOD_FINGER_PRICK },
+    { label: i18n.t('covid-test.picker-blood-draw'), value: CovidTestMechanismOptions.BLOOD_NEEDLE_DRAW },
+    { label: i18n.t('covid-test.picker-other'), value: CovidTestMechanismOptions.OTHER },
   ];
 
   const trainedWorkerItems = [
-    { label: i18n.t('picker-yes'), value: 'trained' },
-    { label: i18n.t('picker-no'), value: 'untrained' },
-    { label: i18n.t('picker-unsure'), value: 'unsure' },
+    { label: i18n.t('picker-yes'), value: CovidTestTrainedWorkerOptions.TRAINED },
+    { label: i18n.t('picker-no'), value: CovidTestTrainedWorkerOptions.UNTRAINED },
+    { label: i18n.t('picker-unsure'), value: CovidTestTrainedWorkerOptions.UNSURE },
   ];
 
-  const noIcons = ['nose_swab', 'throat_swab', 'blood_sample'];
+  const noIcons: string[] = [
+    CovidTestMechanismOptions.NOSE_SWAB,
+    CovidTestMechanismOptions.THROAT_SWAB,
+    CovidTestMechanismOptions.BLOOD_SAMPLE,
+  ];
   let mechanismItemIcons = undefined;
   if (!test || (test && !noIcons.includes(test.mechanism))) {
     mechanismItemIcons = [noseSwab, spit, fingerPrick, syringe, otherTest];
@@ -91,9 +96,21 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
 };
 
 CovidTestMechanismQuestion.initialFormValues = (test?: CovidTest): CovidTestMechanismData => {
+  let mechanism = '';
+  let mechanismSpecify = '';
+
+  if (test?.id) {
+    if (Object.values(CovidTestMechanismOptions).includes(test.mechanism as CovidTestMechanismOptions)) {
+      mechanism = test.mechanism;
+    } else {
+      mechanism = 'other';
+      mechanismSpecify = test.mechanism;
+    }
+  }
+
   return {
-    mechanism: test?.mechanism ? test.mechanism : '',
-    mechanismSpecify: '',
+    mechanism,
+    mechanismSpecify,
     trainedWorker: test?.trained_worker ? test.trained_worker : '',
   };
 };
@@ -109,7 +126,7 @@ CovidTestMechanismQuestion.schema = () => {
     mechanismSpecify: Yup.string(),
     trainedWorker: Yup.string().when('mechanism', {
       is: (mechanism) => {
-        return mechanism === 'nose_throat_swab';
+        return mechanism === CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB;
       },
       then: Yup.string().required(i18n.t('please-select-option')),
     }),
