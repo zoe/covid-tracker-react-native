@@ -83,7 +83,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://youtu.be/ulG3Fet-SR8"
+                link="https://www.youtube.com/watch?v=zToStOETP00"
                 calloutID="tim_update_004"
                 imageSource={timUpdate004}
                 aspectRatio={1.178}
