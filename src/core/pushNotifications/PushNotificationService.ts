@@ -7,6 +7,7 @@ import { PushToken, IPushTokenRemoteClient } from '../types';
 import { TokenInfoResponse, TokenInfoRequest } from '../user/dto/UserAPIContracts';
 import { now, aWeekAgo, isDateBefore } from '../utils/datetime';
 import { isAndroid } from '../utils/platform';
+import Analytics, { events } from '../Analytics';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -98,6 +99,7 @@ export default class PushNotificationService {
     if (pushToken) {
       try {
         await this.sendPushToken(pushToken);
+        Analytics.track(events.NOTIFICATION_ENABLED);
       } catch (error) {
         // Fail silently
       }
