@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useState, useCallback } from 'react';
 import { Image, Linking, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 
 import { usPartners, gbPartners, svPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
@@ -10,6 +11,7 @@ import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import CountryIpModal from '../CountryIpModal';
 import { getLocaleFlagIcon } from '../helpers';
@@ -20,6 +22,7 @@ const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
+  route: RouteProp<ScreenParamList, 'Welcome'>;
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
@@ -35,11 +38,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
     if (await userService.shouldAskCountryConfirmation()) {
       setIpModalVisible(true);
     } else {
-      if (isUSCountry()) {
-        navigation.navigate('BeforeWeStartUS');
-      } else {
-        navigation.navigate('Consent', { viewOnly: false });
-      }
+      appCoordinator.goToPreRegisterScreens();
     }
   }, [userService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
 
