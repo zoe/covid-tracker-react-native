@@ -3,12 +3,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
+import { ClearButton } from '@covid/components/Buttons/ClearButton';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -27,8 +29,11 @@ import {
   CovidTestInvitedQuestion,
 } from '@covid/features/assessment/fields/CovidTestInvitedQuesetion';
 import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/assessment/fields/CovidTestLocation';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { ScreenParamList } from '../ScreenParamList';
+
+const covidTestService = new CovidTestService();
 
 export interface CovidTestData
   extends CovidTestDateData,
@@ -58,12 +63,15 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     this.state = initialState;
   }
 
-  submitCovidTest(infos: Partial<CovidTest>) {
+  get testId(): string | undefined {
     const { test } = this.props.route.params;
-    const covidTestService = new CovidTestService();
-    if (test?.id) {
+    return test?.id;
+  }
+
+  submitCovidTest(infos: Partial<CovidTest>) {
+    if (this.testId) {
       covidTestService
-        .updateTest(test.id, infos)
+        .updateTest(this.testId, infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
@@ -116,10 +124,36 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
+  async promptDeleteTest() {
+    Alert.alert(
+      i18n.t('covid-test.delete-test-alert-title'),
+      i18n.t('covid-test.delete-test-alert-text'),
+      [
+        {
+          text: i18n.t('cancel'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('delete'),
+          style: 'destructive',
+          onPress: async () => {
+            await this.deleteTest();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  async deleteTest() {
+    await covidTestService.deleteTest(this.testId!);
+    this.props.navigation.goBack();
+    Analytics.track(events.DELETE_TEST_DATA);
+  }
+
   render() {
     const { currentPatient } = AssessmentCoordinator.assessmentData;
     const { test } = this.props.route.params;
-    const testId = test?.id;
 
     const registerSchema = Yup.object()
       .shape({})
@@ -133,7 +167,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
           <HeaderText>
-            {i18n.t(testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
+            {i18n.t(this.testId ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add')}
           </HeaderText>
         </Header>
 
@@ -167,8 +201,17 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
                   <ValidationError error={i18n.t('validation-error-text')} />
                 )}
 
+                {this.testId && (
+                  <ClearButton
+                    text={i18n.t('covid-test.delete-test')}
+                    onPress={async () => {
+                      await this.promptDeleteTest();
+                    }}
+                  />
+                )}
+
                 <BrandedButton onPress={props.handleSubmit}>
-                  <Text>{i18n.t(testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
+                  <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
                 </BrandedButton>
               </Form>
             );
