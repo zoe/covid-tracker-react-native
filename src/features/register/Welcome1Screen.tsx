@@ -1,8 +1,8 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState, useEffect, useCallback } from 'react';
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { usMap, gbMap, svMap } from '@assets';
+import { gbMap, svMap, usMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
@@ -12,10 +12,9 @@ import i18n from '@covid/locale/i18n';
 import { IContentService } from '@covid/core/content/ContentService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { colors } from '@theme';
 
-import { getLocaleFlagIcon } from '../helpers';
-
-import styles from './styles';
+import { getLocaleFlagIcon } from './helpers';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Welcome'>;
@@ -80,5 +79,62 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  safeView: {
+    flexGrow: 1,
+    backgroundColor: colors.brand,
+  },
+  scrollView: {
+    backgroundColor: colors.brand,
+    flexGrow: 1,
+    justifyContent: 'space-between',
+  },
+  rootContainer: {
+    marginTop: 32,
+    flex: 1,
+    backgroundColor: colors.brand,
+  },
+  nextButtonContainer: {
+    padding: 20,
+    paddingBottom: 30,
+  },
+  nextButton: {
+    backgroundColor: colors.purple,
+    fontSize: 16,
+  },
+  countryFlag: {
+    position: 'absolute',
+    top: 56,
+    end: 32,
+  },
+  covidContainer: {
+    paddingHorizontal: 14,
+    paddingBottom: 14,
+  },
+  mapImage: {
+    height: 300,
+    width: '100%',
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  subtitle: {
+    color: colors.white,
+    fontSize: 32,
+    lineHeight: 48,
+    paddingVertical: 24,
+    paddingHorizontal: 40,
+    textAlign: 'center',
+    fontWeight: '300',
+  },
+  flagIcon: {
+    height: 32,
+    width: 32,
+  },
+  contributors: {
+    paddingHorizontal: 32,
+    marginBottom: 32,
+  },
+});
 
 export default Welcome1Screen;
