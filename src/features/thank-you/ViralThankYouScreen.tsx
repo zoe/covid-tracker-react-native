@@ -23,7 +23,7 @@ import { ContributionRank } from '@covid/components/Stats/ContributionRank';
 import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 import { MoreContribution } from '@covid/components/Stats/MoreContribution';
 
-import { ScreenParamList } from './ScreenParamList';
+import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;

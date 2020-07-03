@@ -1,13 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useState, useCallback } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { isGBCountry, isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { BrandedButton } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { colors } from '@theme';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import {
@@ -22,7 +23,6 @@ import {
 import ConsentScreenGB from './ConsentScreenGB';
 import ConsentScreenSE from './ConsentScreenSE';
 import ConsentScreenUS from './ConsentScreenUS';
-import styles from './styles';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -76,3 +76,16 @@ const ConsentScreen: FC<PropsType> = (props) => {
 };
 
 export default React.memo(ConsentScreen);
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    backgroundColor: colors.backgroundPrimary,
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+  },
+  button: {
+    marginTop: 20,
+  },
+});

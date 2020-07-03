@@ -10,10 +10,14 @@ import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
+import { IContentService } from '@covid/core/content/ContentService';
 
 import { ScreenParamList } from './ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;
+type ScreenFlow = {
+  [key in ScreenName]: () => void;
+};
 
 // Various route parameters
 type PatientIdParamType = { patientId: string };
@@ -21,54 +25,78 @@ type CurrentPatientParamType = { currentPatient: PatientStateType };
 type ConsentView = { viewOnly: boolean };
 type ProfileParamType = { profile: Profile };
 type ProfileIdType = { profileId: string };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType;
+type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType; //TODO Can be used for passing params to goToNextScreen
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator {
   @lazyInject(Services.User)
   userService: ICoreService;
+  @lazyInject(Services.Content)
+  contentService: IContentService;
   navigation: NavigationType;
+  patientId: string | null = null;
+  currentPatient: PatientStateType;
 
-  screenFlow: any = {
-    // End of registration flows
-    Register: async (routeParams: PatientIdParamType) => {
-      const { patientId } = routeParams;
-      const config = navigator.getConfig();
+  screenFlow: ScreenFlow = {
+    Splash: () => {
+      if (this.patientId) {
+        this.navigation.replace('WelcomeRepeat');
+      } else {
+        this.navigation.replace('Welcome');
+      }
+    },
+    Login: () => {
+      this.navigation.reset({
+        index: 0,
+        routes: [{ name: 'WelcomeRepeat' }],
+      });
+    },
+    Register: () => {
+      const config = appCoordinator.getConfig();
 
       let askPersonalInfo = config.enablePersonalInformation;
-      if (isUSCountry() && UserService.consentSigned.document != 'US Nurses') {
+      if (isUSCountry() && UserService.consentSigned.document !== 'US Nurses') {
         askPersonalInfo = false;
       }
 
       if (askPersonalInfo) {
-        await navigator.replaceScreen('OptionalInfo', { patientId });
-      } else if (patientId) {
-        const currentPatient = await navigator.getCurrentPatient(patientId);
-        this.startPatientFlow(currentPatient);
+        this.navigation.replace('OptionalInfo');
+      } else if (this.patientId) {
+        this.startPatientFlow(this.currentPatient);
       } else {
-        // TODO: Warn: missing parameter -- critical error. DO NOT FAIL SILENTLY
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
     },
-
-    OptionalInfo: async (routeParams: CurrentPatientParamType) => {
-      this.startPatientFlow(routeParams.currentPatient);
+    OptionalInfo: () => {
+      this.startPatientFlow(this.currentPatient);
     },
-
-    WelcomeRepeat: async (routeParams: PatientIdParamType) => {
+    WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
-        this.gotoScreen('SelectProfile', { patientId: routeParams.patientId });
+        this.navigation.navigate('SelectProfile');
       } else {
-        const currentPatient = await this.getCurrentPatient(routeParams.patientId);
-        this.startAssessmentFlow(currentPatient);
+        this.startAssessmentFlow(this.currentPatient);
       }
     },
-  };
+    ArchiveReason: () => {
+      this.navigation.navigate('SelectProfile');
+    },
+    ValidationStudyIntro: () => {
+      this.navigation.navigate('ValidationStudyInfo');
+    },
+    ValidationStudyInfo: () => {
+      this.navigation.navigate('ValidationStudyConsent', {
+        viewOnly: false,
+      });
+    },
+  } as ScreenFlow;
 
-  setNavigation(navigation: NavigationType) {
+  async init(navigation: NavigationType) {
     this.navigation = navigation;
+    await this.contentService.getStartupInfo();
+    this.patientId = await this.userService.getFirstPatientId();
+    this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
   }
 
   // Workaround for Expo save/refresh nixing the navigation.
@@ -83,27 +111,9 @@ export class AppCoordinator {
     return this.userService.getConfig();
   }
 
-  async getCurrentPatient(patientId: string): Promise<PatientStateType> {
-    return await this.userService.getCurrentPatient(patientId);
-  }
-
-  getWelcomeRepeatScreenName(): keyof ScreenParamList {
-    return 'WelcomeRepeat';
-  }
-
-  resetToProfileStartAssessment(currentPatient?: PatientStateType) {
-    if (!currentPatient) {
-      this.gotoScreen(this.getWelcomeRepeatScreenName());
-    } else {
-      this.navigation.dispatch((state) => {
-        const profileScreen = state.routes.find((screen) => {
-          return screen.name === 'SelectProfile';
-        });
-
-        return CommonActions.navigate({ key: profileScreen!.key });
-      });
-      this.startAssessmentFlow(currentPatient);
-    }
+  resetToProfileStartAssessment() {
+    this.navigation.navigate('SelectProfile');
+    this.startAssessmentFlow(this.currentPatient);
   }
 
   startPatientFlow(currentPatient: PatientStateType) {
@@ -116,32 +126,59 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
-  async gotoNextScreen(screenName: ScreenName, params: RouteParamsType) {
+  gotoNextScreen = (screenName: ScreenName) => {
     if (this.screenFlow[screenName]) {
-      await this.screenFlow[screenName](params);
+      this.screenFlow[screenName]();
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
     }
-  }
+  };
 
-  gotoScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
-    this.navigation.navigate(screenName, params);
-  }
-
-  replaceScreen(screenName: ScreenName, params: RouteParamsType | undefined = undefined) {
-    this.navigation.replace(screenName, params);
+  editProfile(profile: Profile) {
+    this.navigation.navigate('EditProfile', { profile });
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
+    this.currentPatient = currentPatient;
+    this.patientId = currentPatient.patientId;
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
-      this.navigation.navigate('ValidationStudyIntro', { currentPatient });
+      this.goToUKValidationStudy();
     } else {
       this.startAssessmentFlow(currentPatient);
     }
   }
+
+  async setPatientId(patientId: string) {
+    this.patientId = patientId;
+    this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+  }
+
+  goToUKValidationStudy() {
+    this.navigation.navigate('ValidationStudyIntro');
+  }
+
+  goToArchiveReason(profileId: string) {
+    this.navigation.navigate('ArchiveReason', { profileId });
+  }
+
+  goToPreRegisterScreens() {
+    if (isUSCountry()) {
+      this.navigation.navigate('BeforeWeStartUS');
+    } else {
+      this.navigation.navigate('Consent', { viewOnly: false });
+    }
+  }
+
+  goToResetPassword() {
+    this.navigation.navigate('ResetPassword');
+  }
+
+  goToCreateProfile(avatarName: string) {
+    this.navigation.navigate('CreateProfile', { avatarName });
+  }
 }
 
-const navigator = new AppCoordinator();
+const appCoordinator = new AppCoordinator();
 
-export default navigator;
+export default appCoordinator;

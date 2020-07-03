@@ -20,7 +20,7 @@ import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from '../ScreenParamList';
-import Navigator from '../AppCoordinator';
+import appCoordinator from '../AppCoordinator';
 
 type RenderProps = {
   navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
@@ -95,7 +95,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
     try {
       const currentPatient = await this.userService.getCurrentPatient(profileId);
       this.setState({ isApiError: false });
-      await Navigator.profileSelected(index === 0, currentPatient);
+      await appCoordinator.profileSelected(index === 0, currentPatient);
     } catch (error) {
       this.setState({
         isApiError: true,
@@ -124,12 +124,12 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   }
 
   gotoCreateProfile() {
-    this.props.navigation.navigate('CreateProfile', { avatarName: this.getNextAvatarName() });
+    appCoordinator.goToCreateProfile(this.getNextAvatarName());
   }
 
   render() {
     return (
-      <View style={styles.view}>
+      <View>
         <SafeAreaView>
           {this.state.isApiError && (
             <LoadingModal
@@ -144,7 +144,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
               <DrawerToggle navigation={this.props.navigation} style={{ tintColor: colors.primary }} />
 
               <Header>
-                <HeaderText style={{ marginBottom: 12 }}>{i18n.t('select-profile-title')}</HeaderText>
+                <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
                 <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
               </Header>
 
@@ -192,16 +192,12 @@ const styles = StyleSheet.create({
 
   cardContainer: {
     width: '45%',
-    margin: 5,
-  },
-
-  view: {
-    backgroundColor: colors.backgroundSecondary,
+    marginHorizontal: 8,
+    marginVertical: 4,
   },
 
   scrollView: {
     flexGrow: 1,
-    backgroundColor: colors.backgroundSecondary,
     justifyContent: 'space-between',
   },
 
