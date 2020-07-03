@@ -274,7 +274,7 @@
 
     "delete-test": "Ta bort testet",
     "delete-test-alert-title": "Ta bort testet?",
-    "delete-test-alert-text": "Denna information kommer att gå förlorad. Vill du fortsätta?",
+    "delete-test-alert-text": "Informationen kommer att gå förlorad. Vill du fortsätta?",
 
     "question-select-a-date-range": "Välj ett datumintervall",
     "question-select-a-date": "Välj ett datum",

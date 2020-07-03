@@ -148,7 +148,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   async deleteTest() {
     await covidTestService.deleteTest(this.testId!);
     this.props.navigation.goBack();
-    Analytics.track(events.DELETE_TEST_DATA);
+    Analytics.track(events.DELETE_COVID_TEST);
   }
 
   render() {
