@@ -307,6 +307,10 @@
     "add-test": "Agregar examen",
     "update-test": "Actualizar examen",
 
+    "delete-test": "Eliminar prueba",
+    "delete-test-alert-title": "¿Eliminar esta prueba?",
+    "delete-test-alert-text": "Esta información se perderá. ¿Desea continuar?",
+
     "question-select-a-date-range": "Seleccione un intervalo de fechas",
     "question-select-a-date": "Seleccione una fecha",
 
@@ -320,7 +324,6 @@
     "picker-blood-draw": "Un examen de sangre, hecho usando un aguja",
     "picker-other": "Otro, especifique",
 
-
     "question-mechanism-specify": "Indique cómo se realizó el examen",
     "question-trained-worker": "¿Un trabajador calificado te hizo la prueba mediante un hisopo?",
 
@@ -329,15 +332,15 @@
       "specify": "Por favor especifique",
       "answers": {
         "at-home": "Hogar",
-		"drive-through-rtc": "",
+        "drive-through-rtc": "",
         "drop-in-facility": "",
-		"hospital": "Centro hospitalario o clínica",
-		"gp": "",
-		"chemist-pharmacy": "",
+        "hospital": "Centro hospitalario o clínica",
+        "gp": "",
+        "chemist-pharmacy": "",
         "store-pharmacy": "Tienda o farmacia clínica",
-		"work": "Trabajo (excluyendo hospital)",
+        "work": "Trabajo (excluyendo hospital)",
         "local-health-department": "",
-		"other": "Otro sitio, por favor especifique"
+        "other": "Otro sitio, por favor especifique"
       }
     },
 
