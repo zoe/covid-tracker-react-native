@@ -12,7 +12,7 @@ import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
 import i18n from '@covid/locale/i18n';
 
-import { ScreenParamList } from './ScreenParamList';
+import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
