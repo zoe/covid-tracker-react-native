@@ -26,7 +26,7 @@ import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
-  routeProp: RouteProp<ScreenParamList, 'Login'>;
+  route: RouteProp<ScreenParamList, 'Login'>;
 };
 
 type StateType = {
@@ -62,11 +62,11 @@ export class LoginScreen extends Component<PropsType, StateType> {
     this.errorMessage = '';
     const username = this.username.trim();
     this.setState({
-      hasUserValidationError: username == '',
-      hasPassValidationError: this.password == '',
+      hasUserValidationError: username === '',
+      hasPassValidationError: this.password === '',
     });
 
-    if (username == '' || this.password == '') {
+    if (username === '' || this.password === '') {
       return;
     }
 
@@ -78,8 +78,9 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
-        appCoordinator.setPatientId(patientId);
-        appCoordinator.gotoNextScreen(this.props.routeProp.name);
+        appCoordinator.setPatientId(patientId).then(() => {
+          appCoordinator.gotoNextScreen(this.props.route.name);
+        });
       })
       .catch((error) => {
         if (error.constructor === UserNotFoundException) {
