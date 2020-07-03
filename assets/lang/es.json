@@ -307,7 +307,7 @@
     "add-test": "Agregar examen",
     "update-test": "Actualizar examen",
 
-    "delete-test": "Eliminar prueba",
+    "delete-test": "Elimina la prueba",
     "delete-test-alert-title": "¿Eliminar esta prueba?",
     "delete-test-alert-text": "Esta información se perderá. ¿Desea continuar?",
 
