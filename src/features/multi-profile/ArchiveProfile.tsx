@@ -5,7 +5,7 @@ import i18n from '@covid/locale/i18n';
 import { HeaderText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveConfirmationModal';
-import Navigator from '@covid/features/AppCoordinator';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type Props = {
   profileId: string;
@@ -24,7 +24,7 @@ export const ArchiveProfile: React.FC<Props> = (props) => {
 
   function confirmArchive() {
     setConfirmModalVisibility(false);
-    Navigator.gotoScreen('ArchiveReason', { profileId: props.profileId });
+    appCoordinator.goToArchiveReason(props.profileId);
   }
 
   return (

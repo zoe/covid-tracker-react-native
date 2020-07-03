@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Constants from 'expo-constants';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
-import React, { Component, lazy } from 'react';
+import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
 
@@ -19,7 +19,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
 
-import Navigator from '../AppCoordinator';
+import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
@@ -52,12 +52,6 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
-  private async gotoNextScreen(patientId: string) {
-    const currentPatient = await this.userService.getCurrentPatient(patientId);
-    this.setState({ isApiError: false });
-    Navigator.gotoNextScreen(this.props.route.name, { currentPatient });
-  }
-
   private async setPushToken() {
     if (Constants.appOwnership !== 'expo') {
       pushNotificationService.initPushToken();
@@ -78,10 +72,10 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
   private async handleSaveOptionalInfos(formData: OptionalInfoData) {
     try {
-      const patientId = this.props.route.params.patientId;
       await this.setPushToken();
       await this.savePiiData(formData);
-      await this.gotoNextScreen(patientId);
+      this.setState({ isApiError: false });
+      appCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({
         isApiError: true,

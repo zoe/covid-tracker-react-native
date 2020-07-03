@@ -7,9 +7,10 @@ import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import { Notifications } from 'expo';
 
 import { colors } from '@theme/colors';
-import Analytics from '@covid/core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/DrawerMenu';
@@ -111,6 +112,12 @@ export default class CovidApp extends Component<object, State> {
     // @ts-ignore
     const state = this.navigationRef.current?.getRootState();
     this.currentRouteName = getCurrentRouteName(state);
+
+    Notifications.addListener((notif) => {
+      if (notif.origin === 'selected') {
+        Analytics.track(events.OPEN_FROM_NOTIFICATION);
+      }
+    });
   }
 
   handleStateChange(state: NavigationState | undefined) {
