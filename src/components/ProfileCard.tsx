@@ -6,7 +6,7 @@ import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { GreenTick } from '@covid/components/GreenTick';
-import Navigator from '@covid/features/AppCoordinator';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { Profile } from '../features/multi-profile/SelectProfileScreen';
 
@@ -24,7 +24,7 @@ export const ProfileCard: React.FC<Props> = (props) => {
   const hasReportedToday = profile.last_reported_at && getDaysAgo(profile.last_reported_at) === 0;
 
   function handleEdit() {
-    Navigator.gotoScreen('EditProfile', { profile });
+    appCoordinator.editProfile(profile);
   }
 
   return (

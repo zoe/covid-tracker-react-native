@@ -10,6 +10,7 @@ import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, RegularBoldText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import { InfoCard } from '@covid/components/InfoCard';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -57,12 +58,7 @@ export default class ValidationStudyInfoScreen extends Component<Props, object> 
             <BrandedButton
               style={styles.mainButton}
               onPress={() => {
-                this.props.navigation.navigate('ValidationStudyConsent', {
-                  viewOnly: false,
-                  ...(this.props.route.params?.currentPatient && {
-                    currentPatient: this.props.route.params.currentPatient,
-                  }),
-                });
+                appCoordinator.gotoNextScreen(this.props.route.name);
               }}>
               <RegularText style={styles.buttonText}>{i18n.t('validation-study-intro.yes')}</RegularText>
             </BrandedButton>
