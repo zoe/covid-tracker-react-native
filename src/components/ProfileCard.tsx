@@ -9,7 +9,6 @@ import { GreenTick } from '@covid/components/GreenTick';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { colors } from '@theme';
 
-
 import { Profile } from '../features/multi-profile/SelectProfileScreen';
 
 import { ClippedText } from './Text';
