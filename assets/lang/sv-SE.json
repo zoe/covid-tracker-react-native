@@ -271,6 +271,11 @@
     "page-title-detail-update": "Uppdatera test",
     "add-test": "Lägg till test",
     "update-test": "Uppdatera test",
+
+    "delete-test": "Ta bort testet",
+    "delete-test-alert-title": "Ta bort testet?",
+    "delete-test-alert-text": "Informationen kommer att gå förlorad. Vill du fortsätta?",
+
     "question-select-a-date-range": "Välj ett datumintervall",
     "question-select-a-date": "Välj ett datum",
 
@@ -292,15 +297,15 @@
       "specify": "Por favor especifique",
       "answers": {
         "at-home": "Hemma",
-		"drive-through-rtc": "",
+        "drive-through-rtc": "",
         "drop-in-facility": "Drop-in testcenter",
-		"hospital": "Sjukhus",
-		"gp": "Vårdcentral",
-		"chemist-pharmacy": "Apotek",
+        "hospital": "Sjukhus",
+        "gp": "Vårdcentral",
+        "chemist-pharmacy": "Apotek",
         "store-pharmacy": "Tienda o farmacia clínica",
-		"work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
+        "work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
         "local-health-department": "",
-		"other": "Annat, ange"
+        "other": "Annat, ange"
       }
     },
 

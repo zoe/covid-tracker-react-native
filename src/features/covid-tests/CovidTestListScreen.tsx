@@ -9,6 +9,7 @@ import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -26,23 +27,32 @@ type Props = {
 type State = {
   errorMessage: string;
   covidTests: CovidTest[];
+  isLoading: boolean;
 };
 
 export default class CovidTestListScreen extends Component<Props, State> {
   state: State = {
     errorMessage: '',
     covidTests: [],
+    isLoading: false,
   };
 
   private _unsubscribe: any = null;
 
+  private LoadingIndicator: React.FC = () => <Loading status="" error={null} />;
+
   async componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', async () => {
-      const covidTestService = new CovidTestService();
-      const tests = (await covidTestService.listTests()).data;
-      const patientId = AssessmentCoordinator.assessmentData.currentPatient.patientId;
-      const patientTests = tests.filter((t) => t.patient === patientId);
-      this.setState({ covidTests: patientTests });
+      this.setState({ isLoading: true });
+      try {
+        const covidTestService = new CovidTestService();
+        const tests = (await covidTestService.listTests()).data;
+        const patientId = AssessmentCoordinator.assessmentData.currentPatient.patientId;
+        const patientTests = tests.filter((t) => t.patient === patientId);
+        this.setState({ covidTests: patientTests, isLoading: false });
+      } finally {
+        this.setState({ isLoading: false });
+      }
     });
   }
 
@@ -71,6 +81,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const { isLoading } = this.state;
 
     return (
       <View style={styles.rootContainer}>
@@ -87,11 +98,15 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
           </View>
 
-          <View style={styles.content}>
-            {this.state.covidTests.map((item: CovidTest) => {
-              return <CovidTestRow item={item} key={key(item)} />;
-            })}
-          </View>
+          {isLoading ? (
+            <this.LoadingIndicator />
+          ) : (
+            <View style={styles.content}>
+              {this.state.covidTests.map((item: CovidTest) => {
+                return <CovidTestRow item={item} key={key(item)} />;
+              })}
+            </View>
+          )}
         </Screen>
 
         <View>
