@@ -14,8 +14,8 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
-import appCoordinator from '../../AppCoordinator';
-import { ScreenParamList } from '../../ScreenParamList';
+import appCoordinator from '../AppCoordinator';
+import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;

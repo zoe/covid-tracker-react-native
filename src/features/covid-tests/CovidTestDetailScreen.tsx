@@ -15,20 +15,20 @@ import CovidTestService from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/assessment/fields/CovidTestDateQuestion';
+import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
 import {
   CovidTestMechanismData,
   CovidTestMechanismQuestion,
-} from '@covid/features/assessment/fields/CovidTestMechanismQuesion';
+} from '@covid/features/covid-tests/fields/CovidTestMechanismQuesion';
 import {
   CovidTestResultData,
   CovidTestResultQuestion,
-} from '@covid/features/assessment/fields/CovidTestResultQuestion';
+} from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
 import {
   CovidTestInvitedData,
   CovidTestInvitedQuestion,
-} from '@covid/features/assessment/fields/CovidTestInvitedQuesetion';
-import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/assessment/fields/CovidTestLocation';
+} from '@covid/features/covid-tests/fields/CovidTestInvitedQuesetion';
+import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/covid-tests/fields/CovidTestLocation';
 import Analytics, { events } from '@covid/core/Analytics';
 
 import { ScreenParamList } from '../ScreenParamList';

@@ -19,7 +19,7 @@ import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/pushNotifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/pushNotifications/expo';
 
-import { ScreenParamList } from './ScreenParamList';
+import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
