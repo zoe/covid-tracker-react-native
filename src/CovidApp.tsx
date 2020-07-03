@@ -19,7 +19,7 @@ import { SplashScreen } from '@covid/features/SplashScreen';
 import ThankYouScreen from '@covid/features/ThankYouScreen';
 import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
 import ViralThankYouScreen from '@covid/features/ViralThankYouScreen';
-import CovidTestDetailScreen from '@covid/features/assessment/CovidTestDetailScreen';
+import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
 import HowYouFeelScreen from '@covid/features/assessment/HowYouFeelScreen';
@@ -28,7 +28,7 @@ import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScr
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from '@covid/features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from '@covid/features/assessment/WhereAreYouScreen';
-import CovidTestListScreen from '@covid/features/assessment/CovidTestListScreen';
+import CovidTestListScreen from '@covid/features/covid-tests/CovidTestListScreen';
 import { LoginScreen } from '@covid/features/login/LoginScreen';
 import AdultOrChildScreen from '@covid/features/multi-profile/AdultOrChildScreen';
 import ConsentForOther from '@covid/features/multi-profile/ConsentForOtherScreen';
