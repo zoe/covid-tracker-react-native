@@ -8,7 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 
 import { ScreenParamList } from '../../ScreenParamList';
-import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '../LegalComponents';
+import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '../../../components/LegalComponents';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;
