@@ -7,7 +7,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 
-import { HeaderText, SimpleTextBlock } from '../LegalComponents';
+import { HeaderText, SimpleTextBlock } from '../../../components/LegalComponents';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;

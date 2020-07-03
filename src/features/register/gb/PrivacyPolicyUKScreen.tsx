@@ -7,7 +7,7 @@ import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 
 import { ScreenParamList } from '../../ScreenParamList';
-import { BulletedTextBlock } from '../LegalComponents';
+import { BulletedTextBlock } from '../../../components/LegalComponents';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;

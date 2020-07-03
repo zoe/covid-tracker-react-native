@@ -12,7 +12,7 @@ import { Header } from '@covid/components/Screen';
 import { InfoCard } from '@covid/components/InfoCard';
 import appCoordinator from '@covid/features/AppCoordinator';
 
-import { ScreenParamList } from '../../ScreenParamList';
+import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyInfo'>;
