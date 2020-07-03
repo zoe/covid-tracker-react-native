@@ -26,6 +26,6 @@ export default class CovidTestService extends UserService {
   }
 
   public async deleteTest(testId: string) {
-    return this.client.patch<CovidTestResponse>(`/covid_tests/${testId}`, { deleted: true });
+    return this.client.patch<CovidTestResponse>(`/covid_tests/${testId}/`, { deleted: true });
   }
 }
