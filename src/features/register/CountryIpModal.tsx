@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Icon, Label, Picker } from 'native-base';
-import React, { FC, useState, useCallback } from 'react';
-import { Image, Modal, TouchableOpacity, View } from 'react-native';
+import React, { FC, useCallback, useState } from 'react';
+import { Image, Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import key from 'weak-key';
 
 import { closeIcon } from '@assets';
@@ -15,9 +15,7 @@ import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 
-import { ScreenParamList } from '../../ScreenParamList';
-
-import styles from './styles';
+import { ScreenParamList } from '../ScreenParamList';
 
 enum CountryCode {
   NONE = '',
@@ -120,5 +118,43 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  centeredView: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 24,
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    padding: 24,
+    alignItems: 'center',
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  titleText: {
+    marginVertical: 16,
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  bodyText: {
+    textAlign: 'center',
+  },
+  labelStyle: {
+    fontSize: 15,
+    lineHeight: 30,
+    color: colors.primary,
+  },
+});
 
 export default React.memo(CountryIpModal);
