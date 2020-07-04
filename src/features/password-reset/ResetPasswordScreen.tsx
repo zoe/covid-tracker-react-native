@@ -2,18 +2,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AxiosError } from 'axios';
 import { Formik } from 'formik';
 import React, { Component } from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
 import { ICoreService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { colors } from '@theme';
 
-import { ScreenParamList } from '../../ScreenParamList';
+import { ScreenParamList } from '../ScreenParamList';
 
-import ResetPasswordForm, { Props as FormProps } from './ResetPasswordForm';
-import styles from './styles';
+import ResetPasswordForm, { Props as FormProps } from './fields/ResetPasswordForm';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ResetPassword'>;
@@ -73,3 +73,13 @@ export class ResetPasswordScreen extends Component<PropsType, State> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    backgroundColor: colors.backgroundPrimary,
+    paddingHorizontal: 24,
+    paddingTop: 56,
+  },
+});

@@ -35,8 +35,8 @@ import ConsentForOther from '@covid/features/multi-profile/ConsentForOtherScreen
 import CreateProfileScreen from '@covid/features/multi-profile/CreateProfileScreen';
 import ReportForOtherScreen from '@covid/features/multi-profile/ReportForOtherScreen';
 import SelectProfileScreen from '@covid/features/multi-profile/SelectProfileScreen';
-import { ResetPasswordConfirmScreen } from '@covid/features/password-reset/ResetPassordConfirm';
-import { ResetPasswordScreen } from '@covid/features/password-reset/ResetPassword';
+import { ResetPasswordConfirmScreen } from '@covid/features/password-reset/ResetPasswordConfirmScreen';
+import { ResetPasswordScreen } from '@covid/features/password-reset/ResetPasswordScreen';
 import AboutYouScreen from '@covid/features/patient/AboutYouScreen';
 import PreviousExposureScreen from '@covid/features/patient/PreviousExposure';
 import YourHealthScreen from '@covid/features/patient/YourHealthScreen';
