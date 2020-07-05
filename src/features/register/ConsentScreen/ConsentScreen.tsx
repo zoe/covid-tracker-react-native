@@ -9,9 +9,8 @@ import { BrandedButton } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
-
-import { ScreenParamList } from '../../ScreenParamList';
-import appConfig from '../../../../appConfig';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appConfig from '@covid/appConfig';
 
 import ConsentScreenGB from './ConsentScreenGB';
 import ConsentScreenSE from './ConsentScreenSE';

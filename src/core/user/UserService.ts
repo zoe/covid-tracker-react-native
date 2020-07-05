@@ -5,8 +5,8 @@ import { injectable } from 'inversify';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
+import appConfig from '@covid/appConfig';
 
-import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';

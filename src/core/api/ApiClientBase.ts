@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { camelCase } from 'lodash';
 import { injectable } from 'inversify';
 
-import appConfig from '../../../appConfig';
+import appConfig from '@covid/appConfig';
 
 @injectable()
 export class ApiClientBase {

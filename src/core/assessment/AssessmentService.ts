@@ -1,7 +1,6 @@
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { LifestyleResponse } from '@covid/core/assessment/dto/LifestyleResponse';
-
-import appConfig from '../../../appConfig';
+import appConfig from '@covid/appConfig';
 
 import { IAssessmentRemoteClient } from './AssessmentApiClient';
 import { IAssessmentState } from './AssessmentState';

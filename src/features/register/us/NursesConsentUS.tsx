@@ -10,9 +10,8 @@ import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@cov
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import appConfig from '@covid/../appConfig';
-
-import { ScreenParamList } from '../../ScreenParamList';
+import appConfig from '@covid/appConfig';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>;

@@ -1,4 +1,4 @@
-import appConfig from '../../../appConfig';
+import appConfig from '@covid/appConfig';
 
 import UserService from './UserService';
 import { CovidTest, CovidTestResponse } from './dto/CovidTestContracts';
