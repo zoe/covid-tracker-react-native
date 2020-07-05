@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { isGBCountry, isSECountry, IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
-import PushNotificationService from '@covid/core/pushNotifications/PushNotificationService';
+import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 
