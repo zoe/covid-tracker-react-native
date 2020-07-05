@@ -5,10 +5,11 @@ import { aWeekAgo, isDateBefore, now } from '@covid/utils/datetime';
 
 import { IStorageService } from '../LocalStorageService';
 import { IApiClient } from '../api/ApiClient';
-import { PushToken, IPushTokenRemoteClient } from '../types';
 import { TokenInfoResponse, TokenInfoRequest } from '../user/dto/UserAPIContracts';
 import { isAndroid } from '../../utils/platform';
 import Analytics, { events } from '../Analytics';
+
+import { PushToken, IPushTokenRemoteClient } from './types';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
