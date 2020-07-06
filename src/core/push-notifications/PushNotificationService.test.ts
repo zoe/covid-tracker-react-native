@@ -1,6 +1,6 @@
 import { IStorageService } from '../LocalStorageService';
-import { IPushTokenRemoteClient, PushToken } from '../types';
 
+import { IPushTokenRemoteClient, PushToken } from './types';
 import PushNotificationService, { IPushTokenEnvironment } from './PushNotificationService';
 
 class MockApiClient implements IPushTokenRemoteClient {
