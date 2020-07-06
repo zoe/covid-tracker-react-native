@@ -14,7 +14,7 @@ import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
-import { cleanIntegerVal } from '../utils/number';
+import { cleanIntegerVal } from '../../utils/number';
 
 import {
   AskValidationStudy,

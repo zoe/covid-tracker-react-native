@@ -1,12 +1,10 @@
 import { Form } from 'native-base';
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import i18n from '@covid/locale/i18n';
-
-import styles from './styles';
 
 export interface Props {
   values: {
@@ -61,5 +59,12 @@ const ResetPasswordForm: FC<Props> = ({
     </View>
   </View>
 );
+
+const styles = StyleSheet.create({
+  formItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+  },
+});
 
 export default React.memo(ResetPasswordForm);

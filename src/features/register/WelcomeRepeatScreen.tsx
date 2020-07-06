@@ -13,7 +13,7 @@ import { PoweredByZoe } from '@covid/components/PoweredByZoe';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanIntegerVal } from '@covid/utils/number';
 import i18n from '@covid/locale/i18n';
 import { contentService, offlineService, pushNotificationService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';

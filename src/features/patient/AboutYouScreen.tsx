@@ -14,7 +14,7 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';

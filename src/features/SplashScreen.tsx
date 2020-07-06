@@ -89,11 +89,21 @@ export class SplashScreen extends Component<Props, SplashState> {
     setTimeout(() => this.setState({ isRetryEnabled: true }), PAUSE_TO_RETRY);
   };
 
+  private logout = async () => {
+    await this.userService.logout();
+  };
+
   public render() {
     const canRetry = this.state.isRetryable && this.state.isRetryEnabled;
+    const splashProps = canRetry
+      ? {
+          onRetry: this.reloadAppState,
+          onLogout: this.logout,
+        }
+      : {};
     return (
       <View style={styles.container}>
-        <Splash status={this.state.status} {...(canRetry ? { onRetry: this.reloadAppState } : {})} />
+        <Splash status={this.state.status} {...splashProps} />
       </View>
     );
   }
