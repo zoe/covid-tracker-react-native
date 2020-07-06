@@ -7,6 +7,7 @@ import { isSECountry, isUSCountry, ICoreService, isGBCountry } from '@covid/core
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -161,8 +162,10 @@ export class AssessmentCoordinator {
   vaccineRegistryResponse(response: boolean) {
     this.userService.setVaccineRegistryResponse(response);
     if (response) {
+      Analytics.track(events.JOIN_VACCINE_REGISTER);
       this.navigation.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
     } else {
+      Analytics.track(events.DECLINE_VACCINE_REGISTER);
       this.gotoEndAssessment();
     }
   }
