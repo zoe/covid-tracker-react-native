@@ -927,6 +927,19 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
+    },
+
+    "vaccine-registry": {
+      "covid-prevention": false,
+      "can-we-contact": false,
+      "yes": false,
+      "no": false,
+      "next": false,
+      "creating-registry": false,
+      "not-ourselves": false,
+      "not-share": false,
+      "tell-friends": false,
+      "share-text": false
     }
   },
 
