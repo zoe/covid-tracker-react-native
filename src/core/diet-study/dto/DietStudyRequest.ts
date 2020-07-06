@@ -6,10 +6,13 @@ export type DietStudyRequest = {
   display_name: string;
   start_date: string;
 
+  // About You
   weight_kg: number;
   weight_pounds: number;
-  hours_of_sleep: number;
+  weight_unsure: boolean;
+  was_pregnant: boolean;
 
+  hours_of_sleep: number;
   shift_work: boolean;
   food_security: string;
   physical_activity: string;
