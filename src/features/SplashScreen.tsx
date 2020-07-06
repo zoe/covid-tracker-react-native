@@ -63,8 +63,8 @@ export class SplashScreen extends Component<Props, SplashState> {
     }
   }
 
-  initAppState() {
-    appCoordinator.init(this.props.navigation as NavigationType);
+  async initAppState() {
+    await appCoordinator.init(this.props.navigation as NavigationType);
     appCoordinator.gotoNextScreen(this.props.route.name);
   }
 
