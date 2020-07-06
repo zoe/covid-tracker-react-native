@@ -6,7 +6,7 @@ import { gbMap, svMap, usMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
-import { cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanIntegerVal } from '@covid/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { IContentService } from '@covid/core/content/ContentService';

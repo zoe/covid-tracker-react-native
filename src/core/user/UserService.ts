@@ -2,12 +2,11 @@ import { AxiosResponse } from 'axios';
 import * as Localization from 'expo-localization';
 import { injectable } from 'inversify';
 
-import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
+import appConfig from '@covid/appConfig';
 
-import appConfig from '../../../appConfig';
 import { AsyncStorageService } from '../AsyncStorageService';
 import { getCountryConfig, ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
@@ -15,7 +14,7 @@ import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
 import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
-import { cleanIntegerVal } from '../utils/number';
+import { cleanIntegerVal } from '../../utils/number';
 
 import {
   AskValidationStudy,
@@ -556,7 +555,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
-    let url = `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`;
+    let url = `/study_consent/status/?consent_version=${appConfig.ukValidationStudyConsentVersion}`;
     if (onThankYouScreen) {
       url += '&thank_you_screen=true';
     }
@@ -568,8 +567,8 @@ export default class UserService extends ApiClientBase implements ICoreService {
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
     return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
-      version: ukValidationStudyConsentVersion,
-      ad_version: ukValidationStudyAdVersion,
+      version: appConfig.ukValidationStudyConsentVersion,
+      ad_version: appConfig.ukValidationStudyAdVersion,
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,

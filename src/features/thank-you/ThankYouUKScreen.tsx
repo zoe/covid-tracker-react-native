@@ -16,8 +16,8 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/pushNotifications/PushNotificationService';
-import ExpoPushTokenEnvironment from '@covid/core/pushNotifications/expo';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
+import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 
 import { ScreenParamList } from '../ScreenParamList';
 

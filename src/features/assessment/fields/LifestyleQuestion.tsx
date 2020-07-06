@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import DropdownField from '@covid/components/DropdownField';
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
-import { cleanFloatVal } from '@covid/core/utils/number';
+import { cleanFloatVal } from '@covid/utils/number';
 import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import { container } from '@covid/provider/services';
 import { ICoreService } from '@covid/core/user/UserService';

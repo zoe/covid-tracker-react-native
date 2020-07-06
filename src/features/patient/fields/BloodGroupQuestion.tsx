@@ -45,7 +45,7 @@ export const BloodGroupQuestion = ({ formikProps }: Props) => {
 
 BloodGroupQuestion.initialFormValues = (): BloodGroupData => {
   return {
-    bloodGroup: BloodGroupQuestionFields.DONT_KNOW,
+    bloodGroup: '',
   };
 };
 

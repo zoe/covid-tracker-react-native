@@ -10,8 +10,11 @@ import { RegularBoldText, BrandedButton } from './Text';
 
 type SplashProps = {
   status: string;
-  onRetry?: () => void;
+  onRetry?: VoidFunction;
+  onLogout?: VoidFunction;
 };
+
+const Spacer: React.FC = () => <View style={{ height: 12 }} />;
 
 const Splash = (props: SplashProps) => {
   return (
@@ -29,6 +32,12 @@ const Splash = (props: SplashProps) => {
             <BrandedButton onPress={props.onRetry}>{i18n.t('errors.button-retry')}</BrandedButton>
           </View>
         )}
+        <Spacer />
+        {!!props.onLogout && (
+          <View style={styles.ctaBlock}>
+            <BrandedButton onPress={props.onLogout}>{i18n.t('logout')}</BrandedButton>
+          </View>
+        )}
       </FlexView>
     </FlexView>
   );
@@ -39,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textBox: {
-    marginVertical: 10,
+    marginVertical: 32,
   },
   ctaBlock: {
     width: '80%',
@@ -47,6 +56,7 @@ const styles = StyleSheet.create({
   },
   statusText: {
     color: colors.tertiary,
+    textAlign: 'center',
   },
 });
 

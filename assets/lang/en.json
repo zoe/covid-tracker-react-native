@@ -306,6 +306,10 @@
     "page-title-detail-update": "Update test",
     "add-test": "Add test",
     "update-test": "Update test",
+    "delete-test": "Delete test",
+
+    "delete-test-alert-title": "Delete this test?",
+    "delete-test-alert-text": "This information will be lost. Do you want to continue?",
 
     "question-select-a-date-range": "Select a date range",
     "question-select-a-date": "Select a date",
@@ -329,15 +333,15 @@
       "specify": "Please specify the test location",
       "answers": {
         "at-home": "At Home",
-		"drive-through-rtc": "Drive-through Regional Testing Centre",
+        "drive-through-rtc": "Drive-through Regional Testing Centre",
         "drop-in-facility": "Drop-in testcenter",
-		"hospital": "Hospital (not drive-through)",
-		"gp": "GP",
-		"chemist-pharmacy": "Chemist / Pharmacy",
+        "hospital": "Hospital (not drive-through)",
+        "gp": "GP",
+        "chemist-pharmacy": "Chemist / Pharmacy",
         "store-pharmacy": "Store or pharmacy clinic",
-		"work": "Work (excluding hospital or GP)",
+        "work": "Work (excluding hospital or GP)",
         "local-health-department": "Local health department",
-		"other": "Other, please specify"
+        "other": "Other, please specify"
       }
     },
 
@@ -1001,14 +1005,14 @@
     }
   },
   "blood-group": {
-    "justification": "We are asking this because other studies have shown that your blood group may affect both your risk and severity of COVID infection and we are exploring this in our large user base.",
-    "question": "If you know it, what is your blood group?",
+    "justification": "Other studies have shown that your blood group may affect both your risk and severity of COVID infection.",
+    "question": "What is your blood group?",
     "answers": {
       "type-a": "A",
       "type-b": "B",
       "type-ab": "AB",
       "type-o": "O",
-      "dont-know": "I don't know my blood group for certain",
+      "dont-know": "I don't know",
       "pfnts": "Prefer not to say"
     }
   }
