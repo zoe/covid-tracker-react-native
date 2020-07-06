@@ -1005,14 +1005,14 @@
     }
   },
   "blood-group": {
-    "justification": "We are asking this because other studies have shown that your blood group may affect both your risk and severity of COVID infection and we are exploring this in our large user base.",
-    "question": "If you know it, what is your blood group?",
+    "justification": "Other studies have shown that your blood group may affect both your risk and severity of COVID infection.",
+    "question": "What is your blood group?",
     "answers": {
       "type-a": "A",
       "type-b": "B",
       "type-ab": "AB",
       "type-o": "O",
-      "dont-know": "I don't know my blood group for certain",
+      "dont-know": "I don't know",
       "pfnts": "Prefer not to say"
     }
   }
