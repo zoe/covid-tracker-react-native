@@ -42,10 +42,6 @@ export default class DietStudyThankYouScreen extends Component<Props> {
         <Header>
           <HeaderText>{}</HeaderText>
         </Header>
-
-        <ProgressBlock>
-          <ProgressStatus step={1} maxSteps={3} />
-        </ProgressBlock>
       </Screen>
     );
   }
