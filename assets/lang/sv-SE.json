@@ -1028,9 +1028,10 @@
       "cta-no-never": ""
     },
 
+    "next-section": "",
+
     "about-you": {
-      "title": "",
-      "next": ""
+      "title": ""
     },
 
     "weight-unsure-label": "",
