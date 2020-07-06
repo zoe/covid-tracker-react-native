@@ -26,6 +26,10 @@ class MockPushTokenEnvironment implements IPushTokenEnvironment {
   async getPushToken(): Promise<string | null> {
     return 'MOCK';
   }
+
+  isGranted(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
 }
 
 describe('PushNotificationService', () => {

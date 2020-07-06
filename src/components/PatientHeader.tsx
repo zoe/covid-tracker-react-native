@@ -28,7 +28,7 @@ const BackButton: React.FC<BackButtonProps> = ({ navigation }) => {
 
 type NavbarProps = {
   profile: PatientProfile;
-  navigation: StackNavigationProp<ScreenParamList> | undefined;
+  navigation: StackNavigationProp<ScreenParamList>;
   simpleCallout?: boolean;
 };
 

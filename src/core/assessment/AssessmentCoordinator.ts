@@ -3,10 +3,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { isSECountry, isUSCountry, ICoreService, isGBCountry } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -60,6 +61,9 @@ export class AssessmentCoordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
+    VaccineRegistryInfo: () => {
+      this.gotoEndAssessment();
+    },
   } as ScreenFlow;
 
   init = (
@@ -109,7 +113,13 @@ export class AssessmentCoordinator {
   gotoEndAssessment = async () => {
     const config = this.userService.getConfig();
 
-    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
+    if (
+      isGBCountry() &&
+      !this.assessmentData.currentPatient.isReportedByAnother &&
+      (await this.userService.shouldAskForVaccineRegistry())
+    ) {
+      this.navigation.navigate('VaccineRegistrySignup', { assessmentData: this.assessmentData });
+    } else if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
       this.navigation.navigate('ReportForOther');
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
@@ -148,6 +158,17 @@ export class AssessmentCoordinator {
       ? this.navigation.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
       : this.gotoEndAssessment();
   };
+
+  vaccineRegistryResponse(response: boolean) {
+    this.userService.setVaccineRegistryResponse(response);
+    if (response) {
+      Analytics.track(events.JOIN_VACCINE_REGISTER);
+      this.navigation.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
+    } else {
+      Analytics.track(events.DECLINE_VACCINE_REGISTER);
+      this.gotoEndAssessment();
+    }
+  }
 
   // Private helpers
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
