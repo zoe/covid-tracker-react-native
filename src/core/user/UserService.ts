@@ -17,7 +17,7 @@ import { getInitialPatientState, PatientStateType, PatientProfile } from '../pat
 import { cleanIntegerVal } from '../../utils/number';
 
 import {
-  AskValidationStudy,
+  AskForStudies,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
@@ -49,6 +49,7 @@ export interface IUserService {
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
+  shouldAskForVaccineRegistry(): Promise<boolean>;
 }
 
 export interface IProfileService {
@@ -560,8 +561,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
       url += '&thank_you_screen=true';
     }
 
-    const response = await this.client.get<AskValidationStudy>(url);
+    const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_validation_study;
+  }
+
+  async shouldAskForVaccineRegistry(): Promise<boolean> {
+    let url = `/study_consent/status/`;
+
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data.should_ask_uk_vaccine_register;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
