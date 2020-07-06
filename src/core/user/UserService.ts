@@ -574,7 +574,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
-    this.client.post('/study_consent/', {
+    return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
       version: appConfig.ukValidationStudyConsentVersion,
       ad_version: appConfig.ukValidationStudyAdVersion,
@@ -585,9 +585,10 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   setVaccineRegistryResponse(response: boolean) {
-    this.client.post('/study_consent/', {
+    return this.client.post('/study_consent/', {
       study: 'Vaccine Register',
       status: response ? 'signed' : 'declined',
+      version: 'v1', // Mandatory field but unused for vaccine registry
     });
   }
 

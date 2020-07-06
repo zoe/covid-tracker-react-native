@@ -8,7 +8,6 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header, isAndroid } from '@covid/components/Screen';
-import appCoordinator from '@covid/features/AppCoordinator';
 import PatientHeader from '@covid/components/PatientHeader';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
@@ -53,7 +52,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
             <BrandedButton
               style={styles.yesButton}
               onPress={() => {
-                appCoordinator.gotoNextScreen(props.route.name);
+                assessmentCoordinator.gotoNextScreen(props.route.name);
               }}>
               <RegularText style={styles.yesButtonText}>{i18n.t('vaccine-registry.next')}</RegularText>
             </BrandedButton>
