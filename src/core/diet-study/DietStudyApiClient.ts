@@ -25,7 +25,7 @@ export class DietStudyApiClient implements IDietStudyRemoteClient {
     payload = {
       ...payload,
       patient: patientId,
-      version: appConfig.lifestyleVersion,
+      version: appConfig.dietStudyVersion,
     };
     return this.apiClient.post<DietStudyRequest, DietStudyResponse>(API_URL, payload);
   }
