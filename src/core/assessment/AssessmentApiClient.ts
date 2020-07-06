@@ -1,11 +1,9 @@
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { LifestyleResponse } from '@covid/core/assessment/dto/LifestyleResponse';
-
-import appConfig from '../../../appConfig';
-import { IApiClient } from '../api/ApiClient';
-
-import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
-import { AssessmentResponse } from './dto/AssessmentInfosResponse';
+import appConfig from '@covid/appConfig';
+import { IApiClient } from '@covid/core/api/ApiClient';
+import { AssessmentInfosRequest } from '@covid/core/assessment//dto/AssessmentInfosRequest';
+import { AssessmentResponse } from '@covid/core/assessment//dto/AssessmentInfosResponse';
 
 const API_ASSESSMENTS = '/assessments/';
 
