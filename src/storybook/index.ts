@@ -13,6 +13,7 @@ configure(() => {
   require('./stories/DiabetesQuestions.stories');
   require('./stories/YesNoField.stories');
   require('./stories/ShareApp.stories');
+  require('./stories/DietStudy.stories');
 }, module);
 
 // Global Decorator
