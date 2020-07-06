@@ -50,6 +50,7 @@ export interface IUserService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
+  setVaccineRegistryResponse(response: boolean): void;
 }
 
 export interface IProfileService {
@@ -566,20 +567,27 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async shouldAskForVaccineRegistry(): Promise<boolean> {
-    let url = `/study_consent/status/`;
+    const url = `/study_consent/status/`;
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_vaccine_register;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
-    return this.client.post('/study_consent/', {
+    this.client.post('/study_consent/', {
       study: 'UK Validation Study',
       version: appConfig.ukValidationStudyConsentVersion,
       ad_version: appConfig.ukValidationStudyAdVersion,
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
+    });
+  }
+
+  setVaccineRegistryResponse(response: boolean) {
+    this.client.post('/study_consent/', {
+      study: 'Vaccine Register',
+      status: response ? 'signed' : 'declined',
     });
   }
 

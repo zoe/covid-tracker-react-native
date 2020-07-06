@@ -39,7 +39,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
             <HeaderText style={styles.header}>{i18n.t('vaccine-registry.creating-registry')}</HeaderText>
           </Header>
 
-          <SecondaryText style={styles.interestedTest1}>{i18n.t('vaccine-registry.not-ourselves')}</SecondaryText>
+          <RegularText style={styles.interestedTest1}>{i18n.t('vaccine-registry.not-ourselves')}</RegularText>
 
           <SecondaryText style={styles.interestedTest2}>{i18n.t('vaccine-registry.not-share')}</SecondaryText>
 

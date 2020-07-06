@@ -158,6 +158,15 @@ export class AssessmentCoordinator {
       : this.gotoEndAssessment();
   };
 
+  vaccineRegistryResponse(response: boolean) {
+    this.userService.setVaccineRegistryResponse(response);
+    if (response) {
+      this.navigation.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
+    } else {
+      this.gotoEndAssessment();
+    }
+  }
+
   // Private helpers
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
     return (
@@ -182,16 +191,6 @@ export class AssessmentCoordinator {
       !(await userService.hasMultipleProfiles()) &&
       (await userService.shouldAskToReportForOthers())
     );
-  }
-
-  vaccineRegistryResponse(response: boolean) {
-    //todo send response to backend
-    //todo set response locally
-    if (response) {
-      this.navigation.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
-    } else {
-      this.gotoEndAssessment();
-    }
   }
 }
 
