@@ -17,7 +17,7 @@ import { getInitialPatientState, PatientStateType, PatientProfile } from '../pat
 import { cleanIntegerVal } from '../../utils/number';
 
 import {
-  AskValidationStudy,
+  AskForStudies,
   Consent,
   LoginOrRegisterResponse,
   PatientInfosRequest,
@@ -49,6 +49,8 @@ export interface IUserService {
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
+  shouldAskForVaccineRegistry(): Promise<boolean>;
+  setVaccineRegistryResponse(response: boolean): void;
 }
 
 export interface IProfileService {
@@ -560,8 +562,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
       url += '&thank_you_screen=true';
     }
 
-    const response = await this.client.get<AskValidationStudy>(url);
+    const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_validation_study;
+  }
+
+  async shouldAskForVaccineRegistry(): Promise<boolean> {
+    const url = `/study_consent/status/`;
+
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data.should_ask_uk_vaccine_register;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
@@ -572,6 +581,14 @@ export default class UserService extends ApiClientBase implements ICoreService {
       status: response ? 'signed' : 'declined',
       allow_future_data_use: anonymizedData,
       allow_contact_by_zoe: reContacted,
+    });
+  }
+
+  setVaccineRegistryResponse(response: boolean) {
+    return this.client.post('/study_consent/', {
+      study: 'Vaccine Register',
+      status: response ? 'signed' : 'declined',
+      version: 'v1', // Mandatory field but unused for vaccine registry
     });
   }
 

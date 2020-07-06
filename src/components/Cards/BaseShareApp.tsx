@@ -14,7 +14,7 @@ export interface CommonShareProps {
 }
 
 interface BaseShareAppCardProps {
-  primaryText: string;
+  primaryText?: string;
   secondaryText: string;
   ctaTitle: string;
   onSharePress: VoidFunction;
@@ -57,7 +57,7 @@ export const BaseShareAppCard: React.FC<BaseShareAppCardProps> = ({
       <View style={styles.socialIconContainer}>
         <Image source={social} style={styles.socialIcon} />
       </View>
-      <RegularBoldText style={styles.primaryText}>{primaryText}</RegularBoldText>
+      {primaryText != null && <RegularBoldText style={styles.primaryText}>{primaryText}</RegularBoldText>}
       <RegularText style={styles.secondaryText}>{secondaryText}</RegularText>
       <BrandedButton onPress={onSharePress} style={styles.shareButton}>
         {ctaTitle}
