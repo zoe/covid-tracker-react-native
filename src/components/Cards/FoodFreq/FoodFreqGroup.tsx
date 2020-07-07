@@ -33,7 +33,7 @@ const animate = (fn: any) => {
 
 export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, items, onSelected }) => {
   const opacity = { start: 0, end: 1 };
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState<boolean>(true);
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
 
