@@ -407,7 +407,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async getProfile(): Promise<UserResponse> {
     const localUser = await AsyncStorageService.GetStoredData();
     if (!localUser) {
-      this.logout();
+      await this.logout();
       throw Error("User not found. Can't fetch profile");
     }
 
