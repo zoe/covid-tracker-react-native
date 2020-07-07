@@ -1,0 +1,96 @@
+import { FormikProps } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
+
+import i18n from '@covid/locale/i18n';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { cleanIntegerVal } from '@covid/utils/number';
+import { RegularText } from '@covid/components/Text';
+import { FieldWrapper } from '@covid/components/Screen';
+import YesNoField from '@covid/components/YesNoField';
+
+export interface EatingHabitData {
+  eatsBreakfast: string;
+  mainMeals: string;
+  snacks: string;
+}
+
+interface Props {
+  formikProps: FormikProps<EatingHabitData>;
+}
+
+export interface EatingHabitQuestions<P, Data> extends React.FC<P> {
+  initialFormValues: () => Data;
+  schema: () => Yup.ObjectSchema;
+  createDTO: (data: Data) => Partial<CovidTest>;
+}
+
+export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> = (props: Props) => {
+  const { formikProps } = props;
+  return (
+    <>
+      <FieldWrapper>
+        <RegularText>{i18n.t('diet-study.eats-breakfast-label')}</RegularText>
+        <YesNoField
+          selectedValue={formikProps.values.eatsBreakfast}
+          onValueChange={formikProps.handleChange('eatsBreakfast')}
+          error={formikProps.touched.eatsBreakfast && formikProps.errors.eatsBreakfast}
+        />
+      </FieldWrapper>
+
+      <FieldWrapper>
+        <RegularText>{i18n.t('diet-study.main-meals-label')}</RegularText>
+        <ValidatedTextInput
+          placeholder=""
+          value={formikProps.values.mainMeals}
+          onChangeText={formikProps.handleChange('mainMeals')}
+          onBlur={formikProps.handleBlur('mainMeals')}
+          error={formikProps.touched.mainMeals && formikProps.errors.mainMeals}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </FieldWrapper>
+
+      <FieldWrapper>
+        <RegularText>{i18n.t('diet-study.snacks-label')}</RegularText>
+        <ValidatedTextInput
+          placeholder=""
+          value={formikProps.values.snacks}
+          onChangeText={formikProps.handleChange('snacks')}
+          onBlur={formikProps.handleBlur('snacks')}
+          error={formikProps.touched.snacks && formikProps.errors.snacks}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </FieldWrapper>
+    </>
+  );
+};
+
+EatingHabitQuestions.initialFormValues = (): EatingHabitData => {
+  return {
+    eatsBreakfast: '',
+    mainMeals: '',
+    snacks: '',
+  };
+};
+
+EatingHabitQuestions.schema = () => {
+  return Yup.object().shape({
+    eatsBreakfast: Yup.string().required(),
+    mainMeals: Yup.number().required(),
+    snacks: Yup.number().required(),
+  });
+};
+
+EatingHabitQuestions.createDTO = (formData: EatingHabitData): Partial<DietStudyRequest> => {
+  return {
+    eats_breakfast: formData.eatsBreakfast === 'yes',
+    main_meals: cleanIntegerVal(formData.mainMeals),
+    snacks: cleanIntegerVal(formData.snacks),
+  } as Partial<DietStudyRequest>;
+};

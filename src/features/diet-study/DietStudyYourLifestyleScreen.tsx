@@ -16,8 +16,9 @@ import { PhysicalActivityData, PhysicalActivityQuestion } from '@covid/features/
 import { AlcoholData, AlcoholQuestions } from '@covid/features/diet-study/fields/AlcoholQuestons';
 import { SupplementData, SupplementQuestions } from '@covid/features/diet-study/fields/SupplementQuestions';
 import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fields/DietDescriptionQuestion';
+import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
 
-export interface FormData extends PhysicalActivityData, AlcoholData, SupplementData, DietData {}
+export interface FormData extends PhysicalActivityData, AlcoholData, SupplementData, DietData, EatingHabitData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyYourLifestyle'>;
@@ -62,6 +63,7 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
       ...AlcoholQuestions.createDTO(formData),
       ...SupplementQuestions.createDTO(formData),
       ...DietDescriptionQuestion.createDTO(formData),
+      ...EatingHabitQuestions.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
     this.submitDietStudy(infos);
@@ -74,7 +76,8 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
       .concat(PhysicalActivityQuestion.schema())
       .concat(AlcoholQuestions.schema())
       .concat(SupplementQuestions.schema())
-      .concat(DietDescriptionQuestion.schema());
+      .concat(DietDescriptionQuestion.schema())
+      .concat(EatingHabitQuestions.schema());
     return (
       <Screen navigation={this.props.navigation}>
         <Header>
@@ -87,6 +90,7 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
             ...AlcoholQuestions.initialFormValues(),
             ...SupplementQuestions.initialFormValues(),
             ...DietDescriptionQuestion.initialFormValues(),
+            ...EatingHabitQuestions.initialFormValues(),
           }}
           validationSchema={registerSchema}
           onSubmit={(values: FormData) => {
@@ -98,7 +102,7 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
                 <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
                 <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
                 <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
-
+                <EatingHabitQuestions formikProps={props as FormikProps<EatingHabitData>} />
                 <DietDescriptionQuestion formikProps={props as FormikProps<DietData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
