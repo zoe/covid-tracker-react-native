@@ -104,7 +104,7 @@ SupplementQuestions.initialFormValues = (): SupplementData => {
 
 SupplementQuestions.schema = () => {
   return Yup.object().shape({
-    takesSupplements: Yup.string().required(),
+    takesSupplements: Yup.string().required(i18n.t('please-select-option')),
   });
 };
 

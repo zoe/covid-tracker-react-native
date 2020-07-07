@@ -70,7 +70,7 @@ PhysicalActivityQuestion.initialFormValues = (): PhysicalActivityData => {
 
 PhysicalActivityQuestion.schema = () => {
   return Yup.object().shape({
-    physicalActivity: Yup.string().required(),
+    physicalActivity: Yup.string().required(i18n.t('please-select-option')),
   });
 };
 

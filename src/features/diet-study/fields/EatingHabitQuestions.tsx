@@ -81,7 +81,7 @@ EatingHabitQuestions.initialFormValues = (): EatingHabitData => {
 
 EatingHabitQuestions.schema = () => {
   return Yup.object().shape({
-    eatsBreakfast: Yup.string().required(),
+    eatsBreakfast: Yup.string().required(i18n.t('please-select-option')),
     mainMeals: Yup.number().required(),
     snacks: Yup.number().required(),
   });

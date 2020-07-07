@@ -119,8 +119,8 @@ AlcoholQuestions.initialFormValues = (): AlcoholData => {
 
 AlcoholQuestions.schema = () => {
   return Yup.object().shape({
-    alcoholFrequency: Yup.string().required(),
-    alcoholUnits: Yup.string().required(),
+    alcoholFrequency: Yup.string().required(i18n.t('please-select-option')),
+    alcoholUnits: Yup.string().required(i18n.t('please-select-option')),
   });
 };
 

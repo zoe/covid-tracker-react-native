@@ -45,7 +45,7 @@ ShiftWorkQuestion.initialFormValues = (): ShiftWorkData => {
 
 ShiftWorkQuestion.schema = () => {
   return Yup.object().shape({
-    shiftWork: Yup.string().required(),
+    shiftWork: Yup.string().required(i18n.t('please-select-option')),
   });
 };
 
