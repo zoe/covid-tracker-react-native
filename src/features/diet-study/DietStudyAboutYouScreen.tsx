@@ -7,7 +7,7 @@ import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import Screen, { Header } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
@@ -18,6 +18,7 @@ import { ShiftWorkData, ShiftWorkQuestion } from '@covid/features/diet-study/fie
 import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-study/fields/FoodSecurityQuestion';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
+import ProgressStatus from '@covid/components/ProgressStatus';
 
 export interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
 
@@ -47,6 +48,7 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
 
     try {
       this.setState({ submitting: false });
+      this.props.navigation.navigate('DietStudyYourLifestyle');
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       throw error;
@@ -93,6 +95,10 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
         <Header>
           <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
         </Header>
+
+        <ProgressBlock>
+          <ProgressStatus step={1} maxSteps={3} />
+        </ProgressBlock>
 
         <Formik
           initialValues={{

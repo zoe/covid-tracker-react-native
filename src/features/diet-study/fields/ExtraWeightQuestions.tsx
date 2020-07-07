@@ -1,6 +1,7 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -28,7 +29,7 @@ export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightDa
   const [weightUnsureChecked, setWeightUnsureCheckbox] = useState(false);
   const [wasPregnantChecked, setWasPregnantCheckbox] = useState(false);
   return (
-    <>
+    <View style={{ paddingBottom: 36 }}>
       <CheckboxItem
         value={weightUnsureChecked}
         onChange={(value) => {
@@ -46,7 +47,7 @@ export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightDa
         }}>
         {i18n.t('diet-study.was-pregnant-label')}
       </CheckboxItem>
-    </>
+    </View>
   );
 };
 

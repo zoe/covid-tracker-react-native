@@ -7,7 +7,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { cleanIntegerVal } from '@covid/utils/number';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 
 export interface HoursSleepData {
@@ -27,19 +27,21 @@ export interface HoursSleepQuestion<P, Data> extends React.FC<P> {
 export const HoursSleepQuestion: HoursSleepQuestion<Props, HoursSleepData> = (props: Props) => {
   const { formikProps } = props;
   return (
-    <FieldWrapper>
-      <RegularText>{i18n.t('diet-study.hours-of-sleep-label')}</RegularText>
-      <ValidatedTextInput
-        placeholder=""
-        value={formikProps.values.hoursSleep}
-        onChangeText={formikProps.handleChange('hoursSleep')}
-        onBlur={formikProps.handleBlur('hoursSleep')}
-        error={formikProps.touched.hoursSleep && formikProps.errors.hoursSleep}
-        returnKeyType="next"
-        onSubmitEditing={() => {}}
-        keyboardType="numeric"
-      />
-    </FieldWrapper>
+    <>
+      <FieldLabel>{i18n.t('diet-study.hours-of-sleep-label')}</FieldLabel>
+      <FieldWrapper style={{ padding: 16 }}>
+        <ValidatedTextInput
+          placeholder=""
+          value={formikProps.values.hoursSleep}
+          onChangeText={formikProps.handleChange('hoursSleep')}
+          onBlur={formikProps.handleBlur('hoursSleep')}
+          error={formikProps.touched.hoursSleep && formikProps.errors.hoursSleep}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </FieldWrapper>
+    </>
   );
 };
 

@@ -47,6 +47,7 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
 
     try {
       this.setState({ submitting: false });
+      this.props.navigation.navigate('DietStudyTypicalDiet');
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       throw error;

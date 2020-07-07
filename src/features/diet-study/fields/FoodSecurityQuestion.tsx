@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { FoodSecurityOptions } from '@covid/core/diet-study/dto/DietStudyTypes';
 import DropdownField from '@covid/components/DropdownField';
@@ -40,7 +40,7 @@ export const FoodSecurityQuestion: FoodSecurityQuestion<Props, FoodSecurityData>
 
   return (
     <FieldWrapper>
-      <RegularText>{i18n.t('diet-study.food-security.label')}</RegularText>
+      <FieldLabel>{i18n.t('diet-study.food-security.label')}</FieldLabel>
       <DropdownField
         selectedValue={formikProps.values.foodSecurity}
         onValueChange={formikProps.handleChange('foodSecurity')}

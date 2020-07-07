@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
 
@@ -27,7 +27,7 @@ export const ShiftWorkQuestion: ShiftWorkQuestion<Props, ShiftWorkData> = (props
   const { formikProps } = props;
   return (
     <FieldWrapper>
-      <RegularText>{i18n.t('diet-study.shift-work-label')}</RegularText>
+      <FieldLabel>{i18n.t('diet-study.shift-work-label')}</FieldLabel>
       <YesNoField
         selectedValue={formikProps.values.shiftWork}
         onValueChange={formikProps.handleChange('shiftWork')}
