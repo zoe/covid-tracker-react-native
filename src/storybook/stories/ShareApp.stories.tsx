@@ -7,10 +7,8 @@ import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 
 const Handler = (): HandlerFunction => action('share-button-on-pressed');
 
-storiesOf('ShareApp', module).add('Normal (action)', () => <ShareAppCard onSharePress={Handler()} />);
-
-storiesOf('ShareApp', module).add('Viral (action)', () => <ShareAppCardViral area={null} onSharePress={Handler()} />);
-
-storiesOf('ShareApp', module).add('Normal (share)', () => <ShareAppCard />);
-
-storiesOf('ShareApp', module).add('Viral (share)', () => <ShareAppCardViral area={null} />);
+storiesOf('ShareApp', module)
+  .add('Normal (action)', () => <ShareAppCard onSharePress={Handler()} />)
+  .add('Viral (action)', () => <ShareAppCardViral area={null} onSharePress={Handler()} />)
+  .add('Normal (share)', () => <ShareAppCard />)
+  .add('Viral (share)', () => <ShareAppCardViral area={null} />);
