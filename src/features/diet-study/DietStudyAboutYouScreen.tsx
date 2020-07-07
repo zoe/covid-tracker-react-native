@@ -16,13 +16,6 @@ import { ExtraWeightData, ExtraWeightQuestions } from '@covid/features/diet-stud
 import { HoursSleepData, HoursSleepQuestion } from '@covid/features/diet-study/fields/HoursSleepQuestion';
 import { ShiftWorkData, ShiftWorkQuestion } from '@covid/features/diet-study/fields/ShiftWorkQuestion';
 import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-study/fields/FoodSecurityQuestion';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
-import { CovidTestMechanismQuestion } from '@covid/features/covid-tests/fields/CovidTestMechanismQuesion';
-import { CovidTestResultQuestion } from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
-import { CovidTestInvitedQuestion } from '@covid/features/covid-tests/fields/CovidTestInvitedQuesetion';
-import { CovidTestLocationQuestion } from '@covid/features/covid-tests/fields/CovidTestLocation';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 
@@ -49,6 +42,17 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
     this.state = initialState;
   }
 
+  submitDietStudy(infos: Partial<DietStudyRequest>) {
+    console.log(infos);
+
+    try {
+      this.setState({ submitting: false });
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      throw error;
+    }
+  }
+
   private async updateDietStudy(formData: FormData) {
     if (this.state.submitting) return;
     this.setState({ submitting: true });
@@ -72,14 +76,7 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
       infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
     }
 
-    console.log(infos);
-
-    try {
-      this.setState({ submitting: false });
-    } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      throw error;
-    }
+    this.submitDietStudy(infos);
   }
 
   render() {
