@@ -3,8 +3,9 @@ import { View, StyleSheet, Text } from 'react-native';
 
 import { colors } from '@theme';
 import { Pint, Shot, SmallGlass, StandardWine, LargeWine, BottleWine } from '@assets/icons/alcohol';
-import InfoCircle from '@assets/icons/InfoCircle';
+import IInfoCircle from '@assets/icons/I-InfoCircle';
 import { RegularText, RegularBoldText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
 
 interface Props {}
 
@@ -12,43 +13,43 @@ interface UnitGuideItem {
   icon?: React.ReactElement;
   title: string;
   volume?: string;
-  unit: string;
+  unit: number;
 }
 
-const UNITS_GUIDE: UnitGuideItem[] = [
+const UNITS_GUIDE = (): UnitGuideItem[] => [
   {
     icon: <Pint />,
-    title: 'Pint or can of beer/lager/cider',
-    unit: '2',
+    title: i18n.t('diet-study.alcohol-unit-info.pints'),
+    unit: 2,
   },
   {
     icon: <Shot />,
-    title: 'Single shot of spirits',
+    title: i18n.t('diet-study.alcohol-unit-info.shots'),
     volume: '25ml',
-    unit: '1',
+    unit: 1,
   },
   {
     icon: <SmallGlass />,
-    title: 'Small glass of fortified wine',
-    unit: '1',
+    title: i18n.t('diet-study.alcohol-unit-info.small-glass'),
+    unit: 1,
   },
   {
     icon: <StandardWine />,
-    title: 'Standard glass of wine',
+    title: i18n.t('diet-study.alcohol-unit-info.standard-glass'),
     volume: '125ml',
-    unit: '2',
+    unit: 2,
   },
   {
     icon: <LargeWine />,
-    title: 'Large glass of wine',
+    title: i18n.t('diet-study.alcohol-unit-info.large-glass'),
     volume: '250ml',
-    unit: '3',
+    unit: 3,
   },
   {
     icon: <BottleWine />,
-    title: 'Bottle of wine',
+    title: i18n.t('diet-study.alcohol-unit-info.bottle-glass'),
     volume: '75cl',
-    unit: '3',
+    unit: 9,
   },
 ];
 
@@ -62,7 +63,7 @@ const UnitInfoItem: React.FC<UnitInfoItemProps> = ({ item }) => {
       <View style={itemStyles.icon}>{item.icon}</View>
       <RegularText style={itemStyles.primaryLabel}>{item.title}</RegularText>
       {item.volume && <RegularText style={itemStyles.volumneLabel}>({item.volume})</RegularText>}
-      <RegularBoldText style={itemStyles.unitLabel}>{item.unit} unit</RegularBoldText>
+      {item.unit > 0 && <RegularBoldText style={itemStyles.unitLabel}>{item.unit} unit</RegularBoldText>}
     </View>
   );
 };
@@ -71,13 +72,13 @@ export const AlcoholUnitInfo: React.FC<Props> = () => {
   return (
     <View>
       <View style={styles.infoIcon}>
-        <InfoCircle />
+        <IInfoCircle />
       </View>
       <View style={styles.container}>
-        <RegularText style={styles.description}>A drink is defined as one unit of alcohol.</RegularText>
-        <RegularText style={styles.description}>Typical units in common alcoholic beverages:</RegularText>
+        <RegularText style={styles.description}>{i18n.t('diet-study.alcohol-unit-info.label-1')}</RegularText>
+        <RegularText style={styles.description}>{i18n.t('diet-study.alcohol-unit-info.label-2')}</RegularText>
         <View style={{ height: 16 }} />
-        {UNITS_GUIDE.map((item) => (
+        {UNITS_GUIDE().map((item) => (
           <UnitInfoItem item={item} key={item.title} />
         ))}
       </View>
