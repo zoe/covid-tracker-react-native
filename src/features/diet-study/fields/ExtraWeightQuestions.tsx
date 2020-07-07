@@ -1,5 +1,5 @@
 import { FormikProps } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
@@ -24,19 +24,24 @@ export interface CovidTestInvitedQuestion<P, Data> extends React.FC<P> {
 
 export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightData> = (props: Props) => {
   const { formikProps } = props;
+
+  const [weightUnsureChecked, setWeightUnsureCheckbox] = useState(false);
+  const [wasPregnantChecked, setWasPregnantCheckbox] = useState(false);
   return (
     <>
       <CheckboxItem
-        value={formikProps.values.weightUnsure}
+        value={weightUnsureChecked}
         onChange={(value) => {
+          setWeightUnsureCheckbox(value);
           formikProps.values.weightUnsure = value;
         }}>
         {i18n.t('diet-study.weight-unsure-label')}
       </CheckboxItem>
 
       <CheckboxItem
-        value={formikProps.values.wasPregnant}
+        value={wasPregnantChecked}
         onChange={(value) => {
+          setWasPregnantCheckbox(value);
           formikProps.values.wasPregnant = value;
         }}>
         {i18n.t('diet-study.was-pregnant-label')}

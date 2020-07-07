@@ -14,8 +14,19 @@ import { WeightData, WeightQuestion } from '@covid/features/patient/fields/Weigh
 import { ValidationError } from '@covid/components/ValidationError';
 import { ExtraWeightData, ExtraWeightQuestions } from '@covid/features/diet-study/fields/ExtraWeightQuestions';
 import { HoursSleepData, HoursSleepQuestion } from '@covid/features/diet-study/fields/HoursSleepQuestion';
+import { ShiftWorkData, ShiftWorkQuestion } from '@covid/features/diet-study/fields/ShiftWorkQuestion';
+import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-study/fields/FoodSecurityQuestion';
+import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
+import { CovidTestMechanismQuestion } from '@covid/features/covid-tests/fields/CovidTestMechanismQuesion';
+import { CovidTestResultQuestion } from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
+import { CovidTestInvitedQuestion } from '@covid/features/covid-tests/fields/CovidTestInvitedQuesetion';
+import { CovidTestLocationQuestion } from '@covid/features/covid-tests/fields/CovidTestLocation';
+import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
+import { cleanFloatVal } from '@covid/utils/number';
 
-export interface FormData extends WeightData, ExtraWeightData, HoursSleepData {}
+export interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyAboutYou'>;
@@ -38,10 +49,30 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
     this.state = initialState;
   }
 
-  private async updateDietStudy(values: FormData) {
+  private async updateDietStudy(formData: FormData) {
     if (this.state.submitting) return;
-
     this.setState({ submitting: true });
+
+    let infos = {
+      patient: '', // TODO - Set the PatientID
+      ...ExtraWeightQuestions.createDTO(formData),
+      ...HoursSleepQuestion.createDTO(formData),
+      ...ShiftWorkQuestion.createDTO(formData),
+      ...FoodSecurityQuestion.createDTO(formData),
+    } as Partial<DietStudyRequest>;
+
+    if (formData.weightUnit === 'lbs') {
+      let pounds = cleanFloatVal(formData.pounds);
+      if (formData.stones) {
+        const stones = cleanFloatVal(formData.stones) || 0;
+        pounds += stones * 14;
+      }
+      infos = { ...infos, weight_pounds: pounds };
+    } else {
+      infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
+    }
+
+    console.log(infos);
 
     try {
       this.setState({ submitting: false });
@@ -52,7 +83,13 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
   }
 
   render() {
-    const registerSchema = Yup.object().shape({}).concat(WeightQuestion.schema());
+    const registerSchema = Yup.object()
+      .shape({})
+      .concat(WeightQuestion.schema())
+      .concat(ExtraWeightQuestions.schema())
+      .concat(HoursSleepQuestion.schema())
+      .concat(ShiftWorkQuestion.schema())
+      .concat(FoodSecurityQuestion.schema());
 
     return (
       <Screen navigation={this.props.navigation}>
@@ -65,6 +102,8 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
             ...WeightQuestion.initialFormValues(),
             ...ExtraWeightQuestions.initialFormValues(),
             ...HoursSleepQuestion.initialFormValues(),
+            ...ShiftWorkQuestion.initialFormValues(),
+            ...FoodSecurityQuestion.initialFormValues(),
           }}
           validationSchema={registerSchema}
           onSubmit={(values: FormData) => {
@@ -80,6 +119,8 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
 
                 <ExtraWeightQuestions formikProps={props as FormikProps<ExtraWeightData>} />
                 <HoursSleepQuestion formikProps={props as FormikProps<HoursSleepData>} />
+                <ShiftWorkQuestion formikProps={props as FormikProps<ShiftWorkData>} />
+                <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
@@ -87,7 +128,7 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
                 )}
 
                 <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('next-question')}
+                  {i18n.t('diet-study.next-section')}
                 </BrandedButton>
               </Form>
             );
