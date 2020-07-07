@@ -1037,6 +1037,10 @@
       "pfnts": "Prefer not to say"
     },
 
+    "your-lifestyle": {
+      "title": "A bit about you"
+    },
+
     "physical-activity": {
       "label": "How frequently have you typically engaged in physical activity that raises your heart rate and lasts for 20 minutes at a time?",
       "less-than-once-a-month": "Less than once a month ",
