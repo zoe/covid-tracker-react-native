@@ -24,6 +24,8 @@ export const colors = {
   coral: '#FA7268',
   pink: '#D28C90',
 
+  textDark: '#24262B',
+
   linkBlue: '#007AFF',
   lightBlueBrand: '#29C4CF',
 
