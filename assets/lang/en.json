@@ -1024,7 +1024,8 @@
     "next": "Next",
     "creating-registry": "We are creating a registry",
     "not-ourselves": "Though we will not be running any vaccine studies ourselves, various teams working on vaccines and other preventive treatments are asking us if we can find recruits. Therefore we are creating a list for them which you are now on.",
-    "not-share": "We will not share your details with anyone, but will alert you when a relevant study becomes available. We aim to prioritise people who have been regularly logging on the app, and who are early members of this list.",
+    "not-share": "We will not share your details with anyone, but will alert you when a relevant study becomes available.",
+    "prioritise": "We aim to prioritise people who have been regularly logging on the app, and who are early members of this list.",
     "tell-friends": "Please tell your friends",
     "share-text": "Anyone can join this registry. However we will prioritise those who join first and use the COVID Symptoms Study app regularly."
   }
