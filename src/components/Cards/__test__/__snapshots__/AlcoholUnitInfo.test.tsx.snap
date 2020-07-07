@@ -23,14 +23,14 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
   >
     <RNSVGSvgView
       align="xMidYMid"
-      bbHeight={20}
-      bbWidth={20}
+      bbHeight={65.57142857142857}
+      bbWidth={18}
       fill="none"
       focusable={false}
-      height={20}
+      height={65.57142857142857}
       meetOrSlice={0}
-      minX={0}
-      minY={0}
+      minX={-6}
+      minY={-0.5}
       style={
         Array [
           Object {
@@ -43,14 +43,14 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           },
           Object {
             "flex": 0,
-            "height": 20,
-            "width": 20,
+            "height": 65,
+            "width": 18,
           },
         ]
       }
       vbHeight={16}
       vbWidth={16}
-      width={20}
+      width={18}
     >
       <RNSVGGroup
         fill={null}
@@ -93,7 +93,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         y={0}
       >
         <RNSVGPath
-          d="M15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C3.85786 15.5 0.5 12.1421 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5C12.1421 0.5 15.5 3.85786 15.5 8Z"
+          d="M2 13L2 6.75"
           fill={
             Array [
               0,
@@ -118,8 +118,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           propList={
             Array [
               "stroke",
-              "strokeLinecap",
-              "strokeLinejoin",
             ]
           }
           rotation={0}
@@ -130,13 +128,13 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           stroke={
             Array [
               0,
-              4289375405,
+              4280559147,
             ]
           }
           strokeDasharray={null}
           strokeDashoffset={null}
-          strokeLinecap={1}
-          strokeLinejoin={1}
+          strokeLinecap={0}
+          strokeLinejoin={0}
           strokeMiterlimit={4}
           strokeOpacity={1}
           strokeWidth={1}
@@ -145,63 +143,11 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           y={0}
         />
         <RNSVGPath
-          d="M8 12.5V8"
+          d="M2 3.75C2.9665 3.75 3.75 2.9665 3.75 2C3.75 1.0335 2.9665 0.25 2 0.25C1.0335 0.25 0.25 1.0335 0.25 2C0.25 2.9665 1.0335 3.75 2 3.75Z"
           fill={
             Array [
               0,
-              4278190080,
-            ]
-          }
-          fillOpacity={1}
-          fillRule={1}
-          matrix={
-            Array [
-              1,
-              0,
-              0,
-              1,
-              0,
-              0,
-            ]
-          }
-          opacity={1}
-          originX={0}
-          originY={0}
-          propList={
-            Array [
-              "stroke",
-              "strokeLinecap",
-              "strokeLinejoin",
-            ]
-          }
-          rotation={0}
-          scaleX={1}
-          scaleY={1}
-          skewX={0}
-          skewY={0}
-          stroke={
-            Array [
-              0,
-              4289375405,
-            ]
-          }
-          strokeDasharray={null}
-          strokeDashoffset={null}
-          strokeLinecap={1}
-          strokeLinejoin={1}
-          strokeMiterlimit={4}
-          strokeOpacity={1}
-          strokeWidth={1}
-          vectorEffect={0}
-          x={0}
-          y={0}
-        />
-        <RNSVGPath
-          d="M7.9998 6.4C8.66255 6.4 9.1998 5.86274 9.1998 5.2C9.1998 4.53726 8.66255 4 7.9998 4C7.33706 4 6.7998 4.53726 6.7998 5.2C6.7998 5.86274 7.33706 6.4 7.9998 6.4Z"
-          fill={
-            Array [
-              0,
-              4289375405,
+              4280559147,
             ]
           }
           fillOpacity={1}
@@ -731,7 +677,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        Single shot of spirits
+        [missing "en.diet-study.alcohol-unit-info.shots" translation]
       </Text>
       <Text
         style={
@@ -1209,7 +1155,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        Standard glass of wine
+        [missing "en.diet-study.alcohol-unit-info.standard-glass" translation]
       </Text>
       <Text
         style={
@@ -1507,7 +1453,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        Large glass of wine
+        [missing "en.diet-study.alcohol-unit-info.large-glass" translation]
       </Text>
       <Text
         style={
@@ -1755,7 +1701,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        Bottle of wine
+        [missing "en.diet-study.alcohol-unit-info.bottle-glass" translation]
       </Text>
       <Text
         style={
@@ -1790,7 +1736,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        3
+        9
          unit
       </Text>
     </View>
