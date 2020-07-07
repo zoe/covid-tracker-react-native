@@ -7,7 +7,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { cleanIntegerVal } from '@covid/utils/number';
-import { FieldLabel, RegularText } from '@covid/components/Text';
+import { FieldLabel } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 
 export interface HoursSleepData {

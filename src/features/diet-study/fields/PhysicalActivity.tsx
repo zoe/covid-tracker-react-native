@@ -1,17 +1,14 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { Item } from 'native-base';
-import { StyleSheet } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { FieldLabel, RegularText } from '@covid/components/Text';
+import { FieldLabel } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { PhysicalActivityOptions } from '@covid/core/diet-study/dto/DietStudyTypes';
 import DropdownField from '@covid/components/DropdownField';
-import { colors } from '@theme';
 
 export interface PhysicalActivityData {
   physicalActivity: string;
