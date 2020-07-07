@@ -12,20 +12,23 @@ import { CaptionText, HeaderText } from '@covid/components/Text';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 
 type MenuItemProps = {
   label: string;
   onPress: () => void;
+  indicator?: number;
 };
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
 };
 
-const MenuItem = (props: MenuItemProps) => {
+const MenuItem: React.FC<MenuItemProps> = ({ onPress, label, indicator }) => {
   return (
-    <TouchableOpacity style={styles.iconNameRow} onPress={props.onPress}>
-      <HeaderText>{props.label}</HeaderText>
+    <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
+      <HeaderText>{label}</HeaderText>
+      {indicator && <NumberIndicator number={indicator} />}
     </TouchableOpacity>
   );
 };
@@ -140,6 +143,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
+        <MenuItem label={i18n.t('diet-study.drawer-menu-item')} indicator={2} onPress={() => {}} />
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
@@ -185,6 +189,7 @@ const styles = StyleSheet.create({
     marginStart: 8,
     marginTop: 32,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   drawerIcon: {
     height: 24,

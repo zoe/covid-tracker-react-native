@@ -1022,6 +1022,8 @@
   },
 
   "diet-study": {
+    "drawer-menu-item": "",
+
     "intro": {
       "title": "COVID & Diet",
       "description-1": "",
