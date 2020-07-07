@@ -1058,6 +1058,17 @@
       "pfnts": ""
     },
 
+    "food-frequency": {
+      "rarely-or-never": "",
+      "less-than-once-a-week": "",
+      "once-a-week": "",
+      "two-to-three-a-week": "",
+      "four-to-six-a-week": "",
+      "one-to-two-a-day": "",
+      "three-to-four-a-day": "",
+      "five-plus-a-day": ""
+    },
+
     "alcohol-frequency": {
       "label": "",
       "never": "",

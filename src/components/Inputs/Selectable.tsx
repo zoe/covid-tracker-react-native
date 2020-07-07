@@ -3,35 +3,36 @@ import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { SelectableButton } from '@covid/components/SelectableButton';
+import i18n from '@covid/locale/i18n';
 
 interface SelectableItem {
   title: string;
 }
 
-export const FOOD_INTAKE_FREQUENCY: SelectableItem[] = [
+export const FOOD_INTAKE_FREQUENCY = (): SelectableItem[] => [
   {
-    title: 'Rarely or never',
+    title: i18n.t('diet-study.food-frequency.rarely-or-never'),
   },
   {
-    title: 'less than once a week',
+    title: i18n.t('diet-study.food-frequency.less-than-once-a-week'),
   },
   {
-    title: 'Once a week',
+    title: i18n.t('diet-study.food-frequency.once-a-week'),
   },
   {
-    title: '2-3 times a week',
+    title: i18n.t('diet-study.food-frequency.two-to-three-a-week'),
   },
   {
-    title: '4-6 times a week',
+    title: i18n.t('diet-study.food-frequency.four-to-six-a-week'),
   },
   {
-    title: '1-2 times a day',
+    title: i18n.t('diet-study.food-frequency.one-to-two-a-day'),
   },
   {
-    title: '3-4 times a day',
+    title: i18n.t('diet-study.food-frequency.three-to-four-a-day'),
   },
   {
-    title: '5+ times a day',
+    title: i18n.t('diet-study.food-frequency.five-plus-a-day'),
   },
 ];
 
