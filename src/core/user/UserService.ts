@@ -588,7 +588,8 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return this.client.post('/study_consent/', {
       study: 'Vaccine Register',
       status: response ? 'signed' : 'declined',
-      version: 'v1', // Mandatory field but unused for vaccine registry
+      version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
+      ad_version: appConfig.vaccineRegistryAdVersion,
     });
   }
 
