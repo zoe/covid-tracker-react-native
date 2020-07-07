@@ -1017,6 +1017,192 @@
       "unsure-pfnts": "Osäker / Föredrar att inte berätta"
     }
   },
+
+  "diet-study": {
+    "intro": {
+      "title": "COVID & Diet",
+      "description-1": "",
+      "description-2": "",
+      "cta-yes": "",
+      "cta-no-later": "",
+      "cta-no-never": ""
+    },
+
+    "next-section": "",
+
+    "about-you": {
+      "title": ""
+    },
+
+    "weight-unsure-label": "",
+    "was-pregnant-label": "",
+    "hours-of-sleep-label": "",
+    "shift-work-label": "",
+    "food-security": {
+      "label": "",
+      "always-had-enough": "",
+      "enough-not-kinds-wanted": "",
+      "sometimes-not-enough": "",
+      "often-not-enough": "",
+      "pfnts": ""
+    },
+
+    "physical-activity": {
+      "label": "",
+      "less-than-once-a-month": "",
+      "less-than-once-a-week": "",
+      "once-a-week": "",
+      "twice-a-week": "",
+      "three-to-four-times-a-week": "",
+      "five-or-more": "",
+      "pfnts": ""
+    },
+
+    "alcohol-frequency": {
+      "label": "",
+      "never": "",
+      "monthly": "",
+      "two-to-four-a-month": "",
+      "two-to-three-a-week": "",
+      "four-or-more-a-week": "",
+      "pfnts": ""
+    },
+
+    "alcohol-units": {
+      "label": "",
+      "one-to-two": "",
+      "three-to-four": "",
+      "five-to-six": "",
+      "seven-to-nine": "",
+      "ten-or-more": "",
+      "pfnts": ""
+    },
+
+    "alcohol-unit-info": {
+      "label-1": "",
+      "label-2": "",
+      "pints": "",
+      "shot": "",
+      "small-glass": "",
+      "standard-wine": "",
+      "large-wine": "",
+      "bottle-wine": ""
+    },
+
+    "takes-supplements-label": "",
+
+    "supplements": {
+      "label": "",
+      "fiber": "",
+      "probiotic": "",
+      "live-probiotic": "",
+      "iron": "",
+      "calcium": "",
+      "vitamin-d": "",
+      "zinc": "",
+      "vitamin-c": "",
+      "multivitamin": "",
+      "omega3": "",
+      "garlic": "",
+      "other": "",
+      "pfnts": ""
+    },
+
+    "first-calories-label": "",
+    "last-calories-label": "",
+    "eats-breakfast-label": "",
+    "main-meals-label": "",
+    "snacks-label": "",
+    "diet": {
+      "label": "",
+      "mixed": "",
+      "vegetarian": "",
+      "vegan": "",
+      "pescatarian": "",
+      "low-carb": "",
+      "low-fat": "",
+      "gluten-free": "",
+      "lactose-free": "",
+      "low-calorie": ""
+    },
+
+    "typical-diet": {
+      "title": "",
+      "text-1": "",
+      "text-2": "",
+      "fruit-1": "",
+      "fruit-2": "",
+      "fruit_juice-1": "",
+      "fruit_juice-2": "",
+      "salad-1": "",
+      "salad-2": "",
+      "vegetables-1": "",
+      "vegetables-2": "",
+      "chips-1": "",
+      "chips-2": "",
+      "pulses-1": "",
+      "pulses-2": "",
+      "fibre_rich_breakfast-1": "",
+      "fibre_rich_breakfast-2": "",
+      "wholemeal_bread-1": "",
+      "wholemeal_bread-2": "",
+      "cheese_yogurt-1": "",
+      "cheese_yogurt-2": "",
+      "crisps_snacks-1": "",
+      "crisps_snacks-2": "",
+      "sweets-1": "",
+      "sweets-2": "",
+      "ice_cream-1": "",
+      "ice_cream-2": "",
+      "fizzy_pop-1": "",
+      "fizzy_pop-2": "",
+      "red_meat-1": "",
+      "red_meat-2": "",
+      "white_meat-1": "",
+      "white_meat-2": "",
+      "red_processed_meat-1": "",
+      "red_processed_meat-2": "",
+      "white_processed_meat-1": "",
+      "white_processed_meat-2": "",
+      "white_fish_battered_breaded-1": "",
+      "white_fish_battered_breaded-2": "",
+      "white_fish-1": "",
+      "white_fish-2": "",
+      "oily_fish-1": "",
+      "oily_fish-2": "",
+      "eggs-1": "",
+      "eggs-2": "",
+      "fast_food-1": "",
+      "fast_food-2": "",
+
+      "portions_of_fruit-label": "",
+      "glasses_of_juice-label": "",
+      "portions_of_veg-label": "",
+
+      "milk-label": "",
+      "milk-whole": "",
+      "milk-semi": "",
+      "milk-skimmed": "",
+      "milk-rarely-never": "",
+      "milk-plant": "",
+      "milk-other-sweetened": "",
+      "milk-other-unsweetened": "",
+
+      "noticed-a-change": ""
+    },
+
+    "next-box": {
+      "title": "",
+      "text": ""
+    },
+
+    "thank-you": {
+      "title": "",
+      "text-1": "",
+      "text-2": ""
+    }
+  },
+
   "blood-group": {
     "justification": "Vi frågar detta då andra studier har visat att vilken blodgrupp man har kan påverka både risken att drabbas av covid-19 samt hur allvarligt sjuk man blir. Vi vill undersöka detta i vår stora deltagargrupp.",
     "question": "Känner du till vilken blodgrupp du har? Vilken?",

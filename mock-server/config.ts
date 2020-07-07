@@ -12,10 +12,13 @@ const config: DbConfig = {
     },
   },
   assessments: {
-    path: 'assassments.json',
+    path: 'assessments.json',
   },
   covidTests: {
     path: 'covid_tests.json',
+  },
+  dietStudies: {
+    path: 'diet_studies.json',
   },
   lifestyle: {
     path: 'lifestyles.json',
@@ -24,7 +27,7 @@ const config: DbConfig = {
     path: 'consents.json',
   },
   studyConsents: {
-    path: 'studyConsents.json',
+    path: 'study_consents.json',
   },
 };
 
