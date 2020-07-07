@@ -1023,6 +1023,7 @@
       "title": "A bit about you"
     },
 
+    "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
     "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)",

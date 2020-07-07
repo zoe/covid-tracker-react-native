@@ -1,6 +1,7 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -21,6 +22,7 @@ export interface WeightData {
 
 interface FCWithStatic<P> extends React.FC<P> {
   initialFormValues: () => WeightData;
+  schema: () => Yup.ObjectSchema;
 }
 
 interface Props {
@@ -117,6 +119,10 @@ WeightQuestion.initialFormValues = () => {
     pounds: '',
     weightUnit: features.defaultWeightUnit,
   };
+};
+
+WeightQuestion.schema = () => {
+  return Yup.object().shape({});
 };
 
 const styles = StyleSheet.create({
