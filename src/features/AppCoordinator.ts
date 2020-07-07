@@ -1,4 +1,3 @@
-import { CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
@@ -90,13 +89,18 @@ export class AppCoordinator {
         viewOnly: false,
       });
     },
+    Consent: () => {
+      this.navigation.navigate('Register');
+    },
   } as ScreenFlow;
 
   async init(navigation: NavigationType) {
     this.navigation = navigation;
     await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
-    this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+    if (this.patientId) {
+      this.currentPatient = await this.userService.getCurrentPatient(this.patientId);
+    }
   }
 
   // Workaround for Expo save/refresh nixing the navigation.
