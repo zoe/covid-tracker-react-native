@@ -64,6 +64,13 @@ export type ScreenParamList = {
   VaccineRegistrySignup: { assessmentData: AssessmentData };
   VaccineRegistryInfo: { assessmentData: AssessmentData };
 
+  // DietStudy
+  DietStudyAboutYou: { assessmentData: AssessmentData };
+  DietStudyIntro: { assessmentData: AssessmentData };
+  DietStudyThankYou: { assessmentData: AssessmentData };
+  DietStudyTypicalDiet: { assessmentData: AssessmentData };
+  DietStudyYourLifestyle: { assessmentData: AssessmentData };
+
   // Completion screens
   ThankYou: undefined;
   ThankYouUK: undefined;
