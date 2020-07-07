@@ -1006,6 +1006,8 @@
   },
 
   "diet-study": {
+    "drawer-menu-item": "My study",
+
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off Diet and Lifestyle Questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",

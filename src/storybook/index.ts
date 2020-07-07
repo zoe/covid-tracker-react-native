@@ -14,8 +14,8 @@ configure(() => {
   require('./stories/YesNoField.stories');
   require('./stories/ShareApp.stories');
   require('./stories/Buttons.stories');
-  // require('./stories/DietStudy.stories');
   require('./stories/Selectable.stories');
+  require('./stories/NumberIndicator.stories');
 }, module);
 
 // Global Decorator
