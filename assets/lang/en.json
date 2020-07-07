@@ -1086,7 +1086,7 @@
     "takes-supplements-label": "Do you regularly (at least 3-4 times a week) take supplements?",
 
     "supplements": {
-      "label": "",
+      "label": "What vitamins or supplements are you taking (at least 3-4 times a week)?",
       "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
       "probiotic": "Probiotic capsules ",
       "live-probiotic": "Live probiotic or fermented food products (e.g. sauerkraut, kimchi,yakult, live yogurt, kefir) ",

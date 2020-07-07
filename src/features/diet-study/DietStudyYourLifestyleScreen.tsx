@@ -10,15 +10,13 @@ import i18n from '@covid/locale/i18n';
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { WeightData } from '@covid/features/patient/fields/WeightQuestion';
 import { ValidationError } from '@covid/components/ValidationError';
-import { ExtraWeightData } from '@covid/features/diet-study/fields/ExtraWeightQuestions';
-import { HoursSleepData, HoursSleepQuestion } from '@covid/features/diet-study/fields/HoursSleepQuestion';
-import { ShiftWorkData } from '@covid/features/diet-study/fields/ShiftWorkQuestion';
-import { FoodSecurityData } from '@covid/features/diet-study/fields/FoodSecurityQuestion';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
+import { PhysicalActivityData, PhysicalActivityQuestion } from '@covid/features/diet-study/fields/PhysicalActivity';
+import { AlcoholData, AlcoholQuestions } from '@covid/features/diet-study/fields/AlcoholQuestons';
+import { SupplementData, SupplementQuestions } from '@covid/features/diet-study/fields/SupplementQuestions';
 
-export interface FormData extends HoursSleepData {}
+export interface FormData extends PhysicalActivityData, AlcoholData, SupplementData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyYourLifestyle'>;
@@ -59,7 +57,9 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
     const infos = {
       patient: '', // TODO - Set the PatientID
 
-      ...HoursSleepQuestion.createDTO(formData),
+      ...PhysicalActivityQuestion.createDTO(formData),
+      ...AlcoholQuestions.createDTO(formData),
+      ...SupplementQuestions.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
     this.submitDietStudy(infos);
@@ -69,7 +69,9 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
     const registerSchema = Yup.object()
       .shape({})
 
-      .concat(HoursSleepQuestion.schema());
+      .concat(PhysicalActivityQuestion.schema())
+      .concat(AlcoholQuestions.schema())
+      .concat(SupplementQuestions.schema());
     return (
       <Screen navigation={this.props.navigation}>
         <Header>
@@ -78,7 +80,9 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
 
         <Formik
           initialValues={{
-            ...HoursSleepQuestion.initialFormValues(),
+            ...PhysicalActivityQuestion.initialFormValues(),
+            ...AlcoholQuestions.initialFormValues(),
+            ...SupplementQuestions.initialFormValues(),
           }}
           validationSchema={registerSchema}
           onSubmit={(values: FormData) => {
@@ -87,7 +91,9 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
           {(props) => {
             return (
               <Form>
-                <HoursSleepQuestion formikProps={props as FormikProps<HoursSleepData>} />
+                <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
+                <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
+                <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
