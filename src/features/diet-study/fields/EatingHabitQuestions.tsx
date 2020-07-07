@@ -7,7 +7,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { cleanIntegerVal } from '@covid/utils/number';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
 
@@ -32,7 +32,7 @@ export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> 
   return (
     <>
       <FieldWrapper>
-        <RegularText>{i18n.t('diet-study.eats-breakfast-label')}</RegularText>
+        <FieldLabel>{i18n.t('diet-study.eats-breakfast-label')}</FieldLabel>
         <YesNoField
           selectedValue={formikProps.values.eatsBreakfast}
           onValueChange={formikProps.handleChange('eatsBreakfast')}
@@ -40,8 +40,8 @@ export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> 
         />
       </FieldWrapper>
 
-      <FieldWrapper>
-        <RegularText>{i18n.t('diet-study.main-meals-label')}</RegularText>
+      <FieldLabel>{i18n.t('diet-study.main-meals-label')}</FieldLabel>
+      <FieldWrapper style={{ padding: 16 }}>
         <ValidatedTextInput
           placeholder=""
           value={formikProps.values.mainMeals}
@@ -54,8 +54,8 @@ export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> 
         />
       </FieldWrapper>
 
-      <FieldWrapper>
-        <RegularText>{i18n.t('diet-study.snacks-label')}</RegularText>
+      <FieldLabel>{i18n.t('diet-study.snacks-label')}</FieldLabel>
+      <FieldWrapper style={{ padding: 16 }}>
         <ValidatedTextInput
           placeholder=""
           value={formikProps.values.snacks}

@@ -2,12 +2,12 @@ import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { Item, Label } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
@@ -75,7 +75,7 @@ export const SupplementQuestions: SupplementQuestions<Props, SupplementData> = (
   return (
     <>
       <FieldWrapper>
-        <RegularText>{i18n.t('diet-study.takes-supplements-label')}</RegularText>
+        <FieldLabel>{i18n.t('diet-study.takes-supplements-label')}</FieldLabel>
         <YesNoField
           selectedValue={formikProps.values.takesSupplements}
           onValueChange={formikProps.handleChange('takesSupplements')}
@@ -84,12 +84,12 @@ export const SupplementQuestions: SupplementQuestions<Props, SupplementData> = (
       </FieldWrapper>
 
       {formikProps.values.takesSupplements === 'yes' && (
-        <>
+        <View style={{ marginVertical: 16 }}>
+          <FieldLabel style={{ marginBottom: 4 }}>{i18n.t('diet-study.supplements.label')}</FieldLabel>
           <Item stackedLabel style={styles.textItemStyle}>
-            <Label>{i18n.t('diet-study.supplements.label')}</Label>
             <CheckboxList>{createSupplementCheckboxes(checkboxes, formikProps)}</CheckboxList>
           </Item>
-        </>
+        </View>
       )}
     </>
   );

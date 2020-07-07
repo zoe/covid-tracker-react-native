@@ -5,10 +5,11 @@ import * as Yup from 'yup';
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { AlcoholFrequencyOptions, AlcoholUnitsOptions } from '@covid/core/diet-study/dto/DietStudyTypes';
 import DropdownField from '@covid/components/DropdownField';
+import { AlcoholUnitInfo } from '@covid/components/Cards/AlcoholUnitInfo';
 
 export interface AlcoholData {
   alcoholFrequency: string;
@@ -85,7 +86,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
   return (
     <>
       <FieldWrapper>
-        <RegularText>{i18n.t('diet-study.alcohol-frequency.label')}</RegularText>
+        <FieldLabel>{i18n.t('diet-study.alcohol-frequency.label')}</FieldLabel>
         <DropdownField
           selectedValue={formikProps.values.alcoholFrequency}
           onValueChange={formikProps.handleChange('alcoholFrequency')}
@@ -94,8 +95,10 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
         />
       </FieldWrapper>
 
+      <AlcoholUnitInfo />
+
       <FieldWrapper>
-        <RegularText>{i18n.t('diet-study.alcohol-units.label')}</RegularText>
+        <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>
         <DropdownField
           selectedValue={formikProps.values.alcoholUnits}
           onValueChange={formikProps.handleChange('alcoholUnits')}

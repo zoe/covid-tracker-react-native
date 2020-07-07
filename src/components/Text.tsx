@@ -20,6 +20,10 @@ export const HeaderLightText = ({ style, children }: Props) => (
 
 export const RegularText = ({ style, children }: Props) => <Text style={[styles.regularText, style]}>{children}</Text>;
 
+export const FieldLabel = ({ style, children }: Props) => (
+  <Text style={[styles.regularText, styles.fieldLabel, style]}>{children}</Text>
+);
+
 export const ClippedText = ({ style, children }: Props) => (
   <Text style={[styles.regularText, style]} numberOfLines={1}>
     {children}
@@ -96,6 +100,11 @@ const styles = StyleSheet.create({
   clickableText: {
     ...fontStyles.bodyReg,
     color: colors.purple,
+  },
+
+  fieldLabel: {
+    paddingHorizontal: 16,
+    marginBottom: -16,
   },
 
   divider: {

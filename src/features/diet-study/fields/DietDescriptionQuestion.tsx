@@ -2,12 +2,12 @@ import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { Item } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { RegularText } from '@covid/components/Text';
+import { FieldLabel } from '@covid/components/Text';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 
 export interface DietData {
@@ -66,12 +66,12 @@ export const DietDescriptionQuestion: DietDescriptionQuestion<Props, DietData> =
   ];
 
   return (
-    <>
+    <View style={{ marginVertical: 16 }}>
+      <FieldLabel style={{ marginBottom: 4 }}>{i18n.t('diet-study.diet.label')}</FieldLabel>
       <Item stackedLabel style={styles.textItemStyle}>
-        <RegularText>{i18n.t('diet-study.diet.label')}</RegularText>
         <CheckboxList>{createCheckboxes(checkboxes, formikProps)}</CheckboxList>
       </Item>
-    </>
+    </View>
   );
 };
 

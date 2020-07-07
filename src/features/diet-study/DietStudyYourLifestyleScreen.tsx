@@ -7,7 +7,7 @@ import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import Screen, { Header } from '@covid/components/Screen';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -17,6 +17,7 @@ import { AlcoholData, AlcoholQuestions } from '@covid/features/diet-study/fields
 import { SupplementData, SupplementQuestions } from '@covid/features/diet-study/fields/SupplementQuestions';
 import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fields/DietDescriptionQuestion';
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
+import ProgressStatus from '@covid/components/ProgressStatus';
 
 export interface FormData extends PhysicalActivityData, AlcoholData, SupplementData, DietData, EatingHabitData {}
 
@@ -84,6 +85,10 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
           <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
         </Header>
 
+        <ProgressBlock>
+          <ProgressStatus step={2} maxSteps={3} />
+        </ProgressBlock>
+
         <Formik
           initialValues={{
             ...PhysicalActivityQuestion.initialFormValues(),
@@ -98,7 +103,7 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
           }}>
           {(props) => {
             return (
-              <Form>
+              <Form style={styles.container}>
                 <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
                 <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
                 <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
@@ -122,4 +127,8 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 6,
+  },
+});

@@ -1038,7 +1038,7 @@
     },
 
     "your-lifestyle": {
-      "title": "A bit about you"
+      "title": "Your lifestyle"
     },
 
     "physical-activity": {
@@ -1076,10 +1076,10 @@
       "label-1": "A drink is defined as one unit of alcohol.",
       "label-2": "Typical units in common alcoholic beverages:",
       "pints": "Pint or can of beer/lager/cider",
-      "shot": "Single shot of spirits",
+      "shots": "Single shot of spirits",
       "small-glass": "Small glass of fortified wine",
-      "standard-wine": "Standard glass of wine",
-      "large-wine": "Large glass of wine",
+      "standard-glass": "Standard glass of wine",
+      "large-glass": "Large glass of wine",
       "bottle-wine": "Bottle of wine"
     },
 
