@@ -96,7 +96,9 @@ export class AppCoordinator {
     this.navigation = navigation;
     await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
-    this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+    if (this.patientId) {
+      this.currentPatient = await this.userService.getCurrentPatient(this.patientId);
+    }
   }
 
   // Workaround for Expo save/refresh nixing the navigation.
