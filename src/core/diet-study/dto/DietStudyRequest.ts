@@ -85,6 +85,5 @@ export type DietStudyRequest = {
   milk_skimmed: boolean;
   milk_rarely_never: boolean;
   milk_plant: boolean;
-  milk_other_sweetened: boolean;
-  milk_other_unsweetened: boolean;
+  milk_other: boolean;
 };
