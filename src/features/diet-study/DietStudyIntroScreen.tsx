@@ -3,12 +3,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
+import { StickyBottomButton } from '@covid/components/Screen';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { assessmentService } from '@covid/Services';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { TextInfoScreen } from '@covid/components/Screens/TextInfoScreen';
+import i18n from '@covid/locale/i18n';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyIntro'>;
@@ -21,34 +21,48 @@ export default class DietStudyIntroScreen extends Component<Props> {
     AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
-  private async updateAssessment(status: string, isComplete = false) {
-    const { assessmentId } = AssessmentCoordinator.assessmentData;
-    const assessment = {
-      location: status,
-    };
+  private accept = () => {
+    Analytics.track(events.ACCEPT_DIET_STUDY);
+  };
 
-    if (isComplete) {
-      await assessmentService.completeAssessment(assessmentId!, assessment);
-    } else {
-      await assessmentService.saveAssessment(assessmentId!, assessment);
-    }
-  }
+  private defer = () => {
+    Analytics.track(events.DEFER_DIET_STUDY);
+  };
+
+  private skip = () => {
+    Analytics.track(events.DECLINE_DIET_STUDY);
+  };
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
-
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{}</HeaderText>
-        </Header>
-
-        <ProgressBlock>
-          <ProgressStatus step={1} maxSteps={3} />
-        </ProgressBlock>
-      </Screen>
+      <TextInfoScreen
+        profile={currentPatient.profile}
+        navigation={this.props.navigation}
+        headerLabel={i18n.t('diet-study.intro.title')}
+        primaryLabel={i18n.t('diet-study.intro.description-1')}
+        secondaryLabel={i18n.t('diet-study.intro.description-2')}
+        primaryButtonLabel={i18n.t('diet-study.intro.cta-yes')}
+        secondaryButtonLabel={i18n.t('diet-study.intro.cta-no-later')}
+        primaryButtonAction={this.accept}
+        secondaryButtonAction={this.skip}
+        bottomView={<StickyBottomButton label={i18n.t('diet-study.intro.cta-no-never')} onPress={this.skip} />}
+      />
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {
+    alignSelf: 'center',
+    marginBottom: 16,
+  },
+  primaryLabel: {
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  secondaryLabel: {
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+});
