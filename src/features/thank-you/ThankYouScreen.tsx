@@ -83,7 +83,7 @@ export default class ThankYouScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
-              <BrandedButton onPress={() => this.props.navigation.popToTop} style={styles.done}>
+              <BrandedButton onPress={this.props.navigation.popToTop} style={styles.done}>
                 <RegularText>{i18n.t('completed')}</RegularText>
               </BrandedButton>
             </View>
