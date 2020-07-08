@@ -20,8 +20,6 @@ type Props = {
   route: RouteProp<ScreenParamList, 'Splash'>;
 };
 
-type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
-
 type SplashState = {
   isOnline: boolean;
   isApiOnline: boolean;
@@ -64,7 +62,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   async initAppState() {
-    await appCoordinator.init(this.props.navigation as NavigationType);
+    await appCoordinator.init();
     appCoordinator.gotoNextScreen(this.props.route.name);
   }
 
