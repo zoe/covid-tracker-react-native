@@ -10,4 +10,4 @@ const ValueChangeHandler = (): HandlerFunction => action('selectable-item-select
 
 storiesOf('Selectable', module)
   .addDecorator(PaddingView)
-  .add('default view', () => <Selectable items={FOOD_INTAKE_FREQUENCY()} onSelected={ValueChangeHandler()} />);
+  .add('default view', () => <Selectable items={FOOD_INTAKE_FREQUENCY} onSelected={ValueChangeHandler()} />);
