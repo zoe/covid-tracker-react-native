@@ -75,7 +75,7 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           onSelected={(selected) => {
             setTimeout(() => {
               setCollapsed(true);
-            }, 140);
+            }, 214);
             setSelectedItem(selected);
             if (onSelected) onSelected(selected);
           }}
