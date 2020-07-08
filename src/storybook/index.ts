@@ -15,6 +15,9 @@ configure(() => {
   require('./stories/ShareApp.stories');
   require('./stories/Buttons.stories');
   require('./stories/Selectable.stories');
+  require('./stories/DietStudy.stories');
+  require('./stories/NumberIndicator.stories');
+  require('./stories/FoodFreqCard.stories');
 }, module);
 
 // Global Decorator

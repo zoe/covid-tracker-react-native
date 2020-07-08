@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
@@ -9,7 +9,7 @@ export * from './BrandedButton';
 
 interface Props {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
 }
 
 export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;

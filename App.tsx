@@ -6,7 +6,7 @@ import StorybookUIRoot from '@covid/storybook';
 import { Provider } from '@covid/provider/services.provider';
 import { container } from '@covid/provider/services';
 
-const ENABLE_STORYBOOK = false;
+const ENABLE_STORYBOOK = true;
 
 const App: React.FC = () => {
   const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
