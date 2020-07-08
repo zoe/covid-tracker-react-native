@@ -99,7 +99,7 @@ export class AppCoordinator {
     await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
-      this.currentPatient = await this.userService.getCurrentPatient(this.patientId);
+      this.currentPatient = await this.userService.getPatientState(this.patientId);
     }
   }
 
@@ -155,7 +155,7 @@ export class AppCoordinator {
 
   async setPatientId(patientId: string) {
     this.patientId = patientId;
-    this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+    this.currentPatient = await this.userService.getPatientState(this.patientId!);
   }
 
   goToUKValidationStudy() {
