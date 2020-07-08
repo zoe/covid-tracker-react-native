@@ -8,12 +8,12 @@ import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
 
 import { AsyncStorageService } from '../AsyncStorageService';
-import { getCountryConfig, ConfigType } from '../Config';
+import { ConfigType, getCountryConfig } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
-import { getInitialPatientState, PatientStateType, PatientProfile } from '../patient/PatientState';
+import { getInitialPatientState, PatientProfile, PatientStateType } from '../patient/PatientState';
 import { cleanIntegerVal } from '../../utils/number';
 
 import {
@@ -44,7 +44,7 @@ export interface IUserService {
   getProfile(): Promise<UserResponse>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
-  loadUser(): Promise<AuthenticatedUser | null>;
+  loadUser(): void;
   getFirstPatientId(): Promise<string | null>;
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
@@ -71,7 +71,7 @@ export interface IPatientService {
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
-  getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
+  getPatientState(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
 }
 
 export interface ILocalisationService {
@@ -165,7 +165,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return data;
   };
 
-  async loadUser(): Promise<AuthenticatedUser | null> {
+  async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
     this.hasUser = !!user && !!user!.userToken && !!user!.userId;
     this.updateUserCountry(this.hasUser);
@@ -177,14 +177,12 @@ export default class UserService extends ApiClientBase implements ICoreService {
         await this.logout();
       }
     }
-    return user;
   }
 
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      const patientId = profile!.patients[0];
-      return patientId;
+      return profile.patients[0];
     } catch (error) {
       return null;
     }
@@ -385,23 +383,16 @@ export default class UserService extends ApiClientBase implements ICoreService {
     };
   }
 
-  public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
-    let currentPatient = getInitialPatientState(patientId);
+  public async getPatientState(patientId: string): Promise<PatientStateType> {
+    let patientState = getInitialPatientState(patientId);
 
-    try {
-      if (!patient) {
-        const loadPatient = await this.getPatient(patientId);
-        patient = loadPatient ?? patient;
-      }
-    } catch (error) {
-      handleServiceError(error);
+    const patientInfo = await this.getPatient(patientId);
+
+    if (patientInfo) {
+      patientState = await this.updatePatientState(patientState, patientInfo);
     }
 
-    if (patient) {
-      currentPatient = await this.updatePatientState(currentPatient, patient);
-    }
-
-    return currentPatient;
+    return patientState;
   }
 
   public async getProfile(): Promise<UserResponse> {
