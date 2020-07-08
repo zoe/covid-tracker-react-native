@@ -8,13 +8,12 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import Analytics, { events } from '@covid/core/Analytics';
+import NavigatorService from '@covid/NavigatorService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
-
-export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -22,7 +21,6 @@ export type AssessmentData = {
 };
 
 export class AssessmentCoordinator {
-  navigation: NavigationType;
   userService: ICoreService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
@@ -34,29 +32,29 @@ export class AssessmentCoordinator {
     },
     LevelOfIsolation: () => {
       if (this.assessmentData.currentPatient.isHealthWorker) {
-        this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
-        this.navigation.navigate('CovidTestList', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
       }
     },
     HealthWorkerExposure: () => {
-      this.navigation.navigate('CovidTestList', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
       if (this.assessmentData.currentPatient.shouldAskLifestyleQuestion) {
-        this.navigation.navigate('Lifestyle', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('Lifestyle', { assessmentData: this.assessmentData });
       } else {
-        this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
     },
     Lifestyle: () => {
-      this.navigation.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
-      this.navigation.goBack();
+      NavigatorService.goBack();
     },
     DescribeSymptoms: () => {
-      this.navigation.navigate('WhereAreYou', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
     TreatmentOther: () => {
       this.gotoEndAssessment();
@@ -68,24 +66,14 @@ export class AssessmentCoordinator {
 
   init = (
     appCoordinator: AppCoordinator,
-    navigation: NavigationType,
     assessmentData: AssessmentData,
     userService: ICoreService,
     assessmentService: IAssessmentService
   ) => {
     this.appCoordinator = appCoordinator;
-    this.navigation = navigation;
     this.assessmentData = assessmentData;
     this.userService = userService;
     this.assessmentService = assessmentService;
-  };
-
-  // Workaround for Expo save/refresh nixing the navigation.
-  resetNavigation = (navigation: NavigationType) => {
-    if (!this.navigation) {
-      console.log('[ROUTE] Resetting navigation');
-    }
-    this.navigation = this.navigation || navigation;
   };
 
   startAssessment = () => {
@@ -95,14 +83,14 @@ export class AssessmentCoordinator {
 
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
-        this.navigation.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
       } else if (currentPatient.shouldAskLevelOfIsolation) {
-        this.navigation.navigate('LevelOfIsolation', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('LevelOfIsolation', { assessmentData: this.assessmentData });
       } else {
         if (currentPatient.isHealthWorker) {
-          this.navigation.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
+          NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
         } else {
-          this.navigation.navigate('CovidTestList', { assessmentData: this.assessmentData });
+          NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
         }
       }
     } else {
@@ -118,12 +106,12 @@ export class AssessmentCoordinator {
       !this.assessmentData.currentPatient.isReportedByAnother &&
       (await this.userService.shouldAskForVaccineRegistry())
     ) {
-      this.navigation.navigate('VaccineRegistrySignup', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('VaccineRegistrySignup', { assessmentData: this.assessmentData });
     } else if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
-      this.navigation.navigate('ReportForOther');
+      NavigatorService.navigate('ReportForOther');
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
-      this.navigation.navigate(thankYouScreen);
+      NavigatorService.navigate(thankYouScreen);
     }
   };
 
@@ -138,24 +126,24 @@ export class AssessmentCoordinator {
 
   // The following navigations require the checking of some state and so these are passed in.
   goToAddEditTest = (covidTest?: CovidTest) => {
-    this.navigation.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
+    NavigatorService.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
   };
 
   goToNextHowYouFeelScreen = (healthy: boolean) => {
     return healthy
       ? this.gotoEndAssessment()
-      : this.navigation.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
+      : NavigatorService.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
   };
 
   goToNextWhereAreYouScreen = (location: string, endAssessment: boolean) => {
     return endAssessment
       ? this.gotoEndAssessment()
-      : this.navigation.navigate('TreatmentSelection', { assessmentData: this.assessmentData, location });
+      : NavigatorService.navigate('TreatmentSelection', { assessmentData: this.assessmentData, location });
   };
 
   goToNextTreatmentSelectionScreen = (other: boolean, location: string) => {
     return other
-      ? this.navigation.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
+      ? NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
       : this.gotoEndAssessment();
   };
 
@@ -163,7 +151,7 @@ export class AssessmentCoordinator {
     this.userService.setVaccineRegistryResponse(response);
     if (response) {
       Analytics.track(events.JOIN_VACCINE_REGISTER);
-      this.navigation.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
+      NavigatorService.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
     } else {
       Analytics.track(events.DECLINE_VACCINE_REGISTER);
       this.gotoEndAssessment();

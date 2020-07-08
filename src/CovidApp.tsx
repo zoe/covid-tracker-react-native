@@ -63,6 +63,8 @@ import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReason
 import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
 import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/VaccineRegistrySignUpScreen';
 import { VaccineRegistryInfoScreen } from '@covid/features/assessment/gb/VaccineRegistryInfoScreen';
+import appCoordinator from '@covid/features/AppCoordinator';
+import NavigatorService from '@covid/NavigatorService';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -146,8 +148,11 @@ export default class CovidApp extends Component<object, State> {
             <Header style={{ display: 'none' }}>
               <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
             </Header>
-
-            <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
+            <NavigationContainer
+              ref={(navigatorRef) => {
+                NavigatorService.setContainer(navigatorRef);
+              }}
+              onStateChange={this.handleStateChange}>
               <Drawer.Navigator
                 drawerContent={(props) => <DrawerMenu {...props} />}
                 screenOptions={{ swipeEnabled: false }}
