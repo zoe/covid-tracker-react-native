@@ -50,7 +50,14 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
     console.log(infos);
 
     try {
-      await dietStudyApiClient.addDietStudy(this.props.route.params.dietStudyData.currentPatient.patientId, infos);
+      const response = await dietStudyApiClient.addDietStudy(
+        this.props.route.params.dietStudyData.currentPatient.patientId,
+        infos
+      );
+
+      // Set StudyID from server response
+      dietStudyCoordinator.dietStudyData.recentDietStudyId = response.id;
+
       this.setState({ submitting: false });
       dietStudyCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
