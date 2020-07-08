@@ -6,7 +6,6 @@ import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
 
-import { surveyInvite } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
@@ -200,13 +199,6 @@ export default class ViralThankYouScreen extends Component<Props, State> {
               {displayStats && validArea && <ContributionRank areaStats={area} />}
 
               <ShareAppCardViral area={area} />
-
-              <ExternalCallout
-                link="https://www.surveymonkey.co.uk/r/RT8TKZJ"
-                calloutID="surveyInvite"
-                imageSource={surveyInvite}
-                aspectRatio={3.38}
-              />
 
               <Partners />
 
