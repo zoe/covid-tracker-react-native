@@ -26,7 +26,7 @@ const SelectedLabel: React.FC<{ title: string }> = ({ title }) => (
 const animate = (fn: any) => {
   Animated.timing(fn, {
     toValue: 1,
-    duration: 300,
+    duration: 224,
     easing: Easing.inOut(Easing.cubic),
   }).start();
 };
@@ -69,10 +69,13 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
       <Collapsible enablePointerEvents={false} collapsed={collapsed}>
         <View style={{ height: 20 }} />
         <Selectable
+          key={primaryLabel}
           items={items}
           resetAnimation={collapsed}
           onSelected={(selected) => {
-            setCollapsed(true);
+            setTimeout(() => {
+              setCollapsed(true);
+            }, 140);
             setSelectedItem(selected);
             if (onSelected) onSelected(selected);
           }}

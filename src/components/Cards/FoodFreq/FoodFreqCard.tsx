@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { FOOD_INTAKE_FREQUENCY, SelectableItem } from '@covid/components/Inputs/Selectable';
+import i18n from '@covid/locale/i18n';
 
 import { FoodFreqGroupItem, FoodFreqGroup } from './FoodFreqGroup';
 
@@ -15,78 +16,80 @@ export const GROUPS = (): FoodFreqGroupItem[] => {
   const items = FOOD_INTAKE_FREQUENCY();
   const groups: Partial<FoodFreqGroupItem>[] = [
     {
-      primaryLabel: 'Fruit',
-      secondaryLabel: '(tinned / fresh)',
+      primaryLabel: i18n.t('diet-study.typical-diet.fruit-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.fruit-2'),
     },
     {
-      primaryLabel: 'Salad',
-      secondaryLabel: '(not garnish added to sandwiches)',
+      primaryLabel: i18n.t('diet-study.typical-diet.fruit_juice-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.fruit_juice-2'),
     },
     {
-      primaryLabel: 'Vegetables',
-      secondaryLabel: '(tinned / frozen / fresh but not potatoes)',
+      primaryLabel: i18n.t('diet-study.typical-diet.salad-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.salad-2'),
     },
     {
-      primaryLabel: 'Chips / fried potatoes',
+      primaryLabel: i18n.t('diet-study.typical-diet.vegetables-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.vegetables-2'),
     },
     {
-      primaryLabel: 'Beans or pulses',
-      secondaryLabel: '(like baked beans, chick peas, dahl)',
+      primaryLabel: i18n.t('diet-study.typical-diet.chips-1'),
     },
     {
-      primaryLabel: 'Fibre-rich breakfast cereal',
-      secondaryLabel: '(like Weetabix, Fruit ‘n Fibre, Porridge, Muesli)',
+      primaryLabel: i18n.t('diet-study.typical-diet.pulses-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.pulses-2'),
     },
     {
-      primaryLabel: 'Wholemeal bread or chapattis',
+      primaryLabel: i18n.t('diet-study.typical-diet.fibre_rich_breakfast-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.fibre_rich_breakfast-2'),
     },
     {
-      primaryLabel: 'Cheese / yoghurt',
-    },
-
-    {
-      primaryLabel: 'Crisps / savoury snacks',
-    },
-
-    {
-      primaryLabel: 'Sweet biscuits, cakes, chocolate, sweets',
+      primaryLabel: i18n.t('diet-study.typical-diet.wholemeal_bread-1'),
     },
     {
-      primaryLabel: 'Ice cream / cream',
+      primaryLabel: i18n.t('diet-study.typical-diet.cheese_yogurt-1'),
     },
     {
-      primaryLabel: 'Non alcoholic fizzy drinks/pop',
-      secondaryLabel: '(not sugar free or diet)',
+      primaryLabel: i18n.t('diet-study.typical-diet.crisps_snacks-1'),
     },
     {
-      primaryLabel: 'Beef, Lamb, Pork, Ham',
-      secondaryLabel: '(steaks, roasts, joints, mince or chops)',
+      primaryLabel: i18n.t('diet-study.typical-diet.sweets-1'),
     },
     {
-      primaryLabel: 'Chicken or Turkey',
-      secondaryLabel: '(steaks, roasts, joints, mince or portions (not in batter or breadcrumbs)',
+      primaryLabel: i18n.t('diet-study.typical-diet.ice_cream-1'),
     },
     {
-      primaryLabel: 'Sausages, bacon, corned beef, meat pies/pasties, burgers',
+      primaryLabel: i18n.t('diet-study.typical-diet.fizzy_pop-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.fizzy_pop-2'),
     },
     {
-      primaryLabel: 'Chicken/turkey nuggets/twizzlers, turkey burgers, chicken pies, or in batter or breadcrumbs ',
+      primaryLabel: i18n.t('diet-study.typical-diet.red_meat-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.red_meat-2'),
     },
     {
-      primaryLabel: 'White fish in batter or breadcrumbs – like ‘fish ‘n chips’',
+      primaryLabel: i18n.t('diet-study.typical-diet.white_meat-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.white_meat-2'),
     },
     {
-      primaryLabel: 'White fish not in batter or breadcrumbs',
+      primaryLabel: i18n.t('diet-study.typical-diet.red_processed_meat-1'),
     },
     {
-      primaryLabel: 'Oily fish – like herrings, sardines, salmon, trout, mackerel, fresh tuna',
-      secondaryLabel: '(not tinned tuna)',
+      primaryLabel: i18n.t('diet-study.typical-diet.white_processed_meat-1'),
     },
     {
-      primaryLabel: 'Eggs - as boiled, fried, scrambled, etc. (one)',
+      primaryLabel: i18n.t('diet-study.typical-diet.white_fish_battered_breaded-1'),
     },
     {
-      primaryLabel: 'Fast food',
+      primaryLabel: i18n.t('diet-study.typical-diet.white_fish-1'),
+    },
+    {
+      primaryLabel: i18n.t('diet-study.typical-diet.oily_fish-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.oily_fish-2'),
+    },
+    {
+      primaryLabel: i18n.t('diet-study.typical-diet.eggs-1'),
+    },
+    {
+      primaryLabel: i18n.t('diet-study.typical-diet.fast_food-1'),
     },
   ];
 
@@ -108,6 +111,7 @@ export const FoodFreqCard: React.FC<Props> = ({ items = GROUPS(), onSelected }) 
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup
               {...item}
+              key={item.primaryLabel}
               onSelected={(newValue) => {
                 if (onSelected) onSelected(item.primaryLabel, newValue);
               }}
