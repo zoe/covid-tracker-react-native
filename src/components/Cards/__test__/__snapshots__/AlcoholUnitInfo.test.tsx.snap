@@ -677,7 +677,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        [missing "en.diet-study.alcohol-unit-info.shots" translation]
+        Single shot of spirits
       </Text>
       <Text
         style={
@@ -1155,7 +1155,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        [missing "en.diet-study.alcohol-unit-info.standard-glass" translation]
+        Standard glass of wine
       </Text>
       <Text
         style={
@@ -1453,7 +1453,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        [missing "en.diet-study.alcohol-unit-info.large-glass" translation]
+        Large glass of wine
       </Text>
       <Text
         style={
@@ -1701,7 +1701,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           ]
         }
       >
-        [missing "en.diet-study.alcohol-unit-info.bottle-glass" translation]
+        Bottle of wine
       </Text>
       <Text
         style={
