@@ -63,7 +63,6 @@ import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReason
 import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
 import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/VaccineRegistrySignUpScreen';
 import { VaccineRegistryInfoScreen } from '@covid/features/assessment/gb/VaccineRegistryInfoScreen';
-import appCoordinator from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
 const Stack = createStackNavigator<ScreenParamList>();
