@@ -1,14 +1,26 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientProfile } from '@covid/core/patient/PatientState';
-import Analytics from '@covid/core/Analytics';
 
 import PatientHeader from './PatientHeader';
+import { RegularText } from './Text';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
@@ -17,10 +29,11 @@ export const isIos = Platform.OS === 'ios';
 
 type HeaderProp = {
   children: React.ReactNode;
+  style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
 };
 
 export const Header = (props: HeaderProp) => {
-  return <View style={styles.headerBlock}>{props.children}</View>;
+  return <View style={[styles.headerBlock, props.style]}>{props.children}</View>;
 };
 
 type ProgressBlockType = {
@@ -60,7 +73,7 @@ export default class Screen extends Component<ScreenProps> {
 
     return (
       <SafeAreaView style={styles.screen}>
-        {profile ? (
+        {profile && this.props.navigation ? (
           <PatientHeader
             profile={profile}
             navigation={this.props.navigation}
@@ -79,6 +92,15 @@ export default class Screen extends Component<ScreenProps> {
     );
   }
 }
+
+export const StickyBottomButton: React.FC<{
+  label: string;
+  onPress: VoidFunction;
+}> = ({ label, onPress }) => (
+  <TouchableOpacity style={{ marginBottom: 64 }} onPress={onPress}>
+    <RegularText style={[{ textAlign: 'center' }]}>{label}</RegularText>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   screen: {
