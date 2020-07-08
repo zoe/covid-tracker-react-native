@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Share, ShareAction, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, Linking } from 'react-native';
 
 import { facebook } from '@assets';
 import { colors } from '@theme';
@@ -7,9 +7,14 @@ import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/T
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 
-import { isAndroid } from '../Screen';
-
 export const FacebookSECard: React.FC = () => {
+  const onButtonPress = () => {
+    Analytics.track(events.CLICK_CALLOUT, {
+      name: 'facebookSE',
+    });
+    Linking.openURL(i18n.t('https://www.facebook.com/covidsymptomstudysverige'));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.socialIconContainer}>
@@ -19,7 +24,7 @@ export const FacebookSECard: React.FC = () => {
       <RegularText style={styles.secondaryText}>
         Här hittar du alltid de senaste kartorna, samt analyser och artiklar från COVID Symptom Study
       </RegularText>
-      <BrandedButton onPress={() => {}} style={styles.shareButton}>
+      <BrandedButton onPress={onButtonPress} style={styles.shareButton}>
         Följ oss på Facebook
       </BrandedButton>
     </View>
