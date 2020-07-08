@@ -2,15 +2,21 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Text } from 'native-base';
 
-import { colors } from '@theme';
+import { notificationRemindersSE } from '@assets';
+import { colors, fontStyles } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Header, ProgressBlock } from '@covid/components/Screen';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
-import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText, BrandedButton } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
 import i18n from '@covid/locale/i18n';
+import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
+import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
+import { FacebookSECard } from '@covid/components/Cards/FacebookSE';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -19,16 +25,28 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'ThankYou'>;
 };
 
-export default class ThankYouScreen extends Component<RenderProps, { askForRating: boolean }> {
-  state = {
-    askForRating: false,
-  };
+type State = {
+  askForRating: boolean;
+  shouldShowReminders: boolean;
+};
+
+const initialState = {
+  askForRating: false,
+  shouldShowReminders: false,
+};
+
+export default class ThankYouScreen extends Component<RenderProps, State> {
+  private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
+
+  state = initialState;
 
   async componentDidMount() {
     // Ask for rating if not asked before and server indicates eligible.
-    if (await shouldAskForRating()) {
-      this.setState({ askForRating: true });
-    }
+    this.setState({
+      askForRating: await shouldAskForRating(),
+      // shouldShowReminders: !(await this.pushService.isGranted()),
+      shouldShowReminders: true,
+    });
   }
 
   render() {
@@ -39,25 +57,35 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
               <Header>
-                <HeaderText>{i18n.t('thank-you-title')}</HeaderText>
+                <HeaderText style={styles.headerText}>{i18n.t('thank-you-title')}</HeaderText>
               </Header>
 
-              <ProgressBlock>
-                <ProgressStatus step={5} maxSteps={5} />
-              </ProgressBlock>
-
-              <View style={styles.content}>
-                <RegularText>{i18n.t('thank-you-body')}</RegularText>
+              <View>
+                <RegularText style={styles.subTitle}> {i18n.t('thank-you-body')}</RegularText>
               </View>
+
+              <FacebookSECard />
+
+              {this.state.shouldShowReminders && (
+                <ExternalCallout
+                  link=""
+                  calloutID="notificationRemindersSE"
+                  imageSource={notificationRemindersSE}
+                  aspectRatio={311.0 / 104.0}
+                  action={() => {
+                    PushNotificationService.openSettings();
+                  }}
+                />
+              )}
 
               <ShareAppCard />
               <VisitWebsite />
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
-              <ClickableText onPress={this.props.navigation.popToTop} style={styles.done}>
-                {i18n.t('completed')}
-              </ClickableText>
+              <BrandedButton onPress={() => this.props.navigation.popToTop} style={styles.done}>
+                <RegularText>{i18n.t('completed')}</RegularText>
+              </BrandedButton>
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -67,11 +95,6 @@ export default class ThankYouScreen extends Component<RenderProps, { askForRatin
 }
 
 const styles = StyleSheet.create({
-  content: {
-    justifyContent: 'space-between',
-    marginVertical: 32,
-    marginHorizontal: 18,
-  },
   scrollView: {
     flexGrow: 1,
     backgroundColor: colors.backgroundSecondary,
@@ -79,6 +102,21 @@ const styles = StyleSheet.create({
   },
   rootContainer: {
     padding: 10,
+  },
+  headerText: {
+    textAlign: 'center',
+    marginTop: 15,
+    fontSize: 22,
+    lineHeight: 26,
+  },
+  content: {
+    marginVertical: 32,
+    marginHorizontal: 18,
+  },
+  subTitle: {
+    textAlign: 'center',
+    marginBottom: 15,
+    marginHorizontal: 22,
   },
   newsFeed: {
     paddingVertical: 20,
@@ -93,8 +131,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   shareSubtitle: {
-    paddingVertical: 10,
-    paddingHorizontal: 40,
+    ...fontStyles.bodySmallLight,
+    // paddingVertical: 10,
+    paddingHorizontal: 16,
     textAlign: 'center',
     color: colors.secondary,
   },
@@ -105,9 +144,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   done: {
-    alignSelf: 'center',
-    margin: 40,
-    fontSize: 24,
-    color: colors.brand,
+    marginTop: 24,
+    marginBottom: 20,
+    marginHorizontal: 8,
+    backgroundColor: colors.backgroundSecondary,
+    borderColor: colors.tertiary,
+    borderWidth: 1,
   },
 });
