@@ -1047,6 +1047,17 @@
       "pfnts": "Prefer not to say"
     },
 
+    "food-frequency": {
+      "rarely-or-never": "Rarely or never",
+      "less-than-once-a-week": "Less than once a week",
+      "once-a-week": "Once a week",
+      "two-to-three-a-week": "2 to 3 times a week",
+      "four-to-six-a-week": "4 to 6 times a week",
+      "one-to-two-a-day": "1 to 2 times a day",
+      "three-to-four-a-day": "3 to 4 times a day",
+      "five-plus-a-day": "5+ times a day"
+    },
+
     "alcohol-frequency": {
       "label": "How often do you have a drink containing alcohol?",
       "never": "Never",
