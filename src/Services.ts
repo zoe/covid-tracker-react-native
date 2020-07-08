@@ -6,12 +6,12 @@ import PushNotificationService, {
 } from '@covid/core/push-notifications/PushNotificationService';
 import ContentService from '@covid/core/content/ContentService';
 import { ContentApiClient } from '@covid/core/content/ContentApiClient';
+import { DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 
 import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
 import ReduxAssessmentState from './core/assessment/AssessmentState';
 import ExpoPushTokenEnvironment from './core/push-notifications/expo';
-import { DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();
