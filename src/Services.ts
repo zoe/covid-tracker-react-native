@@ -11,6 +11,7 @@ import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
 import ReduxAssessmentState from './core/assessment/AssessmentState';
 import ExpoPushTokenEnvironment from './core/push-notifications/expo';
+import { DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();
@@ -31,3 +32,4 @@ export const pushNotificationService = new PushNotificationService(
 const assessmentState = new ReduxAssessmentState();
 const assessmentApiClient = new AssessmentApiClient(apiClient);
 export const assessmentService = new AssessmentService(assessmentApiClient, assessmentState);
+export const dietStudyApiClient = new DietStudyApiClient(apiClient);

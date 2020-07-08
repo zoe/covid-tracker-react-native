@@ -19,8 +19,11 @@ import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-stu
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
+import { DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
+import { dietStudyApiClient } from '@covid/Services';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 
-export interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
+interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyAboutYou'>;
@@ -43,12 +46,13 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
     this.state = initialState;
   }
 
-  submitDietStudy(infos: Partial<DietStudyRequest>) {
+  async submitDietStudy(infos: Partial<DietStudyRequest>) {
     console.log(infos);
 
     try {
+      await dietStudyApiClient.addDietStudy(this.props.route.params.dietStudyData.currentPatient.patientId, infos);
       this.setState({ submitting: false });
-      this.props.navigation.navigate('DietStudyYourLifestyle');
+      dietStudyCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       throw error;
@@ -60,7 +64,7 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
     this.setState({ submitting: true });
 
     let infos = {
-      patient: '', // TODO - Set the PatientID
+      patient: this.props.route.params.dietStudyData.currentPatient.patientId,
       ...ExtraWeightQuestions.createDTO(formData),
       ...HoursSleepQuestion.createDTO(formData),
       ...ShiftWorkQuestion.createDTO(formData),
@@ -78,7 +82,7 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
       infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
     }
 
-    this.submitDietStudy(infos);
+    await this.submitDietStudy(infos);
   }
 
   render() {

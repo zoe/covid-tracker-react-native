@@ -19,8 +19,10 @@ import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fi
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
+import { dietStudyApiClient } from '@covid/Services';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 
-export interface FormData
+interface FormData
   extends PhysicalActivityData,
     AlcoholData,
     SupplementData,
@@ -49,12 +51,21 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
     this.state = initialState;
   }
 
-  submitDietStudy(infos: Partial<DietStudyRequest>) {
+  // TODO: Can be refactored
+  async submitDietStudy(infos: Partial<DietStudyRequest>) {
     console.log(infos);
 
     try {
+      // TODO - How do we work out if we answering for th recent (June) study or the Feb Study period.
+      const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
+      if (studyId) {
+        await dietStudyApiClient.updateDietStudy(studyId, infos);
+      } else {
+        await dietStudyApiClient.addDietStudy(dietStudyCoordinator.dietStudyData.currentPatient.patientId, infos);
+      }
+
       this.setState({ submitting: false });
-      this.props.navigation.navigate('DietStudyTypicalDiet');
+      dietStudyCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       throw error;
@@ -66,8 +77,6 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
     this.setState({ submitting: true });
 
     const infos = {
-      patient: '', // TODO - Set the PatientID
-
       ...PhysicalActivityQuestion.createDTO(formData),
       ...AlcoholQuestions.createDTO(formData),
       ...SupplementQuestions.createDTO(formData),
@@ -76,7 +85,7 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
       ...EatingWindowQuestions.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    this.submitDietStudy(infos);
+    await this.submitDietStudy(infos);
   }
 
   render() {

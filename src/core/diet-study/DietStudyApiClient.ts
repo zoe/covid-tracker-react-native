@@ -16,17 +16,17 @@ export class DietStudyApiClient implements IDietStudyRemoteClient {
     this.apiClient = apiClient;
   }
 
-  updateDietStudy(studyId: string, payload: DietStudyRequest): Promise<DietStudyResponse> {
+  updateDietStudy(studyId: string, payload: Partial<DietStudyRequest>): Promise<DietStudyResponse> {
     const url = `${API_URL}${studyId}/`;
-    return this.apiClient.patch<DietStudyRequest, DietStudyResponse>(url, payload);
+    return this.apiClient.patch<DietStudyRequest, DietStudyResponse>(url, payload as DietStudyRequest);
   }
 
-  addDietStudy(patientId: string, payload: DietStudyRequest): Promise<DietStudyResponse> {
+  addDietStudy(patientId: string, payload: Partial<DietStudyRequest>): Promise<DietStudyResponse> {
     payload = {
       ...payload,
       patient: patientId,
       version: appConfig.dietStudyVersion,
     };
-    return this.apiClient.post<DietStudyRequest, DietStudyResponse>(API_URL, payload);
+    return this.apiClient.post<DietStudyRequest, DietStudyResponse>(API_URL, payload as DietStudyRequest);
   }
 }

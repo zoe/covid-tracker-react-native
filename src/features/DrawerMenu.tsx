@@ -13,6 +13,7 @@ import PushNotificationService from '@covid/core/push-notifications/PushNotifica
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
+import appCoordinator, { AppCoordinator } from '@covid/features/AppCoordinator';
 
 type MenuItemProps = {
   label: string;
@@ -110,6 +111,12 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
       : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
   }
 
+  function openDietStudy() {
+    console.log('1');
+    appCoordinator.goToDietStart();
+    // props.navigation.navigate('DietStudyAboutYou'); // TODO - Wire Navigations
+  }
+
   function showResearchUpdates() {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.RESEARCH_UPDATE,
@@ -147,7 +154,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           label={i18n.t('diet-study.drawer-menu-item')}
           indicator={2}
           onPress={() => {
-            props.navigation.navigate('DietStudyAboutYou'); // TODO - Wire Navigations
+            openDietStudy();
           }}
         />
         <MenuItem
