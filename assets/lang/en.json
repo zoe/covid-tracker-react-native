@@ -1023,6 +1023,7 @@
       "title": "A bit about you"
     },
 
+    "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
     "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)",
@@ -1034,6 +1035,10 @@
       "sometimes-not-enough": "You sometimes did not have enough to eat",
       "often-not-enough": "You often didn't have enough to eat",
       "pfnts": "Prefer not to say"
+    },
+
+    "your-lifestyle": {
+      "title": "Your lifestyle"
     },
 
     "physical-activity": {
@@ -1082,17 +1087,17 @@
       "label-1": "A drink is defined as one unit of alcohol.",
       "label-2": "Typical units in common alcoholic beverages:",
       "pints": "Pint or can of beer/lager/cider",
-      "shot": "Single shot of spirits",
+      "shots": "Single shot of spirits",
       "small-glass": "Small glass of fortified wine",
-      "standard-wine": "Standard glass of wine",
-      "large-wine": "Large glass of wine",
+      "standard-glass": "Standard glass of wine",
+      "large-glass": "Large glass of wine",
       "bottle-wine": "Bottle of wine"
     },
 
     "takes-supplements-label": "Do you regularly (at least 3-4 times a week) take supplements?",
 
     "supplements": {
-      "label": "",
+      "label": "What vitamins or supplements are you taking (at least 3-4 times a week)?",
       "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
       "probiotic": "Probiotic capsules ",
       "live-probiotic": "Live probiotic or fermented food products (e.g. sauerkraut, kimchi,yakult, live yogurt, kefir) ",

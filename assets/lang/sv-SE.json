@@ -1037,6 +1037,7 @@
       "title": ""
     },
 
+    "weight-label": "",
     "weight-unsure-label": "",
     "was-pregnant-label": "",
     "hours-of-sleep-label": "",
@@ -1048,6 +1049,10 @@
       "sometimes-not-enough": "",
       "often-not-enough": "",
       "pfnts": ""
+    },
+
+    "your-lifestyle": {
+      "title": ""
     },
 
     "physical-activity": {
@@ -1096,10 +1101,10 @@
       "label-1": "",
       "label-2": "",
       "pints": "",
-      "shot": "",
+      "shots": "",
       "small-glass": "",
-      "standard-wine": "",
-      "large-wine": "",
+      "standard-glass": "",
+      "large-glass": "",
       "bottle-wine": ""
     },
 

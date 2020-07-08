@@ -47,7 +47,7 @@ const UNITS_GUIDE = (): UnitGuideItem[] => [
   },
   {
     icon: <BottleWine />,
-    title: i18n.t('diet-study.alcohol-unit-info.bottle-glass'),
+    title: i18n.t('diet-study.alcohol-unit-info.bottle-wine'),
     volume: '75cl',
     unit: 9,
   },

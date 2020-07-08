@@ -143,7 +143,13 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-        <MenuItem label={i18n.t('diet-study.drawer-menu-item')} indicator={2} onPress={() => {}} />
+        <MenuItem
+          label={i18n.t('diet-study.drawer-menu-item')}
+          indicator={2}
+          onPress={() => {
+            props.navigation.navigate('DietStudyAboutYou'); // TODO - Wire Navigations
+          }}
+        />
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
