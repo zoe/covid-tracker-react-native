@@ -12,7 +12,7 @@ export const FacebookSECard: React.FC = () => {
     Analytics.track(events.CLICK_CALLOUT, {
       name: 'facebookSE',
     });
-    Linking.openURL(i18n.t('https://www.facebook.com/covidsymptomstudysverige'));
+    Linking.openURL('https://www.facebook.com/covidsymptomstudysverige');
   };
 
   return (
