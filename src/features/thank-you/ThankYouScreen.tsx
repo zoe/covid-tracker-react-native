@@ -106,8 +106,6 @@ const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     marginTop: 15,
-    fontSize: 22,
-    lineHeight: 26,
   },
   content: {
     marginVertical: 32,
