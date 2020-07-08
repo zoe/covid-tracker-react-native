@@ -46,7 +46,7 @@ export default class DietStudyIntroScreen extends Component<Props> {
         secondaryButtonLabel={i18n.t('diet-study.intro.cta-no-later')}
         primaryButtonAction={this.accept}
         secondaryButtonAction={this.skip}
-        bottomView={<StickyBottomButton label={i18n.t('diet-study.intro.cta-never')} onPress={this.skip} />}
+        bottomView={<StickyBottomButton label={i18n.t('diet-study.intro.cta-no-never')} onPress={this.skip} />}
       />
     );
   }
