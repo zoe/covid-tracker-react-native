@@ -93,7 +93,7 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
 
   async profileSelected(profileId: string, index: number) {
     try {
-      const currentPatient = await this.userService.getCurrentPatient(profileId);
+      const currentPatient = await this.userService.getPatientState(profileId);
       this.setState({ isApiError: false });
       await appCoordinator.profileSelected(index === 0, currentPatient);
     } catch (error) {
