@@ -15,6 +15,7 @@ export interface ExtraWeightData {
 
 interface Props {
   formikProps: FormikProps<ExtraWeightData>;
+  isFemale: boolean;
 }
 
 export interface CovidTestInvitedQuestion<P, Data> extends React.FC<P> {
@@ -24,7 +25,7 @@ export interface CovidTestInvitedQuestion<P, Data> extends React.FC<P> {
 }
 
 export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightData> = (props: Props) => {
-  const { formikProps } = props;
+  const { formikProps, isFemale } = props;
 
   const [weightUnsureChecked, setWeightUnsureCheckbox] = useState(false);
   const [wasPregnantChecked, setWasPregnantCheckbox] = useState(false);
@@ -38,15 +39,16 @@ export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightDa
         }}>
         {i18n.t('diet-study.weight-unsure-label')}
       </CheckboxItem>
-
-      <CheckboxItem
-        value={wasPregnantChecked}
-        onChange={(value) => {
-          setWasPregnantCheckbox(value);
-          formikProps.values.wasPregnant = value;
-        }}>
-        {i18n.t('diet-study.was-pregnant-label')}
-      </CheckboxItem>
+      {isFemale && (
+        <CheckboxItem
+          value={wasPregnantChecked}
+          onChange={(value) => {
+            setWasPregnantCheckbox(value);
+            formikProps.values.wasPregnant = value;
+          }}>
+          {i18n.t('diet-study.was-pregnant-label')}
+        </CheckboxItem>
+      )}
     </View>
   );
 };

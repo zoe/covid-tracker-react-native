@@ -114,7 +114,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
                 label={i18n.t('diet-study.weight-label')}
               />
 
-              <ExtraWeightQuestions formikProps={props as FormikProps<ExtraWeightData>} />
+              <ExtraWeightQuestions isFemale={isFemale} formikProps={props as FormikProps<ExtraWeightData>} />
 
               <HoursSleepQuestion formikProps={props as FormikProps<HoursSleepData>} />
               <ShiftWorkQuestion formikProps={props as FormikProps<ShiftWorkData>} />
