@@ -20,11 +20,6 @@ type TreatmentSelectionProps = {
 };
 
 export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
-  constructor(props: TreatmentSelectionProps) {
-    super(props);
-    AssessmentCoordinator.resetNavigation(props.navigation);
-  }
-
   handleTreatment = async (treatment: string) => {
     const { assessmentId } = AssessmentCoordinator.assessmentData;
     const { location } = this.props.route.params;
