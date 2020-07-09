@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
@@ -29,48 +29,43 @@ type Props = {
   route: RouteProp<ScreenParamList, 'DietStudyAboutYou'>;
 };
 
-type State = {
-  errorMessage: string;
-  submitting: boolean;
-};
+const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { profile, patientId, isFemale } = route.params.dietStudyData.currentPatient;
 
-const initialState: State = {
-  errorMessage: '',
-  submitting: false,
-};
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
-export default class DietStudyAboutYouScreen extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = initialState;
-  }
+  const registerSchema = Yup.object()
+    .shape({})
+    .concat(WeightQuestion.schema())
+    .concat(ExtraWeightQuestions.schema())
+    .concat(HoursSleepQuestion.schema())
+    .concat(ShiftWorkQuestion.schema())
+    .concat(FoodSecurityQuestion.schema());
 
-  async submitDietStudy(infos: Partial<DietStudyRequest>) {
+  const submitDietStudy = async (infos: Partial<DietStudyRequest>) => {
     console.log(infos);
 
     try {
-      const response = await dietStudyApiClient.addDietStudy(
-        this.props.route.params.dietStudyData.currentPatient.patientId,
-        infos
-      );
+      const response = await dietStudyApiClient.addDietStudy(patientId, infos);
 
       // Set StudyID from server response
       dietStudyCoordinator.dietStudyData.recentDietStudyId = response.id;
 
-      this.setState({ submitting: false });
-      dietStudyCoordinator.gotoNextScreen(this.props.route.name);
+      setSubmitting(false);
+      dietStudyCoordinator.gotoNextScreen(route.name);
     } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      setErrorMessage(i18n.t('something-went-wrong'));
       throw error;
     }
-  }
+  };
 
-  private async updateDietStudy(formData: FormData) {
-    if (this.state.submitting) return;
-    this.setState({ submitting: true });
+  const updateDietStudy = async (formData: FormData) => {
+    if (submitting) return;
+    setSubmitting(true);
 
     let infos = {
-      patient: this.props.route.params.dietStudyData.currentPatient.patientId,
+      patient: route.params.dietStudyData.currentPatient.patientId,
       ...ExtraWeightQuestions.createDTO(formData),
       ...HoursSleepQuestion.createDTO(formData),
       ...ShiftWorkQuestion.createDTO(formData),
@@ -88,68 +83,59 @@ export default class DietStudyAboutYouScreen extends Component<Props, State> {
       infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
     }
 
-    await this.submitDietStudy(infos);
-  }
+    await submitDietStudy(infos);
+  };
 
-  render() {
-    const registerSchema = Yup.object()
-      .shape({})
-      .concat(WeightQuestion.schema())
-      .concat(ExtraWeightQuestions.schema())
-      .concat(HoursSleepQuestion.schema())
-      .concat(ShiftWorkQuestion.schema())
-      .concat(FoodSecurityQuestion.schema());
+  return (
+    <Screen profile={profile} navigation={navigation}>
+      <Header>
+        <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
+      </Header>
 
-    return (
-      <Screen navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
-        </Header>
+      <ProgressBlock>
+        <ProgressStatus step={1} maxSteps={3} />
+      </ProgressBlock>
 
-        <ProgressBlock>
-          <ProgressStatus step={1} maxSteps={3} />
-        </ProgressBlock>
+      <Formik
+        initialValues={{
+          ...WeightQuestion.initialFormValues(),
+          ...ExtraWeightQuestions.initialFormValues(),
+          ...HoursSleepQuestion.initialFormValues(),
+          ...ShiftWorkQuestion.initialFormValues(),
+          ...FoodSecurityQuestion.initialFormValues(),
+        }}
+        validationSchema={registerSchema}
+        onSubmit={(values: FormData) => updateDietStudy(values)}>
+        {(props) => {
+          return (
+            <Form>
+              <WeightQuestion
+                formikProps={props as FormikProps<WeightData>}
+                label={i18n.t('diet-study.weight-label')}
+              />
 
-        <Formik
-          initialValues={{
-            ...WeightQuestion.initialFormValues(),
-            ...ExtraWeightQuestions.initialFormValues(),
-            ...HoursSleepQuestion.initialFormValues(),
-            ...ShiftWorkQuestion.initialFormValues(),
-            ...FoodSecurityQuestion.initialFormValues(),
-          }}
-          validationSchema={registerSchema}
-          onSubmit={(values: FormData) => {
-            return this.updateDietStudy(values);
-          }}>
-          {(props) => {
-            return (
-              <Form>
-                <WeightQuestion
-                  formikProps={props as FormikProps<WeightData>}
-                  label={i18n.t('diet-study.weight-label')}
-                />
+              <ExtraWeightQuestions formikProps={props as FormikProps<ExtraWeightData>} />
 
-                <ExtraWeightQuestions formikProps={props as FormikProps<ExtraWeightData>} />
-                <HoursSleepQuestion formikProps={props as FormikProps<HoursSleepData>} />
-                <ShiftWorkQuestion formikProps={props as FormikProps<ShiftWorkData>} />
-                <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
+              <HoursSleepQuestion formikProps={props as FormikProps<HoursSleepData>} />
+              <ShiftWorkQuestion formikProps={props as FormikProps<ShiftWorkData>} />
+              <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
 
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+              <ErrorText>{errorMessage}</ErrorText>
+              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              )}
 
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('diet-study.next-section')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    );
-  }
-}
+              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                {i18n.t('diet-study.next-section')}
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
+  );
+};
 
 const styles = StyleSheet.create({});
+
+export default DietStudyAboutYouScreen;
