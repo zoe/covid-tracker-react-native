@@ -2,15 +2,13 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { Text } from 'native-base';
 
 import { notificationRemindersSE } from '@assets';
 import { colors, fontStyles } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import { Header, ProgressBlock } from '@covid/components/Screen';
+import { Header } from '@covid/components/Screen';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
-import { ClickableText, HeaderText, RegularText, BrandedButton } from '@covid/components/Text';
+import { HeaderText, RegularText, BrandedButton } from '@covid/components/Text';
 import VisitWebsite from '@covid/components/VisitWebsite';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
@@ -44,8 +42,7 @@ export default class ThankYouScreen extends Component<RenderProps, State> {
     // Ask for rating if not asked before and server indicates eligible.
     this.setState({
       askForRating: await shouldAskForRating(),
-      // shouldShowReminders: !(await this.pushService.isGranted()),
-      shouldShowReminders: true,
+      shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
 
