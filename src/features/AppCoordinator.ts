@@ -10,6 +10,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -130,6 +131,11 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
+  startDietStudyFlow(currentPatient: PatientStateType) {
+    dietStudyCoordinator.init(this, this.navigation, { currentPatient }, this.userService);
+    dietStudyCoordinator.startDietStudy();
+  }
+
   gotoNextScreen = (screenName: ScreenName) => {
     if (this.screenFlow[screenName]) {
       this.screenFlow[screenName]();
@@ -156,6 +162,10 @@ export class AppCoordinator {
   async setPatientId(patientId: string) {
     this.patientId = patientId;
     this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+  }
+
+  goToDietStart() {
+    this.startDietStudyFlow(this.currentPatient);
   }
 
   goToUKValidationStudy() {

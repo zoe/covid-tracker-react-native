@@ -55,8 +55,8 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
   ];
 
   const meridianIndicatorItems = [
-    { label: 'a.m.', value: 'am' },
-    { label: 'p.m.', value: 'pm' },
+    { label: 'a.m.', value: 'AM' },
+    { label: 'p.m.', value: 'PM' },
   ];
 
   return (
@@ -130,10 +130,10 @@ EatingWindowQuestions.initialFormValues = (): EatingWindowData => {
   return {
     startHour: '08',
     startMinute: '00',
-    startMeridianIndicator: 'am',
+    startMeridianIndicator: 'AM',
     endHour: '09',
     endMinute: '00',
-    endMeridianIndicator: 'pm',
+    endMeridianIndicator: 'PM',
   };
 };
 
@@ -142,8 +142,14 @@ EatingWindowQuestions.schema = () => {
 };
 
 EatingWindowQuestions.createDTO = (formData: EatingWindowData): Partial<DietStudyRequest> => {
+  function convertTo24(hours: string) {
+    const n = (parseInt(hours, 10) + 12) % 24;
+    return n.toString();
+  }
+
   function toTime(hours: string, mins: string, meridianIndicator: string): string {
-    return `${hours}:${mins} ${meridianIndicator}`;
+    const hours24 = meridianIndicator === 'PM' ? convertTo24(hours) : hours;
+    return `${hours24}:${mins}`;
   }
 
   return {

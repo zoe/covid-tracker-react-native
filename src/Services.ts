@@ -6,6 +6,7 @@ import PushNotificationService, {
 } from '@covid/core/push-notifications/PushNotificationService';
 import ContentService from '@covid/core/content/ContentService';
 import { ContentApiClient } from '@covid/core/content/ContentApiClient';
+import { DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 
 import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
@@ -31,3 +32,4 @@ export const pushNotificationService = new PushNotificationService(
 const assessmentState = new ReduxAssessmentState();
 const assessmentApiClient = new AssessmentApiClient(apiClient);
 export const assessmentService = new AssessmentService(assessmentApiClient, assessmentState);
+export const dietStudyApiClient = new DietStudyApiClient(apiClient);
