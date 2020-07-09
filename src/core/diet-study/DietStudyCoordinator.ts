@@ -1,7 +1,5 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
@@ -10,6 +8,7 @@ type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
+type DietStudyParam = { dietStudyData: DietStudyData };
 
 export type DietStudyData = {
   recentDietStudyId?: string;
@@ -23,15 +22,19 @@ export class DietStudyCoordinator {
   userService: ICoreService;
   dietStudyData: DietStudyData;
 
+  get dietStudyParam(): DietStudyParam {
+    return { dietStudyData: this.dietStudyData };
+  }
+
   screenFlow: ScreenFlow = {
     DietStudyAboutYou: () => {
-      NavigatorService.navigate('DietStudyYourLifestyle', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyYourLifestyle', this.dietStudyParam);
     },
     DietStudyYourLifestyle: () => {
-      NavigatorService.navigate('DietStudyTypicalDiet', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
     },
     DietStudyTypicalDiet: () => {
-      NavigatorService.navigate('DietStudyThankYou', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
@@ -45,7 +48,7 @@ export class DietStudyCoordinator {
   };
 
   startDietStudy = () => {
-    NavigatorService.navigate('DietStudyAboutYou', { dietStudyData: this.dietStudyData });
+    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
