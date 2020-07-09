@@ -358,7 +358,7 @@
     "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
 
     "required-date": "Please indicate the date this test occurred",
-    "required-dates": "Please indicate between which two date this test occurred",
+    "required-dates": "Please indicate between which two dates this test occurred",
     "required-mechanism": "Please indicate how the test was performed",
     "required-result": "Please indicate the result of the test"
   },
@@ -1020,7 +1020,7 @@
     "covid-prevention": "COVID Prevention",
     "can-we-contact": "Can we contact you about potential studies involving vaccines or other preventative treatments in the future?",
     "yes": "Yes, I am interested",
-    "no": "No, skip for now",
+    "no": "No, thank you",
     "next": "Next",
     "creating-registry": "We are creating a registry",
     "not-ourselves": "Though we will not be running any vaccine studies ourselves, various teams working on vaccines and other preventive treatments are asking us if we can find recruits. Therefore we are creating a list for them which you are now on.",
