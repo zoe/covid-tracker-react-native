@@ -11,6 +11,7 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import NavigatorService from '@covid/NavigatorService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -34,23 +35,19 @@ export class AppCoordinator {
   userService: ICoreService;
   @lazyInject(Services.Content)
   contentService: IContentService;
-  navigation: NavigationType;
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
   screenFlow: ScreenFlow = {
     Splash: () => {
       if (this.patientId) {
-        this.navigation.replace('WelcomeRepeat');
+        NavigatorService.replace('WelcomeRepeat');
       } else {
-        this.navigation.replace('Welcome');
+        NavigatorService.replace('Welcome');
       }
     },
     Login: () => {
-      this.navigation.reset({
-        index: 0,
-        routes: [{ name: 'WelcomeRepeat' }],
-      });
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
     },
     Register: () => {
       const config = appCoordinator.getConfig();
@@ -61,7 +58,7 @@ export class AppCoordinator {
       }
 
       if (askPersonalInfo) {
-        this.navigation.replace('OptionalInfo');
+        NavigatorService.replace('OptionalInfo');
       } else if (this.patientId) {
         this.startPatientFlow(this.currentPatient);
       } else {
@@ -74,42 +71,33 @@ export class AppCoordinator {
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
-        this.navigation.navigate('SelectProfile');
+        NavigatorService.navigate('SelectProfile');
       } else {
         this.startAssessmentFlow(this.currentPatient);
       }
     },
     ArchiveReason: () => {
-      this.navigation.navigate('SelectProfile');
+      NavigatorService.navigate('SelectProfile');
     },
     ValidationStudyIntro: () => {
-      this.navigation.navigate('ValidationStudyInfo');
+      NavigatorService.navigate('ValidationStudyInfo');
     },
     ValidationStudyInfo: () => {
-      this.navigation.navigate('ValidationStudyConsent', {
+      NavigatorService.navigate('ValidationStudyConsent', {
         viewOnly: false,
       });
     },
     Consent: () => {
-      this.navigation.navigate('Register');
+      NavigatorService.navigate('Register');
     },
   } as ScreenFlow;
 
-  async init(navigation: NavigationType) {
-    this.navigation = navigation;
+  async init() {
     await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
-      this.currentPatient = await this.userService.getCurrentPatient(this.patientId);
+      this.currentPatient = await this.userService.getPatientState(this.patientId);
     }
-  }
-
-  // Workaround for Expo save/refresh nixing the navigation.
-  resetNavigation(navigation: NavigationType) {
-    if (!this.navigation) {
-      console.log('[ROUTE] Resetting navgation');
-    }
-    this.navigation = this.navigation || navigation;
   }
 
   getConfig(): ConfigType {
@@ -117,22 +105,22 @@ export class AppCoordinator {
   }
 
   resetToProfileStartAssessment() {
-    this.navigation.navigate('SelectProfile');
+    NavigatorService.navigate('SelectProfile');
     this.startAssessmentFlow(this.currentPatient);
   }
 
   startPatientFlow(currentPatient: PatientStateType) {
-    patientCoordinator.init(this, this.navigation, { currentPatient }, this.userService);
+    patientCoordinator.init(this, { currentPatient }, this.userService);
     patientCoordinator.startPatient();
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
-    assessmentCoordinator.init(this, this.navigation, { currentPatient }, this.userService, assessmentService);
+    assessmentCoordinator.init(this, { currentPatient }, this.userService, assessmentService);
     assessmentCoordinator.startAssessment();
   }
 
   startDietStudyFlow(currentPatient: PatientStateType) {
-    dietStudyCoordinator.init(this, this.navigation, { currentPatient }, this.userService);
+    dietStudyCoordinator.init(this, { currentPatient }, this.userService);
     dietStudyCoordinator.startDietStudy();
   }
 
@@ -146,7 +134,7 @@ export class AppCoordinator {
   };
 
   editProfile(profile: Profile) {
-    this.navigation.navigate('EditProfile', { profile });
+    NavigatorService.navigate('EditProfile', { profile });
   }
 
   async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
@@ -161,7 +149,7 @@ export class AppCoordinator {
 
   async setPatientId(patientId: string) {
     this.patientId = patientId;
-    this.currentPatient = await this.userService.getCurrentPatient(this.patientId!);
+    this.currentPatient = await this.userService.getPatientState(this.patientId!);
   }
 
   goToDietStart() {
@@ -169,27 +157,27 @@ export class AppCoordinator {
   }
 
   goToUKValidationStudy() {
-    this.navigation.navigate('ValidationStudyIntro');
+    NavigatorService.navigate('ValidationStudyIntro');
   }
 
   goToArchiveReason(profileId: string) {
-    this.navigation.navigate('ArchiveReason', { profileId });
+    NavigatorService.navigate('ArchiveReason', { profileId });
   }
 
   goToPreRegisterScreens() {
     if (isUSCountry()) {
-      this.navigation.navigate('BeforeWeStartUS');
+      NavigatorService.navigate('BeforeWeStartUS');
     } else {
-      this.navigation.navigate('Consent', { viewOnly: false });
+      NavigatorService.navigate('Consent', { viewOnly: false });
     }
   }
 
   goToResetPassword() {
-    this.navigation.navigate('ResetPassword');
+    NavigatorService.navigate('ResetPassword');
   }
 
   goToCreateProfile(avatarName: string) {
-    this.navigation.navigate('CreateProfile', { avatarName });
+    NavigatorService.navigate('CreateProfile', { avatarName });
   }
 }
 

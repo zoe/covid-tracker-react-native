@@ -68,6 +68,7 @@ import DietStudyIntroScreen from '@covid/features/diet-study/DietStudyIntroScree
 import DietStudyThankYouScreen from '@covid/features/diet-study/DietStudyThankYouScreen';
 import DietStudyYourLifestyleScreen from '@covid/features/diet-study/DietStudyYourLifestyleScreen';
 import DietStudyTypicalDietScreen from '@covid/features/diet-study/DietStudyTypicalDietScreen';
+import NavigatorService from '@covid/NavigatorService';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -151,8 +152,11 @@ export default class CovidApp extends Component<object, State> {
             <Header style={{ display: 'none' }}>
               <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
             </Header>
-
-            <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
+            <NavigationContainer
+              ref={(navigatorRef) => {
+                NavigatorService.setContainer(navigatorRef);
+              }}
+              onStateChange={this.handleStateChange}>
               <Drawer.Navigator
                 drawerContent={(props) => <DrawerMenu {...props} />}
                 screenOptions={{ swipeEnabled: false }}

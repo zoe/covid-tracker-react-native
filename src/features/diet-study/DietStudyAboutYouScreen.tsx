@@ -19,9 +19,8 @@ import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-stu
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import { DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
-import { dietStudyApiClient } from '@covid/Services';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import { dietStudyApiClient } from '@covid/Services';
 
 interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
 

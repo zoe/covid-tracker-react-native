@@ -29,11 +29,6 @@ type TreatmentOtherProps = {
 };
 
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
-  constructor(props: TreatmentOtherProps) {
-    super(props);
-    AssessmentCoordinator.resetNavigation(props.navigation);
-  }
-
   registerSchema = Yup.object().shape({
     description: Yup.string(),
   });
