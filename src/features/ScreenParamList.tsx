@@ -1,4 +1,3 @@
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
@@ -15,7 +14,7 @@ export type ScreenParamList = {
   // Welcome screens
   Welcome: undefined;
   Welcome2: undefined;
-  WelcomeRepeat: { patientId: string };
+  WelcomeRepeat: undefined;
 
   // Terms & consent screens
   Consent: { viewOnly: boolean };
@@ -32,7 +31,7 @@ export type ScreenParamList = {
   Register: undefined;
   Login: { terms: string };
   CountrySelect: { patientId: string | null };
-  OptionalInfo: { patientId: string };
+  OptionalInfo: undefined;
 
   // Profile screens
   ReportForOther: undefined;
@@ -62,13 +61,15 @@ export type ScreenParamList = {
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
   Lifestyle: { assessmentData: AssessmentData };
+  VaccineRegistrySignup: { assessmentData: AssessmentData };
+  VaccineRegistryInfo: { assessmentData: AssessmentData };
 
   // Completion screens
   ThankYou: undefined;
   ThankYouUK: undefined;
   ViralThankYou: undefined;
 
-  ValidationStudyIntro: { currentPatient: PatientStateType };
-  ValidationStudyInfo: { currentPatient?: PatientStateType };
-  ValidationStudyConsent: { viewOnly: boolean; currentPatient?: PatientStateType };
+  ValidationStudyIntro: undefined;
+  ValidationStudyInfo: undefined;
+  ValidationStudyConsent: { viewOnly: boolean };
 };

@@ -273,6 +273,7 @@ export type StartupInfo = {
   ip_country: string;
 };
 
-export type AskValidationStudy = {
+export type AskForStudies = {
   should_ask_uk_validation_study: boolean;
+  should_ask_uk_vaccine_register: boolean;
 };
