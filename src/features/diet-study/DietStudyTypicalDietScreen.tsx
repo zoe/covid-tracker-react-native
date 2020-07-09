@@ -16,7 +16,7 @@ import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 
-interface FormData { }
+interface FormData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
@@ -24,8 +24,7 @@ type Props = {
 };
 
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
-
-  const { patientId } = route.params.dietStudyData.currentPatient;
+  const { profile, patientId } = route.params.dietStudyData.currentPatient;
   const registerSchema = Yup.object().shape({});
 
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -42,7 +41,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       setErrorMessage(i18n.t('something-went-wrong'));
       throw error;
     }
-  }
+  };
 
   const updateDietStudy = async (formData: FormData) => {
     if (submitting) return;
@@ -52,10 +51,10 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
     } as Partial<DietStudyRequest>;
 
     await submitDietStudy(infos);
-  }
+  };
 
   return (
-    <Screen navigation={navigation}>
+    <Screen profile={profile} navigation={navigation}>
       <Header>
         <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
       </Header>
@@ -85,7 +84,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       </Formik>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({});
 

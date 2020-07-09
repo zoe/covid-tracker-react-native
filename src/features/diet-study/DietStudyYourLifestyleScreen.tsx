@@ -36,12 +36,10 @@ type Props = {
 };
 
 const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const { profile } = route.params.dietStudyData.currentPatient;
 
   const registerSchema = Yup.object()
     .shape({})
-
     .concat(PhysicalActivityQuestion.schema())
     .concat(AlcoholQuestions.schema())
     .concat(SupplementQuestions.schema())
@@ -49,20 +47,23 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
     .concat(EatingHabitQuestions.schema())
     .concat(EatingWindowQuestions.schema());
 
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
   // TODO: Can be refactored
   const submitDietStudy = async (infos: Partial<DietStudyRequest>) => {
     console.log(infos);
 
     try {
-      // TODO - How do we work out if we answering for th recent (June) study or the Feb Study period.
-      const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
-      if (studyId) {
-        await dietStudyApiClient.updateDietStudy(studyId, infos);
-      } else {
-        await dietStudyApiClient.addDietStudy(dietStudyCoordinator.dietStudyData.currentPatient.patientId, infos);
-      }
+      // // TODO - How do we work out if we answering for th recent (June) study or the Feb Study period.
+      // const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
+      // if (studyId) {
+      //   await dietStudyApiClient.updateDietStudy(studyId, infos);
+      // } else {
+      //   await dietStudyApiClient.addDietStudy(dietStudyCoordinator.dietStudyData.currentPatient.patientId, infos);
+      // }
 
-      setSubmitting(false);
+      // setSubmitting(false);
       dietStudyCoordinator.gotoNextScreen(route.name);
     } catch (error) {
       setErrorMessage(i18n.t('something-went-wrong'));
@@ -88,7 +89,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
   };
 
   return (
-    <Screen navigation={navigation}>
+    <Screen profile={profile} navigation={navigation}>
       <Header>
         <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
       </Header>
