@@ -4,13 +4,12 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
+import NavigatorService from '@covid/NavigatorService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
-
-export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export type DietStudyData = {
   recentDietStudyId?: string;
@@ -26,33 +25,27 @@ export class DietStudyCoordinator {
 
   screenFlow: ScreenFlow = {
     DietStudyAboutYou: () => {
-      this.navigation.navigate('DietStudyYourLifestyle', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyYourLifestyle', { dietStudyData: this.dietStudyData });
     },
     DietStudyYourLifestyle: () => {
-      this.navigation.navigate('DietStudyTypicalDiet', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyTypicalDiet', { dietStudyData: this.dietStudyData });
     },
     DietStudyTypicalDiet: () => {
-      this.navigation.navigate('DietStudyThankYou', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyThankYou', { dietStudyData: this.dietStudyData });
     },
     DietStudyThankYou: () => {
       this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
     },
   } as ScreenFlow;
 
-  init = (
-    appCoordinator: AppCoordinator,
-    navigation: NavigationType,
-    dietStudyData: DietStudyData,
-    userService: ICoreService
-  ) => {
+  init = (appCoordinator: AppCoordinator, dietStudyData: DietStudyData, userService: ICoreService) => {
     this.appCoordinator = appCoordinator;
-    this.navigation = navigation;
     this.dietStudyData = dietStudyData;
     this.userService = userService;
   };
 
   startDietStudy = () => {
-    this.navigation.navigate('DietStudyAboutYou', { dietStudyData: this.dietStudyData });
+    NavigatorService.navigate('DietStudyAboutYou', { dietStudyData: this.dietStudyData });
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
