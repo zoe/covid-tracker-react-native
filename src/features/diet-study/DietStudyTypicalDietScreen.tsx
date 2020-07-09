@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -16,90 +16,77 @@ import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 
-interface FormData {}
+interface FormData { }
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
   route: RouteProp<ScreenParamList, 'DietStudyTypicalDiet'>;
 };
 
-type State = {
-  errorMessage: string;
-  submitting: boolean;
-};
+const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
 
-const initialState: State = {
-  errorMessage: '',
-  submitting: false,
-};
+  const { patientId } = route.params.dietStudyData.currentPatient;
+  const registerSchema = Yup.object().shape({});
 
-export default class DietStudyTypicalDietScreen extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = initialState;
-  }
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
-  async submitDietStudy(infos: Partial<DietStudyRequest>) {
+  const submitDietStudy = async (infos: Partial<DietStudyRequest>) => {
     console.log(infos);
 
     try {
-      await dietStudyApiClient.addDietStudy(this.props.route.params.dietStudyData.currentPatient.patientId, infos);
-      this.setState({ submitting: false });
-      dietStudyCoordinator.gotoNextScreen(this.props.route.name);
+      await dietStudyApiClient.addDietStudy(patientId, infos);
+      setSubmitting(false);
+      dietStudyCoordinator.gotoNextScreen(route.name);
     } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      setErrorMessage(i18n.t('something-went-wrong'));
       throw error;
     }
   }
 
-  private async updateDietStudy(formData: FormData) {
-    if (this.state.submitting) return;
-    this.setState({ submitting: true });
-
+  const updateDietStudy = async (formData: FormData) => {
+    if (submitting) return;
+    setSubmitting(false);
     const infos = {
       ...{},
     } as Partial<DietStudyRequest>;
 
-    await this.submitDietStudy(infos);
+    await submitDietStudy(infos);
   }
 
-  render() {
-    const registerSchema = Yup.object().shape({});
+  return (
+    <Screen navigation={navigation}>
+      <Header>
+        <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
+      </Header>
 
-    return (
-      <Screen navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
-        </Header>
+      <ProgressBlock>
+        <ProgressStatus step={3} maxSteps={3} />
+      </ProgressBlock>
 
-        <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={3} />
-        </ProgressBlock>
+      <Formik
+        initialValues={{}}
+        validationSchema={registerSchema}
+        onSubmit={(values: FormData) => updateDietStudy(values)}>
+        {(props) => {
+          return (
+            <Form>
+              <ErrorText>{errorMessage}</ErrorText>
+              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              )}
 
-        <Formik
-          initialValues={{}}
-          validationSchema={registerSchema}
-          onSubmit={(values: FormData) => {
-            return this.updateDietStudy(values);
-          }}>
-          {(props) => {
-            return (
-              <Form>
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
-
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('diet-study.next-section')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    );
-  }
+              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                {i18n.t('diet-study.next-section')}
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({});
+
+export default DietStudyTypicalDietScreen;
