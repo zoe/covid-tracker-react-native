@@ -91,11 +91,7 @@ MilkTypeQuestion.initialFormValues = (): MilkTypesData => {
   };
 };
 
-MilkTypeQuestion.schema = () => {
-  return Yup.object().shape({
-    takesSupplements: Yup.string().required(i18n.t('please-select-option')),
-  });
-};
+MilkTypeQuestion.schema = () => Yup.object().shape({ });
 
 MilkTypeQuestion.createDTO = (formData: MilkTypesData): Partial<DietStudyRequest> => formData;
 
