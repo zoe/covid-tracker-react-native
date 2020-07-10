@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 
 import { colors } from '@theme';
 import { FOOD_INTAKE_FREQUENCY, SelectableItem } from '@covid/components/Inputs/Selectable';
@@ -8,6 +8,7 @@ import i18n from '@covid/locale/i18n';
 import { FoodFreqGroupItem, FoodFreqGroup } from './FoodFreqGroup';
 
 interface Props {
+  style?: StyleProp<ViewStyle>;
   items: FoodFreqGroupItem[];
   onSelected?: (key: string, item: SelectableItem) => void;
 }
@@ -102,9 +103,9 @@ export const GROUPS = (): FoodFreqGroupItem[] => {
 
 const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: colors.backgroundFour }} />;
 
-export const FoodFreqCard: React.FC<Props> = ({ items = GROUPS(), onSelected }) => {
+export const FoodFreqCard: React.FC<Props> = ({ items = GROUPS(), onSelected, style }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
         return (

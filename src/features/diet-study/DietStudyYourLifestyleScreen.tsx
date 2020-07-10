@@ -21,6 +21,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
 import { dietStudyApiClient } from '@covid/Services';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import { colors } from '@theme';
 
 interface FormData
   extends PhysicalActivityData,
@@ -89,7 +90,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
   };
 
   return (
-    <Screen profile={profile} navigation={navigation}>
+    <Screen profile={profile} navigation={navigation} style={styles.screen}>
       <Header>
         <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
       </Header>
@@ -136,6 +137,9 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.backgroundSecondary,
+  },
   container: {
     padding: 6,
   },

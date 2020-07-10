@@ -1,20 +1,26 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { dietStudyApiClient } from '@covid/Services';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
+import { colors } from '@theme';
+import { FoodFreqCard, GROUPS } from '@covid/components/Cards/FoodFreq/FoodFreqCard';
+
+import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
+import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
+import { DietChangedQuestion, DietChangedData } from './fields/DietChangedQuestion';
 
 interface FormData {}
 
@@ -54,7 +60,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <Screen profile={profile} navigation={navigation}>
+    <Screen profile={profile} navigation={navigation} style={styles.screen}>
       <Header>
         <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
       </Header>
@@ -75,8 +81,26 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
                 <ValidationError error={i18n.t('validation-error-text')} />
               )}
 
+              <RegularText style={styles.description}>{i18n.t('diet-study.typical-diet.text-1')}</RegularText>
+
+              <View style={[styles.divider, styles.padded]} />
+
+              <View style={[styles.padded]}>
+                <RegularText style={{ marginBottom: 16 }}>{i18n.t('diet-study.typical-diet.text-2')}</RegularText>
+
+                <FoodFreqCard items={GROUPS()} style={{ marginVertical: 16 }} />
+              </View>
+
+              <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
+
+              <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
+
+              <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+
+              <View style={{ height: 32 }} />
+
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                {i18n.t('diet-study.next-section')}
+                {i18n.t('diet-study.complete-cta')}
               </BrandedButton>
             </Form>
           );
@@ -86,6 +110,22 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.backgroundSecondary,
+  },
+  description: {
+    marginTop: 16,
+    marginHorizontal: 16,
+  },
+  padded: {
+    marginHorizontal: 16,
+  },
+  divider: {
+    height: 1,
+    marginVertical: 32,
+    backgroundColor: colors.backgroundFour,
+  },
+});
 
 export default DietStudyTypicalDietScreen;

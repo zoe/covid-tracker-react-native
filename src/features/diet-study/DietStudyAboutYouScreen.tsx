@@ -21,6 +21,7 @@ import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import { dietStudyApiClient } from '@covid/Services';
+import { colors } from '@theme';
 
 interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
 
@@ -47,12 +48,12 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     console.log(infos);
 
     try {
-      const response = await dietStudyApiClient.addDietStudy(patientId, infos);
+      // const response = await dietStudyApiClient.addDietStudy(patientId, infos);
 
-      // Set StudyID from server response
-      dietStudyCoordinator.dietStudyData.recentDietStudyId = response.id;
+      // // Set StudyID from server response
+      // dietStudyCoordinator.dietStudyData.recentDietStudyId = response.id;
 
-      setSubmitting(false);
+      // setSubmitting(false);
       dietStudyCoordinator.gotoNextScreen(route.name);
     } catch (error) {
       setErrorMessage(i18n.t('something-went-wrong'));
@@ -87,7 +88,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <Screen profile={profile} navigation={navigation}>
+    <Screen profile={profile} navigation={navigation} style={styles.screen}>
       <Header>
         <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
       </Header>
@@ -136,6 +137,10 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.backgroundSecondary,
+  },
+});
 
 export default DietStudyAboutYouScreen;

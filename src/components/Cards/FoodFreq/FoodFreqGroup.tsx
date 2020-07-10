@@ -64,8 +64,8 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           <Text> </Text>
           {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
         </View>
+        {selectedItem && selectedLabel}
       </TouchableOpacity>
-      {selectedItem && selectedLabel}
       <Collapsible enablePointerEvents={false} collapsed={collapsed}>
         <View style={{ height: 20 }} />
         <Selectable
