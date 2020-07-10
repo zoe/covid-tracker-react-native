@@ -65,10 +65,10 @@ import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/Vacci
 import { VaccineRegistryInfoScreen } from '@covid/features/assessment/gb/VaccineRegistryInfoScreen';
 import DietStudyAboutYouScreen from '@covid/features/diet-study/DietStudyAboutYouScreen';
 import DietStudyIntroScreen from '@covid/features/diet-study/DietStudyIntroScreen';
-import DietStudyThankYouScreen from '@covid/features/diet-study/DietStudyThankYouScreen';
 import DietStudyYourLifestyleScreen from '@covid/features/diet-study/DietStudyYourLifestyleScreen';
 import DietStudyTypicalDietScreen from '@covid/features/diet-study/DietStudyTypicalDietScreen';
 import NavigatorService from '@covid/NavigatorService';
+import { DietStudyThankYouScreen } from '@covid/features/diet-study/DietStudyThankYouScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
