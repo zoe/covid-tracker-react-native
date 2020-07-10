@@ -41,6 +41,7 @@ export const ButtonsGroup: React.FC<Props> = ({ label, selectedValue, items, err
         }}>
         {items.map((item) => (
           <SelectableButton
+            key={item.value}
             style={{ flex: 1, marginEnd: 8 }}
             selected={selected === item.value}
             onPress={() => onSelect(item.value)}>
