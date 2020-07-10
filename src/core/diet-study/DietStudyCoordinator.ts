@@ -1,7 +1,5 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { ICoreService } from '@covid/core/user/UserService';
+import { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
@@ -34,7 +32,7 @@ export class DietStudyCoordinator {
       NavigatorService.navigate('DietStudyThankYou', { dietStudyData: this.dietStudyData });
     },
     DietStudyThankYou: () => {
-      this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+      NavigatorService.navigate('WelcomeRepeat');
     },
   } as ScreenFlow;
 
@@ -55,6 +53,13 @@ export class DietStudyCoordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
+
+  async showProfiles() {
+    return this.userService.getConfig().enableMultiplePatients && (await this.userService.hasMultipleProfiles());
+  }
+  async listPatients() {
+    return this.userService.listPatients();
+  }
 }
 
 const dietStudyCoordinator = new DietStudyCoordinator();
