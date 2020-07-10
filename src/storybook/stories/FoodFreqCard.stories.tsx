@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react-native';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { FoodFreqCard, GROUPS } from '@covid/components/Cards/FoodFreq/FoodFreqCard';
+import { FoodFreqCard, FOOD_FREQ_GROUPS } from '@covid/components/Cards/FoodFreq/FoodFreqCard';
 
 import { DarkBackground, CenterView } from '../decorator';
 
@@ -18,6 +18,6 @@ storiesOf('Food Freq Card', module)
       style={{
         margin: 16,
       }}>
-      <FoodFreqCard items={GROUPS()} onSelected={ValueChangeHandler()} />
+      <FoodFreqCard items={FOOD_FREQ_GROUPS()} onSelected={ValueChangeHandler()} />
     </ScrollView>
   ));

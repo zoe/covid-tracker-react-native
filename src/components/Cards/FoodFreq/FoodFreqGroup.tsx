@@ -6,10 +6,12 @@ import Animated, { Easing } from 'react-native-reanimated';
 
 import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
 import { colors } from '@theme';
+import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
 
 import { RegularText, SecondaryText } from '../../Text';
 
 export interface FoodFreqGroupItem {
+  key: keyof FoodFreqData;
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];

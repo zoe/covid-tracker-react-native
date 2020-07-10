@@ -14,14 +14,14 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
-import { FoodFreqCard, GROUPS } from '@covid/components/Cards/FoodFreq/FoodFreqCard';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
 import { DietChangedQuestion, DietChangedData } from './fields/DietChangedQuestion';
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
+import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
 
-interface FormData {}
+interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
@@ -29,7 +29,7 @@ type Props = {
 };
 
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { profile, patientId } = route.params.dietStudyData.currentPatient;
+  const { profile } = route.params.dietStudyData.currentPatient;
   const registerSchema = Yup.object()
     .shape({})
     .concat(FruitNVegConsumptionQuestions.schema())
@@ -41,10 +41,14 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
   const updateDietStudy = async (formData: FormData) => {
     if (form.submitting) return;
     const infos = {
-      ...{},
+      ...FoodFreqQuestion.createDTO(formData),
+      ...FruitNVegConsumptionQuestions.createDTO(formData),
+      ...MilkTypeQuestion.createDTO(formData),
+      ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    await form.submitDietStudy(infos);
+    console.log(infos);
+    // await form.submitDietStudy(infos);
   };
 
   return (
@@ -58,7 +62,12 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       </ProgressBlock>
 
       <Formik
-        initialValues={{}}
+        initialValues={{
+          ...FoodFreqQuestion.initialFormValues(),
+          ...FruitNVegConsumptionQuestions.initialFormValues(),
+          ...MilkTypeQuestion.initialFormValues(),
+          ...DietChangedQuestion.initialFormValues(),
+        }}
         validationSchema={registerSchema}
         onSubmit={(values: FormData) => updateDietStudy(values)}>
         {(props) => {
@@ -73,11 +82,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
 
               <View style={[styles.divider, styles.padded]} />
 
-              <View style={[styles.padded]}>
-                <RegularText style={{ marginBottom: 16 }}>{i18n.t('diet-study.typical-diet.text-2')}</RegularText>
-
-                <FoodFreqCard items={GROUPS()} style={{ marginVertical: 16 }} />
-              </View>
+              <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
 
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
 
