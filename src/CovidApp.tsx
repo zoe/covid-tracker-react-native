@@ -80,28 +80,10 @@ const initialState = {
   isApiOnline: true,
 };
 
-const getCurrentRouteName = (navigationState: NavigationState): string | null => {
-  if (!navigationState) return null;
-
-  const route = navigationState.routes[navigationState.index];
-  if (route.state) {
-    // Nested navigators
-    // @ts-ignore
-    return getCurrentRouteName(route.state);
-  }
-  return route.name;
-};
-
 export default class CovidApp extends Component<object, State> {
-  navigationRef: RefObject<NavigationState>;
-  currentRouteName: string | null;
-
   constructor(props: object) {
     super(props);
     this.state = initialState;
-    this.navigationRef = React.createRef();
-    this.currentRouteName = '';
-    this.handleStateChange = this.handleStateChange.bind(this);
   }
 
   async componentDidMount() {
@@ -111,30 +93,11 @@ export default class CovidApp extends Component<object, State> {
     });
     this.setState({ isLoaded: true });
 
-    // Store the RouteName
-    // @ts-ignore
-    const state = this.navigationRef.current?.getRootState();
-    this.currentRouteName = getCurrentRouteName(state);
-
     Notifications.addListener((notif) => {
       if (notif.origin === 'selected') {
         Analytics.track(events.OPEN_FROM_NOTIFICATION);
       }
     });
-  }
-
-  handleStateChange(state: NavigationState | undefined) {
-    if (!state) return;
-
-    const previousRouteName = this.currentRouteName;
-    const newRouteName = getCurrentRouteName(state);
-
-    if (newRouteName) {
-      if (previousRouteName !== newRouteName) {
-        Analytics.trackScreenView(newRouteName);
-      }
-      this.currentRouteName = newRouteName;
-    }
   }
 
   render() {
@@ -151,7 +114,7 @@ export default class CovidApp extends Component<object, State> {
               ref={(navigatorRef) => {
                 NavigatorService.setContainer(navigatorRef);
               }}
-              onStateChange={this.handleStateChange}>
+              onStateChange={NavigatorService.handleStateChange}>
               <Drawer.Navigator
                 drawerContent={(props) => <DrawerMenu {...props} />}
                 screenOptions={{ swipeEnabled: false }}
