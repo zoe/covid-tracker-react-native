@@ -72,7 +72,7 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
   return (
     <>
       {dropdowns().map((dropdown) => (
-        <Dropdown {...dropdown} />
+        <Dropdown key={dropdown.fieldKey} {...dropdown} />
       ))}
     </>
   );
@@ -91,9 +91,12 @@ FruitNVegConsumptionQuestions.schema = () => {
 };
 
 FruitNVegConsumptionQuestions.createDTO = (formData: FruitNVegConsumptionData): Partial<DietStudyRequest> => {
+  const { portions_of_fruit, glasses_of_juice, portions_of_veg } = formData;
+
   return {
-    // first_calories: toTime(formData.startHour, formData.startMinute, formData.startMeridianIndicator),
-    // last_calories: toTime(formData.endHour, formData.endMinute, formData.endMeridianIndicator),
+    portions_of_fruit,
+    glasses_of_juice,
+    portions_of_veg,
   } as Partial<DietStudyRequest>;
 };
 
