@@ -43,7 +43,7 @@ type CheckBoxData = {
   value: MilkTypes;
 };
 
-const createSupplementCheckboxes = (data: CheckBoxData[], props: FormikProps<MilkTypesData>) => {
+const createCheckboxes = (data: CheckBoxData[], props: FormikProps<MilkTypesData>) => {
   return data.map((item) => {
     return (
       <CheckboxItem
@@ -74,7 +74,7 @@ export const MilkTypeQuestion: MilkTypeQuestion<Props, MilkTypesData> = (props: 
     <View>
       <FieldLabel style={{ marginBottom: 4 }}>{i18n.t('diet-study.typical-diet.milk-label')}</FieldLabel>
       <Item stackedLabel style={styles.textItemStyle}>
-        <CheckboxList>{createSupplementCheckboxes(checkboxes, formikProps)}</CheckboxList>
+        <CheckboxList>{createCheckboxes(checkboxes, formikProps)}</CheckboxList>
       </Item>
     </View>
   );
