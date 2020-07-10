@@ -105,10 +105,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
   },
   container: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 16,
     padding: 20,
-    shadowColor: colors.black,
   },
   description: {
     color: colors.textDark,

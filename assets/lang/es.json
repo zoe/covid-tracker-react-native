@@ -1207,11 +1207,12 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other-sweetened": "",
-      "milk-other-unsweetened": "",
+      "milk-other": "",
 
       "noticed-a-change": ""
     },
+
+    "complete-cta": "",
 
     "next-box": {
       "title": "",
