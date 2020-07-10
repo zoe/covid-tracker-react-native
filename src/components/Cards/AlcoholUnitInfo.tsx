@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 
 import { colors } from '@theme';
 import { Pint, Shot, SmallGlass, StandardWine, LargeWine, BottleWine } from '@assets/icons/alcohol';
@@ -7,7 +7,9 @@ import IInfoCircle from '@assets/icons/I-InfoCircle';
 import { RegularText, RegularBoldText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 
-interface Props {}
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
 
 interface UnitGuideItem {
   icon?: React.ReactElement;
@@ -68,9 +70,9 @@ const UnitInfoItem: React.FC<UnitInfoItemProps> = ({ item }) => {
   );
 };
 
-export const AlcoholUnitInfo: React.FC<Props> = () => {
+export const AlcoholUnitInfo: React.FC<Props> = ({ style }) => {
   return (
-    <View>
+    <View style={style}>
       <View style={styles.infoIcon}>
         <IInfoCircle />
       </View>
@@ -107,9 +109,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     shadowColor: colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 15,
-    shadowOpacity: 0.05,
   },
   description: {
     color: colors.textDark,
