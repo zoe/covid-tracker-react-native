@@ -95,7 +95,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
         />
       </FieldWrapper>
 
-      <AlcoholUnitInfo />
+      <AlcoholUnitInfo style={{ marginHorizontal: 16 }} />
 
       <FieldWrapper>
         <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>

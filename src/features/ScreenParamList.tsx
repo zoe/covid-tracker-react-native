@@ -66,7 +66,7 @@ export type ScreenParamList = {
   VaccineRegistryInfo: { assessmentData: AssessmentData };
 
   // DietStudy
-  DietStudyIntro: { assessmentData: AssessmentData };
+  DietStudyIntro: { dietStudyData: DietStudyData };
   DietStudyAboutYou: { dietStudyData: DietStudyData };
   DietStudyThankYou: { dietStudyData: DietStudyData };
   DietStudyTypicalDiet: { dietStudyData: DietStudyData };

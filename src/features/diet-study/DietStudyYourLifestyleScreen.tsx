@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
@@ -19,8 +19,9 @@ import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fi
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
-import { dietStudyApiClient } from '@covid/Services';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import { colors } from '@theme';
+
+import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
 interface FormData
   extends PhysicalActivityData,
@@ -35,47 +36,22 @@ type Props = {
   route: RouteProp<ScreenParamList, 'DietStudyYourLifestyle'>;
 };
 
-type State = {
-  errorMessage: string;
-  submitting: boolean;
-};
+const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { profile } = route.params.dietStudyData.currentPatient;
 
-const initialState: State = {
-  errorMessage: '',
-  submitting: false,
-};
+  const registerSchema = Yup.object()
+    .shape({})
+    .concat(PhysicalActivityQuestion.schema())
+    .concat(AlcoholQuestions.schema())
+    .concat(SupplementQuestions.schema())
+    .concat(DietDescriptionQuestion.schema())
+    .concat(EatingHabitQuestions.schema())
+    .concat(EatingWindowQuestions.schema());
 
-export default class DietStudyYourLifestyleScreen extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = initialState;
-  }
+  const form = useDietStudyFormSubmit(route.name);
 
-  // TODO: Can be refactored
-  async submitDietStudy(infos: Partial<DietStudyRequest>) {
-    console.log(infos);
-
-    try {
-      // TODO - How do we work out if we answering for th recent (June) study or the Feb Study period.
-      const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
-      if (studyId) {
-        await dietStudyApiClient.updateDietStudy(studyId, infos);
-      } else {
-        await dietStudyApiClient.addDietStudy(dietStudyCoordinator.dietStudyData.currentPatient.patientId, infos);
-      }
-
-      this.setState({ submitting: false });
-      dietStudyCoordinator.gotoNextScreen(this.props.route.name);
-    } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      throw error;
-    }
-  }
-
-  private async updateDietStudy(formData: FormData) {
-    if (this.state.submitting) return;
-    this.setState({ submitting: true });
-
+  const updateDietStudy = async (formData: FormData) => {
+    if (form.submitting) return;
     const infos = {
       ...PhysicalActivityQuestion.createDTO(formData),
       ...AlcoholQuestions.createDTO(formData),
@@ -85,71 +61,63 @@ export default class DietStudyYourLifestyleScreen extends Component<Props, State
       ...EatingWindowQuestions.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    await this.submitDietStudy(infos);
-  }
+    await form.submitDietStudy(infos);
+  };
 
-  render() {
-    const registerSchema = Yup.object()
-      .shape({})
+  return (
+    <Screen profile={profile} navigation={navigation} style={styles.screen}>
+      <Header>
+        <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
+      </Header>
 
-      .concat(PhysicalActivityQuestion.schema())
-      .concat(AlcoholQuestions.schema())
-      .concat(SupplementQuestions.schema())
-      .concat(DietDescriptionQuestion.schema())
-      .concat(EatingHabitQuestions.schema())
-      .concat(EatingWindowQuestions.schema());
-    return (
-      <Screen navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
-        </Header>
+      <ProgressBlock>
+        <ProgressStatus step={2} maxSteps={3} />
+      </ProgressBlock>
 
-        <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={3} />
-        </ProgressBlock>
+      <Formik
+        initialValues={{
+          ...PhysicalActivityQuestion.initialFormValues(),
+          ...AlcoholQuestions.initialFormValues(),
+          ...SupplementQuestions.initialFormValues(),
+          ...DietDescriptionQuestion.initialFormValues(),
+          ...EatingHabitQuestions.initialFormValues(),
+          ...EatingWindowQuestions.initialFormValues(),
+        }}
+        validationSchema={registerSchema}
+        onSubmit={(values: FormData) => updateDietStudy(values)}>
+        {(props) => {
+          return (
+            <Form style={styles.container}>
+              <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
+              <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
+              <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
+              <EatingWindowQuestions formikProps={props as FormikProps<EatingWindowData>} />
+              <EatingHabitQuestions formikProps={props as FormikProps<EatingHabitData>} />
+              <DietDescriptionQuestion formikProps={props as FormikProps<DietData>} />
 
-        <Formik
-          initialValues={{
-            ...PhysicalActivityQuestion.initialFormValues(),
-            ...AlcoholQuestions.initialFormValues(),
-            ...SupplementQuestions.initialFormValues(),
-            ...DietDescriptionQuestion.initialFormValues(),
-            ...EatingHabitQuestions.initialFormValues(),
-            ...EatingWindowQuestions.initialFormValues(),
-          }}
-          validationSchema={registerSchema}
-          onSubmit={(values: FormData) => {
-            return this.updateDietStudy(values);
-          }}>
-          {(props) => {
-            return (
-              <Form style={styles.container}>
-                <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
-                <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
-                <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
-                <EatingWindowQuestions formikProps={props as FormikProps<EatingWindowData>} />
-                <EatingHabitQuestions formikProps={props as FormikProps<EatingHabitData>} />
-                <DietDescriptionQuestion formikProps={props as FormikProps<DietData>} />
+              <ErrorText>{form.errorMessage}</ErrorText>
+              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              )}
 
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
-
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('diet-study.next-section')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    );
-  }
-}
+              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                {i18n.t('diet-study.next-section')}
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
+  );
+};
 
 const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.backgroundSecondary,
+  },
   container: {
     padding: 6,
   },
 });
+
+export default DietStudyYourLifestyleScreen;

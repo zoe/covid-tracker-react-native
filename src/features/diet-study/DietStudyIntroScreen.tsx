@@ -1,7 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import React from 'react';
 
 import { StickyBottomButton } from '@covid/components/Screen';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -15,54 +14,35 @@ type Props = {
   route: RouteProp<ScreenParamList, 'DietStudyIntro'>;
 };
 
-export default class DietStudyIntroScreen extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    AssessmentCoordinator.resetNavigation(props.navigation);
-  }
+const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
+  const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
 
-  private accept = () => {
+  const accept = () => {
     Analytics.track(events.ACCEPT_DIET_STUDY);
   };
 
-  private defer = () => {
+  const defer = () => {
     Analytics.track(events.DEFER_DIET_STUDY);
   };
 
-  private skip = () => {
+  const skip = () => {
     Analytics.track(events.DECLINE_DIET_STUDY);
   };
 
-  render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
-    return (
-      <TextInfoScreen
-        profile={currentPatient.profile}
-        navigation={this.props.navigation}
-        headerLabel={i18n.t('diet-study.intro.title')}
-        primaryLabel={i18n.t('diet-study.intro.description-1')}
-        secondaryLabel={i18n.t('diet-study.intro.description-2')}
-        primaryButtonLabel={i18n.t('diet-study.intro.cta-yes')}
-        secondaryButtonLabel={i18n.t('diet-study.intro.cta-no-later')}
-        primaryButtonAction={this.accept}
-        secondaryButtonAction={this.skip}
-        bottomView={<StickyBottomButton label={i18n.t('diet-study.intro.cta-no-never')} onPress={this.skip} />}
-      />
-    );
-  }
-}
+  return (
+    <TextInfoScreen
+      profile={currentPatient.profile}
+      navigation={navigation}
+      headerLabel={i18n.t('diet-study.intro.title')}
+      primaryLabel={i18n.t('diet-study.intro.description-1')}
+      secondaryLabel={i18n.t('diet-study.intro.description-2')}
+      primaryButtonLabel={i18n.t('diet-study.intro.cta-yes')}
+      secondaryButtonLabel={i18n.t('diet-study.intro.cta-no-later')}
+      primaryButtonAction={accept}
+      secondaryButtonAction={skip}
+      bottomView={<StickyBottomButton label={i18n.t('diet-study.intro.cta-no-never')} onPress={skip} />}
+    />
+  );
+};
 
-const styles = StyleSheet.create({
-  header: {
-    alignSelf: 'center',
-    marginBottom: 16,
-  },
-  primaryLabel: {
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  secondaryLabel: {
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-});
+export default DietStudyIntroScreen;

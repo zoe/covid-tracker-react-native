@@ -6,10 +6,12 @@ import Animated, { Easing } from 'react-native-reanimated';
 
 import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
 import { colors } from '@theme';
+import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
 
 import { RegularText, SecondaryText } from '../../Text';
 
 export interface FoodFreqGroupItem {
+  key: keyof FoodFreqData;
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];
@@ -64,8 +66,8 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           <Text> </Text>
           {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
         </View>
+        {selectedItem && selectedLabel}
       </TouchableOpacity>
-      {selectedItem && selectedLabel}
       <Collapsible enablePointerEvents={false} collapsed={collapsed}>
         <View style={{ height: 20 }} />
         <Selectable

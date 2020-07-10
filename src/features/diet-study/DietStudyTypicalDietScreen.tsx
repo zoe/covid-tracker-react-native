@@ -1,105 +1,124 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import { dietStudyApiClient } from '@covid/Services';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
+import { colors } from '@theme';
 
-interface FormData {}
+import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
+import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
+import { DietChangedQuestion, DietChangedData } from './fields/DietChangedQuestion';
+import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
+import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
+
+interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
   route: RouteProp<ScreenParamList, 'DietStudyTypicalDiet'>;
 };
 
-type State = {
-  errorMessage: string;
-  submitting: boolean;
-};
+const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { profile } = route.params.dietStudyData.currentPatient;
+  const registerSchema = Yup.object()
+    .shape({})
+    .concat(FruitNVegConsumptionQuestions.schema())
+    .concat(MilkTypeQuestion.schema())
+    .concat(DietChangedQuestion.schema());
 
-const initialState: State = {
-  errorMessage: '',
-  submitting: false,
-};
+  const form = useDietStudyFormSubmit(route.name);
 
-export default class DietStudyTypicalDietScreen extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = initialState;
-  }
-
-  async submitDietStudy(infos: Partial<DietStudyRequest>) {
-    console.log(infos);
-
-    try {
-      await dietStudyApiClient.addDietStudy(this.props.route.params.dietStudyData.currentPatient.patientId, infos);
-      this.setState({ submitting: false });
-      dietStudyCoordinator.gotoNextScreen(this.props.route.name);
-    } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
-      throw error;
-    }
-  }
-
-  private async updateDietStudy(formData: FormData) {
-    if (this.state.submitting) return;
-    this.setState({ submitting: true });
-
+  const updateDietStudy = async (formData: FormData) => {
+    if (form.submitting) return;
     const infos = {
-      ...{},
+      ...FoodFreqQuestion.createDTO(formData),
+      ...FruitNVegConsumptionQuestions.createDTO(formData),
+      ...MilkTypeQuestion.createDTO(formData),
+      ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    await this.submitDietStudy(infos);
-  }
+    console.log(infos);
+    // await form.submitDietStudy(infos);
+  };
 
-  render() {
-    const registerSchema = Yup.object().shape({});
+  return (
+    <Screen profile={profile} navigation={navigation} style={styles.screen}>
+      <Header>
+        <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
+      </Header>
 
-    return (
-      <Screen navigation={this.props.navigation}>
-        <Header>
-          <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
-        </Header>
+      <ProgressBlock>
+        <ProgressStatus step={3} maxSteps={3} />
+      </ProgressBlock>
 
-        <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={3} />
-        </ProgressBlock>
+      <Formik
+        initialValues={{
+          ...FoodFreqQuestion.initialFormValues(),
+          ...FruitNVegConsumptionQuestions.initialFormValues(),
+          ...MilkTypeQuestion.initialFormValues(),
+          ...DietChangedQuestion.initialFormValues(),
+        }}
+        validationSchema={registerSchema}
+        onSubmit={(values: FormData) => updateDietStudy(values)}>
+        {(props) => {
+          return (
+            <Form>
+              <ErrorText>{form.errorMessage}</ErrorText>
+              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              )}
 
-        <Formik
-          initialValues={{}}
-          validationSchema={registerSchema}
-          onSubmit={(values: FormData) => {
-            return this.updateDietStudy(values);
-          }}>
-          {(props) => {
-            return (
-              <Form>
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+              <RegularText style={styles.description}>{i18n.t('diet-study.typical-diet.text-1')}</RegularText>
 
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('diet-study.next-section')}
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    );
-  }
-}
+              <View style={[styles.divider, styles.padded]} />
 
-const styles = StyleSheet.create({});
+              <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
+
+              <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
+
+              <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
+
+              <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+
+              <View style={{ height: 72 }} />
+
+              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                {i18n.t('diet-study.complete-cta')}
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
+  );
+};
+
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.backgroundSecondary,
+  },
+  description: {
+    marginTop: 16,
+    marginHorizontal: 16,
+  },
+  padded: {
+    marginHorizontal: 16,
+  },
+  divider: {
+    height: 1,
+    marginVertical: 32,
+    backgroundColor: colors.backgroundFour,
+  },
+});
+
+export default DietStudyTypicalDietScreen;

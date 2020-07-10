@@ -58,6 +58,7 @@ export const FieldWrapper = (props: FieldWrapperType) => {
  * For permanent page fixtures
  */
 type ScreenProps = {
+  style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
   navigation?: StackNavigationProp<ScreenParamList>;
   profile?: PatientProfile;
@@ -72,7 +73,7 @@ export default class Screen extends Component<ScreenProps> {
     const profile = this.props.profile;
 
     return (
-      <SafeAreaView style={styles.screen}>
+      <SafeAreaView style={[styles.screen, this.props.style]}>
         {profile && this.props.navigation ? (
           <PatientHeader
             profile={profile}

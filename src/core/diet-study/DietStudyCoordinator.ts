@@ -8,6 +8,7 @@ type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
+type DietStudyParam = { dietStudyData: DietStudyData };
 
 export type DietStudyData = {
   recentDietStudyId?: string;
@@ -21,15 +22,19 @@ export class DietStudyCoordinator {
   userService: ICoreService;
   dietStudyData: DietStudyData;
 
+  get dietStudyParam(): DietStudyParam {
+    return { dietStudyData: this.dietStudyData };
+  }
+
   screenFlow: ScreenFlow = {
     DietStudyAboutYou: () => {
-      NavigatorService.navigate('DietStudyYourLifestyle', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyYourLifestyle', this.dietStudyParam);
     },
     DietStudyYourLifestyle: () => {
-      NavigatorService.navigate('DietStudyTypicalDiet', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
     },
     DietStudyTypicalDiet: () => {
-      NavigatorService.navigate('DietStudyThankYou', { dietStudyData: this.dietStudyData });
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       NavigatorService.navigate('WelcomeRepeat');
@@ -43,7 +48,7 @@ export class DietStudyCoordinator {
   };
 
   startDietStudy = () => {
-    NavigatorService.navigate('DietStudyAboutYou', { dietStudyData: this.dietStudyData });
+    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
