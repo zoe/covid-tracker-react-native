@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
@@ -19,9 +19,9 @@ import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fi
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
-import { dietStudyApiClient } from '@covid/Services';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import { colors } from '@theme';
+
+import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
 interface FormData
   extends PhysicalActivityData,
@@ -48,35 +48,10 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
     .concat(EatingHabitQuestions.schema())
     .concat(EatingWindowQuestions.schema());
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [submitting, setSubmitting] = useState<boolean>(false);
-
-  // TODO: Can be refactored
-  const submitDietStudy = async (infos: Partial<DietStudyRequest>) => {
-    console.log(infos);
-
-    try {
-      // // TODO - How do we work out if we answering for th recent (June) study or the Feb Study period.
-      // const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
-      // if (studyId) {
-      //   await dietStudyApiClient.updateDietStudy(studyId, infos);
-      // } else {
-      //   await dietStudyApiClient.addDietStudy(dietStudyCoordinator.dietStudyData.currentPatient.patientId, infos);
-      // }
-
-      // setSubmitting(false);
-      dietStudyCoordinator.gotoNextScreen(route.name);
-    } catch (error) {
-      setErrorMessage(i18n.t('something-went-wrong'));
-      throw error;
-    }
-  };
+  const form = useDietStudyFormSubmit(route.name);
 
   const updateDietStudy = async (formData: FormData) => {
-    if (submitting) return;
-
-    setSubmitting(false);
-
+    if (form.submitting) return;
     const infos = {
       ...PhysicalActivityQuestion.createDTO(formData),
       ...AlcoholQuestions.createDTO(formData),
@@ -86,7 +61,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
       ...EatingWindowQuestions.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    await submitDietStudy(infos);
+    await form.submitDietStudy(infos);
   };
 
   return (
@@ -120,7 +95,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
               <EatingHabitQuestions formikProps={props as FormikProps<EatingHabitData>} />
               <DietDescriptionQuestion formikProps={props as FormikProps<DietData>} />
 
-              <ErrorText>{errorMessage}</ErrorText>
+              <ErrorText>{form.errorMessage}</ErrorText>
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                 <ValidationError error={i18n.t('validation-error-text')} />
               )}

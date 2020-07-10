@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
@@ -9,10 +9,8 @@ import { Form } from 'native-base';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
-import { dietStudyApiClient } from '@covid/Services';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
@@ -21,6 +19,7 @@ import { FoodFreqCard, GROUPS } from '@covid/components/Cards/FoodFreq/FoodFreqC
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
 import { DietChangedQuestion, DietChangedData } from './fields/DietChangedQuestion';
+import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
 interface FormData {}
 
@@ -31,32 +30,21 @@ type Props = {
 
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profile, patientId } = route.params.dietStudyData.currentPatient;
-  const registerSchema = Yup.object().shape({});
+  const registerSchema = Yup.object()
+    .shape({})
+    .concat(FruitNVegConsumptionQuestions.schema())
+    .concat(MilkTypeQuestion.schema())
+    .concat(DietChangedQuestion.schema());
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [submitting, setSubmitting] = useState<boolean>(false);
-
-  const submitDietStudy = async (infos: Partial<DietStudyRequest>) => {
-    console.log(infos);
-
-    try {
-      await dietStudyApiClient.addDietStudy(patientId, infos);
-      setSubmitting(false);
-      dietStudyCoordinator.gotoNextScreen(route.name);
-    } catch (error) {
-      setErrorMessage(i18n.t('something-went-wrong'));
-      throw error;
-    }
-  };
+  const form = useDietStudyFormSubmit(route.name);
 
   const updateDietStudy = async (formData: FormData) => {
-    if (submitting) return;
-    setSubmitting(false);
+    if (form.submitting) return;
     const infos = {
       ...{},
     } as Partial<DietStudyRequest>;
 
-    await submitDietStudy(infos);
+    await form.submitDietStudy(infos);
   };
 
   return (
@@ -76,7 +64,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
         {(props) => {
           return (
             <Form>
-              <ErrorText>{errorMessage}</ErrorText>
+              <ErrorText>{form.errorMessage}</ErrorText>
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                 <ValidationError error={i18n.t('validation-error-text')} />
               )}
