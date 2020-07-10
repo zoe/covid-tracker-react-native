@@ -97,7 +97,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
 
               <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
 
-              <View style={{ height: 32 }} />
+              <View style={{ height: 72 }} />
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
                 {i18n.t('diet-study.complete-cta')}
