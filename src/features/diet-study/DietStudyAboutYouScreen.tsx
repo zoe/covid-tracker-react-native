@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
@@ -19,9 +19,9 @@ import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-stu
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
-import { dietStudyApiClient } from '@covid/Services';
 import { colors } from '@theme';
+
+import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
 interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
 
@@ -31,10 +31,9 @@ type Props = {
 };
 
 const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { profile, patientId, isFemale } = route.params.dietStudyData.currentPatient;
+  const { profile, isFemale } = route.params.dietStudyData.currentPatient;
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const form = useDietStudyFormSubmit(route.name);
 
   const registerSchema = Yup.object()
     .shape({})
@@ -44,27 +43,9 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     .concat(ShiftWorkQuestion.schema())
     .concat(FoodSecurityQuestion.schema());
 
-  const submitDietStudy = async (infos: Partial<DietStudyRequest>) => {
-    console.log(infos);
-
-    try {
-      // const response = await dietStudyApiClient.addDietStudy(patientId, infos);
-
-      // // Set StudyID from server response
-      // dietStudyCoordinator.dietStudyData.recentDietStudyId = response.id;
-
-      // setSubmitting(false);
-      dietStudyCoordinator.gotoNextScreen(route.name);
-    } catch (error) {
-      setErrorMessage(i18n.t('something-went-wrong'));
-      throw error;
-    }
-  };
-
   const updateDietStudy = async (formData: FormData) => {
-    if (submitting) return;
-    setSubmitting(true);
-
+    console.log(`Update diet study: ${form.submitting}`);
+    if (form.submitting) return;
     let infos = {
       patient: route.params.dietStudyData.currentPatient.patientId,
       ...ExtraWeightQuestions.createDTO(formData),
@@ -84,7 +65,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
       infos = { ...infos, weight_kg: cleanFloatVal(formData.weight) };
     }
 
-    await submitDietStudy(infos);
+    await form.submitDietStudy(infos);
   };
 
   return (
@@ -121,7 +102,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
               <ShiftWorkQuestion formikProps={props as FormikProps<ShiftWorkData>} />
               <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
 
-              <ErrorText>{errorMessage}</ErrorText>
+              <ErrorText>{form.errorMessage}</ErrorText>
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                 <ValidationError error={i18n.t('validation-error-text')} />
               )}
