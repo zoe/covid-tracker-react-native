@@ -8,7 +8,7 @@ import { SelectableButton } from '@covid/components/SelectableButton';
 import { FieldWrapper } from '../Screen';
 import { ValidationError } from '../ValidationError';
 
-interface ISingleButton {
+export interface ISingleButton {
   label?: string;
   value: string;
 }

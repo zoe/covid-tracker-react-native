@@ -3,7 +3,7 @@ import { PickerProps } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 
-import ButtonsGroup from './Inputs/ButtonsGroup';
+import ButtonsGroup, { ISingleButton } from './Inputs/ButtonsGroup';
 
 interface YesNoFieldProps {
   selectedValue: string;
@@ -14,24 +14,19 @@ interface YesNoFieldProps {
   error?: any;
 }
 
+const Items = (): ISingleButton[] => [
+  {
+    label: i18n.t('picker-no'),
+    value: 'no',
+  },
+  {
+    label: i18n.t('picker-yes'),
+    value: 'yes',
+  },
+];
+
 export const YesNoField: React.FC<YesNoFieldProps> = ({ label, error, onValueChange, ...props }) => {
-  return (
-    <ButtonsGroup
-      label={label}
-      items={[
-        {
-          label: i18n.t('picker-no'),
-          value: 'no',
-        },
-        {
-          label: i18n.t('picker-yes'),
-          value: 'yes',
-        },
-      ]}
-      onValueChange={onValueChange}
-      {...props}
-    />
-  );
+  return <ButtonsGroup label={label} items={Items()} onValueChange={onValueChange} {...props} />;
 };
 
 export default YesNoField;
