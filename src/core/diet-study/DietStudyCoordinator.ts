@@ -51,7 +51,6 @@ export class DietStudyCoordinator {
 
   startDietStudy = async () => {
     const shouldSkip = await AsyncStorageService.getSkipDietStudy();
-    console.log('hi', shouldSkip);
     // If skip is null, user has not answered.
     // If skip is false, user is opted in .
     if (!shouldSkip) {
