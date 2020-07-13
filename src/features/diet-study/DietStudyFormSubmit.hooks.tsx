@@ -2,12 +2,18 @@ import { useState } from 'react';
 
 import { DietStudyResponse } from '@covid/core/diet-study/dto/DietStudyResponse';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
-import { dietStudyApiClient } from '@covid/Services';
+import { useInjection } from '@covid/provider/services.hooks';
+import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
+import { Services } from '@covid/provider/services.types';
+import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import i18n from '@covid/locale/i18n';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type FormSubmitApiCall = <Dto>(infos: Partial<Dto>, entryId?: string) => Promise<DietStudyResponse>;
+type FormSubmitApiCall = (
+  infos: DietStudyRequest | Partial<DietStudyRequest>,
+  entryId?: string
+) => Promise<DietStudyResponse>;
 
 type DietStudyFormSubmitHook = {
   submitting: boolean;
@@ -18,19 +24,20 @@ type DietStudyFormSubmitHook = {
 export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFormSubmitHook => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const apiClient = useInjection<IDietStudyRemoteClient>(Services.DietStudy);
 
-  const submitDietStudy = async <Dto extends any>(infos: Partial<Dto>): Promise<DietStudyResponse> => {
+  const submitDietStudy = async (infos: DietStudyRequest | Partial<DietStudyRequest>): Promise<DietStudyResponse> => {
     console.log(infos);
     try {
       const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
       let response: DietStudyResponse;
 
       if (studyId) {
-        response = await dietStudyApiClient.updateDietStudy(studyId, infos);
+        response = await apiClient.updateDietStudy(studyId, infos);
       } else {
-        response = await dietStudyApiClient.addDietStudy(
+        response = await apiClient.addDietStudy(
           dietStudyCoordinator.dietStudyData.currentPatient.patientId,
-          infos
+          infos as DietStudyRequest
         );
       }
 

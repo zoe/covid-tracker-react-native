@@ -23,6 +23,7 @@ export class DietStudyCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: ICoreService;
+  dietStudyService: IDietStudyRemoteClient;
   dietStudyData: DietStudyData;
 
   get dietStudyParam(): DietStudyParam {
@@ -53,6 +54,7 @@ export class DietStudyCoordinator {
     this.appCoordinator = appCoordinator;
     this.dietStudyData = dietStudyData;
     this.userService = userService;
+    this.dietStudyService = dietStudyService;
   };
 
   startDietStudy = async () => {
@@ -61,6 +63,11 @@ export class DietStudyCoordinator {
     // If skip is false, user is opted in .
     if (!shouldSkip) {
       return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+    }
+    // Check has user already completed diet studies
+    const studies = await this.dietStudyService.getDietStudies();
+    if (studies.length > 1) {
+      return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     }
     NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
