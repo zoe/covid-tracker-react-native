@@ -5,6 +5,7 @@ import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
 import { AsyncStorageService } from '../AsyncStorageService';
+import { IDietStudyRemoteClient } from './DietStudyApiClient';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -43,7 +44,12 @@ export class DietStudyCoordinator {
     },
   } as ScreenFlow;
 
-  init = (appCoordinator: AppCoordinator, dietStudyData: DietStudyData, userService: ICoreService) => {
+  init = (
+    appCoordinator: AppCoordinator,
+    dietStudyData: DietStudyData,
+    userService: ICoreService,
+    dietStudyService: IDietStudyRemoteClient
+  ) => {
     this.appCoordinator = appCoordinator;
     this.dietStudyData = dietStudyData;
     this.userService = userService;
