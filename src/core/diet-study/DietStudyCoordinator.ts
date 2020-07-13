@@ -51,8 +51,17 @@ export class DietStudyCoordinator {
     NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
   };
 
-  startDietStudy = () => {
-    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+  startDietStudy = async () => {
+    // Set default patient to first patient profile,
+    // user can navigate here from drawer menu without picking a profile
+
+    // TODO: Tell user they don't have a profile yet? (Is that a possbility?)
+    try {
+      const profile = await this.userService.myPatientProfile();
+      const currentPatient = await this.userService.getPatientState(profile!.id);
+      this.dietStudyData = { currentPatient };
+      NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+    } catch (_) {}
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
