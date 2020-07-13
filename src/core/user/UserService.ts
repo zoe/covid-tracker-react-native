@@ -67,7 +67,6 @@ export interface IConsentService {
 }
 
 export interface IPatientService {
-  myPatientProfile(): Promise<Profile | null>;
   listPatients(): Promise<any>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
@@ -246,17 +245,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
       privacy_policy_version,
     };
     return this.client.patch(`/consent/`, payload);
-  }
-
-  public async myPatientProfile(): Promise<Profile | null> {
-    try {
-      const data = (await this.client.get(`/patient_list/`)).data as Profile[];
-      console.log(data);
-      return !!data && data.length > 0 ? data[0] : null;
-    } catch (error) {
-      handleServiceError(error);
-    }
-    return null;
   }
 
   public async listPatients() {

@@ -4,6 +4,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
+import { IDietStudyRemoteClient } from './DietStudyApiClient';
+
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
   [key in ScreenName]: () => void;
@@ -41,7 +43,12 @@ export class DietStudyCoordinator {
     },
   } as ScreenFlow;
 
-  init = (appCoordinator: AppCoordinator, dietStudyData: DietStudyData, userService: ICoreService) => {
+  init = (
+    appCoordinator: AppCoordinator,
+    dietStudyData: DietStudyData,
+    userService: ICoreService,
+    dietStudyService: IDietStudyRemoteClient
+  ) => {
     this.appCoordinator = appCoordinator;
     this.dietStudyData = dietStudyData;
     this.userService = userService;
@@ -52,16 +59,7 @@ export class DietStudyCoordinator {
   };
 
   startDietStudy = async () => {
-    // Set default patient to first patient profile,
-    // user can navigate here from drawer menu without picking a profile
-
-    // TODO: Tell user they don't have a profile yet? (Is that a possbility?)
-    try {
-      const profile = await this.userService.myPatientProfile();
-      const currentPatient = await this.userService.getPatientState(profile!.id);
-      this.dietStudyData = { currentPatient };
-      NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
-    } catch (_) {}
+    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
