@@ -10,6 +10,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
+import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
@@ -35,6 +36,8 @@ export class AppCoordinator {
   userService: ICoreService;
   @lazyInject(Services.Content)
   contentService: IContentService;
+  @lazyInject(Services.DietStudy)
+  dietStudyService: IDietStudyRemoteClient;
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
@@ -120,7 +123,7 @@ export class AppCoordinator {
   }
 
   startDietStudyFlow(currentPatient: PatientStateType) {
-    dietStudyCoordinator.init(this, { currentPatient }, this.userService);
+    dietStudyCoordinator.init(this, { currentPatient }, this.userService, this.dietStudyService);
     dietStudyCoordinator.startDietStudy();
   }
 

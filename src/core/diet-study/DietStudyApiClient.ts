@@ -1,19 +1,25 @@
+import { injectable, inject } from 'inversify';
+
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { DietStudyResponse } from '@covid/core/diet-study/dto/DietStudyResponse';
+import { Services } from '@covid/provider/services.types';
 
 const API_URL = '/diet_study/';
 
 export interface IDietStudyRemoteClient {
+  getDietStudies(): Promise<DietStudyResponse[]>;
   addDietStudy(patientId: string, payload: DietStudyRequest): Promise<DietStudyResponse>;
-  updateDietStudy(studyId: string, payload: DietStudyRequest): Promise<DietStudyResponse>;
+  updateDietStudy(studyId: string, payload: Partial<DietStudyRequest>): Promise<DietStudyResponse>;
 }
 
+@injectable()
 export class DietStudyApiClient implements IDietStudyRemoteClient {
-  apiClient: IApiClient;
-  constructor(apiClient: IApiClient) {
-    this.apiClient = apiClient;
+  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
+
+  getDietStudies(): Promise<DietStudyResponse[]> {
+    return this.apiClient.get<DietStudyResponse[]>(API_URL);
   }
 
   updateDietStudy(studyId: string, payload: Partial<DietStudyRequest>): Promise<DietStudyResponse> {
