@@ -4,6 +4,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
+import { AsyncStorageService } from '../AsyncStorageService';
+
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
 
 type ScreenName = keyof ScreenParamList;
@@ -56,11 +58,14 @@ export class DietStudyCoordinator {
     this.dietStudyService = dietStudyService;
   };
 
-  startIntro = () => {
-    NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
-  };
-
   startDietStudy = async () => {
+    const shouldSkip = await AsyncStorageService.getSkipDietStudy();
+    // If skip is null, user has not answered.
+    // If skip is false, user is opted in .
+    if (!shouldSkip) {
+      return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+    }
+    // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     if (studies.length > 1) {
       return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);

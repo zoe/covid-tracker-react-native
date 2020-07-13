@@ -13,7 +13,7 @@ import PushNotificationService from '@covid/core/push-notifications/PushNotifica
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
-import appCoordinator, { AppCoordinator } from '@covid/features/AppCoordinator';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type MenuItemProps = {
   label: string;
@@ -59,7 +59,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
-  }, [userService.hasUser]);
+  }, [userService.hasUser, setUserEmail]);
 
   function showDeleteAlert() {
     Alert.alert(

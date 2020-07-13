@@ -10,6 +10,7 @@ const USER_COUNT = 'userCount';
 const USER_COUNTRY = 'userCountry';
 const CONSENT_SIGNED = 'consentSigned';
 const PUSH_TOKEN = 'pushToken';
+const SKIP_DIET_STUDY = 'skipDietStudy';
 
 const USER_PROFILE = 'userProfile';
 const ASKED_COUNTRY = 'askedCountry';
@@ -183,5 +184,23 @@ export class AsyncStorageService {
     } catch (err) {
       return null;
     }
+  }
+
+  // Diet Study Consent
+
+  static async getSkipDietStudy(): Promise<boolean | null> {
+    try {
+      await AsyncStorage.removeItem(SKIP_DIET_STUDY);
+      const value = await AsyncStorage.getItem(SKIP_DIET_STUDY);
+      return value !== null ? value === 'true' : null;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  static async setSkipDietStudy(skip: boolean) {
+    try {
+      await AsyncStorage.setItem(SKIP_DIET_STUDY, JSON.stringify(skip));
+    } catch (err) {}
   }
 }

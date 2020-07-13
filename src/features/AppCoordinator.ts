@@ -13,6 +13,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -145,6 +146,8 @@ export class AppCoordinator {
     this.patientId = currentPatient.patientId;
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.goToUKValidationStudy();
+    } else if (await this.shouldShowDietStudy(currentPatient)) {
+      this.startDietStudyFlow(currentPatient);
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -181,6 +184,11 @@ export class AppCoordinator {
 
   goToCreateProfile(avatarName: string) {
     NavigatorService.navigate('CreateProfile', { avatarName });
+  }
+
+  private async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
+    const skipDietStudy = await AsyncStorageService.getSkipDietStudy();
+    return !skipDietStudy && currentPatient.profile.name === 'Me';
   }
 }
 

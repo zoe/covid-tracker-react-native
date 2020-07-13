@@ -8,6 +8,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { TextInfoScreen } from '@covid/components/Screens/TextInfoScreen';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
+import DietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyIntro'>;
@@ -15,18 +17,23 @@ type Props = {
 };
 
 const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
-  const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+  const { currentPatient } = DietStudyCoordinator.dietStudyParam.dietStudyData;
 
-  const accept = () => {
+  const accept = async () => {
+    await AsyncStorageService.setSkipDietStudy(false);
     Analytics.track(events.ACCEPT_DIET_STUDY);
+    DietStudyCoordinator.startDietStudy();
   };
 
   const defer = () => {
     Analytics.track(events.DEFER_DIET_STUDY);
+    navigation.pop();
   };
 
-  const skip = () => {
+  const skip = async () => {
+    await AsyncStorageService.setSkipDietStudy(true);
     Analytics.track(events.DECLINE_DIET_STUDY);
+    navigation.pop();
   };
 
   return (
@@ -39,7 +46,7 @@ const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
       primaryButtonLabel={i18n.t('diet-study.intro.cta-yes')}
       secondaryButtonLabel={i18n.t('diet-study.intro.cta-no-later')}
       primaryButtonAction={accept}
-      secondaryButtonAction={skip}
+      secondaryButtonAction={defer}
       bottomView={<StickyBottomButton label={i18n.t('diet-study.intro.cta-no-never')} onPress={skip} />}
     />
   );
