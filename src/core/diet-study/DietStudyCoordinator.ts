@@ -5,6 +5,7 @@ import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
 import { AsyncStorageService } from '../AsyncStorageService';
+
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
 
 type ScreenName = keyof ScreenParamList;
