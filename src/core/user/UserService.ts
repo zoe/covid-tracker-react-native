@@ -261,7 +261,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
   public async listPatients() {
     try {
-      const { response } = await this.client.get(`/patient_list/`);
+      const response = await this.client.get(`/patient_list/`);
       return response;
     } catch (error) {
       handleServiceError(error);
