@@ -19,7 +19,8 @@ type Props = {
 const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
   const { currentPatient } = DietStudyCoordinator.dietStudyParam.dietStudyData;
 
-  const accept = () => {
+  const accept = async () => {
+    await AsyncStorageService.setSkipDietStudy(false);
     Analytics.track(events.ACCEPT_DIET_STUDY);
     DietStudyCoordinator.startDietStudy();
   };

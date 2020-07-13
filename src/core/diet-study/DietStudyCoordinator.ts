@@ -4,6 +4,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
+import { AsyncStorageService } from '../AsyncStorageService';
+
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
   [key in ScreenName]: () => void;
@@ -47,21 +49,15 @@ export class DietStudyCoordinator {
     this.userService = userService;
   };
 
-  startIntro = () => {
-    NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
-  };
-
   startDietStudy = async () => {
-    // Set default patient to first patient profile,
-    // user can navigate here from drawer menu without picking a profile
-
-    // TODO: Tell user they don't have a profile yet? (Is that a possbility?)
-    try {
-      const profile = await this.userService.myPatientProfile();
-      const currentPatient = await this.userService.getPatientState(profile!.id);
-      this.dietStudyData = { currentPatient };
-      NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
-    } catch (_) {}
+    const shouldSkip = await AsyncStorageService.getSkipDietStudy();
+    console.log('hi', shouldSkip);
+    // If skip is null, user has not answered.
+    // If skip is false, user is opted in .
+    if (!shouldSkip) {
+      return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+    }
+    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {

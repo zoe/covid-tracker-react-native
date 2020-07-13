@@ -143,9 +143,8 @@ export class AppCoordinator {
     this.patientId = currentPatient.patientId;
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.goToUKValidationStudy();
-    } else if (await this.shouldShowDietStudyIntro(currentPatient)) {
-      dietStudyCoordinator.init(this, { currentPatient }, this.userService);
-      return dietStudyCoordinator.startIntro();
+    } else if (await this.shouldShowDietStudy(currentPatient)) {
+      this.startDietStudyFlow(currentPatient);
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -184,7 +183,7 @@ export class AppCoordinator {
     NavigatorService.navigate('CreateProfile', { avatarName });
   }
 
-  private async shouldShowDietStudyIntro(currentPatient: PatientStateType): Promise<boolean> {
+  private async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
     const skipDietStudy = await AsyncStorageService.getSkipDietStudy();
     return !skipDietStudy && currentPatient.profile.name === 'Me';
   }
