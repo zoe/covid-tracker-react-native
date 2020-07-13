@@ -112,9 +112,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   }
 
   function openDietStudy() {
-    console.log('1');
     appCoordinator.goToDietStart();
-    // props.navigation.navigate('DietStudyAboutYou'); // TODO - Wire Navigations
   }
 
   function showResearchUpdates() {
