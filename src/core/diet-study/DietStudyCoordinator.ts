@@ -47,6 +47,10 @@ export class DietStudyCoordinator {
     this.userService = userService;
   };
 
+  startIntro = () => {
+    NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+  };
+
   startDietStudy = () => {
     NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };

@@ -12,6 +12,7 @@ import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -142,6 +143,9 @@ export class AppCoordinator {
     this.patientId = currentPatient.patientId;
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.goToUKValidationStudy();
+    } else if (await this.shouldShowDietStudyIntro(currentPatient)) {
+      dietStudyCoordinator.init(this, { currentPatient }, this.userService);
+      return dietStudyCoordinator.startIntro();
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -178,6 +182,11 @@ export class AppCoordinator {
 
   goToCreateProfile(avatarName: string) {
     NavigatorService.navigate('CreateProfile', { avatarName });
+  }
+
+  private async shouldShowDietStudyIntro(currentPatient: PatientStateType): Promise<boolean> {
+    const skipDietStudy = await AsyncStorageService.getSkipDietStudy();
+    return !skipDietStudy && currentPatient.profile.name === 'Me';
   }
 }
 
