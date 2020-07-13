@@ -22,6 +22,7 @@ export class DietStudyCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: ICoreService;
+  dietStudyService: IDietStudyRemoteClient;
   dietStudyData: DietStudyData;
 
   get dietStudyParam(): DietStudyParam {
@@ -52,6 +53,7 @@ export class DietStudyCoordinator {
     this.appCoordinator = appCoordinator;
     this.dietStudyData = dietStudyData;
     this.userService = userService;
+    this.dietStudyService = dietStudyService;
   };
 
   startIntro = () => {
@@ -59,6 +61,10 @@ export class DietStudyCoordinator {
   };
 
   startDietStudy = async () => {
+    const studies = await this.dietStudyService.getDietStudies();
+    if (studies.length > 1) {
+      return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+    }
     NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
 
