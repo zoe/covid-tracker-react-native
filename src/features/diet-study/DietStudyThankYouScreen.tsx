@@ -43,9 +43,9 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
   async function listProfiles() {
     setApiError({ status: i18n.t('errors.status-loading'), error: null } as ApiErrorState);
     try {
-      const response = await dietStudyCoordinator.listPatients();
-      if (response) {
-        setProfiles(response.data);
+      const profiles = await dietStudyCoordinator.listPatients();
+      if (profiles) {
+        setProfiles(profiles);
         setLoaded(true);
       }
     } catch (error) {

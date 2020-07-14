@@ -68,7 +68,7 @@ export interface IConsentService {
 
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
-  listPatients(): Promise<any>;
+  listPatients(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
@@ -261,8 +261,8 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
   public async listPatients() {
     try {
-      const { response } = await this.client.get(`/patient_list/`);
-      return response;
+      const response = await this.client.get<Profile[]>(`/patient_list/`);
+      return response.data;
     } catch (error) {
       handleServiceError(error);
     }
@@ -511,7 +511,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async hasMultipleProfiles() {
     try {
       const response = await this.listPatients();
-      return !!response && response.data.length > 1;
+      return !!response && response.length > 1;
     } catch (e) {
       return false;
     }
