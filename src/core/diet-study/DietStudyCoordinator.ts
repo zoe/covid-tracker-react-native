@@ -91,9 +91,10 @@ export class DietStudyCoordinator {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     if (studies.length > 1) {
-      return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+    } else {
+      NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
     }
-    NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {
