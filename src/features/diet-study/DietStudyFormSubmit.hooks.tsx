@@ -27,10 +27,10 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
   const apiClient = useInjection<IDietStudyRemoteClient>(Services.DietStudy);
 
   const submitDietStudy = async (infos: DietStudyRequest | Partial<DietStudyRequest>): Promise<DietStudyResponse> => {
-    console.log(infos);
     try {
       const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
       let response: DietStudyResponse;
+      setSubmitting(true);
 
       if (studyId) {
         response = await apiClient.updateDietStudy(studyId, infos);
