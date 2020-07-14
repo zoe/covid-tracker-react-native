@@ -8,14 +8,16 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
-import DropdownField from '@covid/components/DropdownField';
 import { FormQuestion } from '@covid/components/Inputs/FormQuestion.interface';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 export interface FruitNVegConsumptionData {
-  portions_of_fruit: number;
-  glasses_of_juice: number;
-  portions_of_veg: number;
+  portions_of_fruit: number | null;
+  glasses_of_juice: number | null;
+  portions_of_veg: number | null;
 }
+
+type Keys = keyof FruitNVegConsumptionData;
 
 interface Props {
   formikProps: FormikProps<FruitNVegConsumptionData>;
@@ -26,31 +28,32 @@ interface CheckBoxData {
   value: string;
 }
 
-interface DropdownProps {
+interface InputProps {
   label: string;
   items: CheckBoxData[];
   selectedValue?: any;
-  fieldKey: string;
+  fieldKey: Keys;
   error?: any;
   formikProps: FormikProps<FruitNVegConsumptionData>;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label, items, selectedValue, fieldKey, error, formikProps }) => (
+const Input: React.FC<InputProps> = ({ label, items, selectedValue, fieldKey, error, formikProps }) => (
   <FieldWrapper style={styles.fieldWrapper}>
     <RegularText>{label}</RegularText>
-    <View style={styles.fieldRow}>
-      <DropdownField
-        onlyPicker
-        selectedValue={selectedValue}
-        onValueChange={formikProps.handleChange(fieldKey)}
-        items={items}
-        error={error}
+    <View style={{}}>
+      <ValidatedTextInput
+        placeholder=""
+        value={formikProps.values[fieldKey] ? `${formikProps.values[fieldKey]}` : ''}
+        onChangeText={formikProps.handleChange(fieldKey)}
+        onBlur={formikProps.handleBlur(fieldKey)}
+        error={formikProps.touched[fieldKey] && formikProps.errors[fieldKey]}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+        keyboardType="numeric"
       />
     </View>
   </FieldWrapper>
 );
-
-type Keys = keyof FruitNVegConsumptionData;
 
 export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsumptionData, CovidTest> = (
   props: Props
@@ -59,7 +62,7 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
 
   const items = [{ label: 'Empty', value: '1' }];
 
-  const dropdown = (key: keyof FruitNVegConsumptionData): DropdownProps => ({
+  const input = (key: keyof FruitNVegConsumptionData): InputProps => ({
     label: i18n.t(`diet-study.typical-diet.${key}-label`),
     items,
     selectedValue: formikProps.values[key],
@@ -67,17 +70,13 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
     formikProps,
   });
 
-  const dropdowns = (): DropdownProps[] => [
-    dropdown('portions_of_fruit'),
-    dropdown('glasses_of_juice'),
-    dropdown('portions_of_veg'),
-  ];
+  const inputs = (): InputProps[] => [input('portions_of_fruit'), input('glasses_of_juice'), input('portions_of_veg')];
 
   return (
     <>
-      {dropdowns().map((dropdown) => {
-        const key = dropdown.fieldKey as Keys;
-        return <Dropdown key={key} error={formikProps.touched[key] && formikProps.errors[key]} {...dropdown} />;
+      {inputs().map((input) => {
+        const key = input.fieldKey as Keys;
+        return <Input key={key} error={formikProps.touched[key] && formikProps.errors[key]} {...input} />;
       })}
     </>
   );
@@ -85,9 +84,9 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
 
 FruitNVegConsumptionQuestions.initialFormValues = (): FruitNVegConsumptionData => {
   return {
-    portions_of_fruit: 0,
-    glasses_of_juice: 0,
-    portions_of_veg: 0,
+    portions_of_fruit: null,
+    glasses_of_juice: null,
+    portions_of_veg: null,
   };
 };
 
@@ -115,11 +114,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 
-  fieldRow: {
-    flexDirection: 'row',
-    margin: -16,
-    marginVertical: 0,
-  },
+  inputField: {},
 
   textItemStyle: {
     borderColor: 'transparent',
