@@ -3,13 +3,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 
 import { StickyBottomButton } from '@covid/components/Screen';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { TextInfoScreen } from '@covid/components/Screens/TextInfoScreen';
 import i18n from '@covid/locale/i18n';
-import Analytics, { events } from '@covid/core/Analytics';
-import DietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import dietStudyCoordinator, { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyIntro'>;
@@ -17,23 +14,18 @@ type Props = {
 };
 
 const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient } = DietStudyCoordinator.dietStudyParam.dietStudyData;
+  const { currentPatient } = route.params.dietStudyData;
 
-  const accept = async () => {
-    await AsyncStorageService.setSkipDietStudy(false);
-    Analytics.track(events.ACCEPT_DIET_STUDY);
-    DietStudyCoordinator.startDietStudy();
+  const accept = () => {
+    dietStudyCoordinator.dietStudyResponse(DietStudyConsent.ACCEPTED);
   };
 
   const defer = () => {
-    Analytics.track(events.DEFER_DIET_STUDY);
-    navigation.pop();
+    dietStudyCoordinator.dietStudyResponse(DietStudyConsent.DEFER);
   };
 
-  const skip = async () => {
-    await AsyncStorageService.setSkipDietStudy(true);
-    Analytics.track(events.DECLINE_DIET_STUDY);
-    navigation.pop();
+  const skip = () => {
+    dietStudyCoordinator.dietStudyResponse(DietStudyConsent.SKIP);
   };
 
   return (

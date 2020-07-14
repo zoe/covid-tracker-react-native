@@ -3,6 +3,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -13,6 +14,12 @@ type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
 type DietStudyParam = { dietStudyData: DietStudyData };
+
+export enum DietStudyConsent {
+  ACCEPTED = 'accepted',
+  DEFER = 'defer',
+  SKIP = 'skip',
+}
 
 export type DietStudyData = {
   recentDietStudyId?: string;
@@ -58,19 +65,36 @@ export class DietStudyCoordinator {
     this.dietStudyService = dietStudyService;
   };
 
-  startDietStudy = async () => {
-    const shouldSkip = await AsyncStorageService.getSkipDietStudy();
-    // If skip is null, user has not answered.
-    // If skip is false, user is opted in .
-    if (!shouldSkip) {
-      return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+  async dietStudyResponse(response: DietStudyConsent) {
+    await AsyncStorageService.setDietStudyConsent(response);
+
+    switch (response) {
+      case DietStudyConsent.ACCEPTED: {
+        Analytics.track(events.ACCEPT_DIET_STUDY);
+        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+        break;
+      }
+      case DietStudyConsent.SKIP: {
+        Analytics.track(events.DECLINE_DIET_STUDY);
+        NavigatorService.goBack();
+        break;
+      }
+      case DietStudyConsent.DEFER: {
+        Analytics.track(events.DEFER_DIET_STUDY);
+        NavigatorService.goBack();
+        break;
+      }
     }
+  }
+
+  startDietStudy = async () => {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     if (studies.length > 1) {
-      return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+    } else {
+      NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
     }
-    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {

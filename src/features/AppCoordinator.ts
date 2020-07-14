@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import UserService, { ICoreService, isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
@@ -11,7 +11,10 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, {
+  DietStudyConsent,
+  DietStudyCoordinator,
+} from '@covid/core/diet-study/DietStudyCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 
@@ -186,9 +189,19 @@ export class AppCoordinator {
     NavigatorService.navigate('CreateProfile', { avatarName });
   }
 
-  private async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
-    const skipDietStudy = await AsyncStorageService.getSkipDietStudy();
-    return !skipDietStudy && currentPatient.profile.name === 'Me';
+  async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
+    const consent = await AsyncStorageService.getDietStudyConsent();
+
+    const mainProfile = !currentPatient.isReportedByAnother;
+    const notSkipped = consent !== DietStudyConsent.SKIP;
+
+    const studies = await this.dietStudyService.getDietStudies();
+    let notCompleted = true;
+    if (studies.length > 1) {
+      notCompleted = false;
+    }
+
+    return mainProfile && notSkipped && notCompleted;
   }
 }
 
