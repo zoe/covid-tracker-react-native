@@ -25,7 +25,7 @@ const Items = (): ISingleButton[] => [
   },
 ];
 
-export const YesNoField: React.FC<YesNoFieldProps> = ({ label, error, onValueChange, ...props }) => {
+export const YesNoField: React.FC<YesNoFieldProps> = ({ label, onValueChange, ...props }) => {
   return <ButtonsGroup label={label} items={Items()} onValueChange={onValueChange} {...props} />;
 };
 
