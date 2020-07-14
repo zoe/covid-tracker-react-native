@@ -3,11 +3,11 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { DietStudyEvents, events } from '@covid/core/Analytics';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
-import Analytics, { DietStudyEvents, events } from '@covid/core/Analytics';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
