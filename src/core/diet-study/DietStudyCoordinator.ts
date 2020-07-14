@@ -4,7 +4,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 
-import { AsyncStorageService } from '../AsyncStorageService';
+import { AsyncStorageService, DietStudyConsent } from '../AsyncStorageService';
 
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
 
@@ -59,18 +59,25 @@ export class DietStudyCoordinator {
   };
 
   startDietStudy = async () => {
-    const shouldSkip = await AsyncStorageService.getSkipDietStudy();
-    // If skip is null, user has not answered.
-    // If skip is false, user is opted in .
-    if (!shouldSkip) {
-      return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
-    }
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     if (studies.length > 1) {
       return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     }
-    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+
+    const consent = await AsyncStorageService.getDietStudyConsent();
+
+    console.log('consent', consent);
+
+    if (consent === null) return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+
+    switch (consent) {
+      case DietStudyConsent.ACCEPTED:
+        return NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+      case DietStudyConsent.SKIP:
+      case DietStudyConsent.DEFER:
+        break;
+    }
   };
 
   gotoNextScreen = (screenName: ScreenName) => {

@@ -17,6 +17,12 @@ const ASKED_COUNTRY = 'askedCountry';
 
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
+export enum DietStudyConsent {
+  ACCEPTED = 'accepted',
+  DEFER = 'defer',
+  SKIP = 'skip',
+}
+
 export class AsyncStorageService {
   public static async GetStoredData(): Promise<AuthenticatedUser | null> {
     let userToken: string | null = '';
@@ -188,19 +194,20 @@ export class AsyncStorageService {
 
   // Diet Study Consent
 
-  static async getSkipDietStudy(): Promise<boolean | null> {
+  static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
     try {
-      await AsyncStorage.removeItem(SKIP_DIET_STUDY);
       const value = await AsyncStorage.getItem(SKIP_DIET_STUDY);
-      return value !== null ? value === 'true' : null;
+      console.log('getting diet study consent', value);
+      return value as DietStudyConsent | null;
     } catch (err) {
-      return false;
+      return null;
     }
   }
 
-  static async setSkipDietStudy(skip: boolean) {
+  static async setDietStudyConsent(consent: DietStudyConsent) {
     try {
-      await AsyncStorage.setItem(SKIP_DIET_STUDY, JSON.stringify(skip));
+      console.log('setting diet study consent', consent);
+      return await AsyncStorage.setItem(SKIP_DIET_STUDY, consent);
     } catch (err) {}
   }
 }
