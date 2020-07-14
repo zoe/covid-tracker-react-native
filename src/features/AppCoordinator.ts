@@ -13,7 +13,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import dietStudyCoordinator, {
   DietStudyConsent,
-  DietStudyCoordinator,
+  CURRENT_DIET_STUDY_TIME_PERIOD,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
@@ -126,8 +126,8 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyFlow(currentPatient: PatientStateType) {
-    dietStudyCoordinator.init(this, { currentPatient }, this.userService, this.dietStudyService);
+  startDietStudyFlow(currentPatient: PatientStateType, timePeriod: string = CURRENT_DIET_STUDY_TIME_PERIOD) {
+    dietStudyCoordinator.init(this, { currentPatient, timePeriod }, this.userService, this.dietStudyService);
     dietStudyCoordinator.startDietStudy();
   }
 

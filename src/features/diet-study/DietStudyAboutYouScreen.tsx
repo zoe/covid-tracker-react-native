@@ -1,14 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -20,6 +20,7 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { colors } from '@theme';
+import { PREVIOUS_DIET_STUDY_TIME_PERIOD } from '@covid/core/diet-study/DietStudyCoordinator';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
@@ -30,7 +31,19 @@ type Props = {
   route: RouteProp<ScreenParamList, 'DietStudyAboutYou'>;
 };
 
+const ThankYouSection: React.FC = () => {
+  return (
+    <View style={styles.thankyou}>
+      <RegularBoldText>Thank you</RegularBoldText>
+      <View style={{ height: 4 }} />
+      <RegularText style={{ textAlign: 'center' }}>
+        Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread.
+      </RegularText>
+    </View>
+  );
+};
 const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { timePeriod } = route.params.dietStudyData;
   const { profile, isFemale } = route.params.dietStudyData.currentPatient;
 
   const form = useDietStudyFormSubmit(route.name);
@@ -47,6 +60,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     console.log(`Update diet study: ${form.submitting}`);
     if (form.submitting) return;
     let infos = {
+      display_name: route.params.dietStudyData.timePeriod,
       patient: route.params.dietStudyData.currentPatient.patientId,
       ...ExtraWeightQuestions.createDTO(formData),
       ...HoursSleepQuestion.createDTO(formData),
@@ -70,6 +84,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen}>
+      {timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD && <ThankYouSection />}
       <Header>
         <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
       </Header>
@@ -121,6 +136,16 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.backgroundSecondary,
+  },
+  thankyou: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    padding: 16,
+    paddingVertical: 24,
+    marginVertical: 16,
+    marginHorizontal: 8,
+    backgroundColor: 'white',
+    borderRadius: 16,
   },
 });
 
