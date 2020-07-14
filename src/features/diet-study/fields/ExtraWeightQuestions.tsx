@@ -29,6 +29,7 @@ export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightDa
 
   const [weightUnsureChecked, setWeightUnsureCheckbox] = useState(false);
   const [wasPregnantChecked, setWasPregnantCheckbox] = useState(false);
+
   return (
     <View style={{ paddingBottom: 36 }}>
       <CheckboxItem
