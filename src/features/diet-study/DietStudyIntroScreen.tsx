@@ -6,8 +6,7 @@ import { StickyBottomButton } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { TextInfoScreen } from '@covid/components/Screens/TextInfoScreen';
 import i18n from '@covid/locale/i18n';
-import { events } from '@covid/core/Analytics';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyIntro'>;
@@ -18,15 +17,15 @@ const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
   const { currentPatient } = route.params.dietStudyData;
 
   const accept = () => {
-    dietStudyCoordinator.dietStudyResponse(events.ACCEPT_DIET_STUDY);
+    dietStudyCoordinator.dietStudyResponse(DietStudyConsent.ACCEPTED);
   };
 
   const defer = () => {
-    dietStudyCoordinator.dietStudyResponse(events.DEFER_DIET_STUDY);
+    dietStudyCoordinator.dietStudyResponse(DietStudyConsent.DEFER);
   };
 
   const skip = () => {
-    dietStudyCoordinator.dietStudyResponse(events.DECLINE_DIET_STUDY);
+    dietStudyCoordinator.dietStudyResponse(DietStudyConsent.SKIP);
   };
 
   return (

@@ -11,11 +11,11 @@ type AdditionalUserProperties = {
   Experiment_001?: string;
 };
 
-export enum DietStudyEvents {
-  ACCEPT_DIET_STUDY = 'ACCEPT_DIET_STUDY',
-  DEFER_DIET_STUDY = 'DEFER_DIET_STUDY',
-  DECLINE_DIET_STUDY = 'DECLINE_DIET_STUDY',
-}
+const DietStudyEvents = {
+  ACCEPT_DIET_STUDY: 'ACCEPT_DIET_STUDY',
+  DEFER_DIET_STUDY: 'DEFER_DIET_STUDY',
+  DECLINE_DIET_STUDY: 'DECLINE_DIET_STUDY',
+};
 
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',

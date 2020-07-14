@@ -2,6 +2,7 @@ import { AsyncStorage } from 'react-native';
 
 import { UserResponse } from './user/dto/UserAPIContracts';
 import { AuthenticatedUser } from './user/UserService';
+import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 
 const AUTH_TOKEN = 'authToken';
 const USER_ID = 'userId';
@@ -188,19 +189,18 @@ export class AsyncStorageService {
 
   // Diet Study Consent
 
-  static async getSkipDietStudy(): Promise<boolean | null> {
+  static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
     try {
-      await AsyncStorage.removeItem(SKIP_DIET_STUDY);
       const value = await AsyncStorage.getItem(SKIP_DIET_STUDY);
-      return value !== null ? value === 'true' : null;
+      return value as DietStudyConsent | null;
     } catch (err) {
-      return false;
+      return null;
     }
   }
 
-  static async setSkipDietStudy(skip: boolean) {
+  static async setDietStudyConsent(consent: DietStudyConsent) {
     try {
-      await AsyncStorage.setItem(SKIP_DIET_STUDY, JSON.stringify(skip));
+      return await AsyncStorage.setItem(SKIP_DIET_STUDY, consent);
     } catch (err) {}
   }
 }

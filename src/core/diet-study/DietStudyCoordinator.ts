@@ -3,7 +3,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import Analytics, { DietStudyEvents, events } from '@covid/core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -14,6 +14,12 @@ type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
 type DietStudyParam = { dietStudyData: DietStudyData };
+
+export enum DietStudyConsent {
+  ACCEPTED = 'accepted',
+  DEFER = 'defer',
+  SKIP = 'skip',
+}
 
 export type DietStudyData = {
   recentDietStudyId?: string;
@@ -59,21 +65,22 @@ export class DietStudyCoordinator {
     this.dietStudyService = dietStudyService;
   };
 
-  async dietStudyResponse(response: DietStudyEvents) {
-    Analytics.track(response);
+  async dietStudyResponse(response: DietStudyConsent) {
+    await AsyncStorageService.setDietStudyConsent(response);
 
     switch (response) {
-      case DietStudyEvents.ACCEPT_DIET_STUDY: {
-        await AsyncStorageService.setSkipDietStudy(false);
+      case DietStudyConsent.ACCEPTED: {
+        Analytics.track(events.ACCEPT_DIET_STUDY);
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
         break;
       }
-      case DietStudyEvents.DECLINE_DIET_STUDY: {
-        await AsyncStorageService.setSkipDietStudy(true);
+      case DietStudyConsent.SKIP: {
+        Analytics.track(events.DECLINE_DIET_STUDY);
         NavigatorService.goBack();
         break;
       }
-      case DietStudyEvents.DEFER_DIET_STUDY: {
+      case DietStudyConsent.DEFER: {
+        Analytics.track(events.DEFER_DIET_STUDY);
         NavigatorService.goBack();
         break;
       }
