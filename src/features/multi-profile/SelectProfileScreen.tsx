@@ -80,10 +80,10 @@ export default class SelectProfileScreen extends Component<RenderProps, State> {
   async listProfiles() {
     this.setState({ status: i18n.t('errors.status-loading'), error: null });
     try {
-      const response = await this.userService.listPatients();
-      response &&
+      const profiles = await this.userService.listPatients();
+      profiles &&
         this.setState({
-          profiles: response.data,
+          profiles,
           isLoaded: true,
         });
     } catch (error) {
