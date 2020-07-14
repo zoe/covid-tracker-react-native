@@ -7,6 +7,7 @@ import NavigatorService from '@covid/NavigatorService';
 import { AsyncStorageService } from '../AsyncStorageService';
 
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
+import Analytics, { DietStudyEvents, events } from '@covid/core/Analytics';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -58,19 +59,34 @@ export class DietStudyCoordinator {
     this.dietStudyService = dietStudyService;
   };
 
-  startDietStudy = async () => {
-    const shouldSkip = await AsyncStorageService.getSkipDietStudy();
-    // If skip is null, user has not answered.
-    // If skip is false, user is opted in .
-    if (!shouldSkip) {
-      return NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+  async dietStudyResponse(response: DietStudyEvents) {
+    Analytics.track(response);
+
+    switch (response) {
+      case DietStudyEvents.ACCEPT_DIET_STUDY: {
+        await AsyncStorageService.setSkipDietStudy(false);
+        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+        break;
+      }
+      case DietStudyEvents.DECLINE_DIET_STUDY: {
+        await AsyncStorageService.setSkipDietStudy(true);
+        NavigatorService.goBack();
+        break;
+      }
+      case DietStudyEvents.DEFER_DIET_STUDY: {
+        NavigatorService.goBack();
+        break;
+      }
     }
+  }
+
+  startDietStudy = async () => {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     if (studies.length > 1) {
       return NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     }
-    NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+    NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
   };
 
   gotoNextScreen = (screenName: ScreenName) => {

@@ -188,7 +188,7 @@ export class AppCoordinator {
 
   private async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
     const skipDietStudy = await AsyncStorageService.getSkipDietStudy();
-    return !skipDietStudy && currentPatient.profile.name === 'Me';
+    return !skipDietStudy && !currentPatient.isReportedByAnother;
   }
 }
 
