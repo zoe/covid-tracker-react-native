@@ -137,7 +137,6 @@ export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), form
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
         const key = item.key as Keys;
-        console.log(`${key} error`, formikProps.errors[key]);
         return (
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup

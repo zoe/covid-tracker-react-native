@@ -57,8 +57,6 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
     </Animated.View>
   );
 
-  console.log('error', error);
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
