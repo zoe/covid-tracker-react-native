@@ -1,8 +1,9 @@
 import { AsyncStorage } from 'react-native';
 
+import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
+
 import { UserResponse } from './user/dto/UserAPIContracts';
 import { AuthenticatedUser } from './user/UserService';
-import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 
 const AUTH_TOKEN = 'authToken';
 const USER_ID = 'userId';
