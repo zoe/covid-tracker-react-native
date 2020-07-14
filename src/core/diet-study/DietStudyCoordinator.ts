@@ -50,21 +50,16 @@ export class DietStudyCoordinator {
       NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
     },
     DietStudyTypicalDiet: () => {
+      const { currentPatient, timePeriod } = this.dietStudyParam.dietStudyData;
+
+      if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
+        this.appCoordinator.startDietStudyFlow(currentPatient, PREVIOUS_DIET_STUDY_TIME_PERIOD);
+        return;
+      }
+
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
-      // Delete recent diet study id before starting the previous one
-      // delete dietStudyCoordinator.dietStudyData.recentDietStudyId;
-
-      // if (!!recentDietStudyId && formData.hasDietChanged === DietChangedOption.YES) {
-      //   return appCoordinator.startDietStudyFlow(currentPatient, PREVIOUS_DIET_STUDY_TIME_PERIOD);
-      // }
-
-      // // Delete deb diet's study id and go to thank you screen
-      // delete dietStudyCoordinator.dietStudyData.febDietStudyId;
-
-      // dietStudyCoordinator.gotoNextScreen(route.name);
-
       NavigatorService.navigate('WelcomeRepeat');
     },
   } as ScreenFlow;

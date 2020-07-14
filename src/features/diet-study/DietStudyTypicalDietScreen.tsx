@@ -60,19 +60,11 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    await form.submitDietStudy(infos, false);
-
-    // Delete recent diet study id before starting the previous one
-    delete dietStudyCoordinator.dietStudyData.recentDietStudyId;
-
     if (!!recentDietStudyId && formData.hasDietChanged === DietChangedOption.YES) {
-      return appCoordinator.startDietStudyFlow(currentPatient, PREVIOUS_DIET_STUDY_TIME_PERIOD);
+      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
     }
 
-    // Delete deb diet's study id and go to thank you screen
-    delete dietStudyCoordinator.dietStudyData.febDietStudyId;
-
-    dietStudyCoordinator.gotoNextScreen(route.name);
+    await form.submitDietStudy(infos);
   };
 
   return (

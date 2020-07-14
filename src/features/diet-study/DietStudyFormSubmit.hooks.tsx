@@ -10,10 +10,7 @@ import i18n from '@covid/locale/i18n';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type FormSubmitApiCall = (
-  infos: DietStudyRequest | Partial<DietStudyRequest>,
-  goNextRoute?: boolean
-) => Promise<DietStudyResponse>;
+type FormSubmitApiCall = (infos: DietStudyRequest | Partial<DietStudyRequest>) => Promise<DietStudyResponse>;
 
 type DietStudyFormSubmitHook = {
   submitting: boolean;
@@ -44,16 +41,11 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
     }
   };
 
-  const submitDietStudy = async (
-    infos: DietStudyRequest | Partial<DietStudyRequest>,
-    goNextRoute: boolean = true
-  ): Promise<DietStudyResponse> => {
+  const submitDietStudy = async (infos: DietStudyRequest | Partial<DietStudyRequest>): Promise<DietStudyResponse> => {
     try {
       const studyId = getStudyId();
       let response: DietStudyResponse;
       setSubmitting(true);
-
-      console.log('Is recent', isCurrentTimePeriod());
 
       if (studyId) {
         response = await apiClient.updateDietStudy(studyId, infos);
@@ -65,7 +57,8 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
       }
 
       updateStudyId(response.id);
-      if (goNextRoute) dietStudyCoordinator.gotoNextScreen(next);
+
+      dietStudyCoordinator.gotoNextScreen(next);
 
       return response;
     } catch (error) {
