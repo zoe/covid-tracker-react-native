@@ -32,6 +32,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profile } = route.params.dietStudyData.currentPatient;
   const registerSchema = Yup.object()
     .shape({})
+    .concat(FoodFreqQuestion.schema())
     .concat(FruitNVegConsumptionQuestions.schema())
     .concat(MilkTypeQuestion.schema())
     .concat(DietChangedQuestion.schema());
@@ -73,11 +74,6 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
         {(props) => {
           return (
             <Form>
-              <ErrorText>{form.errorMessage}</ErrorText>
-              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                <ValidationError error={i18n.t('validation-error-text')} />
-              )}
-
               <RegularText style={styles.description}>{i18n.t('diet-study.typical-diet.text-1')}</RegularText>
 
               <View style={[styles.divider, styles.padded]} />
@@ -89,6 +85,12 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
 
               <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+
+              <ErrorText style={{ marginHorizontal: 16 }}>{form.errorMessage}</ErrorText>
+
+              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
+              )}
 
               <View style={{ height: 72 }} />
 

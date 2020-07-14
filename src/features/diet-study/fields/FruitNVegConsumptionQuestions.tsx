@@ -31,10 +31,11 @@ interface DropdownProps {
   items: CheckBoxData[];
   selectedValue?: any;
   fieldKey: string;
+  error?: any;
   formikProps: FormikProps<FruitNVegConsumptionData>;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label, items, selectedValue, fieldKey, formikProps }) => (
+const Dropdown: React.FC<DropdownProps> = ({ label, items, selectedValue, fieldKey, error, formikProps }) => (
   <FieldWrapper style={styles.fieldWrapper}>
     <RegularText>{label}</RegularText>
     <View style={styles.fieldRow}>
@@ -43,17 +44,20 @@ const Dropdown: React.FC<DropdownProps> = ({ label, items, selectedValue, fieldK
         selectedValue={selectedValue}
         onValueChange={formikProps.handleChange(fieldKey)}
         items={items}
+        error={error}
       />
     </View>
   </FieldWrapper>
 );
+
+type Keys = keyof FruitNVegConsumptionData;
 
 export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsumptionData, CovidTest> = (
   props: Props
 ) => {
   const { formikProps } = props;
 
-  const items = [{ label: 'Empty', value: '0' }];
+  const items = [{ label: 'Empty', value: '1' }];
 
   const dropdown = (key: keyof FruitNVegConsumptionData): DropdownProps => ({
     label: i18n.t(`diet-study.typical-diet.${key}-label`),
@@ -71,9 +75,10 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
 
   return (
     <>
-      {dropdowns().map((dropdown) => (
-        <Dropdown key={dropdown.fieldKey} {...dropdown} />
-      ))}
+      {dropdowns().map((dropdown) => {
+        const key = dropdown.fieldKey as Keys;
+        return <Dropdown key={key} error={formikProps.touched[key] && formikProps.errors[key]} {...dropdown} />;
+      })}
     </>
   );
 };
@@ -87,7 +92,11 @@ FruitNVegConsumptionQuestions.initialFormValues = (): FruitNVegConsumptionData =
 };
 
 FruitNVegConsumptionQuestions.schema = () => {
-  return Yup.object().shape({});
+  return Yup.object().shape({
+    portions_of_fruit: Yup.number().required(),
+    glasses_of_juice: Yup.number().required(),
+    portions_of_veg: Yup.number().required(),
+  });
 };
 
 FruitNVegConsumptionQuestions.createDTO = (formData: FruitNVegConsumptionData): Partial<DietStudyRequest> => {

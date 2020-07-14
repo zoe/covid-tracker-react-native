@@ -7,6 +7,7 @@ import Animated, { Easing } from 'react-native-reanimated';
 import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
 import { colors } from '@theme';
 import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
+import { ValidationError } from '@covid/components/ValidationError';
 
 import { RegularText, SecondaryText } from '../../Text';
 
@@ -18,6 +19,7 @@ export interface FoodFreqGroupItem {
 }
 
 interface Props extends FoodFreqGroupItem {
+  error?: any;
   onSelected?: (item: SelectableItem) => void;
 }
 
@@ -33,7 +35,7 @@ const animate = (fn: any) => {
   }).start();
 };
 
-export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, items, onSelected }) => {
+export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, items, error, onSelected }) => {
   const opacity = { start: 0, end: 1 };
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
@@ -55,6 +57,8 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
     </Animated.View>
   );
 
+  console.log('error', error);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -67,6 +71,11 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
         </View>
         {selectedItem && selectedLabel}
+        {error && (
+          <View style={{ marginTop: 4 }}>
+            <ValidationError error={error} style={styles.validationError} />
+          </View>
+        )}
       </TouchableOpacity>
       <Collapsible enablePointerEvents={false} collapsed={collapsed}>
         <View style={{ height: 20 }} />
@@ -77,7 +86,7 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           onSelected={(selected) => {
             setTimeout(() => {
               setCollapsed(true);
-            }, 214);
+            }, 0);
             setSelectedItem(selected);
             if (onSelected) onSelected(selected);
           }}
@@ -108,5 +117,9 @@ const styles = StyleSheet.create({
   },
   selectedLabelContainer: {
     alignSelf: 'flex-start',
+  },
+  validationError: {
+    marginTop: 0,
+    marginHorizontal: 0,
   },
 });

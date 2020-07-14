@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import { FormikProps } from 'formik';
 
 import { colors } from '@theme';
 import { FOOD_INTAKE_FREQUENCY, SelectableItem } from '@covid/components/Inputs/Selectable';
@@ -10,6 +11,7 @@ import { FoodFreqGroupItem, FoodFreqGroup } from './FoodFreqGroup';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
+  formikProps: FormikProps<FoodFreqData>;
   items: FoodFreqGroupItem[];
   onSelected: (key: keyof FoodFreqData, item: SelectableItem) => void;
 }
@@ -127,11 +129,15 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
 
 const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: colors.backgroundFour }} />;
 
-export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), ...props }) => {
+type Keys = keyof FoodFreqData;
+
+export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), formikProps, ...props }) => {
   return (
     <View style={[styles.container, props.style]}>
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
+        const key = item.key as Keys;
+        console.log(`${key} error`, formikProps.errors[key]);
         return (
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup
@@ -140,6 +146,7 @@ export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), ...p
               onSelected={(newValue) => {
                 if (props.onSelected) props.onSelected(item.key, newValue);
               }}
+              error={formikProps.touched[key] && formikProps.errors[key]}
             />
             {showDivider && <Divider />}
           </React.Fragment>
