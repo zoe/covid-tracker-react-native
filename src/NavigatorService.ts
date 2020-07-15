@@ -17,7 +17,7 @@ function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<Ro
   );
 }
 
-function popTo<RouteName extends keyof ScreenParamList>(routeName: RouteName, inclusive?: boolean) {
+function popTo<RouteName extends keyof ScreenParamList>(routeName: RouteName, inclusive: boolean = false) {
   navigation!.dispatch((state) => {
     const newRoutes = state.routes;
 
