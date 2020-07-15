@@ -150,7 +150,6 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         </View>
         <MenuItem
           label={i18n.t('diet-study.drawer-menu-item')}
-          indicator={2}
           onPress={() => {
             openDietStudy();
           }}

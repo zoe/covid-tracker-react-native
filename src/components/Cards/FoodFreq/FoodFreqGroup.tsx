@@ -30,7 +30,7 @@ const SelectedLabel: React.FC<{ title: string }> = ({ title }) => (
 const animate = (fn: any) => {
   Animated.timing(fn, {
     toValue: 1,
-    duration: 224,
+    duration: 100,
     easing: Easing.inOut(Easing.cubic),
   }).start();
 };
@@ -39,6 +39,7 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
   const opacity = { start: 0, end: 1 };
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
+  const [shouldShow, setShouldShow] = useState<boolean>(false);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
+          setShouldShow(true);
           setCollapsed(!collapsed);
         }}>
         <View style={styles.header}>
@@ -75,21 +77,28 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           </View>
         )}
       </TouchableOpacity>
-      <Collapsible enablePointerEvents={false} collapsed={collapsed}>
-        <View style={{ height: 20 }} />
-        <Selectable
-          key={primaryLabel}
-          items={items}
-          resetAnimation={collapsed}
-          onSelected={(selected) => {
-            setTimeout(() => {
+      {shouldShow && (
+        <Collapsible
+          enablePointerEvents={false}
+          collapsed={collapsed}
+          onAnimationEnd={() => {
+            if (collapsed && shouldShow) {
+              setShouldShow(false);
+            }
+          }}>
+          <View style={{ height: 20 }} />
+          <Selectable
+            key={primaryLabel}
+            items={items}
+            resetAnimation={collapsed}
+            onSelected={(selected) => {
               setCollapsed(true);
-            }, 0);
-            setSelectedItem(selected);
-            if (onSelected) onSelected(selected);
-          }}
-        />
-      </Collapsible>
+              setSelectedItem(selected);
+              if (onSelected) onSelected(selected);
+            }}
+          />
+        </Collapsible>
+      )}
     </View>
   );
 };

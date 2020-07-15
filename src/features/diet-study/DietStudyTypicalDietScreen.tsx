@@ -14,10 +14,18 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
+import NavigatorService from '@covid/NavigatorService';
+import dietStudyCoordinator, {
+  DietStudyData,
+  PREVIOUS_DIET_STUDY_TIME_PERIOD,
+  CURRENT_DIET_STUDY_TIME_PERIOD,
+} from '@covid/core/diet-study/DietStudyCoordinator';
+
+import appCoordinator from '../AppCoordinator';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
-import { DietChangedQuestion, DietChangedData } from './fields/DietChangedQuestion';
+import { DietChangedQuestion, DietChangedData, DietChangedOption } from './fields/DietChangedQuestion';
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
 
@@ -29,13 +37,17 @@ type Props = {
 };
 
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { profile } = route.params.dietStudyData.currentPatient;
-  const registerSchema = Yup.object()
+  const { currentPatient, recentDietStudyId, timePeriod } = route.params.dietStudyData;
+  const { profile } = currentPatient;
+  let registerSchema = Yup.object()
     .shape({})
     .concat(FoodFreqQuestion.schema())
     .concat(FruitNVegConsumptionQuestions.schema())
-    .concat(MilkTypeQuestion.schema())
-    .concat(DietChangedQuestion.schema());
+    .concat(MilkTypeQuestion.schema());
+
+  if (timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD) {
+    registerSchema = registerSchema.concat(DietChangedQuestion.schema());
+  }
 
   const form = useDietStudyFormSubmit(route.name);
 
@@ -48,8 +60,11 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    console.log(infos);
-    // await form.submitDietStudy(infos);
+    if (!!recentDietStudyId && formData.hasDietChanged === DietChangedOption.YES) {
+      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
+    }
+
+    await form.submitDietStudy(infos);
   };
 
   return (
@@ -84,7 +99,9 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
 
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
 
-              <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+              {timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD && (
+                <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+              )}
 
               <ErrorText style={{ marginHorizontal: 16 }}>{form.errorMessage}</ErrorText>
 

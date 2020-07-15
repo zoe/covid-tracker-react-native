@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { DietStudyResponse } from '@covid/core/diet-study/dto/DietStudyResponse';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { CURRENT_DIET_STUDY_TIME_PERIOD } from '@covid/core/diet-study/DietStudyCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import { Services } from '@covid/provider/services.types';
@@ -10,10 +10,7 @@ import i18n from '@covid/locale/i18n';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type FormSubmitApiCall = (
-  infos: DietStudyRequest | Partial<DietStudyRequest>,
-  entryId?: string
-) => Promise<DietStudyResponse>;
+type FormSubmitApiCall = (infos: DietStudyRequest | Partial<DietStudyRequest>) => Promise<DietStudyResponse>;
 
 type DietStudyFormSubmitHook = {
   submitting: boolean;
@@ -26,9 +23,27 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
   const [errorMessage, setErrorMessage] = useState<string>('');
   const apiClient = useInjection<IDietStudyRemoteClient>(Services.DietStudy);
 
+  const isCurrentTimePeriod = (): boolean => {
+    const { timePeriod } = dietStudyCoordinator.dietStudyData;
+    return timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD;
+  };
+
+  const getStudyId = (): string | undefined => {
+    const { recentDietStudyId, febDietStudyId } = dietStudyCoordinator.dietStudyData;
+    return isCurrentTimePeriod() ? recentDietStudyId : febDietStudyId;
+  };
+
+  const updateStudyId = (id: string) => {
+    if (isCurrentTimePeriod()) {
+      dietStudyCoordinator.dietStudyData.recentDietStudyId = id;
+    } else {
+      dietStudyCoordinator.dietStudyData.febDietStudyId = id;
+    }
+  };
+
   const submitDietStudy = async (infos: DietStudyRequest | Partial<DietStudyRequest>): Promise<DietStudyResponse> => {
     try {
-      const studyId = dietStudyCoordinator.dietStudyData.recentDietStudyId;
+      const studyId = getStudyId();
       let response: DietStudyResponse;
       setSubmitting(true);
 
@@ -41,7 +56,8 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
         );
       }
 
-      dietStudyCoordinator.dietStudyData.recentDietStudyId = response.id;
+      updateStudyId(response.id);
+
       dietStudyCoordinator.gotoNextScreen(next);
 
       return response;

@@ -15,6 +15,9 @@ type ScreenFlow = {
 };
 type DietStudyParam = { dietStudyData: DietStudyData };
 
+export const CURRENT_DIET_STUDY_TIME_PERIOD = 'July 2020';
+export const PREVIOUS_DIET_STUDY_TIME_PERIOD = 'Feb 2020';
+
 export enum DietStudyConsent {
   ACCEPTED = 'accepted',
   DEFER = 'defer',
@@ -22,6 +25,7 @@ export enum DietStudyConsent {
 }
 
 export type DietStudyData = {
+  timePeriod?: string;
   recentDietStudyId?: string;
   febDietStudyId?: string;
   currentPatient: PatientStateType;
@@ -46,6 +50,13 @@ export class DietStudyCoordinator {
       NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
     },
     DietStudyTypicalDiet: () => {
+      const { currentPatient, timePeriod } = this.dietStudyParam.dietStudyData;
+
+      if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
+        NavigatorService.reset([{ name: 'DietStudyAboutYou', params: this.dietStudyParam }]);
+        return;
+      }
+
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
@@ -67,7 +78,6 @@ export class DietStudyCoordinator {
 
   async dietStudyResponse(response: DietStudyConsent) {
     await AsyncStorageService.setDietStudyConsent(response);
-
     switch (response) {
       case DietStudyConsent.ACCEPTED: {
         Analytics.track(events.ACCEPT_DIET_STUDY);

@@ -76,7 +76,7 @@ export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected 
 
   useEffect(() => {
     const run = (fn: any, index: number, final: number) => {
-      const duration = resetAnimation ? 300 : 232;
+      const duration = 220;
       const delay = resetAnimation ? 0 : index * 40;
       Animated.timing(fn, {
         toValue: final,
