@@ -95,17 +95,21 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
         />
       </FieldWrapper>
 
-      <AlcoholUnitInfo style={{ marginHorizontal: 16 }} />
-
-      <FieldWrapper>
-        <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>
-        <DropdownField
-          selectedValue={formikProps.values.alcoholUnits}
-          onValueChange={formikProps.handleChange('alcoholUnits')}
-          error={formikProps.touched.alcoholUnits && formikProps.errors.alcoholUnits}
-          items={unitsItems}
-        />
-      </FieldWrapper>
+      {formikProps.values.alcoholFrequency !== '' &&
+        formikProps.values.alcoholFrequency !== AlcoholFrequencyOptions.NEVER && (
+          <>
+            <AlcoholUnitInfo style={{ marginHorizontal: 16 }} />
+            <FieldWrapper>
+              <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>
+              <DropdownField
+                selectedValue={formikProps.values.alcoholUnits}
+                onValueChange={formikProps.handleChange('alcoholUnits')}
+                error={formikProps.touched.alcoholUnits && formikProps.errors.alcoholUnits}
+                items={unitsItems}
+              />
+            </FieldWrapper>
+          </>
+        )}
     </>
   );
 };
@@ -120,7 +124,11 @@ AlcoholQuestions.initialFormValues = (): AlcoholData => {
 AlcoholQuestions.schema = () => {
   return Yup.object().shape({
     alcoholFrequency: Yup.string().required(i18n.t('please-select-option')),
-    alcoholUnits: Yup.string().required(i18n.t('please-select-option')),
+    alcoholUnits: Yup.string().when('alcoholFrequency', {
+      is: (alcoholFrequency: string) => alcoholFrequency !== '' && alcoholFrequency !== AlcoholFrequencyOptions.NEVER,
+      then: Yup.string().required(i18n.t('please-select-option')),
+      otherwise: Yup.string(),
+    }),
   });
 };
 
