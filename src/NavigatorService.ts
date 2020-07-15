@@ -17,6 +17,25 @@ function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<Ro
   );
 }
 
+function popTo<RouteName extends keyof ScreenParamList>(routeName: RouteName, inclusive?: boolean) {
+  navigation!.dispatch((state) => {
+    const newRoutes = state.routes;
+
+    while (newRoutes[newRoutes.length - 1].name !== routeName) {
+      newRoutes.pop();
+    }
+
+    if (inclusive) {
+      newRoutes.pop();
+    }
+
+    return CommonActions.reset({
+      index: 0,
+      routes: newRoutes,
+    });
+  });
+}
+
 function navigate<RouteName extends keyof ScreenParamList>(routeName: RouteName, params?: ScreenParamList[RouteName]) {
   navigation!.navigate(routeName, params);
 }
@@ -35,4 +54,5 @@ export default {
   reset,
   replace,
   goBack,
+  popTo,
 };
