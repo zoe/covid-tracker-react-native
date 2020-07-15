@@ -53,7 +53,7 @@ export class DietStudyCoordinator {
       const { currentPatient, timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
-        this.appCoordinator.startDietStudyFlow(currentPatient, PREVIOUS_DIET_STUDY_TIME_PERIOD);
+        NavigatorService.reset([{ name: 'DietStudyAboutYou', params: this.dietStudyParam }]);
         return;
       }
 
@@ -98,10 +98,6 @@ export class DietStudyCoordinator {
   }
 
   startDietStudy = async () => {
-    if (this.dietStudyParam.dietStudyData.timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
-      return NavigatorService.reset([{ name: 'DietStudyAboutYou', params: this.dietStudyParam }]);
-    }
-
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     if (studies.length > 1) {
