@@ -148,12 +148,14 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-        <MenuItem
-          label={i18n.t('diet-study.drawer-menu-item')}
-          onPress={() => {
-            openDietStudy();
-          }}
-        />
+        {isGBCountry() && (
+          <MenuItem
+            label={i18n.t('diet-study.drawer-menu-item')}
+            onPress={() => {
+              openDietStudy();
+            }}
+          />
+        )}
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
