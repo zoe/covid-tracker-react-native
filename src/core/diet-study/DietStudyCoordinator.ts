@@ -50,17 +50,16 @@ export class DietStudyCoordinator {
       NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
     },
     DietStudyTypicalDiet: () => {
-      const { currentPatient, timePeriod } = this.dietStudyParam.dietStudyData;
+      const { timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
-        NavigatorService.reset([{ name: 'DietStudyAboutYou', params: this.dietStudyParam }]);
-        return;
+        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam); // Goes back to screen currently on stack
+      } else {
+        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
       }
-
-      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
-      NavigatorService.navigate('WelcomeRepeat');
+      NavigatorService.popTo('DietStudyIntro', true);
     },
   } as ScreenFlow;
 
