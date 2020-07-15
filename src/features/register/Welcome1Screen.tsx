@@ -4,7 +4,7 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-nat
 
 import { gbMap, svMap, usMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
-import { BrandedButton, RegularText } from '@covid/components/Text';
+import { BrandedButton, RegularText, ClickableText } from '@covid/components/Text';
 import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -46,6 +46,8 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 
   const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 
+  const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
+
   const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect', { patientId: null }), [
     navigation.navigate,
   ]);
@@ -57,6 +59,9 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image testID="map" style={styles.mapImage} source={getMapImage()} />
 
+        <ClickableText testID="login" style={styles.login} onPress={onLoginPress}>
+          {i18n.t('welcome.sign-in')}
+        </ClickableText>
         <TouchableOpacity testID="selectCountry" style={styles.countryFlag} onPress={onSelectCountryPress}>
           <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
         </TouchableOpacity>
@@ -106,7 +111,14 @@ const styles = StyleSheet.create({
   countryFlag: {
     position: 'absolute',
     top: 56,
-    end: 32,
+    end: 24,
+  },
+  login: {
+    position: 'absolute',
+    top: 60,
+    end: 56,
+    color: colors.white,
+    marginHorizontal: 16,
   },
   covidContainer: {
     paddingHorizontal: 14,
