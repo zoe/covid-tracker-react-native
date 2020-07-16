@@ -1022,6 +1022,8 @@
   "diet-study": {
     "drawer-menu-item": "",
 
+    "required": "",
+
     "intro": {
       "title": "COVID & Diet",
       "description-1": "",
@@ -1134,7 +1136,9 @@
     "last-calories-label": "",
     "eats-breakfast-label": "",
     "main-meals-label": "",
+    "main-meals-placeholder": "",
     "snacks-label": "",
+    "snacks-placeholder": "",
     "diet": {
       "label": "",
       "mixed": "",
