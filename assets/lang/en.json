@@ -1195,7 +1195,9 @@
       "noticed-a-change": "Have you noticed a change in your diet since February 2020, before the COVID-19 lockdown began?"
     },
 
-    "complete-cta": "Complete pre-lockdown",
+
+    "complete-pre-cta": "Complete pre-lockdown",
+    "complete-cta": "Complete",
 
     "next-box": {
       "title": "Thank you",

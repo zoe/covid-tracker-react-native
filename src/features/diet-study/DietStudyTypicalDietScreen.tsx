@@ -14,14 +14,10 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
-import NavigatorService from '@covid/NavigatorService';
 import dietStudyCoordinator, {
-  DietStudyData,
   PREVIOUS_DIET_STUDY_TIME_PERIOD,
   CURRENT_DIET_STUDY_TIME_PERIOD,
 } from '@covid/core/diet-study/DietStudyCoordinator';
-
-import appCoordinator from '../AppCoordinator';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
@@ -60,12 +56,14 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
-    if (!!recentDietStudyId && formData.hasDietChanged === DietChangedOption.YES) {
+    if (!!recentDietStudyId && formData.has_diet_changed === DietChangedOption.YES) {
       dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
     }
 
     await form.submitDietStudy(infos);
   };
+
+  const completeCtaLabel = (formikProps: FormikProps<FormData>) => formikProps.values.has_diet_changed === DietChangedOption.YES ? i18n.t('diet-study.complete-pre-cta') : i18n.t('diet-study.complete-cta');
 
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen}>
@@ -94,9 +92,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <View style={[styles.divider, styles.padded]} />
 
               <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
-
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
-
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
 
               {timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD && (
@@ -112,7 +108,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <View style={{ height: 72 }} />
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                {i18n.t('diet-study.complete-cta')}
+                {completeCtaLabel(props)}
               </BrandedButton>
             </Form>
           );
