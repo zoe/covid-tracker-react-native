@@ -69,13 +69,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
-                calloutID="data_page_003"
-                imageSource={dataPage003}
-                aspectRatio={1.55}
-              />
-
-              <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
                 calloutID="incidence_007"
                 imageSource={incidence007}
@@ -83,11 +76,18 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
+                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
+                calloutID="data_page_003"
+                imageSource={dataPage003}
+                aspectRatio={1.55}
+              />
+
+              {/* <ExternalCallout
                 link="https://www.youtube.com/watch?v=zToStOETP00"
                 calloutID="tim_update_004"
                 imageSource={timUpdate004}
                 aspectRatio={1.178}
-              />
+              /> */}
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/tips-covid-safety?utm_source=App"
