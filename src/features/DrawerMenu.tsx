@@ -14,7 +14,6 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 
 type MenuItemProps = {
   label: string;
@@ -62,14 +61,6 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     if (userEmail !== '') return;
     fetchEmail();
   }, [userService.hasUser, setUserEmail]);
-
-  useEffect(() => {
-    const check = async () => {
-      const shouldShow = await appCoordinator.shouldShowDietStudy(appCoordinator.currentPatient);
-      setShowDietStudy(isGBCountry() && shouldShow);
-    };
-    check();
-  }, [appCoordinator.currentPatient]);
 
   function showDeleteAlert() {
     Alert.alert(
