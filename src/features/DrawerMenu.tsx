@@ -14,6 +14,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 
 type MenuItemProps = {
   label: string;
@@ -46,6 +47,7 @@ enum DrawerMenuItem {
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
 
   const fetchEmail = async () => {
     try {
@@ -60,6 +62,14 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     if (userEmail !== '') return;
     fetchEmail();
   }, [userService.hasUser, setUserEmail]);
+
+  useEffect(() => {
+    const check = async () => {
+      const shouldShow = await appCoordinator.shouldShowDietStudy(appCoordinator.currentPatient);
+      setShowDietStudy(isGBCountry() && shouldShow);
+    };
+    check();
+  }, [appCoordinator.currentPatient]);
 
   function showDeleteAlert() {
     Alert.alert(
@@ -148,7 +158,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-        {isGBCountry() && (
+        {showDietStudy && (
           <MenuItem
             label={i18n.t('diet-study.drawer-menu-item')}
             onPress={() => {
