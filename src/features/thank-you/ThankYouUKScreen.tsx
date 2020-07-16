@@ -69,7 +69,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
+                link="https://covid.joinzoe.com/post/data-update-july-16?utm_source=App"
                 calloutID="incidence_007"
                 imageSource={incidence007}
                 aspectRatio={1.5}
