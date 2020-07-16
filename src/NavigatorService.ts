@@ -48,6 +48,10 @@ function goBack() {
   navigation!.goBack();
 }
 
+function stackIncludes<RouteName extends keyof ScreenParamList>(routeName: RouteName) {
+  return navigation!.getRootState().routeNames.includes(routeName);
+}
+
 export default {
   setContainer,
   navigate,
@@ -55,4 +59,5 @@ export default {
   replace,
   goBack,
   popTo,
+  stackIncludes,
 };

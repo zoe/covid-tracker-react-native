@@ -59,7 +59,11 @@ export class DietStudyCoordinator {
       }
     },
     DietStudyThankYou: () => {
-      NavigatorService.popTo('DietStudyIntro', true);
+      if (NavigatorService.stackIncludes('DietStudyIntro')) {
+        NavigatorService.popTo('DietStudyIntro', true);
+      } else {
+        NavigatorService.goBack();
+      }
     },
   } as ScreenFlow;
 
