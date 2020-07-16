@@ -19,6 +19,7 @@ import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fi
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import { colors } from '@theme';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
@@ -62,6 +63,8 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
     } as Partial<DietStudyRequest>;
 
     await form.submitDietStudy(infos);
+
+    dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
   return (

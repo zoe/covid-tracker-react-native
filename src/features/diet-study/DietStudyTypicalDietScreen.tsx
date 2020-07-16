@@ -60,11 +60,21 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
+    // Change time period if the user's diet has changed.
     if (!!recentDietStudyId && formData.hasDietChanged === DietChangedOption.YES) {
       dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
     }
 
     await form.submitDietStudy(infos);
+
+    // Important: We need to keep this here for Coordinator to
+    // go to the thank you page after 2nd round is completed.
+    // Otherwise will be in a loop.
+    if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
+      delete dietStudyCoordinator.dietStudyData.timePeriod;
+    }
+
+    dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
   return (
