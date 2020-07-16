@@ -1024,6 +1024,11 @@
 
   "diet-study": {
     "drawer-menu-item": "",
+    "required": "",
+
+    "diet-changed": {
+      "not-sure": ""
+    },
 
     "intro": {
       "title": "COVID & Diet",
@@ -1046,6 +1051,7 @@
     "weight-unsure-label": "",
     "was-pregnant-label": "",
     "hours-of-sleep-label": "",
+    "hours-of-sleep-placeholder": "",
     "shift-work-label": "",
     "food-security": {
       "label": "",
@@ -1136,8 +1142,13 @@
     "first-calories-label": "",
     "last-calories-label": "",
     "eats-breakfast-label": "",
+
     "main-meals-label": "",
+    "main-meals-placeholder": "",
+
     "snacks-label": "",
+    "snacks-placeholder": "",
+
     "diet": {
       "label": "",
       "mixed": "",
