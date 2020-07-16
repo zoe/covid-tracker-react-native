@@ -15,8 +15,8 @@ import dietStudyCoordinator, {
   DietStudyConsent,
   CURRENT_DIET_STUDY_TIME_PERIOD,
 } from '@covid/core/diet-study/DietStudyCoordinator';
-import NavigatorService from '@covid/NavigatorService';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import NavigatorService from '@covid/NavigatorService';
 
 import { ScreenParamList } from './ScreenParamList';
 

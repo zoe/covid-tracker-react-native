@@ -35,6 +35,7 @@ export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
+export const facebook = require('./logos/facebook.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');
@@ -55,9 +56,10 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 
 // ThankYou Modules
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
+export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
 export const blog005 = require('./thank-you-modules/blog_005.png');
-export const incidence006 = require('./thank-you-modules/incidence_006.png');
+export const incidence007 = require('./thank-you-modules/incidence_007.png');
 export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');

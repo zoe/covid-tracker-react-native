@@ -31,4 +31,6 @@ export const colors = {
 
   backgroundBrandDisabled: '#7C9CAD',
   actionButtonBorder: 'rgba(240, 240, 240, 1)',
+
+  facebook: '#0165B5',
 };
