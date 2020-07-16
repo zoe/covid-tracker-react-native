@@ -1037,7 +1037,9 @@
     "next-section": "",
 
     "about-you": {
-      "title": ""
+      "title": "",
+      "thank-you": "",
+      "answer-same-set-questions": ""
     },
 
     "weight-label": "",
@@ -1198,8 +1200,11 @@
       "fast_food-2": "",
 
       "portions_of_fruit-label": "",
+      "portions_of_fruit-placeholder": "",
       "glasses_of_juice-label": "",
+      "glasses_of_juice-placeholder": "",
       "portions_of_veg-label": "",
+      "portions_of_veg-placeholder": "",
 
       "milk-label": "",
       "milk-whole": "",

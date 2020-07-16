@@ -83,7 +83,7 @@ FoodFreqQuestion.initialFormValues = (): FoodFreqData => ({
 });
 
 FoodFreqQuestion.schema = () => {
-  const validation = Yup.string().required();
+  const validation = Yup.string().required(i18n.t('diet-study.required'));
   return Yup.object().shape({
     ffq_fruit: validation,
     ffq_fruit_juice: validation,

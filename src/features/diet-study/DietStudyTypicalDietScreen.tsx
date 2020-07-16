@@ -63,7 +63,10 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
     await form.submitDietStudy(infos);
   };
 
-  const completeCtaLabel = (formikProps: FormikProps<FormData>) => formikProps.values.has_diet_changed === DietChangedOption.YES ? i18n.t('diet-study.complete-pre-cta') : i18n.t('diet-study.complete-cta');
+  const completeCtaLabel = (formikProps: FormikProps<FormData>) =>
+    formikProps.values.has_diet_changed === DietChangedOption.YES
+      ? i18n.t('diet-study.complete-pre-cta')
+      : i18n.t('diet-study.complete-cta');
 
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen}>
