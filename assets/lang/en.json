@@ -1115,7 +1115,8 @@
       "omega3": "Fish or omega 3 oils and capsules",
       "garlic": "Garlic supplement",
       "other": "Other",
-      "pfnts": "Prefer not to say"
+      "pfnts": "Prefer not to say",
+      "specify": "Please specify the other supplements"
     },
 
     "first-calories-label": "After waking (typically in the morning), what time do you usually first eat or drink anything other than water/black coffee and plain tea?",
