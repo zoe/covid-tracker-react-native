@@ -18,7 +18,7 @@ interface GenericTextFieldProps {
 }
 
 export const GenericTextField = (props: GenericTextFieldProps) => {
-  const { formikProps, name, label, placeholder, keyboardType, showError, ...inputProps } = props;
+  const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
   return (
     <FieldWrapper style={styles.fieldWrapper}>
       {!!label && <RegularText>{label}</RegularText>}
@@ -32,6 +32,7 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
         onSubmitEditing={() => {}}
         keyboardType={keyboardType}
         {...inputProps}
+        {...otherProps}
       />
 
       {showError && !!formikProps.touched[name] && !!formikProps.errors[name] && (
