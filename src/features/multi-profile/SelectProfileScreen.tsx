@@ -1,14 +1,15 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
-import React, { Component } from 'react';
+import { RouteProp, useLinkProps } from '@react-navigation/native';
+import React, { Component, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { isLoaded } from 'expo-font';
 
 import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
 import { colors } from '@theme';
 import { Loading, LoadingModal } from '@covid/components/Loading';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
-import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
+import { ApiErrorState, initialErrorState, AppException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
@@ -17,7 +18,8 @@ import { NewProfileCard } from '@covid/components/NewProfileCard';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { ICoreService, IUserService } from '@covid/core/user/UserService';
+import { useInjection } from '@covid/provider/services.hooks';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
@@ -52,133 +54,191 @@ const initialState = {
   shouldRefresh: false,
 };
 
-export default class SelectProfileScreen extends Component<RenderProps, State> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
-
-  constructor(props: RenderProps) {
-    super(props);
-    this.state = initialState;
+const ProfileList: React.FC<
+  ApiErrorState & {
+    profiles: Profile[];
+    isLoaded: boolean;
+    addProfile?: VoidFunction;
+    onProfileSelected: (profile: string, index: number) => void;
+    navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
+  }
+> = ({ status, error, isLoaded, profiles, addProfile, onProfileSelected, onRetry }) => {
+  if (!isLoaded) {
+    return <Loading status={status} error={error} style={{ borderColor: 'green', borderWidth: 1 }} onRetry={onRetry} />;
   }
 
-  async componentDidMount() {
-    this.props.navigation.addListener('focus', async () => {
-      if (this.state.shouldRefresh) {
-        await this.listProfiles();
+  return (
+    <>
+      <View style={styles.profileList}>
+        {profiles.map((profile, i) => {
+          return (
+            <View style={styles.cardContainer} key={profile.id}>
+              <TouchableOpacity onPress={() => onProfileSelected(profile.id, i)}>
+                <ProfileCard profile={profile} index={i} />
+              </TouchableOpacity>
+            </View>
+          );
+        })}
+
+        {addProfile && (
+          <TouchableOpacity style={styles.cardContainer} key="new" onPress={addProfile}>
+            <NewProfileCard />
+          </TouchableOpacity>
+        )}
+      </View>
+    </>
+  );
+};
+
+export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>) => {
+  const userService = useInjection<ICoreService>(Services.User);
+
+  const [shouldRefresh, setShouldRefresh] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>('');
+  const [error, setError] = useState<AppException | null>(null);
+  const [isApiError, setIsApiError] = useState<boolean>(false);
+
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [onRetry, setOnRetry] = useState<any>(() => {});
+
+  useEffect(() => {
+    const fetch = async () => {
+      navigation.addListener('focus', async () => {
+        if (shouldRefresh) {
+          await listProfiles();
+        }
+      });
+
+      await listProfiles();
+
+      setShouldRefresh(true);
+    };
+    fetch();
+  }, []);
+
+  const retryListProfiles = () => {
+    setStatus(i18n.t('errors.status-retrying'));
+    setError(null);
+    setTimeout(() => listProfiles(), offlineService.getRetryDelay());
+  };
+
+  const listProfiles = async () => {
+    setStatus(i18n.t('errors.status-loading'));
+    setError(null);
+
+    try {
+      const profiles = await userService.listPatients();
+
+      if (profiles) {
+        setProfiles(profiles);
+        setIsLoaded(true);
       }
-    });
-
-    await this.listProfiles();
-    this.setState({ shouldRefresh: true });
-  }
-
-  private retryListProfiles() {
-    this.setState({ status: i18n.t('errors.status-retrying'), error: null });
-    setTimeout(() => this.listProfiles(), offlineService.getRetryDelay());
-  }
-
-  async listProfiles() {
-    this.setState({ status: i18n.t('errors.status-loading'), error: null });
-    try {
-      const response = await this.userService.listPatients();
-      response &&
-        this.setState({
-          profiles: response.data,
-          isLoaded: true,
-        });
     } catch (error) {
-      this.setState({ error });
+      setError(error);
     }
-  }
+  };
 
-  async profileSelected(profileId: string, index: number) {
+  const profileSelected = async (profileId: string, index: number) => {
     try {
-      const currentPatient = await this.userService.getPatientState(profileId);
-      this.setState({ isApiError: false });
+      const currentPatient = await userService.getPatientState(profileId);
+      setIsApiError(false);
       await appCoordinator.profileSelected(index === 0, currentPatient);
     } catch (error) {
-      this.setState({
-        isApiError: true,
-        error,
-        onRetry: () => {
-          this.setState({
-            status: i18n.t('errors.status-retrying'),
-            error: null,
-          });
-          setTimeout(() => {
-            this.setState({ status: i18n.t('errors.status-loading') });
-            this.profileSelected(profileId, index);
-          }, offlineService.getRetryDelay());
-        },
+      setIsApiError(true);
+      setError(error);
+
+      setOnRetry(() => {
+        setStatus(i18n.t('errors.status-retrying'));
+        setError(null);
+
+        setTimeout(() => {
+          setStatus(i18n.t('errors.status-loading'));
+          profileSelected(profileId, index);
+        }, offlineService.getRetryDelay());
       });
     }
-  }
+  };
 
-  getNextAvatarName() {
-    if (this.state.profiles) {
-      const n = (this.state.profiles.length + 1) % NUMBER_OF_PROFILE_AVATARS;
+  return {
+    status,
+    error,
+    isApiError,
+    isLoaded,
+    onRetry,
+    profiles,
+    retryListProfiles,
+    profileSelected,
+    setIsApiError,
+  };
+};
+
+const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
+  const {
+    status,
+    error,
+    isLoaded,
+    isApiError,
+    onRetry,
+    profiles,
+    profileSelected,
+    retryListProfiles,
+    setIsApiError,
+  } = useProfileList(navigation);
+
+  const getNextAvatarName = async (): Promise<string> => {
+    if (profiles) {
+      const n = (profiles.length + 1) % NUMBER_OF_PROFILE_AVATARS;
       return 'profile' + n.toString();
     } else {
       return DEFAULT_PROFILE;
     }
-  }
+  };
 
-  gotoCreateProfile() {
-    appCoordinator.goToCreateProfile(this.getNextAvatarName());
-  }
+  const gotoCreateProfile = async () => {
+    appCoordinator.goToCreateProfile(await getNextAvatarName());
+  };
 
-  render() {
-    return (
-      <View>
-        <SafeAreaView>
-          {this.state.isApiError && (
-            <LoadingModal
-              error={this.state.error}
-              status={this.state.status}
-              onRetry={this.state.onRetry}
-              onPress={() => this.setState({ isApiError: false })}
+  return (
+    <View>
+      <SafeAreaView>
+        {isApiError && (
+          <LoadingModal error={error} status={status} onRetry={onRetry} onPress={() => setIsApiError(false)} />
+        )}
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.rootContainer}>
+            <DrawerToggle navigation={navigation} style={{ tintColor: colors.primary }} />
+
+            <Header>
+              <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
+              <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
+            </Header>
+
+            <ProfileList
+              navigation={navigation}
+              isApiError={isApiError}
+              error={error}
+              status={status}
+              isLoaded={isLoaded}
+              profiles={profiles}
+              addProfile={() => {
+                gotoCreateProfile();
+              }}
+              onProfileSelected={(profileId, i) => {
+                profileSelected(profileId, i);
+              }}
+              onRetry={() => {
+                retryListProfiles();
+              }}
             />
-          )}
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.rootContainer}>
-              <DrawerToggle navigation={this.props.navigation} style={{ tintColor: colors.primary }} />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
+  );
+};
 
-              <Header>
-                <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
-                <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
-              </Header>
-
-              {this.state.isLoaded ? (
-                <View style={styles.profileList}>
-                  {this.state.profiles.map((profile, i) => {
-                    return (
-                      <View style={styles.cardContainer} key={profile.id}>
-                        <TouchableOpacity onPress={() => this.profileSelected(profile.id, i)}>
-                          <ProfileCard profile={profile} index={i} />
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  })}
-
-                  <TouchableOpacity style={styles.cardContainer} key="new" onPress={() => this.gotoCreateProfile()}>
-                    <NewProfileCard />
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <Loading
-                  status={this.state.status}
-                  error={this.state.error}
-                  style={{ borderColor: 'green', borderWidth: 1 }}
-                  onRetry={() => this.retryListProfiles()}
-                />
-              )}
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </View>
-    );
-  }
-}
+export default SelectProfileScreen;
 
 const styles = StyleSheet.create({
   profileList: {
