@@ -16,6 +16,7 @@ configure(() => {
   require('./stories/ShareApp.stories');
   require('./stories/Buttons.stories');
   require('./stories/VaccineRegistryCallout.stories');
+  require('./stories/TextInput.stories');
 }, module);
 
 // Global Decorator
