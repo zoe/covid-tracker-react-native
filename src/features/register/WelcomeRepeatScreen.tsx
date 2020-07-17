@@ -25,6 +25,8 @@ import { ICoreService } from '@covid/core/user/UserService';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
+import { Linking } from 'expo';
+import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryInvite';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -39,6 +41,7 @@ type WelcomeRepeatScreenState = {
   showPartnerLogos: boolean;
   onRetry?: () => void;
   calloutBoxContent: ScreenContent;
+  showVaccineRegistry: boolean;
 } & ApiErrorState;
 
 const initialState = {
@@ -46,6 +49,7 @@ const initialState = {
   userCount: null,
   showPartnerLogos: true,
   calloutBoxContent: contentService.getCalloutBoxDefault(),
+  showVaccineRegistry: false,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -64,6 +68,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
     const content = await contentService.getWelcomeRepeatContent();
     this.setState({ calloutBoxContent: content });
+    this.userService.shouldAskForVaccineRegistry(appCoordinator.currentPatient).then((show) => {
+      this.setState({ showVaccineRegistry: show });
+    });
   }
 
   gotoNextScreen = async () => {
@@ -120,7 +127,14 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <View style={{ flex: 1 }} />
 
-            <CalloutBox content={this.state.calloutBoxContent} />
+            {this.state.showVaccineRegistry ? (
+              <VaccineRegistryCallout />
+            ) : (
+              <CalloutBox
+                content={this.state.calloutBoxContent}
+                onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+              />
+            )}
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>

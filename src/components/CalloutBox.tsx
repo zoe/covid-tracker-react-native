@@ -1,6 +1,5 @@
-import { Linking } from 'expo';
 import React from 'react';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 import { colors } from '@theme';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
@@ -9,16 +8,20 @@ import { RegularText } from './Text';
 
 type CalloutBoxProps = {
   content: ScreenContent;
+  onPress: () => void;
+  boxStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
+  linkStyle?: StyleProp<TextStyle>;
 };
 
-export const CalloutBox = ({ content }: CalloutBoxProps) => {
+export const CalloutBox = ({ content, boxStyle, titleStyle, linkStyle, onPress }: CalloutBoxProps) => {
   return (
-    <TouchableOpacity style={styles.discoveriesContainer} onPress={() => Linking.openURL(content.body_link)}>
-      <View style={styles.discoveriesTitleBackground}>
+    <TouchableOpacity style={[styles.discoveriesContainer, boxStyle]} onPress={onPress}>
+      <View style={[styles.discoveriesTitleBackground, titleStyle]}>
         <RegularText style={styles.discoveriesTitle}>{content.title_text}</RegularText>
       </View>
       <RegularText style={styles.discoveriesText}>{content.body_text}</RegularText>
-      <RegularText style={styles.discoveriesVisitText}>{content.link_text}</RegularText>
+      <RegularText style={[styles.discoveriesVisitText, linkStyle]}>{content.link_text}</RegularText>
     </TouchableOpacity>
   );
 };
@@ -42,12 +45,13 @@ const styles = StyleSheet.create({
   discoveriesTitle: {
     fontSize: 12,
     color: colors.white,
-    letterSpacing: 0.2,
+    letterSpacing: 1,
+    paddingHorizontal: 4,
   },
   discoveriesText: {
     textAlign: 'center',
     marginHorizontal: 50,
-    marginVertical: 8,
+    marginVertical: 16,
     color: colors.white,
     fontSize: 16,
     lineHeight: 24,

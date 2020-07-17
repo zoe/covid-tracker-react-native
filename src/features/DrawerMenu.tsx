@@ -12,6 +12,7 @@ import { CaptionText, HeaderText } from '@covid/components/Text';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type MenuItemProps = {
   label: string;
@@ -144,6 +145,12 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
           label={i18n.t('research-updates')}
           onPress={() => {
             showResearchUpdates();
+          }}
+        />
+        <MenuItem
+          label={i18n.t('vaccine-registry.menu-item')}
+          onPress={() => {
+            appCoordinator.goToVaccineRegistry();
           }}
         />
         <MenuItem

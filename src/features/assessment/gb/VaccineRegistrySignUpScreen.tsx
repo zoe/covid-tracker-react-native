@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -21,7 +21,7 @@ type RenderProps = {
 export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
-      <PatientHeader profile={props.route.params.assessmentData.currentPatient.profile} navigation={props.navigation} />
+      <PatientHeader profile={props.route.params.currentPatient.profile} navigation={props.navigation} />
 
       <ScrollView>
         <View style={styles.contentContainer}>
@@ -35,7 +35,7 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
             <BrandedButton
               style={styles.yesButton}
               onPress={() => {
-                assessmentCoordinator.vaccineRegistryResponse(true);
+                appCoordinator.vaccineRegistryResponse(true);
               }}>
               <RegularText style={styles.yesButtonText}>{i18n.t('vaccine-registry.yes')}</RegularText>
             </BrandedButton>
@@ -43,7 +43,7 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
             <BrandedButton
               style={styles.noButton}
               onPress={() => {
-                assessmentCoordinator.vaccineRegistryResponse(false);
+                appCoordinator.vaccineRegistryResponse(false);
               }}>
               <RegularText style={styles.noButtonText}>{i18n.t('vaccine-registry.no')}</RegularText>
             </BrandedButton>

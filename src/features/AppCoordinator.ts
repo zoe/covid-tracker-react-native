@@ -13,6 +13,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import NavigatorService from '@covid/NavigatorService';
 
 import { ScreenParamList } from './ScreenParamList';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -168,6 +169,21 @@ export class AppCoordinator {
 
   goToCreateProfile(avatarName: string) {
     NavigatorService.navigate('CreateProfile', { avatarName });
+  }
+
+  goToVaccineRegistry() {
+    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.currentPatient });
+  }
+
+  vaccineRegistryResponse(response: boolean) {
+    this.userService.setVaccineRegistryResponse(response);
+    if (response) {
+      Analytics.track(events.JOIN_VACCINE_REGISTER);
+      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.currentPatient });
+    } else {
+      Analytics.track(events.DECLINE_VACCINE_REGISTER);
+      NavigatorService.goBack();
+    }
   }
 }
 

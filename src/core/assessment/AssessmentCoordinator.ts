@@ -101,13 +101,7 @@ export class AssessmentCoordinator {
   gotoEndAssessment = async () => {
     const config = this.userService.getConfig();
 
-    if (
-      isGBCountry() &&
-      !this.assessmentData.currentPatient.isReportedByAnother &&
-      (await this.userService.shouldAskForVaccineRegistry())
-    ) {
-      NavigatorService.navigate('VaccineRegistrySignup', { assessmentData: this.assessmentData });
-    } else if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
+    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
@@ -146,17 +140,6 @@ export class AssessmentCoordinator {
       ? NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
       : this.gotoEndAssessment();
   };
-
-  vaccineRegistryResponse(response: boolean) {
-    this.userService.setVaccineRegistryResponse(response);
-    if (response) {
-      Analytics.track(events.JOIN_VACCINE_REGISTER);
-      NavigatorService.navigate('VaccineRegistryInfo', { assessmentData: this.assessmentData });
-    } else {
-      Analytics.track(events.DECLINE_VACCINE_REGISTER);
-      this.gotoEndAssessment();
-    }
-  }
 
   // Private helpers
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
