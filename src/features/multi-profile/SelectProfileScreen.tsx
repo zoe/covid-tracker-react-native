@@ -76,7 +76,6 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     appCoordinator.goToCreateProfile(await getNextAvatarName());
   };
 
-  console.log('profiles', profiles);
   return (
     <View>
       <SafeAreaView>
