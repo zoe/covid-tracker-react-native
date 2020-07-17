@@ -1,6 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
@@ -32,10 +32,27 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     isApiError,
     onRetry,
     profiles,
+    shouldRefresh,
+    listProfiles,
     profileSelected,
     retryListProfiles,
     setIsApiError,
+    setShouldRefresh,
   } = useProfileList(navigation);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      if (shouldRefresh) {
+        await listProfiles();
+      }
+    });
+
+    listProfiles().then(() => {
+      setShouldRefresh(true);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const profileListProps = {
     navigation,
@@ -59,6 +76,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     appCoordinator.goToCreateProfile(await getNextAvatarName());
   };
 
+  console.log('profiles', profiles);
   return (
     <View>
       <SafeAreaView>

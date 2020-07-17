@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { AppException } from '@covid/core/api/ApiServiceErrors';
@@ -24,20 +24,6 @@ export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList,
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [onRetry, setOnRetry] = useState<any>(() => {});
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', async () => {
-      if (shouldRefresh) {
-        await listProfiles();
-      }
-    });
-
-    listProfiles().then(() => {
-      setShouldRefresh(true);
-    });
-
-    return unsubscribe;
-  }, []);
-
   const retryListProfiles = () => {
     setStatus(i18n.t('errors.status-retrying'));
     setError(null);
@@ -50,7 +36,6 @@ export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList,
 
     try {
       const profiles = await userService.listPatients();
-
       if (profiles) {
         setProfiles(profiles);
         setIsLoaded(true);
@@ -88,8 +73,11 @@ export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList,
     isLoaded,
     onRetry,
     profiles,
+    shouldRefresh,
+    listProfiles,
     retryListProfiles,
     profileSelected,
     setIsApiError,
+    setShouldRefresh,
   };
 };
