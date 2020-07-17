@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, StyleProp, ViewStyle, TextStyle, ImageBackground } from 'react-native';
 
 import { colors } from '@theme';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import AnnouncementIcon from '@assets/icons/AnnouncementIcon';
 
 import { RegularText } from './Text';
 
@@ -17,7 +18,9 @@ type CalloutBoxProps = {
 export const CalloutBox = ({ content, boxStyle, titleStyle, linkStyle, onPress }: CalloutBoxProps) => {
   return (
     <TouchableOpacity style={[styles.discoveriesContainer, boxStyle]} onPress={onPress}>
+      <ImageBackground source={}
       <View style={[styles.discoveriesTitleBackground, titleStyle]}>
+        <AnnouncementIcon />
         <RegularText style={styles.discoveriesTitle}>{content.title_text}</RegularText>
       </View>
       <RegularText style={styles.discoveriesText}>{content.body_text}</RegularText>
@@ -38,6 +41,8 @@ const styles = StyleSheet.create({
     marginBottom: 36,
   },
   discoveriesTitleBackground: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.lightBlueBrand,
     paddingHorizontal: 4,
     borderRadius: 4,

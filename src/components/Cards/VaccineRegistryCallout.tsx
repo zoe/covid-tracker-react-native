@@ -21,7 +21,10 @@ export const VaccineRegistryCallout: React.FC<CommonShareProps> = () => {
         analytics: '',
       }}
       onPress={() => appCoordinator.goToVaccineRegistry()}
-      boxStyle={{ backgroundColor: colors.darkblue, borderWidth: 0 }}
+      boxStyle={{
+        backgroundColor: colors.darkblue,
+        borderWidth: 0,
+      }}
       linkStyle={{
         backgroundColor: colors.white,
         color: colors.darkblue,

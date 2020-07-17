@@ -15,7 +15,7 @@ configure(() => {
   require('./stories/YesNoField.stories');
   require('./stories/ShareApp.stories');
   require('./stories/Buttons.stories');
-  require('./stories/VaccineRegistryInvite.stories');
+  require('./stories/VaccineRegistryCallout.stories');
 }, module);
 
 // Global Decorator

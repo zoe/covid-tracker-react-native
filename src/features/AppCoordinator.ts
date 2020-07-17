@@ -90,6 +90,9 @@ export class AppCoordinator {
     Consent: () => {
       NavigatorService.navigate('Register');
     },
+    VaccineRegistryInfo: () => {
+      NavigatorService.navigate('WelcomeRepeat');
+    },
   } as ScreenFlow;
 
   async init() {

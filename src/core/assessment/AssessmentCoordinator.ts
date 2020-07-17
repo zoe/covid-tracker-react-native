@@ -59,9 +59,6 @@ export class AssessmentCoordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-    VaccineRegistryInfo: () => {
-      this.gotoEndAssessment();
-    },
   } as ScreenFlow;
 
   init = (

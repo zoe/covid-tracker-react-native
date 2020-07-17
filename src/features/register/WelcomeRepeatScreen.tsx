@@ -26,7 +26,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
 import { Linking } from 'expo';
-import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryInvite';
+import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -68,8 +68,8 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
     const content = await contentService.getWelcomeRepeatContent();
     this.setState({ calloutBoxContent: content });
-    this.userService.shouldAskForVaccineRegistry(appCoordinator.currentPatient).then((show) => {
-      this.setState({ showVaccineRegistry: show });
+    this.setState({
+      showVaccineRegistry: await this.userService.shouldAskForVaccineRegistry(appCoordinator.currentPatient),
     });
   }
 

@@ -6,13 +6,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularText, SecondaryText, CaptionText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularText, CaptionText } from '@covid/components/Text';
 import { Header, isAndroid } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
 
 import { ScreenParamList } from '../../ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineRegistryInfo'>;
@@ -28,10 +29,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
-      <PatientHeader
-        profile={assessmentCoordinator.assessmentData.currentPatient.profile}
-        navigation={props.navigation}
-      />
+      <PatientHeader profile={props.route.params.currentPatient.profile} navigation={props.navigation} />
       <ScrollView>
         <View style={styles.contentContainer}>
           <Header>
@@ -57,7 +55,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
             <BrandedButton
               style={styles.button}
               onPress={() => {
-                assessmentCoordinator.gotoNextScreen(props.route.name);
+                appCoordinator.gotoNextScreen(props.route.name);
               }}>
               <RegularText style={styles.buttonText}>{i18n.t('vaccine-registry.next')}</RegularText>
             </BrandedButton>
