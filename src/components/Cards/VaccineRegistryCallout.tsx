@@ -33,6 +33,7 @@ export const VaccineRegistryCallout: React.FC<CommonShareProps> = () => {
         paddingVertical: 8,
         paddingHorizontal: 32,
       }}
+      image
     />
   );
 };
