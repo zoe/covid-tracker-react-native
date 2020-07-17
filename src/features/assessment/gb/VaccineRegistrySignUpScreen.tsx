@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '@theme';
@@ -23,31 +23,33 @@ export const VaccineRegistrySignUpScreen: React.FC<RenderProps> = (props) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
       <PatientHeader profile={props.route.params.assessmentData.currentPatient.profile} navigation={props.navigation} />
 
-      <View style={styles.contentContainer}>
-        <Header>
-          <HeaderText style={styles.header}>{i18n.t('vaccine-registry.covid-prevention')}</HeaderText>
-        </Header>
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <Header>
+            <HeaderText style={styles.header}>{i18n.t('vaccine-registry.covid-prevention')}</HeaderText>
+          </Header>
 
-        <SecondaryText style={styles.interestedTest}>{i18n.t('vaccine-registry.can-we-contact')}</SecondaryText>
+          <SecondaryText style={styles.interestedTest}>{i18n.t('vaccine-registry.can-we-contact')}</SecondaryText>
 
-        <View style={styles.buttonContainer}>
-          <BrandedButton
-            style={styles.yesButton}
-            onPress={() => {
-              assessmentCoordinator.vaccineRegistryResponse(true);
-            }}>
-            <RegularText style={styles.yesButtonText}>{i18n.t('vaccine-registry.yes')}</RegularText>
-          </BrandedButton>
+          <View style={styles.buttonContainer}>
+            <BrandedButton
+              style={styles.yesButton}
+              onPress={() => {
+                assessmentCoordinator.vaccineRegistryResponse(true);
+              }}>
+              <RegularText style={styles.yesButtonText}>{i18n.t('vaccine-registry.yes')}</RegularText>
+            </BrandedButton>
 
-          <BrandedButton
-            style={styles.noButton}
-            onPress={() => {
-              assessmentCoordinator.vaccineRegistryResponse(false);
-            }}>
-            <RegularText style={styles.noButtonText}>{i18n.t('vaccine-registry.no')}</RegularText>
-          </BrandedButton>
+            <BrandedButton
+              style={styles.noButton}
+              onPress={() => {
+                assessmentCoordinator.vaccineRegistryResponse(false);
+              }}>
+              <RegularText style={styles.noButtonText}>{i18n.t('vaccine-registry.no')}</RegularText>
+            </BrandedButton>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

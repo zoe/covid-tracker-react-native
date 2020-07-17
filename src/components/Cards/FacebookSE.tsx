@@ -10,7 +10,7 @@ import i18n from '@covid/locale/i18n';
 export const FacebookSECard: React.FC = () => {
   const onButtonPress = () => {
     Analytics.track(events.CLICK_CALLOUT, {
-      name: 'facebookSE',
+      calloutID: 'facebookSE',
     });
     Linking.openURL('https://www.facebook.com/covidsymptomstudysverige');
   };

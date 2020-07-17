@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog005, dataPage003, incidence006, notificationReminders, timUpdate004 } from '@assets';
+import { blog005, dataPage003, incidence007, notificationReminders, timUpdate004 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -69,25 +69,25 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
+                link="https://covid.joinzoe.com/post/data-update-july-16?utm_source=App"
+                calloutID="incidence_007"
+                imageSource={incidence007}
+                aspectRatio={1.5}
+              />
+
+              <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
                 calloutID="data_page_003"
                 imageSource={dataPage003}
                 aspectRatio={1.55}
               />
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_006"
-                imageSource={incidence006}
-                aspectRatio={1.5}
-              />
-
-              <ExternalCallout
+              {/* <ExternalCallout
                 link="https://www.youtube.com/watch?v=zToStOETP00"
                 calloutID="tim_update_004"
                 imageSource={timUpdate004}
                 aspectRatio={1.178}
-              />
+              /> */}
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/tips-covid-safety?utm_source=App"
