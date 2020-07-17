@@ -6,6 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -66,7 +67,7 @@ export interface IConsentService {
 }
 
 export interface IPatientService {
-  listPatients(): Promise<any>;
+  listPatients(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
@@ -249,7 +250,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async listPatients() {
     try {
       const response = await this.client.get(`/patient_list/`);
-      return response;
+      return response?.data;
     } catch (error) {
       handleServiceError(error);
     }
