@@ -11,10 +11,12 @@ import { FieldLabel } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { GenericTextField } from '@covid/components/GenericTextField';
 
 export interface SupplementData {
   takesSupplements: string;
   supplements: string[];
+  supplements_other: string;
 }
 
 interface Props {
@@ -91,6 +93,14 @@ export const SupplementQuestions: SupplementQuestions<Props, SupplementData> = (
           </Item>
         </View>
       )}
+
+      {formikProps.values.supplements.includes('supplements_other') && (
+        <GenericTextField
+          formikProps={formikProps}
+          label={i18n.t('diet-study.supplements.specify')}
+          name="supplements_other"
+        />
+      )}
     </>
   );
 };
@@ -99,6 +109,7 @@ SupplementQuestions.initialFormValues = (): SupplementData => {
   return {
     takesSupplements: '',
     supplements: [] as string[],
+    supplements_other: '',
   };
 };
 
@@ -122,10 +133,13 @@ SupplementQuestions.createDTO = (formData: SupplementData): Partial<DietStudyReq
       supplements_omega3: false,
       supplements_garlic: false,
       supplements_pfnts: false,
-      supplements_other: false,
+      supplements_other: formData.supplements,
     } as any;
 
     formData.supplements.forEach((item: string) => {
+      if (item === 'supplements_other') {
+        return;
+      }
       supplements[item] = true;
     });
 

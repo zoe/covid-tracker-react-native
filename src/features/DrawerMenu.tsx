@@ -46,6 +46,7 @@ enum DrawerMenuItem {
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
 
   const fetchEmail = async () => {
     try {
@@ -148,7 +149,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-        {isGBCountry() && (
+        {showDietStudy && (
           <MenuItem
             label={i18n.t('diet-study.drawer-menu-item')}
             onPress={() => {

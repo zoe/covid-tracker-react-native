@@ -1008,6 +1008,8 @@
   "diet-study": {
     "drawer-menu-item": "My study",
 
+    "required": "This is required",
+
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off Diet and Lifestyle Questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
@@ -1020,13 +1022,16 @@
     "next-section": "Next section",
 
     "about-you": {
-      "title": "A bit about you"
+      "title": "A bit about you",
+      "thank-you": "Thank you",
+      "answer-same-set-questions": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemid spread."
     },
 
     "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
     "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)",
+    "hours-of-sleep-placeholder": "Hours",
     "shift-work-label": "Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
       "label": "Which of the following statements best describes the food eaten in your household in the last week?",
@@ -1110,14 +1115,17 @@
       "omega3": "Fish or omega 3 oils and capsules",
       "garlic": "Garlic supplement",
       "other": "Other",
-      "pfnts": "Prefer not to say"
+      "pfnts": "Prefer not to say",
+      "specify": "Please specify the other supplements"
     },
 
     "first-calories-label": "After waking (typically in the morning), what time do you usually first eat or drink anything other than water/black coffee and plain tea?",
     "last-calories-label": "What is the latest time of the day that you usually eat or drink anything other than water/black coffee and plain tea?",
     "eats-breakfast-label": "Do you typically consume breakfast?",
     "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)",
+    "main-meals-placeholder": "Main meals",
     "snacks-label": "How frequently do you typically consume snacks in a day (a snack is any food consumed outside of breakfast, lunch or dinner)",
+    "snacks-placeholder": "Snacks",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks (you can select more than one option)?",
       "mixed": "Mixed diet (including meat, fish or seafood)",
@@ -1181,8 +1189,11 @@
       "fast_food-2": "",
 
       "portions_of_fruit-label": "On average, how many portions of FRUIT do you eat a day? (excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
-      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice do you drink a day? (a standard glass is 8 ml)",
+      "portions_of_fruit-placeholder": "Portions",
+      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice do you drink a day? (a standard glass is 240 ml)",
+      "glasses_of_juice-placeholder": "Glasses",
       "portions_of_veg-label": "On average, how many portions of VEGETABLES do you eat a day? (Examples include: 3 heaped tablespoons of carrots, a side salad, 2 spears of broccoli)",
+      "portions_of_veg-placeholder": "Portions",
 
       "milk-label": "What milk do you usually use or drink, such as in hot & cold drinks or on cereal?",
       "milk-whole": "Whole / full-fat milk",
@@ -1195,7 +1206,12 @@
       "noticed-a-change": "Have you noticed a change in your diet since February 2020, before the COVID-19 lockdown began?"
     },
 
-    "complete-cta": "Complete pre-lockdown",
+    "diet-changed": {
+      "not-sure": "Not sure"
+    },
+
+    "complete-pre-cta": "Complete pre-lockdown",
+    "complete-cta": "Complete",
 
     "next-box": {
       "title": "Thank you",

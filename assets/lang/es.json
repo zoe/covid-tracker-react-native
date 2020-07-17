@@ -1024,6 +1024,11 @@
 
   "diet-study": {
     "drawer-menu-item": "",
+    "required": "",
+
+    "diet-changed": {
+      "not-sure": ""
+    },
 
     "intro": {
       "title": "COVID & Diet",
@@ -1037,13 +1042,16 @@
     "next-section": "",
 
     "about-you": {
-      "title": ""
+      "title": "",
+      "thank-you": "",
+      "answer-same-set-questions": ""
     },
 
     "weight-label": "",
     "weight-unsure-label": "",
     "was-pregnant-label": "",
     "hours-of-sleep-label": "",
+    "hours-of-sleep-placeholder": "",
     "shift-work-label": "",
     "food-security": {
       "label": "",
@@ -1127,14 +1135,20 @@
       "omega3": "",
       "garlic": "",
       "other": "",
-      "pfnts": ""
+      "pfnts": "",
+      "specify": ""
     },
 
     "first-calories-label": "",
     "last-calories-label": "",
     "eats-breakfast-label": "",
+
     "main-meals-label": "",
+    "main-meals-placeholder": "",
+
     "snacks-label": "",
+    "snacks-placeholder": "",
+
     "diet": {
       "label": "",
       "mixed": "",
@@ -1198,8 +1212,11 @@
       "fast_food-2": "",
 
       "portions_of_fruit-label": "",
+      "portions_of_fruit-placeholder": "",
       "glasses_of_juice-label": "",
+      "glasses_of_juice-placeholder": "",
       "portions_of_veg-label": "",
+      "portions_of_veg-placeholder": "",
 
       "milk-label": "",
       "milk-whole": "",
@@ -1212,6 +1229,7 @@
       "noticed-a-change": ""
     },
 
+    "complete-pre-cta": "",
     "complete-cta": "",
 
     "next-box": {

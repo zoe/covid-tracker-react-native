@@ -34,17 +34,17 @@ type Props = {
 const ThankYouSection: React.FC = () => {
   return (
     <View style={styles.thankyou}>
-      <RegularBoldText>Thank you</RegularBoldText>
+      <RegularBoldText>{i18n.t('diet-study.about-you.thank-you')}</RegularBoldText>
       <View style={{ height: 4 }} />
       <RegularText style={{ textAlign: 'center' }}>
-        Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread.
+        {i18n.t('diet-study.about-you.answer-same-set-questions')}
       </RegularText>
     </View>
   );
 };
 const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { timePeriod } = route.params.dietStudyData;
-  const { profile, isFemale } = route.params.dietStudyData.currentPatient;
+  const { timePeriod, currentPatient } = route.params.dietStudyData;
+  const { profile, isFemale } = currentPatient;
 
   const form = useDietStudyFormSubmit(route.name);
 
@@ -57,11 +57,10 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     .concat(FoodSecurityQuestion.schema());
 
   const updateDietStudy = async (formData: FormData) => {
-    console.log(`Update diet study: ${form.submitting}`);
     if (form.submitting) return;
     let infos = {
-      display_name: route.params.dietStudyData.timePeriod,
-      patient: route.params.dietStudyData.currentPatient.patientId,
+      display_name: timePeriod,
+      patient: currentPatient.patientId,
       ...ExtraWeightQuestions.createDTO(formData),
       ...HoursSleepQuestion.createDTO(formData),
       ...ShiftWorkQuestion.createDTO(formData),

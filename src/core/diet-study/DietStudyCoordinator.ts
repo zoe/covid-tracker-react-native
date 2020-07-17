@@ -84,7 +84,8 @@ export class DietStudyCoordinator {
     switch (response) {
       case DietStudyConsent.ACCEPTED: {
         Analytics.track(events.ACCEPT_DIET_STUDY);
-        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+        this.startDietStudy();
+        // NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
         break;
       }
       case DietStudyConsent.SKIP: {
@@ -103,7 +104,8 @@ export class DietStudyCoordinator {
   startDietStudy = async () => {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
-    if (studies.length > 1) {
+    const recentStudies = studies.filter((item) => item.display_name === CURRENT_DIET_STUDY_TIME_PERIOD);
+    if (recentStudies.length > 0) {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     } else {
       NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);

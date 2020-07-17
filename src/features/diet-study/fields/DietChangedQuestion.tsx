@@ -9,7 +9,7 @@ import { FormQuestion } from '@covid/components/Inputs/FormQuestion.interface';
 import ButtonsGroup from '@covid/components/Inputs/ButtonsGroup';
 
 export interface DietChangedData {
-  hasDietChanged: DietChangedOption | '';
+  has_diet_changed: DietChangedOption | '';
 }
 
 export enum DietChangedOption {
@@ -36,25 +36,25 @@ export const DietChangedQuestion: FormQuestion<Props, DietChangedData, CovidTest
           value: DietChangedOption.YES,
         },
         {
-          label: 'Not sure',
+          label: i18n.t('diet-study.diet-changed.not-sure'),
           value: DietChangedOption.NOT_SURE,
         },
       ]}
       onValueChange={(value: DietChangedOption) => {
-        props.formikProps.setFieldValue('hasDietChanged', value);
+        props.formikProps.setFieldValue('has_diet_changed', value);
       }}
       selectedValue=""
-      error={props.formikProps.touched.hasDietChanged && props.formikProps.errors.hasDietChanged}
+      error={props.formikProps.touched.has_diet_changed && props.formikProps.errors.has_diet_changed}
       {...props}
     />
   );
 };
 
-DietChangedQuestion.initialFormValues = (): DietChangedData => ({ hasDietChanged: '' });
+DietChangedQuestion.initialFormValues = (): DietChangedData => ({ has_diet_changed: '' });
 
 DietChangedQuestion.schema = () =>
   Yup.object().shape({
-    hasDietChanged: Yup.string().required(),
+    has_diet_changed: Yup.string().required(i18n.t('diet-study.required')),
   });
 
 DietChangedQuestion.createDTO = (_): Partial<DietStudyRequest> => ({});

@@ -23,26 +23,19 @@ interface Props {
   formikProps: FormikProps<FruitNVegConsumptionData>;
 }
 
-interface CheckBoxData {
-  label: string;
-  value: string;
-}
-
 interface InputProps {
   label: string;
-  items: CheckBoxData[];
-  selectedValue?: any;
+  placeholder: string;
   fieldKey: Keys;
-  error?: any;
   formikProps: FormikProps<FruitNVegConsumptionData>;
 }
 
-const Input: React.FC<InputProps> = ({ label, items, selectedValue, fieldKey, error, formikProps }) => (
+const Input: React.FC<InputProps> = ({ label, placeholder, fieldKey, formikProps }) => (
   <FieldWrapper style={styles.fieldWrapper}>
     <RegularText>{label}</RegularText>
     <View style={{}}>
       <ValidatedTextInput
-        placeholder=""
+        placeholder={placeholder}
         value={formikProps.values[fieldKey] ? `${formikProps.values[fieldKey]}` : ''}
         onChangeText={formikProps.handleChange(fieldKey)}
         onBlur={formikProps.handleBlur(fieldKey)}
@@ -60,12 +53,9 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
 ) => {
   const { formikProps } = props;
 
-  const items = [{ label: 'Empty', value: '1' }];
-
   const input = (key: keyof FruitNVegConsumptionData): InputProps => ({
     label: i18n.t(`diet-study.typical-diet.${key}-label`),
-    items,
-    selectedValue: formikProps.values[key],
+    placeholder: i18n.t(`diet-study.typical-diet.${key}-placeholder`),
     fieldKey: key,
     formikProps,
   });
@@ -76,7 +66,7 @@ export const FruitNVegConsumptionQuestions: FormQuestion<Props, FruitNVegConsump
     <>
       {inputs().map((input) => {
         const key = input.fieldKey as Keys;
-        return <Input key={key} error={formikProps.touched[key] && formikProps.errors[key]} {...input} />;
+        return <Input key={key} {...input} />;
       })}
     </>
   );

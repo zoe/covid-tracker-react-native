@@ -31,7 +31,7 @@ export const HoursSleepQuestion: HoursSleepQuestion<Props, HoursSleepData> = (pr
       <FieldLabel>{i18n.t('diet-study.hours-of-sleep-label')}</FieldLabel>
       <FieldWrapper style={{ padding: 16 }}>
         <ValidatedTextInput
-          placeholder=""
+          placeholder={i18n.t('diet-study.hours-of-sleep-placeholder')}
           value={formikProps.values.hoursSleep}
           onChangeText={formikProps.handleChange('hoursSleep')}
           onBlur={formikProps.handleBlur('hoursSleep')}
