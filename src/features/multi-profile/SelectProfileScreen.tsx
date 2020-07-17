@@ -12,6 +12,7 @@ import i18n from '@covid/locale/i18n';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { ProfileList } from '@covid/components/Collections/ProfileList';
+import { ProfileCard } from '@covid/components/ProfileCard';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
@@ -75,6 +76,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
 
             <ProfileList
               {...profileListProps}
+              renderItem={(profile, i) => <ProfileCard profile={profile} index={i} />}
               addProfile={() => {
                 gotoCreateProfile();
               }}

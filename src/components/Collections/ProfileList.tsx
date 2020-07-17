@@ -7,7 +7,6 @@ import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 import { Loading } from '../Loading';
-import { ProfileCard } from '../ProfileCard';
 import { NewProfileCard } from '../NewProfileCard';
 
 export type Profile = {
@@ -20,39 +19,49 @@ export type Profile = {
   created_at?: Date;
 };
 
-export const ProfileList: React.FC<
-  ApiErrorState & {
-    profiles: Profile[];
-    isLoaded: boolean;
-    addProfile?: VoidFunction;
-    onProfileSelected: (profile: string, index: number) => void;
-    navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
-  }
-> = ({ status, error, isLoaded, profiles, addProfile, onProfileSelected, onRetry }) => {
+interface Props extends ApiErrorState {
+  profiles: Profile[];
+  isLoaded: boolean;
+  addProfile?: VoidFunction;
+  onProfileSelected: (profile: string, index: number) => void;
+  navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
+  renderItem: (profile: Profile, index: number) => React.ReactNode;
+  renderCreateItem?: () => React.ReactNode;
+}
+
+export const ProfileList: React.FC<Props> = ({
+  status,
+  error,
+  isLoaded,
+  profiles,
+  addProfile,
+  onProfileSelected,
+  onRetry,
+  renderItem,
+  renderCreateItem = () => <NewProfileCard />,
+}) => {
   if (!isLoaded) {
     return <Loading status={status} error={error} style={{ borderColor: 'green', borderWidth: 1 }} onRetry={onRetry} />;
   }
 
   return (
-    <>
-      <View style={styles.profileList}>
-        {profiles.map((profile, i) => {
-          return (
-            <View style={styles.cardContainer} key={profile.id}>
-              <TouchableOpacity onPress={() => onProfileSelected(profile.id, i)}>
-                <ProfileCard profile={profile} index={i} />
-              </TouchableOpacity>
-            </View>
-          );
-        })}
+    <View style={styles.profileList}>
+      {profiles.map((profile, i) => {
+        return (
+          <View style={styles.cardContainer} key={profile.id}>
+            <TouchableOpacity onPress={() => onProfileSelected(profile.id, i)}>
+              {renderItem(profile, i)}
+            </TouchableOpacity>
+          </View>
+        );
+      })}
 
-        {addProfile && (
-          <TouchableOpacity style={styles.cardContainer} key="new" onPress={addProfile}>
-            <NewProfileCard />
-          </TouchableOpacity>
-        )}
-      </View>
-    </>
+      {addProfile && (
+        <View style={styles.cardContainer} key="new">
+          <TouchableOpacity onPress={addProfile}>{renderCreateItem()}</TouchableOpacity>
+        </View>
+      )}
+    </View>
   );
 };
 
