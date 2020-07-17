@@ -108,8 +108,8 @@ jobs:
     steps:
       - build
       - publish_to_expo
-      - deploy_ios
-      - deploy_android
+      # - deploy_ios
+      # - deploy_android
   legacy_deploy:
     executor: node
     working_directory: ~/covid-react
