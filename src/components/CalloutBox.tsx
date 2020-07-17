@@ -18,7 +18,6 @@ type CalloutBoxProps = {
 export const CalloutBox = ({ content, boxStyle, titleStyle, linkStyle, onPress }: CalloutBoxProps) => {
   return (
     <TouchableOpacity style={[styles.discoveriesContainer, boxStyle]} onPress={onPress}>
-      <ImageBackground source={}
       <View style={[styles.discoveriesTitleBackground, titleStyle]}>
         <AnnouncementIcon />
         <RegularText style={styles.discoveriesTitle}>{content.title_text}</RegularText>
