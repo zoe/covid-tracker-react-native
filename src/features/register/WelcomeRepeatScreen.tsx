@@ -3,6 +3,7 @@ import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Linking } from 'expo';
 
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
@@ -22,11 +23,10 @@ import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
+import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
-import { Linking } from 'expo';
-import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
 
 type PropsType = {
   navigation: CompositeNavigationProp<

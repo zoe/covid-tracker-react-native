@@ -11,9 +11,9 @@ import { Header, isAndroid } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../../ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineRegistryInfo'>;

@@ -11,9 +11,9 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { ScreenParamList } from './ScreenParamList';
-import Analytics, { events } from '@covid/core/Analytics';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
