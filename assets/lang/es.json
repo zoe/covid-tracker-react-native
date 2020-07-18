@@ -940,7 +940,11 @@
       "not-share": false,
       "prioritise": false,
       "tell-friends": false,
-      "share-text": false
+      "share-text": false,
+      "callout-title": false,
+      "callout-text": false,
+      "callout-link-text": false,
+      "menu-item": false
     }
   },
 
