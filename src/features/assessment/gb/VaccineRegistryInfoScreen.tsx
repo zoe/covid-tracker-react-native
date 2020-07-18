@@ -45,6 +45,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
 
           <View style={styles.shareCard}>
             <BaseShareAppCard
+              primaryText={i18n.t('vaccine-registry.share-title')}
               secondaryText={i18n.t('vaccine-registry.share-text')}
               ctaTitle={i18n.t('vaccine-registry.tell-friends')}
               onSharePress={share}
