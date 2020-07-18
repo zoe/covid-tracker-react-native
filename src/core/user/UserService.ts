@@ -49,7 +49,7 @@ export interface IUserService {
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
-  shouldAskForVaccineRegistry(currentPatient: PatientStateType): Promise<boolean>;
+  shouldAskForVaccineRegistry(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
 }
 
@@ -557,8 +557,8 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return response.data.should_ask_uk_validation_study;
   }
 
-  async shouldAskForVaccineRegistry(currentPatient: PatientStateType): Promise<boolean> {
-    if (!isGBCountry() || currentPatient.isReportedByAnother) return Promise.resolve(false);
+  async shouldAskForVaccineRegistry(): Promise<boolean> {
+    if (!isGBCountry()) return Promise.resolve(false);
 
     const url = `/study_consent/status/?home_screen=true`;
 

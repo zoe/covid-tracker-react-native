@@ -67,7 +67,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     await pushNotificationService.refreshPushToken();
 
     this.setState({
-      showVaccineRegistry: await this.userService.shouldAskForVaccineRegistry(appCoordinator.currentPatient),
+      showVaccineRegistry: await this.userService.shouldAskForVaccineRegistry(),
     });
     const content = await contentService.getWelcomeRepeatContent();
     this.setState({ calloutBoxContent: content });
