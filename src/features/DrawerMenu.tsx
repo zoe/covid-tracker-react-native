@@ -12,6 +12,7 @@ import { CaptionText, HeaderText } from '@covid/components/Text';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type MenuItemProps = {
   label: string;
@@ -42,6 +43,7 @@ enum DrawerMenuItem {
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
 
   const fetchEmail = async () => {
     try {
@@ -52,9 +54,19 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     }
   };
 
+  const fetchShouldShowVaccine = async () => {
+    try {
+      const shouldAskForVaccineRegistry = await userService.shouldAskForVaccineRegistry();
+      setShowVaccineRegistry(shouldAskForVaccineRegistry);
+    } catch (_) {
+      setShowVaccineRegistry(false);
+    }
+  };
+
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
+    fetchShouldShowVaccine();
   }, [userService.hasUser]);
 
   function showDeleteAlert() {
@@ -146,6 +158,15 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             showResearchUpdates();
           }}
         />
+        {showVaccineRegistry && (
+          <MenuItem
+            label={i18n.t('vaccine-registry.menu-item')}
+            onPress={() => {
+              appCoordinator.goToVaccineRegistry();
+            }}
+          />
+        )}
+
         <MenuItem
           label={i18n.t('push-notifications')}
           onPress={() => {

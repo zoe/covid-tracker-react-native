@@ -6,11 +6,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { BrandedButton, HeaderText, RegularText, SecondaryText, CaptionText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularText, CaptionText } from '@covid/components/Text';
 import { Header, isAndroid } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -28,10 +29,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
-      <PatientHeader
-        profile={assessmentCoordinator.assessmentData.currentPatient.profile}
-        navigation={props.navigation}
-      />
+      <PatientHeader profile={props.route.params.currentPatient.profile} navigation={props.navigation} />
       <ScrollView>
         <View style={styles.contentContainer}>
           <Header>
@@ -47,6 +45,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
 
           <View style={styles.shareCard}>
             <BaseShareAppCard
+              primaryText={i18n.t('vaccine-registry.share-title')}
               secondaryText={i18n.t('vaccine-registry.share-text')}
               ctaTitle={i18n.t('vaccine-registry.tell-friends')}
               onSharePress={share}
@@ -57,7 +56,7 @@ export const VaccineRegistryInfoScreen: React.FC<RenderProps> = (props) => {
             <BrandedButton
               style={styles.button}
               onPress={() => {
-                assessmentCoordinator.gotoNextScreen(props.route.name);
+                appCoordinator.gotoNextScreen(props.route.name);
               }}>
               <RegularText style={styles.buttonText}>{i18n.t('vaccine-registry.next')}</RegularText>
             </BrandedButton>
