@@ -43,6 +43,7 @@ export type DietStudyData = {
   recentDietStudyId?: string;
   febDietStudyId?: string;
   currentPatient: PatientStateType;
+  startedFromMenu: boolean;
 };
 
 export class DietStudyCoordinator {
@@ -69,14 +70,15 @@ export class DietStudyCoordinator {
       if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam); // Goes back to screen currently on stack
       } else {
+        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
       }
     },
     DietStudyThankYou: () => {
-      if (NavigatorService.stackIncludes('DietStudyIntro')) {
-        NavigatorService.popTo('DietStudyIntro', true);
+      if (this.dietStudyData.startedFromMenu) {
+        NavigatorService.navigate('WelcomeRepeat');
       } else {
-        NavigatorService.goBack();
+        this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
       }
     },
   } as ScreenFlow;
@@ -98,17 +100,23 @@ export class DietStudyCoordinator {
     switch (response) {
       case DietStudyConsent.ACCEPTED: {
         Analytics.track(events.ACCEPT_DIET_STUDY);
-        this.startDietStudy();
+        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
         break;
       }
       case DietStudyConsent.SKIP: {
         Analytics.track(events.DECLINE_DIET_STUDY);
         NavigatorService.goBack();
+        if (!this.dietStudyData.startedFromMenu) {
+          this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+        }
         break;
       }
       case DietStudyConsent.DEFER: {
         Analytics.track(events.DEFER_DIET_STUDY);
         NavigatorService.goBack();
+        if (!this.dietStudyData.startedFromMenu) {
+          this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+        }
         break;
       }
     }
