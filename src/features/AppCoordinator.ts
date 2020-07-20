@@ -126,8 +126,17 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyFlow(currentPatient: PatientStateType, timePeriod: string = CURRENT_DIET_STUDY_TIME_PERIOD) {
-    dietStudyCoordinator.init(this, { currentPatient, timePeriod }, this.userService, this.dietStudyService);
+  startDietStudyFlow(
+    currentPatient: PatientStateType,
+    startedFromMenu: boolean,
+    timePeriod: string = CURRENT_DIET_STUDY_TIME_PERIOD
+  ) {
+    dietStudyCoordinator.init(
+      this,
+      { currentPatient, timePeriod, startedFromMenu },
+      this.userService,
+      this.dietStudyService
+    );
     dietStudyCoordinator.startDietStudy();
   }
 
@@ -150,7 +159,7 @@ export class AppCoordinator {
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.goToUKValidationStudy();
     } else if (await this.shouldShowDietStudy(currentPatient)) {
-      this.startDietStudyFlow(currentPatient);
+      this.startDietStudyFlow(currentPatient, false);
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -162,7 +171,7 @@ export class AppCoordinator {
   }
 
   goToDietStart() {
-    this.startDietStudyFlow(this.currentPatient);
+    this.startDietStudyFlow(this.currentPatient, true);
   }
 
   goToUKValidationStudy() {
@@ -197,7 +206,7 @@ export class AppCoordinator {
 
     const studies = await this.dietStudyService.getDietStudies();
     let notCompleted = true;
-    if (studies.length > 1) {
+    if (studies.length >= 1) {
       notCompleted = false;
     }
 

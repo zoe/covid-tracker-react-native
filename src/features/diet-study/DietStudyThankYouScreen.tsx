@@ -16,7 +16,6 @@ import { Loading, LoadingModal } from '@covid/components/Loading';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import { offlineService } from '@covid/Services';
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyThankYou'>;
