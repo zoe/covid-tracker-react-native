@@ -23,7 +23,9 @@ import { colors } from '@theme';
 import dietStudyCoordinator, {
   PREVIOUS_DIET_STUDY_TIME_PERIOD,
   getScreenHeaderOptions,
+  CURRENT_DIET_STUDY_TIME_PERIOD,
 } from '@covid/core/diet-study/DietStudyCoordinator';
+import { currentDietStudyTimePeriod } from '@covid/utils/datetime';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
@@ -59,10 +61,14 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     .concat(ShiftWorkQuestion.schema())
     .concat(FoodSecurityQuestion.schema());
 
+  const getTimePeriod = (time?: string): string => {
+    return time === CURRENT_DIET_STUDY_TIME_PERIOD ? currentDietStudyTimePeriod() : PREVIOUS_DIET_STUDY_TIME_PERIOD;
+  };
+
   const updateDietStudy = async (formData: FormData) => {
     if (form.submitting) return;
     let infos = {
-      display_name: timePeriod,
+      display_name: getTimePeriod(timePeriod),
       patient: currentPatient.patientId,
       ...ExtraWeightQuestions.createDTO(formData),
       ...HoursSleepQuestion.createDTO(formData),
