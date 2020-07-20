@@ -3,6 +3,7 @@ import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Linking } from 'expo';
 
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
@@ -22,6 +23,7 @@ import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ICoreService } from '@covid/core/user/UserService';
+import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -39,6 +41,7 @@ type WelcomeRepeatScreenState = {
   showPartnerLogos: boolean;
   onRetry?: () => void;
   calloutBoxContent: ScreenContent;
+  showVaccineRegistry: boolean;
 } & ApiErrorState;
 
 const initialState = {
@@ -46,6 +49,7 @@ const initialState = {
   userCount: null,
   showPartnerLogos: true,
   calloutBoxContent: contentService.getCalloutBoxDefault(),
+  showVaccineRegistry: false,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -62,6 +66,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
+    this.setState({
+      showVaccineRegistry: await this.userService.shouldAskForVaccineRegistry(),
+    });
     const content = await contentService.getWelcomeRepeatContent();
     this.setState({ calloutBoxContent: content });
   }
@@ -120,7 +127,14 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <View style={{ flex: 1 }} />
 
-            <CalloutBox content={this.state.calloutBoxContent} />
+            {this.state.showVaccineRegistry ? (
+              <VaccineRegistryCallout />
+            ) : (
+              <CalloutBox
+                content={this.state.calloutBoxContent}
+                onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+              />
+            )}
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>

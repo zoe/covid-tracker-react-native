@@ -27,7 +27,7 @@ export class ValidatedTextInput extends Component<Props, object> {
         ]}>
         <TextInput
           ref={(input) => (this.textInput = input)}
-          style={styles.inputStyle}
+          style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}
           placeholderTextColor={colors.secondary}
           {...this.props}
         />
@@ -51,9 +51,15 @@ const styles = StyleSheet.create({
   inputStyle: {
     color: colors.primary,
     flex: 1,
-    height: 48,
     fontSize: 16,
     paddingLeft: 12,
     paddingRight: 16,
+  },
+  singleLine: {
+    height: 48,
+  },
+  multipleLines: {
+    height: 96,
+    marginVertical: 8,
   },
 });

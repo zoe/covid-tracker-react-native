@@ -1027,6 +1027,11 @@
     "not-share": "We will not share your details with anyone, but will alert you when a relevant study becomes available.",
     "prioritise": "We aim to prioritise people who have been regularly logging on the app, and who are early members of this list.",
     "tell-friends": "Please tell your friends",
-    "share-text": "Anyone can join this registry. However we will prioritise those who join first and use the COVID Symptoms Study app regularly."
+    "share-title": "Please share this app",
+    "share-text": "Do you know anyone who would be interested in this app or vaccine trials?",
+    "callout-title": "VACCINE",
+    "callout-text": "Would you like to join our COVID-19 vaccine registry?",
+    "callout-link-text": "I am interested",
+    "menu-item": "Join the vaccine registry"
   }
 }
