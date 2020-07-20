@@ -11,6 +11,7 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -88,6 +89,9 @@ export class AppCoordinator {
     },
     Consent: () => {
       NavigatorService.navigate('Register');
+    },
+    VaccineRegistryInfo: () => {
+      NavigatorService.navigate('WelcomeRepeat');
     },
   } as ScreenFlow;
 
@@ -168,6 +172,21 @@ export class AppCoordinator {
 
   goToCreateProfile(avatarName: string) {
     NavigatorService.navigate('CreateProfile', { avatarName });
+  }
+
+  goToVaccineRegistry() {
+    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.currentPatient });
+  }
+
+  vaccineRegistryResponse(response: boolean) {
+    this.userService.setVaccineRegistryResponse(response);
+    if (response) {
+      Analytics.track(events.JOIN_VACCINE_REGISTER);
+      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.currentPatient });
+    } else {
+      Analytics.track(events.DECLINE_VACCINE_REGISTER);
+      NavigatorService.goBack();
+    }
   }
 }
 

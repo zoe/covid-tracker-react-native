@@ -559,7 +559,9 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async shouldAskForVaccineRegistry(): Promise<boolean> {
-    const url = `/study_consent/status/`;
+    if (!isGBCountry()) return Promise.resolve(false);
+
+    const url = `/study_consent/status/?home_screen=true`;
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_vaccine_register;
