@@ -6,6 +6,7 @@ import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenProps } from '@covid/components/Screen';
 import { CallOutType } from '@covid/components/PatientHeader';
+import i18n from '@covid/locale/i18n';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -26,7 +27,7 @@ export const getScreenHeaderOptions = (time?: string): Partial<ScreenProps> => {
   } else {
     return {
       calloutType: CallOutType.Tag,
-      calloutTitle: 'Answer for February',
+      calloutTitle: i18n.t('diet-study.answer-for-feb'),
     };
   }
 };
@@ -97,8 +98,7 @@ export class DietStudyCoordinator {
     switch (response) {
       case DietStudyConsent.ACCEPTED: {
         Analytics.track(events.ACCEPT_DIET_STUDY);
-        // this.startDietStudy();
-        NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
+        this.startDietStudy();
         break;
       }
       case DietStudyConsent.SKIP: {
