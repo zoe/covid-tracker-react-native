@@ -17,6 +17,7 @@ export interface FoodFreqGroupItem {
   secondaryLabel?: string;
   items: SelectableItem[];
   opened?: boolean;
+  headerOnTap: (key: keyof FoodFreqData) => void;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -43,6 +44,7 @@ export const FoodFreqGroup: React.FC<Props> = ({
   error,
   onSelected,
   opened = true,
+  ...props
 }) => {
   const opacity = { start: 0, end: 1 };
   const [collapsed, setCollapsed] = useState<boolean>(!opened);
@@ -70,8 +72,9 @@ export const FoodFreqGroup: React.FC<Props> = ({
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          setShouldShow(true);
-          setCollapsed(!collapsed);
+          props.headerOnTap(props.key);
+          // setShouldShow(true);
+          // setCollapsed(!collapsed);
         }}>
         <View style={styles.header}>
           <RegularText>{primaryLabel}</RegularText>

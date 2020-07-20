@@ -124,6 +124,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     primaryLabel: object.primaryLabel!,
     secondaryLabel: object.secondaryLabel,
     items,
+    headerOnTap: () => {},
   }));
 };
 
@@ -132,23 +133,39 @@ const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: color
 type Keys = keyof FoodFreqData;
 
 export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), formikProps, ...props }) => {
-  const [currentKey, setCurrentKey] = useState<Keys>('ffq_fruit');
+  const [currentKey, setCurrentKey] = useState<Keys | ''>('ffq_fruit');
 
-  const next = () => {
+  const next = (from: Keys) => {
     const keys = items.map((item) => item.key);
-    const current = keys.indexOf(currentKey);
-    if (current < keys.length - 1) {
-      setCurrentKey(keys[current + 1]);
+    const inBound = (i: number): boolean => i > -1 && i < keys.length - 1;
+    const index = keys.indexOf(from);
+    let nextIndex = -1;
+
+    // Find + 1 index;
+    if (inBound(index)) {
+      nextIndex = index + 1;
+    }
+
+    // Find next available unanswer slot
+    while (inBound(nextIndex) && formikProps.values[keys[nextIndex]] !== '') {
+      nextIndex++;
+    }
+
+    if (nextIndex > -1) {
+      setCurrentKey(keys[nextIndex]);
+    } else {
+      setCurrentKey('');
     }
   };
+
+  const toggle = (key: Keys) => setCurrentKey(currentKey === key ? '' : key);
 
   return (
     <View style={[styles.container, props.style]}>
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
         const key = item.key as Keys;
-        console.log(`${key} - ${key === currentKey}`);
-        const shouldOpen = key === currentKey;
+        const shouldOpen = currentKey === key;
         return (
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup
@@ -156,10 +173,13 @@ export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), form
               key={item.key}
               onSelected={(newValue) => {
                 if (props.onSelected) props.onSelected(item.key, newValue);
-                next();
+                next(item.key);
               }}
               error={formikProps.touched[key] && formikProps.errors[key]}
               opened={shouldOpen}
+              headerOnTap={() => {
+                toggle(item.key);
+              }}
             />
             {showDivider && <Divider />}
           </React.Fragment>
