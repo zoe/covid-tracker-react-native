@@ -19,7 +19,7 @@ import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fi
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
-import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { getScreenHeaderOptions } from '@covid/core/diet-study/DietStudyCoordinator';
 import { colors } from '@theme';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
@@ -68,7 +68,11 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
   };
 
   return (
-    <Screen profile={profile} navigation={navigation} style={styles.screen}>
+    <Screen
+      profile={profile}
+      navigation={navigation}
+      style={styles.screen}
+      {...getScreenHeaderOptions(route.params.dietStudyData.timePeriod)}>
       <Header>
         <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
       </Header>

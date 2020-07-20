@@ -20,7 +20,10 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { colors } from '@theme';
-import dietStudyCoordinator, { PREVIOUS_DIET_STUDY_TIME_PERIOD } from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, {
+  PREVIOUS_DIET_STUDY_TIME_PERIOD,
+  getScreenHeaderOptions,
+} from '@covid/core/diet-study/DietStudyCoordinator';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
@@ -84,7 +87,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <Screen profile={profile} navigation={navigation} style={styles.screen}>
+    <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
       {timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD && <ThankYouSection />}
       <Header>
         <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
