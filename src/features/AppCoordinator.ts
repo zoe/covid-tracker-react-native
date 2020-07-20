@@ -10,7 +10,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
-import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
+import { IDietStudyRemoteClient, REQUIRED_NUMBER_OF_STUDIES } from '@covid/core/diet-study/DietStudyApiClient';
 import dietStudyCoordinator, {
   DietStudyConsent,
   CURRENT_DIET_STUDY_TIME_PERIOD,
@@ -206,7 +206,7 @@ export class AppCoordinator {
 
     const studies = await this.dietStudyService.getDietStudies();
     let notCompleted = true;
-    if (studies.length >= 1) {
+    if (studies.length >= REQUIRED_NUMBER_OF_STUDIES) {
       notCompleted = false;
     }
 

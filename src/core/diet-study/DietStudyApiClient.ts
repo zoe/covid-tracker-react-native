@@ -7,6 +7,7 @@ import { DietStudyResponse } from '@covid/core/diet-study/dto/DietStudyResponse'
 import { Services } from '@covid/provider/services.types';
 
 const API_URL = '/diet_study/';
+export const REQUIRED_NUMBER_OF_STUDIES = 1;
 
 export interface IDietStudyRemoteClient {
   getDietStudies(): Promise<DietStudyResponse[]>;
