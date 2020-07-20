@@ -1025,13 +1025,13 @@
     "about-you": {
       "title": "A bit about you",
       "thank-you": "Thank you",
-      "answer-same-set-questions": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemid spread."
+      "answer-same-set-questions": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread."
     },
 
     "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
-    "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)",
+    "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)?",
     "hours-of-sleep-placeholder": "Hours",
     "shift-work-label": "Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
@@ -1049,12 +1049,12 @@
 
     "physical-activity": {
       "label": "How frequently have you typically engaged in physical activity that raises your heart rate and lasts for 20 minutes at a time?",
-      "less-than-once-a-month": "Less than once a month ",
-      "less-than-once-a-week": "At least once a month, but less than once a week ",
-      "once-a-week": "About once a week ",
-      "twice-a-week": "About twice a week ",
-      "three-to-four-times-a-week": "3-4 times per week ",
-      "five-or-more": "5 or more times per week ",
+      "less-than-once-a-month": "Less than once a month",
+      "less-than-once-a-week": "At least once a month, but less than once a week",
+      "once-a-week": "About once a week",
+      "twice-a-week": "About twice a week",
+      "three-to-four-times-a-week": "3-4 times per week",
+      "five-or-more": "5 or more times per week",
       "pfnts": "Prefer not to say"
     },
 
@@ -1080,7 +1080,7 @@
     },
 
     "alcohol-units": {
-      "label": "How many drinks containing alcohol do you have on a typical day when you are drinking? By “drink” we mean one unit of alcohol",
+      "label": "How many drinks containing alcohol do you have on a typical day when you are drinking? By “drink” we mean one unit of alcohol.",
       "one-to-two": "1 or 2",
       "three-to-four": "3 or 4",
       "five-to-six": "5 or 6",
@@ -1123,9 +1123,9 @@
     "first-calories-label": "After waking (typically in the morning), what time do you usually first eat or drink anything other than water/black coffee and plain tea?",
     "last-calories-label": "What is the latest time of the day that you usually eat or drink anything other than water/black coffee and plain tea?",
     "eats-breakfast-label": "Do you typically consume breakfast?",
-    "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)",
+    "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)?",
     "main-meals-placeholder": "Main meals",
-    "snacks-label": "How frequently do you typically consume snacks in a day (a snack is any food consumed outside of breakfast, lunch or dinner)",
+    "snacks-label": "How frequently do you typically consume snacks in a day (a snack is any food consumed outside of breakfast, lunch or dinner)?",
     "snacks-placeholder": "Snacks",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks (you can select more than one option)?",
