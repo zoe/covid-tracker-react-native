@@ -17,6 +17,7 @@ import { colors } from '@theme';
 import dietStudyCoordinator, {
   PREVIOUS_DIET_STUDY_TIME_PERIOD,
   CURRENT_DIET_STUDY_TIME_PERIOD,
+  getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
@@ -78,7 +79,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       : i18n.t('diet-study.complete-cta');
 
   return (
-    <Screen profile={profile} navigation={navigation} style={styles.screen}>
+    <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
       <Header>
         <HeaderText>{i18n.t('diet-study.typical-diet.title')}</HeaderText>
       </Header>

@@ -4,6 +4,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
+import { ScreenProps } from '@covid/components/Screen';
+import { CallOutType } from '@covid/components/PatientHeader';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -17,6 +19,17 @@ type DietStudyParam = { dietStudyData: DietStudyData };
 
 export const CURRENT_DIET_STUDY_TIME_PERIOD = 'July 2020';
 export const PREVIOUS_DIET_STUDY_TIME_PERIOD = 'Feb 2020';
+
+export const getScreenHeaderOptions = (time?: string): Partial<ScreenProps> => {
+  if (time === CURRENT_DIET_STUDY_TIME_PERIOD) {
+    return { calloutType: CallOutType.Simple };
+  } else {
+    return {
+      calloutType: CallOutType.Tag,
+      calloutTitle: 'Answer for February',
+    };
+  }
+};
 
 export enum DietStudyConsent {
   ACCEPTED = 'accepted',
@@ -84,8 +97,8 @@ export class DietStudyCoordinator {
     switch (response) {
       case DietStudyConsent.ACCEPTED: {
         Analytics.track(events.ACCEPT_DIET_STUDY);
-        this.startDietStudy();
-        // NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+        // this.startDietStudy();
+        NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
         break;
       }
       case DietStudyConsent.SKIP: {
