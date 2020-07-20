@@ -25,4 +25,4 @@ export const isDateBefore = (date: DateTypes, compDate: DateTypes): boolean => {
   return moment(date).isBefore(compDate);
 };
 
-export const currentDietStudyTimePeriod = (): string => moment(new Date()).format('MMMM YYYY');
+export const currentDietStudyTimePeriod = (): string => moment(new Date()).format('MMM YYYY');
