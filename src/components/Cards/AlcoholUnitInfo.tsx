@@ -61,12 +61,17 @@ interface UnitInfoItemProps {
 
 const UnitInfoItem: React.FC<UnitInfoItemProps> = ({ item }) => {
   return (
-    <View style={itemStyles.container}>
-      <View style={itemStyles.icon}>{item.icon}</View>
-      <RegularText style={itemStyles.primaryLabel}>{item.title}</RegularText>
-      {item.volume && <RegularText style={itemStyles.volumneLabel}>({item.volume})</RegularText>}
-      {item.unit > 0 && <RegularBoldText style={itemStyles.unitLabel}>{item.unit} unit</RegularBoldText>}
-    </View>
+    <>
+      <View style={itemStyles.container}>
+        <View style={itemStyles.icon}>{item.icon}</View>
+        <RegularText style={itemStyles.primaryLabel}>{item.title}</RegularText>
+        {item.volume && <RegularText style={itemStyles.volumeLabel}>({item.volume})</RegularText>}
+      </View>
+      <View style={{ paddingLeft: 32, paddingBottom: 8 }}>
+        {item.unit === 1 && <RegularBoldText style={itemStyles.unitLabel}>{item.unit} unit</RegularBoldText>}
+        {item.unit > 1 && <RegularBoldText style={itemStyles.unitLabel}>{item.unit} units</RegularBoldText>}
+      </View>
+    </>
   );
 };
 
@@ -77,8 +82,9 @@ export const AlcoholUnitInfo: React.FC<Props> = ({ style }) => {
         <IInfoCircle />
       </View>
       <View style={styles.container}>
-        <RegularText style={styles.description}>{i18n.t('diet-study.alcohol-unit-info.label-1')}</RegularText>
-        <RegularText style={styles.description}>{i18n.t('diet-study.alcohol-unit-info.label-2')}</RegularText>
+        <RegularText style={styles.description}>
+          {i18n.t('diet-study.alcohol-unit-info.label-1')} {i18n.t('diet-study.alcohol-unit-info.label-2')}
+        </RegularText>
         <View style={{ height: 16 }} />
         {UNITS_GUIDE().map((item) => (
           <UnitInfoItem item={item} key={item.title} />
@@ -131,7 +137,7 @@ const itemStyles = StyleSheet.create({
     marginRight: 4,
     color: colors.textDark,
   },
-  volumneLabel: {
+  volumeLabel: {
     marginRight: 4,
   },
   description: {
