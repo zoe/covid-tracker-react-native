@@ -19,7 +19,7 @@ import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientProfile } from '@covid/core/patient/PatientState';
 
-import PatientHeader from './PatientHeader';
+import PatientHeader, { CallOutType } from './PatientHeader';
 import { RegularText } from './Text';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
@@ -57,12 +57,14 @@ export const FieldWrapper = (props: FieldWrapperType) => {
  * A component to wrap all screens in a common wrapper.
  * For permanent page fixtures
  */
-type ScreenProps = {
+export type ScreenProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
   navigation?: StackNavigationProp<ScreenParamList>;
   profile?: PatientProfile;
   simpleCallout?: boolean;
+  calloutType?: CallOutType;
+  calloutTitle?: string;
 };
 
 export default class Screen extends Component<ScreenProps> {
@@ -79,6 +81,8 @@ export default class Screen extends Component<ScreenProps> {
             profile={profile}
             navigation={this.props.navigation}
             simpleCallout={this.props.simpleCallout}
+            type={this.props.calloutType}
+            calloutTitle={this.props.calloutTitle}
           />
         ) : (
           <View style={styles.statusBarBlock} />
