@@ -47,9 +47,7 @@ export const FoodFreqGroup: React.FC<Props> = ({
   ...props
 }) => {
   const opacity = { start: 0, end: 1 };
-  const [collapsed, setCollapsed] = useState<boolean>(!opened);
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
-  const [shouldShow, setShouldShow] = useState<boolean>(!collapsed);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
 
   useEffect(() => {
@@ -73,8 +71,6 @@ export const FoodFreqGroup: React.FC<Props> = ({
       <TouchableOpacity
         onPress={() => {
           props.headerOnTap(props.key);
-          // setShouldShow(true);
-          // setCollapsed(!collapsed);
         }}>
         <View style={styles.header}>
           <RegularText>{primaryLabel}</RegularText>
@@ -88,28 +84,18 @@ export const FoodFreqGroup: React.FC<Props> = ({
           </View>
         )}
       </TouchableOpacity>
-      {/* {shouldShow && ( */}
-      <Collapsible
-        enablePointerEvents={false}
-        collapsed={!opened}
-        onAnimationEnd={() => {
-          // if (collapsed && shouldShow) {
-          //   setShouldShow(false);
-          // }
-        }}>
+      <Collapsible enablePointerEvents={false} collapsed={!opened}>
         <View style={{ height: 20 }} />
         <Selectable
           key={primaryLabel}
           items={items}
           resetAnimation={!opened}
           onSelected={(selected) => {
-            setCollapsed(true);
             setSelectedItem(selected);
             if (onSelected) onSelected(selected);
           }}
         />
       </Collapsible>
-      {/* // )} */}
     </View>
   );
 };
