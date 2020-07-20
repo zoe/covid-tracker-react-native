@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
@@ -93,7 +93,7 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
 
       <PatientHeader profile={currentPatient.profile} navigation={props.navigation} />
 
-      <View style={styles.contentContainer}>
+      <ScrollView style={styles.contentContainer}>
         <HeaderText style={styles.headerText}>{i18n.t('diet-study.thank-you.title')}</HeaderText>
 
         {!showProfiles && <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-1')}</RegularText>}
@@ -135,7 +135,7 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
             <RegularText style={styles.buttonText}>{i18n.t('vaccine-registry.next')}</RegularText>
           </BrandedButton>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
