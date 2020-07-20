@@ -18,12 +18,15 @@ type ScreenFlow = {
 };
 type DietStudyParam = { dietStudyData: DietStudyData };
 
-export const CURRENT_DIET_STUDY_TIME_PERIOD = 'July 2020';
+export const CURRENT_DIET_STUDY_TIME_PERIOD = 'Recent';
 export const PREVIOUS_DIET_STUDY_TIME_PERIOD = 'Feb 2020';
 
 export const getScreenHeaderOptions = (time?: string): Partial<ScreenProps> => {
   if (time === CURRENT_DIET_STUDY_TIME_PERIOD) {
-    return { calloutType: CallOutType.Simple };
+    return {
+      calloutType: CallOutType.Tag,
+      calloutTitle: i18n.t('diet-study.answer-for-last-4-weeks'),
+    };
   } else {
     return {
       calloutType: CallOutType.Tag,
@@ -39,7 +42,7 @@ export enum DietStudyConsent {
 }
 
 export type DietStudyData = {
-  timePeriod?: string;
+  timePeriod: string;
   recentDietStudyId?: string;
   febDietStudyId?: string;
   currentPatient: PatientStateType;
@@ -115,6 +118,9 @@ export class DietStudyCoordinator {
   }
 
   startDietStudy = async () => {
+    NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
+    return;
+
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     const recentStudies = studies.filter((item) => item.display_name === CURRENT_DIET_STUDY_TIME_PERIOD);
