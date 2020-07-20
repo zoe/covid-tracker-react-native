@@ -18,7 +18,7 @@ type ScreenFlow = {
 };
 type DietStudyParam = { dietStudyData: DietStudyData };
 
-export const CURRENT_DIET_STUDY_TIME_PERIOD = 'Recent';
+export const CURRENT_DIET_STUDY_TIME_PERIOD = 'Jul 2020';
 export const PREVIOUS_DIET_STUDY_TIME_PERIOD = 'Feb 2020';
 
 export const getScreenHeaderOptions = (time?: string): Partial<ScreenProps> => {
