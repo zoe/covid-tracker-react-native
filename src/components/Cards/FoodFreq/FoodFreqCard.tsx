@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 import { FormikProps } from 'formik';
 
@@ -132,11 +132,23 @@ const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: color
 type Keys = keyof FoodFreqData;
 
 export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), formikProps, ...props }) => {
+  const [currentKey, setCurrentKey] = useState<Keys>('ffq_fruit');
+
+  const next = () => {
+    const keys = items.map((item) => item.key);
+    const current = keys.indexOf(currentKey);
+    if (current < keys.length - 1) {
+      setCurrentKey(keys[current + 1]);
+    }
+  };
+
   return (
     <View style={[styles.container, props.style]}>
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
         const key = item.key as Keys;
+        console.log(`${key} - ${key === currentKey}`);
+        const shouldOpen = key === currentKey;
         return (
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup
@@ -144,8 +156,10 @@ export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), form
               key={item.key}
               onSelected={(newValue) => {
                 if (props.onSelected) props.onSelected(item.key, newValue);
+                next();
               }}
               error={formikProps.touched[key] && formikProps.errors[key]}
+              opened={shouldOpen}
             />
             {showDivider && <Divider />}
           </React.Fragment>

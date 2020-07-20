@@ -16,6 +16,7 @@ export interface FoodFreqGroupItem {
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];
+  opened?: boolean;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -35,9 +36,16 @@ const animate = (fn: any) => {
   }).start();
 };
 
-export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, items, error, onSelected }) => {
+export const FoodFreqGroup: React.FC<Props> = ({
+  primaryLabel,
+  secondaryLabel,
+  items,
+  error,
+  onSelected,
+  opened = true,
+}) => {
   const opacity = { start: 0, end: 1 };
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState<boolean>(!opened);
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
   const [shouldShow, setShouldShow] = useState<boolean>(!collapsed);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
@@ -77,28 +85,28 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
           </View>
         )}
       </TouchableOpacity>
-      {shouldShow && (
-        <Collapsible
-          enablePointerEvents={false}
-          collapsed={collapsed}
-          onAnimationEnd={() => {
-            if (collapsed && shouldShow) {
-              setShouldShow(false);
-            }
-          }}>
-          <View style={{ height: 20 }} />
-          <Selectable
-            key={primaryLabel}
-            items={items}
-            resetAnimation={collapsed}
-            onSelected={(selected) => {
-              setCollapsed(true);
-              setSelectedItem(selected);
-              if (onSelected) onSelected(selected);
-            }}
-          />
-        </Collapsible>
-      )}
+      {/* {shouldShow && ( */}
+      <Collapsible
+        enablePointerEvents={false}
+        collapsed={!opened}
+        onAnimationEnd={() => {
+          // if (collapsed && shouldShow) {
+          //   setShouldShow(false);
+          // }
+        }}>
+        <View style={{ height: 20 }} />
+        <Selectable
+          key={primaryLabel}
+          items={items}
+          resetAnimation={!opened}
+          onSelected={(selected) => {
+            setCollapsed(true);
+            setSelectedItem(selected);
+            if (onSelected) onSelected(selected);
+          }}
+        />
+      </Collapsible>
+      {/* // )} */}
     </View>
   );
 };
