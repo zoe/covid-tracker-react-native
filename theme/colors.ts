@@ -26,6 +26,7 @@ export const colors = {
 
   linkBlue: '#007AFF',
   lightBlueBrand: '#29C4CF',
+  darkblue: '#0165B5',
 
   backgroundBrandDisabled: '#7C9CAD',
   actionButtonBorder: 'rgba(240, 240, 240, 1)',
