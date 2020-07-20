@@ -214,21 +214,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
       }
     >
       A drink is defined as one unit of alcohol.
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#565A5C",
-            "fontSize": 16,
-            "lineHeight": 24,
-          },
-          Object {
-            "color": "#24262B",
-          },
-        ]
-      }
-    >
+       
       Typical units in common alcoholic beverages:
     </Text>
     <View
@@ -449,6 +435,15 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
       >
         Pint or can of beer/lager/cider
       </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingBottom": 8,
+          "paddingLeft": 32,
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -465,7 +460,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         }
       >
         2
-         unit
+         units
       </Text>
     </View>
     <View
@@ -697,6 +692,15 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         25ml
         )
       </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingBottom": 8,
+          "paddingLeft": 32,
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -877,6 +881,15 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
       >
         Small glass of fortified wine
       </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingBottom": 8,
+          "paddingLeft": 32,
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1175,6 +1188,15 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         125ml
         )
       </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingBottom": 8,
+          "paddingLeft": 32,
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1191,7 +1213,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         }
       >
         2
-         unit
+         units
       </Text>
     </View>
     <View
@@ -1473,6 +1495,15 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         250ml
         )
       </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingBottom": 8,
+          "paddingLeft": 32,
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1489,7 +1520,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         }
       >
         3
-         unit
+         units
       </Text>
     </View>
     <View
@@ -1721,6 +1752,15 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         75cl
         )
       </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingBottom": 8,
+          "paddingLeft": 32,
+        }
+      }
+    >
       <Text
         style={
           Array [
@@ -1737,7 +1777,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         }
       >
         9
-         unit
+         units
       </Text>
     </View>
   </View>
