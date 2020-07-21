@@ -110,10 +110,12 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
         {(props) => {
           return (
             <Form>
-              <WeightQuestion
-                formikProps={props as FormikProps<WeightData>}
-                label={i18n.t('diet-study.weight-label')}
-              />
+              {props.values.weightUnsure === false && (
+                <WeightQuestion
+                  formikProps={props as FormikProps<WeightData>}
+                  label={i18n.t('diet-study.weight-label')}
+                />
+              )}
 
               <ExtraWeightQuestions isFemale={isFemale} formikProps={props as FormikProps<ExtraWeightData>} />
 

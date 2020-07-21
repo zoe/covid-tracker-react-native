@@ -1,12 +1,13 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { CheckboxItem } from '@covid/components/Checkbox';
+import { FieldWrapper } from '@covid/components/Screen';
 
 export interface ExtraWeightData {
   weightUnsure: boolean;
@@ -27,25 +28,20 @@ export interface CovidTestInvitedQuestion<P, Data> extends React.FC<P> {
 export const ExtraWeightQuestions: CovidTestInvitedQuestion<Props, ExtraWeightData> = (props: Props) => {
   const { formikProps, isFemale } = props;
 
-  const [weightUnsureChecked, setWeightUnsureCheckbox] = useState(false);
-  const [wasPregnantChecked, setWasPregnantCheckbox] = useState(false);
-
   return (
-    <View style={{ paddingBottom: 36 }}>
+    <View style={{ paddingTop: 8, paddingBottom: 24 }}>
       <CheckboxItem
-        value={weightUnsureChecked}
-        onChange={(value) => {
-          setWeightUnsureCheckbox(value);
-          formikProps.values.weightUnsure = value;
+        value={formikProps.values.weightUnsure}
+        onChange={(checked) => {
+          formikProps.setFieldValue('weightUnsure', checked);
         }}>
         {i18n.t('diet-study.weight-unsure-label')}
       </CheckboxItem>
       {isFemale && (
         <CheckboxItem
-          value={wasPregnantChecked}
-          onChange={(value) => {
-            setWasPregnantCheckbox(value);
-            formikProps.values.wasPregnant = value;
+          value={formikProps.values.wasPregnant}
+          onChange={(checked) => {
+            formikProps.setFieldValue('wasPregnant', checked);
           }}>
           {i18n.t('diet-study.was-pregnant-label')}
         </CheckboxItem>
