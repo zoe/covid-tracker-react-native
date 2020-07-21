@@ -1032,7 +1032,8 @@
     "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
-    "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)?",
+    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
+    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
     "hours-of-sleep-placeholder": "Hours",
     "shift-work-label": "Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {

@@ -11,7 +11,8 @@ import { FieldLabel } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 
 export interface HoursSleepData {
-  hoursSleep: string;
+  hoursSleepWeekdays: string;
+  hoursSleepWeekends: string;
 }
 
 interface Props {
@@ -28,14 +29,28 @@ export const HoursSleepQuestion: HoursSleepQuestion<Props, HoursSleepData> = (pr
   const { formikProps } = props;
   return (
     <>
-      <FieldLabel>{i18n.t('diet-study.hours-of-sleep-label')}</FieldLabel>
+      <FieldLabel>{i18n.t('diet-study.hours-of-sleep-weekday-label')}</FieldLabel>
       <FieldWrapper style={{ padding: 16 }}>
         <ValidatedTextInput
           placeholder={i18n.t('diet-study.hours-of-sleep-placeholder')}
-          value={formikProps.values.hoursSleep}
-          onChangeText={formikProps.handleChange('hoursSleep')}
-          onBlur={formikProps.handleBlur('hoursSleep')}
-          error={formikProps.touched.hoursSleep && formikProps.errors.hoursSleep}
+          value={formikProps.values.hoursSleepWeekdays}
+          onChangeText={formikProps.handleChange('hoursSleepWeekdays')}
+          onBlur={formikProps.handleBlur('hoursSleepWeekdays')}
+          error={formikProps.touched.hoursSleepWeekdays && formikProps.errors.hoursSleepWeekdays}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </FieldWrapper>
+
+      <FieldLabel>{i18n.t('diet-study.hours-of-sleep-weekend-label')}</FieldLabel>
+      <FieldWrapper style={{ padding: 16 }}>
+        <ValidatedTextInput
+          placeholder={i18n.t('diet-study.hours-of-sleep-placeholder')}
+          value={formikProps.values.hoursSleepWeekends}
+          onChangeText={formikProps.handleChange('hoursSleepWeekends')}
+          onBlur={formikProps.handleBlur('hoursSleepWeekends')}
+          error={formikProps.touched.hoursSleepWeekends && formikProps.errors.hoursSleepWeekends}
           returnKeyType="next"
           onSubmitEditing={() => {}}
           keyboardType="numeric"
@@ -47,18 +62,21 @@ export const HoursSleepQuestion: HoursSleepQuestion<Props, HoursSleepData> = (pr
 
 HoursSleepQuestion.initialFormValues = (): HoursSleepData => {
   return {
-    hoursSleep: '',
+    hoursSleepWeekdays: '',
+    hoursSleepWeekends: '',
   };
 };
 
 HoursSleepQuestion.schema = () => {
   return Yup.object().shape({
-    hoursSleep: Yup.number().required(),
+    hoursSleepWeekdays: Yup.number().required(),
+    hoursSleepWeekends: Yup.number().required(),
   });
 };
 
 HoursSleepQuestion.createDTO = (formData: HoursSleepData): Partial<DietStudyRequest> => {
   return {
-    hours_of_sleep: cleanIntegerVal(formData.hoursSleep),
+    hours_sleep_weekdays: cleanIntegerVal(formData.hoursSleepWeekdays),
+    hours_sleep_weekends: cleanIntegerVal(formData.hoursSleepWeekends),
   } as Partial<DietStudyRequest>;
 };
