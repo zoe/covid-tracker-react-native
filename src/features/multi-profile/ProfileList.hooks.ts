@@ -15,7 +15,6 @@ import appCoordinator from '../AppCoordinator';
 export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>) => {
   const userService = useInjection<ICoreService>(Services.User);
 
-  const [shouldRefresh, setShouldRefresh] = useState<boolean>(false);
   const [status, setStatus] = useState<string>('');
   const [error, setError] = useState<AppException | null>(null);
   const [isApiError, setIsApiError] = useState<boolean>(false);
@@ -73,11 +72,9 @@ export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList,
     isLoaded,
     onRetry,
     profiles,
-    shouldRefresh,
     listProfiles,
     retryListProfiles,
     profileSelected,
     setIsApiError,
-    setShouldRefresh,
   };
 };
