@@ -1222,6 +1222,15 @@
       "text": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread."
     },
 
+    "consent": {
+      "header": "Before you finish",
+      "paragraph-1": "Thank you for completing this questionaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
+      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to se your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medcal conditions that you have told us about in the app. This is completetly optional.",
+      "buttons-header": "Do you consent to share the data for further research into nutrition and health?",
+      "yes": "Yes, finish questionaire",
+      "no": "No, finish questionaire"
+    },
+
     "thank-you": {
       "title": "Thank you.",
       "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID.",

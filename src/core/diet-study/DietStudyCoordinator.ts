@@ -74,8 +74,11 @@ export class DietStudyCoordinator {
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam); // Goes back to screen currently on stack
       } else {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
+    },
+    DietStudyConsent: () => {
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
@@ -129,10 +132,11 @@ export class DietStudyCoordinator {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     const recentStudies = studies.filter((item) => item.display_name === CURRENT_DIET_STUDY_TIME_PERIOD);
+    // TODO: Check consent?
     if (recentStudies.length > 0) {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     } else {
-      NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+      NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     }
   };
 
