@@ -1032,7 +1032,8 @@
     "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
-    "hours-of-sleep-label": "About how many hours sleep do you get in every 24 hours (please include naps)?",
+    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
+    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
     "hours-of-sleep-placeholder": "Hours",
     "shift-work-label": "Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
@@ -1106,7 +1107,7 @@
     "supplements": {
       "label": "What vitamins or supplements are you taking (at least 3-4 times a week)?",
       "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
-      "probiotic": "Probiotic capsules ",
+      "probiotic": "Probiotic capsules / sachets",
       "live-probiotic": "Live probiotic or fermented food products (e.g. sauerkraut, kimchi,yakult, live yogurt, kefir) ",
       "iron": "Iron tablets",
       "calcium": "Calcium tablets",
@@ -1121,13 +1122,14 @@
       "specify": "Please specify the other supplements"
     },
 
-    "first-calories-label": "After waking (typically in the morning), what time do you usually first eat or drink anything other than water/black coffee and plain tea?",
-    "last-calories-label": "What is the latest time of the day that you usually eat or drink anything other than water/black coffee and plain tea?",
-    "eats-breakfast-label": "Do you typically consume breakfast?",
+    "first-calories-label": "After waking (typically in the morning), what time do you usually first eat or drink anything (including snacks) other than water/black coffee and plain tea?",
+    "last-calories-label": "What is the latest time of the day that you usually eat or drink anything (including snacks) other than water/black coffee and plain tea?",
+    "eats-breakfast-label": "Do you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)?",
     "main-meals-placeholder": "Main meals",
-    "snacks-label": "How frequently do you typically consume snacks in a day (a snack is any food consumed outside of breakfast, lunch or dinner)?",
+    "snacks-label": "How frequently do you typically eat snacks in a day (a snack is any food eaten outside of breakfast, lunch or dinner)?",
     "snacks-placeholder": "Snacks",
+    "lost-control": "Do you worry you have lost control over how much you eat?",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks (you can select more than one option)?",
       "mixed": "Mixed diet (including meat, fish or seafood)",

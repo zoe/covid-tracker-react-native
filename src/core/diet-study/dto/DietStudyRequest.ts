@@ -12,7 +12,8 @@ export type DietStudyRequest = {
   weight_unsure: boolean;
   was_pregnant: boolean;
 
-  hours_of_sleep: number;
+  hours_sleep_weekdays: number;
+  hours_sleep_weekends: number;
   shift_work: boolean;
   food_security: string;
   physical_activity: string;
@@ -41,6 +42,7 @@ export type DietStudyRequest = {
   eats_breakfast: boolean;
   main_meals: number;
   snacks: number;
+  lost_control: boolean;
 
   diet_mixed: boolean;
   diet_vegetarian: boolean;
