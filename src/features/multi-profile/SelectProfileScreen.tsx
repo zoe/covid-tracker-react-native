@@ -44,13 +44,9 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     const unsubscribe = navigation.addListener('focus', async () => {
       if (shouldRefresh) {
         await listProfiles();
+        setShouldRefresh(true);
       }
     });
-
-    listProfiles().then(() => {
-      setShouldRefresh(true);
-    });
-
     return unsubscribe;
   }, []);
 

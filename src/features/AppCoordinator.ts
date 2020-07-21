@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import UserService, { ICoreService, isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
@@ -10,6 +10,12 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
+import { IDietStudyRemoteClient, REQUIRED_NUMBER_OF_STUDIES } from '@covid/core/diet-study/DietStudyApiClient';
+import dietStudyCoordinator, {
+  DietStudyConsent,
+  CURRENT_DIET_STUDY_TIME_PERIOD,
+} from '@covid/core/diet-study/DietStudyCoordinator';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 
@@ -35,6 +41,8 @@ export class AppCoordinator {
   userService: ICoreService;
   @lazyInject(Services.Content)
   contentService: IContentService;
+  @lazyInject(Services.DietStudy)
+  dietStudyService: IDietStudyRemoteClient;
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
@@ -122,6 +130,20 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
+  startDietStudyFlow(
+    currentPatient: PatientStateType,
+    startedFromMenu: boolean,
+    timePeriod: string = CURRENT_DIET_STUDY_TIME_PERIOD
+  ) {
+    dietStudyCoordinator.init(
+      this,
+      { currentPatient, timePeriod, startedFromMenu },
+      this.userService,
+      this.dietStudyService
+    );
+    dietStudyCoordinator.startDietStudy();
+  }
+
   gotoNextScreen = (screenName: ScreenName) => {
     if (this.screenFlow[screenName]) {
       this.screenFlow[screenName]();
@@ -140,6 +162,8 @@ export class AppCoordinator {
     this.patientId = currentPatient.patientId;
     if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
       this.goToUKValidationStudy();
+    } else if (await this.shouldShowDietStudy(currentPatient)) {
+      this.startDietStudyFlow(currentPatient, false);
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -148,6 +172,10 @@ export class AppCoordinator {
   async setPatientId(patientId: string) {
     this.patientId = patientId;
     this.currentPatient = await this.userService.getPatientState(this.patientId!);
+  }
+
+  goToDietStart() {
+    this.startDietStudyFlow(this.currentPatient, true);
   }
 
   goToUKValidationStudy() {
@@ -172,6 +200,21 @@ export class AppCoordinator {
 
   goToCreateProfile(avatarName: string) {
     NavigatorService.navigate('CreateProfile', { avatarName });
+  }
+
+  async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
+    const consent = await AsyncStorageService.getDietStudyConsent();
+
+    const mainProfile = !currentPatient.isReportedByAnother;
+    const notSkipped = consent !== DietStudyConsent.SKIP;
+
+    const studies = await this.dietStudyService.getDietStudies();
+    let notCompleted = true;
+    if (studies.length >= REQUIRED_NUMBER_OF_STUDIES) {
+      notCompleted = false;
+    }
+
+    return mainProfile && notSkipped && notCompleted;
   }
 
   goToVaccineRegistry() {

@@ -2,7 +2,7 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import React, { useState, useEffect } from 'react';
-import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView, Switch } from 'react-native';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
@@ -12,21 +12,25 @@ import { CaptionText, HeaderText } from '@covid/components/Text';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { colors } from '@theme';
 
 type MenuItemProps = {
   label: string;
   onPress: () => void;
+  indicator?: number;
 };
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
 };
 
-const MenuItem = (props: MenuItemProps) => {
+const MenuItem: React.FC<MenuItemProps> = ({ onPress, label, indicator }) => {
   return (
-    <TouchableOpacity style={styles.iconNameRow} onPress={props.onPress}>
-      <HeaderText>{props.label}</HeaderText>
+    <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
+      <HeaderText>{label}</HeaderText>
+      {indicator && <NumberIndicator number={indicator} />}
     </TouchableOpacity>
   );
 };
@@ -43,6 +47,8 @@ enum DrawerMenuItem {
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
+  const [openAllFFQ, setOpenAllFFQ] = useState<boolean>(userService.openAllFFQ);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
 
   const fetchEmail = async () => {
@@ -67,7 +73,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     if (userEmail !== '') return;
     fetchEmail();
     fetchShouldShowVaccine();
-  }, [userService.hasUser]);
+  }, [userService.hasUser, setUserEmail]);
 
   function showDeleteAlert() {
     Alert.alert(
@@ -119,6 +125,10 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
       : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
   }
 
+  function openDietStudy() {
+    appCoordinator.goToDietStart();
+  }
+
   function showResearchUpdates() {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.RESEARCH_UPDATE,
@@ -152,6 +162,14 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
+        {showDietStudy && (
+          <MenuItem
+            label={i18n.t('diet-study.drawer-menu-item')}
+            onPress={() => {
+              openDietStudy();
+            }}
+          />
+        )}
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
@@ -181,6 +199,17 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         />
         <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
+        <View style={styles.iconNameRow}>
+          <HeaderText>Open all FFQ</HeaderText>
+          <Switch
+            trackColor={{ false: colors.backgroundFour, true: colors.feedbackGood }}
+            onValueChange={(_) => {
+              userService.toggleOpenAllFFQ();
+              setOpenAllFFQ(userService.openAllFFQ);
+            }}
+            value={openAllFFQ}
+          />
+        </View>
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
@@ -206,6 +235,7 @@ const styles = StyleSheet.create({
     marginStart: 8,
     marginTop: 32,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   drawerIcon: {
     height: 24,
