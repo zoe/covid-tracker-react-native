@@ -14,6 +14,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { colors } from '@theme';
 
 type MenuItemProps = {
   label: string;
@@ -182,11 +183,10 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         <View style={styles.iconNameRow}>
           <HeaderText>Open all FFQ</HeaderText>
           <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            onValueChange={(value) => {
+            trackColor={{ false: colors.backgroundFour, true: colors.feedbackGood }}
+            onValueChange={(_) => {
               userService.toggleOpenAllFFQ();
               setOpenAllFFQ(userService.openAllFFQ);
-              console.log(userService.openAllFFQ);
             }}
             value={openAllFFQ}
           />
