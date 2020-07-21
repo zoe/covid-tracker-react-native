@@ -52,6 +52,10 @@ export interface IUserService {
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
+
+  // A/B test
+  openAllFFQ: boolean;
+  toggleOpenAllFFQ(): void;
 }
 
 export interface IProfileService {
@@ -107,6 +111,12 @@ export default class UserService extends ApiClientBase implements ICoreService {
   };
 
   public hasUser = false;
+
+  public openAllFFQ = true;
+
+  public toggleOpenAllFFQ() {
+    this.openAllFFQ = !this.openAllFFQ;
+  }
 
   constructor(private useAsyncStorage: boolean = true) {
     super();

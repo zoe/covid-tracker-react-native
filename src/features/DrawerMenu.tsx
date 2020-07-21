@@ -2,7 +2,7 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import React, { useState, useEffect } from 'react';
-import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView, Switch } from 'react-native';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
@@ -47,6 +47,8 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
   const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
+
+  const [openAllFFQ, setOpenAllFFQ] = useState<boolean>(userService.openAllFFQ);
 
   const fetchEmail = async () => {
     try {
@@ -177,6 +179,20 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         />
         <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
+        <View style={styles.iconNameRow}>
+          <HeaderText>Open all FFQ</HeaderText>
+          <Switch
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            // thumbColor={userService.openAllFFQ ? "#f5dd4b" : "#f4f3f4"}
+            // ios_backgroundColor="#3e3e3e"
+            onValueChange={(value) => {
+              userService.toggleOpenAllFFQ();
+              setOpenAllFFQ(userService.openAllFFQ);
+              console.log(userService.openAllFFQ);
+            }}
+            value={openAllFFQ}
+          />
+        </View>
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
