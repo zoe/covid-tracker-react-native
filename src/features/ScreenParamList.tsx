@@ -3,6 +3,7 @@ import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import { PatientData } from '@covid/core/patient/PatientCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
+import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -65,6 +66,13 @@ export type ScreenParamList = {
 
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
+
+  // DietStudy
+  DietStudyIntro: { dietStudyData: DietStudyData };
+  DietStudyAboutYou: { dietStudyData: DietStudyData };
+  DietStudyThankYou: { dietStudyData: DietStudyData };
+  DietStudyTypicalDiet: { dietStudyData: DietStudyData };
+  DietStudyYourLifestyle: { dietStudyData: DietStudyData };
 
   // Completion screens
   ThankYou: undefined;

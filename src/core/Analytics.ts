@@ -11,6 +11,12 @@ type AdditionalUserProperties = {
   Experiment_001?: string;
 };
 
+const DietStudyEvents = {
+  ACCEPT_DIET_STUDY: 'ACCEPT_DIET_STUDY',
+  DEFER_DIET_STUDY: 'DEFER_DIET_STUDY',
+  DECLINE_DIET_STUDY: 'DECLINE_DIET_STUDY',
+};
+
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
   SIGNUP: 'SIGNUP',
@@ -29,6 +35,7 @@ export const events = {
   NOTIFICATION_ENABLED: 'NOTIFICATION_ENABLED',
   JOIN_VACCINE_REGISTER: 'JOIN_VACCINE_REGISTER',
   DECLINE_VACCINE_REGISTER: 'DECLINE_VACCINE_REGISTER',
+  ...DietStudyEvents,
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)

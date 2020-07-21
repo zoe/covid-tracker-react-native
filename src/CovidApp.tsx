@@ -63,6 +63,11 @@ import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReason
 import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
 import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/VaccineRegistrySignUpScreen';
 import { VaccineRegistryInfoScreen } from '@covid/features/assessment/gb/VaccineRegistryInfoScreen';
+import DietStudyAboutYouScreen from '@covid/features/diet-study/DietStudyAboutYouScreen';
+import DietStudyIntroScreen from '@covid/features/diet-study/DietStudyIntroScreen';
+import DietStudyYourLifestyleScreen from '@covid/features/diet-study/DietStudyYourLifestyleScreen';
+import DietStudyTypicalDietScreen from '@covid/features/diet-study/DietStudyTypicalDietScreen';
+import { DietStudyThankYouScreen } from '@covid/features/diet-study/DietStudyThankYouScreen';
 import NavigatorService from '@covid/NavigatorService';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -195,6 +200,11 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
         <Stack.Screen name="VaccineRegistrySignup" component={VaccineRegistrySignUpScreen} options={noHeader} />
         <Stack.Screen name="VaccineRegistryInfo" component={VaccineRegistryInfoScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyAboutYou" component={DietStudyAboutYouScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyIntro" component={DietStudyIntroScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyThankYou" component={DietStudyThankYouScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
       </Stack.Navigator>
     );
   }

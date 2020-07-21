@@ -52,6 +52,10 @@ export interface IUserService {
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
+
+  // A/B test
+  openAllFFQ: boolean;
+  toggleOpenAllFFQ(): void;
 }
 
 export interface IProfileService {
@@ -67,6 +71,7 @@ export interface IConsentService {
 }
 
 export interface IPatientService {
+  myPatientProfile(): Promise<Profile | null>;
   listPatients(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
@@ -106,6 +111,12 @@ export default class UserService extends ApiClientBase implements ICoreService {
   };
 
   public hasUser = false;
+
+  public openAllFFQ = true;
+
+  public toggleOpenAllFFQ() {
+    this.openAllFFQ = !this.openAllFFQ;
+  }
 
   constructor(private useAsyncStorage: boolean = true) {
     super();
@@ -247,9 +258,20 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return this.client.patch(`/consent/`, payload);
   }
 
+  public async myPatientProfile(): Promise<Profile | null> {
+    try {
+      const data = (await this.client.get(`/patient_list/`)).data as Profile[];
+      console.log(data);
+      return !!data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
+  }
+
   public async listPatients() {
     try {
-      const response = await this.client.get(`/patient_list/`);
+      const response = await this.client.get<Profile[]>(`/patient_list/`);
       return response?.data;
     } catch (error) {
       handleServiceError(error);
@@ -499,7 +521,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async hasMultipleProfiles() {
     try {
       const response = await this.listPatients();
-      return !!response && response.data.length > 1;
+      return !!response && response.length > 1;
     } catch (e) {
       return false;
     }
