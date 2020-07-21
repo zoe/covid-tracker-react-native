@@ -2,7 +2,7 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import React, { useState, useEffect } from 'react';
-import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { Alert, Image, Linking, StyleSheet, TouchableOpacity, View, SafeAreaView, Switch } from 'react-native';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
@@ -14,6 +14,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { colors } from '@theme';
 
 type MenuItemProps = {
   label: string;
@@ -47,6 +48,8 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
   const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
+
+  const [openAllFFQ, setOpenAllFFQ] = useState<boolean>(userService.openAllFFQ);
 
   const fetchEmail = async () => {
     try {
@@ -177,6 +180,17 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
         />
         <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
+        <View style={styles.iconNameRow}>
+          <HeaderText>Open all FFQ</HeaderText>
+          <Switch
+            trackColor={{ false: colors.backgroundFour, true: colors.feedbackGood }}
+            onValueChange={(_) => {
+              userService.toggleOpenAllFFQ();
+              setOpenAllFFQ(userService.openAllFFQ);
+            }}
+            value={openAllFFQ}
+          />
+        </View>
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
