@@ -17,6 +17,7 @@ import dietStudyCoordinator, {
 } from '@covid/core/diet-study/DietStudyCoordinator';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -96,6 +97,9 @@ export class AppCoordinator {
     },
     Consent: () => {
       NavigatorService.navigate('Register');
+    },
+    VaccineRegistryInfo: () => {
+      NavigatorService.navigate('WelcomeRepeat');
     },
   } as ScreenFlow;
 
@@ -211,6 +215,21 @@ export class AppCoordinator {
     }
 
     return mainProfile && notSkipped && notCompleted;
+  }
+
+  goToVaccineRegistry() {
+    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.currentPatient });
+  }
+
+  vaccineRegistryResponse(response: boolean) {
+    this.userService.setVaccineRegistryResponse(response);
+    if (response) {
+      Analytics.track(events.JOIN_VACCINE_REGISTER);
+      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.currentPatient });
+    } else {
+      Analytics.track(events.DECLINE_VACCINE_REGISTER);
+      NavigatorService.goBack();
+    }
   }
 }
 

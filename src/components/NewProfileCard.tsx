@@ -8,7 +8,7 @@ import { colors } from '@theme';
 
 import { RegularText } from './Text';
 
-export const NewProfileCard: React.FC = (props) => {
+export const NewProfileCard: React.FC = () => {
   return (
     <Card style={styles.card} transparent>
       <Image source={addProfile} style={styles.addImage} resizeMode="contain" />

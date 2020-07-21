@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -272,7 +272,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async listPatients() {
     try {
       const response = await this.client.get<Profile[]>(`/patient_list/`);
-      return response.data;
+      return response?.data;
     } catch (error) {
       handleServiceError(error);
     }
@@ -581,7 +581,9 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async shouldAskForVaccineRegistry(): Promise<boolean> {
-    const url = `/study_consent/status/`;
+    if (!isGBCountry()) return Promise.resolve(false);
+
+    const url = `/study_consent/status/?home_screen=true`;
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_vaccine_register;

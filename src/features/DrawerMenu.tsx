@@ -48,8 +48,8 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
   const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
-
   const [openAllFFQ, setOpenAllFFQ] = useState<boolean>(userService.openAllFFQ);
+  const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
 
   const fetchEmail = async () => {
     try {
@@ -60,9 +60,19 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     }
   };
 
+  const fetchShouldShowVaccine = async () => {
+    try {
+      const shouldAskForVaccineRegistry = await userService.shouldAskForVaccineRegistry();
+      setShowVaccineRegistry(shouldAskForVaccineRegistry);
+    } catch (_) {
+      setShowVaccineRegistry(false);
+    }
+  };
+
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
+    fetchShouldShowVaccine();
   }, [userService.hasUser, setUserEmail]);
 
   function showDeleteAlert() {
@@ -166,6 +176,15 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             showResearchUpdates();
           }}
         />
+        {showVaccineRegistry && (
+          <MenuItem
+            label={i18n.t('vaccine-registry.menu-item')}
+            onPress={() => {
+              appCoordinator.goToVaccineRegistry();
+            }}
+          />
+        )}
+
         <MenuItem
           label={i18n.t('push-notifications')}
           onPress={() => {

@@ -2,6 +2,7 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import { PatientData } from '@covid/core/patient/PatientCoordinator';
+import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 
 export enum ConsentType {
@@ -62,8 +63,9 @@ export type ScreenParamList = {
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
   Lifestyle: { assessmentData: AssessmentData };
-  VaccineRegistrySignup: { assessmentData: AssessmentData };
-  VaccineRegistryInfo: { assessmentData: AssessmentData };
+
+  VaccineRegistrySignup: { currentPatient: PatientStateType };
+  VaccineRegistryInfo: { currentPatient: PatientStateType };
 
   // DietStudy
   DietStudyIntro: { dietStudyData: DietStudyData };
