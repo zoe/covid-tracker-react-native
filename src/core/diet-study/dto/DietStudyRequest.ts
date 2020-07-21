@@ -42,6 +42,7 @@ export type DietStudyRequest = {
   eats_breakfast: boolean;
   main_meals: number;
   snacks: number;
+  lost_control: boolean;
 
   diet_mixed: boolean;
   diet_vegetarian: boolean;

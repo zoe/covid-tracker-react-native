@@ -1045,7 +1045,8 @@
     "weight-label": "",
     "weight-unsure-label": "",
     "was-pregnant-label": "",
-    "hours-of-sleep-label": "",
+    "hours-of-sleep-weekday-label": "",
+    "hours-of-sleep-weekend-label": "",
     "hours-of-sleep-placeholder": "",
     "shift-work-label": "",
     "food-security": {
@@ -1141,6 +1142,8 @@
     "main-meals-placeholder": "",
     "snacks-label": "",
     "snacks-placeholder": "",
+    "lost-control": "",
+
     "diet": {
       "label": "",
       "mixed": "",

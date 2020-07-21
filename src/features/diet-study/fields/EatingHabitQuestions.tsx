@@ -10,11 +10,14 @@ import { cleanIntegerVal } from '@covid/utils/number';
 import { FieldLabel } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
+import { StyleSheet } from 'react-native';
+import flatten = StyleSheet.flatten;
 
 export interface EatingHabitData {
   eatsBreakfast: string;
   mainMeals: string;
   snacks: string;
+  lostControl: string;
 }
 
 interface Props {
@@ -67,6 +70,15 @@ export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> 
           keyboardType="numeric"
         />
       </FieldWrapper>
+
+      <FieldWrapper>
+        <FieldLabel>{i18n.t('diet-study.lost-control')}</FieldLabel>
+        <YesNoField
+          selectedValue={formikProps.values.lostControl}
+          onValueChange={formikProps.handleChange('lostControl')}
+          error={formikProps.touched.lostControl && formikProps.errors.lostControl}
+        />
+      </FieldWrapper>
     </>
   );
 };
@@ -76,6 +88,7 @@ EatingHabitQuestions.initialFormValues = (): EatingHabitData => {
     eatsBreakfast: '',
     mainMeals: '',
     snacks: '',
+    lostControl: '',
   };
 };
 
@@ -84,6 +97,7 @@ EatingHabitQuestions.schema = () => {
     eatsBreakfast: Yup.string().required(i18n.t('please-select-option')),
     mainMeals: Yup.number().required(),
     snacks: Yup.number().required(),
+    lostControl: Yup.string().required(i18n.t('please-select-option')),
   });
 };
 
@@ -92,5 +106,6 @@ EatingHabitQuestions.createDTO = (formData: EatingHabitData): Partial<DietStudyR
     eats_breakfast: formData.eatsBreakfast === 'yes',
     main_meals: cleanIntegerVal(formData.mainMeals),
     snacks: cleanIntegerVal(formData.snacks),
+    lost_control: formData.lostControl === 'yes',
   } as Partial<DietStudyRequest>;
 };
