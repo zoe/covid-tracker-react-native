@@ -10,6 +10,9 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
+import { useInjection } from '@covid/provider/services.hooks';
+import { ICoreService } from '@covid/core/user/UserService';
+import { Services } from '@covid/provider/services.types';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyIntro'>;
@@ -18,14 +21,17 @@ type Props = {
 
 export const DietStudyConsentScreen: React.FC<Props> = ({ route, navigation }) => {
   const { currentPatient } = route.params.dietStudyData;
+  const userService = useInjection<ICoreService>(Services.User);
 
-  const accept = () => {
+  const accept = async () => {
     Analytics.track(events.SIGNED_DIET_STUDY_CONSENT);
+    await userService.setDietStudyResponse(true);
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
-  const decline = () => {
+  const decline = async () => {
     Analytics.track(events.DECLINE_DIET_STUDY_CONSENT);
+    await userService.setDietStudyResponse(false);
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
