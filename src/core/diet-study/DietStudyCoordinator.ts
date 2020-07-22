@@ -71,7 +71,8 @@ export class DietStudyCoordinator {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
-        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam); // Goes back to screen currently on stack
+        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);

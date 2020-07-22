@@ -57,11 +57,11 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...DietChangedQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
+    await form.submitDietStudy(infos);
+
     if (!!recentDietStudyId && formData.has_diet_changed === DietChangedOption.YES) {
       dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
     }
-
-    await form.submitDietStudy(infos);
 
     // Important: We need to keep this here for Coordinator to
     // go to the thank you page after 2nd round is completed.
