@@ -15,8 +15,8 @@ import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
 import dietStudyCoordinator, {
-  PREVIOUS_DIET_STUDY_TIME_PERIOD,
-  CURRENT_DIET_STUDY_TIME_PERIOD,
+  PRE_LOCKDOWN,
+  LAST_4_WEEKS,
   getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 
@@ -42,7 +42,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
     .concat(FruitNVegConsumptionQuestions.schema())
     .concat(MilkTypeQuestion.schema());
 
-  if (timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD) {
+  if (timePeriod === LAST_4_WEEKS) {
     registerSchema = registerSchema.concat(DietChangedQuestion.schema());
   }
 
@@ -60,13 +60,13 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
     await form.submitDietStudy(infos);
 
     if (!!recentDietStudyId && formData.has_diet_changed === DietChangedOption.YES) {
-      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
+      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
     }
 
     // Important: We need to keep this here for Coordinator to
     // go to the thank you page after 2nd round is completed.
     // Otherwise will be in a loop.
-    if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
+    if (timePeriod === PRE_LOCKDOWN) {
       delete dietStudyCoordinator.dietStudyData.timePeriod;
     }
 
@@ -108,7 +108,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
 
-              {timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD && (
+              {timePeriod === LAST_4_WEEKS && (
                 <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
               )}
 
