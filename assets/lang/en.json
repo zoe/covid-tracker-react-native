@@ -1034,7 +1034,7 @@
     "was-pregnant-label": "I am/was pregnant",
     "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
     "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
-    "hours-of-sleep-placeholder": "Hours",
+    "hours-of-sleep-placeholder": "Hours per night",
     "shift-work-label": "Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
       "label": "Which of the following statements best describes the food eaten in your household in the last week?",
@@ -1126,9 +1126,9 @@
     "last-calories-label": "What is the latest time of the day that you usually eat or drink anything (including snacks) other than water/black coffee and plain tea?",
     "eats-breakfast-label": "Do you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)?",
-    "main-meals-placeholder": "Main meals",
+    "main-meals-placeholder": "Meals per day",
     "snacks-label": "How frequently do you typically eat snacks in a day (a snack is any food eaten outside of breakfast, lunch or dinner)?",
-    "snacks-placeholder": "Snacks",
+    "snacks-placeholder": "Snacks per day",
     "lost-control": "Do you worry you have lost control over how much you eat?",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks (you can select more than one option)?",
@@ -1193,11 +1193,11 @@
       "fast_food-2": "",
 
       "portions_of_fruit-label": "On average, how many portions of FRUIT do you eat a day? (excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
-      "portions_of_fruit-placeholder": "Portions",
+      "portions_of_fruit-placeholder": "Portions per day",
       "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice do you drink a day? (a standard glass is 240 ml)",
-      "glasses_of_juice-placeholder": "Glasses",
+      "glasses_of_juice-placeholder": "Glasses per day",
       "portions_of_veg-label": "On average, how many portions of VEGETABLES do you eat a day? (Examples include: 3 heaped tablespoons of carrots, a side salad, 2 spears of broccoli)",
-      "portions_of_veg-placeholder": "Portions",
+      "portions_of_veg-placeholder": "Portions per day",
 
       "milk-label": "What milk do you usually use or drink, such as in hot & cold drinks or on cereal?",
       "milk-whole": "Whole / full-fat milk",

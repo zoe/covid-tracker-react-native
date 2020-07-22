@@ -32,22 +32,14 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     isApiError,
     onRetry,
     profiles,
-    shouldRefresh,
     listProfiles,
     profileSelected,
     retryListProfiles,
     setIsApiError,
-    setShouldRefresh,
   } = useProfileList(navigation);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', async () => {
-      if (shouldRefresh) {
-        await listProfiles();
-        setShouldRefresh(true);
-      }
-    });
-    return unsubscribe;
+    listProfiles();
   }, []);
 
   const profileListProps = {

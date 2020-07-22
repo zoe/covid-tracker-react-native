@@ -5,7 +5,6 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { ICoreService, isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
@@ -18,6 +17,7 @@ import dietStudyCoordinator, {
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import { ScreenParamList } from './ScreenParamList';
 
