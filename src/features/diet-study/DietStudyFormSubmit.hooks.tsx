@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { DietStudyResponse } from '@covid/core/diet-study/dto/DietStudyResponse';
-import dietStudyCoordinator, { CURRENT_DIET_STUDY_TIME_PERIOD } from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import { Services } from '@covid/provider/services.types';
@@ -25,7 +25,7 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
 
   const isCurrentTimePeriod = (): boolean => {
     const { timePeriod } = dietStudyCoordinator.dietStudyData;
-    return timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD;
+    return timePeriod === LAST_4_WEEKS;
   };
 
   const getStudyId = (): string | undefined => {
@@ -33,7 +33,7 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
     return isCurrentTimePeriod() ? recentDietStudyId : febDietStudyId;
   };
 
-  const updateStudyId = (id: string) => {
+  const saveStudyInDietCoordinator = (id: string) => {
     if (isCurrentTimePeriod()) {
       dietStudyCoordinator.dietStudyData.recentDietStudyId = id;
     } else {
@@ -43,20 +43,18 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
 
   const submitDietStudy = async (infos: DietStudyRequest | Partial<DietStudyRequest>): Promise<DietStudyResponse> => {
     try {
-      const studyId = getStudyId();
-      let response: DietStudyResponse;
       setSubmitting(true);
+      let response: DietStudyResponse;
 
+      const studyId = getStudyId();
       if (studyId) {
         response = await apiClient.updateDietStudy(studyId, infos);
       } else {
-        response = await apiClient.addDietStudy(
-          dietStudyCoordinator.dietStudyData.currentPatient.patientId,
-          infos as DietStudyRequest
-        );
+        const { patientId } = dietStudyCoordinator.dietStudyData.currentPatient;
+        response = await apiClient.addDietStudy(patientId, infos as DietStudyRequest);
       }
 
-      updateStudyId(response.id);
+      saveStudyInDietCoordinator(response.id);
 
       return response;
     } catch (error) {
