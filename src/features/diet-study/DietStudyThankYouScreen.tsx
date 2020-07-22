@@ -13,7 +13,7 @@ import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { Loading, LoadingModal } from '@covid/components/Loading';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
+import { Profile } from '@covid/components/Collections/ProfileList';
 import { offlineService } from '@covid/Services';
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 
