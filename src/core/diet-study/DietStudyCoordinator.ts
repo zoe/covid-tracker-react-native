@@ -132,11 +132,10 @@ export class DietStudyCoordinator {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     const recentStudies = studies.filter((item) => item.display_name === CURRENT_DIET_STUDY_TIME_PERIOD);
-    // TODO: Check consent?
     if (recentStudies.length > 0) {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     } else {
-      NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
+      NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
     }
   };
 
