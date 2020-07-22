@@ -41,10 +41,7 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
     }
   };
 
-  const submitDietStudy = async (
-    infos: DietStudyRequest | Partial<DietStudyRequest>,
-    isCompelete: boolean
-  ): Promise<DietStudyResponse> => {
+  const submitDietStudy = async (infos: DietStudyRequest | Partial<DietStudyRequest>): Promise<DietStudyResponse> => {
     try {
       const studyId = getStudyId();
       let response: DietStudyResponse;
