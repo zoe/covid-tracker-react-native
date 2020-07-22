@@ -1246,6 +1246,15 @@
       "text": ""
     },
 
+    "consent": {
+      "header": "",
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "buttons-header": "",
+      "yes": "",
+      "no": ""
+    },
+
     "thank-you": {
       "title": "",
       "text-1": "",

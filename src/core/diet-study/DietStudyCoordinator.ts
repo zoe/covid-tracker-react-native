@@ -75,8 +75,11 @@ export class DietStudyCoordinator {
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
+    },
+    DietStudyConsent: () => {
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
