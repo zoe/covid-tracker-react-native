@@ -63,7 +63,6 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
     } as Partial<DietStudyRequest>;
 
     await form.submitDietStudy(infos);
-
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 

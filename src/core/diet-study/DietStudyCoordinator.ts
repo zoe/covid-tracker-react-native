@@ -18,11 +18,11 @@ type ScreenFlow = {
 };
 type DietStudyParam = { dietStudyData: DietStudyData };
 
-export const CURRENT_DIET_STUDY_TIME_PERIOD = 'Recent 4 weeks';
-export const PREVIOUS_DIET_STUDY_TIME_PERIOD = 'Feb 2020';
+export const LAST_4_WEEKS = 'Recent 4 weeks';
+export const PRE_LOCKDOWN = 'Feb 2020';
 
-export const getScreenHeaderOptions = (time?: string): Partial<ScreenProps> => {
-  if (time === CURRENT_DIET_STUDY_TIME_PERIOD) {
+export const getScreenHeaderOptions = (timePeriod?: string): Partial<ScreenProps> => {
+  if (timePeriod === LAST_4_WEEKS) {
     return {
       calloutType: CallOutType.Tag,
       calloutTitle: i18n.t('diet-study.answer-for-last-4-weeks'),
@@ -70,13 +70,16 @@ export class DietStudyCoordinator {
     DietStudyTypicalDiet: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
 
-      if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
+      if (timePeriod === PRE_LOCKDOWN) {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
+    },
+    DietStudyConsent: () => {
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
@@ -129,7 +132,7 @@ export class DietStudyCoordinator {
   startDietStudy = async () => {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
-    const recentStudies = studies.filter((item) => item.display_name === CURRENT_DIET_STUDY_TIME_PERIOD);
+    const recentStudies = studies.filter((item) => item.display_name === LAST_4_WEEKS);
     if (recentStudies.length > 0) {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     } else {
