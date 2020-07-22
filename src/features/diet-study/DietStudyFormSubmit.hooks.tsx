@@ -33,7 +33,7 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
     return isCurrentTimePeriod() ? recentDietStudyId : febDietStudyId;
   };
 
-  const saveStudyInDietCoordinator = (id: string) => {
+  const saveStudyIdInDietCoordinator = (id: string) => {
     if (isCurrentTimePeriod()) {
       dietStudyCoordinator.dietStudyData.recentDietStudyId = id;
     } else {
@@ -54,7 +54,7 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
         response = await apiClient.addDietStudy(patientId, infos as DietStudyRequest);
       }
 
-      saveStudyInDietCoordinator(response.id);
+      saveStudyIdInDietCoordinator(response.id);
 
       return response;
     } catch (error) {
