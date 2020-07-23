@@ -1235,6 +1235,12 @@
       "title": "Thank you.",
       "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID.",
       "text-2": "Feel free to share this with people who might be interested in this research."
+    },
+
+    "thank-you-break": {
+      "description": "\"Thank you for answering these important questions. We're looking to understand how lockdown has impacted your diet and lifestyle in this exciting new study\"",
+      "sarah-name": "Dr Sarah Berry",
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
     }
   },
 
