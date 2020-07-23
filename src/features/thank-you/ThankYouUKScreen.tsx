@@ -18,6 +18,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import { IContentfulService, IThankYouModuleModel } from '@covid/core/contentful/ContentfulService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -30,6 +31,7 @@ type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
   shouldShowReminders: boolean;
+  incidenceModule?: IThankYouModuleModel;
 };
 
 const initialState = {
@@ -41,16 +43,23 @@ const initialState = {
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
   @lazyInject(Services.User)
   private userService: ICoreService;
+  @lazyInject(Services.ContentfulService)
+  private contentfulService: IContentfulService;
+
   private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
-  state = initialState;
+  state: State = initialState;
 
   async componentDidMount() {
+    const modules = await this.contentfulService.getThankYouModules();
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
+      incidenceModule: modules.find((module) => module.id),
     });
+
+    console.log(modules.find((module) => module.id));
   }
 
   render() {
@@ -68,12 +77,15 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/data-update-july-16?utm_source=App"
-                calloutID="incidence_007"
-                imageSource={incidence007}
-                aspectRatio={1.5}
-              />
+              {this.state.incidenceModule && (
+                <ExternalCallout
+                  link={this.state.incidenceModule.link}
+                  // link="https://covid.joinzoe.com/post/data-update-july-16?utm_source=App"
+                  calloutID="incidence_007"
+                  imageSource={incidence007}
+                  aspectRatio={1.5}
+                />
+              )}
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
