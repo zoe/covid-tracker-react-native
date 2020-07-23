@@ -25,8 +25,9 @@ import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './field
 import { DietChangedQuestion, DietChangedData, DietChangedOption } from './fields/DietChangedQuestion';
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
+import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
 
-interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData {}
+interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData, OtherInfoData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
@@ -55,6 +56,8 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...FruitNVegConsumptionQuestions.createDTO(formData),
       ...MilkTypeQuestion.createDTO(formData),
       ...DietChangedQuestion.createDTO(formData),
+      ...OtherInfoQuestion.createDTO(formData),
+      is_complete: true,
     } as Partial<DietStudyRequest>;
 
     await form.submitDietStudy(infos);
@@ -94,6 +97,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
           ...FruitNVegConsumptionQuestions.initialFormValues(),
           ...MilkTypeQuestion.initialFormValues(),
           ...DietChangedQuestion.initialFormValues(),
+          ...OtherInfoQuestion.initialFormValues(),
         }}
         validationSchema={registerSchema}
         onSubmit={(values: FormData) => updateDietStudy(values)}>
@@ -107,6 +111,8 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
+
+              <OtherInfoQuestion formikProps={props as FormikProps<OtherInfoData>} />
 
               {timePeriod === LAST_4_WEEKS && (
                 <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />

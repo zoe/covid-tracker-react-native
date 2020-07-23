@@ -1207,7 +1207,12 @@
       "milk-plant": "Plant-based milk",
       "milk-other": "Other",
 
-      "noticed-a-change": "Have you noticed a change in your diet since February 2020, before the COVID-19 lockdown began?"
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
+    },
+
+    "other-info": {
+      "label": "Is there any other information about your diet & lifestyle you would like to share?",
+      "placeholder": "Optional"
     },
 
     "diet-changed": {

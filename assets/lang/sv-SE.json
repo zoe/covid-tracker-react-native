@@ -1229,6 +1229,11 @@
       "noticed-a-change": ""
     },
 
+    "other-info": {
+      "label": "",
+      "placeholder": ""
+    },
+
     "diet-changed": {
       "not-sure": ""
     },
