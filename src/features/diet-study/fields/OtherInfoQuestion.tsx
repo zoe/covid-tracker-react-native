@@ -27,14 +27,13 @@ export const OtherInfoQuestion: OtherInfoQuestion<Props, OtherInfoData> = (props
   const { formikProps } = props;
 
   return (
-    <FieldWrapper style={{ marginVertical: 64 }}>
+    <FieldWrapper style={{ marginVertical: 12, marginRight: 24 }}>
       <Item stackedLabel>
         <Label style={{ marginBottom: 16 }}>{i18n.t('diet-study.other-info.label')}</Label>
         <Textarea
           style={styles.textarea}
           rowSpan={5}
           bordered
-          placeholder={i18n.t('diet-study.other-info.placeholder')}
           value={formikProps.values.other_info}
           onChangeText={formikProps.handleChange('other_info')}
           underline={false}
