@@ -18,6 +18,8 @@ export const HeaderLightText = ({ style, children }: Props) => (
   <Text style={[styles.headerLightText, style]}>{children}</Text>
 );
 
+export const Header3Text = ({ style, children }: Props) => <Text style={[styles.header3Text, style]}>{children}</Text>;
+
 export const RegularText = ({ style, children }: Props) => <Text style={[styles.regularText, style]}>{children}</Text>;
 
 export const FieldLabel = ({ style, children }: Props) => (
@@ -65,6 +67,10 @@ export const Divider = () => <View style={styles.divider} />;
 const styles = StyleSheet.create({
   headerText: {
     ...fontStyles.h2Reg,
+  },
+
+  header3Text: {
+    ...fontStyles.h3Reg,
   },
 
   headerLightText: {
