@@ -68,15 +68,7 @@ export class DietStudyCoordinator {
       NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
     },
     DietStudyTypicalDiet: () => {
-      const { timePeriod } = this.dietStudyParam.dietStudyData;
-
-      if (timePeriod === PRE_LOCKDOWN) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
-      } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
-      }
+      NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
     },
     DietStudyConsent: () => {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
@@ -86,6 +78,16 @@ export class DietStudyCoordinator {
         NavigatorService.navigate('WelcomeRepeat');
       } else {
         this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+      }
+    },
+    DietStudyThankYouBreak: () => {
+      const { timePeriod } = this.dietStudyParam.dietStudyData;
+      if (timePeriod === PRE_LOCKDOWN) {
+        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
+      } else {
+        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
     },
   } as ScreenFlow;
@@ -130,6 +132,9 @@ export class DietStudyCoordinator {
   }
 
   startDietStudy = async () => {
+    NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+    return;
+
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     const recentStudies = studies.filter((item) => item.display_name === LAST_4_WEEKS);

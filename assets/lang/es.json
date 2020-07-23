@@ -1259,6 +1259,12 @@
       "title": "",
       "text-1": "",
       "text-2": ""
+    },
+
+    "thank-you-break": {
+      "description": "\"Thank you for answering these important questions. We're looking to understand how lockdown has impacted your diet and lifestyle in this exciting new study\"",
+      "sarah-name": "Dr Sarah Berry",
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
     }
   },
 
