@@ -19,13 +19,13 @@ import dietStudyCoordinator, {
   LAST_4_WEEKS,
   getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
+import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
 import { DietChangedQuestion, DietChangedData, DietChangedOption } from './fields/DietChangedQuestion';
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
-import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
 
 interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData, OtherInfoData {}
 
