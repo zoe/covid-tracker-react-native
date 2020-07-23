@@ -89,7 +89,12 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
 
               <View style={styles.seperator} />
 
-              <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+              <DietChangedQuestion
+                formikProps={props as FormikProps<DietChangedData>}
+                onValueChanged={() => {
+                  submit(props.values);
+                }}
+              />
             </Form>
           );
         }}
