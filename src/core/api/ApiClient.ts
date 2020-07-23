@@ -1,9 +1,11 @@
 import { injectable } from 'inversify';
+import { AxiosInstance } from 'axios';
 
 import { ApiClientBase } from './ApiClientBase';
 import { handleServiceError } from './ApiServiceErrors';
 
 export interface IApiClient {
+  setClient(instance: AxiosInstance): void;
   post<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   patch<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   get<TResponse>(path: string): Promise<TResponse>;
@@ -12,6 +14,10 @@ export interface IApiClient {
 @injectable()
 export default class ApiClient extends ApiClientBase implements IApiClient {
   protected client = ApiClientBase.client;
+
+  setClient(instance: AxiosInstance): void {
+    this.client = instance;
+  }
 
   async post<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
     try {
