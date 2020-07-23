@@ -5,19 +5,16 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import UserService, { ICoreService, isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import { IDietStudyRemoteClient, REQUIRED_NUMBER_OF_STUDIES } from '@covid/core/diet-study/DietStudyApiClient';
-import dietStudyCoordinator, {
-  DietStudyConsent,
-  CURRENT_DIET_STUDY_TIME_PERIOD,
-} from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { DietStudyConsent, LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -130,11 +127,7 @@ export class AppCoordinator {
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyFlow(
-    currentPatient: PatientStateType,
-    startedFromMenu: boolean,
-    timePeriod: string = CURRENT_DIET_STUDY_TIME_PERIOD
-  ) {
+  startDietStudyFlow(currentPatient: PatientStateType, startedFromMenu: boolean, timePeriod: string = LAST_4_WEEKS) {
     dietStudyCoordinator.init(
       this,
       { currentPatient, timePeriod, startedFromMenu },

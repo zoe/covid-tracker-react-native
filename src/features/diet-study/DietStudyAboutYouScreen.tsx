@@ -21,7 +21,7 @@ import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { colors } from '@theme';
 import dietStudyCoordinator, {
-  PREVIOUS_DIET_STUDY_TIME_PERIOD,
+  PRE_LOCKDOWN,
   getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 
@@ -45,6 +45,7 @@ const ThankYouSection: React.FC = () => {
     </View>
   );
 };
+
 const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
   const { timePeriod, currentPatient } = route.params.dietStudyData;
   const { profile, isFemale } = currentPatient;
@@ -82,13 +83,12 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     }
 
     await form.submitDietStudy(infos);
-
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
-      {timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD && <ThankYouSection />}
+      {timePeriod === PRE_LOCKDOWN && <ThankYouSection />}
       <Header>
         <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
       </Header>

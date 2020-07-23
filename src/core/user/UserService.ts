@@ -52,6 +52,7 @@ export interface IUserService {
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
+  setDietStudyResponse(response: boolean): void;
 }
 
 export interface IProfileService {
@@ -596,6 +597,13 @@ export default class UserService extends ApiClientBase implements ICoreService {
       status: response ? 'signed' : 'declined',
       version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
       ad_version: appConfig.vaccineRegistryAdVersion,
+    });
+  }
+
+  setDietStudyResponse(response: boolean) {
+    return this.client.post('/study_consent/', {
+      study: 'Diet Study Beyond Covid',
+      status: response ? 'signed' : 'declined',
     });
   }
 
