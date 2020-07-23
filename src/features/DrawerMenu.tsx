@@ -47,7 +47,7 @@ enum DrawerMenuItem {
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
-  const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [openAllFFQ, setOpenAllFFQ] = useState<boolean>(userService.openAllFFQ);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
 
@@ -69,10 +69,20 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     }
   };
 
+  const fetchShouldShowDietStudy = async () => {
+    try {
+      const shouldShowDietStudy = await userService.shouldShowDietStudy();
+      setShowDietStudy(shouldShowDietStudy);
+    } catch (_) {
+      setShowVaccineRegistry(false);
+    }
+  };
+
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
     fetchShouldShowVaccine();
+    fetchShouldShowDietStudy();
   }, [userService.hasUser, setUserEmail]);
 
   function showDeleteAlert() {
