@@ -7,18 +7,14 @@ import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
 
 import { colors } from '@theme';
-import { BrandedButton, Header3Text, RegularText, MutedText, ErrorText } from '@covid/components/Text';
-import Screen, { Header } from '@covid/components/Screen';
+import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
+import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { ICoreService } from '@covid/core/user/UserService';
-import { Services } from '@covid/provider/services.types';
 import dietStudyCoordinator, {
   PRE_LOCKDOWN,
   getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
-import { ValidationError } from '@covid/components/ValidationError';
 import QuotationMark from '@assets/icons/QuotationMark';
 import { sarahBerryAvatar } from '@assets/index';
 
@@ -32,8 +28,6 @@ type Props = {
 };
 
 export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigation }) => {
-  const userService = useInjection<ICoreService>(Services.User);
-
   const { currentPatient, recentDietStudyId, timePeriod } = route.params.dietStudyData;
   const { profile } = currentPatient;
 
@@ -54,7 +48,6 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
-  // style={styles.screen} {...getScreenHeaderOptions(timePeriod)}
   return (
     <Screen profile={profile} navigation={navigation} {...getScreenHeaderOptions(timePeriod)}>
       <Formik
