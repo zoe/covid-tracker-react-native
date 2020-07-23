@@ -71,3 +71,6 @@ export const cardBackground2 = require('./backgrounds/cardBackground2.png');
 export const cardBackground3 = require('./backgrounds/cardBackground3.png');
 export const blobs = require('./blobs.png');
 export const vaccineBg = require('./backgrounds/vaccine-bg.png');
+
+// Avatar
+export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
