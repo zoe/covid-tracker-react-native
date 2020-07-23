@@ -1,8 +1,11 @@
-import { API_URL, AMPLITUDE_KEY } from 'react-native-dotenv';
+import { API_URL, AMPLITUDE_KEY, CONTENTFUL_KEY, CONTENTFUL_SPACE } from 'react-native-dotenv';
 
 export default {
   apiBase: API_URL,
   amplitudeKey: AMPLITUDE_KEY,
+  contentfulKey: CONTENTFUL_KEY,
+  contentfulApiBaseUrl: 'https://cdn.contentful.com',
+  contentfulSpace: CONTENTFUL_SPACE,
 
   assessmentVersion: '1.5.0',
   patientVersion: '1.5.1',

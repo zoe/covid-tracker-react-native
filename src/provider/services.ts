@@ -6,6 +6,7 @@ import { IContentApiClient, ContentApiClient } from '@covid/core/content/Content
 import ContentService, { IContentService } from '@covid/core/content/ContentService';
 import UserService, { ICoreService } from '@covid/core/user/UserService';
 import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
+import { IContentfulService, ContentfulService } from '@covid/core/contentful/ContentfulService';
 
 import { Services } from './services.types';
 
@@ -20,5 +21,10 @@ container.bind<IContentApiClient>(Services.ContentApi).to(ContentApiClient).inSi
 container.bind<IContentService>(Services.Content).to(ContentService).inSingletonScope();
 
 container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
+
+// Register different API client for contentful. (Base url is different)
+container.bind<IApiClient>(Services.ContentfulApiClient).to(ApiClient).inSingletonScope();
+
+container.bind<IContentfulService>(Services.ContentfulService).to(ContentfulService).inSingletonScope();
 
 export const { lazyInject } = getDecorators(container);
