@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
