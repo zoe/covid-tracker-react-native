@@ -136,41 +136,13 @@ const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: color
 type Keys = keyof FoodFreqData;
 
 export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), formikProps, ...props }) => {
-  const userService = useInjection<IUserService>(Services.User);
-
-  const getDefaultActiveKeys = () => (userService.openAllFFQ ? items.map((item) => item.key) : []);
-
-  const [currentKey, setCurrentKey] = useState<Keys | ''>('ffq_fruit');
-  const [activeKeys, setActiveKeys] = useState<Keys[]>(getDefaultActiveKeys());
+  const [activeKeys, setActiveKeys] = useState<Keys[]>(items.map((item) => item.key));
 
   const next = (from: Keys) => {
-    const keys = items.map((item) => item.key);
-    const inBound = (i: number): boolean => i > -1 && i < keys.length - 1;
-    const index = keys.indexOf(from);
-    let nextIndex = -1;
-
-    // Find + 1 index;
-    if (inBound(index)) {
-      nextIndex = index + 1;
-    }
-
-    // Find next available unanswer slot
-    while (inBound(nextIndex) && formikProps.values[keys[nextIndex]] !== '') {
-      nextIndex++;
-    }
-
-    if (nextIndex > -1) {
-      setCurrentKey(keys[nextIndex]);
-    } else {
-      setCurrentKey('');
-    }
-
     setActiveKeys(activeKeys.filter((item) => item !== from));
   };
 
   const toggle = (key: Keys) => {
-    setCurrentKey(currentKey === key ? '' : key);
-
     if (activeKeys.includes(key)) {
       setActiveKeys(activeKeys.filter((item) => item !== key));
     } else {
@@ -183,7 +155,7 @@ export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), form
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
         const key = item.key as Keys;
-        const shouldOpen = currentKey === key || activeKeys.includes(key);
+        const shouldOpen = activeKeys.includes(key);
         return (
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup
