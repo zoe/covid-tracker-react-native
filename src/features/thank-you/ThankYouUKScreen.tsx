@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog005, dataPage003, incidence008, notificationReminders, timUpdate004 } from '@assets';
+import { blog006, dataPage003, incidence008, notificationReminders, timUpdate004 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -69,6 +69,13 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
+                link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"
+                calloutID="blog_006"
+                imageSource={blog006}
+                aspectRatio={1.551}
+              />
+
+              <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
                 calloutID="incidence_008"
                 imageSource={incidence008}
@@ -88,13 +95,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={timUpdate004}
                 aspectRatio={1.178}
               /> */}
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/tips-covid-safety?utm_source=App"
-                calloutID="blog_005"
-                imageSource={blog005}
-                aspectRatio={1.551}
-              />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
