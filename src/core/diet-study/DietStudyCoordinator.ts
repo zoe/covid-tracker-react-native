@@ -132,9 +132,6 @@ export class DietStudyCoordinator {
   }
 
   startDietStudy = async () => {
-    NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
-    return;
-
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
     const recentStudies = studies.filter((item) => item.display_name === LAST_4_WEEKS);
