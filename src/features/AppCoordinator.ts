@@ -150,13 +150,16 @@ export class AppCoordinator {
     NavigatorService.navigate('EditProfile', { profile });
   }
 
-  async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
+  async profileSelected(isMainProfile: boolean, currentPatient: PatientStateType) {
     this.currentPatient = currentPatient;
     this.patientId = currentPatient.patientId;
-    if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
-      this.goToUKValidationStudy();
-    } else if (await this.shouldShowDietStudy(currentPatient)) {
-      this.startDietStudyFlow(currentPatient, false);
+
+    if (isGBCountry() && isMainProfile) {
+      if (await this.userService.shouldAskForValidationStudy(false)) {
+        this.goToUKValidationStudy();
+      } else if (await this.shouldShowDietStudyInvite()) {
+        this.startDietStudyFlow(currentPatient, false);
+      }
     } else {
       this.startAssessmentFlow(currentPatient);
     }
@@ -195,19 +198,19 @@ export class AppCoordinator {
     NavigatorService.navigate('CreateProfile', { avatarName });
   }
 
-  async shouldShowDietStudy(currentPatient: PatientStateType): Promise<boolean> {
+  async shouldShowDietStudyInvite(): Promise<boolean> {
+    // Check local storage for a cached answer
     const consent = await AsyncStorageService.getDietStudyConsent();
+    if (consent === DietStudyConsent.SKIP) return false;
 
-    const mainProfile = !currentPatient.isReportedByAnother;
-    const notSkipped = consent !== DietStudyConsent.SKIP;
+    // Check Server
+    const shouldShowDietStudy = await this.userService.shouldShowDietStudy();
+    return shouldShowDietStudy;
+  }
 
-    const studies = await this.dietStudyService.getDietStudies();
-    let notCompleted = true;
-    if (studies.length >= REQUIRED_NUMBER_OF_STUDIES) {
-      notCompleted = false;
-    }
-
-    return mainProfile && notSkipped && notCompleted;
+  async shouldShowStudiesMenu(): Promise<boolean> {
+    const consent = await AsyncStorageService.getDietStudyConsent();
+    return consent !== DietStudyConsent.SKIP;
   }
 
   goToVaccineRegistry() {
