@@ -210,17 +210,6 @@ export async function DrawerMenu(props: DrawerContentComponentProps) {
         />
         <MenuItem label={i18n.t('privacy-policy')} onPress={() => goToPrivacy()} />
         <MenuItem label={i18n.t('delete-my-data')} onPress={() => showDeleteAlert()} />
-        <View style={styles.iconNameRow}>
-          <HeaderText>Open all FFQ</HeaderText>
-          <Switch
-            trackColor={{ false: colors.backgroundFour, true: colors.feedbackGood }}
-            onValueChange={(_) => {
-              userService.toggleOpenAllFFQ();
-              setOpenAllFFQ(userService.openAllFFQ);
-            }}
-            value={openAllFFQ}
-          />
-        </View>
         <View style={{ flex: 1 }} />
         <MenuItem label={i18n.t('logout')} onPress={() => logout()} />
         <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
