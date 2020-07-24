@@ -88,4 +88,7 @@ export type DietStudyRequest = {
   milk_rarely_never: boolean;
   milk_plant: boolean;
   milk_other: boolean;
+
+  other_info: string;
+  is_complete: boolean;
 };
