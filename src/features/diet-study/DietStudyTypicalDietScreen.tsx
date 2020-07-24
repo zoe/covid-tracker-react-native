@@ -18,13 +18,14 @@ import dietStudyCoordinator, {
   LAST_4_WEEKS,
   getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
+import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
 
-interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData {}
+interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, OtherInfoData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
@@ -48,6 +49,8 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...FoodFreqQuestion.createDTO(formData),
       ...FruitNVegConsumptionQuestions.createDTO(formData),
       ...MilkTypeQuestion.createDTO(formData),
+      ...OtherInfoQuestion.createDTO(formData),
+      is_complete: true,
     } as Partial<DietStudyRequest>;
 
     await form.submitDietStudy(infos);
@@ -73,6 +76,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
           ...FoodFreqQuestion.initialFormValues(),
           ...FruitNVegConsumptionQuestions.initialFormValues(),
           ...MilkTypeQuestion.initialFormValues(),
+          ...OtherInfoQuestion.initialFormValues(),
         }}
         validationSchema={registerSchema}
         onSubmit={(values: FormData) => updateDietStudy(values)}>
@@ -86,7 +90,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
-
+              <OtherInfoQuestion formikProps={props as FormikProps<OtherInfoData>} />
               <ErrorText style={{ marginHorizontal: 16 }}>{form.errorMessage}</ErrorText>
 
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (

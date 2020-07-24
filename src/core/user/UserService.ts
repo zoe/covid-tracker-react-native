@@ -51,6 +51,7 @@ export interface IUserService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
+  shouldShowDietStudy(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
   setDietStudyResponse(response: boolean): void;
 }
@@ -578,6 +579,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_vaccine_register;
+  }
+
+  async shouldShowDietStudy(): Promise<boolean> {
+    if (!isGBCountry()) return Promise.resolve(false);
+
+    const url = `/study_consent/status/`;
+
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data.should_ask_diet_study;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {

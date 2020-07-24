@@ -44,12 +44,13 @@ enum DrawerMenuItem {
   LOGOUT = 'LOGOUT',
 }
 
-export function DrawerMenu(props: DrawerContentComponentProps) {
+export async function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
-  const [showDietStudy, setShowDietStudy] = useState<boolean>(isGBCountry());
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [openAllFFQ, setOpenAllFFQ] = useState<boolean>(userService.openAllFFQ);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
+  const showStudyMenu = await appCoordinator.shouldShowStudiesMenu();
 
   const fetchEmail = async () => {
     try {
@@ -69,10 +70,20 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     }
   };
 
+  const fetchShouldShowDietStudy = async () => {
+    try {
+      const shouldShowDietStudy = await appCoordinator.shouldShowDietStudy();
+      setShowDietStudy(shouldShowDietStudy);
+    } catch (_) {
+      setShowVaccineRegistry(false);
+    }
+  };
+
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
     fetchShouldShowVaccine();
+    fetchShouldShowDietStudy();
   }, [userService.hasUser, setUserEmail]);
 
   function showDeleteAlert() {
@@ -162,7 +173,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-        {showDietStudy && (
+        {showStudyMenu && (
           <MenuItem
             label={i18n.t('diet-study.drawer-menu-item')}
             onPress={() => {
