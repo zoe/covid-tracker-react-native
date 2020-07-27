@@ -1,6 +1,6 @@
 import { FormikProps } from 'formik';
 import React from 'react';
-import { KeyboardTypeOptions, StyleSheet } from 'react-native';
+import { KeyboardTypeOptions, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 import { FieldWrapper } from './Screen';
 import { ValidatedTextInput } from './ValidatedTextInput';
@@ -15,12 +15,13 @@ interface GenericTextFieldProps {
   keyboardType?: KeyboardTypeOptions;
   showError?: boolean;
   inputProps?: any;
+  wrapperStyle?: StyleProp<ViewStyle>;
 }
 
 export const GenericTextField = (props: GenericTextFieldProps) => {
   const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
   return (
-    <FieldWrapper style={styles.fieldWrapper}>
+    <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
       {!!label && <RegularText>{label}</RegularText>}
       <ValidatedTextInput
         placeholder={placeholder ?? ''}
