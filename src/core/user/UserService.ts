@@ -336,7 +336,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     const profile: Profile = {
       id: patientState.patientId,
       name: patientName,
-      avatar_name: patient.avatar_name ? patient.avatar_name : DEFAULT_PROFILE,
+      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
       reported_by_another: patient.reported_by_another,
     };
     const isReportedByAnother = patient.reported_by_another || false;
