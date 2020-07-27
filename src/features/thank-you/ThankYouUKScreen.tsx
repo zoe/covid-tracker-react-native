@@ -4,10 +4,8 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog005, dataPage003, incidence007, notificationReminders, timUpdate004 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import InviteToStudy from '@covid/components/InviteToStudy';
 import { Header } from '@covid/components/Screen';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
@@ -19,6 +17,7 @@ import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { IContentfulService, IThankYouModuleModel } from '@covid/core/contentful/ContentfulService';
+import { ContentfulThankYouModule } from '@covid/components/Content/ContentfulThankYouModule';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -32,12 +31,14 @@ type State = {
   inviteToStudy: boolean;
   shouldShowReminders: boolean;
   incidenceModule?: IThankYouModuleModel;
+  modules: IThankYouModuleModel[];
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
   shouldShowReminders: false,
+  modules: [],
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
@@ -56,10 +57,31 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
-      incidenceModule: modules.find((module) => module.id),
+      modules: await this.contentfulService.getThankYouModules(),
+      incidenceModule: modules.find((module) => module.slug === 'incidence'),
     });
 
-    console.log(modules.find((module) => module.id));
+    console.log(modules.find((module) => module.id)?.image.url);
+  }
+
+  module(slug: string): IThankYouModuleModel | undefined {
+    return this.state.modules.find((module) => module.slug === slug);
+  }
+
+  get incidenceModule() {
+    return this.module('incidence');
+  }
+  get dataModule() {
+    return this.module('data');
+  }
+  get blogModule() {
+    return this.module('blog');
+  }
+  get notificationRemindersModule() {
+    return this.module('notificationReminders');
+  }
+  get timsVideoModule() {
+    return this.module('timsVideo');
   }
 
   render() {
@@ -77,43 +99,17 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
-              {this.state.incidenceModule && (
-                <ExternalCallout
-                  link={this.state.incidenceModule.link}
-                  // link="https://covid.joinzoe.com/post/data-update-july-16?utm_source=App"
-                  calloutID="incidence_007"
-                  imageSource={incidence007}
-                  aspectRatio={1.5}
-                />
-              )}
+              {this.incidenceModule && <ContentfulThankYouModule {...this.incidenceModule} />}
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
-                calloutID="data_page_003"
-                imageSource={dataPage003}
-                aspectRatio={1.55}
-              />
+              {this.dataModule && <ContentfulThankYouModule {...this.dataModule} />}
 
-              {/* <ExternalCallout
-                link="https://www.youtube.com/watch?v=zToStOETP00"
-                calloutID="tim_update_004"
-                imageSource={timUpdate004}
-                aspectRatio={1.178}
-              /> */}
+              {this.timsVideoModule && <ContentfulThankYouModule {...this.timsVideoModule} />}
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/tips-covid-safety?utm_source=App"
-                calloutID="blog_005"
-                imageSource={blog005}
-                aspectRatio={1.551}
-              />
+              {this.blogModule && <ContentfulThankYouModule {...this.blogModule} />}
 
-              {this.state.shouldShowReminders && (
-                <ExternalCallout
-                  link=""
-                  calloutID="notificationReminders"
-                  imageSource={notificationReminders}
-                  aspectRatio={1244.0 / 368.0}
+              {this.state.shouldShowReminders && this.notificationRemindersModule && (
+                <ContentfulThankYouModule
+                  {...this.notificationRemindersModule}
                   action={() => {
                     PushNotificationService.openSettings();
                   }}

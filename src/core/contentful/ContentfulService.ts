@@ -47,6 +47,11 @@ interface IContentfulModel {
   contentType: string;
 }
 
+interface IContentfulImageModel {
+  id: string;
+  url: string;
+}
+
 export interface IContentfulAssetModel extends IContentfulModel {
   file: any;
 }
@@ -54,9 +59,14 @@ export interface IContentfulAssetModel extends IContentfulModel {
 export interface IThankYouModuleModel extends IContentfulModel {
   calloutId: string;
   title: string;
-  image: { id: string; url: string };
+  image: IContentfulImageModel;
+  imageSe?: IContentfulImageModel;
+  imageSv?: IContentfulImageModel;
   link: string;
+  aspectRatio: number;
+  slug: string;
   orderIndex: number;
+  visible: boolean;
 }
 
 const ContentMapper = (item: IContentfulEntryModel, assets?: IContentfulAssetModel[], assetFieldKeys?: string[]) => {
@@ -118,6 +128,6 @@ export class ContentfulService implements IContentfulService {
   }
 
   getThankYouModules(): Promise<IThankYouModuleModel[]> {
-    return this.getEntries('thank-you-module', ['image']) as any;
+    return this.getEntries('thank-you-module', ['image', 'imageSe', 'imageSv']) as any;
   }
 }
