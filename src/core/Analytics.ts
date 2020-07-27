@@ -1,7 +1,7 @@
 import * as Amplitude from 'expo-analytics-amplitude';
 import Constants from 'expo-constants';
 
-import appConfig from '../../appConfig';
+import appConfig from '@covid/appConfig';
 
 import { LocalisationService } from './localisation/LocalisationService';
 
@@ -12,10 +12,19 @@ type AdditionalUserProperties = {
   Experiment_001?: string;
 };
 
+const DietStudyEvents = {
+  ACCEPT_DIET_STUDY: 'ACCEPT_DIET_STUDY',
+  DEFER_DIET_STUDY: 'DEFER_DIET_STUDY',
+  DECLINE_DIET_STUDY: 'DECLINE_DIET_STUDY',
+  SIGNED_DIET_STUDY_CONSENT: 'SIGNED_DIET_STUDY_CONSENT',
+  DECLINE_DIET_STUDY_CONSENT: 'DECLINE_DIET_STUDY_CONSENT',
+};
+
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
   SIGNUP: 'SIGNUP',
   DELETE_ACCOUNT_DATA: 'DELETE_ACCOUNT_DATA',
+  DELETE_COVID_TEST: 'DELETE_COVID_TEST',
   SHARE_THIS_APP: 'SHARE_THIS_APP',
   DONATE: 'DONATE',
   JOIN_STUDY: 'JOIN_STUDY',
@@ -24,17 +33,23 @@ export const events = {
   CLICK_CALLOUT: 'CLICK_CALLOUT',
   ACCEPT_STUDY_CONTACT: 'ACCEPT_STUDY_CONTACT',
   DECLINE_STUDY_CONTACT: 'DECLINE_STUDY_CONTACT',
+  CLICK_DRAWER_MENU_ITEM: 'CLICK_DRAWER_MENU_ITEM',
+  OPEN_FROM_NOTIFICATION: 'OPEN_FROM_NOTIFICATION',
+  NOTIFICATION_ENABLED: 'NOTIFICATION_ENABLED',
+  JOIN_VACCINE_REGISTER: 'JOIN_VACCINE_REGISTER',
+  DECLINE_VACCINE_REGISTER: 'DECLINE_VACCINE_REGISTER',
+  ...DietStudyEvents,
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
 // https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey
 // These are disabled at the project level by Amplitude via a support ticket.
-const trackingOptions = {
-  disableCarrier: true,
-  disableCity: true,
-  disableIDFA: true,
-  disableLatLng: true,
-};
+// const trackingOptions = {
+//   disableCarrier: true,
+//   disableCity: true,
+//   disableIDFA: true,
+//   disableLatLng: true,
+// };
 
 function initialize(): void {
   if (isInitialized || !appConfig.amplitudeKey) {

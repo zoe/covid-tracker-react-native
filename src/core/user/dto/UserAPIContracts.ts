@@ -35,6 +35,23 @@ export enum PatientInteractions {
   NO = 'no',
 }
 
+export enum CovidTestMechanismOptions {
+  NOSE_SWAB = 'nose_swab', // Deprecated
+  THROAT_SWAB = 'throat_swab', // Deprecated
+  NOSE_OR_THROAT_SWAB = 'nose_throat_swab',
+  SPIT_TUBE = 'spit_tube',
+  BLOOD_SAMPLE = 'blood_sample', // Deprecated
+  BLOOD_FINGER_PRICK = 'blood_sample_finger_prick',
+  BLOOD_NEEDLE_DRAW = 'blood_sample_needle_draw',
+  OTHER = 'other',
+}
+
+export enum CovidTestTrainedWorkerOptions {
+  TRAINED = 'trained',
+  UNTRAINED = 'untrained',
+  UNSURE = 'unsure',
+}
+
 export type LoginOrRegisterResponse = {
   key: string; // auth token
   user: UserResponse;
@@ -88,6 +105,7 @@ export type PatientInfosRequest = {
   smoked_years_ago: number;
   has_kidney_disease: boolean;
   limited_activity: boolean;
+  blood_group: string;
 
   // Cancer questions
   has_cancer: boolean;
@@ -255,6 +273,8 @@ export type StartupInfo = {
   ip_country: string;
 };
 
-export type AskValidationStudy = {
+export type AskForStudies = {
   should_ask_uk_validation_study: boolean;
+  should_ask_uk_vaccine_register: boolean;
+  should_ask_diet_study: boolean;
 };

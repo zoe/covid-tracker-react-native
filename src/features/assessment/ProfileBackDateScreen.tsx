@@ -10,32 +10,35 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { IUserService } from '@covid/core/user/UserService';
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
-import i18n from '@covid/locale/i18n';
-import { ConfigType } from '@covid/core/Config';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import i18n from '@covid/locale/i18n';
+import { ConfigType } from '@covid/core/Config';
 import { IPatientService } from '@covid/core/patient/PatientService';
-
-import { BloodPressureData, BloodPressureMedicationQuestion } from '../patient/fields/BloodPressureMedicationQuestion';
+import { BloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
+import {
+  BloodPressureData,
+  BloodPressureMedicationQuestion,
+} from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
 import {
   HormoneTreatmentData,
   HormoneTreatmentQuestion,
   TreatmentValue,
-} from '../patient/fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion, periodValues } from '../patient/fields/PeriodQuestion';
-import { RaceEthnicityData, RaceEthnicityQuestion } from '../patient/fields/RaceEthnicityQuestion';
+} from '@covid/features/patient/fields/HormoneTreatmentQuestion';
+import { PeriodData, PeriodQuestion, periodValues } from '@covid/features/patient/fields/PeriodQuestion';
+import { RaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
 import {
   VitaminSupplementsQuestion,
   VitaminSupplementData,
   supplementValues,
   SupplementValue,
-} from '../patient/fields/VitaminQuestion';
-import { DiabetesData, DiabetesQuestions } from '../patient/fields/DiabetesQuestions';
-import { ScreenParamList } from '../ScreenParamList';
+} from '@covid/features/patient/fields/VitaminQuestion';
+import { DiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 interface BackfillData
   extends BloodPressureData,
@@ -44,7 +47,8 @@ interface BackfillData
     HormoneTreatmentData,
     VitaminSupplementData,
     AtopyData,
-    DiabetesData {}
+    DiabetesData,
+    BloodGroupData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -60,6 +64,7 @@ type State = {
   needVitaminAnswer: boolean;
   needAtopyAnswers: boolean;
   needDiabetesAnswers: boolean;
+  needBloodGroupAnswer: boolean;
 };
 
 const initialState: State = {
@@ -71,17 +76,21 @@ const initialState: State = {
   needVitaminAnswer: false,
   needAtopyAnswers: false,
   needDiabetesAnswers: false,
+  needBloodGroupAnswer: false,
 };
 
 export default class ProfileBackDateScreen extends Component<BackDateProps, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
   get features(): ConfigType {
-    return this.userService.getConfig();
+    return this.localisationService.getConfig();
   }
 
   constructor(props: BackDateProps) {
@@ -164,13 +173,13 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
       needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
+      needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
     });
   }
 
   handleProfileUpdate(formData: BackfillData) {
     const { currentPatient } = AssessmentCoordinator.assessmentData;
     const patientId = currentPatient.patientId;
-
     const infos = this.createPatientInfos(formData);
 
     this.patientService
@@ -187,6 +196,8 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           currentPatient.hasDiabetesAnswers = true;
           currentPatient.shouldAskExtendedDiabetes = false;
         }
+        if (formData.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
+
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => {
@@ -281,6 +292,13 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       };
     }
 
+    if (this.state.needBloodGroupAnswer) {
+      infos = {
+        ...infos,
+        ...BloodGroupQuestion.createDTO(formData),
+      };
+    }
+
     return infos;
   }
 
@@ -306,11 +324,15 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
+            ...BloodGroupQuestion.initialFormValues(),
           }}
           validationSchema={() => {
             let schema = this.registerSchema;
             if (this.state.needDiabetesAnswers) {
               schema = schema.concat(DiabetesQuestions.schema());
+            }
+            if (this.state.needBloodGroupAnswer) {
+              schema = schema.concat(BloodGroupQuestion.schema());
             }
             return schema;
           }}
@@ -346,6 +368,10 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
 
                 {this.state.needDiabetesAnswers && (
                   <DiabetesQuestions formikProps={props as FormikProps<DiabetesData>} />
+                )}
+
+                {this.state.needBloodGroupAnswer && (
+                  <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
                 )}
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>

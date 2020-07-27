@@ -55,7 +55,7 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
     };
 
     patientService.updatePatient(props.route.params.profileId, infos).then((_) => {
-      Navigator.gotoScreen('SelectProfile');
+      Navigator.gotoNextScreen(props.route.name);
     });
   }
 

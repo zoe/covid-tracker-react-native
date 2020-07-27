@@ -10,6 +10,7 @@ import { LocalisationService, ILocalisationService } from '@covid/core/localisat
 import { IPatientService, PatientService } from '@covid/core/patient/PatientService';
 import { IProfileService, ProfileService } from '@covid/core/profile/ProfileService';
 import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 
 import { Services } from './services.types';
 
@@ -33,6 +34,6 @@ container.bind<IProfileService>(Services.Profile).to(ProfileService).inSingleton
 
 container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSingletonScope();
 
-// console.log('Covid test service', container.get<ICovidTestService>(Services.CovidTest));
+container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
 
 export const { lazyInject } = getDecorators(container);

@@ -16,12 +16,13 @@ import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
-import { stripAndRound } from '@covid/utils/helpers';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { BloodGroupData, BloodGroupQuestion } from '@covid/features/patient/fields/BloodGroupQuestion';
+import { stripAndRound } from '@covid/utils/number';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -42,7 +43,8 @@ export interface YourHealthData
     HormoneTreatmentData,
     VitaminSupplementData,
     AtopyData,
-    DiabetesData {
+    DiabetesData,
+    BloodGroupData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -189,7 +191,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   handleUpdateHealth(formData: YourHealthData) {
     const currentPatient = patientCoordinator.patientData.currentPatient;
     const patientId = currentPatient.patientId;
-
     var infos = this.createPatientInfos(formData);
 
     this.patientService
@@ -206,6 +207,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           currentPatient.shouldAskExtendedDiabetes = false;
         }
         if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
+        if (formData.bloodGroup) currentPatient.hasBloodGroupAnswer = true;
 
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
@@ -235,6 +237,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
       limited_activity: formData.limitedActivity === 'yes',
       ...vitamin_supplements_doc,
+      ...BloodGroupQuestion.createDTO(formData),
     } as Partial<PatientInfosRequest>;
 
     if (this.state.showPregnancyQuestion) {
@@ -332,9 +335,11 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
             ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
+            ...BloodGroupQuestion.initialFormValues(),
           }}
           validationSchema={() => {
             let schema = this.registerSchema;
+            schema = schema.concat(BloodGroupQuestion.schema());
             if (this.state.showDiabetesQuestion) {
               schema = schema.concat(DiabetesQuestions.schema());
             }
@@ -458,6 +463,8 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                 <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
 
                 <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
+
+                <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (

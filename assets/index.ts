@@ -20,6 +20,13 @@ export const svFlag = require('./icons/sv-flag.png');
 export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
 
+// Mechanism Icons
+export const fingerPrick = require('./mechanism-icons/fingerPrick.png');
+export const noseSwab = require('./mechanism-icons/noseSwab.png');
+export const otherTest = require('./mechanism-icons/other.png');
+export const spit = require('./mechanism-icons/spit.png');
+export const syringe = require('./mechanism-icons/syringe.png');
+
 // Partner logos
 export const gbPartners = require('./logos/gb_partners.png');
 export const gbPartnersReturn = require('./logos/gb_partners_return.png');
@@ -28,6 +35,7 @@ export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
+export const facebook = require('./logos/facebook.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');
@@ -47,10 +55,12 @@ export const svMap = require('./svMap.png');
 export const NUMBER_OF_PROFILE_AVATARS = 10;
 
 // ThankYou Modules
+export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
+export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog004 = require('./thank-you-modules/blog_004.png');
-export const incidence004 = require('./thank-you-modules/incidence_004.png');
-export const timUpdate002 = require('./thank-you-modules/tim_update_002.png');
+export const blog006 = require('./thank-you-modules/blog_006.png');
+export const incidence008 = require('./thank-you-modules/incidence_008.png');
+export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
@@ -60,3 +70,7 @@ export const cardBackground1 = require('./backgrounds/cardBackground1.png');
 export const cardBackground2 = require('./backgrounds/cardBackground2.png');
 export const cardBackground3 = require('./backgrounds/cardBackground3.png');
 export const blobs = require('./blobs.png');
+export const vaccineBg = require('./backgrounds/vaccine-bg.png');
+
+// Avatar
+export const sarahBerryAvatar = require('./sarah_berry_avatar.png');

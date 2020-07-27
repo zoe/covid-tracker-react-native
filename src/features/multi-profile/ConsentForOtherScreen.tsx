@@ -15,8 +15,8 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 
+import appCoordinator from '../AppCoordinator';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
-import Navigator from '../AppCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ConsentForOther'>;
@@ -72,11 +72,6 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   );
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
-  async startAssessment(patientId: string) {
-    const currentPatient = await this.patientService.getCurrentPatient(patientId);
-    Navigator.resetToProfileStartAssessment(currentPatient);
-  }
-
   async createProfile(): Promise<string> {
     const name = this.props.route.params.profileName;
     const avatarName = this.props.route.params.avatarName;
@@ -94,7 +89,8 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   handleCreateProfile = async () => {
     try {
       const patientId = await this.createProfile();
-      await this.startAssessment(patientId);
+      await appCoordinator.setPatientId(patientId);
+      appCoordinator.resetToProfileStartAssessment();
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
       this.setState({

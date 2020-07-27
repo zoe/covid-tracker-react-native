@@ -3,8 +3,7 @@ import { injectable, inject } from 'inversify';
 import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { AppScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
-
-import { IApiClient } from '../api/ApiClient';
+import { IApiClient } from '@covid/core/api/ApiClient';
 
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;

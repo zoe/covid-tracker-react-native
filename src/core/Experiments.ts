@@ -2,8 +2,6 @@ import Analytics from '@covid/core/Analytics';
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
-import { IUserService } from './user/UserService';
-
 export const experiments = {
   Experiment_001: 'Experiment_001', // Test alternative external callouts on UK Thank You Pags
 };
@@ -28,9 +26,7 @@ function getVariant(hash: string, totalVariants: number): string {
 }
 
 export async function startExperiment(experimentName: string, totalVariants: number): Promise<string | null> {
-  const profile = await container.get<IUserService>(Services.User).getProfile();
-  if (!profile) return null;
-
+  const profile = await container.get<ICoreService>(Services.User).getProfile();
   const variant = getVariant(profile.username, totalVariants);
   const payload: { [index: string]: string } = {};
   payload[experimentName] = variant;

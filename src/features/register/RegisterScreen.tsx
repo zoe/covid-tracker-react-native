@@ -17,8 +17,8 @@ import { Field, FieldError } from '@covid/components/Forms';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 
+import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
-import Navigator from '../AppCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;
@@ -56,7 +56,6 @@ export class RegisterScreen extends Component<PropsType, State> {
   constructor(props: PropsType) {
     super(props);
     this.state = initialState;
-    Navigator.setNavigation(this.props.navigation);
   }
 
   private checkFieldsFilled = (props: any) => {
@@ -69,12 +68,13 @@ export class RegisterScreen extends Component<PropsType, State> {
       this.setState({ enableSubmit: false }); // Stop resubmissions
       this.userService
         .register(formData.email, formData.password)
-        .then((response) => {
+        .then(async (response) => {
           const isTester = response.data.user.is_tester;
           Analytics.identify({ isTester });
           Analytics.track(events.SIGNUP);
           const patientId = response.data.user.patients[0];
-          Navigator.gotoNextScreen(this.props.route.name, { patientId });
+          await appCoordinator.setPatientId(patientId);
+          appCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err: AxiosError) => {
           // TODO - These error messages are misleading and we could display what the server sends back

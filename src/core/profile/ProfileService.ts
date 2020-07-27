@@ -1,10 +1,9 @@
 import { injectable, inject } from 'inversify';
 
 import { Services } from '@covid/provider/services.types';
-
-import { AsyncStorageService } from '../AsyncStorageService';
-import { cleanIntegerVal } from '../utils/number';
-import { IPatientService } from '../patient/PatientService';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { cleanIntegerVal } from '@covid/utils/number';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
 
@@ -22,7 +21,7 @@ export class ProfileService implements IProfileService {
   public async hasMultipleProfiles() {
     try {
       const response = await this.patientService.listPatients();
-      return !!response && response.data.length > 1;
+      return !!response && response.length > 1;
     } catch (e) {
       return false;
     }

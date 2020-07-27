@@ -24,9 +24,14 @@ export const colors = {
   coral: '#FA7268',
   pink: '#D28C90',
 
+  textDark: '#24262B',
+
   linkBlue: '#007AFF',
   lightBlueBrand: '#29C4CF',
+  darkblue: '#0165B5',
 
   backgroundBrandDisabled: '#7C9CAD',
   actionButtonBorder: 'rgba(240, 240, 240, 1)',
+
+  facebook: '#0165B5',
 };

@@ -7,23 +7,27 @@ import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
 
 export interface ILocalisationService {
-  initCountryConfig(countryCode: string): void;
   setUserCountry(countryCode: string): void;
+  initCountryConfig(countryCode: string): void;
   getUserCountry(): Promise<string | null>;
-  updateUserCountry(isLoggedIn: boolean): Promise<void>;
-  setLocaleFromCountry(countryCode: string): void;
-  defaultCountryFromLocale(): void;
   shouldAskCountryConfirmation(): Promise<boolean>;
+  defaultCountryFromLocale(): void;
+  updateUserCountry(isLoggedIn: boolean): void;
+  getConfig(): ConfigType;
 }
 
 @injectable()
-export class LocalisationService implements Partial<ILocalisationService> {
+export class LocalisationService implements ILocalisationService {
   public static userCountry = 'US';
   public static countryConfig: ConfigType;
   public static ipCountry = '';
 
   initCountryConfig(countryCode: string) {
     LocalisationService.countryConfig = getCountryConfig(countryCode);
+  }
+
+  getConfig(): ConfigType {
+    return LocalisationService.countryConfig;
   }
 
   async setUserCountry(countryCode: string) {

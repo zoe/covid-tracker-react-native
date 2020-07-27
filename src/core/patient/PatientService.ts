@@ -1,26 +1,27 @@
-import { injectable, inject, LazyServiceIdentifer } from 'inversify';
+import { injectable, inject } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
 import { AvatarName } from '@covid/utils/avatar';
 import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { getDaysAgo } from '@covid/utils/datetime';
-
-import { PatientInfosRequest } from '../user/dto/UserAPIContracts';
-import { IConsentService } from '../consent/ConsentService';
-import { ApiClientBase } from '../api/ApiClientBase';
-import { handleServiceError } from '../api/ApiServiceErrors';
-import appConfig from '../../../appConfig';
-
-import { PatientStateType, PatientProfile, getInitialPatientState } from './PatientState';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import { ApiClientBase } from '@covid/core/api/ApiClientBase';
+import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
+import appConfig from '@covid/appConfig';
+import { Profile } from '@covid/components/Collections/ProfileList';
+import { PatientStateType, PatientProfile, getInitialPatientState } from '@covid/core/patient/PatientState';
 
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
 export interface IPatientService {
-  listPatients(): Promise<any>;
+  myPatientProfile(): Promise<Profile | null>;
+  listPatients(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
   updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
+  getPatientState(patientId: string): Promise<PatientStateType>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
   shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
@@ -33,10 +34,21 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
   protected client = ApiClientBase.client;
 
+  public async myPatientProfile(): Promise<Profile | null> {
+    try {
+      const data = (await this.client.get(`/patient_list/`)).data as Profile[];
+      console.log(data);
+      return !!data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
+  }
+
   public async listPatients() {
     try {
       const response = await this.client.get(`/patient_list/`);
-      return response;
+      return response.data;
     } catch (error) {
       handleServiceError(error);
     }
@@ -135,6 +147,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const shouldAskExtendedDiabetes = !hasDiabetesAnswers && hasDiabetes;
     const hasHayfever = patient.has_hayfever;
     const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
+    const hasBloodGroupAnswer = patient.blood_group != null;
 
     return {
       ...patientState,
@@ -159,7 +172,20 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasHayfever,
       shouldShowUSStudyInvite,
       shouldAskLifestyleQuestion,
+      hasBloodGroupAnswer,
     };
+  }
+
+  public async getPatientState(patientId: string): Promise<PatientStateType> {
+    let patientState = getInitialPatientState(patientId);
+
+    const patientInfo = await this.getPatient(patientId);
+
+    if (patientInfo) {
+      patientState = await this.updatePatientState(patientState, patientInfo);
+    }
+
+    return patientState;
   }
 
   public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {

@@ -1,6 +1,14 @@
 import { Label, View } from 'native-base';
 import React, { useState, useEffect } from 'react';
-import { PickerItemProps, StyleSheet, PickerProps, TouchableOpacity, Text } from 'react-native';
+import {
+  PickerItemProps,
+  StyleSheet,
+  PickerProps,
+  TouchableOpacity,
+  Text,
+  Image,
+  ImageSourcePropType,
+} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { colors } from '@theme';
@@ -20,6 +28,7 @@ interface DropdownFieldProps {
   androidDefaultLabel?: string;
   error?: any;
   onlyPicker?: boolean;
+  itemIcons?: ImageSourcePropType[];
 }
 
 interface SelectedItemI {
@@ -36,6 +45,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   items: providedItems,
   selectedValue,
   onValueChange,
+  itemIcons,
 }) => {
   // Returns with [No, Yes] if props.item is blank (no dropdown list items provided.)
   const prepareItems = (array?: PickerItemProps[]): PickerItemProps[] => {
@@ -109,6 +119,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
           borderRadiusStyle,
           isSelected && styles.dropdownTextHighlightStyle,
         ]}>
+        {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5 }} />}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </TouchableOpacity>
     );

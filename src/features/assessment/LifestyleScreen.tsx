@@ -35,7 +35,6 @@ export default class LifestyleScreen extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
-    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
   checkFormFilled = (props: FormikProps<any>) => {

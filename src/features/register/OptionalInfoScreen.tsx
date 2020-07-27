@@ -20,8 +20,8 @@ import { Services } from '@covid/provider/services.types';
 import { IUserService } from '@covid/core/user/UserService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 
+import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
-import Navigator from '../AppCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'OptionalInfo'>;
@@ -56,12 +56,6 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
     this.state = initialState;
   }
 
-  private async gotoNextScreen(patientId: string) {
-    const currentPatient = await this.patientService.getCurrentPatient(patientId);
-    this.setState({ isApiError: false });
-    Navigator.gotoNextScreen(this.props.route.name, { currentPatient });
-  }
-
   private async setPushToken() {
     if (Constants.appOwnership !== 'expo') {
       pushNotificationService.initPushToken();
@@ -82,10 +76,10 @@ export class OptionalInfoScreen extends Component<PropsType, State> {
 
   private async handleSaveOptionalInfos(formData: OptionalInfoData) {
     try {
-      const patientId = this.props.route.params.patientId;
       await this.setPushToken();
       await this.savePiiData(formData);
-      await this.gotoNextScreen(patientId);
+      this.setState({ isApiError: false });
+      appCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({
         isApiError: true,

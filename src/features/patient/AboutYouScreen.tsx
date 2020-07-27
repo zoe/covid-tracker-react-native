@@ -14,7 +14,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { IUserService } from '@covid/core/user/UserService';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';

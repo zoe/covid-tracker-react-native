@@ -10,9 +10,7 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IConsentService } from '@covid/core/consent/ConsentService';
-
-import { NursesConsentVersionUS, privacyPolicyVersionUS } from '../constants';
-import { ScreenParamList } from '../../ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>;
@@ -48,7 +46,11 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
   handleAgreeClicked = async () => {
     if (this.state.processingChecked && this.state.termsOfUseChecked) {
-      await this.consentService.setConsentSigned('US Nurses', NursesConsentVersionUS, privacyPolicyVersionUS);
+      await this.consentService.setConsentSigned(
+        'US Nurses',
+        appConfig.nursesConsentVersionUS,
+        appConfig.privacyPolicyVersionUS
+      );
       this.props.navigation.navigate('Register');
     }
   };

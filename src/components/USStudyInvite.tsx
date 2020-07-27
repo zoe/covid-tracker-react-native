@@ -5,12 +5,12 @@ import { closeIcon, blobs } from '@assets';
 import { RegularText, HeaderText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { IUserService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 
 import { BrandedButton } from './BrandedButton';
 
@@ -19,7 +19,7 @@ type StudyInviteProps = {
 };
 
 export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProps) => {
-  const userService = useInjection<IUserService>(Services.User);
+  const consentService = useInjection<IConsentService>(Services.Consent);
   const [modalVisible, setModalVisible] = useState(false);
   const { currentPatient } = props.assessmentData;
 
@@ -32,14 +32,14 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
   const handleAgree = () => {
     setModalVisible(false);
     Analytics.track(events.ACCEPT_STUDY_CONTACT);
-    userService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, true);
+    consentService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, true);
     currentPatient.shouldShowUSStudyInvite = false;
   };
 
   const handleClose = () => {
     setModalVisible(false);
     Analytics.track(events.DECLINE_STUDY_CONTACT);
-    userService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, false);
+    consentService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, false);
     currentPatient.shouldShowUSStudyInvite = false;
   };
 

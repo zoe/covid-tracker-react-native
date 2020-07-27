@@ -5,14 +5,13 @@ import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
-import { IContentService } from '@covid/core/content/ContentService';
 import { container, lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IUserService } from '@covid/core/user/UserService';
+import { IContentService } from '@covid/core/content/ContentService';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
-
-import { RegularBoldText, RegularText } from './Text';
 
 type PropsType = object;
 

@@ -1,5 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
+import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
+
 import { UserResponse } from './user/dto/UserAPIContracts';
 import { AuthenticatedUser } from './user/UserService';
 
@@ -10,6 +12,7 @@ const USER_COUNT = 'userCount';
 const USER_COUNTRY = 'userCountry';
 const CONSENT_SIGNED = 'consentSigned';
 const PUSH_TOKEN = 'pushToken';
+const SKIP_DIET_STUDY = 'skipDietStudy';
 
 const USER_PROFILE = 'userProfile';
 const ASKED_COUNTRY = 'askedCountry';
@@ -183,5 +186,22 @@ export class AsyncStorageService {
     } catch (err) {
       return null;
     }
+  }
+
+  // Diet Study Consent
+
+  static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
+    try {
+      const value = await AsyncStorage.getItem(SKIP_DIET_STUDY);
+      return value as DietStudyConsent | null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  static async setDietStudyConsent(consent: DietStudyConsent) {
+    try {
+      return await AsyncStorage.setItem(SKIP_DIET_STUDY, consent);
+    } catch (err) {}
   }
 }

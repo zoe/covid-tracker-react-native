@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { injectable, unmanaged, inject, LazyServiceIdentifer } from 'inversify';
+import { injectable, unmanaged, inject } from 'inversify';
 
-import { ukValidationStudyAdVersion, ukValidationStudyConsentVersion } from '@covid/features/register/constants';
 import { Services } from '@covid/provider/services.types';
 
 import { AsyncStorageService } from '../AsyncStorageService';
@@ -13,7 +12,7 @@ import { ConsentService, IConsentService } from '../consent/ConsentService';
 import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
 import { IPatientService } from '../patient/PatientService';
 
-import { AskValidationStudy, LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
+import { LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
 
 export type AuthenticatedUser = {
   userToken: string;
@@ -21,6 +20,7 @@ export type AuthenticatedUser = {
 };
 
 export interface IUserService {
+  hasUser: boolean;
   register(email: string, password: string): Promise<any>; // TODO: define return object
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
@@ -28,12 +28,8 @@ export interface IUserService {
   getProfile(): Promise<UserResponse>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
-  loadUser(): Promise<AuthenticatedUser | null>;
+  loadUser(): void;
   getFirstPatientId(): Promise<string | null>;
-  getConfig(): ConfigType;
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
-  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
-  setUSStudyInviteResponse(patientId: string, response: boolean): void;
 }
 
 @injectable()
@@ -46,6 +42,8 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   @inject(Services.Patient)
   public patientService: IPatientService;
+
+  public hasUser = false;
 
   constructor(@unmanaged() private useAsyncStorage: boolean = true) {
     super();
@@ -80,6 +78,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   }
 
   public async logout() {
+    this.hasUser = false;
     await this.deleteLocalUserData();
   }
 
@@ -103,15 +102,15 @@ export default class UserService extends ApiClientBase implements IUserService {
     await this.storeTokenInAsyncStorage(authToken, data.user.pii);
     await AsyncStorageService.saveProfile(data.user);
     this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
-
+    this.hasUser = true;
     return data;
   };
 
-  public loadUser = async (): Promise<AuthenticatedUser | null> => {
+  async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
-    const hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.localisationService.updateUserCountry(hasUser);
-    if (hasUser) {
+    this.hasUser = !!user && !!user!.userToken && !!user!.userId;
+    this.localisationService.updateUserCountry(this.hasUser);
+    if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
       const patientId: string | null = await this.getFirstPatientId();
       if (!patientId) {
@@ -119,14 +118,12 @@ export default class UserService extends ApiClientBase implements IUserService {
         await this.logout();
       }
     }
-    return user;
-  };
+  }
 
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      const patientId = profile!.patients[0];
-      return patientId;
+      return profile.patients[0];
     } catch (error) {
       return null;
     }
@@ -174,7 +171,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   public async getProfile(): Promise<UserResponse> {
     const localUser = await AsyncStorageService.GetStoredData();
     if (!localUser) {
-      this.logout();
+      await this.logout();
       throw Error("User not found. Can't fetch profile");
     }
 
@@ -208,30 +205,5 @@ export default class UserService extends ApiClientBase implements IUserService {
     return this.client.delete(`/users/delete/`, {
       data: payload,
     });
-  }
-
-  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
-    let url = `/study_consent/status/?consent_version=${ukValidationStudyConsentVersion}`;
-    if (onThankYouScreen) {
-      url += '&thank_you_screen=true';
-    }
-
-    const response = await this.client.get<AskValidationStudy>(url);
-    return response.data.should_ask_uk_validation_study;
-  }
-
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'UK Validation Study',
-      version: ukValidationStudyConsentVersion,
-      ad_version: ukValidationStudyAdVersion,
-      status: response ? 'signed' : 'declined',
-      allow_future_data_use: anonymizedData,
-      allow_contact_by_zoe: reContacted,
-    });
-  }
-
-  setUSStudyInviteResponse(patientId: string, response: boolean) {
-    this.patientService.updatePatient(patientId, { contact_additional_studies: response });
   }
 }

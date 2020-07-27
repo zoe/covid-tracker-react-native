@@ -1,11 +1,11 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import * as Yup from 'yup';
 
 import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError } from '@covid/components/ValidationError';
 import { IUserService } from '@covid/core/user/UserService';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
@@ -22,6 +22,7 @@ export interface WeightData {
 
 interface FCWithStatic<P> extends React.FC<P> {
   initialFormValues: () => WeightData;
+  schema: () => Yup.ObjectSchema;
 }
 
 interface Props {
@@ -100,12 +101,6 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           </View>
         </View>
       )}
-      {formikProps.touched.weight && formikProps.errors.weight && <ValidationError error={formikProps.errors.weight} />}
-      {formikProps.touched.pounds && formikProps.errors.pounds && <ValidationError error={formikProps.errors.pounds} />}
-      {formikProps.touched.stones && formikProps.errors.stones && <ValidationError error={formikProps.errors.stones} />}
-      {formikProps.touched.weightUnit && formikProps.errors.weightUnit && (
-        <ValidationError error={formikProps.errors.weightUnit} />
-      )}
     </FieldWrapper>
   );
 };
@@ -118,6 +113,15 @@ WeightQuestion.initialFormValues = () => {
     pounds: '',
     weightUnit: features.defaultWeightUnit,
   };
+};
+
+WeightQuestion.schema = () => {
+  return Yup.object().shape({
+    weight: Yup.number().min(0),
+    stones: Yup.number().min(0),
+    pounds: Yup.number().min(0),
+    weightUnit: Yup.string(),
+  });
 };
 
 const styles = StyleSheet.create({

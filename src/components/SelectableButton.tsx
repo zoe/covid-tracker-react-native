@@ -28,7 +28,7 @@ export const SelectableButton = ({
 
   return (
     <Button style={btnStyle} onPress={onPress} {...buttonProps}>
-      <RegularText style={[fontStyles.bodyLight, { color: textColor }]} {...textProps}>
+      <RegularText style={[fontStyles.bodyLight, styles.label, { color: textColor }]} {...textProps}>
         {children}
       </RegularText>
     </Button>
@@ -41,5 +41,10 @@ const styles = StyleSheet.create({
     height: 48,
     elevation: 0,
     justifyContent: 'center',
+  },
+  label: {
+    textAlign: 'center',
+    paddingHorizontal: 16,
+    lineHeight: 20,
   },
 });

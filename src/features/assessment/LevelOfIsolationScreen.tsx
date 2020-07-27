@@ -17,7 +17,7 @@ import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInf
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { IUserService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanIntegerVal } from '@covid/utils/number';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
