@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Animated, View, StyleSheet, Easing } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
 import { SelectableButton } from '@covid/components/SelectableButton';
 import i18n from '@covid/locale/i18n';
@@ -90,16 +89,21 @@ export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected 
   }, [resetAnimation]);
 
   return (
-    <FlatList
-      data={items}
-      renderItem={({ item, index }) => (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+      }}>
+      {items.map((item, index) => (
         <Animated.View
           style={[
             {
               opacity: fadeAnimations[index],
               transform: [{ translateY: animations[index] }],
             },
-            styles.container,
+            styles.itemContainer,
           ]}>
           <SelectableButton
             style={[styles.item, index % 2 === 0 ? styles.itemMarginRight : styles.itemMarginLeft]}
@@ -111,18 +115,20 @@ export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected 
             {item.title}
           </SelectableButton>
         </Animated.View>
-      )}
-      numColumns={2}
-      keyExtractor={(item, _) => item.title.toString()}
-    />
+      ))}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 0.45,
-    minWidth: '45%',
-    maxWidth: '50%',
+  grid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+  },
+  itemContainer: {
+    width: '50%',
   },
   item: {
     height: 60,
