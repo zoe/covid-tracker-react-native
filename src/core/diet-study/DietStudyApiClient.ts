@@ -11,7 +11,7 @@ export const REQUIRED_NUMBER_OF_STUDIES = 1;
 
 export interface IDietStudyRemoteClient {
   getDietStudies(): Promise<DietStudyResponse[]>;
-  addDietStudy(patientId: string, payload: DietStudyRequest): Promise<DietStudyResponse>;
+  addDietStudy(patientId: string, payload: Partial<DietStudyRequest>): Promise<DietStudyResponse>;
   updateDietStudy(studyId: string, payload: Partial<DietStudyRequest>): Promise<DietStudyResponse>;
 }
 

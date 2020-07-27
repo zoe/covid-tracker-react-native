@@ -68,6 +68,8 @@ import DietStudyIntroScreen from '@covid/features/diet-study/DietStudyIntroScree
 import DietStudyYourLifestyleScreen from '@covid/features/diet-study/DietStudyYourLifestyleScreen';
 import DietStudyTypicalDietScreen from '@covid/features/diet-study/DietStudyTypicalDietScreen';
 import { DietStudyThankYouScreen } from '@covid/features/diet-study/DietStudyThankYouScreen';
+import { DietStudyConsentScreen } from '@covid/features/diet-study/DietStudyConsentScreen';
+import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStudyThankYouBreakScreen';
 import NavigatorService from '@covid/NavigatorService';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -203,8 +205,10 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyAboutYou" component={DietStudyAboutYouScreen} options={noHeader} />
         <Stack.Screen name="DietStudyIntro" component={DietStudyIntroScreen} options={noHeader} />
         <Stack.Screen name="DietStudyThankYou" component={DietStudyThankYouScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyThankYouBreak" component={DietStudyThankYouBreakScreen} options={noHeader} />
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
       </Stack.Navigator>
     );
   }

@@ -58,8 +58,8 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog005 = require('./thank-you-modules/blog_005.png');
-export const incidence007 = require('./thank-you-modules/incidence_007.png');
+export const blog006 = require('./thank-you-modules/blog_006.png');
+export const incidence008 = require('./thank-you-modules/incidence_008.png');
 export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
@@ -71,3 +71,6 @@ export const cardBackground2 = require('./backgrounds/cardBackground2.png');
 export const cardBackground3 = require('./backgrounds/cardBackground3.png');
 export const blobs = require('./blobs.png');
 export const vaccineBg = require('./backgrounds/vaccine-bg.png');
+
+// Avatar
+export const sarahBerryAvatar = require('./sarah_berry_avatar.png');

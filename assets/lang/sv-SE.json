@@ -1229,6 +1229,11 @@
       "noticed-a-change": ""
     },
 
+    "other-info": {
+      "label": "",
+      "placeholder": ""
+    },
+
     "diet-changed": {
       "not-sure": ""
     },
@@ -1241,10 +1246,25 @@
       "text": ""
     },
 
+    "consent": {
+      "header": "",
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "buttons-header": "",
+      "yes": "",
+      "no": ""
+    },
+
     "thank-you": {
       "title": "",
       "text-1": "",
       "text-2": ""
+    },
+
+    "thank-you-break": {
+      "description": "",
+      "sarah-name": "",
+      "sarah-description": ""
     }
   },
 

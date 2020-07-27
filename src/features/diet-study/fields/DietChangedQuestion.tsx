@@ -20,6 +20,7 @@ export enum DietChangedOption {
 
 interface Props {
   formikProps: FormikProps<DietChangedData>;
+  onValueChanged: (value: DietChangedOption) => void;
 }
 
 export const DietChangedQuestion: FormQuestion<Props, DietChangedData, CovidTest> = (props: Props) => {
@@ -42,6 +43,7 @@ export const DietChangedQuestion: FormQuestion<Props, DietChangedData, CovidTest
       ]}
       onValueChange={(value: DietChangedOption) => {
         props.formikProps.setFieldValue('has_diet_changed', value);
+        props.onValueChanged(value);
       }}
       selectedValue=""
       error={props.formikProps.touched.has_diet_changed && props.formikProps.errors.has_diet_changed}

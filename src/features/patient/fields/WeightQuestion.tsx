@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { ValidationError } from '@covid/components/ValidationError';
 import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { RegularText } from '@covid/components/Text';
@@ -101,12 +100,6 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
           </View>
         </View>
       )}
-      {formikProps.touched.weight && formikProps.errors.weight && <ValidationError error={formikProps.errors.weight} />}
-      {formikProps.touched.pounds && formikProps.errors.pounds && <ValidationError error={formikProps.errors.pounds} />}
-      {formikProps.touched.stones && formikProps.errors.stones && <ValidationError error={formikProps.errors.stones} />}
-      {formikProps.touched.weightUnit && formikProps.errors.weightUnit && (
-        <ValidationError error={formikProps.errors.weightUnit} />
-      )}
     </FieldWrapper>
   );
 };
@@ -122,7 +115,12 @@ WeightQuestion.initialFormValues = () => {
 };
 
 WeightQuestion.schema = () => {
-  return Yup.object().shape({});
+  return Yup.object().shape({
+    weight: Yup.number().min(0),
+    stones: Yup.number().min(0),
+    pounds: Yup.number().min(0),
+    weightUnit: Yup.string(),
+  });
 };
 
 const styles = StyleSheet.create({

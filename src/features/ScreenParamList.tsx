@@ -70,9 +70,11 @@ export type ScreenParamList = {
   // DietStudy
   DietStudyIntro: { dietStudyData: DietStudyData };
   DietStudyAboutYou: { dietStudyData: DietStudyData };
+  DietStudyThankYouBreak: { dietStudyData: DietStudyData };
   DietStudyThankYou: { dietStudyData: DietStudyData };
   DietStudyTypicalDiet: { dietStudyData: DietStudyData };
   DietStudyYourLifestyle: { dietStudyData: DietStudyData };
+  DietStudyConsent: { dietStudyData: DietStudyData };
 
   // Completion screens
   ThankYou: undefined;

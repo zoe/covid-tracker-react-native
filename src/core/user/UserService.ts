@@ -51,7 +51,9 @@ export interface IUserService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
+  shouldShowDietStudy(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
+  setDietStudyResponse(response: boolean): void;
 }
 
 export interface IProfileService {
@@ -579,6 +581,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return response.data.should_ask_uk_vaccine_register;
   }
 
+  async shouldShowDietStudy(): Promise<boolean> {
+    if (!isGBCountry()) return Promise.resolve(false);
+
+    const url = `/study_consent/status/`;
+
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data.should_ask_diet_study;
+  }
+
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
     return this.client.post('/study_consent/', {
       study: 'UK Validation Study',
@@ -596,6 +607,13 @@ export default class UserService extends ApiClientBase implements ICoreService {
       status: response ? 'signed' : 'declined',
       version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
       ad_version: appConfig.vaccineRegistryAdVersion,
+    });
+  }
+
+  setDietStudyResponse(response: boolean) {
+    return this.client.post('/study_consent/', {
+      study: 'Diet Study Beyond Covid',
+      status: response ? 'signed' : 'declined',
     });
   }
 

@@ -136,7 +136,6 @@ const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: color
 type Keys = keyof FoodFreqData;
 
 export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), formikProps, ...props }) => {
-
   const [activeKeys, setActiveKeys] = useState<Keys[]>(items.map((item) => item.key));
 
   const next = (from: Keys) => {

@@ -15,18 +15,17 @@ import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
 import dietStudyCoordinator, {
-  PREVIOUS_DIET_STUDY_TIME_PERIOD,
-  CURRENT_DIET_STUDY_TIME_PERIOD,
+  LAST_4_WEEKS,
   getScreenHeaderOptions,
 } from '@covid/core/diet-study/DietStudyCoordinator';
+import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
 import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
-import { DietChangedQuestion, DietChangedData, DietChangedOption } from './fields/DietChangedQuestion';
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
 
-interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData {}
+interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, OtherInfoData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
@@ -36,15 +35,11 @@ type Props = {
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
   const { currentPatient, recentDietStudyId, timePeriod } = route.params.dietStudyData;
   const { profile } = currentPatient;
-  let registerSchema = Yup.object()
+  const registerSchema = Yup.object()
     .shape({})
     .concat(FoodFreqQuestion.schema())
     .concat(FruitNVegConsumptionQuestions.schema())
     .concat(MilkTypeQuestion.schema());
-
-  if (timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD) {
-    registerSchema = registerSchema.concat(DietChangedQuestion.schema());
-  }
 
   const form = useDietStudyFormSubmit(route.name);
 
@@ -54,29 +49,17 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...FoodFreqQuestion.createDTO(formData),
       ...FruitNVegConsumptionQuestions.createDTO(formData),
       ...MilkTypeQuestion.createDTO(formData),
-      ...DietChangedQuestion.createDTO(formData),
+      ...OtherInfoQuestion.createDTO(formData),
+      is_complete: true,
     } as Partial<DietStudyRequest>;
 
-    if (!!recentDietStudyId && formData.has_diet_changed === DietChangedOption.YES) {
-      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PREVIOUS_DIET_STUDY_TIME_PERIOD;
-    }
-
     await form.submitDietStudy(infos);
-
-    // Important: We need to keep this here for Coordinator to
-    // go to the thank you page after 2nd round is completed.
-    // Otherwise will be in a loop.
-    if (timePeriod === PREVIOUS_DIET_STUDY_TIME_PERIOD) {
-      delete dietStudyCoordinator.dietStudyData.timePeriod;
-    }
 
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
-  const completeCtaLabel = (formikProps: FormikProps<FormData>) =>
-    formikProps.values.has_diet_changed === DietChangedOption.YES
-      ? i18n.t('diet-study.complete-pre-cta')
-      : i18n.t('diet-study.complete-cta');
+  const completeCtaLabel = () =>
+    timePeriod === LAST_4_WEEKS ? i18n.t('diet-study.complete-pre-cta') : i18n.t('diet-study.complete-cta');
 
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
@@ -93,7 +76,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
           ...FoodFreqQuestion.initialFormValues(),
           ...FruitNVegConsumptionQuestions.initialFormValues(),
           ...MilkTypeQuestion.initialFormValues(),
-          ...DietChangedQuestion.initialFormValues(),
+          ...OtherInfoQuestion.initialFormValues(),
         }}
         validationSchema={registerSchema}
         onSubmit={(values: FormData) => updateDietStudy(values)}>
@@ -107,11 +90,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
-
-              {timePeriod === CURRENT_DIET_STUDY_TIME_PERIOD && (
-                <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
-              )}
-
+              <OtherInfoQuestion formikProps={props as FormikProps<OtherInfoData>} />
               <ErrorText style={{ marginHorizontal: 16 }}>{form.errorMessage}</ErrorText>
 
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
@@ -121,7 +100,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <View style={{ height: 72 }} />
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                {completeCtaLabel(props)}
+                {completeCtaLabel()}
               </BrandedButton>
             </Form>
           );
