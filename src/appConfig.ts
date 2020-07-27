@@ -24,4 +24,5 @@ export default {
 
   vaccineRegistryVersion: 'v1',
   vaccineRegistryAdVersion: 'v2',
+  dietStudyBeyondCovidConsentVersion: 'v1',
 };
