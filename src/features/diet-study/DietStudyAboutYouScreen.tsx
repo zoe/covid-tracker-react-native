@@ -23,6 +23,7 @@ import { colors } from '@theme';
 import dietStudyCoordinator, {
   PRE_LOCKDOWN,
   getScreenHeaderOptions,
+  LAST_4_WEEKS,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
@@ -32,6 +33,15 @@ interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWor
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyAboutYou'>;
   route: RouteProp<ScreenParamList, 'DietStudyAboutYou'>;
+};
+
+const IntroSection: React.FC = () => {
+  return (
+    <View style={styles.thankyou}>
+      <View style={{ height: 4 }} />
+      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.intro')}</RegularText>
+    </View>
+  );
 };
 
 const ThankYouSection: React.FC = () => {
@@ -88,6 +98,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
+      {timePeriod === LAST_4_WEEKS && <IntroSection />}
       {timePeriod === PRE_LOCKDOWN && <ThankYouSection />}
       <Header>
         <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
