@@ -69,6 +69,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
+              <Donate />
+
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"
                 calloutID="blog_006"
@@ -89,8 +91,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={dataPage003}
                 aspectRatio={1.55}
               />
-
-              <Donate />
 
               {/* <ExternalCallout
                 link="https://www.youtube.com/watch?v=zToStOETP00"
