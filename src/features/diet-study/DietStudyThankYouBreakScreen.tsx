@@ -71,10 +71,6 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
 
               <View style={styles.seperator} />
 
-              <View style={styles.textContainer}>
-                <RegularText>{i18n.t('diet-study.thank-you-break.sarah-name')}</RegularText>
-              </View>
-
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
                 {i18n.t('diet-study.continue-cta')}
               </BrandedButton>
