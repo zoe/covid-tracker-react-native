@@ -846,7 +846,14 @@
   "edit-profile": {
     "title": "la configuración de perfil",
     "text": "",
-    "archive-cta": "Archivar este perfil"
+    "archive-cta": "Archivar este perfil",
+    "done": "",
+
+      "location": {
+        "title": "",
+        "label": "",
+        "disclaimer": ""
+      }
   },
 
   "archive-confirmation": {
