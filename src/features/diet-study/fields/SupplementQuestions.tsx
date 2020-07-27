@@ -133,7 +133,7 @@ SupplementQuestions.createDTO = (formData: SupplementData): Partial<DietStudyReq
       supplements_omega3: false,
       supplements_garlic: false,
       supplements_pfnts: false,
-      supplements_other: formData.supplements,
+      supplements_other: formData.supplements_other,
     } as any;
 
     formData.supplements.forEach((item: string) => {
