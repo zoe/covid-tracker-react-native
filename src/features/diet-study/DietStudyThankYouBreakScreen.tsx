@@ -1,26 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Form } from 'native-base';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import * as Yup from 'yup';
-import { Formik, FormikProps } from 'formik';
+import { Formik } from 'formik';
 
 import { colors } from '@theme';
-import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
+import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/components/Text';
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import dietStudyCoordinator, {
-  PRE_LOCKDOWN,
   getScreenHeaderOptions,
+  LAST_4_WEEKS,
+  PRE_LOCKDOWN,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 import QuotationMark from '@assets/icons/QuotationMark';
-import { sarahBerryAvatar } from '@assets/index';
+import { sarahBerryAvatar } from '@assets';
 
-import { DietChangedQuestion, DietChangedData, DietChangedOption } from './fields/DietChangedQuestion';
-
-interface FormData extends DietChangedData {}
+interface FormData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyIntro'>;
@@ -28,21 +27,16 @@ type Props = {
 };
 
 export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient, recentDietStudyId, timePeriod } = route.params.dietStudyData;
+  const { currentPatient, timePeriod } = route.params.dietStudyData;
   const { profile } = currentPatient;
 
   const registerSchema = Yup.object();
 
   const submit = async (formData: FormData) => {
-    if (!!recentDietStudyId && formData.has_diet_changed === DietChangedOption.YES) {
-      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
-    }
-
-    // Important: We need to keep this here for Coordinator to
-    // go to the thank you page after 2nd round is completed.
-    // Otherwise will be in a loop.
     if (timePeriod === PRE_LOCKDOWN) {
       delete dietStudyCoordinator.dietStudyData.timePeriod;
+    } else if (timePeriod === LAST_4_WEEKS) {
+      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
     }
 
     dietStudyCoordinator.gotoNextScreen(route.name);
@@ -50,12 +44,7 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
 
   return (
     <Screen profile={profile} navigation={navigation} {...getScreenHeaderOptions(timePeriod)}>
-      <Formik
-        initialValues={{
-          ...DietChangedQuestion.initialFormValues(),
-        }}
-        validationSchema={registerSchema}
-        onSubmit={(values: FormData) => submit(values)}>
+      <Formik initialValues={{}} validationSchema={registerSchema} onSubmit={(values: FormData) => submit(values)}>
         {(props) => {
           return (
             <Form>
@@ -82,12 +71,13 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
 
               <View style={styles.seperator} />
 
-              <DietChangedQuestion
-                formikProps={props as FormikProps<DietChangedData>}
-                onValueChanged={() => {
-                  submit(props.values);
-                }}
-              />
+              <View style={styles.textContainer}>
+                <RegularText>{i18n.t('diet-study.thank-you-break.sarah-name')}</RegularText>
+              </View>
+
+              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                {i18n.t('diet-study.continue-cta')}
+              </BrandedButton>
             </Form>
           );
         }}
