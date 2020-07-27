@@ -1014,7 +1014,7 @@
 
     "intro": {
       "title": "COVID & Diet",
-      "description-1": "We would like to ask you some one-off Diet and Lifestyle Questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
+      "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
       "description-2": "They also want to understand how lock down has impacted our diet and dietary habits. It will take 5-10 minutes to complete.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
@@ -1025,6 +1025,7 @@
 
     "about-you": {
       "title": "A bit about you",
+      "intro": "Please answer these questions thinking back over your typical habits over the last 4 weeks.",
       "thank-you": "Thank you",
       "answer-same-set-questions": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread."
     },
@@ -1122,7 +1123,7 @@
       "specify": "Please specify the other supplements"
     },
 
-    "first-calories-label": "After waking (typically in the morning), what time do you usually first eat or drink anything (including snacks) other than water/black coffee and plain tea?",
+    "first-calories-label": "What time do you usually first eat or drink anything (including snacks) other than water/black coffee and plain tea?",
     "last-calories-label": "What is the latest time of the day that you usually eat or drink anything (including snacks) other than water/black coffee and plain tea?",
     "eats-breakfast-label": "Do you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)?",
@@ -1205,9 +1206,7 @@
       "milk-skimmed": "Skimmed milk",
       "milk-rarely-never": "Rarely/never use milk",
       "milk-plant": "Plant-based milk",
-      "milk-other": "Other",
-
-      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
+      "milk-other": "Other"
     },
 
     "other-info": {
@@ -1219,7 +1218,7 @@
       "not-sure": "Not sure"
     },
 
-    "complete-pre-cta": "Complete for lockdown",
+    "continue-cta": "Continue",
     "complete-cta": "Complete",
 
     "next-box": {
@@ -1229,11 +1228,11 @@
 
     "consent": {
       "header": "Before you finish",
-      "paragraph-1": "Thank you for completing this questionaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
-      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to se your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medcal conditions that you have told us about in the app. This is completetly optional.",
-      "buttons-header": "Do you consent to share the data for further research into nutrition and health?",
-      "yes": "Yes, finish questionaire",
-      "no": "No, finish questionaire"
+      "paragraph-1": "Thank you for completing this questionnaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
+      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to see your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. This is completely optional.",
+      "buttons-header": "Do you consent to using this data for further research into nutrition and health?",
+      "yes": "Yes, finish questionnaire",
+      "no": "No, finish questionnaire"
     },
 
     "thank-you": {
