@@ -850,8 +850,8 @@
     "done": "",
 
       "location": {
-        "title": "",
-        "label": "",
+        "title": "Mi ubicacion",
+        "label": "Su código postal",
         "disclaimer": ""
       }
   },

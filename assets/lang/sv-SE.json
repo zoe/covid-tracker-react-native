@@ -895,6 +895,19 @@
       "cta-multi-profile": false
     },
 
+    "edit-profile": {
+      "title": false,
+      "text": false,
+      "archive-cta": false,
+      "done": false,
+
+      "location": {
+        "title": false,
+        "label": false,
+        "disclaimer": false
+      }
+    },
+
     "archive-confirmation": {
       "title": false,
       "text": false,
@@ -1272,19 +1285,6 @@
       "type-o": "O",
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
-    }
-  },
-
-  "edit-profile": {
-    "title": "",
-    "text": "",
-    "archive-cta": "",
-    "done": "",
-
-    "location": {
-      "title": "",
-      "label": "",
-      "disclaimer": ""
     }
   }
 }
