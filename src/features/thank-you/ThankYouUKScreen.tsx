@@ -18,6 +18,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import Donate from '@covid/components/Donate';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -88,6 +89,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={dataPage003}
                 aspectRatio={1.55}
               />
+
+              <Donate />
 
               {/* <ExternalCallout
                 link="https://www.youtube.com/watch?v=zToStOETP00"
