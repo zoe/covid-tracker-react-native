@@ -103,6 +103,8 @@ jobs:
       - run: npm run prettier
       - run: echo "API_URL=" > .env
       - run: echo "AMPLITUDE_KEY=" >> .env
+      - run: echo "CONTENTFUL_KEY=$CONTENTFUL_KEY" >> .env
+      - run: echo "CONTENTFUL_SPACE=$CONTENTFUL_SPACE" >> .env
       - run: npm test -- --maxWorkers=2 --ci
   deploy:
     executor: node
