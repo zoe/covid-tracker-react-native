@@ -9,7 +9,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
-import { IDietStudyRemoteClient, REQUIRED_NUMBER_OF_STUDIES } from '@covid/core/diet-study/DietStudyApiClient';
+import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import dietStudyCoordinator, { DietStudyConsent, LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
@@ -159,6 +159,8 @@ export class AppCoordinator {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
         this.startDietStudyFlow(currentPatient, false);
+      } else {
+        this.startAssessmentFlow(currentPatient);
       }
     } else {
       this.startAssessmentFlow(currentPatient);
@@ -204,8 +206,7 @@ export class AppCoordinator {
     if (consent === DietStudyConsent.SKIP) return false;
 
     // Check Server
-    const shouldShowDietStudy = await this.userService.shouldShowDietStudy();
-    return shouldShowDietStudy;
+    return await this.userService.shouldShowDietStudy();
   }
 
   async shouldShowStudiesMenu(): Promise<boolean> {
