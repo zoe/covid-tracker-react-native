@@ -149,7 +149,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
     await AsyncStorageService.saveProfile(null);
-    this.setConsentSigned('', '', '');
+    await this.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -613,6 +613,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   setDietStudyResponse(response: boolean) {
     return this.client.post('/study_consent/', {
       study: 'Diet Study Beyond Covid',
+      version: appConfig.dietStudyBeyondCovidConsentVersion,
       status: response ? 'signed' : 'declined',
     });
   }
