@@ -83,20 +83,27 @@ npm install expo-cli --g
    echo "AMPLITUDE_KEY=test_key" >> .env
    ```
 
-5. Create an empty `./google-services.json` file in the root of the application.
+5. Run the following command to create `CONTENTFUL_KEY` & `CONTENTFUL_SPACE` environment variable (Contentful is defaulted to `master` for content enviroment):
+
+   ```sh
+   echo "CONTENTFUL_KEY=key" >> .env
+   echo "CONTENTFUL_SPACE=spacE_id" >> .env
+   ```
+
+6. Create an empty `./google-services.json` file in the root of the application.
 
    ```sh
    echo "{}" > google-services.json
    ```
 
-6. Run the following commands
+7. Run the following commands
 
    ```bash
    npm install
    expo start
    ```
 
-7. Run the mock server
+8. Run the mock server
 
    ```bash
    npm run mock-server
