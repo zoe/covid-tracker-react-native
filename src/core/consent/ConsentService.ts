@@ -1,10 +1,9 @@
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
 
 import { Consent, AskForStudies } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import appConfig from '@covid/appConfig';
-import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
@@ -26,7 +25,7 @@ export interface IConsentService {
 export class ConsentService extends ApiClientBase implements IConsentService {
   protected client = ApiClientBase.client;
 
-  @lazyInject(Services.Patient)
+  @inject(Services.Patient)
   private readonly patientService: IPatientService;
 
   public static consentSigned: Consent = {

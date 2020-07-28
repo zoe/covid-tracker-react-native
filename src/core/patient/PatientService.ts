@@ -1,4 +1,5 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
+import getDecorators from 'inversify-inject-decorators';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
@@ -12,6 +13,7 @@ import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientStateType, PatientProfile, getInitialPatientState } from '@covid/core/patient/PatientState';
+import { container } from '@covid/provider/services';
 
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
@@ -27,9 +29,13 @@ export interface IPatientService {
   shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
 }
 
+// Need to explicitly get lazyInject through getDecorators (For Jest)
+// due to circularing dependency with ConsentService.
+const { lazyInject } = getDecorators(container);
+
 @injectable()
 export class PatientService extends ApiClientBase implements IPatientService {
-  @inject(Services.Consent)
+  @lazyInject(Services.Consent)
   private readonly consentService: IConsentService;
 
   protected client = ApiClientBase.client;
