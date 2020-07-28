@@ -81,6 +81,7 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   setDietStudyResponse(response: boolean) {
     return this.client.post('/study_consent/', {
       study: 'Diet Study Beyond Covid',
+      version: appConfig.dietStudyBeyondCovidConsentVersion,
       status: response ? 'signed' : 'declined',
     });
   }

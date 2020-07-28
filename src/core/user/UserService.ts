@@ -86,7 +86,7 @@ export default class UserService extends ApiClientBase implements IUserService {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
     await AsyncStorageService.saveProfile(null);
-    this.consentService.setConsentSigned('', '', '');
+    await this.consentService.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {

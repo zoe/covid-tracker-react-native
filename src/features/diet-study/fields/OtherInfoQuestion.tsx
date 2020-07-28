@@ -1,13 +1,12 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { Item, Label, Textarea } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { FieldWrapper } from '@covid/components/Screen';
+import { GenericTextField } from '@covid/components/GenericTextField';
 
 export interface OtherInfoData {
   other_info: string;
@@ -25,21 +24,17 @@ export interface OtherInfoQuestion<P, Data> extends React.FC<P> {
 
 export const OtherInfoQuestion: OtherInfoQuestion<Props, OtherInfoData> = (props: Props) => {
   const { formikProps } = props;
-
   return (
-    <FieldWrapper style={{ marginVertical: 12, marginRight: 24 }}>
-      <Item stackedLabel>
-        <Label style={{ marginBottom: 16 }}>{i18n.t('diet-study.other-info.label')}</Label>
-        <Textarea
-          style={styles.textarea}
-          rowSpan={5}
-          bordered
-          value={formikProps.values.other_info}
-          onChangeText={formikProps.handleChange('other_info')}
-          underline={false}
-        />
-      </Item>
-    </FieldWrapper>
+    <GenericTextField
+      formikProps={formikProps}
+      label={i18n.t('diet-study.other-info.label')}
+      name="other_info"
+      inputProps={{
+        multiline: true,
+        numberOfLines: 5,
+      }}
+      wrapperStyle={styles.input}
+    />
   );
 };
 
@@ -57,7 +52,8 @@ OtherInfoQuestion.createDTO = (formData: OtherInfoData): Partial<DietStudyReques
 };
 
 const styles = StyleSheet.create({
-  textarea: {
-    width: '100%',
+  input: {
+    marginVertical: 12,
+    marginHorizontal: 16,
   },
 });

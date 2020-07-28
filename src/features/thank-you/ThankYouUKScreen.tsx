@@ -14,15 +14,12 @@ import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { IUserService } from '@covid/core/user/UserService';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-
-import { ScreenParamList } from '../ScreenParamList';
+import Donate from '@covid/components/Donate';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -42,8 +39,8 @@ const initialState = {
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
-  @lazyInject(Services.User)
-  private userService: IUserService;
+  @lazyInject(Services.Consent)
+  private consentService: IConsentService;
   private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
@@ -51,7 +48,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
+      inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
@@ -70,6 +67,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View>
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
+
+              <Donate />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"

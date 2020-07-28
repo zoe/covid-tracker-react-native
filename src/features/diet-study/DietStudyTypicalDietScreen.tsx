@@ -14,10 +14,7 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
-import dietStudyCoordinator, {
-  LAST_4_WEEKS,
-  getScreenHeaderOptions,
-} from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { getScreenHeaderOptions } from '@covid/core/diet-study/DietStudyCoordinator';
 import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
 
 import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
@@ -58,9 +55,6 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
-  const completeCtaLabel = () =>
-    timePeriod === LAST_4_WEEKS ? i18n.t('diet-study.complete-pre-cta') : i18n.t('diet-study.complete-cta');
-
   return (
     <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
       <Header>
@@ -100,7 +94,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <View style={{ height: 72 }} />
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                {completeCtaLabel()}
+                {i18n.t('diet-study.continue-cta')}
               </BrandedButton>
             </Form>
           );
@@ -114,13 +108,16 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.backgroundSecondary,
   },
+
   description: {
     marginTop: 16,
     marginHorizontal: 16,
   },
+
   padded: {
     marginHorizontal: 16,
   },
+
   divider: {
     height: 1,
     marginVertical: 32,

@@ -15,7 +15,6 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 
 type MenuItemProps = {
   label: string;
@@ -45,13 +44,16 @@ enum DrawerMenuItem {
   LOGOUT = 'LOGOUT',
 }
 
-export async function DrawerMenu(props: DrawerContentComponentProps) {
+export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const consentService = useInjection<IConsentService>(Services.Consent);
   const [userEmail, setUserEmail] = useState<string>('');
-  const [_, setShowDietStudy] = useState<boolean>(false);
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
-  const showStudyMenu = await appCoordinator.shouldShowStudiesMenu();
+
+  useEffect(() => {
+    userService.shouldShowDietStudy().then((value) => setShowDietStudy(value));
+  }, [userService.hasUser, setShowDietStudy]);
 
   const fetchEmail = async () => {
     try {
@@ -73,10 +75,10 @@ export async function DrawerMenu(props: DrawerContentComponentProps) {
 
   const fetchShouldShowDietStudy = async () => {
     try {
-      const shouldShowDietStudy = await consentService.shouldShowDietStudy();
-      setShowDietStudy(shouldShowDietStudy);
+      const showDietStudy = await appCoordinator.shouldShowStudiesMenu();
+      setShowDietStudy(showDietStudy);
     } catch (_) {
-      setShowVaccineRegistry(false);
+      setShowDietStudy(false);
     }
   };
 
@@ -155,7 +157,7 @@ export async function DrawerMenu(props: DrawerContentComponentProps) {
     Linking.openURL(i18n.t('faq-link'));
   }
 
-  async function openPushNoticationSettings() {
+  async function openPushNotificationSettings() {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.TURN_ON_REMINDERS,
     });
@@ -174,7 +176,7 @@ export async function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-        {showStudyMenu && (
+        {showDietStudy && (
           <MenuItem
             label={i18n.t('diet-study.drawer-menu-item')}
             onPress={() => {
@@ -200,7 +202,7 @@ export async function DrawerMenu(props: DrawerContentComponentProps) {
         <MenuItem
           label={i18n.t('push-notifications')}
           onPress={() => {
-            openPushNoticationSettings();
+            openPushNotificationSettings();
           }}
         />
         <MenuItem

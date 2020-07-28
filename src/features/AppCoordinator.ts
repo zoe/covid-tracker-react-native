@@ -183,6 +183,8 @@ export class AppCoordinator {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
         this.startDietStudyFlow(currentPatient, false);
+      } else {
+        this.startAssessmentFlow(currentPatient);
       }
     } else {
       this.startAssessmentFlow(currentPatient);
@@ -228,8 +230,7 @@ export class AppCoordinator {
     if (consent === DietStudyConsent.SKIP) return false;
 
     // Check Server
-    const shouldShowDietStudy = await this.consentService.shouldShowDietStudy();
-    return shouldShowDietStudy;
+    return await this.userService.shouldShowDietStudy();
   }
 
   async shouldShowStudiesMenu(): Promise<boolean> {
