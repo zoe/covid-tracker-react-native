@@ -1050,6 +1050,7 @@
 
     "about-you": {
       "title": "",
+      "intro": "",
       "thank-you": "",
       "answer-same-set-questions": ""
     },
@@ -1231,9 +1232,7 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": "",
-
-      "noticed-a-change": ""
+      "milk-other": ""
     },
 
     "other-info": {
@@ -1245,7 +1244,7 @@
       "not-sure": ""
     },
 
-    "complete-pre-cta": "",
+    "continue-cta": "",
     "complete-cta": "",
 
     "next-box": {

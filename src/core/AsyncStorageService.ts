@@ -50,6 +50,7 @@ export class AsyncStorageService {
     try {
       await AsyncStorage.removeItem(AUTH_TOKEN);
       await AsyncStorage.removeItem(USER_ID);
+      await AsyncStorage.removeItem(SKIP_DIET_STUDY);
     } catch (err) {
       // Swallow for now
       // todo: find a way to report the crash and an alternative
@@ -189,7 +190,6 @@ export class AsyncStorageService {
   }
 
   // Diet Study Consent
-
   static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
     try {
       const value = await AsyncStorage.getItem(SKIP_DIET_STUDY);

@@ -18,6 +18,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
+import Donate from '@covid/components/Donate';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -67,6 +68,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View>
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
+
+              <Donate />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"
