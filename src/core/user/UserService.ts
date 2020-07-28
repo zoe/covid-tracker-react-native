@@ -7,6 +7,7 @@ import { AvatarName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import NavigatorService from '@covid/NavigatorService';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -143,6 +144,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async logout() {
     this.hasUser = false;
     await this.deleteLocalUserData();
+    NavigatorService.navigate('CountrySelect');
   }
 
   private async deleteLocalUserData() {
@@ -172,7 +174,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
     this.hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.updateUserCountry(this.hasUser);
+    await this.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
       const patientId: string | null = await this.getFirstPatientId();

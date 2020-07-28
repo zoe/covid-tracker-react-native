@@ -1,9 +1,9 @@
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import { PatientData } from '@covid/core/patient/PatientCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -32,7 +32,7 @@ export type ScreenParamList = {
   ResetPasswordConfirm: undefined;
   Register: undefined;
   Login: { terms: string };
-  CountrySelect: { patientId: string | null };
+  CountrySelect: undefined;
   OptionalInfo: undefined;
 
   // Profile screens

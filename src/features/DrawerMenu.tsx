@@ -121,7 +121,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     userService.logout();
     props.navigation.reset({
       index: 0,
-      routes: [{ name: 'Welcome' }],
+      routes: [{ name: 'CountrySelect' }],
     });
     props.navigation.dispatch(DrawerActions.closeDrawer());
   }
