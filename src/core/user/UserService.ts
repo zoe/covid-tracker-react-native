@@ -413,27 +413,17 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   public async getProfile(): Promise<UserResponse> {
-    const localUser = await AsyncStorageService.GetStoredData();
-    if (!localUser) {
-      await this.logout();
-      throw Error("User not found. Can't fetch profile");
-    }
+    this.client
+      .get<UserResponse>(`/profile/`)
+      .then(async (profileResponse) => {
+        await AsyncStorageService.saveProfile(profileResponse.data);
+        return profileResponse.data;
+      })
+      .catch(async (error) => {
+        await this.logout();
+      });
 
-    const localProfile = await AsyncStorageService.getProfile();
-
-    // If not stored locally, wait for server response.
-    if (localProfile == null) {
-      const profileResponse = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profileResponse.data);
-      return profileResponse.data;
-    }
-
-    // If local copy available, use it but update it.
-    this.client.get<UserResponse>(`/profile/`).then(async (profileResponse) => {
-      await AsyncStorageService.saveProfile(profileResponse.data);
-    });
-
-    return localProfile;
+    return {} as UserResponse;
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {
