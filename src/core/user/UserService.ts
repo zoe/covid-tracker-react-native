@@ -13,7 +13,7 @@ import { ConfigType, getCountryConfig } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
-import { camelizeKeys } from '../api/utils';
+import { camelizeKeys, objectToQueryString } from '../api/utils';
 import { getInitialPatientState, PatientProfile, PatientStateType } from '../patient/PatientState';
 import { cleanIntegerVal } from '../../utils/number';
 
@@ -124,7 +124,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   protected client = ApiClientBase.client;
 
   public async login(email: string, password: string) {
-    const requestBody = this.objectToQueryString({
+    const requestBody = objectToQueryString({
       username: email,
       password,
     });
@@ -232,7 +232,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       consent_version: UserService.consentSigned.version,
       privacy_policy_version: UserService.consentSigned.privacy_policy_version,
     };
-    const requestBody = this.objectToQueryString(payload);
+    const requestBody = objectToQueryString(payload);
 
     // todo: what is in the response?
     const promise = this.client.post<LoginOrRegisterResponse>('/auth/signup/', requestBody, this.configEncoded);
@@ -253,7 +253,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async myPatientProfile(): Promise<Profile | null> {
     try {
       const data = (await this.client.get(`/patient_list/`)).data as Profile[];
-      console.log(data);
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
       handleServiceError(error);
