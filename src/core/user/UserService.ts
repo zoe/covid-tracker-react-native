@@ -413,16 +413,13 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   public async getProfile(): Promise<UserResponse> {
-    this.client
-      .get<UserResponse>(`/profile/`)
-      .then(async (profileResponse) => {
-        await AsyncStorageService.saveProfile(profileResponse.data);
-        return profileResponse.data;
-      })
-      .catch(async (error) => {
-        await this.logout();
-      });
-
+    try {
+      const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
+      await AsyncStorageService.saveProfile(profile);
+      return profile;
+    } catch (error) {
+      await this.logout();
+    }
     return {} as UserResponse;
   }
 
