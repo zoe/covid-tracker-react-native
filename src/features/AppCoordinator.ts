@@ -230,7 +230,7 @@ export class AppCoordinator {
     if (consent === DietStudyConsent.SKIP) return false;
 
     // Check Server
-    return await this.userService.shouldShowDietStudy();
+    return await this.consentService.shouldShowDietStudy();
   }
 
   async shouldShowStudiesMenu(): Promise<boolean> {

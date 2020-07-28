@@ -11,7 +11,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
-import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import YesNoField from '@covid/components/YesNoField';
 import { isSECountry } from '@covid/core/localisation/LocalisationService';
 import { colors } from '@theme';

@@ -1,4 +1,5 @@
 import { injectable, inject } from 'inversify';
+import getDecorators from 'inversify-inject-decorators';
 
 import { Consent, AskForStudies } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
@@ -7,6 +8,11 @@ import appConfig from '@covid/appConfig';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { container } from '@covid/provider/services';
+
+// Need to explicitly get lazyInject through getDecorators (For Jest)
+// due to circularing dependency with ConsentService.
+const { lazyInject } = getDecorators(container);
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
@@ -25,7 +31,7 @@ export interface IConsentService {
 export class ConsentService extends ApiClientBase implements IConsentService {
   protected client = ApiClientBase.client;
 
-  @inject(Services.Patient)
+  @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
   public static consentSigned: Consent = {

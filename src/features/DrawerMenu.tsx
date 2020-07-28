@@ -15,6 +15,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 
 type MenuItemProps = {
   label: string;
@@ -52,7 +53,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
 
   useEffect(() => {
-    userService.shouldShowDietStudy().then((value) => setShowDietStudy(value));
+    consentService.shouldShowDietStudy().then((value) => setShowDietStudy(value));
   }, [userService.hasUser, setShowDietStudy]);
 
   const fetchEmail = async () => {
