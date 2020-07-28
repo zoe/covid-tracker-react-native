@@ -183,7 +183,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      return profile.patients[0];
+      return profile!.patients[0];
     } catch (error) {
       return null;
     }
