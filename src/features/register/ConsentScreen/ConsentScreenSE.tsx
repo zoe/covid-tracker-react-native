@@ -189,9 +189,9 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
             studiedeltagare ovan.
           </CheckboxItem>
           <CheckboxItem testID="agreeCheck" value={agreeChecked} onChange={toggleAgreeChecked}>
-            Jag har läst och accepterar Zoe Global Ltd{' '}
+            Jag har läst och accepterar Zoe Global Ltds{' '}
             <ClickableText testID="privacyPolicy" onPress={onPrivacyPolicyPress}>
-              integritetspolicy
+              integritetsmeddelande
             </ClickableText>
             .
           </CheckboxItem>
