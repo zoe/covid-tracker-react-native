@@ -12,7 +12,7 @@ const USER_COUNT = 'userCount';
 const USER_COUNTRY = 'userCountry';
 const CONSENT_SIGNED = 'consentSigned';
 const PUSH_TOKEN = 'pushToken';
-const SKIP_DIET_STUDY = 'skipDietStudy';
+const DIET_STUDY_CONSENT = 'dietStudyConsent';
 
 const USER_PROFILE = 'userProfile';
 const ASKED_COUNTRY = 'askedCountry';
@@ -50,7 +50,7 @@ export class AsyncStorageService {
     try {
       await AsyncStorage.removeItem(AUTH_TOKEN);
       await AsyncStorage.removeItem(USER_ID);
-      await AsyncStorage.removeItem(SKIP_DIET_STUDY);
+      await AsyncStorage.removeItem(DIET_STUDY_CONSENT);
     } catch (err) {
       // Swallow for now
       // todo: find a way to report the crash and an alternative
@@ -192,7 +192,7 @@ export class AsyncStorageService {
   // Diet Study Consent
   static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
     try {
-      const value = await AsyncStorage.getItem(SKIP_DIET_STUDY);
+      const value = await AsyncStorage.getItem(DIET_STUDY_CONSENT);
       return value as DietStudyConsent | null;
     } catch (err) {
       return null;
@@ -201,7 +201,7 @@ export class AsyncStorageService {
 
   static async setDietStudyConsent(consent: DietStudyConsent) {
     try {
-      return await AsyncStorage.setItem(SKIP_DIET_STUDY, consent);
+      return await AsyncStorage.setItem(DIET_STUDY_CONSENT, consent);
     } catch (err) {}
   }
 }
