@@ -43,7 +43,7 @@ export interface IUserService {
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse>;
+  getProfile(): Promise<UserResponse | null>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -177,11 +177,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
     await this.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId();
-      if (!patientId) {
-        // Logged in with an account doesn't exist. Force logout.
-        await this.logout();
-      }
     }
   }
 
@@ -412,15 +407,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return patientState;
   }
 
-  public async getProfile(): Promise<UserResponse> {
+  public async getProfile(): Promise<UserResponse | null> {
     try {
       const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
       await AsyncStorageService.saveProfile(profile);
       return profile;
     } catch (error) {
-      await this.logout();
+      handleServiceError(error);
     }
-    return {} as UserResponse;
+    return null;
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {
