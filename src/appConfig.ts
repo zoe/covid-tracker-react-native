@@ -13,7 +13,7 @@ export default {
   nursesConsentVersionUS: 'v2',
   consentVersionUS: 'v1',
   consentVersionUK: 'v2',
-  consentVersionSE: 'v1',
+  consentVersionSE: 'v2',
 
   privacyPolicyVersionUS: 'v1.3',
   privacyPolicyVersionUK: 'v2.3',
