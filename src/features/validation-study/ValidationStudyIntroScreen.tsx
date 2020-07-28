@@ -6,7 +6,6 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View, ImageBackground 
 import { icon, studyIntro } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
@@ -22,9 +21,6 @@ type Props = {
 };
 
 export default class ValidationStudyIntroScreen extends Component<Props, object> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-  
   @lazyInject(Services.Consent)
   private readonly consentService: IConsentService;
 
