@@ -1,4 +1,4 @@
-import { compareLocale } from '@covid/locale/compare';
+import { compareLocale } from '../src/locale/compare';
 
 const args = process.argv;
 const locale: string = args.length > 2 ? args[2] : '';
