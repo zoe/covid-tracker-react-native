@@ -1,9 +1,10 @@
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import { PatientData } from '@covid/core/patient/PatientCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
+import { Profile } from '@covid/components/Collections/ProfileList';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -41,8 +42,9 @@ export type ScreenParamList = {
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };
   ConsentForOther: { profileName: string; avatarName?: string; consentType: ConsentType };
-  EditProfile: { profile: Profile };
-  ArchiveReason: { profileId: string };
+  EditProfile: { profile: Profile; patientInfo: PatientInfosRequest };
+  EditLocation: { profile: Profile; patientInfo: PatientInfosRequest };
+  ArchiveReason: { patientId: string };
 
   // Patient screens
   YourStudy: { patientData: PatientData };
