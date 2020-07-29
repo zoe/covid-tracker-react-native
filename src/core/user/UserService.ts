@@ -13,7 +13,7 @@ import { ConfigType, getCountryConfig } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
-import { camelizeKeys } from '../api/utils';
+import { camelizeKeys, objectToQueryString } from '../api/utils';
 import { getInitialPatientState, PatientStateType } from '../patient/PatientState';
 import { cleanIntegerVal } from '../../utils/number';
 
