@@ -31,27 +31,9 @@ export class CountrySelectScreen extends Component<Props, object> {
 
   private selectCountry = async (countryCode: string) => {
     await this.userService.setUserCountry(countryCode);
-    const { patientId } = this.props.route.params;
-
-    const screenParams: any | null = () => {
-      if (patientId != null) {
-        return { patientId };
-      } else {
-        return null;
-      }
-    };
-
-    const screenName = () => {
-      if (patientId != null) {
-        return 'WelcomeRepeat';
-      } else {
-        return 'Welcome';
-      }
-    };
-
     this.props.navigation.reset({
       index: 0,
-      routes: [{ name: screenName(), params: screenParams() }],
+      routes: [{ name: 'Welcome' }],
     });
   };
 

@@ -898,7 +898,14 @@
     "edit-profile": {
       "title": false,
       "text": false,
-      "archive-cta": false
+      "archive-cta": false,
+      "done": false,
+
+      "location": {
+        "title": false,
+        "label": false,
+        "disclaimer": false
+      }
     },
 
     "archive-confirmation": {

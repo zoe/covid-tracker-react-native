@@ -48,9 +48,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 
   const onLoginPress = useCallback(() => navigation.navigate('Login'), [navigation.navigate]);
 
-  const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect', { patientId: null }), [
-    navigation.navigate,
-  ]);
+  const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect'), [navigation.navigate]);
 
   const onNextButtonPress = useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
 

@@ -56,10 +56,6 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
   const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
 
-  useEffect(() => {
-    userService.shouldShowDietStudy().then((value) => setShowDietStudy(value));
-  }, [userService.hasUser, setShowDietStudy]);
-
   const fetchEmail = async () => {
     try {
       const profile = await userService.getProfile();
@@ -128,7 +124,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     userService.logout();
     props.navigation.reset({
       index: 0,
-      routes: [{ name: 'Welcome' }],
+      routes: [{ name: 'CountrySelect' }],
     });
     props.navigation.dispatch(DrawerActions.closeDrawer());
   }

@@ -8,7 +8,7 @@ import { ArchiveConfirmationModal } from '@covid/features/multi-profile/ArchiveC
 import appCoordinator from '@covid/features/AppCoordinator';
 
 type Props = {
-  profileId: string;
+  patientId: string;
 };
 
 export const ArchiveProfile: React.FC<Props> = (props) => {
@@ -24,7 +24,7 @@ export const ArchiveProfile: React.FC<Props> = (props) => {
 
   function confirmArchive() {
     setConfirmModalVisibility(false);
-    appCoordinator.goToArchiveReason(props.profileId);
+    appCoordinator.goToArchiveReason(props.patientId);
   }
 
   return (
