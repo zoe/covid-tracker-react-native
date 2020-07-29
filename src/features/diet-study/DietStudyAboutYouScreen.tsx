@@ -15,7 +15,6 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { ExtraWeightData, ExtraWeightQuestions } from '@covid/features/diet-study/fields/ExtraWeightQuestions';
 import { HoursSleepData, HoursSleepQuestion } from '@covid/features/diet-study/fields/HoursSleepQuestion';
 import { ShiftWorkData, ShiftWorkQuestion } from '@covid/features/diet-study/fields/ShiftWorkQuestion';
-import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-study/fields/FoodSecurityQuestion';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -25,10 +24,11 @@ import dietStudyCoordinator, {
   getScreenHeaderOptions,
   LAST_4_WEEKS,
 } from '@covid/core/diet-study/DietStudyCoordinator';
+import { PhysicalActivityData, PhysicalActivityQuestion } from '@covid/features/diet-study/fields/PhysicalActivity';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
-interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, FoodSecurityData {}
+interface FormData extends WeightData, ExtraWeightData, HoursSleepData, ShiftWorkData, PhysicalActivityData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyAboutYou'>;
@@ -40,6 +40,7 @@ const IntroSection: React.FC = () => {
     <View style={styles.thankyou}>
       <View style={{ height: 4 }} />
       <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.intro')}</RegularText>
+      <RegularBoldText>{i18n.t('diet-study.about-you.intro-2')}</RegularBoldText>
     </View>
   );
 };
@@ -68,7 +69,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     .concat(ExtraWeightQuestions.schema())
     .concat(HoursSleepQuestion.schema())
     .concat(ShiftWorkQuestion.schema())
-    .concat(FoodSecurityQuestion.schema());
+    .concat(PhysicalActivityQuestion.schema());
 
   const updateDietStudy = async (formData: FormData) => {
     if (form.submitting) return;
@@ -78,7 +79,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
       ...ExtraWeightQuestions.createDTO(formData),
       ...HoursSleepQuestion.createDTO(formData),
       ...ShiftWorkQuestion.createDTO(formData),
-      ...FoodSecurityQuestion.createDTO(formData),
+      ...PhysicalActivityQuestion.createDTO(formData),
     } as Partial<DietStudyRequest>;
 
     if (formData.weightUnit === 'lbs') {
@@ -100,13 +101,6 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
     <Screen profile={profile} navigation={navigation} style={styles.screen} {...getScreenHeaderOptions(timePeriod)}>
       {timePeriod === LAST_4_WEEKS && <IntroSection />}
       {timePeriod === PRE_LOCKDOWN && <ThankYouSection />}
-      <Header>
-        <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
-      </Header>
-
-      <ProgressBlock>
-        <ProgressStatus step={1} maxSteps={3} />
-      </ProgressBlock>
 
       <Formik
         initialValues={{
@@ -114,7 +108,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
           ...ExtraWeightQuestions.initialFormValues(),
           ...HoursSleepQuestion.initialFormValues(),
           ...ShiftWorkQuestion.initialFormValues(),
-          ...FoodSecurityQuestion.initialFormValues(),
+          ...PhysicalActivityQuestion.initialFormValues(),
         }}
         validationSchema={registerSchema}
         onSubmit={(values: FormData) => updateDietStudy(values)}>
@@ -127,12 +121,21 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
                   label={i18n.t('diet-study.weight-label')}
                 />
               )}
-
               <ExtraWeightQuestions isFemale={isFemale} formikProps={props as FormikProps<ExtraWeightData>} />
+
+              <Header>
+                <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
+              </Header>
+
+              <ProgressBlock>
+                <ProgressStatus step={0} maxSteps={3} />
+              </ProgressBlock>
+
+              <View style={{ height: 24 }} />
 
               <HoursSleepQuestion formikProps={props as FormikProps<HoursSleepData>} />
               <ShiftWorkQuestion formikProps={props as FormikProps<ShiftWorkData>} />
-              <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
+              <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
 
               <ErrorText>{form.errorMessage}</ErrorText>
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
