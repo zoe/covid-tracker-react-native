@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Icon } from 'native-base';
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
@@ -14,6 +14,7 @@ import { ClippedText, RegularText } from './Text';
 
 type BackButtonProps = {
   navigation: StackNavigationProp<ScreenParamList>;
+  style?: StyleProp<ViewStyle>;
 };
 
 export enum CallOutType {
@@ -21,9 +22,9 @@ export enum CallOutType {
   Tag,
 }
 
-const BackButton: React.FC<BackButtonProps> = ({ navigation }) => {
+export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: containerStyle }) => {
   return (
-    <TouchableOpacity onPress={navigation.goBack}>
+    <TouchableOpacity onPress={navigation.goBack} style={containerStyle}>
       <View style={styles.iconButton}>
         <Icon name="chevron-thin-left" type="Entypo" style={styles.icon} />
       </View>

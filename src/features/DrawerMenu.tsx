@@ -155,6 +155,10 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     Linking.openURL(i18n.t('faq-link'));
   }
 
+  function openEstimatedCases() {
+    props.navigation.navigate('EstimatedCases', {});
+  }
+
   async function openPushNotificationSettings() {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.TURN_ON_REMINDERS,
@@ -174,6 +178,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
+        <MenuItem label={i18n.t('estimated-cases')} onPress={openEstimatedCases} />
         {showDietStudy && (
           <MenuItem
             label={i18n.t('diet-study.drawer-menu-item')}
