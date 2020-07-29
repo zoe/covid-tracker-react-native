@@ -6,7 +6,6 @@ import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { GreenTick } from '@covid/components/GreenTick';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { colors } from '@theme';
 import { Profile } from '@covid/components/Collections/ProfileList';
 
@@ -15,29 +14,21 @@ import LastReported from './LastReported';
 
 type Props = {
   profile: Profile;
-  index: number;
+  onEditPressed: () => void;
 };
 
 export const ProfileCard: React.FC<Props> = (props) => {
   const profile = props.profile;
-  const avatarImage = getAvatarByName((profile.avatar_name ?? 'profile1') as AvatarName);
+  const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
   const hasReportedToday = profile.last_reported_at && getDaysAgo(profile.last_reported_at) === 0;
-
-  function handleEdit() {
-    appCoordinator.editProfile(profile);
-  }
 
   return (
     <Card style={styles.card} transparent>
-      {profile.reported_by_another ? (
-        <View style={styles.infoContainer}>
-          <TouchableOpacity onPress={() => handleEdit()}>
-            <InfoCircle />
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View style={styles.placeholder} />
-      )}
+      <View style={styles.infoContainer}>
+        <TouchableOpacity onPress={props.onEditPressed}>
+          <InfoCircle />
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.avatarContainer}>
         {hasReportedToday && <GreenTick />}

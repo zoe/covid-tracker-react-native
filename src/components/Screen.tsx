@@ -17,7 +17,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { PatientProfile } from '@covid/core/patient/PatientState';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import PatientHeader, { CallOutType } from './PatientHeader';
 import { RegularText } from './Text';
@@ -61,7 +61,7 @@ export type ScreenProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
   navigation?: StackNavigationProp<ScreenParamList>;
-  profile?: PatientProfile;
+  profile?: Profile;
   simpleCallout?: boolean;
   calloutType?: CallOutType;
   calloutTitle?: string;

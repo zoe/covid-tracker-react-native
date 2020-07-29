@@ -3,7 +3,7 @@ import * as Localization from 'expo-localization';
 import { injectable } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
-import { AvatarName } from '@covid/utils/avatar';
+import { AvatarName, DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
@@ -14,7 +14,7 @@ import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { camelizeKeys } from '../api/utils';
-import { getInitialPatientState, PatientProfile, PatientStateType } from '../patient/PatientState';
+import { getInitialPatientState, PatientStateType } from '../patient/PatientState';
 import { cleanIntegerVal } from '../../utils/number';
 
 import {
@@ -333,10 +333,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
       patientName = i18n.t('default-profile-name');
     }
 
-    const profile: PatientProfile = {
+    const profile: Profile = {
+      id: patientState.patientId,
       name: patientName,
-      avatarName: (patient.avatar_name || 'profile1') as AvatarName,
-      isPrimaryPatient: !patient.reported_by_another,
+      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
+      reported_by_another: patient.reported_by_another,
     };
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;

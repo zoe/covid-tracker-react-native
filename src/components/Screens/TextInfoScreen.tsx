@@ -6,12 +6,12 @@ import { colors } from '@theme';
 import { BrandedButton, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { PatientProfile } from '@covid/core/patient/PatientState';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 interface Props {
   // Screen
   navigation?: StackNavigationProp<ScreenParamList>;
-  profile?: PatientProfile;
+  profile?: Profile;
 
   // Text info
   headerLabel: string;
