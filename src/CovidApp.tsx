@@ -7,18 +7,19 @@ import React, { Component, RefObject } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import { Notifications } from 'expo';
 
 import { colors } from '@theme/colors';
-import Analytics from '@covid/core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { SplashScreen } from '@covid/features/SplashScreen';
-import ThankYouScreen from '@covid/features/ThankYouScreen';
-import ThankYouUKScreen from '@covid/features/ThankYouUKScreen';
-import ViralThankYouScreen from '@covid/features/ViralThankYouScreen';
-import CovidTestDetailScreen from '@covid/features/assessment/CovidTestDetailScreen';
+import ThankYouScreen from '@covid/features/thank-you/ThankYouScreen';
+import ThankYouUKScreen from '@covid/features/thank-you/ThankYouUKScreen';
+import ViralThankYouScreen from '@covid/features/thank-you/ViralThankYouScreen';
+import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
 import HowYouFeelScreen from '@covid/features/assessment/HowYouFeelScreen';
@@ -27,30 +28,30 @@ import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScr
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from '@covid/features/assessment/TreatmentSelectionScreen';
 import WhereAreYouScreen from '@covid/features/assessment/WhereAreYouScreen';
-import CovidTestListScreen from '@covid/features/assessment/CovidTestListScreen';
+import CovidTestListScreen from '@covid/features/covid-tests/CovidTestListScreen';
 import { LoginScreen } from '@covid/features/login/LoginScreen';
 import AdultOrChildScreen from '@covid/features/multi-profile/AdultOrChildScreen';
 import ConsentForOther from '@covid/features/multi-profile/ConsentForOtherScreen';
 import CreateProfileScreen from '@covid/features/multi-profile/CreateProfileScreen';
 import ReportForOtherScreen from '@covid/features/multi-profile/ReportForOtherScreen';
 import SelectProfileScreen from '@covid/features/multi-profile/SelectProfileScreen';
-import { ResetPasswordConfirmScreen } from '@covid/features/password-reset/ResetPassordConfirm';
-import { ResetPasswordScreen } from '@covid/features/password-reset/ResetPassword';
+import { ResetPasswordConfirmScreen } from '@covid/features/password-reset/ResetPasswordConfirmScreen';
+import { ResetPasswordScreen } from '@covid/features/password-reset/ResetPasswordScreen';
 import AboutYouScreen from '@covid/features/patient/AboutYouScreen';
 import PreviousExposureScreen from '@covid/features/patient/PreviousExposure';
 import YourHealthScreen from '@covid/features/patient/YourHealthScreen';
 import YourStudyScreen from '@covid/features/patient/YourStudyScreen';
 import YourWorkScreen from '@covid/features/patient/YourWorkScreen';
-import { ConsentScreen } from '@covid/features/register/ConsentScreen';
+import ConsentScreen from '@covid/features/register/ConsentScreen/ConsentScreen';
 import { OptionalInfoScreen } from '@covid/features/register/OptionalInfoScreen';
 import { RegisterScreen } from '@covid/features/register/RegisterScreen';
-import { Welcome1Screen } from '@covid/features/register/Welcome1Screen';
-import { Welcome2Screen } from '@covid/features/register/Welcome2Screen';
+import Welcome1Screen from '@covid/features/register/Welcome1Screen';
+import Welcome2Screen from '@covid/features/register/Welcome2Screen';
 import { WelcomeRepeatScreen } from '@covid/features/register/WelcomeRepeatScreen';
 import { PrivacyPolicyUKScreen } from '@covid/features/register/gb/PrivacyPolicyUKScreen';
-import ValidationStudyConsentScreen from '@covid/features/register/gb/ValidationStudyConsentScreen';
-import ValidationStudyInfoScreen from '@covid/features/register/gb/ValidationStudyInfoScreen';
-import ValidationStudyIntroScreen from '@covid/features/register/gb/ValidationStudyIntroScreen';
+import ValidationStudyConsentScreen from '@covid/features/validation-study/ValidationStudyConsentScreen';
+import ValidationStudyInfoScreen from '@covid/features/validation-study/ValidationStudyInfoScreen';
+import ValidationStudyIntroScreen from '@covid/features/validation-study/ValidationStudyIntroScreen';
 import PrivacyPolicySVScreen from '@covid/features/register/sv/PrivacyPolicySVScreen';
 import BeforeWeStartUS from '@covid/features/register/us/BeforeWeStartUS';
 import { NursesConsentUSScreen } from '@covid/features/register/us/NursesConsentUS';
@@ -60,6 +61,16 @@ import i18n from '@covid/locale/i18n';
 import { EditProfileScreen } from '@covid/features/multi-profile/EditProfileScreen';
 import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReasonScreen';
 import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
+import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/VaccineRegistrySignUpScreen';
+import { VaccineRegistryInfoScreen } from '@covid/features/assessment/gb/VaccineRegistryInfoScreen';
+import DietStudyAboutYouScreen from '@covid/features/diet-study/DietStudyAboutYouScreen';
+import DietStudyIntroScreen from '@covid/features/diet-study/DietStudyIntroScreen';
+import DietStudyYourLifestyleScreen from '@covid/features/diet-study/DietStudyYourLifestyleScreen';
+import DietStudyTypicalDietScreen from '@covid/features/diet-study/DietStudyTypicalDietScreen';
+import { DietStudyThankYouScreen } from '@covid/features/diet-study/DietStudyThankYouScreen';
+import { DietStudyConsentScreen } from '@covid/features/diet-study/DietStudyConsentScreen';
+import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStudyThankYouBreakScreen';
+import NavigatorService from '@covid/NavigatorService';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -76,28 +87,10 @@ const initialState = {
   isApiOnline: true,
 };
 
-const getCurrentRouteName = (navigationState: NavigationState): string | null => {
-  if (!navigationState) return null;
-
-  const route = navigationState.routes[navigationState.index];
-  if (route.state) {
-    // Nested navigators
-    // @ts-ignore
-    return getCurrentRouteName(route.state);
-  }
-  return route.name;
-};
-
 export default class CovidApp extends Component<object, State> {
-  navigationRef: RefObject<NavigationState>;
-  currentRouteName: string | null;
-
   constructor(props: object) {
     super(props);
     this.state = initialState;
-    this.navigationRef = React.createRef();
-    this.currentRouteName = '';
-    this.handleStateChange = this.handleStateChange.bind(this);
   }
 
   async componentDidMount() {
@@ -107,24 +100,11 @@ export default class CovidApp extends Component<object, State> {
     });
     this.setState({ isLoaded: true });
 
-    // Store the RouteName
-    // @ts-ignore
-    const state = this.navigationRef.current?.getRootState();
-    this.currentRouteName = getCurrentRouteName(state);
-  }
-
-  handleStateChange(state: NavigationState | undefined) {
-    if (!state) return;
-
-    const previousRouteName = this.currentRouteName;
-    const newRouteName = getCurrentRouteName(state);
-
-    if (newRouteName) {
-      if (previousRouteName !== newRouteName) {
-        Analytics.trackScreenView(newRouteName);
+    Notifications.addListener((notif) => {
+      if (notif.origin === 'selected') {
+        Analytics.track(events.OPEN_FROM_NOTIFICATION);
       }
-      this.currentRouteName = newRouteName;
-    }
+    });
   }
 
   render() {
@@ -137,8 +117,11 @@ export default class CovidApp extends Component<object, State> {
             <Header style={{ display: 'none' }}>
               <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
             </Header>
-
-            <NavigationContainer ref={this.navigationRef as any} onStateChange={this.handleStateChange}>
+            <NavigationContainer
+              ref={(navigatorRef) => {
+                NavigatorService.setContainer(navigatorRef);
+              }}
+              onStateChange={NavigatorService.handleStateChange}>
               <Drawer.Navigator
                 drawerContent={(props) => <DrawerMenu {...props} />}
                 screenOptions={{ swipeEnabled: false }}
@@ -217,6 +200,15 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
+        <Stack.Screen name="VaccineRegistrySignup" component={VaccineRegistrySignUpScreen} options={noHeader} />
+        <Stack.Screen name="VaccineRegistryInfo" component={VaccineRegistryInfoScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyAboutYou" component={DietStudyAboutYouScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyIntro" component={DietStudyIntroScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyThankYou" component={DietStudyThankYouScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyThankYouBreak" component={DietStudyThankYouBreakScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
+        <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
       </Stack.Navigator>
     );
   }

@@ -17,6 +17,11 @@ export interface Lifestyle {
   patient: string;
 }
 
+export interface DietStudy {
+  id: string;
+  patient: string;
+}
+
 export interface CovidTest {
   id: string;
   patient: string;

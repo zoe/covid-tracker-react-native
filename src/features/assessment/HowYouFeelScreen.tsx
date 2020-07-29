@@ -31,7 +31,6 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   constructor(props: HowYouFeelProps) {
     super(props);
     this.state = initialState;
-    AssessmentCoordinator.resetNavigation(props.navigation);
   }
 
   handleFeelNormal = async () => {

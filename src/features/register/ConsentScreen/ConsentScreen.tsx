@@ -1,28 +1,21 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useState, useCallback } from 'react';
-import { View } from 'react-native';
+import React, { FC, useCallback, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { isGBCountry, isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { BrandedButton } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../../ScreenParamList';
-import {
-  consentVersionSE,
-  consentVersionUK,
-  consentVersionUS,
-  privacyPolicyVersionSE,
-  privacyPolicyVersionUK,
-  privacyPolicyVersionUS,
-} from '../constants';
+import { colors } from '@theme';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appConfig from '@covid/appConfig';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import ConsentScreenGB from './ConsentScreenGB';
 import ConsentScreenSE from './ConsentScreenSE';
 import ConsentScreenUS from './ConsentScreenUS';
-import styles from './styles';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -39,15 +32,15 @@ const ConsentScreen: FC<PropsType> = (props) => {
     }
 
     if (isUSCountry()) {
-      await userService.setConsentSigned('US', consentVersionUS, privacyPolicyVersionUS);
+      await userService.setConsentSigned('US', appConfig.consentVersionUS, appConfig.privacyPolicyVersionUS);
     }
     if (isGBCountry()) {
-      await userService.setConsentSigned('UK', consentVersionUK, privacyPolicyVersionUK);
+      await userService.setConsentSigned('UK', appConfig.consentVersionUK, appConfig.privacyPolicyVersionUK);
     }
     if (isSECountry()) {
-      await userService.setConsentSigned('SE', consentVersionSE, privacyPolicyVersionSE);
+      await userService.setConsentSigned('SE', appConfig.consentVersionSE, appConfig.privacyPolicyVersionSE);
     }
-    props.navigation.navigate('Register');
+    appCoordinator.gotoNextScreen(props.route.name);
   }, [agreed, userService.setConsentSigned]);
 
   const renderConsent = useCallback(() => {
@@ -76,3 +69,16 @@ const ConsentScreen: FC<PropsType> = (props) => {
 };
 
 export default React.memo(ConsentScreen);
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    backgroundColor: colors.backgroundPrimary,
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+  },
+  button: {
+    marginTop: 20,
+  },
+});

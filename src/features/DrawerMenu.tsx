@@ -9,14 +9,17 @@ import i18n from '@covid/locale/i18n';
 import { isGBCountry, isSECountry, IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText, HeaderText } from '@covid/components/Text';
-import PushNotificationService from '@covid/core/pushNotifications/PushNotificationService';
+import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type MenuItemProps = {
   testID?: string;
   label: string;
   onPress: () => void;
+  indicator?: number;
 };
 
 const manifest = Updates.manifest as Updates.Manifest;
@@ -29,10 +32,11 @@ const isDevChannel = () => {
   }
 };
 
-const MenuItem = (props: MenuItemProps) => {
+const MenuItem: React.FC<MenuItemProps> = ({ onPress, label, indicator }) => {
   return (
-    <TouchableOpacity style={styles.iconNameRow} {...props}>
-      <HeaderText>{props.label}</HeaderText>
+    <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
+      <HeaderText>{label}</HeaderText>
+      {indicator && <NumberIndicator number={indicator} />}
     </TouchableOpacity>
   );
 };
@@ -49,6 +53,12 @@ enum DrawerMenuItem {
 export function DrawerMenu(props: DrawerContentComponentProps) {
   const userService = useInjection<IUserService>(Services.User);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
+  const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
+
+  useEffect(() => {
+    userService.shouldShowDietStudy().then((value) => setShowDietStudy(value));
+  }, [userService.hasUser, setShowDietStudy]);
 
   const fetchEmail = async () => {
     try {
@@ -59,10 +69,30 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     }
   };
 
+  const fetchShouldShowVaccine = async () => {
+    try {
+      const shouldAskForVaccineRegistry = await userService.shouldAskForVaccineRegistry();
+      setShowVaccineRegistry(shouldAskForVaccineRegistry);
+    } catch (_) {
+      setShowVaccineRegistry(false);
+    }
+  };
+
+  const fetchShouldShowDietStudy = async () => {
+    try {
+      const showDietStudy = await appCoordinator.shouldShowStudiesMenu();
+      setShowDietStudy(showDietStudy);
+    } catch (_) {
+      setShowDietStudy(false);
+    }
+  };
+
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
-  }, [userService.hasUser]);
+    fetchShouldShowVaccine();
+    fetchShouldShowDietStudy();
+  }, [userService.hasUser, setUserEmail]);
 
   function showDeleteAlert() {
     Alert.alert(
@@ -114,6 +144,10 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
       : props.navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
   }
 
+  function openDietStudy() {
+    appCoordinator.goToDietStart();
+  }
+
   function showResearchUpdates() {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.RESEARCH_UPDATE,
@@ -128,7 +162,7 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
     Linking.openURL(i18n.t('faq-link'));
   }
 
-  async function openPushNoticationSettings() {
+  async function openPushNotificationSettings() {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
       name: DrawerMenuItem.TURN_ON_REMINDERS,
     });
@@ -157,16 +191,33 @@ export function DrawerMenu(props: DrawerContentComponentProps) {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
+        {showDietStudy && (
+          <MenuItem
+            label={i18n.t('diet-study.drawer-menu-item')}
+            onPress={() => {
+              openDietStudy();
+            }}
+          />
+        )}
         <MenuItem
           label={i18n.t('research-updates')}
           onPress={() => {
             showResearchUpdates();
           }}
         />
+        {showVaccineRegistry && (
+          <MenuItem
+            label={i18n.t('vaccine-registry.menu-item')}
+            onPress={() => {
+              appCoordinator.goToVaccineRegistry();
+            }}
+          />
+        )}
+
         <MenuItem
           label={i18n.t('push-notifications')}
           onPress={() => {
-            openPushNoticationSettings();
+            openPushNotificationSettings();
           }}
         />
         <MenuItem
@@ -202,6 +253,7 @@ const styles = StyleSheet.create({
     marginStart: 8,
     marginTop: 32,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   drawerIcon: {
     height: 24,

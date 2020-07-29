@@ -19,11 +19,6 @@ type LocationProps = {
 };
 
 export default class WhereAreYouScreen extends Component<LocationProps> {
-  constructor(props: LocationProps) {
-    super(props);
-    AssessmentCoordinator.resetNavigation(props.navigation);
-  }
-
   private async updateAssessment(status: string, isComplete = false) {
     const { assessmentId } = AssessmentCoordinator.assessmentData;
     const assessment = {
