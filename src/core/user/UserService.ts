@@ -7,6 +7,7 @@ import { AvatarName, DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import NavigatorService from '@covid/NavigatorService';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -42,7 +43,7 @@ export interface IUserService {
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse>;
+  getProfile(): Promise<UserResponse | null>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -143,6 +144,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async logout() {
     this.hasUser = false;
     await this.deleteLocalUserData();
+    NavigatorService.navigate('CountrySelect');
   }
 
   private async deleteLocalUserData() {
@@ -172,21 +174,16 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
     this.hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.updateUserCountry(this.hasUser);
+    await this.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId();
-      if (!patientId) {
-        // Logged in with an account doesn't exist. Force logout.
-        await this.logout();
-      }
     }
   }
 
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      return profile.patients[0];
+      return profile!.patients[0];
     } catch (error) {
       return null;
     }
@@ -411,28 +408,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return patientState;
   }
 
-  public async getProfile(): Promise<UserResponse> {
-    const localUser = await AsyncStorageService.GetStoredData();
-    if (!localUser) {
-      await this.logout();
-      throw Error("User not found. Can't fetch profile");
+  public async getProfile(): Promise<UserResponse | null> {
+    try {
+      const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
+      await AsyncStorageService.saveProfile(profile);
+      return profile;
+    } catch (error) {
+      handleServiceError(error);
     }
-
-    const localProfile = await AsyncStorageService.getProfile();
-
-    // If not stored locally, wait for server response.
-    if (localProfile == null) {
-      const profileResponse = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profileResponse.data);
-      return profileResponse.data;
-    }
-
-    // If local copy available, use it but update it.
-    this.client.get<UserResponse>(`/profile/`).then(async (profileResponse) => {
-      await AsyncStorageService.saveProfile(profileResponse.data);
-    });
-
-    return localProfile;
+    return null;
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {

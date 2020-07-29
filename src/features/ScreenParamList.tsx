@@ -33,7 +33,7 @@ export type ScreenParamList = {
   ResetPasswordConfirm: undefined;
   Register: undefined;
   Login: { terms: string };
-  CountrySelect: { patientId: string | null };
+  CountrySelect: undefined;
   OptionalInfo: undefined;
 
   // Profile screens
