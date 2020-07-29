@@ -5,10 +5,10 @@ import { View, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
-import { getAvatarByName } from '@covid/utils/avatar';
+import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { PatientProfile } from '@covid/core/patient/PatientState';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import { ClippedText, RegularText } from './Text';
 
@@ -33,7 +33,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: conta
 };
 
 type NavbarProps = {
-  profile: PatientProfile;
+  profile: Profile;
   navigation: StackNavigationProp<ScreenParamList>;
   simpleCallout?: boolean;
   type?: CallOutType;
@@ -44,10 +44,10 @@ const PatientHeader: React.FC<NavbarProps> = ({
   profile,
   navigation,
   simpleCallout = false,
-  type = profile.isPrimaryPatient ? CallOutType.Simple : CallOutType.Tag,
-  calloutTitle = profile.isPrimaryPatient ? profile.name : i18n.t('answer-for', { name: profile.name }),
+  type = !profile.reported_by_another ? CallOutType.Simple : CallOutType.Tag,
+  calloutTitle = !profile.reported_by_another ? profile.name : i18n.t('answer-for', { name: profile.name }),
 }) => {
-  const avatarImage = !!profile.avatarName && getAvatarByName(profile.avatarName);
+  const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
 
   return (
     <View style={styles.headerBar}>

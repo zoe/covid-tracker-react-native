@@ -847,7 +847,14 @@
   "edit-profile": {
     "title": "la configuración de perfil",
     "text": "",
-    "archive-cta": "Archivar este perfil"
+    "archive-cta": "Archivar este perfil",
+    "done": "Listo",
+
+      "location": {
+        "title": "Mi ubicacion",
+        "label": "Su código postal",
+        "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad"
+      }
   },
 
   "archive-confirmation": {

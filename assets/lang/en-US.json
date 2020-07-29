@@ -10,6 +10,12 @@
 
   "label-past-symptom-diarrhoea": "Diarrhea",
 
+  "edit-profile": {
+    "location": {
+      "label": "Your zipcode (e.g. 00123)"
+    }
+  },
+
   "where-are-you": {
     "picker-location-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
     "picker-location-hospital": "I am at the clinic or hospital with suspected COVID-19 symptoms.",

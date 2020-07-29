@@ -882,9 +882,16 @@
   },
 
   "edit-profile": {
-    "title": "Profile settings",
+    "title": "My profile",
     "text": "",
-    "archive-cta": "Archive this profile"
+    "archive-cta": "Archive this profile",
+    "done": "Done",
+
+    "location": {
+      "title": "My location",
+      "label": "Your postcode (e.g. SE1)",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and track symptoms. You can find out how we use your data in our Privacy policy"
+    }
   },
 
   "archive-confirmation": {
