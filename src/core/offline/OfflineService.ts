@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 
-import appConfig from '../../../appConfig';
+import appConfig from '@covid/appConfig';
 
 // const ONLINE_URL = 'https://www.google.com/robots.txt';
 const ONLINE_URL = 'https://joinzoe.com/icons/icon-48x48.png';

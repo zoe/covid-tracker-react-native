@@ -1,8 +1,9 @@
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import { PatientData } from '@covid/core/patient/PatientCoordinator';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -15,7 +16,7 @@ export type ScreenParamList = {
   // Welcome screens
   Welcome: undefined;
   Welcome2: undefined;
-  WelcomeRepeat: { patientId: string };
+  WelcomeRepeat: undefined;
 
   // Terms & consent screens
   Consent: { viewOnly: boolean };
@@ -32,7 +33,7 @@ export type ScreenParamList = {
   Register: undefined;
   Login: { terms: string };
   CountrySelect: { patientId: string | null };
-  OptionalInfo: { patientId: string };
+  OptionalInfo: undefined;
 
   // Profile screens
   ReportForOther: undefined;
@@ -63,12 +64,24 @@ export type ScreenParamList = {
   ProfileBackDate: { assessmentData: AssessmentData };
   Lifestyle: { assessmentData: AssessmentData };
 
+  VaccineRegistrySignup: { currentPatient: PatientStateType };
+  VaccineRegistryInfo: { currentPatient: PatientStateType };
+
+  // DietStudy
+  DietStudyIntro: { dietStudyData: DietStudyData };
+  DietStudyAboutYou: { dietStudyData: DietStudyData };
+  DietStudyThankYouBreak: { dietStudyData: DietStudyData };
+  DietStudyThankYou: { dietStudyData: DietStudyData };
+  DietStudyTypicalDiet: { dietStudyData: DietStudyData };
+  DietStudyYourLifestyle: { dietStudyData: DietStudyData };
+  DietStudyConsent: { dietStudyData: DietStudyData };
+
   // Completion screens
   ThankYou: undefined;
   ThankYouUK: undefined;
   ViralThankYou: undefined;
 
-  ValidationStudyIntro: { currentPatient: PatientStateType };
-  ValidationStudyInfo: { currentPatient?: PatientStateType };
-  ValidationStudyConsent: { viewOnly: boolean; currentPatient?: PatientStateType };
+  ValidationStudyIntro: undefined;
+  ValidationStudyInfo: undefined;
+  ValidationStudyConsent: { viewOnly: boolean };
 };

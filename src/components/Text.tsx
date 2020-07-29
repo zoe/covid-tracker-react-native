@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
@@ -9,7 +9,7 @@ export * from './BrandedButton';
 
 interface Props {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
 }
 
 export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;
@@ -18,7 +18,13 @@ export const HeaderLightText = ({ style, children }: Props) => (
   <Text style={[styles.headerLightText, style]}>{children}</Text>
 );
 
+export const Header3Text = ({ style, children }: Props) => <Text style={[styles.header3Text, style]}>{children}</Text>;
+
 export const RegularText = ({ style, children }: Props) => <Text style={[styles.regularText, style]}>{children}</Text>;
+
+export const FieldLabel = ({ style, children }: Props) => (
+  <Text style={[styles.regularText, styles.fieldLabel, style]}>{children}</Text>
+);
 
 export const ClippedText = ({ style, children }: Props) => (
   <Text style={[styles.regularText, style]} numberOfLines={1}>
@@ -63,6 +69,10 @@ const styles = StyleSheet.create({
     ...fontStyles.h2Reg,
   },
 
+  header3Text: {
+    ...fontStyles.h3Reg,
+  },
+
   headerLightText: {
     ...fontStyles.h1Light,
   },
@@ -96,6 +106,11 @@ const styles = StyleSheet.create({
   clickableText: {
     ...fontStyles.bodyReg,
     color: colors.purple,
+  },
+
+  fieldLabel: {
+    paddingHorizontal: 16,
+    marginBottom: -16,
   },
 
   divider: {

@@ -12,7 +12,7 @@ import { isSECountry } from '@covid/core/user/UserService';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
-import { cleanFloatVal, cleanIntegerVal } from '@covid/core/utils/number';
+import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import YesNoField from '@covid/components/YesNoField';
 

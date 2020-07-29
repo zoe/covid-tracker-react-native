@@ -80,7 +80,7 @@ npm install expo-cli --g
 4. Run the following command to create `AMPLITUDE_KEY` environment variable:
 
    ```sh
-   echo "AMPLITUDE_KEY=test_key" > .env
+   echo "AMPLITUDE_KEY=test_key" >> .env
    ```
 
 5. Create an empty `./google-services.json` file in the root of the application.

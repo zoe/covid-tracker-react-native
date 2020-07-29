@@ -224,7 +224,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                   )}
                 </View>
 
-                {!!Object.keys(props.errors).length && <ErrorText>{i18n.t('validation-error-text-no-info')}</ErrorText>}
+                {!!Object.keys(props.errors).length && <ErrorText>{i18n.t('validation-error-text')}</ErrorText>}
                 <ErrorText>{this.state.errorMessage}</ErrorText>
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
