@@ -1,14 +1,8 @@
-import { AvatarName } from '@covid/utils/avatar';
-
-export type PatientProfile = {
-  name: string;
-  avatarName: AvatarName;
-  isPrimaryPatient: boolean;
-};
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 export type PatientStateType = {
   patientId: string;
-  profile: PatientProfile;
+  profile: Profile;
   isHealthWorker: boolean;
   hasCompletedPatientDetails: boolean;
   hasBloodPressureAnswer: boolean;
@@ -35,8 +29,9 @@ export type PatientStateType = {
 const initPatientState = {
   profile: {
     name: 'Bob',
-    avatarName: 'profile1',
-    isPrimaryPatient: true,
+    avatar_name: 'profile1',
+    reported_by_another: false,
+    id: '',
   },
   isHealthWorker: false,
   hasCompletedPatientDetails: true,
