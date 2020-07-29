@@ -43,6 +43,3 @@ export const setConfigCountry = (country: string) => {
 export const getConfig = () => {
   return config;
 };
-
-// export default config;
-// export default getConfig();

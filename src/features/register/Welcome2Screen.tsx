@@ -69,9 +69,7 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
               <ClickableText testID="login" style={styles.login} onPress={onLoginPress}>
                 {i18n.t('welcome.sign-in')}
               </ClickableText>
-              <TouchableOpacity
-                testID="selectCountry"
-                onPress={() => navigation.navigate('CountrySelect', { patientId: null })}>
+              <TouchableOpacity testID="selectCountry" onPress={() => navigation.navigate('CountrySelect')}>
                 <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
               </TouchableOpacity>
             </View>
