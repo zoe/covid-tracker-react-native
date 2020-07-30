@@ -65,10 +65,12 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                 </View>
               </View>
 
-              <View style={styles.seperator} />
+              <View style={{ padding: 8, marginVertical: 24 }}>
+                <RegularText style={styles.text}>{i18n.t('diet-study.next-box.text')}</RegularText>
+              </View>
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                {i18n.t('diet-study.continue-cta')}
+                {i18n.t('diet-study.complete-cta')}
               </BrandedButton>
             </Form>
           );
@@ -108,12 +110,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     textAlign: 'center',
   },
-
-  seperator: {
-    height: 1,
-    backgroundColor: colors.backgroundFour,
-    marginHorizontal: 16,
-    marginTop: 64,
-    marginBottom: 32,
+  text: {
+    textAlign: 'center',
   },
 });
