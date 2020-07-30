@@ -50,7 +50,7 @@ export type ScreenParamList = {
   // Patient screens
   YourStudy: { patientData: PatientData };
   YourWork: { patientData: PatientData };
-  AboutYou: { patientData: PatientData };
+  AboutYou: { patientData: PatientData; editing: boolean };
   YourHealth: { patientData: PatientData };
   PreviousExposure: { patientData: PatientData };
 

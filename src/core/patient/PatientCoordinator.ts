@@ -14,7 +14,7 @@ export class PatientCoordinator implements Coordinator {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
     },
     YourWork: () => {
-      NavigatorService.navigate('AboutYou', { patientData: this.patientData });
+      NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
     },
     AboutYou: () => {
       NavigatorService.navigate('YourHealth', { patientData: this.patientData });

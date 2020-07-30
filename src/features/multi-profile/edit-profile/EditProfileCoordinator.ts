@@ -14,6 +14,9 @@ export class EditProfileCoordinator implements Coordinator {
     EditLocation: () => {
       NavigatorService.goBack();
     },
+    AboutYou: () => {
+      NavigatorService.goBack();
+    },
   } as ScreenFlow;
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: ICoreService) => {
@@ -42,6 +45,10 @@ export class EditProfileCoordinator implements Coordinator {
 
   startEditProfile() {
     NavigatorService.navigate('EditProfile', { patientData: this.patientData });
+  }
+
+  goToEditAboutYou() {
+    NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: true });
   }
 }
 

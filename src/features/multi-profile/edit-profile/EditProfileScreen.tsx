@@ -34,8 +34,8 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
           <Image style={styles.chevron} source={chevronRight} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
-          <HeaderText>Your location</HeaderText>
+        <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
+          <HeaderText>About you</HeaderText>
           <Image style={styles.chevron} source={chevronRight} />
         </TouchableOpacity>
       </Screen>
