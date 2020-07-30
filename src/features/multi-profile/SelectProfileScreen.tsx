@@ -88,7 +88,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
             renderItem={(profile, i) => (
               <ProfileCard
                 profile={profile}
-                onEditPressed={() => getPatientThen(profile, (profile) => appCoordinator.editProfile(profile))}
+                onEditPressed={() => getPatientThen(profile, (profile) => appCoordinator.startEditProfile(profile))}
               />
             )}
             addProfile={() => {

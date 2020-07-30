@@ -20,6 +20,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { Coordinator } from '@covid/core/Coordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -86,6 +87,7 @@ const initialState: State = {
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.User)
   private userService: ICoreService;
+  private coordinator: Coordinator = patientCoordinator;
 
   constructor(props: AboutYouProps) {
     super(props);
@@ -105,7 +107,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const currentPatient = patientCoordinator.patientData.currentPatient;
+      const currentPatient = this.coordinator.patientData.patientState;
       const patientId = currentPatient.patientId;
       var infos = this.createPatientInfos(formData);
 
@@ -116,7 +118,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
-          patientCoordinator.gotoNextScreen(this.props.route.name);
+          this.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -259,7 +261,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   });
 
   render() {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = this.coordinator.patientData.patientState;
     const sexAtBirthItems = [
       { label: i18n.t('choose-one-of-these-options'), value: '' },
       { label: i18n.t('sex-at-birth-male'), value: 'male' },
