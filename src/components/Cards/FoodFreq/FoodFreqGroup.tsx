@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { Easing } from 'react-native-reanimated';
 
 import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
@@ -14,6 +15,7 @@ export interface FoodFreqGroupItem {
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];
+  headerOnTap: (key: keyof FoodFreqData) => void;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -33,16 +35,25 @@ const animate = (fn: any) => {
   }).start();
 };
 
-export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, items, error, onSelected }) => {
+export const FoodFreqGroup: React.FC<Props> = ({
+  primaryLabel,
+  secondaryLabel,
+  items,
+  error,
+  onSelected,
+  ...props
+}) => {
   const opacity = { start: 0, end: 1 };
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
 
   useEffect(() => {
     animate(fadeAnimation);
   }, [selectedItem, setSelectedItem]);
 
-  const hasSelectedItem = (): boolean => selectedItem !== null;
+  const hasSelectedItem = selectedItem !== null;
+  const shouldShowItems = !hasSelectedItem || isOpen;
 
   const selectedLabel = (
     <Animated.View
@@ -58,18 +69,27 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <RegularText>{primaryLabel}</RegularText>
-        <Text> </Text>
-        {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
-      </View>
-      {selectedItem && selectedLabel}
-      {error && (
-        <View style={{ marginTop: 4 }}>
-          <ValidationError error={error} style={styles.validationError} />
+      <TouchableOpacity
+        onPress={() => {
+          if (!hasSelectedItem) {
+            return;
+          }
+          setIsOpen(!isOpen);
+          props.headerOnTap(props.key);
+        }}>
+        <View style={styles.header}>
+          <RegularText>{primaryLabel}</RegularText>
+          <Text> </Text>
+          {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
         </View>
-      )}
-      {!hasSelectedItem() && (
+        {selectedItem && selectedLabel}
+        {error && (
+          <View style={{ marginTop: 4 }}>
+            <ValidationError error={error} style={styles.validationError} />
+          </View>
+        )}
+      </TouchableOpacity>
+      {shouldShowItems && (
         <>
           <View style={{ height: 20 }} />
           <Selectable
@@ -77,6 +97,7 @@ export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, i
             items={items}
             onSelected={(selected) => {
               setSelectedItem(selected);
+              setIsOpen(false);
               if (onSelected) onSelected(selected);
             }}
           />
