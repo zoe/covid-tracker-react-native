@@ -11,11 +11,7 @@ import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/compo
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import dietStudyCoordinator, {
-  getScreenHeaderOptions,
-  LAST_4_WEEKS,
-  PRE_LOCKDOWN,
-} from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { LAST_4_WEEKS, PRE_LOCKDOWN } from '@covid/core/diet-study/DietStudyCoordinator';
 import QuotationMark from '@assets/icons/QuotationMark';
 import { sarahBerryAvatar } from '@assets';
 
@@ -43,7 +39,7 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
   };
 
   return (
-    <Screen profile={profile} navigation={navigation} {...getScreenHeaderOptions(timePeriod)}>
+    <Screen profile={profile} navigation={navigation}>
       <Formik initialValues={{}} validationSchema={registerSchema} onSubmit={(values: FormData) => submit(values)}>
         {(props) => {
           return (
