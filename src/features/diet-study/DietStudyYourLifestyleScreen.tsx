@@ -67,7 +67,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
       style={styles.screen}
       {...getScreenHeaderOptions(route.params.dietStudyData.timePeriod)}>
       <Header>
-        <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
+        <HeaderText>{i18n.t('diet-study.your-lifestyle.title-2')}</HeaderText>
       </Header>
 
       <ProgressBlock>
@@ -87,8 +87,17 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
         onSubmit={(values: FormData) => updateDietStudy(values)}>
         {(props) => {
           return (
-            <Form style={styles.container}>
+            <Form>
               <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
+
+              <Header>
+                <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
+              </Header>
+
+              <ProgressBlock>
+                <ProgressStatus step={0} maxSteps={3} />
+              </ProgressBlock>
+
               <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
               <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
               <EatingWindowQuestions formikProps={props as FormikProps<EatingWindowData>} />
@@ -114,9 +123,6 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.backgroundSecondary,
-  },
-  container: {
-    padding: 6,
   },
 });
 

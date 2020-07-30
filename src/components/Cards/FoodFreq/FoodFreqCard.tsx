@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { FormikProps } from 'formik';
 
 import { colors } from '@theme';
@@ -7,7 +7,7 @@ import { FOOD_INTAKE_FREQUENCY, SelectableItem } from '@covid/components/Inputs/
 import i18n from '@covid/locale/i18n';
 import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
 
-import { FoodFreqGroupItem, FoodFreqGroup } from './FoodFreqGroup';
+import { FoodFreqGroup, FoodFreqGroupItem } from './FoodFreqGroup';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -82,6 +82,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
       key: 'ffq_red_meat',
       primaryLabel: i18n.t('diet-study.typical-diet.red_meat-1'),
       secondaryLabel: i18n.t('diet-study.typical-diet.red_meat-2'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-meat'),
     },
     {
       key: 'ffq_white_meat',
@@ -91,6 +92,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_red_processed_meat',
       primaryLabel: i18n.t('diet-study.typical-diet.red_processed_meat-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-processed-meat'),
     },
     {
       key: 'ffq_white_processed_meat',
@@ -99,6 +101,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_white_fish_battered_breaded',
       primaryLabel: i18n.t('diet-study.typical-diet.white_fish_battered_breaded-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-fish'),
     },
     {
       key: 'ffq_white_fish',
@@ -112,10 +115,16 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_eggs',
       primaryLabel: i18n.t('diet-study.typical-diet.eggs-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-other'),
     },
     {
       key: 'ffq_fast_food',
       primaryLabel: i18n.t('diet-study.typical-diet.fast_food-1'),
+    },
+    {
+      key: 'ffq_live_probiotic_fermented',
+      primaryLabel: i18n.t('diet-study.typical-diet.live-probiotic-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.live-probiotic-2'),
     },
   ];
 
@@ -123,6 +132,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     key: object.key!,
     primaryLabel: object.primaryLabel!,
     secondaryLabel: object.secondaryLabel,
+    sectionHeading: object.sectionHeading,
     items,
     headerOnTap: () => {},
   }));

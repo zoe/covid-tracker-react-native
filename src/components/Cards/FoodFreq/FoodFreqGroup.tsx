@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { Easing } from 'react-native-reanimated';
 
-import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
+import { Selectable, SelectableItem } from '@covid/components/Inputs/Selectable';
 import { colors } from '@theme';
 import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
 import { ValidationError } from '@covid/components/ValidationError';
 
-import { RegularText, SecondaryText } from '../../Text';
+import { HeaderText, RegularText, SecondaryText } from '../../Text';
 
 export interface FoodFreqGroupItem {
   key: keyof FoodFreqData;
@@ -16,6 +16,7 @@ export interface FoodFreqGroupItem {
   secondaryLabel?: string;
   items: SelectableItem[];
   headerOnTap?: (key: keyof FoodFreqData) => void;
+  sectionHeading?: string;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -38,6 +39,7 @@ const animate = (fn: any) => {
 export const FoodFreqGroup: React.FC<Props> = ({
   primaryLabel,
   secondaryLabel,
+  sectionHeading,
   items,
   error,
   onSelected,
@@ -69,6 +71,7 @@ export const FoodFreqGroup: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
+      {sectionHeading && <HeaderText style={{ marginBottom: 6 }}>{sectionHeading}</HeaderText>}
       <TouchableOpacity
         onPress={() => {
           if (!hasSelectedItem) {

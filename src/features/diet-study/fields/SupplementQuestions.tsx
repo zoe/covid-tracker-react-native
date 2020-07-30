@@ -61,7 +61,6 @@ export const SupplementQuestions: SupplementQuestions<Props, SupplementData> = (
   const checkboxes = [
     { label: i18n.t('diet-study.supplements.fiber'), value: 'supplements_fibre' },
     { label: i18n.t('diet-study.supplements.probiotic'), value: 'supplements_probiotic' },
-    { label: i18n.t('diet-study.supplements.live-probiotic'), value: 'supplements_live_probiotic_fermented' },
     { label: i18n.t('diet-study.supplements.iron'), value: 'supplements_iron' },
     { label: i18n.t('diet-study.supplements.calcium'), value: 'supplements_calcium' },
     { label: i18n.t('diet-study.supplements.vitamin-d'), value: 'supplements_vitamin_d' },
@@ -124,7 +123,6 @@ SupplementQuestions.createDTO = (formData: SupplementData): Partial<DietStudyReq
     const supplements = {
       supplements_fibre: false,
       supplements_probiotic: false,
-      supplements_live_probiotic_fermented: false,
       supplements_iron: false,
       supplements_calcium: false,
       supplements_vitamin_d: false,
