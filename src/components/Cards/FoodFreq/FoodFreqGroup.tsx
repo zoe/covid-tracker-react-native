@@ -15,7 +15,7 @@ export interface FoodFreqGroupItem {
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];
-  headerOnTap: (key: keyof FoodFreqData) => void;
+  headerOnTap?: (key: keyof FoodFreqData) => void;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -75,7 +75,7 @@ export const FoodFreqGroup: React.FC<Props> = ({
             return;
           }
           setIsOpen(!isOpen);
-          props.headerOnTap(props.key);
+          if (props.headerOnTap) props.headerOnTap(props.key);
         }}>
         <View style={styles.header}>
           <RegularText>{primaryLabel}</RegularText>

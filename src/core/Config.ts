@@ -5,7 +5,6 @@ import DefaultConfig from './config/default.json';
 
 export type ConfigType = {
   country: string;
-  showPartnerLogos: boolean;
   enableMultiplePatients: boolean;
   enablePersonalInformation: boolean;
   enableCohorts: boolean;
@@ -43,6 +42,3 @@ export const setConfigCountry = (country: string) => {
 export const getConfig = () => {
   return config;
 };
-
-// export default config;
-// export default getConfig();

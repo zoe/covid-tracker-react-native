@@ -10,8 +10,8 @@ import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { LoadingModal } from '@covid/components/Loading';
-import { Partnership } from '@covid/components/Partnership';
-import { PoweredByZoe } from '@covid/components/PoweredByZoe';
+import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/Logos/PartnerLogo';
+import { PoweredByZoe } from '@covid/components/Logos/PoweredByZoe';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
@@ -22,7 +22,7 @@ import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { ICoreService, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
 
 import appCoordinator from '../AppCoordinator';
@@ -38,7 +38,6 @@ type PropsType = {
 
 type WelcomeRepeatScreenState = {
   userCount: number | null;
-  showPartnerLogos: boolean;
   onRetry?: () => void;
   calloutBoxContent: ScreenContent;
   showVaccineRegistry: boolean;
@@ -47,7 +46,6 @@ type WelcomeRepeatScreenState = {
 const initialState = {
   ...initialErrorState,
   userCount: null,
-  showPartnerLogos: true,
   calloutBoxContent: contentService.getCalloutBoxDefault(),
   showVaccineRegistry: false,
 };
@@ -61,8 +59,6 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   async componentDidMount() {
     const userCount = await contentService.getUserCount();
     this.setState({ userCount: cleanIntegerVal(userCount as string) });
-    const feature = this.userService.getConfig();
-    this.setState({ showPartnerLogos: feature.showPartnerLogos });
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
@@ -94,6 +90,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     }
   };
 
+  displayPartnerLogo = () => {
+    return isUSCountry() ? <PartnerLogoUS /> : isSECountry() ? <PartnerLogoSE /> : <PoweredByZoe />;
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.safeView}>
@@ -123,9 +123,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            {this.state.showPartnerLogos ? <Partnership /> : <PoweredByZoe />}
+            {this.displayPartnerLogo()}
 
-            <View style={{ flex: 1 }} />
+            <View style={{ flex: 1, paddingTop: 24 }} />
 
             {this.state.showVaccineRegistry ? (
               <VaccineRegistryCallout />

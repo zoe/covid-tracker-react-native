@@ -29,7 +29,6 @@ export const syringe = require('./mechanism-icons/syringe.png');
 
 // Partner logos
 export const gbPartners = require('./logos/gb_partners.png');
-export const gbPartnersReturn = require('./logos/gb_partners_return.png');
 export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
@@ -59,7 +58,7 @@ export const notificationReminders = require('./thank-you-modules/notification_r
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
 export const blog006 = require('./thank-you-modules/blog_006.png');
-export const incidence008 = require('./thank-you-modules/incidence_008.png');
+export const incidence009 = require('./thank-you-modules/incidence_009.png');
 export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
