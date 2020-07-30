@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 import { FormikProps } from 'formik';
 
@@ -143,7 +143,9 @@ export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), form
             <FoodFreqGroup
               {...item}
               key={item.key}
-              onSelected={(_) => {}}
+              onSelected={(newValue) => {
+                if (props.onSelected) props.onSelected(item.key, newValue);
+              }}
               error={formikProps.touched[key] && formikProps.errors[key]}
             />
             {showDivider && <Divider />}
