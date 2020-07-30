@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react-native';
-import Collapsible from 'react-native-collapsible';
 import { action, HandlerFunction } from '@storybook/addon-actions';
 import { View, Button } from 'react-native';
 
@@ -22,9 +21,7 @@ const Toggleable: React.FC = () => {
           setShow(!show);
         }}
       />
-      <Collapsible collapsed={show}>
-        <Selectable items={items} />
-      </Collapsible>
+      <Selectable items={items} onSelected={ValueChangeHandler} />
     </View>
   );
 };
@@ -32,4 +29,3 @@ const Toggleable: React.FC = () => {
 storiesOf('Selectable', module)
   .addDecorator(PaddingView)
   .add('default view', () => <Toggleable />);
-// .add('default view', () => <Selectable items={FOOD_INTAKE_FREQUENCY()} onSelected={ValueChangeHandler()} />);
