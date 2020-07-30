@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
@@ -11,10 +11,7 @@ import PatientHeader from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
-import { ProfileCard } from '@covid/components/ProfileCard';
-import { Loading, LoadingModal } from '@covid/components/Loading';
-import { Profile } from '@covid/components/Collections/ProfileList';
-import { offlineService } from '@covid/Services';
+import { LoadingModal } from '@covid/components/Loading';
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
 
 type Props = {
@@ -24,60 +21,7 @@ type Props = {
 
 export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
   const { currentPatient } = props.route.params.dietStudyData;
-  const [isLoaded, setLoaded] = useState(false);
-  const [profiles, setProfiles] = useState([] as Profile[]);
   const [apiError, setApiError] = useState({} as ApiErrorState);
-  const [showProfiles, setShowProfiles] = useState(false);
-
-  useEffect(() => {
-    const loadProfiles = async () => {
-      if (await dietStudyCoordinator.showProfiles()) {
-        setShowProfiles(true);
-        await listProfiles();
-      }
-    };
-    //loadProfiles() //Removed for this version
-  });
-
-  async function listProfiles() {
-    setApiError({ status: i18n.t('errors.status-loading'), error: null } as ApiErrorState);
-    try {
-      const profiles = await dietStudyCoordinator.listPatients();
-      if (profiles) {
-        setProfiles(profiles);
-        setLoaded(true);
-      }
-    } catch (error) {
-      setApiError({ error } as ApiErrorState);
-    }
-  }
-
-  function retryListProfiles() {
-    setApiError({ status: i18n.t('errors.status-retrying'), error: null } as ApiErrorState);
-    setTimeout(() => listProfiles(), offlineService.getRetryDelay());
-  }
-
-  async function profileSelected(profileId: string, index: number) {
-    try {
-      setApiError({ isApiError: false } as ApiErrorState);
-      // TODO Selected profile goto
-    } catch (error) {
-      setApiError({
-        isApiError: true,
-        error,
-        onRetry: () => {
-          setApiError({
-            status: i18n.t('errors.status-retrying'),
-            error: null,
-          } as ApiErrorState);
-          setTimeout(() => {
-            setApiError({ status: i18n.t('errors.status-loading') } as ApiErrorState);
-            profileSelected(profileId, index);
-          }, offlineService.getRetryDelay());
-        },
-      } as ApiErrorState);
-    }
-  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundSecondary }}>
@@ -94,31 +38,6 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
 
       <ScrollView style={styles.contentContainer}>
         <HeaderText style={styles.headerText}>{i18n.t('diet-study.thank-you.title')}</HeaderText>
-
-        {!showProfiles && <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-1')}</RegularText>}
-
-        {showProfiles &&
-          (isLoaded ? (
-            <View style={styles.profileList}>
-              {profiles.map((profile, i) => {
-                return (
-                  <View style={styles.cardContainer} key={profile.id}>
-                    <TouchableOpacity onPress={() => profileSelected(profile.id, i)}>
-                      <ProfileCard profile={profile} index={i} />
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-          ) : (
-            <Loading
-              status={apiError.status}
-              error={apiError.error}
-              style={{ borderColor: 'green', borderWidth: 1 }}
-              onRetry={() => retryListProfiles()}
-            />
-          ))}
-
         <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-2')}</RegularText>
 
         <View style={{ marginTop: 24 }}>

@@ -113,9 +113,9 @@ export class AsyncStorageService {
     }
   }
 
-  static setAskedToReportForOthers(count: string) {
+  static async setAskedToReportForOthers(count: string) {
     try {
-      AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count);
+      await AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count);
     } catch (err) {}
   }
 
@@ -127,9 +127,9 @@ export class AsyncStorageService {
     }
   }
 
-  static setAskedToRateStatus(status: string) {
+  static async setAskedToRateStatus(status: string) {
     try {
-      AsyncStorage.setItem(ASKED_TO_RATE_STATUS, status);
+      await AsyncStorage.setItem(ASKED_TO_RATE_STATUS, status);
     } catch (err) {}
   }
 

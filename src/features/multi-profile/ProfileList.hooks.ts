@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { AppException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
@@ -9,10 +8,7 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Profile } from '@covid/components/Collections/ProfileList';
 
-import { ScreenParamList } from '../ScreenParamList';
-import appCoordinator from '../AppCoordinator';
-
-export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>) => {
+export const useProfileList = () => {
   const userService = useInjection<ICoreService>(Services.User);
 
   const [status, setStatus] = useState<string>('');
@@ -21,7 +17,6 @@ export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList,
 
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [onRetry, setOnRetry] = useState<any>(() => {});
 
   const retryListProfiles = () => {
     setStatus(i18n.t('errors.status-retrying'));
@@ -44,37 +39,15 @@ export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList,
     }
   };
 
-  const profileSelected = async (profileId: string, index: number) => {
-    try {
-      const currentPatient = await userService.getPatientState(profileId);
-      setIsApiError(false);
-      await appCoordinator.profileSelected(index === 0, currentPatient);
-    } catch (error) {
-      setIsApiError(true);
-      setError(error);
-
-      setOnRetry(() => {
-        setStatus(i18n.t('errors.status-retrying'));
-        setError(null);
-
-        setTimeout(() => {
-          setStatus(i18n.t('errors.status-loading'));
-          profileSelected(profileId, index);
-        }, offlineService.getRetryDelay());
-      });
-    }
-  };
-
   return {
     status,
     error,
     isApiError,
     isLoaded,
-    onRetry,
     profiles,
     listProfiles,
     retryListProfiles,
-    profileSelected,
     setIsApiError,
+    setError,
   };
 };

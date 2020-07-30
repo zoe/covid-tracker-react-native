@@ -15,6 +15,7 @@ import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -146,24 +147,24 @@ export class AppCoordinator {
     }
   };
 
-  editProfile(profile: Profile) {
-    NavigatorService.navigate('EditProfile', { profile });
+  async editProfile(profile: Profile) {
+    const patientInfo = await this.userService.getPatient(profile.id);
+    this.patientId = profile.id;
+    NavigatorService.navigate('EditProfile', { profile, patientInfo: patientInfo! });
   }
 
-  async profileSelected(isMainProfile: boolean, currentPatient: PatientStateType) {
-    this.currentPatient = currentPatient;
-    this.patientId = currentPatient.patientId;
-
-    if (isGBCountry() && isMainProfile) {
+  async profileSelected(profile: Profile) {
+    await this.setPatientId(profile.id);
+    if (isGBCountry() && !this.currentPatient.isReportedByAnother) {
       if (await this.userService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(currentPatient, false);
+        this.startDietStudyFlow(this.currentPatient, false);
       } else {
-        this.startAssessmentFlow(currentPatient);
+        this.startAssessmentFlow(this.currentPatient);
       }
     } else {
-      this.startAssessmentFlow(currentPatient);
+      this.startAssessmentFlow(this.currentPatient);
     }
   }
 
@@ -180,8 +181,8 @@ export class AppCoordinator {
     NavigatorService.navigate('ValidationStudyIntro');
   }
 
-  goToArchiveReason(profileId: string) {
-    NavigatorService.navigate('ArchiveReason', { profileId });
+  goToArchiveReason(patientId: string) {
+    NavigatorService.navigate('ArchiveReason', { patientId });
   }
 
   goToPreRegisterScreens() {
@@ -211,7 +212,7 @@ export class AppCoordinator {
 
   async shouldShowStudiesMenu(): Promise<boolean> {
     const consent = await AsyncStorageService.getDietStudyConsent();
-    return consent !== DietStudyConsent.SKIP;
+    return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
   }
 
   goToVaccineRegistry() {
@@ -227,6 +228,10 @@ export class AppCoordinator {
       Analytics.track(events.DECLINE_VACCINE_REGISTER);
       NavigatorService.goBack();
     }
+  }
+
+  goToEditLocation(profile: Profile, patientInfo: PatientInfosRequest) {
+    NavigatorService.navigate('EditLocation', { profile, patientInfo });
   }
 }
 

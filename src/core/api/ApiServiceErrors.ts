@@ -6,6 +6,7 @@ const TIMED_OUT = 'ETIMEDOUT';
 
 const STATUS_NOT_FOUND = 404;
 const STATUS_REQUEST_ERROR = 400;
+const STATUS_UNAUTHORIZED = 401;
 const STATUS_SERVER_BUSY = 429;
 const STATUS_SERVER_ERROR = 500;
 
@@ -41,7 +42,6 @@ class OfflineException extends AppException {
 }
 
 export class ApiException extends AppException {
-  isApiException = true;
   response: AxiosResponse;
 
   constructor(message: string, status: number, i18nString: string | null = null) {
@@ -59,7 +59,8 @@ export const handleServiceError = (error: ReceivedError) => {
   if (error.isAxiosError && error.response) {
     switch (error.response.status) {
       case STATUS_NOT_FOUND:
-        throw new ApiException(error.message, error.response.status, 'errors.resource-not-found');
+      case STATUS_UNAUTHORIZED:
+        throw new RetryableApiException(error.message, error.response.status, 'errors.resource-not-found');
       case STATUS_SERVER_BUSY:
         throw new RetryableApiException(error.message, error.response.status, 'errors.server-is-busy');
       case STATUS_SERVER_ERROR:
