@@ -201,6 +201,47 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     return infos;
   }
 
+  private getPatientFormValues(): AboutYouData {
+    const patientInfo = this.props.route.params.patientData.patientInfo!;
+
+    const patientFormData: AboutYouData = {
+      yearOfBirth: patientInfo.year_of_birth?.toString(),
+      sex:
+        patientInfo.gender === 1
+          ? 'male'
+          : patientInfo.gender === 0
+          ? 'female'
+          : patientInfo.gender === 2
+          ? 'pfnts'
+          : 'intersex',
+      genderIdentity: patientInfo.gender_identity,
+      genderIdentityDescription: patientInfo.gender_identity,
+      postcode: patientInfo.postcode,
+      everExposed: patientInfo.interacted_with_covid,
+      houseboundProblems: patientInfo.housebound_problems ? 'yes' : 'no',
+      needsHelp: patientInfo.needs_help ? 'yes' : 'no',
+      helpAvailable: patientInfo.help_available ? 'yes' : 'no',
+      mobilityAid: patientInfo.mobility_aid ? 'yes' : 'no',
+      race: patientInfo.race,
+      ethnicity: patientInfo.ethnicity,
+      raceOther: patientInfo.race_other,
+      height: patientInfo.height_cm?.toString(),
+      heightUnit: patientInfo.height_feet ? 'ft' : 'cm',
+      feet: patientInfo.height_feet ? Math.floor(patientInfo.height_feet).toString() : '',
+      inches: patientInfo.height_feet
+        ? ((patientInfo.height_feet - Math.floor(patientInfo.height_feet)) * 12).toString()
+        : '',
+      weight: patientInfo.weight_kg?.toString(),
+      weightUnit: patientInfo.weight_pounds ? 'lbs' : 'kg',
+      pounds: patientInfo.weight_pounds ? Math.floor(patientInfo.weight_pounds).toString() : '',
+      stones: patientInfo.weight_pounds
+        ? ((patientInfo.weight_pounds - Math.floor(patientInfo.weight_pounds)) * 14).toString()
+        : '',
+    };
+
+    return patientFormData;
+  }
+
   registerSchema = Yup.object().shape({
     yearOfBirth: Yup.number()
       .typeError(i18n.t('correct-year-of-birth'))
@@ -305,7 +346,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={getInitialFormValues()}
+          initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: AboutYouData) => {
             return this.handleUpdateHealth(values);
