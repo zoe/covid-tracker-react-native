@@ -6,9 +6,6 @@ import { colors } from '@theme';
 import { FOOD_INTAKE_FREQUENCY, SelectableItem } from '@covid/components/Inputs/Selectable';
 import i18n from '@covid/locale/i18n';
 import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
-import { useInjection } from '@covid/provider/services.hooks';
-import { IUserService } from '@covid/core/user/UserService';
-import { Services } from '@covid/provider/services.types';
 
 import { FoodFreqGroupItem, FoodFreqGroup } from './FoodFreqGroup';
 
@@ -136,40 +133,18 @@ const Divider: React.FC = () => <View style={{ height: 1, backgroundColor: color
 type Keys = keyof FoodFreqData;
 
 export const FoodFreqCard: React.FC<Props> = ({ items = FOOD_FREQ_GROUPS(), formikProps, ...props }) => {
-  const [activeKeys, setActiveKeys] = useState<Keys[]>(items.map((item) => item.key));
-
-  const next = (from: Keys) => {
-    setActiveKeys(activeKeys.filter((item) => item !== from));
-  };
-
-  const toggle = (key: Keys) => {
-    if (activeKeys.includes(key)) {
-      setActiveKeys(activeKeys.filter((item) => item !== key));
-    } else {
-      setActiveKeys([...activeKeys, key]);
-    }
-  };
-
   return (
     <View style={[styles.container, props.style]}>
       {items.map((item, index) => {
         const showDivider = index !== items.length - 1 && items.length !== 1;
         const key = item.key as Keys;
-        const shouldOpen = activeKeys.includes(key);
         return (
           <React.Fragment key={item.primaryLabel}>
             <FoodFreqGroup
               {...item}
               key={item.key}
-              onSelected={(newValue) => {
-                if (props.onSelected) props.onSelected(item.key, newValue);
-                next(item.key);
-              }}
+              onSelected={(_) => {}}
               error={formikProps.touched[key] && formikProps.errors[key]}
-              opened={shouldOpen}
-              headerOnTap={() => {
-                toggle(item.key);
-              }}
             />
             {showDivider && <Divider />}
           </React.Fragment>
