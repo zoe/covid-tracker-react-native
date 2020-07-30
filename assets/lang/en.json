@@ -1116,7 +1116,7 @@
     "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",
 
     "supplements": {
-      "label": "What vitamins or supplements are you taking (at least 3-4 times a week)?",
+      "label": "What vitamins or supplements did you take (at least 3-4 times a week)?",
       "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
       "probiotic": "Probiotic capsules / sachets",
       "iron": "Iron tablets",
@@ -1132,16 +1132,16 @@
       "specify": "Please specify the other supplements"
     },
 
-    "first-calories-label": "After waking (typically in the morning), what time did you usually first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "first-calories-label": "After waking, what time did you usually first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
     "last-calories-label": "What was the latest time of the day that you would usually eat or drink anything other than water/black coffee and plain tea? (including snacks)",
     "eats-breakfast-label": "Did you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
     "main-meals-placeholder": "Main meals per day",
-    "snacks-label": "How frequently did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or dinner)",
+    "snacks-label": "How frequently did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
     "snacks-placeholder": "Frequency of snacks per day",
-    "lost-control": "Do you worry you had lost control over how much you eat?",
+    "lost-control": "Do you worry that you had lost control over how much you eat?",
     "diet": {
-      "label": "Which of the below options best describes you over the four weeks (you can select more than one option)?",
+      "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",
       "mixed": "Typical mixed diet (including most/all foods as well as meat, fish or seafood)",
       "vegetarian": "Vegetarian (includes eggs and/or dairy)",
       "vegan": "Vegan (no animal products)",

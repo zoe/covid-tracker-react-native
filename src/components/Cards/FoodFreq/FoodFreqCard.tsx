@@ -101,11 +101,11 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_white_fish_battered_breaded',
       primaryLabel: i18n.t('diet-study.typical-diet.white_fish_battered_breaded-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-fish'),
     },
     {
       key: 'ffq_white_fish',
       primaryLabel: i18n.t('diet-study.typical-diet.white_fish-1'),
-      sectionHeading: i18n.t('diet-study.typical-diet.section-fish'),
     },
     {
       key: 'ffq_oily_fish',
