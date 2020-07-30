@@ -1204,6 +1204,11 @@
       "live-probiotic-1": "Live probiotic or fermented food products",
       "live-probiotic-2": "e.g. sauerkraut, kimchi, yakult, live yogurt, kefir",
 
+      "section-meat": "Whole meats:",
+      "section-processed-meat": "Processed meats / meat products:",
+      "section-fish": "Fish:",
+      "section-other": "Other",
+
       "portions_of_fruit-label": "On average, how many portions of FRUIT did you eat a day? (Excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
       "portions_of_fruit-placeholder": "Portions per day",
       "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice did you drink a day? (A standard glass is 230 ml)",

@@ -82,6 +82,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
       key: 'ffq_red_meat',
       primaryLabel: i18n.t('diet-study.typical-diet.red_meat-1'),
       secondaryLabel: i18n.t('diet-study.typical-diet.red_meat-2'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-meat'),
     },
     {
       key: 'ffq_white_meat',
@@ -91,6 +92,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_red_processed_meat',
       primaryLabel: i18n.t('diet-study.typical-diet.red_processed_meat-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-processed-meat'),
     },
     {
       key: 'ffq_white_processed_meat',
@@ -103,6 +105,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_white_fish',
       primaryLabel: i18n.t('diet-study.typical-diet.white_fish-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-fish'),
     },
     {
       key: 'ffq_oily_fish',
@@ -112,6 +115,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_eggs',
       primaryLabel: i18n.t('diet-study.typical-diet.eggs-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-other'),
     },
     {
       key: 'ffq_fast_food',
@@ -128,6 +132,7 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     key: object.key!,
     primaryLabel: object.primaryLabel!,
     secondaryLabel: object.secondaryLabel,
+    sectionHeading: object.sectionHeading,
     items,
     headerOnTap: () => {},
   }));
