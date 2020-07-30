@@ -39,7 +39,7 @@ const IntroSection: React.FC = () => {
   return (
     <View style={styles.thankyou}>
       <View style={{ height: 4 }} />
-      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.intro')}</RegularText>
+      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.intro-1')}</RegularText>
       <RegularBoldText>{i18n.t('diet-study.about-you.intro-2')}</RegularBoldText>
     </View>
   );
@@ -48,11 +48,10 @@ const IntroSection: React.FC = () => {
 const ThankYouSection: React.FC = () => {
   return (
     <View style={styles.thankyou}>
-      <RegularBoldText>{i18n.t('diet-study.about-you.thank-you')}</RegularBoldText>
       <View style={{ height: 4 }} />
-      <RegularText style={{ textAlign: 'center' }}>
-        {i18n.t('diet-study.about-you.answer-same-set-questions')}
-      </RegularText>
+      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.answer-again-1')}</RegularText>
+      <RegularBoldText>{i18n.t('diet-study.about-you.answer-again-2')}</RegularBoldText>
+      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.answer-again-3')}</RegularText>
     </View>
   );
 };

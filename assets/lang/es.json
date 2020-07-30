@@ -1057,10 +1057,11 @@
 
     "about-you": {
       "title": "",
-      "intro": "",
+      "intro-1": "",
       "intro-2": "",
-      "thank-you": "",
-      "answer-same-set-questions": ""
+      "answer-again-1": "",
+      "answer-again-2": "",
+      "answer-again-3": ""
     },
 
     "weight-label": "",
@@ -1080,7 +1081,8 @@
     },
 
     "your-lifestyle": {
-      "title": ""
+      "title": "",
+      "title-2": ""
     },
 
     "physical-activity": {
@@ -1142,7 +1144,6 @@
       "label": "",
       "fiber": "",
       "probiotic": "",
-      "live-probiotic": "",
       "iron": "",
       "calcium": "",
       "vitamin-d": "",
@@ -1228,6 +1229,8 @@
       "eggs-2": "",
       "fast_food-1": "",
       "fast_food-2": "",
+      "live-probiotic-1": "",
+      "live-probiotic-2": "",
 
       "portions_of_fruit-label": "",
       "portions_of_fruit-placeholder": "",

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import React from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { FormikProps } from 'formik';
 
 import { colors } from '@theme';
@@ -7,7 +7,7 @@ import { FOOD_INTAKE_FREQUENCY, SelectableItem } from '@covid/components/Inputs/
 import i18n from '@covid/locale/i18n';
 import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
 
-import { FoodFreqGroupItem, FoodFreqGroup } from './FoodFreqGroup';
+import { FoodFreqGroup, FoodFreqGroupItem } from './FoodFreqGroup';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -116,6 +116,11 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
     {
       key: 'ffq_fast_food',
       primaryLabel: i18n.t('diet-study.typical-diet.fast_food-1'),
+    },
+    {
+      key: 'ffq_live_probiotic_fermented',
+      primaryLabel: i18n.t('diet-study.typical-diet.live-probiotic-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.live-probiotic-2'),
     },
   ];
 
