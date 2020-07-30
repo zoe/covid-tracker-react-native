@@ -62,31 +62,8 @@ interface Props {
 }
 
 export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected }) => {
-  const opacity = { start: 0, end: 1 };
-  const positionY = { start: 75, end: 0 };
-
   const [selected, setSelected] = useState<SelectableItem | null>();
-  const isSelected = (item: SelectableItem): boolean => {
-    return selected?.title === item.title;
-  };
-
-  const fadeAnimations = items.map(() => useRef(new Animated.Value(opacity.start)).current);
-  const animations = items.map(() => useRef(new Animated.Value(positionY.start)).current);
-
-  useEffect(() => {
-    const run = (fn: any, index: number, final: number) => {
-      const duration = 220;
-      const delay = resetAnimation ? 0 : index * 40;
-      Animated.timing(fn, {
-        toValue: final,
-        duration,
-        delay,
-        easing: Easing.inOut(Easing.cubic),
-      }).start();
-    };
-    fadeAnimations.forEach((item, index) => run(item, index, resetAnimation ? opacity.start : opacity.end));
-    animations.forEach((item, index) => run(item, index, resetAnimation ? positionY.start : positionY.end));
-  }, [resetAnimation]);
+  const isSelected = (item: SelectableItem): boolean => selected?.title === item.title;
 
   return (
     <View
@@ -97,14 +74,7 @@ export const Selectable: React.FC<Props> = ({ items, resetAnimation, onSelected 
         alignItems: 'flex-start',
       }}>
       {items.map((item, index) => (
-        <Animated.View
-          style={[
-            {
-              opacity: fadeAnimations[index],
-              transform: [{ translateY: animations[index] }],
-            },
-            styles.itemContainer,
-          ]}>
+        <Animated.View style={[styles.itemContainer]}>
           <SelectableButton
             style={[styles.item, index % 2 === 0 ? styles.itemMarginRight : styles.itemMarginLeft]}
             selected={isSelected(item)}
