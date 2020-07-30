@@ -212,7 +212,7 @@ export class AppCoordinator {
 
   async shouldShowStudiesMenu(): Promise<boolean> {
     const consent = await AsyncStorageService.getDietStudyConsent();
-    return consent !== DietStudyConsent.SKIP;
+    return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
   }
 
   goToVaccineRegistry() {
