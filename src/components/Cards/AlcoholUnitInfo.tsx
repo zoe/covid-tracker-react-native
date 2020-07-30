@@ -38,7 +38,7 @@ const UNITS_GUIDE = (): UnitGuideItem[] => [
   {
     icon: <StandardWine />,
     title: i18n.t('diet-study.alcohol-unit-info.standard-glass'),
-    volume: '125ml',
+    volume: '175ml',
     unit: 2,
   },
   {

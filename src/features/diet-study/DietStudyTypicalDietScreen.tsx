@@ -116,6 +116,8 @@ const styles = StyleSheet.create({
 
   padded: {
     marginHorizontal: 16,
+    marginTop: 30,
+    marginBottom: 8,
   },
 
   divider: {

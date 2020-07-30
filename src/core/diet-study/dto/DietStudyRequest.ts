@@ -24,7 +24,6 @@ export type DietStudyRequest = {
   takes_supplements: boolean;
   supplements_fibre: boolean;
   supplements_probiotic: boolean;
-  supplements_live_probiotic_fermented: boolean;
   supplements_iron: boolean;
   supplements_calcium: boolean;
   supplements_vitamin_d: boolean;
@@ -77,6 +76,7 @@ export type DietStudyRequest = {
   ffq_oily_fish: string;
   ffq_eggs: string;
   ffq_fast_food: string;
+  ffq_live_probiotic_fermented: string;
 
   portions_of_fruit: number;
   glasses_of_juice: number;
