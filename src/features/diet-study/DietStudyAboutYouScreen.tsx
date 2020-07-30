@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
@@ -39,8 +39,10 @@ const IntroSection: React.FC = () => {
   return (
     <View style={styles.thankyou}>
       <View style={{ height: 4 }} />
-      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.intro-1')}</RegularText>
-      <RegularBoldText>{i18n.t('diet-study.about-you.intro-2')}</RegularBoldText>
+      <Text style={{ textAlign: 'center' }}>
+        <RegularText>{i18n.t('diet-study.about-you.intro-1')}</RegularText>
+        <RegularBoldText>{i18n.t('diet-study.about-you.intro-2')}</RegularBoldText>
+      </Text>
     </View>
   );
 };
@@ -49,9 +51,11 @@ const ThankYouSection: React.FC = () => {
   return (
     <View style={styles.thankyou}>
       <View style={{ height: 4 }} />
-      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.answer-again-1')}</RegularText>
-      <RegularBoldText>{i18n.t('diet-study.about-you.answer-again-2')}</RegularBoldText>
-      <RegularText style={{ textAlign: 'center' }}>{i18n.t('diet-study.about-you.answer-again-3')}</RegularText>
+      <Text style={{ textAlign: 'center' }}>
+        <RegularText>{i18n.t('diet-study.about-you.answer-again-1')}</RegularText>
+        <RegularBoldText>{i18n.t('diet-study.about-you.answer-again-2')}</RegularBoldText>
+        <RegularText>{i18n.t('diet-study.about-you.answer-again-3')}</RegularText>
+      </Text>
     </View>
   );
 };
