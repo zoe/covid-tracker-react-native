@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Collapsible from 'react-native-collapsible';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { Easing } from 'react-native-reanimated';
 
 import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
@@ -16,8 +14,6 @@ export interface FoodFreqGroupItem {
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];
-  opened?: boolean;
-  headerOnTap: (key: keyof FoodFreqData) => void;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -37,15 +33,7 @@ const animate = (fn: any) => {
   }).start();
 };
 
-export const FoodFreqGroup: React.FC<Props> = ({
-  primaryLabel,
-  secondaryLabel,
-  items,
-  error,
-  onSelected,
-  opened = true,
-  ...props
-}) => {
+export const FoodFreqGroup: React.FC<Props> = ({ primaryLabel, secondaryLabel, items, error, onSelected }) => {
   const opacity = { start: 0, end: 1 };
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
@@ -53,6 +41,8 @@ export const FoodFreqGroup: React.FC<Props> = ({
   useEffect(() => {
     animate(fadeAnimation);
   }, [selectedItem, setSelectedItem]);
+
+  const hasSelectedItem = (): boolean => selectedItem !== null;
 
   const selectedLabel = (
     <Animated.View
@@ -68,34 +58,30 @@ export const FoodFreqGroup: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          props.headerOnTap(props.key);
-        }}>
-        <View style={styles.header}>
-          <RegularText>{primaryLabel}</RegularText>
-          <Text> </Text>
-          {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
+      <View style={styles.header}>
+        <RegularText>{primaryLabel}</RegularText>
+        <Text> </Text>
+        {secondaryLabel && <SecondaryText>{secondaryLabel}</SecondaryText>}
+      </View>
+      {selectedItem && selectedLabel}
+      {error && (
+        <View style={{ marginTop: 4 }}>
+          <ValidationError error={error} style={styles.validationError} />
         </View>
-        {selectedItem && selectedLabel}
-        {error && (
-          <View style={{ marginTop: 4 }}>
-            <ValidationError error={error} style={styles.validationError} />
-          </View>
-        )}
-      </TouchableOpacity>
-      <Collapsible enablePointerEvents={false} collapsed={!opened}>
-        <View style={{ height: 20 }} />
-        <Selectable
-          key={primaryLabel}
-          items={items}
-          resetAnimation={!opened}
-          onSelected={(selected) => {
-            setSelectedItem(selected);
-            if (onSelected) onSelected(selected);
-          }}
-        />
-      </Collapsible>
+      )}
+      {!hasSelectedItem() && (
+        <>
+          <View style={{ height: 20 }} />
+          <Selectable
+            key={primaryLabel}
+            items={items}
+            onSelected={(selected) => {
+              setSelectedItem(selected);
+              if (onSelected) onSelected(selected);
+            }}
+          />
+        </>
+      )}
     </View>
   );
 };
