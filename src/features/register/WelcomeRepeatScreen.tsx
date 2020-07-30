@@ -123,9 +123,9 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            <View style={{ paddingVertical: 12 }}>{this.displayPartnerLogo()}</View>
+            {this.displayPartnerLogo()}
 
-            <View style={{ flex: 1 }} />
+            <View style={{ flex: 1, paddingTop: 24 }} />
 
             {this.state.showVaccineRegistry ? (
               <VaccineRegistryCallout />
