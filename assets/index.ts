@@ -29,7 +29,6 @@ export const syringe = require('./mechanism-icons/syringe.png');
 
 // Partner logos
 export const gbPartners = require('./logos/gb_partners.png');
-export const gbPartnersReturn = require('./logos/gb_partners_return.png');
 export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');

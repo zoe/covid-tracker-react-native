@@ -5,8 +5,8 @@ import { zoe } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 
-import { InlineFormatting } from './InlineFormatting';
-import { RegularText } from './Text';
+import { InlineFormatting } from '../InlineFormatting';
+import { RegularText } from '../Text';
 
 export const PoweredByZoe = () => {
   return (
