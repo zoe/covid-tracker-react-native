@@ -1137,8 +1137,8 @@
     "eats-breakfast-label": "Did you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
     "main-meals-placeholder": "Main meals per day",
-    "snacks-label": "How frequently did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
-    "snacks-placeholder": "Frequency of snacks per day",
+    "snacks-label": "How many times did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
+    "snacks-placeholder": "Eat snacks per day",
     "lost-control": "Do you worry that you had lost control over how much you eat?",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",

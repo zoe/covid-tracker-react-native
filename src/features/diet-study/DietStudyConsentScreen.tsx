@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { colors } from '@theme';
-import { BrandedButton, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Divider, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -43,6 +43,8 @@ export const DietStudyConsentScreen: React.FC<Props> = ({ route, navigation }) =
             <Header style={{ marginHorizontal: 0 }}>
               <HeaderText style={styles.header}>{i18n.t('diet-study.consent.header')}</HeaderText>
             </Header>
+
+            <Divider />
             <View style={styles.textContainer}>
               <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph-1')}</RegularText>
               <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph-2')}</RegularText>

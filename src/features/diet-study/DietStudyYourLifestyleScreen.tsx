@@ -7,8 +7,8 @@ import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, Divider, ErrorText, HeaderText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { ValidationError } from '@covid/components/ValidationError';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
@@ -16,7 +16,6 @@ import { AlcoholData, AlcoholQuestions } from '@covid/features/diet-study/fields
 import { SupplementData, SupplementQuestions } from '@covid/features/diet-study/fields/SupplementQuestions';
 import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fields/DietDescriptionQuestion';
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
-import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
 import dietStudyCoordinator, { getScreenHeaderOptions } from '@covid/core/diet-study/DietStudyCoordinator';
 import { colors } from '@theme';
@@ -70,9 +69,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
         <HeaderText>{i18n.t('diet-study.your-lifestyle.title-2')}</HeaderText>
       </Header>
 
-      <ProgressBlock>
-        <ProgressStatus step={0} maxSteps={3} />
-      </ProgressBlock>
+      <Divider />
 
       <Formik
         initialValues={{
@@ -94,9 +91,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
                 <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
               </Header>
 
-              <ProgressBlock>
-                <ProgressStatus step={0} maxSteps={3} />
-              </ProgressBlock>
+              <Divider />
 
               <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
               <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
