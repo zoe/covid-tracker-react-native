@@ -104,6 +104,15 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
       sectionHeading: i18n.t('diet-study.typical-diet.section-fish'),
     },
     {
+      key: 'ffq_white_fish',
+      primaryLabel: i18n.t('diet-study.typical-diet.white_fish-1'),
+    },
+    {
+      key: 'ffq_oily_fish',
+      primaryLabel: i18n.t('diet-study.typical-diet.oily_fish-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.oily_fish-2'),
+    },
+    {
       key: 'ffq_white_bread',
       primaryLabel: i18n.t('diet-study.typical-diet.white-bread-1'),
       sectionHeading: i18n.t('diet-study.typical-diet.section-refined-carbs'),
@@ -120,15 +129,6 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
       key: 'ffq_refined_breakfast',
       primaryLabel: i18n.t('diet-study.typical-diet.refined_breakfast-1'),
       secondaryLabel: i18n.t('diet-study.typical-diet.refined_breakfast-2'),
-    },
-    {
-      key: 'ffq_white_fish',
-      primaryLabel: i18n.t('diet-study.typical-diet.white_fish-1'),
-    },
-    {
-      key: 'ffq_oily_fish',
-      primaryLabel: i18n.t('diet-study.typical-diet.oily_fish-1'),
-      secondaryLabel: i18n.t('diet-study.typical-diet.oily_fish-2'),
     },
     {
       key: 'ffq_eggs',
