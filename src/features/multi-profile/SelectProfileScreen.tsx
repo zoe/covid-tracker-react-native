@@ -39,7 +39,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
 
   useEffect(() => {
     listProfiles();
-  }, []);
+  });
 
   const getNextAvatarName = async (): Promise<string> => {
     if (profiles) {
