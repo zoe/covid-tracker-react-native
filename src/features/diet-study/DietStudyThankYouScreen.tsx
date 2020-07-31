@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Divider, HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { colors } from '@theme';
 import PatientHeader from '@covid/components/PatientHeader';
@@ -40,6 +40,7 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
         <HeaderText style={styles.headerText}>{i18n.t('diet-study.thank-you.title')}</HeaderText>
         <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-2')}</RegularText>
 
+        <Divider />
         <View style={{ marginTop: 24 }}>
           <ShareAppCard />
         </View>
