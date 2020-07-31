@@ -127,7 +127,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('SelectProfile')}
+                  onPress={() =>
+                    this.props.navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'SelectProfile' }],
+                    })
+                  }
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>
