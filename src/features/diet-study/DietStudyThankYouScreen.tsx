@@ -40,7 +40,6 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
         <HeaderText style={styles.headerText}>{i18n.t('diet-study.thank-you.title')}</HeaderText>
         <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-2')}</RegularText>
 
-        <Divider />
         <View style={{ marginTop: 24 }}>
           <ShareAppCard />
         </View>
