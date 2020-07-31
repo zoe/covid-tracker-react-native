@@ -109,11 +109,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
       const currentPatient = this.coordinator.patientData.patientState;
-      const patientId = currentPatient.patientId;
       var infos = this.createPatientInfos(formData);
 
-      this.userService
-        .updatePatient(patientId, infos)
+      this.coordinator
+        .updatePatientInfo(infos)
         .then(() => {
           currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
           currentPatient.isFemale = formData.sex !== 'male';
@@ -449,7 +448,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   onPress={props.handleSubmit}
                   enable={checkFormFilled(props)}
                   hideLoading={!props.isSubmitting}>
-                  <Text>{i18n.t('next-question')}</Text>
+                  <Text>{this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}</Text>
                 </BrandedButton>
               </Form>
             );

@@ -33,9 +33,10 @@ export class EditProfileCoordinator implements Coordinator {
     }
   };
 
-  updateProfile(info: Partial<PatientInfosRequest>) {
-    return this.userService.updatePatient(this.patientData.patientId, info).then(() => {
-      Object.assign(this.patientData.patientInfo, info);
+  updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
+    return this.userService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+      Object.assign(this.patientData.patientInfo, patientInfo);
+      return info;
     });
   }
 

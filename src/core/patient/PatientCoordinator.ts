@@ -3,6 +3,7 @@ import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 export class PatientCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
@@ -56,6 +57,13 @@ export class PatientCoordinator implements Coordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
+
+  updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
+    return this.userService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+      Object.assign(this.patientData.patientInfo, patientInfo);
+      return info;
+    });
+  }
 }
 
 const patientCoordinator = new PatientCoordinator();

@@ -28,7 +28,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     };
 
     editProfileCoordinator
-      .updateProfile(infos)
+      .updatePatientInfo(infos)
       .then(() => {
         editProfileCoordinator.gotoNextScreen(props.route.name);
       })
