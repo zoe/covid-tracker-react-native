@@ -113,6 +113,24 @@ export const FOOD_FREQ_GROUPS = (): FoodFreqGroupItem[] => {
       secondaryLabel: i18n.t('diet-study.typical-diet.oily_fish-2'),
     },
     {
+      key: 'ffq_white_bread',
+      primaryLabel: i18n.t('diet-study.typical-diet.white-bread-1'),
+      sectionHeading: i18n.t('diet-study.typical-diet.section-refined-carbs'),
+    },
+    {
+      key: 'ffq_rice',
+      primaryLabel: i18n.t('diet-study.typical-diet.rice-1'),
+    },
+    {
+      key: 'ffq_pasta',
+      primaryLabel: i18n.t('diet-study.typical-diet.pasta-1'),
+    },
+    {
+      key: 'ffq_refined_breakfast',
+      primaryLabel: i18n.t('diet-study.typical-diet.refined_breakfast-1'),
+      secondaryLabel: i18n.t('diet-study.typical-diet.refined_breakfast-2'),
+    },
+    {
       key: 'ffq_eggs',
       primaryLabel: i18n.t('diet-study.typical-diet.eggs-1'),
       sectionHeading: i18n.t('diet-study.typical-diet.section-other'),
