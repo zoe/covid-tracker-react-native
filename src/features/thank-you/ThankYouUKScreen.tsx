@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog006, dataPage003, incidence009, notificationReminders, timUpdate004 } from '@assets';
+import { blog006, dataPage003, incidence009, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -69,8 +69,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
-              <Donate />
-
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"
                 calloutID="blog_006"
@@ -129,7 +127,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('SelectProfile')}
+                  onPress={() =>
+                    this.props.navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'SelectProfile' }],
+                    })
+                  }
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>

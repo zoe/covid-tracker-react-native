@@ -35,6 +35,10 @@ export type FoodFreqData = {
   ffq_eggs: FOOD_INTAKE_FREQUENCIES | '';
   ffq_fast_food: FOOD_INTAKE_FREQUENCIES | '';
   ffq_live_probiotic_fermented: FOOD_INTAKE_FREQUENCIES | '';
+  ffq_white_bread: FOOD_INTAKE_FREQUENCIES | '';
+  ffq_rice: FOOD_INTAKE_FREQUENCIES | '';
+  ffq_pasta: FOOD_INTAKE_FREQUENCIES | '';
+  ffq_refined_breakfast: FOOD_INTAKE_FREQUENCIES | '';
 };
 
 interface Props {
@@ -84,6 +88,10 @@ FoodFreqQuestion.initialFormValues = (): FoodFreqData => ({
   ffq_eggs: '',
   ffq_fast_food: '',
   ffq_live_probiotic_fermented: '',
+  ffq_white_bread: '',
+  ffq_rice: '',
+  ffq_pasta: '',
+  ffq_refined_breakfast: '',
 });
 
 FoodFreqQuestion.schema = () => {
@@ -112,6 +120,10 @@ FoodFreqQuestion.schema = () => {
     ffq_eggs: validation,
     ffq_fast_food: validation,
     ffq_live_probiotic_fermented: validation,
+    ffq_white_bread: validation,
+    ffq_rice: validation,
+    ffq_pasta: validation,
+    ffq_refined_breakfast: validation,
   });
 };
 

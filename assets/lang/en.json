@@ -1093,7 +1093,7 @@
     },
 
     "alcohol-units": {
-      "label": "How many drinks containing alcohol did you have on a typical day when you are drinking? By “drink” we mean one unit of alcohol.",
+      "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one unit of alcohol.",
       "one-to-two": "1 or 2",
       "three-to-four": "3 or 4",
       "five-to-six": "5 or 6",
@@ -1132,21 +1132,22 @@
       "specify": "Please specify the other supplements"
     },
 
-    "first-calories-label": "After waking, what time did you usually first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
-    "last-calories-label": "What was the latest time of the day that you would usually eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "first-calories-label": "After waking, what time did you typically first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "last-calories-label": "What was the latest time of day that you would typically eat or drink anything other than water/black coffee and plain tea? (including snacks)",
     "eats-breakfast-label": "Did you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
     "main-meals-placeholder": "Main meals per day",
-    "snacks-label": "How frequently did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
-    "snacks-placeholder": "Frequency of snacks per day",
-    "lost-control": "Do you worry that you had lost control over how much you eat?",
+    "snacks-label": "How many times did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
+    "snacks-placeholder": "Eat snacks per day",
+    "lost-control": "Do you worry that you had lost control over how much you eat?",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",
       "mixed": "Typical mixed diet (including most/all foods as well as meat, fish or seafood)",
       "vegetarian": "Vegetarian (includes eggs and/or dairy)",
       "vegan": "Vegan (no animal products)",
       "pescatarian": "Pescatarian (no meat other than fish or seafood)",
-      "low-carb": "Low-carbohydrate diet (includes ketogenic, Atkins, the Paleo diet or minimising carbs)",
+      "keto": "Ketogenic or Atkins",
+      "low-carb": "Low-carbohydrate diet (includes the Paleo diet or minimising carbs)",
       "low-fat": "Low-fat diet",
       "gluten-free": "Gluten-free diet",
       "lactose-free": "Lactose-free diet",
@@ -1203,11 +1204,17 @@
       "fast_food-2": "",
       "live-probiotic-1": "Live probiotic or fermented food products",
       "live-probiotic-2": "e.g. sauerkraut, kimchi, yakult, live yogurt, kefir",
+      "white-bread-1": "White bread",
+      "rice-1": "Rice",
+      "pasta-1": "Pasta",
+      "refined_breakfast-1": "Refined breakfast cereals",
+      "refined_breakfast-2": "e.g. rice krispies, cornflakes, coco pops",
 
-      "section-meat": "Whole meats:",
-      "section-processed-meat": "Processed meats / meat products:",
-      "section-fish": "Fish:",
+      "section-meat": "Whole meats",
+      "section-processed-meat": "Processed meats / meat products",
+      "section-fish": "Fish",
       "section-other": "Other",
+      "section-refined-carbs": "Refined carbohydrates",
 
       "portions_of_fruit-label": "On average, how many portions of FRUIT did you eat a day? (Excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
       "portions_of_fruit-placeholder": "Portions per day",
@@ -1245,10 +1252,10 @@
     "consent": {
       "header": "Before you finish",
       "paragraph-1": "Thank you for completing this questionnaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
-      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. This is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
+      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. \n\nWe'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. \n\nThis is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
       "buttons-header": "Do you consent to using this data for further research into nutrition and health?",
-      "yes": "Yes, finish questionnaire",
-      "no": "No, finish questionnaire"
+      "yes": "Yes, I agree",
+      "no": "No, I do not consent"
     },
 
     "thank-you": {
