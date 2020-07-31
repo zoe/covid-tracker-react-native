@@ -62,7 +62,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={3} maxSteps={3} />
+        <ProgressStatus step={0} maxSteps={3} />
       </ProgressBlock>
 
       <Formik
