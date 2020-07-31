@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { colors } from '@theme';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -47,19 +47,18 @@ export const DietStudyConsentScreen: React.FC<Props> = ({ route, navigation }) =
               <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph-1')}</RegularText>
               <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph-2')}</RegularText>
             </View>
+            <View style={{ height: 16 }} />
+            <RegularBoldText style={styles.header}>{i18n.t('diet-study.consent.buttons-header')}</RegularBoldText>
+            <View style={{ height: 16 }} />
+            <BrandedButton style={styles.primaryButton} onPress={accept}>
+              <RegularText style={styles.primaryButtonText}>{i18n.t('diet-study.consent.yes')}</RegularText>
+            </BrandedButton>
+            <BrandedButton style={styles.secondaryButton} onPress={decline}>
+              <RegularText style={styles.secondaryButtonText}>{i18n.t('diet-study.consent.no')}</RegularText>
+            </BrandedButton>
           </View>
         </View>
       </Screen>
-      <View style={styles.buttonContainer}>
-        <HeaderText style={styles.header}>{i18n.t('diet-study.consent.buttons-header')}</HeaderText>
-        <View style={{ height: 16 }} />
-        <BrandedButton style={styles.primaryButton} onPress={accept}>
-          <RegularText style={styles.primaryButtonText}>{i18n.t('diet-study.consent.yes')}</RegularText>
-        </BrandedButton>
-        <BrandedButton style={styles.secondaryButton} onPress={decline}>
-          <RegularText style={styles.secondaryButtonText}>{i18n.t('diet-study.consent.no')}</RegularText>
-        </BrandedButton>
-      </View>
     </View>
   );
 };
