@@ -3,7 +3,7 @@ export enum FoodSecurityOptions {
   ENOUGH_NOT_KINDS_WANTED = 'enough_not_kinds_wanted',
   SOMETIMES_NOT_ENOUGH = 'sometimes_not_enough',
   OFTEN_NOT_ENOUGH = 'often_not_enough',
-  PFNTS = 'pftns',
+  PFNTS = 'pfnts',
 }
 
 export enum PhysicalActivityOptions {
@@ -13,7 +13,7 @@ export enum PhysicalActivityOptions {
   TWICE_A_WEEK = 'twice_a_week',
   THREE_TO_FOUR_A_WEEK = 'three_to_four_a_week',
   FIVE_OR_MORE = 'five_or_more_a_week',
-  PFNTS = 'pftns',
+  PFNTS = 'pfnts',
 }
 
 export enum AlcoholFrequencyOptions {
@@ -22,7 +22,7 @@ export enum AlcoholFrequencyOptions {
   TWO_TO_FOUR_A_MONTH = 'two_to_four_a_month',
   TWO_TO_THREE_A_WEEK = 'two_to_three_a_week',
   FOUR_OR_MORE_A_WEEK = 'four_or_more_a_week',
-  PFNTS = 'pftns',
+  PFNTS = 'pfnts',
 }
 
 export enum AlcoholUnitsOptions {
@@ -31,7 +31,7 @@ export enum AlcoholUnitsOptions {
   FIVE_TO_SIX = '5-6',
   SEVEN_TO_NINE = '7-9',
   TEN_OR_MORE = '10+',
-  PFNTS = 'pftns',
+  PFNTS = 'pfnts',
 }
 
 export enum FFQOptions {

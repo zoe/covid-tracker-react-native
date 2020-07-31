@@ -1,23 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import Collapsible from 'react-native-collapsible';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { Easing } from 'react-native-reanimated';
 
-import { SelectableItem, Selectable } from '@covid/components/Inputs/Selectable';
+import { Selectable, SelectableItem } from '@covid/components/Inputs/Selectable';
 import { colors } from '@theme';
 import { FoodFreqData } from '@covid/features/diet-study/fields/FoodFreqQuestion';
 import { ValidationError } from '@covid/components/ValidationError';
 
-import { RegularText, SecondaryText } from '../../Text';
+import { HeaderText, RegularText, SecondaryText } from '../../Text';
 
 export interface FoodFreqGroupItem {
   key: keyof FoodFreqData;
   primaryLabel: string;
   secondaryLabel?: string;
   items: SelectableItem[];
-  opened?: boolean;
-  headerOnTap: (key: keyof FoodFreqData) => void;
+  headerOnTap?: (key: keyof FoodFreqData) => void;
+  sectionHeading?: string;
 }
 
 interface Props extends FoodFreqGroupItem {
@@ -40,19 +39,23 @@ const animate = (fn: any) => {
 export const FoodFreqGroup: React.FC<Props> = ({
   primaryLabel,
   secondaryLabel,
+  sectionHeading,
   items,
   error,
   onSelected,
-  opened = true,
   ...props
 }) => {
   const opacity = { start: 0, end: 1 };
   const [selectedItem, setSelectedItem] = useState<SelectableItem | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
 
   useEffect(() => {
     animate(fadeAnimation);
   }, [selectedItem, setSelectedItem]);
+
+  const hasSelectedItem = selectedItem !== null;
+  const shouldShowItems = !hasSelectedItem || isOpen;
 
   const selectedLabel = (
     <Animated.View
@@ -68,9 +71,14 @@ export const FoodFreqGroup: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
+      {sectionHeading && <HeaderText style={{ marginBottom: 6 }}>{sectionHeading}</HeaderText>}
       <TouchableOpacity
         onPress={() => {
-          props.headerOnTap(props.key);
+          if (!hasSelectedItem) {
+            return;
+          }
+          setIsOpen(!isOpen);
+          if (props.headerOnTap) props.headerOnTap(props.key);
         }}>
         <View style={styles.header}>
           <RegularText>{primaryLabel}</RegularText>
@@ -84,18 +92,20 @@ export const FoodFreqGroup: React.FC<Props> = ({
           </View>
         )}
       </TouchableOpacity>
-      <Collapsible enablePointerEvents={false} collapsed={!opened}>
-        <View style={{ height: 20 }} />
-        <Selectable
-          key={primaryLabel}
-          items={items}
-          resetAnimation={!opened}
-          onSelected={(selected) => {
-            setSelectedItem(selected);
-            if (onSelected) onSelected(selected);
-          }}
-        />
-      </Collapsible>
+      {shouldShowItems && (
+        <>
+          <View style={{ height: 20 }} />
+          <Selectable
+            key={primaryLabel}
+            items={items}
+            onSelected={(selected) => {
+              setSelectedItem(selected);
+              setIsOpen(false);
+              if (onSelected) onSelected(selected);
+            }}
+          />
+        </>
+      )}
     </View>
   );
 };

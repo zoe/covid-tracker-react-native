@@ -11,11 +11,7 @@ import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/compo
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import dietStudyCoordinator, {
-  getScreenHeaderOptions,
-  LAST_4_WEEKS,
-  PRE_LOCKDOWN,
-} from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, { LAST_4_WEEKS, PRE_LOCKDOWN } from '@covid/core/diet-study/DietStudyCoordinator';
 import QuotationMark from '@assets/icons/QuotationMark';
 import { sarahBerryAvatar } from '@assets';
 
@@ -43,7 +39,7 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
   };
 
   return (
-    <Screen profile={profile} navigation={navigation} {...getScreenHeaderOptions(timePeriod)}>
+    <Screen profile={profile} navigation={navigation}>
       <Formik initialValues={{}} validationSchema={registerSchema} onSubmit={(values: FormData) => submit(values)}>
         {(props) => {
           return (
@@ -69,10 +65,12 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                 </View>
               </View>
 
-              <View style={styles.seperator} />
+              <View style={{ padding: 8, marginVertical: 24 }}>
+                <RegularText style={styles.text}>{i18n.t('diet-study.next-box.text')}</RegularText>
+              </View>
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                {i18n.t('diet-study.continue-cta')}
+                {i18n.t('diet-study.complete-cta')}
               </BrandedButton>
             </Form>
           );
@@ -112,12 +110,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     textAlign: 'center',
   },
-
-  seperator: {
-    height: 1,
-    backgroundColor: colors.backgroundFour,
-    marginHorizontal: 16,
-    marginTop: 64,
-    marginBottom: 32,
+  text: {
+    textAlign: 'center',
   },
 });

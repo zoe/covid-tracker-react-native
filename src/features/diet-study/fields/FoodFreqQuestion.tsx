@@ -34,6 +34,7 @@ export type FoodFreqData = {
   ffq_oily_fish: FOOD_INTAKE_FREQUENCIES | '';
   ffq_eggs: FOOD_INTAKE_FREQUENCIES | '';
   ffq_fast_food: FOOD_INTAKE_FREQUENCIES | '';
+  ffq_live_probiotic_fermented: FOOD_INTAKE_FREQUENCIES | '';
 };
 
 interface Props {
@@ -45,8 +46,10 @@ type keys = keyof FoodFreqData;
 export const FoodFreqQuestion: FormQuestion<Props, FoodFreqData, CovidTest> = (props: Props) => {
   const { formikProps } = props;
   return (
-    <FieldWrapper style={{ marginHorizontal: 16 }}>
-      <RegularText style={{ marginBottom: 16 }}>{i18n.t('diet-study.typical-diet.text-2')}</RegularText>
+    <FieldWrapper style={{ marginHorizontal: 4 }}>
+      <RegularText style={{ marginHorizontal: 8, marginBottom: 20 }}>
+        {i18n.t('diet-study.typical-diet.text-2')}
+      </RegularText>
       <FoodFreqCard
         items={FOOD_FREQ_GROUPS()}
         style={{ marginVertical: 16 }}
@@ -80,6 +83,7 @@ FoodFreqQuestion.initialFormValues = (): FoodFreqData => ({
   ffq_oily_fish: '',
   ffq_eggs: '',
   ffq_fast_food: '',
+  ffq_live_probiotic_fermented: '',
 });
 
 FoodFreqQuestion.schema = () => {
@@ -107,6 +111,7 @@ FoodFreqQuestion.schema = () => {
     ffq_oily_fish: validation,
     ffq_eggs: validation,
     ffq_fast_food: validation,
+    ffq_live_probiotic_fermented: validation,
   });
 };
 

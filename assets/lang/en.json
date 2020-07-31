@@ -1014,7 +1014,7 @@
 
   "diet-study": {
     "drawer-menu-item": "My study",
-    "answer-for-feb": "Answer for February",
+    "answer-for-feb": "Answer for month of Feb",
     "answer-for-last-4-weeks": "Answer for last 4 weeks",
 
     "required": "This is required",
@@ -1022,7 +1022,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lock down has impacted our diet and dietary habits. It will take 5-10 minutes to complete.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 5-10 minutes to complete.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1031,10 +1031,12 @@
     "next-section": "Next section",
 
     "about-you": {
-      "title": "A bit about you",
-      "intro": "Please answer these questions thinking back over your typical habits over the last 4 weeks.",
-      "thank-you": "Thank you",
-      "answer-same-set-questions": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread."
+      "title": "Your lifestyle",
+      "intro-1": "Answer these questions thinking back over your typical habits over the last ",
+      "intro-2": "4 weeks.",
+      "answer-again-1": "Please answer the same set of questions, but this time for ",
+      "answer-again-2": "February 2020",
+      "answer-again-3": ", before the COVID pandemic spread."
     },
 
     "weight-label": "Your weight",
@@ -1043,22 +1045,23 @@
     "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
     "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
     "hours-of-sleep-placeholder": "Hours per night",
-    "shift-work-label": "Do you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
+    "shift-work-label": "Did you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
-      "label": "Which of the following statements best describes the food eaten in your household in the last week?",
+      "label": "Which of the following statements best describes the food eaten in your household in this time-frame?",
       "always-had-enough": "You all always had enough of the kinds of foods you wanted to eat",
       "enough-not-kinds-wanted": "You all had enough to eat, but not always the kinds of food you wanted",
       "sometimes-not-enough": "You sometimes did not have enough to eat",
-      "often-not-enough": "You often didn't have enough to eat",
+      "often-not-enough": "You often did not have enough to eat",
       "pfnts": "Prefer not to say"
     },
 
     "your-lifestyle": {
-      "title": "Your lifestyle"
+      "title": "Dietary habits",
+      "title-2": "Food Access"
     },
 
     "physical-activity": {
-      "label": "How frequently have you typically engaged in physical activity that raises your heart rate and lasts for 20 minutes at a time?",
+      "label": "How frequently have you typically engaged in physical activity that raised your heart rate and lasted for 20 minutes at a time?",
       "less-than-once-a-month": "Less than once a month",
       "less-than-once-a-week": "At least once a month, but less than once a week",
       "once-a-week": "About once a week",
@@ -1080,7 +1083,7 @@
     },
 
     "alcohol-frequency": {
-      "label": "How often do you have a drink containing alcohol?",
+      "label": "How often did you have a drink containing alcohol?",
       "never": "Never",
       "monthly": "Monthly",
       "two-to-four-a-month": "2 to 4 times a month",
@@ -1090,7 +1093,7 @@
     },
 
     "alcohol-units": {
-      "label": "How many drinks containing alcohol do you have on a typical day when you are drinking? By “drink” we mean one unit of alcohol.",
+      "label": "How many drinks containing alcohol did you have on a typical day when you are drinking? By “drink” we mean one unit of alcohol.",
       "one-to-two": "1 or 2",
       "three-to-four": "3 or 4",
       "five-to-six": "5 or 6",
@@ -1110,13 +1113,12 @@
       "bottle-wine": "Bottle of wine"
     },
 
-    "takes-supplements-label": "Do you regularly (at least 3-4 times a week) take supplements?",
+    "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",
 
     "supplements": {
-      "label": "What vitamins or supplements are you taking (at least 3-4 times a week)?",
+      "label": "What vitamins or supplements did you take (at least 3-4 times a week)?",
       "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
       "probiotic": "Probiotic capsules / sachets",
-      "live-probiotic": "Live probiotic or fermented food products (e.g. sauerkraut, kimchi,yakult, live yogurt, kefir) ",
       "iron": "Iron tablets",
       "calcium": "Calcium tablets",
       "vitamin-d": "Vitamin D supplements",
@@ -1130,21 +1132,21 @@
       "specify": "Please specify the other supplements"
     },
 
-    "first-calories-label": "What time do you usually first eat or drink anything (including snacks) other than water/black coffee and plain tea?",
-    "last-calories-label": "What is the latest time of the day that you usually eat or drink anything (including snacks) other than water/black coffee and plain tea?",
-    "eats-breakfast-label": "Do you typically eat breakfast?",
-    "main-meals-label": "How many 'main' meals do you typically eat in a day (a main meal is lunch or dinner)?",
-    "main-meals-placeholder": "Meals per day",
-    "snacks-label": "How frequently do you typically eat snacks in a day (a snack is any food eaten outside of breakfast, lunch or dinner)?",
-    "snacks-placeholder": "Snacks per day",
-    "lost-control": "Do you worry you have lost control over how much you eat?",
+    "first-calories-label": "After waking, what time did you usually first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "last-calories-label": "What was the latest time of the day that you would usually eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "eats-breakfast-label": "Did you typically eat breakfast?",
+    "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
+    "main-meals-placeholder": "Main meals per day",
+    "snacks-label": "How frequently did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
+    "snacks-placeholder": "Frequency of snacks per day",
+    "lost-control": "Do you worry that you had lost control over how much you eat?",
     "diet": {
-      "label": "Which of the below options best describes you over the four weeks (you can select more than one option)?",
-      "mixed": "Mixed diet (including meat, fish or seafood)",
+      "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",
+      "mixed": "Typical mixed diet (including most/all foods as well as meat, fish or seafood)",
       "vegetarian": "Vegetarian (includes eggs and/or dairy)",
       "vegan": "Vegan (no animal products)",
       "pescatarian": "Pescatarian (no meat other than fish or seafood)",
-      "low-carb": "Low-carbohydrate diet  Includes ketogenic, Atkins or paleo diet - Minimize carbohydrates and replace with fat or protein.)",
+      "low-carb": "Low-carbohydrate diet (includes ketogenic, Atkins, the Paleo diet or minimising carbs)",
       "low-fat": "Low-fat diet",
       "gluten-free": "Gluten-free diet",
       "lactose-free": "Lactose-free diet",
@@ -1153,7 +1155,7 @@
 
     "typical-diet": {
       "title": "Your typical diet",
-      "text-1": "The following questions ask about some foods & drinks you might have during a ‘typical’ week, over the past month or so. Do not be concerned if some things you eat or drink are not mentioned.",
+      "text-1": "These questions ask about some foods & drinks you might have in a ‘typical’ week during this time-frame.\n\nDo not be concerned if some things you eat or drink are not mentioned.",
       "text-2": "Please select how often you eat at least ONE portion of the following foods & drinks. A portion includes: a handful of grapes, an orange, a serving of carrots, a side salad, a slice of bread, a glass of pop.",
       "fruit-1": "Fruit",
       "fruit-2": "(tinned / fresh)",
@@ -1182,32 +1184,39 @@
       "fizzy_pop-1": "Non alcoholic fizzy drinks/pop",
       "fizzy_pop-2": "(not sugar free or diet)",
       "red_meat-1": "Beef, Lamb, Pork, Ham",
-      "red_meat-2": "steaks, roasts, joints, mince or chops",
+      "red_meat-2": "Steaks, roasts, joints, mince or chops",
       "white_meat-1": "Chicken or Turkey",
-      "white_meat-2": "steaks, roasts, joints, mince or portions (not in batter or breadcrumbs)",
+      "white_meat-2": "Steaks, roasts, joints, mince or portions (not in batter or breadcrumbs)",
       "red_processed_meat-1": "Sausages, bacon, corned beef, meat pies/pasties, burgers",
       "red_processed_meat-2": "",
       "white_processed_meat-1": "Chicken/turkey nuggets/twizzlers, turkey burgers, chicken pies, or in batter or breadcrumbs",
       "white_processed_meat-2": "",
       "white_fish_battered_breaded-1": "White fish in batter or breadcrumbs – like ‘fish ‘n chips’",
       "white_fish_battered_breaded-2": "",
-      "white_fish-1": "White fish not in batter or breadcrumbs ",
+      "white_fish-1": "White fish not in batter or breadcrumbs",
       "white_fish-2": "",
       "oily_fish-1": "Oily fish – like herrings, sardines, salmon, trout, mackerel, fresh tuna",
       "oily_fish-2": "(not tinned tuna)",
-      "eggs-1": "Eggs - as boiled, fried, scrambled, etc (one)'",
+      "eggs-1": "Eggs - as boiled, fried, scrambled, etc.",
       "eggs-2": "",
       "fast_food-1": "Fast food",
       "fast_food-2": "",
+      "live-probiotic-1": "Live probiotic or fermented food products",
+      "live-probiotic-2": "e.g. sauerkraut, kimchi, yakult, live yogurt, kefir",
 
-      "portions_of_fruit-label": "On average, how many portions of FRUIT do you eat a day? (excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
+      "section-meat": "Whole meats:",
+      "section-processed-meat": "Processed meats / meat products:",
+      "section-fish": "Fish:",
+      "section-other": "Other",
+
+      "portions_of_fruit-label": "On average, how many portions of FRUIT did you eat a day? (Excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
       "portions_of_fruit-placeholder": "Portions per day",
-      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice do you drink a day? (a standard glass is 240 ml)",
+      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice did you drink a day? (A standard glass is 230 ml)",
       "glasses_of_juice-placeholder": "Glasses per day",
-      "portions_of_veg-label": "On average, how many portions of VEGETABLES do you eat a day? (Examples include: 3 heaped tablespoons of carrots, a side salad, 2 spears of broccoli)",
+      "portions_of_veg-label": "On average, how many portions of VEGETABLES did you eat a day? (Examples include 3 heaped tablespoons of carrots, a side salad, 2 spears of broccoli)",
       "portions_of_veg-placeholder": "Portions per day",
 
-      "milk-label": "What milk do you usually use or drink, such as in hot & cold drinks or on cereal?",
+      "milk-label": "What milk did you usually use or drink, such as in hot & cold drinks or on cereal?",
       "milk-whole": "Whole / full-fat milk",
       "milk-semi": "Semi-skimmed milk",
       "milk-skimmed": "Skimmed milk",
@@ -1226,7 +1235,7 @@
     },
 
     "continue-cta": "Continue",
-    "complete-cta": "Complete",
+    "complete-cta": "Answer for February 2020",
 
     "next-box": {
       "title": "Thank you",
@@ -1236,7 +1245,7 @@
     "consent": {
       "header": "Before you finish",
       "paragraph-1": "Thank you for completing this questionnaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
-      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to see your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. This is completely optional.",
+      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. This is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
       "buttons-header": "Do you consent to using this data for further research into nutrition and health?",
       "yes": "Yes, finish questionnaire",
       "no": "No, finish questionnaire"
@@ -1248,8 +1257,9 @@
       "text-2": "Feel free to share this with people who might be interested in this research."
     },
 
+
     "thank-you-break": {
-      "description": "\"Thank you for answering these important questions. We're looking to understand how lockdown has impacted your diet and lifestyle in this exciting new study\"",
+      "description": "\"Thank you for answering these important questions. Lockdown has been a time of huge change for us all - your input is invaluable to help us understand its impact on our diet and lifestyle.\"",
       "sarah-name": "Dr Sarah Berry",
       "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
     }
