@@ -1301,5 +1301,14 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Latest News"
+  },
+
+  "latest-news": {
+    "title": "Latest News"
   }
 }

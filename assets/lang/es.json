@@ -849,11 +849,11 @@
     "archive-cta": "Archivar este perfil",
     "done": "Listo",
 
-      "location": {
-        "title": "Mi ubicacion",
-        "label": "Su código postal",
-        "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad"
-      }
+    "location": {
+      "title": "Mi ubicacion",
+      "label": "Su código postal",
+      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad"
+    }
   },
 
   "archive-confirmation": {
@@ -1306,5 +1306,14 @@
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
     }
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Latest News"
+  },
+
+  "latest-news": {
+    "title": "Latest News"
   }
 }
