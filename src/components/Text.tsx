@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomWidth: 2,
     borderColor: colors.backgroundFour,
-    paddingVertical: 20,
-    marginLeft: 15,
+    marginHorizontal: 16,
   },
 });
