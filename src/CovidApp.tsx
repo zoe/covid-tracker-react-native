@@ -13,7 +13,7 @@ import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
 import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
-import { DrawerMenu } from '@covid/features/DrawerMenu';
+import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { SplashScreen } from '@covid/features/SplashScreen';
 import ThankYouScreen from '@covid/features/thank-you/ThankYouScreen';
