@@ -1042,8 +1042,8 @@
     "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
-    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
-    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
+    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
+    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
     "hours-of-sleep-placeholder": "Hours per night",
     "shift-work-label": "Did you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
@@ -1244,11 +1244,6 @@
     "continue-cta": "Continue",
     "complete-cta": "Answer for February 2020",
 
-    "next-box": {
-      "title": "Thank you",
-      "text": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread."
-    },
-
     "consent": {
       "header": "Before you finish",
       "paragraph-1": "Thank you for completing this questionnaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
@@ -1266,9 +1261,12 @@
 
 
     "thank-you-break": {
-      "description": "\"Thank you for answering these important questions. Lockdown has been a time of huge change for us all - your input is invaluable to help us understand its impact on our diet and lifestyle.\"",
+      "description-1": "\"We’re starting to see from ",
+      "description-2": "initial data",
+      "description-3": " that lockdown has had a harmful impact on our diet & lifestyle, which in turn may impact people’s chances of catching COVID and their disease severity. To understand these impacts fully, we need your help.\"",
       "sarah-name": "Dr Sarah Berry",
-      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
+      "text": "Help us by answering the same set of questions - but this time looking back in time to February 2020 (pre-lockdown).\n\nParticipants in this research will receive exclusive access to our latest insights into the interaction between COVID and diet & lifestyle."
     }
   },
 
