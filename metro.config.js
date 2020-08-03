@@ -4,7 +4,6 @@ module.exports = (async () => {
   const {
     resolver: { sourceExts, assetExts },
   } = await getDefaultConfig();
-
   return {
     transformer: {
       babelTransformerPath: require.resolve('./asset-transformer.js'),
