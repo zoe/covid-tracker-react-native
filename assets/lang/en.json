@@ -1307,5 +1307,9 @@
   "tab-navigator": {
     "first-tab": "Dashboard",
     "second-tab": "Latest News"
+  },
+
+  "latest-news": {
+    "title": "Latest News"
   }
 }

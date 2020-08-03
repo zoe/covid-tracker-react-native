@@ -74,6 +74,7 @@ import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStu
 import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
 import { dashboard, news } from '@assets';
+import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -172,7 +173,7 @@ export default class CovidApp extends Component<object, State> {
         />
         <Tab.Screen
           name="LatestNews"
-          component={ThankYouUKScreen}
+          component={LatestNewsScreen}
           options={{ title: i18n.t('tab-navigator.second-tab') }}
         />
       </Tab.Navigator>
