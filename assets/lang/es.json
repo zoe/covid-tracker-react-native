@@ -1270,8 +1270,7 @@
 
     "consent": {
       "header": "",
-      "paragraph-1": "",
-      "paragraph-2": "",
+      "paragraph": "",
       "buttons-header": "",
       "yes": "",
       "no": ""

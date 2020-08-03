@@ -71,10 +71,10 @@ export class DietStudyCoordinator {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
       if (timePeriod === PRE_LOCKDOWN) {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
       } else {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
     },
     DietStudyThankYouBreak: () => {
