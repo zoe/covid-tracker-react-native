@@ -41,7 +41,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, indic
 };
 
 export const LinkItem: React.FC<LinkMenuItemProps> = ({
-  label,
   link,
   type,
   onPress = () => {
@@ -59,6 +58,8 @@ export const LinkItem: React.FC<LinkMenuItemProps> = ({
         return i18n.t('privacy-policy');
       case DrawerMenuItem.DELETE_MY_DATA:
         return i18n.t('delete-my-data');
+      case DrawerMenuItem.TURN_ON_REMINDERS:
+        return i18n.t('push-notifications');
       default:
         return '';
     }

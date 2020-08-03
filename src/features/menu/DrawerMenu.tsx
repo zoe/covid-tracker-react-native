@@ -67,13 +67,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
     appCoordinator.goToDietStart();
   }
 
-  async function openPushNotificationSettings() {
-    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
-      name: DrawerMenuItem.TURN_ON_REMINDERS,
-    });
-    await PushNotificationService.openSettings();
-  }
-
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <ScrollView style={styles.container}>

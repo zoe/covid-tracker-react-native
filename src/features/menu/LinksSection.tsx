@@ -8,6 +8,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { Divider } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 
 import { DrawerMenuItem, LinkItem } from './DrawerMenuItem';
 import { useLogout } from './Logout.hooks';
@@ -53,17 +54,26 @@ export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = (
     );
   }
 
+  async function openPushNotificationSettings() {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, {
+      name: DrawerMenuItem.TURN_ON_REMINDERS,
+    });
+    await PushNotificationService.openSettings();
+  }
+
   return (
     <>
       <Divider styles={styles.divider} />
+
+      <LinkItem type={DrawerMenuItem.TURN_ON_REMINDERS} onPress={openPushNotificationSettings} />
 
       <LinkItem type={DrawerMenuItem.RESEARCH_UPDATE} link={i18n.t('blog-link')} />
 
       <LinkItem type={DrawerMenuItem.FAQ} link={i18n.t('faq-link')} />
 
-      <LinkItem type={DrawerMenuItem.PRIVACY_POLICY} onPress={() => goToPrivacy()} />
+      <LinkItem type={DrawerMenuItem.PRIVACY_POLICY} onPress={goToPrivacy} />
 
-      <LinkItem type={DrawerMenuItem.DELETE_MY_DATA} onPress={() => showDeleteAlert()} />
+      <LinkItem type={DrawerMenuItem.DELETE_MY_DATA} onPress={showDeleteAlert} />
 
       <Divider styles={styles.divider} />
     </>
