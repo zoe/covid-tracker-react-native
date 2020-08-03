@@ -72,6 +72,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
       <ScrollView style={styles.container}>
         <View style={styles.topBar}>
           <CaptionText>
+            {`Version `}
             {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
             {isDevChannel() && ` (DEV)`}
           </CaptionText>
@@ -80,27 +81,27 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           </TouchableOpacity>
         </View>
 
-        {showDietStudy && (
-          <MenuItem
-            image={<MyStudyIcon />}
-            label={i18n.t('diet-study.drawer-menu-item')}
-            onPress={() => {
-              openDietStudy();
-            }}
-          />
-        )}
+        {/* {showDietStudy && ( */}
+        <MenuItem
+          image={<MyStudyIcon />}
+          label={i18n.t('diet-study.drawer-menu-item')}
+          onPress={() => {
+            openDietStudy();
+          }}
+        />
+        {/* // )} */}
 
         <MenuItem image={<EditProfilesIcon />} label={i18n.t('nav-edit-profile')} onPress={() => {}} />
 
-        {showVaccineRegistry && (
-          <MenuItem
-            image={<VaccineRegistryIcon />}
-            label={i18n.t('vaccine-registry.menu-item')}
-            onPress={() => {
-              appCoordinator.goToVaccineRegistry();
-            }}
-          />
-        )}
+        {/* {showVaccineRegistry && ( */}
+        <MenuItem
+          image={<VaccineRegistryIcon />}
+          label={i18n.t('vaccine-registry.menu-item')}
+          onPress={() => {
+            appCoordinator.goToVaccineRegistry();
+          }}
+        />
+        {/* // )} */}
 
         <MenuItem
           image={<ShareIcon />}
@@ -115,12 +116,12 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
         <View style={{ flex: 1 }} />
         <MenuItem
           label={i18n.t('logout')}
+          smallLabel={userEmail}
           onPress={() => {
             setUserEmail('');
             logout();
           }}
         />
-        <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
       </ScrollView>
     </SafeAreaView>
   );
@@ -149,9 +150,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingLeft: 8,
-  },
-  versionText: {
-    marginTop: 8,
-    paddingLeft: 8,
+    paddingBottom: 20,
   },
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Linking } from 'react-native';
 
-import { RegularText, HeaderText } from '@covid/components/Text';
+import { RegularText, HeaderText, CaptionText } from '@covid/components/Text';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
@@ -18,6 +18,7 @@ export enum DrawerMenuItem {
 export interface MenuItemProps {
   label: string;
   image?: React.ReactNode;
+  smallLabel?: string;
   indicator?: number;
   onPress: () => void;
 }
@@ -28,14 +29,17 @@ export interface LinkMenuItemProps {
   onPress?: () => void;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, indicator }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, smallLabel, indicator }) => {
   return (
     <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
-      {image && <View style={styles.icon}>{image}</View>}
-      <View style={styles.labelRow}>
-        <HeaderText>{label}</HeaderText>
-        {indicator && <NumberIndicator number={indicator} />}
+      <View style={{ flexDirection: 'row' }}>
+        {image && <View style={styles.icon}>{image}</View>}
+        <View style={styles.labelRow}>
+          <HeaderText>{label}</HeaderText>
+          {indicator && <NumberIndicator number={indicator} />}
+        </View>
       </View>
+      {smallLabel && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
     </TouchableOpacity>
   );
 };
@@ -79,14 +83,19 @@ const styles = StyleSheet.create({
     width: 24,
     marginRight: 20,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   iconNameRow: {
     marginStart: 8,
     marginVertical: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   labelRow: {
     justifyContent: 'space-between',
+  },
+  smallLabel: {
+    marginTop: 8,
   },
 });
