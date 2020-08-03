@@ -103,5 +103,6 @@ const styles = StyleSheet.create({
   },
   bodyText: {
     marginTop: 24,
+    textAlign: 'center',
   },
 });
