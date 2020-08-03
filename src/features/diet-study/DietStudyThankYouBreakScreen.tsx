@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { Image, Linking, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 import { Form } from 'native-base';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import { colors, fontStyles } from '@theme';
-import { BrandedButton, ClickableText, Header3Text, MutedText, RegularText } from '@covid/components/Text';
+import { colors } from '@theme';
+import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/components/Text';
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -38,8 +38,6 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
-  const openLink = useCallback(() => Linking.openURL('https://covid.joinzoe.com/post/lockdown-weight-gain'), []);
-
   return (
     <Screen profile={profile} navigation={navigation}>
       <Formik initialValues={{}} validationSchema={registerSchema} onSubmit={(values: FormData) => submit(values)}>
@@ -53,10 +51,6 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                   </View>
                   <Header3Text style={styles.description}>
                     {i18n.t('diet-study.thank-you-break.description-1')}
-                    <ClickableText style={[fontStyles.h3Reg, styles.link]} onPress={openLink}>
-                      {i18n.t('diet-study.thank-you-break.description-2')}
-                    </ClickableText>
-                    {i18n.t('diet-study.thank-you-break.description-3')}
                   </Header3Text>
                 </View>
 
@@ -69,10 +63,6 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                     {i18n.t('diet-study.thank-you-break.sarah-description')}
                   </MutedText>
                 </View>
-              </View>
-
-              <View style={{ padding: 8, marginVertical: 24 }}>
-                <RegularText style={styles.text}>{i18n.t('diet-study.thank-you-break.text')}</RegularText>
               </View>
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
@@ -105,11 +95,11 @@ const styles = StyleSheet.create({
   avatarContainer: {
     alignItems: 'center',
     marginTop: 12,
+    marginBottom: 24,
   },
   avatar: {
-    borderRadius: 36,
-    width: 72,
-    height: 72,
+    width: 144,
+    height: 144,
   },
   avatarTitle: {
     marginTop: 16,
