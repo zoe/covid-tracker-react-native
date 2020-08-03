@@ -13,7 +13,6 @@ import { DrawerMenuItem, LinkItem } from './DrawerMenuItem';
 import { useLogout } from './Logout.hooks';
 
 export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = ({ navigation }) => {
-
   const userService = useInjection<IUserService>(Services.User);
   const { logout } = useLogout(navigation);
 
@@ -24,10 +23,9 @@ export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = (
     isGBCountry()
       ? navigation.navigate('PrivacyPolicyUK', { viewOnly: true })
       : isSECountry()
-        ? navigation.navigate('PrivacyPolicySV', { viewOnly: true })
-        : navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
+      ? navigation.navigate('PrivacyPolicySV', { viewOnly: true })
+      : navigation.navigate('PrivacyPolicyUS', { viewOnly: true });
   }
-
 
   function showDeleteAlert() {
     Alert.alert(
@@ -55,35 +53,27 @@ export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = (
     );
   }
 
-  return <React.Fragment>
-    <Divider styles={styles.divider} />
+  return (
+    <>
+      <Divider styles={styles.divider} />
 
-    <LinkItem
-      type={DrawerMenuItem.RESEARCH_UPDATE}
-      link={i18n.t('blog-link')}
-    />
+      <LinkItem type={DrawerMenuItem.RESEARCH_UPDATE} link={i18n.t('blog-link')} />
 
-    <LinkItem
-      type={DrawerMenuItem.FAQ}
-      link={i18n.t('faq-link')}
-    />
+      <LinkItem type={DrawerMenuItem.FAQ} link={i18n.t('faq-link')} />
 
-    <LinkItem
-      type={DrawerMenuItem.PRIVACY_POLICY}
-      onPress={() => goToPrivacy()} />
+      <LinkItem type={DrawerMenuItem.PRIVACY_POLICY} onPress={() => goToPrivacy()} />
 
-    <LinkItem
-      type={DrawerMenuItem.DELETE_MY_DATA}
-      onPress={() => showDeleteAlert()} />
+      <LinkItem type={DrawerMenuItem.DELETE_MY_DATA} onPress={() => showDeleteAlert()} />
 
-    <Divider styles={styles.divider} />
-  </React.Fragment>
-}
+      <Divider styles={styles.divider} />
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   divider: {
     marginHorizontal: 0,
     marginVertical: 24,
-    borderBottomWidth: 1
-  }
+    borderBottomWidth: 1,
+  },
 });

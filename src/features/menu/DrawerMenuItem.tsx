@@ -17,14 +17,14 @@ export enum DrawerMenuItem {
 
 export interface MenuItemProps {
   label: string;
-  image?: React.ReactNode
+  image?: React.ReactNode;
   indicator?: number;
   onPress: () => void;
 }
 
 export interface LinkMenuItemProps {
   link?: string;
-  type: DrawerMenuItem
+  type: DrawerMenuItem;
   onPress?: () => void;
 }
 
@@ -40,43 +40,50 @@ export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, indic
   );
 };
 
-export const LinkItem: React.FC<LinkMenuItemProps> = ({ label, link, type, onPress = () => {
-  Analytics.track(events.CLICK_DRAWER_MENU_ITEM, { name: type });
-  if (link) Linking.openURL(link);
-}}) => {
-
+export const LinkItem: React.FC<LinkMenuItemProps> = ({
+  label,
+  link,
+  type,
+  onPress = () => {
+    Analytics.track(events.CLICK_DRAWER_MENU_ITEM, { name: type });
+    if (link) Linking.openURL(link);
+  },
+}) => {
   const getLabel = (): string => {
     switch (type) {
       case DrawerMenuItem.FAQ:
-       return i18n.t('faqs');
+        return i18n.t('faqs');
       case DrawerMenuItem.RESEARCH_UPDATE:
-       return i18n.t('research-updates');
+        return i18n.t('research-updates');
       case DrawerMenuItem.PRIVACY_POLICY:
-       return i18n.t('privacy-policy');
+        return i18n.t('privacy-policy');
       case DrawerMenuItem.DELETE_MY_DATA:
         return i18n.t('delete-my-data');
-      default: return "";
+      default:
+        return '';
     }
-  }
+  };
 
-  return <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
-    <View style={styles.labelRow}>
-      <RegularText>{getLabel()}</RegularText>
-    </View>
-  </TouchableOpacity>
-}
+  return (
+    <TouchableOpacity style={styles.iconNameRow} onPress={onPress}>
+      <View style={styles.labelRow}>
+        <RegularText>{getLabel()}</RegularText>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   icon: {
     width: 24,
     marginRight: 20,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   iconNameRow: {
     marginStart: 8,
     marginVertical: 16,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   labelRow: {
     justifyContent: 'space-between',

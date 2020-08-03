@@ -62,7 +62,9 @@ export const ClickableText = ({ style, children, onPress }: ClickableProps) => (
   </Text>
 );
 
-export const Divider: React.FC<{styles?: StyleProp<ViewStyle>}> = ({ styles: passed }) => <View style={[styles.divider, passed]} />;
+export const Divider: React.FC<{ styles?: StyleProp<ViewStyle> }> = ({ styles: passed }) => (
+  <View style={[styles.divider, passed]} />
+);
 
 const styles = StyleSheet.create({
   headerText: {

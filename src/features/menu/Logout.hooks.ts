@@ -22,5 +22,5 @@ export const useLogout = (navigation: DrawerNavigationHelpers) => {
     navigation.dispatch(DrawerActions.closeDrawer());
   }
 
-  return { logout }
-}
+  return { logout };
+};

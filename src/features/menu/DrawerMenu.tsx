@@ -2,6 +2,7 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import Constants from 'expo-constants';
 import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
@@ -16,7 +17,6 @@ import { MyStudyIcon, VaccineRegistryIcon, ShareIcon, EditProfilesIcon } from '@
 import { MenuItem, DrawerMenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -77,7 +77,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   return (
     <SafeAreaView style={styles.drawerRoot}>
       <ScrollView style={styles.container}>
-
         <View style={styles.topBar}>
           <CaptionText>
             {Constants.manifest.revisionId ? Constants.manifest.revisionId : Constants.manifest.version}
@@ -97,13 +96,9 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             }}
           />
         )}
-        
-        <MenuItem
-          image={<EditProfilesIcon />}
-          label={i18n.t('nav-edit-profile')}
-          onPress={() => { }}
-        />
-        
+
+        <MenuItem image={<EditProfilesIcon />} label={i18n.t('nav-edit-profile')} onPress={() => {}} />
+
         {showVaccineRegistry && (
           <MenuItem
             image={<VaccineRegistryIcon />}
@@ -125,15 +120,18 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
         <LinksSection navigation={props.navigation} />
 
         <View style={{ flex: 1 }} />
-        <MenuItem label={i18n.t('logout')} onPress={() => {
-          setUserEmail('');
-          logout()
-        }} />
+        <MenuItem
+          label={i18n.t('logout')}
+          onPress={() => {
+            setUserEmail('');
+            logout();
+          }}
+        />
         <CaptionText style={styles.versionText}>{userEmail}</CaptionText>
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   drawerRoot: {
