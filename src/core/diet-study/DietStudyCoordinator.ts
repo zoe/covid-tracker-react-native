@@ -74,7 +74,7 @@ export class DietStudyCoordinator {
         NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       } else {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
       }
     },
     DietStudyThankYouBreak: () => {
@@ -88,7 +88,7 @@ export class DietStudyCoordinator {
       }
     },
     DietStudyConsent: () => {
-      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+      NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
