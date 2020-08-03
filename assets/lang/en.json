@@ -1302,5 +1302,10 @@
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
     "menu-item": "Join the vaccine registry"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Latest News"
   }
 }

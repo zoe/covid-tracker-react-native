@@ -12,6 +12,10 @@ export const closeIcon = require('./icons/close.png');
 export const chevronRight = require('./icons/chevron-right.png');
 export const chevronLeft = require('./icons/chevron-left.png');
 
+// Nav bar
+export const news = require('./icons/blog.png');
+export const dashboard = require('./icons/dashboard.png');
+
 // Flags
 export const gbFlag = require('./icons/gb-flag.png');
 export const menuIcon = require('./icons/menu.png');
