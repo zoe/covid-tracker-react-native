@@ -88,4 +88,6 @@ export type ScreenParamList = {
   ValidationStudyConsent: { viewOnly: boolean };
 
   Dashboard: undefined;
+
+  EstimatedCases: undefined;
 };

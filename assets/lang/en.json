@@ -571,6 +571,7 @@
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
   "delete": "Delete",
+  "estimated-cases": "Estimated cases",
   "logout": "Log out",
 
   "your-country-title": "Your country",
@@ -1263,7 +1264,6 @@
       "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID.",
       "text-2": "Feel free to share this with people who might be interested in this research."
     },
-
 
     "thank-you-break": {
       "description": "\"Thank you for answering these important questions. Lockdown has been a time of huge change for us all - your input is invaluable to help us understand its impact on our diet and lifestyle.\"",
