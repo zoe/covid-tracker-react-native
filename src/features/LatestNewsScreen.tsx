@@ -1,27 +1,17 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { blog006, dataPage003, incidence009, notificationReminders, timUpdate004 } from '@assets';
 import { colors } from '@theme';
-import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
-import InviteToStudy from '@covid/components/InviteToStudy';
-import { Header } from '@covid/components/Screen';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
-import { BrandedButton, ClickableText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
-import { lazyInject } from '@covid/provider/services';
-import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { Header3Text } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import Donate from '@covid/components/Donate';
-import { useInjection } from '@covid/provider/services.hooks';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyThankYou'>;
