@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { View, Animated, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { colors } from '@theme';
+import { DrawerToggle } from '@covid/components/DrawerToggle';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('screen');
 
@@ -11,12 +14,14 @@ type CollapsibleHeaderHeightConfig = {
 };
 
 interface CollapsibleHeaderScrollViewProps {
+  navigation: DrawerNavigationProp<ScreenParamList>;
   compactHeader: React.ReactNode;
   expandedHeader: React.ReactNode;
   config: CollapsibleHeaderHeightConfig;
 }
 
 export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewProps> = ({
+  navigation,
   compactHeader,
   expandedHeader,
   config,
@@ -60,6 +65,9 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
 
   return (
     <View style={styles.container}>
+      <View style={{ zIndex: 999, right: 20, top: 58 }}>
+        <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
+      </View>
       <Animated.View style={[styles.header, { height: headerHeight }]}>
         <Animated.View
           style={{
@@ -111,7 +119,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     top: 0,
     left: 0,
-    zIndex: 9999,
+    zIndex: 99,
     overflow: 'hidden',
   },
   expandedHeaderContainer: {
