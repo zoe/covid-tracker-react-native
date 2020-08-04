@@ -50,7 +50,7 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                     <QuotationMark />
                   </View>
                   <Header3Text style={styles.description}>
-                    {i18n.t('diet-study.thank-you-break.description')}
+                    {i18n.t('diet-study.thank-you-break.description-1')}
                   </Header3Text>
                 </View>
 
@@ -63,10 +63,6 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                     {i18n.t('diet-study.thank-you-break.sarah-description')}
                   </MutedText>
                 </View>
-              </View>
-
-              <View style={{ padding: 8, marginVertical: 24 }}>
-                <RegularText style={styles.text}>{i18n.t('diet-study.next-box.text')}</RegularText>
               </View>
 
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
@@ -91,15 +87,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.brand,
   },
+  link: {
+    color: colors.brand,
+    textDecorationLine: 'underline',
+  },
   textContainer: {},
   avatarContainer: {
     alignItems: 'center',
     marginTop: 12,
+    marginBottom: 24,
   },
   avatar: {
-    borderRadius: 36,
-    width: 72,
-    height: 72,
+    width: 144,
+    height: 144,
   },
   avatarTitle: {
     marginTop: 16,

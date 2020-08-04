@@ -44,11 +44,10 @@ export const DietStudyConsentScreen: React.FC<Props> = ({ route, navigation }) =
               <HeaderText style={styles.header}>{i18n.t('diet-study.consent.header')}</HeaderText>
             </Header>
 
-            <Divider />
             <View style={styles.textContainer}>
-              <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph-1')}</RegularText>
-              <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph-2')}</RegularText>
+              <RegularText style={styles.primaryLabel}>{i18n.t('diet-study.consent.paragraph')}</RegularText>
             </View>
+
             <View style={{ height: 16 }} />
             <RegularBoldText style={styles.header}>{i18n.t('diet-study.consent.buttons-header')}</RegularBoldText>
             <View style={{ height: 16 }} />
