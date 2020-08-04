@@ -73,6 +73,8 @@ import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStu
 import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
 
+import { DashboardScreen } from './features/dashboard/DashboardScreen';
+
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
 
@@ -211,6 +213,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
       </Stack.Navigator>
     );
   }

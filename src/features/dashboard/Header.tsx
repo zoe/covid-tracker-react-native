@@ -6,14 +6,18 @@ import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
 import { covidIcon } from '@assets';
 
-export const Header: React.FC = () => {
+interface Props {
+  reportOnPress: VoidFunction;
+}
+
+export const Header: React.FC<Props> = ({ reportOnPress }) => {
   return (
     <View style={styles.root}>
       <Image source={covidIcon} style={styles.logo} />
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>Wednesday 22 July</Header3Text>
-        <BrandedButton style={styles.reportButton} onPress={() => {}}>
+        <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
           Report now
         </BrandedButton>
         <CaptionText style={styles.reportedCount}>You’ve reported 43 times</CaptionText>
@@ -26,6 +30,27 @@ export const Header: React.FC = () => {
       <View style={{ width: '100%' }}>
         <PoweredByZoeSmall />
       </View>
+    </View>
+  );
+};
+
+export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
+  return (
+    <View style={styles.root}>
+      <Image
+        source={covidIcon}
+        style={[
+          styles.logo,
+          {
+            position: 'absolute',
+            left: 16,
+            bottom: 22,
+          },
+        ]}
+      />
+      <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
+        Report now
+      </BrandedButton>
     </View>
   );
 };
