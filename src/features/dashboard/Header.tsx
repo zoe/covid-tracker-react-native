@@ -1,26 +1,25 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
-import { colors } from "@theme";
-import { PoweredByZoeSmall } from "@covid/components/Logos/PoweredByZoe";
-import { Header3Text, RegularText, BrandedButton, CaptionText } from "@covid/components/Text";
-import { covidIcon } from "@assets";
+import React from 'react';
+import { View, Image, StyleSheet } from 'react-native';
+
+import { colors } from '@theme';
+import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
+import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
+import { covidIcon } from '@assets';
 
 export const Header: React.FC = () => {
-
   return (
     <View style={styles.root}>
-
       <Image source={covidIcon} style={styles.logo} />
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>Wednesday 22 July</Header3Text>
-        <BrandedButton style={styles.reportButton} onPress={() => { }}>Report now</BrandedButton>
+        <BrandedButton style={styles.reportButton} onPress={() => {}}>
+          Report now
+        </BrandedButton>
         <CaptionText style={styles.reportedCount}>You’ve reported 43 times</CaptionText>
       </View>
 
-      <RegularText style={styles.contributorsLabel}>
-        Contributors so far:
-      </RegularText>
+      <RegularText style={styles.contributorsLabel}>Contributors so far:</RegularText>
 
       <Header3Text style={styles.contributorsCount}>2,503,450</Header3Text>
 
@@ -29,10 +28,9 @@ export const Header: React.FC = () => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-
   root: {
     backgroundColor: colors.predict,
     alignItems: 'center',
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
     width: 54,
     height: 54,
     resizeMode: 'contain',
-    margin: 8
+    margin: 8,
   },
 
   reportCard: {
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 52,
     height: 48,
     marginTop: 16,
-    marginBottom: 8
+    marginBottom: 8,
   },
 
   reportedCount: {
@@ -86,5 +84,5 @@ const styles = StyleSheet.create({
   contributorsCount: {
     fontWeight: '500',
     color: colors.white,
-  }
-})
+  },
+});
