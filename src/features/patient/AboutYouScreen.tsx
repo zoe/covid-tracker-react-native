@@ -279,9 +279,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       is: 'lbs',
       then: Yup.number().required(i18n.t('required-weight-in-lb')),
     }),
-
-    postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-
+    postcode: Yup.string().when([], {
+      is: () => !this.props.route.params.editing,
+      then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+    }),
     everExposed: Yup.string().required(i18n.t('required-ever-exposed')),
     houseboundProblems: Yup.string().required(),
     needsHelp: Yup.string().required(),
@@ -398,14 +399,16 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                 <WeightQuestion formikProps={props as FormikProps<WeightData>} label={i18n.t('your-weight')} />
 
-                <GenericTextField
-                  formikProps={props}
-                  label={i18n.t('your-postcode')}
-                  placeholder={i18n.t('placeholder-postcode')}
-                  name="postcode"
-                  inputProps={{ autoCompleteType: 'postal-code' }}
-                  showError
-                />
+                {!this.props.route.params.editing && (
+                  <GenericTextField
+                    formikProps={props}
+                    label={i18n.t('your-postcode')}
+                    placeholder={i18n.t('placeholder-postcode')}
+                    name="postcode"
+                    inputProps={{ autoCompleteType: 'postal-code' }}
+                    showError
+                  />
+                )}
 
                 <DropdownField
                   selectedValue={props.values.everExposed}
