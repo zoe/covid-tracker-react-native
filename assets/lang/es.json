@@ -1309,11 +1309,11 @@
   },
 
   "tab-navigator": {
-    "first-tab": "Dashboard",
-    "second-tab": "Latest News"
+    "first-tab": "Panel",
+    "second-tab": "Últimas noticias"
   },
 
   "latest-news": {
-    "title": "Latest News"
+    "title": "Últimas noticias"
   }
 }

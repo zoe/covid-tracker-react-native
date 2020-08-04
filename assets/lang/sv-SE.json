@@ -1305,10 +1305,10 @@
 
   "tab-navigator": {
     "first-tab": "Dashboard",
-    "second-tab": "Latest News"
+    "second-tab": "Senaste nytt"
   },
 
   "latest-news": {
-    "title": "Latest News"
+    "title": "Senaste nytt"
   }
 }
