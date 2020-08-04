@@ -39,7 +39,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ image, onPress, label, small
           {indicator && <NumberIndicator number={indicator} />}
         </View>
       </View>
-      {smallLabel && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
+      {smallLabel != null && <CaptionText style={styles.smallLabel}>{smallLabel}</CaptionText>}
     </TouchableOpacity>
   );
 };
