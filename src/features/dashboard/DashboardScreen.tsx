@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Children } from 'react';
 import { View, Animated, ScrollView, StyleSheet, Dimensions } from 'react-native';
 
 import { colors } from '@theme';
@@ -20,14 +20,26 @@ export const DashboardScreen: React.FC = () => {
   });
 
   const compactHeaderOpacity = scrollY.interpolate({
-    inputRange: [HEADER_EXPANDED_HEIGHT * 0.5, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    inputRange: [HEADER_COLLAPSED_HEIGHT, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });
 
   const expanedHeaderOpacity = scrollY.interpolate({
-    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT - 75],
     outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const compactHeaderY = scrollY.interpolate({
+    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    outputRange: [50, 0],
+    extrapolate: 'clamp',
+  });
+
+  const expanedHeaderY = scrollY.interpolate({
+    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    outputRange: [0, -25],
     extrapolate: 'clamp',
   });
 
@@ -36,14 +48,26 @@ export const DashboardScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.header, { height: headerHeight, overflow: 'hidden' }]}>
-        <Animated.View style={{ textAlign: 'center', fontSize: 18, color: 'black', opacity: compactHeaderOpacity }}>
+        <Animated.View
+          style={{
+            paddingTop: compactHeaderY,
+            textAlign: 'center',
+            fontSize: 18,
+            color: 'black',
+            opacity: compactHeaderOpacity,
+          }}>
           <CompactHeader reportOnPress={handleReport} />
         </Animated.View>
-        <Animated.View style={{ opacity: expanedHeaderOpacity, position: 'absolute', width: '100%' }}>
+        <Animated.View
+          style={{
+            opacity: expanedHeaderOpacity,
+            top: expanedHeaderY,
+            position: 'absolute',
+            width: '100%',
+          }}>
           <Header reportOnPress={handleReport} />
         </Animated.View>
       </Animated.View>
-
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         scrollIndicatorInsets={{
