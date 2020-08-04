@@ -56,8 +56,8 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
             <Header3Text style={styles.titleText}>{i18n.t('latest-news.title')}</Header3Text>
 
             <ExternalCallout
-              link="https://www.youtube.com/watch?v=zToStOETP00"
-              calloutID="tim_update_004"
+              link="https://www.youtube.com/watch?v=2D1WqFEJUZA"
+              calloutID="tim_update_005"
               imageSource={timUpdate004}
               aspectRatio={1.178}
             />
