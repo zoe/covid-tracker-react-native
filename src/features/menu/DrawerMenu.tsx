@@ -81,27 +81,27 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           </TouchableOpacity>
         </View>
 
-        {/* {showDietStudy && ( */}
-        <MenuItem
-          image={<MyStudyIcon />}
-          label={i18n.t('diet-study.drawer-menu-item')}
-          onPress={() => {
-            openDietStudy();
-          }}
-        />
-        {/* // )} */}
+        {showDietStudy && (
+          <MenuItem
+            image={<MyStudyIcon />}
+            label={i18n.t('diet-study.drawer-menu-item')}
+            onPress={() => {
+              openDietStudy();
+            }}
+          />
+        )}
 
         <MenuItem image={<EditProfilesIcon />} label={i18n.t('nav-edit-profile')} onPress={() => {}} />
 
-        {/* {showVaccineRegistry && ( */}
-        <MenuItem
-          image={<VaccineRegistryIcon />}
-          label={i18n.t('vaccine-registry.menu-item')}
-          onPress={() => {
-            appCoordinator.goToVaccineRegistry();
-          }}
-        />
-        {/* // )} */}
+        {showVaccineRegistry && (
+          <MenuItem
+            image={<VaccineRegistryIcon />}
+            label={i18n.t('vaccine-registry.menu-item')}
+            onPress={() => {
+              appCoordinator.goToVaccineRegistry();
+            }}
+          />
+        )}
 
         <MenuItem
           image={<ShareIcon />}
