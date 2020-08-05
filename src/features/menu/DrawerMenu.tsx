@@ -1,20 +1,18 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import Constants from 'expo-constants';
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
-import Analytics, { events } from '@covid/core/Analytics';
 import { CaptionText } from '@covid/components/Text';
-import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { MyStudyIcon, VaccineRegistryIcon, ShareIcon, EditProfilesIcon } from '@assets/icons/navigation';
-import { MenuItem, DrawerMenuItem } from '@covid/features/menu/DrawerMenuItem';
+import { MyStudyIcon, ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
+import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
 
@@ -32,12 +30,12 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   useEffect(() => {
     if (userEmail !== '') return;
     fetchEmail();
-    fetchShouldShowVaccine();
-    fetchShouldShowDietStudy();
+    fetchStudyStatus();
   }, [userService.hasUser, setUserEmail]);
 
   const fetchEmail = async () => {
     try {
+      // TODO - Save a server hit and stash this in async storage
       const profile = await userService.getProfile();
       setUserEmail(profile?.username ?? '');
     } catch (_) {
@@ -45,20 +43,13 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
     }
   };
 
-  const fetchShouldShowVaccine = async () => {
+  const fetchStudyStatus = async () => {
     try {
-      const shouldAskForVaccineRegistry = await userService.shouldAskForVaccineRegistry();
-      setShowVaccineRegistry(shouldAskForVaccineRegistry);
+      const data = await userService.getStudyStatus();
+      setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
+      setShowDietStudy(data.should_ask_diet_study);
     } catch (_) {
       setShowVaccineRegistry(false);
-    }
-  };
-
-  const fetchShouldShowDietStudy = async () => {
-    try {
-      const showDietStudy = await appCoordinator.shouldShowStudiesMenu();
-      setShowDietStudy(showDietStudy);
-    } catch (_) {
       setShowDietStudy(false);
     }
   };
