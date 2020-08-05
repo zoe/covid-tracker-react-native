@@ -55,6 +55,7 @@ export interface IUserService {
   shouldShowDietStudy(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
   setDietStudyResponse(response: boolean): void;
+  getStudyStatus(): Promise<AskForStudies>;
 }
 
 export interface IProfileService {
@@ -572,6 +573,23 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_diet_study;
+  }
+
+  getDefaultStudyResponse(): AskForStudies {
+    return {
+      should_ask_uk_validation_study: false,
+      should_ask_uk_vaccine_register: false,
+      should_ask_diet_study: false,
+    } as AskForStudies;
+  }
+
+  async getStudyStatus(): Promise<AskForStudies> {
+    // Currently all existing studies are UK only so short-circuit and save a call the server.
+    if (!isGBCountry()) return Promise.resolve(this.getDefaultStudyResponse());
+
+    const url = `/study_consent/status/?home_screen=true`;
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
