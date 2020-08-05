@@ -565,6 +565,8 @@
   "research-updates": "Research updates",
   "faqs": "Frequently asked questions",
   "privacy-policy": "Privacy policy",
+  "nav-edit-profile": "Edit profile",
+  "nav-share-this-app": "Share this app",
   "delete-my-data": "Delete my data",
   "delete-data-alert-title": "Are you sure?",
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
@@ -1013,7 +1015,7 @@
   },
 
   "diet-study": {
-    "drawer-menu-item": "My study",
+    "drawer-menu-item": "Diet study",
     "answer-for-feb": "Answer for month of Feb",
     "answer-for-last-4-weeks": "Answer for last 4 weeks",
 
@@ -1257,7 +1259,6 @@
       "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID."
     },
 
-
     "thank-you-break": {
       "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
       "sarah-name": "Dr Sarah Berry",
@@ -1294,6 +1295,6 @@
     "callout-title": "VACCINE",
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
-    "menu-item": "Join the vaccine registry"
+    "menu-item": "Join vaccine registry"
   }
 }

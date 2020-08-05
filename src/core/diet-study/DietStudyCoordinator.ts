@@ -141,11 +141,16 @@ export class DietStudyCoordinator {
   startDietStudy = async () => {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
-    const recentStudies = studies.filter((item) => item.display_name === LAST_4_WEEKS && item.is_complete);
-    if (recentStudies.length > 0) {
-      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
-    } else {
+    const completedDietStudies = studies.filter((item) => item.is_complete);
+
+    if (completedDietStudies.length === 0) {
+      // Start from the beginning
       NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+    } else if (completedDietStudies.length === 1) {
+      // Start from PreLockdown
+      NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+    } else {
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     }
   };
 
@@ -156,13 +161,6 @@ export class DietStudyCoordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
-
-  async showProfiles() {
-    return this.userService.getConfig().enableMultiplePatients && (await this.userService.hasMultipleProfiles());
-  }
-  async listPatients() {
-    return this.userService.listPatients();
-  }
 }
 
 const dietStudyCoordinator = new DietStudyCoordinator();

@@ -55,6 +55,7 @@ export interface IUserService {
   shouldShowDietStudy(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
   setDietStudyResponse(response: boolean): void;
+  getStudyStatus(): Promise<AskForStudies>;
 }
 
 export interface IProfileService {
@@ -72,8 +73,8 @@ export interface IConsentService {
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
   listPatients(): Promise<Profile[] | null>;
-  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getPatientState(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
@@ -272,7 +273,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.post(`/patients/`, infos);
+    return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
   }
 
   public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
@@ -280,7 +281,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.patch(`/patients/${patientId}/`, infos);
+    return (await this.client.patch<PatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
   }
 
   private getPatientVersion() {
@@ -572,6 +573,23 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_diet_study;
+  }
+
+  getDefaultStudyResponse(): AskForStudies {
+    return {
+      should_ask_uk_validation_study: false,
+      should_ask_uk_vaccine_register: false,
+      should_ask_diet_study: false,
+    } as AskForStudies;
+  }
+
+  async getStudyStatus(): Promise<AskForStudies> {
+    // Currently all existing studies are UK only so short-circuit and save a call the server.
+    if (!isGBCountry()) return Promise.resolve(this.getDefaultStudyResponse());
+
+    const url = `/study_consent/status/?home_screen=true`;
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {

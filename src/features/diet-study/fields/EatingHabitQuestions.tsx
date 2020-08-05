@@ -1,7 +1,6 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { StyleSheet } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -11,7 +10,6 @@ import { cleanIntegerVal } from '@covid/utils/number';
 import { FieldLabel } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import YesNoField from '@covid/components/YesNoField';
-import flatten = StyleSheet.flatten;
 
 export interface EatingHabitData {
   eatsBreakfast: string;
