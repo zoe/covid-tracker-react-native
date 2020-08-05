@@ -1015,7 +1015,7 @@
   },
 
   "diet-study": {
-    "drawer-menu-item": "Diet Study",
+    "drawer-menu-item": "Diet study",
     "answer-for-feb": "Answer for month of Feb",
     "answer-for-last-4-weeks": "Answer for last 4 weeks",
 
@@ -1295,6 +1295,6 @@
     "callout-title": "VACCINE",
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
-    "menu-item": "Join the vaccine registry"
+    "menu-item": "Join vaccine registry"
   }
 }
