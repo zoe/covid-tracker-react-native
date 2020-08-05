@@ -51,6 +51,10 @@ export class EditProfileCoordinator implements Coordinator {
   goToEditAboutYou() {
     NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: true });
   }
+
+  shouldShowEditProfile() {
+    return this.userService.getConfig().enableEditProfile;
+  }
 }
 
 const editProfileCoordinator = new EditProfileCoordinator();
