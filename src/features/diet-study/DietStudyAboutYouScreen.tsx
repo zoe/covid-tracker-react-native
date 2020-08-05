@@ -1,14 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, Divider, ErrorText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -17,12 +17,11 @@ import { HoursSleepData, HoursSleepQuestion } from '@covid/features/diet-study/f
 import { ShiftWorkData, ShiftWorkQuestion } from '@covid/features/diet-study/fields/ShiftWorkQuestion';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { cleanFloatVal } from '@covid/utils/number';
-import ProgressStatus from '@covid/components/ProgressStatus';
 import { colors } from '@theme';
 import dietStudyCoordinator, {
-  PRE_LOCKDOWN,
   getScreenHeaderOptions,
   LAST_4_WEEKS,
+  PRE_LOCKDOWN,
 } from '@covid/core/diet-study/DietStudyCoordinator';
 import { PhysicalActivityData, PhysicalActivityQuestion } from '@covid/features/diet-study/fields/PhysicalActivity';
 
@@ -130,9 +129,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
                 <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
               </Header>
 
-              <ProgressBlock>
-                <ProgressStatus step={0} maxSteps={3} />
-              </ProgressBlock>
+              <Divider />
 
               <View style={{ height: 24 }} />
 

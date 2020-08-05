@@ -5,7 +5,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-n
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Linking } from 'expo';
 
-import { covidIcon } from '@assets';
+import { blog006, covidIcon, donate } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
@@ -22,8 +22,8 @@ import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService, isSECountry, isUSCountry } from '@covid/core/user/UserService';
-import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
+import { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -40,14 +40,12 @@ type WelcomeRepeatScreenState = {
   userCount: number | null;
   onRetry?: () => void;
   calloutBoxContent: ScreenContent;
-  showVaccineRegistry: boolean;
 } & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
   userCount: null,
   calloutBoxContent: contentService.getCalloutBoxDefault(),
-  showVaccineRegistry: false,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -58,15 +56,12 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async componentDidMount() {
     const userCount = await contentService.getUserCount();
-    this.setState({ userCount: cleanIntegerVal(userCount as string) });
+    const content = await contentService.getWelcomeRepeatContent();
+
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
-    this.setState({
-      showVaccineRegistry: await this.userService.shouldAskForVaccineRegistry(),
-    });
-    const content = await contentService.getWelcomeRepeatContent();
-    this.setState({ calloutBoxContent: content });
+    this.setState({ calloutBoxContent: content, userCount: cleanIntegerVal(userCount as string) });
   }
 
   gotoNextScreen = async () => {
@@ -125,10 +120,13 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             {this.displayPartnerLogo()}
 
-            <View style={{ flex: 1, paddingTop: 24 }} />
-
-            {this.state.showVaccineRegistry ? (
-              <VaccineRegistryCallout />
+            {isGBCountry() ? (
+              <ExternalCallout
+                link="https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy"
+                calloutID="donate"
+                imageSource={donate}
+                aspectRatio={1.59}
+              />
             ) : (
               <CalloutBox
                 content={this.state.calloutBoxContent}

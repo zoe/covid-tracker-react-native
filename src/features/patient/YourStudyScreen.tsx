@@ -214,6 +214,11 @@ const AllCohorts: CohortDefinition[] = [
     label: 'C19 Human Genetics Study',
     country: 'US',
   },
+  {
+    key: 'is_in_us_mary_washington_healthcare',
+    label: 'Mary Washington Healthcare',
+    country: 'US',
+  },
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
