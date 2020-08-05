@@ -91,7 +91,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           />
         )}
 
-        <MenuItem image={<EditProfilesIcon />} label={i18n.t('nav-edit-profile')} onPress={() => {}} />
+        {/* <MenuItem image={<EditProfilesIcon />} label={i18n.t('nav-edit-profile')} onPress={() => {}} /> */}
 
         {showVaccineRegistry && (
           <MenuItem
