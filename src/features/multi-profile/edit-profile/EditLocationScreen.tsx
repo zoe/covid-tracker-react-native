@@ -7,12 +7,10 @@ import * as Yup from 'yup';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import NavigatorService from '@covid/NavigatorService';
-import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
-import { useInjection } from '@covid/provider/services.hooks';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -22,39 +20,32 @@ type RenderProps = {
 };
 
 export const EditLocationScreen: React.FC<RenderProps> = (props) => {
-  const profile = props.route.params.profile;
-  const patientInfo = props.route.params.patientInfo;
-
-  const userService = useInjection<ICoreService>(Services.User);
-
   const [errorMessage, setErrorMessage] = useState('');
 
   const handlePostcodeUpdate = (postcode: string) => {
-    const infos = {
+    const infos: Partial<PatientInfosRequest> = {
       postcode,
     };
 
-    userService
-      .updatePatient(profile.id, infos)
+    editProfileCoordinator
+      .updatePatientInfo(infos)
       .then(() => {
-        NavigatorService.goBack();
-        patientInfo.postcode = postcode;
+        editProfileCoordinator.gotoNextScreen(props.route.name);
       })
       .catch((error) => {
-        console.log(error);
         setErrorMessage(i18n.t('something-went-wrong'));
       });
   };
 
   return (
     <>
-      <Screen profile={profile} navigation={props.navigation} simpleCallout>
+      <Screen profile={props.route.params.patientData.profile} navigation={props.navigation} simpleCallout>
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
         </Header>
 
         <Formik
-          initialValues={{ postcode: patientInfo.postcode }}
+          initialValues={{ postcode: editProfileCoordinator.patientData.patientInfo!.postcode }}
           validationSchema={Yup.object().shape({
             postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
           })}

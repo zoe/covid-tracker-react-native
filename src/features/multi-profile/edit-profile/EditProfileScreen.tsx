@@ -9,7 +9,7 @@ import Screen, { Header } from '@covid/components/Screen';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
 import { colors } from '@theme';
 import { chevronRight } from '@assets';
-import appCoordinator from '@covid/features/AppCoordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -19,29 +19,33 @@ type RenderProps = {
 };
 
 export const EditProfileScreen: React.FC<RenderProps> = (props) => {
-  const profile = props.route.params.profile;
-  const patientInfo = props.route.params.patientInfo;
+  const patientData = props.route.params.patientData;
 
   return (
     <>
-      <Screen profile={profile} navigation={props.navigation} simpleCallout>
+      <Screen profile={patientData.profile} navigation={props.navigation} simpleCallout>
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.title')}</HeaderText>
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
         </Header>
 
-        <TouchableOpacity
-          style={styles.profileLabel}
-          onPress={() => appCoordinator.goToEditLocation(profile, patientInfo)}>
+        <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
           <HeaderText>Your location</HeaderText>
           <Image style={styles.chevron} source={chevronRight} />
         </TouchableOpacity>
+
+        {editProfileCoordinator.shouldShowEditProfile() && (
+          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
+            <HeaderText>About you</HeaderText>
+            <Image style={styles.chevron} source={chevronRight} />
+          </TouchableOpacity>
+        )}
       </Screen>
 
       <View>
-        {profile.reported_by_another && (
+        {patientData.profile!.reported_by_another && (
           <View style={styles.archiveProfileContainer}>
-            <ArchiveProfile patientId={profile.id} />
+            <ArchiveProfile patientId={patientData.patientId} />
           </View>
         )}
       </View>
