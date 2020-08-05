@@ -65,7 +65,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
 
   return (
     <View style={styles.container}>
-      <View style={{ zIndex: 999, right: 20, top: 58 }}>
+      <View style={{ zIndex: 999, right: 16, top: 58 }}>
         <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
       </View>
       <Animated.View style={[styles.header, { height: headerHeight }]}>
