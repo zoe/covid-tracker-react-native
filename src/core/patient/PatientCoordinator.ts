@@ -1,19 +1,11 @@
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { ICoreService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { PatientData } from '@covid/core/patient/PatientData';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
-type ScreenName = keyof ScreenParamList;
-type ScreenFlow = {
-  [key in ScreenName]: () => void;
-};
-
-export type PatientData = {
-  currentPatient: PatientStateType;
-};
-
-export class PatientCoordinator {
+export class PatientCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
   userService: ICoreService;
   patientData: PatientData;
@@ -23,7 +15,7 @@ export class PatientCoordinator {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
     },
     YourWork: () => {
-      NavigatorService.navigate('AboutYou', { patientData: this.patientData });
+      NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
     },
     AboutYou: () => {
       NavigatorService.navigate('YourHealth', { patientData: this.patientData });
@@ -32,7 +24,7 @@ export class PatientCoordinator {
       NavigatorService.navigate('PreviousExposure', { patientData: this.patientData });
     },
     PreviousExposure: () => {
-      this.appCoordinator.startAssessmentFlow(this.patientData.currentPatient);
+      this.appCoordinator.startAssessmentFlow(this.patientData.patientState);
     },
   } as ScreenFlow;
 
@@ -43,9 +35,9 @@ export class PatientCoordinator {
   };
 
   startPatient = () => {
-    const { currentPatient } = this.patientData;
+    const currentPatient = this.patientData.patientState;
     const config = this.userService.getConfig();
-    const patientId = currentPatient.patientId;
+    const patientId = this.patientData.patientId;
 
     const startPage = 'WelcomeRepeat';
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
@@ -65,6 +57,13 @@ export class PatientCoordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
+
+  updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
+    return this.userService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+      Object.assign(this.patientData.patientInfo, patientInfo);
+      return info;
+    });
+  }
 }
 
 const patientCoordinator = new PatientCoordinator();

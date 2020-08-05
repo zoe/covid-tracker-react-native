@@ -72,8 +72,8 @@ export interface IConsentService {
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
   listPatients(): Promise<Profile[] | null>;
-  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getPatientState(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
@@ -272,7 +272,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.post(`/patients/`, infos);
+    return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
   }
 
   public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
@@ -280,7 +280,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.patch(`/patients/${patientId}/`, infos);
+    return (await this.client.patch<PatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
   }
 
   private getPatientVersion() {

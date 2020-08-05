@@ -83,7 +83,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     } as Partial<PatientInfosRequest>;
 
     const response = await this.userService.createPatient(newPatient);
-    return response.data.id;
+    return response.id;
   }
 
   handleCreateProfile = async () => {

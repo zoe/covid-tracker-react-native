@@ -111,7 +111,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   });
 
   handleUpdateHealth(formData: YourHealthData) {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
@@ -168,7 +168,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const symptomChangeChoices = [
       { label: i18n.t('past-symptom-changed-much-better'), value: 'much_better' },
       { label: i18n.t('past-symptom-changed-little-better'), value: 'little_better' },
