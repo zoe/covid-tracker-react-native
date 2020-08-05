@@ -14,3 +14,11 @@ export const camelizeKeys = (obj: any): any => {
   }
   return obj;
 };
+
+export const objectToQueryString = (obj: any): string => {
+  const keyValuePairs = [];
+  for (const key in obj) {
+    keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+  }
+  return keyValuePairs.join('&');
+};

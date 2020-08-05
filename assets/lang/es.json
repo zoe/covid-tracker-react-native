@@ -1270,15 +1270,9 @@
     "continue-cta": "",
     "complete-cta": "",
 
-    "next-box": {
-      "title": "",
-      "text": ""
-    },
-
     "consent": {
       "header": "",
-      "paragraph-1": "",
-      "paragraph-2": "",
+      "paragraph": "",
       "buttons-header": "",
       "yes": "",
       "no": ""
@@ -1286,12 +1280,11 @@
 
     "thank-you": {
       "title": "",
-      "text-1": "",
-      "text-2": ""
+      "text-1": ""
     },
 
     "thank-you-break": {
-      "description": "",
+      "description-1": "",
       "sarah-name": "",
       "sarah-description": ""
     }
