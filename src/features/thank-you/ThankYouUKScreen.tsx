@@ -74,6 +74,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="blog_006"
                 imageSource={blog006}
                 aspectRatio={1.551}
+                screenName={this.props.route.name}
               />
 
               <ExternalCallout
@@ -81,6 +82,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="incidence_009"
                 imageSource={incidence009}
                 aspectRatio={1.5}
+                screenName={this.props.route.name}
               />
 
               <ExternalCallout
@@ -88,6 +90,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="data_page_003"
                 imageSource={dataPage003}
                 aspectRatio={1.55}
+                screenName={this.props.route.name}
               />
 
               {/* <ExternalCallout
@@ -103,6 +106,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   calloutID="notificationReminders"
                   imageSource={notificationReminders}
                   aspectRatio={1244.0 / 368.0}
+                  screenName={this.props.route.name}
                   action={() => {
                     PushNotificationService.openSettings();
                   }}

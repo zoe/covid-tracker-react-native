@@ -37,6 +37,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
                 calloutID="notificationReminders"
                 imageSource={notificationReminders}
                 aspectRatio={1244.0 / 368.0}
+                screenName={props.route.name}
                 action={() => {
                   PushNotificationService.openSettings();
                 }}
@@ -50,6 +51,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
               calloutID="tim_update_005"
               imageSource={timUpdate004}
               aspectRatio={1.178}
+              screenName={props.route.name}
             />
 
             <ExternalCallout
@@ -57,6 +59,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
               calloutID="blog_006"
               imageSource={blog006}
               aspectRatio={1.551}
+              screenName={props.route.name}
             />
 
             <ExternalCallout
@@ -64,6 +67,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
               calloutID="incidence_009"
               imageSource={incidence009}
               aspectRatio={1.5}
+              screenName={props.route.name}
             />
 
             <ExternalCallout
@@ -71,6 +75,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
               calloutID="data_page_003"
               imageSource={dataPage003}
               aspectRatio={1.55}
+              screenName={props.route.name}
             />
 
             <ShareAppCard />

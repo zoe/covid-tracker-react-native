@@ -126,6 +126,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
                 calloutID="donate"
                 imageSource={donate}
                 aspectRatio={1.59}
+                screenName={this.props.route.name}
               />
             ) : (
               <CalloutBox
