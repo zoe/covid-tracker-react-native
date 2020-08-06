@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Form, Text } from 'native-base';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
@@ -11,6 +12,8 @@ import { BrandedButton, ErrorText, HeaderText, SecondaryText } from '@covid/comp
 import i18n from '@covid/locale/i18n';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import YesNoField from '@covid/components/YesNoField';
+import DropdownField from '@covid/components/DropdownField';
 
 import { ScreenParamList } from '../../ScreenParamList';
 
@@ -37,6 +40,14 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       });
   };
 
+  const countriesList = [
+    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    { label: i18n.t('gender-identity-male'), value: 'male' },
+    { label: i18n.t('gender-identity-female'), value: 'female' },
+    { label: i18n.t('gender-identity-pfnts'), value: 'pfnts' },
+    { label: i18n.t('gender-identity-other'), value: 'other' },
+  ];
+
   return (
     <>
       <Screen profile={props.route.params.patientData.profile} navigation={props.navigation} simpleCallout>
@@ -45,9 +56,28 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         </Header>
 
         <Formik
-          initialValues={{ postcode: editProfileCoordinator.patientData.patientInfo!.postcode }}
+          initialValues={{
+            postcode: editProfileCoordinator.patientData.patientInfo!.postcode,
+            differentAddress: 'no',
+            stillInUK: '',
+            currentLocation: '',
+            currentCountry: '',
+          }}
           validationSchema={Yup.object().shape({
             postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+            differentAddress: Yup.string().required(),
+            stillInUK: Yup.string().when('differentAddress', {
+              is: 'no',
+              then: Yup.string().required(),
+            }),
+            currentLocation: Yup.string().when(['stillInUK', 'differentAddress'], {
+              is: 'yes',
+              then: Yup.string().required(),
+            }),
+            currentCountry: Yup.string().when('stillInUK', {
+              is: 'no',
+              then: Yup.string().required(),
+            }),
           })}
           onSubmit={(values) => {
             return handlePostcodeUpdate(values.postcode);
@@ -63,9 +93,38 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                   inputProps={{ autoCompleteType: 'postal-code' }}
                   showError
                 />
-                {
-                  // TODO : How to push below to the bottom simply?
-                }
+                <YesNoField
+                  label={i18n.t('edit-profile.location.not-current-address')}
+                  selectedValue={props.values.differentAddress}
+                  onValueChange={props.handleChange('differentAddress')}
+                />
+                {props.values.differentAddress === 'yes' && (
+                  <YesNoField
+                    label={i18n.t('edit-profile.location.still-in-country')}
+                    selectedValue={props.values.stillInUK}
+                    onValueChange={props.handleChange('stillInUK')}
+                  />
+                )}
+                {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' && (
+                  <GenericTextField
+                    formikProps={props}
+                    label={i18n.t('edit-profile.location.other-postcode')}
+                    placeholder={i18n.t('placeholder-postcode')}
+                    name="currentLocation"
+                    inputProps={{ autoCompleteType: 'postal-code' }}
+                    showError
+                  />
+                )}
+                {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' && (
+                  <DropdownField
+                    selectedValue={props.values.currentCountry}
+                    onValueChange={props.handleChange('currentCountry')}
+                    label={i18n.t('edit-profile.location.select-country')}
+                    items={countriesList}
+                    error={props.touched.currentCountry && props.errors.currentCountry}
+                  />
+                )}
+                <View style={{ height: 100 }} />
                 <SecondaryText style={{ textAlign: 'center' }}>
                   {i18n.t('edit-profile.location.disclaimer')}
                 </SecondaryText>

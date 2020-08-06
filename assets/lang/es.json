@@ -854,7 +854,11 @@
     "location": {
       "title": "Mi ubicacion",
       "label": "Su código postal",
-      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad"
+      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad",
+      "not-current-address": "Are you reporting from a different location than above?",
+      "still-in-country": "Are you still in the UK?",
+      "other-postcode": "Enter the postcode you wish to report for:",
+      "select-country": "Please select which country you are now in:"
     }
   },
 
