@@ -5,7 +5,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-n
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Linking } from 'expo';
 
-import { blog006, covidIcon, donate } from '@assets';
+import { covidIcon, donate } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
