@@ -31,6 +31,8 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handlePostcodeUpdate = (postcode: string) => {
+    //TODO Handle other field updates
+
     const infos: Partial<PatientInfosRequest> = {
       postcode,
     };
@@ -76,6 +78,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
             stillInUK: '',
             currentLocation: '',
             currentCountry: '',
+            //TODO Prefill from info
           }}
           validationSchema={Yup.object().shape({
             postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),

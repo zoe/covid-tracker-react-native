@@ -135,7 +135,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
         dropdownStyle={{
           ...styles.dropdownStyle,
           width: dropdownWidth,
-          height: (options?.length ?? 1) * DROPDOWN_ROW_HEIGHT,
+          height: Math.min((options?.length ?? 1) * DROPDOWN_ROW_HEIGHT, 200),
         }}
         options={options.map((item: PickerItemProps) => item.label)}
         defaultIndex={defaultIndex}
