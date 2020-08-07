@@ -1,7 +1,6 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import { KeyboardTypeOptions, StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { text } from 'body-parser';
 
 import { FieldWrapper } from './Screen';
 import { ValidatedTextInput } from './ValidatedTextInput';
