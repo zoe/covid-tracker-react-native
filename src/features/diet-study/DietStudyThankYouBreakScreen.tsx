@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 import { colors } from '@theme';
-import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Header3Text, MutedText, RegularText, CaptionText } from '@covid/components/Text';
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -59,6 +59,8 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                 </View>
               </View>
 
+              <RegularText style={styles.bottomText}>{i18n.t('diet-study.thank-you-break.return-later')}</RegularText>
+
               <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
                 {i18n.t('diet-study.complete-cta')}
               </BrandedButton>
@@ -74,12 +76,17 @@ const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
     marginHorizontal: 16,
-    marginTop: 68,
+    marginTop: 32,
   },
   description: {
     marginBottom: 24,
     textAlign: 'center',
     color: colors.brand,
+  },
+  bottomText: {
+    paddingHorizontal: 12,
+    marginBottom: 24,
+    textAlign: 'center',
   },
   link: {
     color: colors.brand,
