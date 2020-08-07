@@ -1264,7 +1264,9 @@
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "continue-cta": "",

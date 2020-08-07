@@ -1255,7 +1255,9 @@
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "diet-changed": {

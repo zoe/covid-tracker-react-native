@@ -1236,7 +1236,9 @@
 
     "other-info": {
       "label": "Is there any other information about your diet & lifestyle you would like to share?",
-      "placeholder": "Optional"
+      "placeholder": "Optional",
+      "text-limit": "Ensure this field has no more than {{count}} characters.",
+      "text-limit-caption": "Max {{count}} characters"
     },
 
     "diet-changed": {
