@@ -1231,7 +1231,9 @@
       "milk-skimmed": "Skimmed milk",
       "milk-rarely-never": "Rarely/never use milk",
       "milk-plant": "Plant-based milk",
-      "milk-other": "Other"
+      "milk-other": "Other",
+
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
     },
 
     "other-info": {
@@ -1264,7 +1266,8 @@
     "thank-you-break": {
       "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
       "sarah-name": "Dr Sarah Berry",
-      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
+      "return-later": "If you'd like to take a break, you can return to these questions by clicking 'Diet Study' from the menu in the top right corner of the home screen. "
     }
   },
 
