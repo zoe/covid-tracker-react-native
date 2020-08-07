@@ -1307,5 +1307,11 @@
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
     }
+  },
+
+  "dashboard": {
+    "report-now": "Informar ahora",
+    "you-have-reported-x-times": "Has informado %{count} veces",
+    "contributors-so-far": "Colaboradores hasta ahora:"
   }
 }

@@ -1,31 +1,38 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import moment from 'moment';
 
 import { colors } from '@theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
 import { covidIcon } from '@assets';
+import i18n from '@covid/locale/i18n';
 
 interface Props {
   reportOnPress: VoidFunction;
 }
 
 export const Header: React.FC<Props> = ({ reportOnPress }) => {
+  const todaysDate = (): string => moment().format('dddd Do MMMM');
+  const reportedCount = (): string => '43';
+  const contributors = (): string => '2,503,450';
+
   return (
     <View style={styles.root}>
       <Image source={covidIcon} style={styles.logo} />
 
       <View style={styles.reportCard}>
-        <Header3Text style={styles.dateLabel}>Wednesday 22 July</Header3Text>
+        <Header3Text style={styles.dateLabel}>{todaysDate()}</Header3Text>
         <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
-          Report now
+          {i18n.t('dashboard.report-now')}
         </BrandedButton>
-        <CaptionText style={styles.reportedCount}>You’ve reported 43 times</CaptionText>
+        <CaptionText style={styles.reportedCount}>
+          {i18n.t('dashboard.you-have-reported-x-times', { count: reportedCount() })}
+        </CaptionText>
       </View>
 
-      <RegularText style={styles.contributorsLabel}>Contributors so far:</RegularText>
-
-      <Header3Text style={styles.contributorsCount}>2,503,450</Header3Text>
+      <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
+      <Header3Text style={styles.contributorsCount}>{contributors()}</Header3Text>
 
       <View style={{ width: '100%' }}>
         <PoweredByZoeSmall />
@@ -37,19 +44,9 @@ export const Header: React.FC<Props> = ({ reportOnPress }) => {
 export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
   return (
     <View style={styles.root}>
-      <Image
-        source={covidIcon}
-        style={[
-          styles.logo,
-          {
-            position: 'absolute',
-            left: 16,
-            bottom: 22,
-          },
-        ]}
-      />
+      <Image source={covidIcon} style={[styles.logo, styles.compactHeaderLogo]} />
       <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
-        Report now
+        {i18n.t('dashboard.report-now')}
       </BrandedButton>
     </View>
   );
@@ -69,6 +66,12 @@ const styles = StyleSheet.create({
     height: 54,
     resizeMode: 'contain',
     margin: 8,
+  },
+
+  compactHeaderLogo: {
+    position: 'absolute',
+    left: 16,
+    bottom: 22,
   },
 
   reportCard: {

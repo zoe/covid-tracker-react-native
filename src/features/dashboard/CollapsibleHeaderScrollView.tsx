@@ -65,17 +65,17 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
 
   return (
     <View style={styles.container}>
-      <View style={{ zIndex: 999, right: 16, top: 58 }}>
-        <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
+      <View style={{ zIndex: 999 }}>
+        <DrawerToggle
+          navigation={navigation}
+          style={{
+            tintColor: colors.white,
+            top: 58,
+            right: 16,
+          }}
+        />
       </View>
       <Animated.View style={[styles.header, { height: headerHeight }]}>
-        <Animated.View
-          style={{
-            paddingTop: compactHeaderY,
-            opacity: compactHeaderOpacity,
-          }}>
-          {compactHeader}
-        </Animated.View>
         <Animated.View
           style={[
             {
@@ -85,6 +85,13 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
             styles.expandedHeaderContainer,
           ]}>
           {expandedHeader}
+        </Animated.View>
+        <Animated.View
+          style={{
+            paddingTop: compactHeaderY,
+            opacity: compactHeaderOpacity,
+          }}>
+          {compactHeader}
         </Animated.View>
       </Animated.View>
       <ScrollView

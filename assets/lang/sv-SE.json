@@ -1302,5 +1302,11 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
+  },
+
+  "dashboard": {
+    "report-now": "Rapportera nu",
+    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
+    "contributors-so-far": "Bidragsgivare hittills:"
   }
 }

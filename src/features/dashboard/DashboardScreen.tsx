@@ -27,9 +27,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation }) => {
       compactHeader={<CompactHeader reportOnPress={handleReport} />}
       expandedHeader={<Header reportOnPress={handleReport} />}
       config={headerConfig}>
-      <UKCovidCaseEstimatedCard />
-      <UKCovidCaseEstimatedCard />
-      <UKCovidCaseEstimatedCard />
+      <View style={{ marginHorizontal: 24 }}>
+        <UKCovidCaseEstimatedCard />
+        <UKCovidCaseEstimatedCard />
+        <UKCovidCaseEstimatedCard />
+      </View>
+
       <View style={{ width: '100%' }}>
         <PoweredByZoeSmall />
       </View>
