@@ -1231,7 +1231,9 @@
       "milk-skimmed": "Skimmed milk",
       "milk-rarely-never": "Rarely/never use milk",
       "milk-plant": "Plant-based milk",
-      "milk-other": "Other"
+      "milk-other": "Other",
+
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
     },
 
     "other-info": {
