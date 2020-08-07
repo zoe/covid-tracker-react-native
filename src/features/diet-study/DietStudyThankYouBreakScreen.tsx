@@ -11,7 +11,7 @@ import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/compo
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
-import dietStudyCoordinator, { LAST_4_WEEKS, PRE_LOCKDOWN } from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import QuotationMark from '@assets/icons/QuotationMark';
 import { sarahBerryAvatar } from '@assets';
 
@@ -23,18 +23,12 @@ type Props = {
 };
 
 export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient, timePeriod } = route.params.dietStudyData;
+  const { currentPatient } = route.params.dietStudyData;
   const { profile } = currentPatient;
 
   const registerSchema = Yup.object();
 
-  const submit = async (formData: FormData) => {
-    if (timePeriod === PRE_LOCKDOWN) {
-      delete dietStudyCoordinator.dietStudyData.timePeriod;
-    } else if (timePeriod === LAST_4_WEEKS) {
-      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
-    }
-
+  const submit = async (_: FormData) => {
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 

@@ -14,15 +14,26 @@ import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import { colors } from '@theme';
-import dietStudyCoordinator, { getScreenHeaderOptions } from '@covid/core/diet-study/DietStudyCoordinator';
+import dietStudyCoordinator, {
+  getScreenHeaderOptions,
+  LAST_4_WEEKS,
+  PRE_LOCKDOWN,
+} from '@covid/core/diet-study/DietStudyCoordinator';
 import { OtherInfoData, OtherInfoQuestion } from '@covid/features/diet-study/fields/OtherInfoQuestion';
+import { MilkTypeQuestion, MilkTypesData } from '@covid/features/diet-study/fields/MilkTypeQuestion';
+import {
+  FruitNVegConsumptionData,
+  FruitNVegConsumptionQuestions,
+} from '@covid/features/diet-study/fields/FruitNVegConsumptionQuestions';
+import { useDietStudyFormSubmit } from '@covid/features/diet-study/DietStudyFormSubmit.hooks';
+import { FoodFreqData, FoodFreqQuestion } from '@covid/features/diet-study/fields/FoodFreqQuestion';
+import {
+  DietChangedQuestion,
+  DietChangedData,
+  DietChangedOption,
+} from '@covid/features/diet-study/fields/DietChangedQuestion';
 
-import { MilkTypeQuestion, MilkTypesData } from './fields/MilkTypeQuestion';
-import { FruitNVegConsumptionData, FruitNVegConsumptionQuestions } from './fields/FruitNVegConsumptionQuestions';
-import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
-import { FoodFreqData, FoodFreqQuestion } from './fields/FoodFreqQuestion';
-
-interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, OtherInfoData {}
+interface FormData extends FoodFreqData, FruitNVegConsumptionData, MilkTypesData, DietChangedData, OtherInfoData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyTypicalDiet'>;
@@ -30,13 +41,20 @@ type Props = {
 };
 
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient, timePeriod } = route.params.dietStudyData;
+  const { currentPatient, recentDietStudyId, timePeriod } = route.params.dietStudyData;
   const { profile } = currentPatient;
-  const registerSchema = Yup.object()
+
+  const isRecent = (): boolean => timePeriod === LAST_4_WEEKS;
+
+  let registerSchema = Yup.object()
     .shape({})
     .concat(FoodFreqQuestion.schema())
     .concat(FruitNVegConsumptionQuestions.schema())
     .concat(MilkTypeQuestion.schema());
+
+  if (isRecent()) {
+    registerSchema = registerSchema.concat(DietChangedQuestion.schema());
+  }
 
   const form = useDietStudyFormSubmit(route.name);
 
@@ -47,10 +65,17 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
       ...FruitNVegConsumptionQuestions.createDTO(formData),
       ...MilkTypeQuestion.createDTO(formData),
       ...OtherInfoQuestion.createDTO(formData),
+      ...DietChangedQuestion.createDTO(formData),
       is_complete: true,
     } as Partial<DietStudyRequest>;
 
     await form.submitDietStudy(infos);
+
+    if (formData.has_diet_changed === DietChangedOption.YES) {
+      dietStudyCoordinator.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
+    } else {
+      delete dietStudyCoordinator.dietStudyData.timePeriod;
+    }
 
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
@@ -71,6 +96,7 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
           ...FruitNVegConsumptionQuestions.initialFormValues(),
           ...MilkTypeQuestion.initialFormValues(),
           ...OtherInfoQuestion.initialFormValues(),
+          ...DietChangedQuestion.initialFormValues(),
         }}
         validationSchema={registerSchema}
         onSubmit={(values: FormData) => updateDietStudy(values)}>
@@ -85,6 +111,11 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
               <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
               <OtherInfoQuestion formikProps={props as FormikProps<OtherInfoData>} />
+
+              {timePeriod === LAST_4_WEEKS && (
+                <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+              )}
+
               <ErrorText style={{ marginHorizontal: 16 }}>{form.errorMessage}</ErrorText>
 
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
