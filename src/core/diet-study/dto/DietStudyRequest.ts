@@ -96,4 +96,5 @@ export type DietStudyRequest = {
 
   other_info: string;
   is_complete: boolean;
+  has_diet_changed: string;
 };
