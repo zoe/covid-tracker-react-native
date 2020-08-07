@@ -6,6 +6,7 @@ import { IContentApiClient, ContentApiClient } from '@covid/core/content/Content
 import ContentService, { IContentService } from '@covid/core/content/ContentService';
 import UserService, { ICoreService } from '@covid/core/user/UserService';
 import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
+import { IWebflowService, WebflowService } from '@covid/core/content/WebflowClient';
 
 import { Services } from './services.types';
 
@@ -20,5 +21,9 @@ container.bind<IContentApiClient>(Services.ContentApi).to(ContentApiClient).inSi
 container.bind<IContentService>(Services.Content).to(ContentService).inSingletonScope();
 
 container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
+
+container.bind<IApiClient>(Services.WebflowApiClient).to(ApiClient).inSingletonScope();
+
+container.bind<IWebflowService>(Services.WebflowService).to(WebflowService).inSingletonScope();
 
 export const { lazyInject } = getDecorators(container);

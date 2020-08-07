@@ -5,4 +5,5 @@ export const Services = {
   User: Symbol('User'),
   DietStudy: Symbol('DietStudy'),
   WebflowApiClient: Symbol('WebflowApiClient'),
+  WebflowService: Symbol('WebflowService'),
 };

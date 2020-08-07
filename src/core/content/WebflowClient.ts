@@ -9,14 +9,14 @@ import { camelizeKeys } from '@covid/core/api/utils';
 import { IWebflowCollectionModel, IWebflowBlogModel } from '@covid/core/content/WebflowModels.interfaces';
 
 export interface IWebflowService {
-  getCollectionId(name: string): Promise<string | undefined>;
+  getCollection(name: string): Promise<IWebflowCollectionModel | undefined>;
   getCollectionItems<T>(id: string): Promise<T[]>;
   getUKBlogPosts(): Promise<IWebflowBlogModel[]>;
 }
 
 @injectable()
 export class WebflowService implements IWebflowService {
-  private readonly siteId: string = '';
+  private readonly siteId: string = appConfig.webflowSite;
   private readonly env: string = 'master';
 
   constructor(@inject(Services.WebflowApiClient) private apiClient: IApiClient) {
@@ -30,24 +30,23 @@ export class WebflowService implements IWebflowService {
       },
       timeout: 5 * 1000,
     });
-    // apiClient.setClient(client);
+    apiClient.setClient(client);
   }
 
-  async getCollectionId(slug: string): Promise<string | undefined> {
-    const response = await this.apiClient.get<IWebflowCollectionModel[]>(`/${this.siteId}/collections`);
-    return response.find((item) => item.slug === slug)?._id;
+  async getCollection(slug: string): Promise<IWebflowCollectionModel | undefined> {
+    const response = await this.apiClient.get<IWebflowCollectionModel[]>(`sites/${this.siteId}/collections`);
+    const filtered = response.filter((item) => item.slug === slug);
+    return filtered[0];
   }
 
   async getCollectionItems<T>(id: string): Promise<T[]> {
     const { items } = await this.apiClient.get<{ items: T[] }>(`/collections/${id}/items`);
-    return camelizeKeys(items);
+    return items;
+    // return camelizeKeys(items);
   }
 
   async getUKBlogPosts() {
-    const id = await this.getCollectionId('uk-data');
-    if (id) {
-      return [];
-    }
-    return await this.getCollectionItems<IWebflowBlogModel>(id!);
+    const collection = await this.getCollection('post');
+    return await this.getCollectionItems<IWebflowBlogModel>(collection!._id);
   }
 }
