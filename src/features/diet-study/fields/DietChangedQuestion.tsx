@@ -14,7 +14,7 @@ export interface DietChangedData {
 
 export enum DietChangedOption {
   YES = 'yes',
-  NO = 'NO',
+  NO = 'no',
   NOT_SURE = 'not_sure',
 }
 

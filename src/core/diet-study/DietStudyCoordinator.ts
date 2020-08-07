@@ -69,13 +69,15 @@ export class DietStudyCoordinator {
     },
     DietStudyTypicalDiet: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
-      if (timePeriod === PRE_LOCKDOWN) {
+
+      if (!timePeriod) {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
-      } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
+        return;
       }
+
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
