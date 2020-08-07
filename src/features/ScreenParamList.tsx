@@ -1,7 +1,10 @@
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
-import { PatientData } from '@covid/core/patient/PatientCoordinator';
+import { PatientStateType } from '@covid/core/patient/PatientState';
+import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
+import { Profile } from '@covid/components/Collections/ProfileList';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { PatientData } from '@covid/core/patient/PatientData';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -30,7 +33,7 @@ export type ScreenParamList = {
   ResetPasswordConfirm: undefined;
   Register: undefined;
   Login: { terms: string };
-  CountrySelect: { patientId: string | null };
+  CountrySelect: undefined;
   OptionalInfo: undefined;
 
   // Profile screens
@@ -39,13 +42,15 @@ export type ScreenParamList = {
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };
   ConsentForOther: { profileName: string; avatarName?: string; consentType: ConsentType };
-  EditProfile: { profile: Profile };
-  ArchiveReason: { profileId: string };
+  ArchiveReason: { patientId: string };
+
+  EditProfile: { patientData: PatientData };
+  EditLocation: { patientData: PatientData };
 
   // Patient screens
   YourStudy: { patientData: PatientData };
   YourWork: { patientData: PatientData };
-  AboutYou: { patientData: PatientData };
+  AboutYou: { patientData: PatientData; editing: boolean };
   YourHealth: { patientData: PatientData };
   PreviousExposure: { patientData: PatientData };
 
@@ -61,8 +66,18 @@ export type ScreenParamList = {
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
   Lifestyle: { assessmentData: AssessmentData };
-  VaccineRegistrySignup: { assessmentData: AssessmentData };
-  VaccineRegistryInfo: { assessmentData: AssessmentData };
+
+  VaccineRegistrySignup: { currentPatient: PatientStateType };
+  VaccineRegistryInfo: { currentPatient: PatientStateType };
+
+  // DietStudy
+  DietStudyIntro: { dietStudyData: DietStudyData };
+  DietStudyAboutYou: { dietStudyData: DietStudyData };
+  DietStudyThankYouBreak: { dietStudyData: DietStudyData };
+  DietStudyThankYou: { dietStudyData: DietStudyData };
+  DietStudyTypicalDiet: { dietStudyData: DietStudyData };
+  DietStudyYourLifestyle: { dietStudyData: DietStudyData };
+  DietStudyConsent: { dietStudyData: DietStudyData };
 
   // Completion screens
   ThankYou: undefined;

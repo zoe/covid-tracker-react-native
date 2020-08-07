@@ -107,7 +107,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
   constructor(props: HealthProps) {
     super(props);
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const features = this.userService.getConfig();
     this.state = {
       ...initialState,
@@ -184,7 +184,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   });
 
   handleUpdateHealth(formData: YourHealthData) {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     var infos = this.createPatientInfos(formData);
 
@@ -305,7 +305,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const smokerStatusItems = [
       { label: i18n.t('your-health.never-smoked'), value: 'never' },
       { label: i18n.t('your-health.not-currently-smoking'), value: 'not_currently' },

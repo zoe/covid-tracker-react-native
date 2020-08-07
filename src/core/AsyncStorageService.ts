@@ -1,5 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
+import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
+
 import { UserResponse } from './user/dto/UserAPIContracts';
 import { AuthenticatedUser } from './user/UserService';
 
@@ -10,6 +12,7 @@ const USER_COUNT = 'userCount';
 const USER_COUNTRY = 'userCountry';
 const CONSENT_SIGNED = 'consentSigned';
 const PUSH_TOKEN = 'pushToken';
+const DIET_STUDY_CONSENT = 'dietStudyConsent';
 
 const USER_PROFILE = 'userProfile';
 const ASKED_COUNTRY = 'askedCountry';
@@ -47,6 +50,7 @@ export class AsyncStorageService {
     try {
       await AsyncStorage.removeItem(AUTH_TOKEN);
       await AsyncStorage.removeItem(USER_ID);
+      await AsyncStorage.removeItem(DIET_STUDY_CONSENT);
     } catch (err) {
       // Swallow for now
       // todo: find a way to report the crash and an alternative
@@ -109,9 +113,9 @@ export class AsyncStorageService {
     }
   }
 
-  static setAskedToReportForOthers(count: string) {
+  static async setAskedToReportForOthers(count: string) {
     try {
-      AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count);
+      await AsyncStorage.setItem(ASKED_TO_REPORT_FOR_OTHERS, count);
     } catch (err) {}
   }
 
@@ -123,9 +127,9 @@ export class AsyncStorageService {
     }
   }
 
-  static setAskedToRateStatus(status: string) {
+  static async setAskedToRateStatus(status: string) {
     try {
-      AsyncStorage.setItem(ASKED_TO_RATE_STATUS, status);
+      await AsyncStorage.setItem(ASKED_TO_RATE_STATUS, status);
     } catch (err) {}
   }
 
@@ -183,5 +187,21 @@ export class AsyncStorageService {
     } catch (err) {
       return null;
     }
+  }
+
+  // Diet Study Consent
+  static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
+    try {
+      const value = await AsyncStorage.getItem(DIET_STUDY_CONSENT);
+      return value as DietStudyConsent | null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  static async setDietStudyConsent(consent: DietStudyConsent) {
+    try {
+      return await AsyncStorage.setItem(DIET_STUDY_CONSENT, consent);
+    } catch (err) {}
   }
 }

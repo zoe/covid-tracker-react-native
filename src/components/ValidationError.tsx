@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 
 import { ErrorText } from './Text';
 
 type ErrorProps = {
   error: string;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const ValidationError: React.FC<ErrorProps> = ({ error }) => {
+export const ValidationError: React.FC<ErrorProps> = ({ error, style }) => {
   return (
-    <View style={styles.validationError}>
+    <View style={[styles.validationError, style]}>
       <ErrorText>{error}</ErrorText>
     </View>
   );

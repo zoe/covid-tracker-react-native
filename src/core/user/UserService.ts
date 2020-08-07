@@ -3,17 +3,19 @@ import * as Localization from 'expo-localization';
 import { injectable } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
-import { AvatarName } from '@covid/utils/avatar';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
+import { Profile } from '@covid/components/Collections/ProfileList';
+import NavigatorService from '@covid/NavigatorService';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
-import { camelizeKeys } from '../api/utils';
-import { getInitialPatientState, PatientProfile, PatientStateType } from '../patient/PatientState';
+import { camelizeKeys, objectToQueryString } from '../api/utils';
+import { getInitialPatientState, PatientStateType } from '../patient/PatientState';
 import { cleanIntegerVal } from '../../utils/number';
 
 import {
@@ -41,7 +43,7 @@ export interface IUserService {
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse>;
+  getProfile(): Promise<UserResponse | null>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -50,7 +52,10 @@ export interface IUserService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
+  shouldShowDietStudy(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
+  setDietStudyResponse(response: boolean): void;
+  getStudyStatus(): Promise<AskForStudies>;
 }
 
 export interface IProfileService {
@@ -66,9 +71,10 @@ export interface IConsentService {
 }
 
 export interface IPatientService {
-  listPatients(): Promise<any>;
-  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  myPatientProfile(): Promise<Profile | null>;
+  listPatients(): Promise<Profile[] | null>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getPatientState(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
@@ -120,7 +126,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   protected client = ApiClientBase.client;
 
   public async login(email: string, password: string) {
-    const requestBody = this.objectToQueryString({
+    const requestBody = objectToQueryString({
       username: email,
       password,
     });
@@ -139,13 +145,14 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async logout() {
     this.hasUser = false;
     await this.deleteLocalUserData();
+    NavigatorService.navigate('CountrySelect');
   }
 
   private async deleteLocalUserData() {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
     await AsyncStorageService.saveProfile(null);
-    this.setConsentSigned('', '', '');
+    await this.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -168,21 +175,16 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
     this.hasUser = !!user && !!user!.userToken && !!user!.userId;
-    this.updateUserCountry(this.hasUser);
+    await this.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId();
-      if (!patientId) {
-        // Logged in with an account doesn't exist. Force logout.
-        await this.logout();
-      }
     }
   }
 
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      return profile.patients[0];
+      return profile!.patients[0];
     } catch (error) {
       return null;
     }
@@ -228,7 +230,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       consent_version: UserService.consentSigned.version,
       privacy_policy_version: UserService.consentSigned.privacy_policy_version,
     };
-    const requestBody = this.objectToQueryString(payload);
+    const requestBody = objectToQueryString(payload);
 
     // todo: what is in the response?
     const promise = this.client.post<LoginOrRegisterResponse>('/auth/signup/', requestBody, this.configEncoded);
@@ -246,10 +248,20 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return this.client.patch(`/consent/`, payload);
   }
 
+  public async myPatientProfile(): Promise<Profile | null> {
+    try {
+      const data = (await this.client.get(`/patient_list/`)).data as Profile[];
+      return !!data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
+  }
+
   public async listPatients() {
     try {
-      const response = await this.client.get(`/patient_list/`);
-      return response;
+      const response = await this.client.get<Profile[]>(`/patient_list/`);
+      return response?.data;
     } catch (error) {
       handleServiceError(error);
     }
@@ -261,7 +273,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.post(`/patients/`, infos);
+    return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
   }
 
   public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
@@ -269,7 +281,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.patch(`/patients/${patientId}/`, infos);
+    return (await this.client.patch<PatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
   }
 
   private getPatientVersion() {
@@ -318,10 +330,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
       patientName = i18n.t('default-profile-name');
     }
 
-    const profile: PatientProfile = {
+    const profile: Profile = {
+      id: patientState.patientId,
       name: patientName,
-      avatarName: (patient.avatar_name || 'profile1') as AvatarName,
-      isPrimaryPatient: !patient.reported_by_another,
+      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
+      reported_by_another: patient.reported_by_another,
     };
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
@@ -395,28 +408,15 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return patientState;
   }
 
-  public async getProfile(): Promise<UserResponse> {
-    const localUser = await AsyncStorageService.GetStoredData();
-    if (!localUser) {
-      await this.logout();
-      throw Error("User not found. Can't fetch profile");
+  public async getProfile(): Promise<UserResponse | null> {
+    try {
+      const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
+      await AsyncStorageService.saveProfile(profile);
+      return profile;
+    } catch (error) {
+      handleServiceError(error);
     }
-
-    const localProfile = await AsyncStorageService.getProfile();
-
-    // If not stored locally, wait for server response.
-    if (localProfile == null) {
-      const profileResponse = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profileResponse.data);
-      return profileResponse.data;
-    }
-
-    // If local copy available, use it but update it.
-    this.client.get<UserResponse>(`/profile/`).then(async (profileResponse) => {
-      await AsyncStorageService.saveProfile(profileResponse.data);
-    });
-
-    return localProfile;
+    return null;
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {
@@ -498,7 +498,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async hasMultipleProfiles() {
     try {
       const response = await this.listPatients();
-      return !!response && response.data.length > 1;
+      return !!response && response.length > 1;
     } catch (e) {
       return false;
     }
@@ -558,10 +558,38 @@ export default class UserService extends ApiClientBase implements ICoreService {
   }
 
   async shouldAskForVaccineRegistry(): Promise<boolean> {
-    const url = `/study_consent/status/`;
+    if (!isGBCountry()) return Promise.resolve(false);
+
+    const url = `/study_consent/status/?home_screen=true`;
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_uk_vaccine_register;
+  }
+
+  async shouldShowDietStudy(): Promise<boolean> {
+    if (!isGBCountry()) return Promise.resolve(false);
+
+    const url = `/study_consent/status/`;
+
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data.should_ask_diet_study;
+  }
+
+  getDefaultStudyResponse(): AskForStudies {
+    return {
+      should_ask_uk_validation_study: false,
+      should_ask_uk_vaccine_register: false,
+      should_ask_diet_study: false,
+    } as AskForStudies;
+  }
+
+  async getStudyStatus(): Promise<AskForStudies> {
+    // Currently all existing studies are UK only so short-circuit and save a call the server.
+    if (!isGBCountry()) return Promise.resolve(this.getDefaultStudyResponse());
+
+    const url = `/study_consent/status/?home_screen=true`;
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
@@ -581,6 +609,14 @@ export default class UserService extends ApiClientBase implements ICoreService {
       status: response ? 'signed' : 'declined',
       version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
       ad_version: appConfig.vaccineRegistryAdVersion,
+    });
+  }
+
+  setDietStudyResponse(response: boolean) {
+    return this.client.post('/study_consent/', {
+      study: 'Diet Study Beyond Covid',
+      version: appConfig.dietStudyBeyondCovidConsentVersion,
+      status: response ? 'signed' : 'declined',
     });
   }
 

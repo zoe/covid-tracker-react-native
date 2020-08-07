@@ -562,6 +562,8 @@
   "research-updates": "Noticias de la investigación",
   "faqs": "Preguntas frecuentes",
   "privacy-policy": "Política de privacidad",
+  "nav-edit-profile": "Editar perfil",
+  "nav-share-this-app": "Comparte esta aplicación",
   "delete-my-data": "Eliminar mis datos",
   "delete-data-alert-title": "¿Está seguro?",
   "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
@@ -846,7 +848,14 @@
   "edit-profile": {
     "title": "la configuración de perfil",
     "text": "",
-    "archive-cta": "Archivar este perfil"
+    "archive-cta": "Archivar este perfil",
+    "done": "Listo",
+
+    "location": {
+      "title": "Mi ubicacion",
+      "label": "Su código postal",
+      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad"
+    }
   },
 
   "archive-confirmation": {
@@ -940,7 +949,12 @@
       "not-share": false,
       "prioritise": false,
       "tell-friends": false,
-      "share-text": false
+      "share-title": false,
+      "share-text": false,
+      "callout-title": false,
+      "callout-text": false,
+      "callout-link-text": false,
+      "menu-item": false
     }
   },
 
@@ -1021,6 +1035,261 @@
       "unsure-pfnts": "Insegura / Prefiero no decir"
     }
   },
+
+  "diet-study": {
+    "drawer-menu-item": "",
+    "answer-for-feb": "",
+    "answer-for-last-4-weeks": "",
+    "required": "",
+
+    "diet-changed": {
+      "not-sure": ""
+    },
+
+    "intro": {
+      "title": "COVID & Diet",
+      "description-1": "",
+      "description-2": "",
+      "cta-yes": "",
+      "cta-no-later": "",
+      "cta-no-never": ""
+    },
+
+    "next-section": "",
+
+    "about-you": {
+      "title": "",
+      "intro-1": "",
+      "intro-2": "",
+      "answer-again-1": "",
+      "answer-again-2": "",
+      "answer-again-3": ""
+    },
+
+    "weight-label": "",
+    "weight-unsure-label": "",
+    "was-pregnant-label": "",
+    "hours-of-sleep-weekday-label": "",
+    "hours-of-sleep-weekend-label": "",
+    "hours-of-sleep-placeholder": "",
+    "shift-work-label": "",
+    "food-security": {
+      "label": "",
+      "always-had-enough": "",
+      "enough-not-kinds-wanted": "",
+      "sometimes-not-enough": "",
+      "often-not-enough": "",
+      "pfnts": ""
+    },
+
+    "your-lifestyle": {
+      "title": "",
+      "title-2": ""
+    },
+
+    "physical-activity": {
+      "label": "",
+      "less-than-once-a-month": "",
+      "less-than-once-a-week": "",
+      "once-a-week": "",
+      "twice-a-week": "",
+      "three-to-four-times-a-week": "",
+      "five-or-more": "",
+      "pfnts": ""
+    },
+
+    "food-frequency": {
+      "rarely-or-never": "",
+      "less-than-once-a-week": "",
+      "once-a-week": "",
+      "two-to-three-a-week": "",
+      "four-to-six-a-week": "",
+      "one-to-two-a-day": "",
+      "three-to-four-a-day": "",
+      "five-plus-a-day": ""
+    },
+
+    "alcohol-frequency": {
+      "label": "",
+      "never": "",
+      "monthly": "",
+      "two-to-four-a-month": "",
+      "two-to-three-a-week": "",
+      "four-or-more-a-week": "",
+      "pfnts": ""
+    },
+
+    "alcohol-units": {
+      "label": "",
+      "one-to-two": "",
+      "three-to-four": "",
+      "five-to-six": "",
+      "seven-to-nine": "",
+      "ten-or-more": "",
+      "pfnts": ""
+    },
+
+    "alcohol-unit-info": {
+      "label-1": "",
+      "label-2": "",
+      "pints": "",
+      "shots": "",
+      "small-glass": "",
+      "standard-glass": "",
+      "large-glass": "",
+      "bottle-wine": ""
+    },
+
+    "takes-supplements-label": "",
+
+    "supplements": {
+      "label": "",
+      "fiber": "",
+      "probiotic": "",
+      "iron": "",
+      "calcium": "",
+      "vitamin-d": "",
+      "zinc": "",
+      "vitamin-c": "",
+      "multivitamin": "",
+      "omega3": "",
+      "garlic": "",
+      "other": "",
+      "pfnts": "",
+      "specify": ""
+    },
+
+    "first-calories-label": "",
+    "last-calories-label": "",
+    "eats-breakfast-label": "",
+
+    "main-meals-label": "",
+    "main-meals-placeholder": "",
+
+    "snacks-label": "",
+    "snacks-placeholder": "",
+    "lost-control": "",
+
+    "diet": {
+      "label": "",
+      "mixed": "",
+      "vegetarian": "",
+      "vegan": "",
+      "pescatarian": "",
+      "keto": "",
+      "low-carb": "",
+      "low-fat": "",
+      "gluten-free": "",
+      "lactose-free": "",
+      "low-calorie": ""
+    },
+
+    "typical-diet": {
+      "title": "",
+      "text-1": "",
+      "text-2": "",
+      "fruit-1": "",
+      "fruit-2": "",
+      "fruit_juice-1": "",
+      "fruit_juice-2": "",
+      "salad-1": "",
+      "salad-2": "",
+      "vegetables-1": "",
+      "vegetables-2": "",
+      "chips-1": "",
+      "chips-2": "",
+      "pulses-1": "",
+      "pulses-2": "",
+      "fibre_rich_breakfast-1": "",
+      "fibre_rich_breakfast-2": "",
+      "wholemeal_bread-1": "",
+      "wholemeal_bread-2": "",
+      "cheese_yogurt-1": "",
+      "cheese_yogurt-2": "",
+      "crisps_snacks-1": "",
+      "crisps_snacks-2": "",
+      "sweets-1": "",
+      "sweets-2": "",
+      "ice_cream-1": "",
+      "ice_cream-2": "",
+      "fizzy_pop-1": "",
+      "fizzy_pop-2": "",
+      "red_meat-1": "",
+      "red_meat-2": "",
+      "white_meat-1": "",
+      "white_meat-2": "",
+      "red_processed_meat-1": "",
+      "red_processed_meat-2": "",
+      "white_processed_meat-1": "",
+      "white_processed_meat-2": "",
+      "white_fish_battered_breaded-1": "",
+      "white_fish_battered_breaded-2": "",
+      "white_fish-1": "",
+      "white_fish-2": "",
+      "oily_fish-1": "",
+      "oily_fish-2": "",
+      "eggs-1": "",
+      "eggs-2": "",
+      "fast_food-1": "",
+      "fast_food-2": "",
+      "live-probiotic-1": "",
+      "live-probiotic-2": "",
+      "white-bread-1": "",
+      "rice-1": "",
+      "pasta-1": "",
+      "refined_breakfast-1": "",
+      "refined_breakfast-2": "",
+
+      "section-meat": "",
+      "section-processed-meat": "",
+      "section-fish": "",
+      "section-other": "",
+      "section-refined-carbs": "",
+
+      "portions_of_fruit-label": "",
+      "portions_of_fruit-placeholder": "",
+      "glasses_of_juice-label": "",
+      "glasses_of_juice-placeholder": "",
+      "portions_of_veg-label": "",
+      "portions_of_veg-placeholder": "",
+
+      "milk-label": "",
+      "milk-whole": "",
+      "milk-semi": "",
+      "milk-skimmed": "",
+      "milk-rarely-never": "",
+      "milk-plant": "",
+      "milk-other": ""
+    },
+
+    "other-info": {
+      "label": "",
+      "placeholder": ""
+    },
+
+    "continue-cta": "",
+    "complete-cta": "",
+
+    "consent": {
+      "header": "",
+      "paragraph": "",
+      "buttons-header": "",
+      "yes": "",
+      "no": ""
+    },
+
+    "thank-you": {
+      "title": "",
+      "text-1": ""
+    },
+
+    "thank-you-break": {
+      "description-1": "",
+      "sarah-name": "",
+      "sarah-description": ""
+    }
+  },
+
   "blood-group": {
     "justification": "Estamos preguntando esto porque otros estudios han demostrado que tu grupo sanguíneo puede afectar el riesgo y la severidad de la infección de COVID y vamos a explorar esto en nuestra gran base de datos",
     "question": "Si lo sabes, ¿cuál es tu grupo sanguíneo?",

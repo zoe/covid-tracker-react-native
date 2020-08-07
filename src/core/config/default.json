@@ -1,9 +1,9 @@
 {
     "country": "ZZ",
-    "showPartnerLogos": true,
     "enableMultiplePatients": true,
     "enablePersonalInformation": true,
     "enableCohorts": true,
+    "enableEditProfile": false,
 
     "showEthnicityQuestion": false,
     "showRaceQuestion": true,

@@ -5,16 +5,21 @@ import { View, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
-import { getAvatarByName } from '@covid/utils/avatar';
+import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { PatientProfile } from '@covid/core/patient/PatientState';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
 import { ClippedText, RegularText } from './Text';
 
 type BackButtonProps = {
   navigation: StackNavigationProp<ScreenParamList>;
 };
+
+export enum CallOutType {
+  Simple,
+  Tag,
+}
 
 const BackButton: React.FC<BackButtonProps> = ({ navigation }) => {
   return (
@@ -27,27 +32,35 @@ const BackButton: React.FC<BackButtonProps> = ({ navigation }) => {
 };
 
 type NavbarProps = {
-  profile: PatientProfile;
+  profile: Profile;
   navigation: StackNavigationProp<ScreenParamList>;
   simpleCallout?: boolean;
+  type?: CallOutType;
+  calloutTitle?: string;
 };
 
-const PatientHeader: React.FC<NavbarProps> = ({ profile, navigation, simpleCallout = false }) => {
-  const avatarImage = !!profile.avatarName && getAvatarByName(profile.avatarName);
+const PatientHeader: React.FC<NavbarProps> = ({
+  profile,
+  navigation,
+  simpleCallout = false,
+  type = !profile.reported_by_another ? CallOutType.Simple : CallOutType.Tag,
+  calloutTitle = !profile.reported_by_another ? profile.name : i18n.t('answer-for', { name: profile.name }),
+}) => {
+  const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
 
   return (
     <View style={styles.headerBar}>
       <View style={styles.left}>{!!navigation && <BackButton navigation={navigation} />}</View>
       <View style={styles.center} />
       <View style={styles.right}>
-        {profile.isPrimaryPatient || simpleCallout ? (
+        {type === CallOutType.Simple || simpleCallout ? (
           <View style={styles.regularTextBox}>
-            <RegularText style={styles.regularText}>{profile.name}</RegularText>
+            <RegularText style={styles.regularText}>{calloutTitle}</RegularText>
           </View>
         ) : (
           <>
             <View style={styles.altTextBox}>
-              <ClippedText style={styles.altText}>{i18n.t('answer-for', { name: profile.name })}</ClippedText>
+              <ClippedText style={styles.altText}>{calloutTitle}</ClippedText>
               <View style={styles.rightTriangle} />
             </View>
           </>

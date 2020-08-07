@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog005, dataPage003, incidence007, notificationReminders, timUpdate004 } from '@assets';
+import { blog007, dataPage003, incidence010, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -69,9 +69,16 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/data-update-july-16?utm_source=App"
-                calloutID="incidence_007"
-                imageSource={incidence007}
+                link="https://covid.joinzoe.com/post/diet-lifestyle-covid-questionnaire?utm_source=App"
+                calloutID="blog_007"
+                imageSource={blog007}
+                aspectRatio={1.551}
+              />
+
+              <ExternalCallout
+                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
+                calloutID="incidence_010"
+                imageSource={incidence010}
                 aspectRatio={1.5}
               />
 
@@ -88,13 +95,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={timUpdate004}
                 aspectRatio={1.178}
               /> */}
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/tips-covid-safety?utm_source=App"
-                calloutID="blog_005"
-                imageSource={blog005}
-                aspectRatio={1.551}
-              />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
@@ -126,7 +126,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('SelectProfile')}
+                  onPress={() =>
+                    this.props.navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'SelectProfile' }],
+                    })
+                  }
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>

@@ -37,6 +37,7 @@
     "expo": "~36.0.0",
     "expo-analytics-amplitude": "~8.0.0",
     "expo-font": "^8.0.0",
+    "expo-intent-launcher": "~8.0.0",
     "expo-localization": "~8.0.0",
     "formik": "^2.1.4",
     "i18n-js": "^3.5.1",
@@ -70,8 +71,7 @@
     "typesafe-actions": "^5.1.0",
     "uuid": "^8.0.0",
     "weak-key": "^1.0.2",
-    "yup": "^0.28.3",
-    "expo-intent-launcher": "~8.0.0"
+    "yup": "^0.28.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

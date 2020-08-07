@@ -2,15 +2,21 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { isGBCountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import UserService, { ICoreService, isGBCountry, isUSCountry } from '@covid/core/user/UserService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
-import { Profile } from '@covid/features/multi-profile/SelectProfileScreen';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
+import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
+import dietStudyCoordinator, { DietStudyConsent, LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
+import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
+import Analytics, { events } from '@covid/core/Analytics';
+import { Profile } from '@covid/components/Collections/ProfileList';
+import { PatientData } from '@covid/core/patient/PatientData';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -34,6 +40,8 @@ export class AppCoordinator {
   userService: ICoreService;
   @lazyInject(Services.Content)
   contentService: IContentService;
+  @lazyInject(Services.DietStudy)
+  dietStudyService: IDietStudyRemoteClient;
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
@@ -89,6 +97,9 @@ export class AppCoordinator {
     Consent: () => {
       NavigatorService.navigate('Register');
     },
+    VaccineRegistryInfo: () => {
+      NavigatorService.navigate('WelcomeRepeat');
+    },
   } as ScreenFlow;
 
   async init() {
@@ -109,13 +120,44 @@ export class AppCoordinator {
   }
 
   startPatientFlow(currentPatient: PatientStateType) {
-    patientCoordinator.init(this, { currentPatient }, this.userService);
+    const patientData: PatientData = {
+      patientId: currentPatient.patientId,
+      patientState: currentPatient,
+      patientInfo: undefined,
+      profile: undefined,
+    };
+
+    patientCoordinator.init(this, patientData, this.userService);
     patientCoordinator.startPatient();
   }
 
   startAssessmentFlow(currentPatient: PatientStateType) {
     assessmentCoordinator.init(this, { currentPatient }, this.userService, assessmentService);
     assessmentCoordinator.startAssessment();
+  }
+
+  startDietStudyFlow(currentPatient: PatientStateType, startedFromMenu: boolean, timePeriod: string = LAST_4_WEEKS) {
+    dietStudyCoordinator.init(
+      this,
+      { currentPatient, timePeriod, startedFromMenu },
+      this.userService,
+      this.dietStudyService
+    );
+    dietStudyCoordinator.startDietStudy();
+  }
+
+  async startEditProfile(profile: Profile) {
+    const patientInfo = await this.userService.getPatient(profile.id);
+    this.patientId = profile.id;
+
+    const patientData: PatientData = {
+      patientId: this.patientId,
+      patientState: this.currentPatient,
+      patientInfo: patientInfo!,
+      profile,
+    };
+    editProfileCoordinator.init(this, patientData, this.userService);
+    editProfileCoordinator.startEditProfile();
   }
 
   gotoNextScreen = (screenName: ScreenName) => {
@@ -127,17 +169,18 @@ export class AppCoordinator {
     }
   };
 
-  editProfile(profile: Profile) {
-    NavigatorService.navigate('EditProfile', { profile });
-  }
-
-  async profileSelected(mainProfile: boolean, currentPatient: PatientStateType) {
-    this.currentPatient = currentPatient;
-    this.patientId = currentPatient.patientId;
-    if (isGBCountry() && mainProfile && (await this.userService.shouldAskForValidationStudy(false))) {
-      this.goToUKValidationStudy();
+  async profileSelected(profile: Profile) {
+    await this.setPatientId(profile.id);
+    if (isGBCountry() && !this.currentPatient.isReportedByAnother) {
+      if (await this.userService.shouldAskForValidationStudy(false)) {
+        this.goToUKValidationStudy();
+      } else if (await this.shouldShowDietStudyInvite()) {
+        this.startDietStudyFlow(this.currentPatient, false);
+      } else {
+        this.startAssessmentFlow(this.currentPatient);
+      }
     } else {
-      this.startAssessmentFlow(currentPatient);
+      this.startAssessmentFlow(this.currentPatient);
     }
   }
 
@@ -146,12 +189,16 @@ export class AppCoordinator {
     this.currentPatient = await this.userService.getPatientState(this.patientId!);
   }
 
+  goToDietStart() {
+    this.startDietStudyFlow(this.currentPatient, true);
+  }
+
   goToUKValidationStudy() {
     NavigatorService.navigate('ValidationStudyIntro');
   }
 
-  goToArchiveReason(profileId: string) {
-    NavigatorService.navigate('ArchiveReason', { profileId });
+  goToArchiveReason(patientId: string) {
+    NavigatorService.navigate('ArchiveReason', { patientId });
   }
 
   goToPreRegisterScreens() {
@@ -168,6 +215,35 @@ export class AppCoordinator {
 
   goToCreateProfile(avatarName: string) {
     NavigatorService.navigate('CreateProfile', { avatarName });
+  }
+
+  async shouldShowDietStudyInvite(): Promise<boolean> {
+    // Check local storage for a cached answer
+    const consent = await AsyncStorageService.getDietStudyConsent();
+    if (consent === DietStudyConsent.SKIP) return false;
+
+    // Check Server
+    return await this.userService.shouldShowDietStudy();
+  }
+
+  async shouldShowStudiesMenu(): Promise<boolean> {
+    const consent = await AsyncStorageService.getDietStudyConsent();
+    return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
+  }
+
+  goToVaccineRegistry() {
+    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.currentPatient });
+  }
+
+  vaccineRegistryResponse(response: boolean) {
+    this.userService.setVaccineRegistryResponse(response);
+    if (response) {
+      Analytics.track(events.JOIN_VACCINE_REGISTER);
+      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.currentPatient });
+    } else {
+      Analytics.track(events.DECLINE_VACCINE_REGISTER);
+      NavigatorService.goBack();
+    }
   }
 }
 
