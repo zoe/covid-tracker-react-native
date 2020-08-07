@@ -47,14 +47,6 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       });
   };
 
-  const countriesList = [
-    { label: i18n.t('choose-one-of-these-options'), value: '' },
-    { label: i18n.t('gender-identity-male'), value: 'male' },
-    { label: i18n.t('gender-identity-female'), value: 'female' },
-    { label: i18n.t('gender-identity-pfnts'), value: 'pfnts' },
-    { label: i18n.t('gender-identity-other'), value: 'other' },
-  ];
-
   const countryList: PickerItemProps[] = require('country-list')
     .getData()
     .map((countryData: CountryData) => {
@@ -74,11 +66,14 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         <Formik
           initialValues={{
             postcode: editProfileCoordinator.patientData.patientInfo!.postcode,
-            differentAddress: 'no',
-            stillInUK: '',
-            currentLocation: '',
-            currentCountry: '',
-            //TODO Prefill from info
+            differentAddress: editProfileCoordinator.patientData.patientInfo!.current_postcode
+              ? 'yes'
+              : editProfileCoordinator.patientData.patientInfo!.current_country
+              ? 'yes'
+              : 'no',
+            stillInUK: editProfileCoordinator.patientData.patientInfo!.current_country ? 'no' : 'yes',
+            currentLocation: editProfileCoordinator.patientData.patientInfo!.current_postcode,
+            currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country,
           }}
           validationSchema={Yup.object().shape({
             postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
