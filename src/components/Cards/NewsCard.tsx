@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Linking, Image, View, StyleSheet, Animated, Easing } from 'react-native';
+import { Linking, Image, View, StyleSheet, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -16,44 +16,86 @@ type Props = {
 
 export const NewsCard: React.FC<Props> = ({ model }) => {
   const webflowService = useInjection<IWebflowService>(Services.WebflowService);
-  const onPress = () => Linking.openURL(webflowService.getUKBlogPostUrl(model.slug));
+  const onPress = () => {
+    Linking.openURL(webflowService.getUKBlogPostUrl(model.slug));
+  };
   const displayDate = (): string => moment(model.publishedDate).format('MMMM DD, YYYY');
+
+  // Animation code
+
+  const [pressedDown, setPressedDown] = useState<boolean>(false);
 
   const opacity = { start: 0, end: 1 };
   const translateY = { start: 25, end: 0 };
 
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
   const translateAnimation = useRef(new Animated.Value(translateY.start)).current;
+  const scaleAnimation = useRef(new Animated.Value(1)).current;
 
-  useEffect(() => {
-    Animated.timing(fadeAnimation, {
-      toValue: opacity.end,
-      duration: 250,
-      easing: Easing.out(Easing.quad),
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(translateAnimation, {
-      toValue: translateY.end,
-      duration: 250,
-      easing: Easing.out(Easing.quad),
-      useNativeDriver: true,
-    }).start();
+  const getFadeInTiming = (value: any) => ({
+    toValue: value,
+    duration: 250,
+    easing: Easing.out(Easing.quad),
+    useNativeDriver: true,
   });
 
+  const minScale = 0.92;
+  const getScaleRange = (pressed: boolean): number[] => (pressed ? [1, minScale] : [minScale, 1]);
+  const scaleTiming = {
+    toValue: 1,
+    duration: 75,
+    easing: pressedDown ? Easing.out(Easing.quad) : Easing.in(Easing.quad),
+    useNativeDriver: true,
+  };
+
+  // Button scale state
+
+  const setPressedAnimationState = (pressed: boolean) => {
+    setPressedDown(pressed);
+    scaleAnimation.setValue(0);
+    Animated.timing(scaleAnimation, scaleTiming).start();
+  };
+
+  const onPressDown = () => {
+    setPressedAnimationState(true);
+  };
+  const onPressRelease = () => {
+    setPressedAnimationState(false);
+  };
+
+  useEffect(() => {
+    Animated.timing(fadeAnimation, getFadeInTiming(opacity.end)).start();
+    Animated.timing(translateAnimation, getFadeInTiming(translateY.end)).start();
+  });
+
+  const containerStyle = {
+    opacity: fadeAnimation,
+    transform: [
+      {
+        translateY: translateAnimation,
+      },
+      {
+        scale: scaleAnimation.interpolate({
+          inputRange: [0, 1],
+          outputRange: getScaleRange(pressedDown),
+        }),
+      },
+    ],
+  };
+
+  // End of Animation code
+
   return (
-    <Animated.View
-      style={{
-        opacity: fadeAnimation,
-        transform: [{ translateY: translateAnimation }],
-      }}>
-      <TouchableOpacity onPress={onPress} style={styles.root}>
-        <Image source={{ uri: model.mainImage?.url }} style={styles.image} />
-        <View style={styles.textContainer}>
-          <Header3Text style={styles.titleLabel}>{model.name}</Header3Text>
-          <CaptionText>{displayDate()}</CaptionText>
+    <Animated.View style={containerStyle}>
+      <TouchableWithoutFeedback onPressIn={onPressDown} onPressOut={onPressRelease} onPress={onPress}>
+        <View style={styles.root}>
+          <Image source={{ uri: model.mainImage?.url }} style={styles.image} />
+          <View style={styles.textContainer}>
+            <Header3Text style={styles.titleLabel}>{model.name}</Header3Text>
+            <CaptionText>{displayDate()}</CaptionText>
+          </View>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     </Animated.View>
   );
 };
