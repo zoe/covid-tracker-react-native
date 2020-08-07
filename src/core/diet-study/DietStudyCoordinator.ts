@@ -155,6 +155,7 @@ export class DietStudyCoordinator {
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
       } else {
         // One Completed Study - but their diet may have changed -> Start from PreLockdown
+        this.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
         NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
       }
     } else {
