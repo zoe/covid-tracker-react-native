@@ -620,7 +620,7 @@
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
 
-  "validation-error-text": "Please scroll up fill in the missing details or correct the above information",
+  "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
