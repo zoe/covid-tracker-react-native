@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Form, Text } from 'native-base';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { View } from 'react-native';
+import { PickerItemProps, View } from 'react-native';
 
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen, { Header } from '@covid/components/Screen';
@@ -20,6 +20,11 @@ import { ScreenParamList } from '../../ScreenParamList';
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'EditLocation'>;
   route: RouteProp<ScreenParamList, 'EditLocation'>;
+};
+
+type CountryData = {
+  code: string;
+  name: string;
 };
 
 export const EditLocationScreen: React.FC<RenderProps> = (props) => {
@@ -47,6 +52,15 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     { label: i18n.t('gender-identity-pfnts'), value: 'pfnts' },
     { label: i18n.t('gender-identity-other'), value: 'other' },
   ];
+
+  const countryList: PickerItemProps[] = require('country-list')
+    .getData()
+    .map((countryData: CountryData) => {
+      return {
+        label: countryData.name,
+        value: countryData.code,
+      };
+    });
 
   return (
     <>
@@ -124,7 +138,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                     selectedValue={props.values.currentCountry}
                     onValueChange={props.handleChange('currentCountry')}
                     label={i18n.t('edit-profile.location.select-country')}
-                    items={countriesList}
+                    items={countryList}
                     error={props.touched.currentCountry && props.errors.currentCountry}
                   />
                 )}
