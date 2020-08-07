@@ -789,7 +789,7 @@
   "select-profile-last-report": "Último informe:",
   "default-profile-name": "Yo",
 
-  "validation-error-text": "Complete o corrija la información anterior",
+  "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
 
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
@@ -1264,7 +1264,9 @@
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "continue-cta": "",
