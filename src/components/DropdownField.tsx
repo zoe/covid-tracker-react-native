@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundTertiary,
     height: 'auto',
     minHeight: 48,
-    maxHeight: 96,
     borderRadius: 8,
     minWidth: 70,
   },
