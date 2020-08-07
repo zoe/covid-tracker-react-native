@@ -59,6 +59,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
       <FlatList
         data={posts}
         ListHeaderComponent={header()}
+        contentContainerStyle={{ marginHorizontal: 16 }}
         keyExtractor={(item) => item.slug}
         renderItem={({ item }) => <NewsCard model={item} />}
       />
