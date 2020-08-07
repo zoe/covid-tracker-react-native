@@ -1,5 +1,5 @@
-import React from 'react';
-import { Linking, Image, View, StyleSheet } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { Linking, Image, View, StyleSheet, Animated, Easing } from 'react-native';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -19,14 +19,42 @@ export const NewsCard: React.FC<Props> = ({ model }) => {
   const onPress = () => Linking.openURL(webflowService.getUKBlogPostUrl(model.slug));
   const displayDate = (): string => moment(model.publishedDate).format('MMMM DD, YYYY');
 
+  const opacity = { start: 0, end: 1 };
+  const translateY = { start: 25, end: 0 };
+
+  const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
+  const translateAnimation = useRef(new Animated.Value(translateY.start)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnimation, {
+      toValue: opacity.end,
+      duration: 250,
+      easing: Easing.out(Easing.quad),
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(translateAnimation, {
+      toValue: translateY.end,
+      duration: 250,
+      easing: Easing.out(Easing.quad),
+      useNativeDriver: true,
+    }).start();
+  });
+
   return (
-    <TouchableOpacity onPress={onPress} style={styles.root}>
-      <Image source={{ uri: model.mainImage?.url }} style={styles.image} />
-      <View style={styles.textContainer}>
-        <Header3Text style={styles.titleLabel}>{model.name}</Header3Text>
-        <CaptionText>{displayDate()}</CaptionText>
-      </View>
-    </TouchableOpacity>
+    <Animated.View
+      style={{
+        opacity: fadeAnimation,
+        transform: [{ translateY: translateAnimation }],
+      }}>
+      <TouchableOpacity onPress={onPress} style={styles.root}>
+        <Image source={{ uri: model.mainImage?.url }} style={styles.image} />
+        <View style={styles.textContainer}>
+          <Header3Text style={styles.titleLabel}>{model.name}</Header3Text>
+          <CaptionText>{displayDate()}</CaptionText>
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
