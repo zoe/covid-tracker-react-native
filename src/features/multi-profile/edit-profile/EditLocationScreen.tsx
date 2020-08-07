@@ -71,11 +71,15 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               then: Yup.string().required(),
             }),
             currentLocation: Yup.string().when(['stillInUK', 'differentAddress'], {
-              is: 'yes',
+              is: (stillInUK: string, differentAddress: string) => {
+                return stillInUK === 'yes' && differentAddress === 'yes';
+              },
               then: Yup.string().required(),
             }),
             currentCountry: Yup.string().when('stillInUK', {
-              is: 'no',
+              is: (stillInUK: string, differentAddress: string) => {
+                return stillInUK === 'no' && differentAddress === 'yes';
+              },
               then: Yup.string().required(),
             }),
           })}
