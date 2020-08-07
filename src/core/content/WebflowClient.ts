@@ -12,6 +12,7 @@ export interface IWebflowService {
   getCollection(name: string): Promise<IWebflowCollectionModel | undefined>;
   getCollectionItems<T>(id: string): Promise<T[]>;
   getUKBlogPosts(): Promise<IWebflowBlogModel[]>;
+  getUKBlogPostUrl(slug: string): string;
 }
 
 @injectable()
@@ -41,12 +42,15 @@ export class WebflowService implements IWebflowService {
 
   async getCollectionItems<T>(id: string): Promise<T[]> {
     const { items } = await this.apiClient.get<{ items: T[] }>(`/collections/${id}/items`);
-    return items;
-    // return camelizeKeys(items);
+    return camelizeKeys(items);
   }
 
   async getUKBlogPosts() {
     const collection = await this.getCollection('post');
     return await this.getCollectionItems<IWebflowBlogModel>(collection!._id);
+  }
+
+  getUKBlogPostUrl(slug: string): string {
+    return `https://covid.joinzoe.com/post/${slug}`;
   }
 }

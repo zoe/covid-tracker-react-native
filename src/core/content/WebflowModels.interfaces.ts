@@ -13,10 +13,10 @@ export interface IWebflowFileModel {
 }
 
 export interface IWebflowBlogModel {
-  _cid: string;
-  _id: string;
-  _archived: boolean;
-  _draft: boolean;
+  cid: string;
+  id: string;
+  archived: boolean;
+  draft: boolean;
   featureInUkDataPage: boolean;
   featureInUkHomePage: boolean;
   publishedDate: string;
