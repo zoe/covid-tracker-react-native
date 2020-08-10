@@ -21,6 +21,7 @@ configure(() => {
   require('./stories/FoodFreqCard.stories');
   require('./stories/VaccineRegistryCallout.stories');
   require('./stories/TextInput.stories');
+  require('./stories/EstimatedCasesMapCard.stories');
 }, module);
 
 // Global Decorator

@@ -1298,5 +1298,12 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "",
+    "current-estimates": "",
+    "active-cases-in-area": "",
+    "share": ""
   }
 }

@@ -3,6 +3,11 @@ import { StyleSheet } from 'react-native';
 import { colors } from './colors';
 
 export const fontStyles = StyleSheet.create({
+  h0Reg: {
+    fontSize: 42,
+    lineHeight: 48,
+    color: colors.primary,
+  },
   h1Light: {
     // HeaderLightText - Login & Register Screens
     fontSize: 32,

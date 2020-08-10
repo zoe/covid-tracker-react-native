@@ -1303,5 +1303,12 @@
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
     }
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "",
+    "current-estimates": "",
+    "active-cases-in-area": "",
+    "share": ""
   }
 }

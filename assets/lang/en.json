@@ -1298,5 +1298,12 @@
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
     "menu-item": "Join vaccine registry"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID in the {{location}}",
+    "current-estimates": "Current estimates",
+    "active-cases-in-area": "Active cases\rin your area",
+    "share": "Share your map"
   }
 }
