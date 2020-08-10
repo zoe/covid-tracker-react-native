@@ -3,7 +3,7 @@ import * as Localization from 'expo-localization';
 import { injectable } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
-import { AvatarName, DEFAULT_PROFILE } from '@covid/utils/avatar';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
@@ -14,7 +14,7 @@ import { ConfigType, getCountryConfig } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
-import { camelizeKeys } from '../api/utils';
+import { camelizeKeys, objectToQueryString } from '../api/utils';
 import { getInitialPatientState, PatientStateType } from '../patient/PatientState';
 import { cleanIntegerVal } from '../../utils/number';
 
@@ -55,6 +55,7 @@ export interface IUserService {
   shouldShowDietStudy(): Promise<boolean>;
   setVaccineRegistryResponse(response: boolean): void;
   setDietStudyResponse(response: boolean): void;
+  getStudyStatus(): Promise<AskForStudies>;
 }
 
 export interface IProfileService {
@@ -72,8 +73,8 @@ export interface IConsentService {
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
   listPatients(): Promise<Profile[] | null>;
-  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getPatientState(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
@@ -125,7 +126,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   protected client = ApiClientBase.client;
 
   public async login(email: string, password: string) {
-    const requestBody = this.objectToQueryString({
+    const requestBody = objectToQueryString({
       username: email,
       password,
     });
@@ -229,7 +230,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       consent_version: UserService.consentSigned.version,
       privacy_policy_version: UserService.consentSigned.privacy_policy_version,
     };
-    const requestBody = this.objectToQueryString(payload);
+    const requestBody = objectToQueryString(payload);
 
     // todo: what is in the response?
     const promise = this.client.post<LoginOrRegisterResponse>('/auth/signup/', requestBody, this.configEncoded);
@@ -250,7 +251,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
   public async myPatientProfile(): Promise<Profile | null> {
     try {
       const data = (await this.client.get(`/patient_list/`)).data as Profile[];
-      console.log(data);
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
       handleServiceError(error);
@@ -273,7 +273,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.post(`/patients/`, infos);
+    return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
   }
 
   public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
@@ -281,7 +281,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.patch(`/patients/${patientId}/`, infos);
+    return (await this.client.patch<PatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
   }
 
   private getPatientVersion() {
@@ -573,6 +573,23 @@ export default class UserService extends ApiClientBase implements ICoreService {
 
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_diet_study;
+  }
+
+  getDefaultStudyResponse(): AskForStudies {
+    return {
+      should_ask_uk_validation_study: false,
+      should_ask_uk_vaccine_register: false,
+      should_ask_diet_study: false,
+    } as AskForStudies;
+  }
+
+  async getStudyStatus(): Promise<AskForStudies> {
+    // Currently all existing studies are UK only so short-circuit and save a call the server.
+    if (!isGBCountry()) return Promise.resolve(this.getDefaultStudyResponse());
+
+    const url = `/study_consent/status/?home_screen=true`;
+    const response = await this.client.get<AskForStudies>(url);
+    return response.data;
   }
 
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {

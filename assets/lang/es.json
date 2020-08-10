@@ -562,6 +562,8 @@
   "research-updates": "Noticias de la investigación",
   "faqs": "Preguntas frecuentes",
   "privacy-policy": "Política de privacidad",
+  "nav-edit-profile": "Editar perfil",
+  "nav-share-this-app": "Comparte esta aplicación",
   "delete-my-data": "Eliminar mis datos",
   "delete-data-alert-title": "¿Está seguro?",
   "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
@@ -788,7 +790,7 @@
   "select-profile-last-report": "Último informe:",
   "default-profile-name": "Yo",
 
-  "validation-error-text": "Complete o corrija la información anterior",
+  "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
 
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
@@ -1258,26 +1260,24 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "continue-cta": "",
     "complete-cta": "",
 
-    "next-box": {
-      "title": "",
-      "text": ""
-    },
-
     "consent": {
       "header": "",
-      "paragraph-1": "",
-      "paragraph-2": "",
+      "paragraph": "",
       "buttons-header": "",
       "yes": "",
       "no": ""
@@ -1285,14 +1285,14 @@
 
     "thank-you": {
       "title": "",
-      "text-1": "",
-      "text-2": ""
+      "text-1": ""
     },
 
     "thank-you-break": {
-      "description": "",
+      "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 

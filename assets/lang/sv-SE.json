@@ -490,6 +490,8 @@
   "research-updates": "Aktuella forskningsnyheter",
   "faqs": "Vanliga frågor",
   "privacy-policy": "Integritetsmeddelande",
+  "nav-edit-profile": "Redigera profil",
+  "nav-share-this-app": "Dela denna appen",
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
@@ -547,7 +549,7 @@
   "choose-one-of-these-options": "Välj ett av alternativen",
   "prefer-not-to-say": "Föredrar att inte svara",
 
-  "validation-error-text": "Fyll i eller korrigera informationen ovan",
+  "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
 
   "website-home": "https://covid.joinzoe.com/",
 
@@ -1249,12 +1251,16 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "diet-changed": {
@@ -1264,15 +1270,9 @@
     "continue-cta": "",
     "complete-cta": "",
 
-    "next-box": {
-      "title": "",
-      "text": ""
-    },
-
     "consent": {
       "header": "",
-      "paragraph-1": "",
-      "paragraph-2": "",
+      "paragraph": "",
       "buttons-header": "",
       "yes": "",
       "no": ""
@@ -1280,14 +1280,14 @@
 
     "thank-you": {
       "title": "",
-      "text-1": "",
-      "text-2": ""
+      "text-1": ""
     },
 
     "thank-you-break": {
-      "description": "",
+      "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 
