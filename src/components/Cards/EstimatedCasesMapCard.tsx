@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import ViewShot, { captureRef } from 'react-native-view-shot';
+import React, { useRef } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Sharing from 'expo-sharing';
 
+import { WebView } from '@covid/components/WebView';
 import { Header0Text, Header3Text, MutedText } from '@covid/components/Text';
 import { colors } from '@theme';
 import ChevronRight from '@assets/icons/ChevronRight';
@@ -12,8 +13,11 @@ import i18n from '@covid/locale/i18n';
 
 const MAP_HEIGHT = 246;
 
+const html = require('@assets/estimated-cases-compact-map.html');
+
 export const EstimatedCasesMapCard: React.FC = ({}) => {
   const viewRef = useRef(null);
+  const webViewRef = useRef<WebView>(null);
   const count = 0;
   const share = async () => {
     try {
@@ -25,6 +29,15 @@ export const EstimatedCasesMapCard: React.FC = ({}) => {
     }
   };
 
+  const sendMessageToWebView = () => {
+    webViewRef.current!.emit('new-center', {
+      payload: {
+        lat: 51.513759,
+        lng: -0.317859,
+      },
+    });
+  };
+
   return (
     <View style={styles.root} ref={viewRef}>
       <View style={styles.headerContainer}>
@@ -34,14 +47,20 @@ export const EstimatedCasesMapCard: React.FC = ({}) => {
         <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
       </View>
 
-      <View style={styles.mapContainer} />
+      <View style={styles.mapContainer} pointerEvents="none">
+        <WebView ref={webViewRef} originWhitelist={['*']} source={html} style={styles.webview} />
+      </View>
 
       <View style={styles.statsContainer}>
         <View style={styles.statsRow}>
           <Header0Text style={styles.stats}>{count}</Header0Text>
           <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
         </View>
-        <TouchableOpacity style={styles.backIcon} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.backIcon}
+          onPress={() => {
+            sendMessageToWebView();
+          }}>
           <ChevronRight width={32} height={32} />
         </TouchableOpacity>
       </View>
@@ -90,6 +109,10 @@ const styles = StyleSheet.create({
 
   mapContainer: {
     width: '100%',
+    // height: MAP_HEIGHT,
+  },
+
+  webview: {
     height: MAP_HEIGHT,
   },
 
