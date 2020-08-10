@@ -1303,5 +1303,13 @@
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
     }
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Uppskattade fall",
+    "daily": "Dagliga nya fall",
+    "active": "Aktiva fall",
+    "cta": "Fler detaljer"
   }
 }

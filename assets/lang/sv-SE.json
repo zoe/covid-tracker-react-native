@@ -1298,5 +1298,13 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Casos estimados",
+    "daily": "Nuevos casos diarios",
+    "active": "Casos activos",
+    "cta": "Más detalles"
   }
 }
