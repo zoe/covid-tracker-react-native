@@ -620,7 +620,7 @@
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
 
-  "validation-error-text": "Please fill in or correct the above information",
+  "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
@@ -1024,7 +1024,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1231,12 +1231,16 @@
       "milk-skimmed": "Skimmed milk",
       "milk-rarely-never": "Rarely/never use milk",
       "milk-plant": "Plant-based milk",
-      "milk-other": "Other"
+      "milk-other": "Other",
+
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
     },
 
     "other-info": {
       "label": "Is there any other information about your diet & lifestyle you would like to share?",
-      "placeholder": "Optional"
+      "placeholder": "Optional",
+      "text-limit": "Ensure this field has no more than {{count}} characters.",
+      "text-limit-caption": "Max {{count}} characters"
     },
 
     "diet-changed": {
@@ -1262,7 +1266,8 @@
     "thank-you-break": {
       "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
       "sarah-name": "Dr Sarah Berry",
-      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
+      "return-later": "If you'd like to take a break, you can return to these questions by clicking 'Diet Study' from the menu in the top right corner of the home screen. "
     }
   },
 
