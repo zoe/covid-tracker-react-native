@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   root: {
     borderRadius: 16,
     marginHorizontal: 16,
-    marginVertical: 16,
+    marginBottom: 16,
     backgroundColor: colors.white,
     overflow: 'hidden',
   },

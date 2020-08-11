@@ -5,6 +5,7 @@ import { SafeAreaView, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { notificationReminders } from '@assets';
+import { Header3Text } from '@covid/components/Text';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
@@ -14,6 +15,7 @@ import { IWebflowService } from '@covid/core/content/WebflowClient';
 import { Services } from '@covid/provider/services.types';
 import { IWebflowBlogModel } from '@covid/core/content/WebflowModels.interfaces';
 import { NewsCard } from '@covid/components/Cards/NewsCard';
+import i18n from '@covid/locale/i18n';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyThankYou'>;
@@ -56,6 +58,13 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
 
   return (
     <SafeAreaView>
+      <Header3Text
+        style={{
+          paddingVertical: 16,
+          paddingHorizontal: 32,
+        }}>
+        {i18n.t('latest-news.title')}
+      </Header3Text>
       <FlatList
         data={posts}
         ListHeaderComponent={header()}
