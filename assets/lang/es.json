@@ -1308,6 +1308,14 @@
     }
   },
 
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Uppskattade fall",
+    "daily": "Dagliga nya fall",
+    "active": "Aktiva fall",
+    "cta": "Fler detaljer"
+  },
+
   "tab-navigator": {
     "first-tab": "Panel",
     "second-tab": "Últimas noticias"

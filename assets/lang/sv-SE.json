@@ -1303,6 +1303,14 @@
     }
   },
 
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Casos estimados",
+    "daily": "Nuevos casos diarios",
+    "active": "Casos activos",
+    "cta": "Más detalles"
+  },
+  
   "tab-navigator": {
     "first-tab": "Dashboard",
     "second-tab": "Senaste nytt"

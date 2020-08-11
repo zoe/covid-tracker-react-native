@@ -1303,6 +1303,14 @@
     "menu-item": "Join the vaccine registry"
   },
 
+  "estimated-cases-card": {
+    "covid-in-the-uk": "COVID in the UK",
+    "estimated-cases": "Estimated cases",
+    "daily": "Daily new cases",
+    "active": "Active cases",
+    "cta": "More details"
+  },
+
   "tab-navigator": {
     "first-tab": "Dashboard",
     "second-tab": "Latest News"
