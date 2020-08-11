@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 import { colors } from '@theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
+import { contentService } from '@covid/Services';
 import { covidIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 
 interface Props {
+  reportedCount?: string;
   reportOnPress: VoidFunction;
 }
 
-export const Header: React.FC<Props> = ({ reportOnPress }) => {
+export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
   const todaysDate = (): string => moment().format('dddd Do MMMM');
-  const reportedCount = (): string => '43';
-  const contributors = (): string => '2,503,450';
+  const [contributors, setContributors] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setContributors(await contentService.getUserCount());
+    })();
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -26,13 +33,19 @@ export const Header: React.FC<Props> = ({ reportOnPress }) => {
         <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
           {i18n.t('dashboard.report-now')}
         </BrandedButton>
-        <CaptionText style={styles.reportedCount}>
-          {i18n.t('dashboard.you-have-reported-x-times', { count: reportedCount() })}
-        </CaptionText>
+        {reportedCount && (
+          <CaptionText style={styles.reportedCount}>
+            {i18n.t('dashboard.you-have-reported-x-times', { count: reportedCount })}
+          </CaptionText>
+        )}
       </View>
 
-      <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
-      <Header3Text style={styles.contributorsCount}>{contributors()}</Header3Text>
+      {contributors && (
+        <>
+          <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
+          <Header3Text style={styles.contributorsCount}>{contributors}</Header3Text>
+        </>
+      )}
 
       <View style={{ width: '100%' }}>
         <PoweredByZoeSmall />

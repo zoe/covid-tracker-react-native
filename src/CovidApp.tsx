@@ -153,10 +153,13 @@ export default class CovidApp extends Component<object, State> {
             let icon;
             const tintColor = focused ? colors.brand : colors.tertiary;
 
-            if (route.name === 'WelcomeRepeat') {
-              icon = dashboard;
-            } else if (route.name === 'LatestNews') {
-              icon = news;
+            switch (route.name) {
+              case 'Dashboard':
+                icon = dashboard;
+                break;
+              case 'LatestNews':
+                icon = news;
+                break;
             }
 
             return <Image resizeMethod="auto" source={icon} style={{ tintColor, width: 24, height: 24 }} />;
@@ -170,8 +173,8 @@ export default class CovidApp extends Component<object, State> {
           inactiveTintColor: colors.tertiary,
         }}>
         <Tab.Screen
-          name="WelcomeRepeat"
-          component={WelcomeRepeatScreen}
+          name="Dashboard"
+          component={DashboardScreen}
           options={{ title: i18n.t('tab-navigator.first-tab') }}
         />
         <Tab.Screen
