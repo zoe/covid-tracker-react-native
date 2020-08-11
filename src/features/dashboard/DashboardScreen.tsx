@@ -11,7 +11,8 @@ import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEst
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 
-const HEADER_EXPANDED_HEIGHT = 380;
+// const HEADER_EXPANDED_HEIGHT = 380; // With report count & total contribution
+const HEADER_EXPANDED_HEIGHT = 352;
 const HEADER_COLLAPSED_HEIGHT = 124;
 
 interface Props {
