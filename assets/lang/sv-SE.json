@@ -498,6 +498,7 @@
   "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
   "delete": "Ta bort",
+  "estimated-cases": "Uppskattade fall",
   "logout": "Logga ut",
 
   "never-reported": "Aldrig rapporterat",
@@ -548,7 +549,7 @@
   "choose-one-of-these-options": "Välj ett av alternativen",
   "prefer-not-to-say": "Föredrar att inte svara",
 
-  "validation-error-text": "Fyll i eller korrigera informationen ovan",
+  "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
 
   "website-home": "https://covid.joinzoe.com/",
 
@@ -1250,7 +1251,9 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
@@ -1283,7 +1286,8 @@
     "thank-you-break": {
       "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 
@@ -1298,6 +1302,29 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
+  },
+
+  "dashboard": {
+    "report-now": "Rapportera nu",
+    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
+    "contributors-so-far": "Bidragsgivare hittills:"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Casos estimados",
+    "daily": "Nuevos casos diarios",
+    "active": "Casos activos",
+    "cta": "Más detalles"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Senaste nytt"
+  },
+
+  "latest-news": {
+    "title": "Senaste nytt"
   },
 
   "covid-cases-map": {

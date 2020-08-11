@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Easy example | CartoDB.js</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    .map-container {
+      display: flex;
+    }
+    .covid-map {
+      width: 100%;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-height: 100vh !important;
+    }
+    .map-legend-mobile {
+      position: absolute !important;
+      display: block !important;
+      background-color: white !important;
+      padding-bottom: 20px !important;
+      bottom: 0;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <link rel="stylesheet"
+    href="https://cartodb-libs.global.ssl.fastly.net/cartodbui/assets/1.0.0-assets.173/stylesheets/builder_embed.css">
+  <link rel="stylesheet"
+    href="https://assets-global.website-files.com/5e3d471e8cf4751833faf0f9/css/joinzozoe-6588f74e1279182-600bce95d784d.3350ecb78.min.css">
+</head>
+
+<body class="data-page">
+
+  <div class="map-container">
+
+    <div id="interactive-map" class="covid-map">
+      <div id="map"></div>
+    </div>
+
+    <div class="map-legend-mobile">
+      <div class="legend-list">
+        <div class="legend-list__item">
+
+          <div class="legend_icon"></div>
+          <div class="legend_label">Not enough data</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _1"></div>
+          <div class="legend_label">0 - 50 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _2"></div>
+          <div class="legend_label">50 - 100 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _3"></div>
+          <div class="legend_label">100 - 500 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _4"></div>
+          <div class="legend_label">500 - 1000 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _5"></div>
+          <div class="legend_label">1000 - 5000 cases pm</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div class="zoom-pan">
+    <p class="zoom-pan-para">Zoom &amp; pan around to discover how different regions are affected</p>
+  </div> -->
+
+  <!-- include cartodb.js library -->
+  <script src="https://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+  <script>
+    var ctx = document.getElementById('overTime');
+    //Link copy
+    $(document).ready(function () {
+      //Link copy
+      $('.copy-link-btn').on("click", function () {
+        $('.copy-link-btn').text("Link copied");
+        var range = document.createRange();
+        range.selectNode(document.getElementById("copy-link-field"));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+      })
+    });
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+    }
+    function main() {
+      //Get date last updated
+      var sql = new cartodb.SQL({ user: 'joinzoe', api_key: 'N6sTD5Jriyd5fxO8Y19Dzw' });
+      sql.execute("SELECT * FROM prevalence_map LIMIT 1")
+        .done(function (data) {
+          $jsonDate = data.rows[0]['data_status'];
+          $lastUpdated = moment($jsonDate, "HH:mm:ss DD-MM-YYYY").format("D MMMM YYYY, H:mm");
+          $lastUpdatedDate = moment($jsonDate, "HH:mm:ss DD-MM-YYYY").format("D of MMMM, H:mma") + " BST"
+          $('.map-last-updated .dynamic').text($lastUpdated);
+          $('.updated-date-copy').text($lastUpdatedDate);
+        })
+        .error(function (errors) {
+          console.log("errors:" + errors);
+        });
+
+      //Get total symptomatic
+      sql.execute("SELECT SUM(prevalence_map.corrected_covid_positive) FROM prevalence_map")
+        .done(function (data) {
+          $syCases = data.rows[0]['sum'];
+          $syCases = numberWithCommas(Math.round($syCases));
+          $('.total-sy-cases').text($syCases);
+          $('.data-header__para_val').text($syCases);
+          $('.data-respondents').text($syCases);
+          $('.symptomatic-num').text($syCases);
+        })
+        .error(function (errors) {
+          console.log("errors:" + errors);
+        });
+
+      //Get total respondants
+      sql.execute("SELECT SUM(final_map.respondent) FROM final_map")
+        .done(function (data) {
+          $respondents = data.rows[0]['sum'];
+          $respondents = numberWithCommas($respondents);
+          $('.total-contributors').text($respondents);
+        })
+        .error(function (errors) {
+          console.log("errors:" + errors);
+        });
+
+      //Create map
+      cartodb.createVis('map', 'https://joinzoe.cartodb.com/api/v2/viz/36e8c81d-cfbf-4e4d-9d59-a219852fd25e/viz.json', {
+        shareable: false,
+        title: false,
+        description: false,
+        search: false,
+        zoomControl: true,
+        tiles_loader: true,
+        center_lat: 53.963843,
+        center_lon: -3.823242,
+        zoom: 6,
+        scrollwheel: false,
+        cartodb_logo: false
+      })
+        .done(function (vis, layers) { //After map is generated
+
+          layers[1].setInteraction(true);
+          layers[1].on('featureClick', function (e, latlng, pos, data) {
+            cartodb.log.log(e, latlng, pos, data);
+            setTimeout(
+              function () {
+                $('.CDB-infowindow-close').on('click', function () {
+                  $('.cartodb-infowindow').css('visibility', 'hidden');
+                  return false;
+                });
+              }, 500);
+          });
+          var map = vis.getNativeMap();
+          vis.map.set({
+            minZoom: 5,
+            maxZoom: 9
+          });
+        })
+        .error(function (err) {
+          console.log(err);
+        });
+      sql.execute("SELECT * FROM uk_active_cases")
+        .done(function (data) {
+          var corrected_covid_positive = [];
+          var covid_dates = [];
+          $.each(data.rows, function (key, value) {
+            corrected_covid_positive.push(Math.round(value.corrected_covid_positive));
+            covid_dates.push(moment(value.date).format("D MMM"));
+          });
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: covid_dates,
+              datasets: [{
+                label: 'Predicted # of cases',
+                data: corrected_covid_positive,
+                borderWidth: 2,
+                borderColor: "#6ac5d1",
+                pointBorderColor: "#6ac5d1",
+                pointBackgroundColor: "#6ac5d1",
+                pointHoverBackgroundColor: "#6ac5d1",
+                pointHoverBorderColor: "#6ac5d1",
+                pointBorderWidth: 6,
+                pointHoverRadius: 6,
+                pointHoverBorderWidth: 1,
+                pointRadius: 3,
+                fill: true,
+                backgroundColor: "rgba(106, 197, 209, 0.4)"
+              }]
+            },
+            options: {
+              legend: {
+                display: false
+              },
+              tooltips: {
+                callbacks: {
+                  label: function (tooltipItems, data) {
+                    return 'Predicted # of cases: ' + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                  }
+                }
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    callback: function (value, index, values) {
+                      return value.toLocaleString();
+                    }
+                  },
+                  gridLines: {
+                    color: "rgba(0, 0, 0, 0.05)",
+                  }
+                }],
+                xAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    autoSkip: true,
+                    maxTicksLimit: 10
+                  },
+                  gridLines: {
+                    color: "rgba(0, 0, 0, 0.05)",
+                  }
+                }]
+              },
+              label: {
+                fontFamily: 'Sofia pro'
+              }
+            }
+          });
+        })
+        .error(function (errors) {
+          console.log("errors:" + errors);
+        });
+    }
+    window.onload = main;
+  </script>
+
+</body>
+
+</html>

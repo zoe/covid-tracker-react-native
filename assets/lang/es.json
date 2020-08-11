@@ -570,6 +570,7 @@
   "push-notifications": "Activa los recordatorios",
   "cancel": "Cancelar",
   "delete": "Eliminar",
+  "estimated-cases": "Casos estimados",
   "logout": "Cerrar sesión",
 
   "your-country-title": "Su país",
@@ -789,7 +790,7 @@
   "select-profile-last-report": "Último informe:",
   "default-profile-name": "Yo",
 
-  "validation-error-text": "Complete o corrija la información anterior",
+  "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
 
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
@@ -1259,7 +1260,9 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
@@ -1288,7 +1291,8 @@
     "thank-you-break": {
       "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 
@@ -1303,6 +1307,29 @@
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
     }
+  },
+
+  "dashboard": {
+    "report-now": "Informar ahora",
+    "you-have-reported-x-times": "Has informado %{count} veces",
+    "contributors-so-far": "Colaboradores hasta ahora:"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Uppskattade fall",
+    "daily": "Dagliga nya fall",
+    "active": "Aktiva fall",
+    "cta": "Fler detaljer"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Panel",
+    "second-tab": "Últimas noticias"
+  },
+
+  "latest-news": {
+    "title": "Últimas noticias"
   },
 
   "covid-cases-map": {

@@ -1,13 +1,14 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, NavigationState } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
-import React, { Component, RefObject } from 'react';
-import { Dimensions, StatusBar } from 'react-native';
+import React, { Component } from 'react';
+import { Dimensions, StatusBar, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { Notifications } from 'expo';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -72,9 +73,15 @@ import { DietStudyConsentScreen } from '@covid/features/diet-study/DietStudyCons
 import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStudyThankYouBreakScreen';
 import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
+import { dashboard, news } from '@assets';
+import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
+
+import { DashboardScreen } from './features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 class State {
   isLoaded: boolean;
@@ -138,7 +145,45 @@ export default class CovidApp extends Component<object, State> {
     );
   }
 
-  mainNavStack() {
+  bottomNavigator = () => {
+    return (
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let icon;
+            const tintColor = focused ? colors.brand : colors.tertiary;
+
+            if (route.name === 'WelcomeRepeat') {
+              icon = dashboard;
+            } else if (route.name === 'LatestNews') {
+              icon = news;
+            }
+
+            return <Image resizeMethod="auto" source={icon} style={{ tintColor, width: 24, height: 24 }} />;
+          },
+        })}
+        tabBarOptions={{
+          labelStyle: {
+            fontSize: 12,
+          },
+          activeTintColor: colors.brand,
+          inactiveTintColor: colors.tertiary,
+        }}>
+        <Tab.Screen
+          name="WelcomeRepeat"
+          component={WelcomeRepeatScreen}
+          options={{ title: i18n.t('tab-navigator.first-tab') }}
+        />
+        <Tab.Screen
+          name="LatestNews"
+          component={LatestNewsScreen}
+          options={{ title: i18n.t('tab-navigator.second-tab') }}
+        />
+      </Tab.Navigator>
+    );
+  };
+
+  mainNavStack = () => {
     const noHeader = {
       headerShown: false,
     };
@@ -155,7 +200,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={noHeader} />
         <Stack.Screen name="Welcome" component={Welcome1Screen} options={noHeader} />
         <Stack.Screen name="Welcome2" component={Welcome2Screen} options={noHeader} />
-        <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={noHeader} />
+        <Stack.Screen name="WelcomeRepeat" component={this.bottomNavigator} options={noHeader} />
         <Stack.Screen name="Consent" component={ConsentScreen} options={simpleHeader} />
         <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={simpleHeader} />
         <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={simpleHeader} />
@@ -211,7 +256,9 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
       </Stack.Navigator>
     );
-  }
+  };
 }
