@@ -54,10 +54,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           postClicked={onShare}
         />
       </View>
-      
-      {isGBCountry() && (
-        <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={onMoreDetails} />
-      )}
+
+      {isGBCountry() && <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={onMoreDetails} />}
 
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
