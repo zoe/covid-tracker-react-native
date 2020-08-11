@@ -10,10 +10,11 @@ import { colors } from '@theme';
 import ChevronRight from '@assets/icons/ChevronRight';
 import Share from '@assets/icons/Share';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 
 const MAP_HEIGHT = 246;
 
-const html = require('@assets/estimated-cases-compact-map.html');
+const html = require('@assets/carto/estimated-cases.html');
 
 export const EstimatedCasesMapCard: React.FC = ({}) => {
   const viewRef = useRef(null);
@@ -27,6 +28,10 @@ export const EstimatedCasesMapCard: React.FC = ({}) => {
     } catch (error) {
       console.log('Error =>', error);
     }
+  };
+
+  const showMap = () => {
+    NavigatorService.navigate('EstimatedCases');
   };
 
   const sendMessageToWebView = () => {
@@ -56,11 +61,7 @@ export const EstimatedCasesMapCard: React.FC = ({}) => {
           <Header0Text style={styles.stats}>{count}</Header0Text>
           <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
         </View>
-        <TouchableOpacity
-          style={styles.backIcon}
-          onPress={() => {
-            sendMessageToWebView();
-          }}>
+        <TouchableOpacity style={styles.backIcon} onPress={showMap}>
           <ChevronRight width={32} height={32} />
         </TouchableOpacity>
       </View>
