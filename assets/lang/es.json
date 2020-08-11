@@ -1306,5 +1306,14 @@
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
     }
+  },
+
+  "tab-navigator": {
+    "first-tab": "Panel",
+    "second-tab": "Últimas noticias"
+  },
+
+  "latest-news": {
+    "title": "Últimas noticias"
   }
 }
