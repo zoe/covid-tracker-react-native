@@ -203,7 +203,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={noHeader} />
         <Stack.Screen name="Welcome" component={Welcome1Screen} options={noHeader} />
         <Stack.Screen name="Welcome2" component={Welcome2Screen} options={noHeader} />
-        <Stack.Screen name="WelcomeRepeat" component={this.bottomNavigator} options={noHeader} />
+        <Stack.Screen name="WelcomeRepeat" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="Consent" component={ConsentScreen} options={simpleHeader} />
         <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={simpleHeader} />
         <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={simpleHeader} />
