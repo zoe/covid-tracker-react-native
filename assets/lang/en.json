@@ -573,6 +573,7 @@
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
   "delete": "Delete",
+  "estimated-cases": "Estimated cases",
   "logout": "Log out",
 
   "your-country-title": "Your country",
@@ -1301,6 +1302,12 @@
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
     "menu-item": "Join the vaccine registry"
+  },
+
+  "dashboard": {
+    "report-now": "Report now",
+    "you-have-reported-x-times": "You’ve reported %{count} times",
+    "contributors-so-far": "Contributors so far:"
   },
 
   "estimated-cases-card": {

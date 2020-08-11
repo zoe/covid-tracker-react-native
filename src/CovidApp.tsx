@@ -76,6 +76,9 @@ import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/E
 import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 
+import { DashboardScreen } from './features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -253,6 +256,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

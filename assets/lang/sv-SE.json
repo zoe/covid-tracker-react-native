@@ -498,6 +498,7 @@
   "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
   "delete": "Ta bort",
+  "estimated-cases": "Uppskattade fall",
   "logout": "Logga ut",
 
   "never-reported": "Aldrig rapporterat",
@@ -1303,6 +1304,12 @@
     }
   },
 
+  "dashboard": {
+    "report-now": "Rapportera nu",
+    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
+    "contributors-so-far": "Bidragsgivare hittills:"
+  },
+  
   "estimated-cases-card": {
     "covid-in-the-uk": "",
     "estimated-cases": "Casos estimados",
