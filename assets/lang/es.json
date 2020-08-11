@@ -1313,5 +1313,22 @@
     "report-now": "Informar ahora",
     "you-have-reported-x-times": "Has informado %{count} veces",
     "contributors-so-far": "Colaboradores hasta ahora:"
+  },
+  
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Uppskattade fall",
+    "daily": "Dagliga nya fall",
+    "active": "Aktiva fall",
+    "cta": "Fler detaljer"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Panel",
+    "second-tab": "Últimas noticias"
+  },
+
+  "latest-news": {
+    "title": "Últimas noticias"
   }
 }
