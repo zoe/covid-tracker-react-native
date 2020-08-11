@@ -78,7 +78,7 @@ export class AppCoordinator {
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
-        NavigatorService.navigate('Dashboard');
+        NavigatorService.navigate('SelectProfile');
       } else {
         this.startAssessmentFlow(this.currentPatient);
       }
@@ -87,7 +87,7 @@ export class AppCoordinator {
       NavigatorService.navigate('SelectProfile');
     },
     ArchiveReason: () => {
-      NavigatorService.navigate('Dashboard');
+      NavigatorService.navigate('SelectProfile');
     },
     ValidationStudyIntro: () => {
       NavigatorService.navigate('ValidationStudyInfo');
