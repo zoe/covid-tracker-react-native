@@ -38,7 +38,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
                 imageSource={notificationReminders}
                 aspectRatio={1244.0 / 368.0}
                 screenName={props.route.name}
-                action={() => {
+                postClicked={() => {
                   PushNotificationService.openSettings();
                 }}
               />
