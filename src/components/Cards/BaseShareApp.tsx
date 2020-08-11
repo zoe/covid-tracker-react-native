@@ -6,8 +6,7 @@ import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
-
-import { isAndroid } from '../Screen';
+import { isAndroid } from '@covid/components/Screen';
 
 export interface CommonShareProps {
   onSharePress?: VoidFunction;
@@ -44,6 +43,11 @@ export const shareApp = async (message: string) => {
     const sharedOn = extractSharedOn(shareAction);
     Analytics.track(events.SHARE_THIS_APP, { sharedOn });
   } catch (error) {}
+};
+
+export const share = async (prefix: string) => {
+  const message = prefix + (isAndroid ? ' ' + shareUrl() : ''); // On Android add link to end of message
+  shareApp(message);
 };
 
 export const BaseShareAppCard: React.FC<BaseShareAppCardProps> = ({
