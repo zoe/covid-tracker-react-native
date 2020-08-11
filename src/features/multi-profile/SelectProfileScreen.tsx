@@ -1,18 +1,18 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
 import { colors } from '@theme';
-import { LoadingModal } from '@covid/components/Loading';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { ProfileList } from '@covid/components/Collections/ProfileList';
+import { Profile, ProfileList } from '@covid/components/Collections/ProfileList';
 import { ProfileCard } from '@covid/components/ProfileCard';
+import { offlineService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
@@ -30,26 +30,16 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     error,
     isLoaded,
     isApiError,
-    onRetry,
+    setIsApiError,
+    setError,
     profiles,
     listProfiles,
-    profileSelected,
     retryListProfiles,
-    setIsApiError,
-  } = useProfileList(navigation);
+  } = useProfileList();
 
   useEffect(() => {
     listProfiles();
   }, []);
-
-  const profileListProps = {
-    navigation,
-    isApiError,
-    error,
-    status,
-    isLoaded,
-    profiles,
-  };
 
   const getNextAvatarName = async (): Promise<string> => {
     if (profiles) {
@@ -64,38 +54,54 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     appCoordinator.goToCreateProfile(await getNextAvatarName());
   };
 
+  const getPatientThen = async (profile: Profile, callback: (patient: Profile) => void) => {
+    try {
+      callback(profile);
+    } catch (error) {
+      setIsApiError(true);
+      setError(error);
+
+      //TODO Dont think this works properly
+      setTimeout(() => {
+        callback(profile);
+      }, offlineService.getRetryDelay());
+    }
+  };
+
   return (
-    <View>
-      <SafeAreaView>
-        {isApiError && (
-          <LoadingModal error={error} status={status} onRetry={onRetry} onPress={() => setIsApiError(false)} />
-        )}
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <View style={styles.rootContainer}>
-            <DrawerToggle navigation={navigation} style={{ tintColor: colors.primary }} />
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.rootContainer}>
+          <DrawerToggle navigation={navigation} style={{ tintColor: colors.primary }} />
 
-            <Header>
-              <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
-              <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
-            </Header>
+          <Header>
+            <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
+            <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
+          </Header>
 
-            <ProfileList
-              {...profileListProps}
-              renderItem={(profile, i) => <ProfileCard profile={profile} index={i} />}
-              addProfile={() => {
-                gotoCreateProfile();
-              }}
-              onProfileSelected={(profileId, i) => {
-                profileSelected(profileId, i);
-              }}
-              onRetry={() => {
-                retryListProfiles();
-              }}
-            />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+          <ProfileList
+            isApiError={isApiError}
+            error={error}
+            status={status}
+            isLoaded={isLoaded}
+            profiles={profiles}
+            renderItem={(profile, i) => (
+              <ProfileCard
+                profile={profile}
+                onEditPressed={() => getPatientThen(profile, (profile) => appCoordinator.startEditProfile(profile))}
+              />
+            )}
+            addProfile={() => {
+              gotoCreateProfile();
+            }}
+            onProfileSelected={(profile, i) => {
+              getPatientThen(profile, (profile) => appCoordinator.profileSelected(profile));
+            }}
+            onRetry={() => retryListProfiles()}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

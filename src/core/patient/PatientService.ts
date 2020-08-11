@@ -63,7 +63,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.post(`/patients/`, infos);
+    return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
   }
 
   public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
@@ -71,7 +71,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       ...infos,
       version: this.getPatientVersion(),
     };
-    return this.client.patch(`/patients/${patientId}/`, infos);
+    return (await this.client.patch<PatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
   }
 
   private getPatientVersion() {

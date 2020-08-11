@@ -24,7 +24,6 @@ export type DietStudyRequest = {
   takes_supplements: boolean;
   supplements_fibre: boolean;
   supplements_probiotic: boolean;
-  supplements_live_probiotic_fermented: boolean;
   supplements_iron: boolean;
   supplements_calcium: boolean;
   supplements_vitamin_d: boolean;
@@ -48,6 +47,7 @@ export type DietStudyRequest = {
   diet_vegetarian: boolean;
   diet_vegan: boolean;
   diet_pescatarian: boolean;
+  diet_keto: boolean;
   diet_low_carb: boolean;
   diet_low_fat: boolean;
   diet_gluten_free: boolean;
@@ -77,6 +77,11 @@ export type DietStudyRequest = {
   ffq_oily_fish: string;
   ffq_eggs: string;
   ffq_fast_food: string;
+  ffq_live_probiotic_fermented: string;
+  ffq_white_bread: string;
+  ffq_rice: string;
+  ffq_pasta: string;
+  ffq_refined_breakfast: string;
 
   portions_of_fruit: number;
   glasses_of_juice: number;
@@ -91,4 +96,5 @@ export type DietStudyRequest = {
 
   other_info: string;
   is_complete: boolean;
+  has_diet_changed: string;
 };

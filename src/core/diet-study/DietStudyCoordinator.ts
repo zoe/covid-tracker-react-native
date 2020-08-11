@@ -7,6 +7,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenProps } from '@covid/components/Screen';
 import { CallOutType } from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
+import { DietChangedOption } from '@covid/features/diet-study/fields/DietChangedQuestion';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -69,13 +70,15 @@ export class DietStudyCoordinator {
     },
     DietStudyTypicalDiet: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
-      if (timePeriod === PRE_LOCKDOWN) {
+
+      if (!timePeriod) {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
-      } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+        return;
       }
+
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
@@ -88,7 +91,7 @@ export class DietStudyCoordinator {
       }
     },
     DietStudyConsent: () => {
-      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+      NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
@@ -141,11 +144,22 @@ export class DietStudyCoordinator {
   startDietStudy = async () => {
     // Check has user already completed diet studies
     const studies = await this.dietStudyService.getDietStudies();
-    const recentStudies = studies.filter((item) => item.display_name === LAST_4_WEEKS && item.is_complete);
-    if (recentStudies.length > 0) {
-      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
-    } else {
+    const completedDietStudies = studies.filter((item) => item.is_complete);
+
+    if (completedDietStudies.length === 0) {
+      // No completed studies - Start from the beginning
       NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
+    } else if (completedDietStudies.length === 1) {
+      if (completedDietStudies[0].has_diet_changed === DietChangedOption.NO) {
+        // One Completed Study - but said their Diet hasn't changed -> Finish
+        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+      } else {
+        // One Completed Study - but their diet may have changed -> Start from PreLockdown
+        this.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
+        NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+      }
+    } else {
+      NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     }
   };
 
@@ -156,13 +170,6 @@ export class DietStudyCoordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
-
-  async showProfiles() {
-    return this.userService.getConfig().enableMultiplePatients && (await this.userService.hasMultipleProfiles());
-  }
-  async listPatients() {
-    return this.userService.listPatients();
-  }
 }
 
 const dietStudyCoordinator = new DietStudyCoordinator();

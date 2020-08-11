@@ -62,7 +62,9 @@ export const ClickableText = ({ style, children, onPress }: ClickableProps) => (
   </Text>
 );
 
-export const Divider = () => <View style={styles.divider} />;
+export const Divider: React.FC<{ styles?: StyleProp<ViewStyle> }> = ({ styles: passed }) => (
+  <View style={[styles.divider, passed]} />
+);
 
 const styles = StyleSheet.create({
   headerText: {
@@ -116,7 +118,6 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomWidth: 2,
     borderColor: colors.backgroundFour,
-    paddingVertical: 20,
-    marginLeft: 15,
+    marginHorizontal: 16,
   },
 });

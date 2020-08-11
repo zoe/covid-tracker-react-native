@@ -490,6 +490,8 @@
   "research-updates": "Aktuella forskningsnyheter",
   "faqs": "Vanliga frågor",
   "privacy-policy": "Integritetsmeddelande",
+  "nav-edit-profile": "Redigera profil",
+  "nav-share-this-app": "Dela denna appen",
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
@@ -546,7 +548,7 @@
   "choose-one-of-these-options": "Välj ett av alternativen",
   "prefer-not-to-say": "Föredrar att inte svara",
 
-  "validation-error-text": "Fyll i eller korrigera informationen ovan",
+  "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
 
   "website-home": "https://covid.joinzoe.com/",
 
@@ -898,7 +900,14 @@
     "edit-profile": {
       "title": false,
       "text": false,
-      "archive-cta": false
+      "archive-cta": false,
+      "done": false,
+
+      "location": {
+        "title": false,
+        "label": false,
+        "disclaimer": false
+      }
     },
 
     "archive-confirmation": {
@@ -1043,9 +1052,11 @@
 
     "about-you": {
       "title": "",
-      "intro": "",
-      "thank-you": "",
-      "answer-same-set-questions": ""
+      "intro-1": "",
+      "intro-2": "",
+      "answer-again-1": "",
+      "answer-again-2": "",
+      "answer-again-3": ""
     },
 
     "weight-label": "",
@@ -1065,7 +1076,8 @@
     },
 
     "your-lifestyle": {
-      "title": ""
+      "title": "",
+      "title-2": ""
     },
 
     "physical-activity": {
@@ -1127,7 +1139,6 @@
       "label": "",
       "fiber": "",
       "probiotic": "",
-      "live-probiotic": "",
       "iron": "",
       "calcium": "",
       "vitamin-d": "",
@@ -1156,6 +1167,7 @@
       "vegetarian": "",
       "vegan": "",
       "pescatarian": "",
+      "keto": "",
       "low-carb": "",
       "low-fat": "",
       "gluten-free": "",
@@ -1211,6 +1223,19 @@
       "eggs-2": "",
       "fast_food-1": "",
       "fast_food-2": "",
+      "live-probiotic-1": "",
+      "live-probiotic-2": "",
+      "white-bread-1": "",
+      "rice-1": "",
+      "pasta-1": "",
+      "refined_breakfast-1": "",
+      "refined_breakfast-2": "",
+
+      "section-meat": "",
+      "section-processed-meat": "",
+      "section-fish": "",
+      "section-other": "",
+      "section-refined-carbs": "",
 
       "portions_of_fruit-label": "",
       "portions_of_fruit-placeholder": "",
@@ -1225,12 +1250,16 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "diet-changed": {
@@ -1240,15 +1269,9 @@
     "continue-cta": "",
     "complete-cta": "",
 
-    "next-box": {
-      "title": "",
-      "text": ""
-    },
-
     "consent": {
       "header": "",
-      "paragraph-1": "",
-      "paragraph-2": "",
+      "paragraph": "",
       "buttons-header": "",
       "yes": "",
       "no": ""
@@ -1256,14 +1279,14 @@
 
     "thank-you": {
       "title": "",
-      "text-1": "",
-      "text-2": ""
+      "text-1": ""
     },
 
     "thank-you-break": {
-      "description": "",
+      "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 

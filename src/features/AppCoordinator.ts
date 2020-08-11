@@ -18,6 +18,8 @@ import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import { PatientData } from '@covid/core/patient/PatientData';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -142,7 +144,14 @@ export class AppCoordinator {
   }
 
   startPatientFlow(currentPatient: PatientStateType) {
-    patientCoordinator.init(this, { currentPatient }, this.userService);
+    const patientData: PatientData = {
+      patientId: currentPatient.patientId,
+      patientState: currentPatient,
+      patientInfo: undefined,
+      profile: undefined,
+    };
+
+    patientCoordinator.init(this, patientData, this.userService);
     patientCoordinator.startPatient();
   }
 
@@ -161,6 +170,20 @@ export class AppCoordinator {
     dietStudyCoordinator.startDietStudy();
   }
 
+  async startEditProfile(profile: Profile) {
+    const patientInfo = await this.userService.getPatient(profile.id);
+    this.patientId = profile.id;
+
+    const patientData: PatientData = {
+      patientId: this.patientId,
+      patientState: this.currentPatient,
+      patientInfo: patientInfo!,
+      profile,
+    };
+    editProfileCoordinator.init(this, patientData, this.userService);
+    editProfileCoordinator.startEditProfile();
+  }
+
   gotoNextScreen = (screenName: ScreenName) => {
     if (Object.keys(this.screenFlow).includes(screenName)) {
       (this.screenFlow as ScreenFlow)[screenName]();
@@ -170,24 +193,18 @@ export class AppCoordinator {
     }
   };
 
-  editProfile(profile: Profile) {
-    NavigatorService.navigate('EditProfile', { profile });
-  }
-
-  async profileSelected(isMainProfile: boolean, currentPatient: PatientStateType) {
-    this.currentPatient = currentPatient;
-    this.patientId = currentPatient.patientId;
-
-    if (isGBCountry() && isMainProfile) {
+  async profileSelected(profile: Profile) {
+    await this.setPatientId(profile.id);
+    if (isGBCountry() && !this.currentPatient.isReportedByAnother) {
       if (await this.consentService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(currentPatient, false);
+        this.startDietStudyFlow(this.currentPatient, false);
       } else {
-        this.startAssessmentFlow(currentPatient);
+        this.startAssessmentFlow(this.currentPatient);
       }
     } else {
-      this.startAssessmentFlow(currentPatient);
+      this.startAssessmentFlow(this.currentPatient);
     }
   }
 
@@ -204,8 +221,8 @@ export class AppCoordinator {
     NavigatorService.navigate('ValidationStudyIntro');
   }
 
-  goToArchiveReason(profileId: string) {
-    NavigatorService.navigate('ArchiveReason', { profileId });
+  goToArchiveReason(patientId: string) {
+    NavigatorService.navigate('ArchiveReason', { patientId });
   }
 
   goToPreRegisterScreens() {
@@ -235,7 +252,7 @@ export class AppCoordinator {
 
   async shouldShowStudiesMenu(): Promise<boolean> {
     const consent = await AsyncStorageService.getDietStudyConsent();
-    return consent !== DietStudyConsent.SKIP;
+    return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
   }
 
   goToVaccineRegistry() {

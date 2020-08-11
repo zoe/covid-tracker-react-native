@@ -215,6 +215,11 @@ const AllCohorts: CohortDefinition[] = [
     label: 'C19 Human Genetics Study',
     country: 'US',
   },
+  {
+    key: 'is_in_us_mary_washington_healthcare',
+    label: 'Mary Washington Healthcare',
+    country: 'US',
+  },
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
@@ -254,7 +259,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   handleSubmit(formData: YourStudyData) {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
@@ -267,7 +272,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

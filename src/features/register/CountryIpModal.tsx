@@ -69,7 +69,7 @@ const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal 
       closeModal();
       setCountrySelected(value);
       await AsyncStorageService.setAskedCountryConfirmation(true);
-      selectCountry(value);
+      await selectCountry(value);
     },
     [closeModal, setCountrySelected, selectCountry]
   );

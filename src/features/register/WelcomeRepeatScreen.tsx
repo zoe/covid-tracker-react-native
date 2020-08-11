@@ -5,13 +5,13 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-n
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Linking } from 'expo';
 
-import { covidIcon } from '@assets';
+import { covidIcon, donate } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { LoadingModal } from '@covid/components/Loading';
-import { Partnership } from '@covid/components/Partnership';
-import { PoweredByZoe } from '@covid/components/PoweredByZoe';
+import { PartnerLogoSE, PartnerLogoUS } from '@covid/components/Logos/PartnerLogo';
+import { PoweredByZoe } from '@covid/components/Logos/PoweredByZoe';
 import { BrandedButton, RegularText } from '@covid/components/Text';
 import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
@@ -24,12 +24,16 @@ import { lazyInject, container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IUserService } from '@covid/core/user/UserService';
 import { IContentService } from '@covid/core/content/ContentService';
-import { VaccineRegistryCallout } from '@covid/components/Cards/VaccineRegistryCallout';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import {
+  ILocalisationService,
+  isUSCountry,
+  isSECountry,
+  isGBCountry,
+} from '@covid/core/localisation/LocalisationService';
 import { IConsentService } from '@covid/core/consent/ConsentService';
-
-import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
+import { ExternalCallout } from '@covid/components/ExternalCallout';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -41,18 +45,14 @@ type PropsType = {
 
 type WelcomeRepeatScreenState = {
   userCount: number | null;
-  showPartnerLogos: boolean;
   onRetry?: () => void;
   calloutBoxContent: ScreenContent;
-  showVaccineRegistry: boolean;
 } & ApiErrorState;
 
 const initialState = {
   ...initialErrorState,
   userCount: null,
-  showPartnerLogos: true,
   calloutBoxContent: container.get<IContentService>(Services.Content).getCalloutBoxDefault(),
-  showVaccineRegistry: false,
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
@@ -71,18 +71,16 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
+    const content = await this.contentService.getWelcomeRepeatContent();
     const userCount = await this.contentService.getUserCount();
-    this.setState({ userCount: cleanIntegerVal(userCount as string) });
-    const feature = this.localisationService.getConfig();
-    this.setState({ showPartnerLogos: feature.showPartnerLogos });
+
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
     this.setState({
-      showVaccineRegistry: await this.consentService.shouldAskForVaccineRegistry(),
+      calloutBoxContent: content,
+      userCount: cleanIntegerVal(userCount as string),
     });
-    const content = await this.contentService.getWelcomeRepeatContent();
-    this.setState({ calloutBoxContent: content });
   }
 
   gotoNextScreen = async () => {
@@ -104,6 +102,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
         },
       });
     }
+  };
+
+  displayPartnerLogo = () => {
+    return isUSCountry() ? <PartnerLogoUS /> : isSECountry() ? <PartnerLogoSE /> : <PoweredByZoe />;
   };
 
   render() {
@@ -135,12 +137,15 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <ContributionCounter variant={2} count={this.state.userCount} />
 
-            {this.state.showPartnerLogos ? <Partnership /> : <PoweredByZoe />}
+            {this.displayPartnerLogo()}
 
-            <View style={{ flex: 1 }} />
-
-            {this.state.showVaccineRegistry ? (
-              <VaccineRegistryCallout />
+            {isGBCountry() ? (
+              <ExternalCallout
+                link="https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy"
+                calloutID="donate"
+                imageSource={donate}
+                aspectRatio={1.59}
+              />
             ) : (
               <CalloutBox
                 content={this.state.calloutBoxContent}

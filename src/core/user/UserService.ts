@@ -1,16 +1,18 @@
 import { AxiosResponse } from 'axios';
 import { injectable, unmanaged, inject } from 'inversify';
 
+import NavigatorService from '@covid/NavigatorService';
 import { Services } from '@covid/provider/services.types';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
-import { camelizeKeys } from '../api/utils';
+import { handleServiceError } from '../api/ApiServiceErrors';
+import { objectToQueryString, camelizeKeys } from '../api/utils';
 import { ConsentService, IConsentService } from '../consent/ConsentService';
-import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
-import { IPatientService } from '../patient/PatientService';
+import { ILocalisationService, LocalisationService, isGBCountry } from '../localisation/LocalisationService';
+import {} from '../patient/PatientService';
 
 import { LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
 
@@ -25,7 +27,7 @@ export interface IUserService {
   login(email: string, password: string): Promise<any>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse>;
+  getProfile(): Promise<UserResponse | null>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -61,7 +63,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   protected client = ApiClientBase.client;
 
   public async login(email: string, password: string) {
-    const requestBody = this.objectToQueryString({
+    const requestBody = objectToQueryString({
       username: email,
       password,
     });
@@ -80,6 +82,7 @@ export default class UserService extends ApiClientBase implements IUserService {
   public async logout() {
     this.hasUser = false;
     await this.deleteLocalUserData();
+    NavigatorService.navigate('CountrySelect');
   }
 
   private async deleteLocalUserData() {
@@ -112,18 +115,13 @@ export default class UserService extends ApiClientBase implements IUserService {
     this.localisationService.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
-      const patientId: string | null = await this.getFirstPatientId();
-      if (!patientId) {
-        // Logged in with an account doesn't exist. Force logout.
-        await this.logout();
-      }
     }
   }
 
   async getFirstPatientId(): Promise<string | null> {
     try {
       const profile = await this.getProfile();
-      return profile.patients[0];
+      return profile!.patients[0];
     } catch (error) {
       return null;
     }
@@ -159,7 +157,7 @@ export default class UserService extends ApiClientBase implements IUserService {
       consent_version: ConsentService.consentSigned.version,
       privacy_policy_version: ConsentService.consentSigned.privacy_policy_version,
     };
-    const requestBody = this.objectToQueryString(payload);
+    const requestBody = objectToQueryString(payload);
 
     // todo: what is in the response?
     const promise = this.client.post<LoginOrRegisterResponse>('/auth/signup/', requestBody, this.configEncoded);
@@ -168,28 +166,15 @@ export default class UserService extends ApiClientBase implements IUserService {
     return promise;
   }
 
-  public async getProfile(): Promise<UserResponse> {
-    const localUser = await AsyncStorageService.GetStoredData();
-    if (!localUser) {
-      await this.logout();
-      throw Error("User not found. Can't fetch profile");
+  public async getProfile(): Promise<UserResponse | null> {
+    try {
+      const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
+      await AsyncStorageService.saveProfile(profile);
+      return profile;
+    } catch (error) {
+      handleServiceError(error);
     }
-
-    const localProfile = await AsyncStorageService.getProfile();
-
-    // If not stored locally, wait for server response.
-    if (localProfile == null) {
-      const profileResponse = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profileResponse.data);
-      return profileResponse.data;
-    }
-
-    // If local copy available, use it but update it.
-    this.client.get<UserResponse>(`/profile/`).then(async (profileResponse) => {
-      await AsyncStorageService.saveProfile(profileResponse.data);
-    });
-
-    return localProfile;
+    return null;
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {

@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog006, dataPage003, incidence008, notificationReminders, timUpdate004 } from '@assets';
+import { blog007, dataPage003, incidence010, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -68,19 +68,17 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
 
-              <Donate />
-
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"
-                calloutID="blog_006"
-                imageSource={blog006}
+                link="https://covid.joinzoe.com/post/diet-lifestyle-covid-questionnaire?utm_source=App"
+                calloutID="blog_007"
+                imageSource={blog007}
                 aspectRatio={1.551}
               />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_008"
-                imageSource={incidence008}
+                calloutID="incidence_010"
+                imageSource={incidence010}
                 aspectRatio={1.5}
               />
 
@@ -128,7 +126,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('SelectProfile')}
+                  onPress={() =>
+                    this.props.navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'SelectProfile' }],
+                    })
+                  }
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>

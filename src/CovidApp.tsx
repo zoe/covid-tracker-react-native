@@ -13,7 +13,7 @@ import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
 import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
-import { DrawerMenu } from '@covid/features/DrawerMenu';
+import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { SplashScreen } from '@covid/features/SplashScreen';
 import ThankYouScreen from '@covid/features/thank-you/ThankYouScreen';
@@ -58,7 +58,7 @@ import { NursesConsentUSScreen } from '@covid/features/register/us/NursesConsent
 import { PrivacyPolicyUSScreen } from '@covid/features/register/us/PrivacyPolicyUSScreen';
 import TermsOfUseUSScreen from '@covid/features/register/us/TermsOfUseUSScreen';
 import i18n from '@covid/locale/i18n';
-import { EditProfileScreen } from '@covid/features/multi-profile/EditProfileScreen';
+import { EditProfileScreen } from '@covid/features/multi-profile/edit-profile/EditProfileScreen';
 import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReasonScreen';
 import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
 import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/VaccineRegistrySignUpScreen';
@@ -71,6 +71,7 @@ import { DietStudyThankYouScreen } from '@covid/features/diet-study/DietStudyTha
 import { DietStudyConsentScreen } from '@covid/features/diet-study/DietStudyConsentScreen';
 import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStudyThankYouBreakScreen';
 import NavigatorService from '@covid/NavigatorService';
+import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -190,6 +191,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
         <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} options={noHeader} />
+        <Stack.Screen name="EditLocation" component={EditLocationScreen} options={noHeader} />
         <Stack.Screen name="ArchiveReason" component={ArchiveReasonScreen} options={noHeader} />
         <Stack.Screen name="ConsentForOther" component={ConsentForOther} options={noHeader} />
         <Stack.Screen name="ReportForOther" component={ReportForOtherScreen} options={noHeader} />

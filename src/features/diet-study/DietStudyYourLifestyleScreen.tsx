@@ -7,30 +7,23 @@ import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, Divider, ErrorText, HeaderText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { ValidationError } from '@covid/components/ValidationError';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
-import { PhysicalActivityData, PhysicalActivityQuestion } from '@covid/features/diet-study/fields/PhysicalActivity';
 import { AlcoholData, AlcoholQuestions } from '@covid/features/diet-study/fields/AlcoholQuestons';
 import { SupplementData, SupplementQuestions } from '@covid/features/diet-study/fields/SupplementQuestions';
 import { DietData, DietDescriptionQuestion } from '@covid/features/diet-study/fields/DietDescriptionQuestion';
 import { EatingHabitData, EatingHabitQuestions } from '@covid/features/diet-study/fields/EatingHabitQuestions';
-import ProgressStatus from '@covid/components/ProgressStatus';
 import { EatingWindowData, EatingWindowQuestions } from '@covid/features/diet-study/fields/EatingWindowQuestions';
 import dietStudyCoordinator, { getScreenHeaderOptions } from '@covid/core/diet-study/DietStudyCoordinator';
 import { colors } from '@theme';
+import { FoodSecurityData, FoodSecurityQuestion } from '@covid/features/diet-study/fields/FoodSecurityQuestion';
 
 import { useDietStudyFormSubmit } from './DietStudyFormSubmit.hooks';
 
-interface FormData
-  extends PhysicalActivityData,
-    AlcoholData,
-    SupplementData,
-    DietData,
-    EatingHabitData,
-    EatingWindowData {}
+interface FormData extends AlcoholData, SupplementData, DietData, EatingHabitData, EatingWindowData, FoodSecurityData {}
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyYourLifestyle'>;
@@ -42,7 +35,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
 
   const registerSchema = Yup.object()
     .shape({})
-    .concat(PhysicalActivityQuestion.schema())
+    .concat(FoodSecurityQuestion.schema())
     .concat(AlcoholQuestions.schema())
     .concat(SupplementQuestions.schema())
     .concat(DietDescriptionQuestion.schema())
@@ -54,7 +47,7 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
   const updateDietStudy = async (formData: FormData) => {
     if (form.submitting) return;
     const infos = {
-      ...PhysicalActivityQuestion.createDTO(formData),
+      ...FoodSecurityQuestion.createDTO(formData),
       ...AlcoholQuestions.createDTO(formData),
       ...SupplementQuestions.createDTO(formData),
       ...DietDescriptionQuestion.createDTO(formData),
@@ -73,16 +66,14 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
       style={styles.screen}
       {...getScreenHeaderOptions(route.params.dietStudyData.timePeriod)}>
       <Header>
-        <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
+        <HeaderText>{i18n.t('diet-study.your-lifestyle.title-2')}</HeaderText>
       </Header>
 
-      <ProgressBlock>
-        <ProgressStatus step={2} maxSteps={3} />
-      </ProgressBlock>
+      <Divider />
 
       <Formik
         initialValues={{
-          ...PhysicalActivityQuestion.initialFormValues(),
+          ...FoodSecurityQuestion.initialFormValues(),
           ...AlcoholQuestions.initialFormValues(),
           ...SupplementQuestions.initialFormValues(),
           ...DietDescriptionQuestion.initialFormValues(),
@@ -93,8 +84,15 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
         onSubmit={(values: FormData) => updateDietStudy(values)}>
         {(props) => {
           return (
-            <Form style={styles.container}>
-              <PhysicalActivityQuestion formikProps={props as FormikProps<PhysicalActivityData>} />
+            <Form>
+              <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
+
+              <Header>
+                <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
+              </Header>
+
+              <Divider />
+
               <AlcoholQuestions formikProps={props as FormikProps<AlcoholData>} />
               <SupplementQuestions formikProps={props as FormikProps<SupplementData>} />
               <EatingWindowQuestions formikProps={props as FormikProps<EatingWindowData>} />
@@ -120,9 +118,6 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.backgroundSecondary,
-  },
-  container: {
-    padding: 6,
   },
 });
 

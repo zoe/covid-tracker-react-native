@@ -75,6 +75,7 @@ export type PiiRequest = {
 export type PatientInfosRequest = {
   version: string; // Document/schema version
 
+  id: string;
   name: string;
   avatar_name: AvatarName;
   reported_by_another: boolean;

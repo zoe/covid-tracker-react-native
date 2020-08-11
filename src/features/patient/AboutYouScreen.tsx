@@ -21,6 +21,8 @@ import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { Coordinator } from '@covid/core/Coordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -87,9 +89,9 @@ const initialState: State = {
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
-
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
+  private coordinator: Coordinator = this.props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   constructor(props: AboutYouProps) {
     super(props);
@@ -109,18 +111,17 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     if (this.state.enableSubmit) {
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
-      const currentPatient = patientCoordinator.patientData.currentPatient;
-      const patientId = currentPatient.patientId;
+      const currentPatient = this.coordinator.patientData.patientState;
       var infos = this.createPatientInfos(formData);
 
-      this.patientService
-        .updatePatient(patientId, infos)
+      this.coordinator
+        .updatePatientInfo(infos)
         .then(() => {
           currentPatient.hasRaceEthnicityAnswer = formData.race.length > 0;
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
-          patientCoordinator.gotoNextScreen(this.props.route.name);
+          this.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -202,6 +203,47 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     return infos;
   }
 
+  private getPatientFormValues(): AboutYouData {
+    const patientInfo = this.props.route.params.patientData.patientInfo!;
+
+    const patientFormData: AboutYouData = {
+      yearOfBirth: patientInfo.year_of_birth?.toString(),
+      sex:
+        patientInfo.gender === 1
+          ? 'male'
+          : patientInfo.gender === 0
+          ? 'female'
+          : patientInfo.gender === 2
+          ? 'pfnts'
+          : 'intersex',
+      genderIdentity: patientInfo.gender_identity,
+      genderIdentityDescription: patientInfo.gender_identity,
+      postcode: patientInfo.postcode,
+      everExposed: patientInfo.interacted_with_covid,
+      houseboundProblems: patientInfo.housebound_problems ? 'yes' : 'no',
+      needsHelp: patientInfo.needs_help ? 'yes' : 'no',
+      helpAvailable: patientInfo.help_available ? 'yes' : 'no',
+      mobilityAid: patientInfo.mobility_aid ? 'yes' : 'no',
+      race: patientInfo.race,
+      ethnicity: patientInfo.ethnicity ?? '',
+      raceOther: patientInfo.race_other ?? '',
+      height: patientInfo.height_cm?.toString(),
+      heightUnit: patientInfo.height_feet ? 'ft' : 'cm',
+      feet: patientInfo.height_feet ? Math.floor(patientInfo.height_feet).toString() : '',
+      inches: patientInfo.height_feet
+        ? ((patientInfo.height_feet - Math.floor(patientInfo.height_feet)) * 12).toString()
+        : '',
+      weight: patientInfo.weight_kg?.toString(),
+      weightUnit: patientInfo.weight_pounds ? 'lbs' : 'kg',
+      pounds: patientInfo.weight_pounds ? Math.floor(patientInfo.weight_pounds).toString() : '',
+      stones: patientInfo.weight_pounds
+        ? ((patientInfo.weight_pounds - Math.floor(patientInfo.weight_pounds)) * 14).toString()
+        : '',
+    };
+
+    return patientFormData;
+  }
+
   registerSchema = Yup.object().shape({
     yearOfBirth: Yup.number()
       .typeError(i18n.t('correct-year-of-birth'))
@@ -240,9 +282,10 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       is: 'lbs',
       then: Yup.number().required(i18n.t('required-weight-in-lb')),
     }),
-
-    postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-
+    postcode: Yup.string().when([], {
+      is: () => !this.props.route.params.editing,
+      then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+    }),
     everExposed: Yup.string().required(i18n.t('required-ever-exposed')),
     houseboundProblems: Yup.string().required(),
     needsHelp: Yup.string().required(),
@@ -263,7 +306,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   });
 
   render() {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = this.coordinator.patientData.patientState;
     const sexAtBirthItems = [
       { label: i18n.t('choose-one-of-these-options'), value: '' },
       { label: i18n.t('sex-at-birth-male'), value: 'male' },
@@ -306,7 +349,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={getInitialFormValues()}
+          initialValues={this.props.route.params.editing ? this.getPatientFormValues() : getInitialFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: AboutYouData) => {
             return this.handleUpdateHealth(values);
@@ -359,14 +402,16 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                 <WeightQuestion formikProps={props as FormikProps<WeightData>} label={i18n.t('your-weight')} />
 
-                <GenericTextField
-                  formikProps={props}
-                  label={i18n.t('your-postcode')}
-                  placeholder={i18n.t('placeholder-postcode')}
-                  name="postcode"
-                  inputProps={{ autoCompleteType: 'postal-code' }}
-                  showError
-                />
+                {!this.props.route.params.editing && (
+                  <GenericTextField
+                    formikProps={props}
+                    label={i18n.t('your-postcode')}
+                    placeholder={i18n.t('placeholder-postcode')}
+                    name="postcode"
+                    inputProps={{ autoCompleteType: 'postal-code' }}
+                    showError
+                  />
+                )}
 
                 <DropdownField
                   selectedValue={props.values.everExposed}
@@ -409,7 +454,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                   onPress={props.handleSubmit}
                   enable={checkFormFilled(props)}
                   hideLoading={!props.isSubmitting}>
-                  <Text>{i18n.t('next-question')}</Text>
+                  <Text>{this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}</Text>
                 </BrandedButton>
               </Form>
             );

@@ -38,8 +38,6 @@ const initialState = {
   isRetryEnabled: false,
 };
 
-const PAUSE_TO_RETRY = 2000;
-
 export class SplashScreen extends Component<Props, SplashState> {
   @lazyInject(Services.User)
   userService: IUserService;
@@ -71,7 +69,12 @@ export class SplashScreen extends Component<Props, SplashState> {
       status: i18n.t('errors.status-retrying'),
       isRetryEnabled: false,
     });
-    setTimeout(() => this.initAppState(), offlineService.getRetryDelay());
+
+    try {
+      await this.initAppState();
+    } catch (error) {
+      this.handleBootstrapError(error);
+    }
   };
 
   private handleBootstrapError = (error: ApiException) => {
@@ -81,10 +84,8 @@ export class SplashScreen extends Component<Props, SplashState> {
     this.setState({
       status: message,
       isRetryable: !!error.isRetryable,
-      isRetryEnabled: false,
+      isRetryEnabled: true,
     });
-
-    setTimeout(() => this.setState({ isRetryEnabled: true }), PAUSE_TO_RETRY);
   };
 
   private logout = async () => {

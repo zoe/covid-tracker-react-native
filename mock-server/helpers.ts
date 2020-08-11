@@ -1,5 +1,6 @@
-import { DbConfig } from './types';
 import fs = require('fs');
+
+import { DbConfig } from './types';
 
 export default (dbPath: string) => {
   // generic function that reads from a "table" file
@@ -26,7 +27,7 @@ export default (dbPath: string) => {
             }
 
             console.log(`~~ mockDb: create file ${dbPath}/${path}`);
-            fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData ?? {}, null, ' '), () => {});
+            fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData, null, ' '), () => {});
           });
         });
       });

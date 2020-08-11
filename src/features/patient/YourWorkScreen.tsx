@@ -92,7 +92,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   };
 
   handleUpdateWork(formData: YourWorkData) {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
@@ -181,7 +181,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
   });
 
   render() {
-    const currentPatient = patientCoordinator.patientData.currentPatient;
+    const currentPatient = patientCoordinator.patientData.patientState;
 
     const healthcareStaffOptions = [
       {
