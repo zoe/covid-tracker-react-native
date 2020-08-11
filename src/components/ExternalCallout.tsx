@@ -9,23 +9,17 @@ type ExternalCalloutProps = {
   calloutID: string;
   imageSource: ImageSourcePropType;
   aspectRatio: number;
-  action?: VoidFunction;
+  postClicked?: VoidFunction;
   screenName: string;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
-  const {
-    calloutID,
-    link,
-    screenName,
-    action = () => {
-      Linking.openURL(link);
-    },
-  } = props;
+  const { calloutID, link, screenName, postClicked } = props;
 
   function clickCallout() {
     Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
-    action();
+    if (link) Linking.openURL(link);
+    if (postClicked) postClicked();
   }
 
   return (
