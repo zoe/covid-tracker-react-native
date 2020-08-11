@@ -7,6 +7,7 @@ import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
 import { UKCovidCaseEstimatedCard } from '@covid/features/dashboard/CovidCaseEstimatedCard';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
+import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEstimatedCaseCard';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 
@@ -22,6 +23,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const handleReport = async () => {
     await appCoordinator.gotoNextScreen(route.name);
   };
+
+  const handleMoreDetails = async () => {};
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
     expanded: HEADER_EXPANDED_HEIGHT,
@@ -32,7 +35,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={handleReport} />}
       expandedHeader={<Header reportOnPress={handleReport} />}
       config={headerConfig}>
-      <View style={{ height: 1000 }} />
+      <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={handleMoreDetails} />
+
       <View style={{ width: '100%' }}>
         <PoweredByZoeSmall />
       </View>
