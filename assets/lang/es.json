@@ -789,7 +789,7 @@
   "select-profile-last-report": "Último informe:",
   "default-profile-name": "Yo",
 
-  "validation-error-text": "Complete o corrija la información anterior",
+  "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
 
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
@@ -1259,7 +1259,9 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
@@ -1288,7 +1290,8 @@
     "thank-you-break": {
       "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 
@@ -1311,5 +1314,14 @@
     "daily": "Dagliga nya fall",
     "active": "Aktiva fall",
     "cta": "Fler detaljer"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Panel",
+    "second-tab": "Últimas noticias"
+  },
+
+  "latest-news": {
+    "title": "Últimas noticias"
   }
 }

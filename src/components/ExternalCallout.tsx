@@ -10,19 +10,21 @@ type ExternalCalloutProps = {
   imageSource: ImageSourcePropType;
   aspectRatio: number;
   action?: VoidFunction;
+  screenName: string;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const {
     calloutID,
     link,
+    screenName,
     action = () => {
       Linking.openURL(link);
     },
   } = props;
 
   function clickCallout() {
-    Analytics.track(events.CLICK_CALLOUT, { calloutID });
+    Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
     action();
   }
 
