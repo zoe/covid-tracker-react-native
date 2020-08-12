@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 
@@ -30,10 +30,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     compact: HEADER_COLLAPSED_HEIGHT,
     expanded: HEADER_EXPANDED_HEIGHT,
   };
+
   const onReport = async () => {
     await appCoordinator.gotoNextScreen(route.name);
   };
-  const onMoreDetails = async () => {};
+
+  const onMoreDetails = async () => {
+    Linking.openURL('https://covid.joinzoe.com/data');
+  };
 
   const onShare = () => {
     const shareMessage = i18n.t('share-this-app.message');
