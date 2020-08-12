@@ -23,10 +23,10 @@ export const PERSONALISED_LOCAL_DATA = 'personalisedLocalData';
 
 export type PersonalisedLocalData = {
   mapUrl: string;
+  mapConfig?: Coordinates;
   name: string;
   cases: number;
   appUsers: number;
-  defaultCenter: Coordinates;
 };
 
 export type Coordinates = {

@@ -90,8 +90,8 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     let data = { payload: { lat, lng, zoom: ZOOM_LEVEL_FURTHER } };
 
     // Use data from API
-    if (contentService.localData?.defaultCenter) {
-      const { lat, lng } = contentService.localData.defaultCenter;
+    if (contentService.localData?.mapConfig) {
+      const { lat, lng } = contentService.localData.mapConfig!;
       setCenter({ lat, lng });
       data = { payload: { lat, lng, zoom: ZOOM_LEVEL_CLOSER } };
     }
