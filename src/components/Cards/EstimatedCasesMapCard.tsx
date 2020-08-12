@@ -154,9 +154,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
       const uri = await captureRef(viewRef, { format: 'jpg' });
       // https://github.com/expo/expo/issues/6920#issuecomment-580966657
       Sharing.shareAsync('file://' + uri);
-    } catch (error) {
-      console.log('Error =>', error);
-    }
+    } catch (_) {}
   };
 
   const showMap = () => {

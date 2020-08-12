@@ -129,7 +129,6 @@
     let cartoMap;
 
     document.addEventListener('new-center', function(event) {
-      console.log('new-center', e);
       const { lat, lng, zoom } = event.payload;
       window.covid.config.map = { lat, lng, zoom };
       cartoMap.map.setView([lat, lng], config.map.zoom);
