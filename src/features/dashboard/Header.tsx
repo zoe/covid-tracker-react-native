@@ -3,6 +3,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 import { colors } from '@theme';
+import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
 import { contentService } from '@covid/Services';
 import { covidIcon } from '@assets';
@@ -22,6 +23,11 @@ enum HeaderType {
 export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
   const todaysDate = (): string => moment().format('dddd Do MMMM');
   const [contributors, setContributors] = useState<string | null>(null);
+
+  const prettyContributorsValue = i18n.toNumber(contributors ? parseInt(contributors) : 0, {
+    precision: 0,
+    delimiter: ',',
+  });
 
   useEffect(() => {
     (async () => {
@@ -53,7 +59,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
       {contributors && (
         <>
           <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
-          <Header3Text style={styles.contributorsCount}>{contributors}</Header3Text>
+          <Header3Text style={styles.contributorsCount}>{prettyContributorsValue}</Header3Text>
         </>
       )}
     </View>
