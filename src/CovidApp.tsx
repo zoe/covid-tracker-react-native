@@ -145,7 +145,7 @@ export default class CovidApp extends Component<object, State> {
     );
   }
 
-  bottomNavigator = () => {
+  tabNavigator = () => {
     return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -203,7 +203,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={noHeader} />
         <Stack.Screen name="Welcome" component={Welcome1Screen} options={noHeader} />
         <Stack.Screen name="Welcome2" component={Welcome2Screen} options={noHeader} />
-        <Stack.Screen name="WelcomeRepeat" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={noHeader} />
         <Stack.Screen name="Consent" component={ConsentScreen} options={simpleHeader} />
         <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={simpleHeader} />
         <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={simpleHeader} />
@@ -259,8 +259,9 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
+
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };
