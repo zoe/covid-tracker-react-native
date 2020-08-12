@@ -1325,5 +1325,14 @@
 
   "latest-news": {
     "title": "Latest News"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID in the {{location}}",
+    "current-estimates": "Current estimates",
+    "active-cases-in-area": "Active cases\rin your area",
+    "share": "Share your map",
+    "update-postcode": "Please update your postcode to see our estimated cases in your area",
+    "update-postcode-cta": "Update postcode"
   }
 }

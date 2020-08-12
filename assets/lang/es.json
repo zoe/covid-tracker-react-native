@@ -1314,7 +1314,7 @@
     "you-have-reported-x-times": "Has informado %{count} veces",
     "contributors-so-far": "Colaboradores hasta ahora:"
   },
-  
+
   "estimated-cases-card": {
     "covid-in-the-uk": "",
     "estimated-cases": "Uppskattade fall",
@@ -1330,5 +1330,14 @@
 
   "latest-news": {
     "title": "Últimas noticias"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID en la {{location}}",
+    "current-estimates": "estimaciones actuales",
+    "active-cases-in-area": "Casos activos\ren su área",
+    "share": "Comparte tu mapa",
+    "update-postcode": "Actualice su código postal para ver nuestros casos estimados en su área",
+    "update-postcode-cta": "Actualizar código postal"
   }
 }

@@ -5,9 +5,9 @@ import { RouteProp } from '@react-navigation/native';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
-import { UKCovidCaseEstimatedCard } from '@covid/features/dashboard/CovidCaseEstimatedCard';
-import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEstimatedCaseCard';
+import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
+import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { isSECountry, isUSCountry, ICoreService, isGBCountry } from '@covid/core/user/UserService';
@@ -59,6 +59,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           postClicked={onShare}
         />
       </View>
+
+      {isGBCountry() && <EstimatedCasesMapCard />}
 
       {isGBCountry() && <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={onMoreDetails} />}
 
