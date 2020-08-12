@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
+import { AsyncStorageService, PersonalisedLocalData, PERSONALISED_LOCAL_DATA } from '@covid/core/AsyncStorageService';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
@@ -8,9 +8,12 @@ import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
 
+import { camelizeKeys } from '../api/utils';
+
 import { IContentApiClient } from './ContentApiClient';
 
 export interface IContentService {
+  localData?: PersonalisedLocalData;
   getUserCount(): Promise<string | null>;
   getWelcomeRepeatContent(): Promise<ScreenContent>;
   getAskedToRateStatus(): Promise<string | null>;
@@ -23,6 +26,8 @@ export interface IContentService {
 @injectable()
 export default class ContentService implements IContentService {
   private screenContent: AppScreenContent;
+
+  localData: PersonalisedLocalData;
 
   constructor(@inject(Services.ContentApi) private apiClient: IContentApiClient) {}
 
@@ -60,11 +65,25 @@ export default class ContentService implements IContentService {
     return await AsyncStorageService.getUserCount();
   }
 
+  async getLocalData(): Promise<PersonalisedLocalData> {
+    const item = await AsyncStorageService.getItem<string>(PERSONALISED_LOCAL_DATA);
+    if (!item) {
+      throw new Error('Local data not found');
+    }
+    const model = JSON.parse(item);
+    return model as PersonalisedLocalData;
+  }
+
   async getStartupInfo() {
     try {
       const info = await this.apiClient.getStartupInfo();
       UserService.ipCountry = info.ip_country;
       await AsyncStorageService.setUserCount(info.users_count.toString());
+      if (info.local_data) {
+        const data = camelizeKeys(info.local_data);
+        await AsyncStorageService.setItem(JSON.stringify(camelizeKeys(data)), PERSONALISED_LOCAL_DATA);
+        this.localData = data;
+      }
     } catch (error) {
       handleServiceError(error);
     }
