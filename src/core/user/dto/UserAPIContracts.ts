@@ -277,6 +277,10 @@ export type StartupInfo = {
     name: string;
     cases: number;
     app_users: number;
+    default_center: {
+      lat: number;
+      lng: number;
+    };
   };
 };
 

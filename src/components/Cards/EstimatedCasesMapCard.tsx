@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { Button } from 'native-base';
 import { captureRef } from 'react-native-view-shot';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -18,6 +18,7 @@ import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IContentService } from '@covid/core/content/ContentService';
 import Analytics, { events } from '@covid/core/Analytics';
+import { Coordinates } from '@covid/core/AsyncStorageService';
 
 const MAP_HEIGHT = 246;
 
@@ -50,15 +51,70 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
 
 interface Props {}
 
+const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
+const ZOOM_LEVEL_CLOSER = 10.5;
+const ZOOM_LEVEL_FURTHER = 6;
+const USE_CARTO_MAP = true;
+
 export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const userService = useInjection<ICoreService>(Services.User);
   const contentService = useInjection<IContentService>(Services.Content);
   const viewRef = useRef(null);
   const webViewRef = useRef<WebView>(null);
-  const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
 
-  const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
   const [displayLocation, setDisplayLocation] = useState<string>('your area');
+  const [mapUrl, setMapUrl] = useState<string | null>(null);
+  const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
+  const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
+
+  const [center, setCenter] = useState<Coordinates>(DEFAULT_MAP_CENTER);
+
+  // Show to up date local data
+  useEffect(() => {
+    if (!contentService.localData) {
+      setShowEmptyState(true);
+      return;
+    }
+    setDisplayLocation(contentService.localData!.name);
+    setMapUrl(contentService.localData!.mapUrl);
+    setActiveCases(contentService.localData!.cases);
+    setShowEmptyState(false);
+    syncMapCenter();
+  }, [contentService.localData]);
+
+  const syncMapCenter = () => {
+    if (!webViewRef.current) return;
+
+    // Set defaults
+    const { lat, lng } = DEFAULT_MAP_CENTER;
+    let data = { payload: { lat, lng, zoom: ZOOM_LEVEL_FURTHER } };
+
+    // Use data from API
+    if (contentService.localData?.defaultCenter) {
+      const { lat, lng } = contentService.localData.defaultCenter;
+      setCenter({ lat, lng });
+      data = { payload: { lat, lng, zoom: ZOOM_LEVEL_CLOSER } };
+    }
+
+    webViewRef.current!.call('updateMapView', data);
+  };
+
+  const onMapEvent = (type: string, data?: object) => {
+    switch (type) {
+      case 'mapLoaded':
+        syncMapCenter();
+        break;
+    }
+  };
+
+  const map = (): React.ReactNode => {
+    if (USE_CARTO_MAP) {
+      return (
+        <WebView ref={webViewRef} originWhitelist={['*']} source={html} style={styles.webview} onEvent={onMapEvent} />
+      );
+    }
+    return <Image source={{ uri: mapUrl ?? '' }} style={styles.webview} />;
+  };
 
   const share = async () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_SHARE_CLICKED);
@@ -75,23 +131,6 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED);
     NavigatorService.navigate('EstimatedCases');
   };
-
-  const updateMapCenter = (lat: number, lng: number) => {
-    // lat: 51.513759, lng: -0.317859,
-    webViewRef.current!.emit('new-center', {
-      payload: { lat, lng },
-    });
-  };
-
-  useEffect(() => {
-    if (!contentService.localData) {
-      setShowEmptyState(true);
-      return;
-    }
-    setDisplayLocation(contentService.localData!.name);
-    setActiveCases(contentService.localData!.cases);
-    setShowEmptyState(false);
-  }, [contentService.localData]);
 
   if (showEmptyState) {
     return (
@@ -114,7 +153,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
       </View>
 
       <View style={styles.mapContainer} pointerEvents="none">
-        <WebView ref={webViewRef} originWhitelist={['*']} source={html} style={styles.webview} />
+        {map()}
       </View>
 
       <View style={styles.statsContainer}>
@@ -168,6 +207,11 @@ const styles = StyleSheet.create({
   },
 
   webview: {
+    height: MAP_HEIGHT,
+  },
+
+  mapImage: {
+    resizeMode: 'cover',
     height: MAP_HEIGHT,
   },
 

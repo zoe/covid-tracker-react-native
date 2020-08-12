@@ -26,6 +26,12 @@ export type PersonalisedLocalData = {
   name: string;
   cases: number;
   appUsers: number;
+  defaultCenter: Coordinates;
+};
+
+export type Coordinates = {
+  lat: number;
+  lng: number;
 };
 
 export class AsyncStorageService {
