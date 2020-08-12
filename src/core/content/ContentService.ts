@@ -7,10 +7,8 @@ import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserServ
 import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
-
-import { camelizeKeys } from '../api/utils';
-
-import { IContentApiClient } from './ContentApiClient';
+import { camelizeKeys } from '@covid/core/api/utils';
+import { IContentApiClient } from '@covid/core/content/ContentApiClient';
 
 export interface IContentService {
   localData?: PersonalisedLocalData;
