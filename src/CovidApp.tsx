@@ -77,7 +77,7 @@ import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { EstimatedCasesScreen, EstimatedCasesScreen } from './features/EstimatedCasesScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();

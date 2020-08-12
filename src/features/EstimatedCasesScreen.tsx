@@ -26,11 +26,7 @@ export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
         }}>
         <BackButton navigation={navigation} />
       </View>
-      <WebView
-        originWhitelist={['*']}
-        source={require('../../assets/estimated-cases-map.html')}
-        style={styles.webview}
-      />
+      <WebView originWhitelist={['*']} source={require('@assets/carto/estimated-cases.html')} style={styles.webview} />
     </View>
   );
 };
