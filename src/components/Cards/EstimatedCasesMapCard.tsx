@@ -84,12 +84,13 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   useEffect(() => {
-    if (contentService.localData) {
-      setShowEmptyState(false);
+    if (!contentService.localData) {
+      setShowEmptyState(true);
       return;
     }
     setDisplayLocation(contentService.localData!.name);
     setActiveCases(contentService.localData!.cases);
+    setShowEmptyState(false);
   }, [contentService.localData]);
 
   if (showEmptyState) {
