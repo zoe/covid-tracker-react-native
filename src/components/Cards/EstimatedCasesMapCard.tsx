@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'native-base';
 import { captureRef } from 'react-native-view-shot';
@@ -16,6 +16,8 @@ import { ICoreService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
+import { IContentService } from '@covid/core/content/ContentService';
+import Analytics, { events } from '@covid/core/Analytics';
 
 const MAP_HEIGHT = 246;
 
@@ -46,16 +48,20 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   );
 };
 
-interface Props {
-  showEmptyState?: boolean;
-}
+interface Props {}
 
-export const EstimatedCasesMapCard: React.FC<Props> = ({ showEmptyState = true }) => {
+export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const userService = useInjection<ICoreService>(Services.User);
+  const contentService = useInjection<IContentService>(Services.Content);
   const viewRef = useRef(null);
   const webViewRef = useRef<WebView>(null);
-  const count = 0;
+  const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
+
+  const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
+  const [displayLocation, setDisplayLocation] = useState<string>('your area');
+
   const share = async () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_SHARE_CLICKED);
     try {
       const uri = await captureRef(viewRef, { format: 'jpg' });
       // https://github.com/expo/expo/issues/6920#issuecomment-580966657
@@ -66,6 +72,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ showEmptyState = true }
   };
 
   const showMap = () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED);
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -75,6 +82,15 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ showEmptyState = true }
       payload: { lat, lng },
     });
   };
+
+  useEffect(() => {
+    if (contentService.localData) {
+      setShowEmptyState(false);
+      return;
+    }
+    setDisplayLocation(contentService.localData!.name);
+    setActiveCases(contentService.localData!.cases);
+  }, [contentService.localData]);
 
   if (showEmptyState) {
     return (
@@ -91,7 +107,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ showEmptyState = true }
     <View style={styles.root} ref={viewRef}>
       <View style={styles.headerContainer}>
         <Header3Text style={styles.primaryLabel}>
-          {i18n.t('covid-cases-map.covid-in-x', { location: 'Midlands' })}
+          {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
         </Header3Text>
         <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
       </View>
@@ -102,7 +118,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ showEmptyState = true }
 
       <View style={styles.statsContainer}>
         <View style={styles.statsRow}>
-          <Header0Text style={styles.stats}>{count}</Header0Text>
+          <Header0Text style={styles.stats}>{activeCases}</Header0Text>
           <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
         </View>
         <TouchableOpacity style={styles.backIcon} onPress={showMap}>
