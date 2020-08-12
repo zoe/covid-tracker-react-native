@@ -3,15 +3,20 @@ import { View, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 import { colors } from '@theme';
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
 import { contentService } from '@covid/Services';
 import { covidIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
+import Analytics, { events } from '@covid/core/Analytics';
 
 interface Props {
   reportedCount?: string;
   reportOnPress: VoidFunction;
+}
+
+enum HeaderType {
+  Compact = 'compact',
+  Expanded = 'expanded',
 }
 
 export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
@@ -24,13 +29,18 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
     })();
   }, []);
 
+  const onReport = () => {
+    Analytics.track(events.REPORT_NOW_CLICKED, { headerType: HeaderType.Expanded });
+    reportOnPress();
+  };
+
   return (
     <View style={styles.root}>
       <Image source={covidIcon} style={styles.logo} />
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>{todaysDate()}</Header3Text>
-        <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
+        <BrandedButton style={styles.reportButton} onPress={onReport}>
           {i18n.t('dashboard.report-now')}
         </BrandedButton>
         {reportedCount && (
@@ -46,19 +56,20 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
           <Header3Text style={styles.contributorsCount}>{contributors}</Header3Text>
         </>
       )}
-
-      <View style={{ width: '100%' }}>
-        <PoweredByZoeSmall />
-      </View>
     </View>
   );
 };
 
 export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
+  const onReport = () => {
+    Analytics.track(events.REPORT_NOW_CLICKED, { headerType: HeaderType.Compact });
+    reportOnPress();
+  };
+
   return (
     <View style={styles.root}>
       <Image source={covidIcon} style={[styles.logo, styles.compactHeaderLogo]} />
-      <BrandedButton style={styles.reportButton} onPress={reportOnPress}>
+      <BrandedButton style={styles.reportButton} onPress={onReport}>
         {i18n.t('dashboard.report-now')}
       </BrandedButton>
     </View>
