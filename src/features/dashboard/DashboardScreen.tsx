@@ -62,7 +62,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
       {isGBCountry() && <EstimatedCasesMapCard />}
 
-      {isGBCountry() && <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={onMoreDetails} />}
+      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
 
       {isGBCountry() && (
         <View style={styles.calloutContainer}>

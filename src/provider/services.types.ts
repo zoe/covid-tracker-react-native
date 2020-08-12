@@ -4,4 +4,6 @@ export const Services = {
   Content: Symbol('Content'),
   User: Symbol('User'),
   DietStudy: Symbol('DietStudy'),
+  IncidenceHttpApi: Symbol('IncidenceHttpApi'),
+  PredictiveMetricsClient: Symbol('IPredictiveMetricsClient'),
 };
