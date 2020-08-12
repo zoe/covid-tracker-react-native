@@ -133,4 +133,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
   },
+  drawerToggleContainer: {
+    zIndex: 999,
+    position: 'absolute',
+    right: 0,
+    marginTop: 58,
+    marginRight: 16,
+  },
 });
