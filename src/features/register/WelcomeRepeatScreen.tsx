@@ -1,11 +1,11 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Linking } from 'expo';
 
-import { covidIcon, donate } from '@assets';
+import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
@@ -22,8 +22,7 @@ import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
+import { ICoreService, isSECountry, isUSCountry } from '@covid/core/user/UserService';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -120,20 +119,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             {this.displayPartnerLogo()}
 
-            {isGBCountry() ? (
-              <ExternalCallout
-                link="https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy"
-                calloutID="donate"
-                imageSource={donate}
-                aspectRatio={1.59}
-                screenName={this.props.route.name}
-              />
-            ) : (
-              <CalloutBox
-                content={this.state.calloutBoxContent}
-                onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
-              />
-            )}
+            <CalloutBox
+              content={this.state.calloutBoxContent}
+              onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+            />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>
