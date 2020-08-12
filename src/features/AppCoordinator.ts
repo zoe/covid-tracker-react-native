@@ -83,6 +83,9 @@ export class AppCoordinator {
         this.startAssessmentFlow(this.currentPatient);
       }
     },
+    Dashboard: () => {
+      NavigatorService.navigate('SelectProfile');
+    },
     ArchiveReason: () => {
       NavigatorService.navigate('SelectProfile');
     },
@@ -115,7 +118,7 @@ export class AppCoordinator {
   }
 
   resetToProfileStartAssessment() {
-    NavigatorService.navigate('SelectProfile');
+    NavigatorService.navigate('Dashboard');
     this.startAssessmentFlow(this.currentPatient);
   }
 
@@ -147,17 +150,17 @@ export class AppCoordinator {
   }
 
   async startEditProfile(profile: Profile) {
-    const patientInfo = await this.userService.getPatient(profile.id);
-    this.patientId = profile.id;
-
-    const patientData: PatientData = {
-      patientId: this.patientId,
-      patientState: this.currentPatient,
-      patientInfo: patientInfo!,
-      profile,
-    };
+    const patientData = await this.buildPatientData(profile);
+    this.patientId = patientData.patientId;
     editProfileCoordinator.init(this, patientData, this.userService);
     editProfileCoordinator.startEditProfile();
+  }
+
+  async startEditLocation(profile: Profile) {
+    const patientData = await this.buildPatientData(profile);
+    this.patientId = patientData.patientId;
+    editProfileCoordinator.init(this, patientData, this.userService);
+    editProfileCoordinator.goToEditLocation();
   }
 
   gotoNextScreen = (screenName: ScreenName) => {
@@ -244,6 +247,16 @@ export class AppCoordinator {
       Analytics.track(events.DECLINE_VACCINE_REGISTER);
       NavigatorService.goBack();
     }
+  }
+
+  private async buildPatientData(profile: Profile): Promise<PatientData> {
+    const patientInfo = await this.userService.getPatient(profile.id);
+    return {
+      patientId: profile.id,
+      patientState: this.currentPatient,
+      patientInfo: patientInfo!,
+      profile,
+    };
   }
 }
 

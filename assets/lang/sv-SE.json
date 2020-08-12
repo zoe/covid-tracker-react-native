@@ -498,6 +498,7 @@
   "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
   "delete": "Ta bort",
+  "estimated-cases": "Uppskattade fall",
   "logout": "Logga ut",
 
   "never-reported": "Aldrig rapporterat",
@@ -548,7 +549,7 @@
   "choose-one-of-these-options": "Välj ett av alternativen",
   "prefer-not-to-say": "Föredrar att inte svara",
 
-  "validation-error-text": "Fyll i eller korrigera informationen ovan",
+  "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
 
   "website-home": "https://covid.joinzoe.com/",
 
@@ -1250,12 +1251,16 @@
       "milk-skimmed": "",
       "milk-rarely-never": "",
       "milk-plant": "",
-      "milk-other": ""
+      "milk-other": "",
+
+      "noticed-a-change": ""
     },
 
     "other-info": {
       "label": "",
-      "placeholder": ""
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
     },
 
     "diet-changed": {
@@ -1281,7 +1286,8 @@
     "thank-you-break": {
       "description-1": "",
       "sarah-name": "",
-      "sarah-description": ""
+      "sarah-description": "",
+      "return-later": ""
     }
   },
 
@@ -1298,6 +1304,20 @@
     }
   },
 
+  "dashboard": {
+    "report-now": "Rapportera nu",
+    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
+    "contributors-so-far": "Bidragsgivare hittills:"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Casos estimados",
+    "daily": "Nuevos casos diarios",
+    "active": "Casos activos",
+    "cta": "Más detalles"
+  },
+
   "tab-navigator": {
     "first-tab": "Dashboard",
     "second-tab": "Senaste nytt"
@@ -1305,5 +1325,14 @@
 
   "latest-news": {
     "title": "Senaste nytt"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID på {{location}}",
+    "current-estimates": "Aktuella uppskattningar",
+    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
+    "share": "Dela din karta",
+    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
+    "update-postcode-cta": "Uppdatera postnumret"
   }
 }

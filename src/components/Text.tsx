@@ -12,6 +12,8 @@ interface Props {
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
 }
 
+export const Header0Text = ({ style, children }: Props) => <Text style={[styles.header0Text, style]}>{children}</Text>;
+
 export const HeaderText = ({ style, children }: Props) => <Text style={[styles.headerText, style]}>{children}</Text>;
 
 export const HeaderLightText = ({ style, children }: Props) => (
@@ -67,6 +69,10 @@ export const Divider: React.FC<{ styles?: StyleProp<ViewStyle> }> = ({ styles: p
 );
 
 const styles = StyleSheet.create({
+  header0Text: {
+    ...fontStyles.h0Reg,
+  },
+
   headerText: {
     ...fontStyles.h2Reg,
   },

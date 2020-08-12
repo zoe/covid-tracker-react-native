@@ -55,8 +55,8 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
   ];
 
   const meridianIndicatorItems = [
-    { label: 'a.m.', value: 'AM' },
-    { label: 'p.m.', value: 'PM' },
+    { label: 'am', value: 'AM' },
+    { label: 'pm', value: 'PM' },
   ];
 
   return (

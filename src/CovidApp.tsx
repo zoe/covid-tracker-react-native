@@ -76,6 +76,9 @@ import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/E
 import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 
+import { DashboardScreen } from './features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen, EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -150,10 +153,13 @@ export default class CovidApp extends Component<object, State> {
             let icon;
             const tintColor = focused ? colors.brand : colors.tertiary;
 
-            if (route.name === 'WelcomeRepeat') {
-              icon = dashboard;
-            } else if (route.name === 'LatestNews') {
-              icon = news;
+            switch (route.name) {
+              case 'Dashboard':
+                icon = dashboard;
+                break;
+              case 'LatestNews':
+                icon = news;
+                break;
             }
 
             return <Image resizeMethod="auto" source={icon} style={{ tintColor, width: 24, height: 24 }} />;
@@ -167,8 +173,8 @@ export default class CovidApp extends Component<object, State> {
           inactiveTintColor: colors.tertiary,
         }}>
         <Tab.Screen
-          name="WelcomeRepeat"
-          component={WelcomeRepeatScreen}
+          name="Dashboard"
+          component={DashboardScreen}
           options={{ title: i18n.t('tab-navigator.first-tab') }}
         />
         <Tab.Screen
@@ -197,7 +203,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="CountrySelect" component={CountrySelectScreen} options={noHeader} />
         <Stack.Screen name="Welcome" component={Welcome1Screen} options={noHeader} />
         <Stack.Screen name="Welcome2" component={Welcome2Screen} options={noHeader} />
-        <Stack.Screen name="WelcomeRepeat" component={this.bottomNavigator} options={noHeader} />
+        <Stack.Screen name="WelcomeRepeat" component={WelcomeRepeatScreen} options={noHeader} />
         <Stack.Screen name="Consent" component={ConsentScreen} options={simpleHeader} />
         <Stack.Screen name="TermsOfUseUS" component={TermsOfUseUSScreen} options={simpleHeader} />
         <Stack.Screen name="PrivacyPolicyUK" component={PrivacyPolicyUKScreen} options={simpleHeader} />
@@ -253,6 +259,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

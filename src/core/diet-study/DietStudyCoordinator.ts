@@ -7,6 +7,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenProps } from '@covid/components/Screen';
 import { CallOutType } from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
+import { DietChangedOption } from '@covid/features/diet-study/fields/DietChangedQuestion';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -69,13 +70,15 @@ export class DietStudyCoordinator {
     },
     DietStudyTypicalDiet: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
-      if (timePeriod === PRE_LOCKDOWN) {
+
+      if (!timePeriod) {
         NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
-      } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
-        NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
+        return;
       }
+
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
@@ -144,11 +147,17 @@ export class DietStudyCoordinator {
     const completedDietStudies = studies.filter((item) => item.is_complete);
 
     if (completedDietStudies.length === 0) {
-      // Start from the beginning
+      // No completed studies - Start from the beginning
       NavigatorService.navigate('DietStudyIntro', this.dietStudyParam);
     } else if (completedDietStudies.length === 1) {
-      // Start from PreLockdown
-      NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+      if (completedDietStudies[0].has_diet_changed === DietChangedOption.NO) {
+        // One Completed Study - but said their Diet hasn't changed -> Finish
+        NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
+      } else {
+        // One Completed Study - but their diet may have changed -> Start from PreLockdown
+        this.dietStudyParam.dietStudyData.timePeriod = PRE_LOCKDOWN;
+        NavigatorService.navigate('DietStudyThankYouBreak', this.dietStudyParam);
+      }
     } else {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
     }

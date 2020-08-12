@@ -39,6 +39,7 @@ export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
+export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 
 // Profiles
@@ -63,12 +64,13 @@ export const notificationReminders = require('./thank-you-modules/notification_r
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
 export const blog007 = require('./thank-you-modules/blog_007.png');
-export const incidence009 = require('./thank-you-modules/incidence_009.png');
+export const incidence010 = require('./thank-you-modules/incidence_010.png');
 export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
+export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const donate = require('./thank-you-modules/donate.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
