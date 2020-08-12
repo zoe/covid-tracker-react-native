@@ -1,22 +1,57 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { Button } from 'native-base';
 import { captureRef } from 'react-native-view-shot';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Sharing from 'expo-sharing';
 
 import { WebView } from '@covid/components/WebView';
-import { Header0Text, Header3Text, MutedText } from '@covid/components/Text';
-import { colors } from '@theme';
+import { Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
+import { colors, fontStyles } from '@theme';
 import ChevronRight from '@assets/icons/ChevronRight';
 import Share from '@assets/icons/Share';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
+import { ICoreService } from '@covid/core/user/UserService';
+import { Services } from '@covid/provider/services.types';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { useInjection } from '@covid/provider/services.hooks';
 
 const MAP_HEIGHT = 246;
 
 const html = require('@assets/carto/estimated-cases.html');
 
-export const EstimatedCasesMapCard: React.FC = ({}) => {
+interface EmptyViewProps {
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  ctaLabel?: string;
+  onPress: VoidFunction;
+}
+
+const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
+  const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
+  const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
+  const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
+
+  return (
+    <View style={styles.root}>
+      <View style={styles.headerContainer}>
+        <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
+        <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
+      </View>
+      <Button style={[styles.detailsButton, styles.postcodeButton]} onPress={onPress}>
+        <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
+      </Button>
+    </View>
+  );
+};
+
+interface Props {
+  showEmptyState?: boolean;
+}
+
+export const EstimatedCasesMapCard: React.FC<Props> = ({ showEmptyState = true }) => {
+  const userService = useInjection<ICoreService>(Services.User);
   const viewRef = useRef(null);
   const webViewRef = useRef<WebView>(null);
   const count = 0;
@@ -34,14 +69,23 @@ export const EstimatedCasesMapCard: React.FC = ({}) => {
     NavigatorService.navigate('EstimatedCases');
   };
 
-  const sendMessageToWebView = () => {
+  const updateMapCenter = (lat: number, lng: number) => {
+    // lat: 51.513759, lng: -0.317859,
     webViewRef.current!.emit('new-center', {
-      payload: {
-        lat: 51.513759,
-        lng: -0.317859,
-      },
+      payload: { lat, lng },
     });
   };
+
+  if (showEmptyState) {
+    return (
+      <EmptyView
+        onPress={async () => {
+          const profile = await userService.myPatientProfile();
+          if (profile) appCoordinator.startEditLocation(profile!);
+        }}
+      />
+    );
+  }
 
   return (
     <View style={styles.root} ref={viewRef}>
@@ -91,6 +135,7 @@ const styles = StyleSheet.create({
 
   primaryLabel: {
     fontWeight: '500',
+    textAlign: 'center',
     color: colors.textDark,
   },
 
@@ -98,19 +143,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
     fontSize: 14,
-  },
-
-  detailsButton: {
-    paddingHorizontal: 52,
-    backgroundColor: 'transparent',
-    borderRadius: 24,
-    borderWidth: 1,
-    borderColor: colors.purple,
+    paddingHorizontal: 24,
   },
 
   mapContainer: {
     width: '100%',
-    // height: MAP_HEIGHT,
   },
 
   webview: {
@@ -168,5 +205,23 @@ const styles = StyleSheet.create({
     color: colors.purple,
     fontSize: 14,
     fontWeight: '300',
+  },
+
+  detailsButton: {
+    paddingHorizontal: 52,
+    backgroundColor: 'transparent',
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.purple,
+  },
+
+  detailsButtonLabel: {
+    color: colors.purple,
+    fontWeight: '300',
+    fontSize: 14,
+  },
+
+  postcodeButton: {
+    marginBottom: 20,
   },
 });
