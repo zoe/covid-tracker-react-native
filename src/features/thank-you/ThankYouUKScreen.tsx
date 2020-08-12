@@ -18,8 +18,8 @@ import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -123,7 +123,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <BrandedButton
-                onPress={() => this.props.navigation.navigate('WelcomeRepeat')}
+                onPress={() => this.props.navigation.navigate(appCoordinator.homeScreenName)}
                 style={styles.ctaSingleProfile}>
                 <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
               </BrandedButton>

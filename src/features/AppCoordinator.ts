@@ -45,16 +45,18 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
+  homeScreenName: ScreenName = 'Dashboard';
+
   screenFlow: ScreenFlow = {
     Splash: () => {
       if (this.patientId) {
-        NavigatorService.replace('WelcomeRepeat');
+        NavigatorService.replace(this.homeScreenName);
       } else {
         NavigatorService.replace('Welcome');
       }
     },
     Login: () => {
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.reset([{ name: this.homeScreenName }]);
     },
     Register: () => {
       const config = appCoordinator.getConfig();
@@ -101,7 +103,7 @@ export class AppCoordinator {
       NavigatorService.navigate('Register');
     },
     VaccineRegistryInfo: () => {
-      NavigatorService.navigate('WelcomeRepeat');
+      NavigatorService.navigate(this.homeScreenName);
     },
   } as ScreenFlow;
 

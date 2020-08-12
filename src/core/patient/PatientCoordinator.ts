@@ -39,7 +39,7 @@ export class PatientCoordinator implements Coordinator {
     const config = this.userService.getConfig();
     const patientId = this.patientData.patientId;
 
-    const startPage = 'WelcomeRepeat';
+    const startPage = this.appCoordinator.homeScreenName;
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     const nextPage = shouldAskStudy ? 'YourStudy' : 'YourWork';
 
