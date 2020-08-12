@@ -4,6 +4,7 @@ import { Button } from 'native-base';
 
 import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
+import Analytics, { events } from '@covid/core/Analytics';
 
 interface Props {
   primaryLabel: string;
@@ -26,6 +27,11 @@ export const EstimatedCaseCard: React.FC<Props> = ({
   ctaLabel,
   ctaOnPress,
 }) => {
+  const onPress = () => {
+    Analytics.track(events.ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED);
+    ctaOnPress();
+  };
+
   return (
     <View style={styles.root}>
       <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
@@ -43,7 +49,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
         </View>
       </View>
 
-      <Button style={styles.detailsButton} onPress={ctaOnPress}>
+      <Button style={styles.detailsButton} onPress={onPress}>
         <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
       </Button>
     </View>
