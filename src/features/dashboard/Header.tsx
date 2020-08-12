@@ -3,7 +3,6 @@ import { View, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 import { colors } from '@theme';
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
 import { contentService } from '@covid/Services';
 import { covidIcon } from '@assets';
@@ -46,10 +45,6 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
           <Header3Text style={styles.contributorsCount}>{contributors}</Header3Text>
         </>
       )}
-
-      <View style={{ width: '100%' }}>
-        <PoweredByZoeSmall />
-      </View>
     </View>
   );
 };
