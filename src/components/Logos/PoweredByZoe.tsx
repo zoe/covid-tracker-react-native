@@ -22,13 +22,7 @@ export const PoweredByZoe = () => {
   );
 };
 
-export const PoweredByZoeSmall = () => {
-  return (
-    <View>
-      <Image source={poweredByZoeSmall} style={styles.poweredBySmall} />
-    </View>
-  );
-};
+export const PoweredByZoeSmall = () => <Image source={poweredByZoeSmall} style={styles.poweredBySmall} />;
 
 const styles = StyleSheet.create({
   block: {
@@ -44,6 +38,7 @@ const styles = StyleSheet.create({
   },
   poweredBySmall: {
     width: '40%',
+    height: 32,
     resizeMode: 'contain',
     alignSelf: 'center',
   },

@@ -16,7 +16,7 @@ import { share } from '@covid/components/Cards/BaseShareApp';
 import { donate, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 
-// const HEADER_EXPANDED_HEIGHT = 380; // With report count & total contribution
+// const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
 const HEADER_COLLAPSED_HEIGHT = 124;
 
@@ -70,7 +70,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         </View>
       )}
 
-      <View style={{ width: '100%' }}>
+      <View style={styles.zoe}>
         <PoweredByZoeSmall />
       </View>
     </CollapsibleHeaderScrollView>
@@ -82,4 +82,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   image: {},
+  zoe: {
+    marginBottom: 32,
+  },
 });
