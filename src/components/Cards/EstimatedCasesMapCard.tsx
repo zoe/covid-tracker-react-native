@@ -31,10 +31,23 @@ interface EmptyViewProps {
   onPress: VoidFunction;
 }
 
+enum MapEventOrigin {
+  Arrow = 'arrow',
+  Map = 'map',
+}
+
 const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
+
+  const showCartoMap = true;
+  const ctaStyle = showCartoMap ? { marginTop: 20 } : {};
+
+  const showMap = () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Map });
+    NavigatorService.navigate('EstimatedCases');
+  };
 
   return (
     <View style={styles.root}>
@@ -42,7 +55,16 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
         <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
         <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
       </View>
-      <Button style={[styles.detailsButton, styles.postcodeButton]} onPress={onPress}>
+
+      {showCartoMap && (
+        <View style={styles.mapContainer}>
+          <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
+            <WebView originWhitelist={['*']} source={html} style={styles.webview} pointerEvents="none" />
+          </TouchableOpacity>
+        </View>
+      )}
+
+      <Button style={[styles.detailsButton, styles.postcodeButton, ctaStyle]} onPress={onPress}>
         <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
       </Button>
     </View>
@@ -50,6 +72,11 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
 };
 
 interface Props {}
+
+type MapConfig = {
+  coordinates: Coordinates;
+  zoom: number;
+};
 
 const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
 const ZOOM_LEVEL_CLOSER = 10.5;
@@ -67,7 +94,10 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
   const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
 
-  const [center, setCenter] = useState<Coordinates>(DEFAULT_MAP_CENTER);
+  const [mapConfig, setMapConfig] = useState<MapConfig>({
+    coordinates: DEFAULT_MAP_CENTER,
+    zoom: ZOOM_LEVEL_FURTHER,
+  });
 
   // Show to up date local data
   useEffect(() => {
@@ -82,21 +112,23 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     syncMapCenter();
   }, [contentService.localData]);
 
-  const syncMapCenter = () => {
+  useEffect(() => {
     if (!webViewRef.current) return;
+    webViewRef.current!.call('updateMapView', mapConfig);
+  }, [mapConfig, setMapConfig, webViewRef.current]);
 
+  const syncMapCenter = () => {
     // Set defaults
     const { lat, lng } = DEFAULT_MAP_CENTER;
-    let data = { payload: { lat, lng, zoom: ZOOM_LEVEL_FURTHER } };
+    let config = { coordinates: { lat, lng }, zoom: ZOOM_LEVEL_FURTHER };
 
     // Use data from API
     if (contentService.localData?.mapConfig) {
       const { lat, lng } = contentService.localData.mapConfig!;
-      setCenter({ lat, lng });
-      data = { payload: { lat, lng, zoom: ZOOM_LEVEL_CLOSER } };
+      config = { coordinates: { lat, lng }, zoom: ZOOM_LEVEL_CLOSER };
     }
 
-    webViewRef.current!.call('updateMapView', data);
+    setMapConfig(config);
   };
 
   const onMapEvent = (type: string, data?: object) => {
@@ -128,7 +160,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED);
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Arrow });
     NavigatorService.navigate('EstimatedCases');
   };
 
