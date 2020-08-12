@@ -1328,9 +1328,11 @@
   },
 
   "covid-cases-map": {
-    "covid-in-x": "",
-    "current-estimates": "",
-    "active-cases-in-area": "",
-    "share": ""
+    "covid-in-x": "COVID på {{location}}",
+    "current-estimates": "Aktuella uppskattningar",
+    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
+    "share": "Dela din karta",
+    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
+    "update-postcode-cta": "Uppdatera postnumret"
   }
 }
