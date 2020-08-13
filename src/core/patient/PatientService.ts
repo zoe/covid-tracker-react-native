@@ -11,7 +11,7 @@ import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientStateType, PatientProfile, getInitialPatientState } from '@covid/core/patient/PatientState';
+import { PatientStateType, getInitialPatientState } from '@covid/core/patient/PatientState';
 import { container } from '@covid/provider/services';
 
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;

@@ -11,8 +11,8 @@ import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { objectToQueryString, camelizeKeys } from '../api/utils';
 import { ConsentService, IConsentService } from '../consent/ConsentService';
-import { ILocalisationService, LocalisationService, isGBCountry } from '../localisation/LocalisationService';
-import {} from '../patient/PatientService';
+import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
+import { IPatientService } from '../patient/PatientService';
 
 import { LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
 
