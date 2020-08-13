@@ -26,7 +26,7 @@ export default (dbPath: string) => {
             }
 
             console.log(`~~ mockDb: create file ${dbPath}/${path}`);
-            fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData ?? {}, null, ' '), () => {});
+            fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData, null, ' '), () => {});
           });
         });
       });
