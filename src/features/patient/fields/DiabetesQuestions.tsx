@@ -8,13 +8,13 @@ import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { isSECountry } from '@covid/core/user/UserService';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { RegularText } from '@covid/components/Text';
 import { FieldWrapper } from '@covid/components/Screen';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
-import { colors } from '@theme';
 import YesNoField from '@covid/components/YesNoField';
+import { isSECountry } from '@covid/core/localisation/LocalisationService';
+import { colors } from '@theme';
 
 import { DiabetesTreamentsQuestion, DiabetesTreatmentsData } from './DiabetesTreatmentsQuestion';
 import { DiabetesOralMedsQuestion, DiabetesOralMedsData } from './DiabetesOralMedsQuestion';

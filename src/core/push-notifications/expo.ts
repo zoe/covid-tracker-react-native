@@ -1,6 +1,5 @@
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-import { injectable } from 'inversify';
 
 import { IPushTokenEnvironment } from './PushNotificationService';
 

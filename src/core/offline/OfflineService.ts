@@ -18,10 +18,10 @@ const checkOnlineStatus = () => axios.get(ONLINE_URL, REQUEST_OPTS);
 const checkApiStatus = () => axios.get(API_URL, REQUEST_OPTS);
 
 type Events = 'status.online' | 'status.apiOnline';
-const listeners = {
-  'status.online': [] as Function[],
-  'status.apiOnline': [] as Function[],
-};
+// const listeners = {
+//   'status.online': [] as Function[],
+//   'status.apiOnline': [] as Function[],
+// };
 
 const RETRY_DELAY = 5000; // in microseconds
 

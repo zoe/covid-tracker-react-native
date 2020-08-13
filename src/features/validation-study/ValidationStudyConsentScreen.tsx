@@ -10,12 +10,12 @@ import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -31,7 +31,10 @@ interface TermsState {
 
 export default class ValidationStudyConsentScreen extends Component<PropsType, TermsState> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
+
+  @lazyInject(Services.Consent)
+  private readonly consentService: IConsentService;
 
   constructor(props: PropsType) {
     super(props);
@@ -59,7 +62,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
     if (this.state.agreeToAbove && !this.state.submitting) {
       this.setState({ submitting: true });
       Analytics.track(events.JOIN_STUDY);
-      this.userService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
+      this.consentService.setValidationStudyResponse(true, this.state.anonymizedData, this.state.reContacted);
       appCoordinator.resetToProfileStartAssessment();
     }
   };

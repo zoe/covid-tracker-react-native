@@ -1,14 +1,16 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { isSECountry, isUSCountry, ICoreService, isGBCountry } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
-import Analytics, { events } from '@covid/core/Analytics';
+import { isUSCountry, isSECountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
+
+import { IProfileService } from '../profile/ProfileService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -21,7 +23,14 @@ export type AssessmentData = {
 };
 
 export class AssessmentCoordinator {
-  userService: ICoreService;
+  @lazyInject(Services.Profile)
+  private readonly profileService: IProfileService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
+  navigation: NavigationType;
+  userService: IUserService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
   appCoordinator: AppCoordinator;
@@ -64,7 +73,7 @@ export class AssessmentCoordinator {
   init = (
     appCoordinator: AppCoordinator,
     assessmentData: AssessmentData,
-    userService: ICoreService,
+    userService: IUserService,
     assessmentService: IAssessmentService
   ) => {
     this.appCoordinator = appCoordinator;
@@ -75,7 +84,7 @@ export class AssessmentCoordinator {
 
   startAssessment = () => {
     const { currentPatient } = this.assessmentData;
-    const config = this.userService.getConfig();
+    const config = this.localisationService.getConfig();
     this.assessmentService.initAssessment();
 
     if (currentPatient.hasCompletedPatientDetails) {
@@ -96,9 +105,9 @@ export class AssessmentCoordinator {
   };
 
   gotoEndAssessment = async () => {
-    const config = this.userService.getConfig();
+    const config = this.localisationService.getConfig();
 
-    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
+    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
@@ -156,11 +165,11 @@ export class AssessmentCoordinator {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 
-  static async shouldShowReportForOthers(config: ConfigType, userService: ICoreService) {
+  static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
     return (
       config.enableMultiplePatients &&
-      !(await userService.hasMultipleProfiles()) &&
-      (await userService.shouldAskToReportForOthers())
+      !(await profileService.hasMultipleProfiles()) &&
+      (await profileService.shouldAskToReportForOthers())
     );
   }
 }

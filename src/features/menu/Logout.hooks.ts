@@ -5,8 +5,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-
-import { DrawerMenuItem } from './DrawerMenuItem';
+import { DrawerMenuItem } from '@covid/features/menu/DrawerMenuItem';
 
 export const useLogout = (navigation: DrawerNavigationHelpers) => {
   const userService = useInjection<IUserService>(Services.User);

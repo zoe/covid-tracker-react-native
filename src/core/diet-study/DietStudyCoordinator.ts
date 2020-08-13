@@ -1,5 +1,5 @@
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
@@ -53,7 +53,7 @@ export type DietStudyData = {
 export class DietStudyCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
-  userService: ICoreService;
+  userService: IUserService;
   dietStudyService: IDietStudyRemoteClient;
   dietStudyData: DietStudyData;
 
@@ -105,7 +105,7 @@ export class DietStudyCoordinator {
   init = (
     appCoordinator: AppCoordinator,
     dietStudyData: DietStudyData,
-    userService: ICoreService,
+    userService: IUserService,
     dietStudyService: IDietStudyRemoteClient
   ) => {
     this.appCoordinator = appCoordinator;
