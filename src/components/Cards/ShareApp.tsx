@@ -2,8 +2,6 @@ import React from 'react';
 
 import i18n from '@covid/locale/i18n';
 
-import { isAndroid } from '../Screen';
-
 import { CommonShareProps, BaseShareAppCard, share } from './BaseShareApp';
 
 export const ShareAppCard: React.FC<CommonShareProps> = (props) => {

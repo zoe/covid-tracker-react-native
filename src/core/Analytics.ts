@@ -2,7 +2,8 @@ import * as Amplitude from 'expo-analytics-amplitude';
 import Constants from 'expo-constants';
 
 import appConfig from '@covid/appConfig';
-import UserService from '@covid/core/user/UserService';
+
+import { LocalisationService } from './localisation/LocalisationService';
 
 let isInitialized = false;
 
@@ -51,12 +52,12 @@ export const events = {
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
 // https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey
 // These are disabled at the project level by Amplitude via a support ticket.
-const trackingOptions = {
-  disableCarrier: true,
-  disableCity: true,
-  disableIDFA: true,
-  disableLatLng: true,
-};
+// const trackingOptions = {
+//   disableCarrier: true,
+//   disableCity: true,
+//   disableIDFA: true,
+//   disableLatLng: true,
+// };
 
 function initialize(): void {
   if (isInitialized || !appConfig.amplitudeKey) {
@@ -88,7 +89,7 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
   // WARNING: Do not send any PII or Health Data here!
   const payload = {
     ...additionalProps,
-    appCountry: UserService.userCountry,
+    appCountry: LocalisationService.userCountry,
     expoVersion: Constants.expoVersion,
     appVersion: Constants.manifest.version,
     revisionId: Constants.manifest.revisionId,

@@ -18,10 +18,6 @@ type State = {
 };
 
 export class ResetPasswordConfirmScreen extends Component<PropsType, State> {
-  constructor(props: PropsType) {
-    super(props);
-  }
-
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

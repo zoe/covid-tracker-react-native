@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 import { colors } from '@theme';
 import { Pint, Shot, SmallGlass, StandardWine, LargeWine, BottleWine } from '@assets/icons/alcohol';

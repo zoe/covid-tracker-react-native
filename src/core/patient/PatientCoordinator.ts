@@ -1,4 +1,4 @@
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
@@ -7,7 +7,8 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 export class PatientCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
-  userService: ICoreService;
+  navigation: NavigationType;
+  userService: IUserService;
   patientData: PatientData;
 
   screenFlow: ScreenFlow = {
@@ -28,7 +29,7 @@ export class PatientCoordinator implements Coordinator {
     },
   } as ScreenFlow;
 
-  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: ICoreService) => {
+  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
     this.userService = userService;

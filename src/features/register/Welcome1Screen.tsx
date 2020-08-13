@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-nat
 import { gbMap, svMap, usMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText, ClickableText } from '@covid/components/Text';
-import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';

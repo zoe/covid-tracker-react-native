@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import CalendarPicker, { CalendarPickerProps } from 'react-native-calendar-picker';
 
 import { colors } from '@theme';
-import { isUSCountry } from '@covid/core/user/UserService';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 import { screenWidth } from './Screen';
 

@@ -10,10 +10,10 @@ import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMap
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { isSECountry, isUSCountry, ICoreService, isGBCountry } from '@covid/core/user/UserService';
+import { isGBCountry } from '@covid/core/user/UserService';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { donate, shareAppV3 } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
