@@ -42,7 +42,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
   const showCartoMap = true;
-  const ctaStyle = showCartoMap ? { marginTop: 20 } : {};
+  const root = showCartoMap ? { paddingTop: 0 } : {};
 
   const showMap = () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Map });
@@ -50,12 +50,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   };
 
   return (
-    <View style={styles.root}>
-      <View style={styles.headerContainer}>
-        <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
-        <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
-      </View>
-
+    <View style={[styles.root, root]}>
       {showCartoMap && (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
@@ -64,7 +59,12 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
         </View>
       )}
 
-      <Button style={[styles.detailsButton, styles.postcodeButton, ctaStyle]} onPress={onPress}>
+      <View style={styles.headerContainer}>
+        <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
+        <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
+      </View>
+
+      <Button style={[styles.detailsButton, styles.postcodeButton]} onPress={onPress}>
         <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
       </Button>
     </View>
@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginHorizontal: 32,
     paddingVertical: 8,
+    overflow: 'hidden',
   },
 
   headerContainer: {
