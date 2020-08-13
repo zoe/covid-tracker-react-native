@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
-import { AvatarName } from '@covid/utils/avatar';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -114,10 +114,11 @@ export class PatientService extends ApiClientBase implements IPatientService {
       patientName = i18n.t('default-profile-name');
     }
 
-    const profile: PatientProfile = {
+    const profile: Profile = {
+      id: patientState.patientId,
       name: patientName,
-      avatarName: (patient.avatar_name || 'profile1') as AvatarName,
-      isPrimaryPatient: !patient.reported_by_another,
+      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
+      reported_by_another: patient.reported_by_another,
     };
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
