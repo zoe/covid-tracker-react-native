@@ -9,10 +9,11 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { colors } from '@theme';
 import PatientHeader from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
-import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import { LoadingModal } from '@covid/components/Loading';
 import { ApiErrorState } from '@covid/core/api/ApiServiceErrors';
+import { ShareAppCardV2 } from '@covid/components/Cards/ShareAppV2';
+import { BigGreenTick } from '@covid/components/BigGreenTick';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyThankYou'>;
@@ -37,11 +38,15 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
       <PatientHeader profile={currentPatient.profile} navigation={props.navigation} />
 
       <ScrollView style={styles.contentContainer}>
+        <View style={{ marginTop: 24 }}>
+          <BigGreenTick />
+        </View>
+
         <HeaderText style={styles.headerText}>{i18n.t('diet-study.thank-you.title')}</HeaderText>
-        <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-2')}</RegularText>
+        <RegularText style={styles.bodyText}>{i18n.t('diet-study.thank-you.text-1')}</RegularText>
 
         <View style={{ marginTop: 24 }}>
-          <ShareAppCard />
+          <ShareAppCardV2 />
         </View>
 
         <View style={styles.buttonContainer}>
@@ -94,8 +99,10 @@ const styles = StyleSheet.create({
   },
   headerText: {
     marginTop: 24,
+    textAlign: 'center',
   },
   bodyText: {
     marginTop: 24,
+    textAlign: 'center',
   },
 });

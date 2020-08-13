@@ -565,6 +565,8 @@
   "research-updates": "Research updates",
   "faqs": "Frequently asked questions",
   "privacy-policy": "Privacy policy",
+  "nav-edit-profile": "Edit profile",
+  "nav-share-this-app": "Share this app",
   "delete-my-data": "Delete my data",
   "delete-data-alert-title": "Are you sure?",
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
@@ -618,7 +620,7 @@
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
 
-  "validation-error-text": "Please fill in or correct the above information",
+  "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
@@ -1013,7 +1015,7 @@
   },
 
   "diet-study": {
-    "drawer-menu-item": "My study",
+    "drawer-menu-item": "Diet study",
     "answer-for-feb": "Answer for month of Feb",
     "answer-for-last-4-weeks": "Answer for last 4 weeks",
 
@@ -1022,7 +1024,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 5-10 minutes to complete.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1042,8 +1044,8 @@
     "weight-label": "Your weight",
     "weight-unsure-label": "I don't know my weight",
     "was-pregnant-label": "I am/was pregnant",
-    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
-    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
+    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
+    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
     "hours-of-sleep-placeholder": "Hours per night",
     "shift-work-label": "Did you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
     "food-security": {
@@ -1093,7 +1095,7 @@
     },
 
     "alcohol-units": {
-      "label": "How many drinks containing alcohol did you have on a typical day when you are drinking? By “drink” we mean one unit of alcohol.",
+      "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one unit of alcohol.",
       "one-to-two": "1 or 2",
       "three-to-four": "3 or 4",
       "five-to-six": "5 or 6",
@@ -1132,21 +1134,22 @@
       "specify": "Please specify the other supplements"
     },
 
-    "first-calories-label": "After waking, what time did you usually first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
-    "last-calories-label": "What was the latest time of the day that you would usually eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "first-calories-label": "After waking, what time did you typically first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "last-calories-label": "What was the latest time of day that you would typically eat or drink anything other than water/black coffee and plain tea? (including snacks)",
     "eats-breakfast-label": "Did you typically eat breakfast?",
     "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
     "main-meals-placeholder": "Main meals per day",
-    "snacks-label": "How frequently did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
-    "snacks-placeholder": "Frequency of snacks per day",
-    "lost-control": "Do you worry that you had lost control over how much you eat?",
+    "snacks-label": "How many times did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
+    "snacks-placeholder": "Eat snacks per day",
+    "lost-control": "Do you worry that you had lost control over how much you eat?",
     "diet": {
       "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",
       "mixed": "Typical mixed diet (including most/all foods as well as meat, fish or seafood)",
       "vegetarian": "Vegetarian (includes eggs and/or dairy)",
       "vegan": "Vegan (no animal products)",
       "pescatarian": "Pescatarian (no meat other than fish or seafood)",
-      "low-carb": "Low-carbohydrate diet (includes ketogenic, Atkins, the Paleo diet or minimising carbs)",
+      "keto": "Ketogenic or Atkins",
+      "low-carb": "Low-carbohydrate diet (includes the Paleo diet or minimising carbs)",
       "low-fat": "Low-fat diet",
       "gluten-free": "Gluten-free diet",
       "lactose-free": "Lactose-free diet",
@@ -1203,11 +1206,17 @@
       "fast_food-2": "",
       "live-probiotic-1": "Live probiotic or fermented food products",
       "live-probiotic-2": "e.g. sauerkraut, kimchi, yakult, live yogurt, kefir",
+      "white-bread-1": "White bread",
+      "rice-1": "Rice",
+      "pasta-1": "Pasta",
+      "refined_breakfast-1": "Refined breakfast cereals",
+      "refined_breakfast-2": "e.g. rice krispies, cornflakes, coco pops",
 
-      "section-meat": "Whole meats:",
-      "section-processed-meat": "Processed meats / meat products:",
-      "section-fish": "Fish:",
+      "section-meat": "Whole meats",
+      "section-processed-meat": "Processed meats / meat products",
+      "section-fish": "Fish",
       "section-other": "Other",
+      "section-refined-carbs": "Refined carbohydrates",
 
       "portions_of_fruit-label": "On average, how many portions of FRUIT did you eat a day? (Excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
       "portions_of_fruit-placeholder": "Portions per day",
@@ -1222,12 +1231,16 @@
       "milk-skimmed": "Skimmed milk",
       "milk-rarely-never": "Rarely/never use milk",
       "milk-plant": "Plant-based milk",
-      "milk-other": "Other"
+      "milk-other": "Other",
+
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
     },
 
     "other-info": {
       "label": "Is there any other information about your diet & lifestyle you would like to share?",
-      "placeholder": "Optional"
+      "placeholder": "Optional",
+      "text-limit": "Ensure this field has no more than {{count}} characters.",
+      "text-limit-caption": "Max {{count}} characters"
     },
 
     "diet-changed": {
@@ -1237,31 +1250,24 @@
     "continue-cta": "Continue",
     "complete-cta": "Answer for February 2020",
 
-    "next-box": {
-      "title": "Thank you",
-      "text": "Now, please answer the same set of questions, but this time for February 2020, before the COVID pandemic spread."
-    },
-
     "consent": {
-      "header": "Before you finish",
-      "paragraph-1": "Thank you for completing this questionnaire. The data you have provided will be invaluable in helping to unravel the complex links between diet and COVID.",
-      "paragraph-2": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. We'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. This is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
+      "header": "Before you continue",
+      "paragraph": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. \n\nWe'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. \n\nThis is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
       "buttons-header": "Do you consent to using this data for further research into nutrition and health?",
-      "yes": "Yes, finish questionnaire",
-      "no": "No, finish questionnaire"
+      "yes": "Yes, I agree",
+      "no": "No, I do not consent"
     },
 
     "thank-you": {
-      "title": "Thank you.",
-      "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID.",
-      "text-2": "Feel free to share this with people who might be interested in this research."
+      "title": "Thank you",
+      "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID."
     },
 
-
     "thank-you-break": {
-      "description": "\"Thank you for answering these important questions. Lockdown has been a time of huge change for us all - your input is invaluable to help us understand its impact on our diet and lifestyle.\"",
+      "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
       "sarah-name": "Dr Sarah Berry",
-      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
+      "return-later": "If you'd like to take a break, you can return to these questions by clicking 'Diet Study' from the menu in the top right corner of the home screen. "
     }
   },
 
@@ -1294,6 +1300,6 @@
     "callout-title": "VACCINE",
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
-    "menu-item": "Join the vaccine registry"
+    "menu-item": "Join vaccine registry"
   }
 }

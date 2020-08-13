@@ -17,6 +17,7 @@ export const gbFlag = require('./icons/gb-flag.png');
 export const menuIcon = require('./icons/menu.png');
 export const pending = require('./icons/pending.png');
 export const svFlag = require('./icons/sv-flag.png');
+export const bigTick = require('./icons/bigTick.png');
 export const tick = require('./icons/tick.png');
 export const usFlag = require('./icons/us-flag.png');
 
@@ -63,6 +64,8 @@ export const timUpdate005 = require('./thank-you-modules/tim_update_005.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
+export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
+export const donate = require('./thank-you-modules/donate.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');

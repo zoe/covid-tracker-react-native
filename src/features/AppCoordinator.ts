@@ -15,7 +15,8 @@ import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { PatientData } from '@covid/core/patient/PatientData';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -119,7 +120,14 @@ export class AppCoordinator {
   }
 
   startPatientFlow(currentPatient: PatientStateType) {
-    patientCoordinator.init(this, { currentPatient }, this.userService);
+    const patientData: PatientData = {
+      patientId: currentPatient.patientId,
+      patientState: currentPatient,
+      patientInfo: undefined,
+      profile: undefined,
+    };
+
+    patientCoordinator.init(this, patientData, this.userService);
     patientCoordinator.startPatient();
   }
 
@@ -138,6 +146,20 @@ export class AppCoordinator {
     dietStudyCoordinator.startDietStudy();
   }
 
+  async startEditProfile(profile: Profile) {
+    const patientInfo = await this.userService.getPatient(profile.id);
+    this.patientId = profile.id;
+
+    const patientData: PatientData = {
+      patientId: this.patientId,
+      patientState: this.currentPatient,
+      patientInfo: patientInfo!,
+      profile,
+    };
+    editProfileCoordinator.init(this, patientData, this.userService);
+    editProfileCoordinator.startEditProfile();
+  }
+
   gotoNextScreen = (screenName: ScreenName) => {
     if (this.screenFlow[screenName]) {
       this.screenFlow[screenName]();
@@ -146,12 +168,6 @@ export class AppCoordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
-
-  async editProfile(profile: Profile) {
-    const patientInfo = await this.userService.getPatient(profile.id);
-    this.patientId = profile.id;
-    NavigatorService.navigate('EditProfile', { profile, patientInfo: patientInfo! });
-  }
 
   async profileSelected(profile: Profile) {
     await this.setPatientId(profile.id);
@@ -228,10 +244,6 @@ export class AppCoordinator {
       Analytics.track(events.DECLINE_VACCINE_REGISTER);
       NavigatorService.goBack();
     }
-  }
-
-  goToEditLocation(profile: Profile, patientInfo: PatientInfosRequest) {
-    NavigatorService.navigate('EditLocation', { profile, patientInfo });
   }
 }
 

@@ -18,7 +18,6 @@ import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import Donate from '@covid/components/Donate';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -68,8 +67,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               <View>
                 <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
               </View>
-
-              <Donate />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/post/incidence-update-13-aug?utm_source=App"
@@ -129,7 +126,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() => this.props.navigation.navigate('SelectProfile')}
+                  onPress={() =>
+                    this.props.navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'SelectProfile' }],
+                    })
+                  }
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>
