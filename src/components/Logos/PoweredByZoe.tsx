@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-import { zoe } from '@assets';
+import { zoe, poweredByZoeSmall } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 
@@ -22,6 +22,8 @@ export const PoweredByZoe = () => {
   );
 };
 
+export const PoweredByZoeSmall = () => <Image source={poweredByZoeSmall} style={styles.poweredBySmall} />;
+
 const styles = StyleSheet.create({
   block: {
     width: '85%',
@@ -33,6 +35,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
+  },
+  poweredBySmall: {
+    width: '40%',
+    height: 32,
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
   zoeLogo: {
     resizeMode: 'contain',

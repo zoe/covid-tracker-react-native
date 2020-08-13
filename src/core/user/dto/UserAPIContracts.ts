@@ -272,6 +272,17 @@ export type AreaStatsResponse = {
 export type StartupInfo = {
   users_count: number;
   ip_country: string;
+  show_new_dashboard: boolean;
+  local_data: {
+    map_url: string;
+    name: string;
+    cases: number;
+    app_users: number;
+    map_config?: {
+      lat: number;
+      lng: number;
+    };
+  };
 };
 
 export type AskForStudies = {

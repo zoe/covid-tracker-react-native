@@ -19,6 +19,21 @@ const ASKED_COUNTRY = 'askedCountry';
 
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
+export const PERSONALISED_LOCAL_DATA = 'personalisedLocalData';
+
+export type PersonalisedLocalData = {
+  mapUrl: string;
+  mapConfig?: Coordinates;
+  name: string;
+  cases: number;
+  appUsers: number;
+};
+
+export type Coordinates = {
+  lat: number;
+  lng: number;
+};
+
 export class AsyncStorageService {
   public static async GetStoredData(): Promise<AuthenticatedUser | null> {
     let userToken: string | null = '';
@@ -202,6 +217,23 @@ export class AsyncStorageService {
   static async setDietStudyConsent(consent: DietStudyConsent) {
     try {
       return await AsyncStorage.setItem(DIET_STUDY_CONSENT, consent);
+    } catch (err) {}
+  }
+
+  // Common
+
+  static async getItem<T>(key: string): Promise<T | null> {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      return value as T | null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  static async setItem(item: string, key: string): Promise<void> {
+    try {
+      return await AsyncStorage.setItem(key, item);
     } catch (err) {}
   }
 }
