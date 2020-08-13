@@ -53,7 +53,7 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  homeScreenName: ScreenName = 'Dashboard';
+  homeScreenName: ScreenName = 'WelcomeRepeat';
 
   screenFlow: ScreenFlow = {
     Splash: () => {
@@ -123,7 +123,7 @@ export class AppCoordinator {
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'Dashboard';
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
