@@ -117,7 +117,6 @@ export class AppCoordinator {
   };
 
   async init() {
-    console.log('hi');
     const info = await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
