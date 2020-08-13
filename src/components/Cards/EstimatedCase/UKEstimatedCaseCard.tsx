@@ -19,27 +19,20 @@ export const UKEstimatedCaseCard: React.FC<Props> = ({ onPress }) => {
   const [dailyCases, setDailyCases] = useState<string>('');
   const [activeCases, setActiveCases] = useState<string>('');
 
-  const onMapEvent = (type: string, data?: object) => {
-    switch (type) {
-      case 'setEstmiatedActiveCases':
-        if (typeof data === 'string') {
-          console.log('data', data);
-          setActiveCases(data as string);
-        }
-        break;
-    }
-  };
-
   useEffect(() => {
     (async () => {
-      const daily = await statsClient.getDailyCases();
-      setDailyCases(daily);
+      try {
+        setDailyCases(await statsClient.getDailyCases());
+      } catch (_) {}
+      try {
+        setActiveCases(await statsClient.getActiveCases());
+      } catch (_) {}
     })();
   }, []);
 
   return (
     <>
-      <WebView originWhitelist={['*']} source={html} style={{}} pointerEvents="none" onEvent={onMapEvent} />
+      <WebView originWhitelist={['*']} source={html} pointerEvents="none" />
       <EstimatedCaseCard
         primaryLabel={i18n.t('estimated-cases-card.covid-in-the-uk')}
         secondaryLabel={i18n.t('estimated-cases-card.estimated-cases')}
