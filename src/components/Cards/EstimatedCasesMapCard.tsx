@@ -41,6 +41,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
+  const showUpdatePostcode = false;
   const showCartoMap = true;
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
@@ -64,9 +65,11 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
         <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
       </View>
 
-      <Button style={[styles.detailsButton, styles.postcodeButton]} onPress={onPress}>
-        <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
-      </Button>
+      {showUpdatePostcode && (
+        <Button style={[styles.detailsButton, styles.postcodeButton]} onPress={onPress}>
+          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
+        </Button>
+      )}
     </View>
   );
 };
@@ -81,7 +84,6 @@ type MapConfig = {
 const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
 const ZOOM_LEVEL_CLOSER = 10.5;
 const ZOOM_LEVEL_FURTHER = 6;
-const USE_CARTO_MAP = true;
 
 export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const userService = useInjection<ICoreService>(Services.User);
@@ -93,23 +95,34 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const [mapUrl, setMapUrl] = useState<string | null>(null);
   const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
   const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
+  const [useCartoMap, setUseCartoMap] = useState<boolean>(true);
 
   const [mapConfig, setMapConfig] = useState<MapConfig>({
     coordinates: DEFAULT_MAP_CENTER,
     zoom: ZOOM_LEVEL_FURTHER,
   });
 
-  // Show to up date local data
   useEffect(() => {
+    // Use carto map if map url is not avaliable
+    const hasMapUrl = !!contentService.localData?.mapUrl;
+    setUseCartoMap(!hasMapUrl);
+
+    // Show empty state if data is missing
     if (!contentService.localData) {
       setShowEmptyState(true);
       return;
     }
+
+    // Show to up date local data
     setDisplayLocation(contentService.localData!.name);
     setMapUrl(contentService.localData!.mapUrl);
     setActiveCases(contentService.localData!.cases);
     setShowEmptyState(false);
-    syncMapCenter();
+
+    // Update carto's map center if map url isn't avaliable
+    if (!hasMapUrl) {
+      syncMapCenter();
+    }
   }, [contentService.localData]);
 
   useEffect(() => {
@@ -118,7 +131,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
   const syncMapCenter = () => {
-    // Set defaults
+    // Set defaults center
     const { lat, lng } = DEFAULT_MAP_CENTER;
     let config = { coordinates: { lat, lng }, zoom: ZOOM_LEVEL_FURTHER };
 
@@ -140,7 +153,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   const map = (): React.ReactNode => {
-    if (USE_CARTO_MAP) {
+    if (useCartoMap) {
       return (
         <WebView ref={webViewRef} originWhitelist={['*']} source={html} style={styles.webview} onEvent={onMapEvent} />
       );
