@@ -53,7 +53,7 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  homeScreenName: ScreenName = 'WelcomeRepeat';
+  homeScreenName: ScreenName = 'Dashboard';
 
   screenFlow: ScreenFlow = {
     Splash: () => {
@@ -117,12 +117,13 @@ export class AppCoordinator {
   };
 
   async init() {
+    console.log('hi');
     const info = await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'Dashboard';
   }
 
   getConfig(): ConfigType {
@@ -270,7 +271,7 @@ export class AppCoordinator {
   }
 
   private async buildPatientData(profile: Profile): Promise<PatientData> {
-    const patientInfo = await this.userService.getPatient(profile.id);
+    const patientInfo = await this.patientService.getPatient(profile.id);
     return {
       patientId: profile.id,
       patientState: this.currentPatient,
