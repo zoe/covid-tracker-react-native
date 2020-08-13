@@ -12,6 +12,10 @@ type IncidenceResponse = {
   uk_incidence: string;
 };
 
+type PrevalenceResponse = {
+  uk_prevalence: string;
+};
+
 @injectable()
 export class PredictiveMetricsClient implements IPredictiveMetricsClient {
   constructor(@inject(Services.IncidenceHttpApi) private apiClient: IApiClient) {
@@ -27,5 +31,10 @@ export class PredictiveMetricsClient implements IPredictiveMetricsClient {
   async getDailyCases(): Promise<string> {
     const { uk_incidence } = await this.apiClient.get<IncidenceResponse>('/latest/incidence.json');
     return uk_incidence;
+  }
+
+  async getAcitveCases(): Promise<string> {
+    const { uk_prevalence } = await this.apiClient.get<PrevalenceResponse>('/latest/prevalence.json');
+    return uk_prevalence;
   }
 }
