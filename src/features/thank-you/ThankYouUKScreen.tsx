@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog007, dataPage003, incidence010, notificationReminders } from '@assets';
+import { blog008, dataPage003, incidence011, timUpdate005, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -69,17 +69,24 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/diet-lifestyle-covid-questionnaire?utm_source=App"
-                calloutID="blog_007"
-                imageSource={blog007}
-                aspectRatio={1.551}
+                link="https://covid.joinzoe.com/post/incidence-update-13-aug?utm_source=App"
+                calloutID="blog_008"
+                imageSource={blog008}
+                aspectRatio={1.552}
               />
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_010"
-                imageSource={incidence010}
+                calloutID="incidence_011"
+                imageSource={incidence011}
                 aspectRatio={1.5}
+              />
+
+              <ExternalCallout
+                link="https://youtu.be/f9yYES3WxZE"
+                calloutID="tim_update_005"
+                imageSource={timUpdate005}
+                aspectRatio={1.178}
               />
 
               <ExternalCallout
@@ -88,13 +95,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={dataPage003}
                 aspectRatio={1.55}
               />
-
-              {/* <ExternalCallout
-                link="https://www.youtube.com/watch?v=zToStOETP00"
-                calloutID="tim_update_004"
-                imageSource={timUpdate004}
-                aspectRatio={1.178}
-              /> */}
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
