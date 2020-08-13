@@ -270,7 +270,7 @@ export class AppCoordinator {
   }
 
   private async buildPatientData(profile: Profile): Promise<PatientData> {
-    const patientInfo = await this.userService.getPatient(profile.id);
+    const patientInfo = await this.patientService.getPatient(profile.id);
     return {
       patientId: profile.id,
       patientState: this.currentPatient,
