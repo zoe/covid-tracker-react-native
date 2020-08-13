@@ -64,18 +64,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
       {isGBCountry() && <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={onMoreDetails} />}
 
-      {isGBCountry() && (
-        <View style={styles.calloutContainer}>
-          <ExternalCallout
-            link="https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy"
-            calloutID="donate"
-            imageSource={donate}
-            aspectRatio={1.59}
-            screenName={route.name}
-          />
-        </View>
-      )}
-
       <View style={styles.zoe}>
         <PoweredByZoeSmall />
       </View>
