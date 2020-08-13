@@ -6,6 +6,7 @@ import { IApiClient } from '@covid/core/api/ApiClient';
 
 export interface IPredictiveMetricsClient {
   getDailyCases(): Promise<string>;
+  getActiveCases(): Promise<string>;
 }
 
 type IncidenceResponse = {
