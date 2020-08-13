@@ -1,11 +1,11 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Linking } from 'expo';
 
-import { covidIcon, donate } from '@assets';
+import { covidIcon } from '@assets';
 import { colors } from '@theme';
 import { CalloutBox } from '@covid/components/CalloutBox';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
@@ -17,16 +17,17 @@ import AnalyticsService from '@covid/core/Analytics';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
 import { cleanIntegerVal } from '@covid/utils/number';
 import i18n from '@covid/locale/i18n';
-import { contentService, offlineService, pushNotificationService } from '@covid/Services';
+import { offlineService, pushNotificationService } from '@covid/Services';
 import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
-import { lazyInject } from '@covid/provider/services';
+import { lazyInject, container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
-
-import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
+import { IUserService } from '@covid/core/user/UserService';
+import { IContentService } from '@covid/core/content/ContentService';
+import { ILocalisationService, isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -45,23 +46,35 @@ type WelcomeRepeatScreenState = {
 const initialState = {
   ...initialErrorState,
   userCount: null,
-  calloutBoxContent: contentService.getCalloutBoxDefault(),
+  calloutBoxContent: container.get<IContentService>(Services.Content).getCalloutBoxDefault(),
 };
 
 export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScreenState> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
+  @lazyInject(Services.Content)
+  private readonly contentService: IContentService;
+
+  @lazyInject(Services.Consent)
+  private readonly consentService: IConsentService;
 
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
-    const userCount = await contentService.getUserCount();
-    const content = await contentService.getWelcomeRepeatContent();
+    const content = await this.contentService.getWelcomeRepeatContent();
+    const userCount = await this.contentService.getUserCount();
 
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
-    this.setState({ calloutBoxContent: content, userCount: cleanIntegerVal(userCount as string) });
+    this.setState({
+      calloutBoxContent: content,
+      userCount: cleanIntegerVal(userCount as string),
+    });
   }
 
   gotoNextScreen = async () => {
@@ -120,19 +133,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             {this.displayPartnerLogo()}
 
-            {isGBCountry() ? (
-              <ExternalCallout
-                link="https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy"
-                calloutID="donate"
-                imageSource={donate}
-                aspectRatio={1.59}
-              />
-            ) : (
-              <CalloutBox
-                content={this.state.calloutBoxContent}
-                onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
-              />
-            )}
+            <CalloutBox
+              content={this.state.calloutBoxContent}
+              onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+            />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>

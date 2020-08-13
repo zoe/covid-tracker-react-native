@@ -5,7 +5,13 @@ import { RouteProp } from '@react-navigation/native';
 
 import { gbPartners, svPartners, usPartners } from '@assets';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import {
+  isGBCountry,
+  isSECountry,
+  isUSCountry,
+  ILocalisationService,
+} from '@covid/core/localisation/LocalisationService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -24,7 +30,8 @@ type PropsType = {
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
-  const userService = useInjection<ICoreService>(Services.User);
+  const userService = useInjection<IUserService>(Services.User);
+  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   const [ipModalVisible, setIpModalVisible] = useState(false);
 
@@ -33,12 +40,12 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
   const onCloseModal = useCallback(() => setIpModalVisible(false), [setIpModalVisible]);
 
   const onCreateAccountPress = useCallback(async () => {
-    if (await userService.shouldAskCountryConfirmation()) {
+    if (await localisationService.shouldAskCountryConfirmation()) {
       setIpModalVisible(true);
     } else {
       appCoordinator.goToPreRegisterScreens();
     }
-  }, [userService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
+  }, [localisationService.shouldAskCountryConfirmation, setIpModalVisible, isUSCountry, navigation.navigate]);
 
   const getFlagIcon = useCallback(getLocaleFlagIcon, [getLocaleFlagIcon]);
 

@@ -4,7 +4,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { ICoreService, isGBCountry, isSECountry, isUSCountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { BrandedButton } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
@@ -12,6 +12,7 @@ import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appConfig from '@covid/appConfig';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 
 import ConsentScreenGB from './ConsentScreenGB';
 import ConsentScreenSE from './ConsentScreenSE';
@@ -23,8 +24,9 @@ type PropsType = {
 };
 
 const ConsentScreen: FC<PropsType> = (props) => {
-  const userService = useInjection<ICoreService>(Services.User);
   const [agreed, setAgreed] = useState(false);
+
+  const consentService = useInjection<IConsentService>(Services.Consent);
 
   const handleAgreeClicked = useCallback(async () => {
     if (!agreed) {
@@ -32,16 +34,16 @@ const ConsentScreen: FC<PropsType> = (props) => {
     }
 
     if (isUSCountry()) {
-      await userService.setConsentSigned('US', appConfig.consentVersionUS, appConfig.privacyPolicyVersionUS);
+      await consentService.setConsentSigned('US', appConfig.consentVersionUS, appConfig.privacyPolicyVersionUS);
     }
     if (isGBCountry()) {
-      await userService.setConsentSigned('UK', appConfig.consentVersionUK, appConfig.privacyPolicyVersionUK);
+      await consentService.setConsentSigned('UK', appConfig.consentVersionUK, appConfig.privacyPolicyVersionUK);
     }
     if (isSECountry()) {
-      await userService.setConsentSigned('SE', appConfig.consentVersionSE, appConfig.privacyPolicyVersionSE);
+      await consentService.setConsentSigned('SE', appConfig.consentVersionSE, appConfig.privacyPolicyVersionSE);
     }
     appCoordinator.gotoNextScreen(props.route.name);
-  }, [agreed, userService.setConsentSigned]);
+  }, [agreed, consentService.setConsentSigned]);
 
   const renderConsent = useCallback(() => {
     if (isUSCountry()) {

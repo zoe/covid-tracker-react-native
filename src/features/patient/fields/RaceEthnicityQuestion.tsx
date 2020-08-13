@@ -6,8 +6,8 @@ import { StyleSheet, View } from 'react-native';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
-import { isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface RaceEthnicityData {
   race: string[];
@@ -116,21 +116,21 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
               <Label>{i18n.t('ethnicity-question')}</Label>
               <CheckboxList>
                 <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity == 'hispanic'}
+                  value={this.props.formikProps.values.ethnicity === 'hispanic'}
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'hispanic' : '');
                   }}>
                   {i18n.t('hispanic')}
                 </CheckboxItem>
                 <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity == 'not_hispanic'}
+                  value={this.props.formikProps.values.ethnicity === 'not_hispanic'}
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'not_hispanic' : '');
                   }}>
                   {i18n.t('not-hispanic')}
                 </CheckboxItem>
                 <CheckboxItem
-                  value={this.props.formikProps.values.ethnicity == 'prefer_not_to_say'}
+                  value={this.props.formikProps.values.ethnicity === 'prefer_not_to_say'}
                   onChange={(value: boolean) => {
                     this.props.formikProps.setFieldValue('ethnicity', value ? 'prefer_not_to_say' : '');
                   }}>

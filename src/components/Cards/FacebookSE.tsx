@@ -5,7 +5,6 @@ import { facebook } from '@assets';
 import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import i18n from '@covid/locale/i18n';
 
 export const FacebookSECard: React.FC = () => {
   const onButtonPress = () => {

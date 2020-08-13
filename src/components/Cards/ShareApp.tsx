@@ -2,17 +2,11 @@ import React from 'react';
 
 import i18n from '@covid/locale/i18n';
 
-import { isAndroid } from '../Screen';
-
-import { CommonShareProps, BaseShareAppCard, shareUrl, shareApp } from './BaseShareApp';
+import { CommonShareProps, BaseShareAppCard, share } from './BaseShareApp';
 
 export const ShareAppCard: React.FC<CommonShareProps> = (props) => {
   const shareMessage = i18n.t('share-this-app.message');
-  const share = async () => {
-    const message = shareMessage + (isAndroid ? ' ' + shareUrl() : ''); // On Android add link to end of message
-    shareApp(message);
-  };
-  const { onSharePress = () => share() } = props;
+  const { onSharePress = () => share(shareMessage) } = props;
 
   return (
     <BaseShareAppCard

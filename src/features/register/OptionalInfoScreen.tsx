@@ -17,7 +17,8 @@ import { LoadingModal } from '@covid/components/Loading';
 import { offlineService, pushNotificationService } from '@covid/Services';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -43,7 +44,10 @@ interface OptionalInfoData {
 
 export class OptionalInfoScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
+
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   private phoneComponent: any;
 

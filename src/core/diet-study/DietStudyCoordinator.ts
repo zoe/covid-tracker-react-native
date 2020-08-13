@@ -1,5 +1,5 @@
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
@@ -53,7 +53,7 @@ export type DietStudyData = {
 export class DietStudyCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
-  userService: ICoreService;
+  userService: IUserService;
   dietStudyService: IDietStudyRemoteClient;
   dietStudyData: DietStudyData;
 
@@ -72,21 +72,21 @@ export class DietStudyCoordinator {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (!timePeriod) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
         return;
       }
 
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
       NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
       if (timePeriod === PRE_LOCKDOWN) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
     },
@@ -95,7 +95,7 @@ export class DietStudyCoordinator {
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
-        NavigatorService.navigate('WelcomeRepeat');
+        NavigatorService.navigate(this.appCoordinator.homeScreenName);
       } else {
         this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
       }
@@ -105,7 +105,7 @@ export class DietStudyCoordinator {
   init = (
     appCoordinator: AppCoordinator,
     dietStudyData: DietStudyData,
-    userService: ICoreService,
+    userService: IUserService,
     dietStudyService: IDietStudyRemoteClient
   ) => {
     this.appCoordinator = appCoordinator;

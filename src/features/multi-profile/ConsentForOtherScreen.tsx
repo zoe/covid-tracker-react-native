@@ -8,12 +8,12 @@ import { LoadingModal } from '@covid/components/Loading';
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ClickableText, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ApiErrorState, initialErrorState } from '@covid/core/api/ApiServiceErrors';
-import { ICoreService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import appCoordinator from '../AppCoordinator';
 import { ConsentType, ScreenParamList } from '../ScreenParamList';
@@ -35,8 +35,8 @@ const initialState: ConsentState = {
 };
 
 export default class ConsentForOtherScreen extends Component<RenderProps, ConsentState> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   constructor(props: RenderProps) {
     super(props);
@@ -82,7 +82,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
       reported_by_another: true,
     } as Partial<PatientInfosRequest>;
 
-    const response = await this.userService.createPatient(newPatient);
+    const response = await this.patientService.createPatient(newPatient);
     return response.id;
   }
 

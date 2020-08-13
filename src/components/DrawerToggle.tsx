@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View, StyleProp, ViewProps, Text } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { colors } from '@theme';
