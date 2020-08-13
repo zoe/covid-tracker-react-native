@@ -5,6 +5,8 @@ import { Button } from 'native-base';
 import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
+import { WebView } from '@covid/components/WebView';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 interface Props {
   primaryLabel: string;
@@ -16,6 +18,8 @@ interface Props {
   ctaLabel: string;
   ctaOnPress: VoidFunction;
 }
+
+const html = require('@assets/charts/cases-time-series.html');
 
 export const EstimatedCaseCard: React.FC<Props> = ({
   primaryLabel,
@@ -34,6 +38,12 @@ export const EstimatedCaseCard: React.FC<Props> = ({
 
   return (
     <View style={styles.root}>
+      {isGBCountry() && (
+        <View style={styles.chartContainer}>
+          <WebView originWhitelist={['*']} source={html} style={styles.webview} />
+        </View>
+      )}
+
       <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
       <MutedText style={styles.secondaryLabel}>{secondaryLabel}</MutedText>
 
@@ -64,6 +74,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 32,
     marginVertical: 16,
     paddingVertical: 32,
+  },
+
+  chartContainer: {
+    width: '100%',
+    height: 180,
+    paddingHorizontal: 16,
+  },
+
+  webview: {
+    height: '100%',
+    width: '100%',
   },
 
   primaryLabel: {

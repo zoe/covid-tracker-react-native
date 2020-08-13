@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body class="data-page">
+
+  <canvas id="overTime" class="chartjs-render-monitor"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+  <script>
+    const sql = new cartodb.SQL({ user: 'joinzoe', api_key: 'N6sTD5Jriyd5fxO8Y19Dzw' });
+    var ctx = document.getElementById('overTime');
+
+    sql.execute("SELECT * FROM uk_active_cases")
+      .done(function (data) {
+        var corrected_covid_positive = [];
+        var covid_dates = [];
+        $.each(data.rows, function (key, value) {
+          corrected_covid_positive.push(Math.round(value.corrected_covid_positive));
+          covid_dates.push(moment(value.date).format("D MMM"));
+        });
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: covid_dates,
+            datasets: [{
+              label: 'Predicted # of cases',
+              data: corrected_covid_positive,
+              borderWidth: 2,
+              borderColor: "#6ac5d1",
+              pointBorderColor: "#6ac5d1",
+              pointBackgroundColor: "#6ac5d1",
+              pointHoverBackgroundColor: "#6ac5d1",
+              pointHoverBorderColor: "#6ac5d1",
+              pointBorderWidth: 6,
+              pointHoverRadius: 6,
+              pointHoverBorderWidth: 1,
+              pointRadius: 0.1,
+              fill: true,
+              backgroundColor: "rgba(106, 197, 209, 0.4)"
+            }]
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            tooltips: {
+              callbacks: {
+                label: function (tooltipItems, data) {
+                  return 'Predicted # of cases: ' + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                }
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  callback: function (value, index, values) {
+                    return value.toLocaleString();
+                  }
+                },
+                gridLines: {
+                  color: "rgba(0, 0, 0, 0.05)",
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                  maxTicksLimit: 10
+                },
+                gridLines: {
+                  color: "rgba(0, 0, 0, 0.05)",
+                }
+              }]
+            },
+            label: {
+              fontFamily: 'Sofia pro'
+            }
+          }
+        });
+      })
+      .error(function (errors) {
+        console.log("errors:" + errors);
+      });
+  </script>
+</body>
+
+</html>
