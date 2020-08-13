@@ -145,7 +145,7 @@ export default class CovidApp extends Component<object, State> {
     );
   }
 
-  bottomNavigator = () => {
+  tabNavigator = () => {
     return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -259,8 +259,9 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
+
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

@@ -128,6 +128,8 @@ const styles = StyleSheet.create({
   },
   drawerToggleContainer: {
     zIndex: 999,
+    position: 'absolute',
+    right: 0,
     marginTop: 58,
     marginRight: 16,
   },
