@@ -1328,7 +1328,7 @@
   },
 
   "covid-cases-map": {
-    "covid-in-x": "COVID in the {{location}}",
+    "covid-in-x": "COVID in {{location}}",
     "current-estimates": "Current estimates",
     "active-cases-in-area": "Active cases\rin your area",
     "share": "Share your map",
