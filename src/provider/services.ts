@@ -11,8 +11,8 @@ import { IPatientService, PatientService } from '@covid/core/patient/PatientServ
 import { IProfileService, ProfileService } from '@covid/core/profile/ProfileService';
 import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
-
-import { Services } from './services.types';
+import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { Services } from '@covid/provider/services.types';
 
 export const container = new Container();
 
@@ -35,5 +35,12 @@ container.bind<IProfileService>(Services.Profile).to(ProfileService).inSingleton
 container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSingletonScope();
 
 container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
+
+// Incidence Api
+container.bind<IApiClient>(Services.IncidenceHttpApi).to(ApiClient).inSingletonScope();
+container
+  .bind<IPredictiveMetricsClient>(Services.PredictiveMetricsClient)
+  .to(PredictiveMetricsClient)
+  .inSingletonScope();
 
 export const { lazyInject } = getDecorators(container);
