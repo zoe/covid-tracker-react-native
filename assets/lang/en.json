@@ -573,6 +573,7 @@
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
   "delete": "Delete",
+  "estimated-cases": "Estimated cases",
   "logout": "Log out",
 
   "your-country-title": "Your country",
@@ -1300,6 +1301,38 @@
     "callout-title": "VACCINE",
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
-    "menu-item": "Join vaccine registry"
+    "menu-item": "Join the vaccine registry"
+  },
+
+  "dashboard": {
+    "report-now": "Report now",
+    "you-have-reported-x-times": "You’ve reported %{count} times",
+    "contributors-so-far": "Contributors so far:"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "COVID in the UK",
+    "estimated-cases": "Estimated cases",
+    "daily": "Daily new cases",
+    "active": "Active cases",
+    "cta": "More details"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Latest News"
+  },
+
+  "latest-news": {
+    "title": "Latest News"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID in {{location}}",
+    "current-estimates": "Current estimates",
+    "active-cases-in-area": "Active cases\rin your area",
+    "share": "Share your map",
+    "update-postcode": "Please update your postcode to see our estimated cases in your area",
+    "update-postcode-cta": "Update postcode"
   }
 }

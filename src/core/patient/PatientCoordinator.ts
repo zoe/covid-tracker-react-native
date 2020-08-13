@@ -1,6 +1,4 @@
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { IUserService } from '@covid/core/user/UserService';
-import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
@@ -42,7 +40,7 @@ export class PatientCoordinator implements Coordinator {
     const config = this.userService.getConfig();
     const patientId = this.patientData.patientId;
 
-    const startPage = 'WelcomeRepeat';
+    const startPage = this.appCoordinator.homeScreenName;
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     const nextPage = shouldAskStudy ? 'YourStudy' : 'YourWork';
 

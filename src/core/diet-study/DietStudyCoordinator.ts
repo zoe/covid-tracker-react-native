@@ -72,21 +72,21 @@ export class DietStudyCoordinator {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (!timePeriod) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
         return;
       }
 
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
       NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
       if (timePeriod === PRE_LOCKDOWN) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
     },
@@ -95,7 +95,7 @@ export class DietStudyCoordinator {
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
-        NavigatorService.navigate('WelcomeRepeat');
+        NavigatorService.navigate(this.appCoordinator.homeScreenName);
       } else {
         this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
       }

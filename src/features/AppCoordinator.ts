@@ -28,14 +28,6 @@ type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
 
-// Various route parameters
-type PatientIdParamType = { patientId: string };
-type CurrentPatientParamType = { currentPatient: PatientStateType };
-type ConsentView = { viewOnly: boolean };
-type ProfileParamType = { profile: Profile };
-type ProfileIdType = { profileId: string };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType; //TODO Can be used for passing params to goToNextScreen
-
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator {
@@ -61,16 +53,18 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  screenFlow: Partial<ScreenFlow> = {
+  homeScreenName: ScreenName = 'WelcomeRepeat';
+
+  screenFlow: ScreenFlow = {
     Splash: () => {
       if (this.patientId) {
-        NavigatorService.replace('WelcomeRepeat');
+        NavigatorService.replace(this.homeScreenName);
       } else {
         NavigatorService.replace('Welcome');
       }
     },
     Login: () => {
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.reset([{ name: this.homeScreenName }]);
     },
     Register: () => {
       const config = appCoordinator.getConfig();
@@ -99,6 +93,10 @@ export class AppCoordinator {
         this.startAssessmentFlow(this.currentPatient);
       }
     },
+    Dashboard: () => {
+      // UK only so currently no need to check config.enableMultiplePatients
+      NavigatorService.navigate('SelectProfile');
+    },
     ArchiveReason: () => {
       NavigatorService.navigate('SelectProfile');
     },
@@ -114,16 +112,17 @@ export class AppCoordinator {
       NavigatorService.navigate('Register');
     },
     VaccineRegistryInfo: () => {
-      NavigatorService.navigate('WelcomeRepeat');
+      NavigatorService.navigate(this.homeScreenName);
     },
   };
 
   async init() {
-    await this.contentService.getStartupInfo();
+    const info = await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
@@ -139,7 +138,7 @@ export class AppCoordinator {
   }
 
   resetToProfileStartAssessment() {
-    NavigatorService.navigate('SelectProfile');
+    NavigatorService.navigate('Dashboard');
     this.startAssessmentFlow(this.currentPatient);
   }
 
@@ -171,17 +170,17 @@ export class AppCoordinator {
   }
 
   async startEditProfile(profile: Profile) {
-    const patientInfo = await this.userService.getPatient(profile.id);
-    this.patientId = profile.id;
-
-    const patientData: PatientData = {
-      patientId: this.patientId,
-      patientState: this.currentPatient,
-      patientInfo: patientInfo!,
-      profile,
-    };
+    const patientData = await this.buildPatientData(profile);
+    this.patientId = patientData.patientId;
     editProfileCoordinator.init(this, patientData, this.userService);
     editProfileCoordinator.startEditProfile();
+  }
+
+  async startEditLocation(profile: Profile) {
+    const patientData = await this.buildPatientData(profile);
+    this.patientId = patientData.patientId;
+    editProfileCoordinator.init(this, patientData, this.userService);
+    editProfileCoordinator.goToEditLocation();
   }
 
   gotoNextScreen = (screenName: ScreenName) => {
@@ -268,6 +267,16 @@ export class AppCoordinator {
       Analytics.track(events.DECLINE_VACCINE_REGISTER);
       NavigatorService.goBack();
     }
+  }
+
+  private async buildPatientData(profile: Profile): Promise<PatientData> {
+    const patientInfo = await this.userService.getPatient(profile.id);
+    return {
+      patientId: profile.id,
+      patientState: this.currentPatient,
+      patientInfo: patientInfo!,
+      profile,
+    };
   }
 }
 

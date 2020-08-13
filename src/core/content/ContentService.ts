@@ -1,25 +1,24 @@
 import { injectable, inject } from 'inversify';
 
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { AsyncStorageService, PersonalisedLocalData, PERSONALISED_LOCAL_DATA } from '@covid/core/AsyncStorageService';
+import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
-import { isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
-
-import { LocalisationService } from '../localisation/LocalisationService';
-
-import { IContentApiClient } from './ContentApiClient';
+import { camelizeKeys } from '@covid/core/api/utils';
+import { IContentApiClient } from '@covid/core/content/ContentApiClient';
 
 export interface IContentService {
+  localData?: PersonalisedLocalData;
   getUserCount(): Promise<string | null>;
   getWelcomeRepeatContent(): Promise<ScreenContent>;
   getCalloutBoxDefault(): ScreenContent;
   getAskedToRateStatus(): Promise<string | null>;
   setAskedToRateStatus(status: string): void;
   getUserCount(): Promise<string | null>;
-  getStartupInfo(): void;
+  getStartupInfo(): Promise<StartupInfo | null>;
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
 }
 
@@ -28,6 +27,10 @@ export default class ContentService implements IContentService {
   @inject(Services.ContentApi)
   private readonly apiClient: IContentApiClient;
   private screenContent: AppScreenContent;
+
+  localData: PersonalisedLocalData;
+
+  constructor(@inject(Services.ContentApi) private apiClient: IContentApiClient) {}
 
   static getWebsiteUrl = () => {
     if (isUSCountry()) {
@@ -66,14 +69,31 @@ export default class ContentService implements IContentService {
     return await AsyncStorageService.getUserCount();
   }
 
+  async getLocalData(): Promise<PersonalisedLocalData> {
+    const item = await AsyncStorageService.getItem<string>(PERSONALISED_LOCAL_DATA);
+    if (!item) {
+      throw new Error('Local data not found');
+    }
+    const model = JSON.parse(item);
+    return model as PersonalisedLocalData;
+  }
+
   async getStartupInfo() {
     try {
       const info = await this.apiClient.getStartupInfo();
       LocalisationService.ipCountry = info.ip_country;
       await AsyncStorageService.setUserCount(info.users_count.toString());
+      if (info.local_data) {
+        const data = camelizeKeys(info.local_data);
+        await AsyncStorageService.setItem(JSON.stringify(camelizeKeys(data)), PERSONALISED_LOCAL_DATA);
+        this.localData = data;
+      }
+      return info;
     } catch (error) {
       handleServiceError(error);
     }
+
+    return null;
   }
 
   public async getAskedToRateStatus() {

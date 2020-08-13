@@ -17,9 +17,9 @@ import { Services } from '@covid/provider/services.types';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-import Donate from '@covid/components/Donate';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -73,6 +73,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="blog_007"
                 imageSource={blog007}
                 aspectRatio={1.551}
+                screenName={this.props.route.name}
               />
 
               <ExternalCallout
@@ -80,6 +81,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="incidence_010"
                 imageSource={incidence010}
                 aspectRatio={1.5}
+                screenName={this.props.route.name}
               />
 
               <ExternalCallout
@@ -87,6 +89,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="data_page_003"
                 imageSource={dataPage003}
                 aspectRatio={1.55}
+                screenName={this.props.route.name}
               />
 
               {/* <ExternalCallout
@@ -102,6 +105,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   calloutID="notificationReminders"
                   imageSource={notificationReminders}
                   aspectRatio={1244.0 / 368.0}
+                  screenName={this.props.route.name}
                   action={() => {
                     PushNotificationService.openSettings();
                   }}
@@ -119,7 +123,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <BrandedButton
-                onPress={() => this.props.navigation.navigate('WelcomeRepeat')}
+                onPress={() => this.props.navigation.navigate(appCoordinator.homeScreenName)}
                 style={styles.ctaSingleProfile}>
                 <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
               </BrandedButton>

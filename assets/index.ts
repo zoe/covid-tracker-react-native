@@ -12,6 +12,10 @@ export const closeIcon = require('./icons/close.png');
 export const chevronRight = require('./icons/chevron-right.png');
 export const chevronLeft = require('./icons/chevron-left.png');
 
+// Nav bar
+export const news = require('./icons/blog.png');
+export const dashboard = require('./icons/dashboard.png');
+
 // Flags
 export const gbFlag = require('./icons/gb-flag.png');
 export const menuIcon = require('./icons/menu.png');
@@ -35,6 +39,7 @@ export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
+export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 
 // Profiles
@@ -65,6 +70,7 @@ export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
+export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const donate = require('./thank-you-modules/donate.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
