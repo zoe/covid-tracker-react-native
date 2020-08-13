@@ -34,7 +34,7 @@ export class PredictiveMetricsClient implements IPredictiveMetricsClient {
     return uk_incidence;
   }
 
-  async getAcitveCases(): Promise<string> {
+  async getActiveCases(): Promise<string> {
     const { uk_prevalence } = await this.apiClient.get<PrevalenceResponse>('/latest/prevalence.json');
     return uk_prevalence;
   }
