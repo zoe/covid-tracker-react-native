@@ -37,7 +37,7 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  homeScreenName: ScreenName = 'WelcomeRepeat';
+  homeScreenName: ScreenName = 'Dashboard';
 
   screenFlow: ScreenFlow = {
     Splash: () => {
