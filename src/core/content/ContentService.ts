@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify';
 
 import { AsyncStorageService, PersonalisedLocalData, PERSONALISED_LOCAL_DATA } from '@covid/core/AsyncStorageService';
-import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import UserService, { isSECountry, isUSCountry } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
@@ -17,7 +17,7 @@ export interface IContentService {
   getAskedToRateStatus(): Promise<string | null>;
   setAskedToRateStatus(status: string): void;
   getUserCount(): Promise<string | null>;
-  getStartupInfo(): void;
+  getStartupInfo(): Promise<StartupInfo | null>;
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
 }
 
@@ -82,9 +82,12 @@ export default class ContentService implements IContentService {
         await AsyncStorageService.setItem(JSON.stringify(camelizeKeys(data)), PERSONALISED_LOCAL_DATA);
         this.localData = data;
       }
+      return info;
     } catch (error) {
       handleServiceError(error);
     }
+
+    return null;
   }
 
   public async getAskedToRateStatus() {

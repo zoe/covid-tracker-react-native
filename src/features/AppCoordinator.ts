@@ -25,14 +25,6 @@ type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
 
-// Various route parameters
-type PatientIdParamType = { patientId: string };
-type CurrentPatientParamType = { currentPatient: PatientStateType };
-type ConsentView = { viewOnly: boolean };
-type ProfileParamType = { profile: Profile };
-type ProfileIdType = { profileId: string };
-type RouteParamsType = PatientIdParamType | CurrentPatientParamType | ConsentView | ProfileParamType | ProfileIdType; //TODO Can be used for passing params to goToNextScreen
-
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
 export class AppCoordinator {
@@ -45,7 +37,7 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  homeScreenName: ScreenName = 'Dashboard';
+  homeScreenName: ScreenName = 'WelcomeRepeat';
 
   screenFlow: ScreenFlow = {
     Splash: () => {
@@ -86,6 +78,7 @@ export class AppCoordinator {
       }
     },
     Dashboard: () => {
+      // UK only so currently no need to check config.enableMultiplePatients
       NavigatorService.navigate('SelectProfile');
     },
     ArchiveReason: () => {
@@ -108,11 +101,12 @@ export class AppCoordinator {
   } as ScreenFlow;
 
   async init() {
-    await this.contentService.getStartupInfo();
+    const info = await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
       this.currentPatient = await this.userService.getPatientState(this.patientId);
     }
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
