@@ -13,12 +13,13 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import UserService, { isGBCountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { isGBCountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -222,8 +223,8 @@ const AllCohorts: CohortDefinition[] = [
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   registerSchema = Yup.object().shape({
     clinicalStudyNames: Yup.string(),
@@ -248,7 +249,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
   constructor(props: YourStudyProps) {
     super(props);
-    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, UserService.userCountry);
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     this.state = {
       cohorts: countrySpecificCohorts,
@@ -262,12 +263,12 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
-    this.userService
+    this.patientService
       .updatePatient(patientId, infos)
-      .then((response) => {
+      .then((_) => {
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
-      .catch((err) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
+      .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {

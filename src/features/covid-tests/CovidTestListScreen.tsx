@@ -11,13 +11,15 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import CovidTestService from '@covid/core/user/CovidTestService';
+import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;
@@ -31,6 +33,9 @@ type State = {
 };
 
 export default class CovidTestListScreen extends Component<Props, State> {
+  @lazyInject(Services.CovidTest)
+  private readonly covidTestService: ICovidTestService;
+
   state: State = {
     errorMessage: '',
     covidTests: [],
@@ -45,8 +50,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
     this._unsubscribe = this.props.navigation.addListener('focus', async () => {
       this.setState({ isLoading: true });
       try {
-        const covidTestService = new CovidTestService();
-        const tests = (await covidTestService.listTests()).data;
+        const tests = (await this.covidTestService.listTests()).data;
         const patientId = AssessmentCoordinator.assessmentData.currentPatient.patientId;
         const patientTests = tests.filter((t) => t.patient === patientId);
         this.setState({ covidTests: patientTests, isLoading: false });

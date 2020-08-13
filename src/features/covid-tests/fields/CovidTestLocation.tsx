@@ -4,10 +4,9 @@ import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { isGBCountry, isUSCountry } from '@covid/core/user/UserService';
-import { FieldWrapper } from '@covid/components/Screen';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface CovidTestLocationData {
   location: string;

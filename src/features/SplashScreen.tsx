@@ -8,7 +8,7 @@ import Splash from '@covid/components/Splash';
 import { ApiException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 
@@ -40,7 +40,7 @@ const initialState = {
 
 export class SplashScreen extends Component<Props, SplashState> {
   @lazyInject(Services.User)
-  userService: ICoreService;
+  userService: IUserService;
 
   constructor(props: Props) {
     super(props);

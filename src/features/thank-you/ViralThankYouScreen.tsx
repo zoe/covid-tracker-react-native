@@ -9,7 +9,7 @@ import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaVi
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
@@ -128,7 +128,7 @@ const ThankYouModal: React.FC<{
 
 export default class ViralThankYouScreen extends Component<Props, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private userService: IUserService;
 
   state = { ...initalState };
 

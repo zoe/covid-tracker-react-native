@@ -2,12 +2,15 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import UserService, { ICoreService, isGBCountry, isUSCountry } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
+import { isGBCountry, isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { Services } from '@covid/provider/services.types';
+import { ConsentService, IConsentService } from '@covid/core/consent/ConsentService';
 import { lazyInject } from '@covid/provider/services';
+import { IPatientService } from '@covid/core/patient/PatientService';
 import { IContentService } from '@covid/core/content/ContentService';
 import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import dietStudyCoordinator, { DietStudyConsent, LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
@@ -29,11 +32,24 @@ export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenPa
 
 export class AppCoordinator {
   @lazyInject(Services.User)
-  userService: ICoreService;
+  private readonly userService: IUserService;
+
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+
   @lazyInject(Services.Content)
   contentService: IContentService;
+
+  @lazyInject(Services.Consent)
+  consentService: IConsentService;
+
+  @lazyInject(Services.Localisation)
+  localisationService: ILocalisationService;
+
   @lazyInject(Services.DietStudy)
   dietStudyService: IDietStudyRemoteClient;
+
+  navigation: NavigationType;
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
@@ -54,7 +70,7 @@ export class AppCoordinator {
       const config = appCoordinator.getConfig();
 
       let askPersonalInfo = config.enablePersonalInformation;
-      if (isUSCountry() && UserService.consentSigned.document !== 'US Nurses') {
+      if (isUSCountry() && ConsentService.consentSigned.document !== 'US Nurses') {
         askPersonalInfo = false;
       }
 
@@ -98,19 +114,27 @@ export class AppCoordinator {
     VaccineRegistryInfo: () => {
       NavigatorService.navigate(this.homeScreenName);
     },
-  } as ScreenFlow;
+  };
 
   async init() {
     const info = await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
-      this.currentPatient = await this.userService.getPatientState(this.patientId);
+      this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
     this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
-    return this.userService.getConfig();
+    return this.localisationService.getConfig();
+  }
+
+  async getCurrentPatient(patientId: string): Promise<PatientStateType> {
+    return await this.patientService.getCurrentPatient(patientId);
+  }
+
+  getWelcomeRepeatScreenName(): keyof ScreenParamList {
+    return 'WelcomeRepeat';
   }
 
   resetToProfileStartAssessment() {
@@ -160,8 +184,8 @@ export class AppCoordinator {
   }
 
   gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
+    if (Object.keys(this.screenFlow).includes(screenName)) {
+      (this.screenFlow as ScreenFlow)[screenName]();
     } else {
       // We don't have nextScreen logic for this page. Explain loudly.
       console.error('[ROUTE] no next route found for:', screenName);
@@ -171,7 +195,7 @@ export class AppCoordinator {
   async profileSelected(profile: Profile) {
     await this.setPatientId(profile.id);
     if (isGBCountry() && !this.currentPatient.isReportedByAnother) {
-      if (await this.userService.shouldAskForValidationStudy(false)) {
+      if (await this.consentService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
         this.startDietStudyFlow(this.currentPatient, false);
@@ -185,7 +209,7 @@ export class AppCoordinator {
 
   async setPatientId(patientId: string) {
     this.patientId = patientId;
-    this.currentPatient = await this.userService.getPatientState(this.patientId!);
+    this.currentPatient = await this.patientService.getPatientState(this.patientId!);
   }
 
   goToDietStart() {
@@ -222,7 +246,7 @@ export class AppCoordinator {
     if (consent === DietStudyConsent.SKIP) return false;
 
     // Check Server
-    return await this.userService.shouldShowDietStudy();
+    return await this.consentService.shouldShowDietStudy();
   }
 
   async shouldShowStudiesMenu(): Promise<boolean> {
@@ -235,7 +259,7 @@ export class AppCoordinator {
   }
 
   vaccineRegistryResponse(response: boolean) {
-    this.userService.setVaccineRegistryResponse(response);
+    this.consentService.setVaccineRegistryResponse(response);
     if (response) {
       Analytics.track(events.JOIN_VACCINE_REGISTER);
       NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.currentPatient });

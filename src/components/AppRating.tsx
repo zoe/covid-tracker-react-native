@@ -5,13 +5,13 @@ import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { isSECountry, isUSCountry, ICoreService } from '@covid/core/user/UserService';
 import { ModalContainer } from '@covid/components/ModalContainer';
-import { contentService } from '@covid/Services';
-import { container } from '@covid/provider/services';
+import { container, lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import { RegularBoldText, RegularText } from './Text';
+import { IUserService } from '@covid/core/user/UserService';
+import { IContentService } from '@covid/core/content/ContentService';
+import { RegularBoldText, RegularText } from '@covid/components/Text';
+import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
 type PropsType = object;
 
@@ -26,20 +26,23 @@ const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id150352961
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
-  const profile = await container.get<ICoreService>(Services.User).getProfile();
+  const profile = await container.get<IUserService>(Services.User).getProfile();
   const eligibleToAskForRating = profile?.ask_for_rating ?? false;
-  const askedToRateStatus = await contentService.getAskedToRateStatus();
+  const askedToRateStatus = await container.get<IContentService>(Services.Content).getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;
 }
 
 export class AppRating extends Component<PropsType, State> {
+  @lazyInject(Services.Content)
+  private readonly contentService: IContentService;
+
   state = {
     isModalOpen: true,
     showTakeToStore: false,
   };
 
   decline = () => {
-    contentService.setAskedToRateStatus('asked');
+    this.contentService.setAskedToRateStatus('asked');
     this.setState({ isModalOpen: false });
   };
 
@@ -55,17 +58,17 @@ export class AppRating extends Component<PropsType, State> {
   };
 
   takeToStore = () => {
-    contentService.setAskedToRateStatus('asked');
-    if (Platform.OS != 'ios') {
-      Linking.openURL(AndroidLink).catch((err) => {});
+    this.contentService.setAskedToRateStatus('asked');
+    if (Platform.OS !== 'ios') {
+      Linking.openURL(AndroidLink);
     } else {
       const storeLink = isUSCountry() ? USiOSLink : isSECountry() ? SEiOSLink : UKiOSLink;
-      Linking.openURL(storeLink).catch((err) => {});
+      Linking.openURL(storeLink);
     }
     this.setState({ isModalOpen: false });
   };
 
-  askToRate = (e: any) => {
+  askToRate = (_: any) => {
     this.setState({ showTakeToStore: true });
   };
 

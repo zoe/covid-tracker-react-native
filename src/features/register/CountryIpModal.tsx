@@ -10,12 +10,11 @@ import { isAndroid } from '@covid/components/Screen';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
-import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 enum CountryCode {
   NONE = '',
@@ -36,12 +35,12 @@ type Item = {
 };
 
 const CountryIpModal: FC<PropsType> = ({ navigation, isModalVisible, closeModal }) => {
-  const userService = useInjection<ICoreService>(Services.User);
   const [countrySelected, setCountrySelected] = useState('');
+  const localisationServce = useInjection<ILocalisationService>(Services.Localisation);
 
   const selectCountry = useCallback(
     async (countryCode: string) => {
-      await userService.setUserCountry(countryCode);
+      await localisationServce.setUserCountry(countryCode);
 
       const screenStack = () => {
         if (countryCode === CountryCode.US) {
