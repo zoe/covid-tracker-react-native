@@ -5,7 +5,6 @@ import reactStringReplace from 'react-string-replace';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
@@ -18,7 +17,6 @@ interface ContributionCounterProps extends ITest {
 }
 
 export const ContributionCounter = (props: ContributionCounterProps) => {
-  const userService = useInjection<IUserService>(Services.User);
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   if (props.count) {
