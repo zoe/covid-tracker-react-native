@@ -117,11 +117,11 @@ export class AppCoordinator {
   };
 
   async init() {
-    const info = await this.contentService.getStartupInfo();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
+    const info = await this.contentService.getStartupInfo();
     this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
   }
 

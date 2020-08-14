@@ -4,6 +4,7 @@ import { WebView } from 'react-native-webview';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { colors } from '@theme';
+import { cartoMapHtml } from '@assets';
 
 import { BackButton } from '../components/PatientHeader';
 
@@ -26,7 +27,7 @@ export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
         }}>
         <BackButton navigation={navigation} />
       </View>
-      <WebView originWhitelist={['*']} source={require('@assets/carto/estimated-cases.html')} style={styles.webview} />
+      <WebView originWhitelist={['*']} source={cartoMapHtml} style={styles.webview} />
     </View>
   );
 };
