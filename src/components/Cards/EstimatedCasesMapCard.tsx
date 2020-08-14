@@ -71,7 +71,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
 
       <View style={styles.headerContainer}>
         <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
-        <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
+        {showUpdatePostcode && <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>}
       </View>
 
       {showUpdatePostcode && (
