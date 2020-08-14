@@ -36,6 +36,11 @@ enum MapEventOrigin {
   Map = 'map',
 }
 
+enum MapType {
+  Carto = 'carto',
+  ImageAsset = 'image_asset',
+}
+
 const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
@@ -49,6 +54,10 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
     Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
+
+  useEffect(() => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
+  }, []);
 
   return (
     <View style={[styles.root, root]}>
@@ -106,6 +115,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     // Use carto map if map url is not avaliable
     const hasMapUrl = !!contentService.localData?.mapUrl;
     setUseCartoMap(!hasMapUrl);
+    Analytics.track(events.ESTIMATED_CASES_MAP_SHOWN, { type: hasMapUrl ? MapType.ImageAsset : MapType.Carto });
 
     // Show empty state if data is missing
     if (!contentService.localData) {
