@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { BackButton } from '@covid/components/PatientHeader';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { colors } from '@theme';
-
-import { BackButton } from '../components/PatientHeader';
-
-import { ScreenParamList } from './ScreenParamList';
 
 interface Props {
   navigation: StackNavigationProp<ScreenParamList>;
 }
 
 export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
+  const [html, setHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setHtml(await loadEstimatedCasesCartoMap());
+      } catch (_) {}
+    })();
+  }, []);
+
   return (
     <View style={{ flex: 1, marginBottom: 0, backgroundColor: 'white' }}>
       <View
@@ -26,7 +35,7 @@ export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
         }}>
         <BackButton navigation={navigation} />
       </View>
-      <WebView originWhitelist={['*']} source={require('@assets/carto/estimated-cases.html')} style={styles.webview} />
+      {html && <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} />}
     </View>
   );
 };
