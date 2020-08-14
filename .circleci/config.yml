@@ -36,6 +36,7 @@ executors:
         environment:
           API_URL: $API_URL
           AMPLITUDE_KEY: $AMPLITUDE_KEY
+    resource_class: large
 
 commands:
   build:
