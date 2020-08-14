@@ -55,7 +55,7 @@ export class AppCoordinator {
 
   homeScreenName: ScreenName = 'WelcomeRepeat';
 
-  screenFlow: ScreenFlow = {
+  screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
       if (this.patientId) {
         NavigatorService.replace(this.homeScreenName);
@@ -122,7 +122,7 @@ export class AppCoordinator {
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'Dashboard';
   }
 
   getConfig(): ConfigType {

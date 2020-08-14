@@ -12,13 +12,13 @@ import ChevronRight from '@assets/icons/ChevronRight';
 import Share from '@assets/icons/Share';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { ICoreService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IContentService } from '@covid/core/content/ContentService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Coordinates } from '@covid/core/AsyncStorageService';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 const MAP_HEIGHT = 246;
 
@@ -95,7 +95,7 @@ const ZOOM_LEVEL_CLOSER = 10.5;
 const ZOOM_LEVEL_FURTHER = 6;
 
 export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
-  const userService = useInjection<ICoreService>(Services.User);
+  const patientService = useInjection<IPatientService>(Services.Patient);
   const contentService = useInjection<IContentService>(Services.Content);
   const viewRef = useRef(null);
   const webViewRef = useRef<WebView>(null);
@@ -189,7 +189,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     return (
       <EmptyView
         onPress={async () => {
-          const profile = await userService.myPatientProfile();
+          const profile = await patientService.myPatientProfile();
           if (profile) appCoordinator.startEditLocation(profile!);
         }}
       />
