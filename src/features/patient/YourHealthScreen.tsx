@@ -11,8 +11,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { IUserService } from '@covid/core/user/UserService';
-import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { AtopyData, AtopyQuestions } from '@covid/features/patient/fields/AtopyQuestions';
 import i18n from '@covid/locale/i18n';
@@ -104,16 +103,16 @@ const initialState: State = {
 };
 
 export default class YourHealthScreen extends Component<HealthProps, State> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
 
   constructor(props: HealthProps) {
     super(props);
     const currentPatient = patientCoordinator.patientData.patientState;
-    const features = this.userService.getConfig();
+    const features = this.localisationService.getConfig();
     this.state = {
       ...initialState,
       showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,

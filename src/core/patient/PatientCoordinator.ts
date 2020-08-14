@@ -1,15 +1,28 @@
+import { inject } from 'inversify';
+
 import { IUserService } from '@covid/core/user/UserService';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { Services } from '@covid/provider/services.types';
+
+import { ILocalisationService } from '../localisation/LocalisationService';
+
+import { IPatientService } from './PatientService';
 
 export class PatientCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: IUserService;
   patientData: PatientData;
+
+  @inject(Services.Patient)
+  private readonly patientService: IPatientService;
+
+  @inject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
 
   screenFlow: ScreenFlow = {
     YourStudy: () => {
@@ -37,7 +50,7 @@ export class PatientCoordinator implements Coordinator {
 
   startPatient = () => {
     const currentPatient = this.patientData.patientState;
-    const config = this.userService.getConfig();
+    const config = this.localisationService.getConfig();
     const patientId = this.patientData.patientId;
 
     const startPage = this.appCoordinator.homeScreenName;
@@ -60,7 +73,7 @@ export class PatientCoordinator implements Coordinator {
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.userService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+    return this.patientService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
       this.patientData.patientInfo = info;
       return info;
     });
