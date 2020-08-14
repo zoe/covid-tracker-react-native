@@ -138,7 +138,7 @@ export class AppCoordinator {
   }
 
   resetToProfileStartAssessment() {
-    NavigatorService.navigate('Dashboard');
+    NavigatorService.navigate('SelectProfile');
     this.startAssessmentFlow(this.currentPatient);
   }
 
