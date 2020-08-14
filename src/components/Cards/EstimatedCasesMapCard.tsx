@@ -51,7 +51,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Map });
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -181,7 +181,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Arrow });
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
     NavigatorService.navigate('EstimatedCases');
   };
 
