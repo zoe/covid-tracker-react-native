@@ -1,5 +1,3 @@
-import { inject } from 'inversify';
-
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
@@ -9,16 +7,17 @@ import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
+import { lazyInject } from '@covid/provider/services';
 
 export class EditProfileCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
   userService: IUserService;
   patientData: PatientData;
 
-  @inject(Services.Patient)
+  @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  @inject(Services.Localisation)
+  @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
   screenFlow: ScreenFlow = {
