@@ -7,13 +7,14 @@ import { BackButton } from '@covid/components/PatientHeader';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { colors } from '@theme';
+import { cartoMapHtml } from '@assets';
 
 interface Props {
   navigation: StackNavigationProp<ScreenParamList>;
 }
 
 export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
-  const [html, setHtml] = useState<string | null>(null);
+  const [html, setHtml] = useState<string>('');
 
   useEffect(() => {
     (async () => {
@@ -35,7 +36,7 @@ export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
         }}>
         <BackButton navigation={navigation} />
       </View>
-      {html && <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} />}
+      <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} />
     </View>
   );
 };

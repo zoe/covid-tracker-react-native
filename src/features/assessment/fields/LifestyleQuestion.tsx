@@ -9,8 +9,8 @@ import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { cleanFloatVal } from '@covid/utils/number';
 import { WeightData, WeightQuestion } from '@covid/features/patient/fields/WeightQuestion';
 import { container } from '@covid/provider/services';
-import { IUserService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 
 export interface LifestyleData {
   weightChange: string;
@@ -135,7 +135,7 @@ export const LifestyleQuestion: FormikLifestyleQuestionInputFC<Props, LifestyleD
 };
 
 LifestyleQuestion.initialFormValues = (): LifestyleData => {
-  const features = container.get<IUserService>(Services.User).getConfig();
+  const features = container.get<ILocalisationService>(Services.Localisation).getConfig();
 
   return {
     weightChange: '',
