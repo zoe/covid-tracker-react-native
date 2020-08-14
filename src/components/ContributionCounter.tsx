@@ -5,9 +5,9 @@ import reactStringReplace from 'react-string-replace';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 
 import { RegularBoldText, RegularText } from './Text';
 import { ITest } from './types';
@@ -18,10 +18,10 @@ interface ContributionCounterProps extends ITest {
 }
 
 export const ContributionCounter = (props: ContributionCounterProps) => {
-  const userService = useInjection<IUserService>(Services.User);
+  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   if (props.count) {
-    const features = userService.getConfig();
+    const features = localisationService.getConfig();
     const delimiter = features ? features.thousandSeparator : ',';
 
     const countValue = I18n.toNumber(props.count, { precision: 0, delimiter });

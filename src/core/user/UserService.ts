@@ -127,10 +127,6 @@ export default class UserService extends ApiClientBase implements IUserService {
     }
   }
 
-  getConfig(): ConfigType {
-    return LocalisationService.countryConfig;
-  }
-
   getData = <T>(response: AxiosResponse<T>) => {
     if (typeof response.data === 'string') {
       return camelizeKeys(JSON.parse(response.data)) as T;
