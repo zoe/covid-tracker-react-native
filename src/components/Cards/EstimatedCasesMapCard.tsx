@@ -19,7 +19,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Coordinates } from '@covid/core/AsyncStorageService';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { cartoMapHtml } from '@assets';
+import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 
 const MAP_HEIGHT = 246;
 
@@ -41,6 +41,8 @@ enum MapType {
 }
 
 const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
+  const [html, setHtml] = useState<string>('');
+
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
@@ -56,6 +58,11 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
 
   useEffect(() => {
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
+    (async () => {
+      try {
+        setHtml(await loadEstimatedCasesCartoMap());
+      } catch (_) {}
+    })();
   }, []);
 
   return (
@@ -63,7 +70,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
       {showCartoMap && (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
-            <WebView originWhitelist={['*']} source={cartoMapHtml} style={styles.webview} pointerEvents="none" />
+            <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} pointerEvents="none" />
           </TouchableOpacity>
         </View>
       )}
@@ -104,6 +111,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
   const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
   const [useCartoMap, setUseCartoMap] = useState<boolean>(true);
+  const [html, setHtml] = useState<string>('');
 
   const [mapConfig, setMapConfig] = useState<MapConfig>({
     coordinates: DEFAULT_MAP_CENTER,
@@ -139,6 +147,15 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     webViewRef.current!.call('updateMapView', mapConfig);
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
+  useEffect(() => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
+    (async () => {
+      try {
+        setHtml(await loadEstimatedCasesCartoMap());
+      } catch (_) {}
+    })();
+  }, []);
+
   const syncMapCenter = () => {
     // Set defaults center
     const { lat, lng } = DEFAULT_MAP_CENTER;
@@ -167,7 +184,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
         <WebView
           ref={webViewRef}
           originWhitelist={['*']}
-          source={cartoMapHtml}
+          source={{ html }}
           style={styles.webview}
           onEvent={onMapEvent}
         />
