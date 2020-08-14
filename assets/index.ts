@@ -82,3 +82,4 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 
 // Avatar
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
+export const cartoMapHtml = require('./carto/estimated-cases.html');

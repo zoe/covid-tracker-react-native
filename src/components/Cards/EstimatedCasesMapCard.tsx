@@ -19,10 +19,9 @@ import { IContentService } from '@covid/core/content/ContentService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Coordinates } from '@covid/core/AsyncStorageService';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { cartoMapHtml } from '@assets';
 
 const MAP_HEIGHT = 246;
-
-const html = require('@assets/carto/estimated-cases.html');
 
 interface EmptyViewProps {
   primaryLabel?: string;
@@ -51,7 +50,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Map });
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -64,14 +63,14 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
       {showCartoMap && (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
-            <WebView originWhitelist={['*']} source={html} style={styles.webview} pointerEvents="none" />
+            <WebView originWhitelist={['*']} source={cartoMapHtml} style={styles.webview} pointerEvents="none" />
           </TouchableOpacity>
         </View>
       )}
 
       <View style={styles.headerContainer}>
         <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
-        <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
+        {showUpdatePostcode && <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>}
       </View>
 
       {showUpdatePostcode && (
@@ -165,7 +164,13 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   const map = (): React.ReactNode => {
     if (useCartoMap) {
       return (
-        <WebView ref={webViewRef} originWhitelist={['*']} source={html} style={styles.webview} onEvent={onMapEvent} />
+        <WebView
+          ref={webViewRef}
+          originWhitelist={['*']}
+          source={cartoMapHtml}
+          style={styles.webview}
+          onEvent={onMapEvent}
+        />
       );
     }
     return <Image source={{ uri: mapUrl ?? '' }} style={styles.webview} />;
@@ -181,7 +186,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Arrow });
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
     NavigatorService.navigate('EstimatedCases');
   };
 
