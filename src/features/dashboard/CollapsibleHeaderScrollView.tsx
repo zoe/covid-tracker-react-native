@@ -43,7 +43,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
   });
 
   // Fade out Expanded header as user scroll down
-  const expanedHeaderOpacity = scrollY.interpolate({
+  const expandedHeaderOpacity = scrollY.interpolate({
     inputRange: [0, config.expanded - config.compact - 75],
     outputRange: [1, 0],
     extrapolate: 'clamp',
@@ -57,7 +57,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
   });
 
   // Slide up Expanded header as user scroll down
-  const expanedHeaderY = scrollY.interpolate({
+  const expandedHeaderY = scrollY.interpolate({
     inputRange: [0, config.expanded - config.compact],
     outputRange: [0, -25],
     extrapolate: 'clamp',
@@ -72,8 +72,8 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
         <Animated.View
           style={[
             {
-              opacity: expanedHeaderOpacity,
-              top: expanedHeaderY,
+              opacity: expandedHeaderOpacity,
+              top: expandedHeaderY,
             },
             styles.expandedHeaderContainer,
           ]}>
@@ -111,7 +111,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eaeaea',
+    backgroundColor: colors.backgroundTertiary,
   },
   header: {
     backgroundColor: colors.predict,
