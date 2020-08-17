@@ -120,19 +120,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             {this.displayPartnerLogo()}
 
-            {isGBCountry() ? (
-              <ExternalCallout
-                link="https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy"
-                calloutID="donate"
-                imageSource={donate}
-                aspectRatio={1.59}
-              />
-            ) : (
-              <CalloutBox
-                content={this.state.calloutBoxContent}
-                onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
-              />
-            )}
+            <CalloutBox
+              content={this.state.calloutBoxContent}
+              onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+            />
           </View>
         </ScrollView>
         <View style={styles.reportContainer}>
