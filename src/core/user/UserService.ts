@@ -49,9 +49,6 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   constructor(@unmanaged() private useAsyncStorage: boolean = true) {
     super();
-    if (this.constructor.name === UserService.name) {
-      this.loadUser();
-    }
   }
 
   configEncoded = {

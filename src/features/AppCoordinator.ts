@@ -117,6 +117,7 @@ export class AppCoordinator {
   };
 
   async init() {
+    await this.userService.loadUser();
     this.patientId = await this.userService.getFirstPatientId();
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
