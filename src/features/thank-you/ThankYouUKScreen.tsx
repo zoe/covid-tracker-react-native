@@ -133,7 +133,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   onPress={() =>
                     this.props.navigation.reset({
                       index: 1,
-                      routes: [{ name: 'Dashboard' }, { name: 'SelectProfile' }],
+                      routes: [{ name: appCoordinator.homeScreenName }, { name: 'SelectProfile' }],
                     })
                   }
                   style={styles.ctaMultipleProfileText}>
