@@ -56,6 +56,11 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
     NavigatorService.navigate('EstimatedCases');
   };
 
+  const onArrowTapped = () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
+    NavigatorService.navigate('EstimatedCases');
+  };
+
   useEffect(() => {
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
     (async () => {
@@ -75,8 +80,13 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
         </View>
       )}
 
-      <View style={styles.headerContainer}>
-        <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
+      <View style={[styles.headerContainer, { width: '90%' }]}>
+        <Header3Text style={[styles.primaryLabel, { marginTop: 4 }]}>{primaryLabel}</Header3Text>
+        <View style={styles.emptyStateArrow}>
+          <TouchableOpacity style={[styles.backIcon, { marginBottom: 8 }]} onPress={onArrowTapped}>
+            <ChevronRight width={32} height={32} />
+          </TouchableOpacity>
+        </View>
         {showUpdatePostcode && <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>}
       </View>
 
@@ -187,6 +197,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
           source={{ html }}
           style={styles.webview}
           onEvent={onMapEvent}
+          pointerEvents="none"
         />
       );
     }
@@ -204,6 +215,11 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
 
   const showMap = () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
+    NavigatorService.navigate('EstimatedCases');
+  };
+
+  const onMapTapped = () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -227,8 +243,10 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
         <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
       </View>
 
-      <View style={styles.mapContainer} pointerEvents="none">
-        {map()}
+      <View style={styles.mapContainer}>
+        <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
+          {map()}
+        </TouchableOpacity>
       </View>
 
       <View style={styles.statsContainer}>
@@ -360,5 +378,12 @@ const styles = StyleSheet.create({
 
   postcodeButton: {
     marginBottom: 20,
+  },
+
+  emptyStateArrow: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    right: 0,
   },
 });
