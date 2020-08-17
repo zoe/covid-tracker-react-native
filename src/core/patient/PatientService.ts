@@ -40,7 +40,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
   public async myPatientProfile(): Promise<Profile | null> {
     try {
       const data = (await this.client.get(`/patient_list/`)).data as Profile[];
-      console.log(data);
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
       handleServiceError(error);
