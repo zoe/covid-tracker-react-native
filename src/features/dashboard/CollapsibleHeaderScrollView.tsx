@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     top: -32,
     flex: 1,
     backgroundColor: colors.predict,
+    marginBottom: 5,
   },
   subContainer: {
     paddingTop: 16,
