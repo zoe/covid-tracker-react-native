@@ -124,6 +124,7 @@ export class AppCoordinator {
     }
     const info = await this.contentService.getStartupInfo();
     this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
