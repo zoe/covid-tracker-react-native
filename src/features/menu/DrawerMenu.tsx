@@ -17,6 +17,8 @@ import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { share } from '@covid/components/Cards/BaseShareApp';
+import NavigatorService from '@covid/NavigatorService';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -25,6 +27,7 @@ const isDevChannel = () => {
 export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   const userService = useInjection<IUserService>(Services.User);
   const consentService = useInjection<IConsentService>(Services.Consent);
+  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   const [userEmail, setUserEmail] = useState<string>('');
   const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
@@ -56,6 +59,14 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
       setShowVaccineRegistry(false);
       setShowDietStudy(false);
     }
+  };
+
+  const showCountryPicker = () => {
+    NavigatorService.navigate('CountrySelect', {
+      onComplete: () => {
+        NavigatorService.reset([{ name: appCoordinator.homeScreenName }]);
+      },
+    });
   };
 
   function openDietStudy() {
@@ -110,14 +121,20 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
         <LinksSection navigation={props.navigation} />
 
         <View style={{ flex: 1 }} />
-        <MenuItem
-          label={i18n.t('logout')}
-          smallLabel={userEmail}
-          onPress={() => {
-            setUserEmail('');
-            logout();
-          }}
-        />
+
+        <View style={styles.footer}>
+          <MenuItem
+            label={i18n.t('logout')}
+            smallLabel={userEmail}
+            onPress={() => {
+              setUserEmail('');
+              logout();
+            }}
+          />
+          <TouchableOpacity style={styles.flagTouchable} onPress={showCountryPicker}>
+            <Image source={localisationService.getFlag()} style={styles.flag} />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -147,5 +164,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 8,
     paddingBottom: 20,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  flagTouchable: {
+    height: 48,
+    width: 48,
+    overflow: 'hidden',
+  },
+  flag: {
+    height: '100%',
+    width: '100%',
   },
 });
