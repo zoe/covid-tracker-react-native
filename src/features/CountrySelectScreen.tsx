@@ -27,10 +27,15 @@ export class CountrySelectScreen extends Component<Props, object> {
 
   private selectCountry = async (countryCode: string) => {
     await this.localisationServce.setUserCountry(countryCode);
-    this.props.navigation.reset({
-      index: 0,
-      routes: [{ name: 'Welcome' }],
-    });
+
+    if (this.props.route?.params?.onComplete) {
+      this.props.route.params.onComplete();
+    } else {
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
+    }
   };
 
   public render() {

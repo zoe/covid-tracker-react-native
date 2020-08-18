@@ -65,6 +65,11 @@ export type UserResponse = {
   patients: string[];
   ask_for_rating: boolean;
   is_tester: boolean;
+  country_code: string;
+};
+
+export type UpdateCountryCodeRequest = {
+  country_code: string;
 };
 
 export type PiiRequest = {
