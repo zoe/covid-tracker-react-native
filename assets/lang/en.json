@@ -1331,7 +1331,7 @@
     "covid-in-x": "COVID in {{location}}",
     "current-estimates": "Current estimates",
     "active-cases-in-area": "Active cases\rin your area",
-    "not-enought-contributors": "Not enough contributors\rin this area",
+    "not-enough-contributors": "Not enough contributors\rin this area",
     "share": "Share your map",
     "update-postcode": "Please update your postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"

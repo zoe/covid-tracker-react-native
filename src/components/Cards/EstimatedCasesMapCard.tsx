@@ -250,15 +250,15 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
       </View>
 
       <View style={styles.statsContainer}>
-        {!activeCases && (
+        {!!activeCases && (
           <View style={styles.statsRow}>
             <Header0Text style={styles.stats}>{activeCases}</Header0Text>
             <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
           </View>
         )}
-        {!!activeCases && (
+        {!activeCases && (
           <View style={styles.statsRow}>
-            <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enought-contributors')}</MutedText>
+            <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
           </View>
         )}
         <TouchableOpacity style={styles.backIcon} onPress={showMap}>
