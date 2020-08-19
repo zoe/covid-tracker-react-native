@@ -10,11 +10,11 @@ import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMap
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { isGBCountry } from '@covid/core/user/UserService';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -62,7 +62,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
       {isGBCountry() && <EstimatedCasesMapCard />}
 
-      {isGBCountry() && <UKEstimatedCaseCard leftMertric="0" rightMetric="0" onPress={onMoreDetails} />}
+      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
 
       <View style={styles.zoe}>
         <PoweredByZoeSmall />

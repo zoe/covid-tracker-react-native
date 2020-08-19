@@ -5,7 +5,7 @@ import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View 
 import Analytics, { events } from '@covid/core/Analytics';
 
 type ExternalCalloutProps = {
-  link: string;
+  link?: string;
   calloutID: string;
   imageSource: ImageSourcePropType;
   aspectRatio: number;

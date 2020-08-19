@@ -113,6 +113,7 @@
   </div>
 
   <!-- include cartodb.js library -->
+  <!-- <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e3d471e8cf4751833faf0f9" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
   <script src="https://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
   <script>
@@ -171,8 +172,6 @@
         .createVis('map', 'https://joinzoe.cartodb.com/api/v2/viz/36e8c81d-cfbf-4e4d-9d59-a219852fd25e/viz.json', mapConfig)
         .done(function (vis, layers) {
           cartoMap = vis;
-          window.covid.emit('mapLoaded', {});
-        
           layers[1].setInteraction(true);
           layers[1].on('featureClick', function (e, latlng, pos, data) {
             cartodb.log.log(e, latlng, pos, data);
@@ -186,6 +185,8 @@
           });
           var map = vis.getNativeMap();
           vis.map.set({ minZoom: 5, maxZoom: 9 });
+
+          window.covid.emit('mapLoaded', {});
         })
         .error(function (err) {
           console.log(err);

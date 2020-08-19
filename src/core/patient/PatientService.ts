@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
-import { AvatarName } from '@covid/utils/avatar';
+import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { getDaysAgo } from '@covid/utils/datetime';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
@@ -11,7 +11,7 @@ import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientStateType, PatientProfile, getInitialPatientState } from '@covid/core/patient/PatientState';
+import { PatientStateType, getInitialPatientState } from '@covid/core/patient/PatientState';
 import { container } from '@covid/provider/services';
 
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
@@ -26,6 +26,7 @@ export interface IPatientService {
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
   shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
+  setUSStudyInviteResponse(patientId: string, response: boolean): void;
 }
 
 @injectable()
@@ -40,7 +41,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
   public async myPatientProfile(): Promise<Profile | null> {
     try {
       const data = (await this.client.get(`/patient_list/`)).data as Profile[];
-      console.log(data);
       return !!data && data.length > 0 ? data[0] : null;
     } catch (error) {
       handleServiceError(error);
@@ -114,10 +114,11 @@ export class PatientService extends ApiClientBase implements IPatientService {
       patientName = i18n.t('default-profile-name');
     }
 
-    const profile: PatientProfile = {
+    const profile: Profile = {
+      id: patientState.patientId,
       name: patientName,
-      avatarName: (patient.avatar_name || 'profile1') as AvatarName,
-      isPrimaryPatient: !patient.reported_by_another,
+      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
+      reported_by_another: patient.reported_by_another,
     };
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
@@ -213,5 +214,9 @@ export class PatientService extends ApiClientBase implements IPatientService {
   public shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
     if (!dateLastAsked) return true;
     return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
+  }
+
+  public setUSStudyInviteResponse(patientId: string, response: boolean) {
+    this.updatePatient(patientId, { contact_additional_studies: response });
   }
 }

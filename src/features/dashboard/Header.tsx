@@ -3,12 +3,13 @@ import { View, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
 import { colors } from '@theme';
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
-import { contentService } from '@covid/Services';
 import { covidIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { IContentService } from '@covid/core/content/ContentService';
 
 interface Props {
   reportedCount?: string;
@@ -22,6 +23,8 @@ enum HeaderType {
 
 export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
   const todaysDate = (): string => moment().format('dddd Do MMMM');
+
+  const contentService = useInjection<IContentService>(Services.Content);
   const [contributors, setContributors] = useState<string | null>(null);
 
   const prettyContributorsValue = i18n.toNumber(contributors ? parseInt(contributors) : 0, {
@@ -31,7 +34,9 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
 
   useEffect(() => {
     (async () => {
-      setContributors(await contentService.getUserCount());
+      try {
+        setContributors(await contentService.getUserCount());
+      } catch (_) {}
     })();
   }, []);
 
