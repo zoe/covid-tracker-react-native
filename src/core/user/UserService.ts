@@ -176,12 +176,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   }
 
   async deleteRemoteUserData() {
-    const profile = await AsyncStorageService.getProfile();
-    const payload = {
-      username: profile?.username,
-    };
-    return this.client.delete(`/users/delete/`, {
-      data: payload,
-    });
+    return this.client.delete(`/users/delete/`);
   }
 }
