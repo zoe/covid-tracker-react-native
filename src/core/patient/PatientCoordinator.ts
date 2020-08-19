@@ -23,6 +23,20 @@ export class PatientCoordinator implements Coordinator {
 
   screenFlow: ScreenFlow = {
     YourStudy: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { patientData: this.patientData });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
+    NHSIntro: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSQuestions', { patientData: this.patientData });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
+    NHSQuestions: () => {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
     },
     YourWork: () => {

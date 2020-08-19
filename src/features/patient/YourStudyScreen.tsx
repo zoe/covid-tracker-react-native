@@ -71,6 +71,11 @@ const AllCohorts: CohortDefinition[] = [
     country: 'GB',
   },
   {
+    key: 'is_in_uk_nhs_asymptomatic_study',
+    label: 'NHS Asymptomatic Study',
+    country: 'GB',
+  },
+  {
     key: 'is_in_us_covid_siren',
     label: 'COVID SIREN',
     country: 'US',
@@ -266,6 +271,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     this.patientService
       .updatePatient(patientId, infos)
       .then((_) => {
+        currentPatient.isNHSStudy = !!infos.is_in_uk_nhs_asymptomatic_study;
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));

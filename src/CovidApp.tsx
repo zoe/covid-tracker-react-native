@@ -75,9 +75,11 @@ import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
 import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
+import NHSIntroScreen from '@covid/features/patient/NHSIntro';
+import NHSQuestionsScreen from '@covid/features/patient/NHSIQuestions';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen, EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -260,8 +262,9 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
-
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
+        <Stack.Screen name="NHSQuestions" component={NHSQuestionsScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

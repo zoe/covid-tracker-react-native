@@ -1335,5 +1335,25 @@
     "share": "Dela din karta",
     "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
     "update-postcode-cta": "Uppdatera postnumret"
+  },
+
+  "nhs-study-intro": {
+    "title": "",
+    "text-1": "",
+    "text-2": "",
+    "name-placeholder": "",
+    "nhsID-placeholder": "",
+    "text-3": "",
+    "text-cancel": "",
+    "text-4": "",
+    "text-5": "",
+    "consent": ""
+  },
+
+  "nhs-study-questions": {
+    "title": "",
+    "felt-unwell": "",
+    "think-had-covid": "",
+    "had-classic-symptoms": ""
   }
 }
