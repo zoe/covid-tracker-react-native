@@ -1,18 +1,10 @@
-import { injectable, inject } from 'inversify';
-import getDecorators from 'inversify-inject-decorators';
+import { injectable } from 'inversify';
 
-import { Consent, AskForStudies } from '@covid/core/user/dto/UserAPIContracts';
+import { AskForStudies, Consent } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import appConfig from '@covid/appConfig';
-import { Services } from '@covid/provider/services.types';
-import { IPatientService } from '@covid/core/patient/PatientService';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { container } from '@covid/provider/services';
-
-// Need to explicitly get lazyInject through getDecorators (For Jest)
-// due to circularing dependency with ConsentService.
-const { lazyInject } = getDecorators(container);
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
@@ -20,7 +12,6 @@ export interface IConsentService {
   setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
   setVaccineRegistryResponse(response: boolean): void;
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
-  setUSStudyInviteResponse(patientId: string, response: boolean): void;
   setDietStudyResponse(response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
@@ -31,9 +22,6 @@ export interface IConsentService {
 @injectable()
 export class ConsentService extends ApiClientBase implements IConsentService {
   protected client = ApiClientBase.client;
-
-  @lazyInject(Services.Patient)
-  private readonly patientService: IPatientService;
 
   public static consentSigned: Consent = {
     document: '',
@@ -91,10 +79,6 @@ export class ConsentService extends ApiClientBase implements IConsentService {
       version: appConfig.dietStudyBeyondCovidConsentVersion,
       status: response ? 'signed' : 'declined',
     });
-  }
-
-  setUSStudyInviteResponse(patientId: string, response: boolean) {
-    this.patientService.updatePatient(patientId, { contact_additional_studies: response });
   }
 
   async shouldAskForVaccineRegistry(): Promise<boolean> {

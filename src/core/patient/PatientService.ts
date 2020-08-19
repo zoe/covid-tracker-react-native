@@ -26,6 +26,7 @@ export interface IPatientService {
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
   shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
+  setUSStudyInviteResponse(patientId: string, response: boolean): void;
 }
 
 @injectable()
@@ -213,5 +214,9 @@ export class PatientService extends ApiClientBase implements IPatientService {
   public shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
     if (!dateLastAsked) return true;
     return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
+  }
+
+  public setUSStudyInviteResponse(patientId: string, response: boolean) {
+    this.updatePatient(patientId, { contact_additional_studies: response });
   }
 }

@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog008, dataPage003, incidence011, notificationReminders, timUpdate005 } from '@assets';
+import { blog009, dataPage003, incidence011, notificationReminders, timUpdate005 } from '@assets';
 import { colors } from '@theme';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
@@ -48,8 +48,8 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
 
             <ExternalCallout
               link="https://covid.joinzoe.com/post/incidence-update-13-aug?utm_source=App"
-              calloutID="blog_008"
-              imageSource={blog008}
+              calloutID="blog_009"
+              imageSource={blog009}
               aspectRatio={1.552}
               screenName={props.route.name}
             />
