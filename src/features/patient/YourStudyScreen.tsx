@@ -246,7 +246,11 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   });
 
   filterCohortsByCountry(allCohorts: CohortDefinition[], country: string) {
+    const currentPatient = this.coordinator.patientData.patientState;
     return AllCohorts.filter((cohort) => {
+      if (cohort.key === 'is_in_uk_nhs_asymptomatic_study') {
+        return cohort.country === country && currentPatient.isReportedByAnother === false;
+      }
       return cohort.country === country;
     });
   }
