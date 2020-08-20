@@ -1305,7 +1305,7 @@
   },
 
   "dashboard": {
-    "report-now": "Report now",
+    "report-now": "Report today",
     "you-have-reported-x-times": "You’ve reported %{count} times",
     "contributors-so-far": "Contributors so far:"
   },
