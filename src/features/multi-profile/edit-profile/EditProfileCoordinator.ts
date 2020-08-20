@@ -72,6 +72,13 @@ export class EditProfileCoordinator implements Coordinator {
   shouldShowEditProfile() {
     return this.localisationService.getConfig().enableEditProfile;
   }
+
+  shouldShowEditStudy() {
+    const currentPatient = this.patientData.patientState;
+    const config = this.localisationService.getConfig();
+    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
+    return shouldAskStudy;
+  }
 }
 
 const editProfileCoordinator = new EditProfileCoordinator();
