@@ -2,7 +2,6 @@ import { injectable } from 'inversify';
 import * as Localization from 'expo-localization';
 
 import i18n from '@covid/locale/i18n';
-import { gbFlag, svFlag, usFlag } from '@assets';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -15,7 +14,6 @@ export interface ILocalisationService {
   defaultCountryFromLocale(): void;
   updateUserCountry(isLoggedIn: boolean): void;
   getConfig(): ConfigType;
-  getFlag(): any | null;
 }
 
 @injectable()
@@ -101,18 +99,6 @@ export class LocalisationService implements ILocalisationService {
 
   static getLocale() {
     return i18n.locale.split('-')[0];
-  }
-
-  getFlag(): any | null {
-    if (isGBCountry()) {
-      return gbFlag;
-    } else if (isSECountry()) {
-      return svFlag;
-    } else if (isUSCountry()) {
-      return usFlag;
-    } else {
-      return null;
-    }
   }
 }
 
