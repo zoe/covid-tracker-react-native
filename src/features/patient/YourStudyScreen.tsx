@@ -51,8 +51,6 @@ interface YourStudyData {
 }
 
 type State = {
-  cohorts: CohortDefinition[];
-  selected: { [index: string]: boolean };
   errorMessage: string;
 };
 
@@ -243,6 +241,29 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     });
   }
 
+  getInitalFormValues() {
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
+    if (this.props.route.params.editing) {
+      const patientInfo = this.props.route.params.patientData.patientInfo!;
+      const patientFormData = {
+        clinicalStudyNames: patientInfo.clinical_study_names ?? '',
+        clinicalStudyContacts: patientInfo.clinical_study_contacts ?? '',
+        clinicalStudyInstitutions: patientInfo.clinical_study_institutions ?? '',
+        clinicalStudyNctIds: patientInfo.clinical_study_nct_ids ?? '',
+      };
+      countrySpecificCohorts.forEach((cohort) => {
+        patientFormData[cohort.key] = !!patientInfo[cohort.key];
+      });
+      return patientFormData;
+    } else {
+      const patientFormData = {
+        ...initialFormValues,
+        ...this.buildInitCohortsValues(countrySpecificCohorts),
+      };
+      return patientFormData;
+    }
+  }
+
   buildInitCohortsValues(cohorts: CohortDefinition[]): { [index: string]: boolean } {
     const initialValues: { [index: string]: boolean } = {};
     cohorts.forEach((cohort) => {
@@ -251,33 +272,15 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     return initialValues;
   }
 
-  private getPatientFormValues() {
-    const patientInfo = this.props.route.params.patientData.patientInfo!;
-    console.log(patientInfo);
-    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
-    const patientFormData: { [index: string]: boolean } = {};
-    countrySpecificCohorts.forEach((cohort) => {
-      patientFormData[cohort.key] = !!patientInfo[cohort.key];
-    });
-    console.log(patientFormData);
-    this.setState({ selected: patientFormData });
-    return patientFormData;
-  }
-
   constructor(props: YourStudyProps) {
     super(props);
-    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     this.state = {
-      cohorts: countrySpecificCohorts,
-      selected: this.buildInitCohortsValues(countrySpecificCohorts),
       errorMessage: '',
     };
   }
 
   handleSubmit(formData: YourStudyData) {
-    const currentPatient = this.coordinator.patientData.patientState;
-    const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
     this.coordinator
@@ -290,7 +293,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
   render() {
     const currentPatient = this.coordinator.patientData.patientState;
-    const cleanInitialFormValues = this.props.route.params.editing ? this.getPatientFormValues() : initialFormValues;
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -305,7 +308,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={cleanInitialFormValues}
+          initialValues={this.getInitalFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
           {(props) => {
@@ -315,14 +318,12 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                   <Item stackedLabel style={styles.textItemStyle}>
                     <Label>{i18n.t('your-study.label-cohort')}</Label>
                     <CheckboxList>
-                      {this.state.cohorts.map((cohort) => (
+                      {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
                           key={cohort.key}
-                          value={this.state.selected[cohort.key]}
+                          value={props.values[cohort.key]}
                           onChange={(value: boolean) => {
-                            const newSelection = cloneDeep(this.state.selected);
-                            newSelection[cohort.key] = value;
-                            this.setState({ selected: newSelection });
+                            props.setFieldValue(cohort.key, value);
                           }}>
                           {cohort.label}
                         </CheckboxItem>
@@ -380,17 +381,23 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   private createPatientInfos(formData: YourStudyData) {
-    let infos = {
-      ...this.state.selected,
-    } as Partial<PatientInfosRequest>;
+    // This is to split up the US specific fields, from the cohorts. This is a neat way to do it without repeating the country filtering logic above
+    const {
+      clinicalStudyNames,
+      clinicalStudyContacts,
+      clinicalStudyInstitutions,
+      clinicalStudyNctIds,
+      ...cohorts
+    } = formData;
+    let infos = { ...cohorts } as Partial<PatientInfosRequest>;
 
     if (isUSCountry()) {
       infos = {
-        ...infos,
-        ...(formData.clinicalStudyNames && { clinical_study_names: formData.clinicalStudyNames }),
-        ...(formData.clinicalStudyContacts && { clinical_study_contacts: formData.clinicalStudyContacts }),
-        ...(formData.clinicalStudyInstitutions && { clinical_study_institutions: formData.clinicalStudyInstitutions }),
-        ...(formData.clinicalStudyNctIds && { clinical_study_nct_ids: formData.clinicalStudyNctIds }),
+        ...cohorts,
+        ...(clinicalStudyNames && { clinical_study_names: clinicalStudyNames }),
+        ...(clinicalStudyContacts && { clinical_study_contacts: clinicalStudyContacts }),
+        ...(clinicalStudyInstitutions && { clinical_study_institutions: clinicalStudyInstitutions }),
+        ...(clinicalStudyNctIds && { clinical_study_nct_ids: clinicalStudyNctIds }),
       };
     }
     return infos;

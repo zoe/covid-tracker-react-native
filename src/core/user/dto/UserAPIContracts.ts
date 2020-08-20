@@ -152,9 +152,9 @@ export type PatientInfosRequest = {
 
   // Study Cohorts
   clinical_study_names: string;
-  clinical_study_contact: string;
-  clinical_study_institution: string;
-  clinical_study_nct_id: string;
+  clinical_study_contacts: string;
+  clinical_study_institutions: string;
+  clinical_study_nct_ids: string;
 
   // About your work
   healthcare_professional: HealthCareStaffOptions;
