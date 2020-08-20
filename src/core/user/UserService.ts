@@ -171,9 +171,15 @@ export default class UserService extends ApiClientBase implements IUserService {
     return null;
   }
 
-  public async updateCountryCode(body: UpdateCountryCodeRequest) {
-    const userId = ApiClientBase.userId;
-    return this.client.patch(`/users/${userId}`, body);
+  public async updateCountryCode(body: UpdateCountryCodeRequest): Promise<UserResponse | null> {
+    try {
+      const { data } = await this.client.patch<UserResponse>(`/users/country_code/`, body);
+      await AsyncStorageService.saveProfile(data);
+      return data;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
   }
 
   public async updatePii(pii: Partial<PiiRequest>) {
