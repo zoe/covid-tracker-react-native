@@ -903,6 +903,7 @@
       "text": false,
       "archive-cta": false,
       "done": false,
+      "next": false,
 
       "location": {
         "title": false,

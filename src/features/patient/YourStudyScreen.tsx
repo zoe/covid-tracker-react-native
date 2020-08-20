@@ -224,6 +224,11 @@ const AllCohorts: CohortDefinition[] = [
     label: 'Mary Washington Healthcare',
     country: 'US',
   },
+  {
+    key: 'is_in_none_of_the_above',
+    label: 'None of the above',
+    country: 'GB',
+  },
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
@@ -376,7 +381,11 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 )}
 
                 <BrandedButton onPress={props.handleSubmit}>
-                  {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
+                  {props.values.is_in_uk_nhs_asymptomatic_study
+                    ? i18n.t('edit-profile.next')
+                    : this.props.route.params.editing
+                    ? i18n.t('edit-profile.done')
+                    : i18n.t('next-question')}
                 </BrandedButton>
               </Form>
             );
@@ -395,6 +404,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
       clinicalStudyNctIds,
       ...cohorts
     } = formData;
+
     let infos = { ...cohorts } as Partial<PatientInfosRequest>;
 
     if (isUSCountry()) {
