@@ -110,9 +110,9 @@
   "title-about-work": "About your work",
 
   "your-study": {
+    "title": "Study membership",
     "label-cohort": "Are you part of one of these population studies or organisations?",
     "add-study-names": "Add the names of your studies",
-    "your-clinical-study": "Your clinical study",
     "contact-name": "If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?",
     "uni-hospital": "If you know it, what university or hospital runs this study?",
     "nct-number": "What is the NCT number (if you know it)?",
@@ -907,6 +907,7 @@
     "text": "",
     "archive-cta": "Archive this profile",
     "done": "Done",
+    "next": "Next",
 
     "location": {
       "title": "My location",

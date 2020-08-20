@@ -48,7 +48,7 @@ export type ScreenParamList = {
   EditLocation: { patientData: PatientData };
 
   // Patient screens
-  YourStudy: { patientData: PatientData };
+  YourStudy: { patientData: PatientData; editing: boolean };
   YourWork: { patientData: PatientData };
   AboutYou: { patientData: PatientData; editing: boolean };
   YourHealth: { patientData: PatientData };

@@ -10,10 +10,11 @@ function setContainer(navigationRef: NavigationContainerRef) {
   navigation = navigationRef;
 }
 
-function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<RouteName>, 'key'>[]) {
+function reset<RouteName extends keyof ScreenParamList>(routeList: Omit<Route<RouteName>, 'key'>[], index?: number) {
+  const value = index ?? 0;
   navigation!.dispatch(
     CommonActions.reset({
-      index: 0,
+      index: value,
       routes: routeList,
     })
   );

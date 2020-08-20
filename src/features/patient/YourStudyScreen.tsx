@@ -1,7 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { cloneDeep } from 'lodash';
 import { Form, Item, Label } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
@@ -20,6 +19,8 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { Coordinator } from '@covid/core/Coordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -49,12 +50,20 @@ interface YourStudyData {
 }
 
 type State = {
-  cohorts: CohortDefinition[];
-  selected: { [index: string]: boolean };
   errorMessage: string;
 };
 
 const AllCohorts: CohortDefinition[] = [
+  {
+    key: 'is_in_uk_guys_trust',
+    label: "Guys & St. Thomas' Hospital Trust",
+    country: 'GB',
+  },
+  {
+    key: 'is_in_uk_nhs_asymptomatic_study',
+    label: 'NHS Asymptomatic Staff Testing Pilot',
+    country: 'GB',
+  },
   {
     key: 'is_in_uk_twins',
     label: 'Twins UK',
@@ -63,16 +72,6 @@ const AllCohorts: CohortDefinition[] = [
   {
     key: 'is_in_uk_biobank',
     label: 'UK Biobank',
-    country: 'GB',
-  },
-  {
-    key: 'is_in_uk_guys_trust',
-    label: "Guys & St Thomas' Hospital Trust",
-    country: 'GB',
-  },
-  {
-    key: 'is_in_uk_nhs_asymptomatic_study',
-    label: 'NHS Asymptomatic Study',
     country: 'GB',
   },
   {
@@ -225,11 +224,19 @@ const AllCohorts: CohortDefinition[] = [
     label: 'Mary Washington Healthcare',
     country: 'US',
   },
+  //For now, the NOTA is being sent to the backend and failing silenty since the field doesn't exist, not to the users knowledge
+  {
+    key: 'is_in_none_of_the_above',
+    label: 'None of the above',
+    country: 'GB',
+  },
 ];
 
 export default class YourStudyScreen extends Component<YourStudyProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
+
+  private coordinator: Coordinator = this.props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   registerSchema = Yup.object().shape({
     clinicalStudyNames: Yup.string(),
@@ -239,9 +246,37 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   });
 
   filterCohortsByCountry(allCohorts: CohortDefinition[], country: string) {
+    const currentPatient = this.coordinator.patientData.patientState;
     return AllCohorts.filter((cohort) => {
+      if (cohort.key === 'is_in_uk_nhs_asymptomatic_study') {
+        return cohort.country === country && currentPatient.isReportedByAnother === false;
+      }
       return cohort.country === country;
     });
+  }
+
+  getInitalFormValues() {
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
+    if (this.props.route.params.editing) {
+      const patientInfo = this.props.route.params.patientData.patientInfo!;
+      const patientFormData = {
+        clinicalStudyNames: patientInfo.clinical_study_names ?? '',
+        clinicalStudyContacts: patientInfo.clinical_study_contacts ?? '',
+        clinicalStudyInstitutions: patientInfo.clinical_study_institutions ?? '',
+        clinicalStudyNctIds: patientInfo.clinical_study_nct_ids ?? '',
+      };
+      countrySpecificCohorts.forEach((cohort) => {
+        //TODO: Fix type error
+        patientFormData[cohort.key] = !!patientInfo[cohort.key];
+      });
+      return patientFormData;
+    } else {
+      const patientFormData = {
+        ...initialFormValues,
+        ...this.buildInitCohortsValues(countrySpecificCohorts),
+      };
+      return patientFormData;
+    }
   }
 
   buildInitCohortsValues(cohorts: CohortDefinition[]): { [index: string]: boolean } {
@@ -254,38 +289,33 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
 
   constructor(props: YourStudyProps) {
     super(props);
-    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     this.state = {
-      cohorts: countrySpecificCohorts,
-      selected: this.buildInitCohortsValues(countrySpecificCohorts),
       errorMessage: '',
     };
   }
 
   handleSubmit(formData: YourStudyData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
-    const patientId = currentPatient.patientId;
+    const currentPatient = this.coordinator.patientData.patientState;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
-      .updatePatient(patientId, infos)
+    this.coordinator
+      .updatePatientInfo(infos)
       .then((_) => {
         currentPatient.isNHSStudy = !!infos.is_in_uk_nhs_asymptomatic_study;
-        patientCoordinator.gotoNextScreen(this.props.route.name);
+        this.coordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
+    const currentPatient = this.coordinator.patientData.patientState;
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
-          <HeaderText>
-            {isGBCountry() ? 'Population studies' : isUSCountry() ? i18n.t('your-study.your-clinical-study') : ''}
-          </HeaderText>
+          <HeaderText>{i18n.t('your-study.title')}</HeaderText>
         </Header>
 
         <ProgressBlock>
@@ -293,7 +323,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues}
+          initialValues={this.getInitalFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
           {(props) => {
@@ -303,14 +333,13 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                   <Item stackedLabel style={styles.textItemStyle}>
                     <Label>{i18n.t('your-study.label-cohort')}</Label>
                     <CheckboxList>
-                      {this.state.cohorts.map((cohort) => (
+                      {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
                           key={cohort.key}
-                          value={this.state.selected[cohort.key]}
+                          //TODO: Fix type error
+                          value={props.values[cohort.key]}
                           onChange={(value: boolean) => {
-                            const newSelection = cloneDeep(this.state.selected);
-                            newSelection[cohort.key] = value;
-                            this.setState({ selected: newSelection });
+                            props.setFieldValue(cohort.key, value);
                           }}>
                           {cohort.label}
                         </CheckboxItem>
@@ -358,7 +387,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                   <ValidationError error={i18n.t('validation-error-text')} />
                 )}
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                <BrandedButton onPress={props.handleSubmit}>
+                  {/* //TODO: Fix type error */}
+                  {props.values.is_in_uk_nhs_asymptomatic_study
+                    ? i18n.t('edit-profile.next')
+                    : this.props.route.params.editing
+                    ? i18n.t('edit-profile.done')
+                    : i18n.t('next-question')}
+                </BrandedButton>
               </Form>
             );
           }}
@@ -368,17 +404,24 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   private createPatientInfos(formData: YourStudyData) {
-    let infos = {
-      ...this.state.selected,
-    } as Partial<PatientInfosRequest>;
+    // This is to split up the US specific fields, from the cohorts. This is a neat way to do it without repeating the country filtering logic above
+    const {
+      clinicalStudyNames,
+      clinicalStudyContacts,
+      clinicalStudyInstitutions,
+      clinicalStudyNctIds,
+      ...cohorts
+    } = formData;
+
+    let infos = { ...cohorts } as Partial<PatientInfosRequest>;
 
     if (isUSCountry()) {
       infos = {
-        ...infos,
-        ...(formData.clinicalStudyNames && { clinical_study_names: formData.clinicalStudyNames }),
-        ...(formData.clinicalStudyContacts && { clinical_study_contacts: formData.clinicalStudyContacts }),
-        ...(formData.clinicalStudyInstitutions && { clinical_study_institutions: formData.clinicalStudyInstitutions }),
-        ...(formData.clinicalStudyNctIds && { clinical_study_nct_ids: formData.clinicalStudyNctIds }),
+        ...cohorts,
+        ...(clinicalStudyNames && { clinical_study_names: clinicalStudyNames }),
+        ...(clinicalStudyContacts && { clinical_study_contacts: clinicalStudyContacts }),
+        ...(clinicalStudyInstitutions && { clinical_study_institutions: clinicalStudyInstitutions }),
+        ...(clinicalStudyNctIds && { clinical_study_nct_ids: clinicalStudyNctIds }),
       };
     }
     return infos;
