@@ -1305,6 +1305,7 @@
   },
 
   "dashboard": {
+    "report-today": "Rapportera idag, även om du har det bra",
     "report-now": "Rapportera nu",
     "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
     "contributors-so-far": "Bidragsgivare hittills:"
