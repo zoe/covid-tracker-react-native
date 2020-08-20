@@ -22,18 +22,12 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { ScreenParamList } from '../ScreenParamList';
 
 export interface Data {
-  name: string;
   nhsID: string;
 }
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSIntro'>;
   route: RouteProp<ScreenParamList, 'NHSIntro'>;
-};
-
-type State = {
-  consent: boolean;
-  errorMessage: string;
 };
 
 export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
@@ -83,7 +77,6 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
 
   const createPatientInfos = (formData: Data) => {
     return {
-      name: formData.name,
       nhs_study_id: formData.nhsID,
     } as PatientInfosRequest;
   };
@@ -112,15 +105,6 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
               <Form>
                 <RegularText>{i18n.t('nhs-study-intro.text-2')}</RegularText>
-
-                <ValidatedTextInput
-                  placeholder={i18n.t('nhs-study-intro.name-placeholder')}
-                  value={props.values.name}
-                  onChangeText={props.handleChange('name')}
-                  onBlur={props.handleBlur('name')}
-                  error={props.touched.name && props.errors.name}
-                  returnKeyType="next"
-                />
 
                 <ValidatedTextInput
                   placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
