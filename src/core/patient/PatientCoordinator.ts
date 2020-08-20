@@ -57,7 +57,10 @@ export class PatientCoordinator implements Coordinator {
     // OptionalInfo nav-stack cleanup.
     NavigatorService.reset([
       { name: startPage, params: { patientId } },
-      { name: nextPage, params: { patientData: this.patientData } },
+      {
+        name: nextPage,
+        params: { patientData: this.patientData, ...(nextPage === 'YourStudy' && { editing: false }) },
+      },
     ]);
   };
 
