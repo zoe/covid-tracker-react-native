@@ -339,6 +339,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                           //TODO: Fix type error
                           value={props.values[cohort.key]}
                           onChange={(value: boolean) => {
+                            if (cohort.key === 'is_in_none_of_the_above') {
+                              //TODO: Fix type error
+                              props.setValues(this.buildInitCohortsValues(countrySpecificCohorts));
+                            } else {
+                              if (Object.keys(props.values).includes('is_in_none_of_the_above')) {
+                                props.setFieldValue('is_in_none_of_the_above', false);
+                              }
+                            }
                             props.setFieldValue(cohort.key, value);
                           }}>
                           {cohort.label}
