@@ -12,7 +12,7 @@ import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -64,6 +64,13 @@ export default class CovidTestListScreen extends Component<Props, State> {
     this._unsubscribe();
   }
 
+  gotoAddTest = () => {
+    const testType = AssessmentCoordinator.assessmentData.currentPatient.isNHSStudy
+      ? CovidTestType.NHSStudy
+      : CovidTestType.Generic;
+    AssessmentCoordinator.goToAddEditTest(testType);
+  };
+
   handleNextQuestion = async () => {
     try {
       const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
@@ -85,6 +92,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+
     const { isLoading } = this.state;
 
     return (
@@ -107,14 +115,14 @@ export default class CovidTestListScreen extends Component<Props, State> {
           ) : (
             <View style={styles.content}>
               {this.state.covidTests.map((item: CovidTest) => {
-                return <CovidTestRow item={item} key={key(item)} />;
+                return <CovidTestRow type={item.type} item={item} key={key(item)} />;
               })}
             </View>
           )}
         </Screen>
 
         <View>
-          <BrandedButton style={styles.newButton} onPress={AssessmentCoordinator.goToAddEditTest}>
+          <BrandedButton style={styles.newButton} onPress={this.gotoAddTest}>
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
 

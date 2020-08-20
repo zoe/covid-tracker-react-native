@@ -23,6 +23,7 @@ export const colors = {
   purple: '#A10056',
   coral: '#FA7268',
   pink: '#D28C90',
+  red: '#DA675F',
 
   textDark: '#24262B',
 

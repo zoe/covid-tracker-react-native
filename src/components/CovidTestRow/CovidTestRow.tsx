@@ -5,15 +5,16 @@ import moment from 'moment';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { RegularText } from '@covid/components/Text';
 import { chevronRight, pending, tick } from '@assets';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 
 type Props = {
   item: CovidTest;
+  type: CovidTestType;
 };
 
-export const CovidTestRow: React.FC<Props> = ({ item }) => {
+export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
   const formatTestResult = (result: string) => {
     switch (result) {
       case 'positive':
@@ -44,7 +45,7 @@ export const CovidTestRow: React.FC<Props> = ({ item }) => {
   };
 
   return (
-    <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(item)}>
+    <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(type, item)}>
       <Image source={getRowIcon(item.result)} style={styles.tick} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>{formatTestDate(item)}</RegularText>
       <View style={{ flex: 1 }} />

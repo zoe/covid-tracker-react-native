@@ -77,6 +77,7 @@ import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSQuestionsScreen } from '@covid/features/patient/NHSIQuestions';
+import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
 import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
@@ -229,6 +230,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={noHeader} />
         <Stack.Screen name="CovidTestList" component={CovidTestListScreen} options={noHeader} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
+        <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />

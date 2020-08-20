@@ -300,11 +300,31 @@
     }
   },
 
+  "nhs-test-list": {
+
+  },
+
+  "nhs-test-detail": {
+    "title": "Add COVID test",
+    "date-label": "Select the date you had this test",
+    "date-required": "Please indicate the date this test occurred",
+    "mechanism-label": "What test have you taken?",
+    "mechanism-required": "This is required",
+    "mechanism-saliva": "Saliva",
+    "mechanism-swab": "Swab",
+    "fridge-label": "Has the sample been stored in a fridge?",
+    "fridge-required": "This is required",
+    "days-label": "How many days has the sample been stored in a fridge before drop off?",
+    "days-required": "This is required",
+    "days-placeholder": "Select days",
+    "cta-add": "Add test"
+  },
+
   "covid-test": {
     "page-title": "COVID-19 status",
-    "page-title-detail-add": "Add new test",
+    "page-title-detail-add": "Add COVID test",
     "page-title-detail-update": "Update test",
-    "add-test": "Add test",
+    "add-test": "Add new test",
     "update-test": "Update test",
     "delete-test": "Delete test",
 
@@ -659,7 +679,7 @@
     "positive": "Positive",
     "negative": "Negative",
     "failed": "Failed",
-    "pending": "Pending",
+    "pending": "Waiting for result",
     "never-had-test": "I have never had a COVID test",
     "above-list-correct": "This list is correct"
   },

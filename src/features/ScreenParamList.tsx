@@ -60,6 +60,7 @@ export type ScreenParamList = {
   HealthWorkerExposure: { assessmentData: AssessmentData };
   CovidTestList: { assessmentData: AssessmentData; tests?: CovidTest[] };
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
+  NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
   DescribeSymptoms: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
