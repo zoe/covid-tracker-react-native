@@ -1311,7 +1311,7 @@
 
   "dashboard": {
     "report-today": "Informe hoy, incluso si está bien",
-    "report-now": "Informar ahora",
+    "report-now": "Informe ahora",
     "you-have-reported-x-times": "Has informado %{count} veces",
     "contributors-so-far": "Colaboradores hasta ahora:"
   },
