@@ -28,7 +28,24 @@ export class EditProfileCoordinator implements Coordinator {
       NavigatorService.goBack();
     },
     YourStudy: () => {
-      NavigatorService.goBack();
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { patientData: this.patientData });
+      } else {
+        NavigatorService.goBack();
+      }
+    },
+    NHSIntro: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSQuestions', { patientData: this.patientData });
+      } else {
+        NavigatorService.reset(
+          [
+            { name: this.appCoordinator.homeScreenName, params: {} },
+            { name: 'EditProfile', params: { patientData: this.patientData } },
+          ],
+          1
+        );
+      }
     },
   } as ScreenFlow;
 

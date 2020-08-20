@@ -266,6 +266,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         clinicalStudyNctIds: patientInfo.clinical_study_nct_ids ?? '',
       };
       countrySpecificCohorts.forEach((cohort) => {
+        //TODO: Fix type error
         patientFormData[cohort.key] = !!patientInfo[cohort.key];
       });
       return patientFormData;
@@ -335,6 +336,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                       {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
                           key={cohort.key}
+                          //TODO: Fix type error
                           value={props.values[cohort.key]}
                           onChange={(value: boolean) => {
                             props.setFieldValue(cohort.key, value);
@@ -386,6 +388,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 )}
 
                 <BrandedButton onPress={props.handleSubmit}>
+                  {/* //TODO: Fix type error */}
                   {props.values.is_in_uk_nhs_asymptomatic_study
                     ? i18n.t('edit-profile.next')
                     : this.props.route.params.editing
