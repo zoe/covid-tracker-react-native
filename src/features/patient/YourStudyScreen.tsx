@@ -224,6 +224,7 @@ const AllCohorts: CohortDefinition[] = [
     label: 'Mary Washington Healthcare',
     country: 'US',
   },
+  //For now, the NOTA is being sent to the backend and failing silenty since the field doesn't exist, not to the users knowledge
   {
     key: 'is_in_none_of_the_above',
     label: 'None of the above',
