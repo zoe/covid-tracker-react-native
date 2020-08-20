@@ -1377,6 +1377,12 @@
       "days-required": false,
       "days-placeholder": false,
       "cta-add": false
+    },
+
+    "covid-test-list": {
+      "nhs-text": false,
+      "nhs-text-link": false,
+      "update": false
     }
   }
 }
