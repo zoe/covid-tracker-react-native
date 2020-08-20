@@ -110,9 +110,9 @@
   "title-about-work": "Acerca de su trabajo",
 
   "your-study": {
+    "title": "Tu estudio clínico",
     "label-cohort": "Eres parte de alguno de estos estudios de pobalación o alguna de estas organizaciones?",
     "add-study-names": "Añada los nombres de tus estudios",
-    "your-clinical-study": "Tu estudio clínico",
     "contact-name": "Si lo sabes, cuál es el nombre de la persona de contacto en tu estudio (investigador, médico, coordinador del estudio, etc.)",
     "uni-hospital": "Si lo sabes, qué universidad o hospital lleva a cabo este estudio?",
     "nct-number": "Si lo sabes, cuál es el número NCT?",

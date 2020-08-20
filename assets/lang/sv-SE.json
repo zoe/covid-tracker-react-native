@@ -680,9 +680,9 @@
       "share-area-unlocked": false
     },
     "your-study": {
+      "title": false,
       "label-cohort": false,
       "add-study-names": false,
-      "your-clinical-study": false,
       "contact-name": false,
       "uni-hospital": false,
       "nct-number": false,

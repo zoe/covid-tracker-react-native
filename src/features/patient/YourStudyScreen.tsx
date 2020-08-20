@@ -297,9 +297,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
-          <HeaderText>
-            {isGBCountry() ? 'Population studies' : isUSCountry() ? i18n.t('your-study.your-clinical-study') : ''}
-          </HeaderText>
+          <HeaderText>{i18n.t('your-study.title')}</HeaderText>
         </Header>
 
         <ProgressBlock>
