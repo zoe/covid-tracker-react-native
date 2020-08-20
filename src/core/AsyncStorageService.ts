@@ -2,7 +2,6 @@ import { AsyncStorage } from 'react-native';
 
 import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 
-import { UserResponse } from './user/dto/UserAPIContracts';
 import { AuthenticatedUser } from './user/UserService';
 
 const AUTH_TOKEN = 'authToken';
@@ -14,9 +13,7 @@ const CONSENT_SIGNED = 'consentSigned';
 const PUSH_TOKEN = 'pushToken';
 const DIET_STUDY_CONSENT = 'dietStudyConsent';
 
-const USER_PROFILE = 'userProfile';
 const ASKED_COUNTRY = 'askedCountry';
-
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
 export const PERSONALISED_LOCAL_DATA = 'personalisedLocalData';
@@ -93,30 +90,6 @@ export class AsyncStorageService {
     if (askedCountry == null) return false;
     else {
       return JSON.parse(askedCountry) as boolean;
-    }
-  }
-
-  static async saveProfile(profile: UserResponse | null) {
-    try {
-      await AsyncStorage.setItem(USER_PROFILE, JSON.stringify(profile));
-    } catch (err) {
-      // Swallow for now
-      // todo: find a way to report the crash and an alternative
-    }
-  }
-
-  static async getProfile() {
-    let userProfile: string | null = null;
-    try {
-      userProfile = await AsyncStorage.getItem(USER_PROFILE);
-    } catch (e) {
-      // Swallow for now
-      // todo: find a way to report the crash and an alternative
-    }
-
-    if (userProfile == null) return null;
-    else {
-      return JSON.parse(userProfile) as UserResponse;
     }
   }
 

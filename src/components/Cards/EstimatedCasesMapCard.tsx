@@ -118,7 +118,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
 
   const [displayLocation, setDisplayLocation] = useState<string>('your area');
   const [mapUrl, setMapUrl] = useState<string | null>(null);
-  const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
+  const [activeCases, setActiveCases] = useState<number | null | undefined>(contentService.localData?.cases);
   const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
   const [useCartoMap, setUseCartoMap] = useState<boolean>(true);
   const [html, setHtml] = useState<string>('');
@@ -143,7 +143,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     // Show to up date local data
     setDisplayLocation(contentService.localData!.name);
     setMapUrl(contentService.localData!.mapUrl);
-    setActiveCases(contentService.localData!.cases);
+    setActiveCases(contentService.localData?.cases);
     setShowEmptyState(false);
 
     // Update carto's map center if map url isn't avaliable
@@ -250,10 +250,17 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
       </View>
 
       <View style={styles.statsContainer}>
-        <View style={styles.statsRow}>
-          <Header0Text style={styles.stats}>{activeCases}</Header0Text>
-          <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
-        </View>
+        {!!activeCases && (
+          <View style={styles.statsRow}>
+            <Header0Text style={styles.stats}>{activeCases}</Header0Text>
+            <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
+          </View>
+        )}
+        {!activeCases && (
+          <View style={styles.statsRow}>
+            <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
+          </View>
+        )}
         <TouchableOpacity style={styles.backIcon} onPress={showMap}>
           <ChevronRight width={32} height={32} />
         </TouchableOpacity>
