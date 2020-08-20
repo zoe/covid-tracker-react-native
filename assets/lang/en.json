@@ -52,11 +52,11 @@
 
   "welcome": {
     "title": "COVID Symptom Study",
-    "sign-in": "Sign in",
+    "sign-in": "Log in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
     "disclaimer-link": "visit the NHS website",
-    "tell-me-more": "Tell me more",
+    "tell-me-more": "Create account",
     "visit-the-website": "Visit the website",
     "see-how-your-area-is-affected": "Follow the discoveries \nyou made possible",
     "report-button": "Report today, even if you're well",
