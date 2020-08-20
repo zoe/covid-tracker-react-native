@@ -55,6 +55,16 @@ type State = {
 
 const AllCohorts: CohortDefinition[] = [
   {
+    key: 'is_in_uk_guys_trust',
+    label: "Guys & St. Thomas' Hospital Trust",
+    country: 'GB',
+  },
+  {
+    key: 'is_in_uk_nhs_asymptomatic_study',
+    label: 'NHS Asymptomatic Staff Testing Pilot',
+    country: 'GB',
+  },
+  {
     key: 'is_in_uk_twins',
     label: 'Twins UK',
     country: 'GB',
@@ -62,16 +72,6 @@ const AllCohorts: CohortDefinition[] = [
   {
     key: 'is_in_uk_biobank',
     label: 'UK Biobank',
-    country: 'GB',
-  },
-  {
-    key: 'is_in_uk_guys_trust',
-    label: "Guys & St. Thomas' Hospital Trust",
-    country: 'GB',
-  },
-  {
-    key: 'is_in_uk_nhs_asymptomatic_study',
-    label: 'NHS Asymptomatic Study',
     country: 'GB',
   },
   {
