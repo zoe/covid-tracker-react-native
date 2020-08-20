@@ -66,7 +66,7 @@ const AllCohorts: CohortDefinition[] = [
   },
   {
     key: 'is_in_uk_guys_trust',
-    label: "Guys & St Thomas' Hospital Trust",
+    label: "Guys & St. Thomas' Hospital Trust",
     country: 'GB',
   },
   {
