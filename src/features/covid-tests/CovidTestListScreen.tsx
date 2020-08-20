@@ -109,12 +109,12 @@ export default class CovidTestListScreen extends Component<Props, State> {
           </ProgressBlock>
 
           {isNHSStudy ? (
-            <View style={styles.content}>
+            <RegularText style={styles.content}>
               <RegularText>{i18n.t('covid-test-list.nhs-text')}</RegularText>
               <ClickableText onPress={() => this.openUrl('https://covid.joinzoe.com/NAST')}>
                 {i18n.t('covid-test-list.nhs-text-link')}
               </ClickableText>
-            </View>
+            </RegularText>
           ) : (
             <View style={styles.content}>
               <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
