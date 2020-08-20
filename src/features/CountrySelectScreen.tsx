@@ -9,6 +9,7 @@ import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { IUserService } from '@covid/core/user/UserService';
 
 import { ScreenParamList } from './ScreenParamList';
 
@@ -24,9 +25,12 @@ const SV_CODE = 'SE';
 export class CountrySelectScreen extends Component<Props, object> {
   @lazyInject(Services.Localisation)
   private readonly localisationServce: ILocalisationService;
+  @lazyInject(Services.User)
+  private readonly userService: IUserService;
 
   private selectCountry = async (countryCode: string) => {
     await this.localisationServce.setUserCountry(countryCode);
+    await this.userService.updateCountryCode({ country_code: countryCode });
 
     if (this.props.route?.params?.onComplete) {
       this.props.route.params.onComplete();
