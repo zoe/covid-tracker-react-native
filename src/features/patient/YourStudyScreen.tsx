@@ -371,7 +371,9 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                   <ValidationError error={i18n.t('validation-error-text')} />
                 )}
 
-                <BrandedButton onPress={props.handleSubmit}>{i18n.t('next-question')}</BrandedButton>
+                <BrandedButton onPress={props.handleSubmit}>
+                  {this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}
+                </BrandedButton>
               </Form>
             );
           }}
