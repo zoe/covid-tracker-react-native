@@ -238,7 +238,6 @@ export type PatientInfosRequest = {
 
   // NHS Study
   nhs_study_id: string;
-  nhs_study_felt_unwell_month_before: boolean;
   nhs_study_think_had_covid: boolean;
   nhs_study_had_classic_symptoms: boolean;
   is_in_uk_nhs_asymptomatic_study: boolean;

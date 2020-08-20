@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from 'formik';
-import { Form } from 'native-base';
+import { Form, View } from 'native-base';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Linking, Platform, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -84,64 +84,78 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
   const registerSchema = Yup.object().shape({});
   const currentPatient = patientCoordinator.patientData.patientState;
 
+  const openUrl = (link: string) => {
+    Linking.openURL(link);
+  };
+
   return (
     <Screen profile={currentPatient.profile} navigation={props.navigation}>
-      <NHSLogo />
+      <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
+        <NHSLogo />
+      </View>
 
       <Header>
-        <HeaderText>{i18n.t('nhs-study-intro.title')}</HeaderText>
+        <HeaderText style={{ marginBottom: 16 }}>{i18n.t('nhs-study-intro.title')}</HeaderText>
       </Header>
 
-      <RegularText>{i18n.t('nhs-study-intro.text-1')}</RegularText>
+      <View style={{ paddingHorizontal: 16 }}>
+        <RegularText style={{ marginBottom: 24 }}>{i18n.t('nhs-study-intro.text-1')}</RegularText>
 
-      <Formik
-        initialValues={{} as Data}
-        validationSchema={registerSchema}
-        onSubmit={(values: Data) => handleSubmit(values)}>
-        {(props) => {
-          const { handleSubmit, handleChange, touched, errors } = props;
+        <Formik
+          initialValues={{} as Data}
+          validationSchema={registerSchema}
+          onSubmit={(values: Data) => handleSubmit(values)}>
+          {(props) => {
+            const { handleSubmit, errors } = props;
 
-          return (
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-              <Form>
-                <RegularText>{i18n.t('nhs-study-intro.text-2')}</RegularText>
+            return (
+              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <Form>
+                  <RegularText style={{ marginBottom: 16 }}>{i18n.t('nhs-study-intro.text-2')}</RegularText>
 
-                <ValidatedTextInput
-                  placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
-                  value={props.values.nhsID}
-                  onChangeText={props.handleChange('nhsID')}
-                  onBlur={props.handleBlur('nhsID')}
-                  error={props.touched.nhsID && props.errors.nhsID}
-                />
+                  <ValidatedTextInput
+                    placeholder={i18n.t('nhs-study-intro.nhsID-placeholder')}
+                    value={props.values.nhsID}
+                    onChangeText={props.handleChange('nhsID')}
+                    onBlur={props.handleBlur('nhsID')}
+                    error={props.touched.nhsID && props.errors.nhsID}
+                  />
 
-                <RegularText>{i18n.t('nhs-study-intro.text-3')}</RegularText>
+                  <RegularText style={{ marginVertical: 16 }}>
+                    <RegularText>{i18n.t('nhs-study-intro.text-3')}</RegularText>
+                    <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
+                  </RegularText>
 
-                <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
+                  <RegularText style={{ marginVertical: 16 }}>{i18n.t('nhs-study-intro.text-4')}</RegularText>
 
-                <RegularText>{i18n.t('nhs-study-intro.text-4')}</RegularText>
+                  <RegularText style={{ marginVertical: 16 }}>
+                    <RegularText>{i18n.t('nhs-study-intro.text-5')}</RegularText>
+                    <ClickableText onPress={() => openUrl('https://covid.joinzoe.com/NAST')}>
+                      {i18n.t('nhs-study-intro.text-6')}
+                    </ClickableText>
+                  </RegularText>
 
-                <RegularText>{i18n.t('nhs-study-intro.text-5')}</RegularText>
+                  <CheckboxItem value={consent} onChange={toggleConsent}>
+                    {i18n.t('nhs-study-intro.consent')}
+                  </CheckboxItem>
 
-                <CheckboxItem value={consent} onChange={toggleConsent}>
-                  {i18n.t('nhs-study-intro.consent')}
-                </CheckboxItem>
+                  <ErrorText>{errorMessage}</ErrorText>
+                  {!!Object.keys(errors).length && props.submitCount > 0 && (
+                    <ValidationError error={i18n.t('validation-error-text')} />
+                  )}
 
-                <ErrorText>{errorMessage}</ErrorText>
-                {!!Object.keys(errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
-
-                <BrandedButton
-                  onPress={handleSubmit}
-                  enable={checkFormFilled(props) && consent}
-                  hideLoading={!props.isSubmitting}>
-                  {i18n.t('next-question')}
-                </BrandedButton>
-              </Form>
-            </KeyboardAvoidingView>
-          );
-        }}
-      </Formik>
+                  <BrandedButton
+                    onPress={handleSubmit}
+                    enable={checkFormFilled(props) && consent}
+                    hideLoading={!props.isSubmitting}>
+                    {i18n.t('nhs-study-intro.next')}
+                  </BrandedButton>
+                </Form>
+              </KeyboardAvoidingView>
+            );
+          }}
+        </Formik>
+      </View>
     </Screen>
   );
 };

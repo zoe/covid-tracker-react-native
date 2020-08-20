@@ -3,12 +3,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import key from 'weak-key';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
@@ -43,8 +43,6 @@ export default class CovidTestListScreen extends Component<Props, State> {
   };
 
   private _unsubscribe: any = null;
-
-  private LoadingIndicator: React.FC = () => <Loading status="" error={null} />;
 
   async componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', async () => {
@@ -90,10 +88,14 @@ export default class CovidTestListScreen extends Component<Props, State> {
     }
   };
 
+  openUrl = (link: string) => {
+    Linking.openURL(link);
+  };
+
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
-
     const { isLoading } = this.state;
+    const isNHSStudy = currentPatient.isNHSStudy;
 
     return (
       <View style={styles.rootContainer}>
@@ -106,12 +108,21 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <ProgressStatus step={2} maxSteps={5} />
           </ProgressBlock>
 
-          <View style={styles.content}>
-            <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
-          </View>
+          {isNHSStudy ? (
+            <View style={styles.content}>
+              <RegularText>{i18n.t('covid-test-list.nhs-text')}</RegularText>
+              <ClickableText onPress={() => this.openUrl('https://covid.joinzoe.com/NAST')}>
+                {i18n.t('covid-test-list.nhs-text-link')}
+              </ClickableText>
+            </View>
+          ) : (
+            <View style={styles.content}>
+              <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
+            </View>
+          )}
 
           {isLoading ? (
-            <this.LoadingIndicator />
+            <Loading status="" error={null} />
           ) : (
             <View style={styles.content}>
               {this.state.covidTests.map((item: CovidTest) => {

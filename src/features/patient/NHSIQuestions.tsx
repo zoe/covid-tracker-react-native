@@ -7,7 +7,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
@@ -20,9 +20,8 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { ScreenParamList } from '../ScreenParamList';
 
 interface Data {
-  feltUnwell: string;
-  thinkHadCovid: string;
   hadClassicSymptoms: string;
+  thinkHadCovid: string;
 }
 
 type Props = {
@@ -31,9 +30,8 @@ type Props = {
 };
 
 const initialFormValues = {
-  feltUnwell: 'no',
-  thinkHadCovid: 'no',
   hadClassicSymptoms: 'no',
+  thinkHadCovid: 'no',
 };
 
 export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
@@ -61,9 +59,8 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
 
   const createPatientInfos = (formData: Data) => {
     return {
-      nhs_study_felt_unwell_month_before: formData.feltUnwell === 'yes',
-      nhs_study_think_had_covid: formData.thinkHadCovid === 'yes',
       nhs_study_had_classic_symptoms: formData.hadClassicSymptoms === 'yes',
+      nhs_study_think_had_covid: formData.thinkHadCovid === 'yes',
     } as PatientInfosRequest;
   };
 
@@ -86,9 +83,9 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
           return (
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
               <YesNoField
-                selectedValue={props.values.feltUnwell}
-                onValueChange={props.handleChange('feltUnwell')}
-                label={i18n.t('nhs-study-questions.felt-unwell')}
+                selectedValue={props.values.hadClassicSymptoms}
+                onValueChange={props.handleChange('hadClassicSymptoms')}
+                label={i18n.t('nhs-study-questions.had-classic-symptoms')}
               />
 
               <YesNoField
@@ -97,11 +94,7 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
                 label={i18n.t('nhs-study-questions.think-had-covid')}
               />
 
-              <YesNoField
-                selectedValue={props.values.hadClassicSymptoms}
-                onValueChange={props.handleChange('hadClassicSymptoms')}
-                label={i18n.t('nhs-study-questions.had-classic-symptoms')}
-              />
+              <RegularText style={{ margin: 16 }}>{i18n.t('nhs-study-questions.text')}</RegularText>
 
               <Form>
                 <ErrorText>{errorMessage}</ErrorText>
@@ -110,7 +103,7 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
                 )}
 
                 <BrandedButton onPress={handleSubmit} enable={checkFormFilled(props)} hideLoading={!props.isSubmitting}>
-                  {i18n.t('next-question')}
+                  {i18n.t('nhs-study-intro.next')}
                 </BrandedButton>
               </Form>
             </KeyboardAvoidingView>
@@ -120,9 +113,3 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});

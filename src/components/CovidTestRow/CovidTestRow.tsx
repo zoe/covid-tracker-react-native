@@ -25,7 +25,7 @@ export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
       case 'failed':
         return i18n.t('covid-test-list.failed');
       default:
-        return i18n.t('covid-test-list.pending');
+        return i18n.t('covid-test-list.update');
     }
   };
 

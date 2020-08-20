@@ -300,10 +300,6 @@
     }
   },
 
-  "nhs-test-list": {
-
-  },
-
   "nhs-test-detail": {
     "title": "Add COVID test",
     "date-label": "Select the date you had this test",
@@ -318,6 +314,21 @@
     "days-required": "This is required",
     "days-placeholder": "Select days",
     "cta-add": "Add test"
+  },
+
+  "covid-test-list": {
+    "title": "Your COVID-19 tests",
+    "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
+    "nhs-text": "Once you start day 1 of your study, please add test details daily over the 21-day period. If any of your results are positive, please update the relevant test result below. For more information and instructions, read our ",
+    "nhs-text-link": "guide",
+    "add-new-test": "Add new test",
+    "positive": "Positive",
+    "negative": "Negative",
+    "failed": "Failed",
+    "pending": "Waiting for result",
+    "update": "Update result",
+    "never-had-test": "I have never had a COVID test",
+    "above-list-correct": "This list is correct"
   },
 
   "covid-test": {
@@ -671,18 +682,6 @@
   "profile-name-too-long": "Enter a profile name with less that 32 characters",
   "total-people-contributing": "%{total} people contributing",
   "join-total-people-contributing": "Join %{total} people contributing worldwide",
-
-  "covid-test-list": {
-    "title": "Your COVID-19 tests",
-    "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
-    "add-new-test": "Add new test",
-    "positive": "Positive",
-    "negative": "Negative",
-    "failed": "Failed",
-    "pending": "Waiting for result",
-    "never-had-test": "I have never had a COVID test",
-    "above-list-correct": "This list is correct"
-  },
 
   "errors": {
     "button-retry": "Retry",
@@ -1358,22 +1357,23 @@
   },
 
   "nhs-study-intro": {
-    "title": "Covid-19 testing of Asymptomatic NHS staff",
+    "title": "NHS Asymptomatic Staff Testing Pilot",
     "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
-    "text-2": "Please enter your details below",
-    "name-placeholder": "Your full name",
-    "nhsID-placeholder": "Personal ID",
+    "text-2": "Please enter your Personal Identifier provided by site:",
+    "nhsID-placeholder": "Personal Identifier",
     "text-3": "If you do not have this number or are not part of the NHS Asymptomatic Study then ",
     "text-cancel": "click here.",
     "text-4": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
-    "text-5": "Full instructions about sample collection and returns can be found in our Guide to NHS tests",
-    "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me."
+    "text-5": "Full instructions about sample collection and returns can be found in our ",
+    "text-6": "Asymptomatic Staff Testing Pilot Guide",
+    "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
+    "next": "Next"
   },
 
   "nhs-study-questions": {
     "title": "Previous exposure to COVID",
-    "felt-unwell": "Have you felt unwell in the month before you started reporting in this diary?",
+    "had-classic-symptoms": "In the last month before you started reporting, have you experienced any classic COVID symptoms such as a high temperature, a new, continuous cough, or a loss or change to your sense of smell or taste?",
     "think-had-covid": "Do you think you have already had COVID-19, but were not tested (swab or blood)?",
-    "had-classic-symptoms": "Did you have the classic symptoms (high fever and persistent cough) for several days?"
+    "text": "If you develop any symptoms before you start providing test samples as part of this study, please contact XXX immediately for next steps. ",
   }
 }
