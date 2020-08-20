@@ -42,6 +42,10 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
             </TouchableOpacity>
           </>
         )}
+        <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditYourStudy()}>
+          <HeaderText>Your Study</HeaderText>
+          <Image style={styles.chevron} source={chevronRight} />
+        </TouchableOpacity>
       </Screen>
 
       <View>

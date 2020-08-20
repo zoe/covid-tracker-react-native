@@ -20,6 +20,8 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
+import { Coordinator } from '@covid/core/Coordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -226,6 +228,8 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
+  private coordinator: Coordinator = this.props.route.params.editing ? editProfileCoordinator : patientCoordinator;
+
   registerSchema = Yup.object().shape({
     clinicalStudyNames: Yup.string(),
     clinicalStudyContact: Yup.string(),
@@ -247,6 +251,19 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     return initialValues;
   }
 
+  private getPatientFormValues() {
+    const patientInfo = this.props.route.params.patientData.patientInfo!;
+    console.log(patientInfo);
+    const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
+    const patientFormData: { [index: string]: boolean } = {};
+    countrySpecificCohorts.forEach((cohort) => {
+      patientFormData[cohort.key] = !!patientInfo[cohort.key];
+    });
+    console.log(patientFormData);
+    this.setState({ selected: patientFormData });
+    return patientFormData;
+  }
+
   constructor(props: YourStudyProps) {
     super(props);
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
@@ -259,20 +276,21 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   handleSubmit(formData: YourStudyData) {
-    const currentPatient = patientCoordinator.patientData.patientState;
+    const currentPatient = this.coordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
-    this.patientService
-      .updatePatient(patientId, infos)
+    this.coordinator
+      .updatePatientInfo(infos)
       .then((_) => {
-        patientCoordinator.gotoNextScreen(this.props.route.name);
+        this.coordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));
   }
 
   render() {
-    const currentPatient = patientCoordinator.patientData.patientState;
+    const currentPatient = this.coordinator.patientData.patientState;
+    const cleanInitialFormValues = this.props.route.params.editing ? this.getPatientFormValues() : initialFormValues;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -287,7 +305,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={initialFormValues}
+          initialValues={cleanInitialFormValues}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
           {(props) => {
