@@ -901,65 +901,6 @@
     "button": "Estoy interesado"
   },
 
-  "__IGNORE__": {
-    "partners": {
-      "powered-by": false,
-      "data-analysis": false
-    },
-
-    "validation-study-intro": {
-      "title": false,
-      "subtitle": false,
-      "info": false,
-      "yes": false,
-      "no": false,
-      "app-name": false
-    },
-
-    "validation-study-info": {
-      "title": false,
-      "header-1": false,
-      "para-1": false,
-      "header-2": false,
-      "para-2": false,
-      "header-3": false,
-      "para-3": false,
-      "interested": false,
-      "visit-next": false
-    },
-
-    "covid-test": {
-      "question-invite-to-test": false
-    },
-
-    "thank-you-uk": {
-      "title": false,
-      "subtitle": false,
-      "sign-off": false,
-      "cta-single-profile": false,
-      "cta-multi-profile": false
-    },
-
-    "vaccine-registry": {
-      "covid-prevention": false,
-      "can-we-contact": false,
-      "yes": false,
-      "no": false,
-      "next": false,
-      "creating-registry": false,
-      "not-ourselves": false,
-      "not-share": false,
-      "prioritise": false,
-      "tell-friends": false,
-      "share-title": false,
-      "share-text": false,
-      "callout-title": false,
-      "callout-text": false,
-      "callout-link-text": false,
-      "menu-item": false
-    }
-  },
-
   "diabetes": {
     "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor. Estas preguntas son opcionales.",
     "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
@@ -1343,23 +1284,98 @@
     "update-postcode-cta": "Actualizar código postal"
   },
 
-  "nhs-study-intro": {
-    "title": "",
-    "text-1": "",
-    "text-2": "",
-    "name-placeholder": "",
-    "nhsID-placeholder": "",
-    "text-3": "",
-    "text-cancel": "",
-    "text-4": "",
-    "text-5": "",
-    "consent": ""
-  },
+  "__IGNORE__": {
+    "partners": {
+      "powered-by": false,
+      "data-analysis": false
+    },
 
-  "nhs-study-questions": {
-    "title": "",
-    "felt-unwell": "",
-    "think-had-covid": "",
-    "had-classic-symptoms": ""
+    "validation-study-intro": {
+      "title": false,
+      "subtitle": false,
+      "info": false,
+      "yes": false,
+      "no": false,
+      "app-name": false
+    },
+
+    "validation-study-info": {
+      "title": false,
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "interested": false,
+      "visit-next": false
+    },
+
+    "covid-test": {
+      "question-invite-to-test": false
+    },
+
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
+    },
+
+    "vaccine-registry": {
+      "covid-prevention": false,
+      "can-we-contact": false,
+      "yes": false,
+      "no": false,
+      "next": false,
+      "creating-registry": false,
+      "not-ourselves": false,
+      "not-share": false,
+      "prioritise": false,
+      "tell-friends": false,
+      "share-title": false,
+      "share-text": false,
+      "callout-title": false,
+      "callout-text": false,
+      "callout-link-text": false,
+      "menu-item": false
+    },
+    "nhs-study-intro": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "nhsID-placeholder": false,
+      "text-3": false,
+      "text-cancel": false,
+      "text-4": false,
+      "text-5": false,
+      "text-6": false,
+      "consent": false,
+      "next": false
+    },
+
+    "nhs-study-questions": {
+      "title": false,
+      "had-classic-symptoms": false,
+      "think-had-covid": false,
+      "text": false
+    },
+
+    "nhs-test-detail": {
+      "title": false,
+      "date-label": false,
+      "date-required": false,
+      "mechanism-label": false,
+      "mechanism-required": false,
+      "mechanism-saliva": false,
+      "mechanism-swab": false,
+      "fridge-label": false,
+      "fridge-required": false,
+      "days-label": false,
+      "days-required": false,
+      "days-placeholder": false,
+      "cta-add": false
+    }
   }
 }
