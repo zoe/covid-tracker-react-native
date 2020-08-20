@@ -85,7 +85,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   private async deleteLocalUserData() {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
-    await AsyncStorageService.saveProfile(null);
     await this.consentService.setConsentSigned('', '', '');
   }
 
@@ -100,7 +99,6 @@ export default class UserService extends ApiClientBase implements IUserService {
     const data = this.getData<LoginOrRegisterResponse>(response);
     const authToken = data.key;
     await this.storeTokenInAsyncStorage(authToken, data.user.pii);
-    await AsyncStorageService.saveProfile(data.user);
     this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
     this.hasUser = true;
     return data;
@@ -162,7 +160,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   public async getProfile(): Promise<UserResponse | null> {
     try {
       const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profile);
       return profile;
     } catch (error) {
       handleServiceError(error);
@@ -176,12 +173,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   }
 
   async deleteRemoteUserData() {
-    const profile = await AsyncStorageService.getProfile();
-    const payload = {
-      username: profile?.username,
-    };
-    return this.client.delete(`/users/delete/`, {
-      data: payload,
-    });
+    return this.client.delete(`/users/delete/`);
   }
 }
