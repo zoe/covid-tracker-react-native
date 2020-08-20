@@ -1335,5 +1335,25 @@
     "share": "Share your map",
     "update-postcode": "Please update your postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
+  },
+
+  "nhs-study-intro": {
+    "title": "Covid-19 testing of Asymptomatic NHS staff",
+    "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
+    "text-2": "Please enter your details below",
+    "name-placeholder": "Your full name",
+    "nhsID-placeholder": "Personal ID",
+    "text-3": "If you do not have this number or are not part of the NHS Asymptomatic Study then ",
+    "text-cancel": "click here.",
+    "text-4": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
+    "text-5": "Full instructions about sample collection and returns can be found in our Guide to NHS tests",
+    "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me."
+  },
+
+  "nhs-study-questions": {
+    "title": "Previous exposure to COVID",
+    "felt-unwell": "Have you felt unwell in the month before you started reporting in this diary?",
+    "think-had-covid": "Do you think you have already had COVID-19, but were not tested (swab or blood)?",
+    "had-classic-symptoms": "Did you have the classic symptoms (high fever and persistent cough) for several days?"
   }
 }

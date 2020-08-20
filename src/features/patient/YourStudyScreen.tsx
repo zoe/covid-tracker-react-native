@@ -70,6 +70,11 @@ const AllCohorts: CohortDefinition[] = [
     country: 'GB',
   },
   {
+    key: 'is_in_uk_nhs_asymptomatic_study',
+    label: 'NHS Asymptomatic Study',
+    country: 'GB',
+  },
+  {
     key: 'is_in_us_covid_siren',
     label: 'COVID SIREN',
     country: 'US',
@@ -280,11 +285,13 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   }
 
   handleSubmit(formData: YourStudyData) {
+    const currentPatient = this.coordinator.patientData.patientState;
     const infos = this.createPatientInfos(formData);
 
     this.coordinator
       .updatePatientInfo(infos)
       .then((_) => {
+        currentPatient.isNHSStudy = !!infos.is_in_uk_nhs_asymptomatic_study;
         this.coordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => this.setState({ errorMessage: i18n.t('something-went-wrong') }));

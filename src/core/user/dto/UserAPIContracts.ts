@@ -235,6 +235,13 @@ export type PatientInfosRequest = {
   diabetes_oral_sglt2: boolean;
   diabetes_oral_other_medication: string;
   diabetes_uses_cgm: boolean;
+
+  // NHS Study
+  nhs_study_id: string;
+  nhs_study_felt_unwell_month_before: boolean;
+  nhs_study_think_had_covid: boolean;
+  nhs_study_had_classic_symptoms: boolean;
+  is_in_uk_nhs_asymptomatic_study: boolean;
 };
 
 export type TokenInfoRequest = {

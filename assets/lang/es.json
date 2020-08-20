@@ -1340,5 +1340,25 @@
     "share": "Comparte tu mapa",
     "update-postcode": "Actualice su código postal para ver nuestros casos estimados en su área",
     "update-postcode-cta": "Actualizar código postal"
+  },
+
+  "nhs-study-intro": {
+    "title": "",
+    "text-1": "",
+    "text-2": "",
+    "name-placeholder": "",
+    "nhsID-placeholder": "",
+    "text-3": "",
+    "text-cancel": "",
+    "text-4": "",
+    "text-5": "",
+    "consent": ""
+  },
+
+  "nhs-study-questions": {
+    "title": "",
+    "felt-unwell": "",
+    "think-had-covid": "",
+    "had-classic-symptoms": ""
   }
 }
