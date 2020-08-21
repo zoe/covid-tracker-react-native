@@ -5,14 +5,14 @@ import { facebook } from '@assets';
 import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
 import Analytics, { events } from '@covid/core/Analytics';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 export const FacebookSECard: React.FC = () => {
   const onButtonPress = () => {
     Analytics.track(events.CLICK_CALLOUT, {
       calloutID: 'facebookSE',
     });
-    openExternalLink('https://www.facebook.com/covidsymptomstudysverige');
+    openWebLink('https://www.facebook.com/covidsymptomstudysverige');
   };
 
   return (

@@ -15,7 +15,7 @@ import { share } from '@covid/components/Cards/BaseShareApp';
 import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -37,7 +37,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const onMoreDetails = async () => {
-    openExternalLink('https://covid.joinzoe.com/data');
+    openWebLink('https://covid.joinzoe.com/data');
   };
 
   const onShare = () => {

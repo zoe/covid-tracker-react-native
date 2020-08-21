@@ -12,7 +12,7 @@ import { lazyInject } from '@covid/provider/services';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appConfig from '@covid/appConfig';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>;
@@ -84,7 +84,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-3')}{' '}
-            <ClickableText onPress={() => openExternalLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
+            <ClickableText onPress={() => openWebLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
               https://www.cdc.gov/coronavirus/2019-ncov/index.html
             </ClickableText>
             .{'\n'}
@@ -144,7 +144,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
           <RegularText>
             {i18n.t('consent-nurses-us.para-9')}{' '}
-            <ClickableText onPress={() => openExternalLink('mailto:leavecovidtracking-us@joinzoe.com')}>
+            <ClickableText onPress={() => openWebLink('mailto:leavecovidtracking-us@joinzoe.com')}>
               leavecovidtracking-us@joinzoe.com
             </ClickableText>
             {'\n'}
@@ -175,7 +175,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-12')}{' '}
-            <ClickableText onPress={() => openExternalLink('mailto:covidtrackingquestions-us@joinzoe.com')}>
+            <ClickableText onPress={() => openWebLink('mailto:covidtrackingquestions-us@joinzoe.com')}>
               covidtrackingquestions-us@joinzoe.com
             </ClickableText>
             {'\n'}
@@ -219,7 +219,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-16')}{' '}
-            <ClickableText onPress={() => openExternalLink('mailto:leavecovidtracking-us@joinzoe.com')}>
+            <ClickableText onPress={() => openWebLink('mailto:leavecovidtracking-us@joinzoe.com')}>
               leavecovidtracking-us@joinzoe.com
             </ClickableText>
             {'\n'}

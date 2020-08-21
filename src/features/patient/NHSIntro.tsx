@@ -21,7 +21,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../ScreenParamList';
 

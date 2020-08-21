@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 import { CoralBadge } from './Badge';
 
@@ -15,7 +15,7 @@ export default class Donate extends Component {
         <CoralBadge>{i18n.t('donate.banner')}</CoralBadge>
         <RegularBoldText style={styles.primary}>{i18n.t('donate.primary-text')}</RegularBoldText>
         <SecondaryText style={styles.secondary}>{i18n.t('donate.secondary-text')}</SecondaryText>
-        <BrandedButton onPress={() => openExternalLink(i18n.t('donate.url'))} style={styles.button}>
+        <BrandedButton onPress={() => openWebLink(i18n.t('donate.url'))} style={styles.button}>
           {i18n.t('donate.button-text')}
         </BrandedButton>
       </View>

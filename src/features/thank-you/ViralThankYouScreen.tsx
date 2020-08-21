@@ -19,7 +19,7 @@ import { ContributionRank } from '@covid/components/Stats/ContributionRank';
 import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 import { MoreContribution } from '@covid/components/Stats/MoreContribution';
 import { IContentService } from '@covid/core/content/ContentService';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -77,7 +77,7 @@ const Footer: React.FC<{ doneOnPress: VoidFunction }> = ({ doneOnPress }) => {
     <>
       <RegularText style={styles.visitWebsite}>
         {i18n.t('thank-you.visit-our')}{' '}
-        <ClickableText onPress={() => openExternalLink(i18n.t('blog-link'))}>
+        <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>
           {i18n.t('thank-you.website')}
         </ClickableText>{' '}
         {i18n.t('thank-you.to-see-discoveries')}
@@ -105,7 +105,7 @@ const ThankYouModal: React.FC<{
           {i18n.t('thank-you.methodology-body-1')}
           <ClickableText
             onPress={() =>
-              openExternalLink('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')
+              openWebLink('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')
             }>
             {i18n.t('thank-you.read-more-here')}
           </ClickableText>
@@ -118,7 +118,7 @@ const ThankYouModal: React.FC<{
 
         <RegularText style={styles.readBlog}>
           {i18n.t('thank-you.read-more-on')}{' '}
-          <ClickableText onPress={() => openExternalLink(i18n.t('blog-link'))}>
+          <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>
             {i18n.t('thank-you.blog')}
           </ClickableText>
         </RegularText>

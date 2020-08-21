@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock } from '../../../components/LegalComponents';
@@ -132,7 +132,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             Under the{' '}
             <ClickableText
               onPress={() =>
-                openExternalLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
+                openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
               }>
               GDPR
             </ClickableText>{' '}
@@ -149,7 +149,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             For further information on each of those rights, including the circumstances in which they apply, see the{' '}
             <ClickableText
               onPress={() =>
-                openExternalLink(
+                openWebLink(
                   'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
                 )
               }>
@@ -163,7 +163,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             The{' '}
             <ClickableText
               onPress={() =>
-                openExternalLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
+                openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
               }>
               General Data Protection Regulation
             </ClickableText>{' '}
@@ -171,7 +171,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             Union (or European Economic Area) state where you work, normally live or where any alleged infringement of
             data protection laws occurred. The supervisory authority in the UK is the Information Commissioner who may
             be contacted at{' '}
-            <ClickableText onPress={() => openExternalLink('https://ico.org.uk/make-a-complaint/')}>
+            <ClickableText onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             or telephone: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}

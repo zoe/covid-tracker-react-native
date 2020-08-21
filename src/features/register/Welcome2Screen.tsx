@@ -18,7 +18,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { colors } from '@theme';
-import { openExternalLink } from '@covid/utils/links';
+import { openWebLink } from '@covid/utils/links';
 
 import CountryIpModal from './CountryIpModal';
 import { getLocaleFlagIcon } from './helpers';
@@ -52,9 +52,9 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
 
   const helpUrl = useCallback(() => {
     if (isGBCountry()) {
-      openExternalLink('https://www.nhs.uk/conditions/coronavirus-covid-19/');
+      openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/');
     } else if (isSECountry()) {
-      openExternalLink('https://www.1177.se');
+      openWebLink('https://www.1177.se');
     }
   }, [isGBCountry, isSECountry]);
 
