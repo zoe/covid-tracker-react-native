@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from 'formik';
 import { Form, View } from 'native-base';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Linking, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -21,6 +21,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../ScreenParamList';
 

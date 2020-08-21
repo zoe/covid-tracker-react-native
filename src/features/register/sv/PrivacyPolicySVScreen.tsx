@@ -1,11 +1,12 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '../../../components/LegalComponents';
@@ -138,7 +139,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             I enlighet med{' '}
             <ClickableText
               onPress={() =>
-                this.openUrl('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
+                openWebLink('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
               }>
               GDPR
             </ClickableText>{' '}
@@ -159,7 +160,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             För mer information om var och en av dessa rättigheter, däribland under vilka omständigheter de gäller, se{' '}
             <ClickableText
               onPress={() =>
-                this.openUrl(
+                openWebLink(
                   'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
                 )
               }>
@@ -173,7 +174,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             Enligt{' '}
             <ClickableText
               onPress={() =>
-                this.openUrl('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
+                openWebLink('https://eur-lex.europa.eu/legal-content/SV/TXT/PDF/?uri=CELEX:32016R0679&rid=1')
               }>
               GDPR
             </ClickableText>{' '}
@@ -182,7 +183,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
             Information Commissioner som kan kontaktas på{' '}
             <ClickableText
-              onPress={() => this.openUrl('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             eller per telefon: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}
@@ -204,10 +205,6 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
         )}
       </View>
     );
-  }
-
-  private openUrl(link: string) {
-    Linking.openURL(link);
   }
 }
 

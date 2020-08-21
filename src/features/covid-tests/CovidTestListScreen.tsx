@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import key from 'weak-key';
 import React, { Component } from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -20,6 +20,7 @@ import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;
@@ -92,10 +93,6 @@ export default class CovidTestListScreen extends Component<Props, State> {
     }
   };
 
-  openUrl = (link: string) => {
-    Linking.openURL(link);
-  };
-
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const { isLoading } = this.state;
@@ -115,7 +112,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
           {isNHSStudy ? (
             <RegularText style={styles.content}>
               <RegularText>{i18n.t('covid-test-list.nhs-text')}</RegularText>
-              <ClickableText onPress={() => this.openUrl('https://covid.joinzoe.com/passt')}>
+              <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/passt')}>
                 {i18n.t('covid-test-list.nhs-text-link')}
               </ClickableText>
             </RegularText>
