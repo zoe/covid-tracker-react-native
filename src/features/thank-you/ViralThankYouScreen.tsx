@@ -77,9 +77,7 @@ const Footer: React.FC<{ doneOnPress: VoidFunction }> = ({ doneOnPress }) => {
     <>
       <RegularText style={styles.visitWebsite}>
         {i18n.t('thank-you.visit-our')}{' '}
-        <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>
-          {i18n.t('thank-you.website')}
-        </ClickableText>{' '}
+        <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>{i18n.t('thank-you.website')}</ClickableText>{' '}
         {i18n.t('thank-you.to-see-discoveries')}
       </RegularText>
 
@@ -118,9 +116,7 @@ const ThankYouModal: React.FC<{
 
         <RegularText style={styles.readBlog}>
           {i18n.t('thank-you.read-more-on')}{' '}
-          <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>
-            {i18n.t('thank-you.blog')}
-          </ClickableText>
+          <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>{i18n.t('thank-you.blog')}</ClickableText>
         </RegularText>
       </ScrollView>
     </View>

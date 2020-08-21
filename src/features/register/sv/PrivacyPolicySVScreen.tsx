@@ -183,9 +183,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
             Information Commissioner som kan kontaktas på{' '}
             <ClickableText
-              onPress={() =>
-                openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')
-              }>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             eller per telefon: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}
