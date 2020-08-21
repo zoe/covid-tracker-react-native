@@ -62,10 +62,14 @@ export default class CovidTestListScreen extends Component<Props, State> {
     this._unsubscribe();
   }
 
-  gotoAddTest = () => {
-    const testType = AssessmentCoordinator.assessmentData.currentPatient.isNHSStudy
+  getCovidTestType = (): CovidTestType => {
+    return AssessmentCoordinator.assessmentData.currentPatient.isNHSStudy
       ? CovidTestType.NHSStudy
       : CovidTestType.Generic;
+  };
+
+  gotoAddTest = () => {
+    const testType = this.getCovidTestType();
     AssessmentCoordinator.goToAddEditTest(testType);
   };
 
