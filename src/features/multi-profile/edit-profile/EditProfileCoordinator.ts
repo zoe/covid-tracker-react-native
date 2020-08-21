@@ -35,9 +35,9 @@ export class EditProfileCoordinator implements Coordinator {
       }
     },
     NHSIntro: () => {
-      NavigatorService.navigate('NHSQuestions', { editing: true });
+      NavigatorService.navigate('NHSDetails', { editing: true });
     },
-    NHSQuestions: () => {
+    NHSDetails: () => {
       NavigatorService.reset(
         [
           { name: this.appCoordinator.homeScreenName, params: {} },
