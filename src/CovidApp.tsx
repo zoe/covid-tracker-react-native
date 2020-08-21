@@ -76,7 +76,7 @@ import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/E
 import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
-import { NHSQuestionsScreen } from '@covid/features/patient/NHSIQuestions';
+import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
@@ -266,7 +266,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
-        <Stack.Screen name="NHSQuestions" component={NHSQuestionsScreen} options={noHeader} />
+        <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

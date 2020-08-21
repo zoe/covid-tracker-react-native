@@ -31,12 +31,12 @@ export class PatientCoordinator implements Coordinator {
     },
     NHSIntro: () => {
       if (this.patientData.patientState.isNHSStudy) {
-        NavigatorService.navigate('NHSQuestions', { editing: false });
+        NavigatorService.navigate('NHSDetails', { editing: false });
       } else {
         NavigatorService.navigate('YourWork', { patientData: this.patientData });
       }
     },
-    NHSQuestions: () => {
+    NHSDetails: () => {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
     },
     YourWork: () => {

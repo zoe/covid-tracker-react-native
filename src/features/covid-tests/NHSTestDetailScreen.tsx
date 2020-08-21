@@ -24,13 +24,12 @@ import {
   NHSTestMechanismData,
   NHSTestMechanismQuestion,
 } from '@covid/features/covid-tests/fields/NHSTestMechanismQuestion';
-import { NHSTestFridgeData, NHSTestFridgeQuestion } from '@covid/features/covid-tests/fields/NHSTestFridgeQuestion';
 import {
   CovidTestResultData,
   CovidTestResultQuestion,
 } from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
 
-export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, NHSTestFridgeData, CovidTestResultData {}
+export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSTestDetail'>;
@@ -101,10 +100,8 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
         patient: AssessmentCoordinator.assessmentData.currentPatient.patientId,
         type: CovidTestType.NHSStudy,
         invited_to_test: false,
-        // trained_worker: false,  TODO: Decide whether we can default this
         ...NHSTestDateQuestion.createDTO(formData),
         ...NHSTestMechanismQuestion.createDTO(formData),
-        ...NHSTestFridgeQuestion.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
       } as Partial<CovidTest>;
 
@@ -147,7 +144,6 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       .shape({})
       .concat(NHSTestDateQuestion.schema())
       .concat(NHSTestMechanismQuestion.schema())
-      .concat(NHSTestFridgeQuestion.schema())
       .concat(CovidTestResultQuestion.schema());
 
     return (
@@ -166,7 +162,6 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
           initialValues={{
             ...NHSTestDateQuestion.initialFormValues(test),
             ...NHSTestMechanismQuestion.initialFormValues(test),
-            ...NHSTestFridgeQuestion.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
@@ -178,7 +173,6 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
               <Form>
                 <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
                 <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
-                <NHSTestFridgeQuestion formikProps={props as FormikProps<NHSTestFridgeData>} test={test} />
                 <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
