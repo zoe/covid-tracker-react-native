@@ -130,7 +130,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
 
                   <RegularText style={{ marginVertical: 16 }}>
                     <RegularText>{i18n.t('nhs-study-intro.text-5')}</RegularText>
-                    <ClickableText onPress={() => openUrl('https://covid.joinzoe.com/NAST')}>
+                    <ClickableText onPress={() => openUrl('https://covid.joinzoe.com/passt')}>
                       {i18n.t('nhs-study-intro.text-6')}
                     </ClickableText>
                   </RegularText>
