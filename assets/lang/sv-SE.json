@@ -1345,18 +1345,16 @@
       "nhsID-placeholder": false,
       "text-3": false,
       "text-cancel": false,
-      "text-4": false,
-      "text-5": false,
-      "text-6": false,
       "consent": false,
       "next": false
     },
 
     "nhs-study-questions": {
       "title": false,
-      "had-classic-symptoms": false,
-      "think-had-covid": false,
-      "text": false
+      "text-1": false,
+      "text-2": false,
+      "text-3": false,
+      "text-link": false
     },
 
     "nhs-test-detail": {
