@@ -1379,5 +1379,39 @@
       "nhs-text": false,
       "nhs-text-link": false
     }
+  },
+
+  "dashboard": {
+    "report-today": "Rapportera idag, även om du har det bra",
+    "report-now": "Rapportera nu",
+    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
+    "contributors-so-far": "Bidragsgivare hittills:"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Casos estimados",
+    "daily": "Nuevos casos diarios",
+    "active": "Casos activos",
+    "cta": "Más detalles"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Senaste nytt"
+  },
+
+  "latest-news": {
+    "title": "Senaste nytt"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID på {{location}}",
+    "current-estimates": "Aktuella uppskattningar",
+    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
+    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\rpå detta område",
+    "share": "Dela din karta",
+    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
+    "update-postcode-cta": "Uppdatera postnumret"
   }
 }
