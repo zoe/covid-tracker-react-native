@@ -12,7 +12,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isGBCountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
+import { isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
@@ -224,7 +224,7 @@ const AllCohorts: CohortDefinition[] = [
     label: 'Mary Washington Healthcare',
     country: 'US',
   },
-  //For now, the NOTA is being sent to the backend and failing silenty since the field doesn't exist, not to the users knowledge
+  //For now, the NOTA is being sent to the backend and failing silently since the field doesn't exist, not to the users knowledge
   {
     key: 'is_in_none_of_the_above',
     label: 'None of the above',
@@ -249,13 +249,13 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     const currentPatient = this.coordinator.patientData.patientState;
     return AllCohorts.filter((cohort) => {
       if (cohort.key === 'is_in_uk_nhs_asymptomatic_study') {
-        return cohort.country === country && currentPatient.isReportedByAnother === false;
+        return cohort.country === country && !currentPatient.isReportedByAnother;
       }
       return cohort.country === country;
     });
   }
 
-  getInitalFormValues() {
+  getInitialFormValues() {
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
     if (this.props.route.params.editing) {
       const patientInfo = this.props.route.params.patientData.patientInfo!;
@@ -271,11 +271,10 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
       });
       return patientFormData;
     } else {
-      const patientFormData = {
+      return {
         ...initialFormValues,
         ...this.buildInitCohortsValues(countrySpecificCohorts),
       };
-      return patientFormData;
     }
   }
 
@@ -323,7 +322,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         </ProgressBlock>
 
         <Formik
-          initialValues={this.getInitalFormValues()}
+          initialValues={this.getInitialFormValues()}
           validationSchema={this.registerSchema}
           onSubmit={(values: YourStudyData) => this.handleSubmit(values)}>
           {(props) => {

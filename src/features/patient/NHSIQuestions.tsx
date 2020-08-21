@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -16,6 +16,8 @@ import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import YesNoField from '@covid/components/YesNoField';
 import { useInjection } from '@covid/provider/services.hooks';
+import { Coordinator } from '@covid/core/Coordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -35,6 +37,7 @@ const initialFormValues = {
 };
 
 export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
+  const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
   const patientService = useInjection<IPatientService>(Services.Patient);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -45,14 +48,14 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
   };
 
   const handleUpdateWork = (formData: Data) => {
-    const currentPatient = patientCoordinator.patientData.patientState;
+    const currentPatient = coordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = createPatientInfos(formData);
 
     patientService
       .updatePatient(patientId, infos)
       .then(() => {
-        patientCoordinator.gotoNextScreen(props.route.name);
+        coordinator.gotoNextScreen(props.route.name);
       })
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
@@ -65,7 +68,7 @@ export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
   };
 
   const registerSchema = Yup.object().shape({});
-  const currentPatient = patientCoordinator.patientData.patientState;
+  const currentPatient = coordinator.patientData.patientState;
 
   return (
     <Screen profile={currentPatient.profile} navigation={props.navigation}>

@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from 'formik';
 import { Form, View } from 'native-base';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Linking, Platform, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Linking, Platform } from 'react-native';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,6 +18,8 @@ import NHSLogo from '@assets/icons/NHSLogo';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { useInjection } from '@covid/provider/services.hooks';
+import { Coordinator } from '@covid/core/Coordinator';
+import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -31,6 +33,8 @@ type Props = {
 };
 
 export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
+  const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
+
   const patientService = useInjection<IPatientService>(Services.Patient);
   const [consent, setConsent] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -46,7 +50,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
   };
 
   const handleCancel = () => {
-    const currentPatient = patientCoordinator.patientData.patientState;
+    const currentPatient = coordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
 
     const infos = {
@@ -57,20 +61,20 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
       .updatePatient(patientId, infos)
       .then(() => {
         currentPatient.isNHSStudy = false;
-        patientCoordinator.gotoNextScreen(props.route.name);
+        coordinator.gotoNextScreen(props.route.name);
       })
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
 
   const handleSubmit = (formData: Data) => {
-    const currentPatient = patientCoordinator.patientData.patientState;
+    const currentPatient = coordinator.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = createPatientInfos(formData);
 
     patientService
       .updatePatient(patientId, infos)
       .then(() => {
-        patientCoordinator.gotoNextScreen(props.route.name);
+        coordinator.gotoNextScreen(props.route.name);
       })
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
@@ -82,7 +86,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
   };
 
   const registerSchema = Yup.object().shape({});
-  const currentPatient = patientCoordinator.patientData.patientState;
+  const currentPatient = coordinator.patientData.patientState;
 
   const openUrl = (link: string) => {
     Linking.openURL(link);
@@ -159,9 +163,3 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});
