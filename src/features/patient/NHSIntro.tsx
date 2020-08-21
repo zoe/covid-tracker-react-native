@@ -20,6 +20,7 @@ import { CheckboxItem } from '@covid/components/Checkbox';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import NavigatorService from '@covid/NavigatorService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -61,7 +62,12 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
       .updatePatient(patientId, infos)
       .then(() => {
         currentPatient.isNHSStudy = false;
-        coordinator.gotoNextScreen(props.route.name);
+
+        if (props.route.params.editing) {
+          NavigatorService.goBack();
+        } else {
+          coordinator.gotoNextScreen(props.route.name);
+        }
       })
       .catch(() => setErrorMessage(i18n.t('something-went-wrong')));
   };
