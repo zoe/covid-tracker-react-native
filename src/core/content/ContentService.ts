@@ -30,8 +30,6 @@ export default class ContentService implements IContentService {
 
   localData: PersonalisedLocalData;
 
-  constructor(@inject(Services.ContentApi) private apiClient: IContentApiClient) {}
-
   static getWebsiteUrl = () => {
     if (isUSCountry()) {
       return 'https://covid.joinzoe.com/us';
