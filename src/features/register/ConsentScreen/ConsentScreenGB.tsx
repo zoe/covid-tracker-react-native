@@ -1,10 +1,11 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useEffect } from 'react';
-import { ScrollView, Linking } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -13,7 +14,7 @@ type PropsType = {
 };
 
 const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
-  const onInfoLinkPress = useCallback(() => Linking.openURL('https://www.nhs.uk/conditions/coronavirus-covid-19/'), []);
+  const onInfoLinkPress = useCallback(() => openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),
