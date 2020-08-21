@@ -133,15 +133,6 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
                     <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
                   </RegularText>
 
-                  <RegularText style={{ marginVertical: 16 }}>{i18n.t('nhs-study-intro.text-4')}</RegularText>
-
-                  <RegularText style={{ marginVertical: 16 }}>
-                    <RegularText>{i18n.t('nhs-study-intro.text-5')}</RegularText>
-                    <ClickableText onPress={() => openExternalLink('https://covid.joinzoe.com/passt')}>
-                      {i18n.t('nhs-study-intro.text-6')}
-                    </ClickableText>
-                  </RegularText>
-
                   <CheckboxItem value={consent} onChange={toggleConsent}>
                     {i18n.t('nhs-study-intro.consent')}
                   </CheckboxItem>

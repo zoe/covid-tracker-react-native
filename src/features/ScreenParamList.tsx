@@ -54,7 +54,7 @@ export type ScreenParamList = {
   YourHealth: { patientData: PatientData };
   PreviousExposure: { patientData: PatientData };
   NHSIntro: { editing: boolean };
-  NHSQuestions: { editing: boolean };
+  NHSDetails: { editing: boolean };
 
   // Assessment screens
   HealthWorkerExposure: { assessmentData: AssessmentData };

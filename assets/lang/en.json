@@ -656,7 +656,7 @@
     "title": "Your COVID-19 tests",
     "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
     "nhs-text": "Once you start day 1 of your study, please add test details daily over the 21-day period. If any of your results are positive, please update the relevant test result below. For more information and instructions, read our ",
-    "nhs-text-link": "guide",
+    "nhs-text-link": "NHS Asymptomatic Staff Testing Pilot Guide",
     "add-new-test": "Add new test",
     "positive": "Positive",
     "negative": "Negative",
@@ -1345,22 +1345,20 @@
   "nhs-study-intro": {
     "title": "NHS Asymptomatic Staff Testing Pilot",
     "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
-    "text-2": "Please enter your Personal Identifier provided by site:",
-    "nhsID-placeholder": "Personal Identifier",
-    "text-3": "If you do not have this number or are not part of the NHS Asymptomatic Study then ",
+    "text-2": "Please enter your Unique Identifier:",
+    "nhsID-placeholder": "Unique Identifier",
+    "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
     "text-cancel": "click here.",
-    "text-4": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
-    "text-5": "Full instructions about sample collection and returns can be found in our ",
-    "text-6": "Asymptomatic Staff Testing Pilot Guide",
     "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
     "next": "Next"
   },
 
   "nhs-study-questions": {
-    "title": "Previous exposure to COVID",
-    "had-classic-symptoms": "In the last month before you started reporting, have you experienced any classic COVID symptoms such as a high temperature, a new, continuous cough, or a loss or change to your sense of smell or taste?",
-    "think-had-covid": "Do you think you have already had COVID-19, but were not tested (swab or blood)?",
-    "text": "If you develop any symptoms before you start providing test samples as part of this study, please contact XXX immediately for next steps. "
+    "title": "About this study",
+    "text-1": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
+    "text-2": "If you develop any symptoms before you start providing test samples as part of this study, please get in touch with your local contact. (Contact details can be found on your instruction sheet).",
+    "text-3": "Full instructions about sample collection and returns can be found in our ",
+    "text-link": "Asymptomatic Staff Testing Pilot Guide"
   },
 
   "nhs-test-detail": {
@@ -1371,9 +1369,9 @@
     "mechanism-required": "This is required",
     "mechanism-saliva": "Saliva",
     "mechanism-swab": "Swab",
-    "fridge-label": "Has the sample been stored in a fridge?",
+    "fridge-label": "Has the saliva sample been stored in a fridge?",
     "fridge-required": "This is required",
-    "days-label": "How many days has the sample been stored in a fridge before drop off?",
+    "days-label": "How many days has the saliva sample been stored in a fridge before drop off?",
     "days-required": "This is required",
     "days-placeholder": "Select days",
     "cta-add": "Add test"
