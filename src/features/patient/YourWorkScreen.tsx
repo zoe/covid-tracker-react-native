@@ -46,8 +46,8 @@ export interface YourWorkData {
 }
 
 export type YourWorkProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'AboutYou'>;
-  route: RouteProp<ScreenParamList, 'AboutYou'>;
+  navigation: StackNavigationProp<ScreenParamList, 'YourWork'>;
+  route: RouteProp<ScreenParamList, 'YourWork'>;
 };
 
 export type State = {

@@ -2,10 +2,10 @@ import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { IUserService } from '@covid/core/user/UserService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
-import { isUSCountry, isSECountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
@@ -60,6 +60,9 @@ export class AssessmentCoordinator {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
+      NavigatorService.goBack();
+    },
+    NHSTestDetail: () => {
       NavigatorService.goBack();
     },
     DescribeSymptoms: () => {
@@ -125,8 +128,9 @@ export class AssessmentCoordinator {
   };
 
   // The following navigations require the checking of some state and so these are passed in.
-  goToAddEditTest = (covidTest?: CovidTest) => {
-    NavigatorService.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
+  goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
+    const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
+    NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
   };
 
   goToNextHowYouFeelScreen = (healthy: boolean) => {

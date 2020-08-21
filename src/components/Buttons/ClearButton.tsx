@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    color: colors.primary,
+    color: colors.red,
   },
 });
