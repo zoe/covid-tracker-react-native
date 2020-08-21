@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Linking } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { RegularText, HeaderText, CaptionText } from '@covid/components/Text';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';

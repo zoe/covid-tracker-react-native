@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Image, Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { chevronLeft } from '@assets';

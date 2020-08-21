@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useState } from 'react';
-import { Image, Linking, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
 import { gbPartners, svPartners, usPartners } from '@assets';

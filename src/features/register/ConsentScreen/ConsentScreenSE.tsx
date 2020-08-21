@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useState, useEffect } from 'react';
-import { ScrollView, Linking } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';

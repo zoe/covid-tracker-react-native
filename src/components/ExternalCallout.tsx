@@ -1,4 +1,3 @@
-import { Linking } from 'expo';
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 

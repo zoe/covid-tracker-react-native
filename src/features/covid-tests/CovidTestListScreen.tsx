@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import key from 'weak-key';
 import React, { Component } from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';

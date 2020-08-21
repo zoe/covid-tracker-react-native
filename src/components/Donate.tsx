@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Linking } from 'expo';
 
 import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, SecondaryText } from '@covid/components/Text';

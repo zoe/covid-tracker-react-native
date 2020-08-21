@@ -1,4 +1,3 @@
-import { Linking } from 'expo';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import reactStringReplace from 'react-string-replace';

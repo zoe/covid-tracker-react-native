@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View, Linking } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 import { facebook } from '@assets';
 import { colors } from '@theme';

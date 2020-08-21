@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from 'formik';
 import { Form, View } from 'native-base';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Linking, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

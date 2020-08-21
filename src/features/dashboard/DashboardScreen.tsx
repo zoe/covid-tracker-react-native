@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 

@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
