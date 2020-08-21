@@ -15,11 +15,11 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'NHSQuestions'>;
-  route: RouteProp<ScreenParamList, 'NHSQuestions'>;
+  navigation: StackNavigationProp<ScreenParamList, 'NHSDetails'>;
+  route: RouteProp<ScreenParamList, 'NHSDetails'>;
 };
 
-export const NHSQuestionsScreen: React.FC<Props> = (props: Props) => {
+export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
   const coordinator: Coordinator = props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   const goNext = () => {
