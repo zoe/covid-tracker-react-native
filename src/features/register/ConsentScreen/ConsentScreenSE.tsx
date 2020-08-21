@@ -7,6 +7,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { HeaderText, SimpleTextBlock } from '@covid/components/LegalComponents';
+import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -19,7 +20,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
   const [processingChecked, setProcessingChecked] = useState(false);
   const [agreeChecked, setAgreeChecked] = useState(false);
 
-  const onInfoLinkPress = useCallback(() => Linking.openURL('https://Covid19app.lu.se'), []);
+  const onInfoLinkPress = useCallback(() => openExternalLink('https://Covid19app.lu.se'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicySV', { viewOnly: route.params.viewOnly }),
@@ -127,7 +128,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
         <ClickableText
           testID="infoLink2"
           onPress={() =>
-            Linking.openURL('https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/')
+            openExternalLink('https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/')
           }>
           https://www.datainspektionen.se/vagledningar/for-dig-som-privatperson/klagomal-och-tips/
         </ClickableText>

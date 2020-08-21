@@ -21,6 +21,7 @@ import { colors } from '@theme';
 
 import CountryIpModal from './CountryIpModal';
 import { getLocaleFlagIcon } from './helpers';
+import { openExternalLink } from '@covid/utils/links';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 
@@ -51,9 +52,9 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
 
   const helpUrl = useCallback(() => {
     if (isGBCountry()) {
-      Linking.openURL('https://www.nhs.uk/conditions/coronavirus-covid-19/');
+      openExternalLink('https://www.nhs.uk/conditions/coronavirus-covid-19/');
     } else if (isSECountry()) {
-      Linking.openURL('https://www.1177.se');
+      openExternalLink('https://www.1177.se');
     }
   }, [isGBCountry, isSECountry]);
 

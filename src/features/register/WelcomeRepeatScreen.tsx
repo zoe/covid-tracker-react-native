@@ -28,6 +28,7 @@ import { ILocalisationService, isUSCountry, isSECountry } from '@covid/core/loca
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -135,7 +136,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <CalloutBox
               content={this.state.calloutBoxContent}
-              onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+              onPress={() => openExternalLink(this.state.calloutBoxContent.body_link)}
             />
           </View>
         </ScrollView>

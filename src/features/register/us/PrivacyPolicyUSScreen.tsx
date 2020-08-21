@@ -8,6 +8,7 @@ import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@cov
 
 import i18n from '../../../locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
+import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUS'>;
@@ -105,7 +106,7 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
           <RegularText>
             {i18n.t('privacy-policy-us.para-13-1')}{' '}
             <ClickableText
-              onPress={() => this.openUrl('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
+              onPress={() => openExternalLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             {i18n.t('privacy-policy-us.para-13-2')}
@@ -136,10 +137,6 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
         </BrandedButton>
       </View>
     );
-  }
-
-  private openUrl(link: string) {
-    Linking.openURL(link);
   }
 }
 

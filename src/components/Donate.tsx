@@ -7,6 +7,7 @@ import { BrandedButton, RegularBoldText, SecondaryText } from '@covid/components
 import i18n from '@covid/locale/i18n';
 
 import { CoralBadge } from './Badge';
+import { openExternalLink } from '@covid/utils/links';
 
 export default class Donate extends Component {
   render() {
@@ -15,7 +16,7 @@ export default class Donate extends Component {
         <CoralBadge>{i18n.t('donate.banner')}</CoralBadge>
         <RegularBoldText style={styles.primary}>{i18n.t('donate.primary-text')}</RegularBoldText>
         <SecondaryText style={styles.secondary}>{i18n.t('donate.secondary-text')}</SecondaryText>
-        <BrandedButton onPress={() => Linking.openURL(i18n.t('donate.url'))} style={styles.button}>
+        <BrandedButton onPress={() => openExternalLink(i18n.t('donate.url'))} style={styles.button}>
           {i18n.t('donate.button-text')}
         </BrandedButton>
       </View>

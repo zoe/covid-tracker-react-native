@@ -22,6 +22,7 @@ import { MoreContribution } from '@covid/components/Stats/MoreContribution';
 import { IContentService } from '@covid/core/content/ContentService';
 
 import { ScreenParamList } from '../ScreenParamList';
+import { openExternalLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;
@@ -77,7 +78,7 @@ const Footer: React.FC<{ doneOnPress: VoidFunction }> = ({ doneOnPress }) => {
     <>
       <RegularText style={styles.visitWebsite}>
         {i18n.t('thank-you.visit-our')}{' '}
-        <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
+        <ClickableText onPress={() => openExternalLink(i18n.t('blog-link'))}>
           {i18n.t('thank-you.website')}
         </ClickableText>{' '}
         {i18n.t('thank-you.to-see-discoveries')}
@@ -105,7 +106,7 @@ const ThankYouModal: React.FC<{
           {i18n.t('thank-you.methodology-body-1')}
           <ClickableText
             onPress={() =>
-              Linking.openURL('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')
+              openExternalLink('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')
             }>
             {i18n.t('thank-you.read-more-here')}
           </ClickableText>
@@ -118,7 +119,7 @@ const ThankYouModal: React.FC<{
 
         <RegularText style={styles.readBlog}>
           {i18n.t('thank-you.read-more-on')}{' '}
-          <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>{i18n.t('thank-you.blog')}</ClickableText>
+          <ClickableText onPress={() => openExternalLink(i18n.t('blog-link'))}>{i18n.t('thank-you.blog')}</ClickableText>
         </RegularText>
       </ScrollView>
     </View>

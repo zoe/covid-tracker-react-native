@@ -5,6 +5,7 @@ import { RegularText, HeaderText, CaptionText } from '@covid/components/Text';
 import { NumberIndicator } from '@covid/components/Stats/NumberIndicator';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
+import { openExternalLink } from '@covid/utils/links';
 
 export enum DrawerMenuItem {
   RESEARCH_UPDATE = 'RESEARCH_UPDATE',
@@ -49,7 +50,7 @@ export const LinkItem: React.FC<LinkMenuItemProps> = ({
   type,
   onPress = () => {
     Analytics.track(events.CLICK_DRAWER_MENU_ITEM, { name: type });
-    if (link) Linking.openURL(link);
+    if (link) openExternalLink(link);
   },
 }) => {
   const getLabel = (): string => {

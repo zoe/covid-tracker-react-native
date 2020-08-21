@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import Analytics, { events } from '@covid/core/Analytics';
+import { openExternalLink } from '@covid/utils/links';
 
 type ExternalCalloutProps = {
   link?: string;
@@ -18,7 +19,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
 
   function clickCallout() {
     Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
-    if (link) Linking.openURL(link);
+    if (link) openExternalLink(link);
     if (postClicked) postClicked();
   }
 

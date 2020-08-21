@@ -23,6 +23,7 @@ import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/E
 import NavigatorService from '@covid/NavigatorService';
 
 import { ScreenParamList } from '../ScreenParamList';
+import { openExternalLink } from '@covid/utils/links';
 
 export interface Data {
   nhsID: string;
@@ -94,10 +95,6 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
   const registerSchema = Yup.object().shape({});
   const currentPatient = coordinator.patientData.patientState;
 
-  const openUrl = (link: string) => {
-    Linking.openURL(link);
-  };
-
   return (
     <Screen profile={currentPatient.profile} navigation={props.navigation}>
       <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
@@ -140,7 +137,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
 
                   <RegularText style={{ marginVertical: 16 }}>
                     <RegularText>{i18n.t('nhs-study-intro.text-5')}</RegularText>
-                    <ClickableText onPress={() => openUrl('https://covid.joinzoe.com/passt')}>
+                    <ClickableText onPress={() => openExternalLink('https://covid.joinzoe.com/passt')}>
                       {i18n.t('nhs-study-intro.text-6')}
                     </ClickableText>
                   </RegularText>

@@ -7,6 +7,7 @@ import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -24,7 +25,7 @@ const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
   );
 
   const onInfoLinkPress = useCallback(
-    () => Linking.openURL('https://www.cdc.gov/coronavirus/2019-ncov/index.html'),
+    () => openExternalLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html'),
     []
   );
 
