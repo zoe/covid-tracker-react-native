@@ -94,10 +94,6 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
   const registerSchema = Yup.object().shape({});
   const currentPatient = coordinator.patientData.patientState;
 
-  const openUrl = (link: string) => {
-    Linking.openURL(link);
-  };
-
   return (
     <Screen profile={currentPatient.profile} navigation={props.navigation}>
       <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
@@ -134,15 +130,6 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
                   <RegularText style={{ marginVertical: 16 }}>
                     <RegularText>{i18n.t('nhs-study-intro.text-3')}</RegularText>
                     <ClickableText onPress={handleCancel}>{i18n.t('nhs-study-intro.text-cancel')}</ClickableText>
-                  </RegularText>
-
-                  <RegularText style={{ marginVertical: 16 }}>{i18n.t('nhs-study-intro.text-4')}</RegularText>
-
-                  <RegularText style={{ marginVertical: 16 }}>
-                    <RegularText>{i18n.t('nhs-study-intro.text-5')}</RegularText>
-                    <ClickableText onPress={() => openUrl('https://covid.joinzoe.com/passt')}>
-                      {i18n.t('nhs-study-intro.text-6')}
-                    </ClickableText>
                   </RegularText>
 
                   <CheckboxItem value={consent} onChange={toggleConsent}>
