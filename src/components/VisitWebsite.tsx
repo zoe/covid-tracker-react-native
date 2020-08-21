@@ -5,9 +5,9 @@ import reactStringReplace from 'react-string-replace';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
+import { openExternalLink } from '@covid/utils/links';
 
 import { ClickableText, RegularText } from './Text';
-import { openExternalLink } from '@covid/utils/links';
 
 export default class VisitWebsite extends Component {
   render() {

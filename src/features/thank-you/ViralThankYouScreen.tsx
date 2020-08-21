@@ -20,9 +20,9 @@ import { ContributionRank } from '@covid/components/Stats/ContributionRank';
 import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 import { MoreContribution } from '@covid/components/Stats/MoreContribution';
 import { IContentService } from '@covid/core/content/ContentService';
+import { openExternalLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../ScreenParamList';
-import { openExternalLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;
@@ -119,7 +119,9 @@ const ThankYouModal: React.FC<{
 
         <RegularText style={styles.readBlog}>
           {i18n.t('thank-you.read-more-on')}{' '}
-          <ClickableText onPress={() => openExternalLink(i18n.t('blog-link'))}>{i18n.t('thank-you.blog')}</ClickableText>
+          <ClickableText onPress={() => openExternalLink(i18n.t('blog-link'))}>
+            {i18n.t('thank-you.blog')}
+          </ClickableText>
         </RegularText>
       </ScrollView>
     </View>

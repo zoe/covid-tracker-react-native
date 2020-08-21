@@ -5,9 +5,9 @@ import { Linking } from 'expo';
 import { colors } from '@theme';
 import { BrandedButton, RegularBoldText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { openExternalLink } from '@covid/utils/links';
 
 import { CoralBadge } from './Badge';
-import { openExternalLink } from '@covid/utils/links';
 
 export default class Donate extends Component {
   render() {

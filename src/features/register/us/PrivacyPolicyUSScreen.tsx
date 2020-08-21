@@ -5,10 +5,10 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { openExternalLink } from '@covid/utils/links';
 
 import i18n from '../../../locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
-import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUS'>;
@@ -106,7 +106,9 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
           <RegularText>
             {i18n.t('privacy-policy-us.para-13-1')}{' '}
             <ClickableText
-              onPress={() => openExternalLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
+              onPress={() =>
+                openExternalLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')
+              }>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             {i18n.t('privacy-policy-us.para-13-2')}

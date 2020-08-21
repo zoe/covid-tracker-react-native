@@ -267,7 +267,8 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               If this research has harmed you in any way or if you wish to make a complaint about the conduct of the
               study you can contact King's College London using the details below for further advice and information:{' '}
               The Chair, BDM Research Ethics Subcommittee, King’s College London,{' '}
-              <ClickableText onPress={() => openExternalLink('mailto:rec@kcl.ac.uk')}>rec@kcl.ac.uk</ClickableText>.{'\n'}
+              <ClickableText onPress={() => openExternalLink('mailto:rec@kcl.ac.uk')}>rec@kcl.ac.uk</ClickableText>.
+              {'\n'}
             </RegularText>
 
             <RegularBoldText>

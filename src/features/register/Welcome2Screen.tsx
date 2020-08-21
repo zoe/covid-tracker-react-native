@@ -18,10 +18,10 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { colors } from '@theme';
+import { openExternalLink } from '@covid/utils/links';
 
 import CountryIpModal from './CountryIpModal';
 import { getLocaleFlagIcon } from './helpers';
-import { openExternalLink } from '@covid/utils/links';
 
 const Slash = () => <RegularBoldText style={styles.slash}> / </RegularBoldText>;
 

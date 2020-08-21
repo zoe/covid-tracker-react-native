@@ -6,10 +6,10 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { openExternalLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock, HeaderText, SimpleTextBlock } from '../../../components/LegalComponents';
-import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;
@@ -183,7 +183,9 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
             där eventuell påstådd överträdelse av dataskyddslagen inträffat. Tillsynsmyndigheten i Storbritannien är
             Information Commissioner som kan kontaktas på{' '}
             <ClickableText
-              onPress={() => openExternalLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')}>
+              onPress={() =>
+                openExternalLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns')
+              }>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             eller per telefon: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}

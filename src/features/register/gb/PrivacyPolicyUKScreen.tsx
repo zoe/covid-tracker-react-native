@@ -5,10 +5,10 @@ import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { openExternalLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock } from '../../../components/LegalComponents';
-import { openExternalLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'PrivacyPolicyUK'>;
