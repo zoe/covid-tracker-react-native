@@ -84,6 +84,14 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 screenName={this.props.route.name}
               />
 
+              <ExternalCallout
+                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
+                calloutID="data_page_003"
+                imageSource={dataPage003}
+                aspectRatio={1.55}
+                screenName={this.props.route.name}
+              />
+
               {this.state.shouldShowReminders && (
                 <ExternalCallout
                   calloutID="notificationReminders"
