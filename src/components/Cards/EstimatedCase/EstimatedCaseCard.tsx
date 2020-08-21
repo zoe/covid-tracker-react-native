@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'native-base';
 
 import { Header3Text, RegularText, MutedText, BrandedButton } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';

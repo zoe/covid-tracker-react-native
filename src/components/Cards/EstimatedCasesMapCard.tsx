@@ -110,7 +110,7 @@ const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
 const ZOOM_LEVEL_CLOSER = 10.5;
 const ZOOM_LEVEL_FURTHER = 6;
 
-export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
+export const EstimatedCasesMapCard: React.FC<Props> = () => {
   const patientService = useInjection<IPatientService>(Services.Patient);
   const contentService = useInjection<IContentService>(Services.Content);
   const viewRef = useRef(null);

@@ -11,7 +11,6 @@ import {
   isUSCountry,
   ILocalisationService,
 } from '@covid/core/localisation/LocalisationService';
-import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -31,7 +30,6 @@ type PropsType = {
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
-  const userService = useInjection<IUserService>(Services.User);
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   const [ipModalVisible, setIpModalVisible] = useState(false);

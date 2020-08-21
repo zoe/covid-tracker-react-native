@@ -50,13 +50,13 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
   viewOnly = this.props.route.params.viewOnly;
 
   handleAgreeToAboveChange = () => {
-    this.setState({ agreeToAbove: !this.state.agreeToAbove });
+    this.setState((prevState) => ({ agreeToAbove: !prevState.agreeToAbove }));
   };
   handleAnonymizedChange = () => {
-    this.setState({ anonymizedData: !this.state.anonymizedData });
+    this.setState((prevState) => ({ anonymizedData: !prevState.anonymizedData }));
   };
   handleReContactedChange = () => {
-    this.setState({ reContacted: !this.state.reContacted });
+    this.setState((prevState) => ({ reContacted: !prevState.reContacted }));
   };
 
   handleAgreeClicked = () => {
