@@ -3,7 +3,7 @@ import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 
 import i18n from '@covid/locale/i18n';
 import { shareAppV2 } from '@assets';
-import { CommonShareProps, BaseShareAppCard, share } from '@covid/components/Cards/BaseShareApp';
+import { CommonShareProps, share } from '@covid/components/Cards/BaseShareApp';
 
 export const ShareAppCardV2: React.FC<CommonShareProps> = (props) => {
   const shareMessage = i18n.t('share-this-app.message');

@@ -39,11 +39,11 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
   viewOnly = this.props.route.params.viewOnly;
 
   handleProcessingChange = () => {
-    this.setState({ processingChecked: !this.state.processingChecked });
+    this.setState((prevState) => ({ processingChecked: !prevState.processingChecked }));
   };
 
   handleTermsOfUseChange = () => {
-    this.setState({ termsOfUseChecked: !this.state.termsOfUseChecked });
+    this.setState((prevState) => ({ termsOfUseChecked: !prevState.termsOfUseChecked }));
   };
 
   handleAgreeClicked = async () => {

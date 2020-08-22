@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { colors } from '@theme';
-import { BrandedButton, Divider, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
