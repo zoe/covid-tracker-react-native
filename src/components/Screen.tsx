@@ -24,8 +24,6 @@ import { RegularText } from './Text';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
 export const screenHeight = Math.round(Dimensions.get('window').height);
-export const isAndroid = Platform.OS === 'android';
-export const isIos = Platform.OS === 'ios';
 
 type HeaderProp = {
   children: React.ReactNode;
