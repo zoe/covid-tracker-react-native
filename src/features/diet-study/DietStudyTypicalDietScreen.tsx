@@ -41,7 +41,7 @@ type Props = {
 };
 
 const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient, recentDietStudyId, timePeriod } = route.params.dietStudyData;
+  const { currentPatient, timePeriod } = route.params.dietStudyData;
   const { profile } = currentPatient;
 
   const isRecent = (): boolean => timePeriod === LAST_4_WEEKS;

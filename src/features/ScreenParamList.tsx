@@ -2,8 +2,6 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
-import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
 
 export enum ConsentType {

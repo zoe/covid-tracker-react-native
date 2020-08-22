@@ -10,6 +10,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { IContentService } from '@covid/core/content/ContentService';
+import { cleanIntegerVal } from '@covid/utils/number';
 
 interface Props {
   reportedCount?: string;
@@ -27,7 +28,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
   const contentService = useInjection<IContentService>(Services.Content);
   const [contributors, setContributors] = useState<string | null>(null);
 
-  const prettyContributorsValue = i18n.toNumber(contributors ? parseInt(contributors) : 0, {
+  const prettyContributorsValue = i18n.toNumber(contributors ? cleanIntegerVal(contributors) : 0, {
     precision: 0,
     delimiter: ',',
   });
