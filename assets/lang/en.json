@@ -429,7 +429,9 @@
   "how-you-feel": {
     "question-health-status": "How do you feel physically right now?",
     "picker-health-status-healthy": "I feel physically normal",
-    "picker-health-status-not-healthy": "I'm not feeling quite right"
+    "picker-health-status-not-healthy": "I'm not feeling quite right",
+    "current-location": "You are currently reporting from:",
+    "update-location": "Update Location"
   },
 
   "level-of-isolation": {

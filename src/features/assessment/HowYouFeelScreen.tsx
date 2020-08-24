@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -15,45 +15,47 @@ import { colors } from '@theme';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type HowYouFeelProps = {
+type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
   route: RouteProp<ScreenParamList, 'HowYouFeel'>;
 };
 
-type State = {
-  errorMessage: string;
-};
+export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [location, setLocation] = useState('');
 
-const initialState: State = {
-  errorMessage: '',
-};
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      const location =
+        assessmentCoordinator.assessmentData.patientData.patientInfo?.current_country ??
+        assessmentCoordinator.assessmentData.patientData.patientInfo?.current_postcode ??
+        assessmentCoordinator.assessmentData.patientData.patientInfo?.postcode ??
+        '';
 
-export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> {
-  constructor(props: HowYouFeelProps) {
-    super(props);
-    this.state = initialState;
-  }
+      setLocation(location);
+    });
+  }, [navigation]);
 
-  handleFeelNormal = async () => {
+  const handleFeelNormal = async () => {
     try {
       const isAssessmentComplete = true;
-      await this.updateAssessment('healthy', isAssessmentComplete);
+      await updateAssessment('healthy', isAssessmentComplete);
       assessmentCoordinator.goToNextHowYouFeelScreen(true);
     } catch (error) {
       // Error already handled.
     }
   };
 
-  handleHaveSymptoms = async () => {
+  const handleHaveSymptoms = async () => {
     try {
-      await this.updateAssessment('not_healthy');
+      await updateAssessment('not_healthy');
       assessmentCoordinator.goToNextHowYouFeelScreen(false);
     } catch (error) {
       // Error already handled.
     }
   };
 
-  private async updateAssessment(status: string, isComplete: boolean = false) {
+  async function updateAssessment(status: string, isComplete: boolean = false) {
     try {
       const assessmentId = assessmentCoordinator.assessmentData.assessmentId;
       const assessment = {
@@ -65,42 +67,41 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
         await assessmentService.saveAssessment(assessmentId!, assessment);
       }
     } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
+      setErrorMessage(i18n.t('something-went-wrong'));
       throw error;
     }
   }
 
-  render() {
-    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
-    return (
-      <>
-        <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
+  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+  return (
+    <>
+      <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
 
-        <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
-          <Header>
-            <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
-          </Header>
+      <Screen profile={currentPatient.profile} navigation={navigation}>
+        <Header>
+          <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
+        </Header>
 
-          <ProgressBlock>
-            <ProgressStatus step={3} maxSteps={5} />
-          </ProgressBlock>
+        <ProgressBlock>
+          <ProgressStatus step={3} maxSteps={5} />
+        </ProgressBlock>
 
-          <View style={styles.content}>
-            <SelectorButton
-              onPress={this.handleFeelNormal}
-              text={i18n.t('how-you-feel.picker-health-status-healthy')}
-            />
+        <View style={styles.content}>
+          {assessmentCoordinator.shouldShowEditLocation() && (
+            <TouchableOpacity style={{ paddingHorizontal: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
+              <RegularText>You are reporting from: {location}</RegularText>
+              <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
+            </TouchableOpacity>
+          )}
 
-            <SelectorButton
-              onPress={this.handleHaveSymptoms}
-              text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
-            />
-          </View>
-        </Screen>
-      </>
-    );
-  }
-}
+          <SelectorButton onPress={handleFeelNormal} text={i18n.t('how-you-feel.picker-health-status-healthy')} />
+
+          <SelectorButton onPress={handleHaveSymptoms} text={i18n.t('how-you-feel.picker-health-status-not-healthy')} />
+        </View>
+      </Screen>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   content: {

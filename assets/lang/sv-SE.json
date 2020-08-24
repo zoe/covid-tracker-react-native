@@ -328,7 +328,9 @@
   "how-you-feel": {
     "question-health-status": "Hur mår du i kroppen just nu?",
     "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
-    "picker-health-status-not-healthy": "Jag känner mig inte helt kry"
+    "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
+    "current-location": false,
+    "update-location": false
   },
 
   "describe-symptoms": {

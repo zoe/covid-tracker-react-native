@@ -186,9 +186,9 @@ export class AppCoordinator {
     editProfileCoordinator.startEditProfile();
   }
 
-  async startEditLocation(profile: Profile) {
+  async startEditLocation(profile: Profile, patientData?: PatientData) {
     await this.setPatientId(profile.id);
-    const patientData = await this.buildPatientData(profile);
+    if (!patientData) patientData = await this.buildPatientData(profile);
     editProfileCoordinator.init(this, patientData, this.userService);
     editProfileCoordinator.goToEditLocation();
   }

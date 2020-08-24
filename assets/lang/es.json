@@ -426,7 +426,9 @@
   "how-you-feel": {
     "question-health-status": "¿Cómo se siente físicamente ahora?",
     "picker-health-status-healthy": "Me siento normal físicamente",
-    "picker-health-status-not-healthy": "No me siento muy bien"
+    "picker-health-status-not-healthy": "No me siento muy bien",
+    "current-location": false,
+    "update-location": false
   },
 
   "level-of-isolation": {

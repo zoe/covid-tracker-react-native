@@ -177,6 +177,17 @@ export class AssessmentCoordinator {
       (await profileService.shouldAskToReportForOthers())
     );
   }
+
+  editLocation() {
+    appCoordinator.startEditLocation(
+      this.assessmentData.patientData.patientState.profile,
+      this.assessmentData.patientData
+    );
+  }
+
+  shouldShowEditLocation() {
+    return this.localisationService.getConfig().enableEditProfile;
+  }
 }
 
 const assessmentCoordinator = new AssessmentCoordinator();
