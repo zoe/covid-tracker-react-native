@@ -57,4 +57,7 @@ export type AssessmentInfosRequest = {
   mask_n95_ffp: boolean;
   mask_not_sure_pfnts: boolean;
   mask_other: string;
+
+  current_postcode: string;
+  current_country_code: string;
 };

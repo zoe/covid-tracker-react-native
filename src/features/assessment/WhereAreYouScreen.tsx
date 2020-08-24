@@ -12,6 +12,7 @@ import { assessmentService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ScreenParamList } from '../ScreenParamList';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type LocationProps = {
   navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
@@ -26,7 +27,11 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
     };
 
     if (isComplete) {
-      await assessmentService.completeAssessment(assessmentId!, assessment);
+      await assessmentService.completeAssessment(
+        assessmentId!,
+        assessment,
+        assessmentCoordinator.assessmentData.patientData.patientInfo!
+      );
     } else {
       await assessmentService.saveAssessment(assessmentId!, assessment);
     }

@@ -14,6 +14,7 @@ import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 
 import { ScreenParamList } from '../ScreenParamList';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -25,12 +26,10 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [location, setLocation] = useState('');
 
   useEffect(() => {
+    const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
+
     return navigation.addListener('focus', () => {
-      const location =
-        assessmentCoordinator.assessmentData.patientData.patientInfo?.current_country ??
-        assessmentCoordinator.assessmentData.patientData.patientInfo?.current_postcode ??
-        assessmentCoordinator.assessmentData.patientData.patientInfo?.postcode ??
-        '';
+      const location = patientInfo?.current_country_code ?? patientInfo?.current_postcode ?? patientInfo?.postcode!;
 
       setLocation(location);
     });
@@ -62,7 +61,11 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
         health_status: status,
       };
       if (isComplete) {
-        await assessmentService.completeAssessment(assessmentId!, assessment);
+        await assessmentService.completeAssessment(
+          assessmentId!,
+          assessment,
+          assessmentCoordinator.assessmentData.patientData.patientInfo!
+        );
       } else {
         await assessmentService.saveAssessment(assessmentId!, assessment);
       }

@@ -13,6 +13,7 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type TreatmentSelectionProps = {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;
@@ -28,7 +29,11 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
       AssessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
     } else {
       const assessment = { treatment };
-      await assessmentService.completeAssessment(assessmentId!, assessment);
+      await assessmentService.completeAssessment(
+        assessmentId!,
+        assessment,
+        assessmentCoordinator.assessmentData.patientData.patientInfo!
+      );
       AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
     }
   };

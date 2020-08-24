@@ -68,12 +68,12 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
             postcode: editProfileCoordinator.patientData.patientInfo!.postcode,
             differentAddress: editProfileCoordinator.patientData.patientInfo!.current_postcode
               ? 'yes'
-              : editProfileCoordinator.patientData.patientInfo!.current_country
+              : editProfileCoordinator.patientData.patientInfo!.current_country_code
               ? 'yes'
               : 'no',
-            stillInUK: editProfileCoordinator.patientData.patientInfo!.current_country ? 'no' : 'yes',
+            stillInUK: editProfileCoordinator.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
             currentLocation: editProfileCoordinator.patientData.patientInfo!.current_postcode,
-            currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country,
+            currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country_code,
           }}
           validationSchema={Yup.object().shape({
             postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),

@@ -14,6 +14,7 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import { assessmentService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 const initialFormValues = {
   description: '',
@@ -43,7 +44,11 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
       };
     }
 
-    await assessmentService.completeAssessment(assessmentId!, assessment);
+    await assessmentService.completeAssessment(
+      assessmentId!,
+      assessment,
+      assessmentCoordinator.assessmentData.patientData.patientInfo!
+    );
     AssessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 

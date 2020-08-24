@@ -6,13 +6,19 @@ import { IAssessmentRemoteClient } from './AssessmentApiClient';
 import { IAssessmentState } from './AssessmentState';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type AssessmentId = string | null;
 
 export interface IAssessmentService {
   initAssessment(): void;
   saveAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest>): Promise<AssessmentResponse>;
-  completeAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest> | null): Promise<boolean>;
+  completeAssessment(
+    assessmentId: AssessmentId,
+    assessment: Partial<AssessmentInfosRequest> | null,
+    patientInfo: PatientInfosRequest
+  ): Promise<boolean>;
   saveLifestyle(patientId: string, payload: Partial<LifestyleRequest>): Promise<LifestyleResponse>;
 }
 
@@ -69,9 +75,20 @@ export default class AssessmentService implements IAssessmentService {
 
   async completeAssessment(
     assessmentId: AssessmentId,
-    assessment: Partial<AssessmentInfosRequest> | null = null
+    assessment: Partial<AssessmentInfosRequest> | null = null,
+    patientInfo: PatientInfosRequest
   ): Promise<boolean> {
     if (assessment) {
+      if (patientInfo.current_country_code) {
+        assessment.current_country_code = patientInfo.current_country_code;
+      } else {
+        if (patientInfo.current_postcode) {
+          assessment.current_postcode = patientInfo.current_postcode;
+        } else {
+          assessment.current_postcode = patientInfo.postcode;
+        }
+      }
+
       await this.saveAssessment(assessmentId, assessment);
     }
 
