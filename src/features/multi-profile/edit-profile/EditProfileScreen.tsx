@@ -30,18 +30,20 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         </Header>
 
         {editProfileCoordinator.shouldShowEditProfile() && (
-          <>
-            <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
-              <Header3Text>Your location</Header3Text>
-              <Image style={styles.chevron} source={chevronRight} />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
-              <Header3Text>{i18n.t('title-about-you')}</Header3Text>
-              <Image style={styles.chevron} source={chevronRight} />
-            </TouchableOpacity>
-          </>
+          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
+            <Header3Text>Your location</Header3Text>
+            <Image style={styles.chevron} source={chevronRight} />
+          </TouchableOpacity>
         )}
+
+        {false && (
+          // Disabled
+          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
+            <Header3Text>{i18n.t('title-about-you')}</Header3Text>
+            <Image style={styles.chevron} source={chevronRight} />
+          </TouchableOpacity>
+        )}
+
         {editProfileCoordinator.shouldShowEditStudy() && (
           <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditYourStudy()}>
             <Header3Text>{i18n.t('your-study.title')}</Header3Text>
