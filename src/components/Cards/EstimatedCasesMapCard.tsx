@@ -47,7 +47,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
-  const showUpdatePostcode = false;
+  const showUpdatePostcode = true;
   const showCartoMap = true;
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
@@ -235,35 +235,37 @@ export const EstimatedCasesMapCard: React.FC<Props> = () => {
   }
 
   return (
-    <View style={styles.root} ref={viewRef}>
-      <View style={styles.headerContainer}>
-        <Header3Text style={styles.primaryLabel}>
-          {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
-        </Header3Text>
-        <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
-      </View>
+    <View style={styles.root}>
+      <View style={styles.snapshotContainer} ref={viewRef}>
+        <View style={styles.headerContainer}>
+          <Header3Text style={styles.primaryLabel}>
+            {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
+          </Header3Text>
+          <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
+        </View>
 
-      <View style={styles.mapContainer}>
-        <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
-          {map()}
-        </TouchableOpacity>
-      </View>
+        <View style={styles.mapContainer}>
+          <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
+            {map()}
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.statsContainer}>
-        {!!activeCases && (
-          <View style={styles.statsRow}>
-            <Header0Text style={styles.stats}>{activeCases}</Header0Text>
-            <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
-          </View>
-        )}
-        {!activeCases && (
-          <View style={styles.statsRow}>
-            <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
-          </View>
-        )}
-        <TouchableOpacity style={styles.backIcon} onPress={showMap}>
-          <ChevronRight width={32} height={32} />
-        </TouchableOpacity>
+        <View style={styles.statsContainer}>
+          {!!activeCases && (
+            <View style={styles.statsRow}>
+              <Header0Text style={styles.stats}>{activeCases}</Header0Text>
+              <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
+            </View>
+          )}
+          {!activeCases && (
+            <View style={styles.statsRow}>
+              <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
+            </View>
+          )}
+          <TouchableOpacity style={styles.backIcon} onPress={showMap}>
+            <ChevronRight width={32} height={32} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.divider} />
@@ -392,5 +394,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     right: 0,
+  },
+
+  snapshotContainer: {
+    width: '100%',
   },
 });
