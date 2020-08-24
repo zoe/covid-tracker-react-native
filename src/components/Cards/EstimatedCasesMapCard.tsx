@@ -47,7 +47,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
-  const showUpdatePostcode = false;
+  const showUpdatePostcode = true;
   const showCartoMap = true;
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
