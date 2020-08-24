@@ -48,13 +48,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
 
   return (
     <View style={styles.root}>
-      {/* <Image source={covidIcon} style={styles.logo} /> */}
-      {/* 
-      <View style={{
-        flexDirection: 'row'
-      }}> */}
       <Image source={covidByZoeIcon} style={styles.covidByZoe} />
-      {/* </View> */}
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>{todaysDate()}</Header3Text>
