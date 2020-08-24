@@ -266,7 +266,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
         clinicalStudyNctIds: patientInfo.clinical_study_nct_ids ?? '',
       };
       countrySpecificCohorts.forEach((cohort) => {
-        //TODO: Fix type error
+        //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
         patientFormData[cohort.key] = !!patientInfo[cohort.key];
       });
       return patientFormData;
@@ -335,11 +335,11 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                       {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
                           key={cohort.key}
-                          //TODO: Fix type error
+                          //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
                           value={props.values[cohort.key]}
                           onChange={(value: boolean) => {
                             if (cohort.key === 'is_in_none_of_the_above') {
-                              //TODO: Fix type error
+                              //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
                               props.setValues(this.buildInitCohortsValues(countrySpecificCohorts));
                             } else {
                               if (Object.keys(props.values).includes('is_in_none_of_the_above')) {
@@ -395,12 +395,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                 )}
 
                 <BrandedButton onPress={props.handleSubmit}>
-                  {/* //TODO: Fix type error */}
-                  {props.values.is_in_uk_nhs_asymptomatic_study
-                    ? i18n.t('edit-profile.next')
-                    : this.props.route.params.editing
-                    ? i18n.t('edit-profile.done')
-                    : i18n.t('next-question')}
+                  {
+                    //@ts-ignore - errror due to cohort keys being in AllCohorts and not explicitly in the interface
+                    props.values.is_in_uk_nhs_asymptomatic_study
+                      ? i18n.t('edit-profile.next')
+                      : this.props.route.params.editing
+                      ? i18n.t('edit-profile.done')
+                      : i18n.t('next-question')
+                  }
                 </BrandedButton>
               </Form>
             );
