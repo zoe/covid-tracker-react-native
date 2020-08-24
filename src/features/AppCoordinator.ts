@@ -187,15 +187,15 @@ export class AppCoordinator {
   }
 
   async startEditProfile(profile: Profile) {
+    await this.setPatientId(profile.id);
     const patientData = await this.buildPatientData(profile);
-    this.patientId = patientData.patientId;
     editProfileCoordinator.init(this, patientData, this.userService);
     editProfileCoordinator.startEditProfile();
   }
 
   async startEditLocation(profile: Profile) {
+    await this.setPatientId(profile.id);
     const patientData = await this.buildPatientData(profile);
-    this.patientId = patientData.patientId;
     editProfileCoordinator.init(this, patientData, this.userService);
     editProfileCoordinator.goToEditLocation();
   }

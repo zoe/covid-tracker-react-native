@@ -44,7 +44,7 @@ export const CovidTestResultQuestion: CovidTestResultQuestion<Props, CovidTestRe
 
 CovidTestResultQuestion.initialFormValues = (test?: CovidTest): CovidTestResultData => {
   return {
-    result: test?.result ? test.result : '',
+    result: test?.result ? test.result : 'waiting',
   };
 };
 

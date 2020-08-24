@@ -4,6 +4,7 @@ export type PatientStateType = {
   patientId: string;
   profile: Profile;
   isHealthWorker: boolean;
+  isNHSStudy: boolean;
   hasCompletedPatientDetails: boolean;
   hasBloodPressureAnswer: boolean;
   isFemale: boolean;
@@ -36,6 +37,7 @@ const initPatientState: PatientStateType = {
     id: '',
   },
   isHealthWorker: false,
+  isNHSStudy: false,
   hasCompletedPatientDetails: true,
   hasBloodPressureAnswer: true,
   isFemale: false,

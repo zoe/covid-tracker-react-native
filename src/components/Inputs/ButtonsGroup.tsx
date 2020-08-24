@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     fontSize: 16,
-    lineHeight: 30,
+    lineHeight: 24,
     marginBottom: 8,
     color: colors.primary,
   },

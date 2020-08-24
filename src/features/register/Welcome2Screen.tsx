@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useState } from 'react';
-import { Image, Linking, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
 import { gbPartners, svPartners, usPartners } from '@assets';
@@ -11,13 +11,13 @@ import {
   isUSCountry,
   ILocalisationService,
 } from '@covid/core/localisation/LocalisationService';
-import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { colors } from '@theme';
+import { openWebLink } from '@covid/utils/links';
 
 import CountryIpModal from './CountryIpModal';
 import { getLocaleFlagIcon } from './helpers';
@@ -30,7 +30,6 @@ type PropsType = {
 };
 
 const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
-  const userService = useInjection<IUserService>(Services.User);
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
 
   const [ipModalVisible, setIpModalVisible] = useState(false);
@@ -51,9 +50,9 @@ const Welcome2Screen: FC<PropsType> = ({ navigation }) => {
 
   const helpUrl = useCallback(() => {
     if (isGBCountry()) {
-      Linking.openURL('https://www.nhs.uk/conditions/coronavirus-covid-19/');
+      openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/');
     } else if (isSECountry()) {
-      Linking.openURL('https://www.1177.se');
+      openWebLink('https://www.1177.se');
     }
   }, [isGBCountry, isSECountry]);
 

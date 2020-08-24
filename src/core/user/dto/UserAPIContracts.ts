@@ -157,9 +157,9 @@ export type PatientInfosRequest = {
 
   // Study Cohorts
   clinical_study_names: string;
-  clinical_study_contact: string;
-  clinical_study_institution: string;
-  clinical_study_nct_id: string;
+  clinical_study_contacts: string;
+  clinical_study_institutions: string;
+  clinical_study_nct_ids: string;
 
   // About your work
   healthcare_professional: HealthCareStaffOptions;
@@ -240,6 +240,10 @@ export type PatientInfosRequest = {
   diabetes_oral_sglt2: boolean;
   diabetes_oral_other_medication: string;
   diabetes_uses_cgm: boolean;
+
+  // NHS Study
+  nhs_study_id: string;
+  is_in_uk_nhs_asymptomatic_study: boolean;
 };
 
 export type TokenInfoRequest = {

@@ -7,7 +7,6 @@ import { BackButton } from '@covid/components/PatientHeader';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { colors } from '@theme';
-import { cartoMapHtml } from '@assets';
 
 interface Props {
   navigation: StackNavigationProp<ScreenParamList>;

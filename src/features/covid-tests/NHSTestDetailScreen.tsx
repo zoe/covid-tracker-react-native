@@ -14,36 +14,26 @@ import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
-import {
-  CovidTestMechanismData,
-  CovidTestMechanismQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestMechanismQuesion';
-import {
-  CovidTestResultData,
-  CovidTestResultQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
-import {
-  CovidTestInvitedData,
-  CovidTestInvitedQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestInvitedQuesetion';
-import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/covid-tests/fields/CovidTestLocation';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
+import { NHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
+import {
+  NHSTestMechanismData,
+  NHSTestMechanismQuestion,
+} from '@covid/features/covid-tests/fields/NHSTestMechanismQuestion';
+import {
+  CovidTestResultData,
+  CovidTestResultQuestion,
+} from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
 
-export interface CovidTestData
-  extends CovidTestDateData,
-    CovidTestMechanismData,
-    CovidTestResultData,
-    CovidTestLocationData,
-    CovidTestInvitedData {}
+export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData {}
 
 type CovidProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'CovidTestDetail'>;
-  route: RouteProp<ScreenParamList, 'CovidTestDetail'>;
+  navigation: StackNavigationProp<ScreenParamList, 'NHSTestDetail'>;
+  route: RouteProp<ScreenParamList, 'NHSTestDetail'>;
 };
 
 type State = {
@@ -56,7 +46,7 @@ const initialState: State = {
   submitting: false,
 };
 
-export default class CovidTestDetailScreen extends Component<CovidProps, State> {
+export default class NHSTestDetailScreen extends Component<CovidProps, State> {
   @lazyInject(Services.CovidTest)
   private readonly covidTestService: ICovidTestService;
 
@@ -70,6 +60,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     return test?.id;
   }
 
+  // TODO: refactor this into a util function
   submitCovidTest(infos: Partial<CovidTest>) {
     const { test } = this.props.route.params;
     if (test?.id) {
@@ -95,33 +86,23 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     }
   }
 
-  handleAction(formData: CovidTestData) {
+  handleAction(formData: NHSTestData) {
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
-      if (formData.knowsDateOfTest === 'yes' && !formData.dateTakenSpecific) {
+      if (!formData.dateTakenSpecific) {
         this.setState({ errorMessage: i18n.t('covid-test.required-date') });
-        this.setState({ submitting: false });
-        return;
-      }
-
-      if (
-        formData.knowsDateOfTest === 'no' &&
-        (formData.dateTakenBetweenStart === undefined || formData.dateTakenBetweenEnd === undefined)
-      ) {
-        this.setState({ errorMessage: i18n.t('covid-test.required-dates') });
         this.setState({ submitting: false });
         return;
       }
 
       const infos = {
         patient: AssessmentCoordinator.assessmentData.currentPatient.patientId,
-        type: CovidTestType.Generic,
-        ...CovidTestDateQuestion.createDTO(formData),
-        ...CovidTestMechanismQuestion.createDTO(formData),
+        type: CovidTestType.NHSStudy,
+        invited_to_test: false,
+        ...NHSTestDateQuestion.createDTO(formData),
+        ...NHSTestMechanismQuestion.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
-        ...CovidTestInvitedQuestion.createDTO(formData),
-        ...CovidTestLocationQuestion.createDTO(formData),
       } as Partial<CovidTest>;
 
       this.submitCovidTest(infos);
@@ -161,11 +142,9 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
     const registerSchema = Yup.object()
       .shape({})
-      .concat(CovidTestDateQuestion.schema())
-      .concat(CovidTestMechanismQuestion.schema())
-      .concat(CovidTestResultQuestion.schema())
-      .concat(CovidTestInvitedQuestion.schema())
-      .concat(CovidTestLocationQuestion.schema());
+      .concat(NHSTestDateQuestion.schema())
+      .concat(NHSTestMechanismQuestion.schema())
+      .concat(CovidTestResultQuestion.schema());
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
@@ -181,24 +160,20 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
         <Formik
           initialValues={{
-            ...CovidTestDateQuestion.initialFormValues(test),
-            ...CovidTestMechanismQuestion.initialFormValues(test),
+            ...NHSTestDateQuestion.initialFormValues(test),
+            ...NHSTestMechanismQuestion.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
-            ...CovidTestInvitedQuestion.initialFormValues(test),
-            ...CovidTestLocationQuestion.initialFormValues(test),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: CovidTestData) => {
+          onSubmit={(values: NHSTestData) => {
             return this.handleAction(values);
           }}>
           {(props) => {
             return (
               <Form>
-                <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
-                <CovidTestMechanismQuestion formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
-                <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
+                <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
+                <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
                 <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
-                <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (

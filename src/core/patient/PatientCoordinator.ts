@@ -23,6 +23,20 @@ export class PatientCoordinator implements Coordinator {
 
   screenFlow: ScreenFlow = {
     YourStudy: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { editing: false });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
+    NHSIntro: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSDetails', { editing: false });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
+    NHSDetails: () => {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
     },
     YourWork: () => {
@@ -57,7 +71,10 @@ export class PatientCoordinator implements Coordinator {
     // OptionalInfo nav-stack cleanup.
     NavigatorService.reset([
       { name: startPage, params: { patientId } },
-      { name: nextPage, params: { patientData: this.patientData } },
+      {
+        name: nextPage,
+        params: { patientData: this.patientData, ...(nextPage === 'YourStudy' && { editing: false }) },
+      },
     ]);
   };
 

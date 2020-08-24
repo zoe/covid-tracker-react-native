@@ -110,9 +110,9 @@
   "title-about-work": "Acerca de su trabajo",
 
   "your-study": {
+    "title": "Tu estudio clínico",
     "label-cohort": "Eres parte de alguno de estos estudios de pobalación o alguna de estas organizaciones?",
     "add-study-names": "Añada los nombres de tus estudios",
-    "your-clinical-study": "Tu estudio clínico",
     "contact-name": "Si lo sabes, cuál es el nombre de la persona de contacto en tu estudio (investigador, médico, coordinador del estudio, etc.)",
     "uni-hospital": "Si lo sabes, qué universidad o hospital lleva a cabo este estudio?",
     "nct-number": "Si lo sabes, cuál es el número NCT?",
@@ -829,6 +829,7 @@
     "negative": "Negativo",
     "failed": "Falló",
     "pending": "Pendiente",
+    "update": "",
     "never-had-test": "Nunca me he hecho un examen de COVID",
     "above-list-correct": "La lista anterior es correcta"
   },
@@ -851,6 +852,7 @@
     "text": "",
     "archive-cta": "Archivar este perfil",
     "done": "Listo",
+    "next": "Siguiente",
 
     "location": {
       "title": "Mi ubicacion",
@@ -898,65 +900,6 @@
     "title": "Estudios nuevos de COVID\ny como se puede ayudar",
     "body": "Está interesado en ser contactado para obtener información sobre estudios adicionales relacionados con COVID-19 o el uso de esta aplicación?",
     "button": "Estoy interesado"
-  },
-
-  "__IGNORE__": {
-    "partners": {
-      "powered-by": false,
-      "data-analysis": false
-    },
-
-    "validation-study-intro": {
-      "title": false,
-      "subtitle": false,
-      "info": false,
-      "yes": false,
-      "no": false,
-      "app-name": false
-    },
-
-    "validation-study-info": {
-      "title": false,
-      "header-1": false,
-      "para-1": false,
-      "header-2": false,
-      "para-2": false,
-      "header-3": false,
-      "para-3": false,
-      "interested": false,
-      "visit-next": false
-    },
-
-    "covid-test": {
-      "question-invite-to-test": false
-    },
-
-    "thank-you-uk": {
-      "title": false,
-      "subtitle": false,
-      "sign-off": false,
-      "cta-single-profile": false,
-      "cta-multi-profile": false
-    },
-
-    "vaccine-registry": {
-      "covid-prevention": false,
-      "can-we-contact": false,
-      "yes": false,
-      "no": false,
-      "next": false,
-      "creating-registry": false,
-      "not-ourselves": false,
-      "not-share": false,
-      "prioritise": false,
-      "tell-friends": false,
-      "share-title": false,
-      "share-text": false,
-      "callout-title": false,
-      "callout-text": false,
-      "callout-link-text": false,
-      "menu-item": false
-    }
   },
 
   "diabetes": {
@@ -1310,7 +1253,8 @@
   },
 
   "dashboard": {
-    "report-now": "Informar ahora",
+    "report-today": "Informe hoy, incluso si está bien",
+    "report-now": "Informe ahora",
     "you-have-reported-x-times": "Has informado %{count} veces",
     "contributors-so-far": "Colaboradores hasta ahora:"
   },
@@ -1340,5 +1284,104 @@
     "share": "Comparte tu mapa",
     "update-postcode": "Actualice su código postal para ver nuestros casos estimados en su área",
     "update-postcode-cta": "Actualizar código postal"
+  },
+
+  "__IGNORE__": {
+    "partners": {
+      "powered-by": false,
+      "data-analysis": false
+    },
+
+    "validation-study-intro": {
+      "title": false,
+      "subtitle": false,
+      "info": false,
+      "yes": false,
+      "no": false,
+      "app-name": false
+    },
+
+    "validation-study-info": {
+      "title": false,
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "interested": false,
+      "visit-next": false
+    },
+
+    "covid-test": {
+      "question-invite-to-test": false
+    },
+
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
+    },
+
+    "vaccine-registry": {
+      "covid-prevention": false,
+      "can-we-contact": false,
+      "yes": false,
+      "no": false,
+      "next": false,
+      "creating-registry": false,
+      "not-ourselves": false,
+      "not-share": false,
+      "prioritise": false,
+      "tell-friends": false,
+      "share-title": false,
+      "share-text": false,
+      "callout-title": false,
+      "callout-text": false,
+      "callout-link-text": false,
+      "menu-item": false
+    },
+
+    "nhs-study-intro": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "nhsID-placeholder": false,
+      "text-3": false,
+      "text-cancel": false,
+      "consent": false,
+      "next": false
+    },
+
+    "nhs-study-questions": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "text-3": false,
+      "text-link": false
+    },
+
+    "nhs-test-detail": {
+      "title": false,
+      "date-label": false,
+      "date-required": false,
+      "mechanism-label": false,
+      "mechanism-required": false,
+      "mechanism-saliva": false,
+      "mechanism-swab": false,
+      "fridge-label": false,
+      "fridge-required": false,
+      "days-label": false,
+      "days-required": false,
+      "days-placeholder": false,
+      "cta-add": false
+    },
+
+    "covid-test-list": {
+      "nhs-text": false,
+      "nhs-text-link": false
+    }
   }
 }

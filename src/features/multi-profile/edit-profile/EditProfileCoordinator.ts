@@ -27,6 +27,26 @@ export class EditProfileCoordinator implements Coordinator {
     AboutYou: () => {
       NavigatorService.goBack();
     },
+    YourStudy: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { editing: true });
+      } else {
+        NavigatorService.goBack();
+      }
+    },
+    NHSIntro: () => {
+      NavigatorService.navigate('NHSDetails', { editing: true });
+    },
+    NHSDetails: () => {
+      NavigatorService.reset(
+        [
+          { name: this.appCoordinator.homeScreenName, params: {} },
+          { name: 'SelectProfile', params: { patientData: this.patientData } },
+          { name: 'EditProfile', params: { patientData: this.patientData } },
+        ],
+        2
+      );
+    },
   } as ScreenFlow;
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
@@ -62,8 +82,19 @@ export class EditProfileCoordinator implements Coordinator {
     NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: true });
   }
 
+  goToEditYourStudy() {
+    NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: true });
+  }
+
   shouldShowEditProfile() {
     return this.localisationService.getConfig().enableEditProfile;
+  }
+
+  shouldShowEditStudy() {
+    const currentPatient = this.patientData.patientState;
+    const config = this.localisationService.getConfig();
+    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
+    return shouldAskStudy;
   }
 }
 

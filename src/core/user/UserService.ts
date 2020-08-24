@@ -5,7 +5,6 @@ import NavigatorService from '@covid/NavigatorService';
 import { Services } from '@covid/provider/services.types';
 
 import { AsyncStorageService } from '../AsyncStorageService';
-import { ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
