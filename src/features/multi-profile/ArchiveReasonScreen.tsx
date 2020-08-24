@@ -6,10 +6,10 @@ import { HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header } from '@covid/components/Screen';
 import { BigButton } from '@covid/components/BigButton';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -19,7 +19,8 @@ type RenderProps = {
 };
 
 export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
-  const userService = useInjection<ICoreService>(Services.User);
+  const patientService = useInjection<IPatientService>(Services.Patient);
+
   const reasons = [
     {
       text: i18n.t('archive-reason.choice-duplicate-account'),
@@ -53,7 +54,7 @@ export const ArchiveReasonScreen: React.FC<RenderProps> = (props) => {
       archived_reason: reason,
     };
 
-    userService.updatePatient(props.route.params.patientId, infos).then((response) => {
+    patientService.updatePatient(props.route.params.patientId, infos).then((_) => {
       appCoordinator.gotoNextScreen(props.route.name);
     });
   }

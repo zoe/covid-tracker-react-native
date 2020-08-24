@@ -1,16 +1,16 @@
 {
-    "country": "ZZ",
-    "enableMultiplePatients": true,
-    "enablePersonalInformation": true,
-    "enableCohorts": true,
-    "enableEditProfile": false,
+  "country": "ZZ",
+  "enableMultiplePatients": true,
+  "enablePersonalInformation": true,
+  "enableCohorts": true,
+  "enableEditProfile": false,
 
-    "showEthnicityQuestion": false,
-    "showRaceQuestion": true,
-    "showPregnancyQuestion": false,
+  "showEthnicityQuestion": false,
+  "showRaceQuestion": true,
+  "showPregnancyQuestion": false,
 
-    "defaultHeightUnit": "cm",
-    "defaultWeightUnit": "kg",
-    "defaultTemperatureUnit": "C",
-    "thousandSeparator": ","
+  "defaultHeightUnit": "cm",
+  "defaultWeightUnit": "kg",
+  "defaultTemperatureUnit": "C",
+  "thousandSeparator": ","
 }

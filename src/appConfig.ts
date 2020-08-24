@@ -5,9 +5,9 @@ export default {
   amplitudeKey: AMPLITUDE_KEY,
 
   assessmentVersion: '1.5.0',
-  patientVersion: '1.5.1',
+  patientVersion: '1.6.0',
   lifestyleVersion: '1.0.1',
-  covidTestVersion: '1.1.0',
+  covidTestVersion: '1.2.0',
   dietStudyVersion: '1.0.0',
 
   nursesConsentVersionUS: 'v2',

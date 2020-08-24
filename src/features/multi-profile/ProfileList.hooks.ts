@@ -4,12 +4,12 @@ import { AppException } from '@covid/core/api/ApiServiceErrors';
 import i18n from '@covid/locale/i18n';
 import { offlineService } from '@covid/Services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 export const useProfileList = () => {
-  const userService = useInjection<ICoreService>(Services.User);
+  const patientService = useInjection<IPatientService>(Services.Patient);
 
   const [status, setStatus] = useState<string>('');
   const [error, setError] = useState<AppException | null>(null);
@@ -29,7 +29,7 @@ export const useProfileList = () => {
     setError(null);
 
     try {
-      const profiles = await userService.listPatients();
+      const profiles = await patientService.listPatients();
       if (profiles) {
         setProfiles(profiles);
         setIsLoaded(true);

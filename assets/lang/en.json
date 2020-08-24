@@ -52,11 +52,11 @@
 
   "welcome": {
     "title": "COVID Symptom Study",
-    "sign-in": "Sign in",
+    "sign-in": "Log in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
     "disclaimer-link": "visit the NHS website",
-    "tell-me-more": "Tell me more",
+    "tell-me-more": "Create account",
     "visit-the-website": "Visit the website",
     "see-how-your-area-is-affected": "Follow the discoveries \nyou made possible",
     "report-button": "Report today, even if you're well",
@@ -110,9 +110,9 @@
   "title-about-work": "About your work",
 
   "your-study": {
+    "title": "Study membership",
     "label-cohort": "Are you part of one of these population studies or organisations?",
     "add-study-names": "Add the names of your studies",
-    "your-clinical-study": "Your clinical study",
     "contact-name": "If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?",
     "uni-hospital": "If you know it, what university or hospital runs this study?",
     "nct-number": "What is the NCT number (if you know it)?",
@@ -302,9 +302,9 @@
 
   "covid-test": {
     "page-title": "COVID-19 status",
-    "page-title-detail-add": "Add new test",
+    "page-title-detail-add": "Add COVID test",
     "page-title-detail-update": "Update test",
-    "add-test": "Add test",
+    "add-test": "Add new test",
     "update-test": "Update test",
     "delete-test": "Delete test",
 
@@ -573,6 +573,7 @@
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
   "delete": "Delete",
+  "estimated-cases": "Estimated cases",
   "logout": "Log out",
 
   "your-country-title": "Your country",
@@ -620,7 +621,7 @@
   "select-profile-last-report": "Last report:",
   "default-profile-name": "Me",
 
-  "validation-error-text": "Please fill in or correct the above information",
+  "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
@@ -654,11 +655,14 @@
   "covid-test-list": {
     "title": "Your COVID-19 tests",
     "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
+    "nhs-text": "Once you start day 1 of your study, please add test details daily over the 21-day period. If any of your results are positive, please update the relevant test result below. For more information and instructions, read our ",
+    "nhs-text-link": "NHS Asymptomatic Staff Testing Pilot Guide",
     "add-new-test": "Add new test",
     "positive": "Positive",
     "negative": "Negative",
     "failed": "Failed",
-    "pending": "Pending",
+    "pending": "Waiting for result",
+    "update": "Update result",
     "never-had-test": "I have never had a COVID test",
     "above-list-correct": "This list is correct"
   },
@@ -887,6 +891,7 @@
     "text": "",
     "archive-cta": "Archive this profile",
     "done": "Done",
+    "next": "Next",
 
     "location": {
       "title": "My location",
@@ -1028,7 +1033,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1235,12 +1240,16 @@
       "milk-skimmed": "Skimmed milk",
       "milk-rarely-never": "Rarely/never use milk",
       "milk-plant": "Plant-based milk",
-      "milk-other": "Other"
+      "milk-other": "Other",
+
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
     },
 
     "other-info": {
       "label": "Is there any other information about your diet & lifestyle you would like to share?",
-      "placeholder": "Optional"
+      "placeholder": "Optional",
+      "text-limit": "Ensure this field has no more than {{count}} characters.",
+      "text-limit-caption": "Max {{count}} characters"
     },
 
     "diet-changed": {
@@ -1266,7 +1275,8 @@
     "thank-you-break": {
       "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
       "sarah-name": "Dr Sarah Berry",
-      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London"
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
+      "return-later": "If you'd like to take a break, you can return to these questions by clicking 'Diet Study' from the menu in the top right corner of the home screen. "
     }
   },
 
@@ -1299,6 +1309,75 @@
     "callout-title": "VACCINE",
     "callout-text": "Would you like to join our COVID-19 vaccine registry?",
     "callout-link-text": "I am interested",
-    "menu-item": "Join vaccine registry"
+    "menu-item": "Join the vaccine registry"
+  },
+
+  "dashboard": {
+    "report-today": "Report today, even if you're well",
+    "report-now": "Report now",
+    "you-have-reported-x-times": "You’ve reported %{count} times",
+    "contributors-so-far": "Contributors so far:"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "COVID in the UK",
+    "estimated-cases": "Estimated cases",
+    "daily": "Daily new cases",
+    "active": "Active cases",
+    "cta": "More details"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Latest News"
+  },
+
+  "latest-news": {
+    "title": "Latest News"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID in {{location}}",
+    "current-estimates": "Current estimates",
+    "active-cases-in-area": "Active cases\rin your area",
+    "not-enough-contributors": "Not enough contributors\rin this area",
+    "share": "Share your map",
+    "update-postcode": "Please update your postcode to see our estimated cases in your area",
+    "update-postcode-cta": "Update postcode"
+  },
+
+  "nhs-study-intro": {
+    "title": "NHS Asymptomatic Staff Testing Pilot",
+    "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
+    "text-2": "Please enter your Unique Identifier:",
+    "nhsID-placeholder": "Unique Identifier",
+    "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
+    "text-cancel": "click here.",
+    "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
+    "next": "Next"
+  },
+
+  "nhs-study-questions": {
+    "title": "About this study",
+    "text-1": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
+    "text-2": "If you develop any symptoms before you start providing test samples as part of this study, please get in touch with your local contact. (Contact details can be found on your instruction sheet).",
+    "text-3": "Full instructions about sample collection and returns can be found in our ",
+    "text-link": "Asymptomatic Staff Testing Pilot Guide"
+  },
+
+  "nhs-test-detail": {
+    "title": "Add COVID test",
+    "date-label": "Select the date you had this test",
+    "date-required": "Please indicate the date this test occurred",
+    "mechanism-label": "What test have you taken?",
+    "mechanism-required": "This is required",
+    "mechanism-saliva": "Saliva",
+    "mechanism-swab": "Swab",
+    "fridge-label": "Has the saliva sample been stored in a fridge?",
+    "fridge-required": "This is required",
+    "days-label": "How many days has the saliva sample been stored in a fridge before drop off?",
+    "days-required": "This is required",
+    "days-placeholder": "Select days",
+    "cta-add": "Add test"
   }
 }

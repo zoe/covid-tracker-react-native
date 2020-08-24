@@ -2,7 +2,8 @@ import * as Amplitude from 'expo-analytics-amplitude';
 import Constants from 'expo-constants';
 
 import appConfig from '@covid/appConfig';
-import UserService from '@covid/core/user/UserService';
+
+import { LocalisationService } from './localisation/LocalisationService';
 
 let isInitialized = false;
 
@@ -19,8 +20,18 @@ const DietStudyEvents = {
   DECLINE_DIET_STUDY_CONSENT: 'DECLINE_DIET_STUDY_CONSENT',
 };
 
+const DashboardEvents = {
+  REPORT_NOW_CLICKED: 'REPORT_NOW_CLICKED',
+  ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED: 'ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED',
+  ESTIMATED_CASES_MAP_CLICKED: 'ESTIMATED_CASES_MAP_CLICKED',
+  ESTIMATED_CASES_MAP_SHARE_CLICKED: 'ESTIMATED_CASES_MAP_SHARE_CLICKED',
+  ESTIMATED_CASES_MAP_SHOWN: 'ESTIMATED_CASES_MAP_SHOWN',
+  ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN: 'ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN',
+};
+
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
+  LINK_OPENED: 'LINK_OPENED',
   SIGNUP: 'SIGNUP',
   DELETE_ACCOUNT_DATA: 'DELETE_ACCOUNT_DATA',
   DELETE_COVID_TEST: 'DELETE_COVID_TEST',
@@ -38,17 +49,18 @@ export const events = {
   JOIN_VACCINE_REGISTER: 'JOIN_VACCINE_REGISTER',
   DECLINE_VACCINE_REGISTER: 'DECLINE_VACCINE_REGISTER',
   ...DietStudyEvents,
+  ...DashboardEvents,
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
 // https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey
 // These are disabled at the project level by Amplitude via a support ticket.
-const trackingOptions = {
-  disableCarrier: true,
-  disableCity: true,
-  disableIDFA: true,
-  disableLatLng: true,
-};
+// const trackingOptions = {
+//   disableCarrier: true,
+//   disableCity: true,
+//   disableIDFA: true,
+//   disableLatLng: true,
+// };
 
 function initialize(): void {
   if (isInitialized || !appConfig.amplitudeKey) {
@@ -80,7 +92,7 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
   // WARNING: Do not send any PII or Health Data here!
   const payload = {
     ...additionalProps,
-    appCountry: UserService.userCountry,
+    appCountry: LocalisationService.userCountry,
     expoVersion: Constants.expoVersion,
     appVersion: Constants.manifest.version,
     revisionId: Constants.manifest.revisionId,

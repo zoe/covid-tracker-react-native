@@ -1,7 +1,6 @@
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking } from 'expo';
 import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
@@ -9,18 +8,18 @@ import { ScrollView, StyleSheet, View, Text, Modal, TouchableOpacity, SafeAreaVi
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ClickableText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
-import { contentService } from '@covid/Services';
-import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { SymtomsCountStats } from '@covid/components/Stats/SymtomsCountStats';
 import { ContributionRank } from '@covid/components/Stats/ContributionRank';
 import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 import { MoreContribution } from '@covid/components/Stats/MoreContribution';
+import { IContentService } from '@covid/core/content/ContentService';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -78,9 +77,7 @@ const Footer: React.FC<{ doneOnPress: VoidFunction }> = ({ doneOnPress }) => {
     <>
       <RegularText style={styles.visitWebsite}>
         {i18n.t('thank-you.visit-our')}{' '}
-        <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>
-          {i18n.t('thank-you.website')}
-        </ClickableText>{' '}
+        <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>{i18n.t('thank-you.website')}</ClickableText>{' '}
         {i18n.t('thank-you.to-see-discoveries')}
       </RegularText>
 
@@ -106,7 +103,7 @@ const ThankYouModal: React.FC<{
           {i18n.t('thank-you.methodology-body-1')}
           <ClickableText
             onPress={() =>
-              Linking.openURL('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')
+              openWebLink('https://covid.joinzoe.com/us-post/loss-of-smell-or-taste-is-a-key-symptom-of-covid-19')
             }>
             {i18n.t('thank-you.read-more-here')}
           </ClickableText>
@@ -119,7 +116,7 @@ const ThankYouModal: React.FC<{
 
         <RegularText style={styles.readBlog}>
           {i18n.t('thank-you.read-more-on')}{' '}
-          <ClickableText onPress={() => Linking.openURL(i18n.t('blog-link'))}>{i18n.t('thank-you.blog')}</ClickableText>
+          <ClickableText onPress={() => openWebLink(i18n.t('blog-link'))}>{i18n.t('thank-you.blog')}</ClickableText>
         </RegularText>
       </ScrollView>
     </View>
@@ -128,21 +125,23 @@ const ThankYouModal: React.FC<{
 
 export default class ViralThankYouScreen extends Component<Props, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private userService: IUserService;
 
+  @lazyInject(Services.Content)
+  private contentService: IContentService;
   state = { ...initalState };
 
   async componentDidMount() {
     if (await shouldAskForRating()) {
       this.setState({ askForRating: true });
     }
-    this.getAreaStats();
+    await this.getAreaStats();
   }
 
   async getAreaStats() {
     try {
       const profile = await this.userService.getProfile();
-      const response = await contentService.getAreaStats(profile!.patients[0]);
+      const response = await this.contentService.getAreaStats(profile!.patients[0]);
       this.setState({
         areaStats: {
           ...response,

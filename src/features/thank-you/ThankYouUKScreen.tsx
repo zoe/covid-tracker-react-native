@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog007, dataPage003, incidence009, notificationReminders } from '@assets';
+import { blog009, dataPage003, timUpdate005, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -14,12 +14,12 @@ import { ShareAppCard } from '@covid/components/Cards/ShareApp';
 import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -39,8 +39,8 @@ const initialState = {
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
+  @lazyInject(Services.Consent)
+  private consentService: IConsentService;
   private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
@@ -48,7 +48,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   async componentDidMount() {
     this.setState({
       askForRating: await shouldAskForRating(),
-      inviteToStudy: await this.userService.shouldAskForValidationStudy(true),
+      inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
     });
   }
@@ -69,40 +69,36 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/diet-lifestyle-covid-questionnaire?utm_source=App"
-                calloutID="blog_007"
-                imageSource={blog007}
-                aspectRatio={1.551}
-              />
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-                calloutID="incidence_009"
-                imageSource={incidence009}
-                aspectRatio={1.5}
-              />
-
-              <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
                 calloutID="data_page_003"
                 imageSource={dataPage003}
                 aspectRatio={1.55}
+                screenName={this.props.route.name}
               />
 
-              {/* <ExternalCallout
-                link="https://www.youtube.com/watch?v=zToStOETP00"
-                calloutID="tim_update_004"
-                imageSource={timUpdate004}
+              <ExternalCallout
+                link="https://covid.joinzoe.com/post/grant?utm_source=App"
+                calloutID="blog_009"
+                imageSource={blog009}
+                aspectRatio={1.552}
+                screenName={this.props.route.name}
+              />
+
+              <ExternalCallout
+                link="https://youtu.be/f9yYES3WxZE"
+                calloutID="tim_update_005"
+                imageSource={timUpdate005}
                 aspectRatio={1.178}
-              /> */}
+                screenName={this.props.route.name}
+              />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
-                  link=""
                   calloutID="notificationReminders"
                   imageSource={notificationReminders}
                   aspectRatio={1244.0 / 368.0}
-                  action={() => {
+                  screenName={this.props.route.name}
+                  postClicked={() => {
                     PushNotificationService.openSettings();
                   }}
                 />
@@ -119,7 +115,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <BrandedButton
-                onPress={() => this.props.navigation.navigate('WelcomeRepeat')}
+                onPress={() => this.props.navigation.navigate(appCoordinator.homeScreenName)}
                 style={styles.ctaSingleProfile}>
                 <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
               </BrandedButton>
@@ -128,8 +124,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 <ClickableText
                   onPress={() =>
                     this.props.navigation.reset({
-                      index: 0,
-                      routes: [{ name: 'SelectProfile' }],
+                      index: 1,
+                      routes: [{ name: appCoordinator.homeScreenName }, { name: 'SelectProfile' }],
                     })
                   }
                   style={styles.ctaMultipleProfileText}>

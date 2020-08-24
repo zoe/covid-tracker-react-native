@@ -65,11 +65,11 @@ export default class ThankYouScreen extends Component<RenderProps, State> {
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
-                  link=""
                   calloutID="notificationRemindersSE"
                   imageSource={notificationRemindersSE}
                   aspectRatio={311.0 / 104.0}
-                  action={() => {
+                  screenName={this.props.route.name}
+                  postClicked={() => {
                     PushNotificationService.openSettings();
                   }}
                 />

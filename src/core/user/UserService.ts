@@ -1,42 +1,25 @@
 import { AxiosResponse } from 'axios';
-import * as Localization from 'expo-localization';
-import { injectable } from 'inversify';
+import { injectable, unmanaged, inject } from 'inversify';
 
-import i18n from '@covid/locale/i18n';
-import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { getDaysAgo } from '@covid/utils/datetime';
-import appConfig from '@covid/appConfig';
-import { Profile } from '@covid/components/Collections/ProfileList';
 import NavigatorService from '@covid/NavigatorService';
+import { Services } from '@covid/provider/services.types';
 
 import { AsyncStorageService } from '../AsyncStorageService';
-import { ConfigType, getCountryConfig } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
-import { camelizeKeys, objectToQueryString } from '../api/utils';
-import { getInitialPatientState, PatientStateType } from '../patient/PatientState';
-import { cleanIntegerVal } from '../../utils/number';
+import { objectToQueryString, camelizeKeys } from '../api/utils';
+import { ConsentService, IConsentService } from '../consent/ConsentService';
+import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
+import { IPatientService } from '../patient/PatientService';
 
-import {
-  AskForStudies,
-  Consent,
-  LoginOrRegisterResponse,
-  PatientInfosRequest,
-  PiiRequest,
-  UserResponse,
-} from './dto/UserAPIContracts';
-
-const MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT = 3;
-const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
+import { LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
 
 export type AuthenticatedUser = {
   userToken: string;
   userId: string;
 };
 
-// Attempt to split UserService into discrete service interfaces, which means:
-// TODO: Split into separate self-contained services
 export interface IUserService {
   hasUser: boolean;
   register(email: string, password: string): Promise<any>; // TODO: define return object
@@ -48,73 +31,23 @@ export interface IUserService {
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
   getFirstPatientId(): Promise<string | null>;
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
-  setUSStudyInviteResponse(patientId: string, response: boolean): void;
-  shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
-  shouldAskForVaccineRegistry(): Promise<boolean>;
-  shouldShowDietStudy(): Promise<boolean>;
-  setVaccineRegistryResponse(response: boolean): void;
-  setDietStudyResponse(response: boolean): void;
-  getStudyStatus(): Promise<AskForStudies>;
 }
-
-export interface IProfileService {
-  hasMultipleProfiles(): Promise<boolean>;
-  shouldAskToReportForOthers(): Promise<boolean>;
-  recordAskedToReportForOther(): Promise<void>;
-}
-
-export interface IConsentService {
-  postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
-  getConsentSigned(): Promise<Consent | null>;
-  setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
-}
-
-export interface IPatientService {
-  myPatientProfile(): Promise<Profile | null>;
-  listPatients(): Promise<Profile[] | null>;
-  createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
-  getPatient(patientId: string): Promise<PatientInfosRequest | null>;
-  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
-  getPatientState(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
-}
-
-export interface ILocalisationService {
-  setUserCountry(countryCode: string): void;
-  initCountryConfig(countryCode: string): void;
-  getUserCountry(): Promise<string | null>;
-  shouldAskCountryConfirmation(): Promise<boolean>;
-  defaultCountryFromLocale(): void;
-  getConfig(): ConfigType;
-  // static setLocaleFromCountry(countryCode: string): void;  // TODO: change from static to instance method
-}
-
-export interface ICoreService
-  extends IUserService,
-    IProfileService,
-    IConsentService,
-    IPatientService,
-    ILocalisationService {}
-
-// TODO: ideally a UserService should only implement this, everything else is a separate service
 
 @injectable()
-export default class UserService extends ApiClientBase implements ICoreService {
-  public static userCountry = 'US';
-  public static ipCountry = '';
-  public static countryConfig: ConfigType;
-  public static consentSigned: Consent = {
-    document: '',
-    version: '',
-    privacy_policy_version: '',
-  };
+export default class UserService extends ApiClientBase implements IUserService {
+  @inject(Services.Consent)
+  public consentService: IConsentService;
+
+  @inject(Services.Localisation)
+  public localisationService: ILocalisationService;
+
+  @inject(Services.Patient)
+  public patientService: IPatientService;
 
   public hasUser = false;
 
-  constructor(private useAsyncStorage: boolean = true) {
+  constructor(@unmanaged() private useAsyncStorage: boolean = true) {
     super();
-    this.loadUser();
   }
 
   configEncoded = {
@@ -151,8 +84,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   private async deleteLocalUserData() {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
-    await AsyncStorageService.saveProfile(null);
-    await this.setConsentSigned('', '', '');
+    await this.consentService.setConsentSigned('', '', '');
   }
 
   public async resetPassword(email: string) {
@@ -166,7 +98,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
     const data = this.getData<LoginOrRegisterResponse>(response);
     const authToken = data.key;
     await this.storeTokenInAsyncStorage(authToken, data.user.pii);
-    await AsyncStorageService.saveProfile(data.user);
     this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
     this.hasUser = true;
     return data;
@@ -175,7 +106,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
   async loadUser() {
     const user = await AsyncStorageService.GetStoredData();
     this.hasUser = !!user && !!user!.userToken && !!user!.userId;
-    await this.updateUserCountry(this.hasUser);
+    this.localisationService.updateUserCountry(this.hasUser);
     if (this.hasUser) {
       await ApiClientBase.setToken(user!.userToken, user!.userId);
     }
@@ -189,20 +120,6 @@ export default class UserService extends ApiClientBase implements ICoreService {
       return null;
     }
   }
-
-  private updateUserCountry = async (isLoggedIn: boolean) => {
-    const country: string | null = await this.getUserCountry();
-    this.initCountryConfig(country ?? 'GB');
-    if (isLoggedIn) {
-      // If logged in with no country default to GB as this will handle all
-      // GB users before selector was included.
-      if (country === null) {
-        await this.setUserCountry('GB');
-      }
-    } else {
-      await this.defaultCountryFromLocale();
-    }
-  };
 
   getData = <T>(response: AxiosResponse<T>) => {
     if (typeof response.data === 'string') {
@@ -224,11 +141,11 @@ export default class UserService extends ApiClientBase implements ICoreService {
       username: email,
       password1: password,
       password2: password,
-      country_code: UserService.userCountry,
-      language_code: UserService.getLocale(),
-      consent_document: UserService.consentSigned.document,
-      consent_version: UserService.consentSigned.version,
-      privacy_policy_version: UserService.consentSigned.privacy_policy_version,
+      country_code: LocalisationService.userCountry,
+      language_code: LocalisationService.getLocale(),
+      consent_document: ConsentService.consentSigned.document,
+      consent_version: ConsentService.consentSigned.version,
+      privacy_policy_version: ConsentService.consentSigned.privacy_policy_version,
     };
     const requestBody = objectToQueryString(payload);
 
@@ -239,179 +156,9 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return promise;
   }
 
-  public async postConsent(document: string, version: string, privacy_policy_version: string) {
-    const payload = {
-      document,
-      version,
-      privacy_policy_version,
-    };
-    return this.client.patch(`/consent/`, payload);
-  }
-
-  public async myPatientProfile(): Promise<Profile | null> {
-    try {
-      const data = (await this.client.get(`/patient_list/`)).data as Profile[];
-      return !!data && data.length > 0 ? data[0] : null;
-    } catch (error) {
-      handleServiceError(error);
-    }
-    return null;
-  }
-
-  public async listPatients() {
-    try {
-      const response = await this.client.get<Profile[]>(`/patient_list/`);
-      return response?.data;
-    } catch (error) {
-      handleServiceError(error);
-    }
-    return null;
-  }
-
-  public async createPatient(infos: Partial<PatientInfosRequest>) {
-    infos = {
-      ...infos,
-      version: this.getPatientVersion(),
-    };
-    return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
-  }
-
-  public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
-    infos = {
-      ...infos,
-      version: this.getPatientVersion(),
-    };
-    return (await this.client.patch<PatientInfosRequest>(`/patients/${patientId}/`, infos)).data;
-  }
-
-  private getPatientVersion() {
-    return appConfig.patientVersion;
-  }
-
-  public async getPatient(patientId: string): Promise<PatientInfosRequest | null> {
-    try {
-      const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
-      return patientResponse.data;
-    } catch (error) {
-      handleServiceError(error);
-    }
-    return null;
-  }
-
-  static shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
-    if (!dateLastAsked) return true;
-
-    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
-  }
-
-  public async updatePatientState(
-    patientState: PatientStateType,
-    patient: PatientInfosRequest
-  ): Promise<PatientStateType> {
-    // Calculate the flags based on patient info
-    const hasRaceEthnicityAnswer = Array.isArray(patient.race) && patient.race.length > 0;
-    const isFemale = patient.gender === 0;
-    const isSexNotMale = ![null, 1, 2].includes(patient.gender);
-    const isGenderNotMale = ![null, 'male', 'pfnts'].includes(patient.gender_identity);
-    const isPeriodCapable = isSexNotMale || isGenderNotMale;
-    const isHealthWorker =
-      ['yes_does_treat', 'yes_does_interact'].includes(patient.healthcare_professional) ||
-      patient.is_carer_for_community;
-    const hasBloodPressureAnswer = patient.takes_any_blood_pressure_medications != null;
-    const hasCompletedPatientDetails =
-      // They've done at least one page of the patient flow. That's a start.
-      !!patient.profile_attributes_updated_at &&
-      // If they've completed the last page, heart disease will either be true or false
-      // and not null. (or any nullable field on the last page)
-      patient.has_heart_disease != null;
-
-    let patientName = patient.name;
-    if (!patientName || (!patient.reported_by_another && patientName === 'Me')) {
-      patientName = i18n.t('default-profile-name');
-    }
-
-    const profile: Profile = {
-      id: patientState.patientId,
-      name: patientName,
-      avatar_name: patient.avatar_name ?? DEFAULT_PROFILE,
-      reported_by_another: patient.reported_by_another,
-    };
-    const isReportedByAnother = patient.reported_by_another || false;
-    const isSameHousehold = patient.same_household_as_reporter || false;
-
-    const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
-    const hasHormoneTreatmentAnswer =
-      !isPeriodCapable ||
-      !!patient.ht_none ||
-      !!patient.ht_combined_oral_contraceptive_pill ||
-      !!patient.ht_progestone_only_pill ||
-      !!patient.ht_mirena_or_other_coil ||
-      !!patient.ht_depot_injection_or_implant ||
-      !!patient.ht_hormone_treatment_therapy ||
-      !!patient.ht_oestrogen_hormone_therapy ||
-      !!patient.ht_testosterone_hormone_therapy ||
-      !!patient.ht_pfnts ||
-      !!patient.ht_other;
-
-    const hasVitaminAnswer = !!patient.vs_asked_at;
-    const shouldAskLevelOfIsolation = UserService.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
-    const shouldAskLifestyleQuestion = patient.should_ask_lifestyle_questions;
-
-    // Decide whether patient needs to answer YourStudy questions
-    const consent = await this.getConsentSigned();
-    const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
-
-    const hasAtopyAnswers = patient.has_hayfever != null;
-    const hasDiabetes = patient.has_diabetes;
-    const hasDiabetesAnswers = patient.diabetes_type != null;
-    const shouldAskExtendedDiabetes = !hasDiabetesAnswers && hasDiabetes;
-    const hasHayfever = patient.has_hayfever;
-    const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
-    const hasBloodGroupAnswer = patient.blood_group != null;
-
-    return {
-      ...patientState,
-      profile,
-      isFemale,
-      isPeriodCapable,
-      isHealthWorker,
-      hasRaceEthnicityAnswer,
-      hasBloodPressureAnswer,
-      hasPeriodAnswer,
-      hasHormoneTreatmentAnswer,
-      hasVitaminAnswer,
-      hasCompletedPatientDetails,
-      isReportedByAnother,
-      isSameHousehold,
-      shouldAskLevelOfIsolation,
-      shouldAskExtendedDiabetes,
-      shouldAskStudy,
-      hasAtopyAnswers,
-      hasDiabetes,
-      hasDiabetesAnswers,
-      hasHayfever,
-      shouldShowUSStudyInvite,
-      shouldAskLifestyleQuestion,
-      hasBloodGroupAnswer,
-    };
-  }
-
-  public async getPatientState(patientId: string): Promise<PatientStateType> {
-    let patientState = getInitialPatientState(patientId);
-
-    const patientInfo = await this.getPatient(patientId);
-
-    if (patientInfo) {
-      patientState = await this.updatePatientState(patientState, patientInfo);
-    }
-
-    return patientState;
-  }
-
   public async getProfile(): Promise<UserResponse | null> {
     try {
       const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profile);
       return profile;
     } catch (error) {
       handleServiceError(error);
@@ -424,207 +171,7 @@ export default class UserService extends ApiClientBase implements ICoreService {
     return this.client.patch(`/information/${userId}/`, pii);
   }
 
-  async getConsentSigned(): Promise<Consent | null> {
-    const consent: string | null = await AsyncStorageService.getConsentSigned();
-    return consent ? JSON.parse(consent) : null;
-  }
-
-  async setConsentSigned(document: string, version: string, privacy_policy_version: string) {
-    const consent = {
-      document,
-      version,
-      privacy_policy_version,
-    };
-    UserService.consentSigned = consent;
-    await AsyncStorageService.setConsentSigned(JSON.stringify(consent));
-  }
-
-  async setUserCountry(countryCode: string) {
-    UserService.userCountry = countryCode;
-    UserService.setLocaleFromCountry(countryCode);
-    this.initCountryConfig(countryCode);
-    await AsyncStorageService.setUserCountry(countryCode);
-  }
-
-  initCountryConfig(countryCode: string) {
-    UserService.countryConfig = getCountryConfig(countryCode);
-  }
-
-  async getUserCountry() {
-    const country = await AsyncStorageService.getUserCountry();
-    if (country) {
-      UserService.userCountry = country;
-      UserService.setLocaleFromCountry(country);
-    }
-    return country;
-  }
-
-  async shouldAskCountryConfirmation() {
-    if (await AsyncStorageService.getAskedCountryConfirmation()) {
-      return false;
-    } else {
-      return UserService.userCountry !== UserService.ipCountry;
-    }
-  }
-
-  async defaultCountryFromLocale() {
-    const country = () => {
-      if (Localization.locale === 'en-GB') {
-        return 'GB';
-      } else if (Localization.locale === 'sv-SE') {
-        return 'SE';
-      } else {
-        return 'US';
-      }
-    };
-
-    await this.setUserCountry(country());
-  }
-
-  getConfig(): ConfigType {
-    return UserService.countryConfig;
-  }
-
   async deleteRemoteUserData() {
-    const profile = await AsyncStorageService.getProfile();
-    const payload = {
-      username: profile?.username,
-    };
-    return this.client.delete(`/users/delete/`, {
-      data: payload,
-    });
-  }
-
-  public async hasMultipleProfiles() {
-    try {
-      const response = await this.listPatients();
-      return !!response && response.length > 1;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  public async shouldAskToReportForOthers() {
-    try {
-      const response = await AsyncStorageService.getAskedToReportForOthers();
-      if (response) {
-        return cleanIntegerVal(response) < MAX_DISPLAY_REPORT_FOR_OTHER_PROMPT;
-      } else {
-        await AsyncStorageService.setAskedToReportForOthers('0');
-        return true;
-      }
-    } catch (e) {
-      return false;
-    }
-  }
-
-  public async recordAskedToReportForOther() {
-    const response = await AsyncStorageService.getAskedToReportForOthers();
-    if (response) {
-      const value = cleanIntegerVal(response) + 1;
-      await AsyncStorageService.setAskedToReportForOthers(value.toString());
-    } else {
-      await AsyncStorageService.setAskedToReportForOthers('0');
-    }
-  }
-
-  private static setLocaleFromCountry(countryCode: string) {
-    let USLocale = 'en';
-    if (Localization.locale === 'es-US') {
-      USLocale = 'es';
-    }
-
-    const localeMap: { [key: string]: string } = {
-      US: USLocale,
-      GB: 'en',
-      SE: 'sv',
-    };
-
-    i18n.locale = localeMap[countryCode] + '-' + UserService.userCountry;
-  }
-
-  static getLocale() {
-    return i18n.locale.split('-')[0];
-  }
-
-  async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
-    let url = `/study_consent/status/?consent_version=${appConfig.ukValidationStudyConsentVersion}`;
-    if (onThankYouScreen) {
-      url += '&thank_you_screen=true';
-    }
-
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_validation_study;
-  }
-
-  async shouldAskForVaccineRegistry(): Promise<boolean> {
-    if (!isGBCountry()) return Promise.resolve(false);
-
-    const url = `/study_consent/status/?home_screen=true`;
-
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_vaccine_register;
-  }
-
-  async shouldShowDietStudy(): Promise<boolean> {
-    if (!isGBCountry()) return Promise.resolve(false);
-
-    const url = `/study_consent/status/`;
-
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_diet_study;
-  }
-
-  getDefaultStudyResponse(): AskForStudies {
-    return {
-      should_ask_uk_validation_study: false,
-      should_ask_uk_vaccine_register: false,
-      should_ask_diet_study: false,
-    } as AskForStudies;
-  }
-
-  async getStudyStatus(): Promise<AskForStudies> {
-    // Currently all existing studies are UK only so short-circuit and save a call the server.
-    if (!isGBCountry()) return Promise.resolve(this.getDefaultStudyResponse());
-
-    const url = `/study_consent/status/?home_screen=true`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data;
-  }
-
-  setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'UK Validation Study',
-      version: appConfig.ukValidationStudyConsentVersion,
-      ad_version: appConfig.ukValidationStudyAdVersion,
-      status: response ? 'signed' : 'declined',
-      allow_future_data_use: anonymizedData,
-      allow_contact_by_zoe: reContacted,
-    });
-  }
-
-  setVaccineRegistryResponse(response: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'Vaccine Register',
-      status: response ? 'signed' : 'declined',
-      version: appConfig.vaccineRegistryVersion, // Mandatory field but unused for vaccine registry
-      ad_version: appConfig.vaccineRegistryAdVersion,
-    });
-  }
-
-  setDietStudyResponse(response: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'Diet Study Beyond Covid',
-      version: appConfig.dietStudyBeyondCovidConsentVersion,
-      status: response ? 'signed' : 'declined',
-    });
-  }
-
-  setUSStudyInviteResponse(patientId: string, response: boolean) {
-    this.updatePatient(patientId, { contact_additional_studies: response });
+    return this.client.delete(`/users/delete/`);
   }
 }
-
-export const isUSCountry = () => UserService.userCountry === 'US';
-export const isGBCountry = () => UserService.userCountry === 'GB';
-export const isSECountry = () => UserService.userCountry === 'SE';

@@ -3,7 +3,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import DropdownField from '@covid/components/DropdownField';
@@ -12,7 +11,8 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
+import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanFloatVal, cleanIntegerVal } from '@covid/utils/number';
 import i18n from '@covid/locale/i18n';
@@ -20,6 +20,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 import { Coordinator } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
@@ -87,7 +88,12 @@ const initialState: State = {
 
 export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
   private coordinator: Coordinator = this.props.route.params.editing ? editProfileCoordinator : patientCoordinator;
 
   constructor(props: AboutYouProps) {
@@ -96,7 +102,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   }
 
   async componentDidMount() {
-    const features = this.userService.getConfig();
+    const features = this.localisationService.getConfig();
 
     this.setState({
       showRaceQuestion: features.showRaceQuestion,
@@ -461,9 +467,3 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});

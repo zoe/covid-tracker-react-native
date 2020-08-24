@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText } from '@covid/components/Text';
@@ -49,7 +49,7 @@ const initialRegistrationValues = {
 
 export class RegisterScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
 
   private passwordComponent: any;
 

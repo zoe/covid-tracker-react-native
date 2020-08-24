@@ -2,8 +2,7 @@ import React from 'react';
 
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import i18n from '@covid/locale/i18n';
-
-import { isAndroid } from '../Screen';
+import { isAndroid } from '@covid/utils/platform';
 
 import { CommonShareProps, BaseShareAppCard, shareUrl, shareApp } from './BaseShareApp';
 

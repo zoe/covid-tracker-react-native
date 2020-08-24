@@ -7,11 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, RegularText, CaptionText } from '@covid/components/Text';
-import { Header, isAndroid } from '@covid/components/Screen';
+import { Header } from '@covid/components/Screen';
 import PatientHeader from '@covid/components/PatientHeader';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BaseShareAppCard, shareApp, shareUrl } from '@covid/components/Cards/BaseShareApp';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { isAndroid } from '@covid/utils/platform';
 
 import { ScreenParamList } from '../../ScreenParamList';
 

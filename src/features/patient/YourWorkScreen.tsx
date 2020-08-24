@@ -12,7 +12,6 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { ICoreService } from '@covid/core/user/UserService';
 import i18n from '@covid/locale/i18n';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import {
@@ -27,6 +26,7 @@ import {
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -46,8 +46,8 @@ export interface YourWorkData {
 }
 
 export type YourWorkProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'AboutYou'>;
-  route: RouteProp<ScreenParamList, 'AboutYou'>;
+  navigation: StackNavigationProp<ScreenParamList, 'YourWork'>;
+  route: RouteProp<ScreenParamList, 'YourWork'>;
 };
 
 export type State = {
@@ -77,8 +77,8 @@ const initialState: State = {
 };
 
 export default class YourWorkScreen extends Component<YourWorkProps, State> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   constructor(props: YourWorkProps) {
     super(props);
@@ -96,9 +96,9 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
-    this.userService
+    this.patientService
       .updatePatient(patientId, infos)
-      .then((response) => {
+      .then(() => {
         currentPatient.isHealthWorker =
           infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;
         patientCoordinator.gotoNextScreen(this.props.route.name);

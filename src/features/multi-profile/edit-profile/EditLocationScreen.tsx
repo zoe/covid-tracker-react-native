@@ -42,7 +42,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
       .then(() => {
         editProfileCoordinator.gotoNextScreen(props.route.name);
       })
-      .catch((error) => {
+      .catch(() => {
         setErrorMessage(i18n.t('something-went-wrong'));
       });
   };

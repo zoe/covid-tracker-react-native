@@ -1,29 +1,25 @@
-import { Linking } from 'expo';
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import Analytics, { events } from '@covid/core/Analytics';
+import { openWebLink } from '@covid/utils/links';
 
 type ExternalCalloutProps = {
-  link: string;
+  link?: string;
   calloutID: string;
   imageSource: ImageSourcePropType;
   aspectRatio: number;
-  action?: VoidFunction;
+  postClicked?: VoidFunction;
+  screenName: string;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
-  const {
-    calloutID,
-    link,
-    action = () => {
-      Linking.openURL(link);
-    },
-  } = props;
+  const { calloutID, link, screenName, postClicked } = props;
 
   function clickCallout() {
-    Analytics.track(events.CLICK_CALLOUT, { calloutID });
-    action();
+    Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
+    if (link) openWebLink(link);
+    if (postClicked) postClicked();
   }
 
   return (

@@ -1,7 +1,8 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { NUMBER_OF_PROFILE_AVATARS } from '@assets';
 import { colors } from '@theme';
@@ -13,6 +14,7 @@ import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { Profile, ProfileList } from '@covid/components/Collections/ProfileList';
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { offlineService } from '@covid/Services';
+import { BackButton } from '@covid/components/PatientHeader';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
@@ -38,8 +40,8 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
   } = useProfileList();
 
   useEffect(() => {
-    listProfiles();
-  }, []);
+    return navigation.addListener('focus', listProfiles);
+  }, [navigation]);
 
   const getNextAvatarName = async (): Promise<string> => {
     if (profiles) {
@@ -68,11 +70,17 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     }
   };
 
+  // @ts-ignore
+  const stackNav: StackNavigationProp<ScreenParamList> = navigation;
+
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.rootContainer}>
-          <DrawerToggle navigation={navigation} style={{ tintColor: colors.primary }} />
+          <View style={styles.navContainer}>
+            {!!navigation && <BackButton navigation={stackNav} />}
+            <DrawerToggle navigation={navigation} style={styles.menuToggle} />
+          </View>
 
           <Header>
             <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
@@ -115,5 +123,17 @@ const styles = StyleSheet.create({
 
   rootContainer: {
     padding: 10,
+  },
+
+  navContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 8,
+  },
+
+  menuToggle: {
+    tintColor: colors.primary,
+    marginTop: 22,
   },
 });

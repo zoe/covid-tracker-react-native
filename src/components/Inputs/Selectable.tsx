@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Animated, View, StyleSheet, Easing } from 'react-native';
+import React, { useState } from 'react';
+import { Animated, View, StyleSheet } from 'react-native';
 
 import { SelectableButton } from '@covid/components/SelectableButton';
 import i18n from '@covid/locale/i18n';

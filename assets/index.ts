@@ -12,6 +12,10 @@ export const closeIcon = require('./icons/close.png');
 export const chevronRight = require('./icons/chevron-right.png');
 export const chevronLeft = require('./icons/chevron-left.png');
 
+// Nav bar
+export const news = require('./icons/blog.png');
+export const dashboard = require('./icons/dashboard.png');
+
 // Flags
 export const gbFlag = require('./icons/gb-flag.png');
 export const menuIcon = require('./icons/menu.png');
@@ -35,6 +39,7 @@ export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
+export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 
 // Profiles
@@ -58,13 +63,14 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog007 = require('./thank-you-modules/blog_007.png');
-export const incidence009 = require('./thank-you-modules/incidence_009.png');
-export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
+export const blog009 = require('./thank-you-modules/blog_009.png');
+export const incidence011 = require('./thank-you-modules/incidence_011.png');
+export const timUpdate005 = require('./thank-you-modules/tim_update_005.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
+export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const donate = require('./thank-you-modules/donate.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
@@ -76,3 +82,4 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 
 // Avatar
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
+export const cartoMapHtml = require('./carto/estimated-cases.html');

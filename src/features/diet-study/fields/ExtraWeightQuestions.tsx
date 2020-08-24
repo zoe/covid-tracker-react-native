@@ -1,13 +1,12 @@
 import { FormikProps } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { DietStudyRequest } from '@covid/core/diet-study/dto/DietStudyRequest';
 import { CheckboxItem } from '@covid/components/Checkbox';
-import { FieldWrapper } from '@covid/components/Screen';
 
 export interface ExtraWeightData {
   weightUnsure: boolean;

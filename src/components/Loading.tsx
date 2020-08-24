@@ -28,7 +28,6 @@ const ErrorMessaging = ({ error, status, onRetry, onPress }: LoadingProps) => {
     shouldCancel = !shouldRetry && !!error;
   }
 
-  const showRetry = shouldRetry && !!onRetry;
   return (
     <View>
       {!!message && <ErrorText style={{ color: colors.coral }}>{message}</ErrorText>}
@@ -64,16 +63,6 @@ export const Loading = (props: LoadingProps) => {
 };
 
 export const LoadingModal = (props: LoadingProps) => {
-  let messageKey: string | null = null;
-  let message: string | null = null;
-  let shouldRetry = false;
-
-  if (props.error) {
-    messageKey = props.error.friendlyI18n;
-    message = messageKey && i18n.t(messageKey);
-    shouldRetry = !!props.error.isRetryable && !!props.onRetry;
-  }
-
   return (
     <Modal visible transparent>
       <View style={styles.centeredView}>

@@ -3,15 +3,15 @@ import { Alert, StyleSheet } from 'react-native';
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 
 import i18n from '@covid/locale/i18n';
-import { isGBCountry, isSECountry, IUserService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Divider } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import PushNotificationService from '@covid/core/push-notifications/PushNotificationService';
-
-import { DrawerMenuItem, LinkItem } from './DrawerMenuItem';
-import { useLogout } from './Logout.hooks';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { DrawerMenuItem, LinkItem } from '@covid/features/menu/DrawerMenuItem';
+import { useLogout } from '@covid/features/menu/Logout.hooks';
 
 export const LinksSection: React.FC<{ navigation: DrawerNavigationHelpers }> = ({ navigation }) => {
   const userService = useInjection<IUserService>(Services.User);

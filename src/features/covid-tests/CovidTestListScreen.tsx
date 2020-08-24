@@ -8,16 +8,19 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import CovidTestService from '@covid/core/user/CovidTestService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestList'>;
@@ -31,6 +34,9 @@ type State = {
 };
 
 export default class CovidTestListScreen extends Component<Props, State> {
+  @lazyInject(Services.CovidTest)
+  private readonly covidTestService: ICovidTestService;
+
   state: State = {
     errorMessage: '',
     covidTests: [],
@@ -39,14 +45,11 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
   private _unsubscribe: any = null;
 
-  private LoadingIndicator: React.FC = () => <Loading status="" error={null} />;
-
   async componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', async () => {
       this.setState({ isLoading: true });
       try {
-        const covidTestService = new CovidTestService();
-        const tests = (await covidTestService.listTests()).data;
+        const tests = (await this.covidTestService.listTests()).data;
         const patientId = AssessmentCoordinator.assessmentData.currentPatient.patientId;
         const patientTests = tests.filter((t) => t.patient === patientId);
         this.setState({ covidTests: patientTests, isLoading: false });
@@ -59,6 +62,17 @@ export default class CovidTestListScreen extends Component<Props, State> {
   componentWillUnmount() {
     this._unsubscribe();
   }
+
+  getCovidTestType = (): CovidTestType => {
+    return AssessmentCoordinator.assessmentData.currentPatient.isNHSStudy
+      ? CovidTestType.NHSStudy
+      : CovidTestType.Generic;
+  };
+
+  gotoAddTest = () => {
+    const testType = this.getCovidTestType();
+    AssessmentCoordinator.goToAddEditTest(testType);
+  };
 
   handleNextQuestion = async () => {
     try {
@@ -82,6 +96,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
   render() {
     const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
     const { isLoading } = this.state;
+    const isNHSStudy = currentPatient.isNHSStudy;
 
     return (
       <View style={styles.rootContainer}>
@@ -94,23 +109,32 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <ProgressStatus step={2} maxSteps={5} />
           </ProgressBlock>
 
-          <View style={styles.content}>
-            <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
-          </View>
+          {isNHSStudy ? (
+            <RegularText style={styles.content}>
+              <RegularText>{i18n.t('covid-test-list.nhs-text')}</RegularText>
+              <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/passt')}>
+                {i18n.t('covid-test-list.nhs-text-link')}
+              </ClickableText>
+            </RegularText>
+          ) : (
+            <View style={styles.content}>
+              <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
+            </View>
+          )}
 
           {isLoading ? (
-            <this.LoadingIndicator />
+            <Loading status="" error={null} />
           ) : (
             <View style={styles.content}>
               {this.state.covidTests.map((item: CovidTest) => {
-                return <CovidTestRow item={item} key={key(item)} />;
+                return <CovidTestRow type={item.type} item={item} key={key(item)} />;
               })}
             </View>
           )}
         </Screen>
 
         <View>
-          <BrandedButton style={styles.newButton} onPress={AssessmentCoordinator.goToAddEditTest}>
+          <BrandedButton style={styles.newButton} onPress={this.gotoAddTest}>
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
 
