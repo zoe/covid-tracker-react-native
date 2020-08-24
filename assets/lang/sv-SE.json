@@ -906,11 +906,7 @@
       "location": {
         "title": false,
         "label": false,
-        "disclaimer": false,
-        "not-current-address": false,
-        "still-in-country": false,
-        "other-postcode": false,
-        "select-country": false
+        "disclaimer": false
       }
     },
 
