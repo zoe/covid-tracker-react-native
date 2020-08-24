@@ -59,7 +59,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
     };
 
     patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then(() => {
         currentPatient.isNHSStudy = false;
 
@@ -78,7 +78,7 @@ export const NHSIntroScreen: React.FC<Props> = (props: Props) => {
     const infos = createPatientInfos(formData);
 
     patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then(() => {
         coordinator.gotoNextScreen(props.route.name);
       })

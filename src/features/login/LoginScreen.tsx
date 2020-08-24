@@ -77,7 +77,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
-        appCoordinator.setPatientId(patientId).then(() => {
+        appCoordinator.setPatientById(patientId).then(() => {
           appCoordinator.gotoNextScreen(this.props.route.name);
         });
       })

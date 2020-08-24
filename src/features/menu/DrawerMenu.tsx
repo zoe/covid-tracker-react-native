@@ -40,7 +40,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   const fetchEmail = async () => {
     try {
       // TODO - Save a server hit and stash this in async storage
-      const profile = await userService.getProfile();
+      const profile = await userService.getUser();
       setUserEmail(profile?.username ?? '');
     } catch (_) {
       setUserEmail('');

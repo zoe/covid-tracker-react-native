@@ -49,7 +49,7 @@ export class PatientCoordinator implements Coordinator {
       NavigatorService.navigate('PreviousExposure', { patientData: this.patientData });
     },
     PreviousExposure: () => {
-      this.appCoordinator.startAssessmentFlow(this.patientData.patientState);
+      this.appCoordinator.startAssessmentFlow(this.patientData);
     },
   } as ScreenFlow;
 
@@ -87,7 +87,7 @@ export class PatientCoordinator implements Coordinator {
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.patientService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+    return this.patientService.updatePatientInfo(this.patientData.patientId, patientInfo).then((info) => {
       this.patientData.patientInfo = info;
       return info;
     });

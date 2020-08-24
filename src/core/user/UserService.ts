@@ -22,11 +22,11 @@ export type AuthenticatedUser = {
 
 export interface IUserService {
   hasUser: boolean;
-  register(email: string, password: string): Promise<any>; // TODO: define return object
-  login(email: string, password: string): Promise<any>; // TODO: define return object
+  register(email: string, password: string): Promise<LoginOrRegisterResponse>; // TODO: define return object
+  login(email: string, password: string): Promise<LoginOrRegisterResponse>; // TODO: define return object
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
-  getProfile(): Promise<UserResponse | null>;
+  getUser(): Promise<UserResponse | null>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -114,8 +114,8 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   async getFirstPatientId(): Promise<string | null> {
     try {
-      const profile = await this.getProfile();
-      return profile!.patients[0];
+      const user = await this.getUser();
+      return user!.patients[0];
     } catch (error) {
       return null;
     }
@@ -149,14 +149,11 @@ export default class UserService extends ApiClientBase implements IUserService {
     };
     const requestBody = objectToQueryString(payload);
 
-    // todo: what is in the response?
-    const promise = this.client.post<LoginOrRegisterResponse>('/auth/signup/', requestBody, this.configEncoded);
-    await promise.then(this.handleLoginOrRegisterResponse);
-
-    return promise;
+    const response = await this.client.post<LoginOrRegisterResponse>('/auth/signup/', requestBody, this.configEncoded);
+    return this.handleLoginOrRegisterResponse(response);
   }
 
-  public async getProfile(): Promise<UserResponse | null> {
+  public async getUser(): Promise<UserResponse | null> {
     try {
       const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
       return profile;

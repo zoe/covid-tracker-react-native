@@ -20,7 +20,7 @@ export class ProfileService implements IProfileService {
 
   public async hasMultipleProfiles() {
     try {
-      const response = await this.patientService.listPatients();
+      const response = await this.patientService.listProfiles();
       return !!response && response.length > 1;
     } catch (e) {
       return false;
