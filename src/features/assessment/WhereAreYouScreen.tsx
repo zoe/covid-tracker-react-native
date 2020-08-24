@@ -42,7 +42,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

@@ -1,16 +1,17 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { HeaderText, RegularText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { USStudyInvite } from '@covid/components/USStudyInvite';
 import { SelectorButton } from '@covid/components/SelectorButton';
+import { colors } from '@theme';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -37,7 +38,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
     try {
       const isAssessmentComplete = true;
       await this.updateAssessment('healthy', isAssessmentComplete);
-      AssessmentCoordinator.goToNextHowYouFeelScreen(true);
+      assessmentCoordinator.goToNextHowYouFeelScreen(true);
     } catch (error) {
       // Error already handled.
     }
@@ -46,7 +47,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   handleHaveSymptoms = async () => {
     try {
       await this.updateAssessment('not_healthy');
-      AssessmentCoordinator.goToNextHowYouFeelScreen(false);
+      assessmentCoordinator.goToNextHowYouFeelScreen(false);
     } catch (error) {
       // Error already handled.
     }
@@ -54,7 +55,7 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
 
   private async updateAssessment(status: string, isComplete: boolean = false) {
     try {
-      const assessmentId = AssessmentCoordinator.assessmentData.assessmentId;
+      const assessmentId = assessmentCoordinator.assessmentData.assessmentId;
       const assessment = {
         health_status: status,
       };
@@ -70,10 +71,10 @@ export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> 
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     return (
       <>
-        <USStudyInvite assessmentData={AssessmentCoordinator.assessmentData} />
+        <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
 
         <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>

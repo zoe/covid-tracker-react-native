@@ -48,7 +48,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const title =
       this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')

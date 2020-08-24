@@ -34,7 +34,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const title =
       this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-selection-title-after')

@@ -156,8 +156,16 @@ export class AppCoordinator {
     patientCoordinator.startPatient();
   }
 
-  startAssessmentFlow(currentPatient: PatientStateType) {
-    assessmentCoordinator.init(this, { currentPatient }, this.userService, assessmentService);
+  async startAssessmentFlow(currentPatient: PatientStateType) {
+    const patientInfo = await this.patientService.getPatient(currentPatient.patientId);
+    const patientData: PatientData = {
+      patientId: currentPatient.patientId,
+      patientState: currentPatient,
+      patientInfo: patientInfo!,
+      profile: undefined,
+    };
+
+    assessmentCoordinator.init(this, { patientData }, this.userService, assessmentService);
     assessmentCoordinator.startAssessment();
   }
 
