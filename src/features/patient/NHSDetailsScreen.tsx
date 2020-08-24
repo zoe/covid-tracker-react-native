@@ -45,7 +45,7 @@ export const NHSDetailsScreen: React.FC<Props> = (props: Props) => {
       <View style={{ paddingHorizontal: 16 }}>
         <RegularText style={{ marginTop: 32, marginBottom: 16 }}>{i18n.t('nhs-study-questions.text-1')}</RegularText>
 
-        <RegularText style={{ marginVertical: 16 }}>{i18n.t('nhs-study-questions.text-1')}</RegularText>
+        <RegularText style={{ marginVertical: 16 }}>{i18n.t('nhs-study-questions.text-2')}</RegularText>
 
         <RegularText style={{ marginVertical: 16 }}>
           <RegularText>{i18n.t('nhs-study-questions.text-3')}</RegularText>
