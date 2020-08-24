@@ -1,13 +1,12 @@
 import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { LifestyleResponse } from '@covid/core/assessment/dto/LifestyleResponse';
 import appConfig from '@covid/appConfig';
+import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 
 import { IAssessmentRemoteClient } from './AssessmentApiClient';
 import { IAssessmentState } from './AssessmentState';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type AssessmentId = string | null;
 

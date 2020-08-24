@@ -8,12 +8,11 @@ import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type TreatmentSelectionProps = {
   navigation: StackNavigationProp<ScreenParamList, 'TreatmentSelection'>;
@@ -22,11 +21,11 @@ type TreatmentSelectionProps = {
 
 export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
   handleTreatment = async (treatment: string) => {
-    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const { assessmentId } = assessmentCoordinator.assessmentData;
     const { location } = this.props.route.params;
 
     if (treatment === 'other') {
-      AssessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
+      assessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
     } else {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
@@ -34,12 +33,12 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
         assessment,
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );
-      AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
+      assessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
     }
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     const title =
       this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-selection-title-after')

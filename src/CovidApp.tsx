@@ -77,10 +77,10 @@ import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
+import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
 import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
-import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();

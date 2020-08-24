@@ -14,7 +14,6 @@ import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 
 import { ScreenParamList } from '../ScreenParamList';
-import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
