@@ -86,95 +86,94 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         label: countryData.name,
         value: countryData.code,
       };
-    });
+    })
+    .sort((a: PickerItemProps, b: PickerItemProps) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
   return (
-    <>
-      <Screen profile={props.route.params.patientData.profile} navigation={props.navigation} simpleCallout>
-        <Header>
-          <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
-        </Header>
+    <Screen profile={props.route.params.patientData.profile} navigation={props.navigation} simpleCallout>
+      <Header>
+        <HeaderText style={{ marginBottom: 12 }}>{i18n.t('edit-profile.location.title')}</HeaderText>
+      </Header>
 
-        <Formik
-          initialValues={initialFormValues}
-          validationSchema={Yup.object().shape({
-            postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-            differentAddress: Yup.string().required(),
-            stillInUK: Yup.string().when('differentAddress', {
-              is: 'no',
-              then: Yup.string().required(),
-            }),
-            currentPostcode: Yup.string().when(['stillInUK', 'differentAddress'], {
-              is: (stillInUK: string, differentAddress: string) => {
-                return stillInUK === 'yes' && differentAddress === 'yes';
-              },
-              then: Yup.string().required(),
-            }),
-            currentCountry: Yup.string().when('stillInUK', {
-              is: (stillInUK: string, differentAddress: string) => {
-                return stillInUK === 'no' && differentAddress === 'yes';
-              },
-              then: Yup.string().required(),
-            }),
-          })}
-          onSubmit={(formData: EditLocationData) => {
-            return handleLocationUpdate(formData);
-          }}>
-          {(props) => {
-            return (
-              <Form>
+      <Formik
+        initialValues={initialFormValues}
+        validationSchema={Yup.object().shape({
+          postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+          differentAddress: Yup.string().required(),
+          stillInUK: Yup.string().when('differentAddress', {
+            is: 'no',
+            then: Yup.string().required(),
+          }),
+          currentPostcode: Yup.string().when(['stillInUK', 'differentAddress'], {
+            is: (stillInUK: string, differentAddress: string) => {
+              return stillInUK === 'yes' && differentAddress === 'yes';
+            },
+            then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+          }),
+          currentCountry: Yup.string().when(['stillInUK', 'differentAddress'], {
+            is: (stillInUK: string, differentAddress: string) => {
+              return stillInUK === 'no' && differentAddress === 'yes';
+            },
+            then: Yup.string().required(i18n.t('edit-profile.location.select-country')),
+          }),
+        })}
+        onSubmit={(formData: EditLocationData) => {
+          return handleLocationUpdate(formData);
+        }}>
+        {(props) => {
+          return (
+            <Form>
+              <GenericTextField
+                formikProps={props}
+                label={i18n.t('edit-profile.location.label')}
+                placeholder={i18n.t('placeholder-postcode')}
+                name="postcode"
+                inputProps={{ autoCompleteType: 'postal-code' }}
+                showError
+              />
+              <YesNoField
+                label={i18n.t('edit-profile.location.not-current-address')}
+                selectedValue={props.values.differentAddress}
+                onValueChange={props.handleChange('differentAddress')}
+              />
+              {props.values.differentAddress === 'yes' && (
+                <YesNoField
+                  label={i18n.t('edit-profile.location.still-in-country')}
+                  selectedValue={props.values.stillInUK}
+                  onValueChange={props.handleChange('stillInUK')}
+                />
+              )}
+              {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' && (
                 <GenericTextField
                   formikProps={props}
-                  label={i18n.t('edit-profile.location.label')}
+                  label={i18n.t('edit-profile.location.other-postcode')}
                   placeholder={i18n.t('placeholder-postcode')}
-                  name="postcode"
+                  name="currentPostcode"
                   inputProps={{ autoCompleteType: 'postal-code' }}
                   showError
                 />
-                <YesNoField
-                  label={i18n.t('edit-profile.location.not-current-address')}
-                  selectedValue={props.values.differentAddress}
-                  onValueChange={props.handleChange('differentAddress')}
+              )}
+              {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' && (
+                <DropdownField
+                  selectedValue={props.values.currentCountry}
+                  onValueChange={props.handleChange('currentCountry')}
+                  label={i18n.t('edit-profile.location.select-country')}
+                  items={countryList}
+                  error={props.touched.currentCountry && props.errors.currentCountry}
                 />
-                {props.values.differentAddress === 'yes' && (
-                  <YesNoField
-                    label={i18n.t('edit-profile.location.still-in-country')}
-                    selectedValue={props.values.stillInUK}
-                    onValueChange={props.handleChange('stillInUK')}
-                  />
-                )}
-                {props.values.stillInUK === 'yes' && props.values.differentAddress === 'yes' && (
-                  <GenericTextField
-                    formikProps={props}
-                    label={i18n.t('edit-profile.location.other-postcode')}
-                    placeholder={i18n.t('placeholder-postcode')}
-                    name="currentPostcode"
-                    inputProps={{ autoCompleteType: 'postal-code' }}
-                    showError
-                  />
-                )}
-                {props.values.stillInUK === 'no' && props.values.differentAddress === 'yes' && (
-                  <DropdownField
-                    selectedValue={props.values.currentCountry}
-                    onValueChange={props.handleChange('currentCountry')}
-                    label={i18n.t('edit-profile.location.select-country')}
-                    items={countryList}
-                    error={props.touched.currentCountry && props.errors.currentCountry}
-                  />
-                )}
-                <View style={{ height: 100 }} />
-                <SecondaryText style={{ textAlign: 'center' }}>
-                  {i18n.t('edit-profile.location.disclaimer')}
-                </SecondaryText>
-                <ErrorText>{errorMessage}</ErrorText>
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  <Text>{i18n.t('edit-profile.done')}</Text>
-                </BrandedButton>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-    </>
+              )}
+              <View style={{ height: 100 }} />
+              <SecondaryText style={{ textAlign: 'center' }}>
+                {i18n.t('edit-profile.location.disclaimer')}
+              </SecondaryText>
+              <ErrorText>{errorMessage}</ErrorText>
+              <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                <Text>{i18n.t('edit-profile.done')}</Text>
+              </BrandedButton>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
   );
 };
