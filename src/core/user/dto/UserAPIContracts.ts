@@ -68,8 +68,17 @@ export type UserResponse = {
   country_code: string;
 };
 
+export enum CountryCode {
+  GB = 'GB',
+  US = 'US',
+  SE = 'SE',
+}
+
+// So that enum is compatible is current code base without refactoring
+export type SupportedCountryCodes = CountryCode | 'GB' | 'US' | 'SE';
+
 export type UpdateCountryCodeRequest = {
-  country_code: string;
+  country_code: SupportedCountryCodes;
 };
 
 export type PiiRequest = {
