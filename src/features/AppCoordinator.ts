@@ -123,13 +123,13 @@ export class AppCoordinator {
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
-    const info = await this.contentService.getStartupInfo();
-    store.dispatch(fetchStartUpInfo());
+
+    await store.dispatch(fetchStartUpInfo());
     if (isGBCountry()) {
       store.dispatch(fetchUKMetrics());
     }
 
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
     this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
   }
 
