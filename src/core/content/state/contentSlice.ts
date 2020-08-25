@@ -64,12 +64,8 @@ export const contentSlice = createSlice({
   reducers: {},
   extraReducers: {
     // StartUpInfo reducers
-    [fetchStartUpInfo.pending.type]: (current) => {
-      current.infoApiState = 'loading';
-    },
-    [fetchStartUpInfo.rejected.type]: (current) => {
-      current.infoApiState = 'error';
-    },
+    [fetchStartUpInfo.pending.type]: (current) => (current.infoApiState = 'loading'),
+    [fetchStartUpInfo.rejected.type]: (current) => (current.infoApiState = 'error'),
     [fetchStartUpInfo.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
       current.infoApiState = !action.payload ? 'error' : 'finished';
       const { startupInfo, personalizedLocalData } = action.payload;
@@ -78,12 +74,8 @@ export const contentSlice = createSlice({
     },
 
     // UK Predictive Metrics reducers
-    [fetchUKMetrics.pending.type]: (current) => {
-      current.ukMetricsApiState = 'loading';
-    },
-    [fetchUKMetrics.rejected.type]: (current) => {
-      current.ukMetricsApiState = 'error';
-    },
+    [fetchUKMetrics.pending.type]: (current) => (current.ukMetricsApiState = 'loading'),
+    [fetchUKMetrics.rejected.type]: (current) => (current.ukMetricsApiState = 'error'),
     [fetchUKMetrics.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
       current.ukMetricsApiState = !action.payload ? 'error' : 'finished';
       const { ukActive, ukDaily } = action.payload;
