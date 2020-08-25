@@ -10,8 +10,8 @@ import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
-
-import { ScreenParamList } from './ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
@@ -30,9 +30,9 @@ export class CountrySelectScreen extends Component<Props, object> {
 
   private selectCountry = async (countryCode: string) => {
     await this.localisationServce.setUserCountry(countryCode);
-    await this.userService.updateCountryCode({ country_code: countryCode });
 
-    if (this.props.route?.params?.onComplete) {
+    if (appCoordinator.shouldShowCountryPicker && this.props.route?.params?.onComplete) {
+      await this.userService.updateCountryCode({ country_code: countryCode });
       this.props.route.params.onComplete();
     } else {
       this.props.navigation.reset({
