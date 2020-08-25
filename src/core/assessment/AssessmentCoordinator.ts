@@ -4,7 +4,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import { IUserService } from '@covid/core/user/UserService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator, { AppCoordinator } from '@covid/features/AppCoordinator';
+import { AppCoordinator } from '@covid/features/AppCoordinator';
 import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
@@ -179,7 +179,7 @@ export class AssessmentCoordinator {
   }
 
   editLocation() {
-    appCoordinator.startEditLocation(
+    this.appCoordinator.startEditLocation(
       this.assessmentData.patientData.patientState.profile,
       this.assessmentData.patientData
     );
