@@ -162,7 +162,7 @@ export class AppCoordinator {
       patientId: currentPatient.patientId,
       patientState: currentPatient,
       patientInfo: patientInfo!,
-      profile: undefined,
+      profile: currentPatient.profile,
     };
 
     assessmentCoordinator.init(this, { patientData }, this.userService, assessmentService);
