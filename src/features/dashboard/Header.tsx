@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
 
-import { colors } from '@theme';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
-import { covidIcon } from '@assets';
+import { covidIcon, covidByZoeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { IContentService } from '@covid/core/content/ContentService';
 import { cleanIntegerVal } from '@covid/utils/number';
+import { colors } from '@theme';
 
 interface Props {
   reportedCount?: string;
@@ -48,7 +48,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
 
   return (
     <View style={styles.root}>
-      <Image source={covidIcon} style={styles.logo} />
+      <Image source={covidByZoeIcon} style={styles.covidByZoe} />
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>{todaysDate()}</Header3Text>
@@ -102,6 +102,15 @@ const styles = StyleSheet.create({
     height: 54,
     resizeMode: 'contain',
     margin: 8,
+  },
+
+  covidByZoe: {
+    width: 136,
+    height: 56,
+    resizeMode: 'contain',
+    margin: 8,
+    alignSelf: 'flex-start',
+    marginLeft: 16,
   },
 
   compactHeaderLogo: {
