@@ -20,8 +20,9 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-
-import { ScreenParamList } from './ScreenParamList';
+import store from '@covid/core/state/store';
+import { fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/slices';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -53,7 +54,7 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  homeScreenName: ScreenName = 'WelcomeRepeat';
+  homeScreenName: ScreenName = 'Dashboard';
 
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
@@ -123,8 +124,13 @@ export class AppCoordinator {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
     }
     const info = await this.contentService.getStartupInfo();
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+    store.dispatch(fetchStartUpInfo());
+    if (isGBCountry()) {
+      store.dispatch(fetchUKMetrics());
+    }
+
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'Dashboard';
+    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'Dashboard';
   }
 
   getConfig(): ConfigType {
@@ -136,7 +142,7 @@ export class AppCoordinator {
   }
 
   getWelcomeRepeatScreenName(): keyof ScreenParamList {
-    return 'WelcomeRepeat';
+    return 'Dashboard';
   }
 
   resetToProfileStartAssessment() {
