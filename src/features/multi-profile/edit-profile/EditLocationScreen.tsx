@@ -50,17 +50,21 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country_code,
   };
 
-  const handlePostcodeUpdate = (formData: EditLocationData) => {
-    //TODO Handle other field updates
-
+  const handleLocationUpdate = (formData: EditLocationData) => {
     const infos: Partial<PatientInfosRequest> = {};
 
     if (formData.differentAddress === 'no') {
       infos.postcode = formData.postcode;
+      infos.current_postcode = '';
+      infos.current_country_code = '';
     } else {
       if (formData.stillInUK === 'yes') {
+        infos.postcode = formData.postcode;
         infos.current_postcode = formData.currentPostcode;
+        infos.current_country_code = '';
       } else {
+        infos.postcode = formData.postcode;
+        infos.current_postcode = '';
         infos.current_country_code = formData.currentCountry;
       }
     }
@@ -114,7 +118,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
             }),
           })}
           onSubmit={(formData: EditLocationData) => {
-            return handlePostcodeUpdate(formData);
+            return handleLocationUpdate(formData);
           }}>
           {(props) => {
             return (
