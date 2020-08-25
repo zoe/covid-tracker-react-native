@@ -29,7 +29,6 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
 
     return navigation.addListener('focus', () => {
       const location = patientInfo?.current_country_code ?? patientInfo?.current_postcode ?? patientInfo?.postcode!;
-
       setLocation(location);
     });
   }, [navigation]);

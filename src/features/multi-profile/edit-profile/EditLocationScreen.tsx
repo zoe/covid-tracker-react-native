@@ -27,15 +27,43 @@ type CountryData = {
   name: string;
 };
 
+type EditLocationData = {
+  postcode: string;
+  differentAddress: string;
+  stillInUK: string;
+  currentPostcode: string;
+  currentCountry: string;
+};
+
 export const EditLocationScreen: React.FC<RenderProps> = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handlePostcodeUpdate = (postcode: string) => {
+  const initialFormValues: EditLocationData = {
+    postcode: editProfileCoordinator.patientData.patientInfo!.postcode,
+    differentAddress: editProfileCoordinator.patientData.patientInfo!.current_postcode
+      ? 'yes'
+      : editProfileCoordinator.patientData.patientInfo!.current_country_code
+      ? 'yes'
+      : 'no',
+    stillInUK: editProfileCoordinator.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
+    currentPostcode: editProfileCoordinator.patientData.patientInfo!.current_postcode,
+    currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country_code,
+  };
+
+  const handlePostcodeUpdate = (formData: EditLocationData) => {
     //TODO Handle other field updates
 
-    const infos: Partial<PatientInfosRequest> = {
-      postcode,
-    };
+    const infos: Partial<PatientInfosRequest> = {};
+
+    if (formData.differentAddress === 'no') {
+      infos.postcode = formData.postcode;
+    } else {
+      if (formData.stillInUK === 'yes') {
+        infos.current_postcode = formData.currentPostcode;
+      } else {
+        infos.current_country_code = formData.currentCountry;
+      }
+    }
 
     editProfileCoordinator
       .updatePatientInfo(infos)
@@ -64,17 +92,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         </Header>
 
         <Formik
-          initialValues={{
-            postcode: editProfileCoordinator.patientData.patientInfo!.postcode,
-            differentAddress: editProfileCoordinator.patientData.patientInfo!.current_postcode
-              ? 'yes'
-              : editProfileCoordinator.patientData.patientInfo!.current_country_code
-              ? 'yes'
-              : 'no',
-            stillInUK: editProfileCoordinator.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
-            currentLocation: editProfileCoordinator.patientData.patientInfo!.current_postcode,
-            currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country_code,
-          }}
+          initialValues={initialFormValues}
           validationSchema={Yup.object().shape({
             postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
             differentAddress: Yup.string().required(),
@@ -82,7 +100,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               is: 'no',
               then: Yup.string().required(),
             }),
-            currentLocation: Yup.string().when(['stillInUK', 'differentAddress'], {
+            currentPostcode: Yup.string().when(['stillInUK', 'differentAddress'], {
               is: (stillInUK: string, differentAddress: string) => {
                 return stillInUK === 'yes' && differentAddress === 'yes';
               },
@@ -95,8 +113,8 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
               then: Yup.string().required(),
             }),
           })}
-          onSubmit={(values) => {
-            return handlePostcodeUpdate(values.postcode);
+          onSubmit={(formData: EditLocationData) => {
+            return handlePostcodeUpdate(formData);
           }}>
           {(props) => {
             return (
@@ -126,7 +144,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                     formikProps={props}
                     label={i18n.t('edit-profile.location.other-postcode')}
                     placeholder={i18n.t('placeholder-postcode')}
-                    name="currentLocation"
+                    name="currentPostcode"
                     inputProps={{ autoCompleteType: 'postal-code' }}
                     showError
                   />
