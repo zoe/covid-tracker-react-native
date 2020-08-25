@@ -21,7 +21,7 @@ import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import store from '@covid/core/state/store';
-import { fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/slices';
+import { fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;

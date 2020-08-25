@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { EstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/EstimatedCaseCard';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
-import { ContentState } from '@covid/core/content/state/slices';
+import { ContentState } from '@covid/core/content/state/contentSlice';
 
 interface Props {
   onPress: VoidFunction;

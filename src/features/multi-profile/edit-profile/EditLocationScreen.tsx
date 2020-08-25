@@ -12,7 +12,7 @@ import i18n from '@covid/locale/i18n';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { useAppDispatch } from '@covid/core/state/store';
-import { fetchStartUpInfo } from '@covid/core/content/state/slices';
+import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type RenderProps = {
