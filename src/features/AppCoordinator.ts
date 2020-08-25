@@ -26,6 +26,7 @@ import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -129,18 +130,27 @@ export class AppCoordinator {
   };
 
   async init() {
-    await this.userService.loadUser();
-    const profile = await this.userService.getProfile();
     let shouldShowCountryPicker = false;
-    this.patientId = profile?.patients[0] ?? null;
-    if (this.patientId) {
-      this.currentPatient = await this.patientService.getPatientState(this.patientId);
-      shouldShowCountryPicker = profile?.country_code !== LocalisationService.userCountry;
-    }
+    const profile: UserResponse | null = null;
+
+    await this.userService.loadUser();
     const info = await this.contentService.getStartupInfo();
+
+    if (this.userService.hasUser) {
+      const profile = await this.userService.getProfile();
+      this.patientId = profile?.patients[0] ?? null;
+    }
+
+    if (this.patientId && profile) {
+      this.currentPatient = await this.patientService.getPatientState(this.patientId);
+      shouldShowCountryPicker = profile!.country_code !== LocalisationService.userCountry;
+    }
+
+    // Set main route depending on API / Country
     this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
     this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
 
+    // Track insights
     if (shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }
