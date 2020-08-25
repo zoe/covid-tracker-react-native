@@ -25,8 +25,7 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-
-import { ScreenParamList } from './ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -132,14 +131,19 @@ export class AppCoordinator {
   async init() {
     await this.userService.loadUser();
     const profile = await this.userService.getProfile();
+    let shouldShowCountryPicker = false;
     this.patientId = profile?.patients[0] ?? null;
     if (this.patientId) {
       this.currentPatient = await this.patientService.getPatientState(this.patientId);
-      this.shouldShowCountryPicker = profile?.country_code !== LocalisationService.userCountry;
+      shouldShowCountryPicker = profile?.country_code !== LocalisationService.userCountry;
     }
     const info = await this.contentService.getStartupInfo();
     this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
     this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+
+    if (shouldShowCountryPicker) {
+      Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
+    }
   }
 
   getConfig(): ConfigType {
