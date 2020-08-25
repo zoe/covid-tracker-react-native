@@ -29,6 +29,10 @@ const DashboardEvents = {
   ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN: 'ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN',
 };
 
+const InsightEvents = {
+  MISMATCH_COUNTRY_CODE: 'MISMATCH_COUNTRY_CODE',
+};
+
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
   LINK_OPENED: 'LINK_OPENED',
@@ -50,6 +54,7 @@ export const events = {
   DECLINE_VACCINE_REGISTER: 'DECLINE_VACCINE_REGISTER',
   ...DietStudyEvents,
   ...DashboardEvents,
+  ...InsightEvents,
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
