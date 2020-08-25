@@ -1,5 +1,15 @@
 import { combineReducers } from 'redux';
 
-import assessment from '../assessment/state/reducers';
+import assessment from '@covid/core/assessment/state/reducers';
+import { contentSlice, ContentState } from '@covid/core/content/state/slices';
+import { IAssessmentState } from '@covid/core/assessment/AssessmentState';
 
-export default combineReducers({ assessment });
+export type RootState = {
+  assessment: IAssessmentState;
+  content: ContentState;
+};
+
+export default combineReducers({
+  assessment,
+  content: contentSlice.reducer,
+});
