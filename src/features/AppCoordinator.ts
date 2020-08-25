@@ -131,7 +131,7 @@ export class AppCoordinator {
 
   async init() {
     let shouldShowCountryPicker = false;
-    const profile: UserResponse | null = null;
+    let profile: UserResponse | null = null;
 
     await this.userService.loadUser();
     const info = await this.contentService.getStartupInfo();
