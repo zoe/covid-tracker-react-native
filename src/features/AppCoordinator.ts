@@ -54,7 +54,7 @@ export class AppCoordinator {
   patientId: string | null = null;
   currentPatient: PatientStateType;
 
-  homeScreenName: ScreenName = 'Dashboard';
+  homeScreenName: ScreenName = 'WelcomeRepeat';
 
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
@@ -129,8 +129,8 @@ export class AppCoordinator {
       store.dispatch(fetchUKMetrics());
     }
 
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'Dashboard';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'Dashboard';
+    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
@@ -142,7 +142,7 @@ export class AppCoordinator {
   }
 
   getWelcomeRepeatScreenName(): keyof ScreenParamList {
-    return 'Dashboard';
+    return 'WelcomeRepeat';
   }
 
   resetToProfileStartAssessment() {
