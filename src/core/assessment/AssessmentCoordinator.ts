@@ -9,6 +9,7 @@ import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/loca
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
+import { PatientData } from '@covid/core/patient/PatientData';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -19,7 +20,7 @@ type ScreenFlow = {
 
 export type AssessmentData = {
   assessmentId?: string;
-  currentPatient: PatientStateType;
+  patientData: PatientData;
 };
 
 export class AssessmentCoordinator {
@@ -40,7 +41,7 @@ export class AssessmentCoordinator {
       this.startAssessment();
     },
     LevelOfIsolation: () => {
-      if (this.assessmentData.currentPatient.isHealthWorker) {
+      if (this.assessmentData.patientData.patientState.isHealthWorker) {
         NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
@@ -50,7 +51,7 @@ export class AssessmentCoordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      if (this.assessmentData.currentPatient.shouldAskLifestyleQuestion) {
+      if (this.assessmentData.patientData.patientState.shouldAskLifestyleQuestion) {
         NavigatorService.navigate('Lifestyle', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
@@ -86,7 +87,7 @@ export class AssessmentCoordinator {
   };
 
   startAssessment = () => {
-    const { currentPatient } = this.assessmentData;
+    const currentPatient = this.assessmentData.patientData.patientState;
     const config = this.localisationService.getConfig();
     this.assessmentService.initAssessment();
 
@@ -103,7 +104,7 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      this.appCoordinator.startPatientFlow(this.assessmentData.currentPatient);
+      this.appCoordinator.startPatientFlow(this.assessmentData.patientData.patientState);
     }
   };
 
@@ -175,6 +176,17 @@ export class AssessmentCoordinator {
       !(await profileService.hasMultipleProfiles()) &&
       (await profileService.shouldAskToReportForOthers())
     );
+  }
+
+  editLocation() {
+    this.appCoordinator.startEditLocation(
+      this.assessmentData.patientData.patientState.profile,
+      this.assessmentData.patientData
+    );
+  }
+
+  shouldShowEditLocation() {
+    return this.localisationService.getConfig().enableEditProfile;
   }
 }
 
