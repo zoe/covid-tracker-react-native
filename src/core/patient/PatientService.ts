@@ -22,9 +22,6 @@ export interface IPatientService {
   listProfiles(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   updatePatientInfo(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
-  getPatientInfo(patientId: string): Promise<PatientInfosRequest | null>;
-  getPatientState(patientId: string): Promise<PatientStateType>;
-  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
   shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   getPatientDataById(patientId: string): Promise<PatientData>;
@@ -112,7 +109,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     } as PatientData;
   }
 
-  public async getPatientInfo(patientId: string): Promise<PatientInfosRequest | null> {
+  private async getPatientInfo(patientId: string): Promise<PatientInfosRequest | null> {
     try {
       const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
       return patientResponse.data;
@@ -122,19 +119,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return null;
   }
 
-  public async getPatientState(patientId: string): Promise<PatientStateType> {
-    let patientState = getInitialPatientState(patientId);
-
-    const patientInfo = await this.getPatientInfo(patientId);
-
-    if (patientInfo) {
-      patientState = await this.updatePatientState(patientState, patientInfo);
-    }
-
-    return patientState;
-  }
-
-  public async updatePatientState(
+  private async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
@@ -227,25 +212,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isNHSStudy,
     };
   }
-
-  // public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
-  //   let currentPatient = getInitialPatientState(patientId);
-  //
-  //   try {
-  //     if (!patient) {
-  //       const loadPatient = await this.getPatient(patientId);
-  //       patient = loadPatient ?? patient;
-  //     }
-  //   } catch (error) {
-  //     handleServiceError(error);
-  //   }
-  //
-  //   if (patient) {
-  //     currentPatient = await this.updatePatientState(currentPatient, patient);
-  //   }
-  //
-  //   return currentPatient;
-  // }
 
   public shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
     if (!dateLastAsked) return true;
