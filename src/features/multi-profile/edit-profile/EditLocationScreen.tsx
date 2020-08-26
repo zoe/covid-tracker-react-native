@@ -50,6 +50,27 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country_code,
   };
 
+  const validation = Yup.object().shape({
+    postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+    differentAddress: Yup.string().required(),
+    stillInUK: Yup.string().when('differentAddress', {
+      is: 'no',
+      then: Yup.string().required(),
+    }),
+    currentPostcode: Yup.string().when(['stillInUK', 'differentAddress'], {
+      is: (stillInUK: string, differentAddress: string) => {
+        return stillInUK === 'yes' && differentAddress === 'yes';
+      },
+      then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
+    }),
+    currentCountry: Yup.string().when(['stillInUK', 'differentAddress'], {
+      is: (stillInUK: string, differentAddress: string) => {
+        return stillInUK === 'no' && differentAddress === 'yes';
+      },
+      then: Yup.string().required(i18n.t('edit-profile.location.select-country')),
+    }),
+  });
+
   const handleLocationUpdate = (formData: EditLocationData) => {
     const infos: Partial<PatientInfosRequest> = {};
 
@@ -97,26 +118,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
 
       <Formik
         initialValues={initialFormValues}
-        validationSchema={Yup.object().shape({
-          postcode: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-          differentAddress: Yup.string().required(),
-          stillInUK: Yup.string().when('differentAddress', {
-            is: 'no',
-            then: Yup.string().required(),
-          }),
-          currentPostcode: Yup.string().when(['stillInUK', 'differentAddress'], {
-            is: (stillInUK: string, differentAddress: string) => {
-              return stillInUK === 'yes' && differentAddress === 'yes';
-            },
-            then: Yup.string().required(i18n.t('required-postcode')).max(8, i18n.t('postcode-too-long')),
-          }),
-          currentCountry: Yup.string().when(['stillInUK', 'differentAddress'], {
-            is: (stillInUK: string, differentAddress: string) => {
-              return stillInUK === 'no' && differentAddress === 'yes';
-            },
-            then: Yup.string().required(i18n.t('edit-profile.location.select-country')),
-          }),
-        })}
+        validationSchema={validation}
         onSubmit={(formData: EditLocationData) => {
           return handleLocationUpdate(formData);
         }}>
