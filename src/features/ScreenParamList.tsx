@@ -31,7 +31,7 @@ export type ScreenParamList = {
   ResetPasswordConfirm: undefined;
   Register: undefined;
   Login: { terms: string };
-  CountrySelect: undefined;
+  CountrySelect: { onComplete?: VoidFunction };
   OptionalInfo: undefined;
 
   // Profile screens
