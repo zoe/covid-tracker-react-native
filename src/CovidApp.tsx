@@ -23,7 +23,6 @@ import ViralThankYouScreen from '@covid/features/thank-you/ViralThankYouScreen';
 import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
-import HowYouFeelScreen from '@covid/features/assessment/HowYouFeelScreen';
 import LevelOfIsolationScreen from '@covid/features/assessment/LevelOfIsolationScreen';
 import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScreen';
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
@@ -78,6 +77,7 @@ import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
+import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
 import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';

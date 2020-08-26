@@ -97,7 +97,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       }
 
       const infos = {
-        patient: AssessmentCoordinator.assessmentData.currentPatient.patientId,
+        patient: AssessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.NHSStudy,
         invited_to_test: false,
         ...NHSTestDateQuestion.createDTO(formData),
@@ -137,7 +137,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
   }
 
   render() {
-    const { currentPatient } = AssessmentCoordinator.assessmentData;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { test } = this.props.route.params;
 
     const registerSchema = Yup.object()

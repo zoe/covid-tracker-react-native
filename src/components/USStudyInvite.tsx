@@ -21,7 +21,7 @@ type StudyInviteProps = {
 export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProps) => {
   const patientService = useInjection<IPatientService>(Services.Patient);
   const [modalVisible, setModalVisible] = useState(false);
-  const { currentPatient } = props.assessmentData;
+  const currentPatient = props.assessmentData.patientData.patientState;
 
   useEffect(() => {
     if (isUSCountry() && !currentPatient.isReportedByAnother && currentPatient.shouldShowUSStudyInvite) {
@@ -32,14 +32,14 @@ export const USStudyInvite: React.FC<StudyInviteProps> = (props: StudyInviteProp
   const handleAgree = () => {
     setModalVisible(false);
     Analytics.track(events.ACCEPT_STUDY_CONTACT);
-    patientService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, true);
+    patientService.setUSStudyInviteResponse(props.assessmentData.patientData.patientId, true);
     currentPatient.shouldShowUSStudyInvite = false;
   };
 
   const handleClose = () => {
     setModalVisible(false);
     Analytics.track(events.DECLINE_STUDY_CONTACT);
-    patientService.setUSStudyInviteResponse(props.assessmentData.currentPatient.patientId, false);
+    patientService.setUSStudyInviteResponse(props.assessmentData.patientData.patientId, false);
     currentPatient.shouldShowUSStudyInvite = false;
   };
 
