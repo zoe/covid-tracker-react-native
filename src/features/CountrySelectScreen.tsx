@@ -9,8 +9,10 @@ import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
-
-import { ScreenParamList } from './ScreenParamList';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
@@ -24,13 +26,21 @@ const SV_CODE = 'SE';
 export class CountrySelectScreen extends Component<Props, object> {
   @lazyInject(Services.Localisation)
   private readonly localisationServce: ILocalisationService;
+  @lazyInject(Services.User)
+  private readonly userService: IUserService;
 
-  private selectCountry = async (countryCode: string) => {
+  private selectCountry = async (countryCode: SupportedCountryCodes) => {
     await this.localisationServce.setUserCountry(countryCode);
-    this.props.navigation.reset({
-      index: 0,
-      routes: [{ name: 'Welcome' }],
-    });
+
+    if (appCoordinator.shouldShowCountryPicker && this.props.route?.params?.onComplete) {
+      await this.userService.updateCountryCode({ country_code: countryCode });
+      this.props.route.params.onComplete();
+    } else {
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
+    }
   };
 
   public render() {

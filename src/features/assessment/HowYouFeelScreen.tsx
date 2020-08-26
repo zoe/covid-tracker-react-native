@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -26,10 +26,12 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
+    const { getName } = require('country-list');
 
     return navigation.addListener('focus', () => {
-      const location = patientInfo?.current_country_code ?? patientInfo?.current_postcode ?? patientInfo?.postcode!;
-
+      const location = patientInfo?.current_country_code
+        ? getName(patientInfo?.current_country_code)
+        : patientInfo?.current_postcode ?? patientInfo?.postcode!;
       setLocation(location);
     });
   }, [navigation]);
@@ -88,10 +90,13 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <ProgressStatus step={3} maxSteps={5} />
         </ProgressBlock>
 
-        <View style={styles.content}>
+        <>
           {assessmentCoordinator.shouldShowEditLocation() && (
-            <TouchableOpacity style={{ paddingHorizontal: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
-              <RegularText>You are reporting from: {location}</RegularText>
+            <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
+              <RegularText>
+                <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
+                <RegularText style={{ fontWeight: 'bold' }}>{location}</RegularText>
+              </RegularText>
               <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
             </TouchableOpacity>
           )}
@@ -99,14 +104,8 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <SelectorButton onPress={handleFeelNormal} text={i18n.t('how-you-feel.picker-health-status-healthy')} />
 
           <SelectorButton onPress={handleHaveSymptoms} text={i18n.t('how-you-feel.picker-health-status-not-healthy')} />
-        </View>
+        </>
       </Screen>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    marginVertical: 32,
-  },
-});

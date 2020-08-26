@@ -179,7 +179,7 @@ export class AssessmentCoordinator {
   }
 
   editLocation() {
-    appCoordinator.startEditLocation(
+    this.appCoordinator.startEditLocation(
       this.assessmentData.patientData.patientState.profile,
       this.assessmentData.patientData
     );

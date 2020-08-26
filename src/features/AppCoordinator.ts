@@ -2,7 +2,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
 import { IUserService } from '@covid/core/user/UserService';
-import { isGBCountry, isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import {
+  isGBCountry,
+  isUSCountry,
+  ILocalisationService,
+  LocalisationService,
+} from '@covid/core/localisation/LocalisationService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
 import patientCoordinator from '@covid/core/patient/PatientCoordinator';
@@ -19,8 +24,8 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
-
-import { ScreenParamList } from './ScreenParamList';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -53,10 +58,17 @@ export class AppCoordinator {
 
   homeScreenName: ScreenName = 'WelcomeRepeat';
 
+  shouldShowCountryPicker: boolean = false;
+
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
-      // If logged in
-      if (this.patientData) {
+      if (this.patientData && this.shouldShowCountryPicker) {
+        NavigatorService.replace('CountrySelect', {
+          onComplete: () => {
+            NavigatorService.replace(this.homeScreenName);
+          },
+        });
+      } else if (this.patientData) {
         NavigatorService.replace(this.homeScreenName);
       } else {
         NavigatorService.replace('Welcome');
@@ -116,14 +128,32 @@ export class AppCoordinator {
   };
 
   async init() {
+    let shouldShowCountryPicker = false;
+    let user: UserResponse | null = null;
+    let patientId: string | null = null;
+
     await this.userService.loadUser();
-    const patientId = await this.userService.getFirstPatientId();
-    if (patientId) {
-      this.patientData = await this.patientService.getPatientDataById(patientId);
-    }
+
     const info = await this.contentService.getStartupInfo();
+
+    if (this.userService.hasUser) {
+      user = await this.userService.getUser();
+      patientId = user?.patients[0] ?? null;
+    }
+
+    if (patientId && user) {
+      this.patientData = await this.patientService.getPatientDataById(patientId);
+      shouldShowCountryPicker = user!.country_code !== LocalisationService.userCountry;
+    }
+
+    // Set main route depending on API / Country
     this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
     this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+
+    // Track insights
+    if (shouldShowCountryPicker) {
+      Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
+    }
   }
 
   getConfig(): ConfigType {
@@ -164,7 +194,6 @@ export class AppCoordinator {
 
   async startEditLocation(profile: Profile, patientData?: PatientData) {
     if (!patientData) await this.setPatientByProfile(profile);
-
     editProfileCoordinator.init(this, patientData ?? this.patientData, this.userService);
     editProfileCoordinator.goToEditLocation();
   }

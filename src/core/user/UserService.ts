@@ -13,7 +13,7 @@ import { ConsentService, IConsentService } from '../consent/ConsentService';
 import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
 import { IPatientService } from '../patient/PatientService';
 
-import { LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
+import { LoginOrRegisterResponse, PiiRequest, UserResponse, UpdateCountryCodeRequest } from './dto/UserAPIContracts';
 
 export type AuthenticatedUser = {
   userToken: string;
@@ -27,6 +27,7 @@ export interface IUserService {
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
   getUser(): Promise<UserResponse | null>;
+  updateCountryCode(body: UpdateCountryCodeRequest): Promise<any>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -157,6 +158,16 @@ export default class UserService extends ApiClientBase implements IUserService {
     try {
       const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
       return profile;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
+  }
+
+  public async updateCountryCode(body: UpdateCountryCodeRequest): Promise<UserResponse | null> {
+    try {
+      const { data } = await this.client.patch<UserResponse>(`/users/country_code/`, body);
+      return data;
     } catch (error) {
       handleServiceError(error);
     }
