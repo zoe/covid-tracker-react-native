@@ -31,9 +31,12 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
+    const { getName } = require('country-list');
 
     return navigation.addListener('focus', () => {
-      const location = patientInfo?.current_country_code ?? patientInfo?.current_postcode ?? patientInfo?.postcode!;
+      const location = patientInfo?.current_country_code
+        ? getName(patientInfo?.current_country_code)
+        : patientInfo?.current_postcode ?? patientInfo?.postcode!;
       setLocation(location);
     });
   }, [navigation]);
@@ -78,8 +81,6 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   }
 
-  const { getName } = require('country-list');
-
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
     <>
@@ -99,9 +100,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
             <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
               <RegularText>
                 <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
-                <RegularText style={{ fontWeight: 'bold' }}>
-                  {location.length !== 2 ? location : getName(location)}
-                </RegularText>
+                <RegularText style={{ fontWeight: 'bold' }}>{location}</RegularText>
               </RegularText>
               <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
             </TouchableOpacity>
