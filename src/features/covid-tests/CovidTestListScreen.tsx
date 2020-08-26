@@ -50,7 +50,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
       this.setState({ isLoading: true });
       try {
         const tests = (await this.covidTestService.listTests()).data;
-        const patientId = AssessmentCoordinator.assessmentData.currentPatient.patientId;
+        const patientId = AssessmentCoordinator.assessmentData.patientData.patientId;
         const patientTests = tests.filter((t) => t.patient === patientId);
         this.setState({ covidTests: patientTests, isLoading: false });
       } finally {
@@ -64,7 +64,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
   }
 
   getCovidTestType = (): CovidTestType => {
-    return AssessmentCoordinator.assessmentData.currentPatient.isNHSStudy
+    return AssessmentCoordinator.assessmentData.patientData.patientState.isNHSStudy
       ? CovidTestType.NHSStudy
       : CovidTestType.Generic;
   };
@@ -76,7 +76,9 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
   handleNextQuestion = async () => {
     try {
-      const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
+      const { assessmentId } = AssessmentCoordinator.assessmentData;
+      const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+
       const patientId = currentPatient.patientId;
 
       const assessment = {
@@ -94,7 +96,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { isLoading } = this.state;
     const isNHSStudy = currentPatient.isNHSStudy;
 

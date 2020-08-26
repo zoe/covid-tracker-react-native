@@ -1,6 +1,6 @@
-import fs = require('fs');
-
 import { DbConfig } from './types';
+
+import fs = require('fs');
 
 export default (dbPath: string) => {
   // generic function that reads from a "table" file

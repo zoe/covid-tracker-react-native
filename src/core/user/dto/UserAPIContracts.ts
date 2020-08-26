@@ -105,6 +105,8 @@ export type PatientInfosRequest = {
   weight_kg: number;
   weight_pounds: number;
   postcode: string;
+  current_postcode: string;
+  current_country_code: string;
 
   interacted_with_covid: string;
 
