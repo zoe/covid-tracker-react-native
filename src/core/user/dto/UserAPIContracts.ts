@@ -65,6 +65,20 @@ export type UserResponse = {
   patients: string[];
   ask_for_rating: boolean;
   is_tester: boolean;
+  country_code: string;
+};
+
+export enum CountryCode {
+  GB = 'GB',
+  US = 'US',
+  SE = 'SE',
+}
+
+// So that enum is compatible is current code base without refactoring
+export type SupportedCountryCodes = CountryCode | 'GB' | 'US' | 'SE';
+
+export type UpdateCountryCodeRequest = {
+  country_code: SupportedCountryCodes;
 };
 
 export type PiiRequest = {
@@ -91,6 +105,8 @@ export type PatientInfosRequest = {
   weight_kg: number;
   weight_pounds: number;
   postcode: string;
+  current_postcode: string;
+  current_country_code: string;
 
   interacted_with_covid: string;
 

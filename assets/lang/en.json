@@ -429,7 +429,9 @@
   "how-you-feel": {
     "question-health-status": "How do you feel physically right now?",
     "picker-health-status-healthy": "I feel physically normal",
-    "picker-health-status-not-healthy": "I'm not feeling quite right"
+    "picker-health-status-not-healthy": "I'm not feeling quite right",
+    "current-location": "You are currently reporting from:",
+    "update-location": "Update Location"
   },
 
   "level-of-isolation": {
@@ -895,8 +897,12 @@
 
     "location": {
       "title": "My location",
-      "label": "Your postcode (e.g. SE1)",
-      "disclaimer": "Your location is used to localise COVID-19 outbreaks and track symptoms. You can find out how we use your data in our Privacy policy"
+      "label": "Your permanent home postcode (e.g. SE1)",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and track symptoms. You can find out how we use your data in our Privacy policy",
+      "not-current-address": "Are you reporting from a different location than above?",
+      "still-in-country": "Are you still in the UK?",
+      "other-postcode": "Enter the postcode you wish to report for",
+      "select-country": "Please select which country you are now in"
     }
   },
 
