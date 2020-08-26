@@ -4,7 +4,7 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, SecondaryText, Header3Text } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
 import { colors } from '@theme';
@@ -32,15 +32,21 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         {editProfileCoordinator.shouldShowEditProfile() && (
           <>
             <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
-              <HeaderText>Your location</HeaderText>
+              <Header3Text>Your location</Header3Text>
               <Image style={styles.chevron} source={chevronRight} />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
-              <HeaderText>About you</HeaderText>
+              <Header3Text>{i18n.t('title-about-you')}</Header3Text>
               <Image style={styles.chevron} source={chevronRight} />
             </TouchableOpacity>
           </>
+        )}
+        {editProfileCoordinator.shouldShowEditStudy() && (
+          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditYourStudy()}>
+            <Header3Text>{i18n.t('your-study.title')}</Header3Text>
+            <Image style={styles.chevron} source={chevronRight} />
+          </TouchableOpacity>
         )}
       </Screen>
 

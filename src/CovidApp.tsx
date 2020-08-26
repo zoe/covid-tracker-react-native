@@ -75,9 +75,12 @@ import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
 import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
+import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
+import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
+import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen, EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -227,6 +230,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={noHeader} />
         <Stack.Screen name="CovidTestList" component={CovidTestListScreen} options={noHeader} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
+        <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
@@ -260,8 +264,9 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
-
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
+        <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

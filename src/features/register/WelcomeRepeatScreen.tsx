@@ -3,7 +3,6 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking } from 'expo';
 
 import { covidIcon } from '@assets';
 import { colors } from '@theme';
@@ -28,6 +27,7 @@ import { ILocalisationService, isUSCountry, isSECountry } from '@covid/core/loca
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: CompositeNavigationProp<
@@ -135,7 +135,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
             <CalloutBox
               content={this.state.calloutBoxContent}
-              onPress={() => Linking.openURL(this.state.calloutBoxContent.body_link)}
+              onPress={() => openWebLink(this.state.calloutBoxContent.body_link)}
             />
           </View>
         </ScrollView>

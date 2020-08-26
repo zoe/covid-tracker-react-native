@@ -8,10 +8,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { IPatientService } from '@covid/core/patient/PatientService';
 
-import { ScreenParamList } from '../ScreenParamList';
-import appCoordinator from '../AppCoordinator';
-
-export const useProfileList = (navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>) => {
+export const useProfileList = () => {
   const patientService = useInjection<IPatientService>(Services.Patient);
 
   const [status, setStatus] = useState<string>('');

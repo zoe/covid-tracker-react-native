@@ -5,16 +5,15 @@ import NavigatorService from '@covid/NavigatorService';
 import { Services } from '@covid/provider/services.types';
 
 import { AsyncStorageService } from '../AsyncStorageService';
-import { ConfigType } from '../Config';
 import { UserNotFoundException } from '../Exception';
 import { ApiClientBase } from '../api/ApiClientBase';
 import { handleServiceError } from '../api/ApiServiceErrors';
 import { objectToQueryString, camelizeKeys } from '../api/utils';
 import { ConsentService, IConsentService } from '../consent/ConsentService';
-import { ILocalisationService, LocalisationService, isGBCountry } from '../localisation/LocalisationService';
-import {} from '../patient/PatientService';
+import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
+import { IPatientService } from '../patient/PatientService';
 
-import { LoginOrRegisterResponse, PiiRequest, UserResponse } from './dto/UserAPIContracts';
+import { LoginOrRegisterResponse, PiiRequest, UserResponse, UpdateCountryCodeRequest } from './dto/UserAPIContracts';
 
 export type AuthenticatedUser = {
   userToken: string;
@@ -28,6 +27,7 @@ export interface IUserService {
   logout(): void;
   resetPassword(email: string): Promise<any>; // TODO: define return object
   getProfile(): Promise<UserResponse | null>;
+  updateCountryCode(body: UpdateCountryCodeRequest): Promise<any>;
   updatePii(pii: Partial<PiiRequest>): Promise<any>;
   deleteRemoteUserData(): Promise<any>;
   loadUser(): void;
@@ -49,9 +49,6 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   constructor(@unmanaged() private useAsyncStorage: boolean = true) {
     super();
-    if (this.constructor.name === UserService.name) {
-      this.loadUser();
-    }
   }
 
   configEncoded = {
@@ -88,7 +85,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   private async deleteLocalUserData() {
     ApiClientBase.unsetToken();
     await AsyncStorageService.clearData();
-    await AsyncStorageService.saveProfile(null);
     await this.consentService.setConsentSigned('', '', '');
   }
 
@@ -103,7 +99,6 @@ export default class UserService extends ApiClientBase implements IUserService {
     const data = this.getData<LoginOrRegisterResponse>(response);
     const authToken = data.key;
     await this.storeTokenInAsyncStorage(authToken, data.user.pii);
-    await AsyncStorageService.saveProfile(data.user);
     this.client.defaults.headers['Authorization'] = 'Token ' + authToken;
     this.hasUser = true;
     return data;
@@ -125,10 +120,6 @@ export default class UserService extends ApiClientBase implements IUserService {
     } catch (error) {
       return null;
     }
-  }
-
-  getConfig(): ConfigType {
-    return LocalisationService.countryConfig;
   }
 
   getData = <T>(response: AxiosResponse<T>) => {
@@ -169,8 +160,17 @@ export default class UserService extends ApiClientBase implements IUserService {
   public async getProfile(): Promise<UserResponse | null> {
     try {
       const { data: profile } = await this.client.get<UserResponse>(`/profile/`);
-      await AsyncStorageService.saveProfile(profile);
       return profile;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return null;
+  }
+
+  public async updateCountryCode(body: UpdateCountryCodeRequest): Promise<UserResponse | null> {
+    try {
+      const { data } = await this.client.patch<UserResponse>(`/users/country_code/`, body);
+      return data;
     } catch (error) {
       handleServiceError(error);
     }
@@ -183,12 +183,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   }
 
   async deleteRemoteUserData() {
-    const profile = await AsyncStorageService.getProfile();
-    const payload = {
-      username: profile?.username,
-    };
-    return this.client.delete(`/users/delete/`, {
-      data: payload,
-    });
+    return this.client.delete(`/users/delete/`);
   }
 }

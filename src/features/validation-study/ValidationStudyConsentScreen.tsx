@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Image, Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { chevronLeft } from '@assets';
@@ -16,6 +16,7 @@ import { Services } from '@covid/provider/services.types';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyConsent'>;
@@ -49,13 +50,13 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
   viewOnly = this.props.route.params.viewOnly;
 
   handleAgreeToAboveChange = () => {
-    this.setState({ agreeToAbove: !this.state.agreeToAbove });
+    this.setState((prevState) => ({ agreeToAbove: !prevState.agreeToAbove }));
   };
   handleAnonymizedChange = () => {
-    this.setState({ anonymizedData: !this.state.anonymizedData });
+    this.setState((prevState) => ({ anonymizedData: !prevState.anonymizedData }));
   };
   handleReContactedChange = () => {
-    this.setState({ reContacted: !this.state.reContacted });
+    this.setState((prevState) => ({ reContacted: !prevState.reContacted }));
   };
 
   handleAgreeClicked = () => {
@@ -98,7 +99,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               why the research is being done and what your participation will involve. Please take time to read the
               following information carefully and discuss it with others if you wish. Ask study researchers if there is
               anything that is not clear or if you would like more information by emailing us at{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions@kcl.ac.uk')}>
+              <ClickableText onPress={() => openWebLink('mailto:covidtrackingquestions@kcl.ac.uk')}>
                 covidtrackingquestions@kcl.ac.uk
               </ClickableText>
               {'\n'}
@@ -214,7 +215,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             <RegularText>
               You are free to withdraw at any point from this study, without having to give a reason, by contacting ZOE
               Global Ltd at{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:clinicaltrialwithdrawal@joinzoe.com')}>
+              <ClickableText onPress={() => openWebLink('mailto:clinicaltrialwithdrawal@joinzoe.com')}>
                 clinicaltrialwithdrawal@joinzoe.com
               </ClickableText>{' '}
               . If you choose to withdraw from the study, the information you have given us at the point of withdrawal
@@ -250,12 +251,12 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
             <RegularText>
               If you have any questions or require more information about this study, please contact the study Principle
               Investigator, Professor Tim Spector at{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions@kcl.ac.uk')}>
+              <ClickableText onPress={() => openWebLink('mailto:covidtrackingquestions@kcl.ac.uk')}>
                 covidtrackingquestions@kcl.ac.uk
               </ClickableText>
               {'\n'}
               For withdrawal from the study please contact Zoe Global Ltd at{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:clinicaltrialwithdrawal@joinzoe.com')}>
+              <ClickableText onPress={() => openWebLink('mailto:clinicaltrialwithdrawal@joinzoe.com')}>
                 clinicaltrialwithdrawal@joinzoe.com
               </ClickableText>{' '}
               {'\n'}
@@ -266,7 +267,7 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
               If this research has harmed you in any way or if you wish to make a complaint about the conduct of the
               study you can contact King's College London using the details below for further advice and information:{' '}
               The Chair, BDM Research Ethics Subcommittee, King’s College London,{' '}
-              <ClickableText onPress={() => this.openUrl('mailto:rec@kcl.ac.uk')}>rec@kcl.ac.uk</ClickableText>.{'\n'}
+              <ClickableText onPress={() => openWebLink('mailto:rec@kcl.ac.uk')}>rec@kcl.ac.uk</ClickableText>.{'\n'}
             </RegularText>
 
             <RegularBoldText>
@@ -353,10 +354,6 @@ export default class ValidationStudyConsentScreen extends Component<PropsType, T
         </SafeAreaView>
       </View>
     );
-  }
-
-  private openUrl(link: string) {
-    Linking.openURL(link);
   }
 }
 

@@ -177,7 +177,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       { label: i18n.t('past-symptom-changed-much-worse'), value: 'much_worse' },
     ];
     return (
-      <Screen profile={currentPatient.profile}>
+      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>
           <HeaderText>{i18n.t('previous-exposure-title')}</HeaderText>
         </Header>

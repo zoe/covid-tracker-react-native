@@ -15,6 +15,8 @@ import { MyStudyIcon, ShareIcon, VaccineRegistryIcon } from '@assets/icons/navig
 import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import { share } from '@covid/components/Cards/BaseShareApp';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -22,6 +24,8 @@ const isDevChannel = () => {
 
 export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   const userService = useInjection<IUserService>(Services.User);
+  const consentService = useInjection<IConsentService>(Services.Consent);
+
   const [userEmail, setUserEmail] = useState<string>('');
   const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
@@ -45,7 +49,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
 
   const fetchStudyStatus = async () => {
     try {
-      const data = await userService.getStudyStatus();
+      const data = await consentService.getStudyStatus();
       setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
       setShowDietStudy(data.should_ask_diet_study);
     } catch (_) {
@@ -98,7 +102,8 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           image={<ShareIcon />}
           label={i18n.t('nav-share-this-app')}
           onPress={() => {
-            appCoordinator.goToVaccineRegistry();
+            const shareMessage = i18n.t('share-this-app.message');
+            share(shareMessage);
           }}
         />
 

@@ -4,6 +4,10 @@ import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { Services } from '@covid/provider/services.types';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { lazyInject } from '@covid/provider/services';
 
 export class PatientCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
@@ -11,8 +15,28 @@ export class PatientCoordinator implements Coordinator {
   userService: IUserService;
   patientData: PatientData;
 
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
   screenFlow: ScreenFlow = {
     YourStudy: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { editing: false });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
+    NHSIntro: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSDetails', { editing: false });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
+    NHSDetails: () => {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
     },
     YourWork: () => {
@@ -37,7 +61,7 @@ export class PatientCoordinator implements Coordinator {
 
   startPatient = () => {
     const currentPatient = this.patientData.patientState;
-    const config = this.userService.getConfig();
+    const config = this.localisationService.getConfig();
     const patientId = this.patientData.patientId;
 
     const startPage = this.appCoordinator.homeScreenName;
@@ -47,7 +71,10 @@ export class PatientCoordinator implements Coordinator {
     // OptionalInfo nav-stack cleanup.
     NavigatorService.reset([
       { name: startPage, params: { patientId } },
-      { name: nextPage, params: { patientData: this.patientData } },
+      {
+        name: nextPage,
+        params: { patientData: this.patientData, ...(nextPage === 'YourStudy' && { editing: false }) },
+      },
     ]);
   };
 
@@ -60,7 +87,7 @@ export class PatientCoordinator implements Coordinator {
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.userService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+    return this.patientService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
       this.patientData.patientInfo = info;
       return info;
     });

@@ -11,7 +11,7 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
@@ -116,6 +116,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
 
       const infos = {
         patient: AssessmentCoordinator.assessmentData.currentPatient.patientId,
+        type: CovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(formData),
         ...CovidTestMechanismQuestion.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),

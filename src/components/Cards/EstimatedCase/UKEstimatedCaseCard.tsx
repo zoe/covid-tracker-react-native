@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { EstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/EstimatedCaseCard';
 import i18n from '@covid/locale/i18n';
-import { WebView } from '@covid/components/WebView';
 import { useInjection } from '@covid/provider/services.hooks';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { Services } from '@covid/provider/services.types';

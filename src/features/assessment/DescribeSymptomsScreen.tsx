@@ -22,8 +22,8 @@ import { assessmentService } from '@covid/Services';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -101,6 +101,9 @@ const initialState: State = {
 export default class DescribeSymptomsScreen extends Component<SymptomProps, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
 
   constructor(props: SymptomProps) {
     super(props);
@@ -255,7 +258,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     ];
 
     const getInitialFormValues = (): DescribeSymptomsData => {
-      const features = this.userService.getConfig();
+      const features = this.localisationService.getConfig();
       return {
         ...initialFormValues,
         temperatureUnit: features.defaultTemperatureUnit,

@@ -64,7 +64,7 @@
     "react-native-svg": "9.13.3",
     "react-native-view-shot": "3.0.2",
     "react-native-web": "~0.11.7",
-    "react-native-webview": "^10.4.0",
+    "react-native-webview": "7.4.3",
     "react-redux": "^7.2.0",
     "react-string-replace": "^0.4.4",
     "redux": "^4.0.5",
@@ -75,7 +75,8 @@
     "uuid": "^8.0.0",
     "weak-key": "^1.0.2",
     "yup": "^0.28.3",
-    "react-native-webview": "7.4.3"
+    "expo-asset": "~8.0.0",
+    "expo-file-system": "~8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -105,12 +106,13 @@
     "jest": "^25.5.4",
     "jest-expo": "^37.0.0",
     "prettier": "^2.0.4",
+    "react-native-svg-transformer": "^0.14.3",
+    "react-native-typescript-transformer": "^1.2.13",
     "react-test-renderer": "^16.13.1",
     "redux-mock-store": "^1.5.4",
     "ts-jest": "^25.3.1",
     "ts-node": "^8.6.2",
-    "typescript": "~3.7.0",
-    "react-native-typescript-transformer": "^1.2.13"
+    "typescript": "~3.7.0"
   },
   "private": true,
   "husky": {

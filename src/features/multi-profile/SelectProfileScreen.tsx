@@ -1,6 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -40,8 +40,8 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
   } = useProfileList();
 
   useEffect(() => {
-    listProfiles();
-  }, []);
+    return navigation.addListener('focus', listProfiles);
+  }, [navigation]);
 
   const getNextAvatarName = async (): Promise<string> => {
     if (profiles) {

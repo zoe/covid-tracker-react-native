@@ -6,7 +6,7 @@ import key from 'weak-key';
 
 import { closeIcon } from '@assets';
 import { colors } from '@theme';
-import { isAndroid } from '@covid/components/Screen';
+import { isAndroid } from '@covid/utils/platform';
 import { RegularText } from '@covid/components/Text';
 import { ITest } from '@covid/components/types';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';

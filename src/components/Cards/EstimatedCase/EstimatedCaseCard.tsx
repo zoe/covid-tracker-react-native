@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'native-base';
 
-import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
+import { Header3Text, RegularText, MutedText, BrandedButton } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { WebView } from '@covid/components/WebView';
@@ -59,9 +58,11 @@ export const EstimatedCaseCard: React.FC<Props> = ({
         </View>
       </View>
 
-      <Button style={styles.detailsButton} onPress={onPress}>
-        <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
-      </Button>
+      <View>
+        <BrandedButton style={styles.detailsButton} onPress={onPress}>
+          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
+        </BrandedButton>
+      </View>
     </View>
   );
 };
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
   detailsButton: {
     paddingHorizontal: 52,
     backgroundColor: 'transparent',
-    borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.purple,
   },
