@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { PickerItemProps, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -18,6 +18,11 @@ import { ScreenParamList } from '../ScreenParamList';
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
   route: RouteProp<ScreenParamList, 'HowYouFeel'>;
+};
+
+type CountryData = {
+  code: string;
+  name: string;
 };
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
@@ -73,6 +78,8 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   }
 
+  const { getName } = require('country-list');
+
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
     <>
@@ -92,7 +99,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
             <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
               <RegularText>
                 <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
-                <RegularText style={{ fontWeight: 'bold' }}>{location}</RegularText>
+                <RegularText style={{ fontWeight: 'bold' }}>
+                  {location.length !== 2 ? location : getName(location)}
+                </RegularText>
               </RegularText>
               <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
             </TouchableOpacity>
