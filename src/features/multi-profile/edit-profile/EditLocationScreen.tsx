@@ -39,15 +39,15 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const initialFormValues: EditLocationData = {
-    postcode: editProfileCoordinator.patientData.patientInfo!.postcode,
-    differentAddress: editProfileCoordinator.patientData.patientInfo!.current_postcode
+    postcode: props.route.params.patientData.patientInfo!.postcode,
+    differentAddress: props.route.params.patientData.patientInfo!.current_postcode
       ? 'yes'
-      : editProfileCoordinator.patientData.patientInfo!.current_country_code
+      : props.route.params.patientData.patientInfo!.current_country_code
       ? 'yes'
       : 'no',
-    stillInUK: editProfileCoordinator.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
-    currentPostcode: editProfileCoordinator.patientData.patientInfo!.current_postcode,
-    currentCountry: editProfileCoordinator.patientData.patientInfo!.current_country_code,
+    stillInUK: props.route.params.patientData.patientInfo!.current_country_code ? 'no' : 'yes',
+    currentPostcode: props.route.params.patientData.patientInfo!.current_postcode ?? '',
+    currentCountry: props.route.params.patientData.patientInfo!.current_country_code ?? '',
   };
 
   const validation = Yup.object().shape({
@@ -76,16 +76,16 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
 
     if (formData.differentAddress === 'no') {
       infos.postcode = formData.postcode;
-      infos.current_postcode = '';
-      infos.current_country_code = '';
+      infos.current_postcode = undefined;
+      infos.current_country_code = undefined;
     } else {
       if (formData.stillInUK === 'yes') {
         infos.postcode = formData.postcode;
         infos.current_postcode = formData.currentPostcode;
-        infos.current_country_code = '';
+        infos.current_country_code = undefined;
       } else {
         infos.postcode = formData.postcode;
-        infos.current_postcode = '';
+        infos.current_postcode = undefined;
         infos.current_country_code = formData.currentCountry;
       }
     }
