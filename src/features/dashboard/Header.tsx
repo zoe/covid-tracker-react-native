@@ -11,6 +11,7 @@ import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { ContentState } from '@covid/core/content/state/contentSlice';
 
 interface Props {
   reportedCount?: string;
@@ -23,9 +24,7 @@ enum HeaderType {
 }
 
 export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
-  const todaysDate = (): string => moment().format('dddd Do MMMM');
-  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-
+  const content = useSelector<RootState, ContentState>((state) => state.content);
   const [contributors, setContributors] = useState<string | null>(null);
 
   const prettyContributorsValue = i18n.toNumber(contributors ? cleanIntegerVal(contributors) : 0, {
@@ -34,8 +33,8 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
   });
 
   useEffect(() => {
-    setContributors(startupInfo?.users_count.toString() ?? null);
-  }, [startupInfo]);
+    setContributors(content.startupInfo?.users_count.toString() ?? null);
+  }, [content.startupInfo]);
 
   const onReport = () => {
     Analytics.track(events.REPORT_NOW_CLICKED, { headerType: HeaderType.Expanded });
@@ -47,7 +46,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
       <Image source={covidByZoeIcon} style={styles.covidByZoe} />
 
       <View style={styles.reportCard}>
-        <Header3Text style={styles.dateLabel}>{todaysDate()}</Header3Text>
+        <Header3Text style={styles.dateLabel}>{content.todayDate}</Header3Text>
         <BrandedButton style={[styles.reportButton, styles.reportButtonExpanded]} onPress={onReport}>
           {i18n.t('dashboard.report-today')}
         </BrandedButton>

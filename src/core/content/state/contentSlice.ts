@@ -1,13 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Content } from 'native-base';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import moment from 'moment';
 
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { container } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { PersonalisedLocalData } from '@covid/core/AsyncStorageService';
-
-import { IPredictiveMetricsClient } from '../PredictiveMetricsClient';
+import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 
 // State interface
 
@@ -23,13 +22,18 @@ export type ContentState = {
   ukMetricsApiState: ApiState;
   ukActive?: string;
   ukDaily?: string;
+
+  todayDate: string;
 };
 
 // Default state
 
+const todaysDate = (): string => moment().format('dddd Do MMMM');
+
 const initialState: ContentState = {
   infoApiState: 'ready',
   ukMetricsApiState: 'ready',
+  todayDate: todaysDate(),
 };
 
 // Async Actions
@@ -56,16 +60,20 @@ export const fetchUKMetrics = createAsyncThunk(
   }
 );
 
+export const updateTodayDate = createAction('context/update_today_date');
+
 // Slice (Store, Reducer, Actions etc...)
 
 export const contentSlice = createSlice({
   name: 'content',
   initialState,
-  reducers: {},
+  reducers: {
+    [updateTodayDate.type]: (current) => void (current.todayDate = todaysDate()),
+  },
   extraReducers: {
     // StartUpInfo reducers
-    [fetchStartUpInfo.pending.type]: (current) => (current.infoApiState = 'loading'),
-    [fetchStartUpInfo.rejected.type]: (current) => (current.infoApiState = 'error'),
+    [fetchStartUpInfo.pending.type]: (current) => void (current.infoApiState = 'loading'),
+    [fetchStartUpInfo.rejected.type]: (current) => void (current.infoApiState = 'error'),
     [fetchStartUpInfo.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
       current.infoApiState = !action.payload ? 'error' : 'finished';
       const { startupInfo, personalizedLocalData } = action.payload;
@@ -74,8 +82,8 @@ export const contentSlice = createSlice({
     },
 
     // UK Predictive Metrics reducers
-    [fetchUKMetrics.pending.type]: (current) => (current.ukMetricsApiState = 'loading'),
-    [fetchUKMetrics.rejected.type]: (current) => (current.ukMetricsApiState = 'error'),
+    [fetchUKMetrics.pending.type]: (current) => void (current.ukMetricsApiState = 'loading'),
+    [fetchUKMetrics.rejected.type]: (current) => void (current.ukMetricsApiState = 'error'),
     [fetchUKMetrics.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
       current.ukMetricsApiState = !action.payload ? 'error' : 'finished';
       const { ukActive, ukDaily } = action.payload;
