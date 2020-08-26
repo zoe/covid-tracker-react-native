@@ -137,7 +137,7 @@ export class AppCoordinator {
     const info = await this.contentService.getStartupInfo();
 
     if (this.userService.hasUser) {
-      const profile = await this.userService.getProfile();
+      profile = await this.userService.getProfile();
       this.patientId = profile?.patients[0] ?? null;
     }
 
