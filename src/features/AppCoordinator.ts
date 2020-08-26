@@ -148,13 +148,12 @@ export class AppCoordinator {
       shouldShowCountryPicker = profile!.country_code !== LocalisationService.userCountry;
     }
 
-
     await store.dispatch(fetchStartUpInfo());
     if (isGBCountry()) {
       store.dispatch(fetchUKMetrics());
     }
 
-     // Set main route depending on API / Country
+    // Set main route depending on API / Country
     this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
     this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
 
