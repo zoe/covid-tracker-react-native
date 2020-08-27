@@ -49,7 +49,7 @@ export default class LifestyleScreen extends Component<Props, State> {
     this.setState({ submitting: true });
 
     try {
-      const patientID = AssessmentCoordinator.assessmentData.currentPatient.patientId;
+      const patientID = AssessmentCoordinator.assessmentData.patientData.patientId;
       const payload = LifestyleQuestion.createDTO(values);
       await assessmentService.saveLifestyle(patientID, payload);
       this.setState({ submitting: false });
@@ -61,7 +61,7 @@ export default class LifestyleScreen extends Component<Props, State> {
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>

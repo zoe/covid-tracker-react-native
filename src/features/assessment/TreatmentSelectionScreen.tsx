@@ -8,9 +8,9 @@ import { BigButton } from '@covid/components/BigButton';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import { CaptionText, HeaderText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -21,20 +21,24 @@ type TreatmentSelectionProps = {
 
 export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
   handleTreatment = async (treatment: string) => {
-    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const { assessmentId } = assessmentCoordinator.assessmentData;
     const { location } = this.props.route.params;
 
     if (treatment === 'other') {
-      AssessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
+      assessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
     } else {
       const assessment = { treatment };
-      await assessmentService.completeAssessment(assessmentId!, assessment);
-      AssessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
+      await assessmentService.completeAssessment(
+        assessmentId!,
+        assessment,
+        assessmentCoordinator.assessmentData.patientData.patientInfo!
+      );
+      assessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
     }
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     const title =
       this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-selection-title-after')

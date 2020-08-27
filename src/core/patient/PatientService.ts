@@ -20,7 +20,7 @@ export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
   listPatients(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<any>;
+  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   getPatient(patientId: string): Promise<PatientInfosRequest | null>;
   getPatientState(patientId: string): Promise<PatientStateType>;
   updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
