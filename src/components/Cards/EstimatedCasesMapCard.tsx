@@ -21,6 +21,7 @@ import { Coordinates, PersonalisedLocalData } from '@covid/core/AsyncStorageServ
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 const MAP_HEIGHT = 246;
 
@@ -44,11 +45,13 @@ enum MapType {
 const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   const [html, setHtml] = useState<string>('');
 
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
+
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
-  const showUpdatePostcode = true;
+  const [showUpdatePostcode, setShowUpdatePostcode] = useState<boolean | undefined>(startupInfo?.show_edit_location);
   const showCartoMap = true;
   const root = showCartoMap ? { paddingTop: 0 } : {};
 
@@ -61,6 +64,8 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
     Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
     NavigatorService.navigate('EstimatedCases');
   };
+
+  useEffect(() => setShowUpdatePostcode(startupInfo?.show_edit_location), [startupInfo]);
 
   useEffect(() => {
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
