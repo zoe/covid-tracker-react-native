@@ -21,8 +21,6 @@ import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@cov
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import appCoordinator from '@covid/features/AppCoordinator';
-import store from '@covid/core/state/store';
-import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -81,10 +79,8 @@ export class LoginScreen extends Component<PropsType, StateType> {
         const patientId = response.user.patients[0];
         appCoordinator
           .setPatientId(patientId)
-          .then(() => {
-            store.dispatch(fetchStartUpInfo());
-            appCoordinator.setHomeScreenName();
-          })
+          .then(() => appCoordinator.fetchInitialData())
+          .then(() => appCoordinator.setHomeScreenName())
           .then(() => {
             appCoordinator.gotoNextScreen(this.props.route.name);
           });

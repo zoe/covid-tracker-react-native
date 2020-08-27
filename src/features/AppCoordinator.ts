@@ -147,16 +147,19 @@ export class AppCoordinator {
       shouldShowCountryPicker = profile!.country_code !== LocalisationService.userCountry;
     }
 
-    await store.dispatch(fetchStartUpInfo());
-    if (isGBCountry()) {
-      store.dispatch(fetchUKMetrics());
-    }
-
+    await this.fetchInitialData();
     this.setHomeScreenName();
 
     // Track insights
     if (shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
+    }
+  }
+
+  async fetchInitialData(): Promise<void> {
+    await store.dispatch(fetchStartUpInfo());
+    if (isGBCountry()) {
+      await store.dispatch(fetchUKMetrics());
     }
   }
 
