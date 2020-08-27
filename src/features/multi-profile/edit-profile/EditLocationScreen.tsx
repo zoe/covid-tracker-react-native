@@ -12,10 +12,11 @@ import { BrandedButton, ErrorText, HeaderText, SecondaryText } from '@covid/comp
 import i18n from '@covid/locale/i18n';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { useAppDispatch } from '@covid/core/state/store';
+import { fetchStartUpInfo } from '@covid/core/content/state/contentSlice';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 import YesNoField from '@covid/components/YesNoField';
 import DropdownField from '@covid/components/DropdownField';
-
-import { ScreenParamList } from '../../ScreenParamList';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'EditLocation'>;
@@ -37,6 +38,8 @@ type EditLocationData = {
 
 export const EditLocationScreen: React.FC<RenderProps> = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const initialFormValues: EditLocationData = {
     postcode: props.route.params.patientData.patientInfo!.postcode,
@@ -76,16 +79,16 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
 
     if (formData.differentAddress === 'no') {
       infos.postcode = formData.postcode;
-      infos.current_postcode = undefined;
-      infos.current_country_code = undefined;
+      infos.current_postcode = null;
+      infos.current_country_code = null;
     } else {
       if (formData.stillInUK === 'yes') {
         infos.postcode = formData.postcode;
         infos.current_postcode = formData.currentPostcode;
-        infos.current_country_code = undefined;
+        infos.current_country_code = null;
       } else {
         infos.postcode = formData.postcode;
-        infos.current_postcode = undefined;
+        infos.current_postcode = null;
         infos.current_country_code = formData.currentCountry;
       }
     }
@@ -93,6 +96,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
     editProfileCoordinator
       .updatePatientInfo(infos)
       .then(() => {
+        dispatch(fetchStartUpInfo());
         editProfileCoordinator.gotoNextScreen(props.route.name);
       })
       .catch(() => {
