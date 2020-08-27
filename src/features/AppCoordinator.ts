@@ -25,6 +25,8 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import store from '@covid/core/state/store';
+import { fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 
@@ -146,8 +148,13 @@ export class AppCoordinator {
       shouldShowCountryPicker = profile!.country_code !== LocalisationService.userCountry;
     }
 
+    await store.dispatch(fetchStartUpInfo());
+    if (isGBCountry()) {
+      store.dispatch(fetchUKMetrics());
+    }
+
     // Set main route depending on API / Country
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
     this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
 
     // Track insights

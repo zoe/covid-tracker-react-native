@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import { EstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/EstimatedCaseCard';
 import i18n from '@covid/locale/i18n';
-import { useInjection } from '@covid/provider/services.hooks';
-import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
-import { Services } from '@covid/provider/services.types';
+import { RootState } from '@covid/core/state/root';
+import { ContentState } from '@covid/core/content/state/contentSlice';
 
 interface Props {
   onPress: VoidFunction;
 }
 
 export const UKEstimatedCaseCard: React.FC<Props> = ({ onPress }) => {
-  const statsClient = useInjection<IPredictiveMetricsClient>(Services.PredictiveMetricsClient);
+  const metrics = useSelector<RootState, Partial<ContentState>>((state) => ({
+    ukActive: state.content.ukActive,
+    ukDaily: state.content.ukDaily,
+  }));
 
   const [dailyCases, setDailyCases] = useState<string>('');
   const [activeCases, setActiveCases] = useState<string>('');
 
   useEffect(() => {
-    (async () => {
-      try {
-        setDailyCases(await statsClient.getDailyCases());
-      } catch (_) {}
-      try {
-        setActiveCases(await statsClient.getActiveCases());
-      } catch (_) {}
-    })();
-  }, []);
+    setDailyCases(metrics.ukDaily ?? '');
+    setActiveCases(metrics.ukActive ?? '');
+  }, [metrics]);
 
   return (
     <EstimatedCaseCard
