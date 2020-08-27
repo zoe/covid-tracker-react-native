@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
@@ -16,6 +16,8 @@ import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
+import { useAppDispatch } from '@covid/core/state/store';
+import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -44,6 +46,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     const shareMessage = i18n.t('share-this-app.message');
     share(shareMessage);
   };
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => dispatch(updateTodayDate()));
+  }, [navigation]);
 
   return (
     <CollapsibleHeaderScrollView
