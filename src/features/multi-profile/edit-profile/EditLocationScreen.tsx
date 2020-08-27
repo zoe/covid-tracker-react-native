@@ -79,16 +79,16 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
 
     if (formData.differentAddress === 'no') {
       infos.postcode = formData.postcode;
-      infos.current_postcode = undefined;
-      infos.current_country_code = undefined;
+      infos.current_postcode = null;
+      infos.current_country_code = null;
     } else {
       if (formData.stillInUK === 'yes') {
         infos.postcode = formData.postcode;
         infos.current_postcode = formData.currentPostcode;
-        infos.current_country_code = undefined;
+        infos.current_country_code = null;
       } else {
         infos.postcode = formData.postcode;
-        infos.current_postcode = undefined;
+        infos.current_postcode = null;
         infos.current_country_code = formData.currentCountry;
       }
     }
