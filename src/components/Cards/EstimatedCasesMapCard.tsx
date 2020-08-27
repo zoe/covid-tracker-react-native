@@ -7,7 +7,7 @@ import * as Sharing from 'expo-sharing';
 import { useSelector } from 'react-redux';
 
 import { WebView } from '@covid/components/WebView';
-import { Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import ChevronRight from '@assets/icons/ChevronRight';
 import Share from '@assets/icons/Share';
@@ -97,9 +97,11 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
       </View>
 
       {showUpdatePostcode && (
-        <Button style={[styles.detailsButton, styles.postcodeButton]} onPress={onPress}>
-          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
-        </Button>
+        <View>
+          <BrandedButton style={styles.detailsButton} onPress={onPress}>
+            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
+          </BrandedButton>
+        </View>
       )}
     </View>
   );
@@ -383,8 +385,8 @@ const styles = StyleSheet.create({
 
   detailsButton: {
     paddingHorizontal: 52,
+    marginBottom: 24,
     backgroundColor: 'transparent',
-    borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.purple,
   },
