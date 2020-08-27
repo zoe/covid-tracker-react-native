@@ -293,6 +293,7 @@ export type StartupInfo = {
   users_count: number;
   ip_country: string;
   show_new_dashboard: boolean;
+  show_edit_location: boolean;
   local_data: {
     map_url: string;
     name: string;
