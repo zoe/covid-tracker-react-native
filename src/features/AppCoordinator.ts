@@ -136,7 +136,6 @@ export class AppCoordinator {
     let profile: UserResponse | null = null;
 
     await this.userService.loadUser();
-    const info = await this.contentService.getStartupInfo();
 
     if (this.userService.hasUser) {
       profile = await this.userService.getProfile();
@@ -153,14 +152,18 @@ export class AppCoordinator {
       store.dispatch(fetchUKMetrics());
     }
 
-    // Set main route depending on API / Country
-    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+    this.setHomeScreenName();
 
     // Track insights
     if (shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }
+  }
+
+  setHomeScreenName(): void {
+    // Set main route depending on API / Country
+    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
