@@ -9,6 +9,7 @@
     "version": "0.14",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "covidstudy",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

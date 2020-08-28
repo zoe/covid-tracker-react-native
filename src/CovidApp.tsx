@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Dimensions, StatusBar, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { Notifications } from 'expo';
+import { Linking, Notifications } from 'expo';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
@@ -98,11 +98,26 @@ const initialState = {
   isApiOnline: true,
 };
 
+const prefix = Linking.makeUrl('covidstudy');
+
 export default class CovidApp extends Component<object, State> {
   constructor(props: object) {
     super(props);
     this.state = initialState;
   }
+
+  linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        Main: {
+          screens: {
+            PrivacyPolicyUK: 'privacy/',
+          },
+        },
+      },
+    },
+  };
 
   async componentDidMount() {
     await Font.loadAsync({
@@ -129,6 +144,7 @@ export default class CovidApp extends Component<object, State> {
               <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
             </Header>
             <NavigationContainer
+              linking={this.linking}
               ref={(navigatorRef) => {
                 NavigatorService.setContainer(navigatorRef);
               }}
