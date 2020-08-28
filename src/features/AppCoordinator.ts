@@ -136,8 +136,6 @@ export class AppCoordinator {
 
     await this.userService.loadUser();
 
-    const info = await this.contentService.getStartupInfo();
-
     if (this.userService.hasUser) {
       user = await this.userService.getUser();
       patientId = user?.patients[0] ?? null;
@@ -148,19 +146,26 @@ export class AppCoordinator {
       shouldShowCountryPicker = user!.country_code !== LocalisationService.userCountry;
     }
 
-    await store.dispatch(fetchStartUpInfo());
-    if (isGBCountry()) {
-      store.dispatch(fetchUKMetrics());
-    }
-
-    // Set main route depending on API / Country
-    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+    await this.fetchInitialData();
+    this.setHomeScreenName();
 
     // Track insights
     if (shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }
+  }
+
+  async fetchInitialData(): Promise<void> {
+    await store.dispatch(fetchStartUpInfo());
+    if (isGBCountry()) {
+      await store.dispatch(fetchUKMetrics());
+    }
+  }
+
+  setHomeScreenName(): void {
+    // Set main route depending on API / Country
+    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
+    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {

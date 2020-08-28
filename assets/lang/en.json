@@ -187,8 +187,8 @@
 
   "your-postcode": "Your postcode?",
   "placeholder-postcode": "Postcode",
-  "required-postcode": "Please enter your postcode (first part is sufficient)",
-  "postcode-too-long": "Please correct your postcode (first part is sufficient)",
+  "required-postcode": "Please enter your postcode",
+  "postcode-too-long": "Please correct your postcode",
 
   "picker-yes": "Yes",
   "picker-no": "No",
@@ -1344,7 +1344,7 @@
     "active-cases-in-area": "Active cases\rin your area",
     "not-enough-contributors": "Not enough contributors\rin this area",
     "share": "Share your map",
-    "update-postcode": "Please update your postcode to see our estimated cases in your area",
+    "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
   },
 
@@ -1355,7 +1355,7 @@
     "nhsID-placeholder": "Unique Identifier",
     "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
     "text-cancel": "click here.",
-    "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
+    "consent": "I consent to the COVID Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
     "next": "Next"
   },
 

@@ -77,9 +77,13 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
-        appCoordinator.setPatientById(patientId).then(() => {
-          appCoordinator.gotoNextScreen(this.props.route.name);
-        });
+        appCoordinator
+          .setPatientById(patientId)
+          .then(() => appCoordinator.fetchInitialData())
+          .then(() => appCoordinator.setHomeScreenName())
+          .then(() => {
+            appCoordinator.gotoNextScreen(this.props.route.name);
+          });
       })
       .catch((error) => {
         if (error.constructor === UserNotFoundException) {
