@@ -14,8 +14,8 @@
     "location": {
       "title": "My location",
       "label": "Your permanent home zipcode (e.g. 00123)",
-      "disclaimer": "Your location is used to localise COVID-19 outbreaks and track symptoms. You can find out how we use your data in our Privacy policy",
-      "not-current-address": "Are you reporting from a different location than above?",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and study symptoms. You can find out how we use your data in our Privacy policy",
+      "not-current-address": "Are you temporarily reporting from a different location than above?",
       "still-in-country": "Are you still in the US?",
       "other-postcode": "Enter the zipcode you wish to report for:",
       "select-country": "Please select which country you are now in:"
