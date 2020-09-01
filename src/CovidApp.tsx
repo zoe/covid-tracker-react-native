@@ -1,10 +1,10 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, LinkingOptions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StatusBar, Image } from 'react-native';
+import { Dimensions, StatusBar, Image, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { Notifications } from 'expo';
@@ -105,12 +105,7 @@ export default class CovidApp extends Component<object, State> {
   @lazyInject(Services.DeepLink)
   private readonly deepLinkService: IDeepLinkService;
 
-  constructor(props: object) {
-    super(props);
-    this.state = initialState;
-  }
-
-  linking = {
+  private readonly linking: LinkingOptions = {
     prefixes: [this.deepLinkService.makeUrl('covidstudy')],
     config: {
       screens: {
@@ -121,7 +116,19 @@ export default class CovidApp extends Component<object, State> {
         },
       },
     },
+    getStateFromPath(path, config) {
+      // Return a state object here
+      // You can also reuse the default logic by importing `getStateFromPath` from `@react-navigation/native`
+      console.log('getStateFromPath', path, config);
+    },
   };
+
+  constructor(props: object) {
+    super(props);
+    this.state = initialState;
+
+    console.log('url', this.deepLinkService.makeUrl(DeepLinkType.privacy, { viewOnly: true }));
+  }
 
   async componentDidMount() {
     await Font.loadAsync({
@@ -152,8 +159,20 @@ export default class CovidApp extends Component<object, State> {
             </Header>
             <NavigationContainer
               linking={this.linking}
+              fallback={
+                <Text
+                  style={{
+                    marginTop: 120,
+                  }}>
+                  Loading...
+                </Text>
+              }
               ref={(navigatorRef) => {
                 NavigatorService.setContainer(navigatorRef);
+                if (this.deepLinkService.initialUrl) {
+                  this.deepLinkService.handle(this.deepLinkService.initialUrl);
+                  delete this.deepLinkService.initialUrl;
+                }
               }}
               onStateChange={NavigatorService.handleStateChange}>
               <Drawer.Navigator

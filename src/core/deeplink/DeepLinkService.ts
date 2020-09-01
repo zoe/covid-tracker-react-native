@@ -3,8 +3,14 @@ import { Platform } from 'react-native';
 import * as Linking from 'expo-linking';
 import { parse, build } from 'search-params';
 
+import NavigatorService from '@covid/NavigatorService';
+
 export interface IDeepLinkService {
+  initialUrl?: string;
+
   canHandle(url: string): boolean;
+  handle(url: string);
+
   listen(): void;
   unListen(): void;
   getQueryParams(url: string): object | null;
@@ -13,24 +19,35 @@ export interface IDeepLinkService {
 
 export enum DeepLinkType {
   inviteSchool,
+  privacy,
 }
 
 @injectable()
 export class DeepLinkService implements IDeepLinkService {
-  private readonly accept = ['/invite/school'];
+  public initialUrl: string = null;
+
+  private readonly accept = ['/invite/school', '/privacy', '/CountrySelect'];
 
   constructor() {
     this.bootstrap();
   }
 
   private bootstrap() {
-    if (Platform.OS === 'android') {
-      Linking.getInitialURL().then(this.handleInitialURL);
-    }
+    Linking.getInitialURL().then((url) => this.handleInitialURL(url));
   }
 
   public canHandle(url: string): boolean {
     return this.accept.map((path) => url.includes(path)).includes(true);
+  }
+
+  public handle(url: string) {
+    const { path, queryParams } = Linking.parse(url);
+    console.log(`Linked to app with path: ${path} and data: ${JSON.stringify(queryParams)}`);
+
+    // TOOD: Fix this hack
+    setTimeout(() => {
+      NavigatorService.replace(path, queryParams);
+    }, 1000);
   }
 
   // Helper
@@ -38,7 +55,8 @@ export class DeepLinkService implements IDeepLinkService {
   public getQueryParams(url: string): any | null {
     if (!url.includes('?')) return null;
     try {
-      return parse(url.split('?')[1]);
+      const { path, queryParams } = Linking.parse(url);
+      return queryParams;
     } catch (_) {
       return null;
     }
@@ -50,6 +68,8 @@ export class DeepLinkService implements IDeepLinkService {
       switch (type) {
         case DeepLinkType.inviteSchool:
           return '/invite/school';
+        case DeepLinkType.privacy:
+          return '/PrivacyPolicyUK';
         default:
           return null;
       }
@@ -62,22 +82,22 @@ export class DeepLinkService implements IDeepLinkService {
   // App cycle hooks
 
   public listen() {
-    if (Platform.OS !== 'android') return;
     Linking.addEventListener('url', this.handleOpenURLEvent);
   }
 
   public unListen() {
-    if (Platform.OS !== 'android') return;
     Linking.removeEventListener('url', this.handleOpenURLEvent);
   }
 
   // App cycle handlers
 
   private handleOpenURLEvent: Linking.URLListener = (event) => {
-    console.log('handleOpenURL', event);
+    this.handle(event.url);
+    console.log('[DeepLinkService] handleOpenURL', event);
   };
 
   private handleInitialURL = (url: string | null) => {
+    this.initialUrl = url;
     console.log('[DeepLinkService] handleInitialURL', url);
   };
 }
