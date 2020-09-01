@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking } from 'react-native';
+import * as Linking from 'expo-linking';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { View } from 'native-base';

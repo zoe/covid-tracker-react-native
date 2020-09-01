@@ -1,7 +1,8 @@
 import Constants from 'expo-constants';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
-import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import * as Linking from 'expo-linking';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';

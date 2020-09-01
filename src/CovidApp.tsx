@@ -4,10 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StatusBar, Image } from 'react-native';
+import { Dimensions, StatusBar, Image, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { Linking, Notifications } from 'expo';
+import { Notifications } from 'expo';
+import * as Linking from 'expo-linking';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
@@ -131,7 +132,23 @@ export default class CovidApp extends Component<object, State> {
         Analytics.track(events.OPEN_FROM_NOTIFICATION);
       }
     });
+
+    // Deeplink
+
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then((url: any) => {
+        // this.navigate(url);
+        console.log('url listner', url);
+      });
+    } else {
+      Linking.addEventListener('url', this.handleOpenURL);
+    }
   }
+
+  handleOpenURL = (event: any) => {
+    // D
+    console.log('handleOpenURL', event);
+  };
 
   render() {
     if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
