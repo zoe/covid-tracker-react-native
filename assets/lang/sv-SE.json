@@ -329,8 +329,8 @@
     "question-health-status": "Hur mår du i kroppen just nu?",
     "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
     "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
-    "current-location": false,
-    "update-location": false
+    "current-location": "Du rapporterar just nu från:",
+    "update-location": "Uppdatera plats"
   },
 
   "describe-symptoms": {
@@ -583,6 +583,25 @@
   },
 
   "back": "Tillbaka",
+
+  "edit-profile": {
+    "title": "Min profil",
+    "your-location": "Din plats",
+    "text": "",
+    "archive-cta": "",
+    "done": "Klar",
+    "next": "Nästa",
+
+    "location": {
+      "title": "Min plats",
+      "label": "Postnumret till din hemadress (t.ex. 205 02)",
+      "disclaimer": "itt postnummer används för att kartlägga hur covid-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
+      "not-current-address": "Rapporterar du från en annan plats än ovan?",
+      "still-in-country": "Befinner du dig fortfarande i Sverige?",
+      "other-postcode": "Ange det postnummer du vill rapportera från",
+      "select-country": "Välj det land du befinner dig i just nu"
+    }
+  },
 
   "face-mask": {
     "worn-a-mask-question": "Har du under den senaste veckan använt ett munskydd när du har lämnat ditt hem?",
@@ -1280,24 +1299,6 @@
       "sign-off": false,
       "cta-single-profile": false,
       "cta-multi-profile": false
-    },
-
-    "edit-profile": {
-      "title": false,
-      "text": false,
-      "archive-cta": false,
-      "done": false,
-      "next": false,
-
-      "location": {
-        "title": false,
-        "label": false,
-        "disclaimer": false,
-        "not-current-address": false,
-        "still-in-country": false,
-        "other-postcode": false,
-        "select-country": false
-      }
     },
 
     "archive-confirmation": {
