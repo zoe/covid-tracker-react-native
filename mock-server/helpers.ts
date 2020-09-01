@@ -1,5 +1,5 @@
+/* eslint-disable import/order */
 import { DbConfig } from './types';
-
 import fs = require('fs');
 
 export default (dbPath: string) => {

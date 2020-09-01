@@ -1,5 +1,9 @@
+/* eslint-disable import/order */
 import mockDb from './mockDb';
+
+/* eslint-disable import/order */
 import { Patient, Assessment, Lifestyle, DietStudy } from './types';
+
 import express = require('express');
 import bodyParser = require('body-parser');
 import uuid = require('uuid');
