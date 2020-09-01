@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StatusBar, Image, Platform } from 'react-native';
+import { Dimensions, StatusBar, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { Notifications } from 'expo';
@@ -79,9 +79,11 @@ import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
 import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
-
-import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { DashboardScreen } from '@covid/features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
+import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { IDeepLinkService, DeepLinkType } from '@covid/core/deeplink/DeepLinkService';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -99,16 +101,17 @@ const initialState = {
   isApiOnline: true,
 };
 
-const prefix = Linking.makeUrl('covidstudy');
-
 export default class CovidApp extends Component<object, State> {
+  @lazyInject(Services.DeepLink)
+  private readonly deepLinkService: IDeepLinkService;
+
   constructor(props: object) {
     super(props);
     this.state = initialState;
   }
 
   linking = {
-    prefixes: [prefix],
+    prefixes: [this.deepLinkService.makeUrl('covidstudy')],
     config: {
       screens: {
         Main: {
@@ -134,21 +137,8 @@ export default class CovidApp extends Component<object, State> {
     });
 
     // Deeplink
-
-    if (Platform.OS === 'android') {
-      Linking.getInitialURL().then((url: any) => {
-        // this.navigate(url);
-        console.log('url listner', url);
-      });
-    } else {
-      Linking.addEventListener('url', this.handleOpenURL);
-    }
+    this.deepLinkService.listen();
   }
-
-  handleOpenURL = (event: any) => {
-    // D
-    console.log('handleOpenURL', event);
-  };
 
   render() {
     if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;

@@ -77,8 +77,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
+    "search-params": "^3.0.0",
     "typesafe-actions": "^5.1.0",
-    "url-search-params-polyfill": "^8.1.0",
     "uuid": "^8.0.0",
     "weak-key": "^1.0.2",
     "yup": "^0.28.3"

@@ -13,6 +13,7 @@ import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestS
 import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { Services } from '@covid/provider/services.types';
+import { DeepLinkService, IDeepLinkService } from '@covid/core/deeplink/DeepLinkService';
 
 export const container = new Container();
 
@@ -35,6 +36,8 @@ container.bind<IProfileService>(Services.Profile).to(ProfileService).inSingleton
 container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSingletonScope();
 
 container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
+
+container.bind<IDeepLinkService>(Services.DeepLink).to(DeepLinkService).inSingletonScope();
 
 // Incidence Api
 container.bind<IApiClient>(Services.IncidenceHttpApi).to(ApiClient).inSingletonScope();
