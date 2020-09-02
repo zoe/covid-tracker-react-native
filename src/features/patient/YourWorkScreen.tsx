@@ -97,7 +97,7 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then(() => {
         currentPatient.isHealthWorker =
           infos.healthcare_professional === HealthCareStaffOptions.DOES_INTERACT || infos.is_carer_for_community;

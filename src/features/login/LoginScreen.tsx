@@ -78,7 +78,7 @@ export class LoginScreen extends Component<PropsType, StateType> {
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
         appCoordinator
-          .setPatientId(patientId)
+          .setPatientById(patientId)
           .then(() => appCoordinator.fetchInitialData())
           .then(() => appCoordinator.setHomeScreenName())
           .then(() => {

@@ -183,7 +183,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then((response) => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;

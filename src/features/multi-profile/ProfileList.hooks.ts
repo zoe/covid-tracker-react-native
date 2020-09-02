@@ -29,7 +29,7 @@ export const useProfileList = () => {
     setError(null);
 
     try {
-      const profiles = await patientService.listPatients();
+      const profiles = await patientService.listProfiles();
       if (profiles) {
         setProfiles(profiles);
         setIsLoaded(true);

@@ -65,8 +65,8 @@ export class EditProfileCoordinator implements Coordinator {
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.patientService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
-      Object.assign(this.patientData.patientInfo, patientInfo);
+    return this.patientService.updatePatientInfo(this.patientData.patientId, patientInfo).then((info) => {
+      this.patientData.patientInfo = info;
       return info;
     });
   }

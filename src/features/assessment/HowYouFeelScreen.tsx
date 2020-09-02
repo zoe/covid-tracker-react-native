@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -18,11 +18,6 @@ import { ScreenParamList } from '../ScreenParamList';
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
   route: RouteProp<ScreenParamList, 'HowYouFeel'>;
-};
-
-type CountryData = {
-  code: string;
-  name: string;
 };
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
@@ -96,15 +91,13 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
         </ProgressBlock>
 
         <>
-          {assessmentCoordinator.shouldShowEditLocation() && (
-            <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
-              <RegularText>
-                <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
-                <RegularText style={{ fontWeight: 'bold' }}>{location}</RegularText>
-              </RegularText>
-              <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
+            <RegularText>
+              <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
+              <RegularText style={{ fontWeight: 'bold' }}>{location}</RegularText>
+            </RegularText>
+            <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
+          </TouchableOpacity>
 
           <SelectorButton onPress={handleFeelNormal} text={i18n.t('how-you-feel.picker-health-status-healthy')} />
 

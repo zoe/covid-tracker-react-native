@@ -132,7 +132,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
     } as Partial<PatientInfosRequest>;
 
     return this.patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then(() => (currentPatient.shouldAskLevelOfIsolation = false))
       .catch(() => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });

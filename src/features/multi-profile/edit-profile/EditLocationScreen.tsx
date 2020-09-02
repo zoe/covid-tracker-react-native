@@ -169,7 +169,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
                 />
               )}
               <View style={{ height: 100 }} />
-              <SecondaryText style={{ textAlign: 'center' }}>
+              <SecondaryText style={{ textAlign: 'center', paddingHorizontal: 8 }}>
                 {i18n.t('edit-profile.location.disclaimer')}
               </SecondaryText>
               <ErrorText>{errorMessage}</ErrorText>

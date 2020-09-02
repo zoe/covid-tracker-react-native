@@ -193,7 +193,7 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     var infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then((_) => {
         currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
