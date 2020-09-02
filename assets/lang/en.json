@@ -1382,5 +1382,13 @@
     "days-required": "This is required",
     "days-placeholder": "Select days",
     "cta-add": "Add test"
+  },
+
+  "school-networks": {
+    "title": "My networks",
+    "whole-school": "Whole school",
+    "awaiting-members": "Awaiting more members",
+    "no-cases": "No confirmed cases",
+    "confirmed-cases": "confirmed cases"
   }
 }
