@@ -29,12 +29,10 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
         </Header>
 
-        {editProfileCoordinator.shouldShowEditProfile() && (
-          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
-            <Header3Text>Your location</Header3Text>
-            <Image style={styles.chevron} source={chevronRight} />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
+          <Header3Text>{i18n.t('edit-profile.your-location')}</Header3Text>
+          <Image style={styles.chevron} source={chevronRight} />
+        </TouchableOpacity>
 
         {false && (
           // Disabled
