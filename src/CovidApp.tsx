@@ -81,6 +81,8 @@ import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
 
 import { DashboardScreen } from './features/dashboard/DashboardScreen';
 import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+// __HYGEN_INJECTED_IMPORTS_BELOW__
+// __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -267,6 +269,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
+        {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
+        {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       </Stack.Navigator>
     );
   };

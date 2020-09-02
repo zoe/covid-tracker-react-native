@@ -91,4 +91,7 @@ export type ScreenParamList = {
 
   Dashboard: undefined;
   EstimatedCases: undefined;
+
+  // __INJECT_ROUTE__
+  // __INJECT_ROUTE_END__
 };
