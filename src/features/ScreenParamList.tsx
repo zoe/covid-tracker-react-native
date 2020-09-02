@@ -91,4 +91,11 @@ export type ScreenParamList = {
 
   Dashboard: undefined;
   EstimatedCases: undefined;
+
+  // School network
+  SelectSchoolNetwork: undefined;
+  JoinSchoolNetwork: undefined;
+  JoinNetworkGroup: undefined;
+  CreateNetworkGroup: undefined;
+  NetworkGroupCreated: undefined;
 };

@@ -8,6 +8,7 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 export class EditProfileCoordinator implements Coordinator {
   appCoordinator: AppCoordinator;
@@ -86,6 +87,10 @@ export class EditProfileCoordinator implements Coordinator {
     NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: true });
   }
 
+  goToSchoolNetwork() {
+    schoolNetworkCoordinator.goToSelectSchool();
+  }
+
   shouldShowEditProfile() {
     return this.localisationService.getConfig().enableEditProfile;
   }
@@ -95,6 +100,10 @@ export class EditProfileCoordinator implements Coordinator {
     const config = this.localisationService.getConfig();
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     return shouldAskStudy;
+  }
+
+  shouldShowSchoolNetwork() {
+    return true;
   }
 }
 
