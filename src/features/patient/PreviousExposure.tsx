@@ -116,7 +116,7 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
     const infos = this.createPatientInfos(formData);
 
     this.patientService
-      .updatePatient(patientId, infos)
+      .updatePatientInfo(patientId, infos)
       .then((_) => {
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })

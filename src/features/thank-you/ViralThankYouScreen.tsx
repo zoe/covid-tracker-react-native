@@ -140,7 +140,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
   async getAreaStats() {
     try {
-      const profile = await this.userService.getProfile();
+      const profile = await this.userService.getUser();
       const response = await this.contentService.getAreaStats(profile!.patients[0]);
       this.setState({
         areaStats: {

@@ -104,7 +104,7 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      this.appCoordinator.startPatientFlow(this.assessmentData.patientData.patientState);
+      this.appCoordinator.startPatientFlow(this.assessmentData.patientData);
     }
   };
 

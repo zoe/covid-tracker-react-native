@@ -41,7 +41,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   constructor(props: RenderProps) {
     super(props);
     this.state = initialState;
-    this.createProfile = this.createProfile.bind(this);
+    this.createPatient = this.createPatient.bind(this);
   }
 
   handleConsentClick = (checked: boolean) => {
@@ -72,7 +72,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
   );
   consentLabel = this.isAdultConsent() ? i18n.t('adult-consent-confirm') : i18n.t('child-consent-confirm');
 
-  async createProfile(): Promise<string> {
+  async createPatient(): Promise<string> {
     const name = this.props.route.params.profileName;
     const avatarName = this.props.route.params.avatarName;
 
@@ -86,10 +86,10 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     return response.id;
   }
 
-  handleCreateProfile = async () => {
+  handleCreatePatient = async () => {
     try {
-      const patientId = await this.createProfile();
-      await appCoordinator.setPatientId(patientId);
+      const patientId = await this.createPatient();
+      await appCoordinator.setPatientById(patientId);
       appCoordinator.resetToProfileStartAssessment();
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -103,7 +103,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
           });
           setTimeout(() => {
             this.setState({ status: i18n.t('errors.status-loading') });
-            this.handleCreateProfile();
+            this.handleCreatePatient();
           }, offlineService.getRetryDelay());
         },
       });
@@ -134,7 +134,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
-        <BrandedButton enable={this.state.consentChecked} hideLoading onPress={this.handleCreateProfile}>
+        <BrandedButton enable={this.state.consentChecked} hideLoading onPress={this.handleCreatePatient}>
           {i18n.t('consent-create-profile')}
         </BrandedButton>
       </Screen>

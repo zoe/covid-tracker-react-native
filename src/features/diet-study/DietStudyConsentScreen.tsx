@@ -20,7 +20,7 @@ type Props = {
 };
 
 export const DietStudyConsentScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient } = route.params.dietStudyData;
+  const currentPatient = route.params.dietStudyData.patientData.patientState;
   const consentService = useInjection<IConsentService>(Services.Consent);
 
   const accept = async () => {
