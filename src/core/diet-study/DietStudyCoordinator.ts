@@ -8,6 +8,7 @@ import { ScreenProps } from '@covid/components/Screen';
 import { CallOutType } from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
 import { DietChangedOption } from '@covid/features/diet-study/fields/DietChangedQuestion';
+import { PatientData } from '@covid/core/patient/PatientData';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -46,7 +47,7 @@ export type DietStudyData = {
   timePeriod: string;
   recentDietStudyId?: string;
   febDietStudyId?: string;
-  currentPatient: PatientStateType;
+  patientData: PatientData;
   startedFromMenu: boolean;
 };
 
@@ -97,7 +98,7 @@ export class DietStudyCoordinator {
       if (this.dietStudyData.startedFromMenu) {
         NavigatorService.navigate(this.appCoordinator.homeScreenName);
       } else {
-        this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+        this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
       }
     },
   } as ScreenFlow;
@@ -126,7 +127,7 @@ export class DietStudyCoordinator {
         Analytics.track(events.DECLINE_DIET_STUDY);
         NavigatorService.goBack();
         if (!this.dietStudyData.startedFromMenu) {
-          this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+          this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
         }
         break;
       }
@@ -134,7 +135,7 @@ export class DietStudyCoordinator {
         Analytics.track(events.DEFER_DIET_STUDY);
         NavigatorService.goBack();
         if (!this.dietStudyData.startedFromMenu) {
-          this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+          this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
         }
         break;
       }

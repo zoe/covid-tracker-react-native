@@ -23,8 +23,7 @@ type Props = {
 };
 
 export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient } = route.params.dietStudyData;
-  const { profile } = currentPatient;
+  const { profile } = route.params.dietStudyData.patientData;
 
   const registerSchema = Yup.object();
 

@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -18,11 +18,6 @@ import { ScreenParamList } from '../ScreenParamList';
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
   route: RouteProp<ScreenParamList, 'HowYouFeel'>;
-};
-
-type CountryData = {
-  code: string;
-  name: string;
 };
 
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {

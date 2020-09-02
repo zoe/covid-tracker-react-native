@@ -13,20 +13,19 @@ import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientStateType, getInitialPatientState } from '@covid/core/patient/PatientState';
 import { container } from '@covid/provider/services';
+import { PatientData } from '@covid/core/patient/PatientData';
 
 const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
 
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
-  listPatients(): Promise<Profile[] | null>;
-  createPatient(infos: Partial<PatientInfosRequest>): Promise<any>;
-  updatePatient(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
-  getPatient(patientId: string): Promise<PatientInfosRequest | null>;
-  getPatientState(patientId: string): Promise<PatientStateType>;
-  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
-  getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType>;
+  listProfiles(): Promise<Profile[] | null>;
+  createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
+  updatePatientInfo(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
+  getPatientDataById(patientId: string): Promise<PatientData>;
+  getPatientDataByProfile(profile: Profile): Promise<PatientData>;
 }
 
 @injectable()
@@ -48,9 +47,9 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return null;
   }
 
-  public async listPatients() {
+  public async listProfiles() {
     try {
-      const response = await this.client.get(`/patient_list/`);
+      const response = await this.client.get<Profile[] | null>(`/patient_list/`);
       return response.data;
     } catch (error) {
       handleServiceError(error);
@@ -66,7 +65,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return (await this.client.post<PatientInfosRequest>(`/patients/`, infos)).data;
   }
 
-  public async updatePatient(patientId: string, infos: Partial<PatientInfosRequest>) {
+  public async updatePatientInfo(patientId: string, infos: Partial<PatientInfosRequest>) {
     infos = {
       ...infos,
       version: this.getPatientVersion(),
@@ -78,7 +77,39 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return appConfig.patientVersion;
   }
 
-  public async getPatient(patientId: string): Promise<PatientInfosRequest | null> {
+  public async getPatientDataById(patientId: string): Promise<PatientData> {
+    let patientState = getInitialPatientState(patientId);
+    const patientInfo = await this.getPatientInfo(patientId);
+
+    if (patientInfo) {
+      patientState = await this.updatePatientState(patientState, patientInfo);
+    }
+
+    return {
+      patientId,
+      patientState,
+      patientInfo,
+      profile: patientState.profile,
+    } as PatientData;
+  }
+
+  public async getPatientDataByProfile(profile: Profile): Promise<PatientData> {
+    let patientState = getInitialPatientState(profile.id);
+    const patientInfo = await this.getPatientInfo(profile.id);
+
+    if (patientInfo) {
+      patientState = await this.updatePatientState(patientState, patientInfo);
+    }
+
+    return {
+      patientId: profile.id,
+      patientState,
+      patientInfo,
+      profile,
+    } as PatientData;
+  }
+
+  private async getPatientInfo(patientId: string): Promise<PatientInfosRequest | null> {
     try {
       const patientResponse = await this.client.get<PatientInfosRequest>(`/patients/${patientId}/`);
       return patientResponse.data;
@@ -88,7 +119,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return null;
   }
 
-  public async updatePatientState(
+  private async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
@@ -182,43 +213,12 @@ export class PatientService extends ApiClientBase implements IPatientService {
     };
   }
 
-  public async getPatientState(patientId: string): Promise<PatientStateType> {
-    let patientState = getInitialPatientState(patientId);
-
-    const patientInfo = await this.getPatient(patientId);
-
-    if (patientInfo) {
-      patientState = await this.updatePatientState(patientState, patientInfo);
-    }
-
-    return patientState;
-  }
-
-  public async getCurrentPatient(patientId: string, patient?: PatientInfosRequest): Promise<PatientStateType> {
-    let currentPatient = getInitialPatientState(patientId);
-
-    try {
-      if (!patient) {
-        const loadPatient = await this.getPatient(patientId);
-        patient = loadPatient ?? patient;
-      }
-    } catch (error) {
-      handleServiceError(error);
-    }
-
-    if (patient) {
-      currentPatient = await this.updatePatientState(currentPatient, patient);
-    }
-
-    return currentPatient;
-  }
-
   public shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
     if (!dateLastAsked) return true;
     return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
   }
 
   public setUSStudyInviteResponse(patientId: string, response: boolean) {
-    this.updatePatient(patientId, { contact_additional_studies: response });
+    this.updatePatientInfo(patientId, { contact_additional_studies: response });
   }
 }

@@ -14,7 +14,7 @@ type Props = {
 };
 
 const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient } = route.params.dietStudyData;
+  const { profile } = route.params.dietStudyData.patientData;
 
   const accept = () => {
     dietStudyCoordinator.dietStudyResponse(DietStudyConsent.ACCEPTED);
@@ -30,7 +30,7 @@ const DietStudyIntroScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <TextInfoScreen
-      profile={currentPatient.profile}
+      profile={profile}
       navigation={navigation}
       headerLabel={i18n.t('diet-study.intro.title')}
       primaryLabel={i18n.t('diet-study.intro.description-1')}

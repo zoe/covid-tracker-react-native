@@ -26,7 +26,7 @@ const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id150352961
 const AndroidLink = `market://details?id=${Constants.manifest.android.package}`;
 
 export async function shouldAskForRating(): Promise<boolean> {
-  const profile = await container.get<IUserService>(Services.User).getProfile();
+  const profile = await container.get<IUserService>(Services.User).getUser();
   const eligibleToAskForRating = profile?.ask_for_rating ?? false;
   const askedToRateStatus = await container.get<IContentService>(Services.Content).getAskedToRateStatus();
   return !askedToRateStatus && eligibleToAskForRating;

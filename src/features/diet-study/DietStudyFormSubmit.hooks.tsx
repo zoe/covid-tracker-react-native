@@ -50,7 +50,7 @@ export const useDietStudyFormSubmit = (next: keyof ScreenParamList): DietStudyFo
       if (studyId) {
         response = await apiClient.updateDietStudy(studyId, infos);
       } else {
-        const { patientId } = dietStudyCoordinator.dietStudyData.currentPatient;
+        const { patientId } = dietStudyCoordinator.dietStudyData.patientData;
         response = await apiClient.addDietStudy(patientId, infos as DietStudyRequest);
       }
 
