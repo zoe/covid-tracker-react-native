@@ -33,15 +33,19 @@ export class SchoolNetworkCoordinator extends Coordinator {
       NavigatorService.navigate('NHSDetails', { editing: true });
     },
     CreateNetworkGroup: () => {
-      this.goToNetworkGroupCreated();
+      this.goToSchoolNetworkSuccess();
     },
-    NetworkGroupCreated: () => {},
+    SchoolNetworkSuccess: () => {},
   };
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData) => {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
   };
+
+  startSchoolNetworkFlow() {
+    this.goToJoinSchoolNetwork();
+  }
 
   goToSelectSchool() {
     NavigatorService.navigate('SelectSchoolNetwork');
@@ -59,8 +63,8 @@ export class SchoolNetworkCoordinator extends Coordinator {
     NavigatorService.navigate('CreateNetworkGroup');
   }
 
-  goToNetworkGroupCreated() {
-    NavigatorService.navigate('NetworkGroupCreated');
+  goToSchoolNetworkSuccess() {
+    NavigatorService.navigate('SchoolNetworkSuccess');
   }
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest> {

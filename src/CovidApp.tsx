@@ -85,7 +85,7 @@ import {
   JoinSchoolNetworkScreen,
   JoinNetworkGroupScreen,
   CreateNetworkGroupScreen,
-  NetworkGroupCreatedScreen,
+  SchoolNetworkSuccessScreen,
 } from '@covid/features/school-network';
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -279,7 +279,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="JoinSchoolNetwork" component={JoinSchoolNetworkScreen} options={noHeader} />
         <Stack.Screen name="JoinNetworkGroup" component={JoinNetworkGroupScreen} options={noHeader} />
         <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
-        <Stack.Screen name="NetworkGroupCreated" component={NetworkGroupCreatedScreen} options={noHeader} />
+        <Stack.Screen name="SchoolNetworkSuccess" component={SchoolNetworkSuccessScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

@@ -10,18 +10,24 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { Button } from '@covid/components/Buttons/Button';
 
+import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
+
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'NetworkGroupCreated'>;
-  route: RouteProp<ScreenParamList, 'NetworkGroupCreated'>;
+  navigation: StackNavigationProp<ScreenParamList, 'SchoolNetworkSuccess'>;
+  route: RouteProp<ScreenParamList, 'SchoolNetworkSuccess'>;
 };
 
-export const NetworkGroupCreatedScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
+export const SchoolNetworkSuccessScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const schoolName = 'Queen Elizabeth High School';
   const groupName = 'Class 2A';
   const referenceCode = '84yHF';
 
+  const title = 'Great. You’re in.'; // Great! Your group has been created
+
   const create = () => {};
-  const next = () => {};
+  const next = () => {
+    schoolNetworkCoordinator.resetToHome();
+  };
 
   return (
     <Screen>

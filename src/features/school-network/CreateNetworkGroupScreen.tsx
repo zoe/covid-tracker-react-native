@@ -25,50 +25,58 @@ export const CreateNetworkGroupScreen: React.FC<Props> = ({ route, navigation, .
     schoolNetworkCoordinator.gotoNextScreen(route.name);
   };
   return (
-    <Screen>
-      <Header>
-        <HeaderText>Create a new group</HeaderText>
-        <RegularText style={styles.topText}>
-          Create a new group within the school that will be easily recognisable for others such as “Class 2A” or “Year
-          6”.
-        </RegularText>
-      </Header>
+    <View style={styles.root}>
+      <Screen style={styles.root}>
+        <Header>
+          <HeaderText>Create a new group</HeaderText>
+          <RegularText style={styles.topText}>
+            Create a new group within the school that will be easily recognisable for others such as “Class 2A” or “Year
+            6”.
+          </RegularText>
+        </Header>
 
-      <ProgressBlock>
-        <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
-      </ProgressBlock>
+        <ProgressBlock>
+          <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
+        </ProgressBlock>
 
-      <Formik initialValues={{}} onSubmit={(values: any) => {}}>
-        {(formikProps) => {
-          return (
-            <Form>
-              <View style={styles.formContainer}>
-                <View>
-                  <View style={{ height: 16 }} />
-                  <GenericTextField
-                    formikProps={formikProps}
-                    placeholder="Enter group name (e.g. Class 2A)"
-                    label="Group name"
-                    name="groupName"
-                    showError
-                  />
+        <Formik initialValues={{}} onSubmit={(values: any) => {}}>
+          {(formikProps) => {
+            return (
+              <Form>
+                <View style={styles.formContainer}>
+                  <View>
+                    <View style={{ height: 16 }} />
+                    <GenericTextField
+                      formikProps={formikProps}
+                      placeholder="Enter group name (e.g. Class 2A)"
+                      label="Group name"
+                      name="groupName"
+                      showError
+                    />
+                  </View>
                 </View>
-                <View>
-                  <View style={{ height: 48 }} />
-                  <Button onPress={next} branded>
-                    Next
-                  </Button>
-                </View>
-              </View>
-            </Form>
-          );
-        }}
-      </Formik>
-    </Screen>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Screen>
+      <View>
+        <View style={{ height: 48 }} />
+        <Button onPress={next} branded>
+          Next
+        </Button>
+        <View style={{ height: 32 }} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    height: '100%',
+    backgroundColor: colors.white,
+  },
   formContainer: {
     height: '100%',
     justifyContent: 'space-between',

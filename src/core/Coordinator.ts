@@ -1,6 +1,8 @@
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import NavigatorService from '@covid/NavigatorService';
+import appCoordinator from '@covid/features/AppCoordinator';
 
 export type ScreenName = keyof ScreenParamList;
 export type ScreenFlow = {
@@ -19,4 +21,8 @@ export abstract class Coordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
+
+  resetToHome() {
+    NavigatorService.reset([{ name: appCoordinator.homeScreenName }], 0);
+  }
 }

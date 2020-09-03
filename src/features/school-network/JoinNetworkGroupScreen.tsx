@@ -13,66 +13,99 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { Button } from '@covid/components/Buttons/Button';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import DropdownField from '@covid/components/DropdownField';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinNetworkGroup'>;
   route: RouteProp<ScreenParamList, 'JoinNetworkGroup'>;
 };
 
+enum InputMode {
+  input,
+  dropdown,
+}
+
 export const JoinNetworkGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
+  const inputMode: InputMode = InputMode.dropdown;
+  const enableCreateGroup: boolean = false;
+
   const create = () => {
     schoolNetworkCoordinator.goToCreateSchoolGroup();
   };
 
-  const next = () => {};
+  const next = () => {
+    schoolNetworkCoordinator.goToSchoolNetworkSuccess();
+  };
+
   return (
-    <Screen>
-      <Header>
-        <HeaderText>Join a group in this network</HeaderText>
-        <RegularText style={styles.topText}>
-          Join a class or bubble at “Queen Elizabeth High School”. If you don’t see your child’s class or bubble, you
-          can create a new group.
-        </RegularText>
-      </Header>
+    <View style={styles.root}>
+      <Screen style={styles.root}>
+        <Header>
+          <HeaderText>Join a group in this network</HeaderText>
+          <RegularText style={styles.topText}>
+            Join a class or bubble at “Queen Elizabeth High School”. If you don’t see your child’s class or bubble, you
+            can create a new group.
+          </RegularText>
+        </Header>
 
-      <ProgressBlock>
-        <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
-      </ProgressBlock>
+        <ProgressBlock>
+          <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
+        </ProgressBlock>
 
-      <Formik initialValues={{}} onSubmit={(values: any) => {}}>
-        {(formikProps) => {
-          return (
-            <Form>
-              <View style={styles.formContainer}>
-                <View>
-                  <View style={{ height: 16 }} />
-                  <GenericTextField
-                    formikProps={formikProps}
-                    placeholder="Find a class or bubble"
-                    label="Join existing groups"
-                    name="groupName"
-                    showError
-                  />
-                  <Button onPress={create} outline>
-                    Create a new group
-                  </Button>
+        <Formik initialValues={{}} onSubmit={(values: any) => {}}>
+          {(formikProps) => {
+            return (
+              <Form>
+                <View style={styles.formContainer}>
+                  <View>
+                    <View style={{ height: 16 }} />
+                    {inputMode === InputMode.input && (
+                      <GenericTextField
+                        formikProps={formikProps}
+                        placeholder="Find a class or bubble"
+                        label="Join existing groups"
+                        name="groupName"
+                        showError
+                      />
+                    )}
+                    {inputMode === InputMode.dropdown && (
+                      <DropdownField
+                        label="Join existing groups"
+                        // selectedValue={props.values.treatedPatientsWithCovid}
+                        // onValueChange={props.handleChange('treatedPatientsWithCovid')}
+                        // label={i18n.t('health-worker-exposure-question-treated-patients-with-covid')}
+                        // items={patientInteractionOptions}
+                      />
+                    )}
+                    {enableCreateGroup && (
+                      <Button onPress={create} outline>
+                        Create a new group
+                      </Button>
+                    )}
+                  </View>
                 </View>
-                <View>
-                  <View style={{ height: 48 }} />
-                  <Button onPress={next} branded>
-                    Next
-                  </Button>
-                </View>
-              </View>
-            </Form>
-          );
-        }}
-      </Formik>
-    </Screen>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Screen>
+      <View>
+        <View style={{ height: 48 }} />
+        <Button onPress={next} branded>
+          Next
+        </Button>
+        <View style={{ height: 32 }} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    height: '100%',
+    backgroundColor: colors.white,
+  },
   formContainer: {
     height: '96%',
     justifyContent: 'space-between',
