@@ -22,6 +22,12 @@ export class SchoolNetworkCoordinator extends BaseCoordinator {
   private readonly localisationService: ILocalisationService;
 
   public screenFlow: ScreenFlow = {
+    SchoolIntro: () => {
+      this.goToSchoolHowTo();
+    },
+    SchoolHowTo: () => {
+      NavigatorService.navigate('SelectProfile');
+    },
     SelectSchoolNetwork: () => {
       this.goToJoinSchoolNetwork();
     },
@@ -41,6 +47,18 @@ export class SchoolNetworkCoordinator extends BaseCoordinator {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
   };
+
+  startFlow() {
+    this.goToSchoolIntro();
+  }
+
+  goToSchoolIntro() {
+    NavigatorService.navigate('SchoolIntro');
+  }
+
+  goToSchoolHowTo() {
+    NavigatorService.navigate('SchoolHowTo');
+  }
 
   goToSelectSchool() {
     NavigatorService.navigate('SelectSchoolNetwork');

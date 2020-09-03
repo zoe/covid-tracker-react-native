@@ -93,6 +93,8 @@ export type ScreenParamList = {
   EstimatedCases: undefined;
 
   // School network
+  SchoolIntro: undefined;
+  SchoolHowTo: undefined;
   SelectSchoolNetwork: undefined;
   JoinSchoolNetwork: undefined;
   JoinNetworkGroup: undefined;
