@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
 import { closeIcon } from '@assets';
-import { AsyncStorageService, PERSONALISED_LOCAL_DATA } from '@covid/core/AsyncStorageService';
-import { useSelector } from 'react-redux';
 import { RootState } from '@covid/core/state/root';
-import { addDismissCallout, ContentState } from '@covid/core/content/state/contentSlice';
+import { addDismissCallout } from '@covid/core/content/state/contentSlice';
 import { useAppDispatch } from '@covid/core/state/store';
 
 type ExternalCalloutProps = {
