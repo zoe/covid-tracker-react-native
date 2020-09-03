@@ -22,8 +22,8 @@ import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetwo
 import { Button } from '@covid/components/Buttons/Button';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'SchoolNetwork'>;
-  route: RouteProp<ScreenParamList, 'SchoolNetwork'>;
+  navigation: StackNavigationProp<ScreenParamList, 'SelectSchoolNetwork'>;
+  route: RouteProp<ScreenParamList, 'SelectSchoolNetwork'>;
 };
 
 export const SelectSchoolNetworkScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
@@ -48,13 +48,7 @@ export const SelectSchoolNetworkScreen: React.FC<Props> = ({ route, navigation, 
         <ProgressStatus step={1} maxSteps={3} color={colors.brand} />
       </ProgressBlock>
 
-      <Formik
-        initialValues={{}}
-        // validationSchema={this.registerSchema}
-        // onSubmit={(values: LevelOfIsolationScreenData) => {
-        //   return this.handleUpdate(values);
-        // }}
-      >
+      <Formik initialValues={{}} validationSchema={{}} onSubmit={(values) => {}}>
         {(formikProps) => {
           return (
             <Form>

@@ -9,7 +9,7 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { lazyInject } from '@covid/provider/services';
 
-export class PatientCoordinator implements Coordinator {
+export class PatientCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: IUserService;
@@ -21,7 +21,7 @@ export class PatientCoordinator implements Coordinator {
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  screenFlow: ScreenFlow = {
+  screenFlow: Partial<ScreenFlow> = {
     YourStudy: () => {
       if (this.patientData.patientState.isNHSStudy) {
         NavigatorService.navigate('NHSIntro', { editing: false });
@@ -51,7 +51,7 @@ export class PatientCoordinator implements Coordinator {
     PreviousExposure: () => {
       this.appCoordinator.startAssessmentFlow(this.patientData);
     },
-  } as ScreenFlow;
+  };
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
     this.appCoordinator = appCoordinator;
@@ -76,14 +76,6 @@ export class PatientCoordinator implements Coordinator {
         params: { patientData: this.patientData, ...(nextPage === 'YourStudy' && { editing: false }) },
       },
     ]);
-  };
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {

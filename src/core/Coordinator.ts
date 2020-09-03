@@ -7,15 +7,10 @@ export type ScreenFlow = {
   [key in ScreenName]: () => void;
 };
 
-export interface Coordinator {
+export abstract class Coordinator {
   patientData: PatientData;
   screenFlow: Partial<ScreenFlow>;
-  gotoNextScreen(screenName: ScreenName): void;
-  updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
-}
-
-export class BaseCoordinator implements Partial<Coordinator> {
-  public screenFlow: Partial<ScreenFlow> = {};
+  abstract updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
 
   gotoNextScreen = (screenName: ScreenName) => {
     if (this.screenFlow[screenName]) {
