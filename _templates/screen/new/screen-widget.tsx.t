@@ -1,10 +1,7 @@
 ---
-to: src/features/<%= feature %>/<%= name %>Screen.tsx
+# to: src/features/<%= feature %>/<%= name %>Screen.tsx
+to: src/features/<%= feature %>/<%= h.screenName(name) %>.py
 ---
-<%
- ClassName = `${name}Screen`
-%>
-
 import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -19,7 +16,7 @@ type Props = {
   route: RouteProp<ScreenParamList, '<%= name %>'>;
 };
 
-export const <%= ClassName %>: React.FC<Props> = ({ route, navigation }) => {
+export const <%= h.screenName(name) %>: React.FC<Props> = ({ route, navigation }) => {
 
   const primaryAction = () => { };
 

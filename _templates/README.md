@@ -58,5 +58,6 @@ use `--feature` for folder name, files will be generated under `/src/features/__
 ```
 $ hygen screen new # No passed params, this will trigger prompts
 $ hygen screen new Intro --feature test
+$ hygen coordinator new Test --feature test
 
 ```
