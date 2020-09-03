@@ -56,8 +56,13 @@ Generating a new screen.
 use `--feature` for folder name, files will be generated under `/src/features/__FEATURE_NAME__`
 
 ```
+$ hygen coordinator new Test --feature test
+
 $ hygen screen new # No passed params, this will trigger prompts
 $ hygen screen new Intro --feature test
-$ hygen coordinator new Test --feature test
+
+# Inject screen flow & nav method in coordinator
+
+$ hygen screen new ShowCase --feature test --coordinatorName Test
 
 ```
