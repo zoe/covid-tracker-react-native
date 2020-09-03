@@ -12,12 +12,14 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3 } from '@assets';
+import { shareAppV3, schoolNetworkFeature } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+
+import schoolNetworkCoordinator from '../school-network/SchoolNetworkCoordinator';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -47,6 +49,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     share(shareMessage);
   };
 
+  const schoolNetworkFlow = () => {
+    schoolNetworkCoordinator.startFlow();
+  };
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -61,6 +67,20 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
+          calloutID="schoolNetworkModule"
+          imageSource={schoolNetworkFeature}
+          aspectRatio={311 / 253}
+          screenName={route.name}
+          postClicked={schoolNetworkFlow}
+        />
+      </View>
+
+      {isGBCountry() && <EstimatedCasesMapCard />}
+
+      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
+
+      <View style={styles.calloutContainer}>
+        <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}
           aspectRatio={311 / 135}
@@ -68,10 +88,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           postClicked={onShare}
         />
       </View>
-
-      {isGBCountry() && <EstimatedCasesMapCard />}
-
-      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
 
       <View style={styles.zoe}>
         <PoweredByZoeSmall />
