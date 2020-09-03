@@ -72,6 +72,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           aspectRatio={311 / 253}
           screenName={route.name}
           postClicked={schoolNetworkFlow}
+          canDismiss
         />
       </View>
 

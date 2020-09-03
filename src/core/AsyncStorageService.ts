@@ -17,6 +17,7 @@ const ASKED_COUNTRY = 'askedCountry';
 const ASKED_TO_REPORT_FOR_OTHERS = 'askedToReportForOthers';
 
 export const PERSONALISED_LOCAL_DATA = 'personalisedLocalData';
+export const DISMISSED_CALLOUTS = 'dismissedCallouts'
 
 export type PersonalisedLocalData = {
   mapUrl: string;
@@ -63,6 +64,7 @@ export class AsyncStorageService {
       await AsyncStorage.removeItem(AUTH_TOKEN);
       await AsyncStorage.removeItem(USER_ID);
       await AsyncStorage.removeItem(DIET_STUDY_CONSENT);
+      await AsyncStorage.removeItem(DISMISSED_CALLOUTS)
     } catch (err) {
       // Swallow for now
       // todo: find a way to report the crash and an alternative
