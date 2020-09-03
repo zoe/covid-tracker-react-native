@@ -1390,5 +1390,13 @@
       "nhs-text": false,
       "nhs-text-link": false
     }
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": ""
   }
 }
