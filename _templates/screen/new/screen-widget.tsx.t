@@ -1,6 +1,5 @@
 ---
-# to: src/features/<%= feature %>/<%= name %>Screen.tsx
-to: src/features/<%= feature %>/<%= h.screenName(name) %>.py
+to: src/features/<%= feature %>/<%= h.screenName(name) %>.tsx
 ---
 import React from 'react';
 import { RouteProp } from '@react-navigation/native';

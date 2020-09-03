@@ -8,7 +8,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { lazyInject } from '@covid/provider/services';
-// import NavigatorService from '@covid/NavigatorService';
+import NavigatorService from '@covid/NavigatorService';
 
 export class <%= h.inflection.camelize(h.coordinatorName(name)) %> implements Coordinator {
   appCoordinator: AppCoordinator;
