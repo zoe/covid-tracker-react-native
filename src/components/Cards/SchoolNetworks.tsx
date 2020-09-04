@@ -5,14 +5,14 @@ import i18n from '@covid/locale/i18n';
 import { CaptionText, Header0Text, Header3Text, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
 
-type School = {
+export type School = {
   id: string;
   name: string;
   cases: number | null;
-  groups: Group[];
+  groups: SchoolGroup[];
 };
 
-type Group = {
+export type SchoolGroup = {
   id: string;
   name: string;
   cases: number | null;

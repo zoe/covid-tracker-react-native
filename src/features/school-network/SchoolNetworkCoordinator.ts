@@ -8,6 +8,7 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { School, SchoolGroup } from '@covid/components/Cards/SchoolNetworks';
 
 export class SchoolNetworkCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
@@ -79,6 +80,27 @@ export class SchoolNetworkCoordinator extends Coordinator {
 
   goToNetworkGroupCreated() {
     NavigatorService.navigate('NetworkGroupCreated');
+  }
+
+  getSchoolsList(): Promise<School[]> {
+    //TODO
+    return Promise.resolve([{ id: '123', name: 'Hogwarts' } as School]);
+  }
+
+  getGroupsList(groupId: string): Promise<SchoolGroup[]> {
+    //TODO
+    return Promise.resolve([
+      { id: '123', name: 'Gryffindor' } as SchoolGroup,
+      { id: '123', name: 'Slytherin' } as SchoolGroup,
+    ]);
+  }
+
+  setSchool(schoolId: string) {
+    //TODO
+  }
+
+  setGroup(groupId: string) {
+    //TODO
   }
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest> {
