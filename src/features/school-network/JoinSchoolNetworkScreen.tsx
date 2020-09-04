@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { PickerItemProps, StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -14,10 +14,15 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { Button } from '@covid/components/Buttons/Button';
 import DropdownField from '@covid/components/DropdownField';
+import i18n from '@covid/locale/i18n';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolNetwork'>;
   route: RouteProp<ScreenParamList, 'JoinSchoolNetwork'>;
+};
+
+type JoinSchoolData = {
+  schoolId: string;
 };
 
 enum InputMode {
@@ -31,52 +36,81 @@ export const JoinSchoolNetworkScreen: React.FC<Props> = ({ route, navigation, ..
   const next = () => {
     schoolNetworkCoordinator.gotoNextScreen(route.name);
   };
+
+  const [schoolList, setSchoolList] = useState<PickerItemProps[]>([]);
+
+  useEffect(() => {
+    schoolNetworkCoordinator.getSchoolsList().then((schools) => {
+      const pickerItems = schools.map<PickerItemProps>((s) => {
+        return {
+          label: s.name,
+          value: s.id,
+        };
+      });
+      setSchoolList(pickerItems);
+    });
+  }, []);
+
+  const setSchoolData = (schoolData: JoinSchoolData) => {
+    schoolNetworkCoordinator.setSchool(schoolData.schoolId);
+  };
+
   return (
-    <View style={styles.root}>
-      <Screen style={styles.root}>
-        <Header>
-          <HeaderText>Join a school network</HeaderText>
-          <RegularText style={styles.topText}>
-            Link this account to a school anonymously lorem upsum dolor consectume dolor. More information about
-            <RegularText style={{ color: colors.purple }}> school networks.</RegularText>
-          </RegularText>
-        </Header>
+    <Screen>
+      <Header>
+        <HeaderText>Join a school network</HeaderText>
+        <RegularText style={styles.topText}>
+          Link this account to a school anonymously lorem upsum dolor consectume dolor. More information about
+          <RegularText style={{ color: colors.purple }}> school networks.</RegularText>
+        </RegularText>
+      </Header>
 
-        <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={3} color={colors.brand} />
-        </ProgressBlock>
+      <ProgressBlock>
+        <ProgressStatus step={2} maxSteps={3} color={colors.brand} />
+      </ProgressBlock>
 
-        <Formik initialValues={{}} onSubmit={(values: any) => {}}>
-          {(formikProps) => {
-            return (
-              <Form>
-                <View style={styles.formContainer}>
-                  <View>
-                    <View style={{ height: 16 }} />
-                    {inputMode === InputMode.input && (
-                      <GenericTextField
-                        formikProps={formikProps}
-                        placeholder="Search for your child's school"
-                        label="Name of school"
-                        name="schoolName"
-                        showError
-                      />
-                    )}
-                    {inputMode === InputMode.dropdown && <DropdownField label="Name of school" />}
-                  </View>
-                </View>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Screen>
-      <View>
-        <Button onPress={next} branded>
-          Next
-        </Button>
-        <View style={{ height: 32 }} />
-      </View>
-    </View>
+      <Formik
+        initialValues={
+          {
+            schoolId: '',
+          } as JoinSchoolData
+        }
+        onSubmit={(values: JoinSchoolData) => {
+          return setSchoolData(values);
+        }}>
+        {(formikProps) => {
+          return (
+            <Form style={styles.formContainer}>
+              <View>
+                <View style={{ height: 16 }} />
+                {inputMode === InputMode.input && (
+                  <GenericTextField
+                    formikProps={formikProps}
+                    placeholder="Search for your child's school"
+                    label="Name of school"
+                    name="schoolName"
+                    showError
+                  />
+                )}
+
+                {inputMode === InputMode.dropdown && (
+                  <DropdownField
+                    selectedValue={formikProps.values.schoolId}
+                    onValueChange={formikProps.handleChange('schoolId')}
+                    label="Select school from below"
+                    items={schoolList}
+                    error={formikProps.touched.schoolId && formikProps.errors.schoolId}
+                  />
+                )}
+              </View>
+              <Button onPress={next} branded>
+                Next
+              </Button>
+            </Form>
+          );
+        }}
+      </Formik>
+    </Screen>
   );
 };
 
@@ -87,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   formContainer: {
-    height: '100%',
+    flexGrow: 1,
     justifyContent: 'space-between',
   },
   topText: {

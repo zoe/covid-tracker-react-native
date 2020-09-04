@@ -4,24 +4,19 @@ import { StyleSheet, View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { CaptionText, Header0Text, Header3Text, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { SchoolNetworkData, SchoolNetworkGroupData } from '@covid/core/content/state/school-network.interfaces';
 
-type School =
-  | {
-      id: string;
-      name: string;
-      cases: number | null;
-      groups: Group[];
-    }
-  | SchoolNetworkData;
+export type School = {
+  id: string;
+  name: string;
+  cases: number | null;
+  groups: SchoolGroup[];
+};
 
-type Group =
-  | {
-      id: string;
-      name: string;
-      cases: number | null;
-    }
-  | SchoolNetworkGroupData;
+export type SchoolGroup = {
+  id: string;
+  name: string;
+  cases: number | null;
+};
 
 type Props = {
   networks: School[];

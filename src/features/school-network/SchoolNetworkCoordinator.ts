@@ -8,6 +8,7 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { School, SchoolGroup } from '@covid/components/Cards/SchoolNetworks';
 
 export class SchoolNetworkCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
@@ -23,6 +24,12 @@ export class SchoolNetworkCoordinator extends Coordinator {
   private readonly localisationService: ILocalisationService;
 
   public screenFlow: Partial<ScreenFlow> = {
+    SchoolIntro: () => {
+      this.goToSchoolHowTo();
+    },
+    SchoolHowTo: () => {
+      NavigatorService.navigate('SelectProfile');
+    },
     SelectSchoolNetwork: () => {
       this.goToJoinSchoolNetwork();
     },
@@ -42,6 +49,18 @@ export class SchoolNetworkCoordinator extends Coordinator {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
   };
+
+  startFlow() {
+    this.goToSchoolIntro();
+  }
+
+  goToSchoolIntro() {
+    NavigatorService.navigate('SchoolIntro');
+  }
+
+  goToSchoolHowTo() {
+    NavigatorService.navigate('SchoolHowTo');
+  }
 
   startSchoolNetworkFlow() {
     this.goToJoinSchoolNetwork();
@@ -65,6 +84,27 @@ export class SchoolNetworkCoordinator extends Coordinator {
 
   goToSchoolNetworkSuccess() {
     NavigatorService.navigate('SchoolNetworkSuccess');
+  }
+
+  getSchoolsList(): Promise<School[]> {
+    //TODO
+    return Promise.resolve([{ id: '123', name: 'Hogwarts' } as School]);
+  }
+
+  getGroupsList(groupId: string): Promise<SchoolGroup[]> {
+    //TODO
+    return Promise.resolve([
+      { id: '123', name: 'Gryffindor' } as SchoolGroup,
+      { id: '123', name: 'Slytherin' } as SchoolGroup,
+    ]);
+  }
+
+  setSchool(schoolId: string) {
+    //TODO
+  }
+
+  setGroup(groupId: string) {
+    //TODO
   }
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest> {

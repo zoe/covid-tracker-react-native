@@ -87,7 +87,11 @@ export default class Screen extends Component<ScreenProps> {
         )}
 
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView>
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+            }}>
             <View style={styles.pageBlock}>{this.props.children}</View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -116,8 +120,8 @@ const styles = StyleSheet.create({
   },
 
   pageBlock: {
+    flexGrow: 1,
     marginHorizontal: 16,
-    marginBottom: 40,
   },
 
   headerBlock: {
