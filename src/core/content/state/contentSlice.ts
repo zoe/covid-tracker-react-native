@@ -7,6 +7,8 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { SchoolNetworkData } from '@covid/core/content/state/school-network.interfaces';
+import { SchoolNetworks } from '@covid/core/content/__mocks__/school-networks';
 
 // State interface
 
@@ -24,6 +26,8 @@ export type ContentState = {
   ukDaily?: string;
 
   todayDate: string;
+
+  joinedSchoolNetworks?: SchoolNetworkData[];
 };
 
 // Default state
@@ -34,6 +38,7 @@ const initialState: ContentState = {
   infoApiState: 'ready',
   ukMetricsApiState: 'ready',
   todayDate: todaysDate(),
+  joinedSchoolNetworks: SchoolNetworks,
 };
 
 // Async Actions

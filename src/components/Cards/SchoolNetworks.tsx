@@ -4,19 +4,24 @@ import { StyleSheet, View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { CaptionText, Header0Text, Header3Text, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
+import { SchoolNetworkData, SchoolNetworkGroupData } from '@covid/core/content/state/school-network.interfaces';
 
-type School = {
-  id: string;
-  name: string;
-  cases: number | null;
-  groups: Group[];
-};
+type School =
+  | {
+      id: string;
+      name: string;
+      cases: number | null;
+      groups: Group[];
+    }
+  | SchoolNetworkData;
 
-type Group = {
-  id: string;
-  name: string;
-  cases: number | null;
-};
+type Group =
+  | {
+      id: string;
+      name: string;
+      cases: number | null;
+    }
+  | SchoolNetworkGroupData;
 
 type Props = {
   networks: School[];
@@ -69,14 +74,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 10,
     paddingHorizontal: 24,
-    paddingVertical: 32,
+    paddingVertical: 16,
   },
   schoolTitle: {
     paddingVertical: 16,
+    paddingTop: 8,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 20,
+    fontWeight: '500',
     textAlign: 'center',
+    marginTop: 0,
+    color: colors.textDark,
   },
   circle: {
     width: 12,

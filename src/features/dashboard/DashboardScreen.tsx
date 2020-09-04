@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
@@ -18,6 +19,10 @@ import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
+import { RootState } from '@covid/core/state/root';
+import { Optional } from '@covid/utils/types';
+import { SchoolNetworkData } from '@covid/core/content/state/school-network.interfaces';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -28,7 +33,47 @@ interface Props {
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
+const networks = [
+  {
+    id: '123',
+    name: 'Test school',
+    cases: 5,
+    groups: [
+      {
+        id: '123',
+        name: 'Class 2D',
+        cases: 1,
+      },
+      {
+        id: '1234',
+        name: 'Class 3F',
+        cases: 0,
+      },
+      {
+        id: '12345',
+        name: 'Class 8E',
+        cases: null,
+      },
+    ],
+  },
+  {
+    id: '1234',
+    name: 'Test school 2',
+    cases: 5,
+    groups: [
+      {
+        id: '123',
+        name: 'Group 1',
+        cases: 1,
+      },
+    ],
+  },
+];
+
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const dispatch = useAppDispatch();
+  const networks = useSelector<RootState, Optional<SchoolNetworkData[]>>((state) => state.content.joinedSchoolNetworks);
+
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
     expanded: HEADER_EXPANDED_HEIGHT,
@@ -47,8 +92,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     share(shareMessage);
   };
 
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
     return navigation.addListener('focus', () => dispatch(updateTodayDate()));
   }, [navigation]);
@@ -59,6 +102,15 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      {networks && (
+        <View
+          style={{
+            marginHorizontal: 32,
+          }}>
+          <SchoolNetworks networks={networks!} />
+        </View>
+      )}
+
       <View style={styles.calloutContainer}>
         <ExternalCallout
           calloutID="sharev3"
