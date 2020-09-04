@@ -63,7 +63,7 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
             />
 
             <ExternalCallout
-              link="https://youtu.be/f9yYES3WxZE"
+              link="https://youtu.be/A7m2UgJHkvw"
               calloutID="tim_update_006"
               imageSource={timUpdate006}
               aspectRatio={1.178}
