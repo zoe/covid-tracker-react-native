@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import { Item, Label, Text } from 'native-base';
 import moment, { Moment } from 'moment';
 import { StyleSheet, View } from 'react-native';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
@@ -18,6 +20,7 @@ export interface CovidTestDateData {
   dateTakenBetweenStart: Date | undefined;
   dateTakenBetweenEnd: Date | undefined;
   dateTakenSpecific: Date | undefined;
+  dateTestTime: Date | undefined;
 }
 
 interface Props {
@@ -38,6 +41,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
   const [state, setState] = useState({
     showDatePicker: false,
     showRangePicker: false,
+    showTimePicker: false,
   });
 
   function convertToDate(selectedDate: Moment) {
@@ -65,6 +69,11 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       formikProps.values.dateTakenBetweenStart = convertToDate(selectedDate);
       formikProps.values.dateTakenBetweenEnd = undefined;
     }
+  }
+
+  function handleSetTime(date: Date): void {
+    formikProps.values.dateTestTime = date;
+    setState({ ...state, showTimePicker: false });
   }
 
   return (
@@ -147,6 +156,26 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
           </Item>
         </View>
       )}
+      <View>
+        <Item stackedLabel>
+          <Label style={styles.labelStyle}>{i18n.t('covid-test.question-time-test-taken')}</Label>
+          <ClickableText onPress={() => setState({ ...state, showTimePicker: true })} style={styles.fieldText}>
+            {formikProps.values.dateTestTime ? (
+              moment(formikProps.values.dateTestTime).format('HH:mm')
+            ) : (
+              <Text>Select time</Text>
+            )}
+          </ClickableText>
+        </Item>
+        {state.showTimePicker ? (
+          <DateTimePickerModal
+            isVisible={state.showTimePicker}
+            mode="time"
+            onConfirm={handleSetTime}
+            onCancel={() => setState({ ...state, showTimePicker: false })}
+          />
+        ) : null}
+      </View>
     </FieldWrapper>
   );
 };
