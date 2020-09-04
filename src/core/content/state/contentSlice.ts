@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction, PrepareAction, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { container } from '@covid/provider/services';
 import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
-import { PersonalisedLocalData } from '@covid/core/AsyncStorageService';
+import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 
 // State interface
@@ -24,6 +24,8 @@ export type ContentState = {
   ukDaily?: string;
 
   todayDate: string;
+
+  dismissedCallouts: string[];
 };
 
 // Default state
@@ -34,9 +36,20 @@ const initialState: ContentState = {
   infoApiState: 'ready',
   ukMetricsApiState: 'ready',
   todayDate: todaysDate(),
+  dismissedCallouts: [],
 };
 
 // Async Actions
+
+export const fetchDismissedCallouts = createAsyncThunk(
+  'content/dismissed_callouts',
+  async (): Promise<Partial<ContentState>> => {
+    const arrayString = await AsyncStorageService.getItem<string>(DISMISSED_CALLOUTS);
+    return {
+      dismissedCallouts: arrayString ? (JSON.parse(arrayString) as string[]) : [],
+    };
+  }
+);
 
 export const fetchStartUpInfo = createAsyncThunk(
   'content/startup_info',
@@ -60,17 +73,23 @@ export const fetchUKMetrics = createAsyncThunk(
   }
 );
 
-export const updateTodayDate = createAction('context/update_today_date');
+export const updateTodayDate = createAction('content/update_today_date');
+export const addDismissCallout = createAction<string>('content/dismissed_callout');
 
 // Slice (Store, Reducer, Actions etc...)
 
 export const contentSlice = createSlice({
   name: 'content',
   initialState,
-  reducers: {
-    [updateTodayDate.type]: (current) => void (current.todayDate = todaysDate()),
-  },
+  reducers: {},
   extraReducers: {
+    [updateTodayDate.type]: (current) => void (current.todayDate = todaysDate()),
+    [addDismissCallout.type]: (current, action: PayloadAction<string>) => {
+      if (!current.dismissedCallouts.includes(action.payload)) {
+        current.dismissedCallouts = [...current.dismissedCallouts, action.payload];
+        AsyncStorageService.setItem(JSON.stringify(current.dismissedCallouts), DISMISSED_CALLOUTS);
+      }
+    },
     // StartUpInfo reducers
     [fetchStartUpInfo.pending.type]: (current) => void (current.infoApiState = 'loading'),
     [fetchStartUpInfo.rejected.type]: (current) => void (current.infoApiState = 'error'),
@@ -79,6 +98,11 @@ export const contentSlice = createSlice({
       const { startupInfo, personalizedLocalData } = action.payload;
       current.startupInfo = startupInfo;
       current.personalizedLocalData = personalizedLocalData;
+    },
+
+    // DismissedCallouts reducer
+    [fetchDismissedCallouts.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.dismissedCallouts = action.payload.dismissedCallouts ?? [];
     },
 
     // UK Predictive Metrics reducers
