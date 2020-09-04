@@ -58,7 +58,7 @@ export class AppCoordinator {
   navigation: NavigationType;
   patientData: PatientData;
 
-  homeScreenName: ScreenName = 'Dashboard';
+  homeScreenName: ScreenName = 'WelcomeRepeat';
 
   shouldShowCountryPicker: boolean = false;
 

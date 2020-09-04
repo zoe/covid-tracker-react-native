@@ -13,11 +13,11 @@ import { Button } from '@covid/components/Buttons/Button';
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'SchoolNetworkSuccess'>;
-  route: RouteProp<ScreenParamList, 'SchoolNetworkSuccess'>;
+  navigation: StackNavigationProp<ScreenParamList, 'SchoolSuccess'>;
+  route: RouteProp<ScreenParamList, 'SchoolSuccess'>;
 };
 
-export const SchoolNetworkSuccessScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
+export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const schoolName = 'Queen Elizabeth High School';
   const groupName = 'Class 2A';
   const referenceCode = '84yHF';

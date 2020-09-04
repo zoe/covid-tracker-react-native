@@ -14,11 +14,13 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { Button } from '@covid/components/Buttons/Button';
 import DropdownField from '@covid/components/DropdownField';
-import i18n from '@covid/locale/i18n';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolNetwork'>;
-  route: RouteProp<ScreenParamList, 'JoinSchoolNetwork'>;
+  navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
+  route: RouteProp<ScreenParamList, 'JoinSchool'>;
 };
 
 type JoinSchoolData = {
@@ -30,30 +32,28 @@ enum InputMode {
   dropdown,
 }
 
-export const JoinSchoolNetworkScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
+export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const inputMode: InputMode = InputMode.dropdown;
-
-  const next = () => {
-    schoolNetworkCoordinator.gotoNextScreen(route.name);
-  };
-
+  const service = useInjection<ISchoolService>(Services.SchoolService);
   const [schoolList, setSchoolList] = useState<PickerItemProps[]>([]);
 
   useEffect(() => {
-    schoolNetworkCoordinator.getSchoolsList().then((schools) => {
-      const pickerItems = schools.map<PickerItemProps>((s) => {
-        return {
-          label: s.name,
-          value: s.id,
-        };
-      });
+    (async () => {
+      const schools = await service.getSchools();
+      const pickerItems = schools.map<PickerItemProps>((s) => ({
+        label: s.name,
+        value: s.id,
+      }));
       setSchoolList(pickerItems);
-    });
+    })();
   }, []);
 
-  const setSchoolData = (schoolData: JoinSchoolData) => {
-    schoolNetworkCoordinator.setSchool(schoolData.schoolId);
+  const onSubmit = (schoolData: JoinSchoolData) => {
+    schoolNetworkCoordinator.selectedSchoolId = schoolData.schoolId;
+    next();
   };
+
+  const next = () => schoolNetworkCoordinator.gotoNextScreen(route.name);
 
   return (
     <Screen>
@@ -75,40 +75,35 @@ export const JoinSchoolNetworkScreen: React.FC<Props> = ({ route, navigation, ..
             schoolId: '',
           } as JoinSchoolData
         }
-        onSubmit={(values: JoinSchoolData) => {
-          return setSchoolData(values);
-        }}>
-        {(formikProps) => {
-          return (
-            <Form style={styles.formContainer}>
-              <View>
-                <View style={{ height: 16 }} />
-                {inputMode === InputMode.input && (
-                  <GenericTextField
-                    formikProps={formikProps}
-                    placeholder="Search for your child's school"
-                    label="Name of school"
-                    name="schoolName"
-                    showError
-                  />
-                )}
-
-                {inputMode === InputMode.dropdown && (
-                  <DropdownField
-                    selectedValue={formikProps.values.schoolId}
-                    onValueChange={formikProps.handleChange('schoolId')}
-                    label="Select school from below"
-                    items={schoolList}
-                    error={formikProps.touched.schoolId && formikProps.errors.schoolId}
-                  />
-                )}
-              </View>
-              <Button onPress={next} branded>
-                Next
-              </Button>
-            </Form>
-          );
-        }}
+        onSubmit={onSubmit}>
+        {(formikProps) => (
+          <Form style={styles.formContainer}>
+            <View>
+              <View style={{ height: 16 }} />
+              {inputMode === InputMode.input && (
+                <GenericTextField
+                  formikProps={formikProps}
+                  placeholder="Search for your child's school"
+                  label="Name of school"
+                  name="schoolName"
+                  showError
+                />
+              )}
+              {inputMode === InputMode.dropdown && (
+                <DropdownField
+                  selectedValue={formikProps.values.schoolId}
+                  onValueChange={formikProps.handleChange('schoolId')}
+                  label="Select school from below"
+                  items={schoolList}
+                  error={formikProps.touched.schoolId && formikProps.errors.schoolId}
+                />
+              )}
+            </View>
+            <Button onPress={formikProps.handleSubmit} branded>
+              Next
+            </Button>
+          </Form>
+        )}
       </Formik>
     </Screen>
   );

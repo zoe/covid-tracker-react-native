@@ -15,8 +15,8 @@ import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetwo
 import { Button } from '@covid/components/Buttons/Button';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'SelectSchoolNetwork'>;
-  route: RouteProp<ScreenParamList, 'SelectSchoolNetwork'>;
+  navigation: StackNavigationProp<ScreenParamList, 'SelectSchool'>;
+  route: RouteProp<ScreenParamList, 'SelectSchool'>;
 };
 
 enum InputMode {
@@ -25,7 +25,7 @@ enum InputMode {
 }
 
 const inputMode: InputMode = InputMode.dropdown;
-export const SelectSchoolNetworkScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
+export const SelectSchoolScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const next = () => {
     schoolNetworkCoordinator.gotoNextScreen(route.name);
   };

@@ -4,34 +4,27 @@ import { StyleSheet, View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { CaptionText, Header0Text, Header3Text, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-
-export type School = {
-  id: string;
-  name: string;
-  cases: number | null;
-  groups: SchoolGroup[];
-};
-
-export type SchoolGroup = {
-  id: string;
-  name: string;
-  cases: number | null;
-};
+import { SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
 type Props = {
-  networks: School[];
+  networks: SubscribedSchoolStats[];
 };
 
 export const SchoolNetworks: React.FC<Props> = (props) => {
   const { networks } = props;
 
-  const casesView = (name: string, cases: number | null) => {
+  const casesView = (name: string, cases: number | null | undefined) => {
     return (
       <View style={styles.groupView}>
         <RegularText>{name}</RegularText>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {cases !== null && (
-            <View style={[styles.circle, { backgroundColor: cases > 0 ? colors.feedbackBad : colors.feedbackGood }]} />
+            <View
+              style={[
+                styles.circle,
+                { backgroundColor: cases && cases > 0 ? colors.feedbackBad : colors.feedbackGood },
+              ]}
+            />
           )}
           <CaptionText>
             {cases === null

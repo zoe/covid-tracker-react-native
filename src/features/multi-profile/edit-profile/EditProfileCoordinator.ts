@@ -80,7 +80,7 @@ export class EditProfileCoordinator extends Coordinator {
   }
 
   goToSchoolNetwork() {
-    schoolNetworkCoordinator.startSchoolNetworkFlow();
+    schoolNetworkCoordinator.startFlow(this.patientData);
   }
 
   shouldShowEditProfile() {

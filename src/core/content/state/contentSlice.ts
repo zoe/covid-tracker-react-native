@@ -7,8 +7,6 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
-import { SchoolNetworkData } from '@covid/core/content/state/school-network.interfaces';
-import { SchoolNetworks } from '@covid/core/content/__mocks__/school-networks';
 
 // State interface
 
@@ -26,8 +24,6 @@ export type ContentState = {
   ukDaily?: string;
 
   todayDate: string;
-
-  joinedSchoolNetworks?: SchoolNetworkData[];
 
   dismissedCallouts: string[];
 };
@@ -77,7 +73,7 @@ export const fetchUKMetrics = createAsyncThunk(
   }
 );
 
-export const updateTodayDate = createAction('content/update_today_date');
+export const updateTodayDate = createAction('context/update_today_date');
 export const addDismissCallout = createAction<string>('content/dismissed_callout');
 
 // Slice (Store, Reducer, Actions etc...)

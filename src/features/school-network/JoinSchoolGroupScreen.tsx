@@ -14,10 +14,13 @@ import { Button } from '@covid/components/Buttons/Button';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'JoinNetworkGroup'>;
-  route: RouteProp<ScreenParamList, 'JoinNetworkGroup'>;
+  navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
+  route: RouteProp<ScreenParamList, 'JoinSchoolGroup'>;
 };
 
 enum InputMode {
@@ -29,36 +32,35 @@ type JoinGroupData = {
   groupId: string;
 };
 
-export const JoinNetworkGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
+export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const inputMode: InputMode = InputMode.dropdown;
   const enableCreateGroup: boolean = false;
+
+  const service = useInjection<ISchoolService>(Services.SchoolService);
+  const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const groups = await service.searchSchoolGroups(schoolNetworkCoordinator.selectedSchoolId ?? '');
+      const pickerItems = groups.map<PickerItemProps>((g) => ({
+        label: g.name,
+        value: g.id,
+      }));
+      setGroupList(pickerItems);
+    })();
+  }, []);
 
   const create = () => {
     schoolNetworkCoordinator.goToCreateSchoolGroup();
   };
 
   const next = () => {
-    schoolNetworkCoordinator.goToSchoolNetworkSuccess();
+    schoolNetworkCoordinator.goToSchoolSuccess();
   };
 
-  const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
-
-  const schoolId = '123'; //TODO Get from previous screen
-
-  useEffect(() => {
-    schoolNetworkCoordinator.getGroupsList(schoolId).then((schools) => {
-      const pickerItems = schools.map<PickerItemProps>((g) => {
-        return {
-          label: g.name,
-          value: g.id,
-        };
-      });
-      setGroupList(pickerItems);
-    });
-  }, []);
-
-  const setGroupData = (schoolData: JoinGroupData) => {
-    schoolNetworkCoordinator.setGroup(schoolData.groupId);
+  const onSubmit = async (schoolData: JoinGroupData) => {
+    await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
+    next();
   };
 
   return (
@@ -81,9 +83,7 @@ export const JoinNetworkGroupScreen: React.FC<Props> = ({ route, navigation, ...
             groupId: '',
           } as JoinGroupData
         }
-        onSubmit={(values: JoinGroupData) => {
-          return setGroupData(values);
-        }}>
+        onSubmit={onSubmit}>
         {(formikProps) => {
           return (
             <Form style={styles.formContainer}>
@@ -107,12 +107,14 @@ export const JoinNetworkGroupScreen: React.FC<Props> = ({ route, navigation, ...
                     error={formikProps.touched.groupId && formikProps.errors.groupId}
                   />
                 )}
-                <Button onPress={create} outline>
-                  Create a new group
-                </Button>
+                {enableCreateGroup && (
+                  <Button onPress={create} outline>
+                    Create a new group
+                  </Button>
+                )}
               </View>
 
-              <Button onPress={next} branded>
+              <Button onPress={formikProps.handleSubmit} branded>
                 Next
               </Button>
             </Form>

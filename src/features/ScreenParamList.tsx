@@ -95,9 +95,9 @@ export type ScreenParamList = {
   // School network
   SchoolIntro: undefined;
   SchoolHowTo: undefined;
-  SelectSchoolNetwork: undefined;
-  JoinSchoolNetwork: undefined;
-  JoinNetworkGroup: undefined;
+  SelectSchool: undefined;
+  JoinSchool: undefined;
+  JoinSchoolGroup: undefined;
   CreateNetworkGroup: undefined;
-  SchoolNetworkSuccess: undefined;
+  SchoolSuccess: undefined;
 };

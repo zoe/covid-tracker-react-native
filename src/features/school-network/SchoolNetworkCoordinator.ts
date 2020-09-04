@@ -8,11 +8,13 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { School, SchoolGroup } from '@covid/components/Cards/SchoolNetworks';
 
 export class SchoolNetworkCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
   patientData: PatientData;
+
+  // Form state
+  selectedSchoolId?: string;
 
   @lazyInject(Services.User)
   private readonly userService: IUserService;
@@ -30,19 +32,19 @@ export class SchoolNetworkCoordinator extends Coordinator {
     SchoolHowTo: () => {
       NavigatorService.navigate('SelectProfile');
     },
-    SelectSchoolNetwork: () => {
-      this.goToJoinSchoolNetwork();
+    SelectSchool: () => {
+      this.goToJoinSchool();
     },
-    JoinSchoolNetwork: () => {
-      this.goToJoinNetworkGroup();
+    JoinSchool: () => {
+      this.goToJoinSchoolGroup();
     },
-    JoinNetworkGroup: () => {
+    JoinSchoolGroup: () => {
       NavigatorService.navigate('NHSDetails', { editing: true });
     },
     CreateNetworkGroup: () => {
-      this.goToSchoolNetworkSuccess();
+      this.goToSchoolSuccess();
     },
-    SchoolNetworkSuccess: () => {},
+    SchoolSuccess: () => {},
   };
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData) => {
@@ -50,8 +52,9 @@ export class SchoolNetworkCoordinator extends Coordinator {
     this.patientData = patientData;
   };
 
-  startFlow() {
-    this.goToSchoolIntro();
+  startFlow(patientData: PatientData) {
+    this.patientData = patientData;
+    this.goToJoinSchool();
   }
 
   goToSchoolIntro() {
@@ -62,49 +65,24 @@ export class SchoolNetworkCoordinator extends Coordinator {
     NavigatorService.navigate('SchoolHowTo');
   }
 
-  startSchoolNetworkFlow() {
-    this.goToJoinSchoolNetwork();
-  }
-
   goToSelectSchool() {
-    NavigatorService.navigate('SelectSchoolNetwork');
+    NavigatorService.navigate('SelectSchool');
   }
 
-  goToJoinSchoolNetwork() {
-    NavigatorService.navigate('JoinSchoolNetwork');
+  goToJoinSchool() {
+    NavigatorService.navigate('JoinSchool');
   }
 
-  goToJoinNetworkGroup() {
-    NavigatorService.navigate('JoinNetworkGroup');
+  goToJoinSchoolGroup() {
+    NavigatorService.navigate('JoinSchoolGroup');
   }
 
   goToCreateSchoolGroup() {
     NavigatorService.navigate('CreateNetworkGroup');
   }
 
-  goToSchoolNetworkSuccess() {
-    NavigatorService.navigate('SchoolNetworkSuccess');
-  }
-
-  getSchoolsList(): Promise<School[]> {
-    //TODO
-    return Promise.resolve([{ id: '123', name: 'Hogwarts' } as School]);
-  }
-
-  getGroupsList(groupId: string): Promise<SchoolGroup[]> {
-    //TODO
-    return Promise.resolve([
-      { id: '123', name: 'Gryffindor' } as SchoolGroup,
-      { id: '123', name: 'Slytherin' } as SchoolGroup,
-    ]);
-  }
-
-  setSchool(schoolId: string) {
-    //TODO
-  }
-
-  setGroup(groupId: string) {
-    //TODO
+  goToSchoolSuccess() {
+    NavigatorService.navigate('SchoolSuccess');
   }
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest> {

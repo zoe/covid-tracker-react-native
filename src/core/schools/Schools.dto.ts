@@ -1,0 +1,39 @@
+//
+// DTO / Responses
+//
+export interface SchoolGroupModel {
+  id: string;
+  name: string;
+}
+
+export interface SchoolModel {
+  id: string;
+  name: string;
+}
+
+// Subscribed school stats
+
+export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
+  status: string;
+  cases?: number | null;
+}
+
+export interface SubscribedSchoolStats extends SchoolModel {
+  cases: number;
+  groups: SubscribedSchoolGroupStats[];
+}
+
+// School Join / Leave request
+
+export interface SchoolGroupSubscriptionDTO {
+  patient_id: string;
+}
+
+// School network subscriptions Responses
+
+export type SchoolGroupSubscriptionModel = {
+  patient_id: string;
+  group: SchoolGroupModel;
+};
+
+export type SchoolGroupSubscriptionResponse = SchoolGroupSubscriptionModel[];

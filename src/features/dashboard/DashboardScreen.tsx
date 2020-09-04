@@ -19,12 +19,11 @@ import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
-import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
-import { SchoolNetworkData } from '@covid/core/content/state/school-network.interfaces';
-
-import schoolNetworkCoordinator from '../school-network/SchoolNetworkCoordinator';
+import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { SchoolGroupSubscriptionResponse } from '@covid/core/schools/Schools.dto';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -74,7 +73,9 @@ const networks = [
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<SchoolNetworkData[]>>((state) => state.content.joinedSchoolNetworks);
+  const networks = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
+    (state) => state.school.joinedSchoolNetworks
+  );
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -94,12 +95,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     share(shareMessage);
   };
 
-  const schoolNetworkFlow = () => {
-    schoolNetworkCoordinator.startFlow();
-  };
+  const schoolNetworkFlow = () => schoolNetworkCoordinator.goToSchoolIntro();
 
   useEffect(() => {
-    return navigation.addListener('focus', () => dispatch(updateTodayDate()));
+    return navigation.addListener('focus', () => {
+      dispatch(updateTodayDate());
+      dispatch(fetchSubscribedSchoolGroups());
+    });
   }, [navigation]);
 
   return (
@@ -108,14 +110,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      {networks && (
+      {/* {networks && (
         <View
           style={{
             marginHorizontal: 32,
           }}>
           <SchoolNetworks networks={networks!} />
         </View>
-      )}
+      )} */}
 
       <View style={styles.calloutContainer}>
         <ExternalCallout

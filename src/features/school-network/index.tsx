@@ -1,13 +1,17 @@
-import { SelectSchoolNetworkScreen } from '@covid/features/school-network/SelectSchoolNetworkScreen';
-import { JoinSchoolNetworkScreen } from '@covid/features/school-network/JoinSchoolNetworkScreen';
-import { JoinNetworkGroupScreen } from '@covid/features/school-network/JoinNetworkGroupScreen';
+import { SelectSchoolScreen } from '@covid/features/school-network/SelectSchoolScreen';
+import { JoinSchoolScreen } from '@covid/features/school-network/JoinSchoolScreen';
+import { JoinSchoolGroupScreen } from '@covid/features/school-network/JoinSchoolGroupScreen';
 import { CreateNetworkGroupScreen } from '@covid/features/school-network/CreateNetworkGroupScreen';
-import { SchoolNetworkSuccessScreen } from '@covid/features/school-network/SchoolNetworkSuccessScreen';
+import { SchoolSuccessScreen } from '@covid/features/school-network/SchoolSuccessScreen';
+import { SchoolIntroScreen } from '@covid/features/school-network/SchoolIntroScreen';
+import { SchoolHowToScreen } from '@covid/features/school-network/SchoolHowToScreen';
 
 export {
-  SelectSchoolNetworkScreen,
-  JoinSchoolNetworkScreen,
-  JoinNetworkGroupScreen,
+  SchoolIntroScreen,
+  SchoolHowToScreen,
+  SelectSchoolScreen,
+  JoinSchoolScreen,
+  JoinSchoolGroupScreen,
   CreateNetworkGroupScreen,
-  SchoolNetworkSuccessScreen,
+  SchoolSuccessScreen,
 };
