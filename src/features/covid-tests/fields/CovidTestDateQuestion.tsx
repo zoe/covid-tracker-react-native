@@ -14,6 +14,8 @@ import { ClickableText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
+import { ActionButton } from '@covid/components';
+import DropdownIcon from '@assets/icons/DropdownIcon';
 
 export interface CovidTestDateData {
   knowsDateOfTest: string; // only for ux logic
@@ -156,25 +158,27 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
           </Item>
         </View>
       )}
-      <View>
-        <Item stackedLabel>
-          <Label style={styles.labelStyle}>{i18n.t('covid-test.question-time-test-taken')}</Label>
-          <ClickableText onPress={() => setState({ ...state, showTimePicker: true })} style={styles.fieldText}>
+      <View style={[styles.field]}>
+        <View>
+          <Label style={[styles.labelStyle, { color: colors.primary }]}>
+            {i18n.t('covid-test.question-time-test-taken')}
+          </Label>
+          <ActionButton icon={<DropdownIcon />} onPress={() => setState({ ...state, showTimePicker: true })}>
             {formikProps.values.dateTestTime ? (
-              moment(formikProps.values.dateTestTime).format('HH:mm')
+              moment(formikProps.values.dateTestTime).format('HH:mm a')
             ) : (
-              <Text>Select time</Text>
+              <Text style={{ color: colors.primary }}>Select time</Text>
             )}
-          </ClickableText>
-        </Item>
-        {state.showTimePicker ? (
-          <DateTimePickerModal
-            isVisible={state.showTimePicker}
-            mode="time"
-            onConfirm={handleSetTime}
-            onCancel={() => setState({ ...state, showTimePicker: false })}
-          />
-        ) : null}
+          </ActionButton>
+          {state.showTimePicker ? (
+            <DateTimePickerModal
+              isVisible={state.showTimePicker}
+              mode="time"
+              onConfirm={handleSetTime}
+              onCancel={() => setState({ ...state, showTimePicker: false })}
+            />
+          ) : null}
+        </View>
       </View>
     </FieldWrapper>
   );
