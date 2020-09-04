@@ -22,7 +22,7 @@ export class SchoolNetworkCoordinator extends Coordinator {
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  public screenFlow: ScreenFlow = {
+  public screenFlow: Partial<ScreenFlow> = {
     SchoolIntro: () => {
       this.goToSchoolHowTo();
     },

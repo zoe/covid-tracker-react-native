@@ -275,6 +275,11 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
+        <Stack.Screen name="SelectSchoolNetwork" component={SelectSchoolNetworkScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchoolNetwork" component={JoinSchoolNetworkScreen} options={noHeader} />
+        <Stack.Screen name="JoinNetworkGroup" component={JoinNetworkGroupScreen} options={noHeader} />
+        <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
+        <Stack.Screen name="NetworkGroupCreated" component={NetworkGroupCreatedScreen} options={noHeader} />
         <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
         <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
       </Stack.Navigator>
