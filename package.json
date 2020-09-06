@@ -20,8 +20,7 @@
     "ts-node": "ts-node",
     "mock-server": "ts-node ./mock-server/mockServer.ts --watch",
     "covstorybook": "start-storybook",
-    "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done",
-
+    "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
