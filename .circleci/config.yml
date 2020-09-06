@@ -103,7 +103,7 @@ jobs:
       - run: npm run prettier
       - run: echo "API_URL=" > .env
       - run: echo "AMPLITUDE_KEY=" >> .env
-      - run: npm test:coverage -- --ci
+      - run: npm run test:coverage -- --ci
       - coveralls/upload
 
   deploy:
