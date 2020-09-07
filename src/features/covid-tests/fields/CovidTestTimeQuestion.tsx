@@ -39,14 +39,13 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
 
   return (
     <FieldWrapper>
-      {console.log(props.formikProps.errors.dateTestTime)}
       <View style={[styles.field]}>
         <View>
           <Label style={[styles.labelStyle, { color: colors.primary }]}>
             {i18n.t('covid-test.question-time-test-taken')}
           </Label>
           <ActionButton
-            error={!!props.formikProps.errors.dateTestTime}
+            error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime}
             icon={<DropdownIcon />}
             onPress={() => setState({ ...state, showTimePicker: true })}>
             {props.formikProps.values.dateTestTime

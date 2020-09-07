@@ -97,6 +97,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   handleAction(formData: CovidTestData) {
+    console.log('submit form: ', formData);
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
