@@ -22,21 +22,10 @@ type Props = {
 };
 
 export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
-  const primaryAction = () => {};
-
-  const secondaryAction = () => {};
-
-  const bottomAction = () => {};
-
-  // @ts-ignore
   const coordinator: Coordinator = schoolNetworkCoordinator;
 
   const goNext = () => {
     coordinator.gotoNextScreen(route.name);
-  };
-
-  const openUrl = (link: string) => {
-    Linking.openURL(link);
   };
 
   const currentPatient = coordinator.patientData?.patientState;
