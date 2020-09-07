@@ -72,6 +72,8 @@ const networks = [
   },
 ];
 
+const ShowSchoolModuleFeature = false;
+
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
@@ -105,13 +107,15 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation]);
 
+  const hasNetworkData = networks && networks.length > 0;
+
   return (
     <CollapsibleHeaderScrollView
       config={headerConfig}
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      {networks && networks.length > 0 && (
+      {hasNetworkData && (
         <View
           style={{
             marginHorizontal: 32,
@@ -120,16 +124,18 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         </View>
       )}
 
-      <View style={styles.calloutContainer}>
-        <ExternalCallout
-          calloutID="schoolNetworkModule"
-          imageSource={schoolNetworkFeature}
-          aspectRatio={311 / 253}
-          screenName={route.name}
-          postClicked={schoolNetworkFlow}
-          canDismiss
-        />
-      </View>
+      {ShowSchoolModuleFeature && (
+        <View style={styles.calloutContainer}>
+          <ExternalCallout
+            calloutID="schoolNetworkModule"
+            imageSource={schoolNetworkFeature}
+            aspectRatio={311 / 253}
+            screenName={route.name}
+            postClicked={schoolNetworkFlow}
+            canDismiss
+          />
+        </View>
+      )}
 
       {isGBCountry() && <EstimatedCasesMapCard />}
 
