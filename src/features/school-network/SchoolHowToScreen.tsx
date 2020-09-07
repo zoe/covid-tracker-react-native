@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
 
 import { colors } from '@theme';
@@ -12,9 +12,9 @@ import { Coordinator } from '@covid/core/Coordinator';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Button } from '@covid/components/Buttons/Button';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
-import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolHowTo'>;

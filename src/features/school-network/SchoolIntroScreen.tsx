@@ -50,6 +50,9 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
             <View style={{ height: 16 }} />
             <RegularBoldText>{i18n.t('school-networks.intro.point-2.title')}</RegularBoldText>
             <RegularText>{i18n.t('school-networks.intro.point-2.description')}</RegularText>
+            <View style={{ height: 16 }} />
+            <RegularBoldText>{i18n.t('school-networks.intro.point-3.title')}</RegularBoldText>
+            <RegularText>{i18n.t('school-networks.intro.point-3.description')}</RegularText>
           </View>
         </View>
       </Screen>
