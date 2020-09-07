@@ -17,6 +17,8 @@ import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { share } from '@covid/components/Cards/BaseShareApp';
+import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
+import NavigatorService from '@covid/NavigatorService';
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -86,7 +88,13 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           />
         )}
 
-        {/* <MenuItem image={<EditProfilesIcon />} label={i18n.t('nav-edit-profile')} onPress={() => {}} /> */}
+        <MenuItem
+          image={<EditProfilesIcon />}
+          label={i18n.t('nav-edit-profile')}
+          onPress={() => {
+            NavigatorService.navigate('SelectProfile');
+          }}
+        />
 
         {showVaccineRegistry && (
           <MenuItem
