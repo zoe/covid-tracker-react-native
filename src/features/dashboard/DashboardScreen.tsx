@@ -24,6 +24,7 @@ import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { SchoolGroupSubscriptionResponse } from '@covid/core/schools/Schools.dto';
+import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -110,14 +111,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      {/* {networks && (
+      {networks && networks.length > 0 && (
         <View
           style={{
             marginHorizontal: 32,
           }}>
           <SchoolNetworks networks={networks!} />
         </View>
-      )} */}
+      )}
 
       <View style={styles.calloutContainer}>
         <ExternalCallout
