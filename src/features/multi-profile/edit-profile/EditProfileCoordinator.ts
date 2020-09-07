@@ -1,6 +1,6 @@
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { Coordinator, ScreenFlow } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow, UpdatePatient } from '@covid/core/Coordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
@@ -10,7 +10,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
-export class EditProfileCoordinator extends Coordinator {
+export class EditProfileCoordinator extends Coordinator implements UpdatePatient{
   appCoordinator: AppCoordinator;
   userService: IUserService;
   patientData: PatientData;

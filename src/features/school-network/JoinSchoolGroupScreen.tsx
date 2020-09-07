@@ -60,7 +60,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   const next = () => {
-    schoolNetworkCoordinator.goToSchoolSuccess();
+    schoolNetworkCoordinator.gotoNextScreen(route.name);
   };
 
   const onSubmit = async (schoolData: JoinGroupData) => {

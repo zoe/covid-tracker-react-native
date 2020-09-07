@@ -19,7 +19,7 @@ import patientCoordinator from '@covid/core/patient/PatientCoordinator';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { Coordinator } from '@covid/core/Coordinator';
+import { Coordinator, UpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -236,7 +236,9 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  private coordinator: Coordinator = this.props.route.params.editing ? editProfileCoordinator : patientCoordinator;
+  private coordinator: Coordinator & UpdatePatient = this.props.route.params.editing
+    ? editProfileCoordinator
+    : patientCoordinator;
 
   registerSchema = Yup.object().shape({
     clinicalStudyNames: Yup.string(),
