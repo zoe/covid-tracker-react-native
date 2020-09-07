@@ -19,6 +19,7 @@ import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { useAppDispatch } from '@covid/core/state/store';
 import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
+import i18n from '@covid/locale/i18n';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
@@ -96,8 +97,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                 {inputMode === InputMode.input && (
                   <GenericTextField
                     formikProps={formikProps}
-                    placeholder="Find a class or bubble"
-                    label="Join existing groups"
+                    placeholder={i18n.t('school-networks.join-group.input.placeholder')}
+                    label={i18n.t('school-networks.join-group.input.label')}
                     name="groupName"
                     showError
                   />
@@ -107,20 +108,20 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                   <DropdownField
                     selectedValue={formikProps.values.groupId}
                     onValueChange={formikProps.handleChange('groupId')}
-                    label="Select group from below"
+                    label={i18n.t('school-networks.join-group.dropdown.label')}
                     items={groupList}
                     error={formikProps.touched.groupId && formikProps.errors.groupId}
                   />
                 )}
                 {enableCreateGroup && (
                   <Button onPress={create} outline>
-                    Create a new group
+                    {i18n.t('school-networks.join-group.cta')}
                   </Button>
                 )}
               </View>
 
               <Button onPress={formikProps.handleSubmit} branded>
-                Next
+                {i18n.t('school-networks.join-group.next')}
               </Button>
             </Form>
           );

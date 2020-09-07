@@ -1389,6 +1389,76 @@
     "whole-school": "Whole school",
     "awaiting-members": "Awaiting more members",
     "no-cases": "No confirmed cases",
-    "confirmed-cases": "confirmed cases"
+    "confirmed-cases": "confirmed cases",
+
+    "intro": {
+      "title": "You can now connect your children to their school network",
+      "point-1": {
+        "title": "Why connect to a school network?",
+        "description": "Lorem ipsum\rSafety"
+      },
+      "point-2": {
+        "title": "How it works",
+        "description": "Lorem ipsum\rSafety"
+      },
+      "cta": "Connect to school network",
+      "skip": "Skip"
+    },
+
+    "how-to": {
+      "title": "How to connect to a school network",
+      "point-1": {
+        "title": "Existing profiles",
+        "description": "If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard under “My Networks”"
+      },
+      "point-2": {
+        "title": "New profiles",
+        "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
+      },
+      "cta": "View profiles now",
+      "skip": "Skip"
+    },
+
+    "join-school": {
+      "title": "Join a school network",
+      "description": "Link this account to a school anonymously lorem upsum dolor consectume dolor. More information about",
+      "description-link": "school networks.",
+
+      "search": {
+        "label": "Name of school",
+        "placeholder": "Search for your child's school"
+      },
+
+      "cta": "next"
+    },
+
+    "join-group": {
+      "title": "Join a group in this network",
+      "description": "Join a class or bubble at “Queen Elizabeth High School”. If you don’t see your child’s class or bubble, you can create a new group.",
+
+      "dropdown": {
+        "label": "Select group from below"
+      },
+
+      "input": {
+        "label": "Join existing groups",
+        "placeholder": "Find a class or bubble"
+      },
+
+      "cta": "Create a new group",
+      "next": "next"
+    },
+
+    "success": {
+      "joined-title": "Great! Your are in",
+      "joined-description": "Invite others and let them know about this group. You will need at least 5 participants in this group before we can start generating statistics and showing symptoms and cases.",
+      "created-title": "Great! Your group has been created",
+      "school-name": "School name",
+      "group-name": "Group name",
+      "ref-code-is": "Your groups reference code is:",
+      "copy-code": "Copy reference",
+      "share": "Share this link",
+      "cta": "Done"
+    }
   }
 }

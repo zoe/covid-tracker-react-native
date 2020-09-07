@@ -10,6 +10,7 @@ export * from './BrandedButton';
 interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
+  passProps?: any;
 }
 
 export const Header0Text = ({ style, children }: Props) => <Text style={[styles.header0Text, style]}>{children}</Text>;
@@ -22,7 +23,11 @@ export const HeaderLightText = ({ style, children }: Props) => (
 
 export const Header3Text = ({ style, children }: Props) => <Text style={[styles.header3Text, style]}>{children}</Text>;
 
-export const RegularText = ({ style, children }: Props) => <Text style={[styles.regularText, style]}>{children}</Text>;
+export const RegularText = ({ style, children, passProps }: Props) => (
+  <Text style={[styles.regularText, style]} {...passProps}>
+    {children}
+  </Text>
+);
 
 export const FieldLabel = ({ style, children }: Props) => (
   <Text style={[styles.regularText, styles.fieldLabel, style]}>{children}</Text>

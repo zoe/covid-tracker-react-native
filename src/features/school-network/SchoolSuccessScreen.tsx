@@ -15,6 +15,7 @@ import { Optional } from '@covid/utils/types';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { useAppDispatch } from '@covid/core/state/store';
 import { finishedSchoolGroup } from '@covid/core/schools/Schools.slice';
+import i18n from '@covid/locale/i18n';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
@@ -43,17 +44,16 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
   return (
     <Screen>
       <Header>
-        {joinedGroup && <HeaderText>Great! Your are in</HeaderText>}
+        {joinedGroup && <HeaderText>{i18n.t('school-networks.join-school.success.joined-title')}</HeaderText>}
         {/* { createdSchool && <HeaderText>Great! Your group has been created</HeaderText> } */}
 
-        <RegularText style={styles.topText}>School name</RegularText>
+        <RegularText style={styles.topText}>{i18n.t('school-networks.join-school.success.school-name')}</RegularText>
         <RegularBoldText>{group?.school?.name}</RegularBoldText>
-        <RegularText style={styles.topText}>Group name</RegularText>
+        <RegularText style={styles.topText}>{i18n.t('school-networks.join-school.success.group-name')}</RegularText>
         <RegularBoldText>{group?.name}</RegularBoldText>
 
         <RegularText style={styles.description}>
-          Invite others and let them know about this group. You will need at least 5 participants in this group before
-          we can start generating statistics and showing symptoms and cases.
+          {i18n.t('school-networks.join-school.success.joined-description')}
         </RegularText>
       </Header>
 
@@ -65,7 +65,9 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
         {showReferenceCode && (
           <>
             <View style={{ alignSelf: 'center' }}>
-              <RegularText style={[styles.description, styles.centerText]}>Your groups reference code is:</RegularText>
+              <RegularText style={[styles.description, styles.centerText]}>
+                {i18n.t('school-networks.join-school.success.ref-code-is')}
+              </RegularText>
               <RegularText style={[styles.description, styles.centerText, styles.referenceCode]}>CODE</RegularText>
             </View>
             <Button
@@ -73,17 +75,17 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
               labelStyle={{
                 color: colors.purple,
               }}>
-              Copy reference
+              {i18n.t('school-networks.join-school.success.copy')}
             </Button>
           </>
         )}
         <View>
           <View style={{ height: 48 }} />
           <Button onPress={next} outline>
-            Share this link
+            {i18n.t('school-networks.join-school.success.share')}
           </Button>
           <Button onPress={next} branded>
-            Done
+            {i18n.t('school-networks.join-school.success.cta')}
           </Button>
         </View>
       </View>

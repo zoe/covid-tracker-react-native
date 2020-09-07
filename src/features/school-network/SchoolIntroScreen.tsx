@@ -10,6 +10,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
 import { Coordinator } from '@covid/core/Coordinator';
 import { Button } from '@covid/components/Buttons/Button';
+import i18n from '@covid/locale/i18n';
+import SchoolConnectImage from '@assets/school-network-modules/connect.svg';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
@@ -42,25 +44,27 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.container}>
       <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container}>
         <View style={styles.container}>
+          <SchoolConnectImage style={{ marginLeft: 16, marginBottom: 24 }} />
+
           <Header>
-            <HeaderText style={styles.header}>You can now connect your children to their school network</HeaderText>
+            <HeaderText style={styles.header}>{i18n.t('school-networks.intro.title')}</HeaderText>
           </Header>
 
           <View style={styles.description}>
-            <RegularBoldText>Why connect to a school network?</RegularBoldText>
-            <RegularText>{`Lorem ipsum\rSafety`}</RegularText>
+            <RegularBoldText>{i18n.t('school-networks.intro.point-1.title')}</RegularBoldText>
+            <RegularText>{i18n.t('school-networks.intro.point-1.description')}</RegularText>
             <View style={{ height: 16 }} />
-            <RegularBoldText>How it works </RegularBoldText>
-            <RegularText>{`Lorem ipsum\rSafety`}</RegularText>
+            <RegularBoldText>{i18n.t('school-networks.intro.point-2.title')}</RegularBoldText>
+            <RegularText>{i18n.t('school-networks.intro.point-2.description')}</RegularText>
           </View>
         </View>
       </Screen>
 
       <View style={styles.buttonsContainer}>
         <Button onPress={goNext} branded>
-          Connect to school network
+          {i18n.t('school-networks.intro.cta')}
         </Button>
-        <Button>Skip</Button>
+        <Button>{i18n.t('school-networks.intro.skip')}</Button>
       </View>
     </View>
   );
@@ -69,7 +73,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundFour,
+    backgroundColor: colors.white,
   },
 
   header: {

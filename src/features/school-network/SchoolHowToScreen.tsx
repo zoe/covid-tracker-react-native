@@ -11,6 +11,7 @@ import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text
 import { Coordinator } from '@covid/core/Coordinator';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Button } from '@covid/components/Buttons/Button';
+import i18n from '@covid/locale/i18n';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
@@ -44,7 +45,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
       <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container}>
         <View style={styles.container}>
           <Header>
-            <HeaderText style={styles.header}>How to connect to a school network</HeaderText>
+            <HeaderText style={styles.header}>{i18n.t('school-networks.how-to.title')}</HeaderText>
           </Header>
 
           <ProgressBlock>
@@ -52,27 +53,20 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
           </ProgressBlock>
 
           <View style={styles.description}>
-            <RegularBoldText>Existing profiles</RegularBoldText>
-            <RegularText style={styles.label}>
-              If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on
-              your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard
-              under “My Networks”
-            </RegularText>
+            <RegularBoldText>{i18n.t('school-networks.how-to.point-1.title')}</RegularBoldText>
+            <RegularText style={styles.label}>{i18n.t('school-networks.how-to.point-1.description')}</RegularText>
             <View style={{ height: 24 }} />
-            <RegularBoldText>New profiles</RegularBoldText>
-            <RegularText style={styles.label}>
-              While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you
-              want to connect to and it will appear on your dashboard once their profile is created.
-            </RegularText>
+            <RegularBoldText>{i18n.t('school-networks.how-to.point-2.title')}</RegularBoldText>
+            <RegularText style={styles.label}>{i18n.t('school-networks.how-to.point-2.description')}</RegularText>
           </View>
         </View>
       </Screen>
 
       <View style={styles.buttonsContainer}>
         <Button onPress={goNext} branded>
-          View profiles now
+          {i18n.t('school-networks.how-to.cta')}
         </Button>
-        <Button>Skip</Button>
+        <Button>{i18n.t('school-networks.how-to.skip')}</Button>
       </View>
     </View>
   );

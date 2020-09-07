@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, View } from 'react-native';
+import { PickerItemProps, StyleSheet, View, Image, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -17,6 +17,7 @@ import DropdownField from '@covid/components/DropdownField';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
+import i18n from '@covid/locale/i18n';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -58,10 +59,15 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   return (
     <Screen>
       <Header>
-        <HeaderText>Join a school network</HeaderText>
+        <HeaderText>{i18n.t('school-networks.join-school.title')}</HeaderText>
         <RegularText style={styles.topText}>
-          Link this account to a school anonymously lorem upsum dolor consectume dolor. More information about
-          <RegularText style={{ color: colors.purple }}> school networks.</RegularText>
+          {i18n.t('school-networks.join-school.description')}
+          <RegularText
+            style={{ color: colors.purple }}
+            passProps={{ onPress: schoolNetworkCoordinator.goToSchoolIntro }}>
+            {' '}
+            {i18n.t('school-networks.join-school.description-link')}
+          </RegularText>
         </RegularText>
       </Header>
 
@@ -83,8 +89,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               {inputMode === InputMode.input && (
                 <GenericTextField
                   formikProps={formikProps}
-                  placeholder="Search for your child's school"
-                  label="Name of school"
+                  placeholder={i18n.t('school-networks.join-school.search.placeholder')}
+                  label={i18n.t('school-networks.join-school.search.label')}
                   name="schoolName"
                   showError
                 />
@@ -100,7 +106,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               )}
             </View>
             <Button onPress={formikProps.handleSubmit} branded>
-              Next
+              {i18n.t('school-networks.join-school.cta')}
             </Button>
           </Form>
         )}

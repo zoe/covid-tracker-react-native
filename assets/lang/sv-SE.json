@@ -1425,6 +1425,76 @@
     "whole-school": "",
     "awaiting-members": "",
     "no-cases": "",
-    "confirmed-cases": ""
+    "confirmed-cases": "",
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "description": "",
+      "description-link": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": ""
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    }
   }
 }
