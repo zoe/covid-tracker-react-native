@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction, PrepareAction } from '@reduxjs/toolkit';
 
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
-import { SchoolGroupSubscriptionModel } from '@covid/core/schools/Schools.dto';
+import { SchoolGroupSubscriptionModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 // State interface
@@ -13,6 +13,8 @@ export type SchoolState = {
   selectedSchoolId?: string;
 
   joinedSchoolNetworks?: SchoolGroupSubscriptionModel[];
+
+  joinedGroup?: SubscribedSchoolGroupStats;
 };
 
 // Default state
@@ -22,6 +24,9 @@ const initialState: SchoolState = {};
 // Actions
 
 export const selectSchool = createAction<string>('school/select_school');
+
+export const joinedSchoolGroup = createAction<SubscribedSchoolGroupStats>('school/joined_school_group');
+export const finishedSchoolGroup = createAction('school/finished_school_group');
 
 // Actions: Async
 
@@ -45,6 +50,8 @@ export const schoolSlice = createSlice({
   reducers: {},
   extraReducers: {
     [selectSchool.type]: (current, action) => void (current.selectedSchoolId = action.payload),
+    [joinedSchoolGroup.type]: (current, action) => void (current.joinedGroup = action.payload),
+    [finishedSchoolGroup.type]: (current) => void delete current.joinedGroup,
     [fetchSubscribedSchoolGroups.fulfilled.type]: (current, action: { payload: Partial<SchoolState> }) => {
       const { joinedSchoolNetworks } = action.payload;
       if (joinedSchoolNetworks && joinedSchoolNetworks.length > 0) {

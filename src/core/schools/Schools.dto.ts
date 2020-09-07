@@ -16,6 +16,7 @@ export interface SchoolModel {
 export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
   status: string;
   cases?: number | null;
+  school?: SchoolModel;
 }
 
 export interface SubscribedSchoolStats extends SchoolModel {
@@ -27,6 +28,10 @@ export interface SubscribedSchoolStats extends SchoolModel {
 
 export interface SchoolGroupSubscriptionDTO {
   patient_id: string;
+}
+
+export interface SchoolGroupJoinedResponse {
+  group: SubscribedSchoolGroupStats;
 }
 
 // School network subscriptions Responses

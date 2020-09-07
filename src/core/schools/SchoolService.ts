@@ -7,13 +7,14 @@ import {
   SchoolGroupModel,
   SchoolGroupSubscriptionResponse,
   SchoolGroupSubscriptionDTO,
+  SchoolGroupJoinedResponse,
 } from '@covid/core/schools/Schools.dto';
 
 export interface ISchoolService {
   getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse>;
   getSchools(): Promise<SchoolModel[]>;
   searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]>;
-  joinGroup(groupId: string, patientId: string): Promise<void>;
+  joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse>;
   leaveGroup(groupId: string, patientId: string): Promise<void>;
 }
 
@@ -36,10 +37,13 @@ export class SchoolService implements ISchoolService {
     return this.apiClient.get<SchoolGroupSubscriptionResponse>('/groups/subscriptions/');
   }
 
-  async joinGroup(groupId: string, patientId: string): Promise<void> {
-    await this.apiClient.post<SchoolGroupSubscriptionDTO, null>(`/groups/${groupId}/join/`, {
-      patient_id: patientId,
-    });
+  async joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse> {
+    return await this.apiClient.post<SchoolGroupSubscriptionDTO, SchoolGroupJoinedResponse>(
+      `/groups/${groupId}/join/`,
+      {
+        patient_id: patientId,
+      }
+    );
   }
 
   async leaveGroup(groupId: string, patientId: string): Promise<void> {

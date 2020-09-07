@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { colors } from '@theme';
 import { HeaderText, RegularText, RegularBoldText } from '@covid/components/Text';
@@ -9,6 +10,11 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { Button } from '@covid/components/Buttons/Button';
+import { RootState } from '@covid/core/state/root';
+import { Optional } from '@covid/utils/types';
+import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { useAppDispatch } from '@covid/core/state/store';
+import { finishedSchoolGroup } from '@covid/core/schools/Schools.slice';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
@@ -18,25 +24,32 @@ type Props = {
 };
 
 export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
-  const schoolName = 'Queen Elizabeth High School';
-  const groupName = 'Class 2A';
-  const referenceCode = '84yHF';
+  const joinedGroup = useSelector<RootState, Optional<SubscribedSchoolGroupStats>>((state) => state.school.joinedGroup);
+  const group = joinedGroup;
+  const showReferenceCode = false;
 
-  const title = 'Great. You’re in.'; // Great! Your group has been created
+  const dispatch = useAppDispatch();
 
-  const create = () => {};
+  const create = () => {
+    finished();
+  };
   const next = () => {
     schoolNetworkCoordinator.resetToHome();
+    finished();
   };
+
+  const finished = () => dispatch(finishedSchoolGroup());
 
   return (
     <Screen>
       <Header>
-        <HeaderText>Great! Your group has been created</HeaderText>
+        {joinedGroup && <HeaderText>Great! Your are in</HeaderText>}
+        {/* { createdSchool && <HeaderText>Great! Your group has been created</HeaderText> } */}
+
         <RegularText style={styles.topText}>School name</RegularText>
-        <RegularBoldText>{schoolName}</RegularBoldText>
+        <RegularBoldText>{group?.school?.name}</RegularBoldText>
         <RegularText style={styles.topText}>Group name</RegularText>
-        <RegularBoldText>{groupName}</RegularBoldText>
+        <RegularBoldText>{group?.name}</RegularBoldText>
 
         <RegularText style={styles.description}>
           Invite others and let them know about this group. You will need at least 5 participants in this group before
@@ -49,20 +62,22 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
       </ProgressBlock>
 
       <View style={styles.formContainer}>
-        <View style={{ alignSelf: 'center' }}>
-          <RegularText style={[styles.description, styles.centerText]}>Your groups reference code is:</RegularText>
-          <RegularText style={[styles.description, styles.centerText, styles.referenceCode]}>
-            {referenceCode}
-          </RegularText>
-        </View>
+        {showReferenceCode && (
+          <>
+            <View style={{ alignSelf: 'center' }}>
+              <RegularText style={[styles.description, styles.centerText]}>Your groups reference code is:</RegularText>
+              <RegularText style={[styles.description, styles.centerText, styles.referenceCode]}>CODE</RegularText>
+            </View>
+            <Button
+              onPress={next}
+              labelStyle={{
+                color: colors.purple,
+              }}>
+              Copy reference
+            </Button>
+          </>
+        )}
         <View>
-          <Button
-            onPress={next}
-            labelStyle={{
-              color: colors.purple,
-            }}>
-            Copy reference
-          </Button>
           <View style={{ height: 48 }} />
           <Button onPress={next} outline>
             Share this link

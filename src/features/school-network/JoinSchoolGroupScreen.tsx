@@ -17,6 +17,8 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { useAppDispatch } from '@covid/core/state/store';
+import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
@@ -39,6 +41,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     (async () => {
       const groups = await service.searchSchoolGroups(schoolNetworkCoordinator.selectedSchoolId ?? '');
@@ -59,7 +63,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   const onSubmit = async (schoolData: JoinGroupData) => {
-    await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
+    const { group } = await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
+    dispatch(joinedSchoolGroup(group));
     next();
   };
 
