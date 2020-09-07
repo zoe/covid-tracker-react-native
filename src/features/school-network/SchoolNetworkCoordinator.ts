@@ -66,7 +66,8 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   }
 
   async profileSelected(profile: Profile): Promise<void> {
-    //TODO Set profile - Then navigate
+    this.patientData = await this.patientService.getPatientDataByProfile(profile);
+    NavigatorService.navigate('JoinSchool');
   }
 }
 

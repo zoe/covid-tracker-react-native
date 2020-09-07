@@ -72,7 +72,7 @@ const networks = [
   },
 ];
 
-const ShowSchoolModuleFeature = false;
+const ShowSchoolModuleFeature = true;
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();

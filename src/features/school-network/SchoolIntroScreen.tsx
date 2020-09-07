@@ -14,6 +14,7 @@ import i18n from '@covid/locale/i18n';
 import SchoolConnectImage from '@assets/school-network-modules/connect.svg';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
+import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolIntro'>;
@@ -21,13 +22,6 @@ type Props = {
 };
 
 export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
-  const primaryAction = () => {};
-
-  const secondaryAction = () => {};
-
-  const bottomAction = () => {};
-
-  // @ts-ignore
   const coordinator: Coordinator = schoolNetworkCoordinator;
 
   const goNext = () => {
@@ -64,7 +58,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
         <Button onPress={goNext} branded>
           {i18n.t('school-networks.intro.cta')}
         </Button>
-        <Button>{i18n.t('school-networks.intro.skip')}</Button>
+        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.intro.skip')}</Button>
       </View>
     </View>
   );

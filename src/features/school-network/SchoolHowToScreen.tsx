@@ -14,6 +14,7 @@ import { Button } from '@covid/components/Buttons/Button';
 import i18n from '@covid/locale/i18n';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
+import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolHowTo'>;
@@ -66,7 +67,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
         <Button onPress={goNext} branded>
           {i18n.t('school-networks.how-to.cta')}
         </Button>
-        <Button>{i18n.t('school-networks.how-to.skip')}</Button>
+        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.how-to.skip')}</Button>
       </View>
     </View>
   );
@@ -75,7 +76,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundFour,
+    backgroundColor: colors.backgroundPrimary,
   },
 
   header: {
