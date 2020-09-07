@@ -10,15 +10,20 @@ type TStyleObject = { [key: string]: string | number };
 interface IProps {
   buttonProps?: any;
   children: ReactNode;
+  error?: boolean;
   icon: ReactNode;
   onPress: () => void;
   style?: TStyleObject;
   textProps?: any;
 }
 
-function ActionButton({ buttonProps, children, icon, onPress, style = {}, textProps }: IProps) {
+function ActionButton({ buttonProps, children, error = false, icon, onPress, style = {}, textProps }: IProps) {
   const backgroundColor = colors.backgroundTertiary;
-  const btnStyle = [styles.button, style, { backgroundColor }];
+  const btnStyle = [
+    styles.button,
+    style,
+    { backgroundColor, borderColor: error ? colors.feedbackBad : 'transparent', borderWidth: 1 },
+  ];
   return (
     <Button style={btnStyle} onPress={onPress} {...buttonProps}>
       <View style={styles.row}>
@@ -42,8 +47,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   label: {
-    textAlign: 'center',
-    paddingHorizontal: 16,
+    textAlign: 'left',
     lineHeight: 20,
   },
   row: {

@@ -14,6 +14,7 @@ export type CovidTest = {
   date_taken_between_start: string;
   date_taken_between_end: string;
   days_in_fridge: number | null;
+  time_taken: string;
 };
 
 export enum CovidTestType {
