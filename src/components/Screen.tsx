@@ -58,7 +58,7 @@ export const FieldWrapper = (props: FieldWrapperType) => {
 export type ScreenProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
-  navigation?: StackNavigationProp<ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
   profile?: Profile;
   simpleCallout?: boolean;
   calloutType?: CallOutType;
