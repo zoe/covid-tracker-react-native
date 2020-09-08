@@ -314,6 +314,9 @@
     "question-select-a-date-range": "Seleccione un intervalo de fechas",
     "question-select-a-date": "Seleccione una fecha",
 
+    "question-time-test-taken": "¿A qué hora tomaste la prueba?",
+    "qusetion-time-test-taken-error": "Ingrese la hora de su cita",
+
     "question-mechanism": "¿Cómo se realizó este examen?",
     "picker-nose-swab": "Usaron un hisopo en mi nariz",
     "picker-throat-swab": "Usaron un hisopo en mi garganta",

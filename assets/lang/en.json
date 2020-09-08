@@ -356,6 +356,7 @@
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
     "question-time-test-taken": "What time did you take the test?",
+    "qusetion-time-test-taken-error": "Please enter the time of your appointment",
     "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
 
     "required-date": "Please indicate the date this test occurred",

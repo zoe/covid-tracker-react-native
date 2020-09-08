@@ -279,6 +279,9 @@
     "question-select-a-date-range": "Välj ett datumintervall",
     "question-select-a-date": "Välj ett datum",
 
+    "question-time-test-taken": "Vilken tid tog du testet?",
+    "qusetion-time-test-taken-error": "Ange tidpunkten för ditt möte",
+
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
