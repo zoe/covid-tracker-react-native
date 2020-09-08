@@ -34,6 +34,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
 
   function handleSetTime(date: Date) {
     props.formikProps.values.dateTestTime = date;
+    props.formikProps.errors.dateTestTime = undefined;
     setState({ ...state, showTimePicker: false });
   }
 

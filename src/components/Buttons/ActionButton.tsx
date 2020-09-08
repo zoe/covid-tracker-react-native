@@ -21,8 +21,8 @@ function ActionButton({ buttonProps, children, error = false, icon, onPress, sty
   const backgroundColor = colors.backgroundTertiary;
   const btnStyle = [
     styles.button,
-    style,
     { backgroundColor, borderColor: error ? colors.feedbackBad : 'transparent', borderWidth: 1 },
+    style,
   ];
   return (
     <Button style={btnStyle} onPress={onPress} {...buttonProps}>

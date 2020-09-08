@@ -25,8 +25,6 @@ import {
   CovidTestMechanismQuestion,
   CovidTestResultData,
   CovidTestResultQuestion,
-  CovidTestTimeQuestion,
-  ICovidTestTimeData,
 } from '@covid/features/covid-tests/fields/';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -36,7 +34,6 @@ import { ClearButton } from '@covid/components/Buttons/ClearButton';
 
 export interface CovidTestData
   extends CovidTestDateData,
-    ICovidTestTimeData,
     CovidTestMechanismData,
     CovidTestResultData,
     CovidTestLocationData,
@@ -97,7 +94,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   handleAction(formData: CovidTestData) {
-    console.log('submit form: ', formData);
     if (!this.state.submitting) {
       this.setState({ submitting: true });
 
@@ -120,7 +116,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         patient: AssessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(formData),
-        ...CovidTestTimeQuestion.createDTO(formData),
         ...CovidTestMechanismQuestion.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
         ...CovidTestInvitedQuestion.createDTO(formData),
@@ -165,7 +160,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
     const registerSchema = Yup.object()
       .shape({})
       .concat(CovidTestDateQuestion.schema())
-      .concat(CovidTestTimeQuestion.schema())
       .concat(CovidTestMechanismQuestion.schema())
       .concat(CovidTestResultQuestion.schema())
       .concat(CovidTestInvitedQuestion.schema())
@@ -186,7 +180,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         <Formik
           initialValues={{
             ...CovidTestDateQuestion.initialFormValues(test),
-            ...CovidTestTimeQuestion.initialFormValues(test),
             ...CovidTestMechanismQuestion.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
             ...CovidTestInvitedQuestion.initialFormValues(test),
@@ -200,7 +193,6 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
             return (
               <Form>
                 <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
-                <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
                 <CovidTestMechanismQuestion formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
                 <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
                 <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
