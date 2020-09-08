@@ -107,7 +107,16 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       {data.map((school, index) => {
         return (
           <>
-            <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
+            <Header3Text
+              style={[
+                styles.schoolTitle,
+                {
+                  fontWeight: '500',
+                  fontSize: 14,
+                },
+              ]}>
+              {school.name}
+            </Header3Text>
             {school.groups.map((group, index) => {
               return casesView(group);
             })}
@@ -152,8 +161,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   schoolTitle: {
-    paddingVertical: 16,
-    paddingTop: 8,
+    fontWeight: '500',
+    fontSize: 16,
+    textAlign: 'center',
   },
   headerText: {
     fontSize: 20,
