@@ -28,6 +28,7 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
   const joinedGroup = useSelector<RootState, Optional<SubscribedSchoolGroupStats>>((state) => state.school.joinedGroup);
   const group = joinedGroup;
   const showReferenceCode = false;
+  const showShare = false;
 
   const dispatch = useAppDispatch();
 
@@ -79,9 +80,11 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
         )}
         <View>
           <View style={{ height: 48 }} />
-          <Button onPress={next} outline>
-            {i18n.t('school-networks.success.share')}
-          </Button>
+          {showShare && (
+            <Button onPress={next} outline>
+              {i18n.t('school-networks.success.share')}
+            </Button>
+          )}
           <Button onPress={next} branded>
             {i18n.t('school-networks.success.cta')}
           </Button>
