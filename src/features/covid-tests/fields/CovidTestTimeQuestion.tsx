@@ -33,8 +33,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
   const [state, setState] = useState({ error: false, showTimePicker: false });
 
   function handleSetTime(date: Date) {
-    props.formikProps.values.dateTestTime = date;
-    props.formikProps.errors.dateTestTime = undefined;
+    props.formikProps.handleChange('dateTestTime')(date.toISOString());
     setState({ ...state, showTimePicker: false });
   }
 
@@ -57,7 +56,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
             icon={<DropdownIcon />}
             onPress={() => setState({ ...state, showTimePicker: true })}>
             {props.formikProps.values.dateTestTime
-              ? moment(props.formikProps.values.dateTestTime).format('HH:mm a')
+              ? moment(new Date(props.formikProps.values.dateTestTime)).format('h:mm a')
               : 'Select time'}
           </ActionButton>
           {state.showTimePicker ? (
@@ -92,8 +91,19 @@ const styles = StyleSheet.create({
   },
 });
 
+// test?.date_taken_specific ? moment(test.date_taken_specific).toDate() : undefined,
+
+function converHoursBackToDate(time: string) {
+  const hours = Number(time.split(':')[0]);
+  const minutes = Number(time.split(':')[1]);
+  const date = new Date();
+  date.setHours(hours);
+  date.setMinutes(minutes);
+  return date;
+}
+
 CovidTestTimeQuestion.initialFormValues = (test?: CovidTest): ICovidTestTimeData => ({
-  dateTestTime: undefined,
+  dateTestTime: test?.time_of_test ? converHoursBackToDate(test.time_of_test) : undefined,
 });
 
 CovidTestTimeQuestion.schema = () =>
@@ -103,5 +113,5 @@ CovidTestTimeQuestion.schema = () =>
 
 CovidTestTimeQuestion.createDTO = (formData: ICovidTestTimeData): Partial<CovidTest> =>
   ({
-    time_taken: '',
+    time_of_test: moment(formData.dateTestTime).format('HH:mm'),
   } as Partial<CovidTest>);
