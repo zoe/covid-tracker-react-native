@@ -10,7 +10,7 @@ type TStyleObject = { [key: string]: string | number };
 interface IProps {
   buttonProps?: any;
   children: ReactNode;
-  error?: boolean | undefined;
+  error?: boolean;
   icon: ReactNode;
   onPress: () => void;
   style?: TStyleObject;

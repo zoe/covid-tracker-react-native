@@ -37,6 +37,13 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
     setState({ ...state, showTimePicker: false });
   }
 
+  function getHasError() {
+    if (props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <FieldWrapper>
       <View style={[styles.field]}>
@@ -45,7 +52,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
             {i18n.t('covid-test.question-time-test-taken')}
           </Label>
           <ActionButton
-            error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime}
+            error={getHasError()}
             icon={<DropdownIcon />}
             onPress={() => setState({ ...state, showTimePicker: true })}>
             {props.formikProps.values.dateTestTime
@@ -89,7 +96,7 @@ CovidTestTimeQuestion.initialFormValues = (test?: CovidTest): ICovidTestTimeData
 
 CovidTestTimeQuestion.schema = () =>
   Yup.object().shape({
-    dateTestTime: Yup.date().required(),
+    dateTestTime: Yup.date().required('Please enter the time of your appointment'),
   });
 
 CovidTestTimeQuestion.createDTO = (formData: ICovidTestTimeData): Partial<CovidTest> =>
