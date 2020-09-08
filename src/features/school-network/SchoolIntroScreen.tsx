@@ -39,7 +39,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.container}>
       <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container}>
         <View style={styles.container}>
-          <SchoolConnectImage style={{ marginLeft: 16, marginBottom: 24 }} />
+          <SchoolConnectImage style={{ marginLeft: 16, marginBottom: 24, marginTop: 24 }} />
 
           <Header>
             <HeaderText style={styles.header}>{i18n.t('school-networks.intro.title')}</HeaderText>
