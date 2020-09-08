@@ -75,9 +75,13 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
         break;
       case SchoolGroupUIState.notEnoughData:
         indicator = colors.feedbackPoor;
+        break;
       case SchoolGroupUIState.inactive:
         indicator = colors.feedbackPoor;
+        break;
       case SchoolGroupUIState.Confirmed:
+        indicator = colors.feedbackBad;
+        break;
       case SchoolGroupUIState.unknown:
         indicator = colors.feedbackBad;
         break;
@@ -87,7 +91,6 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
     return [styles.circle, { backgroundColor: indicator }];
   };
 
-  // name: string, status: string, cases: number | null | undefined
   const casesView = (group: SubscribedSchoolGroupStats) => {
     const status = getStatus(group.status, group.cases);
     return (

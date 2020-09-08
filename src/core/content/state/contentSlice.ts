@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createAction, PrepareAction, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
@@ -83,7 +83,9 @@ export const contentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [updateTodayDate.type]: (current) => void (current.todayDate = todaysDate()),
+    [updateTodayDate.type]: (current) => {
+      current.todayDate = todaysDate();
+    },
     [addDismissCallout.type]: (current, action: PayloadAction<string>) => {
       if (!current.dismissedCallouts.includes(action.payload)) {
         current.dismissedCallouts = [...current.dismissedCallouts, action.payload];
@@ -91,8 +93,12 @@ export const contentSlice = createSlice({
       }
     },
     // StartUpInfo reducers
-    [fetchStartUpInfo.pending.type]: (current) => void (current.infoApiState = 'loading'),
-    [fetchStartUpInfo.rejected.type]: (current) => void (current.infoApiState = 'error'),
+    [fetchStartUpInfo.pending.type]: (current) => {
+      current.infoApiState = 'loading';
+    },
+    [fetchStartUpInfo.rejected.type]: (current) => {
+      current.infoApiState = 'error';
+    },
     [fetchStartUpInfo.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
       current.infoApiState = !action.payload ? 'error' : 'finished';
       const { startupInfo, personalizedLocalData } = action.payload;
@@ -106,8 +112,12 @@ export const contentSlice = createSlice({
     },
 
     // UK Predictive Metrics reducers
-    [fetchUKMetrics.pending.type]: (current) => void (current.ukMetricsApiState = 'loading'),
-    [fetchUKMetrics.rejected.type]: (current) => void (current.ukMetricsApiState = 'error'),
+    [fetchUKMetrics.pending.type]: (current) => {
+      current.ukMetricsApiState = 'loading';
+    },
+    [fetchUKMetrics.rejected.type]: (current) => {
+      current.ukMetricsApiState = 'error';
+    },
     [fetchUKMetrics.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
       current.ukMetricsApiState = !action.payload ? 'error' : 'finished';
       const { ukActive, ukDaily } = action.payload;

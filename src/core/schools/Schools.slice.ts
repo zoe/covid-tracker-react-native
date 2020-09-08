@@ -49,9 +49,15 @@ export const schoolSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [selectSchool.type]: (current, action) => void (current.selectedSchoolId = action.payload),
-    [joinedSchoolGroup.type]: (current, action) => void (current.joinedGroup = action.payload),
-    [finishedSchoolGroup.type]: (current) => void delete current.joinedGroup,
+    [selectSchool.type]: (current, action) => {
+      current.selectedSchoolId = action.payload;
+    },
+    [joinedSchoolGroup.type]: (current, action) => {
+      current.joinedGroup = action.payload;
+    },
+    [finishedSchoolGroup.type]: (current) => {
+      delete current.joinedGroup;
+    },
     [fetchSubscribedSchoolGroups.fulfilled.type]: (current, action: { payload: Partial<SchoolState> }) => {
       const { joinedSchoolNetworks } = action.payload;
       if (joinedSchoolNetworks && joinedSchoolNetworks.length > 0) {

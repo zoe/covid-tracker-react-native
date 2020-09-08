@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, View, Image, Alert } from 'react-native';
+import { PickerItemProps, StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';

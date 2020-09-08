@@ -12,9 +12,8 @@ import { Coordinator } from '@covid/core/Coordinator';
 import { Button } from '@covid/components/Buttons/Button';
 import i18n from '@covid/locale/i18n';
 import SchoolConnectImage from '@assets/school-network-modules/connect.svg';
-
-import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 import NavigatorService from '@covid/NavigatorService';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolIntro'>;
