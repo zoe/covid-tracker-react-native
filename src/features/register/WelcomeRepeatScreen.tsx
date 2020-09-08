@@ -71,10 +71,10 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
-    // this.setState({
-    //   calloutBoxContent: content,
-    //   userCount: cleanIntegerVal(userCount as string),
-    // });
+    this.setState({
+      calloutBoxContent: content,
+      userCount: cleanIntegerVal(userCount as string),
+    });
   }
 
   gotoNextScreen = async () => {
