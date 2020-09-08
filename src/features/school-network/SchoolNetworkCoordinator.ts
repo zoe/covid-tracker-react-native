@@ -8,13 +8,14 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
+import { SchoolModel } from '@covid/core/schools/Schools.dto';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
   appCoordinator: AppCoordinator;
   patientData: PatientData;
 
   // Form state
-  selectedSchoolId?: string;
+  selectedSchool?: SchoolModel;
 
   @lazyInject(Services.User)
   private readonly userService: IUserService;

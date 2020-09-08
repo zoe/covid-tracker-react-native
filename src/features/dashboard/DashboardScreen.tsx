@@ -82,6 +82,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         <View
           style={{
             marginHorizontal: 32,
+            marginBottom: 16,
           }}>
           <SchoolNetworks networks={networks!} />
         </View>

@@ -58,7 +58,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   useEffect(() => {
     (async () => {
       const groups: SchoolGroupModel[] = await service
-        .searchSchoolGroups(schoolNetworkCoordinator.selectedSchoolId ?? '')
+        .searchSchoolGroups(schoolNetworkCoordinator.selectedSchool?.id ?? '')
         .catch(() => {
           return [];
         });
@@ -88,11 +88,15 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
     <Screen profile={currentPatient.profile} navigation={navigation}>
       <Header>
         <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
-        <RegularText style={styles.topText}>{i18n.t('school-networks.join-group.description')}</RegularText>
+        <RegularText style={styles.topText}>
+          {i18n.t('school-networks.join-group.description', {
+            school: schoolNetworkCoordinator.selectedSchool?.name ?? '',
+          })}
+        </RegularText>
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
+        <ProgressStatus step={2} maxSteps={3} color={colors.brand} />
       </ProgressBlock>
 
       <Formik
@@ -107,6 +111,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
           return (
             <Form style={styles.formContainer}>
               <View>
+                <View style={{ height: 16 }} />
                 {inputMode === InputMode.input && (
                   <GenericTextField
                     formikProps={formikProps}

@@ -52,13 +52,17 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
         <RegularBoldText>{group?.school?.name}</RegularBoldText>
         <RegularText style={styles.topText}>{i18n.t('school-networks.success.group-name')}</RegularText>
         <RegularBoldText>{group?.name}</RegularBoldText>
-
-        <RegularText style={styles.description}>{i18n.t('school-networks.success.joined-description')}</RegularText>
       </Header>
 
-      <ProgressBlock>
-        <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
-      </ProgressBlock>
+      <View style={{ marginVertical: 8 }}>
+        <ProgressBlock>
+          <ProgressStatus step={3} maxSteps={3} color={colors.brand} />
+        </ProgressBlock>
+      </View>
+
+      <RegularText style={[styles.description, { marginHorizontal: 16, marginTop: 16 }]}>
+        {i18n.t('school-networks.success.joined-description')}
+      </RegularText>
 
       <View style={styles.formContainer}>
         {showReferenceCode && (
@@ -96,8 +100,8 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
 
 const styles = StyleSheet.create({
   formContainer: {
-    // height: '100%',
-    justifyContent: 'space-between',
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   topText: {
     marginTop: 16,

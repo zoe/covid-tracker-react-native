@@ -45,25 +45,25 @@ const ValidationSchema = () => {
 export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const inputMode: InputMode = InputMode.dropdown;
   const service = useInjection<ISchoolService>(Services.SchoolService);
-  const [schoolList, setSchoolList] = useState<PickerItemProps[]>([]);
+  const [schools, setSchools] = useState<SchoolModel[]>([]);
 
   const currentPatient = schoolNetworkCoordinator.patientData.patientState;
 
+  const getSchoolPickerItems = () => {
+    return schools.map<PickerItemProps>((s) => ({
+      label: s.name,
+      value: s.id,
+    }));
+  };
+
   useEffect(() => {
     (async () => {
-      const schools: SchoolModel[] = await service.getSchools().catch(() => {
-        return [];
-      });
-      const pickerItems = schools.map<PickerItemProps>((s) => ({
-        label: s.name,
-        value: s.id,
-      }));
-      setSchoolList(pickerItems);
+      setSchools(await service.getSchools());
     })();
   }, []);
 
   const onSubmit = (schoolData: JoinSchoolData) => {
-    schoolNetworkCoordinator.selectedSchoolId = schoolData.schoolId;
+    schoolNetworkCoordinator.selectedSchool = schools.filter((school) => (school.id = schoolData.schoolId))[0];
     next();
   };
 
@@ -85,7 +85,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={2} maxSteps={3} color={colors.brand} />
+        <ProgressStatus step={1} maxSteps={3} color={colors.brand} />
       </ProgressBlock>
 
       <Formik
@@ -113,8 +113,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
                 <DropdownField
                   selectedValue={formikProps.values.schoolId}
                   onValueChange={formikProps.handleChange('schoolId')}
-                  label="Select school from below"
-                  items={schoolList}
+                  label={i18n.t('school-networks.join-school.dropdown.label')}
+                  items={getSchoolPickerItems()}
                   error={formikProps.touched.schoolId && formikProps.errors.schoolId}
                 />
               )}

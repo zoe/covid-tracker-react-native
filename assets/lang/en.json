@@ -1426,7 +1426,7 @@
     },
 
     "join-school": {
-      "title": "School network",
+      "title": "Select your child’s school",
       "description": "Select the school you would like to link this account to. More information about",
       "description-link": "School Bubbles.",
 
@@ -1435,12 +1435,16 @@
         "placeholder": "Search for your child's school"
       },
 
+      "dropdown": {
+        "label": "Select your child’s school"
+      },
+
       "cta": "Next"
     },
 
     "join-group": {
-      "title": "Join a bubble at this school",
-      "description": "Select your child’s bubble at: ",
+      "title": "Join your child’s bubble",
+      "description": "Select your child’s bubble at %{school}",
 
       "dropdown": {
         "label": "Select bubble from below"
@@ -1456,11 +1460,11 @@
     },
 
     "success": {
-      "joined-title": "You've successfully joined the School Bubble",
-      "joined-description": "Invite other parents/guardians to let them know about this bubble. Once we have a sufficient amount of people reporting we will send you real-time cases and symptoms reported within the bubble.",
+      "joined-title": "You’ve successfully joined",
+      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\r\rPlease be aware that it could take 1 to 2 weeks before this happens.",
       "created-title": "Great! Your group has been created",
       "school-name": "School name",
-      "group-name": "Group name",
+      "group-name": "School Bubble",
       "ref-code-is": "Your groups reference code is:",
       "copy-code": "Copy reference",
       "share": "Share this link",
