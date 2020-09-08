@@ -35,7 +35,7 @@ interface Props {
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
-const ShowSchoolModuleFeature = true;
+const ShowSchoolModuleFeature = false;
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
