@@ -47,6 +47,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [schoolList, setSchoolList] = useState<PickerItemProps[]>([]);
 
+  const currentPatient = schoolNetworkCoordinator.patientData.patientState;
+
   useEffect(() => {
     (async () => {
       const schools: SchoolModel[] = await service.getSchools().catch(() => {
@@ -68,7 +70,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const next = () => schoolNetworkCoordinator.gotoNextScreen(route.name);
 
   return (
-    <Screen>
+    <Screen profile={currentPatient.profile} navigation={navigation}>
       <Header>
         <HeaderText>{i18n.t('school-networks.join-school.title')}</HeaderText>
         <RegularText style={styles.topText}>

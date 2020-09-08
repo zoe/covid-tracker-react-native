@@ -48,6 +48,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   const inputMode: InputMode = InputMode.dropdown;
   const enableCreateGroup: boolean = false;
 
+  const currentPatient = schoolNetworkCoordinator.patientData.patientState;
+
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
 
@@ -83,7 +85,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   return (
-    <Screen>
+    <Screen profile={currentPatient.profile} navigation={navigation}>
       <Header>
         <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
         <RegularText style={styles.topText}>{i18n.t('school-networks.join-group.description')}</RegularText>
