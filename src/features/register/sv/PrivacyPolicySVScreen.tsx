@@ -57,7 +57,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
           <SimpleTextBlock
             text={[
               'Vår rättsliga grund för att behandla uppgifterna är att du gav oss ditt medgivande. På grund av de stränga föreskrivande krav som gäller oss behöver vi ditt medgivande för att vi ska få behandla data som rör din hälsa. Detta i sin tur innebär att vi inte kan ge dig tillstånd att använda appen om du inte ger ditt medgivande (eller om du tar tillbaka ditt medgivande). Detta gör vi inte för att vara otrevliga, utan vi kan helt enkelt inte tillhandhålla dig tjänsten utan ditt medgivande.',
-              'Vi delar dessa data med Lunds universitet i Sverige för att genomföra forskning inom hälsa relaterat till covid-19. För att skydda din integritet kommer Lunds universitet inte att ha tillgång till din IP-adress, din e-postadress eller ditt fullständiga postnummer. Efter att vi har delat informationen med Lunds universitet sparar vi en kopia av dessa uppgifter.',
+              'Vi delar dessa data med Lunds universitet i Sverige för att genomföra forskning inom hälsa relaterat till covid-19. För att skydda studiedeltagarnas integritet kommer Lunds universitet inte att ha tillgång till deltagarnas IP-adresser eller e-postadresser. ZOE delar studiedeltagarnas fullständiga (5 siffror) postnummer med Lunds universitet. För studiedeltagare som bor i ett postnummerområde med färre än 200 invånare kommer ZOE enbart att dela de första 2 siffrorna i postnumret med Lunds universitet. Vidare får Lunds universitet endast publicera analyser av geografiska områden/postnummerområden med 200 eller fler studiedeltagare. Efter att vi har delat informationen med Lunds universitet sparar vi en kopia av alla uppgifter.',
             ]}
           />
           <RegularText>
@@ -76,7 +76,7 @@ export default class PrivacyPolicySVScreen extends Component<PropsType, object> 
 
           <SimpleTextBlock
             text={[
-              'Innan vi delar några av dina uppgifter kommer vi att ta bort din e-postadress, IP-adress och alla siffror utom de två första i ditt postnummer för att skydda din integritet. En anonym kod kommer att användas i stället.',
+              'Innan vi delar några av dina uppgifter med andra än Lunds universitet kommer vi att ta bort din e-postadress, IP-adress och alla siffror utom de två första i ditt postnummer för att skydda din integritet. En anonym kod kommer att användas i stället.',
               'Ibland när vi delar uppgifter med forskare exporteras de till länder som exempelvis USA, som har annorlunda regler gällande dataskydd och som kanske inte skyddar dina uppgifter på samma sätt som, eller lika bra som, GDPR gör. Vi har rätt att göra det, eftersom du ger oss ditt medgivande till detta. Vi avlägsnar alltid den information som beskrivs ovan för att skydda din integritet. Dock gäller fortsatt lagstiftningen kring GDPR alla uppgifter du delat med oss och vi måste därför dela alla data på ett sätt som överensstämmer med GDPR.',
             ]}
           />
