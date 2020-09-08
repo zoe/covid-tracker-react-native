@@ -43,7 +43,7 @@ const ValidationSchema = () => {
 };
 
 export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
-  let inputMode: InputMode = InputMode.dropdown;
+  const inputMode: InputMode = InputMode.dropdown;
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [schoolList, setSchoolList] = useState<PickerItemProps[]>([]);
 
