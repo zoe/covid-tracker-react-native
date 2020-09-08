@@ -20,6 +20,8 @@ type Props = {
   route: RouteProp<ScreenParamList, 'SchoolIntro'>;
 };
 
+const enableCTAs = false;
+
 export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator: Coordinator = schoolNetworkCoordinator;
 
@@ -56,12 +58,14 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
         </View>
       </Screen>
 
-      <View style={styles.buttonsContainer}>
-        <Button onPress={goNext} branded>
-          {i18n.t('school-networks.intro.cta')}
-        </Button>
-        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.intro.skip')}</Button>
-      </View>
+      {enableCTAs && (
+        <View style={styles.buttonsContainer}>
+          <Button onPress={goNext} branded>
+            {i18n.t('school-networks.intro.cta')}
+          </Button>
+          <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.intro.skip')}</Button>
+        </View>
+      )}
     </View>
   );
 };
