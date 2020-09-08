@@ -4,13 +4,12 @@ import { Card } from 'native-base';
 
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
 import { getDaysAgo } from '@covid/utils/datetime';
-import InfoCircle from '@assets/icons/InfoCircle';
 import { GreenTick } from '@covid/components/GreenTick';
 import { colors } from '@theme';
 import { Profile } from '@covid/components/Collections/ProfileList';
-
-import { ClippedText } from './Text';
-import LastReported from './LastReported';
+import i18n from '@covid/locale/i18n';
+import { ClippedText, SecondaryText } from '@covid/components/Text';
+import LastReported from '@covid/components/LastReported';
 
 type Props = {
   profile: Profile;
@@ -24,31 +23,26 @@ export const ProfileCard: React.FC<Props> = (props) => {
 
   return (
     <Card style={styles.card} transparent>
-      <View style={styles.infoContainer}>
-        {props.onEditPressed && (
-          <TouchableOpacity onPress={props.onEditPressed}>
-            <InfoCircle />
-          </TouchableOpacity>
-        )}
-      </View>
-
       <View style={styles.avatarContainer}>
         {hasReportedToday && <GreenTick />}
         <Image source={avatarImage} style={styles.avatar} resizeMode="contain" />
       </View>
       <ClippedText>{profile.name}</ClippedText>
       <LastReported timeAgo={profile.last_reported_at} />
+      <TouchableOpacity onPress={props.onEditPressed}>
+        <SecondaryText style={{ textAlign: 'center', fontSize: 12, color: colors.accent }}>
+          {i18n.t('nav-edit-profile')}
+        </SecondaryText>
+      </TouchableOpacity>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  infoContainer: {
-    alignSelf: 'flex-end',
-  },
   avatarContainer: {
     alignItems: 'center',
     width: 100,
+    marginTop: 20,
     marginBottom: 10,
   },
   avatar: {
