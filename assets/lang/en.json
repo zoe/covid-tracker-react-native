@@ -1392,14 +1392,18 @@
     "confirmed-cases": "confirmed cases",
 
     "intro": {
-      "title": "You can now connect your children to their school network",
+      "title": "Connect your children to their School Bubble",
       "point-1": {
-        "title": "Why connect to a school network?",
-        "description": "Lorem ipsum\rSafety"
+        "title": "Why connect to a School Bubble?",
+        "description": "Get real-time insights on the COVID status of your child’s bubble at school"
       },
       "point-2": {
         "title": "How it works",
-        "description": "Lorem ipsum\rSafety"
+        "description": "We will monitor reports within your child’s School Bubble and send you an alert in real-time if anyone in the bubble reports their child as having had a positive COVID test."
+      },
+      "point-3": {
+        "title": "What you need to do",
+        "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
       },
       "cta": "Connect to school network",
       "skip": "Skip"
@@ -1420,38 +1424,38 @@
     },
 
     "join-school": {
-      "title": "Join a school network",
-      "description": "Link this account to a school anonymously lorem upsum dolor consectume dolor. More information about",
-      "description-link": "school networks.",
+      "title": "School network",
+      "description": "Select the school you would like to link this account to. More information about",
+      "description-link": "School Bubbles.",
 
       "search": {
         "label": "Name of school",
         "placeholder": "Search for your child's school"
       },
 
-      "cta": "next"
+      "cta": "Next"
     },
 
-    "join-group": {
-      "title": "Join a group in this network",
-      "description": "Join a class or bubble at “Queen Elizabeth High School”. If you don’t see your child’s class or bubble, you can create a new group.",
+      "join-group": {
+      "title": "Join a bubble at this school",
+      "description": "Select your child’s bubble at: ",
 
       "dropdown": {
-        "label": "Select group from below"
+        "label": "Select bubble from below"
       },
 
       "input": {
-        "label": "Join existing groups",
+        "label": "Join an existing bubble",
         "placeholder": "Find a class or bubble"
       },
 
       "cta": "Create a new group",
-      "next": "next"
+      "next": "Next"
     },
 
     "success": {
-      "joined-title": "Great! Your are in",
-      "joined-description": "Invite others and let them know about this group. You will need at least 5 participants in this group before we can start generating statistics and showing symptoms and cases.",
+      "joined-title": "You've successfully joined the School Bubble",
+      "joined-description": "Invite other parents/guardians to let them know about this bubble. Once we have a sufficient amount of people reporting we will send you real-time cases and symptoms reported within the bubble.",
       "created-title": "Great! Your group has been created",
       "school-name": "School name",
       "group-name": "Group name",

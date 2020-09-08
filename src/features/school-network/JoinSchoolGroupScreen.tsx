@@ -60,7 +60,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   const next = () => {
-    schoolNetworkCoordinator.goToSchoolSuccess();
+    schoolNetworkCoordinator.gotoNextScreen(route.name);
   };
 
   const onSubmit = async (schoolData: JoinGroupData) => {
@@ -72,11 +72,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   return (
     <Screen>
       <Header>
-        <HeaderText>Join a group in this network</HeaderText>
-        <RegularText style={styles.topText}>
-          Join a class or bubble at “Queen Elizabeth High School”. If you don’t see your child’s class or bubble, you
-          can create a new group.
-        </RegularText>
+        <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
+        <RegularText style={styles.topText}>{i18n.t('school-networks.join-group.description')}</RegularText>
       </Header>
 
       <ProgressBlock>

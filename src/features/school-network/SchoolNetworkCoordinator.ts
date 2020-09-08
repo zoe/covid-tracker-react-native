@@ -1,15 +1,15 @@
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { ScreenFlow, Coordinator } from '@covid/core/Coordinator';
+import { ScreenFlow, Coordinator, SelectProfile } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { Profile } from '@covid/components/Collections/ProfileList';
 
-export class SchoolNetworkCoordinator extends Coordinator {
+export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
   appCoordinator: AppCoordinator;
   patientData: PatientData;
 
@@ -27,22 +27,22 @@ export class SchoolNetworkCoordinator extends Coordinator {
 
   public screenFlow: Partial<ScreenFlow> = {
     SchoolIntro: () => {
-      this.goToSchoolHowTo();
+      NavigatorService.navigate('SchoolHowTo');
     },
     SchoolHowTo: () => {
-      NavigatorService.navigate('SelectProfile');
+      NavigatorService.navigate('SelectProfile', { editing: false });
     },
     SelectSchool: () => {
-      this.goToJoinSchool();
+      NavigatorService.navigate('JoinSchool');
     },
     JoinSchool: () => {
-      this.goToJoinSchoolGroup();
+      NavigatorService.navigate('JoinSchoolGroup');
     },
     JoinSchoolGroup: () => {
-      NavigatorService.navigate('NHSDetails', { editing: true });
+      NavigatorService.navigate('SchoolSuccess');
     },
     CreateNetworkGroup: () => {
-      this.goToSchoolSuccess();
+      NavigatorService.navigate('SchoolSuccess');
     },
     SchoolSuccess: () => {},
   };
@@ -54,39 +54,20 @@ export class SchoolNetworkCoordinator extends Coordinator {
 
   startFlow(patientData: PatientData) {
     this.patientData = patientData;
-    this.goToJoinSchool();
+    NavigatorService.navigate('JoinSchool');
   }
 
   goToSchoolIntro() {
     NavigatorService.navigate('SchoolIntro');
   }
 
-  goToSchoolHowTo() {
-    NavigatorService.navigate('SchoolHowTo');
-  }
-
-  goToSelectSchool() {
-    NavigatorService.navigate('SelectSchool');
-  }
-
-  goToJoinSchool() {
-    NavigatorService.navigate('JoinSchool');
-  }
-
-  goToJoinSchoolGroup() {
-    NavigatorService.navigate('JoinSchoolGroup');
-  }
-
   goToCreateSchoolGroup() {
     NavigatorService.navigate('CreateNetworkGroup');
   }
 
-  goToSchoolSuccess() {
-    NavigatorService.navigate('SchoolSuccess');
-  }
-
-  updatePatientInfo(patientInfo: Partial<PatientInfosRequest>): Promise<PatientInfosRequest> {
-    throw new Error('Method not implemented.');
+  async profileSelected(profile: Profile): Promise<void> {
+    this.patientData = await this.patientService.getPatientDataByProfile(profile);
+    NavigatorService.navigate('JoinSchool');
   }
 }
 

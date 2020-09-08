@@ -18,6 +18,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
+import { SchoolModel } from '@covid/core/schools/Schools.dto';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -40,7 +41,9 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   useEffect(() => {
     (async () => {
-      const schools = await service.getSchools();
+      const schools: SchoolModel[] = await service.getSchools().catch(() => {
+        return [];
+      });
       const pickerItems = schools.map<PickerItemProps>((s) => ({
         label: s.name,
         value: s.id,

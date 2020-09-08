@@ -14,7 +14,7 @@ import LastReported from './LastReported';
 
 type Props = {
   profile: Profile;
-  onEditPressed: () => void;
+  onEditPressed?: VoidFunction;
 };
 
 export const ProfileCard: React.FC<Props> = (props) => {
@@ -25,9 +25,11 @@ export const ProfileCard: React.FC<Props> = (props) => {
   return (
     <Card style={styles.card} transparent>
       <View style={styles.infoContainer}>
-        <TouchableOpacity onPress={props.onEditPressed}>
-          <InfoCircle />
-        </TouchableOpacity>
+        {props.onEditPressed && (
+          <TouchableOpacity onPress={props.onEditPressed}>
+            <InfoCircle />
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={styles.avatarContainer}>

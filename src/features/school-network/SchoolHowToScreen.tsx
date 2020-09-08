@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Linking, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
 
 import { colors } from '@theme';
@@ -12,6 +12,7 @@ import { Coordinator } from '@covid/core/Coordinator';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { Button } from '@covid/components/Buttons/Button';
 import i18n from '@covid/locale/i18n';
+import NavigatorService from '@covid/NavigatorService';
 
 import schoolNetworkCoordinator from './SchoolNetworkCoordinator';
 
@@ -21,21 +22,10 @@ type Props = {
 };
 
 export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
-  const primaryAction = () => {};
-
-  const secondaryAction = () => {};
-
-  const bottomAction = () => {};
-
-  // @ts-ignore
   const coordinator: Coordinator = schoolNetworkCoordinator;
 
   const goNext = () => {
     coordinator.gotoNextScreen(route.name);
-  };
-
-  const openUrl = (link: string) => {
-    Linking.openURL(link);
   };
 
   const currentPatient = coordinator.patientData?.patientState;
@@ -66,7 +56,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
         <Button onPress={goNext} branded>
           {i18n.t('school-networks.how-to.cta')}
         </Button>
-        <Button>{i18n.t('school-networks.how-to.skip')}</Button>
+        <Button onPress={() => NavigatorService.navigate('Dashboard')}>{i18n.t('school-networks.how-to.skip')}</Button>
       </View>
     </View>
   );
@@ -75,7 +65,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundFour,
+    backgroundColor: colors.backgroundPrimary,
   },
 
   header: {
