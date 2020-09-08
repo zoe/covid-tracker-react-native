@@ -38,7 +38,6 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
   const [state, setState] = useState({
     showDatePicker: false,
     showRangePicker: false,
-    showTimePicker: false,
   });
 
   function convertToDate(selectedDate: Moment) {
