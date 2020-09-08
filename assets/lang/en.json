@@ -625,6 +625,8 @@
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
 
+  "validation-error-text-required": "Please provide more details",
+
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
   "ethnicity-question": "What is your ethnicity:",

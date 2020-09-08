@@ -794,6 +794,8 @@
 
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
 
+  "validation-error-text-required": "Proporcione más detalles",
+
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
   "ethnicity-question": "¿Cuál es su etnia:",

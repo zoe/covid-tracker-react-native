@@ -4,6 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
+import * as Yup from 'yup';
 
 import { colors } from '@theme';
 import { HeaderText, RegularText } from '@covid/components/Text';
@@ -21,6 +22,7 @@ import { useAppDispatch } from '@covid/core/state/store';
 import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import i18n from '@covid/locale/i18n';
 import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
+import { ValidationError } from '@covid/components/ValidationError';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
@@ -36,8 +38,15 @@ type JoinGroupData = {
   groupId: string;
 };
 
+const ValidationSchema = () => {
+  return Yup.object().shape({
+    groupId: Yup.string().required(i18n.t('validation-error-text-required')),
+  });
+};
+
+
 export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
-  const inputMode: InputMode = InputMode.dropdown;
+  let inputMode: InputMode = InputMode.dropdown;
   const enableCreateGroup: boolean = false;
 
   const service = useInjection<ISchoolService>(Services.SchoolService);
@@ -91,6 +100,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
             groupId: '',
           } as JoinGroupData
         }
+        validationSchema={ValidationSchema()}
         onSubmit={onSubmit}>
         {(formikProps) => {
           return (
@@ -121,6 +131,10 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                   </Button>
                 )}
               </View>
+              
+              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
+                <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
+              )}
 
               <Button onPress={formikProps.handleSubmit} branded>
                 {i18n.t('school-networks.join-group.next')}
