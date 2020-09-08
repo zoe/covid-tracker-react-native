@@ -316,6 +316,7 @@
 
     "question-time-test-taken": "¿A qué hora tomaste la prueba?",
     "question-time-test-taken-error": "Ingrese la hora de su cita",
+    "question-pick-a-time": "Elige una hora",
 
     "question-mechanism": "¿Cómo se realizó este examen?",
     "picker-nose-swab": "Usaron un hisopo en mi nariz",

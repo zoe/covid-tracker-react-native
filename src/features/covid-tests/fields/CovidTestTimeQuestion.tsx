@@ -63,6 +63,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
           {state.showTimePicker ? (
             <DateTimePickerModal
               isVisible={state.showTimePicker}
+              headerTextIOS={i18n.t('covid-test.question-pick-a-time')}
               mode="time"
               onConfirm={handleSetTime}
               onCancel={() => setState({ ...state, showTimePicker: false })}

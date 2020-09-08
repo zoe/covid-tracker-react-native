@@ -281,6 +281,7 @@
 
     "question-time-test-taken": "Vilken tid tog du testet?",
     "question-time-test-taken-error": "Ange tidpunkten för ditt möte",
+    "question-pick-a-time": "Välj en tid",
 
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
