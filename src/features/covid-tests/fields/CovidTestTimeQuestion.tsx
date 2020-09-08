@@ -97,7 +97,7 @@ CovidTestTimeQuestion.initialFormValues = (test?: CovidTest): ICovidTestTimeData
 
 CovidTestTimeQuestion.schema = () =>
   Yup.object().shape({
-    dateTestTime: Yup.date().required('Please enter the time of your appointment'),
+    dateTestTime: Yup.date().required(i18n.t('covid-test.question-time-test-taken-error')),
   });
 
 CovidTestTimeQuestion.createDTO = (formData: ICovidTestTimeData): Partial<CovidTest> =>
