@@ -103,7 +103,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')} asdasdsa</Header0Text>
+      <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')}</Header0Text>
       {data.map((school, index) => {
         return (
           <>
