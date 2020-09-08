@@ -120,13 +120,14 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               )}
             </View>
 
-            {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
-              <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
-            )}
-
-            <Button onPress={formikProps.handleSubmit} branded>
-              {i18n.t('school-networks.join-school.cta')}
-            </Button>
+            <View>
+              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
+                <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
+              )}
+              <Button onPress={formikProps.handleSubmit} branded>
+                {i18n.t('school-networks.join-school.cta')}
+              </Button>
+            </View>
           </Form>
         )}
       </Formik>

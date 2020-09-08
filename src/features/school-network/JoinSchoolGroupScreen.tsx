@@ -138,13 +138,14 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                 )}
               </View>
 
-              {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
-                <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
-              )}
-
-              <Button onPress={formikProps.handleSubmit} branded>
-                {i18n.t('school-networks.join-group.next')}
-              </Button>
+              <View>
+                {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
+                  <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
+                )}
+                <Button onPress={formikProps.handleSubmit} branded>
+                  {i18n.t('school-networks.join-group.next')}
+                </Button>
+              </View>
             </Form>
           );
         }}
