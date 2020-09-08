@@ -10,7 +10,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
-export class EditProfileCoordinator extends Coordinator implements UpdatePatient{
+export class EditProfileCoordinator extends Coordinator implements UpdatePatient {
   appCoordinator: AppCoordinator;
   userService: IUserService;
   patientData: PatientData;
