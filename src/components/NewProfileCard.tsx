@@ -6,13 +6,16 @@ import { addProfile } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 
-import { RegularText } from './Text';
+import { RegularText, SecondaryText } from './Text';
 
 export const NewProfileCard: React.FC = () => {
   return (
     <Card style={styles.card} transparent>
       <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
       <RegularText>{i18n.t('select-profile-button')}</RegularText>
+      <SecondaryText style={{ textAlign: 'center', fontSize: 12, color: colors.accent }}>
+        {i18n.t('create-profile')}
+      </SecondaryText>
       <View style={{ height: 14 }} />
     </Card>
   );
