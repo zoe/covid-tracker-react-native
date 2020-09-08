@@ -44,17 +44,15 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
   return (
     <Screen>
       <Header>
-        {joinedGroup && <HeaderText>{i18n.t('school-networks.join-school.success.joined-title')}</HeaderText>}
+        {joinedGroup && <HeaderText>{i18n.t('school-networks.success.joined-title')}</HeaderText>}
         {/* { createdSchool && <HeaderText>Great! Your group has been created</HeaderText> } */}
 
-        <RegularText style={styles.topText}>{i18n.t('school-networks.join-school.success.school-name')}</RegularText>
+        <RegularText style={styles.topText}>{i18n.t('school-networks.success.school-name')}</RegularText>
         <RegularBoldText>{group?.school?.name}</RegularBoldText>
-        <RegularText style={styles.topText}>{i18n.t('school-networks.join-school.success.group-name')}</RegularText>
+        <RegularText style={styles.topText}>{i18n.t('school-networks.success.group-name')}</RegularText>
         <RegularBoldText>{group?.name}</RegularBoldText>
 
-        <RegularText style={styles.description}>
-          {i18n.t('school-networks.join-school.success.joined-description')}
-        </RegularText>
+        <RegularText style={styles.description}>{i18n.t('school-networks.success.joined-description')}</RegularText>
       </Header>
 
       <ProgressBlock>
@@ -66,7 +64,7 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
           <>
             <View style={{ alignSelf: 'center' }}>
               <RegularText style={[styles.description, styles.centerText]}>
-                {i18n.t('school-networks.join-school.success.ref-code-is')}
+                {i18n.t('school-networks.success.ref-code-is')}
               </RegularText>
               <RegularText style={[styles.description, styles.centerText, styles.referenceCode]}>CODE</RegularText>
             </View>
@@ -75,17 +73,17 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
               labelStyle={{
                 color: colors.purple,
               }}>
-              {i18n.t('school-networks.join-school.success.copy')}
+              {i18n.t('school-networks.success.copy')}
             </Button>
           </>
         )}
         <View>
           <View style={{ height: 48 }} />
           <Button onPress={next} outline>
-            {i18n.t('school-networks.join-school.success.share')}
+            {i18n.t('school-networks.success.share')}
           </Button>
           <Button onPress={next} branded>
-            {i18n.t('school-networks.join-school.success.cta')}
+            {i18n.t('school-networks.success.cta')}
           </Button>
         </View>
       </View>
