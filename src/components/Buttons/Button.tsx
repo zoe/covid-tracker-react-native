@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StyleProps, TextStyle } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton } from '@covid/components/BrandedButton';
@@ -9,7 +9,7 @@ interface Props {
   onPress: VoidFunction;
   branded?: boolean;
   outline?: boolean;
-  labelStyle?: StyleProps<TextStyle>;
+  labelStyle?: TextStyle;
 }
 
 export const Button: React.FC<Props> = ({ children, onPress, ...props }) => {
