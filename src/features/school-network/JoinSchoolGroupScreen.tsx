@@ -20,6 +20,7 @@ import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { useAppDispatch } from '@covid/core/state/store';
 import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import i18n from '@covid/locale/i18n';
+import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
@@ -46,7 +47,11 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   useEffect(() => {
     (async () => {
-      const groups = await service.searchSchoolGroups(schoolNetworkCoordinator.selectedSchoolId ?? '');
+      const groups: SchoolGroupModel[] = await service
+        .searchSchoolGroups(schoolNetworkCoordinator.selectedSchoolId ?? '')
+        .catch(() => {
+          return [];
+        });
       const pickerItems = groups.map<PickerItemProps>((g) => ({
         label: g.name,
         value: g.id,
