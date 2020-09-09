@@ -46,8 +46,6 @@ export const SchoolSuccessScreen: React.FC<Props> = ({ route, navigation, ...pro
     <Screen>
       <Header>
         {joinedGroup && <HeaderText>{i18n.t('school-networks.success.joined-title')}</HeaderText>}
-        {/* { createdSchool && <HeaderText>Great! Your group has been created</HeaderText> } */}
-
         <RegularText style={styles.topText}>{i18n.t('school-networks.success.school-name')}</RegularText>
         <RegularBoldText>{group?.school?.name}</RegularBoldText>
         <RegularText style={styles.topText}>{i18n.t('school-networks.success.group-name')}</RegularText>
