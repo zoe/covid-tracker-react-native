@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { CaptionText, Header0Text, Header3Text, RegularText } from '@covid/components/Text';
+import { Header0Text, Header3Text, RegularText, RegularBoldText } from '@covid/components/Text';
 import { colors } from '@theme';
 import {
   SchoolGroupSubscriptionResponse,
@@ -91,16 +91,18 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
     return [styles.circle, { backgroundColor: indicator }];
   };
 
-  const casesView = (group: SubscribedSchoolGroupStats) => {
+  const casesView = (group: SubscribedSchoolGroupStats, isLastItem: boolean) => {
     const status = getStatus(group.status, group.cases);
     return (
-      <View style={styles.groupView}>
-        <RegularText>{group.name}</RegularText>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View style={getStatusIndicator(status)} />
-          <CaptionText>{getStatusLabel(status, group.cases)}</CaptionText>
+      <>
+        {!isLastItem && <View style={styles.lineStyle} />}
+        <View style={styles.groupView}>
+          <Header3Text style={styles.schoolTitle}>{group.name}</Header3Text>
+          <RegularBoldText>{group.size}</RegularBoldText>
+          <RegularText>{i18n.t('school-network.children-being-reported-for')}</RegularText>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }} />
         </View>
-      </View>
+      </>
     );
   };
 
@@ -110,20 +112,13 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       {data.map((school, index) => {
         return (
           <>
-            <Header3Text
-              style={[
-                styles.schoolTitle,
-                {
-                  fontWeight: '500',
-                  fontSize: 14,
-                },
-              ]}>
-              {school.name}
-            </Header3Text>
+            <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
+            <RegularBoldText>{school.size}</RegularBoldText>
+            <RegularText>Children being reported for</RegularText>
             {school.groups.map((group, index) => {
-              return casesView(group);
+              const last = index !== data.length - 1;
+              return casesView(group, last);
             })}
-            {index !== data.length - 1 && <View style={styles.lineStyle} />}
           </>
         );
       })}
@@ -135,21 +130,22 @@ const TransformResponseToUIData = (data: SchoolGroupSubscriptionResponse): Subsc
   return data.reduce((initial: SubscribedSchoolStats[], network): SubscribedSchoolStats[] => {
     const filtered = initial.filter((school) => school.id === network.school.id);
     const hasSchool = filtered.length > 0;
-    const { id, name, status } = network;
+    const { id, name, size, status } = network;
 
     if (hasSchool) {
       const index = initial.indexOf(filtered[0]);
       const school = initial[index];
       initial[index] = {
         ...school,
-        groups: [...school.groups, { id, name, status }],
+        groups: [...school.groups, { id, name, size, status }],
       };
       return initial;
     } else {
       initial.push({
         id: network.school.id,
         name: network.school.name,
-        groups: [{ id, name, status }],
+        size: network.school.size,
+        groups: [{ id, name, status, size }],
       });
       return initial;
     }
@@ -165,7 +161,7 @@ const styles = StyleSheet.create({
   },
   schoolTitle: {
     fontWeight: '500',
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'center',
   },
   headerText: {
@@ -182,11 +178,11 @@ const styles = StyleSheet.create({
     borderRadius: 12 / 2,
   },
   groupView: {
-    paddingVertical: 12,
+    paddingBottom: 12,
   },
   lineStyle: {
-    margin: 12,
     borderBottomColor: colors.tertiary,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    marginVertical: 16,
   },
 });
