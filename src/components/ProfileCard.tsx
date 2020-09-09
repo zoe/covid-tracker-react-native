@@ -13,7 +13,7 @@ import LastReported from '@covid/components/LastReported';
 
 type Props = {
   profile: Profile;
-  onEditPressed: () => void;
+  onEditPressed?: VoidFunction;
 };
 
 export const ProfileCard: React.FC<Props> = (props) => {

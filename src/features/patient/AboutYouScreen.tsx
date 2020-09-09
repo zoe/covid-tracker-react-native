@@ -21,7 +21,7 @@ import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { Coordinator } from '@covid/core/Coordinator';
+import { Coordinator, UpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -94,7 +94,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  private coordinator: Coordinator = this.props.route.params.editing ? editProfileCoordinator : patientCoordinator;
+  private coordinator: Coordinator & UpdatePatient = this.props.route.params.editing
+    ? editProfileCoordinator
+    : patientCoordinator;
 
   constructor(props: AboutYouProps) {
     super(props);

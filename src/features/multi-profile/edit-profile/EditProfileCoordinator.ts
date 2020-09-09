@@ -1,6 +1,6 @@
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow, UpdatePatient } from '@covid/core/Coordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
@@ -8,8 +8,9 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
-export class EditProfileCoordinator implements Coordinator {
+export class EditProfileCoordinator extends Coordinator implements UpdatePatient {
   appCoordinator: AppCoordinator;
   userService: IUserService;
   patientData: PatientData;
@@ -20,7 +21,7 @@ export class EditProfileCoordinator implements Coordinator {
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
-  screenFlow: ScreenFlow = {
+  screenFlow: Partial<ScreenFlow> = {
     EditLocation: () => {
       NavigatorService.goBack();
     },
@@ -47,20 +48,12 @@ export class EditProfileCoordinator implements Coordinator {
         2
       );
     },
-  } as ScreenFlow;
+  };
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
     this.userService = userService;
-  };
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
@@ -86,6 +79,10 @@ export class EditProfileCoordinator implements Coordinator {
     NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: true });
   }
 
+  goToSchoolNetwork() {
+    schoolNetworkCoordinator.startFlow(this.patientData);
+  }
+
   shouldShowEditProfile() {
     return this.localisationService.getConfig().enableEditProfile;
   }
@@ -95,6 +92,10 @@ export class EditProfileCoordinator implements Coordinator {
     const config = this.localisationService.getConfig();
     const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
     return shouldAskStudy;
+  }
+
+  shouldShowSchoolNetwork() {
+    return true;
   }
 }
 

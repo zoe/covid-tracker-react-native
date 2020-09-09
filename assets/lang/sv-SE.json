@@ -522,6 +522,8 @@
   "adult-consent-confirm": "Jag bekräftar ovan",
   "child-consent-confirm": "Jag bekräftar att jag är barnets vårdnadshavare och att jag har gjort ovan",
   "consent": "consent",
+  "consent-summary": "sammanfattning av vad vi gör",
+
   "child-consent-text-1": "Om barnet är tillräckligt gammalt för att förstå våra",
   "child-consent-text-2": "krav ber vi dig förklara för barnet att du delar information om honom eller henne med oss och vad vi kommer att göra med den. Om du tror att barnet är tillräckligt gammalt för att fatta ett eget beslut ber vi dig bekräfta att han eller hon har gett sitt medgivande till att du delar uppgifterna med oss.",
   "adult-consent-text-1": "Bekräfta att du har visat eller läst vår",
@@ -556,6 +558,8 @@
   "prefer-not-to-say": "Föredrar att inte svara",
 
   "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
+
+  "validation-error-text-required": "Vänligen ge mer information",
 
   "website-home": "https://covid.joinzoe.com/",
 
@@ -1423,5 +1427,96 @@
     "share": "Dela din karta",
     "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
     "update-postcode-cta": "Uppdatera postnumret"
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "description": "",
+      "description-link": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": ""
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
+    }
   }
 }

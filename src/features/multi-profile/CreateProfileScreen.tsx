@@ -44,7 +44,7 @@ export default class CreateProfileScreen extends Component<RenderProps> {
 
   render() {
     return (
-      <Screen>
+      <Screen showBackButton navigation={this.props.navigation}>
         <Header>
           <HeaderText style={{ marginBottom: 12 }}>{i18n.t('create-profile-title')}</HeaderText>
           <SecondaryText>{i18n.t('create-profile-text')}</SecondaryText>

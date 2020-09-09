@@ -78,9 +78,16 @@ import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
 import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
-
-import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { DashboardScreen } from '@covid/features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
+import {
+  SchoolIntroScreen,
+  SchoolHowToScreen,
+  JoinSchoolScreen,
+  JoinSchoolGroupScreen,
+  CreateNetworkGroupScreen,
+  SchoolSuccessScreen,
+} from '@covid/features/school-network';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -267,6 +274,12 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
+        <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
+        <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
+        <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
+        <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };
