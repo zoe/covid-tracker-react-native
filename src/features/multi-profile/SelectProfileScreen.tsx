@@ -15,6 +15,8 @@ import { Profile, ProfileList } from '@covid/components/Collections/ProfileList'
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { offlineService } from '@covid/Services';
 import { BackButton } from '@covid/components/PatientHeader';
+import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
@@ -26,7 +28,9 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
 
-const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
+type SelectProfileCoordinator = (Coordinator & SelectProfile) | (Coordinator & SelectProfile & EditableProfile);
+
+const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   const {
     status,
     error,
@@ -38,6 +42,9 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
     listProfiles,
     retryListProfiles,
   } = useProfileList();
+
+  const { editing } = route.params;
+  const coordinator: SelectProfileCoordinator = editing ? appCoordinator : schoolNetworkCoordinator;
 
   useEffect(() => {
     return navigation.addListener('focus', listProfiles);
@@ -53,7 +60,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
   };
 
   const gotoCreateProfile = async () => {
-    appCoordinator.goToCreateProfile(await getNextAvatarName());
+    if (editing) (coordinator as EditableProfile).goToCreateProfile(await getNextAvatarName());
   };
 
   const getPatientThen = async (profile: Profile, callback: (patient: Profile) => void) => {
@@ -79,12 +86,12 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
         <View style={styles.rootContainer}>
           <View style={styles.navContainer}>
             {!!navigation && <BackButton navigation={stackNav} />}
-            <DrawerToggle navigation={navigation} style={styles.menuToggle} />
+            {editing && <DrawerToggle navigation={navigation} style={styles.menuToggle} />}
           </View>
 
           <Header>
             <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
-            <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>
+            {editing && <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>}
           </Header>
 
           <ProfileList
@@ -96,14 +103,26 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation }) => {
             renderItem={(profile, i) => (
               <ProfileCard
                 profile={profile}
-                onEditPressed={() => getPatientThen(profile, (profile) => appCoordinator.startEditProfile(profile))}
+                onEditPressed={
+                  editing
+                    ? () => {
+                        getPatientThen(profile, (profile) => {
+                          if (editing) (coordinator as EditableProfile).startEditProfile(profile);
+                        });
+                      }
+                    : undefined
+                }
               />
             )}
-            addProfile={() => {
-              gotoCreateProfile();
-            }}
-            onProfileSelected={(profile, i) => {
-              getPatientThen(profile, (profile) => appCoordinator.profileSelected(profile));
+            addProfile={
+              editing
+                ? () => {
+                    gotoCreateProfile();
+                  }
+                : undefined
+            }
+            onProfileSelected={(profile: Profile, i: number) => {
+              getPatientThen(profile, (profile) => coordinator.profileSelected(profile));
             }}
             onRetry={() => retryListProfiles()}
           />

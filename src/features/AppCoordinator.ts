@@ -25,9 +25,10 @@ import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import store from '@covid/core/state/store';
-import { fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/contentSlice';
+import { fetchDismissedCallouts, fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -36,7 +37,7 @@ type ScreenFlow = {
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-export class AppCoordinator {
+export class AppCoordinator extends Coordinator implements SelectProfile {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -101,17 +102,17 @@ export class AppCoordinator {
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
-        NavigatorService.navigate('SelectProfile');
+        NavigatorService.navigate('SelectProfile', { editing: true });
       } else {
         this.startAssessmentFlow(this.patientData);
       }
     },
     Dashboard: () => {
       // UK only so currently no need to check config.enableMultiplePatients
-      NavigatorService.navigate('SelectProfile');
+      NavigatorService.navigate('SelectProfile', { editing: true });
     },
     ArchiveReason: () => {
-      NavigatorService.navigate('SelectProfile');
+      NavigatorService.navigate('SelectProfile', { editing: true });
     },
     ValidationStudyIntro: () => {
       NavigatorService.navigate('ValidationStudyInfo');
@@ -157,6 +158,7 @@ export class AppCoordinator {
 
   async fetchInitialData(): Promise<void> {
     await store.dispatch(fetchStartUpInfo());
+    await store.dispatch(fetchDismissedCallouts());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }
@@ -173,7 +175,7 @@ export class AppCoordinator {
   }
 
   resetToProfileStartAssessment() {
-    NavigatorService.navigate('SelectProfile');
+    NavigatorService.navigate('SelectProfile', { editing: true });
     this.startAssessmentFlow(this.patientData);
   }
 

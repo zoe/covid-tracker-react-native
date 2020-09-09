@@ -601,6 +601,7 @@
   "adult-consent-confirm": "Confirmo lo anterior",
   "child-consent-confirm": "Confirmo que soy el tutor legal del niño y que he hecho lo anterior",
   "consent": "consentimiento",
+  "consent-summary": "resumen de lo que hacemos",
   "child-consent-text-1": "Si su hijo tiene edad suficiente para comprender nuestros",
   "child-consent-text-2": "requisitos, explíquele que compartirá información acerca de él o ella y lo que haremos con ella. Si cree que su hijo tiene edad suficiente para tomar decisiones, confirme que ha consentido compartir datos con nosotros.",
   "adult-consent-text-1": "Confirme que mostró o leyó nuestra",
@@ -798,6 +799,8 @@
   "default-profile-name": "Yo",
 
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
+
+  "validation-error-text-required": "Por favor, de más detalles",
 
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
@@ -1394,6 +1397,97 @@
     "covid-test-list": {
       "nhs-text": false,
       "nhs-text-link": false
+    }
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "description": "",
+      "description-link": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": ""
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
     }
   }
 }

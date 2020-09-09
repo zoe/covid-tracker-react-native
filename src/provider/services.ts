@@ -13,6 +13,7 @@ import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestS
 import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { Services } from '@covid/provider/services.types';
+import { ISchoolService, SchoolService } from '@covid/core/schools/SchoolService';
 
 export const container = new Container();
 
@@ -35,6 +36,9 @@ container.bind<IProfileService>(Services.Profile).to(ProfileService).inSingleton
 container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSingletonScope();
 
 container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
+
+// School
+container.bind<ISchoolService>(Services.SchoolService).to(SchoolService).inSingletonScope();
 
 // Incidence Api
 container.bind<IApiClient>(Services.IncidenceHttpApi).to(ApiClient).inSingletonScope();
