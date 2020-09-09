@@ -14,20 +14,18 @@ import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
 import {
-  CovidTestMechanismData,
-  CovidTestMechanismQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestMechanismQuesion';
-import {
-  CovidTestResultData,
-  CovidTestResultQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
-import {
+  CovidTestDateData,
+  CovidTestDateQuestion,
   CovidTestInvitedData,
   CovidTestInvitedQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestInvitedQuesetion';
-import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/covid-tests/fields/CovidTestLocation';
+  CovidTestLocationData,
+  CovidTestLocationQuestion,
+  CovidTestMechanismData,
+  CovidTestMechanismQuestion,
+  CovidTestResultData,
+  CovidTestResultQuestion,
+} from '@covid/features/covid-tests/fields/';
 import Analytics, { events } from '@covid/core/Analytics';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
