@@ -72,7 +72,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   };
 
   private createAssessment(formData: HealthWorkerExposureData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
 
     return {
@@ -117,7 +117,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
   });
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientInteractionOptions = [
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-documented'), value: 'yes_documented' },
       { label: i18n.t('health-worker-exposure-picker-patient-interaction-yes-suspected'), value: 'yes_suspected' },

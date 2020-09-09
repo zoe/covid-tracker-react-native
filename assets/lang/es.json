@@ -426,7 +426,9 @@
   "how-you-feel": {
     "question-health-status": "¿Cómo se siente físicamente ahora?",
     "picker-health-status-healthy": "Me siento normal físicamente",
-    "picker-health-status-not-healthy": "No me siento muy bien"
+    "picker-health-status-not-healthy": "No me siento muy bien",
+    "current-location": "Actualmente de dónde está informando:",
+    "update-location": "Actualiza su ubicación"
   },
 
   "level-of-isolation": {
@@ -849,6 +851,7 @@
 
   "edit-profile": {
     "title": "la configuración de perfil",
+    "your-location": "Su ubicación",
     "text": "",
     "archive-cta": "Archivar este perfil",
     "done": "Listo",
@@ -856,8 +859,12 @@
 
     "location": {
       "title": "Mi ubicacion",
-      "label": "Su código postal",
-      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad"
+      "label": "Su código postal permanente",
+      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad",
+      "not-current-address": "Estás informando temporalmente des de una ubicación diferente a la de arriba?",
+      "still-in-country": "Todavía está en los Estados Unidos?",
+      "other-postcode": "Ponga el cógido postal que quiere informar:",
+      "select-country": "Por favor, elige que país está ahora:"
     }
   },
 

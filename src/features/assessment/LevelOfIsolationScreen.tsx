@@ -78,7 +78,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   };
 
   private createAssessment(formData: LevelOfIsolationScreenData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
 
     let infos = {
@@ -141,7 +141,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
   async handleUpdate(formData: LevelOfIsolationScreenData) {
     try {
-      const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
+      const { assessmentId } = AssessmentCoordinator.assessmentData;
+      const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
       var assessment = this.createAssessment(formData);
 
       const response = await assessmentService.saveAssessment(assessmentId!, assessment);
@@ -156,7 +157,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>

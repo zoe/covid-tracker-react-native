@@ -32,7 +32,7 @@ export const otherTest = require('./mechanism-icons/other.png');
 export const spit = require('./mechanism-icons/spit.png');
 export const syringe = require('./mechanism-icons/syringe.png');
 
-// Partner logos
+// Logos
 export const gbPartners = require('./logos/gb_partners.png');
 export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
@@ -41,6 +41,7 @@ export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
+export const covidByZoeIcon = require('./logos/covid_app_by_zoe.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');

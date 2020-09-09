@@ -162,7 +162,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   });
 
   async componentDidMount() {
-    const { currentPatient } = AssessmentCoordinator.assessmentData;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     this.setState({
       needBloodPressureAnswer: !currentPatient.hasBloodPressureAnswer,
       needRaceEthnicityAnswer:
@@ -178,7 +178,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   }
 
   handleProfileUpdate(formData: BackfillData) {
-    const { currentPatient } = AssessmentCoordinator.assessmentData;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
     const infos = this.createPatientInfos(formData);
 
@@ -303,7 +303,7 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

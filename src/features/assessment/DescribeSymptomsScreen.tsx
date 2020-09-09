@@ -164,7 +164,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   createAssessmentInfos(formData: DescribeSymptomsData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
 
     let infos = ({
       fever: formData.hasFever === 'yes',
@@ -230,7 +230,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
       { label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F' },

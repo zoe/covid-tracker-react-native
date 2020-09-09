@@ -17,7 +17,7 @@ export default {
 
   privacyPolicyVersionUS: 'v1.3',
   privacyPolicyVersionUK: 'v2.3',
-  privacyPolicyVersionSE: 'v2.1',
+  privacyPolicyVersionSE: 'v3.0',
 
   ukValidationStudyConsentVersion: 'v3',
   ukValidationStudyAdVersion: 'v2',
