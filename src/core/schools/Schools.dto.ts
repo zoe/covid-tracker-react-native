@@ -16,11 +16,13 @@ export interface SchoolModel {
 export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
   status: string;
   cases?: number | null;
+  size?: number | null;
   school?: SchoolModel;
 }
 
 export interface SubscribedSchoolStats extends SchoolModel {
   cases?: number;
+  size?: number | null;
   groups: SubscribedSchoolGroupStats[];
 }
 
