@@ -83,7 +83,6 @@ import { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
 import {
   SchoolIntroScreen,
   SchoolHowToScreen,
-  SelectSchoolScreen,
   JoinSchoolScreen,
   JoinSchoolGroupScreen,
   CreateNetworkGroupScreen,
@@ -275,7 +274,6 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
-        <Stack.Screen name="SelectSchool" component={SelectSchoolScreen} options={noHeader} />
         <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
         <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
         <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />

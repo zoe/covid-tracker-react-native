@@ -314,7 +314,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
     const countrySpecificCohorts = this.filterCohortsByCountry(AllCohorts, LocalisationService.userCountry);
 
     return (
-      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+      <Screen profile={currentPatient.profile} navigation={this.props.navigation} simpleCallout>
         <Header>
           <HeaderText>{i18n.t('your-study.title')}</HeaderText>
         </Header>
