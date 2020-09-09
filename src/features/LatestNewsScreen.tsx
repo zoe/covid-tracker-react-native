@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog009, dataPage003, incidence011, notificationReminders, timUpdate006 } from '@assets';
+import { blog010, dataPage003, notificationReminders, timUpdate007 } from '@assets';
 import { colors } from '@theme';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
@@ -47,25 +47,17 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
             <Header3Text style={styles.titleText}>{i18n.t('latest-news.title')}</Header3Text>
 
             <ExternalCallout
-              link="https://covid.joinzoe.com/post/incidence-update-13-aug?utm_source=App"
-              calloutID="blog_009"
-              imageSource={blog009}
+              link="https://covid.joinzoe.com/post/covid-on-the-rise?utm_source=App"
+              calloutID="blog_010"
+              imageSource={blog010}
               aspectRatio={1.552}
               screenName={props.route.name}
             />
 
             <ExternalCallout
-              link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-              calloutID="incidence_011"
-              imageSource={incidence011}
-              aspectRatio={1.5}
-              screenName={props.route.name}
-            />
-
-            <ExternalCallout
-              link="https://youtu.be/A7m2UgJHkvw"
-              calloutID="tim_update_006"
-              imageSource={timUpdate006}
+              link="https://youtu.be/lU5yDDLUvCY"
+              calloutID="tim_update_007"
+              imageSource={timUpdate007}
               aspectRatio={1.178}
               screenName={props.route.name}
             />
