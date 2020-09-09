@@ -4,7 +4,7 @@ import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 import { ErrorText } from './Text';
 
 type ErrorProps = {
-  error: string;
+  error: string | false | undefined;
   style?: StyleProp<ViewStyle>;
 };
 
