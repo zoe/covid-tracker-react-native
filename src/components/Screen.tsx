@@ -19,7 +19,7 @@ import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Profile } from '@covid/components/Collections/ProfileList';
 
-import PatientHeader, { CallOutType } from './PatientHeader';
+import PatientHeader, { CallOutType, NavHeader } from './PatientHeader';
 import { RegularText } from './Text';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
@@ -63,6 +63,7 @@ export type ScreenProps = {
   simpleCallout?: boolean;
   calloutType?: CallOutType;
   calloutTitle?: string;
+  showBackButton?: boolean;
 };
 
 export default class Screen extends Component<ScreenProps> {
@@ -72,9 +73,9 @@ export default class Screen extends Component<ScreenProps> {
   render() {
     const profile = this.props.profile;
 
-    return (
-      <SafeAreaView style={[styles.screen, this.props.style]}>
-        {profile && this.props.navigation ? (
+    const header = () => {
+      if (profile && this.props.navigation) {
+        return (
           <PatientHeader
             profile={profile}
             navigation={this.props.navigation}
@@ -82,10 +83,17 @@ export default class Screen extends Component<ScreenProps> {
             type={this.props.calloutType}
             calloutTitle={this.props.calloutTitle}
           />
-        ) : (
-          <View style={styles.statusBarBlock} />
-        )}
+        );
+      } else if (this.props.navigation && this.props.showBackButton) {
+        return <NavHeader navigation={this.props.navigation} />;
+      } else {
+        return <View style={styles.statusBarBlock} />;
+      }
+    };
 
+    return (
+      <SafeAreaView style={[styles.screen, this.props.style]}>
+        {header()}
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView
             contentContainerStyle={{
