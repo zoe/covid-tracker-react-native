@@ -1,5 +1,9 @@
 # COVID-19 Symptom Study
 
+[![Coverage Status](https://coveralls.io/repos/github/zoe/covid-tracker-react-native/badge.svg?branch=selvach/coverage)](https://coveralls.io/github/zoe/covid-tracker-react-native?branch=selvach/coverage)
+
+
+
 ## Table of Contents
 
 - [About The Project](#about-the-project)
