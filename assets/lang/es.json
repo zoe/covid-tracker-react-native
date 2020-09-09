@@ -597,6 +597,7 @@
   "adult-consent-confirm": "Confirmo lo anterior",
   "child-consent-confirm": "Confirmo que soy el tutor legal del niño y que he hecho lo anterior",
   "consent": "consentimiento",
+  "consent-summary": "resumen de lo que hacemos",
   "child-consent-text-1": "Si su hijo tiene edad suficiente para comprender nuestros",
   "child-consent-text-2": "requisitos, explíquele que compartirá información acerca de él o ella y lo que haremos con ella. Si cree que su hijo tiene edad suficiente para tomar decisiones, confirme que ha consentido compartir datos con nosotros.",
   "adult-consent-text-1": "Confirme que mostró o leyó nuestra",
