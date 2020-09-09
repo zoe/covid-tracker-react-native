@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, View } from 'react-native';
+import { PickerItemProps, StyleSheet, View, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -79,9 +79,24 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   };
 
   const onSubmit = async (schoolData: JoinGroupData) => {
-    const { group } = await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
-    dispatch(joinedSchoolGroup(group));
-    next();
+    try {
+      const { group } = await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
+      dispatch(joinedSchoolGroup(group));
+      next();
+    } catch {
+      Alert.alert(
+        i18n.t('school-networks.join-error.duplicated-membership.title'),
+        i18n.t('school-networks.join-error.duplicated-membership.description'),
+        [
+          {
+            text: i18n.t('school-networks.join-error.cta-okay'),
+            onPress: () => {
+              schoolNetworkCoordinator.resetToHome();
+            },
+          },
+        ]
+      );
+    }
   };
 
   return (

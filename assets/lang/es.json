@@ -1475,6 +1475,14 @@
       "copy-code": "",
       "share": "",
       "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
     }
   }
 }

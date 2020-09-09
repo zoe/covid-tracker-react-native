@@ -1471,6 +1471,14 @@
       "copy-code": "Copy reference",
       "share": "Share this link",
       "cta": "Done"
+    },
+
+    "join-error": {
+      "cta-okay": "Okay",
+      "duplicated-membership": {
+        "title": "One moment",
+        "description": "Looks like you're already part of this bubble."
+      }
     }
   }
 }
