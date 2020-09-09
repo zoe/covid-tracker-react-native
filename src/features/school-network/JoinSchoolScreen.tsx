@@ -70,7 +70,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const next = () => schoolNetworkCoordinator.gotoNextScreen(route.name);
 
   return (
-    <Screen profile={currentPatient.profile} navigation={navigation}>
+    <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
       <Header>
         <HeaderText>{i18n.t('school-networks.join-school.title')}</HeaderText>
         <RegularText style={styles.topText}>

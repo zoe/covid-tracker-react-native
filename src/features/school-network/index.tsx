@@ -1,4 +1,3 @@
-import { SelectSchoolScreen } from '@covid/features/school-network/SelectSchoolScreen';
 import { JoinSchoolScreen } from '@covid/features/school-network/JoinSchoolScreen';
 import { JoinSchoolGroupScreen } from '@covid/features/school-network/JoinSchoolGroupScreen';
 import { CreateNetworkGroupScreen } from '@covid/features/school-network/CreateNetworkGroupScreen';
@@ -9,7 +8,6 @@ import { SchoolHowToScreen } from '@covid/features/school-network/SchoolHowToScr
 export {
   SchoolIntroScreen,
   SchoolHowToScreen,
-  SelectSchoolScreen,
   JoinSchoolScreen,
   JoinSchoolGroupScreen,
   CreateNetworkGroupScreen,

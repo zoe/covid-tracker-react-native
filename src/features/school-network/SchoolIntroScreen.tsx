@@ -37,7 +37,7 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container}>
+      <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container} simpleCallout>
         <View style={styles.container}>
           <SchoolConnectImage style={{ marginLeft: 16, marginBottom: 24, marginTop: 24 }} />
 
