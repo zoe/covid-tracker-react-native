@@ -22,7 +22,7 @@ enum SchoolGroupStatus {
 enum SchoolGroupUIState {
   noCases,
   notEnoughData,
-  Confirmed,
+  confirmed,
   inactive,
   unknown,
 }
@@ -39,7 +39,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
         } else if (!cases) {
           return SchoolGroupUIState.notEnoughData;
         } else {
-          return SchoolGroupUIState.Confirmed;
+          return SchoolGroupUIState.confirmed;
         }
         break;
       case SchoolGroupStatus.inactive:
@@ -55,7 +55,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
         return i18n.t('school-networks.no-cases');
       case SchoolGroupUIState.notEnoughData:
         return i18n.t('school-networks.awaiting-members');
-      case SchoolGroupUIState.Confirmed:
+      case SchoolGroupUIState.confirmed:
         return cases! + ' ' + i18n.t('school-networks.confirmed-cases');
       case SchoolGroupUIState.inactive:
         return i18n.t('school-networks.awaiting-members');
@@ -79,7 +79,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       case SchoolGroupUIState.inactive:
         indicator = colors.feedbackPoor;
         break;
-      case SchoolGroupUIState.Confirmed:
+      case SchoolGroupUIState.confirmed:
         indicator = colors.feedbackBad;
         break;
       case SchoolGroupUIState.unknown:
