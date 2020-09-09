@@ -518,6 +518,8 @@
   "adult-consent-confirm": "Jag bekräftar ovan",
   "child-consent-confirm": "Jag bekräftar att jag är barnets vårdnadshavare och att jag har gjort ovan",
   "consent": "consent",
+  "consent-summary": "sammanfattning av vad vi gör",
+
   "child-consent-text-1": "Om barnet är tillräckligt gammalt för att förstå våra",
   "child-consent-text-2": "krav ber vi dig förklara för barnet att du delar information om honom eller henne med oss och vad vi kommer att göra med den. Om du tror att barnet är tillräckligt gammalt för att fatta ett eget beslut ber vi dig bekräfta att han eller hon har gett sitt medgivande till att du delar uppgifterna med oss.",
   "adult-consent-text-1": "Bekräfta att du har visat eller läst vår",
