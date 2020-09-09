@@ -29,15 +29,9 @@ export const SchoolIntroScreen: React.FC<Props> = ({ route, navigation }) => {
     coordinator.gotoNextScreen(route.name);
   };
 
-  const openUrl = (link: string) => {
-    Linking.openURL(link);
-  };
-
-  const currentPatient = coordinator.patientData?.patientState;
-
   return (
     <View style={styles.container}>
-      <Screen profile={currentPatient?.profile} navigation={navigation} style={styles.container} simpleCallout>
+      <Screen showBackButton navigation={navigation} style={styles.container}>
         <View style={styles.container}>
           <SchoolConnectImage style={{ marginLeft: 16, marginBottom: 24, marginTop: 24 }} />
 
