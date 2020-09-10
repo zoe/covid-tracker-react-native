@@ -107,7 +107,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
         <View style={styles.groupView}>
           <Header3Text style={styles.schoolTitle}>{group.name}</Header3Text>
           <RegularBoldText>{group.size}</RegularBoldText>
-          <RegularText>{i18n.t('school-network.children-being-reported-for')}</RegularText>
+          <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
           <View style={{ flexDirection: 'row', alignItems: 'center' }} />
         </View>
       </View>
