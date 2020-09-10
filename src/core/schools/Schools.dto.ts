@@ -9,6 +9,7 @@ export interface SchoolGroupModel {
 export interface SchoolModel {
   id: string;
   name: string;
+  size?: number | null;
 }
 
 // Subscribed school stats
@@ -40,6 +41,7 @@ export interface SchoolGroupJoinedResponse {
 
 export interface SchoolGroupSubscriptionModel extends SchoolGroupModel {
   status: string;
+  size?: number | null;
   school: SchoolModel;
 }
 

@@ -91,18 +91,26 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
     return [styles.circle, { backgroundColor: indicator }];
   };
 
+  const getGroupSizeLabelText = (size: number | null | undefined) => {
+    if (size && size === 1) {
+      return i18n.t('school-networks.child-being-reported-for');
+    } else {
+      return i18n.t('school-networks.children-being-reported-for');
+    }
+  };
+
   const casesView = (group: SubscribedSchoolGroupStats, isLastItem: boolean) => {
     const status = getStatus(group.status, group.cases);
     return (
-      <>
+      <View key={group.id}>
         {!isLastItem && <View style={styles.lineStyle} />}
         <View style={styles.groupView}>
           <Header3Text style={styles.schoolTitle}>{group.name}</Header3Text>
           <RegularBoldText>{group.size}</RegularBoldText>
-          <RegularText>{i18n.t('school-network.children-being-reported-for')}</RegularText>
+          <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
           <View style={{ flexDirection: 'row', alignItems: 'center' }} />
         </View>
-      </>
+      </View>
     );
   };
 
@@ -111,7 +119,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')}</Header0Text>
       {data.map((school, index) => {
         return (
-          <>
+          <View key={school.id}>
             <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
             <RegularBoldText>{school.size}</RegularBoldText>
             <RegularText>Children being reported for</RegularText>
@@ -119,7 +127,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
               const last = index !== data.length - 1;
               return casesView(group, last);
             })}
-          </>
+          </View>
         );
       })}
     </View>
