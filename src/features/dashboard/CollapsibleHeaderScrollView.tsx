@@ -64,59 +64,59 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
   });
 
   return (
-    <View style={styles.subContainer}>
-      <View style={styles.drawerToggleContainer}>
-        <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
-      </View>
-      <Animated.View style={[styles.header, { height: headerHeight }]}>
-        <Animated.View
-          style={[
+    <SafeAreaView style={styles.container}>
+      <View style={styles.subContainer}>
+        <View style={styles.drawerToggleContainer}>
+          <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
+        </View>
+        <Animated.View style={[styles.header, { height: headerHeight }]}>
+          <Animated.View
+            style={[
+              {
+                opacity: expandedHeaderOpacity,
+                top: expandedHeaderY,
+              },
+              styles.expandedHeaderContainer,
+            ]}>
+            {expandedHeader}
+          </Animated.View>
+          <Animated.View
+            style={{
+              paddingTop: compactHeaderY,
+              opacity: compactHeaderOpacity,
+            }}>
+            {compactHeader}
+          </Animated.View>
+        </Animated.View>
+        <ScrollView
+          style={styles.scrollContainer}
+          contentContainerStyle={{ paddingTop: config.expanded }}
+          scrollIndicatorInsets={{
+            top: config.expanded,
+          }}
+          onScroll={Animated.event([
             {
-              opacity: expandedHeaderOpacity,
-              top: expandedHeaderY,
-            },
-            styles.expandedHeaderContainer,
-          ]}>
-          {expandedHeader}
-        </Animated.View>
-        <Animated.View
-          style={{
-            paddingTop: compactHeaderY,
-            opacity: compactHeaderOpacity,
-          }}>
-          {compactHeader}
-        </Animated.View>
-      </Animated.View>
-      <ScrollView
-        style={styles.scrollContainer}
-        contentContainerStyle={{ paddingTop: config.expanded }}
-        scrollIndicatorInsets={{
-          top: config.expanded,
-        }}
-        onScroll={Animated.event([
-          {
-            nativeEvent: {
-              contentOffset: {
-                y: scrollY,
+              nativeEvent: {
+                contentOffset: {
+                  y: scrollY,
+                },
               },
             },
-          },
-        ])}
-        scrollEventThrottle={16}>
-        {children}
-      </ScrollView>
-    </View>
+          ])}
+          scrollEventThrottle={16}>
+          {children}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // top: -32,
+    top: -32,
     flex: 1,
-    // backgroundColor: colors.predict,
-    backgroundColor: 'red',
-    // paddingBottom
-    // marginBottom: 5,
+    backgroundColor: colors.predict,
+    marginBottom: 5,
   },
   subContainer: {
     paddingTop: 16,
