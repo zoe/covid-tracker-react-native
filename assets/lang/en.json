@@ -604,8 +604,8 @@
   "child-consent-confirm": "I, and my child (to the extent they are able), consent to your processing their personal data as you have described it.",
   "consent": "consent",
   "consent-summary": "summary of what we do",
-  "child-consent-text-1": "Please explain to your child, to the extent that they are able to understand, what happens when you report their data through this app.\r\rWe need your consent, and your child’s consent if they are old enough to give it, to process all the information you enter about them. We will use it to carry out research on all aspects of COVID-19, as well as using it to follow the spread of the virus and to alert people, such as yourself, if there has been an outbreak that might affect you. For more information, please see a",
-  "child-consent-text-2": "on our website.\r\rIf you are happy to give that consent and your child, if they are capable of understanding what it means, also agrees, please indicate below.",
+  "child-consent-text-1": "Please explain to your child, to the extent that they are able to understand, what happens when you report their data through this app.\n\nWe need your consent, and your child’s consent if they are old enough to give it, to process all the information you enter about them. We will use it to carry out research on all aspects of COVID-19, as well as using it to follow the spread of the virus and to alert people, such as yourself, if there has been an outbreak that might affect you. For more information, please see a",
+  "child-consent-text-2": "on our website.\n\nIf you are happy to give that consent and your child, if they are capable of understanding what it means, also agrees, please indicate below.",
   "adult-consent-text-1": "Please confirm that you have shown or read our",
   "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
   "consent-create-profile": "Create profile",
@@ -1043,7 +1043,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1349,8 +1349,8 @@
   "covid-cases-map": {
     "covid-in-x": "COVID in {{location}}",
     "current-estimates": "Current estimates",
-    "active-cases-in-area": "Active cases\rin your area",
-    "not-enough-contributors": "Not enough contributors\rin this area",
+    "active-cases-in-area": "Active cases\nin your area",
+    "not-enough-contributors": "Not enough contributors\nin this area",
     "share": "Share your map",
     "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
@@ -1468,7 +1468,7 @@
 
     "success": {
       "joined-title": "You’ve successfully joined",
-      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\r\rPlease be aware that it could take 1 to 2 weeks before this happens.",
+      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\n\nPlease be aware that it could take 1 to 2 weeks before this happens.",
       "created-title": "Great! Your group has been created",
       "school-name": "School name",
       "group-name": "School Bubble",
