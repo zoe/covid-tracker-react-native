@@ -29,7 +29,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
     <ScrollView>
       <RegularText>
         By using this app and tracking if you are well or have symptoms, you will be helping medical science and the NHS
-        to better understand Coronavirus (COVID-19).
+        to better understand Coronavirus (COVID-19) and helping us follow the spread of the virus.
         {'\n\n'}
         This app allows you to help others, but does not give health advice. If you need health advice please visit the
         NHS website:{' '}
