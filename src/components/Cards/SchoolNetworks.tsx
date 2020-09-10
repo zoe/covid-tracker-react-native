@@ -9,6 +9,7 @@ import {
   SubscribedSchoolStats,
   SubscribedSchoolGroupStats,
 } from '@covid/core/schools/Schools.dto';
+import { ArrayDistinctBy } from '@covid/utils/array';
 
 type Props = {
   networks: SchoolGroupSubscriptionResponse;
@@ -123,7 +124,9 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
             <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
             <RegularBoldText>{school.size}</RegularBoldText>
             <RegularText>Children being reported for</RegularText>
-            {school.groups.map((group, index) => {
+            {ArrayDistinctBy(school.groups, (group) => {
+              return group.id;
+            }).map((group, index) => {
               const last = index !== data.length - 1;
               return casesView(group, last);
             })}
