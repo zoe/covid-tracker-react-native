@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
   pageBlock: {
     flexGrow: 1,
     marginHorizontal: 16,
+    marginBottom: 16,
   },
 
   headerBlock: {
