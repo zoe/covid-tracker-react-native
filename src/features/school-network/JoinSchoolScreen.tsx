@@ -7,7 +7,7 @@ import { Form } from 'native-base';
 import * as Yup from 'yup';
 
 import { colors } from '@theme';
-import { HeaderText, RegularText } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -21,6 +21,7 @@ import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
 import { SchoolModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -69,6 +70,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   const next = () => schoolNetworkCoordinator.gotoNextScreen(route.name);
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
       <Header>
@@ -120,6 +123,16 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               )}
             </View>
 
+            <View style={styles.textContainer}>
+              <RegularText>
+                <RegularText>{i18n.t('school-networks.join-school.disclaimer-1')}</RegularText>
+                <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/')}>
+                  {i18n.t('school-networks.join-school.disclaimer-2')}
+                </ClickableText>
+              </RegularText>
+              <RegularText style={{ marginTop: 16 }}>{i18n.t('school-networks.join-school.disclaimer-3')}</RegularText>
+            </View>
+
             <View>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
@@ -144,6 +157,9 @@ const styles = StyleSheet.create({
   formContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
+  },
+  textContainer: {
+    marginHorizontal: 16,
   },
   topText: {
     marginTop: 16,

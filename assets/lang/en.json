@@ -1436,6 +1436,9 @@
       "title": "Select your child’s school",
       "description": "Select the school you would like to link this account to. More information about",
       "description-link": "School Bubbles.",
+      "disclaimer-1": "We only list schools that are part of our pilot programme. Encourage your school's headteacher to register interest ",
+      "disclaimer-2": "here.",
+      "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
 
       "search": {
         "label": "Name of school",
