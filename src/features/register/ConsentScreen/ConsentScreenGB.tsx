@@ -1,10 +1,11 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useEffect } from 'react';
-import { ScrollView, Linking } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -13,7 +14,7 @@ type PropsType = {
 };
 
 const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
-  const onInfoLinkPress = useCallback(() => Linking.openURL('https://www.nhs.uk/conditions/coronavirus-covid-19/'), []);
+  const onInfoLinkPress = useCallback(() => openWebLink('https://www.nhs.uk/conditions/coronavirus-covid-19/'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUK', { viewOnly: route.params.viewOnly }),
@@ -28,7 +29,7 @@ const ConsentScreenGB: FC<PropsType> = ({ navigation, route, setAgreed }) => {
     <ScrollView>
       <RegularText>
         By using this app and tracking if you are well or have symptoms, you will be helping medical science and the NHS
-        to better understand Coronavirus (COVID-19).
+        to better understand Coronavirus (COVID-19) and helping us follow the spread of the virus.
         {'\n\n'}
         This app allows you to help others, but does not give health advice. If you need health advice please visit the
         NHS website:{' '}

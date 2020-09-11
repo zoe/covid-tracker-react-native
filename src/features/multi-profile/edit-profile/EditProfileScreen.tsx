@@ -4,7 +4,7 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { HeaderText, SecondaryText } from '@covid/components/Text';
+import { HeaderText, SecondaryText, Header3Text } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
 import { ArchiveProfile } from '@covid/features/multi-profile/ArchiveProfile';
 import { colors } from '@theme';
@@ -21,6 +21,15 @@ type RenderProps = {
 export const EditProfileScreen: React.FC<RenderProps> = (props) => {
   const patientData = props.route.params.patientData;
 
+  const LinkItem: React.FC<{ title: string; action: VoidFunction }> = ({ title, action }) => {
+    return (
+      <TouchableOpacity style={styles.profileLabel} onPress={action}>
+        <Header3Text>{title}</Header3Text>
+        <Image style={styles.chevron} source={chevronRight} />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <>
       <Screen profile={patientData.profile} navigation={props.navigation} simpleCallout>
@@ -30,17 +39,23 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         </Header>
 
         {editProfileCoordinator.shouldShowEditProfile() && (
-          <>
-            <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
-              <HeaderText>Your location</HeaderText>
-              <Image style={styles.chevron} source={chevronRight} />
-            </TouchableOpacity>
+          <LinkItem
+            title={i18n.t('edit-profile.your-location')}
+            action={() => editProfileCoordinator.goToEditLocation()}
+          />
+        )}
 
-            <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
-              <HeaderText>About you</HeaderText>
-              <Image style={styles.chevron} source={chevronRight} />
-            </TouchableOpacity>
-          </>
+        {false && (
+          // Disabled
+          <LinkItem title={i18n.t('title-about-you')} action={() => editProfileCoordinator.goToEditAboutYou()} />
+        )}
+
+        {editProfileCoordinator.shouldShowEditStudy() && (
+          <LinkItem title={i18n.t('your-study.title')} action={() => editProfileCoordinator.goToEditYourStudy()} />
+        )}
+
+        {editProfileCoordinator.shouldShowSchoolNetwork() && (
+          <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork()} />
         )}
       </Screen>
 

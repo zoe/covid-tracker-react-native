@@ -1,4 +1,5 @@
 {
-    "country": "GB",
-    "defaultHeightUnit": "ft"
+  "country": "GB",
+  "defaultHeightUnit": "ft",
+  "enableEditProfile": true
 }

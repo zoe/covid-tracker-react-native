@@ -32,7 +32,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: conta
   );
 };
 
-type NavbarProps = {
+type PatientHeaderProps = {
   profile: Profile;
   navigation: StackNavigationProp<ScreenParamList>;
   simpleCallout?: boolean;
@@ -40,7 +40,22 @@ type NavbarProps = {
   calloutTitle?: string;
 };
 
-const PatientHeader: React.FC<NavbarProps> = ({
+type NavbarProps = {
+  navigation: StackNavigationProp<ScreenParamList>;
+  rightComponent?: React.ReactNode;
+};
+
+export const NavHeader: React.FC<NavbarProps> = ({ navigation, rightComponent }) => {
+  return (
+    <View style={styles.headerBar}>
+      <View style={styles.left}>{!!navigation && <BackButton navigation={navigation} />}</View>
+      <View style={styles.center} />
+      <View style={styles.right}>{rightComponent}</View>
+    </View>
+  );
+};
+
+const PatientHeader: React.FC<PatientHeaderProps> = ({
   profile,
   navigation,
   simpleCallout = false,
@@ -48,28 +63,25 @@ const PatientHeader: React.FC<NavbarProps> = ({
   calloutTitle = !profile.reported_by_another ? profile.name : i18n.t('answer-for', { name: profile.name }),
 }) => {
   const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
-
-  return (
-    <View style={styles.headerBar}>
-      <View style={styles.left}>{!!navigation && <BackButton navigation={navigation} />}</View>
-      <View style={styles.center} />
-      <View style={styles.right}>
-        {type === CallOutType.Simple || simpleCallout ? (
-          <View style={styles.regularTextBox}>
-            <RegularText style={styles.regularText}>{calloutTitle}</RegularText>
+  const avatarComponent = (
+    <>
+      {type === CallOutType.Simple || simpleCallout ? (
+        <View style={styles.regularTextBox}>
+          <RegularText style={styles.regularText}>{calloutTitle}</RegularText>
+        </View>
+      ) : (
+        <>
+          <View style={styles.altTextBox}>
+            <ClippedText style={styles.altText}>{calloutTitle}</ClippedText>
+            <View style={styles.rightTriangle} />
           </View>
-        ) : (
-          <>
-            <View style={styles.altTextBox}>
-              <ClippedText style={styles.altText}>{calloutTitle}</ClippedText>
-              <View style={styles.rightTriangle} />
-            </View>
-          </>
-        )}
-        {!!avatarImage && <Image source={avatarImage} style={styles.avatar} />}
-      </View>
-    </View>
+        </>
+      )}
+      {!!avatarImage && <Image source={avatarImage} style={styles.avatar} />}
+    </>
   );
+
+  return <NavHeader navigation={navigation} rightComponent={avatarComponent} />;
 };
 
 const styles = StyleSheet.create({

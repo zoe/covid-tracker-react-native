@@ -2,7 +2,8 @@ import * as Amplitude from 'expo-analytics-amplitude';
 import Constants from 'expo-constants';
 
 import appConfig from '@covid/appConfig';
-import UserService from '@covid/core/user/UserService';
+
+import { LocalisationService } from './localisation/LocalisationService';
 
 let isInitialized = false;
 
@@ -24,10 +25,17 @@ const DashboardEvents = {
   ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED: 'ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED',
   ESTIMATED_CASES_MAP_CLICKED: 'ESTIMATED_CASES_MAP_CLICKED',
   ESTIMATED_CASES_MAP_SHARE_CLICKED: 'ESTIMATED_CASES_MAP_SHARE_CLICKED',
+  ESTIMATED_CASES_MAP_SHOWN: 'ESTIMATED_CASES_MAP_SHOWN',
+  ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN: 'ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN',
+};
+
+const InsightEvents = {
+  MISMATCH_COUNTRY_CODE: 'MISMATCH_COUNTRY_CODE',
 };
 
 export const events = {
   VIEW_SCREEN: 'VIEW_SCREEN',
+  LINK_OPENED: 'LINK_OPENED',
   SIGNUP: 'SIGNUP',
   DELETE_ACCOUNT_DATA: 'DELETE_ACCOUNT_DATA',
   DELETE_COVID_TEST: 'DELETE_COVID_TEST',
@@ -37,6 +45,7 @@ export const events = {
   DECLINE_STUDY: 'DECLINE_STUDY',
   CLICK_STUDY_AD_CALLOUT: 'CLICK_STUDY_AD_CALLOUT',
   CLICK_CALLOUT: 'CLICK_CALLOUT',
+  CLICK_CALLOUT_DISMISS: 'CLICK_CALLOUT_DISMISS',
   ACCEPT_STUDY_CONTACT: 'ACCEPT_STUDY_CONTACT',
   DECLINE_STUDY_CONTACT: 'DECLINE_STUDY_CONTACT',
   CLICK_DRAWER_MENU_ITEM: 'CLICK_DRAWER_MENU_ITEM',
@@ -46,17 +55,18 @@ export const events = {
   DECLINE_VACCINE_REGISTER: 'DECLINE_VACCINE_REGISTER',
   ...DietStudyEvents,
   ...DashboardEvents,
+  ...InsightEvents,
 };
 
 // Disable Tracking of the User Properties (Only available in Expo SDK 37)
 // https://docs.expo.io/versions/latest/sdk/amplitude/#amplitudeinitializeapikey
 // These are disabled at the project level by Amplitude via a support ticket.
-const trackingOptions = {
-  disableCarrier: true,
-  disableCity: true,
-  disableIDFA: true,
-  disableLatLng: true,
-};
+// const trackingOptions = {
+//   disableCarrier: true,
+//   disableCity: true,
+//   disableIDFA: true,
+//   disableLatLng: true,
+// };
 
 function initialize(): void {
   if (isInitialized || !appConfig.amplitudeKey) {
@@ -88,7 +98,7 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
   // WARNING: Do not send any PII or Health Data here!
   const payload = {
     ...additionalProps,
-    appCountry: UserService.userCountry,
+    appCountry: LocalisationService.userCountry,
     expoVersion: Constants.expoVersion,
     appVersion: Constants.manifest.version,
     revisionId: Constants.manifest.revisionId,

@@ -1,12 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useState, useEffect } from 'react';
-import { ScrollView, Linking } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { RegularText, ClickableText, RegularBoldText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Consent'>;
@@ -23,10 +24,7 @@ const ConsentScreenUS: FC<PropsType> = ({ navigation, route, setAgreed }) => {
     [navigation.replace, route.params.viewOnly]
   );
 
-  const onInfoLinkPress = useCallback(
-    () => Linking.openURL('https://www.cdc.gov/coronavirus/2019-ncov/index.html'),
-    []
-  );
+  const onInfoLinkPress = useCallback(() => openWebLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html'), []);
 
   const onPrivacyPolicyPress = useCallback(
     () => navigation.navigate('PrivacyPolicyUS', { viewOnly: route.params.viewOnly }),

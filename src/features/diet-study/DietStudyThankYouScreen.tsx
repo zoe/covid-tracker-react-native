@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
-  const { currentPatient } = props.route.params.dietStudyData;
+  const { profile } = props.route.params.dietStudyData.patientData;
   const [apiError, setApiError] = useState({} as ApiErrorState);
 
   return (
@@ -35,7 +35,7 @@ export const DietStudyThankYouScreen: React.FC<Props> = (props) => {
         />
       )}
 
-      <PatientHeader profile={currentPatient.profile} navigation={props.navigation} />
+      <PatientHeader profile={profile!} navigation={props.navigation} />
 
       <ScrollView style={styles.contentContainer}>
         <View style={{ marginTop: 24 }}>

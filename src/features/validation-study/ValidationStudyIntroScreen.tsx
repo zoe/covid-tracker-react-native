@@ -6,15 +6,14 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View, ImageBackground 
 import { icon, studyIntro } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Header } from '@covid/components/Screen';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import appCoordinator from '../AppCoordinator';
-import { ScreenParamList } from '../ScreenParamList';
+import { IConsentService } from '@covid/core/consent/ConsentService';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'ValidationStudyIntro'>;
@@ -22,8 +21,8 @@ type Props = {
 };
 
 export default class ValidationStudyIntroScreen extends Component<Props, object> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
+  @lazyInject(Services.Consent)
+  private readonly consentService: IConsentService;
 
   render() {
     return (
@@ -47,7 +46,7 @@ export default class ValidationStudyIntroScreen extends Component<Props, object>
             <TouchableOpacity
               onPress={() => {
                 Analytics.track(events.DECLINE_STUDY);
-                this.userService.setValidationStudyResponse(false);
+                this.consentService.setValidationStudyResponse(false);
                 appCoordinator.resetToProfileStartAssessment();
               }}>
               <RegularText>{i18n.t('validation-study-intro.no')}</RegularText>

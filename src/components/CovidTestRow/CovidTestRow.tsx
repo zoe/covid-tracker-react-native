@@ -5,15 +5,17 @@ import moment from 'moment';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { RegularText } from '@covid/components/Text';
 import { chevronRight, pending, tick } from '@assets';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
+import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 
 type Props = {
   item: CovidTest;
+  type: CovidTestType;
 };
 
-export const CovidTestRow: React.FC<Props> = ({ item }) => {
+export const CovidTestRow: React.FC<Props> = ({ type, item }) => {
   const formatTestResult = (result: string) => {
     switch (result) {
       case 'positive':
@@ -23,16 +25,18 @@ export const CovidTestRow: React.FC<Props> = ({ item }) => {
       case 'failed':
         return i18n.t('covid-test-list.failed');
       default:
-        return i18n.t('covid-test-list.pending');
+        return i18n.t('covid-test-list.update');
     }
   };
+
+  const isNHSTest = type === CovidTestType.NHSStudy;
 
   const getRowIcon = (result: string) => {
     return result === 'waiting' ? pending : tick;
   };
 
   const formatDateString = (dateString: string): string => {
-    return moment(dateString).format('MMMM D');
+    return moment(dateString).format('MMM D');
   };
 
   const formatTestDate = (test: CovidTest) => {
@@ -43,10 +47,27 @@ export const CovidTestRow: React.FC<Props> = ({ item }) => {
     }
   };
 
+  const formatTestMechanism = (mechanism: string) => {
+    switch (mechanism) {
+      case CovidTestMechanismOptions.NOSE_OR_THROAT_SWAB:
+        return i18n.t('nhs-test-detail.mechanism-swab');
+      case CovidTestMechanismOptions.SPIT_TUBE:
+        return i18n.t('nhs-test-detail.mechanism-saliva');
+      default:
+        return '';
+    }
+  };
+
   return (
-    <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(item)}>
+    <TouchableOpacity style={styles.itemTouchable} onPress={() => AssessmentCoordinator.goToAddEditTest(type, item)}>
       <Image source={getRowIcon(item.result)} style={styles.tick} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>{formatTestDate(item)}</RegularText>
+      {isNHSTest && (
+        <RegularText style={[item.result === 'waiting' && styles.pendingText]}>
+          {' - '}
+          {formatTestMechanism(item.mechanism)}
+        </RegularText>
+      )}
       <View style={{ flex: 1 }} />
       <RegularText style={[item.result === 'waiting' && styles.pendingText]}>
         {formatTestResult(item.result)}

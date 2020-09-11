@@ -60,7 +60,8 @@ const ThankYouSection: React.FC = () => {
 };
 
 const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { timePeriod, currentPatient } = route.params.dietStudyData;
+  const { timePeriod } = route.params.dietStudyData;
+  const currentPatient = route.params.dietStudyData.patientData.patientState;
   const { profile, isFemale } = currentPatient;
 
   const form = useDietStudyFormSubmit(route.name);

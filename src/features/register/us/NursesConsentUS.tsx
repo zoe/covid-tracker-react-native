@@ -1,17 +1,18 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
-import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-import appConfig from '@covid/appConfig';
+import { lazyInject } from '@covid/provider/services';
+import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appConfig from '@covid/appConfig';
+import { openWebLink } from '@covid/utils/links';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'NursesConsentUS'>;
@@ -24,8 +25,8 @@ interface TermsState {
 }
 
 export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
-  @lazyInject(Services.User)
-  private userService: ICoreService;
+  @lazyInject(Services.Consent)
+  private readonly consentService: IConsentService;
 
   constructor(props: PropsType) {
     super(props);
@@ -38,16 +39,16 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
   viewOnly = this.props.route.params.viewOnly;
 
   handleProcessingChange = () => {
-    this.setState({ processingChecked: !this.state.processingChecked });
+    this.setState((prevState) => ({ processingChecked: !prevState.processingChecked }));
   };
 
   handleTermsOfUseChange = () => {
-    this.setState({ termsOfUseChecked: !this.state.termsOfUseChecked });
+    this.setState((prevState) => ({ termsOfUseChecked: !prevState.termsOfUseChecked }));
   };
 
   handleAgreeClicked = async () => {
     if (this.state.processingChecked && this.state.termsOfUseChecked) {
-      await this.userService.setConsentSigned(
+      await this.consentService.setConsentSigned(
         'US Nurses',
         appConfig.nursesConsentVersionUS,
         appConfig.privacyPolicyVersionUS
@@ -83,7 +84,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-3')}{' '}
-            <ClickableText onPress={() => this.openUrl('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
+            <ClickableText onPress={() => openWebLink('https://www.cdc.gov/coronavirus/2019-ncov/index.html')}>
               https://www.cdc.gov/coronavirus/2019-ncov/index.html
             </ClickableText>
             .{'\n'}
@@ -143,7 +144,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
 
           <RegularText>
             {i18n.t('consent-nurses-us.para-9')}{' '}
-            <ClickableText onPress={() => this.openUrl('mailto:leavecovidtracking-us@joinzoe.com')}>
+            <ClickableText onPress={() => openWebLink('mailto:leavecovidtracking-us@joinzoe.com')}>
               leavecovidtracking-us@joinzoe.com
             </ClickableText>
             {'\n'}
@@ -174,7 +175,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-12')}{' '}
-            <ClickableText onPress={() => this.openUrl('mailto:covidtrackingquestions-us@joinzoe.com')}>
+            <ClickableText onPress={() => openWebLink('mailto:covidtrackingquestions-us@joinzoe.com')}>
               covidtrackingquestions-us@joinzoe.com
             </ClickableText>
             {'\n'}
@@ -218,7 +219,7 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
           </RegularBoldText>
           <RegularText>
             {i18n.t('consent-nurses-us.para-16')}{' '}
-            <ClickableText onPress={() => this.openUrl('mailto:leavecovidtracking-us@joinzoe.com')}>
+            <ClickableText onPress={() => openWebLink('mailto:leavecovidtracking-us@joinzoe.com')}>
               leavecovidtracking-us@joinzoe.com
             </ClickableText>
             {'\n'}
@@ -292,10 +293,6 @@ export class NursesConsentUSScreen extends Component<PropsType, TermsState> {
         )}
       </View>
     );
-  }
-
-  private openUrl(link: string) {
-    Linking.openURL(link);
   }
 }
 

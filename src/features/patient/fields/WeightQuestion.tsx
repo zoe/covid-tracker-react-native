@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import DropdownField from '@covid/components/DropdownField';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
-import { isUSCountry, ICoreService } from '@covid/core/user/UserService';
+import { isUSCountry, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { RegularText } from '@covid/components/Text';
 import { container } from '@covid/provider/services';
@@ -105,7 +105,7 @@ export const WeightQuestion: FCWithStatic<Props> = ({ formikProps, label }) => {
 };
 
 WeightQuestion.initialFormValues = () => {
-  const features = container.get<ICoreService>(Services.User).getConfig();
+  const features = container.get<ILocalisationService>(Services.Localisation).getConfig();
   return {
     weight: '',
     stones: '',

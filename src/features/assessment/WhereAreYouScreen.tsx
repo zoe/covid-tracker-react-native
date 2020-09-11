@@ -6,10 +6,10 @@ import { StyleSheet, View } from 'react-native';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { HeaderText } from '@covid/components/Text';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -20,13 +20,17 @@ type LocationProps = {
 
 export default class WhereAreYouScreen extends Component<LocationProps> {
   private async updateAssessment(status: string, isComplete = false) {
-    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const { assessmentId } = assessmentCoordinator.assessmentData;
     const assessment = {
       location: status,
     };
 
     if (isComplete) {
-      await assessmentService.completeAssessment(assessmentId!, assessment);
+      await assessmentService.completeAssessment(
+        assessmentId!,
+        assessment,
+        assessmentCoordinator.assessmentData.patientData.patientInfo!
+      );
     } else {
       await assessmentService.saveAssessment(assessmentId!, assessment);
     }
@@ -35,14 +39,14 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
   handleLocationSelection = async (location: string, endAssessment: boolean) => {
     try {
       await this.updateAssessment(location, endAssessment);
-      AssessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment);
+      assessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>

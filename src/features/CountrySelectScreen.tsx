@@ -6,11 +6,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { gbFlag, svFlag, usFlag } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from './ScreenParamList';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { IUserService } from '@covid/core/user/UserService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import appCoordinator from '@covid/features/AppCoordinator';
+import { SupportedCountryCodes } from '@covid/core/user/dto/UserAPIContracts';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'CountrySelect'>;
@@ -22,19 +24,23 @@ const GB_CODE = 'GB';
 const SV_CODE = 'SE';
 
 export class CountrySelectScreen extends Component<Props, object> {
+  @lazyInject(Services.Localisation)
+  private readonly localisationServce: ILocalisationService;
   @lazyInject(Services.User)
-  userService: ICoreService;
+  private readonly userService: IUserService;
 
-  constructor(props: Props) {
-    super(props);
-  }
+  private selectCountry = async (countryCode: SupportedCountryCodes) => {
+    await this.localisationServce.setUserCountry(countryCode);
 
-  private selectCountry = async (countryCode: string) => {
-    await this.userService.setUserCountry(countryCode);
-    this.props.navigation.reset({
-      index: 0,
-      routes: [{ name: 'Welcome' }],
-    });
+    if (appCoordinator.shouldShowCountryPicker && this.props.route?.params?.onComplete) {
+      await this.userService.updateCountryCode({ country_code: countryCode });
+      this.props.route.params.onComplete();
+    } else {
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
+    }
   };
 
   public render() {

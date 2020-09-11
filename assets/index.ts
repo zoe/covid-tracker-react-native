@@ -32,7 +32,7 @@ export const otherTest = require('./mechanism-icons/other.png');
 export const spit = require('./mechanism-icons/spit.png');
 export const syringe = require('./mechanism-icons/syringe.png');
 
-// Partner logos
+// Logos
 export const gbPartners = require('./logos/gb_partners.png');
 export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
@@ -41,6 +41,7 @@ export const usPartnersReturn = require('./logos/us_partners_return.png');
 export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
+export const covidByZoeIcon = require('./logos/covid_app_by_zoe.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');
@@ -63,9 +64,9 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog007 = require('./thank-you-modules/blog_007.png');
-export const incidence010 = require('./thank-you-modules/incidence_010.png');
-export const timUpdate004 = require('./thank-you-modules/tim_update_004.png');
+export const blog010 = require('./thank-you-modules/blog_010.png');
+export const incidence011 = require('./thank-you-modules/incidence_011.png');
+export const timUpdate007 = require('./thank-you-modules/tim_update_007.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
@@ -82,3 +83,7 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 
 // Avatar
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
+export const cartoMapHtml = require('./carto/estimated-cases.html');
+
+// School
+export const schoolNetworkFeature = require('./school-network-modules/new_feature.png');

@@ -1,14 +1,17 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { isSECountry, isUSCountry, ICoreService, isGBCountry } from '@covid/core/user/UserService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { IUserService } from '@covid/core/user/UserService';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
-import Analytics, { events } from '@covid/core/Analytics';
+import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
+import { PatientData } from '@covid/core/patient/PatientData';
+
+import { IProfileService } from '../profile/ProfileService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -17,11 +20,18 @@ type ScreenFlow = {
 
 export type AssessmentData = {
   assessmentId?: string;
-  currentPatient: PatientStateType;
+  patientData: PatientData;
 };
 
 export class AssessmentCoordinator {
-  userService: ICoreService;
+  @lazyInject(Services.Profile)
+  private readonly profileService: IProfileService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
+  navigation: NavigationType;
+  userService: IUserService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
   appCoordinator: AppCoordinator;
@@ -31,7 +41,7 @@ export class AssessmentCoordinator {
       this.startAssessment();
     },
     LevelOfIsolation: () => {
-      if (this.assessmentData.currentPatient.isHealthWorker) {
+      if (this.assessmentData.patientData.patientState.isHealthWorker) {
         NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
@@ -41,7 +51,7 @@ export class AssessmentCoordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      if (this.assessmentData.currentPatient.shouldAskLifestyleQuestion) {
+      if (this.assessmentData.patientData.patientState.shouldAskLifestyleQuestion) {
         NavigatorService.navigate('Lifestyle', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
@@ -51,6 +61,9 @@ export class AssessmentCoordinator {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
+      NavigatorService.goBack();
+    },
+    NHSTestDetail: () => {
       NavigatorService.goBack();
     },
     DescribeSymptoms: () => {
@@ -64,7 +77,7 @@ export class AssessmentCoordinator {
   init = (
     appCoordinator: AppCoordinator,
     assessmentData: AssessmentData,
-    userService: ICoreService,
+    userService: IUserService,
     assessmentService: IAssessmentService
   ) => {
     this.appCoordinator = appCoordinator;
@@ -74,8 +87,8 @@ export class AssessmentCoordinator {
   };
 
   startAssessment = () => {
-    const { currentPatient } = this.assessmentData;
-    const config = this.userService.getConfig();
+    const currentPatient = this.assessmentData.patientData.patientState;
+    const config = this.localisationService.getConfig();
     this.assessmentService.initAssessment();
 
     if (currentPatient.hasCompletedPatientDetails) {
@@ -91,14 +104,14 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      this.appCoordinator.startPatientFlow(this.assessmentData.currentPatient);
+      this.appCoordinator.startPatientFlow(this.assessmentData.patientData);
     }
   };
 
   gotoEndAssessment = async () => {
-    const config = this.userService.getConfig();
+    const config = this.localisationService.getConfig();
 
-    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.userService)) {
+    if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
@@ -116,8 +129,9 @@ export class AssessmentCoordinator {
   };
 
   // The following navigations require the checking of some state and so these are passed in.
-  goToAddEditTest = (covidTest?: CovidTest) => {
-    NavigatorService.navigate('CovidTestDetail', { assessmentData: this.assessmentData, test: covidTest });
+  goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
+    const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
+    NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
   };
 
   goToNextHowYouFeelScreen = (healthy: boolean) => {
@@ -156,12 +170,23 @@ export class AssessmentCoordinator {
     return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
   };
 
-  static async shouldShowReportForOthers(config: ConfigType, userService: ICoreService) {
+  static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
     return (
       config.enableMultiplePatients &&
-      !(await userService.hasMultipleProfiles()) &&
-      (await userService.shouldAskToReportForOthers())
+      !(await profileService.hasMultipleProfiles()) &&
+      (await profileService.shouldAskToReportForOthers())
     );
+  }
+
+  editLocation() {
+    this.appCoordinator.startEditLocation(
+      this.assessmentData.patientData.patientState.profile,
+      this.assessmentData.patientData
+    );
+  }
+
+  shouldShowEditLocation() {
+    return this.localisationService.getConfig().enableEditProfile;
   }
 }
 

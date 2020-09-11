@@ -1,5 +1,5 @@
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
@@ -8,6 +8,7 @@ import { ScreenProps } from '@covid/components/Screen';
 import { CallOutType } from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
 import { DietChangedOption } from '@covid/features/diet-study/fields/DietChangedQuestion';
+import { PatientData } from '@covid/core/patient/PatientData';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
@@ -46,14 +47,14 @@ export type DietStudyData = {
   timePeriod: string;
   recentDietStudyId?: string;
   febDietStudyId?: string;
-  currentPatient: PatientStateType;
+  patientData: PatientData;
   startedFromMenu: boolean;
 };
 
 export class DietStudyCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
-  userService: ICoreService;
+  userService: IUserService;
   dietStudyService: IDietStudyRemoteClient;
   dietStudyData: DietStudyData;
 
@@ -72,21 +73,21 @@ export class DietStudyCoordinator {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (!timePeriod) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
         return;
       }
 
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
       NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
       if (timePeriod === PRE_LOCKDOWN) {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
-        NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
         NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
     },
@@ -95,9 +96,9 @@ export class DietStudyCoordinator {
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
-        NavigatorService.navigate('WelcomeRepeat');
+        NavigatorService.navigate(this.appCoordinator.homeScreenName);
       } else {
-        this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+        this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
       }
     },
   } as ScreenFlow;
@@ -105,7 +106,7 @@ export class DietStudyCoordinator {
   init = (
     appCoordinator: AppCoordinator,
     dietStudyData: DietStudyData,
-    userService: ICoreService,
+    userService: IUserService,
     dietStudyService: IDietStudyRemoteClient
   ) => {
     this.appCoordinator = appCoordinator;
@@ -126,7 +127,7 @@ export class DietStudyCoordinator {
         Analytics.track(events.DECLINE_DIET_STUDY);
         NavigatorService.goBack();
         if (!this.dietStudyData.startedFromMenu) {
-          this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+          this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
         }
         break;
       }
@@ -134,7 +135,7 @@ export class DietStudyCoordinator {
         Analytics.track(events.DEFER_DIET_STUDY);
         NavigatorService.goBack();
         if (!this.dietStudyData.startedFromMenu) {
-          this.appCoordinator.startAssessmentFlow(this.dietStudyData.currentPatient);
+          this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
         }
         break;
       }

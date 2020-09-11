@@ -1,10 +1,11 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { openWebLink } from '@covid/utils/links';
 
 import i18n from '../../../locale/i18n';
 import { ScreenParamList } from '../../ScreenParamList';
@@ -105,7 +106,7 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
           <RegularText>
             {i18n.t('privacy-policy-us.para-13-1')}{' '}
             <ClickableText
-              onPress={() => this.openUrl('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
+              onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/your-personal-information-concerns/')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             {i18n.t('privacy-policy-us.para-13-2')}
@@ -136,10 +137,6 @@ export class PrivacyPolicyUSScreen extends Component<PropsType, object> {
         </BrandedButton>
       </View>
     );
-  }
-
-  private openUrl(link: string) {
-    Linking.openURL(link);
   }
 }
 

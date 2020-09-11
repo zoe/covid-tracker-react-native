@@ -31,7 +31,7 @@ type Props = {
 };
 
 const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { profile } = route.params.dietStudyData.currentPatient;
+  const { profile } = route.params.dietStudyData.patientData;
 
   const registerSchema = Yup.object()
     .shape({})

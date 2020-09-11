@@ -1,9 +1,21 @@
+import { injectable } from 'inversify';
+import { AxiosResponse } from 'axios';
+
 import appConfig from '@covid/appConfig';
 
-import UserService from './UserService';
+import UserService, { IUserService } from './UserService';
 import { CovidTest, CovidTestResponse } from './dto/CovidTestContracts';
 
-export default class CovidTestService extends UserService {
+export interface ICovidTestService extends IUserService {
+  listTests(): Promise<AxiosResponse<CovidTest[]>>;
+  addTest(test: Partial<CovidTest>): Promise<AxiosResponse<CovidTestResponse>>;
+  getTest(testId: string): Promise<CovidTest>;
+  updateTest(testId: string, test: Partial<CovidTest>): Promise<AxiosResponse<CovidTestResponse>>;
+  deleteTest(testId: string): Promise<AxiosResponse<CovidTestResponse>>;
+}
+
+@injectable()
+export default class CovidTestService extends UserService implements ICovidTestService {
   public async listTests() {
     return this.client.get<CovidTest[]>(`/covid_tests/`);
   }

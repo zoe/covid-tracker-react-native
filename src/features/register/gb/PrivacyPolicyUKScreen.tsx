@@ -1,10 +1,11 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import { BrandedButton, ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { openWebLink } from '@covid/utils/links';
 
 import { ScreenParamList } from '../../ScreenParamList';
 import { BulletedTextBlock } from '../../../components/LegalComponents';
@@ -38,15 +39,20 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             This is information about you, your health and your symptoms if unwell. It includes:
             {'\n\n'}- Information about your health (including your body temperature, height and weight){'\n'}-
             Information about pre-existing conditions{'\n'}- Information about your symptoms{'\n'}- Your COVID-19 test
-            status{'\n'}- Details of any treatment you have received{'\n'}- Your sex at birth{'\n'}- Your year of birth
-            {'\n'}- Your location (including postcode){'\n'}- Whether you are a health worker coming into contact with
-            patients{'\n'}
+            status{'\n'}- Details of any treatment you have received{'\n'}- General information about you such as your
+            sex at birth, your year of birth and your location (including postcode){'\n'}- Whether you are a health
+            worker coming into contact with patients{'\n'}- Whether you are a member of the UK twins study{'\n'}
+            {'\n\n'}
+            We may also ask other questions from time to time, such as:
+            {'\n\n'}- Information about your diet{'\n'}- What you do if and when you go out, such as where you go and
+            whether you wear a mask or other protection{'\n'}
             {'\n\n'}
             We process this data in order that:
-            {'\n\n'}- We can better understand symptoms of COVID-19{'\n'}- We can track the spread of COVID-19{'\n'}- We
-            can identify the exposure of healthcare workers to COVID-19{'\n'}- We can advance scientific research into
-            the links between patient's health and their response to infection by COVID-19{'\n'}- In the future we may
-            use this data to help the NHS support sick individuals
+            {'\n\n'}- We can better understand symptoms of COVID-19{'\n'}- We can follow the spread of COVID-19, for
+            example so that we can identify hotspots{'\n'}- We can identify the exposure of healthcare workers to
+            COVID-19{'\n'}- We can advance scientific research into the links between patient's health and their
+            response to infection by COVID-19{'\n'}- In the future we may use this data to help the NHS support sick
+            individuals
             {'\n\n'}
             Our legal basis for processing it is that you consented to our doing so. Because of the tight regulatory
             requirements placed on us, we need your consent to process data about your health, which means that if you
@@ -78,15 +84,15 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
           <RegularText>
             We also collect contact information and other information from your device including:
             {'\n\n'}- Your name (optional){'\n'}- Email address (optional){'\n'}- Phone number (optional){'\n'}- A user
-            name and password{'\n'}- IP address{'\n'}- Device ID{'\n'}- Whether you are a member of the UK twins study
-            {'\n'}
+            name and password{'\n'}- IP address{'\n'}- Device ID{'\n'}
           </RegularText>
 
           <RegularText>
             We use this information for the following purposes:
             {'\n\n'}- Asking you for feedback on the app or conducting other forms of survey.{'\n'}- Keeping in touch
             with you about the app and its performance.{'\n'}- Sending you information about new versions of the app or
-            similar apps we may have in the future.{'\n\n'}
+            similar apps we may have in the future.{'\n'}- Identifying faults or other problems connected with the app
+            {'\n\n'}
             We will not send any emails not meant individually for you (for example marketing emails) if you do not want
             us to do so. Every such email will include a link you can click to opt-out from receiving them. We will not
             sell your contact information to third-parties.
@@ -97,6 +103,27 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             We keep your contact information for 6 years after the last communication with us, or the last use of the
             app, for liability purposes, then we delete it.
             {'\n'}
+          </RegularText>
+
+          <RegularBoldText>Recording information for others{'\n'}</RegularBoldText>
+          <RegularText>
+            The app also allows you to input information about other people in addition to your own by making a separate
+            profile for them. If the other person is able to understand the concept of consent, for example if they are
+            a mentally competent adult or mature child, then you must only do this if they have given their consent.
+            {'\n\n'}
+            Younger children may not be mature enough to give consent, but they may be able to understand what you are
+            doing. If so, you should explain to them what you are doing and what may happen to information about them to
+            the extent they are capable of understanding. You should also try to take into account their views, even if
+            you make the ultimate decision. We trust you to know your child and to do what is appropriate given their
+            level of maturity.{'\n'}
+          </RegularText>
+
+          <RegularBoldText>School Attendance{'\n'}</RegularBoldText>
+          <RegularText>
+            If your child is attending school, you may optionally tell us about their school, their bubble and other
+            things about their attendance. We use this information in the same way we use other sensitive personal data,
+            but in addition we may (where it would not identify any individual) use it to alert you to an infection in
+            your child’s bubble and to help the school plan for any impact of COVID-19.{'\n'}
           </RegularText>
 
           <RegularBoldText>Third party processors for both kinds of information{'\n'}</RegularBoldText>
@@ -131,7 +158,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             Under the{' '}
             <ClickableText
               onPress={() =>
-                this.openUrl('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
+                openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
               }>
               GDPR
             </ClickableText>{' '}
@@ -148,7 +175,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             For further information on each of those rights, including the circumstances in which they apply, see the{' '}
             <ClickableText
               onPress={() =>
-                this.openUrl(
+                openWebLink(
                   'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/'
                 )
               }>
@@ -162,7 +189,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             The{' '}
             <ClickableText
               onPress={() =>
-                this.openUrl('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
+                openWebLink('http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN')
               }>
               General Data Protection Regulation
             </ClickableText>{' '}
@@ -170,7 +197,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
             Union (or European Economic Area) state where you work, normally live or where any alleged infringement of
             data protection laws occurred. The supervisory authority in the UK is the Information Commissioner who may
             be contacted at{' '}
-            <ClickableText onPress={() => this.openUrl('https://ico.org.uk/make-a-complaint/')}>
+            <ClickableText onPress={() => openWebLink('https://ico.org.uk/make-a-complaint/')}>
               https://ico.org.uk/make-a-complaint/your-personal-information-concerns/
             </ClickableText>{' '}
             or telephone: <RegularBoldText>+44 0303 123 1113</RegularBoldText>.{'\n'}
@@ -209,10 +236,6 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
         )}
       </View>
     );
-  }
-
-  private openUrl(link: string) {
-    Linking.openURL(link);
   }
 }
 

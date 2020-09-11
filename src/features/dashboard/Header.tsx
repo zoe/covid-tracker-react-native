@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-import { colors } from '@theme';
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
-import { contentService } from '@covid/Services';
-import { covidIcon } from '@assets';
+import { covidIcon, covidByZoeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
 import Analytics, { events } from '@covid/core/Analytics';
+import { cleanIntegerVal } from '@covid/utils/number';
+import { colors } from '@theme';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { ContentState } from '@covid/core/content/state/contentSlice';
 
 interface Props {
   reportedCount?: string;
@@ -21,19 +24,17 @@ enum HeaderType {
 }
 
 export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
-  const todaysDate = (): string => moment().format('dddd Do MMMM');
+  const content = useSelector<RootState, ContentState>((state) => state.content);
   const [contributors, setContributors] = useState<string | null>(null);
 
-  const prettyContributorsValue = i18n.toNumber(contributors ? parseInt(contributors) : 0, {
+  const prettyContributorsValue = i18n.toNumber(contributors ? cleanIntegerVal(contributors) : 0, {
     precision: 0,
     delimiter: ',',
   });
 
   useEffect(() => {
-    (async () => {
-      setContributors(await contentService.getUserCount());
-    })();
-  }, []);
+    setContributors(content.startupInfo?.users_count.toString() ?? null);
+  }, [content.startupInfo]);
 
   const onReport = () => {
     Analytics.track(events.REPORT_NOW_CLICKED, { headerType: HeaderType.Expanded });
@@ -42,12 +43,12 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
 
   return (
     <View style={styles.root}>
-      <Image source={covidIcon} style={styles.logo} />
+      <Image source={covidByZoeIcon} style={styles.covidByZoe} />
 
       <View style={styles.reportCard}>
-        <Header3Text style={styles.dateLabel}>{todaysDate()}</Header3Text>
-        <BrandedButton style={styles.reportButton} onPress={onReport}>
-          {i18n.t('dashboard.report-now')}
+        <Header3Text style={styles.dateLabel}>{content.todayDate}</Header3Text>
+        <BrandedButton style={[styles.reportButton, styles.reportButtonExpanded]} onPress={onReport}>
+          {i18n.t('dashboard.report-today')}
         </BrandedButton>
         {reportedCount && (
           <CaptionText style={styles.reportedCount}>
@@ -75,7 +76,7 @@ export const CompactHeader: React.FC<Props> = ({ reportOnPress }) => {
   return (
     <View style={styles.root}>
       <Image source={covidIcon} style={[styles.logo, styles.compactHeaderLogo]} />
-      <BrandedButton style={styles.reportButton} onPress={onReport}>
+      <BrandedButton style={[styles.reportButton, styles.reportButtonCompact]} onPress={onReport}>
         {i18n.t('dashboard.report-now')}
       </BrandedButton>
     </View>
@@ -96,6 +97,15 @@ const styles = StyleSheet.create({
     height: 54,
     resizeMode: 'contain',
     margin: 8,
+  },
+
+  covidByZoe: {
+    width: 136,
+    height: 56,
+    resizeMode: 'contain',
+    margin: 8,
+    alignSelf: 'flex-start',
+    marginLeft: 16,
   },
 
   compactHeaderLogo: {
@@ -123,10 +133,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.purple,
     alignSelf: 'center',
     elevation: 0,
-    paddingHorizontal: 52,
     height: 48,
     marginTop: 16,
     marginBottom: 8,
+  },
+
+  reportButtonExpanded: {
+    paddingHorizontal: 32,
+  },
+
+  reportButtonCompact: {
+    paddingHorizontal: 52,
   },
 
   reportedCount: {

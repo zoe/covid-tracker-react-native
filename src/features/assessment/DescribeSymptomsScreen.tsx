@@ -14,7 +14,7 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import UserService, { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { cleanFloatVal } from '@covid/utils/number';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
@@ -22,8 +22,8 @@ import { assessmentService } from '@covid/Services';
 import YesNoField from '@covid/components/YesNoField';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
-
-import { ScreenParamList } from '../ScreenParamList';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 const initialFormValues = {
   hasFever: 'no',
@@ -100,7 +100,10 @@ const initialState: State = {
 
 export default class DescribeSymptomsScreen extends Component<SymptomProps, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
 
   constructor(props: SymptomProps) {
     super(props);
@@ -161,7 +164,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   createAssessmentInfos(formData: DescribeSymptomsData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
 
     let infos = ({
       fever: formData.hasFever === 'yes',
@@ -227,7 +230,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const temperatureItems = [
       { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
       { label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F' },
@@ -255,7 +258,7 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
     ];
 
     const getInitialFormValues = (): DescribeSymptomsData => {
-      const features = this.userService.getConfig();
+      const features = this.localisationService.getConfig();
       return {
         ...initialFormValues,
         temperatureUnit: features.defaultTemperatureUnit,

@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog006, dataPage003, incidence009, notificationReminders, timUpdate004 } from '@assets';
+import { blog010, dataPage003, notificationReminders, timUpdate007 } from '@assets';
 import { colors } from '@theme';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
@@ -47,26 +47,18 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
             <Header3Text style={styles.titleText}>{i18n.t('latest-news.title')}</Header3Text>
 
             <ExternalCallout
-              link="https://www.youtube.com/watch?v=2D1WqFEJUZA"
-              calloutID="tim_update_005"
-              imageSource={timUpdate004}
+              link="https://covid.joinzoe.com/post/covid-on-the-rise?utm_source=App"
+              calloutID="blog_010"
+              imageSource={blog010}
+              aspectRatio={1.552}
+              screenName={props.route.name}
+            />
+
+            <ExternalCallout
+              link="https://youtu.be/lU5yDDLUvCY"
+              calloutID="tim_update_007"
+              imageSource={timUpdate007}
               aspectRatio={1.178}
-              screenName={props.route.name}
-            />
-
-            <ExternalCallout
-              link="https://covid.joinzoe.com/post/covid-donations?utm_source=App"
-              calloutID="blog_006"
-              imageSource={blog006}
-              aspectRatio={1.551}
-              screenName={props.route.name}
-            />
-
-            <ExternalCallout
-              link="https://covid.joinzoe.com/data#daily-new-cases?utm_source=App"
-              calloutID="incidence_009"
-              imageSource={incidence009}
-              aspectRatio={1.5}
               screenName={props.route.name}
             />
 

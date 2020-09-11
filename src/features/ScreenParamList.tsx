@@ -2,8 +2,6 @@ import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
-import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
 
 export enum ConsentType {
@@ -33,12 +31,12 @@ export type ScreenParamList = {
   ResetPasswordConfirm: undefined;
   Register: undefined;
   Login: { terms: string };
-  CountrySelect: undefined;
+  CountrySelect: { onComplete?: VoidFunction };
   OptionalInfo: undefined;
 
   // Profile screens
   ReportForOther: undefined;
-  SelectProfile: undefined;
+  SelectProfile: { editing: boolean };
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };
   ConsentForOther: { profileName: string; avatarName?: string; consentType: ConsentType };
@@ -48,16 +46,19 @@ export type ScreenParamList = {
   EditLocation: { patientData: PatientData };
 
   // Patient screens
-  YourStudy: { patientData: PatientData };
+  YourStudy: { patientData: PatientData; editing: boolean };
   YourWork: { patientData: PatientData };
   AboutYou: { patientData: PatientData; editing: boolean };
   YourHealth: { patientData: PatientData };
   PreviousExposure: { patientData: PatientData };
+  NHSIntro: { editing: boolean };
+  NHSDetails: { editing: boolean };
 
   // Assessment screens
   HealthWorkerExposure: { assessmentData: AssessmentData };
   CovidTestList: { assessmentData: AssessmentData; tests?: CovidTest[] };
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
+  NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
   DescribeSymptoms: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
@@ -90,4 +91,13 @@ export type ScreenParamList = {
 
   Dashboard: undefined;
   EstimatedCases: undefined;
+
+  // School network
+  SchoolIntro: undefined;
+  SchoolHowTo: undefined;
+  SelectSchool: undefined;
+  JoinSchool: undefined;
+  JoinSchoolGroup: undefined;
+  CreateNetworkGroup: undefined;
+  SchoolSuccess: undefined;
 };

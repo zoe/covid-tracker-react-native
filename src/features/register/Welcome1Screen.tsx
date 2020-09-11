@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-nat
 import { gbMap, svMap, usMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
 import { BrandedButton, RegularText, ClickableText } from '@covid/components/Text';
-import { isGBCountry, isSECountry } from '@covid/core/user/UserService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -56,13 +56,15 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
     <View style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image testID="map" style={styles.mapImage} source={getMapImage()} />
-
-        <ClickableText testID="login" style={styles.login} onPress={onLoginPress}>
-          {i18n.t('welcome.sign-in')}
-        </ClickableText>
-        <TouchableOpacity testID="selectCountry" style={styles.countryFlag} onPress={onSelectCountryPress}>
-          <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
-        </TouchableOpacity>
+        <View style={styles.loginContainer}>
+          <ClickableText testID="login" style={styles.login} onPress={onLoginPress}>
+            {i18n.t('welcome.sign-in')}
+          </ClickableText>
+          <View style={styles.pipe} />
+          <TouchableOpacity testID="selectCountry" style={styles.countryFlag} onPress={onSelectCountryPress}>
+            <Image testID="flag" style={styles.flagIcon} source={getFlagIcon()} />
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.rootContainer}>
           <View style={styles.covidContainer}>
@@ -106,18 +108,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.purple,
     fontSize: 16,
   },
-  countryFlag: {
-    position: 'absolute',
-    top: 56,
-    end: 24,
-  },
-  login: {
-    position: 'absolute',
-    top: 60,
-    end: 56,
-    color: colors.white,
-    marginHorizontal: 16,
-  },
   covidContainer: {
     paddingHorizontal: 14,
     paddingBottom: 14,
@@ -133,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 48,
     paddingVertical: 24,
-    paddingHorizontal: 40,
+    paddingHorizontal: 24,
     textAlign: 'center',
     fontWeight: '300',
   },
@@ -144,6 +134,23 @@ const styles = StyleSheet.create({
   contributors: {
     paddingHorizontal: 32,
     marginBottom: 32,
+  },
+  loginContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    position: 'absolute',
+    right: 32,
+    top: 60,
+  },
+  countryFlag: {},
+  login: {
+    color: colors.white,
+  },
+  pipe: {
+    backgroundColor: colors.white,
+    height: 32,
+    marginHorizontal: 16,
+    width: 1,
   },
 });
 

@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import * as Yup from 'yup';
 import { StyleSheet } from 'react-native';
 
+import { colors, fontStyles } from '@theme';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -14,16 +15,16 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import { ValidationError } from '@covid/components/ValidationError';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { cleanIntegerVal } from '@covid/utils/number';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import { colors, fontStyles } from '@theme';
 import { FaceMaskData, FaceMaskQuestion, TypeOfMaskValues } from '@covid/features/assessment/fields/FaceMaskQuestion';
-import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
+import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -58,7 +59,10 @@ const initialState: State = {
 
 export default class LevelOfIsolationScreen extends Component<LocationProps, State> {
   @lazyInject(Services.User)
-  private userService: ICoreService;
+  private readonly userService: IUserService;
+
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
 
   constructor(props: LocationProps) {
     super(props);
@@ -74,7 +78,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   };
 
   private createAssessment(formData: LevelOfIsolationScreenData) {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const patientId = currentPatient.patientId;
 
     let infos = {
@@ -127,8 +131,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
       last_asked_level_of_isolation: timeNow,
     } as Partial<PatientInfosRequest>;
 
-    return this.userService
-      .updatePatient(patientId, infos)
+    return this.patientService
+      .updatePatientInfo(patientId, infos)
       .then(() => (currentPatient.shouldAskLevelOfIsolation = false))
       .catch(() => {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -137,7 +141,8 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
 
   async handleUpdate(formData: LevelOfIsolationScreenData) {
     try {
-      const { currentPatient, assessmentId } = AssessmentCoordinator.assessmentData;
+      const { assessmentId } = AssessmentCoordinator.assessmentData;
+      const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
       var assessment = this.createAssessment(formData);
 
       const response = await assessmentService.saveAssessment(assessmentId!, assessment);
@@ -152,7 +157,7 @@ export default class LevelOfIsolationScreen extends Component<LocationProps, Sta
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     return (
       <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
         <Header>

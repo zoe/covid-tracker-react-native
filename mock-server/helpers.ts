@@ -1,4 +1,5 @@
 import { DbConfig } from './types';
+
 import fs = require('fs');
 
 export default (dbPath: string) => {
@@ -26,7 +27,7 @@ export default (dbPath: string) => {
             }
 
             console.log(`~~ mockDb: create file ${dbPath}/${path}`);
-            fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData ?? {}, null, ' '), () => {});
+            fs.writeFile(`${dbPath}/${path}`, JSON.stringify(defaultData, null, ' '), () => {});
           });
         });
       });

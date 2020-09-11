@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 import { colors } from '@theme';
-import { BrandedButton, Header3Text, MutedText, RegularText, CaptionText } from '@covid/components/Text';
+import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/components/Text';
 import Screen from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
@@ -23,8 +23,7 @@ type Props = {
 };
 
 export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { currentPatient } = route.params.dietStudyData;
-  const { profile } = currentPatient;
+  const { profile } = route.params.dietStudyData.patientData;
 
   const registerSchema = Yup.object();
 

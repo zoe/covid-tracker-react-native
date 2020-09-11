@@ -52,11 +52,11 @@
 
   "welcome": {
     "title": "COVID Symptom Study",
-    "sign-in": "Sign in",
+    "sign-in": "Log in",
     "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
     "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
     "disclaimer-link": "visit the NHS website",
-    "tell-me-more": "Tell me more",
+    "tell-me-more": "Create account",
     "visit-the-website": "Visit the website",
     "see-how-your-area-is-affected": "Follow the discoveries \nyou made possible",
     "report-button": "Report today, even if you're well",
@@ -106,13 +106,14 @@
 
   "back-date-profile-title": "Some additional questions about you",
   "update-profile": "Update profile",
+  "create-profile": "Create",
 
   "title-about-work": "About your work",
 
   "your-study": {
+    "title": "Study membership",
     "label-cohort": "Are you part of one of these population studies or organisations?",
     "add-study-names": "Add the names of your studies",
-    "your-clinical-study": "Your clinical study",
     "contact-name": "If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?",
     "uni-hospital": "If you know it, what university or hospital runs this study?",
     "nct-number": "What is the NCT number (if you know it)?",
@@ -187,8 +188,8 @@
 
   "your-postcode": "Your postcode?",
   "placeholder-postcode": "Postcode",
-  "required-postcode": "Please enter your postcode (first part is sufficient)",
-  "postcode-too-long": "Please correct your postcode (first part is sufficient)",
+  "required-postcode": "Please enter your postcode",
+  "postcode-too-long": "Please correct your postcode",
 
   "picker-yes": "Yes",
   "picker-no": "No",
@@ -302,9 +303,9 @@
 
   "covid-test": {
     "page-title": "COVID-19 status",
-    "page-title-detail-add": "Add new test",
+    "page-title-detail-add": "Add COVID test",
     "page-title-detail-update": "Update test",
-    "add-test": "Add test",
+    "add-test": "Add new test",
     "update-test": "Update test",
     "delete-test": "Delete test",
 
@@ -355,6 +356,9 @@
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
+    "question-time-test-taken": "What time did you take the test?",
+    "question-pick-a-time": "Pick a time",
+    "question-time-test-taken-error": "Please enter the time of your appointment",
     "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
 
     "required-date": "Please indicate the date this test occurred",
@@ -429,7 +433,9 @@
   "how-you-feel": {
     "question-health-status": "How do you feel physically right now?",
     "picker-health-status-healthy": "I feel physically normal",
-    "picker-health-status-not-healthy": "I'm not feeling quite right"
+    "picker-health-status-not-healthy": "I'm not feeling quite right",
+    "current-location": "You are currently reporting from:",
+    "update-location": "Update Location"
   },
 
   "level-of-isolation": {
@@ -595,10 +601,11 @@
   "adult-consent-title": "Adult consent",
   "child-consent-title": "Child consent",
   "adult-consent-confirm": "I confirm the above",
-  "child-consent-confirm": "I confirm that I am the child's legal guardian and that I have done the above",
+  "child-consent-confirm": "I, and my child (to the extent they are able), consent to your processing their personal data as you have described it.",
   "consent": "consent",
-  "child-consent-text-1": "If your child is old enough to understand our",
-  "child-consent-text-2": "requirements, please explain to them that you are sharing information about them with us and what we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.",
+  "consent-summary": "summary of what we do",
+  "child-consent-text-1": "Please explain to your child, to the extent that they are able to understand, what happens when you report their data through this app.\n\nWe need your consent, and your child’s consent if they are old enough to give it, to process all the information you enter about them. We will use it to carry out research on all aspects of COVID-19, as well as using it to follow the spread of the virus and to alert people, such as yourself, if there has been an outbreak that might affect you. For more information, please see a",
+  "child-consent-text-2": "on our website.\n\nIf you are happy to give that consent and your child, if they are capable of understanding what it means, also agrees, please indicate below.",
   "adult-consent-text-1": "Please confirm that you have shown or read our",
   "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
   "consent-create-profile": "Create profile",
@@ -622,6 +629,8 @@
   "default-profile-name": "Me",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+
+  "validation-error-text-required": "Please provide more details",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
@@ -655,11 +664,14 @@
   "covid-test-list": {
     "title": "Your COVID-19 tests",
     "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
+    "nhs-text": "Once you start day 1 of your study, please add test details daily over the 21-day period. If any of your results are positive, please update the relevant test result below. For more information and instructions, read our ",
+    "nhs-text-link": "NHS Asymptomatic Staff Testing Pilot Guide",
     "add-new-test": "Add new test",
     "positive": "Positive",
     "negative": "Negative",
     "failed": "Failed",
-    "pending": "Pending",
+    "pending": "Waiting for result",
+    "update": "Update result",
     "never-had-test": "I have never had a COVID test",
     "above-list-correct": "This list is correct"
   },
@@ -885,14 +897,20 @@
 
   "edit-profile": {
     "title": "My profile",
+    "your-location": "Your location",
     "text": "",
     "archive-cta": "Archive this profile",
     "done": "Done",
+    "next": "Next",
 
     "location": {
       "title": "My location",
-      "label": "Your postcode (e.g. SE1)",
-      "disclaimer": "Your location is used to localise COVID-19 outbreaks and track symptoms. You can find out how we use your data in our Privacy policy"
+      "label": "Your permanent home postcode (e.g. SE1)",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and study symptoms. You can find out how we use your data in our Privacy policy",
+      "not-current-address": "Are you temporarily reporting from a different location than above?",
+      "still-in-country": "Are you still in the UK?",
+      "other-postcode": "Enter the postcode you wish to report for",
+      "select-country": "Please select which country you are now in"
     }
   },
 
@@ -1025,7 +1043,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1305,6 +1323,7 @@
   },
 
   "dashboard": {
+    "report-today": "Report today, even if you're well",
     "report-now": "Report now",
     "you-have-reported-x-times": "You’ve reported %{count} times",
     "contributors-so-far": "Contributors so far:"
@@ -1328,11 +1347,143 @@
   },
 
   "covid-cases-map": {
-    "covid-in-x": "COVID in the {{location}}",
+    "covid-in-x": "COVID in {{location}}",
     "current-estimates": "Current estimates",
-    "active-cases-in-area": "Active cases\rin your area",
+    "active-cases-in-area": "Active cases\nin your area",
+    "not-enough-contributors": "Not enough contributors\nin this area",
     "share": "Share your map",
-    "update-postcode": "Please update your postcode to see our estimated cases in your area",
+    "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
+  },
+
+  "nhs-study-intro": {
+    "title": "NHS Asymptomatic Staff Testing Pilot",
+    "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
+    "text-2": "Please enter your Unique Identifier:",
+    "nhsID-placeholder": "Unique Identifier",
+    "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
+    "text-cancel": "click here.",
+    "consent": "I consent to the COVID Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
+    "next": "Next"
+  },
+
+  "nhs-study-questions": {
+    "title": "About this study",
+    "text-1": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
+    "text-2": "If you develop any symptoms before you start providing test samples as part of this study, please get in touch with your local contact. (Contact details can be found on your instruction sheet).",
+    "text-3": "Full instructions about sample collection and returns can be found in our ",
+    "text-link": "Asymptomatic Staff Testing Pilot Guide"
+  },
+
+  "nhs-test-detail": {
+    "title": "Add COVID test",
+    "date-label": "Select the date you had this test",
+    "date-required": "Please indicate the date this test occurred",
+    "mechanism-label": "What test have you taken?",
+    "mechanism-required": "This is required",
+    "mechanism-saliva": "Saliva",
+    "mechanism-swab": "Swab",
+    "fridge-label": "Has the saliva sample been stored in a fridge?",
+    "fridge-required": "This is required",
+    "days-label": "How many days has the saliva sample been stored in a fridge before drop off?",
+    "days-required": "This is required",
+    "days-placeholder": "Select days",
+    "cta-add": "Add test"
+  },
+
+  "school-networks": {
+    "title": "My School Bubbles",
+    "whole-school": "Whole school",
+    "awaiting-members": "Awaiting more members",
+    "no-cases": "No confirmed cases",
+    "confirmed-cases": "confirmed cases",
+    "children-being-reported-for": "Children being reported for",
+    "child-being-reported-for": "Child being reported for",
+
+    "intro": {
+      "title": "Connect your children to their School Bubble",
+      "point-1": {
+        "title": "Why connect to a School Bubble?",
+        "description": "Get real-time insights on the COVID status of your child’s bubble at school"
+      },
+      "point-2": {
+        "title": "How it works",
+        "description": "We will monitor reports within your child’s School Bubble and send you an alert in real-time if anyone in the bubble reports their child as having had a positive COVID test."
+      },
+      "point-3": {
+        "title": "What you need to do",
+        "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
+      },
+      "cta": "Connect to school network",
+      "skip": "Skip"
+    },
+
+    "how-to": {
+      "title": "How to connect to a school network",
+      "point-1": {
+        "title": "Existing profiles",
+        "description": "If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard under “My Networks”"
+      },
+      "point-2": {
+        "title": "New profiles",
+        "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
+      },
+      "cta": "View profiles now",
+      "skip": "Skip"
+    },
+
+    "join-school": {
+      "title": "Select your child’s school",
+      "description": "Select the school you would like to link this account to. More information about",
+      "description-link": "School Bubbles.",
+
+      "search": {
+        "label": "Name of school",
+        "placeholder": "Search for your child's school"
+      },
+
+      "dropdown": {
+        "label": "Select your child’s school"
+      },
+
+      "cta": "Next"
+    },
+
+    "join-group": {
+      "title": "Join your child’s bubble",
+      "description": "Select your child’s bubble at %{school}",
+
+      "dropdown": {
+        "label": "Select bubble from below"
+      },
+
+      "input": {
+        "label": "Join an existing bubble",
+        "placeholder": "Find a class or bubble"
+      },
+
+      "cta": "Create a new group",
+      "next": "Next"
+    },
+
+    "success": {
+      "joined-title": "You’ve successfully joined",
+      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\n\nPlease be aware that it could take 1 to 2 weeks before this happens.",
+      "created-title": "Great! Your group has been created",
+      "school-name": "School name",
+      "group-name": "School Bubble",
+      "ref-code-is": "Your groups reference code is:",
+      "copy-code": "Copy reference",
+      "share": "Share this link",
+      "cta": "Done"
+    },
+
+    "join-error": {
+      "cta-okay": "Okay",
+      "duplicated-membership": {
+        "title": "One moment",
+        "description": "Looks like you're already part of this bubble."
+      }
+    }
   }
 }

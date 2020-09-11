@@ -4,25 +4,26 @@ import { Button } from 'native-base';
 import { captureRef } from 'react-native-view-shot';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Sharing from 'expo-sharing';
+import { useSelector } from 'react-redux';
 
 import { WebView } from '@covid/components/WebView';
-import { Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import ChevronRight from '@assets/icons/ChevronRight';
 import Share from '@assets/icons/Share';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
-import { ICoreService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
-import { IContentService } from '@covid/core/content/ContentService';
 import Analytics, { events } from '@covid/core/Analytics';
-import { Coordinates } from '@covid/core/AsyncStorageService';
+import { Coordinates, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 const MAP_HEIGHT = 246;
-
-const html = require('@assets/carto/estimated-cases.html');
 
 interface EmptyViewProps {
   primaryLabel?: string;
@@ -36,37 +37,72 @@ enum MapEventOrigin {
   Map = 'map',
 }
 
+enum MapType {
+  Carto = 'carto',
+  ImageAsset = 'image_asset',
+}
+
 const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
+  const [html, setHtml] = useState<string>('');
+
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
+
   const primaryLabel = props.primaryLabel ?? i18n.t('covid-cases-map.covid-in-x', { location: 'your area' });
   const secondaryLabel = props.secondaryLabel ?? i18n.t('covid-cases-map.update-postcode');
   const ctaLabel = props.ctaLabel ?? i18n.t('covid-cases-map.update-postcode-cta');
 
+  const [showUpdatePostcode, setShowUpdatePostcode] = useState<boolean | undefined>(startupInfo?.show_edit_location);
   const showCartoMap = true;
-  const ctaStyle = showCartoMap ? { marginTop: 20 } : {};
+  const root = showCartoMap ? { paddingTop: 0 } : {};
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Map });
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
-  return (
-    <View style={styles.root}>
-      <View style={styles.headerContainer}>
-        <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
-        <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>
-      </View>
+  const onArrowTapped = () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
+    NavigatorService.navigate('EstimatedCases');
+  };
 
+  useEffect(() => setShowUpdatePostcode(startupInfo?.show_edit_location), [startupInfo]);
+
+  useEffect(() => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
+    (async () => {
+      try {
+        setHtml(await loadEstimatedCasesCartoMap());
+      } catch (_) {}
+    })();
+  }, []);
+
+  return (
+    <View style={[styles.root, root]}>
       {showCartoMap && (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
-            <WebView originWhitelist={['*']} source={html} style={styles.webview} pointerEvents="none" />
+            <WebView originWhitelist={['*']} source={{ html }} style={styles.webview} pointerEvents="none" />
           </TouchableOpacity>
         </View>
       )}
 
-      <Button style={[styles.detailsButton, styles.postcodeButton, ctaStyle]} onPress={onPress}>
-        <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
-      </Button>
+      <View style={[styles.headerContainer, { width: '90%' }]}>
+        <Header3Text style={[styles.primaryLabel, { marginTop: 4 }]}>{primaryLabel}</Header3Text>
+        <View style={styles.emptyStateArrow}>
+          <TouchableOpacity style={[styles.backIcon, { marginBottom: 8 }]} onPress={onArrowTapped}>
+            <ChevronRight width={32} height={32} />
+          </TouchableOpacity>
+        </View>
+        {showUpdatePostcode && <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>}
+      </View>
+
+      {showUpdatePostcode && (
+        <View>
+          <BrandedButton style={styles.detailsButton} onPress={onPress}>
+            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
+          </BrandedButton>
+        </View>
+      )}
     </View>
   );
 };
@@ -81,50 +117,75 @@ type MapConfig = {
 const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
 const ZOOM_LEVEL_CLOSER = 10.5;
 const ZOOM_LEVEL_FURTHER = 6;
-const USE_CARTO_MAP = true;
 
-export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
-  const userService = useInjection<ICoreService>(Services.User);
-  const contentService = useInjection<IContentService>(Services.Content);
+export const EstimatedCasesMapCard: React.FC<Props> = () => {
+  const patientService = useInjection<IPatientService>(Services.Patient);
+
+  const localData = useSelector<RootState, PersonalisedLocalData | undefined>(
+    (state) => state.content.personalizedLocalData
+  );
+
   const viewRef = useRef(null);
   const webViewRef = useRef<WebView>(null);
 
   const [displayLocation, setDisplayLocation] = useState<string>('your area');
   const [mapUrl, setMapUrl] = useState<string | null>(null);
-  const [activeCases, setActiveCases] = useState<number>(contentService.localData?.cases ?? 0);
+  const [activeCases, setActiveCases] = useState<number | null | undefined>(localData?.cases);
   const [showEmptyState, setShowEmptyState] = useState<boolean>(true);
+  const [useCartoMap, setUseCartoMap] = useState<boolean>(true);
+  const [html, setHtml] = useState<string>('');
 
   const [mapConfig, setMapConfig] = useState<MapConfig>({
     coordinates: DEFAULT_MAP_CENTER,
     zoom: ZOOM_LEVEL_FURTHER,
   });
 
-  // Show to up date local data
   useEffect(() => {
-    if (!contentService.localData) {
+    // Use carto map if map url is not avaliable
+    const hasMapUrl = !!localData?.mapUrl;
+    setUseCartoMap(!hasMapUrl);
+    Analytics.track(events.ESTIMATED_CASES_MAP_SHOWN, { type: hasMapUrl ? MapType.ImageAsset : MapType.Carto });
+
+    // Show empty state if data is missing
+    if (!localData) {
       setShowEmptyState(true);
       return;
     }
-    setDisplayLocation(contentService.localData!.name);
-    setMapUrl(contentService.localData!.mapUrl);
-    setActiveCases(contentService.localData!.cases);
+
+    // Show to up date local data
+    setDisplayLocation(localData!.name);
+    setMapUrl(localData!.mapUrl);
+    setActiveCases(localData?.cases);
     setShowEmptyState(false);
-    syncMapCenter();
-  }, [contentService.localData]);
+
+    // Update carto's map center if map url isn't avaliable
+    if (!hasMapUrl) {
+      syncMapCenter();
+    }
+  }, [localData]);
 
   useEffect(() => {
     if (!webViewRef.current) return;
     webViewRef.current!.call('updateMapView', mapConfig);
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
+  useEffect(() => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
+    (async () => {
+      try {
+        setHtml(await loadEstimatedCasesCartoMap());
+      } catch (_) {}
+    })();
+  }, []);
+
   const syncMapCenter = () => {
-    // Set defaults
+    // Set defaults center
     const { lat, lng } = DEFAULT_MAP_CENTER;
     let config = { coordinates: { lat, lng }, zoom: ZOOM_LEVEL_FURTHER };
 
     // Use data from API
-    if (contentService.localData?.mapConfig) {
-      const { lat, lng } = contentService.localData.mapConfig!;
+    if (localData?.mapConfig) {
+      const { lat, lng } = localData.mapConfig!;
       config = { coordinates: { lat, lng }, zoom: ZOOM_LEVEL_CLOSER };
     }
 
@@ -140,9 +201,16 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   const map = (): React.ReactNode => {
-    if (USE_CARTO_MAP) {
+    if (useCartoMap) {
       return (
-        <WebView ref={webViewRef} originWhitelist={['*']} source={html} style={styles.webview} onEvent={onMapEvent} />
+        <WebView
+          ref={webViewRef}
+          originWhitelist={['*']}
+          source={{ html }}
+          style={styles.webview}
+          onEvent={onMapEvent}
+          pointerEvents="none"
+        />
       );
     }
     return <Image source={{ uri: mapUrl ?? '' }} style={styles.webview} />;
@@ -158,7 +226,12 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   };
 
   const showMap = () => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { orgin: MapEventOrigin.Arrow });
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Arrow });
+    NavigatorService.navigate('EstimatedCases');
+  };
+
+  const onMapTapped = () => {
+    Analytics.track(events.ESTIMATED_CASES_MAP_CLICKED, { origin: MapEventOrigin.Map });
     NavigatorService.navigate('EstimatedCases');
   };
 
@@ -166,7 +239,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
     return (
       <EmptyView
         onPress={async () => {
-          const profile = await userService.myPatientProfile();
+          const profile = await patientService.myPatientProfile();
           if (profile) appCoordinator.startEditLocation(profile!);
         }}
       />
@@ -174,26 +247,37 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({}) => {
   }
 
   return (
-    <View style={styles.root} ref={viewRef}>
-      <View style={styles.headerContainer}>
-        <Header3Text style={styles.primaryLabel}>
-          {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
-        </Header3Text>
-        <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
-      </View>
-
-      <View style={styles.mapContainer} pointerEvents="none">
-        {map()}
-      </View>
-
-      <View style={styles.statsContainer}>
-        <View style={styles.statsRow}>
-          <Header0Text style={styles.stats}>{activeCases}</Header0Text>
-          <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
+    <View style={styles.root}>
+      <View style={styles.snapshotContainer} ref={viewRef}>
+        <View style={styles.headerContainer}>
+          <Header3Text style={styles.primaryLabel}>
+            {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
+          </Header3Text>
+          <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
         </View>
-        <TouchableOpacity style={styles.backIcon} onPress={showMap}>
-          <ChevronRight width={32} height={32} />
-        </TouchableOpacity>
+
+        <View style={styles.mapContainer}>
+          <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
+            {map()}
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.statsContainer}>
+          {!!activeCases && (
+            <View style={styles.statsRow}>
+              <Header0Text style={styles.stats}>{activeCases}</Header0Text>
+              <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
+            </View>
+          )}
+          {!activeCases && (
+            <View style={styles.statsRow}>
+              <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
+            </View>
+          )}
+          <TouchableOpacity style={styles.backIcon} onPress={showMap}>
+            <ChevronRight width={32} height={32} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.divider} />
@@ -213,6 +297,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginHorizontal: 32,
     paddingVertical: 8,
+    overflow: 'hidden',
   },
 
   headerContainer: {
@@ -300,8 +385,8 @@ const styles = StyleSheet.create({
 
   detailsButton: {
     paddingHorizontal: 52,
+    marginBottom: 24,
     backgroundColor: 'transparent',
-    borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.purple,
   },
@@ -314,5 +399,16 @@ const styles = StyleSheet.create({
 
   postcodeButton: {
     marginBottom: 20,
+  },
+
+  emptyStateArrow: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    right: 0,
+  },
+
+  snapshotContainer: {
+    width: '100%',
   },
 });

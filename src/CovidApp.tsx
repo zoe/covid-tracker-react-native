@@ -23,7 +23,6 @@ import ViralThankYouScreen from '@covid/features/thank-you/ViralThankYouScreen';
 import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
-import HowYouFeelScreen from '@covid/features/assessment/HowYouFeelScreen';
 import LevelOfIsolationScreen from '@covid/features/assessment/LevelOfIsolationScreen';
 import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScreen';
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
@@ -75,9 +74,20 @@ import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
 import { dashboard, news } from '@assets';
 import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
-
-import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen, EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
+import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
+import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
+import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
+import { DashboardScreen } from '@covid/features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
+import {
+  SchoolIntroScreen,
+  SchoolHowToScreen,
+  JoinSchoolScreen,
+  JoinSchoolGroupScreen,
+  CreateNetworkGroupScreen,
+  SchoolSuccessScreen,
+} from '@covid/features/school-network';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -145,7 +155,7 @@ export default class CovidApp extends Component<object, State> {
     );
   }
 
-  bottomNavigator = () => {
+  tabNavigator = () => {
     return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -227,6 +237,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="HealthWorkerExposure" component={HealthWorkerExposureScreen} options={noHeader} />
         <Stack.Screen name="CovidTestList" component={CovidTestListScreen} options={noHeader} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
+        <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
@@ -259,8 +270,16 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyTypicalDiet" component={DietStudyTypicalDietScreen} options={noHeader} />
         <Stack.Screen name="DietStudyYourLifestyle" component={DietStudyYourLifestyleScreen} options={noHeader} />
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
+        <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
+        <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
+        <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
+        <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
+        <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
       </Stack.Navigator>
     );
   };

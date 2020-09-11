@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
 });
 
 export default class TermsOfUseUSScreen extends Component<PropsType> {
-  constructor(props: PropsType) {
-    super(props);
-  }
-
   viewOnly = this.props.route.params.viewOnly;
 
   render() {

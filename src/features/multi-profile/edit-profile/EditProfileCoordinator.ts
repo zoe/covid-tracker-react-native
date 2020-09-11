@@ -1,40 +1,63 @@
-import { ICoreService } from '@covid/core/user/UserService';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
-import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow, UpdatePatient } from '@covid/core/Coordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { Services } from '@covid/provider/services.types';
+import { IPatientService } from '@covid/core/patient/PatientService';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { IUserService } from '@covid/core/user/UserService';
+import { lazyInject } from '@covid/provider/services';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
-export class EditProfileCoordinator implements Coordinator {
+export class EditProfileCoordinator extends Coordinator implements UpdatePatient {
   appCoordinator: AppCoordinator;
-  userService: ICoreService;
+  userService: IUserService;
   patientData: PatientData;
 
-  screenFlow: ScreenFlow = {
+  @lazyInject(Services.Patient)
+  private readonly patientService: IPatientService;
+
+  @lazyInject(Services.Localisation)
+  private readonly localisationService: ILocalisationService;
+
+  screenFlow: Partial<ScreenFlow> = {
     EditLocation: () => {
       NavigatorService.goBack();
     },
     AboutYou: () => {
       NavigatorService.goBack();
     },
-  } as ScreenFlow;
+    YourStudy: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { editing: true });
+      } else {
+        NavigatorService.goBack();
+      }
+    },
+    NHSIntro: () => {
+      NavigatorService.navigate('NHSDetails', { editing: true });
+    },
+    NHSDetails: () => {
+      NavigatorService.reset(
+        [
+          { name: this.appCoordinator.homeScreenName, params: {} },
+          { name: 'SelectProfile', params: { patientData: this.patientData } },
+          { name: 'EditProfile', params: { patientData: this.patientData } },
+        ],
+        2
+      );
+    },
+  };
 
-  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: ICoreService) => {
+  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
     this.userService = userService;
   };
 
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
-  };
-
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.userService.updatePatient(this.patientData.patientId, patientInfo).then((info) => {
+    return this.patientService.updatePatientInfo(this.patientData.patientId, patientInfo).then((info) => {
       Object.assign(this.patientData.patientInfo, patientInfo);
       return info;
     });
@@ -52,8 +75,27 @@ export class EditProfileCoordinator implements Coordinator {
     NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: true });
   }
 
+  goToEditYourStudy() {
+    NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: true });
+  }
+
+  goToSchoolNetwork() {
+    schoolNetworkCoordinator.startFlow(this.patientData);
+  }
+
   shouldShowEditProfile() {
-    return this.userService.getConfig().enableEditProfile;
+    return this.localisationService.getConfig().enableEditProfile;
+  }
+
+  shouldShowEditStudy() {
+    const currentPatient = this.patientData.patientState;
+    const config = this.localisationService.getConfig();
+    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
+    return shouldAskStudy;
+  }
+
+  shouldShowSchoolNetwork() {
+    return true;
   }
 }
 

@@ -2,6 +2,7 @@ export const colors = {
   brand: '#024364',
   lightBrand: '#5D879C',
   predict: '#082A5D',
+  accent: '#A0278F',
 
   primary: '#565A5C',
   secondary: '#888B8C',
@@ -23,6 +24,7 @@ export const colors = {
   purple: '#A10056',
   coral: '#FA7268',
   pink: '#D28C90',
+  red: '#DA675F',
 
   textDark: '#24262B',
 

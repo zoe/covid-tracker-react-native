@@ -14,7 +14,7 @@ import {
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { ICoreService } from '@covid/core/user/UserService';
+import { IUserService } from '@covid/core/user/UserService';
 import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
@@ -40,13 +40,12 @@ const initialState: StateType = {
 };
 
 export class LoginScreen extends Component<PropsType, StateType> {
+  @lazyInject(Services.User)
+  private readonly userService: IUserService;
   private passwordField: Input | null;
   private errorMessage = '';
   private username = '';
   private password = '';
-
-  @lazyInject(Services.User)
-  userService: ICoreService;
 
   constructor(props: PropsType) {
     super(props);
@@ -78,9 +77,13 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
-        appCoordinator.setPatientId(patientId).then(() => {
-          appCoordinator.gotoNextScreen(this.props.route.name);
-        });
+        appCoordinator
+          .setPatientById(patientId)
+          .then(() => appCoordinator.fetchInitialData())
+          .then(() => appCoordinator.setHomeScreenName())
+          .then(() => {
+            appCoordinator.gotoNextScreen(this.props.route.name);
+          });
       })
       .catch((error) => {
         if (error.constructor === UserNotFoundException) {

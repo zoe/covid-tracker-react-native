@@ -7,11 +7,11 @@ import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BrandedButton, HeaderText } from '@covid/components/Text';
 import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { assessmentService } from '@covid/Services';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -34,7 +34,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   });
 
   handleUpdateTreatment = async (formData: TreatmentData) => {
-    const { assessmentId } = AssessmentCoordinator.assessmentData;
+    const { assessmentId } = assessmentCoordinator.assessmentData;
     let assessment;
 
     if (formData.description) {
@@ -43,12 +43,16 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
       };
     }
 
-    await assessmentService.completeAssessment(assessmentId!, assessment);
-    AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+    await assessmentService.completeAssessment(
+      assessmentId!,
+      assessment,
+      assessmentCoordinator.assessmentData.patientData.patientInfo!
+    );
+    assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.currentPatient;
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     const title =
       this.props.route.params.location === 'back_from_hospital'
         ? i18n.t('treatment-other-title-after')

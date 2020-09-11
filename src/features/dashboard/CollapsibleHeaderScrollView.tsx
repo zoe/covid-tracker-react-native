@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Animated, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, SafeAreaView, Animated, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 import { colors } from '@theme';
@@ -43,7 +43,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
   });
 
   // Fade out Expanded header as user scroll down
-  const expanedHeaderOpacity = scrollY.interpolate({
+  const expandedHeaderOpacity = scrollY.interpolate({
     inputRange: [0, config.expanded - config.compact - 75],
     outputRange: [1, 0],
     extrapolate: 'clamp',
@@ -57,74 +57,76 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
   });
 
   // Slide up Expanded header as user scroll down
-  const expanedHeaderY = scrollY.interpolate({
+  const expandedHeaderY = scrollY.interpolate({
     inputRange: [0, config.expanded - config.compact],
     outputRange: [0, -25],
     extrapolate: 'clamp',
   });
 
   return (
-    <View style={styles.container}>
-      <View style={{ zIndex: 999 }}>
-        <DrawerToggle
-          navigation={navigation}
-          style={{
-            tintColor: colors.white,
-            top: 58,
-            right: 16,
+    <SafeAreaView style={styles.container}>
+      <View style={styles.subContainer}>
+        <View style={styles.drawerToggleContainer}>
+          <DrawerToggle navigation={navigation} style={{ tintColor: colors.white }} />
+        </View>
+        <Animated.View style={[styles.header, { height: headerHeight }]}>
+          <Animated.View
+            style={[
+              {
+                opacity: expandedHeaderOpacity,
+                top: expandedHeaderY,
+              },
+              styles.expandedHeaderContainer,
+            ]}>
+            {expandedHeader}
+          </Animated.View>
+          <Animated.View
+            style={{
+              paddingTop: compactHeaderY,
+              opacity: compactHeaderOpacity,
+            }}>
+            {compactHeader}
+          </Animated.View>
+        </Animated.View>
+        <ScrollView
+          style={styles.scrollContainer}
+          contentContainerStyle={{ paddingTop: config.expanded }}
+          scrollIndicatorInsets={{
+            top: config.expanded,
           }}
-        />
-      </View>
-      <Animated.View style={[styles.header, { height: headerHeight }]}>
-        <Animated.View
-          style={[
+          onScroll={Animated.event([
             {
-              opacity: expanedHeaderOpacity,
-              top: expanedHeaderY,
-            },
-            styles.expandedHeaderContainer,
-          ]}>
-          {expandedHeader}
-        </Animated.View>
-        <Animated.View
-          style={{
-            paddingTop: compactHeaderY,
-            opacity: compactHeaderOpacity,
-          }}>
-          {compactHeader}
-        </Animated.View>
-      </Animated.View>
-      <ScrollView
-        contentContainerStyle={{ paddingTop: config.expanded }}
-        scrollIndicatorInsets={{
-          top: config.expanded - 40,
-        }}
-        onScroll={Animated.event([
-          {
-            nativeEvent: {
-              contentOffset: {
-                y: scrollY,
+              nativeEvent: {
+                contentOffset: {
+                  y: scrollY,
+                },
               },
             },
-          },
-        ])}
-        scrollEventThrottle={16}>
-        {children}
-      </ScrollView>
-    </View>
+          ])}
+          scrollEventThrottle={16}>
+          {children}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    top: -32,
     flex: 1,
-    backgroundColor: '#eaeaea',
+    backgroundColor: colors.predict,
+    marginBottom: 5,
+  },
+  subContainer: {
+    paddingTop: 16,
+    flex: 1,
   },
   header: {
     backgroundColor: colors.predict,
     position: 'absolute',
     width: SCREEN_WIDTH,
-    top: 0,
+    top: -0,
     left: 0,
     zIndex: 99,
     overflow: 'hidden',
@@ -132,5 +134,15 @@ const styles = StyleSheet.create({
   expandedHeaderContainer: {
     position: 'absolute',
     width: '100%',
+  },
+  drawerToggleContainer: {
+    zIndex: 999,
+    position: 'absolute',
+    right: 0,
+    marginTop: 56,
+    marginRight: 16,
+  },
+  scrollContainer: {
+    backgroundColor: colors.backgroundTertiary,
   },
 });

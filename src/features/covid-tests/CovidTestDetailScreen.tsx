@@ -10,30 +10,27 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
-import { ClearButton } from '@covid/components/Buttons/ClearButton';
-import CovidTestService from '@covid/core/user/CovidTestService';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { CovidTestDateData, CovidTestDateQuestion } from '@covid/features/covid-tests/fields/CovidTestDateQuestion';
 import {
-  CovidTestMechanismData,
-  CovidTestMechanismQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestMechanismQuesion';
-import {
-  CovidTestResultData,
-  CovidTestResultQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
-import {
+  CovidTestDateData,
+  CovidTestDateQuestion,
   CovidTestInvitedData,
   CovidTestInvitedQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestInvitedQuesetion';
-import { CovidTestLocationData, CovidTestLocationQuestion } from '@covid/features/covid-tests/fields/CovidTestLocation';
+  CovidTestLocationData,
+  CovidTestLocationQuestion,
+  CovidTestMechanismData,
+  CovidTestMechanismQuestion,
+  CovidTestResultData,
+  CovidTestResultQuestion,
+} from '@covid/features/covid-tests/fields/';
 import Analytics, { events } from '@covid/core/Analytics';
-
-import { ScreenParamList } from '../ScreenParamList';
-
-const covidTestService = new CovidTestService();
+import { ScreenParamList } from '@covid/features/ScreenParamList';
+import { Services } from '@covid/provider/services.types';
+import { lazyInject } from '@covid/provider/services';
+import { ClearButton } from '@covid/components/Buttons/ClearButton';
 
 export interface CovidTestData
   extends CovidTestDateData,
@@ -58,6 +55,9 @@ const initialState: State = {
 };
 
 export default class CovidTestDetailScreen extends Component<CovidProps, State> {
+  @lazyInject(Services.CovidTest)
+  private readonly covidTestService: ICovidTestService;
+
   constructor(props: CovidProps) {
     super(props);
     this.state = initialState;
@@ -69,9 +69,10 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   submitCovidTest(infos: Partial<CovidTest>) {
-    if (this.testId) {
-      covidTestService
-        .updateTest(this.testId, infos)
+    const { test } = this.props.route.params;
+    if (test?.id) {
+      this.covidTestService
+        .updateTest(test.id, infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
         })
@@ -80,7 +81,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           this.setState({ submitting: false });
         });
     } else {
-      covidTestService
+      this.covidTestService
         .addTest(infos)
         .then(() => {
           AssessmentCoordinator.gotoNextScreen(this.props.route.name);
@@ -112,7 +113,8 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       }
 
       const infos = {
-        patient: AssessmentCoordinator.assessmentData.currentPatient.patientId,
+        patient: AssessmentCoordinator.assessmentData.patientData.patientId,
+        type: CovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(formData),
         ...CovidTestMechanismQuestion.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
@@ -146,13 +148,13 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   async deleteTest() {
-    await covidTestService.deleteTest(this.testId!);
+    await this.covidTestService.deleteTest(this.testId!);
     this.props.navigation.goBack();
     Analytics.track(events.DELETE_COVID_TEST);
   }
 
   render() {
-    const { currentPatient } = AssessmentCoordinator.assessmentData;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { test } = this.props.route.params;
 
     const registerSchema = Yup.object()

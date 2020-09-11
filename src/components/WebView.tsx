@@ -1,7 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
+import React, { Component } from 'react';
 import NativeWebView, { WebViewProps, WebViewMessageEvent } from 'react-native-webview';
-
-const RN_MESSAGES_CHANNEL_PREFIX = 'f251c210-e7c9-42fa-bae3-b9352ec3722a';
 
 interface Props extends WebViewProps {
   onEvent?: (type: string, payload?: object) => void;
@@ -19,7 +17,6 @@ export class WebView extends Component<Props, object> {
   };
 
   public onMessage = (event: WebViewMessageEvent) => {
-    console.log('event', event);
     const { data: stringData } = event.nativeEvent;
     const data = JSON.parse(stringData);
     if (this.props.onEvent && data['type'] && data['data']) {
