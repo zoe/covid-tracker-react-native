@@ -64,7 +64,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   }, []);
 
   const onSubmit = (schoolData: JoinSchoolData) => {
-    schoolNetworkCoordinator.selectedSchool = schools.filter((school) => (school.id = schoolData.schoolId))[0];
+    schoolNetworkCoordinator.selectedSchool = schools.filter((school) => school.id === schoolData.schoolId)[0];
     next();
   };
 
