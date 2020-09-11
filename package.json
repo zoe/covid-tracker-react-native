@@ -1,11 +1,9 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "web": "expo start --web",
-    "eject": "expo eject",
     "test": "jest --maxWorker=2",
     "test:coverage": "jest --maxWorker=2 --coverage && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
@@ -43,11 +41,16 @@
     "expo": "^38.0.0",
     "expo-analytics-amplitude": "~8.2.1",
     "expo-asset": "~8.1.7",
+    "expo-constants": "^9.1.1",
     "expo-file-system": "~9.0.1",
     "expo-font": "~8.2.1",
     "expo-intent-launcher": "~8.2.1",
     "expo-localization": "~8.2.1",
     "expo-sharing": "~8.2.1",
+    "expo-splash-screen": "^0.5.0",
+    "expo-status-bar": "^1.0.0",
+    "expo-updates": "~0.2.10",
+    "expo-web-browser": "^8.3.1",
     "formik": "^2.1.4",
     "i18n-js": "^3.5.1",
     "immer": "^6.0.1",
@@ -57,9 +60,9 @@
     "moment": "^2.24.0",
     "native-base": "2.13.8",
     "query-string": "^6.11.1",
-    "react": "16.11.0",
+    "react": "~16.11.0",
     "react-dom": "16.11.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native": "~0.62.2",
     "react-native-calendar-picker": "^6.0.6",
     "react-native-dotenv": "^0.2.0",
     "react-native-easy-markdown": "^2.0.0",
@@ -71,6 +74,7 @@
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
     "react-native-svg": "12.1.0",
+    "react-native-unimodules": "~0.10.1",
     "react-native-view-shot": "3.1.2",
     "react-native-web": "~0.11.7",
     "react-native-webview": "9.4.0",
@@ -103,6 +107,7 @@
     "@types/uuid": "^7.0.3",
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
+    "babel-jest": "~25.2.6",
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "^8.2.3",
     "body-parser": "^1.19.0",
@@ -128,5 +133,7 @@
       "pre-commit": "git-hooks/pre-commit.js",
       "pre-push": "git-hooks/pre-push.sh"
     }
-  }
+  },
+  "name": "covid-tracker-react-native",
+  "version": "1.0.0"
 }
