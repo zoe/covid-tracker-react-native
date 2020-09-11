@@ -7,6 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --maxWorker=2",
+    "test:coverage": "jest --maxWorker=2 --coverage && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
     "test:updateSnapshots": "jest -u",
     "test:i18n": "ts-node ./scripts/i18n-check-locale.ts",
@@ -22,6 +23,7 @@
     "clean": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "2.1.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/bottom-tabs": "^5.1.1",
     "@react-navigation/drawer": "^5.4.0",
@@ -60,6 +62,7 @@
     "react-native-dotenv": "^0.2.0",
     "react-native-easy-markdown": "^2.0.0",
     "react-native-gesture-handler": "~1.5.0",
+    "react-native-modal-datetime-picker": "^8.9.3",
     "react-native-modal-dropdown": "git+https://github.com/riyga25/react-native-modal-dropdown.git",
     "react-native-progress": "^4.0.3",
     "react-native-reanimated": "~1.4.0",
@@ -101,6 +104,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-expo": "~8.0.0",
     "body-parser": "^1.19.0",
+    "coveralls": "^3.1.0",
     "eslint": "^6.8.0",
     "eslint-config-universe": "^3.0.0",
     "express": "^4.17.1",

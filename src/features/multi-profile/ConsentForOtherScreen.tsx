@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ListItem } from 'native-base';
 import React, { Component } from 'react';
+import { View } from 'react-native';
 
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { LoadingModal } from '@covid/components/Loading';
@@ -65,7 +66,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
     <RegularText>
       {i18n.t('child-consent-text-1')}{' '}
       <ClickableText onPress={() => this.props.navigation.navigate('Consent', { viewOnly: true })}>
-        {i18n.t('consent')}
+        {i18n.t('consent-summary')}
       </ClickableText>{' '}
       {i18n.t('child-consent-text-2')}
     </RegularText>
@@ -112,7 +113,7 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
 
   render() {
     return (
-      <Screen>
+      <Screen navigation={this.props.navigation} showBackButton>
         {this.state.isApiError && (
           <LoadingModal
             error={this.state.error}
@@ -137,6 +138,8 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
         <BrandedButton enable={this.state.consentChecked} hideLoading onPress={this.handleCreatePatient}>
           {i18n.t('consent-create-profile')}
         </BrandedButton>
+
+        <View style={{ height: 16 }} />
       </Screen>
     );
   }

@@ -64,9 +64,9 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog009 = require('./thank-you-modules/blog_009.png');
+export const blog010 = require('./thank-you-modules/blog_010.png');
 export const incidence011 = require('./thank-you-modules/incidence_011.png');
-export const timUpdate005 = require('./thank-you-modules/tim_update_005.png');
+export const timUpdate007 = require('./thank-you-modules/tim_update_007.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
@@ -84,3 +84,6 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 // Avatar
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
+
+// School
+export const schoolNetworkFeature = require('./school-network-modules/new_feature.png');

@@ -279,6 +279,10 @@
     "question-select-a-date-range": "Välj ett datumintervall",
     "question-select-a-date": "Välj ett datum",
 
+    "question-time-test-taken": "Vilken tid tog du testet?",
+    "question-time-test-taken-error": "Ange tidpunkten för ditt möte",
+    "question-pick-a-time": "Välj en tid",
+
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
@@ -518,6 +522,8 @@
   "adult-consent-confirm": "Jag bekräftar ovan",
   "child-consent-confirm": "Jag bekräftar att jag är barnets vårdnadshavare och att jag har gjort ovan",
   "consent": "consent",
+  "consent-summary": "sammanfattning av vad vi gör",
+
   "child-consent-text-1": "Om barnet är tillräckligt gammalt för att förstå våra",
   "child-consent-text-2": "krav ber vi dig förklara för barnet att du delar information om honom eller henne med oss och vad vi kommer att göra med den. Om du tror att barnet är tillräckligt gammalt för att fatta ett eget beslut ber vi dig bekräfta att han eller hon har gett sitt medgivande till att du delar uppgifterna med oss.",
   "adult-consent-text-1": "Bekräfta att du har visat eller läst vår",
@@ -553,10 +559,13 @@
 
   "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
 
+  "validation-error-text-required": "Vänligen ge mer information",
+
   "website-home": "https://covid.joinzoe.com/",
 
   "back-date-profile-title": "Några fler frågor om dig",
   "update-profile": "Uppdatera profilen",
+  "create-profile": "Skapa",
 
   "covid-test-list": {
     "title": "Dina covid-19-tester",
@@ -965,39 +974,6 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
-  },
-
-  "dashboard": {
-    "report-now": "Rapportera nu",
-    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
-    "contributors-so-far": "Bidragsgivare hittills:"
-  },
-
-  "estimated-cases-card": {
-    "covid-in-the-uk": "",
-    "estimated-cases": "Casos estimados",
-    "daily": "Nuevos casos diarios",
-    "active": "Casos activos",
-    "cta": "Más detalles"
-  },
-
-  "tab-navigator": {
-    "first-tab": "Dashboard",
-    "second-tab": "Senaste nytt"
-  },
-
-  "latest-news": {
-    "title": "Senaste nytt"
-  },
-
-  "covid-cases-map": {
-    "covid-in-x": "COVID på {{location}}",
-    "current-estimates": "Aktuella uppskattningar",
-    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
-    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\rpå detta område",
-    "share": "Dela din karta",
-    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
-    "update-postcode-cta": "Uppdatera postnumret"
   },
 
   "__IGNORE__": {
@@ -1413,10 +1389,102 @@
   "covid-cases-map": {
     "covid-in-x": "COVID på {{location}}",
     "current-estimates": "Aktuella uppskattningar",
-    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
-    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\rpå detta område",
+    "active-cases-in-area": "Aktiva ärenden\ni ditt område",
+    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\npå detta område",
     "share": "Dela din karta",
     "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
     "update-postcode-cta": "Uppdatera postnumret"
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+    "child-being-reported-for": "",
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "description": "",
+      "description-link": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": ""
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
+    }
   }
 }

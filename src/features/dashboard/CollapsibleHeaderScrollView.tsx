@@ -92,7 +92,7 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
           style={styles.scrollContainer}
           contentContainerStyle={{ paddingTop: config.expanded }}
           scrollIndicatorInsets={{
-            top: config.expanded - 40,
+            top: config.expanded,
           }}
           onScroll={Animated.event([
             {

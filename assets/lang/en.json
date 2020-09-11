@@ -106,6 +106,7 @@
 
   "back-date-profile-title": "Some additional questions about you",
   "update-profile": "Update profile",
+  "create-profile": "Create",
 
   "title-about-work": "About your work",
 
@@ -355,6 +356,9 @@
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
+    "question-time-test-taken": "What time did you take the test?",
+    "question-pick-a-time": "Pick a time",
+    "question-time-test-taken-error": "Please enter the time of your appointment",
     "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
 
     "required-date": "Please indicate the date this test occurred",
@@ -597,10 +601,11 @@
   "adult-consent-title": "Adult consent",
   "child-consent-title": "Child consent",
   "adult-consent-confirm": "I confirm the above",
-  "child-consent-confirm": "I confirm that I am the child's legal guardian and that I have done the above",
+  "child-consent-confirm": "I, and my child (to the extent they are able), consent to your processing their personal data as you have described it.",
   "consent": "consent",
-  "child-consent-text-1": "If your child is old enough to understand our",
-  "child-consent-text-2": "requirements, please explain to them that you are sharing information about them with us and what we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.",
+  "consent-summary": "summary of what we do",
+  "child-consent-text-1": "Please explain to your child, to the extent that they are able to understand, what happens when you report their data through this app.\n\nWe need your consent, and your child’s consent if they are old enough to give it, to process all the information you enter about them. We will use it to carry out research on all aspects of COVID-19, as well as using it to follow the spread of the virus and to alert people, such as yourself, if there has been an outbreak that might affect you. For more information, please see a",
+  "child-consent-text-2": "on our website.\n\nIf you are happy to give that consent and your child, if they are capable of understanding what it means, also agrees, please indicate below.",
   "adult-consent-text-1": "Please confirm that you have shown or read our",
   "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
   "consent-create-profile": "Create profile",
@@ -624,6 +629,8 @@
   "default-profile-name": "Me",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+
+  "validation-error-text-required": "Please provide more details",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
@@ -1036,7 +1043,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1342,8 +1349,8 @@
   "covid-cases-map": {
     "covid-in-x": "COVID in {{location}}",
     "current-estimates": "Current estimates",
-    "active-cases-in-area": "Active cases\rin your area",
-    "not-enough-contributors": "Not enough contributors\rin this area",
+    "active-cases-in-area": "Active cases\nin your area",
+    "not-enough-contributors": "Not enough contributors\nin this area",
     "share": "Share your map",
     "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
@@ -1382,5 +1389,101 @@
     "days-required": "This is required",
     "days-placeholder": "Select days",
     "cta-add": "Add test"
+  },
+
+  "school-networks": {
+    "title": "My School Bubbles",
+    "whole-school": "Whole school",
+    "awaiting-members": "Awaiting more members",
+    "no-cases": "No confirmed cases",
+    "confirmed-cases": "confirmed cases",
+    "children-being-reported-for": "Children being reported for",
+    "child-being-reported-for": "Child being reported for",
+
+    "intro": {
+      "title": "Connect your children to their School Bubble",
+      "point-1": {
+        "title": "Why connect to a School Bubble?",
+        "description": "Get real-time insights on the COVID status of your child’s bubble at school"
+      },
+      "point-2": {
+        "title": "How it works",
+        "description": "We will monitor reports within your child’s School Bubble and send you an alert in real-time if anyone in the bubble reports their child as having had a positive COVID test."
+      },
+      "point-3": {
+        "title": "What you need to do",
+        "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
+      },
+      "cta": "Connect to school network",
+      "skip": "Skip"
+    },
+
+    "how-to": {
+      "title": "How to connect to a school network",
+      "point-1": {
+        "title": "Existing profiles",
+        "description": "If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard under “My Networks”"
+      },
+      "point-2": {
+        "title": "New profiles",
+        "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
+      },
+      "cta": "View profiles now",
+      "skip": "Skip"
+    },
+
+    "join-school": {
+      "title": "Select your child’s school",
+      "description": "Select the school you would like to link this account to. More information about",
+      "description-link": "School Bubbles.",
+
+      "search": {
+        "label": "Name of school",
+        "placeholder": "Search for your child's school"
+      },
+
+      "dropdown": {
+        "label": "Select your child’s school"
+      },
+
+      "cta": "Next"
+    },
+
+    "join-group": {
+      "title": "Join your child’s bubble",
+      "description": "Select your child’s bubble at %{school}",
+
+      "dropdown": {
+        "label": "Select bubble from below"
+      },
+
+      "input": {
+        "label": "Join an existing bubble",
+        "placeholder": "Find a class or bubble"
+      },
+
+      "cta": "Create a new group",
+      "next": "Next"
+    },
+
+    "success": {
+      "joined-title": "You’ve successfully joined",
+      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\n\nPlease be aware that it could take 1 to 2 weeks before this happens.",
+      "created-title": "Great! Your group has been created",
+      "school-name": "School name",
+      "group-name": "School Bubble",
+      "ref-code-is": "Your groups reference code is:",
+      "copy-code": "Copy reference",
+      "share": "Share this link",
+      "cta": "Done"
+    },
+
+    "join-error": {
+      "cta-okay": "Okay",
+      "duplicated-membership": {
+        "title": "One moment",
+        "description": "Looks like you're already part of this bubble."
+      }
+    }
   }
 }

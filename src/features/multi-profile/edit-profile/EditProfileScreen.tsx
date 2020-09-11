@@ -21,6 +21,15 @@ type RenderProps = {
 export const EditProfileScreen: React.FC<RenderProps> = (props) => {
   const patientData = props.route.params.patientData;
 
+  const LinkItem: React.FC<{ title: string; action: VoidFunction }> = ({ title, action }) => {
+    return (
+      <TouchableOpacity style={styles.profileLabel} onPress={action}>
+        <Header3Text>{title}</Header3Text>
+        <Image style={styles.chevron} source={chevronRight} />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <>
       <Screen profile={patientData.profile} navigation={props.navigation} simpleCallout>
@@ -29,24 +38,24 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
         </Header>
 
-        <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditLocation()}>
-          <Header3Text>{i18n.t('edit-profile.your-location')}</Header3Text>
-          <Image style={styles.chevron} source={chevronRight} />
-        </TouchableOpacity>
+        {editProfileCoordinator.shouldShowEditProfile() && (
+          <LinkItem
+            title={i18n.t('edit-profile.your-location')}
+            action={() => editProfileCoordinator.goToEditLocation()}
+          />
+        )}
 
         {false && (
           // Disabled
-          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditAboutYou()}>
-            <Header3Text>{i18n.t('title-about-you')}</Header3Text>
-            <Image style={styles.chevron} source={chevronRight} />
-          </TouchableOpacity>
+          <LinkItem title={i18n.t('title-about-you')} action={() => editProfileCoordinator.goToEditAboutYou()} />
         )}
 
         {editProfileCoordinator.shouldShowEditStudy() && (
-          <TouchableOpacity style={styles.profileLabel} onPress={() => editProfileCoordinator.goToEditYourStudy()}>
-            <Header3Text>{i18n.t('your-study.title')}</Header3Text>
-            <Image style={styles.chevron} source={chevronRight} />
-          </TouchableOpacity>
+          <LinkItem title={i18n.t('your-study.title')} action={() => editProfileCoordinator.goToEditYourStudy()} />
+        )}
+
+        {editProfileCoordinator.shouldShowSchoolNetwork() && (
+          <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork()} />
         )}
       </Screen>
 

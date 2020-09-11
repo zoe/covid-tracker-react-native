@@ -106,6 +106,7 @@
 
   "back-date-profile-title": "Algunas preguntas adicionales sobre usted",
   "update-profile": "Actualizar perfil",
+  "create-profile": "Crear",
 
   "title-about-work": "Acerca de su trabajo",
 
@@ -313,6 +314,10 @@
 
     "question-select-a-date-range": "Seleccione un intervalo de fechas",
     "question-select-a-date": "Seleccione una fecha",
+
+    "question-time-test-taken": "¿A qué hora tomaste la prueba?",
+    "question-time-test-taken-error": "Ingrese la hora de su cita",
+    "question-pick-a-time": "Elige una hora",
 
     "question-mechanism": "¿Cómo se realizó este examen?",
     "picker-nose-swab": "Usaron un hisopo en mi nariz",
@@ -596,6 +601,7 @@
   "adult-consent-confirm": "Confirmo lo anterior",
   "child-consent-confirm": "Confirmo que soy el tutor legal del niño y que he hecho lo anterior",
   "consent": "consentimiento",
+  "consent-summary": "resumen de lo que hacemos",
   "child-consent-text-1": "Si su hijo tiene edad suficiente para comprender nuestros",
   "child-consent-text-2": "requisitos, explíquele que compartirá información acerca de él o ella y lo que haremos con ella. Si cree que su hijo tiene edad suficiente para tomar decisiones, confirme que ha consentido compartir datos con nosotros.",
   "adult-consent-text-1": "Confirme que mostró o leyó nuestra",
@@ -793,6 +799,8 @@
   "default-profile-name": "Yo",
 
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
+
+  "validation-error-text-required": "Por favor, de más detalles",
 
   "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
   "race-other-question": "Especifique su raza",
@@ -1286,8 +1294,8 @@
   "covid-cases-map": {
     "covid-in-x": "COVID en la {{location}}",
     "current-estimates": "estimaciones actuales",
-    "active-cases-in-area": "Casos activos\ren su área",
-    "not-enough-contributors": "No hay suficientes colaboradores\ren esta área",
+    "active-cases-in-area": "Casos activos\nen su área",
+    "not-enough-contributors": "No hay suficientes colaboradores\nen esta área",
     "share": "Comparte tu mapa",
     "update-postcode": "Actualice su código postal para ver nuestros casos estimados en su área",
     "update-postcode-cta": "Actualizar código postal"
@@ -1389,6 +1397,98 @@
     "covid-test-list": {
       "nhs-text": false,
       "nhs-text-link": false
+    }
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+    "child-being-reported-for": "",
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "description": "",
+      "description-link": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": ""
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
     }
   }
 }
