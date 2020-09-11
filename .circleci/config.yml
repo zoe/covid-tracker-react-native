@@ -43,9 +43,9 @@ executors:
 
 # Generate .env file
 generate_dot_env: &generate_dot_env
-  - run: echo "API_URL=$API_URL" > .env
-  - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-  - run: echo "WEBFLOW_KEY=$WEBFLOW_KEY" >> .env
+- run: echo "API_URL=$API_URL" > .env
+- run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+- run: echo "WEBFLOW_KEY=$WEBFLOW_KEY" >> .env
 
 commands:
   build:
@@ -56,7 +56,6 @@ commands:
       - run: bundle update fastlane
       - run: npm install
   login_to_expo:
-    <<: *generate_dot_env
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - <<: *generate_dot_env
