@@ -646,7 +646,7 @@
     "answer-daily-injections": "Långverkande insulin/basinsulin eller mixinsulin (t.ex. Lantus®, Toujeo®, Levemir®, Tresiba®, Insulatard® eller Novomix®)",
     "answer-rapid-injections": "Snabbverkande insulin (t.ex. Novorapid®, Humalog®, Fiasp®, Actrapid® eller Apidra®) som ges som måltidsinuslin och/eller hyperglykemi",
     "answer-insulin-pump": "Kontinuerlig infusion med en insulinpump",
-    "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
+    "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
     "answer-other-oral-meds": "Tablettbehandling",
     "which-oral-treatment": "Vilka läkemedel som tas oralt tar du för din diabetes? Markera alla alternativ som stämmer för dig",
     "answer-oral-biguanide": "Metformin (t.ex. Metformin®, Janumet® eller Glucophage®)",
@@ -1486,37 +1486,5 @@
         "description": ""
       }
     }
-  },
-
-  "dashboard": {
-    "report-now": "Rapportera nu",
-    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
-    "contributors-so-far": "Bidragsgivare hittills:"
-  },
-
-  "estimated-cases-card": {
-    "covid-in-the-uk": "",
-    "estimated-cases": "Casos estimados",
-    "daily": "Nuevos casos diarios",
-    "active": "Casos activos",
-    "cta": "Más detalles"
-  },
-
-  "tab-navigator": {
-    "first-tab": "Dashboard",
-    "second-tab": "Senaste nytt"
-  },
-
-  "latest-news": {
-    "title": "Senaste nytt"
-  },
-
-  "covid-cases-map": {
-    "covid-in-x": "COVID på {{location}}",
-    "current-estimates": "Aktuella uppskattningar",
-    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
-    "share": "Dela din karta",
-    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
-    "update-postcode-cta": "Uppdatera postnumret"
   }
 }
