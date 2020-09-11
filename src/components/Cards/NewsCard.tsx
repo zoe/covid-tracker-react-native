@@ -9,6 +9,7 @@ import { IWebflowService } from '@covid/core/content/WebflowClient';
 import { Services } from '@covid/provider/services.types';
 import { Header3Text, CaptionText } from '@covid/components/Text';
 import { colors } from '@theme';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   model: IWebflowBlogModel;
@@ -17,7 +18,7 @@ type Props = {
 export const NewsCard: React.FC<Props> = ({ model }) => {
   const webflowService = useInjection<IWebflowService>(Services.WebflowService);
   const onPress = () => {
-    Linking.openURL(webflowService.getUKBlogPostUrl(model.slug));
+    openWebLink(webflowService.getUKBlogPostUrl(model.slug));
   };
   const displayDate = (): string => moment(model.publishedDate).format('MMMM DD, YYYY');
 
