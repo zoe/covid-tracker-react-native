@@ -67,9 +67,7 @@ npm install expo-cli --g
    exp://123.456.7.890:19000
    ```
 
-   Copy the host part of the IP address only.
-
-3. Create a `.env` file - please note that `http://` is required otherwise API requests will fail.
+3. Create a .env file - please note that http:// is required otherwise API requests will fail.
 
    ```sh
    echo "API_URL=http://<ip_address_host_here>:3000" > .env
@@ -80,6 +78,19 @@ npm install expo-cli --g
    ```sh
    echo "API_URL=http://123.456.7.890:3000" > .env
    ```
+
+   NOTE: if you change the .env file be sure to clear the metro cache to ensure your changes take place.
+
+   ```
+   rm -rf $TMPDIR/metro-*
+   ```
+
+   or
+
+   ```
+   expo clear-metro-cache
+   ```
+
 
 4. Run the following command to create `AMPLITUDE_KEY` environment variable:
 
@@ -105,6 +116,7 @@ npm install expo-cli --g
    ```bash
    npm run mock-server
    ```
+   * note: Mock server is currently unavailble (using)
    
 ### Git Hooks
 
@@ -157,6 +169,21 @@ These are some known, common issues and their solutions:
 2. Unable to resolve module `deprecated-react-native-listview`
 
 - Solution: Running `rm -rf $TMPDIR/metro-cache` has been reported to solve the problem. 
+
+3. Sometimes when working with React Native a total reset is required to get things up and running again. There can be lots of reasons for this and some googling may be required, however, the following is a common approach that works for many instances:
+
+```bash
+watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install
+```
+
+or run
+
+```bash
+expo reset
+```
+
+## Multiple iOS simulators
+[How to run multiple ios simulators with expo](https://stackoverflow.com/questions/53924934/can-i-run-my-expo-app-on-multiple-ios-simulators-at-once) 
 
 ## License
 
