@@ -4,7 +4,7 @@ exports[`BrandedButton tests renders correctly 1`] = `
 <View
   accessible={true}
   focusable={true}
-  isTVSelectable={true}
+  forwardedRef={[Function]}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
