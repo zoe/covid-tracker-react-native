@@ -41,12 +41,6 @@ executors:
           WEBFLOW_SITE: $WEBFLOW_SITE
     resource_class: large
 
-# Generate .env file
-generate_dot_env: &generate_dot_env
-- run: echo "API_URL=$API_URL" > .env
-- run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-- run: echo "WEBFLOW_KEY=$WEBFLOW_KEY" >> .env
-
 commands:
   build:
     steps:
@@ -55,10 +49,16 @@ commands:
       - run: bundle install
       - run: bundle update fastlane
       - run: npm install
+  generate_dot_env:
+    steps:
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: echo "WEBFLOW_KEY=$WEBFLOW_KEY" >> .env
+      - run: echo "WEBFLOW_SITE=$WEBFLOW_SITE" >> .env
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - <<: *generate_dot_env
+      - generate_dot_env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
   set_release_channel:
     steps:
@@ -108,7 +108,7 @@ jobs:
       - run: npm run test:i18n 'es'
       - run: npm run lint
       - run: npm run prettier
-      - <<: *generate_dot_env
+      - generate_dot_env
       - run: npm run test:coverage -- --ci
       - coveralls/upload
 
