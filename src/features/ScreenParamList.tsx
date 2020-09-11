@@ -101,6 +101,6 @@ export type ScreenParamList = {
   CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
 
-  // __INJECT_ROUTE__
-  // __INJECT_ROUTE_END__
+  // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
+  // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
 };

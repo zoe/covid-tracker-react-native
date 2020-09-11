@@ -10,35 +10,26 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 
-export class <%= h.inflection.camelize(h.coordinatorName(name)) %> implements Coordinator {
+export class <%= h.inflection.camelize(h.coordinatorName(name)) %> extends Coordinator {
   appCoordinator: AppCoordinator;
   patientData: PatientData;
 
   @lazyInject(Services.Patient)
   private readonly patientService: IPatientService;
 
-  screenFlow: ScreenFlow = {
+  screenFlow: Partial<ScreenFlow> = {
     // __HYGEN_INJECT_SCREEN_FLOW_ABOVE__
-  } as ScreenFlow;
+  } as Partial<ScreenFlow>;
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData) => {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
   };
 
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
-  };
-
-  updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
-    return this.patientService.updatePatientInfo(this.patientData.patientId, patientInfo).then((info) => {
-      this.patientData.patientInfo = info;
-      return info;
-    });
+  startFlow(patientData: PatientData) {
+    this.patientData = patientData;
+    // Start flow here
+    throw new Error("Not implemented.")
   }
 
   // __HYGEN_INJECT_NAV_METHOD_ABOVE__
