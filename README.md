@@ -61,19 +61,36 @@ npm install expo-cli --g
    git clone git@github.com:zoe/covid-tracker-react-native.git
    ```
 
-2. Create a `.env` file and set the api end point - please note that `http://` is required otherwise API requests will fail.
-* Stage: https://zoe-covid19-stage.appspot.com/
-* Prod: https://api.covidradar.org/
+2. When you first start your application you should see the IP address in the console (located above the QR code). For example:
 
    ```sh
-   echo "API_URL=http://<api_url_here>:3000" > .env
+   exp://123.456.7.890:19000
+   ```
+
+3. Create a .env file - please note that http:// is required otherwise API requests will fail.
+
+   ```sh
+   echo "API_URL=http://<ip_address_host_here>:3000" > .env
    ```
 
    e.g.
 
    ```sh
-   echo "API_URL=https://zoe-covid19-stage.appspot.com/" > .env
+   echo "API_URL=http://123.456.7.890:3000" > .env
    ```
+
+   NOTE: if you change the .env file be sure to clear the metro cache to ensure your changes take place.
+
+   ```
+   rm -rf $TMPDIR/metro-*
+   ```
+
+   or
+
+   ```
+   expo clear-metro-cache
+   ```
+
 
 4. Run the following command to create `AMPLITUDE_KEY` environment variable:
 
@@ -154,8 +171,15 @@ These are some known, common issues and their solutions:
 - Solution: Running `rm -rf $TMPDIR/metro-cache` has been reported to solve the problem. 
 
 3. Sometimes when working with React Native a total reset is required to get things up and running again. There can be lots of reasons for this and some googling may be required, however, the following is a common approach that works for many instances:
+
 ```bash
 watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install
+```
+
+or run
+
+```bash
+expo reset
 ```
 
 ## Multiple iOS simulators
