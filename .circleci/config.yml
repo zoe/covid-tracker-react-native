@@ -37,6 +37,8 @@ executors:
         environment:
           API_URL: $API_URL
           AMPLITUDE_KEY: $AMPLITUDE_KEY
+          WEBFLOW_KEY: $WEBFLOW_KEY
+          WEBFLOW_SITE: $WEBFLOW_SITE
     resource_class: large
 
 commands:
@@ -52,6 +54,8 @@ commands:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: echo "WEBFLOW_KEY=$WEBFLOW_KEY" >> .env
+      - run: echo "WEBFLOW_SITE=$WEBFLOW_SITE" >> .env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
   set_release_channel:
     steps:
