@@ -42,7 +42,13 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
       NavigatorService.reset(
         [
           { name: this.appCoordinator.homeScreenName, params: {} },
-          { name: 'SelectProfile', params: { patientData: this.patientData } },
+          {
+            name: 'SelectProfile',
+            params: {
+              patientData: this.patientData,
+              editing: true,
+            },
+          },
           { name: 'EditProfile', params: { patientData: this.patientData } },
         ],
         2
