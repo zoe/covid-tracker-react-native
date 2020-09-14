@@ -129,7 +129,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                         { name: appCoordinator.homeScreenName },
                         {
                           name: 'SelectProfile',
-                          params: { editing: false },
+                          params: { editing: true },
                         },
                       ],
                     })
