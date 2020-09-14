@@ -24,6 +24,7 @@ exports[`Button should match snapshot 1`] = `
         "opacity": 1,
       }
     }
+    testID="buttonTestID"
   >
     <View
       style={
