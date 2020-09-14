@@ -248,7 +248,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = () => {
 
   return (
     <View style={styles.root}>
-      <View style={styles.snapshotContainer} ref={viewRef}>
+      <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
         <View style={styles.headerContainer}>
           <Header3Text style={styles.primaryLabel}>
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
@@ -409,6 +409,7 @@ const styles = StyleSheet.create({
   },
 
   snapshotContainer: {
+    backgroundColor: colors.white,
     width: '100%',
   },
 });
