@@ -9,11 +9,4 @@ describe('Button', () => {
     const component = renderer.create(<BigButton onPress={() => {}} children="Button Text" />);
     expect(component.toJSON()).toMatchSnapshot();
   });
-  it('Handles press events', () => {
-    const onPress = jest.fn();
-    const { getByTestId } = render(<BigButton onPress={onPress} children="Button Text" />);
-    expect(onPress).toHaveBeenCalledTimes(0);
-    fireEvent.press(getByTestId('buttonTestID'));
-    expect(onPress).toHaveBeenCalledTimes(1);
-  });
 });
