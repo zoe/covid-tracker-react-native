@@ -29,7 +29,7 @@ const buttonStyles = StyleSheet.create({
 });
 
 export const BigButton: React.FC<ButtonProps> = (props) => (
-  <TouchableOpacity onPress={props.onPress}>
+  <TouchableOpacity onPress={props.onPress} testID="buttonTestID">
     <View style={buttonStyles.bigButton}>
       <Text style={buttonStyles.buttonText}>{props.children}</Text>
     </View>

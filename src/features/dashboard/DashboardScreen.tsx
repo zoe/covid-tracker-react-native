@@ -25,6 +25,7 @@ import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { SchoolGroupSubscriptionResponse } from '@covid/core/schools/Schools.dto';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
+import { ThemeButton } from '@covid/components';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -116,6 +117,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       {isGBCountry() && <EstimatedCasesMapCard />}
 
       {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
+
+      <View style={styles.calloutContainer}>
+        <ThemeButton colorPalette="green" colorShade="main" onPress={() => null} title="Theme button" />
+      </View>
 
       <View style={styles.calloutContainer}>
         <ExternalCallout
