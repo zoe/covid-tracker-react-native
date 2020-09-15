@@ -9,6 +9,7 @@ import {
   SchoolGroupSubscriptionDTO,
   SchoolGroupJoinedResponse,
 } from '@covid/core/schools/Schools.dto';
+import { naturalCompare } from '@covid/utils/array';
 
 export interface ISchoolService {
   getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse>;
@@ -27,10 +28,11 @@ export class SchoolService implements ISchoolService {
     return this.apiClient.get<SchoolModel[]>('/schools/');
   }
 
-  searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]> {
-    return this.apiClient.get<SchoolGroupModel[]>(`/groups/search/`, {
+  async searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]> {
+    const groups = await this.apiClient.get<SchoolGroupModel[]>(`/groups/search/`, {
       school_id: schoolId,
     });
+    return groups.sort((a, b) => naturalCompare(a.name, b.name));
   }
 
   getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse> {
