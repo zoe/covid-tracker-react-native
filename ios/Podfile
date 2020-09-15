@@ -45,6 +45,12 @@ def flipper_post_install(installer)
   end
 end
 
+project 'COVIDSymptomStudy',
+  'Staging.Debug' => :debug,
+  'Staging.Release' => :release,
+  'Debug' => :debug,
+  'Release' => :release
+
 target 'COVIDSymptomStudy' do
   # Pods for COVIDSymptomStudy
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
