@@ -1439,7 +1439,7 @@
       "disclaimer-1": "We only list schools that are part of our pilot programme. Encourage your school's headteacher to register interest ",
       "disclaimer-2": "here.",
       "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
-
+      "remove": "Remove this school",
       "search": {
         "label": "Name of school",
         "placeholder": "Search for your child's school"
@@ -1449,7 +1449,10 @@
         "label": "Select your child’s school"
       },
 
-      "cta": "Next"
+      "cta": "Next",
+      "modal-body": "Are you sure you want to remove?",
+      "button-1": "Cancel",
+      "button-2": "Remove"
     },
 
     "join-group": {
@@ -1487,6 +1490,13 @@
         "title": "One moment",
         "description": "Looks like you're already part of this bubble."
       }
+    },
+
+    "groups-list": {
+
+      "modal-body": "Are you sure you want to remove?",
+      "button-1": "Cancel",
+      "button-2": "Remove"
     }
   }
 }

@@ -48,20 +48,17 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   const inputMode: InputMode = InputMode.dropdown;
   const enableCreateGroup: boolean = false;
 
-  const currentPatient = schoolNetworkCoordinator.patientData.patientState;
+  const currentPatient = route.params.patientData.patientState;
 
-  const service = useInjection<ISchoolService>(Services.SchoolService);
   const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
-      const groups: SchoolGroupModel[] = await service
-        .searchSchoolGroups(schoolNetworkCoordinator.selectedSchool?.id ?? '')
-        .catch(() => {
-          return [];
-        });
+      const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
+        route.params.selectedSchool.id
+      );
       const pickerItems = groups.map<PickerItemProps>((g) => ({
         label: g.name,
         value: g.id,
@@ -80,8 +77,9 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   const onSubmit = async (schoolData: JoinGroupData) => {
     try {
-      const { group } = await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
-      dispatch(joinedSchoolGroup(group));
+      const { patientId } = route.params.patientData;
+      const { group } = await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, patientId);
+      dispatch(joinedSchoolGroup([group, patientId]));
       next();
     } catch {
       Alert.alert(
@@ -105,7 +103,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
         <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
         <RegularText style={styles.topText}>
           {i18n.t('school-networks.join-group.description', {
-            school: schoolNetworkCoordinator.selectedSchool?.name ?? '',
+            school: route.params.selectedSchool?.name ?? '',
           })}
         </RegularText>
       </Header>

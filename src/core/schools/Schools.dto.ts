@@ -43,6 +43,7 @@ export interface SchoolGroupSubscriptionModel extends SchoolGroupModel {
   status: string;
   size?: number | null;
   school: SchoolModel;
+  patientId: string;
 }
 
 export type SchoolGroupSubscriptionResponse = SchoolGroupSubscriptionModel[];

@@ -8,14 +8,16 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { SchoolModel } from '@covid/core/schools/Schools.dto';
+import { SchoolGroupModel, SchoolModel } from '@covid/core/schools/Schools.dto';
+import { useInjection } from '@covid/provider/services.hooks';
+import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
   appCoordinator: AppCoordinator;
   patientData: PatientData;
 
   // Form state
-  selectedSchool?: SchoolModel;
+  private selectedSchool?: SchoolModel;
 
   @lazyInject(Services.User)
   private readonly userService: IUserService;
@@ -26,15 +28,19 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   @lazyInject(Services.Localisation)
   private readonly localisationService: ILocalisationService;
 
+  @lazyInject(Services.SchoolService)
+  private readonly schoolService: ISchoolService;
+
+  //TODO Rework flow
   public screenFlow: Partial<ScreenFlow> = {
     SchoolIntro: () => {
-      NavigatorService.navigate('SchoolHowTo');
+      NavigatorService.navigate('SchoolHowTo', { patientData: this.patientData });
     },
     SchoolHowTo: () => {
       NavigatorService.navigate('SelectProfile', { editing: false });
     },
     JoinSchool: () => {
-      NavigatorService.navigate('JoinSchoolGroup');
+      this.goToJoinGroup();
     },
     JoinSchoolGroup: () => {
       NavigatorService.navigate('SchoolSuccess');
@@ -43,6 +49,9 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
       NavigatorService.navigate('SchoolSuccess');
     },
     SchoolSuccess: () => {},
+    SchoolGroupList: () => {
+      NavigatorService.navigate('SelectProfile');
+    },
   };
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData) => {
@@ -52,7 +61,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
 
   startFlow(patientData: PatientData) {
     this.patientData = patientData;
-    NavigatorService.navigate('JoinSchool');
+    NavigatorService.navigate('JoinSchool', { patientData: this.patientData });
   }
 
   goToSchoolIntro() {
@@ -63,9 +72,34 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     NavigatorService.navigate('CreateNetworkGroup');
   }
 
+  goToJoinGroup() {
+    NavigatorService.navigate('JoinSchoolGroup', {
+      patientData: this.patientData,
+      selectedSchool: this.selectedSchool!,
+    });
+  }
+
+  setSelectedSchool(selectedSchool: SchoolModel) {
+    this.selectedSchool = selectedSchool;
+  }
+
   async profileSelected(profile: Profile): Promise<void> {
     this.patientData = await this.patientService.getPatientDataByProfile(profile);
     NavigatorService.navigate('JoinSchool');
+  }
+
+  async removePatientFromGroup(groupId: string, patientId: string) {
+    return await this.schoolService.leaveGroup(groupId, patientId);
+  }
+
+  async addPatientToGroup(groupId: string, patientId: string) {
+    return await this.schoolService.joinGroup(groupId, patientId);
+  }
+
+  async searchSchoolGroups(id: string) {
+    return this.schoolService.searchSchoolGroups(id).catch(() => {
+      return [];
+    });
   }
 }
 

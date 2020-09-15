@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, View } from 'react-native';
+import { PickerItemProps, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 
 import { colors } from '@theme';
 import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
@@ -19,9 +20,15 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
-import { SchoolModel } from '@covid/core/schools/Schools.dto';
+import {
+  SchoolGroupSubscriptionResponse,
+  SchoolModel,
+} from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
 import { openWebLink } from '@covid/utils/links';
+import { RootState } from '@covid/core/state/root';
+import { Optional } from '@covid/utils/types';
+import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -47,8 +54,13 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const inputMode: InputMode = InputMode.dropdown;
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [schools, setSchools] = useState<SchoolModel[]>([]);
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
-  const currentPatient = schoolNetworkCoordinator.patientData.patientState;
+  const networks = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
+    (state) => state.school.joinedSchoolNetworks
+  );
+
+  const currentPatient = route.params.patientData.patientState;
 
   const getSchoolPickerItems = () => {
     return schools.map<PickerItemProps>((s) => ({
@@ -64,14 +76,17 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   }, []);
 
   const onSubmit = (schoolData: JoinSchoolData) => {
-    schoolNetworkCoordinator.selectedSchool = schools.filter((school) => school.id === schoolData.schoolId)[0];
-    next();
+    schoolNetworkCoordinator.setSelectedSchool(schools.filter((school) => school.id === schoolData.schoolId)[0]);
+    schoolNetworkCoordinator.gotoNextScreen(route.name);
   };
 
-  const next = () => schoolNetworkCoordinator.gotoNextScreen(route.name);
+  const { patientId } = route.params.patientData;
+  const currentJoinedGroup = networks ? networks.find((s) => s.patientId === patientId) : undefined;
 
-  // @ts-ignore
-  // @ts-ignore
+  const initialValues = {
+    schoolId: currentJoinedGroup ? currentJoinedGroup.school.id : '',
+  } as JoinSchoolData;
+
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
       <Header>
@@ -91,14 +106,19 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
         <ProgressStatus step={1} maxSteps={3} color={colors.brand} />
       </ProgressBlock>
 
-      <Formik
-        initialValues={
-          {
-            schoolId: '',
-          } as JoinSchoolData
-        }
-        validationSchema={ValidationSchema()}
-        onSubmit={onSubmit}>
+      {isModalVisible && ( //TODO Dynamic body text
+        <TwoButtonModal
+          bodyText={i18n.t('school-networks.join-school.modal-body')}
+          button1Text={i18n.t('school-networks.join-school.button-1')}
+          button2Text={i18n.t('school-networks.join-school.button-2')}
+          button1Callback={() => setModalVisible(false)}
+          button2Callback={() =>
+            schoolNetworkCoordinator.removePatientFromGroup(currentJoinedGroup!.id, route.params.patientData.patientId)
+          }
+        />
+      )}
+
+      <Formik initialValues={initialValues} validationSchema={ValidationSchema()} onSubmit={onSubmit}>
         {(formikProps) => (
           <Form style={styles.formContainer}>
             <View>
@@ -136,6 +156,13 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
             <View>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
+              )}
+              {currentJoinedGroup && (
+                <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+                  <RegularText style={{ color: colors.coral }}>
+                    {i18n.t('school-networks.join-school.remove')}
+                  </RegularText>
+                </TouchableWithoutFeedback>
               )}
               <Button onPress={formikProps.handleSubmit} branded>
                 {i18n.t('school-networks.join-school.cta')}
