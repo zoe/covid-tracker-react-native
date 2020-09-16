@@ -13,7 +13,6 @@ import { IContentApiClient } from '@covid/core/content/ContentApiClient';
 export interface IContentService {
   localData?: PersonalisedLocalData;
   getUserCount(): Promise<string | null>;
-  getWelcomeRepeatContent(): Promise<ScreenContent>;
   getCalloutBoxDefault(): ScreenContent;
   getAskedToRateStatus(): Promise<string | null>;
   setAskedToRateStatus(status: string): void;
@@ -26,7 +25,6 @@ export interface IContentService {
 export default class ContentService implements IContentService {
   @inject(Services.ContentApi)
   private readonly apiClient: IContentApiClient;
-  private screenContent: AppScreenContent;
 
   localData: PersonalisedLocalData;
 
@@ -39,16 +37,6 @@ export default class ContentService implements IContentService {
       return 'https://covid.joinzoe.com/';
     }
   };
-
-  async getWelcomeRepeatContent() {
-    if (!this.screenContent) {
-      this.screenContent = await this.apiClient.getScreenContent(
-        LocalisationService.userCountry,
-        LocalisationService.getLocale()
-      );
-    }
-    return this.screenContent.WelcomeRepeat;
-  }
 
   getCalloutBoxDefault(): ScreenContent {
     return {
