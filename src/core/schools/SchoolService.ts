@@ -6,7 +6,8 @@ import {
   SchoolModel,
   SchoolGroupModel,
   SchoolGroupSubscriptionDTO,
-  SubscribedSchoolGroupStats, SchoolGroupJoinedResponse,
+  SubscribedSchoolGroupStats,
+  SchoolGroupJoinedResponse,
 } from '@covid/core/schools/Schools.dto';
 
 export interface ISchoolService {
