@@ -61,7 +61,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
   homeScreenName: ScreenName = 'WelcomeRepeat';
 
-  shouldShowCountryPicker: boolean = false;
+  shouldShowCountryPicker: boolean = true;
 
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
