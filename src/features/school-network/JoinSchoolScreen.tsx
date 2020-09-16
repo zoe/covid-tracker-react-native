@@ -20,10 +20,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
-import {
-  SchoolGroupSubscriptionResponse,
-  SchoolModel,
-} from '@covid/core/schools/Schools.dto';
+import { SchoolGroupSubscriptionResponse, SchoolModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
 import { openWebLink } from '@covid/utils/links';
 import { RootState } from '@covid/core/state/root';
@@ -77,7 +74,11 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   const onSubmit = (schoolData: JoinSchoolData) => {
     schoolNetworkCoordinator.setSelectedSchool(schools.filter((school) => school.id === schoolData.schoolId)[0]);
-    schoolNetworkCoordinator.gotoNextScreen(route.name);
+    if (!currentJoinedGroup) {
+      schoolNetworkCoordinator.goToJoinGroup();
+    } else {
+      schoolNetworkCoordinator.goToGroupList();
+    }
   };
 
   const { patientId } = route.params.patientData;

@@ -31,7 +31,6 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   @lazyInject(Services.SchoolService)
   private readonly schoolService: ISchoolService;
 
-  //TODO Rework flow
   public screenFlow: Partial<ScreenFlow> = {
     SchoolIntro: () => {
       NavigatorService.navigate('SchoolHowTo', { patientData: this.patientData });
@@ -39,16 +38,9 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     SchoolHowTo: () => {
       NavigatorService.navigate('SelectProfile', { editing: false });
     },
-    JoinSchool: () => {
-      this.goToJoinGroup();
-    },
     JoinSchoolGroup: () => {
-      NavigatorService.navigate('SchoolSuccess');
+      NavigatorService.navigate('SchoolGroupList');
     },
-    CreateNetworkGroup: () => {
-      NavigatorService.navigate('SchoolSuccess');
-    },
-    SchoolSuccess: () => {},
     SchoolGroupList: () => {
       NavigatorService.navigate('SelectProfile');
     },
@@ -76,6 +68,12 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     NavigatorService.navigate('JoinSchoolGroup', {
       patientData: this.patientData,
       selectedSchool: this.selectedSchool!,
+    });
+  }
+
+  goToGroupList() {
+    NavigatorService.navigate('SchoolGroupList', {
+      patientData: this.patientData,
     });
   }
 
