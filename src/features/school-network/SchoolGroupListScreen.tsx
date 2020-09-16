@@ -58,9 +58,9 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
           <ProgressStatus step={2} maxSteps={4} />
         </ProgressBlock>
 
-        {isModalVisible && ( //TODO Dynamic body text
+        {isModalVisible && (
           <TwoButtonModal
-            bodyText={i18n.t('school-networks.groups-list.modal-body')}
+            bodyText={i18n.t('school-networks.groups-list.modal-body') + ' ' + pressedGroup!.name + '?'}
             button1Text={i18n.t('school-networks.groups-list.button-1')}
             button2Text={i18n.t('school-networks.groups-list.button-2')}
             button1Callback={() => setModalVisible(false)}

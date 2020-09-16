@@ -107,9 +107,9 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
         <ProgressStatus step={1} maxSteps={3} color={colors.brand} />
       </ProgressBlock>
 
-      {isModalVisible && ( //TODO Dynamic body text
+      {isModalVisible && (
         <TwoButtonModal
-          bodyText={i18n.t('school-networks.join-school.modal-body')}
+          bodyText={i18n.t('school-networks.join-school.modal-body') + ' ' + currentJoinedGroup!.name + '?'}
           button1Text={i18n.t('school-networks.join-school.button-1')}
           button2Text={i18n.t('school-networks.join-school.button-2')}
           button1Callback={() => setModalVisible(false)}

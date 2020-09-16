@@ -1450,7 +1450,7 @@
       },
 
       "cta": "Next",
-      "modal-body": "Are you sure you want to remove?",
+      "modal-body": "Are you sure you want to remove",
       "button-1": "Cancel",
       "button-2": "Remove"
     },
@@ -1493,8 +1493,7 @@
     },
 
     "groups-list": {
-
-      "modal-body": "Are you sure you want to remove?",
+      "modal-body": "Are you sure you want to remove",
       "button-1": "Cancel",
       "button-2": "Remove"
     }
