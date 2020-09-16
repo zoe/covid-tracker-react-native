@@ -9,21 +9,25 @@ export interface SchoolGroupModel {
 export interface SchoolModel {
   id: string;
   name: string;
-  size?: number | null;
+  size: number;
 }
 
 // Subscribed school stats
 
+interface Membership {
+  patientId: string;
+}
+
 export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
   status: string;
-  cases?: number | null;
-  size?: number | null;
-  school?: SchoolModel;
+  cases: number;
+  size: number;
+  school: SchoolModel;
+  membership: Membership[];
 }
 
 export interface SubscribedSchoolStats extends SchoolModel {
-  cases?: number;
-  size?: number | null;
+  cases: number;
   groups: SubscribedSchoolGroupStats[];
 }
 
@@ -36,14 +40,3 @@ export interface SchoolGroupSubscriptionDTO {
 export interface SchoolGroupJoinedResponse {
   group: SubscribedSchoolGroupStats;
 }
-
-// School network subscriptions Responses
-
-export interface SchoolGroupSubscriptionModel extends SchoolGroupModel {
-  status: string;
-  size?: number | null;
-  school: SchoolModel;
-  patientId: string;
-}
-
-export type SchoolGroupSubscriptionResponse = SchoolGroupSubscriptionModel[];

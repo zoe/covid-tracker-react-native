@@ -15,9 +15,6 @@ import { Button } from '@covid/components/Buttons/Button';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { useAppDispatch } from '@covid/core/state/store';
 import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import i18n from '@covid/locale/i18n';
@@ -79,7 +76,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
     try {
       const { patientId } = route.params.patientData;
       const { group } = await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, patientId);
-      dispatch(joinedSchoolGroup([group, patientId]));
+      dispatch(joinedSchoolGroup(group));
       next();
     } catch {
       Alert.alert(

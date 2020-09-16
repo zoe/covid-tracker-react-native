@@ -23,8 +23,8 @@ import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
-import { SchoolGroupSubscriptionResponse } from '@covid/core/schools/Schools.dto';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
+import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -39,7 +39,7 @@ const ShowSchoolModuleFeature = false;
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
+  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
 
@@ -96,7 +96,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             marginHorizontal: 32,
             marginBottom: 16,
           }}>
-          <SchoolNetworks networks={networks!} />
+          <SchoolNetworks schoolGroups={networks!} />
         </View>
       )}
 

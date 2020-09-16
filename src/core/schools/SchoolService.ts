@@ -5,13 +5,12 @@ import { IApiClient } from '@covid/core/api/ApiClient';
 import {
   SchoolModel,
   SchoolGroupModel,
-  SchoolGroupSubscriptionResponse,
   SchoolGroupSubscriptionDTO,
-  SchoolGroupJoinedResponse,
+  SubscribedSchoolGroupStats, SchoolGroupJoinedResponse,
 } from '@covid/core/schools/Schools.dto';
 
 export interface ISchoolService {
-  getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse>;
+  getSubscribedSchoolGroups(): Promise<SubscribedSchoolGroupStats[]>;
   getSchools(): Promise<SchoolModel[]>;
   searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]>;
   joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse>;
@@ -33,8 +32,8 @@ export class SchoolService implements ISchoolService {
     });
   }
 
-  getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse> {
-    return this.apiClient.get<SchoolGroupSubscriptionResponse>('/groups/subscriptions/');
+  getSubscribedSchoolGroups(): Promise<SubscribedSchoolGroupStats[]> {
+    return this.apiClient.get<SubscribedSchoolGroupStats[]>('/groups/subscriptions/');
   }
 
   async joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse> {

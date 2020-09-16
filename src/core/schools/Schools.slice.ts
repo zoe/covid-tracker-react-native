@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, createAction, PrepareAction, Draft } from '@reduxjs/toolkit';
+import { PayloadAction } from 'typesafe-actions';
 
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
-import { SchoolGroupSubscriptionModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
-import { PayloadAction } from 'typesafe-actions';
 
 // State interface
 
@@ -13,7 +13,7 @@ export type SchoolState = {
   // Form state when joining a school
   selectedSchoolId?: string;
 
-  joinedSchoolNetworks?: SchoolGroupSubscriptionModel[]; //TODO Remame
+  joinedSchoolNetworks?: SubscribedSchoolGroupStats[]; //TODO Rename
 
   joinedGroup?: SubscribedSchoolGroupStats; // TODO remove
 };
@@ -26,7 +26,7 @@ const initialState: SchoolState = {};
 
 export const selectSchool = createAction<string>('school/select_school');
 
-export const joinedSchoolGroup = createAction<[SubscribedSchoolGroupStats, string]>('school/joined_school_group');
+export const joinedSchoolGroup = createAction<SubscribedSchoolGroupStats>('school/joined_school_group');
 export const finishedSchoolGroup = createAction('school/finished_school_group');
 
 // Actions: Async
@@ -36,7 +36,7 @@ export const fetchSubscribedSchoolGroups = createAsyncThunk(
   async (): Promise<Partial<SchoolState>> => {
     const service = container.get<ISchoolService>(Services.SchoolService);
     const response = await service.getSubscribedSchoolGroups();
-    const groups = response.map((item) => camelizeKeys(item) as SchoolGroupSubscriptionModel);
+    const groups = response.map((item) => camelizeKeys(item) as SubscribedSchoolGroupStats);
     return {
       joinedSchoolNetworks: groups,
     } as Partial<SchoolState>;
@@ -53,9 +53,12 @@ export const schoolSlice = createSlice({
     [selectSchool.type]: (current, action) => {
       current.selectedSchoolId = action.payload;
     },
-    [joinedSchoolGroup.type]: (current, action: PayloadAction<'school/joined_school_group', [SubscribedSchoolGroupStats, string]>) => {
-      current.joinedGroup = action.payload[0];
-      //TODO remove joinedGroup, add to joinedSchoolNetworks
+    [joinedSchoolGroup.type]: (
+      current: SchoolState,
+      action: PayloadAction<'school/joined_school_group', SubscribedSchoolGroupStats>
+    ) => {
+      current.joinedGroup = action.payload;
+      current.joinedSchoolNetworks = [...(current.joinedSchoolNetworks ?? []), action.payload];
     },
     [finishedSchoolGroup.type]: (current) => {
       delete current.joinedGroup;

@@ -20,7 +20,7 @@ import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
-import { SchoolGroupSubscriptionResponse, SchoolModel } from '@covid/core/schools/Schools.dto';
+import { SchoolModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
 import { openWebLink } from '@covid/utils/links';
 import { RootState } from '@covid/core/state/root';
@@ -53,7 +53,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const [schools, setSchools] = useState<SchoolModel[]>([]);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
-  const networks = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
+  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
 
@@ -82,7 +82,9 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   };
 
   const { patientId } = route.params.patientData;
-  const currentJoinedGroup = networks ? networks.find((s) => s.patientId === patientId) : undefined;
+  const currentJoinedGroup = networks
+    ? networks.find((s) => s.membership.map((m) => m.patientId).includes(patientId))
+    : undefined;
 
   const initialValues = {
     schoolId: currentJoinedGroup ? currentJoinedGroup.school.id : '',

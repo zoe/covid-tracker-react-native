@@ -17,7 +17,7 @@ import { Optional } from '@covid/utils/types';
 import { SchoolGroupRow } from '@covid/features/school-network/SchoolGroupRow';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 
-import { SchoolGroupModel, SchoolGroupSubscriptionResponse } from '../../core/schools/Schools.dto';
+import { SchoolGroupModel, SubscribedSchoolGroupStats } from '../../core/schools/Schools.dto';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolGroupList'>;
@@ -29,13 +29,15 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const [pressedGroup, setPressedGroup] = useState<SchoolGroupModel>();
 
-  const allGroups = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
+  const allGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
 
   useEffect(() => {
     const { patientId } = route.params.patientData;
-    const currentJoinedGroups = allGroups ? allGroups.filter((group) => group.patientId === patientId) : undefined;
+    const currentJoinedGroups = allGroups
+      ? allGroups.filter((group) => group.membership.map((m) => m.patientId).includes(patientId))
+      : undefined;
     setJoinedGroups(currentJoinedGroups ? currentJoinedGroups : []);
   }, []);
 
