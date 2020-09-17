@@ -71,6 +71,7 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
     await pushNotificationService.refreshPushToken();
 
     this.setState({
+      calloutBoxContent: this.contentService.getCalloutBoxDefault(),
       userCount: cleanIntegerVal(userCount as string),
     });
   }
