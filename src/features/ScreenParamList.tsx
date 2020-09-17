@@ -100,4 +100,7 @@ export type ScreenParamList = {
   JoinSchoolGroup: undefined;
   CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
+
+  // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
+  // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
 };
