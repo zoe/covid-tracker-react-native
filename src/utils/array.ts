@@ -11,3 +11,5 @@ export function ArrayDistinctBy<T, K>(arr: T[], keySelector: (selector: T) => K)
   });
   return newArr;
 }
+
+export const naturalCompare = require('string-natural-compare');

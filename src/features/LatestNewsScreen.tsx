@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog010, dataPage003, notificationReminders, timUpdate007 } from '@assets';
+import { blog010, dataPage003, notificationReminders, timUpdate008 } from '@assets';
 import { colors } from '@theme';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
@@ -55,9 +55,9 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
             />
 
             <ExternalCallout
-              link="https://youtu.be/lU5yDDLUvCY"
-              calloutID="tim_update_007"
-              imageSource={timUpdate007}
+              link="https://youtu.be/UUwPmakoumQ"
+              calloutID="tim_update_008"
+              imageSource={timUpdate008}
               aspectRatio={1.178}
               screenName={props.route.name}
             />
