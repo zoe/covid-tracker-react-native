@@ -14,16 +14,12 @@ export interface SchoolModel {
 
 // Subscribed school stats
 
-interface Membership {
-  patientId: string;
-}
-
 export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
   status: string;
   cases: number;
   size: number;
   school: SchoolModel;
-  membership: Membership[];
+  patient_id: string;
 }
 
 export interface SubscribedSchoolStats extends SchoolModel {

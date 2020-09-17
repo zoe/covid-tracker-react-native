@@ -35,9 +35,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 
   useEffect(() => {
     const { patientId } = route.params.patientData;
-    const currentJoinedGroups = allGroups
-      ? allGroups.filter((group) => group.membership.map((m) => m.patientId).includes(patientId))
-      : undefined;
+    const currentJoinedGroups = allGroups ? allGroups.filter((group) => group.patient_id === patientId) : undefined;
     setJoinedGroups(currentJoinedGroups ? currentJoinedGroups : []);
   }, []);
 

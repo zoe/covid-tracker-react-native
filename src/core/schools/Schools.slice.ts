@@ -36,9 +36,8 @@ export const fetchSubscribedSchoolGroups = createAsyncThunk(
   async (): Promise<Partial<SchoolState>> => {
     const service = container.get<ISchoolService>(Services.SchoolService);
     const response = await service.getSubscribedSchoolGroups();
-    const groups = response.map((item) => camelizeKeys(item) as SubscribedSchoolGroupStats);
     return {
-      joinedSchoolNetworks: groups,
+      joinedSchoolNetworks: response,
     } as Partial<SchoolState>;
   }
 );
