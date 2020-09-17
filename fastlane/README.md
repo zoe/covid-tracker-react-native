@@ -12,7 +12,7 @@ Install _fastlane_ using
 ```
 [sudo] gem install fastlane -NV
 ```
-or alternatively using `brew cask install fastlane`
+or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
@@ -27,12 +27,17 @@ iOS Dev Channel (AppCenter)
 ```
 fastlane ios stage
 ```
-TODO: iOS Stage Channel (AppCenter/TestFlight)
-### ios prodution
+iOS Stage Channel (TestFlight)
+### ios production
 ```
-fastlane ios prodution
+fastlane ios production
 ```
 TODO: iOS Production Channel (App Store)
+### ios release
+```
+fastlane ios release
+```
+iOS Build
 
 ----
 
@@ -48,10 +53,10 @@ Android Dev Channel (AppCenter)
 ```
 fastlane android stage
 ```
-TODO: Android Stage Channel (AppCenter/Play Store Beta)
-### android prodution
+Android Stage Channel (Play Store Beta)
+### android production
 ```
-fastlane android prodution
+fastlane android production
 ```
 TODO: Android Production Channel (Play Store)
 

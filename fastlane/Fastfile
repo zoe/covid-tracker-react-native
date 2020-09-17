@@ -1,90 +1,212 @@
-fastlane_version "2.145.0"
+fastlane_version "2.160.0"
 
-desc "iOS publishing lanes"
-platform :ios do
-  desc "iOS Dev Channel (AppCenter)"
-  lane :dev do |options|
-    appcenter_upload(
-      api_token: options[:app_token],
-      owner_name: "Joinzoe",
-      owner_type: "organization",
-      app_name: options[:app_name],
-      file: Dir.pwd + "/app.ipa",
-      notify_testers: true,
-    )
-  end
+default_platform(:ios)
 
-  desc "iOS Stage Channel (TestFlight)"
-  lane :stage do
-    upload_to_testflight(
-      username: ENV["ITUNES_CONNECT_USER"],
-      password: ENV["ITUNES_CONNECT_PASSWORD"],
-      ipa: Dir.pwd + "/app.ipa",
-    )
-  end
+def getVersionNo
+  @buildNumber = ENV['BUILD_BUILDNUMBER'] || "1"
 
-  desc "TODO: iOS Production Channel (App Store)"
-  lane :production do
-  end
-end
+  @packageVersion = `node -e "console.log(require('../package.json').version);"`.strip!
 
-desc "Android publishing lanes"
-platform :android do
-  desc "Android Dev Channel (AppCenter)"
-  lane :dev do |options|
-    appcenter_upload(
-      api_token: options[:app_token],
-      owner_name: "Joinzoe",
-      owner_type: "organization",
-      app_name: options[:app_name],
-      file: Dir.pwd + "/app.aab",
-      notify_testers: true,
-    )
-  end
-
-  desc "Android Stage Channel (Play Store Beta)"
-  lane :stage do
-    upload_to_play_store(
-      track: "beta",
-      aab: Dir.pwd + "/app.aab",
-      json_key: Dir.pwd + "/playstore.json",
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-    )
-  end
-
-  desc "TODO: Android Production Channel (Play Store)"
-  lane :production do
-  end
-end
-
-after_all do
-  build_info = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
-  build_type = lane_context[SharedValues::LANE_NAME]
-  new_build_message = "A new `#{build_type}` build has been uploaded!"
-  if !build_info.nil?
-    slack(
-      success: true,
-      message: new_build_message,
-      default_payloads: [:last_git_commit, :last_git_commit_hash],
-      payload: {
-        "App Version": "#{build_info["id"]} (#{build_info["short_version"]})",
-        "Platform": build_info["app_os"],
-        "Download URL": "<#{build_info["download_url"]}|Click here>",
-      },
-      attachment_properties: {
-        thumb_url: build_info["app_icon_url"],
-      },
-    )
+  if @buildNumber == "1"
+    @environment = "local"
   else
-    slack(message: new_build_message)
+    @environment = ENV['NAME']  
   end
+
+  #Only update the build number if its not already been updated
+  if @buildNumber.include? "."
+    @version = ENV['BUILD_BUILDNUMBER']
+  else
+    @version = "#{@packageVersion}.#{@buildNumber}-#{@environment}"
+  end
+  
+  puts "Build Number is #{@buildNumber}"
+  puts "Environment is #{@environment}"
+  puts "Version is #{@version}"
 end
 
-error do |lane, exception|
-  slack(
-    pretext: "@here",
-    success: false,
-  )
+platform :android do 
+  desc "Build Android app for development"
+  lane :release do |options|
+
+    getVersionNo
+
+    case ENV["NAME"]
+    when "staging"
+        build_type = "stagingRelease"
+    else
+        build_type = "prodRelease"
+    end
+
+    print build_type
+
+    android_set_version_name(
+      version_name: @version,
+      gradle_file: "./android/app/build.gradle"
+    )
+
+    android_set_version_code(
+      version_code: "#{@buildNumber}",
+      gradle_file: "./android/app/build.gradle"
+    )
+
+    gradle(
+      task: 'assemble',
+      build_type: build_type,
+      project_dir: "./android"   
+    )
+  end
+
+  # this is a seperate lane so the build pipeline can use its own secure storage & signing step
+  lane :publish do |options|
+
+    track = 'beta'
+    
+    if options[:track]
+      track = options[:track]
+    end
+
+    puts 'Playstore submission track is:' + track
+
+    @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
+    puts @changeLog
+
+    if options[:submit]
+      upload_to_play_store(track: track)
+    end
+
+    if options[:appcenter]
+      # appcenter api
+      api_token = '80177e966b2997ec05b82983095fedac55a6a0c6'
+
+      # the name of the app in app center.
+      # production = covid_symptom_tracker_android 
+      # Staging = covid_symptom_tracker_android_stage
+      app_name = ENV["APPCENTER_ANDROID_NAME"]
+
+      emailTesters = options[:emailTesters] ? options[:emailTesters] : false
+
+      path = "android/app/build/outputs/apk/#{ENV["NAME"]}/release/app-#{ENV["NAME"]}-release.apk"
+
+      # distribution group
+     appDistGroup = ENV["APPCENTER_ANDROID_DIST_GROUP"]
+  
+      appcenter_upload(
+        destinations: appDistGroup,
+        destination_type: "group",
+        api_token: api_token,
+        owner_name: "Joinzoe",
+        app_name:  app_name,
+        file: path,
+        release_notes: @changeLog,
+        notify_testers: emailTesters
+      )
+    end
+  end
+
+  end
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  end
+
+  desc "Build"
+  lane :release do |options|
+
+    getVersionNo
+
+    increment_build_number(
+      xcodeproj: "./ios/COVIDSymptomStudy.xcodeproj",
+      build_number: "#{@buildNumber}"
+    )
+
+    project = Xcodeproj::Project.open("../ios/COVIDSymptomStudy.xcodeproj")
+    project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['CODE_SIGN_STYLE'] = "Manual"
+      end
+    end
+    project.save
+
+    @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
+    puts @changeLog
+
+    automatic_code_signing(
+      path: "./ios/COVIDSymptomStudy.xcodeproj",
+      team_id: CredentialsManager::AppfileConfig.try_fetch_value(:team_id),
+      use_automatic_signing: false
+    )
+
+    if options[:adhoc]
+      adhoc = true
+    else 
+      adhoc = false
+    end
+
+    sigh(
+      app_identifier: ENV['FASTLANE_BUNDLE_ID'],
+      output_path: './build/profiles',
+      # provisioning_name: profile_name,
+      readonly: true,
+      # ignore_profiles_with_different_name: true,
+      adhoc: adhoc
+    )
+
+    parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
+    profile_name = parsed["Name"];
+
+    gym(
+      workspace: "./ios/COVIDSymptomStudy.xcworkspace",
+      scheme: ENV['FASTLANE_SCHEME'],
+      clean: true,
+      configuration: ENV['FASTLANE_BUILD_CONFIGURATION'],
+      output_directory: "./build",
+      output_name: "COVIDSymptomStudy_#{@version}.ipa",
+      codesigning_identity: "iPhone Distribution: Zoe Global Limited (1503529611)",
+      xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile_name}'",
+      include_bitcode: false,
+      verbose: true   
+    )
+
+    if options[:appcenter]
+      # appcenter api
+      api_token = '80177e966b2997ec05b82983095fedac55a6a0c6'
+  
+      app_name = ENV['APPCENTER_IOS_NAME']
+
+      emailTesters = options[:emailTesters] ? options[:emailTesters] : false
+
+      # distribution group
+      appDistGroup = ENV['APPCENTER_IOS_DIST_GROUP']
+
+      appcenter_upload(
+        destinations: appDistGroup,
+        destination_type: "group",
+        api_token: api_token,
+        owner_name: "Joinzoe",
+        app_name: app_name,
+        ipa: "build/COVIDSymptomStudy_#{@version}.ipa",
+        release_notes: @changeLog,
+        notify_testers: emailTesters
+      )
+    end
+
+  end
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
 end
