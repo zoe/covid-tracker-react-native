@@ -65,14 +65,13 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
   state: WelcomeRepeatScreenState = initialState;
 
   async componentDidMount() {
-    const content = await this.contentService.getWelcomeRepeatContent();
     const userCount = await this.contentService.getUserCount();
 
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
     this.setState({
-      calloutBoxContent: content,
+      calloutBoxContent: this.contentService.getCalloutBoxDefault(),
       userCount: cleanIntegerVal(userCount as string),
     });
   }
