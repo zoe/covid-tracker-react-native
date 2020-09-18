@@ -94,8 +94,6 @@ export class AssessmentCoordinator {
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
         NavigatorService.navigate('ProfileBackDate', { assessmentData: this.assessmentData });
-      } else if (currentPatient.shouldAskLevelOfIsolation) {
-        NavigatorService.navigate('LevelOfIsolation', { assessmentData: this.assessmentData });
       } else {
         if (currentPatient.isHealthWorker) {
           NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
