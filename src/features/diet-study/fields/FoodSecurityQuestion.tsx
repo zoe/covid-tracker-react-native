@@ -12,6 +12,7 @@ import { FieldWrapper } from '@covid/components/Screen';
 import { FoodAvailabilityOptions, FoodSecurityOptions } from '@covid/core/diet-study/dto/DietStudyTypes';
 import DropdownField from '@covid/components/DropdownField';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface FoodSecurityData {
   foodSecurity: string;
@@ -97,7 +98,7 @@ export const FoodSecurityQuestion: FoodSecurityQuestion<Props, FoodSecurityData>
         />
       </FieldWrapper>
 
-      {true &&
+      {isUSCountry() &&
         (formikProps.values.foodSecurity === FoodSecurityOptions.SOMETIMES_NOT_ENOUGH ||
           formikProps.values.foodSecurity === FoodSecurityOptions.OFTEN_NOT_ENOUGH ||
           formikProps.values.foodSecurity === FoodSecurityOptions.ENOUGH_NOT_KINDS_WANTED) && (
