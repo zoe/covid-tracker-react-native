@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, schoolNetworkFeature, blog010 } from '@assets';
+import { shareAppV3, schoolNetworkFeature, blog011 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
@@ -81,9 +81,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
           <ExternalCallout
-            link="https://covid.joinzoe.com/post/covid-on-the-rise?utm_source=App"
-            calloutID="blog_010"
-            imageSource={blog010}
+            link="https://covid.joinzoe.com/post/update-18-september?utm_source=App"
+            calloutID="blog_011"
+            imageSource={blog011}
             aspectRatio={1.552}
             screenName={route.name}
           />
