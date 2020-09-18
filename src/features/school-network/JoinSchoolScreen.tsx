@@ -83,7 +83,6 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   const { patientId } = route.params.patientData;
 
-  const currentJoinedGroup = networks ? networks.find((s) => s.patientId === patientId) : undefined;
   const currentJoinedGroup = networks ? networks.find((s) => s.patient_id === patientId) : undefined;
 
   const initialValues = {
