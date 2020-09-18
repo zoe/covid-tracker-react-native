@@ -1041,6 +1041,15 @@
       "pfnts": ""
     },
 
+    "food-availability": {
+      "label": "",
+      "financial-limitations": "",
+      "shelter-in-place": "",
+      "shortages": "",
+      "avoidance": "",
+      "other": ""
+    },
+
     "your-lifestyle": {
       "title": "",
       "title-2": ""

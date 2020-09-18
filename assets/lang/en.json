@@ -1078,12 +1078,11 @@
 
     "food-availability": {
       "label": "Which situation best describes your response to the prior question about a lack of food availability?",
-      "financial-limitations": "Financial  limitations",
+      "financial-limitations": "Financial limitations",
       "shelter-in-place": "Shelter-in-place orders implemented in my community",
       "shortages": "Shortages in food availability",
       "avoidance": "Anxiety/avoidance associated with going to the grocery store",
-      "other": "Other",
-      "pfnts": "Prefer not to say"
+      "other": "Other"
     },
 
     "your-lifestyle": {
