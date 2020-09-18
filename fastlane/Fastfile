@@ -167,6 +167,8 @@ platform :ios do
     if options[:appcenter]
       appcenter_upload(
         api_token: "7282fd83b69045a31849401945b6b365bcb48891",
+        destinations: "Team_Zoe",
+        destination_type: "group",
         owner_name: "Joinzoe",
         owner_type: "organization",
         app_name: ENV['APPCENTER_IOS_NAME'],
