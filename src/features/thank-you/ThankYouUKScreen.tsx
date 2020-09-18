@@ -77,18 +77,18 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/update-18-september?utm_source=App"
-                calloutID="blog_011"
-                imageSource={blog011}
-                aspectRatio={1.552}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
                 link="https://youtu.be/bpfSbZfFc1Q"
                 calloutID="tim_update_009"
                 imageSource={timUpdate009}
                 aspectRatio={1.178}
+                screenName={this.props.route.name}
+              />
+
+              <ExternalCallout
+                link="https://covid.joinzoe.com/post/update-18-september?utm_source=App"
+                calloutID="blog_011"
+                imageSource={blog011}
+                aspectRatio={1.552}
                 screenName={this.props.route.name}
               />
 
