@@ -21,7 +21,9 @@
     "clean:git": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done",
     "clear:metro": "rm -rf $TMPDIR/metro-*",
     "reset": "watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install",
-    "postinstall": "cd ios && pod install"
+    "postinstall": "cd ios && pod install",
+    "fastlane:ios-stage": "ENVFILE=.env.staging bundle exec fastlane ios release --env staging submit:false appcenter:true appcenterName:'covid_symptom_tracker_ios_stage'",
+    "fastlane:ios-prod": "ENVFILE=.env bundle exec fastlane ios release --env prod submit:false appcenter:true appcenterName:'covid_symptom_tracker_ios'"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "2.4.0",

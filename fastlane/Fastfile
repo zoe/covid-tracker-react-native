@@ -134,10 +134,9 @@ platform :ios do
     @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
     puts @changeLog
 
-    automatic_code_signing(
-      path: "./ios/COVIDSymptomStudy.xcodeproj",
-      team_id: CredentialsManager::AppfileConfig.try_fetch_value(:team_id),
-      use_automatic_signing: false
+    update_code_signing_settings(
+      use_automatic_signing: true,
+      path: "./ios/COVIDSymptomStudy.xcodeproj"
     )
 
     if options[:adhoc]
@@ -147,50 +146,32 @@ platform :ios do
     end
 
     sigh(
+      adhoc: adhoc,
       app_identifier: ENV['FASTLANE_BUNDLE_ID'],
+      force: true,
       output_path: './build/profiles',
-      # provisioning_name: profile_name,
-      readonly: true,
-      # ignore_profiles_with_different_name: true,
-      adhoc: adhoc
     )
 
     parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
     profile_name = parsed["Name"];
 
     gym(
-      workspace: "./ios/COVIDSymptomStudy.xcworkspace",
-      scheme: ENV['FASTLANE_SCHEME'],
-      clean: true,
-      configuration: ENV['FASTLANE_BUILD_CONFIGURATION'],
+      clean: true, 
+      configuration: “Release”, 
+      export_method: “app-store”,
+      scheme: "FastlaneTest",
       output_directory: "./build",
-      output_name: "COVIDSymptomStudy_#{@version}.ipa",
-      codesigning_identity: "iPhone Distribution: Zoe Global Limited (1503529611)",
-      xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile_name}'",
-      include_bitcode: false,
-      verbose: true   
+      workspace: "./ios/COVIDSymptomStudy.xcworkspace"
     )
 
     if options[:appcenter]
-      # appcenter api
-      api_token = '80177e966b2997ec05b82983095fedac55a6a0c6'
-  
-      app_name = ENV['APPCENTER_IOS_NAME']
-
-      emailTesters = options[:emailTesters] ? options[:emailTesters] : false
-
-      # distribution group
-      appDistGroup = ENV['APPCENTER_IOS_DIST_GROUP']
-
       appcenter_upload(
-        destinations: appDistGroup,
-        destination_type: "group",
-        api_token: api_token,
+        api_token: "7282fd83b69045a31849401945b6b365bcb48891",
         owner_name: "Joinzoe",
-        app_name: app_name,
-        ipa: "build/COVIDSymptomStudy_#{@version}.ipa",
-        release_notes: @changeLog,
-        notify_testers: emailTesters
+        owner_type: "organization",
+        app_name: ENV['APPCENTER_IOS_NAME'],
+        ipa: "build/covid-zoe.ipa",
+        notify_testers: true
       )
     end
 

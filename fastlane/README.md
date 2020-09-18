@@ -15,50 +15,26 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
-## iOS
-### ios dev
+## Android
+### android release
 ```
-fastlane ios dev
+fastlane android release
 ```
-iOS publishing lanes
+Build Android app for development
+### android publish
+```
+fastlane android publish
+```
 
-iOS Dev Channel (AppCenter)
-### ios stage
-```
-fastlane ios stage
-```
-iOS Stage Channel (TestFlight)
-### ios production
-```
-fastlane ios production
-```
-TODO: iOS Production Channel (App Store)
+
+----
+
+## iOS
 ### ios release
 ```
 fastlane ios release
 ```
-iOS Build
-
-----
-
-## Android
-### android dev
-```
-fastlane android dev
-```
-Android publishing lanes
-
-Android Dev Channel (AppCenter)
-### android stage
-```
-fastlane android stage
-```
-Android Stage Channel (Play Store Beta)
-### android production
-```
-fastlane android production
-```
-TODO: Android Production Channel (Play Store)
+Build
 
 ----
 
