@@ -26,16 +26,16 @@ def getVersionNo
 end
 
 platform :android do 
-  desc "Build Android app for development"
+  desc "Build Android app"
   lane :release do |options|
 
     getVersionNo
 
     case ENV["NAME"]
     when "staging"
-        build_type = "stagingRelease"
+        build_type = "Release"
     else
-        build_type = "prodRelease"
+        build_type = "Release"
     end
 
     print build_type
@@ -51,7 +51,7 @@ platform :android do
     )
 
     gradle(
-      task: 'assemble',
+      task: "assemble",
       build_type: build_type,
       project_dir: "./android"   
     )
@@ -76,30 +76,26 @@ platform :android do
     end
 
     if options[:appcenter]
-      # appcenter api
-      api_token = '80177e966b2997ec05b82983095fedac55a6a0c6'
 
-      # the name of the app in app center.
       # production = covid_symptom_tracker_android 
       # Staging = covid_symptom_tracker_android_stage
       app_name = ENV["APPCENTER_ANDROID_NAME"]
 
-      emailTesters = options[:emailTesters] ? options[:emailTesters] : false
-
-      path = "android/app/build/outputs/apk/#{ENV["NAME"]}/release/app-#{ENV["NAME"]}-release.apk"
+      path = "android/app/build/outputs/apk/release/app-release.apk"
 
       # distribution group
      appDistGroup = ENV["APPCENTER_ANDROID_DIST_GROUP"]
-  
+
       appcenter_upload(
-        destinations: appDistGroup,
+        app_name: ENV['APPCENTER_ANDROID_NAME'],
+        api_token: "7282fd83b69045a31849401945b6b365bcb48891",
+        destinations: "Team_Zoe_android",
         destination_type: "group",
-        api_token: api_token,
-        owner_name: "Joinzoe",
-        app_name:  app_name,
         file: path,
-        release_notes: @changeLog,
-        notify_testers: emailTesters
+        owner_name: "Joinzoe",
+        owner_type: "organization",
+        notify_testers: true,
+        release_notes: @changeLog
       )
     end
   end
@@ -166,14 +162,15 @@ platform :ios do
 
     if options[:appcenter]
       appcenter_upload(
+        app_name: ENV['APPCENTER_IOS_NAME'],
         api_token: "7282fd83b69045a31849401945b6b365bcb48891",
         destinations: "Team_Zoe",
         destination_type: "group",
         owner_name: "Joinzoe",
         owner_type: "organization",
-        app_name: ENV['APPCENTER_IOS_NAME'],
         ipa: "build/covid-zoe.ipa",
-        notify_testers: true
+        notify_testers: true,
+        release_notes: @changeLog
       )
     end
 
