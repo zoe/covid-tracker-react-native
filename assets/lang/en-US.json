@@ -108,7 +108,17 @@
       "milk-whole": "Whole milk",
       "milk-semi": "1% or 2% (low or reduced fat) milk",
       "milk-skimmed": "Skim milk",
-      "milk-plant": "Plant-based milk such as almond or soya milk",
+      "milk-plant": "Plant-based milk such as almond or soya milk"
+    },
+
+    "intro": {
+      "description-2": "They also want to understand how the pandemic has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'."
+    },
+
+    "thank-you-break": {
+      "description-1": "\"Thank you for answering these important questions. The pandemic has led to many of us changing our eating behaviors. Help us understand how this has impacted you by answering these questions for Feb (pre-pandemic).\"",
+      "sarah-name": "Prof Christopher Gardner",
+      "sarah-description": "Nutrition Scientist,\nStanford University"
     }
   }
 }
