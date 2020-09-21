@@ -20,7 +20,7 @@ or alternatively using `brew install fastlane`
 ```
 fastlane android release
 ```
-Build Android app for development
+Build Android app
 ### android publish
 ```
 fastlane android publish

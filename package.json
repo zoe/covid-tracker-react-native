@@ -24,7 +24,8 @@
     "postinstall": "cd ios && pod install",
     "fastlane:ios-stage": "ENVFILE=.env.staging bundle exec fastlane ios release --env staging submit:false appcenter:true appcenterName:'covid_symptom_tracker_ios_stage'",
     "fastlane:ios-prod": "ENVFILE=.env bundle exec fastlane ios release --env prod submit:false appcenter:true appcenterName:'covid_symptom_tracker_ios'",
-    "fastlane:android-stage": "ENVFILE=.env.staging bundle exec fastlane android release --env staging sumit:false appcenter:true appcenterName:'covid_symptom_tracker_android_stage'"
+    "fastlane:android-build": "ENVFILE=.env.staging fastlane android release --env staging",
+    "fastlane:android-stage": "ENVFILE=.env.staging bundle exec fastlane android publish --env staging track:beta submit:false appcenter:true appcenterName:'covid_symptom_tracker_android_stage'"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "2.4.0",
