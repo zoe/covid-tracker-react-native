@@ -17,6 +17,9 @@ import { offlineService } from '@covid/Services';
 import { BackButton } from '@covid/components/PatientHeader';
 import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { useInjection } from '@covid/provider/services.hooks';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 import appCoordinator from '../AppCoordinator';
@@ -45,6 +48,9 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
 
   const { editing } = route.params;
   const coordinator: SelectProfileCoordinator = editing ? appCoordinator : schoolNetworkCoordinator;
+
+  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
+  const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
 
   useEffect(() => {
     return navigation.addListener('focus', listProfiles);
@@ -115,7 +121,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
               />
             )}
             addProfile={
-              editing
+              showCreateProfile
                 ? () => {
                     gotoCreateProfile();
                   }
