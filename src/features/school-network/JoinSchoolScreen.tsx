@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { PickerItemProps, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -41,7 +41,7 @@ enum InputMode {
   dropdown,
 }
 
-const ValidationSchema = () => {
+const validationSchema = () => {
   return Yup.object().shape({
     schoolId: Yup.string().required(i18n.t('validation-error-text-required')),
   });
@@ -85,9 +85,9 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   const currentJoinedGroup = networks ? networks.find((s) => s.patient_id === patientId) : undefined;
 
-  const initialValues = {
+  const initialValues: JoinSchoolData = {
     schoolId: currentJoinedGroup ? currentJoinedGroup.school.id : '',
-  } as JoinSchoolData;
+  };
 
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
@@ -120,7 +120,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
         />
       )}
 
-      <Formik initialValues={initialValues} validationSchema={ValidationSchema()} onSubmit={onSubmit}>
+      <Formik initialValues={initialValues} validationSchema={validationSchema()} onSubmit={onSubmit}>
         {(formikProps) => (
           <Form style={styles.formContainer}>
             <View>
@@ -160,11 +160,11 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
               )}
               {currentJoinedGroup && (
-                <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+                <TouchableOpacity style={{ margin: 16 }} onPress={() => setModalVisible(true)}>
                   <RegularText style={{ textAlign: 'center', color: colors.coral }}>
                     {i18n.t('school-networks.join-school.remove')}
                   </RegularText>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
               )}
               <Button onPress={formikProps.handleSubmit} branded>
                 {i18n.t('school-networks.join-school.cta')}
