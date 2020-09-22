@@ -8,8 +8,7 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { SchoolGroupModel, SchoolModel } from '@covid/core/schools/Schools.dto';
-import { useInjection } from '@covid/provider/services.hooks';
+import { SchoolModel } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
