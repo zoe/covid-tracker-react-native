@@ -35,7 +35,10 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 
   useEffect(() => {
     const { patientId } = route.params.patientData;
-    const currentJoinedGroups = allGroups ? allGroups.filter((group) => group.patient_id === patientId) : undefined;
+    const schoolId = route.params.selectedSchool.id;
+    const currentJoinedGroups = allGroups
+      ? allGroups.filter((group) => group.patient_id === patientId && group.school.id === schoolId)
+      : undefined;
     setJoinedGroups(currentJoinedGroups ? currentJoinedGroups : []);
   }, []);
 
@@ -51,8 +54,12 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
     <View style={styles.rootContainer}>
       <Screen profile={route.params.patientData.profile} navigation={navigation}>
         <Header>
-          <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
+          <HeaderText>{i18n.t('school-networks.groups-list.title')}</HeaderText>
         </Header>
+
+        <RegularText style={styles.content}>
+          {i18n.t('school-networks.groups-list.subtitle') + ' ' + route.params.selectedSchool.name}
+        </RegularText>
 
         <ProgressBlock>
           <ProgressStatus step={2} maxSteps={4} />
@@ -64,15 +71,14 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
             button1Text={i18n.t('school-networks.groups-list.button-1')}
             button2Text={i18n.t('school-networks.groups-list.button-2')}
             button1Callback={() => setModalVisible(false)}
-            button2Callback={() =>
-              schoolNetworkCoordinator.removePatientFromGroup(pressedGroup!.id, route.params.patientData.patientId)
-            }
+            button2Callback={() => {
+              schoolNetworkCoordinator.removePatientFromGroup(pressedGroup!.id, route.params.patientData.patientId);
+              setModalVisible(false);
+            }}
           />
         )}
 
-        <View style={styles.content}>
-          <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
-        </View>
+        <RegularText style={styles.content}>{i18n.t('school-networks.groups-list.text')}</RegularText>
 
         <View style={styles.content}>
           {joinedGroups.map((group: SchoolGroupModel) => {
@@ -92,7 +98,7 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
 
       <View>
         <BrandedButton style={styles.newButton} onPress={joinNewGroup}>
-          <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
+          <Text style={styles.newText}>{i18n.t('school-networks.groups-list.add-new-bubble')}</Text>
         </BrandedButton>
 
         <BrandedButton style={styles.continueButton} onPress={done}>
@@ -116,10 +122,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: colors.coral,
   },
   newText: {
-    color: colors.primary,
+    color: colors.coral,
   },
   continueButton: {
     marginHorizontal: 16,

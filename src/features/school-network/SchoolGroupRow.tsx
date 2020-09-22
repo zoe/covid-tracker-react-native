@@ -21,7 +21,7 @@ export const SchoolGroupRow: React.FC<Props> = ({ onPress, group }) => {
     <View style={styles.container}>
       <RegularText>{group.name}</RegularText>
       <TouchableOpacity onPress={onPress}>
-        <RegularText>Remove</RegularText>
+        <RegularText style={{ color: colors.coral }}>Remove</RegularText>
       </TouchableOpacity>
     </View>
   );

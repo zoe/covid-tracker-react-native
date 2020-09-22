@@ -1495,6 +1495,9 @@
     },
 
     "groups-list": {
+      "title": "",
+      "text": "",
+      "add-new-bubble": "",
       "modal-body": "",
       "button-1": "",
       "button-2": ""

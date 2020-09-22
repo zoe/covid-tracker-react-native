@@ -73,6 +73,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   goToGroupList() {
     NavigatorService.navigate('SchoolGroupList', {
       patientData: this.patientData,
+      selectedSchool: this.selectedSchool!,
     });
   }
 
