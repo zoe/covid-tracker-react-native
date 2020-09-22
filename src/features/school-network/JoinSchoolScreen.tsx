@@ -161,7 +161,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               )}
               {currentJoinedGroup && (
                 <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-                  <RegularText style={{ color: colors.coral }}>
+                  <RegularText style={{ textAlign: 'center', color: colors.coral }}>
                     {i18n.t('school-networks.join-school.remove')}
                   </RegularText>
                 </TouchableWithoutFeedback>
