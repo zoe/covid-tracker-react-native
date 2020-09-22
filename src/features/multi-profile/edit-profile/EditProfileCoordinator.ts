@@ -89,15 +89,11 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     schoolNetworkCoordinator.startFlow(this.patientData);
   }
 
-  shouldShowEditProfile() {
-    return this.localisationService.getConfig().enableEditProfile;
-  }
-
   shouldShowEditStudy() {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    return shouldAskStudy;
+
+    return config.enableCohorts && currentPatient.shouldAskStudy;
   }
 
   shouldShowSchoolNetwork() {
