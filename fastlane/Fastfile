@@ -144,8 +144,9 @@ platform :ios do
     sigh(
       adhoc: adhoc,
       app_identifier: ENV['FASTLANE_BUNDLE_ID'],
-      force: true,
+      # force: true,
       output_path: './build/profiles',
+      readonly: true,
     )
 
     parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
@@ -154,7 +155,7 @@ platform :ios do
     gym(
       clean: true, 
       configuration: “Release”, 
-      export_method: “app-store”,
+      export_method: “ad-hoc”,
       scheme: "FastlaneTest",
       output_directory: "./build",
       workspace: "./ios/COVIDSymptomStudy.xcworkspace"
@@ -169,7 +170,7 @@ platform :ios do
         owner_name: "Joinzoe",
         owner_type: "organization",
         ipa: "build/covid-zoe.ipa",
-        notify_testers: true,
+        notify_testers: false,
         release_notes: @changeLog
       )
     end

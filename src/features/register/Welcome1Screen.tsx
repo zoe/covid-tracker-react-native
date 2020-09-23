@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import Env from 'react-native-config';
 
 import { gbMap, svMap, usMap } from '@assets';
 import { ContributionCounter } from '@covid/components/ContributionCounter';
@@ -68,6 +69,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 
         <View style={styles.rootContainer}>
           <View style={styles.covidContainer}>
+            <RegularText style={styles.subtitle}>{Env.NAME}</RegularText>
             <RegularText style={styles.subtitle}>{i18n.t('welcome.take-a-minute')}</RegularText>
           </View>
         </View>
