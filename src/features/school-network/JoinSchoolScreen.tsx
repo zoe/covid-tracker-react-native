@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { PickerItemProps, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -53,18 +53,16 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const [schools, setSchools] = useState<SchoolModel[]>([]);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
-  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
+  const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
 
   const currentPatient = route.params.patientData.patientState;
 
-  const getSchoolPickerItems = () => {
-    return schools.map<PickerItemProps>((s) => ({
-      label: s.name,
-      value: s.id,
-    }));
-  };
+  const getSchoolPickerItems = schools.map<PickerItemProps>((s) => ({
+    label: s.name,
+    value: s.id,
+  }));
 
   useEffect(() => {
     (async () => {
@@ -83,7 +81,9 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   const { patientId } = route.params.patientData;
 
-  const currentJoinedGroup = networks ? networks.find((s) => s.patient_id === patientId) : undefined;
+  const currentJoinedGroup = previouslyJoinedGroups
+    ? previouslyJoinedGroups.find((s) => s.patient_id === patientId)
+    : undefined;
 
   const initialValues: JoinSchoolData = {
     schoolId: currentJoinedGroup ? currentJoinedGroup.school.id : '',
@@ -114,9 +114,10 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
           button1Text={i18n.t('school-networks.join-school.button-1')}
           button2Text={i18n.t('school-networks.join-school.button-2')}
           button1Callback={() => setModalVisible(false)}
-          button2Callback={() =>
-            schoolNetworkCoordinator.removePatientFromGroup(currentJoinedGroup!.id, route.params.patientData.patientId)
-          }
+          button2Callback={() => {
+            schoolNetworkCoordinator.removePatientFromGroup(currentJoinedGroup!.id, route.params.patientData.patientId);
+            setModalVisible(false);
+          }}
         />
       )}
 
@@ -139,7 +140,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
                   selectedValue={formikProps.values.schoolId}
                   onValueChange={formikProps.handleChange('schoolId')}
                   label={i18n.t('school-networks.join-school.dropdown.label')}
-                  items={getSchoolPickerItems()}
+                  items={getSchoolPickerItems}
                   error={formikProps.touched.schoolId && formikProps.errors.schoolId}
                 />
               )}
