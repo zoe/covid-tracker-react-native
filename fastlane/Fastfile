@@ -141,6 +141,13 @@ platform :ios do
       adhoc = false
     end
 
+    register_devices(
+      devices: {
+        "chuck" => "00008030-000e151c3c50802e",
+        "peter" => "00008030-000e151c3c50802e"
+      }
+    )
+
     sigh(
       adhoc: adhoc,
       app_identifier: ENV['FASTLANE_BUNDLE_ID'],
@@ -165,12 +172,12 @@ platform :ios do
       appcenter_upload(
         app_name: ENV['APPCENTER_IOS_NAME'],
         api_token: "7282fd83b69045a31849401945b6b365bcb48891",
-        destinations: "Team_Zoe",
+        destinations: "adhoc",
         destination_type: "group",
         owner_name: "Joinzoe",
         owner_type: "organization",
         ipa: "build/covid-zoe.ipa",
-        notify_testers: false,
+        notify_testers: true,
         release_notes: @changeLog
       )
     end
