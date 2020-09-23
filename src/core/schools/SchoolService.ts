@@ -49,7 +49,7 @@ export class SchoolService implements ISchoolService {
   }
 
   async leaveGroup(groupId: string, patientId: string): Promise<void> {
-    await this.apiClient.post<SchoolGroupSubscriptionDTO, null>(`/groups/${groupId}/leave/`, {
+    await this.apiClient.delete<SchoolGroupSubscriptionDTO, null>(`/groups/${groupId}/leave/`, {
       patient_id: patientId,
     });
   }

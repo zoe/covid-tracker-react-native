@@ -6,6 +6,7 @@ import { handleServiceError } from './ApiServiceErrors';
 
 export interface IApiClient {
   setClient(instance: AxiosInstance): void;
+  delete<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   post<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   patch<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   get<TResponse>(path: string, object?: any): Promise<TResponse>;
@@ -17,6 +18,16 @@ export default class ApiClient extends ApiClientBase implements IApiClient {
 
   setClient(instance: AxiosInstance): void {
     this.client = instance;
+  }
+
+  async delete<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
+    try {
+      const response = await this.client.delete<TResponse>(path, { data: payload });
+      return response.data;
+    } catch (error) {
+      handleServiceError(error);
+    }
+    return {} as TResponse;
   }
 
   async post<TRequest, TResponse>(path: string, payload: TRequest): Promise<TResponse> {
