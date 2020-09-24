@@ -8,7 +8,6 @@ export type ConfigType = {
   enableMultiplePatients: boolean;
   enablePersonalInformation: boolean;
   enableCohorts: boolean;
-  enableEditProfile: boolean;
 
   showEthnicityQuestion: boolean;
   showRaceQuestion: boolean;

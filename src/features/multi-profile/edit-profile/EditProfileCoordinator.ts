@@ -5,7 +5,7 @@ import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { ILocalisationService, isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
@@ -89,19 +89,15 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     schoolNetworkCoordinator.startFlow(this.patientData);
   }
 
-  shouldShowEditProfile() {
-    return this.localisationService.getConfig().enableEditProfile;
-  }
-
   shouldShowEditStudy() {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    return shouldAskStudy;
+
+    return config.enableCohorts && currentPatient.shouldAskStudy;
   }
 
   shouldShowSchoolNetwork() {
-    return true;
+    return isGBCountry();
   }
 }
 

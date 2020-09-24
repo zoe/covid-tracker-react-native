@@ -748,6 +748,15 @@
       "pfnts": ""
     },
 
+    "food-availability": {
+      "label": "",
+      "financial-limitations": "",
+      "shelter-in-place": "",
+      "shortages": "",
+      "avoidance": "",
+      "other": ""
+    },
+
     "your-lifestyle": {
       "title": "",
       "title-2": ""
@@ -803,7 +812,24 @@
       "small-glass": "",
       "standard-glass": "",
       "large-glass": "",
-      "bottle-wine": ""
+      "bottle-wine": "",
+      "malt-liquor": "",
+
+      "pints-volume": "",
+      "shots-volume": "",
+      "small-glass-volume": "",
+      "standard-glass-volume": "",
+      "large-glass-volume": "",
+      "bottle-wine-volume": "",
+      "malt-liquor-volume": "",
+
+      "pints-units": "",
+      "shots-units": "",
+      "small-glass-units": "",
+      "standard-glass-units": "",
+      "large-glass-units": "3",
+      "bottle-wine-units": "",
+      "malt-liquor-units": ""
     },
 
     "takes-supplements-label": "",
