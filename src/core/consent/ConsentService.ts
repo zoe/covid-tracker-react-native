@@ -4,7 +4,7 @@ import { AskForStudies, Consent } from '@covid/core/user/dto/UserAPIContracts';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import appConfig from '@covid/appConfig';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
 
 export interface IConsentService {
   postConsent(document: string, version: string, privacy_policy_version: string): void; // TODO: define return object
@@ -99,7 +99,8 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   }
 
   async shouldShowDietStudy(): Promise<boolean> {
-    if (!isGBCountry()) return Promise.resolve(false);
+    if (isSECountry()) return Promise.resolve(false);
+
     const url = `/study_consent/status/`;
     const response = await this.client.get<AskForStudies>(url);
     return response.data.should_ask_diet_study;
@@ -114,8 +115,8 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   }
 
   async getStudyStatus(): Promise<AskForStudies> {
-    // Currently all existing studies are UK only so short-circuit and save a call the server.
-    if (!isGBCountry()) return Promise.resolve(this.getDefaultStudyResponse());
+    // Sweden has no studies - so short circuit and save a call to server.
+    if (isSECountry()) return Promise.resolve(this.getDefaultStudyResponse());
 
     const url = `/study_consent/status/?home_screen=true`;
     const response = await this.client.get<AskForStudies>(url);

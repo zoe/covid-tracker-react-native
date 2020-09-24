@@ -7,11 +7,11 @@ export enum FoodSecurityOptions {
 }
 
 export enum FoodAvailabilityOptions {
-  FINANCIAL_LIMITATIONS = 'financial_limitations',
-  SHELTER_IN_PLACE_ORDERS = 'shelter_in_place_orders',
-  SHORTAGES = 'shortages',
-  AVOIDING_GROCERY_STORE = 'avoiding_grocery_store',
-  OTHER = 'other',
+  FINANCIAL_LIMITATIONS = 'lof_financial_limitations',
+  SHELTER_IN_PLACE_ORDERS = 'lof_shelter_in_place',
+  SHORTAGES = 'lof_shortages',
+  AVOIDING_GROCERY_STORE = 'lof_anxiety',
+  OTHER = 'lof_other',
 }
 
 export enum PhysicalActivityOptions {
