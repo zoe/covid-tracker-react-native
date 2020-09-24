@@ -51,13 +51,6 @@ export class AssessmentCoordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      if (this.assessmentData.patientData.patientState.shouldAskLifestyleQuestion) {
-        NavigatorService.navigate('Lifestyle', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
-      }
-    },
-    Lifestyle: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
