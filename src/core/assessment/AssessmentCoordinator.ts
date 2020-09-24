@@ -182,10 +182,6 @@ export class AssessmentCoordinator {
       this.assessmentData.patientData
     );
   }
-
-  shouldShowEditLocation() {
-    return this.localisationService.getConfig().enableEditProfile;
-  }
 }
 
 const assessmentCoordinator = new AssessmentCoordinator();
