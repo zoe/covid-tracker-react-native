@@ -6,6 +6,14 @@ export enum FoodSecurityOptions {
   PFNTS = 'pfnts',
 }
 
+export enum FoodAvailabilityOptions {
+  FINANCIAL_LIMITATIONS = 'financial_limitations',
+  SHELTER_IN_PLACE_ORDERS = 'shelter_in_place_orders',
+  SHORTAGES = 'shortages',
+  AVOIDING_GROCERY_STORE = 'avoiding_grocery_store',
+  OTHER = 'other',
+}
+
 export enum PhysicalActivityOptions {
   LESS_THAN_ONCE_A_MONTH = 'less_than_once_a_month',
   LESS_THAN_ONCE_A_WEEK = 'less_than_once_a_week',
