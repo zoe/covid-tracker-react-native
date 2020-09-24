@@ -134,9 +134,33 @@ FoodSecurityQuestion.schema = () => {
 };
 
 FoodSecurityQuestion.createDTO = (formData: FoodSecurityData): Partial<DietStudyRequest> => {
-  return {
+  let dto = {
     food_security: formData.foodSecurity,
   } as Partial<DietStudyRequest>;
+
+  if (
+    formData.foodSecurity === FoodSecurityOptions.SOMETIMES_NOT_ENOUGH ||
+    formData.foodSecurity === FoodSecurityOptions.OFTEN_NOT_ENOUGH ||
+    formData.foodSecurity === FoodSecurityOptions.ENOUGH_NOT_KINDS_WANTED
+  ) {
+    const foodAvailabilityFlags = {
+      lof_financial_limitations: false,
+      lof_shelter_in_place: false,
+      lof_shortages: false,
+      lof_anxiety: false,
+      lof_other: false,
+    } as any;
+
+    formData.foodAvailability.forEach((item: string) => {
+      foodAvailabilityFlags[item] = true;
+    });
+
+    dto = {
+      ...dto,
+      ...foodAvailabilityFlags,
+    };
+  }
+  return dto;
 };
 
 const styles = StyleSheet.create({

@@ -71,6 +71,11 @@
       "large-glass": "",
       "bottle-wine": "Bottle of wine (750ml / 26 fl oz) 5 standard drinks"
     },
+
+    "consent": {
+      "paragraph": "Our colleagues at MGH, Harvard School of T.H. Chan School of Public Health, and King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. \n\nWe'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. \n\nThis is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research."
+    },
+
     "alcohol-units": {
       "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one standard drink of alcohol."
     },
