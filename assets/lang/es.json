@@ -1085,12 +1085,29 @@
     "alcohol-unit-info": {
       "label-1": "Un trago se define como un trago estándar de alcohol",
       "label-2": "Typical standard drinks in common alcoholic beverages: Los tragos estándares típicos ",
-      "pints": "12 fl oz de cerveza regular 1 trago estandar",
-      "shots": "8-9 fl oz de licor de malta 1 trago estandar",
-      "small-glass": "5 fl oz de vino 1 trago estandar",
-      "standard-glass": "1.5 fl oz shot of licor destilado 1 trago estandar",
-      "bottle-wine": "Botella de vino (750ml / 26 fl oz) 5 tragos estándares",
-      "large-glass": ""
+      "pints": "Cerveza regular",
+      "shots": "shot de licor destilado",
+      "small-glass": "Mesa de vino pequeño",
+      "standard-glass": "Mesa de vino estándar",
+      "bottle-wine": "Botella de vino",
+      "large-glass": "Mesa de vino grande",
+      "malt-liquor": "licor de malta",
+
+      "pints-volume": "12 fl oz",
+      "shots-volume": "1.5 fl oz",
+      "small-glass-volume": "4 fl oz",
+      "standard-glass-volume": "6-7 fl oz",
+      "large-glass-volume": "8-9 fl oz",
+      "bottle-wine-volume": "26 fl oz",
+      "malt-liquor-volume": "8-9 fl oz",
+
+      "pints-units": "1 trago estandar",
+      "shots-units": "1 trago estandar",
+      "small-glass-units": "1 trago estandar",
+      "standard-glass-units": "1.5 trago estandar",
+      "large-glass-units": "2 trago estandar",
+      "bottle-wine-units": "5 trago estandar",
+      "malt-liquor-units": "1 trago estandar"
     },
     "takes-supplements-label": "Tomaba suplementos (por lo menos 3 a 4 veces a la semana) normalmente?",
     "supplements": {

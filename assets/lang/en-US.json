@@ -70,6 +70,7 @@
       "standard-glass": "Standard glass of table wine",
       "large-glass": "Large glass of table wine",
       "bottle-wine": "Bottle of wine",
+      "malt-liquor": "Malt liqour",
 
       "pints-volume": "12 fl oz",
       "shots-volume": "1.5 fl oz",
@@ -77,13 +78,15 @@
       "standard-glass-volume": "6-7 fl oz",
       "large-glass-volume": "8-9 fl oz",
       "bottle-wine-volume": "26 fl oz",
+      "malt-liquor-volume": "8-9 fl oz",
 
       "pints-units": "1 standard drink",
       "shots-units": "1 standard drink",
       "small-glass-units": "1 standard drink",
       "standard-glass-units": "1.5 standard drink",
       "large-glass-units": "2 standard drinks",
-      "bottle-wine-units": "5 standard drinks"
+      "bottle-wine-units": "5 standard drinks",
+      "malt-liquor-units": "1 standard drink"
     },
     "alcohol-units": {
       "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one standard drink of alcohol."
