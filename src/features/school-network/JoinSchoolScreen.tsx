@@ -79,6 +79,16 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
     }
   };
 
+  const onRemove = (schoolId: string) => {
+    schoolNetworkCoordinator.removePatientFromGroupList(
+      previouslyJoinedGroups!,
+      schoolId,
+      route.params.patientData.patientId
+    );
+    setModalVisible(false);
+    schoolNetworkCoordinator.closeFlow();
+  };
+
   const { patientId } = route.params.patientData;
 
   const currentJoinedGroup = previouslyJoinedGroups
@@ -108,22 +118,23 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
         <ProgressStatus step={1} maxSteps={3} color={colors.brand} />
       </ProgressBlock>
 
-      {isModalVisible && (
-        <TwoButtonModal
-          bodyText={i18n.t('school-networks.join-school.modal-body') + ' ' + currentJoinedGroup!.name + '?'}
-          button1Text={i18n.t('school-networks.join-school.button-1')}
-          button2Text={i18n.t('school-networks.join-school.button-2')}
-          button1Callback={() => setModalVisible(false)}
-          button2Callback={() => {
-            schoolNetworkCoordinator.removePatientFromGroup(currentJoinedGroup!.id, route.params.patientData.patientId);
-            setModalVisible(false);
-          }}
-        />
-      )}
-
       <Formik initialValues={initialValues} validationSchema={validationSchema()} onSubmit={onSubmit}>
         {(formikProps) => (
           <Form style={styles.formContainer}>
+            {isModalVisible && (
+              <TwoButtonModal
+                bodyText={
+                  i18n.t('school-networks.join-school.modal-body') + ' ' + currentJoinedGroup!.school.name + '?'
+                }
+                button1Text={i18n.t('school-networks.join-school.button-1')}
+                button2Text={i18n.t('school-networks.join-school.button-2')}
+                button1Callback={() => setModalVisible(false)}
+                button2Callback={() => {
+                  onRemove(formikProps.values.schoolId);
+                }}
+              />
+            )}
+
             <View>
               <View style={{ height: 16 }} />
               {inputMode === InputMode.input && (

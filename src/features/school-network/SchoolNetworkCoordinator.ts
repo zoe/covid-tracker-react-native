@@ -8,8 +8,10 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { SchoolModel } from '@covid/core/schools/Schools.dto';
+import { SchoolModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
+import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
+import store from '@covid/core/state/store';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
   appCoordinator: AppCoordinator;
@@ -41,7 +43,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
       NavigatorService.navigate('SchoolGroupList');
     },
     SchoolGroupList: () => {
-      NavigatorService.navigate('SelectProfile');
+      this.closeFlow();
     },
   };
 
@@ -53,6 +55,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   startFlow(patientData: PatientData) {
     this.patientData = patientData;
     NavigatorService.navigate('JoinSchool', { patientData: this.patientData });
+  }
+
+  closeFlow() {
+    NavigatorService.navigate('SelectProfile');
   }
 
   goToSchoolIntro() {
@@ -87,11 +93,25 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   }
 
   async removePatientFromGroup(groupId: string, patientId: string) {
-    return await this.schoolService.leaveGroup(groupId, patientId);
+    return await this.schoolService.leaveGroup(groupId, patientId).then(async () => {
+      await store.dispatch(fetchSubscribedSchoolGroups());
+    });
+  }
+
+  async removePatientFromGroupList(schoolGroups: SubscribedSchoolGroupStats[], schoolId: string, patientId: string) {
+    await schoolGroups.forEach((group) => {
+      if (group.school.id === schoolId && group.patient_id === patientId) {
+        this.schoolService.leaveGroup(group.id, patientId);
+      }
+    });
+
+    await store.dispatch(fetchSubscribedSchoolGroups());
   }
 
   async addPatientToGroup(groupId: string, patientId: string) {
-    return await this.schoolService.joinGroup(groupId, patientId);
+    return await this.schoolService.joinGroup(groupId, patientId).then(async () => {
+      await store.dispatch(fetchSubscribedSchoolGroups());
+    });
   }
 
   async searchSchoolGroups(id: string) {

@@ -64,7 +64,7 @@ export const schoolSlice = createSlice({
     },
     [fetchSubscribedSchoolGroups.fulfilled.type]: (current, action: { payload: Partial<SchoolState> }) => {
       const { joinedSchoolNetworks } = action.payload;
-      if (joinedSchoolNetworks && joinedSchoolNetworks.length > 0) {
+      if (joinedSchoolNetworks) {
         current.joinedSchoolNetworks = joinedSchoolNetworks;
       }
     },

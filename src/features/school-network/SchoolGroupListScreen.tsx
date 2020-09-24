@@ -36,11 +36,16 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
   useEffect(() => {
     const { patientId } = route.params.patientData;
     const schoolId = route.params.selectedSchool.id;
-    const currentJoinedGroups = allGroups
-      ? allGroups.filter((group) => group.patient_id === patientId && group.school.id === schoolId)
-      : undefined;
-    setJoinedGroups(currentJoinedGroups ? currentJoinedGroups : []);
-  }, []);
+    const currentJoinedGroups = allGroups!.filter(
+      (group) => group.patient_id === patientId && group.school.id === schoolId
+    );
+
+    if (currentJoinedGroups.length > 0) {
+      setJoinedGroups(currentJoinedGroups);
+    } else {
+      schoolNetworkCoordinator.closeFlow();
+    }
+  }, [allGroups]);
 
   const joinNewGroup = () => {
     schoolNetworkCoordinator.goToJoinGroup();
@@ -71,8 +76,11 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
             button1Text={i18n.t('school-networks.groups-list.button-1')}
             button2Text={i18n.t('school-networks.groups-list.button-2')}
             button1Callback={() => setModalVisible(false)}
-            button2Callback={() => {
-              schoolNetworkCoordinator.removePatientFromGroup(pressedGroup!.id, route.params.patientData.patientId);
+            button2Callback={async () => {
+              await schoolNetworkCoordinator.removePatientFromGroup(
+                pressedGroup!.id,
+                route.params.patientData.patientId
+              );
               setModalVisible(false);
             }}
           />
