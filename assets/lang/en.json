@@ -1140,7 +1140,24 @@
       "small-glass": "Small glass of fortified wine",
       "standard-glass": "Standard glass of wine",
       "large-glass": "Large glass of wine",
-      "bottle-wine": "Bottle of wine"
+      "bottle-wine": "Bottle of wine",
+      "malt-liquor": "",
+
+      "pints-volume": "570ml",
+      "shots-volume": "25ml",
+      "small-glass-volume": "100ml",
+      "standard-glass-volume": "175ml",
+      "large-glass-volume": "250ml",
+      "bottle-wine-volume": "750ml",
+      "malt-liquor-volume": "",
+
+      "pints-units": "2 units",
+      "shots-units": "1 unit",
+      "small-glass-units": "1 unit",
+      "standard-glass-units": "2 units",
+      "large-glass-units": "3 units",
+      "bottle-wine-units": "9 units",
+      "malt-liquor-units": ""
     },
 
     "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",

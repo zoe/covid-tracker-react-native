@@ -64,12 +64,29 @@
     "alcohol-unit-info": {
       "label-1": "A drink is defined as one standard drink of alcohol.",
       "label-2": "Typical standard drinks in common alcoholic beverages:",
-      "pints": "12 fl oz of regular beer 1 standard drink",
-      "shots": "8-9 fl oz of malt liquor 1 standard drink",
-      "small-glass": "5 fl oz of table wine 1 standard drink",
-      "standard-glass": "1.5 fl oz shot of distilled spirits 1 standard drink",
-      "large-glass": "",
-      "bottle-wine": "Bottle of wine (750ml / 26 fl oz) 5 standard drinks"
+      "pints": "Pint or can of beer/lager/cider",
+      "shots": "Single shot of distilled spirits",
+      "small-glass": "Small glass of table wine",
+      "standard-glass": "Standard glass of table wine",
+      "large-glass": "Large glass of table wine",
+      "bottle-wine": "Bottle of wine",
+      "malt-liquor": "Malt liqour",
+
+      "pints-volume": "12 fl oz",
+      "shots-volume": "1.5 fl oz",
+      "small-glass-volume": "4 fl oz",
+      "standard-glass-volume": "6-7 fl oz",
+      "large-glass-volume": "8-9 fl oz",
+      "bottle-wine-volume": "26 fl oz",
+      "malt-liquor-volume": "8-9 fl oz",
+
+      "pints-units": "1 standard drink",
+      "shots-units": "1 standard drink",
+      "small-glass-units": "1 standard drink",
+      "standard-glass-units": "1.5 standard drink",
+      "large-glass-units": "2 standard drinks",
+      "bottle-wine-units": "5 standard drinks",
+      "malt-liquor-units": "1 standard drink"
     },
 
     "consent": {
