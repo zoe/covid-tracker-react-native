@@ -1239,8 +1239,8 @@
       "type-o": "O",
       "dont-know": "No sé mi grupo sanguíneo con certeza",
       "pfnts": "Prefiero no decir"
-    },
-
+    }
+  },
 
   "dashboard": {
     "report-today": "Informe hoy, incluso si está bien",
