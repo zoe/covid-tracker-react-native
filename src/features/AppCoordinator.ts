@@ -165,9 +165,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   }
 
   setHomeScreenName(): void {
-    // Set main route depending on API / Country
-    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+    this.homeScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
