@@ -229,6 +229,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
       } else {
         this.startAssessmentFlow(this.patientData);
       }
+    } else if (isUSCountry() && !this.patientData.patientState.isReportedByAnother) {
+      if (await this.shouldShowDietStudyInvite()) {
+        this.startDietStudyFlow(this.patientData, false);
+      } else {
+        this.startAssessmentFlow(this.patientData);
+      }
     } else {
       this.startAssessmentFlow(this.patientData);
     }
