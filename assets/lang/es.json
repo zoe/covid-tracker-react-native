@@ -1110,7 +1110,7 @@
       "specify": "Por favor especifica los otros suplementos"
     },
     "first-calories-label": "Después de caminar, normalmente a qué hora comía o tomaba algo (incluyendo aperitivo)?",
-    "main-meals-labels": "¿Cuántas comidas 'principales' comes normalmente en un día? (Una comida principal es el almuerzo o la cena, sin incluir el desayuno)",
+    "main-meals-label": "¿Cuántas comidas 'principales' comes normalmente en un día? (Una comida principal es el almuerzo o la cena, sin incluir el desayuno)",
     "eats-breakfast-label": "¿Tomabas desayuno?",
     "last-calories-label": "¿Cuál era la última hora del día en la que normalmente comerías o beberías algo que no fuera agua / café solo o té sin leche? (incluidos los snacks)",
     "main-meals-placeholder": "La comida principal del día ",
