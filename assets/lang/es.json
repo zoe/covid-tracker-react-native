@@ -1089,7 +1089,8 @@
       "shots": "8-9 fl oz de licor de malta 1 trago estandar",
       "small-glass": "5 fl oz de vino 1 trago estandar",
       "standard-glass": "1.5 fl oz shot of licor destilado 1 trago estandar",
-      "bottle-wine": "Botella de vino (750ml / 26 fl oz) 5 tragos estándares"
+      "bottle-wine": "Botella de vino (750ml / 26 fl oz) 5 tragos estándares",
+      "large-glass": ""
     },
     "takes-supplements-label": "Tomaba suplementos (por lo menos 3 a 4 veces a la semana) normalmente?",
     "supplements": {
@@ -1124,7 +1125,7 @@
       "low-fat": "Dieta baja en grasa",
       "gluten-free": "Dieta sin gluten",
       "lactose-free": "Dieta sin lactosa",
-      "Low-calorie": "Dieta baja en calorías (una dieta baja en calorías es 1200-1500 kcal/day)"
+      "low-calorie": "Dieta baja en calorías (una dieta baja en calorías es 1200-1500 kcal/day)"
     },
     "typical-diet": {
       "title": "Su dieta tipica",
@@ -1225,7 +1226,9 @@
     },
     "thank-you-break": {
       "description-1": "Gracias por responder estas preguntas importantes. El pandémico ha llevado al cambio de nuestras conductas de alimentación. Ayúdanos a entender cómo esta situación le ha afectado para responder estas preguntas para Febrero (antes del pandémico).",
-      "return-later": "Si quería tomar una descanza, se puede regresar a estas preguntas por hacer un clic a ‘Estudio de dieta’ del menú en la superior esquina derecha de la pantalla de inicio"
+      "return-later": "Si quería tomar una descanza, se puede regresar a estas preguntas por hacer un clic a ‘Estudio de dieta’ del menú en la superior esquina derecha de la pantalla de inicio",
+      "sarah-name": "Prof Christopher Gardner",
+      "sarah-description": "Nutrition Scientist,\nStanford University"
     }
   },
 
