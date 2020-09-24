@@ -130,10 +130,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: colors.coral,
+    borderColor: colors.purple,
   },
   newText: {
-    color: colors.coral,
+    color: colors.purple,
   },
   continueButton: {
     marginHorizontal: 16,

@@ -20,6 +20,7 @@ import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import i18n from '@covid/locale/i18n';
 import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
+import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
@@ -75,8 +76,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   const onSubmit = async (schoolData: JoinGroupData) => {
     try {
       const { patientId } = route.params.patientData;
-      const { group } = await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, patientId);
-      dispatch(joinedSchoolGroup(group));
+      await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, patientId);
       next();
     } catch {
       Alert.alert(
@@ -86,7 +86,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
           {
             text: i18n.t('school-networks.join-error.cta-okay'),
             onPress: () => {
-              schoolNetworkCoordinator.resetToHome();
+              NavigatorService.goBack()
             },
           },
         ]

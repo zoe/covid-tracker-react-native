@@ -10,7 +10,7 @@ import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { SchoolModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
-import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
+import { fetchSubscribedSchoolGroups, joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
@@ -93,8 +93,9 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   }
 
   async removePatientFromGroup(groupId: string, patientId: string) {
-    return await this.schoolService.leaveGroup(groupId, patientId).then(async () => {
+    return await this.schoolService.leaveGroup(groupId, patientId).then(async (r) => {
       await store.dispatch(fetchSubscribedSchoolGroups());
+      return r;
     });
   }
 
@@ -109,8 +110,9 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   }
 
   async addPatientToGroup(groupId: string, patientId: string) {
-    return await this.schoolService.joinGroup(groupId, patientId).then(async () => {
+    return await this.schoolService.joinGroup(groupId, patientId).then(async (r) => {
       await store.dispatch(fetchSubscribedSchoolGroups());
+      return r;
     });
   }
 

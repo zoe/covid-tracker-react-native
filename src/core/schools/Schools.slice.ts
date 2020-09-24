@@ -56,6 +56,7 @@ export const schoolSlice = createSlice({
       current: SchoolState,
       action: PayloadAction<'school/joined_school_group', SubscribedSchoolGroupStats>
     ) => {
+      //TODO unused
       current.joinedGroup = action.payload;
       current.joinedSchoolNetworks = [...(current.joinedSchoolNetworks ?? []), action.payload];
     },
