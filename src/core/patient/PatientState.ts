@@ -13,7 +13,6 @@ export type PatientStateType = {
   isSameHousehold: boolean;
   shouldAskLevelOfIsolation: boolean;
   shouldAskStudy: boolean;
-  shouldAskLifestyleQuestion: boolean;
   hasRaceEthnicityAnswer: boolean;
   hasPeriodAnswer: boolean;
   hasHormoneTreatmentAnswer: boolean;
@@ -46,7 +45,6 @@ const initPatientState: PatientStateType = {
   isSameHousehold: false,
   shouldAskLevelOfIsolation: false,
   shouldAskStudy: false,
-  shouldAskLifestyleQuestion: false,
   hasRaceEthnicityAnswer: true,
   hasPeriodAnswer: true,
   hasHormoneTreatmentAnswer: true,
