@@ -84,7 +84,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
             calloutID="infographic_facts"
             imageSource={infographicFacts}
-            aspectRatio={1.23}
+            aspectRatio={1.229}
             screenName={route.name}
           />
         </View>
