@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { dataPage003, timUpdate011, notificationReminders, blog011 } from '@assets';
+import { dataPage003, timUpdate011, notificationReminders, blog012 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -77,9 +77,9 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/update-18-september?utm_source=App"
-                calloutID="blog_011"
-                imageSource={blog011}
+                link="https://covid.joinzoe.com/post/incidence-update-sept-25?utm_source=App"
+                calloutID="blog_012"
+                imageSource={blog012}
                 aspectRatio={1.552}
                 screenName={this.props.route.name}
               />

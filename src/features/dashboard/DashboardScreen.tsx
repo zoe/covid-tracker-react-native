@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, schoolNetworkFeature, facts } from '@assets';
+import { shareAppV3, schoolNetworkFeature, infographicFacts } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
@@ -82,8 +82,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         <View style={styles.calloutContainer}>
           <ExternalCallout
             link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
-            calloutID="early_symptoms_discoveries"
-            imageSource={facts}
+            calloutID="infographic_facts"
+            imageSource={infographicFacts}
             aspectRatio={1.23}
             screenName={route.name}
           />
