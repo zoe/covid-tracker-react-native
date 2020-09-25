@@ -170,7 +170,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
     const shouldAskLevelOfIsolation = this.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
-    const shouldAskLifestyleQuestion = patient.should_ask_lifestyle_questions;
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
@@ -207,7 +206,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasDiabetesAnswers,
       hasHayfever,
       shouldShowUSStudyInvite,
-      shouldAskLifestyleQuestion,
       hasBloodGroupAnswer,
       isNHSStudy,
     };
