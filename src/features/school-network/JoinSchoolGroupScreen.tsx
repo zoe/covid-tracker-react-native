@@ -86,7 +86,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
           {
             text: i18n.t('school-networks.join-error.cta-okay'),
             onPress: () => {
-              NavigatorService.goBack()
+              NavigatorService.goBack();
             },
           },
         ]
