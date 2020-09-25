@@ -123,6 +123,7 @@ FoodSecurityQuestion.initialFormValues = (): FoodSecurityData => {
 FoodSecurityQuestion.schema = () => {
   return Yup.object().shape({
     foodSecurity: Yup.string().required(i18n.t('please-select-option')),
+    foodAvailability: Yup.array<string>(),
   });
 };
 
