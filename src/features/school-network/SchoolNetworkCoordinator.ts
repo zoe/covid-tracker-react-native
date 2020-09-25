@@ -40,7 +40,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
       NavigatorService.navigate('SelectProfile', { editing: false });
     },
     JoinSchoolGroup: () => {
-      NavigatorService.navigate('SchoolGroupList');
+      this.goToGroupList();
     },
     SchoolGroupList: () => {
       this.closeFlow();
