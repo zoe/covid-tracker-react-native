@@ -123,13 +123,6 @@ FoodSecurityQuestion.initialFormValues = (): FoodSecurityData => {
 FoodSecurityQuestion.schema = () => {
   return Yup.object().shape({
     foodSecurity: Yup.string().required(i18n.t('please-select-option')),
-    foodAvailability: Yup.string().when('foodSecurity', {
-      is: () =>
-        FoodSecurityOptions.OFTEN_NOT_ENOUGH ||
-        FoodSecurityOptions.SOMETIMES_NOT_ENOUGH ||
-        FoodSecurityOptions.ENOUGH_NOT_KINDS_WANTED,
-      then: Yup.string().required(i18n.t('please-select-option')),
-    }),
   });
 };
 
