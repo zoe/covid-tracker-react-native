@@ -4,15 +4,23 @@ require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 
 platform :ios, '10.0'
 
+project 'COVIDSymptomStudy',
+  'Debug' => :debug,
+  'Release' => :release,
+  'Debug (Staging)' => :debug,
+  'Release (Staging)' => :release,
+  'Debug (Production)' => :debug,
+  'Release (Production)' => :release
+
 target 'COVIDSymptomStudy' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
 
   use_unimodules!
 
-  use_flipper!
+  # use_flipper!
   post_install do |installer|
-    flipper_post_install(installer)
+    # flipper_post_install(installer)
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
