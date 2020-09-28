@@ -151,9 +151,9 @@ platform :ios do
     sigh(
       adhoc: adhoc,
       app_identifier: ENV['FASTLANE_BUNDLE_ID'],
-      # force: true,
+      force: true,
       output_path: './build/profiles',
-      readonly: false,
+      # readonly: false,
     )
 
     parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
