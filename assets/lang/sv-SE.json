@@ -946,11 +946,6 @@
   },
 
   "__IGNORE__": {
-    "optional-info.title": false,
-    "optional-info.description": false,
-    "optional-info.name-placeholder": false,
-    "optional-info.phone-placeholder": false,
-    "optional-info.button": false,
     "name.zoe": false,
     "names.harvard-th-chan-school-of-public-health": false,
     "names.mass-general-hospital": false,

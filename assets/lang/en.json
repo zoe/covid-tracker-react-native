@@ -42,14 +42,6 @@
     "button": "Back"
   },
 
-  "optional-info": {
-    "title": "Optional contact information",
-    "description": "Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.",
-    "name-placeholder": "Your name",
-    "phone-placeholder": "Phone number",
-    "button": "Continue"
-  },
-
   "welcome": {
     "title": "COVID Symptom Study",
     "sign-in": "Log in",
