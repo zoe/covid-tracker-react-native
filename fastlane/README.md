@@ -30,6 +30,11 @@ fastlane android publish
 ----
 
 ## iOS
+### ios certificates
+```
+fastlane ios certificates
+```
+
 ### ios release
 ```
 fastlane ios release
