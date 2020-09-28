@@ -153,7 +153,7 @@ platform :ios do
       app_identifier: ENV['FASTLANE_BUNDLE_ID'],
       # force: true,
       output_path: './build/profiles',
-      readonly: true,
+      readonly: false,
     )
 
     parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
@@ -163,7 +163,7 @@ platform :ios do
       clean: true, 
       configuration: “Release”, 
       export_method: “ad-hoc”,
-      scheme: "FastlaneTest",
+      scheme: ENV['FASTLANE_SCHEME'],
       output_directory: "./build",
       workspace: "./ios/COVIDSymptomStudy.xcworkspace"
     )
