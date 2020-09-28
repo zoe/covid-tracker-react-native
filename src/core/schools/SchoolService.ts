@@ -5,14 +5,14 @@ import { IApiClient } from '@covid/core/api/ApiClient';
 import {
   SchoolModel,
   SchoolGroupModel,
-  SchoolGroupSubscriptionResponse,
   SchoolGroupSubscriptionDTO,
+  SubscribedSchoolGroupStats,
   SchoolGroupJoinedResponse,
 } from '@covid/core/schools/Schools.dto';
 import { naturalCompare } from '@covid/utils/array';
 
 export interface ISchoolService {
-  getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse>;
+  getSubscribedSchoolGroups(): Promise<SubscribedSchoolGroupStats[]>;
   getSchools(): Promise<SchoolModel[]>;
   searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]>;
   joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse>;
@@ -35,8 +35,8 @@ export class SchoolService implements ISchoolService {
     return groups.sort((a, b) => naturalCompare(a.name, b.name));
   }
 
-  getSubscribedSchoolGroups(): Promise<SchoolGroupSubscriptionResponse> {
-    return this.apiClient.get<SchoolGroupSubscriptionResponse>('/groups/subscriptions/');
+  getSubscribedSchoolGroups(): Promise<SubscribedSchoolGroupStats[]> {
+    return this.apiClient.get<SubscribedSchoolGroupStats[]>('/groups/subscriptions/');
   }
 
   async joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse> {
@@ -49,7 +49,7 @@ export class SchoolService implements ISchoolService {
   }
 
   async leaveGroup(groupId: string, patientId: string): Promise<void> {
-    await this.apiClient.post<SchoolGroupSubscriptionDTO, null>(`/groups/${groupId}/leave/`, {
+    await this.apiClient.delete<SchoolGroupSubscriptionDTO, null>(`/groups/${groupId}/leave/`, {
       patient_id: patientId,
     });
   }

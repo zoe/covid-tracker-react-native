@@ -15,14 +15,12 @@ import { Button } from '@covid/components/Buttons/Button';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
-import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { useAppDispatch } from '@covid/core/state/store';
 import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import i18n from '@covid/locale/i18n';
 import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
+import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchoolGroup'>;
@@ -48,20 +46,17 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
   const inputMode: InputMode = InputMode.dropdown;
   const enableCreateGroup: boolean = false;
 
-  const currentPatient = schoolNetworkCoordinator.patientData.patientState;
+  const currentPatient = route.params.patientData.patientState;
 
-  const service = useInjection<ISchoolService>(Services.SchoolService);
   const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
-      const groups: SchoolGroupModel[] = await service
-        .searchSchoolGroups(schoolNetworkCoordinator.selectedSchool?.id ?? '')
-        .catch(() => {
-          return [];
-        });
+      const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(
+        route.params.selectedSchool.id
+      );
       const pickerItems = groups.map<PickerItemProps>((g) => ({
         label: g.name,
         value: g.id,
@@ -80,8 +75,8 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   const onSubmit = async (schoolData: JoinGroupData) => {
     try {
-      const { group } = await service.joinGroup(schoolData.groupId, schoolNetworkCoordinator.patientData.patientId);
-      dispatch(joinedSchoolGroup(group));
+      const { patientId } = route.params.patientData;
+      await schoolNetworkCoordinator.addPatientToGroup(schoolData.groupId, patientId);
       next();
     } catch {
       Alert.alert(
@@ -91,7 +86,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
           {
             text: i18n.t('school-networks.join-error.cta-okay'),
             onPress: () => {
-              schoolNetworkCoordinator.resetToHome();
+              NavigatorService.goBack();
             },
           },
         ]
@@ -105,7 +100,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
         <HeaderText>{i18n.t('school-networks.join-group.title')}</HeaderText>
         <RegularText style={styles.topText}>
           {i18n.t('school-networks.join-group.description', {
-            school: schoolNetworkCoordinator.selectedSchool?.name ?? '',
+            school: route.params.selectedSchool?.name ?? '',
           })}
         </RegularText>
       </Header>

@@ -88,6 +88,7 @@ import {
   CreateNetworkGroupScreen,
   SchoolSuccessScreen,
 } from '@covid/features/school-network';
+import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
@@ -282,6 +283,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
         <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
         <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
+        <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
         {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
         {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       </Stack.Navigator>

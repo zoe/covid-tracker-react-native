@@ -1446,13 +1446,17 @@
       "disclaimer-1": "",
       "disclaimer-2": "",
       "disclaimer-3": "",
+      "remove": "",
 
       "search": {
         "label": "",
         "placeholder": ""
       },
 
-      "cta": ""
+      "cta": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": ""
     },
 
     "join-group": {
@@ -1490,6 +1494,16 @@
         "title": "",
         "description": ""
       }
+    },
+
+    "groups-list": {
+      "title": "",
+      "subtitle": "",
+      "text": "",
+      "add-new-bubble": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": ""
     }
   }
 }
