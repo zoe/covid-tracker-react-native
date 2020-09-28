@@ -1,12 +1,12 @@
 import config from './config';
 import helpers from './helpers';
-import { Patient, Assessment, CovidTest, Consent, StudyConsent, Lifestyle, DietStudy } from './types';
+import { Patient, Assessment, CovidTest, Consent, StudyConsent, DietStudy } from './types';
 
 const dbPath = './mock-server/db';
 
 export default () => {
   const { bootstrap, get, save } = helpers(dbPath);
-  const { patients, assessments, covidTests, dietStudies, consents, lifestyles, studyConsents } = config;
+  const { patients, assessments, covidTests, dietStudies, consents, studyConsents } = config;
 
   bootstrap(config);
 
@@ -23,10 +23,6 @@ export default () => {
     dietStudies: {
       get: (id?: string) => get<DietStudy>(dietStudies.path)(id),
       save: (id: string, dietStudy: DietStudy): DietStudy => save<DietStudy>(dietStudies.path)(id, dietStudy),
-    },
-    lifestyles: {
-      get: (id?: string) => get<Lifestyle>(lifestyles.path)(id),
-      save: (id: string, lifestyle: Lifestyle): Lifestyle => save<Lifestyle>(lifestyles.path)(id, lifestyle),
     },
     covidTests: {
       get: (testId?: string) => get<CovidTest>(covidTests.path)(testId),
