@@ -436,19 +436,6 @@
     "update-location": "Actualiza su ubicación"
   },
 
-  "level-of-isolation": {
-    "screen-title": "Su tiempo pasada a fuera de la casa",
-    "screen-justification": "Esta informacion se puede ayudarnos entender el impacto de la distancia social y máscaras faciales en la tasa de infección. Estas preguntas son opcionales.",
-    "question-little-interaction": "En la semana pasada, ¿cuántas veces has estado a fuera de la casa, con poca interacción con la gente a fuera su casa?",
-    "question-lots-of-people": "En la semana pasada, ¿cuántas veces visitó lugares con muchas personas (por ej., tiendas, transporte público, trabajo)?",
-    "question-healthcare-provider": "En la semana pasada, ¿cuántas veces has visitado un lugar de salud, incluyendo para trabajar (Ej. un hospital, clinica, dentista, farmacia o escuela)?",
-    "placeholder-frequency": "Cantidad de veces",
-    "placeholder-optional": "*Opcional",
-    "required-answer": "Indique la cantidad de veces que ocurrió",
-    "correct-answer": "Corrija su respuesta",
-    "whole-number": "Ingrese un número entero"
-  },
-
   "where-are-you": {
     "question-location": "¿Dónde se encuentra?",
     "picker-location-home": "En casa. No he ido a una clínica u hospital por síntomas sospechosos de COVID-19.",

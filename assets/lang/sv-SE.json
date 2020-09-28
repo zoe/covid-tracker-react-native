@@ -252,19 +252,6 @@
   "required-ppe-availability-sometimes": "Ange tillgängligheten av skyddsutrustning för dig",
   "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
 
-  "level-of-isolation": {
-    "screen-title": "Tid utanför hemmet",
-    "screen-justification": "Denna information kan hjälpa oss förstå hur fysisk distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga.",
-    "question-little-interaction": "Hur många gånger den senaste veckan har du lämnat din bostad (inkl. din trädgård) för att vistas utomhus med begränsad kontakt med personer du inte bor med (t.ex. för att motionera)?",
-    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats där många människor vistas (t.ex. mataffär, kollektivtrafik, arbetsplats, skola)?",
-    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare, t.ex. sjukhus, vårdcentral, tandläkare, apotek, antingen som besökare eller som personal?",
-    "placeholder-frequency": "Antal tillfällen",
-    "placeholder-optional": "Valfri",
-    "required-answer": "Ange antal tillfällen",
-    "correct-answer": "Var snäll och granska ditt svar",
-    "whole-number": "Ange ett helt nummer"
-  },
-
   "covid-test": {
     "page-title": "Test för COVID-19",
     "page-title-detail-add": "Lägg till nytt test",

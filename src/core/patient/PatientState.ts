@@ -11,7 +11,6 @@ export type PatientStateType = {
   isPeriodCapable: boolean;
   isReportedByAnother: boolean;
   isSameHousehold: boolean;
-  shouldAskLevelOfIsolation: boolean;
   shouldAskStudy: boolean;
   hasRaceEthnicityAnswer: boolean;
   hasPeriodAnswer: boolean;
@@ -43,7 +42,6 @@ const initPatientState: PatientStateType = {
   isPeriodCapable: false,
   isReportedByAnother: false,
   isSameHousehold: false,
-  shouldAskLevelOfIsolation: false,
   shouldAskStudy: false,
   hasRaceEthnicityAnswer: true,
   hasPeriodAnswer: true,
