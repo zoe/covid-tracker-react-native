@@ -189,3 +189,4 @@ buck-out/
 web-build/
 
 ios/Pods/
+*.cer
