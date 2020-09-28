@@ -83,8 +83,7 @@ export class PrivacyPolicyUKScreen extends Component<PropsType, object> {
 
           <RegularText>
             We also collect contact information and other information from your device including:
-            {'\n\n'}- Your name (optional){'\n'}- Email address (optional){'\n'}- Phone number (optional){'\n'}- A user
-            name and password{'\n'}- IP address{'\n'}- Device ID{'\n'}
+            {'\n\n'}- Email address (optional){'\n'}- A user name and password{'\n'}- IP address{'\n'}- Device ID{'\n'}
           </RegularText>
 
           <RegularText>

@@ -81,23 +81,11 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
       NavigatorService.reset([{ name: this.homeScreenName }]);
     },
     Register: () => {
-      const config = appCoordinator.getConfig();
-
-      let askPersonalInfo = config.enablePersonalInformation;
-      if (isUSCountry() && ConsentService.consentSigned.document !== 'US Nurses') {
-        askPersonalInfo = false;
-      }
-
-      if (askPersonalInfo) {
-        NavigatorService.replace('OptionalInfo');
-      } else if (this.patientData) {
+      if (this.patientData) {
         this.startPatientFlow(this.patientData);
       } else {
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
-    },
-    OptionalInfo: () => {
-      this.startPatientFlow(this.patientData);
     },
     WelcomeRepeat: () => {
       const config = this.getConfig();
