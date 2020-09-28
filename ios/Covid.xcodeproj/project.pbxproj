@@ -50,7 +50,7 @@
 		18A6F7CC8DA4352C21038CEE /* Pods-Covid.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release (staging).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release (staging).xcconfig"; sourceTree = "<group>"; };
 		27BBE31145474300B39B3C33 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		2A5BAF8D0D3348F4B7121DFB /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		2D3CE121892DD893814608E9 /* Pods-COVIDSymptomStudy.staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.staging.debug.xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.staging.debug.xcconfig"; sourceTree = "<group>"; };
+		2D3CE121892DD893814608E9 /* Pods-Covid.staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.staging.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.staging.debug.xcconfig"; sourceTree = "<group>"; };
 		2D987CEEA4F54564B275B288 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		2EDF4BA42D7FB9428DA31746 /* libPods-Covid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Covid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32907E0C9BD548E7BAB165F9 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -60,28 +60,29 @@
 		617C704A533A453BA07330C7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		669895C2C5DACC3E3A1F2BCA /* Pods-Covid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release.xcconfig"; sourceTree = "<group>"; };
 		6A35E878AE6E466F8B9D4634 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		6C2E3173556A471DD304B334 /* Pods-COVIDSymptomStudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.debug.xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.debug.xcconfig"; sourceTree = "<group>"; };
+		6C2E3173556A471DD304B334 /* Pods-Covid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug.xcconfig"; sourceTree = "<group>"; };
 		6E55E5A28C94438AA8B16287 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		7021106903E0473A8CEB76F1 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		7730625F7C1D74A448B88E2E /* Pods-COVIDSymptomStudy.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.debug (staging).xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		7730625F7C1D74A448B88E2E /* Pods-Covid.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug (staging).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug (staging).xcconfig"; sourceTree = "<group>"; };
 		79D0EAA63A1CFBE086B90EC7 /* Pods-Covid.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug (staging).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug (staging).xcconfig"; sourceTree = "<group>"; };
-		7A4D352CD337FB3A3BF06240 /* Pods-COVIDSymptomStudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.release.xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.release.xcconfig"; sourceTree = "<group>"; };
-		A54E1A49DF75D702AE5AD32B /* Pods-COVIDSymptomStudy.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.debug (production).xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.debug (production).xcconfig"; sourceTree = "<group>"; };
+		7A4D352CD337FB3A3BF06240 /* Pods-Covid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release.xcconfig"; sourceTree = "<group>"; };
+		9052741875672222FCC0D1EC /* Pods-Covid.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.stage.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.stage.xcconfig"; sourceTree = "<group>"; };
+		A54E1A49DF75D702AE5AD32B /* Pods-Covid.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug (production).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug (production).xcconfig"; sourceTree = "<group>"; };
 		A96BD9E7DBF946E58F2AE157 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = "/Users/chuckng/workspaces/covid/frontend/covid-rn-app/ios/Covid/SplashScreen.storyboard"; sourceTree = "<absolute>"; };
-		ADA92D7CA02EC6B2E72F73A6 /* Pods-COVIDSymptomStudy.staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.staging.release.xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.staging.release.xcconfig"; sourceTree = "<group>"; };
+		ADA92D7CA02EC6B2E72F73A6 /* Pods-Covid.staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.staging.release.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.staging.release.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		BD115739F5894DF3AAC88E7F /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C86748A10D55471395F5298C /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		C9E6B2AF24674C38810BC56C /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		CBEA9DA9A6F145D2B355FC9D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		CC3C7E8AF4BFC4C48775E583 /* Pods-COVIDSymptomStudy.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.release (production).xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.release (production).xcconfig"; sourceTree = "<group>"; };
+		CC3C7E8AF4BFC4C48775E583 /* Pods-Covid.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release (production).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release (production).xcconfig"; sourceTree = "<group>"; };
 		D2A0543FAFD34AD28885F6FF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		D39F52C00735433899C82B37 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		D8863502152F4361AD4F1391 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EDA0543DD04E849644483E8F /* Pods-COVIDSymptomStudy.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVIDSymptomStudy.release (staging).xcconfig"; path = "Target Support Files/Pods-COVIDSymptomStudy/Pods-COVIDSymptomStudy.release (staging).xcconfig"; sourceTree = "<group>"; };
+		EDA0543DD04E849644483E8F /* Pods-Covid.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release (staging).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release (staging).xcconfig"; sourceTree = "<group>"; };
 		F7E2425125125F3700D03296 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../configs/stage/ios/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,7 +113,7 @@
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 			);
 			name = Covid;
-			path = "/Users/chuckng/workspaces/covid/frontend/covid-rn-app/ios/COVIDSymptomStudy";
+			path = "/Users/chuckng/workspaces/covid/frontend/covid-rn-app/ios/Covid";
 			sourceTree = "<absolute>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -194,20 +195,21 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C2E3173556A471DD304B334 /* Pods-COVIDSymptomStudy.debug.xcconfig */,
-				7A4D352CD337FB3A3BF06240 /* Pods-COVIDSymptomStudy.release.xcconfig */,
-				2D3CE121892DD893814608E9 /* Pods-COVIDSymptomStudy.staging.debug.xcconfig */,
-				ADA92D7CA02EC6B2E72F73A6 /* Pods-COVIDSymptomStudy.staging.release.xcconfig */,
-				A54E1A49DF75D702AE5AD32B /* Pods-COVIDSymptomStudy.debug (production).xcconfig */,
-				7730625F7C1D74A448B88E2E /* Pods-COVIDSymptomStudy.debug (staging).xcconfig */,
-				CC3C7E8AF4BFC4C48775E583 /* Pods-COVIDSymptomStudy.release (production).xcconfig */,
-				EDA0543DD04E849644483E8F /* Pods-COVIDSymptomStudy.release (staging).xcconfig */,
+				6C2E3173556A471DD304B334 /* Pods-Covid.debug.xcconfig */,
+				7A4D352CD337FB3A3BF06240 /* Pods-Covid.release.xcconfig */,
+				2D3CE121892DD893814608E9 /* Pods-Covid.staging.debug.xcconfig */,
+				ADA92D7CA02EC6B2E72F73A6 /* Pods-Covid.staging.release.xcconfig */,
+				A54E1A49DF75D702AE5AD32B /* Pods-Covid.debug (production).xcconfig */,
+				7730625F7C1D74A448B88E2E /* Pods-Covid.debug (staging).xcconfig */,
+				CC3C7E8AF4BFC4C48775E583 /* Pods-Covid.release (production).xcconfig */,
+				EDA0543DD04E849644483E8F /* Pods-Covid.release (staging).xcconfig */,
 				FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */,
 				3FF735CA660B8754626AAD9D /* Pods-Covid.debug (production).xcconfig */,
 				79D0EAA63A1CFBE086B90EC7 /* Pods-Covid.debug (staging).xcconfig */,
 				669895C2C5DACC3E3A1F2BCA /* Pods-Covid.release.xcconfig */,
 				45E4FEE7A9A5F5490BA65A72 /* Pods-Covid.release (production).xcconfig */,
 				18A6F7CC8DA4352C21038CEE /* Pods-Covid.release (staging).xcconfig */,
+				9052741875672222FCC0D1EC /* Pods-Covid.stage.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -232,7 +234,7 @@
 			dependencies = (
 			);
 			name = Covid;
-			productName = COVIDSymptomStudy;
+			productName = Covid;
 			productReference = 13B07F961A680F5B00A75B9A /* covid-zoe.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -247,7 +249,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 2B2W2896D7;
 						LastSwiftMigration = 1120;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -420,8 +422,8 @@
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2B2W2896D7;
 				ENABLE_BITCODE = NO;
@@ -437,9 +439,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,8 +457,8 @@
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2B2W2896D7;
 				INFOPLIST_FILE = Covid/Info.plist;
@@ -469,7 +471,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
 				PRODUCT_NAME = "covid-zoe";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.joinzoe.covid-zoe";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -591,7 +593,7 @@
 			};
 			name = Release;
 		};
-		886C3F0C2522090E003D39AB /* Stage */ = {
+		886C3FF52522545D003D39AB /* Stage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -621,18 +623,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -646,29 +641,24 @@
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Stage;
 		};
-		886C3F0D2522090E003D39AB /* Stage */ = {
+		886C3FF62522545D003D39AB /* Stage */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */;
+			baseConfigurationReference = 9052741875672222FCC0D1EC /* Pods-Covid.stage.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2B2W2896D7;
-				ENABLE_BITCODE = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_SONARKIT_ENABLED=1",
-				);
 				INFOPLIST_FILE = Covid/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -677,10 +667,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -694,8 +683,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
-				886C3F0D2522090E003D39AB /* Stage */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				886C3FF62522545D003D39AB /* Stage */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -704,8 +693,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
-				886C3F0C2522090E003D39AB /* Stage */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				886C3FF52522545D003D39AB /* Stage */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

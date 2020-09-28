@@ -28,7 +28,3 @@ target 'Covid' do
     end
   end
 end
-
-
-
-

@@ -4,44 +4,58 @@ fastlane_version "2.160.0"
 @keychain_name = "zoe-covid.ios.keychain.tmp"
 @keychain_password = "TmpPassword"
 
-@ios_build_id = "com.joinzoe.covid-zoe"
+# iOS
+@ios_app_id = ENV['iOS_APP_ID']
+@ios_scheme = ENV['iOS_SCHEME']
+
+# AppCenter configs
+@ac_token = ENV['APPCENTER_API_TOKEN']
+@ac_project_name = ENV['APPCENTER_PROJECT_NAME']
+@ac_notify_group = ENV['APPCENTER_NOTIFY_GROUP']
+@ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
+
+@slack_url = ENV['SLACK_WEB_HOOK']
 
 default_platform(:ios)
 
-def get_version_no
-  @buildNumber = ENV['BUILD_BUILDNUMBER'] || "1"
+lane :get_version_no do
+  @build_number = ENV['BUILD_BUILDNUMBER'] || "1"
 
-  @packageVersion = `node -e "console.log(require('../package.json').version);"`.strip!
+  @package_version = `node -e "console.log(require('../package.json').version);"`.strip!
 
-  if @buildNumber == "1"
+  if @build_number == "1"
     @environment = "local"
   else
     @environment = ENV['NAME']  
   end
 
   #Only update the build number if its not already been updated
-  if @buildNumber.include? "."
+  if @build_number.include? "."
     @version = ENV['BUILD_BUILDNUMBER']
   else
-    @version = "#{@packageVersion}.#{@buildNumber}-#{@environment}"
+    @version = "#{@package_version}.#{@build_number}-#{@environment}"
   end
   
-  puts "Build Number is #{@buildNumber}"
+  puts "Build Number is #{@build_number}"
   puts "Environment is #{@environment}"
   puts "Version is #{@version}"
 end
 
-def build_tmp_keychain
-  create_keychain(
-      name: @keychain_name,
-      password: @keychain_password,
-      default_keychain: true,
-      unlock: true,
-      timeout: false
-  )
+lane :release_notes do
+  @change_log = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
 end
 
-platform :android do 
+# lane :release_notes do |options|
+#   @change_log = conventional_changelog(format: 'markdown', title: options[:title])
+# end
+
+
+platform :android do
+
+  before_all do
+    @ac_notify_group = "Team_Zoe_android"
+  end
+
   desc "Build Android app"
   lane :release do |options|
 
@@ -62,7 +76,7 @@ platform :android do
     )
 
     android_set_version_code(
-      version_code: "#{@buildNumber}",
+      version_code: "#{@build_number}",
       gradle_file: "./android/app/build.gradle"
     )
 
@@ -84,8 +98,7 @@ platform :android do
 
     puts 'Playstore submission track is:' + track
 
-    @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
-    puts @changeLog
+    release_notes
 
     if options[:submit]
       upload_to_play_store(track: track)
@@ -101,17 +114,16 @@ platform :android do
 
       # distribution group
      appDistGroup = ENV["APPCENTER_ANDROID_DIST_GROUP"]
-
       appcenter_upload(
         app_name: ENV['APPCENTER_ANDROID_NAME'],
-        api_token: "7282fd83b69045a31849401945b6b365bcb48891",
-        destinations: "Team_Zoe_android",
-        destination_type: "group",
+        api_token: @ac_token,
+        destinations: @ac_notify_group,
+        destination_type: @ac_destination_type,
         file: path,
         owner_name: "Joinzoe",
         owner_type: "organization",
         notify_testers: true,
-        release_notes: @changeLog
+        release_notes: @change_log
       )
     end
   end
@@ -119,87 +131,118 @@ platform :android do
 end
 
 platform :ios do
+
+  app_identifier = @ios_app_id
+  @ac_notify_group = "iOS"
+
   before_all do
     if ENV['CI_MODE'] == 'true'
-      # this is needed just for CI, you don't need it localy
+      # Setup tmp keychain on ci machine for ios certs
       build_tmp_keychain
     end
+  end
 
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  lane :build_tmp_keychain do
+    create_keychain(
+      name: @keychain_name,
+      password: @keychain_password,
+      default_keychain: true,
+      unlock: true,
+      timeout: false
+    )
   end
 
   lane :certificates do
-    match(app_identifier: ["com.joinzoe.covid-zoe"])
+    match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"])
   end
 
   desc "Build"
   lane :release do |options|
 
+    @match_mode = @ac_destination_type
+    @export_method = nil
+    @build_configuration = 'Release'
+
     get_version_no
-    get_certificates           # invokes cert
+    get_certificates           # invokes cert do
     get_provisioning_profile   # invokes sigh
 
     increment_build_number(
       xcodeproj: "./ios/Covid.xcodeproj",
-      build_number: "#{@buildNumber}"
+      build_number: "#{@build_number}"
     )
 
-    # project = Xcodeproj::Project.open("../ios/Covid.xcodeproj")
-    # project.targets.each do |target|
-    #   target.build_configurations.each do |config|
-    #     config.build_settings['CODE_SIGN_STYLE'] = "Manual"
-    #   end
-    # end
-    # project.save
+    # next unless verify #(scheme: scheme, title: title, tag_prefix: tag_prefix)
 
-    @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
-    puts @changeLog
+    release_notes
 
-    # update_code_signing_settings(
-    #   use_automatic_signing: true,
-    #   path: "./ios/Covid.xcodeproj"
-    # )
-
-    if options[:adhoc]
-      adhoc = true
-
-      match(
-        type: "adhoc",
-        app_identifier: @ios_build_id,
-        git_branch: "master",
-        readonly: true,
-        verbose: true,
-        # keychain_name: keychain_name, # you can remove this and bottom parameter on your local machine
-        # keychain_password: keychain_password
-      )
-
-    else 
-      adhoc = false
+    case options[:mode]
+    when 'adhoc'
+      # analyze_commits(match: '*')
+      @match_mode = options[:mode]
+      @export_method = 'ad-hoc'
+      @build_configuration = 'Stage'
+      @ac_destination_type ='group'
+    when 'store'
+      puts 'implement ios release'
     end
+    
+    puts @change_log
+
+    match(
+      type: @match_mode,
+      app_identifier: @ios_app_id,
+      git_branch: "master",
+      readonly: true,
+      verbose: true,
+      # keychain_name: keychain_name, # you can remove this and bottom parameter on your local machine
+      # keychain_password: keychain_password
+    )
 
     gym(
-      clean: true, 
-      configuration: “Release”, 
-      export_method: “ad-hoc”,
-      scheme: ENV['FASTLANE_SCHEME'],
+      # clean: true,
+      configuration: @build_configuration,
+      export_method: @export_method,
+      scheme: @ios_scheme,
       output_directory: "./build",
       workspace: "./ios/Covid.xcworkspace"
     )
 
-    if options[:appcenter]
-      appcenter_upload(
-        app_name: ENV['APPCENTER_IOS_NAME'],
-        api_token: "7282fd83b69045a31849401945b6b365bcb48891",
-        destinations: "adhoc",
-        destination_type: "group",
-        owner_name: "Joinzoe",
-        owner_type: "organization",
-        ipa: "build/covid-zoe.ipa",
-        notify_testers: true,
-        release_notes: @changeLog
-      )
+    slack_payload = {
+      'Build Date' => Time.new.to_s,
+    }
+
+    case options[:mode]
+    when 'adhoc'
+      # appcenter
+      slack_payload['Upload to'] = 'AppCenter'
+    when 'store'
+      # Upload to app store
     end
 
+    slack(
+      message: @change_log,
+      slack_url: @slack_url,
+      channel: "#ci-covid-mobile",
+      success: true,
+      payload: slack_payload,
+      default_payloads: [:git_branch, :git_author],
+    )
+  end
+
+  lane :appcenter do
+    appcenter_upload(
+        app_name: @ac_project_name,
+        api_token: @ac_token,
+        destinations: @ac_notify_group,
+        destination_type: @ac_destination_type,
+        owner_name: "Joinzoe",
+        owner_type: "organization",
+        ipa: String.try_convert(SharedValues::IPA_OUTPUT_PATH),
+        dsym: String.try_convert(SharedValues::DSYM_OUTPUT_PATH),
+        release_notes: @change_log,
+        notify_testers: true
+      )
   end
 
   after_all do |lane|
