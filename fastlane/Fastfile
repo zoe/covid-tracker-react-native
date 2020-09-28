@@ -1,5 +1,11 @@
 fastlane_version "2.160.0"
 
+# this is needed just for CI, you don't need it localy
+@keychain_name = "zoe-covid.ios.keychain.tmp"
+@keychain_password = "TmpPassword"
+
+@ios_build_id = "com.joinzoe.covid-zoe"
+
 default_platform(:ios)
 
 def get_version_no
@@ -23,6 +29,16 @@ def get_version_no
   puts "Build Number is #{@buildNumber}"
   puts "Environment is #{@environment}"
   puts "Version is #{@version}"
+end
+
+def build_tmp_keychain
+  create_keychain(
+      name: @keychain_name,
+      password: @keychain_password,
+      default_keychain: true,
+      unlock: true,
+      timeout: false
+  )
 end
 
 platform :android do 
@@ -104,7 +120,16 @@ end
 
 platform :ios do
   before_all do
+    if ENV['CI_MODE'] == 'true'
+      # this is needed just for CI, you don't need it localy
+      build_tmp_keychain
+    end
+
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  end
+
+  lane :certificates do
+    match(app_identifier: ["com.joinzoe.covid-zoe"])
   end
 
   desc "Build"
@@ -115,49 +140,42 @@ platform :ios do
     get_provisioning_profile   # invokes sigh
 
     increment_build_number(
-      xcodeproj: "./ios/COVIDSymptomStudy.xcodeproj",
+      xcodeproj: "./ios/Covid.xcodeproj",
       build_number: "#{@buildNumber}"
     )
 
-    project = Xcodeproj::Project.open("../ios/COVIDSymptomStudy.xcodeproj")
-    project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['CODE_SIGN_STYLE'] = "Manual"
-      end
-    end
-    project.save
+    # project = Xcodeproj::Project.open("../ios/Covid.xcodeproj")
+    # project.targets.each do |target|
+    #   target.build_configurations.each do |config|
+    #     config.build_settings['CODE_SIGN_STYLE'] = "Manual"
+    #   end
+    # end
+    # project.save
 
     @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
     puts @changeLog
 
-    update_code_signing_settings(
-      use_automatic_signing: true,
-      path: "./ios/COVIDSymptomStudy.xcodeproj"
-    )
+    # update_code_signing_settings(
+    #   use_automatic_signing: true,
+    #   path: "./ios/Covid.xcodeproj"
+    # )
 
     if options[:adhoc]
       adhoc = true
+
+      match(
+        type: "adhoc",
+        app_identifier: @ios_build_id,
+        git_branch: "master",
+        readonly: true,
+        verbose: true,
+        # keychain_name: keychain_name, # you can remove this and bottom parameter on your local machine
+        # keychain_password: keychain_password
+      )
+
     else 
       adhoc = false
     end
-
-    register_devices(
-      devices: {
-        "chuck" => "00008030-000e151c3c50802e",
-        "peter" => "00008030-000e151c3c50802e"
-      }
-    )
-
-    sigh(
-      adhoc: adhoc,
-      app_identifier: ENV['FASTLANE_BUNDLE_ID'],
-      force: true,
-      output_path: './build/profiles',
-      # readonly: false,
-    )
-
-    parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
-    profile_name = parsed["Name"];
 
     gym(
       clean: true, 
@@ -165,7 +183,7 @@ platform :ios do
       export_method: “ad-hoc”,
       scheme: ENV['FASTLANE_SCHEME'],
       output_directory: "./build",
-      workspace: "./ios/COVIDSymptomStudy.xcworkspace"
+      workspace: "./ios/Covid.xcworkspace"
     )
 
     if options[:appcenter]

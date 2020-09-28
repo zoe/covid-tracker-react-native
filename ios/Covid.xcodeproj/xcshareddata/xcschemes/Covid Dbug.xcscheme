@@ -16,14 +16,14 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "covid-zoe.app"
-               BlueprintName = "COVIDSymptomStudy"
-               ReferencedContainer = "container:COVIDSymptomStudy.xcodeproj">
+               BlueprintName = "Covid"
+               ReferencedContainer = "container:Covid.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug (Production)"
+      buildConfiguration = "Debug (Staging)"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -35,13 +35,13 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "COVIDSymptomStudyTests.xctest"
                BlueprintName = "COVIDSymptomStudyTests"
-               ReferencedContainer = "container:COVIDSymptomStudy.xcodeproj">
+               ReferencedContainer = "container:Covid.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug (Production)"
+      buildConfiguration = "Debug (Staging)"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -56,13 +56,13 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "covid-zoe.app"
-            BlueprintName = "COVIDSymptomStudy"
-            ReferencedContainer = "container:COVIDSymptomStudy.xcodeproj">
+            BlueprintName = "Covid"
+            ReferencedContainer = "container:Covid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release (Production)"
+      buildConfiguration = "Release (Staging)"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -73,16 +73,16 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "covid-zoe.app"
-            BlueprintName = "COVIDSymptomStudy"
-            ReferencedContainer = "container:COVIDSymptomStudy.xcodeproj">
+            BlueprintName = "Covid"
+            ReferencedContainer = "container:Covid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug (Production)">
+      buildConfiguration = "Debug (Staging)">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release (Production)"
+      buildConfiguration = "Release (Staging)"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
