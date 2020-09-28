@@ -2,7 +2,7 @@ fastlane_version "2.160.0"
 
 default_platform(:ios)
 
-def getVersionNo
+def get_version_no
   @buildNumber = ENV['BUILD_BUILDNUMBER'] || "1"
 
   @packageVersion = `node -e "console.log(require('../package.json').version);"`.strip!
@@ -29,7 +29,7 @@ platform :android do
   desc "Build Android app"
   lane :release do |options|
 
-    getVersionNo
+    get_version_no
 
     case ENV["NAME"]
     when "staging"
@@ -100,9 +100,7 @@ platform :android do
     end
   end
 
-  end
-
-default_platform(:ios)
+end
 
 platform :ios do
   before_all do
@@ -112,7 +110,9 @@ platform :ios do
   desc "Build"
   lane :release do |options|
 
-    getVersionNo
+    get_version_no
+    get_certificates           # invokes cert
+    get_provisioning_profile   # invokes sigh
 
     increment_build_number(
       xcodeproj: "./ios/COVIDSymptomStudy.xcodeproj",
