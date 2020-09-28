@@ -130,6 +130,14 @@ platform :ios do
     @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
     puts @changeLog
 
+    match(
+      type: "adhoc",
+      app_identifier: "com.joinzoe.covid-zoe",
+      git_branch: "master",
+      readonly: true,
+      verbose: true,
+    )
+
     update_code_signing_settings(
       use_automatic_signing: true,
       path: "./ios/COVIDSymptomStudy.xcodeproj"
