@@ -193,7 +193,6 @@ export type PatientInfosRequest = {
   race: string[];
   race_other: string;
   ethnicity: string;
-  last_asked_level_of_isolation: Date;
 
   // period fields
   period_status: string;

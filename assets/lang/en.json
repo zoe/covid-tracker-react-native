@@ -438,19 +438,6 @@
     "update-location": "Update Location"
   },
 
-  "level-of-isolation": {
-    "screen-title": "Your time outside the home",
-    "screen-justification": "This information can help us understand the impact of social distancing and face masks on infection rates. These questions are completely optional.",
-    "question-little-interaction": "In the last week, how many times have you been outside your house, with little interaction with people outside your household (e.g. exercise)?",
-    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work, school)?",
-    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare setting, including for work (e.g. hospital, clinic, dentist, pharmacy)?",
-    "placeholder-frequency": "Number of times this occurred",
-    "placeholder-optional": "*Optional",
-    "required-answer": "Please indicate the number of times this occurred",
-    "correct-answer": "Please correct your answer",
-    "whole-number": "Please enter a whole number"
-  },
-
   "where-are-you": {
     "question-location": "Where are you right now?",
     "picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
@@ -987,50 +974,6 @@
     "please-select-diabetes-type": "Please select an option",
     "please-select-diabetes-treatment": "Please select one or more of the above",
     "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
-  },
-
-  "lifestyle": {
-    "title": "Diet & lifestyle",
-    "explanation": "The following questions on weight, nutrition and exercise are to help us understand whether COVID may be impacting our health in these areas and how significant these effects are. These questions are all optional.",
-    "text": "Since March when COVID became prevalent:",
-    "please-select-option": "Please select an option",
-    "weight-change": {
-      "question": "How has your weight changed?",
-      "increased": "Increased",
-      "decreased": "Decreased",
-      "same": "Stayed the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "weight-difference": "By how much (an estimate is fine)?",
-    "diet-change": {
-      "question": "How was your diet changed in your opinion?",
-      "increased": "It has become healthier",
-      "decreased": "It has become more unhealthy",
-      "same": "It has stayed the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "snacking-change": {
-      "question": "How has your snacking changed?",
-      "increased": "I am snacking more",
-      "decreased": "I am snacking less",
-      "same": "My snacking levels are the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "alcohol-change": {
-      "question": "How has your alcohol consumption changed? ",
-      "no-alcohol": "I don't drink alcohol",
-      "increased": "I am drinking more alcohol",
-      "decreased": "I am drinking less alcohol",
-      "same": "My alcohol consumption is the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "activity-change": {
-      "question": "Have your physical activity levels changed?",
-      "increased": "Yes, increased",
-      "decreased": "Yes, decreased",
-      "same": "No change, has remained the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    }
   },
 
   "diet-study": {

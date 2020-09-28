@@ -63,11 +63,9 @@ export type ScreenParamList = {
   HowYouFeel: { assessmentData: AssessmentData };
   DescribeSymptoms: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
-  LevelOfIsolation: { assessmentData: AssessmentData };
   TreatmentSelection: { assessmentData: AssessmentData; location: string };
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
-  Lifestyle: { assessmentData: AssessmentData };
 
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };

@@ -252,19 +252,6 @@
   "required-ppe-availability-sometimes": "Ange tillgängligheten av skyddsutrustning för dig",
   "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
 
-  "level-of-isolation": {
-    "screen-title": "Tid utanför hemmet",
-    "screen-justification": "Denna information kan hjälpa oss förstå hur fysisk distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga.",
-    "question-little-interaction": "Hur många gånger den senaste veckan har du lämnat din bostad (inkl. din trädgård) för att vistas utomhus med begränsad kontakt med personer du inte bor med (t.ex. för att motionera)?",
-    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats där många människor vistas (t.ex. mataffär, kollektivtrafik, arbetsplats, skola)?",
-    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare, t.ex. sjukhus, vårdcentral, tandläkare, apotek, antingen som besökare eller som personal?",
-    "placeholder-frequency": "Antal tillfällen",
-    "placeholder-optional": "Valfri",
-    "required-answer": "Ange antal tillfällen",
-    "correct-answer": "Var snäll och granska ditt svar",
-    "whole-number": "Ange ett helt nummer"
-  },
-
   "covid-test": {
     "page-title": "Test för COVID-19",
     "page-title-detail-add": "Lägg till nytt test",
@@ -660,50 +647,6 @@
     "please-select-diabetes-type": "Välj ett alternativ",
     "please-select-diabetes-treatment": "Välj ett eller flera av alternativen ovan",
     "question-use-cgm": "Använder du en kontinuerlig glukosmonitor (CGM)?"
-  },
-
-  "lifestyle": {
-    "title": "Kost & livsstil",
-    "explanation": "Följande frågor om vikt, kost och fysisk aktivitet ska hjälpa oss att förstå om covid-19 eventuellt påverkar din hälsa inom dessa områden och hur betydande dessa effekter är. Det är helt frivilligt att svara på frågorna.",
-    "text": "Sedan mars månad när covid-19 blev allmänt förekommande i samhället:",
-    "please-select-option": "Välj ett alternativ",
-    "weight-change": {
-      "question": "Hur har din vikt förändrats?",
-      "increased": "Ökat",
-      "decreased": "Minskat",
-      "same": "Oförändrad",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "weight-difference": "Med hur mycket (en uppskattning räcker)?",
-    "diet-change": {
-      "question": "Hur tycker du att din kost har förändrats?",
-      "increased": "Den har blivit hälsosammare",
-      "decreased": "Den har blivit ohälsosammare",
-      "same": "Den är oförändrad",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "snacking-change": {
-      "question": "Hur har ditt småätande förändrats?",
-      "increased": "Jag småäter mer (snacks)",
-      "decreased": "Jag småäter mindre (snacks)",
-      "same": "Jag småäter lika mycket som innan",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "alcohol-change": {
-      "question": "Hur har din alkoholkonsumtion förändrats?",
-      "increased": "Jag dricker mer alkohol",
-      "decreased": "Jag dricker mindre alkohol",
-      "no-alcohol": "Jag dricker inte alkohol",
-      "same": "Min alkoholkonsumtion är oförändrad",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "activity-change": {
-      "question": "Har dina nivåer av fysisk aktivitet förändrats?",
-      "increased": "Ja, ökat",
-      "decreased": "Ja, minskat",
-      "same": "Ingen förändring, oförändrade",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    }
   },
 
   "diet-study": {

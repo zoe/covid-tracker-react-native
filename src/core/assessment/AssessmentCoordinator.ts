@@ -40,13 +40,6 @@ export class AssessmentCoordinator {
     ProfileBackDate: () => {
       this.startAssessment();
     },
-    LevelOfIsolation: () => {
-      if (this.assessmentData.patientData.patientState.isHealthWorker) {
-        NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
-      }
-    },
     HealthWorkerExposure: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
