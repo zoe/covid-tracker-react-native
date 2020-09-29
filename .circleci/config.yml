@@ -68,36 +68,6 @@ commands:
       # - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
       - run: echo "apple_id("$APPLE_ID")" >> ios/Appfile
-
-  lint:
-    macos:
-      xcode: 12.0.0
-    steps:
-      - run: yarn lint
-      - run:
-          command: |
-            mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
-          when: always
-      - store_test_results:
-          path: ~/reports
-      - store_artifacts:
-          path: ~/reports       
-
-  test:
-    macos:
-      xcode: 12.0.0
-    steps:
-      - run:
-          name: Run tests with JUnit as reporter
-          command: yarn test:coverage -- --ci
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
-      - store_test_results:
-          path: ./reports/junit/
-      - store_artifacts:
-          path: ./reports/junit
-          
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -146,18 +116,44 @@ commands:
       # - run: yarn fastlane:android:stage
 
 jobs:
+  lint:
+    macos:
+      xcode: 12.0.0
+    steps:
+      - run: yarn lint
+      - run:
+          command: |
+            mkdir -p ~/reports
+            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+          when: always
+      - run: yarn prettier
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports       
+
+  test:
+    macos:
+      xcode: 12.0.0
+    steps:
+      - run:
+          name: Run tests with JUnit as reporter
+          command: yarn test:coverage -- --ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      - coveralls/upload
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit
           
-  build_and_test:
+  build:
     macos:
       xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
       - make_blank_env
       - build
-      - lint
-      - run: yarn prettier
-      - test
-      - coveralls/upload
     
   deploy_stage:
     macos:
@@ -184,27 +180,31 @@ jobs:
       - legacy_ota_publish
 
 workflows:
-  build_and_test:
+  build:
     jobs:
-      - build_and_test:
+      - lint:
+          filters: *feature_filter
+      - build:
+          filters: *feature_filter
+      - test:
           filters: *feature_filter
       - deploy_stage:
           filters: *feature_filter
 
   stage:
     jobs:
-      - build_and_test:
+      - build:
           filters: *stage_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
-            - build_and_test
+            - build
           filters: *stage_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build_and_test
+            - build
           filters: *stage_filter
       - deploy:
           filters: *stage_filter
@@ -214,28 +214,28 @@ workflows:
 
   develop:
     jobs:
-      - build_and_test:
+      - build:
           filters: *develop_filter
       - deploy:
           filters: *develop_filter
           context: react-covid-tracker-dev
           requires:
-            - build_and_test
+            - build
 
   master:
     jobs:
-      - build_and_test:
+      - build:
           filters: *master_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to production
           context: slack-ci-covid-mobile
           requires:
-            - build_and_test
+            - build
           filters: *master_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build_and_test
+            - build
           filters: *master_filter
       - deploy:
           filters: *master_filter
@@ -245,18 +245,18 @@ workflows:
 
   legacy_ota_release:
     jobs:
-      - build_and_test:
+      - build:
           filters: *legacy_ota_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to OTA 0.9-prod, 0.12-prd and 0.13-prod
           context: slack-ci-covid-mobile
           requires:
-            - build_and_test
+            - build
           filters: *legacy_ota_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build_and_test
+            - build
           filters: *legacy_ota_filter
       - legacy_deploy:
           filters: *legacy_ota_filter
