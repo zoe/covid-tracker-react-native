@@ -1,5 +1,6 @@
 node_modules/**/*
 .env
+.env.staging
 .expo/*
 .bin/*
 npm-debug.*
@@ -190,3 +191,4 @@ web-build/
 
 ios/Pods/
 *.cer
+*.mobileprovision
