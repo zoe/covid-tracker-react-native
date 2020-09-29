@@ -120,6 +120,7 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
+      - build
       - run: yarn lint
       - run:
           command: |
@@ -136,6 +137,7 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
+      - build
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage -- --ci
@@ -183,8 +185,6 @@ workflows:
   build:
     jobs:
       - lint:
-          filters: *feature_filter
-      - build:
           filters: *feature_filter
       - test:
           filters: *feature_filter
