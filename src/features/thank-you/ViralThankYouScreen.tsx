@@ -172,7 +172,6 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
-              <View />
               <ThankYouModal
                 visible={this.state.modalVisible}
                 onClose={() => {
