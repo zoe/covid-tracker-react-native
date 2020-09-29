@@ -15,9 +15,9 @@ import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { FacebookSECard } from '@covid/components/Cards/FacebookSE';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
