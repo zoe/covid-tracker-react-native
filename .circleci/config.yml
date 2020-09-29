@@ -47,12 +47,26 @@ commands:
       - run: bundle install
       - run: bundle update fastlane
       - run: yarn
+  make_blank_env:
+    steps:
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
+  make_env:
+    steps:
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
+      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
+      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
+      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
+      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
+      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
+      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run: echo "API_URL=$API_URL" > .env
-      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+      - make_env
   set_release_channel:
     steps:
       - run:
@@ -102,14 +116,13 @@ jobs:
       xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
+      - make_blank_env
       - build
-      - run: npm run test:i18n 'sv-SE'
-      - run: npm run test:i18n 'es'
-      - run: npm run lint
-      - run: npm run prettier
-      - run: echo "API_URL=" > .env
-      - run: echo "AMPLITUDE_KEY=" >> .env
-      - run: npm run test:coverage -- --ci
+      - run: yarn test:i18n 'sv-SE'
+      - run: yarn test:i18n 'es'
+      - run: yarn lint
+      - run: yarn prettier
+      - run: yarn test:coverage -- --ci
       - coveralls/upload
     
   deploy_stage:
