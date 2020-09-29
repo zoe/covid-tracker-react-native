@@ -1,17 +1,20 @@
 fastlane_version "2.160.0"
 
+# this is needed just for CI, you don't need it localy
+@keychain_name = "zoe-covid.ios.keychain.tmp"
+@keychain_password = "TmpPassword"
+
 # iOS
 @ios_app_id = ENV['iOS_APP_ID']
 @ios_scheme = ENV['iOS_SCHEME']
 
 # AppCenter configs
 @ac_token = ENV['APPCENTER_API_TOKEN']
+@ac_project_name = ENV['APPCENTER_PROJECT_NAME']
 @ac_notify_group = ENV['APPCENTER_NOTIFY_GROUP']
 @ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
 
 @slack_url = ENV['SLACK_WEB_HOOK']
-@slack_payload = {}
-@slack_success_message = 'Default message, please override.'
 
 default_platform(:ios)
 
@@ -133,8 +136,10 @@ platform :ios do
   @ac_notify_group = "iOS"
 
   before_all do
-    setup_circle_ci
-    release_notes
+    if ENV['CI_MODE'] == 'true'
+      # Setup tmp keychain on ci machine for ios certs
+      build_tmp_keychain
+    end
   end
 
   lane :build_tmp_keychain do
@@ -157,8 +162,19 @@ platform :ios do
     @match_mode = @ac_destination_type
     @export_method = nil
     @build_configuration = 'Release'
-    @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
-    @slack_payload['Change log'] = @change_log
+
+    get_version_no
+    get_certificates           # invokes cert do
+    get_provisioning_profile   # invokes sigh
+
+    increment_build_number(
+      xcodeproj: "./ios/Covid.xcodeproj",
+      build_number: "#{@build_number}"
+    )
+
+    # next unless verify #(scheme: scheme, title: title, tag_prefix: tag_prefix)
+
+    release_notes
 
     case options[:mode]
     when 'adhoc'
@@ -170,24 +186,17 @@ platform :ios do
     when 'store'
       puts 'implement ios release'
     end
-
-    build
-    upload(mode: options[:mode])
-  end
-
-  lane :build do
-    get_version_no
-
-    increment_build_number(
-      xcodeproj: "./ios/Covid.xcodeproj",
-      build_number: "#{@build_number}"
-    )
+    
+    puts @change_log
 
     match(
       type: @match_mode,
       app_identifier: @ios_app_id,
       git_branch: "master",
       readonly: true,
+      verbose: true,
+      # keychain_name: keychain_name, # you can remove this and bottom parameter on your local machine
+      # keychain_password: keychain_password
     )
 
     gym(
@@ -199,20 +208,26 @@ platform :ios do
       workspace: "./ios/Covid.xcworkspace"
     )
 
-    @slack_payload['Build Date'] = Time.new.to_s
-  end
+    slack_payload = {
+      'Build Date' => Time.new.to_s,
+    }
 
-
-  lane :upload do |options|
     case options[:mode]
     when 'adhoc'
       # appcenter
-      @slack_payload['Upload to'] = 'AppCenter'
-      @slack_success_message = "Successfully deployed new build to AppCenter."
+      slack_payload['Upload to'] = 'AppCenter'
     when 'store'
       # Upload to app store
-      @slack_success_message = "Successfully deployed new build to AppStore."
     end
+
+    slack(
+      message: @change_log,
+      slack_url: @slack_url,
+      channel: "#ci-covid-mobile",
+      success: true,
+      payload: slack_payload,
+      default_payloads: [:git_branch, :git_author],
+    )
   end
 
   lane :appcenter do
@@ -231,24 +246,16 @@ platform :ios do
   end
 
   after_all do |lane|
-    slack(
-      message: "Fastlane iOS release completed.",
-      slack_url: @slack_url,
-      channel: "#ci-covid-mobile",
-      success: true,
-      payload: slack_payload,
-      default_payloads: [:git_branch, :git_author],
-    )
+    # This block is called, only if the executed lane was successful
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
   end
 
   error do |lane, exception|
-    slack(
-      message: exception.message,,
-      slack_url: @slack_url,
-      channel: "#ci-covid-mobile",
-      success: false,
-      payload: slack_payload,
-      default_payloads: [:git_branch, :git_author],
-    )
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
   end
 end

@@ -15,6 +15,11 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
+### get_version_no
+```
+fastlane get_version_no
+```
+
 ### release_notes
 ```
 fastlane release_notes
@@ -38,6 +43,11 @@ fastlane android publish
 ----
 
 ## iOS
+### ios build_tmp_keychain
+```
+fastlane ios build_tmp_keychain
+```
+
 ### ios certificates
 ```
 fastlane ios certificates
