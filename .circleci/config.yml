@@ -99,7 +99,7 @@ commands:
 jobs:
   build_and_test:
     macos:
-      xcode: 12.0.1
+      xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
       - build
@@ -114,14 +114,14 @@ jobs:
     
   deploy_stage:
     macos:
-      xcode: 12.0.1
+      xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
       - deploy_stage_appcenter
 
   deploy:
     macos:
-      xcode: 12.0.1
+      xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
       - build
