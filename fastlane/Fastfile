@@ -153,7 +153,7 @@ platform :ios do
   end
 
   lane :certificates do
-    match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"])
+    match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"], readonly: true)
   end
 
   desc "Build"
