@@ -10,14 +10,9 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { Coordinator } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow } from '@covid/core/Coordinator';
 
 import { IProfileService } from '../profile/ProfileService';
-
-type ScreenName = keyof ScreenParamList;
-type ScreenFlow = {
-  [key in ScreenName]: () => void;
-};
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -80,10 +75,11 @@ export class AssessmentCoordinator extends Coordinator {
     this.assessmentData = assessmentData;
     this.userService = userService;
     this.assessmentService = assessmentService;
+    this.patientData = assessmentData.patientData;
   };
 
   startAssessment = () => {
-    const currentPatient = this.assessmentData.patientData.patientState;
+    const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
     this.assessmentService.initAssessment();
 
@@ -98,7 +94,7 @@ export class AssessmentCoordinator extends Coordinator {
         }
       }
     } else {
-      this.appCoordinator.startPatientFlow(this.assessmentData.patientData);
+      this.appCoordinator.startPatientFlow(this.patientData);
     }
   };
 
@@ -137,7 +133,6 @@ export class AssessmentCoordinator extends Coordinator {
       : this.gotoEndAssessment();
   };
 
-  // Private helpers
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
     return (
       ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
@@ -164,10 +159,7 @@ export class AssessmentCoordinator extends Coordinator {
   }
 
   editLocation() {
-    this.appCoordinator.startEditLocation(
-      this.assessmentData.patientData.patientState.profile,
-      this.assessmentData.patientData
-    );
+    this.appCoordinator.startEditLocation(this.patientData.patientState.profile, this.patientData);
   }
 
   gotoSelectProfile() {
