@@ -10,6 +10,7 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { Coordinator } from '@covid/core/Coordinator';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -23,7 +24,7 @@ export type AssessmentData = {
   patientData: PatientData;
 };
 
-export class AssessmentCoordinator {
+export class AssessmentCoordinator extends Coordinator {
   @lazyInject(Services.Profile)
   private readonly profileService: IProfileService;
 
@@ -36,7 +37,7 @@ export class AssessmentCoordinator {
   assessmentData: AssessmentData;
   appCoordinator: AppCoordinator;
 
-  screenFlow: ScreenFlow = {
+  screenFlow: Partial<ScreenFlow> = {
     ProfileBackDate: () => {
       this.startAssessment();
     },
@@ -58,7 +59,16 @@ export class AssessmentCoordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-  } as ScreenFlow;
+    ViralThankYou: () => {
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+    },
+    ThankYouUK: () => {
+      NavigatorService.reset([{ name: 'Dashboard' }]);
+    },
+    ThankYou: () => {
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+    },
+  };
 
   init = (
     appCoordinator: AppCoordinator,
@@ -100,15 +110,6 @@ export class AssessmentCoordinator {
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
       NavigatorService.navigate(thankYouScreen);
-    }
-  };
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      // We don't have nextScreen logic for this page. Explain loudly.
-      console.error('[ROUTE] no next route found for:', screenName);
     }
   };
 
@@ -166,6 +167,19 @@ export class AssessmentCoordinator {
     this.appCoordinator.startEditLocation(
       this.assessmentData.patientData.patientState.profile,
       this.assessmentData.patientData
+    );
+  }
+
+  gotoSelectProfile() {
+    NavigatorService.reset(
+      [
+        { name: 'Dashboard' },
+        {
+          name: 'SelectProfile',
+          params: { editing: true },
+        },
+      ],
+      1
     );
   }
 }

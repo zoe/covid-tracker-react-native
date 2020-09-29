@@ -20,6 +20,7 @@ import { ShareAppCardViral } from '@covid/components/Cards/ShareAppViral';
 import { MoreContribution } from '@covid/components/Stats/MoreContribution';
 import { IContentService } from '@covid/core/content/ContentService';
 import { openWebLink } from '@covid/utils/links';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -171,6 +172,7 @@ export default class ViralThankYouScreen extends Component<Props, State> {
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
+              <View />
               <ThankYouModal
                 visible={this.state.modalVisible}
                 onClose={() => {
@@ -201,7 +203,11 @@ export default class ViralThankYouScreen extends Component<Props, State> {
 
               <Partners />
 
-              <Footer doneOnPress={this.props.navigation.popToTop} />
+              <Footer
+                doneOnPress={() => {
+                  assessmentCoordinator.gotoNextScreen(this.props.route.name);
+                }}
+              />
             </View>
           </ScrollView>
         </SafeAreaView>

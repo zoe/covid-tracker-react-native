@@ -17,6 +17,7 @@ import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { FacebookSECard } from '@covid/components/Cards/FacebookSE';
 
 import { ScreenParamList } from '../ScreenParamList';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
@@ -80,7 +81,9 @@ export default class ThankYouScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
-              <BrandedButton onPress={this.props.navigation.popToTop} style={styles.done}>
+              <BrandedButton
+                onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
+                style={styles.done}>
                 <RegularText>{i18n.t('completed')}</RegularText>
               </BrandedButton>
             </View>
