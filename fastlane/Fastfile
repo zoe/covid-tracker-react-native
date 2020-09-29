@@ -136,10 +136,11 @@ platform :ios do
   @ac_notify_group = "iOS"
 
   before_all do
-    if ENV['CI_MODE'] == 'true'
-      # Setup tmp keychain on ci machine for ios certs
-      build_tmp_keychain
-    end
+    # if ENV['CI_MODE'] == 'true'
+    #   # Setup tmp keychain on ci machine for ios certs
+    #   build_tmp_keychain
+    # end
+    setup_circle_ci
   end
 
   lane :build_tmp_keychain do
@@ -195,7 +196,7 @@ platform :ios do
       git_branch: "master",
       readonly: true,
       verbose: true,
-      # keychain_name: keychain_name, # you can remove this and bottom parameter on your local machine
+      keychain_name: "/Users/distiller/Library/Keychains/fastlane_tmp_keychain-db", # you can remove this and bottom parameter on your local machine
       # keychain_password: keychain_password
     )
 

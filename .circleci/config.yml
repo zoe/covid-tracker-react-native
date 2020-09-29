@@ -40,7 +40,7 @@ executors:
     resource_class: large
 
 commands:
-  build:
+  prepare_code:
     steps:
       - checkout
       - run: gem install bundler
@@ -58,16 +58,18 @@ commands:
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: cat .env > .env.staging
-      # - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
-      # - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
-      # - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
-      # - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
-      # - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
-      # - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
-      # - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
-      # - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
+      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env.staging
+      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env.staging
+      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env.staging
+      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env.staging
+      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env.staging
+      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env.staging
+      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env.staging
+      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env.staging
+      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env.staging
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-      - run: echo "apple_id("$APPLE_ID")" >> ios/Appfile
+      # - run: echo "apple_id("$APPLE_ID")" >> fastlane/Appfile
+
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -120,12 +122,11 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
-      - build
-      - run: yarn lint
+      - prepare_code
       - run:
           command: |
             mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+            yarn lint:ci
           when: always
       - run: yarn prettier
       - store_test_results:
@@ -137,7 +138,7 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
-      - build
+      - prepare_code
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage -- --ci
@@ -155,14 +156,15 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - make_blank_env
-      - build
+      - prepare_code
     
   deploy_stage:
     macos:
       xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
-      - build
+      - prepare_code
+      - make_env
       - deploy_stage_appcenter
 
   deploy:
@@ -170,7 +172,7 @@ jobs:
       xcode: 12.0.0
     working_directory: ~/covid-react
     steps:
-      - build
+      - prepare_code
       - publish_to_expo
       # - deploy_ios
       # - deploy_android
@@ -178,7 +180,7 @@ jobs:
     executor: node
     working_directory: ~/covid-react
     steps:
-      - build
+      - prepare_code
       - legacy_ota_publish
 
 workflows:
