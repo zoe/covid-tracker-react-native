@@ -47,6 +47,27 @@ commands:
       - run: bundle install
       - run: bundle update fastlane
       - run: yarn
+      - run: yarn test:i18n 'sv-SE'
+      - run: yarn test:i18n 'es'
+  make_blank_env:
+    steps:
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
+  make_env:
+    steps:
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: cat .env > .env.staging
+      # - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
+      # - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
+      # - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
+      # - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
+      # - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
+      # - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
+      # - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
+      # - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+      - run: echo "apple_id("$APPLE_ID")" >> ios/Appfile
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
@@ -95,6 +116,35 @@ commands:
       # - run: yarn fastlane:android:stage
 
 jobs:
+  lint:
+    macos:
+      xcode: 12.0.0
+    steps:
+      - run: yarn lint
+      - run:
+          command: |
+            mkdir -p ~/reports
+            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+          when: always
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports       
+
+  test:
+    macos:
+      xcode: 12.0.0
+    steps:
+      - run:
+          name: Run tests with JUnit as reporter
+          command: yarn test:coverage -- --ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit
+          
   build_and_test:
     macos:
       xcode: 12.0.0
@@ -102,11 +152,9 @@ jobs:
     steps:
       - make_blank_env
       - build
-      - run: yarn test:i18n 'sv-SE'
-      - run: yarn test:i18n 'es'
-      - run: yarn lint
+      - lint
       - run: yarn prettier
-      - run: yarn test:coverage -- --ci
+      - test
       - coveralls/upload
     
   deploy_stage:
@@ -144,6 +192,7 @@ workflows:
   stage:
     jobs:
       - build_and_test:
+<<<<<<< HEAD
           filters: *stage_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to stage
@@ -160,6 +209,24 @@ workflows:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
+=======
+          filters: *stage_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to stage
+          context: slack-ci-covid-mobile
+          requires:
+            - build_and_test
+          filters: *stage_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build_and_test
+          filters: *stage_filter
+      - deploy:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+>>>>>>> 95215173e5da2479518774fae413d82d62fea4cc
             - wait_for_approval
 
   develop:
@@ -175,6 +242,7 @@ workflows:
   master:
     jobs:
       - build_and_test:
+<<<<<<< HEAD
           filters: *master_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to production
@@ -187,6 +255,20 @@ workflows:
           requires:
             - build_and_test
           filters: *master_filter
+=======
+          filters: *master_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to production
+          context: slack-ci-covid-mobile
+          requires:
+            - build_and_test
+          filters: *master_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build_and_test
+          filters: *master_filter
+>>>>>>> 95215173e5da2479518774fae413d82d62fea4cc
       - deploy:
           filters: *master_filter
           context: react-covid-tracker-prod
