@@ -22,8 +22,19 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
   private readonly localisationService: ILocalisationService;
 
   screenFlow: Partial<ScreenFlow> = {
+    YourStudy: () => {
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSIntro', { editing: false });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
+    },
     NHSIntro: () => {
-      NavigatorService.navigate('NHSDetails', { editing: false });
+      if (this.patientData.patientState.isNHSStudy) {
+        NavigatorService.navigate('NHSDetails', { editing: false });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
     },
     NHSDetails: () => {
       NavigatorService.navigate('YourWork', { patientData: this.patientData });
@@ -49,11 +60,22 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
   };
 
   startPatient = () => {
-    if (this.patientData.patientState.isNHSStudy) {
-      NavigatorService.navigate('NHSIntro', { editing: false });
-    } else {
-      NavigatorService.navigate('YourWork', { patientData: this.patientData });
-    }
+    const currentPatient = this.patientData.patientState;
+    const config = this.localisationService.getConfig();
+    const patientId = this.patientData.patientId;
+
+    const startPage = this.appCoordinator.homeScreenName;
+    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
+    const nextPage = shouldAskStudy ? 'YourStudy' : 'YourWork';
+
+    // OptionalInfo nav-stack cleanup.
+    NavigatorService.reset([
+      { name: startPage, params: { patientId } },
+      {
+        name: nextPage,
+        params: { patientData: this.patientData, ...(nextPage === 'YourStudy' && { editing: false }) },
+      },
+    ]);
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {
