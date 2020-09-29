@@ -130,8 +130,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // flavorDimensions "default"
-
     defaultConfig {
         applicationId 'com.joinzoe.covid_zoe'
         minSdkVersion rootProject.ext.minSdkVersion
@@ -177,20 +175,29 @@ android {
         }
     }
 
-    // productFlavors {
-    //     staging {
-    //         minSdkVersion rootProject.ext.minSdkVersion
-    //         applicationId 'com.COVIDSymptomStudy.staging'
-    //         targetSdkVersion rootProject.ext.targetSdkVersion
-    //         resValue "string", "app_name", "COVIDSymptomStudy (Staging)"
-    //     }
-    //     production {
-    //         minSdkVersion rootProject.ext.minSdkVersion
-    //         applicationId 'com.COVIDSymptomStudy.production'
-    //         targetSdkVersion rootProject.ext.targetSdkVersion
-    //         resValue "string", "app_name", "COVIDSymptomStudy (Production)"
-    //     }
-    // }
+    flavorDimensions "default"
+
+
+    productFlavors {
+        development {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.joinzoe.covid_zoe.development'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.joinzoe.covid_zoe.staging'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
+        }
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.joinzoe.covid_zoe'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
+        }
+    }
 
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libc++_shared.so"

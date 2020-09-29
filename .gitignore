@@ -68,6 +68,7 @@ build/
 .gradle
 local.properties
 *.iml
+*.hprof
 
 # Node
 node_modules

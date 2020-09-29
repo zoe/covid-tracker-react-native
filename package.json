@@ -2,7 +2,9 @@
   "scripts": {
     "start": "react-native start",
     "start:reset": "react-native start --reset-cache",
-    "android": "react-native run-android",
+    "android": "react-native run-android --variant=developmentDebug --appIdSuffix=development",
+    "android:production": "react-native run-android --variant=poductionRelease --appIdSuffix=production",
+    "android:staging": "react-native run-android --variant=stagingDebug --appIdSuffix=staging",
     "ios": "react-native run-ios",
     "ios:staging": "ENVFILE=.env.staging react-native run-ios",
     "web": "expo start --web",
