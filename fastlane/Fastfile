@@ -132,6 +132,7 @@ platform :ios do
 
   app_identifier = @ios_app_id
   @ac_notify_group = "iOS"
+  @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
 
   before_all do
     # if ENV['CI_MODE'] == 'true'
