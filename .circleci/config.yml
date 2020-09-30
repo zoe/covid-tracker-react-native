@@ -122,7 +122,7 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
-      - prepare_code
+      # - prepare_code
       - run:
           command: |
             mkdir -p ~/reports
@@ -138,7 +138,7 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
-      - prepare_code
+      # - prepare_code
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage -- --ci
@@ -184,14 +184,24 @@ jobs:
       - legacy_ota_publish
 
 workflows:
-  build:
+  default:
     jobs:
+      - build:
+          filters: *feature_filter
       - lint:
           filters: *feature_filter
+          requires:
+            - build
       - test:
           filters: *feature_filter
+          requires:
+            - build
       - deploy_stage:
           filters: *feature_filter
+          requires:
+            - build
+            - lint
+            - test
 
   stage:
     jobs:
