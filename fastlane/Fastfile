@@ -88,7 +88,7 @@ platform :android do
 
     case options[:env]
     when 'stage'
-      appcenter
+      # appcenter
     when 'prod'
     end
   end
@@ -141,7 +141,7 @@ platform :ios do
       build_number: "#{@build_number}"
     )
 
-    release_notes
+    # release_notes
 
     case options[:env]
     when 'stage'
@@ -181,7 +181,7 @@ platform :ios do
 
     case options[:env]
     when 'stage'
-      appcenter
+      # appcenter
     when 'prod'
       # Upload to app store
     end
