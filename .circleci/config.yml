@@ -97,15 +97,17 @@ commands:
       - run: echo "AMPLITUDE_KEY=" >> .env
 
   prepare_deploy_env:
-    environment:
-      - APPCENTER_API_TOKEN: $APPCENTER_API_TOKEN
+    parameters:
+      APPCENTER_API_TOKEN:
+        type: string
+        default: $APPCENTER_API_TOKEN
     steps:
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
       - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
       - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
-      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
+      - run: echo "APPCENTER_API_TOKEN=<< parameters.APPCENTER_API_TOKEN >>" >> .env
       - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
       - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
       - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
