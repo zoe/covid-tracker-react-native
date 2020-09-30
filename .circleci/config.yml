@@ -291,16 +291,16 @@ workflows:
             - lint
             - i18n
             - test
-          filters: *stage_filter
+          filters: *feature_filter
       - wait_for_approval:
           type: approval
           requires:
             - lint
             - i18n
             - test
-          filters: *stage_filter
+          filters: *feature_filter
       - deploy_stage:
-          filters: *stage_filter
+          filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
             - wait_for_approval
