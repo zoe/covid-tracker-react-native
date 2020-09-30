@@ -221,6 +221,9 @@ jobs:
       - prepare_deploy_env
       - attach_workspace:
           at: ~/covid-react
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle update fastlane
       - run: cp .env .env.staging
       - run: yarn fastlane:ios:stage
   
