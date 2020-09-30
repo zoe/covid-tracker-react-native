@@ -1,5 +1,25 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@2.0.1
+  slack: circleci/slack@3.2.0
+  jq: circleci/jq@2.0.1
+  coveralls: coveralls/coveralls@1.0.6
+
+executors:
+  node:
+    docker:
+      - image: circleci/ruby:latest-node
+        environment:
+          API_URL: $API_URL
+          AMPLITUDE_KEY: $AMPLITUDE_KEY
+    resource_class: large
+
+  mobile-build-box:
+    macos:
+      xcode: 12.0.0
+
+
 master_filter: &master_filter
   branches:
     only: master
@@ -24,56 +44,21 @@ feature_filter: &feature_filter
       - stage
       - release-0.x-legacy
 
-orbs:
-  node: circleci/node@2.0.1
-  slack: circleci/slack@3.2.0
-  jq: circleci/jq@2.0.1
-  coveralls: coveralls/coveralls@1.0.6
-
-executors:
-  node:
-    docker:
-      - image: circleci/ruby:latest-node
-        environment:
-          API_URL: $API_URL
-          AMPLITUDE_KEY: $AMPLITUDE_KEY
-    resource_class: large
 
 commands:
-  prepare_code:
+  build:
     steps:
       - checkout
       - run: gem install bundler
       - run: bundle install
       - run: bundle update fastlane
       - run: yarn
-      - run: yarn test:i18n 'sv-SE'
-      - run: yarn test:i18n 'es'
-  make_blank_env:
-    steps:
-      - run: echo "API_URL=" > .env
-      - run: echo "AMPLITUDE_KEY=" >> .env
-  make_env:
-    steps:
-      - run: echo "API_URL=$API_URL" > .env
-      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-      - run: cat .env > .env.staging
-      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env.staging
-      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env.staging
-      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env.staging
-      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env.staging
-      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env.staging
-      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env.staging
-      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env.staging
-      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env.staging
-      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env.staging
-      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-      - run: echo "apple_id(\"$FASTLANE_USER\")" >> fastlane/Appfile
-
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - make_env
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
   set_release_channel:
     steps:
       - run:
@@ -112,111 +97,70 @@ commands:
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.9-prod
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
-  deploy_stage_appcenter:
-    steps:
-      - run: yarn fastlane:ios:stage
-      # - run: yarn fastlane:android:stage
 
 jobs:
-  lint:
-    macos:
-      xcode: 12.0.0
+  build_and_test:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
     steps:
-      # - prepare_code
-      - run:
-          command: |
-            mkdir -p ~/reports
-            yarn lint:ci
-          when: always
+      - build
+      - run: yarn test:i18n 'sv-SE'
+      - run: yarn test:i18n 'es'
+      - run: yarn lint
       - run: yarn prettier
-      - store_test_results:
-          path: ~/reports
-      - store_artifacts:
-          path: ~/reports       
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
+      # - run: yarn test:coverage -- --ci
+      # - coveralls/upload
 
   test:
-    macos:
-      xcode: 12.0.0
+    executor: mobile-build-box
+    working_directory: ~/covid-react
     steps:
-      # - prepare_code
-      - run:
-          name: Run tests with JUnit as reporter
-          command: yarn test:coverage -- --ci
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      - run: yarn test:coverage -- --ci
       - coveralls/upload
-      - store_test_results:
-          path: ./reports/junit/
-      - store_artifacts:
-          path: ./reports/junit
-          
-  build:
-    macos:
-      xcode: 12.0.0
-    working_directory: ~/covid-react
-    steps:
-      - make_blank_env
-      - prepare_code
-    
-  deploy_stage:
-    macos:
-      xcode: 12.0.0
-    working_directory: ~/covid-react
-    steps:
-      - prepare_code
-      - make_env
-      - deploy_stage_appcenter
+
 
   deploy:
-    macos:
-      xcode: 12.0.0
+    executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - prepare_code
+      - build
       - publish_to_expo
       # - deploy_ios
       # - deploy_android
+  
   legacy_deploy:
-    executor: node
+    executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - prepare_code
+      - build
       - legacy_ota_publish
 
 workflows:
   default:
     jobs:
-      - build:
+      - build_and_test:
           filters: *feature_filter
-      - lint:
-          filters: *feature_filter
-          requires:
-            - build
       - test:
           filters: *feature_filter
           requires:
-            - build
-      - deploy_stage:
-          filters: *feature_filter
-          requires:
-            - build
-            - lint
-            - test
+              - build_and_test
 
   stage:
     jobs:
-      - build:
+      - build_and_test:
           filters: *stage_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
-            - build
+            - build_and_test
           filters: *stage_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build
+            - build_and_test
           filters: *stage_filter
       - deploy:
           filters: *stage_filter
@@ -226,28 +170,28 @@ workflows:
 
   develop:
     jobs:
-      - build:
+      - build_and_test:
           filters: *develop_filter
       - deploy:
           filters: *develop_filter
           context: react-covid-tracker-dev
           requires:
-            - build
+            - build_and_test
 
   master:
     jobs:
-      - build:
+      - build_and_test:
           filters: *master_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to production
           context: slack-ci-covid-mobile
           requires:
-            - build
+            - build_and_test
           filters: *master_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build
+            - build_and_test
           filters: *master_filter
       - deploy:
           filters: *master_filter
@@ -257,18 +201,18 @@ workflows:
 
   legacy_ota_release:
     jobs:
-      - build:
+      - build_and_test:
           filters: *legacy_ota_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to OTA 0.9-prod, 0.12-prd and 0.13-prod
           context: slack-ci-covid-mobile
           requires:
-            - build
+            - build_and_test
           filters: *legacy_ota_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build
+            - build_and_test
           filters: *legacy_ota_filter
       - legacy_deploy:
           filters: *legacy_ota_filter
