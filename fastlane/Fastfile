@@ -228,7 +228,7 @@ platform :ios do
         owner_type: "organization",
         ipa: String.try_convert(SharedValues::IPA_OUTPUT_PATH),
         dsym: String.try_convert(SharedValues::DSYM_OUTPUT_PATH),
-        release_notes: @change_log,
+        release_notes: String.try_convert(git_branch),
         notify_testers: true
       )
   end
