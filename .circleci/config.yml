@@ -54,11 +54,13 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - *yarn_cache_key
-            - *node_cache_key
-            - *pod_cache_key
-            - *gem_cache_key
+          key: *yarn_cache_key
+      - restore_cache:
+          key: *node_cache_key
+      - restore_cache:
+          key: *pod_cache_key
+      - restore_cache:
+          key: *gem_cache_key
 
   install_dependencies:
     steps:
@@ -159,7 +161,7 @@ commands:
   #     - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
   #     - store_artifacts:
   #         path: ~/covid-react/fastlane/app.ipa
-  
+
   legacy_ota_publish:
     steps:
       - login_to_expo
@@ -250,10 +252,8 @@ jobs:
       - prepare_deploy_env
       - attach_workspace:
           at: ~/covid-react
+      - install_dependencies
       - run: cp .env .env.staging
-      - run: gem install bundler
-      - run: bundle install
-      - run: bundle update fastlane
       - run: yarn fastlane:ios:stage
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
@@ -284,15 +284,26 @@ workflows:
           filters: *feature_filter
           requires:
               - build
-      - deploy_stage:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          # requires:
-          #   - wait_for_approval
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to stage
+          context: slack-ci-covid-mobile
           requires:
-              - lint
-              - i18n
-              - test
+            - lint
+            - i18n
+            - test
+          filters: *stage_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - lint
+            - i18n
+            - test
+          filters: *stage_filter
+      - deploy_stage:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+            - wait_for_approval
 
   stage:
     jobs:
