@@ -68,7 +68,7 @@ commands:
       - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env.staging
       - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env.staging
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-      # - run: echo "apple_id("$APPLE_ID")" >> fastlane/Appfile
+      - run: echo "apple_id(\"$FASTLANE_USER\")" >> fastlane/Appfile
 
   login_to_expo:
     steps:
