@@ -1,5 +1,11 @@
 version: 2.1
 
+references:
+  yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+  node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
+  pod_cache_key: &pod_cache_key pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+
 orbs:
   node: circleci/node@2.0.1
   slack: circleci/slack@3.2.0
@@ -18,7 +24,6 @@ executors:
   mobile-build-box:
     macos:
       xcode: 12.0.0
-
 
 master_filter: &master_filter
   branches:
@@ -44,19 +49,45 @@ feature_filter: &feature_filter
       - stage
       - release-0.x-legacy
 
-
 commands:
   prepare_code:
     steps:
       - checkout
       - restore_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-      - restore_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
-      - restore_cache:
-          key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-      - restore_cache:
-          key: gems-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+          keys:
+            - *yarn_cache_key
+            - *node_cache_key
+            - *pod_cache_key
+            - *gem_cache_key
+
+  install_dependencies:
+    steps:
+      - run: gem install bundler
+      - run:
+          name: Bundle install
+          command: bundle check || bundle install --path vendor/bundle --clean
+          environment:
+            BUNDLE_JOBS: '4'
+            BUNDLE_RETRY: '3'
+      - run: bundle update fastlane
+      - run: yarn
+      - save_cache:
+          key: *yarn_cache_key
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: *node_cache_key
+          paths:
+            - node_modules
+      - save_cache:
+          key: *pod_cache_key
+          paths:
+            - ios/Pods
+            - ~/Library/Caches/CocoaPods/Pods
+      - save_cache:
+          key: *gem_cache_key
+          paths:
+            - vendor/bundle
 
   prepare_blank_env:
     steps:
@@ -77,29 +108,6 @@ commands:
       - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
       - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-
-  install_dependencies:
-    steps:
-      - run: gem install bundler
-      - run: bundle install
-      - run: bundle update fastlane
-      - run: yarn
-      - save_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-          paths:
-            - ~/.cache/yarn
-      - save_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
-          paths:
-            - node_modules
-      - save_cache:
-          key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-          paths:
-            - ios/Pods
-      - save_cache:
-          key: gems-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
-          paths:
-            - vendor/bundle
 
   build:
     steps:
@@ -129,28 +137,29 @@ commands:
       - login_to_expo
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
 
-  deploy_android:
-    steps:
-      - run:
-          command: npx expo-cli build:android -t app-bundle --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
-          no_output_timeout: 2h
-      - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
-      - run: echo "$PLAY_STORE_JSON" | base64 --decode > fastlane/playstore.json
-      - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
-      - store_artifacts:
-          path: ~/covid-react/fastlane/app.apk
+  # deploy_android:
+  #   steps:
+  #     - run:
+  #         command: npx expo-cli build:android -t app-bundle --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
+  #         no_output_timeout: 2h
+  #     - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
+  #     - run: echo "$PLAY_STORE_JSON" | base64 --decode > fastlane/playstore.json
+  #     - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
+  #     - store_artifacts:
+  #         path: ~/covid-react/fastlane/app.apk
           
-  deploy_ios:
-    steps:
-      - run:
-          command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
-          no_output_timeout: 2h
-      - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
-      - run: bundle exec fastlane fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
-      - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
-      - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
-      - store_artifacts:
-          path: ~/covid-react/fastlane/app.ipa
+  # deploy_ios:
+  #   steps:
+  #     - run:
+  #         command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
+  #         no_output_timeout: 2h
+  #     - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
+  #     - run: bundle exec fastlane fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
+  #     - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
+  #     - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
+  #     - store_artifacts:
+  #         path: ~/covid-react/fastlane/app.ipa
+  
   legacy_ota_publish:
     steps:
       - login_to_expo
@@ -159,7 +168,6 @@ commands:
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
 
 jobs:
-
   build:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -219,6 +227,12 @@ jobs:
       - store_artifacts:
           path: ./reports/junit
 
+  # prepare_env:
+  #   executor: mobile-build-box
+  #   working_directory: ~/covid-react
+  #   steps:
+  #     - prepare_deploy_env
+
   deploy:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -241,7 +255,11 @@ jobs:
       - run: bundle install
       - run: bundle update fastlane
       - run: yarn fastlane:ios:stage
-  
+      - store_artifacts:
+          path: ~/covid-react/build/covid-zoe.ipa
+      - store_artifacts:
+          path: ~/covid-react/build/covid-zoe.app.dSYM.zip
+
   legacy_deploy:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -269,6 +287,8 @@ workflows:
       - deploy_stage:
           filters: *feature_filter
           context: react-covid-tracker-stage
+          # requires:
+          #   - wait_for_approval
           requires:
               - lint
               - i18n
