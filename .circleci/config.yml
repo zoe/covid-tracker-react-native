@@ -54,6 +54,21 @@ commands:
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
 
+  prepare_deploy_env:
+    steps:
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env.staging
+      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env.staging
+      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env.staging
+      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env.staging
+      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env.staging
+      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env.staging
+      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env.staging
+      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env.staging
+      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env.staging
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+
   build:
     steps:
       - checkout
@@ -142,14 +157,26 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - run: yarn lint
+      - attach_workspace:
+          at: ~/covid-react
+      - run:
+          command: |
+            mkdir -p ~/reports
+            yarn lint:ci
+          when: always
       - run: yarn prettier
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
 
-  check_i18n:
+  i18n:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - attach_workspace:
+          at: ~/covid-react
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -158,8 +185,18 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - run: yarn test:coverage -- --ci
+      - attach_workspace:
+          at: ~/covid-react
+      - run:
+          name: Run tests with JUnit as reporter
+          command: yarn test:coverage -- --ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - coveralls/upload
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit
 
   deploy:
     executor: mobile-build-box
@@ -169,6 +206,17 @@ jobs:
       - publish_to_expo
       # - deploy_ios
       # - deploy_android
+      
+  deploy_stage:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - prepare_code
+      - attach_workspace:
+          at: ~/covid-react
+      - run: yarn
+      - run: cp .env .env.staging
+      - run: yarn fastlane:ios:stage
   
   legacy_deploy:
     executor: mobile-build-box
@@ -186,7 +234,7 @@ workflows:
           filters: *feature_filter
           requires:
               - build
-      - check_i18n:
+      - i18n:
           filters: *feature_filter
           requires:
               - build
@@ -194,6 +242,13 @@ workflows:
           filters: *feature_filter
           requires:
               - build
+      - deploy_stage:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+              - lint
+              - i18n
+              - test
 
   stage:
     jobs:
@@ -242,7 +297,7 @@ workflows:
             - build
           filters: *master_filter
       - deploy:
-          filters: *master_filter
+          filters: *master_filter 
           context: react-covid-tracker-prod
           requires:
             - wait_for_approval
