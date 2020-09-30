@@ -1,8 +1,6 @@
 fastlane_version "2.160.0"
 
-# this is needed just for CI, you don't need it localy
-@keychain_name = "zoe-covid.ios.keychain.tmp"
-@keychain_password = "TmpPassword"
+@keychain_name = "fastlane_tmp_keychain-db"
 
 # iOS
 @ios_app_id = ENV['iOS_APP_ID']
@@ -143,16 +141,6 @@ platform :ios do
     setup_circle_ci
   end
 
-  lane :build_tmp_keychain do
-    create_keychain(
-      name: @keychain_name,
-      password: @keychain_password,
-      default_keychain: true,
-      unlock: true,
-      timeout: false
-    )
-  end
-
   lane :certificates do
     match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"], readonly: true)
   end
@@ -165,8 +153,6 @@ platform :ios do
     @build_configuration = 'Release'
 
     get_version_no
-    get_certificates           # invokes cert do
-    get_provisioning_profile   # invokes sigh
 
     increment_build_number(
       xcodeproj: "./ios/Covid.xcodeproj",
@@ -196,7 +182,7 @@ platform :ios do
       git_branch: "master",
       readonly: true,
       verbose: true,
-      keychain_name: "/Users/distiller/Library/Keychains/fastlane_tmp_keychain-db", # you can remove this and bottom parameter on your local machine
+      keychain_name: @keychain_name,
       # keychain_password: keychain_password
     )
 
