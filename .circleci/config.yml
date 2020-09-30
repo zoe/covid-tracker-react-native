@@ -260,6 +260,13 @@ jobs:
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.app.dSYM.zip
 
+  deployed_stage:
+    executor: mobile-build-box
+    steps:
+      - slack/notify:
+          message: Deployed adhoc builds for iOS & Android
+          webhook: $SLACK_WEBHOOK
+
   legacy_deploy:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -304,8 +311,7 @@ workflows:
           context: react-covid-tracker-stage
           requires:
             - wait_for_approval
-      - slack/notify:
-          message: Deployed adhoc builds for iOS & Android
+      - deployed_stage:
           context: slack-ci-covid-mobile
           requires:
             - deploy_stage
