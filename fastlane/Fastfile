@@ -201,8 +201,8 @@ platform :ios do
 
     case options[:mode]
     when 'adhoc'
-      # appcenter
-      slack_payload['Upload to'] = 'AppCenter'
+      appcenter
+      # slack_payload['Upload to'] = 'AppCenter'
     when 'store'
       # Upload to app store
     end
