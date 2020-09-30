@@ -176,19 +176,19 @@ jobs:
     steps:
       - prepare_code
       - install_dependencies
-      - persist_to_workspace:
-          root: ~/covid-react
-          paths:
-            - node_modules
-            - ios/Pods
+      # - persist_to_workspace:
+      #     root: ~/covid-react
+      #     paths:
+      #       - node_modules
+      #       - ios/Pods
 
   lint:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - attach_workspace:
-          at: ~/covid-react
+      # - attach_workspace:
+      #     at: ~/covid-react
       - run:
           command: |
             mkdir -p ~/reports
@@ -205,8 +205,8 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - attach_workspace:
-          at: ~/covid-react
+      # - attach_workspace:
+      #     at: ~/covid-react
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -216,8 +216,8 @@ jobs:
     steps:
       - prepare_code
       - prepare_blank_env
-      - attach_workspace:
-          at: ~/covid-react
+      # - attach_workspace:
+      #     at: ~/covid-react
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage -- --ci
@@ -250,8 +250,8 @@ jobs:
     steps:
       - prepare_code
       - prepare_deploy_env
-      - attach_workspace:
-          at: ~/covid-react
+      # - attach_workspace:
+      #     at: ~/covid-react
       - install_dependencies
       - run: cp .env .env.staging
       - run: yarn fastlane:ios:stage
