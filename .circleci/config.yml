@@ -97,6 +97,8 @@ commands:
       - run: echo "AMPLITUDE_KEY=" >> .env
 
   prepare_deploy_env:
+    environment:
+      - APPCENTER_API_TOKEN: $APPCENTER_API_TOKEN
     steps:
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
@@ -176,19 +178,12 @@ jobs:
     steps:
       - prepare_code
       - install_dependencies
-      # - persist_to_workspace:
-      #     root: ~/covid-react
-      #     paths:
-      #       - node_modules
-      #       - ios/Pods
 
   lint:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      # - attach_workspace:
-      #     at: ~/covid-react
       - run:
           command: |
             mkdir -p ~/reports
@@ -205,8 +200,6 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      # - attach_workspace:
-      #     at: ~/covid-react
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -216,8 +209,6 @@ jobs:
     steps:
       - prepare_code
       - prepare_blank_env
-      # - attach_workspace:
-      #     at: ~/covid-react
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage -- --ci
@@ -228,12 +219,6 @@ jobs:
           path: ./reports/junit/
       - store_artifacts:
           path: ./reports/junit
-
-  # prepare_env:
-  #   executor: mobile-build-box
-  #   working_directory: ~/covid-react
-  #   steps:
-  #     - prepare_deploy_env
 
   deploy:
     executor: mobile-build-box
@@ -250,8 +235,6 @@ jobs:
     steps:
       - prepare_code
       - prepare_deploy_env
-      # - attach_workspace:
-      #     at: ~/covid-react
       - install_dependencies
       - run: cp .env .env.staging
       - run: yarn fastlane:ios:stage
@@ -320,22 +303,42 @@ workflows:
     jobs:
       - build:
           filters: *stage_filter
+      - lint:
+          filters: *stage_filter
+          requires:
+              - build
+      - i18n:
+          filters: *stage_filter
+          requires:
+              - build
+      - test:
+          filters: *stage_filter
+          requires:
+              - build
       - slack/approval-notification:
+          filters: *stage_filter
           message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
-            - build
-          filters: *stage_filter
+            - lint
+            - i18n
+            - test
       - wait_for_approval:
+          filters: *stage_filter
           type: approval
           requires:
-            - build
-          filters: *stage_filter
-      - deploy:
+            - lint
+            - i18n
+            - test
+      - deploy_stage:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
             - wait_for_approval
+      - deployed_stage:
+          context: slack-ci-covid-mobile
+          requires:
+            - deploy_stage
 
   develop:
     jobs:
