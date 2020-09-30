@@ -47,7 +47,6 @@ end
 #   @change_log = conventional_changelog(format: 'markdown', title: options[:title])
 # end
 
-
 platform :android do
 
   @ac_notify_group = "Android"
@@ -93,47 +92,6 @@ platform :android do
     when 'prod'
     end
   end
-
-  # this is a seperate lane so the build pipeline can use its own secure storage & signing step
-  # lane :publish do |options|
-
-  #   track = 'beta'
-    
-  #   if options[:track]
-  #     track = options[:track]
-  #   end
-
-  #   puts 'Playstore submission track is:' + track
-
-  #   release_notes
-
-  #   if options[:submit]
-  #     upload_to_play_store(track: track)
-  #   end
-
-  #   if options[:appcenter]
-
-  #     # production = covid_symptom_tracker_android 
-  #     # Staging = covid_symptom_tracker_android_stage
-  #     app_name = ENV["APPCENTER_ANDROID_NAME"]
-
-  #     path = "android/app/build/outputs/apk/release/app-release.apk"
-
-  #     # distribution group
-  #    appDistGroup = ENV["APPCENTER_ANDROID_DIST_GROUP"]
-  #     appcenter_upload(
-  #       app_name: ENV['APPCENTER_ANDROID_NAME'],
-  #       api_token: @ac_token,
-  #       destinations: @ac_notify_group,
-  #       destination_type: @ac_destination_type,
-  #       file: path,
-  #       owner_name: "Joinzoe",
-  #       owner_type: "organization",
-  #       notify_testers: true,
-  #       release_notes: @change_log
-  #     )
-  #   end
-  # end
 
   lane :appcenter do
     appcenter_upload(
@@ -183,8 +141,6 @@ platform :ios do
       build_number: "#{@build_number}"
     )
 
-    # next unless verify #(scheme: scheme, title: title, tag_prefix: tag_prefix)
-
     release_notes
 
     case options[:env]
@@ -226,19 +182,9 @@ platform :ios do
     case options[:env]
     when 'stage'
       appcenter
-      # slack_payload['Upload to'] = 'AppCenter'
     when 'prod'
       # Upload to app store
     end
-
-    # slack(
-    #   message: @change_log,
-    #   slack_url: @slack_url,
-    #   channel: "#ci-covid-mobile",
-    #   success: true,
-    #   payload: slack_payload,
-    #   default_payloads: [:git_branch, :git_author],
-    # )
   end
 
   lane :appcenter do
