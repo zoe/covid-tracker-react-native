@@ -207,14 +207,14 @@ platform :ios do
       # Upload to app store
     end
 
-    slack(
-      message: @change_log,
-      slack_url: @slack_url,
-      channel: "#ci-covid-mobile",
-      success: true,
-      payload: slack_payload,
-      default_payloads: [:git_branch, :git_author],
-    )
+    # slack(
+    #   message: @change_log,
+    #   slack_url: @slack_url,
+    #   channel: "#ci-covid-mobile",
+    #   success: true,
+    #   payload: slack_payload,
+    #   default_payloads: [:git_branch, :git_author],
+    # )
   end
 
   lane :appcenter do
