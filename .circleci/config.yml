@@ -104,14 +104,28 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - build
-      - run: yarn test:i18n 'sv-SE'
-      - run: yarn test:i18n 'es'
-      - run: yarn lint
-      - run: yarn prettier
+      # - run: yarn test:i18n 'sv-SE'
+      # - run: yarn test:i18n 'es'
+      # - run: yarn lint
+      # - run: yarn prettier
       - run: echo "API_URL=" > .env
       - run: echo "AMPLITUDE_KEY=" >> .env
       # - run: yarn test:coverage -- --ci
       # - coveralls/upload
+
+  lint:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - run: yarn lint
+      - run: yarn prettier
+
+  check_i18n:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - run: yarn test:i18n 'sv-SE'
+      - run: yarn test:i18n 'es'
 
   test:
     executor: mobile-build-box
@@ -142,6 +156,14 @@ workflows:
     jobs:
       - build_and_test:
           filters: *feature_filter
+      - lint:
+          filters: *feature_filter
+          requires:
+              - build_and_test
+      - check_i18n:
+          filters: *feature_filter
+          requires:
+              - build_and_test
       - test:
           filters: *feature_filter
           requires:
