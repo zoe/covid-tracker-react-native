@@ -46,6 +46,14 @@ feature_filter: &feature_filter
 
 
 commands:
+  prepare_code:
+    steps:
+      - checkout
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+
   build:
     steps:
       - checkout
@@ -99,11 +107,27 @@ commands:
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
 
 jobs:
-  build_and_test:
+
+  build:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - build
+      - prepare_code
+      - run: yarn
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: ~/covid-react
+          paths:
+            - node_modules
+
+      # - build
       # - run: yarn test:i18n 'sv-SE'
       # - run: yarn test:i18n 'es'
       # - run: yarn lint
@@ -117,6 +141,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
+      - prepare_code
       - run: yarn lint
       - run: yarn prettier
 
@@ -124,6 +149,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
+      - prepare_code
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -131,9 +157,9 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
+      - prepare_code
       - run: yarn test:coverage -- --ci
       - coveralls/upload
-
 
   deploy:
     executor: mobile-build-box
@@ -154,35 +180,35 @@ jobs:
 workflows:
   default:
     jobs:
-      - build_and_test:
+      - build:
           filters: *feature_filter
       - lint:
           filters: *feature_filter
           requires:
-              - build_and_test
+              - build
       - check_i18n:
           filters: *feature_filter
           requires:
-              - build_and_test
+              - build
       - test:
           filters: *feature_filter
           requires:
-              - build_and_test
+              - build
 
   stage:
     jobs:
-      - build_and_test:
+      - build:
           filters: *stage_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
-            - build_and_test
+            - build
           filters: *stage_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build_and_test
+            - build
           filters: *stage_filter
       - deploy:
           filters: *stage_filter
@@ -192,28 +218,28 @@ workflows:
 
   develop:
     jobs:
-      - build_and_test:
+      - build:
           filters: *develop_filter
       - deploy:
           filters: *develop_filter
           context: react-covid-tracker-dev
           requires:
-            - build_and_test
+            - build
 
   master:
     jobs:
-      - build_and_test:
+      - build:
           filters: *master_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to production
           context: slack-ci-covid-mobile
           requires:
-            - build_and_test
+            - build
           filters: *master_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build_and_test
+            - build
           filters: *master_filter
       - deploy:
           filters: *master_filter
@@ -223,18 +249,18 @@ workflows:
 
   legacy_ota_release:
     jobs:
-      - build_and_test:
+      - build:
           filters: *legacy_ota_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to OTA 0.9-prod, 0.12-prd and 0.13-prod
           context: slack-ci-covid-mobile
           requires:
-            - build_and_test
+            - build
           filters: *legacy_ota_filter
       - wait_for_approval:
           type: approval
           requires:
-            - build_and_test
+            - build
           filters: *legacy_ota_filter
       - legacy_deploy:
           filters: *legacy_ota_filter
