@@ -8,9 +8,9 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { SchoolModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { SchoolModel, SubscribedSchoolGroupStats, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
-import { fetchSubscribedSchoolGroups, joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
+import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
@@ -44,6 +44,9 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     },
     SchoolGroupList: () => {
       this.closeFlow();
+    },
+    SchoolDashboard: () => {
+      NavigatorService.goBack();
     },
   };
 
@@ -120,6 +123,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     return this.schoolService.searchSchoolGroups(id).catch(() => {
       return [];
     });
+  }
+
+  goToSchoolDashboard(school: SubscribedSchoolStats) {
+    NavigatorService.navigate('SchoolDashboard', { school });
   }
 }
 

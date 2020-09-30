@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { Header0Text, Header3Text, RegularText, RegularBoldText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ArrayDistinctBy } from '@covid/utils/array';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 type Props = {
   schoolGroups: SubscribedSchoolGroupStats[];
@@ -115,7 +116,11 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')}</Header0Text>
       {data.map((school, index) => {
         return (
-          <View key={school.id}>
+          <TouchableOpacity
+            key={school.id}
+            onPress={() => {
+              schoolNetworkCoordinator.goToSchoolDashboard(school);
+            }}>
             <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
             <RegularBoldText>{school.size}</RegularBoldText>
             <RegularText>Children being reported for</RegularText>
@@ -125,7 +130,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
               const last = index !== data.length - 1;
               return casesView(group, last);
             })}
-          </View>
+          </TouchableOpacity>
         );
       })}
     </View>

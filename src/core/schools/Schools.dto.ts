@@ -20,6 +20,13 @@ export interface SubscribedSchoolGroupStats extends SchoolGroupModel {
   size: number;
   school: SchoolModel;
   patient_id: string;
+  max_size: number;
+  daily_assessments: number;
+  daily_reported_percentage: string;
+  daily_reported_symptoms: number;
+  confirmed_cases: number;
+  recovered_cases: number;
+  report_updated_at: Date;
 }
 
 export interface SubscribedSchoolStats extends SchoolModel {
