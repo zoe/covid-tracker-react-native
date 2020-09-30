@@ -27,10 +27,10 @@
     "clear:metro": "rm -rf $TMPDIR/metro-*",
     "reset": "watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install",
     "postinstall": "cd ios && pod install",
-    "fastlane:ios:stage": "ENVFILE=.env.staging bundle exec fastlane ios release --env staging mode:adhoc",
-    "fastlane:ios:prod": "ENVFILE=.env bundle exec fastlane ios release --env prod submit:false appcenter:true ",
-    "fastlane:android-build": "ENVFILE=.env.staging fastlane android release --env staging",
-    "fastlane:android-stage": "ENVFILE=.env.staging bundle exec fastlane android publish --env staging track:beta submit:false appcenter:true appcenterName:'covid_symptom_tracker_android_stage'"
+    "fastlane:ios:stage": "ENVFILE=.env bundle exec fastlane ios release --env env:stage",
+    "fastlane:ios:prod": "ENVFILE=.env bundle exec fastlane ios release --env env:prod",
+    "fastlane:android:stage": "ENVFILE=.env fastlane android release --env env:stage",
+    "fastlane:android:prod": "ENVFILE=.env fastlane android release --env env:prod"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "2.4.0",

@@ -50,23 +50,26 @@ end
 
 platform :android do
 
+  @ac_notify_group = "Android"
+  @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
+
   before_all do
-    @ac_notify_group = "Team_Zoe_android"
   end
 
   desc "Build Android app"
   lane :release do |options|
 
-    get_version_no
+    @export_method = nil
+    @build_configuration = 'Release'
 
-    case ENV["NAME"]
-    when "staging"
-        build_type = "Release"
-    else
-        build_type = "Release"
+    case options[:env]
+    when 'stage'
+      @export_method = 'ad-hoc'
+      @build_configuration = 'Release'
+      @ac_destination_type ='group'
+    when 'prod'
+      puts 'implement android release'
     end
-
-    print build_type
 
     android_set_version_name(
       version_name: @version,
@@ -80,50 +83,70 @@ platform :android do
 
     gradle(
       task: "assemble",
-      build_type: build_type,
-      project_dir: "./android"   
+      build_type: @build_configuration,
+      project_dir: "./android"
     )
+
+    case options[:env]
+    when 'stage'
+      appcenter
+    when 'prod'
+    end
   end
 
   # this is a seperate lane so the build pipeline can use its own secure storage & signing step
-  lane :publish do |options|
+  # lane :publish do |options|
 
-    track = 'beta'
+  #   track = 'beta'
     
-    if options[:track]
-      track = options[:track]
-    end
+  #   if options[:track]
+  #     track = options[:track]
+  #   end
 
-    puts 'Playstore submission track is:' + track
+  #   puts 'Playstore submission track is:' + track
 
-    release_notes
+  #   release_notes
 
-    if options[:submit]
-      upload_to_play_store(track: track)
-    end
+  #   if options[:submit]
+  #     upload_to_play_store(track: track)
+  #   end
 
-    if options[:appcenter]
+  #   if options[:appcenter]
 
-      # production = covid_symptom_tracker_android 
-      # Staging = covid_symptom_tracker_android_stage
-      app_name = ENV["APPCENTER_ANDROID_NAME"]
+  #     # production = covid_symptom_tracker_android 
+  #     # Staging = covid_symptom_tracker_android_stage
+  #     app_name = ENV["APPCENTER_ANDROID_NAME"]
 
-      path = "android/app/build/outputs/apk/release/app-release.apk"
+  #     path = "android/app/build/outputs/apk/release/app-release.apk"
 
-      # distribution group
-     appDistGroup = ENV["APPCENTER_ANDROID_DIST_GROUP"]
-      appcenter_upload(
-        app_name: ENV['APPCENTER_ANDROID_NAME'],
+  #     # distribution group
+  #    appDistGroup = ENV["APPCENTER_ANDROID_DIST_GROUP"]
+  #     appcenter_upload(
+  #       app_name: ENV['APPCENTER_ANDROID_NAME'],
+  #       api_token: @ac_token,
+  #       destinations: @ac_notify_group,
+  #       destination_type: @ac_destination_type,
+  #       file: path,
+  #       owner_name: "Joinzoe",
+  #       owner_type: "organization",
+  #       notify_testers: true,
+  #       release_notes: @change_log
+  #     )
+  #   end
+  # end
+
+  lane :appcenter do
+    appcenter_upload(
+        app_name: @ac_project_name,
         api_token: @ac_token,
         destinations: @ac_notify_group,
         destination_type: @ac_destination_type,
-        file: path,
         owner_name: "Joinzoe",
         owner_type: "organization",
-        notify_testers: true,
-        release_notes: @change_log
+        file: "android/app/build/outputs/apk/release/app-release.apk",
+        release_notes: String.try_convert(git_branch),
+        notify_testers: true
       )
-    end
   end
 
 end
@@ -164,14 +187,14 @@ platform :ios do
 
     release_notes
 
-    case options[:mode]
-    when 'adhoc'
+    case options[:env]
+    when 'stage'
       # analyze_commits(match: '*')
-      @match_mode = options[:mode]
+      @match_mode = 'adhoc'
       @export_method = 'ad-hoc'
       @build_configuration = 'Stage'
       @ac_destination_type ='group'
-    when 'store'
+    when 'prod'
       puts 'implement ios release'
     end
     
@@ -200,11 +223,11 @@ platform :ios do
       'Build Date' => Time.new.to_s,
     }
 
-    case options[:mode]
-    when 'adhoc'
+    case options[:env]
+    when 'stage'
       appcenter
       # slack_payload['Upload to'] = 'AppCenter'
-    when 'store'
+    when 'prod'
       # Upload to app store
     end
 

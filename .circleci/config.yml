@@ -238,12 +238,14 @@ jobs:
       - prepare_code
       - prepare_deploy_env
       - install_dependencies
-      - run: cp .env .env.staging
       - run: yarn fastlane:ios:stage
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.app.dSYM.zip
+      - run: yarn fastlane:android:stage
+      - store_artifacts:
+          path: ~/covid-react/android/app/build/outputs/apk/release/app-release.apk
 
   deployed_stage:
     executor: mobile-build-box
