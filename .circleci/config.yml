@@ -55,21 +55,51 @@ commands:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
       - restore_cache:
           key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+      - restore_cache:
+          key: gems-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+
+  prepare_blank_env:
+    steps:
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
 
   prepare_deploy_env:
     steps:
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env.staging
-      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env.staging
-      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env.staging
-      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env.staging
-      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env.staging
-      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env.staging
-      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env.staging
-      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env.staging
-      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env.staging
+      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
+      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
+      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
+      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
+      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
+      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
+      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
+      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
+      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+
+  install_dependencies:
+    steps:
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle update fastlane
+      - run: yarn
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+          paths:
+            - ios/Pods
+      - save_cache:
+          key: gems-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle
 
   build:
     steps:
@@ -78,23 +108,27 @@ commands:
       - run: bundle install
       - run: bundle update fastlane
       - run: yarn
+
   login_to_expo:
     steps:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+
   set_release_channel:
     steps:
       - run:
           name: Set expo release channel
           command: |
             echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-$RELEASE_CHANNEL_SUFFIX' >> $BASH_ENV
+
   publish_to_expo:
     steps:
       - set_release_channel
       - login_to_expo
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
+
   deploy_android:
     steps:
       - run:
@@ -105,6 +139,7 @@ commands:
       - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
       - store_artifacts:
           path: ~/covid-react/fastlane/app.apk
+          
   deploy_ios:
     steps:
       - run:
@@ -130,33 +165,12 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - run: yarn
-      - save_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-          paths:
-            - ~/.cache/yarn
-      - save_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
-          paths:
-            - node_modules
-      - save_cache:
-          key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-          paths:
-            - ios/Pods
+      - install_dependencies
       - persist_to_workspace:
           root: ~/covid-react
           paths:
             - node_modules
-
-      # - build
-      # - run: yarn test:i18n 'sv-SE'
-      # - run: yarn test:i18n 'es'
-      # - run: yarn lint
-      # - run: yarn prettier
-      - run: echo "API_URL=" > .env
-      - run: echo "AMPLITUDE_KEY=" >> .env
-      # - run: yarn test:coverage -- --ci
-      # - coveralls/upload
+            - ios/Pods
 
   lint:
     executor: mobile-build-box
@@ -191,6 +205,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - prepare_blank_env
       - attach_workspace:
           at: ~/covid-react
       - run:
@@ -221,10 +236,10 @@ jobs:
       - prepare_deploy_env
       - attach_workspace:
           at: ~/covid-react
+      - run: cp .env .env.staging
       - run: gem install bundler
       - run: bundle install
       - run: bundle update fastlane
-      - run: cp .env .env.staging
       - run: yarn fastlane:ios:stage
   
   legacy_deploy:
