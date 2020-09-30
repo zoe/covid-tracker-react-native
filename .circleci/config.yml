@@ -53,6 +53,8 @@ commands:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+      - restore_cache:
+          key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
 
   prepare_deploy_env:
     steps:
@@ -137,6 +139,10 @@ jobs:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
           paths:
             - node_modules
+      - save_cache:
+          key: pod-v1-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+          paths:
+            - ios/Pods
       - persist_to_workspace:
           root: ~/covid-react
           paths:
@@ -206,15 +212,15 @@ jobs:
       - publish_to_expo
       # - deploy_ios
       # - deploy_android
-      
+
   deploy_stage:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - prepare_deploy_env
       - attach_workspace:
           at: ~/covid-react
-      - run: yarn
       - run: cp .env .env.staging
       - run: yarn fastlane:ios:stage
   
