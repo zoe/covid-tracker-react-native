@@ -34,20 +34,15 @@ fastlane release_notes
 fastlane android release
 ```
 Build Android app
-### android publish
+### android appcenter
 ```
-fastlane android publish
+fastlane android appcenter
 ```
 
 
 ----
 
 ## iOS
-### ios build_tmp_keychain
-```
-fastlane ios build_tmp_keychain
-```
-
 ### ios certificates
 ```
 fastlane ios certificates
