@@ -7,7 +7,7 @@ import { View } from 'native-base';
 import { colors } from '@theme';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import { HeaderText, RegularText, Header3Text, SecondaryText } from '@covid/components/Text';
+import { HeaderText, RegularText, Header3Text, SecondaryText, ClickableText } from '@covid/components/Text';
 import { Coordinator } from '@covid/core/Coordinator';
 import i18n from '@covid/locale/i18n';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
@@ -20,15 +20,47 @@ type Props = {
 export const SchoolDashboardScreen: React.FC<Props> = (props) => {
   const { school } = props.route.params;
 
-  const infoBox = (statistic: string | number, description: string, onPress?: VoidFunction) => {
+  const infoBox = (
+    statistic: string | number,
+    description: string,
+    onPress?: VoidFunction,
+    singleLine: boolean = false,
+    statColor: string = colors.primary
+  ) => {
     return (
       <View style={styles.infoBox}>
-        <RegularText style={styles.statText}>{statistic}</RegularText>
-        <RegularText style={{ textAlign: 'center', paddingBottom: 8 }}>{description}</RegularText>
-        {onPress && <RegularText style={{ color: colors.purple, fontSize: 14 }}>More details</RegularText>}
+        <RegularText style={[styles.statText, { color: statColor }]}>{statistic}</RegularText>
+        <RegularText style={{ textAlign: 'center', paddingBottom: 8 }}>
+          {!singleLine && (
+            <RegularText>
+              {i18n.t('school-networks.dashboard.students-with')}
+              {'\n'}
+            </RegularText>
+          )}
+          <RegularText style={{ fontWeight: '600' }}>{description}</RegularText>
+        </RegularText>
+        {onPress && (
+          <ClickableText style={{ fontSize: 14 }} onPress={onPress}>
+            {i18n.t('school-networks.dashboard.more-details')}
+          </ClickableText>
+        )}
       </View>
     );
   };
+
+  const schoolConfirmedCases = school.groups
+    .map((group) => group.confirmed_cases)
+    .reduce((prev, curr) => prev + curr, 0);
+  const schoolReportedSymptoms = school.groups
+    .map((group) => group.daily_reported_symptoms)
+    .reduce((prev, curr) => prev + curr, 0);
+  const schoolRecoveredCases = school.groups
+    .map((group) => group.recovered_cases)
+    .reduce((prev, curr) => prev + curr, 0);
+  const schoolTotalPercentage = (
+    school.groups.map((g) => g.daily_assessments).reduce((prev, curr) => prev + curr, 0) /
+    school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0)
+  ).toFixed(0);
 
   return (
     <View style={styles.container}>
@@ -36,7 +68,8 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
         <View style={styles.container}>
           <Header>
             <HeaderText style={styles.header}>
-              {school.name + ' ' + i18n.t('school-networks.dashboard.title')}
+              <HeaderText>{school.name + ' '}</HeaderText>
+              <HeaderText style={{ fontWeight: 'bold' }}>{i18n.t('school-networks.dashboard.title')}</HeaderText>
             </HeaderText>
           </Header>
 
@@ -55,51 +88,69 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
             </SecondaryText>
             <View style={styles.gridRow}>
               {infoBox(
-                school.groups.map((group) => group.confirmed_cases).reduce((prev, curr) => prev + curr, 0),
+                schoolConfirmedCases,
                 i18n.t('school-networks.dashboard.confirmed'),
-                () => {}
+                () => {},
+                false,
+                schoolConfirmedCases > 0 ? colors.feedbackBad : colors.primary
               )}
               {infoBox(
-                school.groups.map((group) => group.cases).reduce((prev, curr) => prev + curr, 0),
+                schoolReportedSymptoms,
                 i18n.t('school-networks.dashboard.reported'),
-                () => {}
+                () => {},
+                false,
+                schoolReportedSymptoms > 0 ? colors.feedbackBad : colors.primary
               )}
             </View>
             <View style={styles.gridRow}>
-              {infoBox(
-                school.groups.map((group) => group.recovered_cases).reduce((prev, curr) => prev + curr, 0),
-                i18n.t('school-networks.dashboard.recovered')
-              )}
-              {infoBox(
-                (school.size / school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0)).toFixed(0) +
-                  '%',
-                i18n.t('school-networks.dashboard.total')
-              )}
+              {infoBox(schoolRecoveredCases, i18n.t('school-networks.dashboard.recovered'))}
+              {infoBox(schoolTotalPercentage + '%', i18n.t('school-networks.dashboard.total'), undefined, true)}
             </View>
           </View>
 
           {school.groups.map((group) => {
             return (
-              <View style={styles.card}>
+              <View style={styles.card} key={group.name}>
                 <Header3Text style={styles.cardTitle}>{group.name}</Header3Text>
                 <SecondaryText style={{ marginBottom: 16 }}>
                   {i18n.t('school-networks.dashboard.updated-on') +
                     ' ' +
                     new Date(group.report_updated_at).toLocaleDateString()}
                 </SecondaryText>
+
                 <View style={styles.gridRow}>
-                  {infoBox(group.confirmed_cases, i18n.t('school-networks.dashboard.confirmed'), () => {})}
-                  {infoBox(group.cases, i18n.t('school-networks.dashboard.reported'), () => {})}
+                  {infoBox(
+                    group.confirmed_cases,
+                    i18n.t('school-networks.dashboard.confirmed'),
+                    () => {},
+                    false,
+                    group.confirmed_cases > 0 ? colors.feedbackBad : colors.primary
+                  )}
+                  {infoBox(
+                    group.daily_reported_symptoms,
+                    i18n.t('school-networks.dashboard.reported'),
+                    () => {},
+                    false,
+                    group.daily_reported_symptoms > 0 ? colors.feedbackBad : colors.primary
+                  )}
                 </View>
                 <View style={styles.gridRow}>
                   {infoBox(group.recovered_cases, i18n.t('school-networks.dashboard.recovered'))}
-                  {infoBox((group.size / group.max_size).toFixed(0) + '%', i18n.t('school-networks.dashboard.total'))}
+                  {infoBox(group.daily_reported_percentage, i18n.t('school-networks.dashboard.total'), undefined, true)}
                 </View>
               </View>
             );
           })}
 
-          <SecondaryText style={styles.disclaimer}>{i18n.t('school-networks.dashboard.disclaimer')}</SecondaryText>
+          <SecondaryText style={styles.disclaimer}>
+            <SecondaryText>{i18n.t('school-networks.dashboard.disclaimer')}</SecondaryText>
+            <SecondaryText>
+              <ClickableText onPress={() => props.navigation.navigate('SchoolIntro')}>
+                {i18n.t('school-networks.dashboard.faq')}
+              </ClickableText>
+            </SecondaryText>
+            <SecondaryText>{i18n.t('school-networks.dashboard.disclaimer2')}</SecondaryText>
+          </SecondaryText>
         </View>
       </Screen>
     </View>
@@ -144,5 +195,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     textAlign: 'center',
     marginBottom: 8,
+    fontWeight: '500',
   },
 });
