@@ -42,6 +42,14 @@
     "button": "Volver"
   },
 
+  "optional-info": {
+    "title": "Información opcional de contacto",
+    "description": "Indique su nombre y número de teléfono. Esto es opcional. Si desea compartir su información con otro estudio, esto nos permitirá identificarlo.",
+    "name-placeholder": "Su nombre",
+    "phone-placeholder": "Número de teléfono",
+    "button": "Continuar"
+  },
+
   "welcome": {
     "title": "COVID Symptom Study",
     "sign-in": "Iniciar sesión",

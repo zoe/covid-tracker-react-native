@@ -81,6 +81,11 @@ export type UpdateCountryCodeRequest = {
   country_code: SupportedCountryCodes;
 };
 
+export type PiiRequest = {
+  name: string;
+  phone_number: string;
+};
+
 export type PatientInfosRequest = {
   version: string; // Document/schema version
 
