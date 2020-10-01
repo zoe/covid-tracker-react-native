@@ -71,7 +71,7 @@ platform :android do
     end
 
     android_set_version_name(
-      version_name: @version,
+      version_name: String.try_convert(@version),
       gradle_file: "./android/app/build.gradle"
     )
 
