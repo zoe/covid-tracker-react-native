@@ -306,5 +306,4 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 }
 
 const appCoordinator = new AppCoordinator();
-
 export default appCoordinator;
