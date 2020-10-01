@@ -20,6 +20,7 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { IConsentService } from '@covid/core/consent/ConsentService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -115,25 +116,14 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <BrandedButton
-                onPress={() => this.props.navigation.navigate(appCoordinator.homeScreenName)}
+                onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
                 style={styles.ctaSingleProfile}>
                 <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
               </BrandedButton>
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() =>
-                    this.props.navigation.reset({
-                      index: 1,
-                      routes: [
-                        { name: appCoordinator.homeScreenName },
-                        {
-                          name: 'SelectProfile',
-                          params: { editing: true },
-                        },
-                      ],
-                    })
-                  }
+                  onPress={() => assessmentCoordinator.gotoSelectProfile()}
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>
