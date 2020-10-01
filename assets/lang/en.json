@@ -106,6 +106,7 @@
 
   "back-date-profile-title": "Some additional questions about you",
   "update-profile": "Update profile",
+  "create-profile": "Create",
 
   "title-about-work": "About your work",
 
@@ -187,8 +188,8 @@
 
   "your-postcode": "Your postcode?",
   "placeholder-postcode": "Postcode",
-  "required-postcode": "Please enter your postcode (first part is sufficient)",
-  "postcode-too-long": "Please correct your postcode (first part is sufficient)",
+  "required-postcode": "Please enter your postcode",
+  "postcode-too-long": "Please correct your postcode",
 
   "picker-yes": "Yes",
   "picker-no": "No",
@@ -355,6 +356,9 @@
 
     "question-knows-date-of-test": "Do you know the date of your test?",
     "question-date-test-occurred": "When was your test?",
+    "question-time-test-taken": "What time did you take the test?",
+    "question-pick-a-time": "Pick a time",
+    "question-time-test-taken-error": "Please enter the time of your appointment",
     "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
 
     "required-date": "Please indicate the date this test occurred",
@@ -429,20 +433,9 @@
   "how-you-feel": {
     "question-health-status": "How do you feel physically right now?",
     "picker-health-status-healthy": "I feel physically normal",
-    "picker-health-status-not-healthy": "I'm not feeling quite right"
-  },
-
-  "level-of-isolation": {
-    "screen-title": "Your time outside the home",
-    "screen-justification": "This information can help us understand the impact of social distancing and face masks on infection rates. These questions are completely optional.",
-    "question-little-interaction": "In the last week, how many times have you been outside your house, with little interaction with people outside your household (e.g. exercise)?",
-    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work, school)?",
-    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare setting, including for work (e.g. hospital, clinic, dentist, pharmacy)?",
-    "placeholder-frequency": "Number of times this occurred",
-    "placeholder-optional": "*Optional",
-    "required-answer": "Please indicate the number of times this occurred",
-    "correct-answer": "Please correct your answer",
-    "whole-number": "Please enter a whole number"
+    "picker-health-status-not-healthy": "I'm not feeling quite right",
+    "current-location": "You are currently reporting from:",
+    "update-location": "Update Location"
   },
 
   "where-are-you": {
@@ -595,10 +588,11 @@
   "adult-consent-title": "Adult consent",
   "child-consent-title": "Child consent",
   "adult-consent-confirm": "I confirm the above",
-  "child-consent-confirm": "I confirm that I am the child's legal guardian and that I have done the above",
+  "child-consent-confirm": "I, and my child (to the extent they are able), consent to your processing their personal data as you have described it.",
   "consent": "consent",
-  "child-consent-text-1": "If your child is old enough to understand our",
-  "child-consent-text-2": "requirements, please explain to them that you are sharing information about them with us and what we are going to do with it. If you think that your child is old enough to make their own decisions, please confirm that they have consented to your sharing their data with us.",
+  "consent-summary": "summary of what we do",
+  "child-consent-text-1": "Please explain to your child, to the extent that they are able to understand, what happens when you report their data through this app.\n\nWe need your consent, and your child’s consent if they are old enough to give it, to process all the information you enter about them. We will use it to carry out research on all aspects of COVID-19, as well as using it to follow the spread of the virus and to alert people, such as yourself, if there has been an outbreak that might affect you. For more information, please see a",
+  "child-consent-text-2": "on our website.\n\nIf you are happy to give that consent and your child, if they are capable of understanding what it means, also agrees, please indicate below.",
   "adult-consent-text-1": "Please confirm that you have shown or read our",
   "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
   "consent-create-profile": "Create profile",
@@ -622,6 +616,8 @@
   "default-profile-name": "Me",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+
+  "validation-error-text-required": "Please provide more details",
 
   "race-question": "Which of the following best describes your ethnicity?",
   "race-other-question": "Please specify your ethnicity",
@@ -888,6 +884,7 @@
 
   "edit-profile": {
     "title": "My profile",
+    "your-location": "Your location",
     "text": "",
     "archive-cta": "Archive this profile",
     "done": "Done",
@@ -895,8 +892,12 @@
 
     "location": {
       "title": "My location",
-      "label": "Your postcode (e.g. SE1)",
-      "disclaimer": "Your location is used to localise COVID-19 outbreaks and track symptoms. You can find out how we use your data in our Privacy policy"
+      "label": "Your permanent home postcode (e.g. SE1)",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and study symptoms. You can find out how we use your data in our Privacy policy",
+      "not-current-address": "Are you temporarily reporting from a different location than above?",
+      "still-in-country": "Are you still in the UK?",
+      "other-postcode": "Enter the postcode you wish to report for",
+      "select-country": "Please select which country you are now in"
     }
   },
 
@@ -975,50 +976,6 @@
     "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
   },
 
-  "lifestyle": {
-    "title": "Diet & lifestyle",
-    "explanation": "The following questions on weight, nutrition and exercise are to help us understand whether COVID may be impacting our health in these areas and how significant these effects are. These questions are all optional.",
-    "text": "Since March when COVID became prevalent:",
-    "please-select-option": "Please select an option",
-    "weight-change": {
-      "question": "How has your weight changed?",
-      "increased": "Increased",
-      "decreased": "Decreased",
-      "same": "Stayed the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "weight-difference": "By how much (an estimate is fine)?",
-    "diet-change": {
-      "question": "How was your diet changed in your opinion?",
-      "increased": "It has become healthier",
-      "decreased": "It has become more unhealthy",
-      "same": "It has stayed the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "snacking-change": {
-      "question": "How has your snacking changed?",
-      "increased": "I am snacking more",
-      "decreased": "I am snacking less",
-      "same": "My snacking levels are the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "alcohol-change": {
-      "question": "How has your alcohol consumption changed? ",
-      "no-alcohol": "I don't drink alcohol",
-      "increased": "I am drinking more alcohol",
-      "decreased": "I am drinking less alcohol",
-      "same": "My alcohol consumption is the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "activity-change": {
-      "question": "Have your physical activity levels changed?",
-      "increased": "Yes, increased",
-      "decreased": "Yes, decreased",
-      "same": "No change, has remained the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    }
-  },
-
   "diet-study": {
     "drawer-menu-item": "Diet study",
     "answer-for-feb": "Answer for month of Feb",
@@ -1029,7 +986,7 @@
     "intro": {
       "title": "COVID & Diet",
       "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\r\rCurrently we only support reporting for the profile labelled 'Me'.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'.",
       "cta-yes": "Yes, let's do it",
       "cta-no-later": "No, but ask me later",
       "cta-no-never": "Skip and don't ask me again"
@@ -1060,6 +1017,15 @@
       "sometimes-not-enough": "You sometimes did not have enough to eat",
       "often-not-enough": "You often did not have enough to eat",
       "pfnts": "Prefer not to say"
+    },
+
+    "food-availability": {
+      "label": "Which situation best describes your response to the prior question about a lack of food availability?",
+      "financial-limitations": "Financial limitations",
+      "shelter-in-place": "Shelter-in-place orders implemented in my community",
+      "shortages": "Shortages in food availability",
+      "avoidance": "Anxiety/avoidance associated with going to the grocery store",
+      "other": "Other"
     },
 
     "your-lifestyle": {
@@ -1117,7 +1083,24 @@
       "small-glass": "Small glass of fortified wine",
       "standard-glass": "Standard glass of wine",
       "large-glass": "Large glass of wine",
-      "bottle-wine": "Bottle of wine"
+      "bottle-wine": "Bottle of wine",
+      "malt-liquor": "",
+
+      "pints-volume": "570ml",
+      "shots-volume": "25ml",
+      "small-glass-volume": "100ml",
+      "standard-glass-volume": "175ml",
+      "large-glass-volume": "250ml",
+      "bottle-wine-volume": "750ml",
+      "malt-liquor-volume": "",
+
+      "pints-units": "2 units",
+      "shots-units": "1 unit",
+      "small-glass-units": "1 unit",
+      "standard-glass-units": "2 units",
+      "large-glass-units": "3 units",
+      "bottle-wine-units": "9 units",
+      "malt-liquor-units": ""
     },
 
     "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",
@@ -1335,10 +1318,10 @@
   "covid-cases-map": {
     "covid-in-x": "COVID in {{location}}",
     "current-estimates": "Current estimates",
-    "active-cases-in-area": "Active cases\rin your area",
-    "not-enough-contributors": "Not enough contributors\rin this area",
+    "active-cases-in-area": "Active cases\nin your area",
+    "not-enough-contributors": "Not enough contributors\nin this area",
     "share": "Share your map",
-    "update-postcode": "Please update your postcode to see our estimated cases in your area",
+    "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
     "update-postcode-cta": "Update postcode"
   },
 
@@ -1349,7 +1332,7 @@
     "nhsID-placeholder": "Unique Identifier",
     "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
     "text-cancel": "click here.",
-    "consent": "I consent to Covid Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
+    "consent": "I consent to the COVID Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
     "next": "Next"
   },
 
@@ -1375,5 +1358,117 @@
     "days-required": "This is required",
     "days-placeholder": "Select days",
     "cta-add": "Add test"
+  },
+
+  "school-networks": {
+    "title": "My School Bubbles",
+    "whole-school": "Whole school",
+    "awaiting-members": "Awaiting more members",
+    "no-cases": "No confirmed cases",
+    "confirmed-cases": "confirmed cases",
+    "children-being-reported-for": "Children being reported for",
+    "child-being-reported-for": "Child being reported for",
+
+    "intro": {
+      "title": "Connect your children to their School Bubble",
+      "point-1": {
+        "title": "Why connect to a School Bubble?",
+        "description": "Get real-time insights on the COVID status of your child’s bubble at school"
+      },
+      "point-2": {
+        "title": "How it works",
+        "description": "We will monitor reports within your child’s School Bubble and send you an alert in real-time if anyone in the bubble reports their child as having had a positive COVID test."
+      },
+      "point-3": {
+        "title": "What you need to do",
+        "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
+      },
+      "cta": "Connect to school network",
+      "skip": "Skip"
+    },
+
+    "how-to": {
+      "title": "How to connect to a school network",
+      "point-1": {
+        "title": "Existing profiles",
+        "description": "If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard under “My Networks”"
+      },
+      "point-2": {
+        "title": "New profiles",
+        "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
+      },
+      "cta": "View profiles now",
+      "skip": "Skip"
+    },
+
+    "join-school": {
+      "title": "Select your child’s school",
+      "description": "Select the school you would like to link this account to. More information about",
+      "description-link": "School Bubbles.",
+      "disclaimer-1": "We only list schools that are part of our pilot programme. Encourage your school's headteacher to register interest ",
+      "disclaimer-2": "here.",
+      "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
+      "remove": "Remove this school",
+      "search": {
+        "label": "Name of school",
+        "placeholder": "Search for your child's school"
+      },
+
+      "dropdown": {
+        "label": "Select your child’s school"
+      },
+
+      "cta": "Next",
+      "modal-body": "Are you sure you want to remove",
+      "button-1": "Cancel",
+      "button-2": "Remove"
+    },
+
+    "join-group": {
+      "title": "Join your child’s bubble",
+      "description": "Select your child’s bubble at %{school}",
+
+      "dropdown": {
+        "label": "Select bubble from below"
+      },
+
+      "input": {
+        "label": "Join an existing bubble",
+        "placeholder": "Find a class or bubble"
+      },
+
+      "cta": "Create a new group",
+      "next": "Next"
+    },
+
+    "success": {
+      "joined-title": "You’ve successfully joined",
+      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\n\nPlease be aware that it could take 1 to 2 weeks before this happens.",
+      "created-title": "Great! Your group has been created",
+      "school-name": "School name",
+      "group-name": "School Bubble",
+      "ref-code-is": "Your groups reference code is:",
+      "copy-code": "Copy reference",
+      "share": "Share this link",
+      "cta": "Done"
+    },
+
+    "join-error": {
+      "cta-okay": "Okay",
+      "duplicated-membership": {
+        "title": "One moment",
+        "description": "Looks like you're already part of this bubble."
+      }
+    },
+
+    "groups-list": {
+      "title": "Your child's bubbles",
+      "subtitle" : "Your child's bubbles at",
+      "text": "School bubbles your child is part of:",
+      "add-new-bubble": "\u002B Join another bubble",
+      "modal-body": "Are you sure you want to remove",
+      "button-1": "Cancel",
+      "button-2": "Remove"
+    }
   }
 }

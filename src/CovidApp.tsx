@@ -23,8 +23,6 @@ import ViralThankYouScreen from '@covid/features/thank-you/ViralThankYouScreen';
 import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
 import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
-import HowYouFeelScreen from '@covid/features/assessment/HowYouFeelScreen';
-import LevelOfIsolationScreen from '@covid/features/assessment/LevelOfIsolationScreen';
 import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScreen';
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
 import TreatmentSelectionScreen from '@covid/features/assessment/TreatmentSelectionScreen';
@@ -61,7 +59,6 @@ import TermsOfUseUSScreen from '@covid/features/register/us/TermsOfUseUSScreen';
 import i18n from '@covid/locale/i18n';
 import { EditProfileScreen } from '@covid/features/multi-profile/edit-profile/EditProfileScreen';
 import { ArchiveReasonScreen } from '@covid/features/multi-profile/ArchiveReasonScreen';
-import LifestyleScreen from '@covid/features/assessment/LifestyleScreen';
 import { VaccineRegistrySignUpScreen } from '@covid/features/assessment/gb/VaccineRegistrySignUpScreen';
 import { VaccineRegistryInfoScreen } from '@covid/features/assessment/gb/VaccineRegistryInfoScreen';
 import DietStudyAboutYouScreen from '@covid/features/diet-study/DietStudyAboutYouScreen';
@@ -78,9 +75,20 @@ import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
-
-import { DashboardScreen } from './features/dashboard/DashboardScreen';
-import { EstimatedCasesScreen } from './features/EstimatedCasesScreen';
+import { HowYouFeelScreen } from '@covid/features/assessment/HowYouFeelScreen';
+import { DashboardScreen } from '@covid/features/dashboard/DashboardScreen';
+import { EstimatedCasesScreen } from '@covid/features/EstimatedCasesScreen';
+import {
+  SchoolIntroScreen,
+  SchoolHowToScreen,
+  JoinSchoolScreen,
+  JoinSchoolGroupScreen,
+  CreateNetworkGroupScreen,
+  SchoolSuccessScreen,
+} from '@covid/features/school-network';
+import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
+// __HYGEN_INJECTED_IMPORTS_BELOW__
+// __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
@@ -234,7 +242,6 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
-        <Stack.Screen name="LevelOfIsolation" component={LevelOfIsolationScreen} options={noHeader} />
         <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
         <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
@@ -250,7 +257,6 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SelectProfile" component={SelectProfileScreen} options={noHeader} />
         <Stack.Screen name="AdultOrChild" component={AdultOrChildScreen} options={noHeader} />
         <Stack.Screen name="ProfileBackDate" component={ProfileBackDateScreen} options={noHeader} />
-        <Stack.Screen name="Lifestyle" component={LifestyleScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
         <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
@@ -267,6 +273,15 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
+        <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
+        <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
+        <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
+        <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
+        <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
+        <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
+        {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
+        {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       </Stack.Navigator>
     );
   };

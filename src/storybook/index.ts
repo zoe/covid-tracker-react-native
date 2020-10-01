@@ -23,6 +23,7 @@ configure(() => {
   require('./stories/TextInput.stories');
   require('./stories/EstimatedCasesMapCard.stories');
   require('./stories/PersonalisedDataCard.stories');
+  require('./stories/SchoolNetworks.stories');
 }, module);
 
 // Global Decorator

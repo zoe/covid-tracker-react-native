@@ -252,19 +252,6 @@
   "required-ppe-availability-sometimes": "Ange tillgängligheten av skyddsutrustning för dig",
   "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
 
-  "level-of-isolation": {
-    "screen-title": "Tid utanför hemmet",
-    "screen-justification": "Denna information kan hjälpa oss förstå hur fysisk distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga.",
-    "question-little-interaction": "Hur många gånger den senaste veckan har du lämnat din bostad (inkl. din trädgård) för att vistas utomhus med begränsad kontakt med personer du inte bor med (t.ex. för att motionera)?",
-    "question-lots-of-people": "Hur många gånger den senaste veckan har du besökt en plats där många människor vistas (t.ex. mataffär, kollektivtrafik, arbetsplats, skola)?",
-    "question-healthcare-provider": "Hur många gånger den senaste veckan har du besökt en vårdgivare, t.ex. sjukhus, vårdcentral, tandläkare, apotek, antingen som besökare eller som personal?",
-    "placeholder-frequency": "Antal tillfällen",
-    "placeholder-optional": "Valfri",
-    "required-answer": "Ange antal tillfällen",
-    "correct-answer": "Var snäll och granska ditt svar",
-    "whole-number": "Ange ett helt nummer"
-  },
-
   "covid-test": {
     "page-title": "Test för COVID-19",
     "page-title-detail-add": "Lägg till nytt test",
@@ -278,6 +265,10 @@
 
     "question-select-a-date-range": "Välj ett datumintervall",
     "question-select-a-date": "Välj ett datum",
+
+    "question-time-test-taken": "Vilken tid tog du testet?",
+    "question-time-test-taken-error": "Ange tidpunkten för ditt möte",
+    "question-pick-a-time": "Välj en tid",
 
     "question-mechanism": "Hur utfördes testet?",
     "picker-nose-swab": "En testpinne i näsan",
@@ -328,7 +319,9 @@
   "how-you-feel": {
     "question-health-status": "Hur mår du i kroppen just nu?",
     "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
-    "picker-health-status-not-healthy": "Jag känner mig inte helt kry"
+    "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
+    "current-location": "Du rapporterar just nu från:",
+    "update-location": "Uppdatera plats"
   },
 
   "describe-symptoms": {
@@ -516,6 +509,8 @@
   "adult-consent-confirm": "Jag bekräftar ovan",
   "child-consent-confirm": "Jag bekräftar att jag är barnets vårdnadshavare och att jag har gjort ovan",
   "consent": "consent",
+  "consent-summary": "sammanfattning av vad vi gör",
+
   "child-consent-text-1": "Om barnet är tillräckligt gammalt för att förstå våra",
   "child-consent-text-2": "krav ber vi dig förklara för barnet att du delar information om honom eller henne med oss och vad vi kommer att göra med den. Om du tror att barnet är tillräckligt gammalt för att fatta ett eget beslut ber vi dig bekräfta att han eller hon har gett sitt medgivande till att du delar uppgifterna med oss.",
   "adult-consent-text-1": "Bekräfta att du har visat eller läst vår",
@@ -551,10 +546,13 @@
 
   "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
 
+  "validation-error-text-required": "Vänligen ge mer information",
+
   "website-home": "https://covid.joinzoe.com/",
 
   "back-date-profile-title": "Några fler frågor om dig",
   "update-profile": "Uppdatera profilen",
+  "create-profile": "Skapa",
 
   "covid-test-list": {
     "title": "Dina covid-19-tester",
@@ -581,6 +579,25 @@
   },
 
   "back": "Tillbaka",
+
+  "edit-profile": {
+    "title": "Min profil",
+    "your-location": "Din plats",
+    "text": "",
+    "archive-cta": "",
+    "done": "Klar",
+    "next": "Nästa",
+
+    "location": {
+      "title": "Min plats",
+      "label": "Postnumret till din hemadress (t.ex. 205 02)",
+      "disclaimer": "itt postnummer används för att kartlägga hur covid-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
+      "not-current-address": "Rapporterar du från en annan plats än ovan?",
+      "still-in-country": "Befinner du dig fortfarande i Sverige?",
+      "other-postcode": "Ange det postnummer du vill rapportera från",
+      "select-country": "Välj det land du befinner dig i just nu"
+    }
+  },
 
   "face-mask": {
     "worn-a-mask-question": "Har du under den senaste veckan använt ett munskydd när du har lämnat ditt hem?",
@@ -632,50 +649,6 @@
     "question-use-cgm": "Använder du en kontinuerlig glukosmonitor (CGM)?"
   },
 
-  "lifestyle": {
-    "title": "Kost & livsstil",
-    "explanation": "Följande frågor om vikt, kost och fysisk aktivitet ska hjälpa oss att förstå om covid-19 eventuellt påverkar din hälsa inom dessa områden och hur betydande dessa effekter är. Det är helt frivilligt att svara på frågorna.",
-    "text": "Sedan mars månad när covid-19 blev allmänt förekommande i samhället:",
-    "please-select-option": "Välj ett alternativ",
-    "weight-change": {
-      "question": "Hur har din vikt förändrats?",
-      "increased": "Ökat",
-      "decreased": "Minskat",
-      "same": "Oförändrad",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "weight-difference": "Med hur mycket (en uppskattning räcker)?",
-    "diet-change": {
-      "question": "Hur tycker du att din kost har förändrats?",
-      "increased": "Den har blivit hälsosammare",
-      "decreased": "Den har blivit ohälsosammare",
-      "same": "Den är oförändrad",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "snacking-change": {
-      "question": "Hur har ditt småätande förändrats?",
-      "increased": "Jag småäter mer (snacks)",
-      "decreased": "Jag småäter mindre (snacks)",
-      "same": "Jag småäter lika mycket som innan",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "alcohol-change": {
-      "question": "Hur har din alkoholkonsumtion förändrats?",
-      "increased": "Jag dricker mer alkohol",
-      "decreased": "Jag dricker mindre alkohol",
-      "no-alcohol": "Jag dricker inte alkohol",
-      "same": "Min alkoholkonsumtion är oförändrad",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    },
-    "activity-change": {
-      "question": "Har dina nivåer av fysisk aktivitet förändrats?",
-      "increased": "Ja, ökat",
-      "decreased": "Ja, minskat",
-      "same": "Ingen förändring, oförändrade",
-      "unsure-pfnts": "Osäker / Föredrar att inte berätta"
-    }
-  },
-
   "diet-study": {
     "drawer-menu-item": "",
     "answer-for-feb": "",
@@ -716,6 +689,15 @@
       "sometimes-not-enough": "",
       "often-not-enough": "",
       "pfnts": ""
+    },
+
+    "food-availability": {
+      "label": "",
+      "financial-limitations": "",
+      "shelter-in-place": "",
+      "shortages": "",
+      "avoidance": "",
+      "other": ""
     },
 
     "your-lifestyle": {
@@ -773,7 +755,24 @@
       "small-glass": "",
       "standard-glass": "",
       "large-glass": "",
-      "bottle-wine": ""
+      "bottle-wine": "",
+      "malt-liquor": "",
+
+      "pints-volume": "",
+      "shots-volume": "",
+      "small-glass-volume": "",
+      "standard-glass-volume": "",
+      "large-glass-volume": "",
+      "bottle-wine-volume": "",
+      "malt-liquor-volume": "",
+
+      "pints-units": "",
+      "shots-units": "",
+      "small-glass-units": "",
+      "standard-glass-units": "",
+      "large-glass-units": "3",
+      "bottle-wine-units": "",
+      "malt-liquor-units": ""
     },
 
     "takes-supplements-label": "",
@@ -944,39 +943,6 @@
       "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
       "pfnts": "Föredrar att inte berätta"
     }
-  },
-
-  "dashboard": {
-    "report-now": "Rapportera nu",
-    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
-    "contributors-so-far": "Bidragsgivare hittills:"
-  },
-
-  "estimated-cases-card": {
-    "covid-in-the-uk": "",
-    "estimated-cases": "Casos estimados",
-    "daily": "Nuevos casos diarios",
-    "active": "Casos activos",
-    "cta": "Más detalles"
-  },
-
-  "tab-navigator": {
-    "first-tab": "Dashboard",
-    "second-tab": "Senaste nytt"
-  },
-
-  "latest-news": {
-    "title": "Senaste nytt"
-  },
-
-  "covid-cases-map": {
-    "covid-in-x": "COVID på {{location}}",
-    "current-estimates": "Aktuella uppskattningar",
-    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
-    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\rpå detta område",
-    "share": "Dela din karta",
-    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
-    "update-postcode-cta": "Uppdatera postnumret"
   },
 
   "__IGNORE__": {
@@ -1280,20 +1246,6 @@
       "cta-multi-profile": false
     },
 
-    "edit-profile": {
-      "title": false,
-      "text": false,
-      "archive-cta": false,
-      "done": false,
-      "next": false,
-
-      "location": {
-        "title": false,
-        "label": false,
-        "disclaimer": false
-      }
-    },
-
     "archive-confirmation": {
       "title": false,
       "text": false,
@@ -1406,10 +1358,119 @@
   "covid-cases-map": {
     "covid-in-x": "COVID på {{location}}",
     "current-estimates": "Aktuella uppskattningar",
-    "active-cases-in-area": "Aktiva ärenden\ri ditt område",
-    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\rpå detta område",
+    "active-cases-in-area": "Aktiva ärenden\ni ditt område",
+    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\npå detta område",
     "share": "Dela din karta",
     "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
     "update-postcode-cta": "Uppdatera postnumret"
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+    "child-being-reported-for": "",
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "description": "",
+      "description-link": "",
+      "disclaimer-1": "",
+      "disclaimer-2": "",
+      "disclaimer-3": "",
+      "remove": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": ""
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
+    },
+
+    "groups-list": {
+      "title": "",
+      "subtitle": "",
+      "text": "",
+      "add-new-bubble": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": ""
+    }
   }
 }

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
@@ -12,10 +13,18 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3 } from '@assets';
+import { shareAppV3, schoolNetworkFeature, infographicFacts } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
+import { useAppDispatch } from '@covid/core/state/store';
+import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import { RootState } from '@covid/core/state/root';
+import { Optional } from '@covid/utils/types';
+import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
+import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -26,7 +35,14 @@ interface Props {
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
+const ShowSchoolModuleFeature = false;
+
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const dispatch = useAppDispatch();
+  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
+    (state) => state.school.joinedSchoolNetworks
+  );
+
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
     expanded: HEADER_EXPANDED_HEIGHT,
@@ -45,12 +61,62 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     share(shareMessage);
   };
 
+  const schoolNetworkFlow = () => schoolNetworkCoordinator.goToSchoolIntro();
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      dispatch(updateTodayDate());
+      dispatch(fetchSubscribedSchoolGroups());
+    });
+  }, [navigation]);
+
+  const hasNetworkData = networks && networks.length > 0;
+
   return (
     <CollapsibleHeaderScrollView
       config={headerConfig}
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      {isGBCountry() && (
+        <View style={styles.calloutContainer}>
+          <ExternalCallout
+            link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
+            calloutID="infographic_facts"
+            imageSource={infographicFacts}
+            aspectRatio={1.229}
+            screenName={route.name}
+          />
+        </View>
+      )}
+
+      {hasNetworkData && (
+        <View
+          style={{
+            marginHorizontal: 32,
+            marginBottom: 16,
+          }}>
+          <SchoolNetworks schoolGroups={networks!} />
+        </View>
+      )}
+
+      {ShowSchoolModuleFeature && (
+        <View style={styles.calloutContainer}>
+          <ExternalCallout
+            calloutID="schoolNetworkModule"
+            imageSource={schoolNetworkFeature}
+            aspectRatio={311 / 253}
+            screenName={route.name}
+            postClicked={schoolNetworkFlow}
+            canDismiss
+          />
+        </View>
+      )}
+
+      {isGBCountry() && <EstimatedCasesMapCard />}
+
+      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
+
       <View style={styles.calloutContainer}>
         <ExternalCallout
           calloutID="sharev3"
@@ -60,10 +126,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           postClicked={onShare}
         />
       </View>
-
-      {isGBCountry() && <EstimatedCasesMapCard />}
-
-      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
 
       <View style={styles.zoe}>
         <PoweredByZoeSmall />

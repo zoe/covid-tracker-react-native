@@ -35,7 +35,6 @@ export type AssessmentInfosRequest = {
   delirium: boolean; //defaults to False
   skipped_meals: boolean; //defaults to False
   location: string; //'home', 'hospital', 'back_from_hospital', can be null
-  level_of_isolation: string; //'not_left_the_house', 'rarely_left_the_house', 'often_left_the_house'
   treatment: string; //	I left this as a free text field, because there is the option to add 'other treatment'.
 
   interacted_any_patients: boolean;
@@ -44,12 +43,6 @@ export type AssessmentInfosRequest = {
   always_used_shortage: string;
   sometimes_used_shortage: string;
   never_used_shortage: string;
-  // Allowed values should be defined app side.
-  // Can be null
-
-  isolation_little_interaction: number;
-  isolation_lots_of_people: number;
-  isolation_healthcare_provider: number;
 
   worn_face_mask: string;
   mask_cloth_or_scarf: boolean;
@@ -57,4 +50,7 @@ export type AssessmentInfosRequest = {
   mask_n95_ffp: boolean;
   mask_not_sure_pfnts: boolean;
   mask_other: string;
+
+  current_postcode: string;
+  current_country_code: string;
 };

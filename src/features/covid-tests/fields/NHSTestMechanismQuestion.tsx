@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
-import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { CovidTestMechanismOptions } from '@covid/core/user/dto/UserAPIContracts';
 import YesNoField from '@covid/components/YesNoField';
@@ -25,7 +24,7 @@ interface Props {
 export interface NHSTestMechanismQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<LifestyleRequest>;
+  createDTO: (data: Data) => Partial<CovidTest>;
 }
 
 export const NHSTestMechanismQuestion: NHSTestMechanismQuestion<Props, NHSTestMechanismData> = (props: Props) => {
@@ -131,5 +130,5 @@ NHSTestMechanismQuestion.createDTO = (formData: NHSTestMechanismData): Partial<C
     mechanism: formData.mechanism,
     ...(formData.storedInFridge === 'yes' && { days_in_fridge: cleanIntegerVal(formData.daysInFridge) }),
     ...(formData.storedInFridge === 'no' && { days_in_fridge: null }),
-  } as Partial<CovidTest>;
+  };
 };

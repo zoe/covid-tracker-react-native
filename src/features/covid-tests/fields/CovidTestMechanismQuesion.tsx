@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 
 import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
-import { LifestyleRequest } from '@covid/core/assessment/dto/LifestyleRequest';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { fingerPrick, noseSwab, otherTest, spit, syringe } from '@assets';
@@ -24,7 +23,7 @@ interface Props {
 export interface CovidTestMechanismQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<LifestyleRequest>;
+  createDTO: (data: Data) => Partial<CovidTest>;
 }
 
 export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, CovidTestMechanismData> = (props: Props) => {
@@ -138,5 +137,5 @@ CovidTestMechanismQuestion.createDTO = (formData: CovidTestMechanismData): Parti
     ...(formData.mechanism === 'other' && { mechanism: formData.mechanismSpecify }),
     ...(formData.mechanism !== 'other' && { mechanism: formData.mechanism }),
     ...(formData.mechanism === 'nose_throat_swab' && { trained_worker: formData.trainedWorker }),
-  } as Partial<CovidTest>;
+  };
 };

@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog009, dataPage003, timUpdate005, notificationReminders } from '@assets';
+import { dataPage003, timUpdate012, notificationReminders, blog012 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -77,18 +77,18 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/grant?utm_source=App"
-                calloutID="blog_009"
-                imageSource={blog009}
+                link="https://covid.joinzoe.com/post/incidence-update-sept-25?utm_source=App"
+                calloutID="blog_012"
+                imageSource={blog012}
                 aspectRatio={1.552}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://youtu.be/f9yYES3WxZE"
-                calloutID="tim_update_005"
-                imageSource={timUpdate005}
-                aspectRatio={1.178}
+                link="https://youtu.be/bzyK4MNqwus"
+                calloutID="tim_update_012"
+                imageSource={timUpdate012}
+                aspectRatio={1.099}
                 screenName={this.props.route.name}
               />
 
@@ -125,7 +125,13 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                   onPress={() =>
                     this.props.navigation.reset({
                       index: 1,
-                      routes: [{ name: appCoordinator.homeScreenName }, { name: 'SelectProfile' }],
+                      routes: [
+                        { name: appCoordinator.homeScreenName },
+                        {
+                          name: 'SelectProfile',
+                          params: { editing: true },
+                        },
+                      ],
                     })
                   }
                   style={styles.ctaMultipleProfileText}>

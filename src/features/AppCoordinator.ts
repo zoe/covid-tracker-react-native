@@ -1,7 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { ConfigType } from '@covid/core/Config';
-import { PatientStateType } from '@covid/core/patient/PatientState';
 import { IUserService } from '@covid/core/user/UserService';
 import {
   isGBCountry,
@@ -25,8 +24,11 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import store from '@covid/core/state/store';
+import { fetchDismissedCallouts, fetchStartUpInfo, fetchUKMetrics } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
+import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -35,7 +37,7 @@ type ScreenFlow = {
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-export class AppCoordinator {
+export class AppCoordinator extends Coordinator implements SelectProfile {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -55,8 +57,7 @@ export class AppCoordinator {
   dietStudyService: IDietStudyRemoteClient;
 
   navigation: NavigationType;
-  patientId: string | null = null;
-  currentPatient: PatientStateType;
+  patientData: PatientData;
 
   homeScreenName: ScreenName = 'WelcomeRepeat';
 
@@ -64,13 +65,13 @@ export class AppCoordinator {
 
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
-      if (this.patientId && this.shouldShowCountryPicker) {
+      if (this.patientData && this.shouldShowCountryPicker) {
         NavigatorService.replace('CountrySelect', {
           onComplete: () => {
             NavigatorService.replace(this.homeScreenName);
           },
         });
-      } else if (this.patientId) {
+      } else if (this.patientData) {
         NavigatorService.replace(this.homeScreenName);
       } else {
         NavigatorService.replace('Welcome');
@@ -89,29 +90,29 @@ export class AppCoordinator {
 
       if (askPersonalInfo) {
         NavigatorService.replace('OptionalInfo');
-      } else if (this.patientId) {
-        this.startPatientFlow(this.currentPatient);
+      } else if (this.patientData) {
+        this.startPatientFlow(this.patientData);
       } else {
         console.error('[ROUTE] Missing patientId parameter for gotoNextPage(Register)');
       }
     },
     OptionalInfo: () => {
-      this.startPatientFlow(this.currentPatient);
+      this.startPatientFlow(this.patientData);
     },
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
-        NavigatorService.navigate('SelectProfile');
+        NavigatorService.navigate('SelectProfile', { editing: true });
       } else {
-        this.startAssessmentFlow(this.currentPatient);
+        this.startAssessmentFlow(this.patientData);
       }
     },
     Dashboard: () => {
       // UK only so currently no need to check config.enableMultiplePatients
-      NavigatorService.navigate('SelectProfile');
+      NavigatorService.navigate('SelectProfile', { editing: true });
     },
     ArchiveReason: () => {
-      NavigatorService.navigate('SelectProfile');
+      NavigatorService.navigate('SelectProfile', { editing: true });
     },
     ValidationStudyIntro: () => {
       NavigatorService.navigate('ValidationStudyInfo');
@@ -130,70 +131,65 @@ export class AppCoordinator {
   };
 
   async init() {
-    let shouldShowCountryPicker = false;
-    let profile: UserResponse | null = null;
+    let user: UserResponse | null = null;
+    let patientId: string | null = null;
 
     await this.userService.loadUser();
-    const info = await this.contentService.getStartupInfo();
 
     if (this.userService.hasUser) {
-      const profile = await this.userService.getProfile();
-      this.patientId = profile?.patients[0] ?? null;
+      user = await this.userService.getUser();
+      patientId = user?.patients[0] ?? null;
     }
 
-    if (this.patientId && profile) {
-      this.currentPatient = await this.patientService.getPatientState(this.patientId);
-      shouldShowCountryPicker = profile!.country_code !== LocalisationService.userCountry;
+    if (patientId && user) {
+      this.patientData = await this.patientService.getPatientDataById(patientId);
+      this.shouldShowCountryPicker = user!.country_code !== LocalisationService.userCountry;
     }
 
-    // Set main route depending on API / Country
-    this.homeScreenName = info?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+    await this.fetchInitialData();
+    this.setHomeScreenName();
 
     // Track insights
-    if (shouldShowCountryPicker) {
+    if (this.shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }
+  }
+
+  async fetchInitialData(): Promise<void> {
+    await store.dispatch(fetchStartUpInfo());
+    await store.dispatch(fetchDismissedCallouts());
+    if (isGBCountry()) {
+      await store.dispatch(fetchUKMetrics());
+    }
+  }
+
+  setHomeScreenName(): void {
+    this.homeScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
     return this.localisationService.getConfig();
   }
 
-  async getCurrentPatient(patientId: string): Promise<PatientStateType> {
-    return await this.patientService.getCurrentPatient(patientId);
-  }
-
-  getWelcomeRepeatScreenName(): keyof ScreenParamList {
-    return 'WelcomeRepeat';
-  }
-
   resetToProfileStartAssessment() {
-    NavigatorService.navigate('SelectProfile');
-    this.startAssessmentFlow(this.currentPatient);
+    NavigatorService.navigate('SelectProfile', { editing: true });
+    this.startAssessmentFlow(this.patientData);
   }
 
-  startPatientFlow(currentPatient: PatientStateType) {
-    const patientData: PatientData = {
-      patientId: currentPatient.patientId,
-      patientState: currentPatient,
-      patientInfo: undefined,
-      profile: undefined,
-    };
-
+  startPatientFlow(patientData: PatientData) {
     patientCoordinator.init(this, patientData, this.userService);
     patientCoordinator.startPatient();
   }
 
-  startAssessmentFlow(currentPatient: PatientStateType) {
-    assessmentCoordinator.init(this, { currentPatient }, this.userService, assessmentService);
+  async startAssessmentFlow(patientData: PatientData) {
+    assessmentCoordinator.init(this, { patientData }, this.userService, assessmentService);
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyFlow(currentPatient: PatientStateType, startedFromMenu: boolean, timePeriod: string = LAST_4_WEEKS) {
+  startDietStudyFlow(patientData: PatientData, startedFromMenu: boolean, timePeriod: string = LAST_4_WEEKS) {
     dietStudyCoordinator.init(
       this,
-      { currentPatient, timePeriod, startedFromMenu },
+      { patientData, timePeriod, startedFromMenu },
       this.userService,
       this.dietStudyService
     );
@@ -201,16 +197,15 @@ export class AppCoordinator {
   }
 
   async startEditProfile(profile: Profile) {
-    await this.setPatientId(profile.id);
-    const patientData = await this.buildPatientData(profile);
-    editProfileCoordinator.init(this, patientData, this.userService);
+    await this.setPatientByProfile(profile);
+
+    editProfileCoordinator.init(this, this.patientData, this.userService);
     editProfileCoordinator.startEditProfile();
   }
 
-  async startEditLocation(profile: Profile) {
-    await this.setPatientId(profile.id);
-    const patientData = await this.buildPatientData(profile);
-    editProfileCoordinator.init(this, patientData, this.userService);
+  async startEditLocation(profile: Profile, patientData?: PatientData) {
+    if (!patientData) await this.setPatientByProfile(profile);
+    editProfileCoordinator.init(this, patientData ?? this.patientData, this.userService);
     editProfileCoordinator.goToEditLocation();
   }
 
@@ -224,27 +219,36 @@ export class AppCoordinator {
   };
 
   async profileSelected(profile: Profile) {
-    await this.setPatientId(profile.id);
-    if (isGBCountry() && !this.currentPatient.isReportedByAnother) {
+    await this.setPatientByProfile(profile);
+    if (isGBCountry() && !this.patientData.patientState.isReportedByAnother) {
       if (await this.consentService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(this.currentPatient, false);
+        this.startDietStudyFlow(this.patientData, false);
       } else {
-        this.startAssessmentFlow(this.currentPatient);
+        this.startAssessmentFlow(this.patientData);
+      }
+    } else if (isUSCountry() && !this.patientData.patientState.isReportedByAnother) {
+      if (await this.shouldShowDietStudyInvite()) {
+        this.startDietStudyFlow(this.patientData, false);
+      } else {
+        this.startAssessmentFlow(this.patientData);
       }
     } else {
-      this.startAssessmentFlow(this.currentPatient);
+      this.startAssessmentFlow(this.patientData);
     }
   }
 
-  async setPatientId(patientId: string) {
-    this.patientId = patientId;
-    this.currentPatient = await this.patientService.getPatientState(this.patientId!);
+  async setPatientById(patientId: string) {
+    this.patientData = await this.patientService.getPatientDataById(patientId);
+  }
+
+  async setPatientByProfile(profile: Profile) {
+    this.patientData = await this.patientService.getPatientDataByProfile(profile);
   }
 
   goToDietStart() {
-    this.startDietStudyFlow(this.currentPatient, true);
+    this.startDietStudyFlow(this.patientData, true);
   }
 
   goToUKValidationStudy() {
@@ -286,28 +290,18 @@ export class AppCoordinator {
   }
 
   goToVaccineRegistry() {
-    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.currentPatient });
+    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.patientData.patientState });
   }
 
   vaccineRegistryResponse(response: boolean) {
     this.consentService.setVaccineRegistryResponse(response);
     if (response) {
       Analytics.track(events.JOIN_VACCINE_REGISTER);
-      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.currentPatient });
+      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.patientData.patientState });
     } else {
       Analytics.track(events.DECLINE_VACCINE_REGISTER);
       NavigatorService.goBack();
     }
-  }
-
-  private async buildPatientData(profile: Profile): Promise<PatientData> {
-    const patientInfo = await this.patientService.getPatient(profile.id);
-    return {
-      patientId: profile.id,
-      patientState: this.currentPatient,
-      patientInfo: patientInfo!,
-      profile,
-    };
   }
 }
 

@@ -19,7 +19,7 @@ import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Profile } from '@covid/components/Collections/ProfileList';
 
-import PatientHeader, { CallOutType } from './PatientHeader';
+import PatientHeader, { CallOutType, NavHeader } from './PatientHeader';
 import { RegularText } from './Text';
 
 export const screenWidth = Math.round(Dimensions.get('window').width) - 32;
@@ -58,11 +58,12 @@ export const FieldWrapper = (props: FieldWrapperType) => {
 export type ScreenProps = {
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
-  navigation?: StackNavigationProp<ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
   profile?: Profile;
   simpleCallout?: boolean;
   calloutType?: CallOutType;
   calloutTitle?: string;
+  showBackButton?: boolean;
 };
 
 export default class Screen extends Component<ScreenProps> {
@@ -72,9 +73,9 @@ export default class Screen extends Component<ScreenProps> {
   render() {
     const profile = this.props.profile;
 
-    return (
-      <SafeAreaView style={[styles.screen, this.props.style]}>
-        {profile && this.props.navigation ? (
+    const header = () => {
+      if (profile && this.props.navigation) {
+        return (
           <PatientHeader
             profile={profile}
             navigation={this.props.navigation}
@@ -82,12 +83,23 @@ export default class Screen extends Component<ScreenProps> {
             type={this.props.calloutType}
             calloutTitle={this.props.calloutTitle}
           />
-        ) : (
-          <View style={styles.statusBarBlock} />
-        )}
+        );
+      } else if (this.props.navigation && this.props.showBackButton) {
+        return <NavHeader navigation={this.props.navigation} />;
+      } else {
+        return <View style={styles.statusBarBlock} />;
+      }
+    };
 
+    return (
+      <SafeAreaView style={[styles.screen, this.props.style]}>
+        {header()}
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView>
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+            }}>
             <View style={styles.pageBlock}>{this.props.children}</View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -116,8 +128,9 @@ const styles = StyleSheet.create({
   },
 
   pageBlock: {
+    flexGrow: 1,
     marginHorizontal: 16,
-    marginBottom: 40,
+    marginBottom: 16,
   },
 
   headerBlock: {

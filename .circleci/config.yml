@@ -28,6 +28,7 @@ orbs:
   node: circleci/node@2.0.1
   slack: circleci/slack@3.2.0
   jq: circleci/jq@2.0.1
+  coveralls: coveralls/coveralls@1.0.6
 
 executors:
   node:
@@ -102,7 +103,9 @@ jobs:
       - run: npm run prettier
       - run: echo "API_URL=" > .env
       - run: echo "AMPLITUDE_KEY=" >> .env
-      - run: npm test -- --maxWorkers=2 --ci
+      - run: npm run test:coverage -- --ci
+      - coveralls/upload
+
   deploy:
     executor: node
     working_directory: ~/covid-react
@@ -130,6 +133,7 @@ workflows:
           filters: *stage_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to stage
+          context: slack-ci-covid-mobile
           requires:
             - build_and_test
           filters: *stage_filter
@@ -160,6 +164,7 @@ workflows:
           filters: *master_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to production
+          context: slack-ci-covid-mobile
           requires:
             - build_and_test
           filters: *master_filter
@@ -180,6 +185,7 @@ workflows:
           filters: *legacy_ota_filter
       - slack/approval-notification:
           message: Awaiting manual approval to deploy to OTA 0.9-prod, 0.12-prd and 0.13-prod
+          context: slack-ci-covid-mobile
           requires:
             - build_and_test
           filters: *legacy_ota_filter

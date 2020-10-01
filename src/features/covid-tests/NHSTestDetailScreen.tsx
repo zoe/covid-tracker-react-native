@@ -21,15 +21,15 @@ import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
 import { NHSTestDateData, NHSTestDateQuestion } from '@covid/features/covid-tests/fields/NHSTestDateQuestion';
 import {
-  NHSTestMechanismData,
-  NHSTestMechanismQuestion,
-} from '@covid/features/covid-tests/fields/NHSTestMechanismQuestion';
-import {
+  CovidTestTimeQuestion,
+  ICovidTestTimeData,
   CovidTestResultData,
   CovidTestResultQuestion,
-} from '@covid/features/covid-tests/fields/CovidTestResultQuestion';
+  NHSTestMechanismData,
+  NHSTestMechanismQuestion,
+} from '@covid/features/covid-tests/fields/';
 
-export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData {}
+export interface NHSTestData extends NHSTestDateData, NHSTestMechanismData, CovidTestResultData, ICovidTestTimeData {}
 
 type CovidProps = {
   navigation: StackNavigationProp<ScreenParamList, 'NHSTestDetail'>;
@@ -97,10 +97,11 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
       }
 
       const infos = {
-        patient: AssessmentCoordinator.assessmentData.currentPatient.patientId,
+        patient: AssessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.NHSStudy,
         invited_to_test: false,
         ...NHSTestDateQuestion.createDTO(formData),
+        ...CovidTestTimeQuestion.createDTO(formData),
         ...NHSTestMechanismQuestion.createDTO(formData),
         ...CovidTestResultQuestion.createDTO(formData),
       } as Partial<CovidTest>;
@@ -137,12 +138,13 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
   }
 
   render() {
-    const { currentPatient } = AssessmentCoordinator.assessmentData;
+    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
     const { test } = this.props.route.params;
 
     const registerSchema = Yup.object()
       .shape({})
       .concat(NHSTestDateQuestion.schema())
+      .concat(CovidTestTimeQuestion.schema())
       .concat(NHSTestMechanismQuestion.schema())
       .concat(CovidTestResultQuestion.schema());
 
@@ -161,6 +163,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
         <Formik
           initialValues={{
             ...NHSTestDateQuestion.initialFormValues(test),
+            ...CovidTestTimeQuestion.initialFormValues(test),
             ...NHSTestMechanismQuestion.initialFormValues(test),
             ...CovidTestResultQuestion.initialFormValues(test),
           }}
@@ -172,6 +175,7 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
             return (
               <Form>
                 <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
+                <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
                 <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
                 <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
 

@@ -69,11 +69,14 @@ export class RegisterScreen extends Component<PropsType, State> {
       this.userService
         .register(formData.email, formData.password)
         .then(async (response) => {
-          const isTester = response.data.user.is_tester;
+          const isTester = response.user.is_tester;
           Analytics.identify({ isTester });
           Analytics.track(events.SIGNUP);
-          const patientId = response.data.user.patients[0];
-          await appCoordinator.setPatientId(patientId);
+          const patientId = response.user.patients[0];
+          await appCoordinator
+            .setPatientById(patientId)
+            .then(() => appCoordinator.fetchInitialData())
+            .then(() => appCoordinator.setHomeScreenName());
           appCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err: AxiosError) => {
