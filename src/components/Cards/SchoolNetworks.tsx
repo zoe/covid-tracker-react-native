@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { Header0Text, Header3Text, RegularText, RegularBoldText } from '@covid/components/Text';
+import { Header0Text, Header3Text, RegularText, RegularBoldText, HeaderText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ArrayDistinctBy } from '@covid/utils/array';
@@ -102,9 +102,11 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <View key={group.id}>
         {!isLastItem && <View style={styles.lineStyle} />}
         <View style={styles.groupView}>
-          <Header3Text style={styles.schoolTitle}>{group.name}</Header3Text>
-          <RegularBoldText>{group.size}</RegularBoldText>
-          <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
+          <Header3Text style={styles.groupTitle}>{group.name}</Header3Text>
+          <RegularText>
+            <RegularBoldText>{group.size + ' '}</RegularBoldText>
+            <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
+          </RegularText>
           <View style={{ flexDirection: 'row', alignItems: 'center' }} />
         </View>
       </View>
@@ -121,9 +123,12 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
             onPress={() => {
               schoolNetworkCoordinator.goToSchoolDashboard(school);
             }}>
-            <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
-            <RegularBoldText>{school.size}</RegularBoldText>
-            <RegularText>Children being reported for</RegularText>
+            <RegularText style={styles.schoolTitle}>{school.name}</RegularText>
+            <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
+            <RegularText>
+              <RegularBoldText>{school.size + ' '}</RegularBoldText>
+              <RegularText>Children being reported for</RegularText>
+            </RegularText>
             {ArrayDistinctBy(school.groups, (group) => {
               return group.id;
             }).map((group, index) => {
@@ -170,9 +175,16 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   schoolTitle: {
-    fontWeight: '500',
-    fontSize: 14,
-    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 18,
+    color: colors.textDark,
+    marginVertical: 16,
+  },
+  groupTitle: {
+    fontWeight: '400',
+    fontSize: 16,
+    color: colors.textDark,
+    marginVertical: 8,
   },
   headerText: {
     fontSize: 20,
