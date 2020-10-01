@@ -100,7 +100,7 @@ export type ScreenParamList = {
   CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
-  SchoolDashboard: { school: SubscribedSchoolStats}
+  SchoolDashboard: { school: SubscribedSchoolStats };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
