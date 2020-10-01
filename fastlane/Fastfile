@@ -76,7 +76,7 @@ platform :android do
     )
 
     android_set_version_code(
-      version_code: 1,
+      version_code: @build_number.to_i,
       gradle_file: "./android/app/build.gradle"
     )
 
