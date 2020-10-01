@@ -181,7 +181,7 @@ platform :ios do
 
     case options[:env]
     when 'stage'
-      # appcenter
+      appcenter
     when 'prod'
       # Upload to app store
     end
