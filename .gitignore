@@ -83,6 +83,7 @@ node_modules
 # Test generated files
 /ReactAndroid/src/androidTest/assets/AndroidTestBundle.js
 *.js.meta
+junit.xml
 
 /coverage
 /third-party
