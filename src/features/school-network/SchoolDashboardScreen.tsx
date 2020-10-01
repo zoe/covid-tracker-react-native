@@ -90,14 +90,14 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
               {infoBox(
                 schoolConfirmedCases,
                 i18n.t('school-networks.dashboard.confirmed'),
-                () => {},
+                undefined,
                 false,
                 schoolConfirmedCases > 0 ? colors.feedbackBad : colors.primary
               )}
               {infoBox(
                 schoolReportedSymptoms,
                 i18n.t('school-networks.dashboard.reported'),
-                () => {},
+                undefined,
                 false,
                 schoolReportedSymptoms > 0 ? colors.feedbackBad : colors.primary
               )}
@@ -122,14 +122,14 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                   {infoBox(
                     group.confirmed_cases,
                     i18n.t('school-networks.dashboard.confirmed'),
-                    () => {},
+                    undefined,
                     false,
                     group.confirmed_cases > 0 ? colors.feedbackBad : colors.primary
                   )}
                   {infoBox(
                     group.daily_reported_symptoms,
                     i18n.t('school-networks.dashboard.reported'),
-                    () => {},
+                    undefined,
                     false,
                     group.daily_reported_symptoms > 0 ? colors.feedbackBad : colors.primary
                   )}
