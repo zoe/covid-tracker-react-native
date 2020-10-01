@@ -22,12 +22,6 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
   private readonly localisationService: ILocalisationService;
 
   screenFlow: Partial<ScreenFlow> = {
-    NHSIntro: () => {
-      NavigatorService.navigate('NHSDetails', { editing: false });
-    },
-    NHSDetails: () => {
-      NavigatorService.navigate('YourWork', { patientData: this.patientData });
-    },
     YourWork: () => {
       NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
     },
@@ -49,11 +43,7 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
   };
 
   startPatient = () => {
-    if (this.patientData.patientState.isNHSStudy) {
-      NavigatorService.navigate('NHSIntro', { editing: false });
-    } else {
-      NavigatorService.navigate('YourWork', { patientData: this.patientData });
-    }
+    NavigatorService.navigate('YourWork', { patientData: this.patientData });
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {

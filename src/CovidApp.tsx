@@ -42,6 +42,7 @@ import YourHealthScreen from '@covid/features/patient/YourHealthScreen';
 import YourStudyScreen from '@covid/features/patient/YourStudyScreen';
 import YourWorkScreen from '@covid/features/patient/YourWorkScreen';
 import ConsentScreen from '@covid/features/register/ConsentScreen/ConsentScreen';
+import { OptionalInfoScreen } from '@covid/features/register/OptionalInfoScreen';
 import { RegisterScreen } from '@covid/features/register/RegisterScreen';
 import Welcome1Screen from '@covid/features/register/Welcome1Screen';
 import Welcome2Screen from '@covid/features/register/Welcome2Screen';
@@ -228,6 +229,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={noHeader} />
         <Stack.Screen name="ResetPasswordConfirm" component={ResetPasswordConfirmScreen} options={noHeader} />
         <Stack.Screen name="Register" component={RegisterScreen} options={noHeader} />
+        <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} options={noHeader} />
         <Stack.Screen name="YourStudy" component={YourStudyScreen} options={noHeader} />
         <Stack.Screen name="YourWork" component={YourWorkScreen} options={noHeader} />
         <Stack.Screen name="YourHealth" component={YourHealthScreen} options={noHeader} />

@@ -6,6 +6,7 @@ import DefaultConfig from './config/default.json';
 export type ConfigType = {
   country: string;
   enableMultiplePatients: boolean;
+  enablePersonalInformation: boolean;
   enableCohorts: boolean;
 
   showEthnicityQuestion: boolean;

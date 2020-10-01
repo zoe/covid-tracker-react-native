@@ -33,6 +33,7 @@ export type ScreenParamList = {
   Register: undefined;
   Login: { terms: string };
   CountrySelect: { onComplete?: VoidFunction };
+  OptionalInfo: undefined;
 
   // Profile screens
   ReportForOther: undefined;
