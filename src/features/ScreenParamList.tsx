@@ -102,5 +102,6 @@ export type ScreenParamList = {
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
+  Trendline: { lad?: string };
   // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
 };

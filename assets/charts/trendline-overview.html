@@ -23,38 +23,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
   <script>
     const sql = new cartodb.SQL({ user: 'joinzoe', api_key: 'N6sTD5Jriyd5fxO8Y19Dzw' });
+    const primaryColor = '#0165B5'
     var ctx = document.getElementById('overTime');
 
-    sql.execute("SELECT * FROM uk_active_cases")
-      .done(function (data) {
-        var corrected_covid_positive = [];
-        var covid_dates = [];
-        $.each(data.rows, function (key, value) {
-          corrected_covid_positive.push(Math.round(value.corrected_covid_positive));
-          covid_dates.push(moment(value.date).format("D MMM"));
-        });
-        var myChart = new Chart(ctx, {
+    window.timeWidow = 'WEEK'
+
+    const setupChart = function(labels, data) { 
+      var myChart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: covid_dates,
+            labels: labels,
             datasets: [{
               label: 'Predicted # of cases',
-              data: corrected_covid_positive,
+              data: data,
               borderWidth: 2,
-              borderColor: "#6ac5d1",
-              pointBorderColor: "#6ac5d1",
-              pointBackgroundColor: "#6ac5d1",
-              pointHoverBackgroundColor: "#6ac5d1",
-              pointHoverBorderColor: "#6ac5d1",
-              pointBorderWidth: 6,
-              pointHoverRadius: 6,
+              borderColor: primaryColor,
+              pointBorderColor: primaryColor,
+              pointBackgroundColor: primaryColor,
+              pointHoverBackgroundColor: primaryColor,
+              pointHoverBorderColor: primaryColor,
+              pointBorderWidth: 2,
+              pointHoverRadius: 2,
               pointHoverBorderWidth: 1,
               pointRadius: 0.1,
-              fill: true,
-              backgroundColor: "rgba(106, 197, 209, 0.4)"
+              fill: false,
             }]
           },
           options: {
+            maintainAspectRatio: false,
             legend: {
               display: false
             },
@@ -69,6 +65,9 @@
               yAxes: [{
                 ticks: {
                   beginAtZero: true,
+                  max: 250000,
+                  min: 0,
+                  stepSize: 250000 / 5,
                   callback: function (value, index, values) {
                     return value.toLocaleString();
                   }
@@ -81,7 +80,7 @@
                 ticks: {
                   beginAtZero: true,
                   autoSkip: true,
-                  maxTicksLimit: 10
+                  maxTicksLimit: 6
                 },
                 gridLines: {
                   color: "rgba(0, 0, 0, 0.05)",
@@ -93,6 +92,20 @@
             }
           }
         });
+    }
+    sql.execute("SELECT * FROM uk_active_cases")
+      .done(function (data) {
+        var corrected_covid_positive = [];
+        var covid_dates = [];
+        $.each(data.rows, function (key, value) {
+          corrected_covid_positive.push(Math.round(value.corrected_covid_positive));
+          covid_dates.push(moment(value.date).format("D MMM"));
+        });
+
+        console.log(covid_dates)
+        console.log(covid_dates)
+
+        setupChart(covid_dates, corrected_covid_positive)
       })
       .error(function (errors) {
         console.log("errors:" + errors);

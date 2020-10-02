@@ -275,6 +275,10 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
     NavigatorService.navigate('CreateProfile', { avatarName });
   }
 
+  goToTrendline(lad?: string) {
+    NavigatorService.navigate('Trendline', { lad });
+  }
+
   async shouldShowDietStudyInvite(): Promise<boolean> {
     // Check local storage for a cached answer
     const consent = await AsyncStorageService.getDietStudyConsent();

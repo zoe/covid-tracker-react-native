@@ -6,7 +6,11 @@ import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
-import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEstimatedCaseCard';
+
+import {
+  UKEstimatedCaseCard,
+  TrendlineCard
+} from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -56,6 +60,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     openWebLink('https://covid.joinzoe.com/data');
   };
 
+  const onExploreTrendline = async () => {
+    appCoordinator.goToTrendline();
+  };
+
   const onShare = () => {
     const shareMessage = i18n.t('share-this-app.message');
     share(shareMessage);
@@ -78,6 +86,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+
+      {isGBCountry() && <TrendlineCard lad="" ctaOnPress={onExploreTrendline} />}
+
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
           <ExternalCallout

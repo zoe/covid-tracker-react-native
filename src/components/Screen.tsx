@@ -64,6 +64,7 @@ export type ScreenProps = {
   calloutType?: CallOutType;
   calloutTitle?: string;
   showBackButton?: boolean;
+  scrollEnabled?: boolean;
 };
 
 export default class Screen extends Component<ScreenProps> {
@@ -99,7 +100,8 @@ export default class Screen extends Component<ScreenProps> {
             contentContainerStyle={{
               flexGrow: 1,
               justifyContent: 'space-between',
-            }}>
+            }}
+            scrollEnabled={this.props.scrollEnabled ?? true}>
             <View style={styles.pageBlock}>{this.props.children}</View>
           </ScrollView>
         </KeyboardAvoidingView>
