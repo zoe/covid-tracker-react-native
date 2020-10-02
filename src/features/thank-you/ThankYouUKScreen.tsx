@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { dataPage003, timUpdate012, notificationReminders, blog012 } from '@assets';
+import { dataPage003, timUpdate012, notificationReminders, blog013 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -18,7 +18,6 @@ import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
@@ -78,16 +77,16 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/incidence-update-sept-25?utm_source=App"
-                calloutID="blog_012"
-                imageSource={blog012}
+                link="https://covid.joinzoe.com/post/covid-cases-flattening?utm_source=App"
+                calloutID="blog_013"
+                imageSource={blog013}
                 aspectRatio={1.552}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://youtu.be/bzyK4MNqwus"
-                calloutID="tim_update_012"
+                link="https://www.youtube.com/watch?v=3nZfDpNozn0"
+                calloutID="tim_update_013"
                 imageSource={timUpdate012}
                 aspectRatio={1.099}
                 screenName={this.props.route.name}
