@@ -111,8 +111,9 @@ export class AssessmentCoordinator extends Coordinator {
 
   // The following navigations require the checking of some state and so these are passed in.
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
-    const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
-    NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
+    NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData });
+    // const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
+    // NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
   };
 
   goToNextHowYouFeelScreen = (healthy: boolean) => {
