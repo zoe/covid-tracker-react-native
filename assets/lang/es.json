@@ -1447,6 +1447,21 @@
       "modal-body": "",
       "button-1": "",
       "button-2": ""
+    },
+
+    "dashboard": {
+      "title": "",
+      "at-the-school": "",
+      "updated-on": "",
+      "students-with": "",
+      "confirmed": "",
+      "reported": "",
+      "recovered": "",
+      "total": "",
+      "more-details": "",
+      "faq": "",
+      "disclaimer": "",
+      "disclaimer2": ""
     }
   }
 }
