@@ -8,9 +8,8 @@ import { colors } from '@theme';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, RegularText, Header3Text, SecondaryText, ClickableText } from '@covid/components/Text';
-import { Coordinator } from '@covid/core/Coordinator';
 import i18n from '@covid/locale/i18n';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { LocalisationService } from '@covid/core/localisation/LocalisationService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolDashboard'>;
@@ -48,6 +47,8 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
     );
   };
 
+  console.log(LocalisationService.getLocale());
+
   const schoolConfirmedCases = school.groups
     .map((group) => group.confirmed_cases)
     .reduce((prev, curr) => prev + curr, 0);
@@ -57,10 +58,9 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
   const schoolRecoveredCases = school.groups
     .map((group) => group.recovered_cases)
     .reduce((prev, curr) => prev + curr, 0);
-  const schoolTotalPercentage = (
+  const schoolTotalPercentage =
     school.groups.map((g) => g.daily_assessments).reduce((prev, curr) => prev + curr, 0) /
-    school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0)
-  ).toFixed(0);
+    school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0);
 
   return (
     <View style={styles.container}>
@@ -84,7 +84,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                     .reduce((prev, curr) => {
                       return prev > curr ? prev : curr;
                     })
-                ).toLocaleDateString()}
+                ).toLocaleDateString(LocalisationService.getLocale())}
             </SecondaryText>
             <View style={styles.gridRow}>
               {infoBox(
@@ -104,7 +104,12 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
             </View>
             <View style={styles.gridRow}>
               {infoBox(schoolRecoveredCases, i18n.t('school-networks.dashboard.recovered'))}
-              {infoBox(schoolTotalPercentage + '%', i18n.t('school-networks.dashboard.total'), undefined, true)}
+              {infoBox(
+                (isFinite(schoolTotalPercentage) ? schoolTotalPercentage.toFixed(0) : '0') + '%',
+                i18n.t('school-networks.dashboard.total'),
+                undefined,
+                true
+              )}
             </View>
           </View>
 
@@ -115,7 +120,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                 <SecondaryText style={{ marginBottom: 16 }}>
                   {i18n.t('school-networks.dashboard.updated-on') +
                     ' ' +
-                    new Date(group.report_updated_at).toLocaleDateString()}
+                    new Date(group.report_updated_at).toLocaleDateString(LocalisationService.getLocale())}
                 </SecondaryText>
 
                 <View style={styles.gridRow}>
