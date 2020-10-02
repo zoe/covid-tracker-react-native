@@ -23,7 +23,7 @@ interface DropdownFieldProps {
   selectedValue?: any;
   onValueChange: any;
   label?: string;
-  items?: PickerItemProps[];
+  items: PickerItemProps[];
   pickerProps?: PickerProps;
   androidDefaultLabel?: string;
   error?: any;
@@ -85,6 +85,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
   // Update internal string items on props items change
   useEffect(() => {
     setOptions(prepareItems(providedItems));
+    setSelectedLabel(getSelectedLabel(defaultItems, selectedValue).label);
   }, [providedItems]);
 
   const onSelect = (id: any, label: any) => {

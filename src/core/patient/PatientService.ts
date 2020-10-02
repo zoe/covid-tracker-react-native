@@ -15,14 +15,11 @@ import { PatientStateType, getInitialPatientState } from '@covid/core/patient/Pa
 import { container } from '@covid/provider/services';
 import { PatientData } from '@covid/core/patient/PatientData';
 
-const FREQUENCY_TO_ASK_ISOLATION_QUESTION = 7;
-
 export interface IPatientService {
   myPatientProfile(): Promise<Profile | null>;
   listProfiles(): Promise<Profile[] | null>;
   createPatient(infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
   updatePatientInfo(patientId: string, infos: Partial<PatientInfosRequest>): Promise<PatientInfosRequest>;
-  shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean;
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   getPatientDataById(patientId: string): Promise<PatientData>;
   getPatientDataByProfile(profile: Profile): Promise<PatientData>;
@@ -169,7 +166,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       !!patient.ht_other;
 
     const hasVitaminAnswer = !!patient.vs_asked_at;
-    const shouldAskLevelOfIsolation = this.shouldAskLevelOfIsolation(patient.last_asked_level_of_isolation);
 
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
@@ -198,7 +194,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
-      shouldAskLevelOfIsolation,
       shouldAskExtendedDiabetes,
       shouldAskStudy,
       hasAtopyAnswers,
@@ -209,11 +204,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasBloodGroupAnswer,
       isNHSStudy,
     };
-  }
-
-  public shouldAskLevelOfIsolation(dateLastAsked: Date | null): boolean {
-    if (!dateLastAsked) return true;
-    return getDaysAgo(dateLastAsked) >= FREQUENCY_TO_ASK_ISOLATION_QUESTION;
   }
 
   public setUSStudyInviteResponse(patientId: string, response: boolean) {

@@ -34,8 +34,4 @@ export abstract class Coordinator {
       console.error('[ROUTE] no next route found for:', screenName);
     }
   };
-
-  resetToHome() {
-    NavigatorService.reset([{ name: appCoordinator.homeScreenName }], 0);
-  }
 }
