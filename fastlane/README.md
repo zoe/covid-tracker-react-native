@@ -15,49 +15,12 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
-### get_version_no
-```
-fastlane get_version_no
-```
-
-### release_notes
-```
-fastlane release_notes
-```
-
-
-----
-
-## Android
-### android release
-```
-fastlane android release
-```
-Build Android app
-### android appcenter
-```
-fastlane android appcenter
-```
-
-
-----
-
 ## iOS
-### ios certificates
-```
-fastlane ios certificates
-```
-
 ### ios release
 ```
 fastlane ios release
 ```
-Build
-### ios appcenter
-```
-fastlane ios appcenter
-```
-
+iOS Build
 
 ----
 

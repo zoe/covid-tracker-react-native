@@ -28,7 +28,7 @@
     "reset": "watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install",
     "postinstall": "cd ios && pod install",
     "fastlane": "ENVFILE=.env bundle exec fastlane",
-    "fastlane:ios:stage": "yarn fastlane ios release env:stage",
+    "fastlane:ios:stage": "yarn fastlane ios release env:stage appcenter:true",
     "fastlane:ios:prod": "yarn fastlane ios release env:prod",
     "fastlane:android:stage": "yarn fastlane android release env:stage",
     "fastlane:android:prod": "yarn fastlane android release env:prod"
