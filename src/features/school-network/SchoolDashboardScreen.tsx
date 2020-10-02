@@ -3,13 +3,13 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
+import moment from 'moment';
 
 import { colors } from '@theme';
 import Screen, { Header } from '@covid/components/Screen';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { HeaderText, RegularText, Header3Text, SecondaryText, ClickableText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { LocalisationService } from '@covid/core/localisation/LocalisationService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'SchoolDashboard'>;
@@ -67,15 +67,6 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
       })
   );
 
-  const dateTimeFormat = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    hour12: true,
-    hour: 'numeric',
-    minute: 'numeric',
-  };
-
   return (
     <View style={styles.container}>
       <Screen showBackButton navigation={props.navigation} style={styles.container}>
@@ -90,9 +81,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
           <View style={styles.card}>
             <Header3Text style={styles.cardTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</Header3Text>
             <SecondaryText style={{ marginBottom: 16 }}>
-              {i18n.t('school-networks.dashboard.updated-on') +
-                ' ' +
-                schoolUpdatedAt.toLocaleString(LocalisationService.getLocale(), dateTimeFormat)}
+              {i18n.t('school-networks.dashboard.updated-on') + ' ' + moment(schoolUpdatedAt).format('MMM D, LT')}
             </SecondaryText>
             <View style={styles.gridRow}>
               {infoBox(
@@ -128,7 +117,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                 <SecondaryText style={{ marginBottom: 16 }}>
                   {i18n.t('school-networks.dashboard.updated-on') +
                     ' ' +
-                    new Date(group.report_updated_at).toLocaleString(LocalisationService.getLocale(), dateTimeFormat)}
+                    moment(group.report_updated_at).format('MMM D, LT')}
                 </SecondaryText>
 
                 <View style={styles.gridRow}>
