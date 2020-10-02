@@ -81,7 +81,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
           <View style={styles.card}>
             <Header3Text style={styles.cardTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</Header3Text>
             <SecondaryText style={{ marginBottom: 16 }}>
-              {i18n.t('school-networks.dashboard.updated-on') + ' ' + moment(schoolUpdatedAt).format('MMM D, HH:mm')}
+              {i18n.t('school-networks.dashboard.updated-on') + ' ' + moment(schoolUpdatedAt).format('MMM D, LT')}
             </SecondaryText>
             <View style={styles.gridRow}>
               {infoBox(
@@ -117,7 +117,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                 <SecondaryText style={{ marginBottom: 16 }}>
                   {i18n.t('school-networks.dashboard.updated-on') +
                     ' ' +
-                    moment(group.report_updated_at).format('MMM D, HH:mm')}
+                    moment(group.report_updated_at).format('MMM D, LT')}
                 </SecondaryText>
 
                 <View style={styles.gridRow}>
