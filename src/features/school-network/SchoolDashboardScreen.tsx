@@ -47,8 +47,6 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
     );
   };
 
-  console.log(LocalisationService.getLocale());
-
   const schoolConfirmedCases = school.groups
     .map((group) => group.confirmed_cases)
     .reduce((prev, curr) => prev + curr, 0);
@@ -61,6 +59,22 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
   const schoolTotalPercentage =
     school.groups.map((g) => g.daily_assessments).reduce((prev, curr) => prev + curr, 0) /
     school.groups.map((g) => g.max_size).reduce((prev, curr) => prev + curr, 0);
+  const schoolUpdatedAt = new Date(
+    school.groups
+      .map((group) => group.report_updated_at)
+      .reduce((prev, curr) => {
+        return prev > curr ? prev : curr;
+      })
+  );
+
+  const dateTimeFormat = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour12: true,
+    hour: 'numeric',
+    minute: 'numeric',
+  };
 
   return (
     <View style={styles.container}>
@@ -78,13 +92,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
             <SecondaryText style={{ marginBottom: 16 }}>
               {i18n.t('school-networks.dashboard.updated-on') +
                 ' ' +
-                new Date(
-                  school.groups
-                    .map((group) => group.report_updated_at)
-                    .reduce((prev, curr) => {
-                      return prev > curr ? prev : curr;
-                    })
-                ).toLocaleDateString(LocalisationService.getLocale())}
+                schoolUpdatedAt.toLocaleString(LocalisationService.getLocale(), dateTimeFormat)}
             </SecondaryText>
             <View style={styles.gridRow}>
               {infoBox(
@@ -120,7 +128,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
                 <SecondaryText style={{ marginBottom: 16 }}>
                   {i18n.t('school-networks.dashboard.updated-on') +
                     ' ' +
-                    new Date(group.report_updated_at).toLocaleDateString(LocalisationService.getLocale())}
+                    new Date(group.report_updated_at).toLocaleString(LocalisationService.getLocale(), dateTimeFormat)}
                 </SecondaryText>
 
                 <View style={styles.gridRow}>
