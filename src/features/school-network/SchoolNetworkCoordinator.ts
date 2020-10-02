@@ -1,4 +1,4 @@
-import { AppCoordinator } from '@covid/features/AppCoordinator';
+import appCoordinator, { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { ScreenFlow, Coordinator, SelectProfile } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
@@ -70,6 +70,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
 
   goToCreateSchoolGroup() {
     NavigatorService.navigate('CreateNetworkGroup');
+  }
+
+  resetToHome() {
+    NavigatorService.reset([{ name: appCoordinator.homeScreenName }], 0);
   }
 
   goToJoinGroup() {
