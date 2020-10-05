@@ -39,7 +39,7 @@
 		0072139D332B47EF8F51BDF4 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		053721BE31D64BB2A6DD1112 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* covid-zoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "covid-zoe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* covid-zoe Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "covid-zoe Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../Covid/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../Covid/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Covid/Images.xcassets; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* covid-zoe.app */,
+				13B07F961A680F5B00A75B9A /* covid-zoe Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 			);
 			name = Covid;
 			productName = Covid;
-			productReference = 13B07F961A680F5B00A75B9A /* covid-zoe.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* covid-zoe Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -421,9 +421,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
-				PRODUCT_NAME = "covid-zoe";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
+				PRODUCT_NAME = "covid-zoe Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -634,7 +634,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9052741875672222FCC0D1EC /* Pods-Covid.stage.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon.beta;
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Covid/covid-zoe.entitlements";
@@ -651,9 +651,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -747,9 +747,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe Beta";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.joinzoe.covid-zoe.qa";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -832,7 +832,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joinzoe.covid-zoe.qa";
 				PRODUCT_NAME = "covid-zoe Beta";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

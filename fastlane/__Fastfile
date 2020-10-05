@@ -42,7 +42,11 @@ platform :ios do
       workspace: "./ios/Covid.xcworkspace",
       scheme: 'Beta',
       clean: true,
+<<<<<<< HEAD
       configuration: 'Beta.Release',
+=======
+      configuration: 'Beta.Debug',
+>>>>>>> 8d1ac5d190b8d28f220cf5ac54e29fcad7c1ce4a
       output_directory: "./build",
       output_name: "covid-zoe Beta.ipa",
       codesigning_identity: "Apple Distribution: Zoe Global Limited (2B2W2896D7)",

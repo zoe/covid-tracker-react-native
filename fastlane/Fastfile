@@ -116,10 +116,6 @@ platform :ios do
   @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
 
   before_all do
-    # if ENV['CI_MODE'] == 'true'
-    #   # Setup tmp keychain on ci machine for ios certs
-    #   build_tmp_keychain
-    # end
     setup_circle_ci
   end
 
@@ -161,11 +157,9 @@ platform :ios do
       app_identifier: @ios_app_id,
       git_branch: "master",
       readonly: true,
-      verbose: true,
       keychain_name: @keychain_name,
-      # keychain_password: keychain_password
     )
-
+    
     gym(
       # clean: true,
       configuration: @build_configuration,
@@ -189,17 +183,17 @@ platform :ios do
 
   lane :appcenter do
     appcenter_upload(
-        app_name: @ac_project_name,
-        api_token: @ac_token,
-        destinations: @ac_notify_group,
-        destination_type: @ac_destination_type,
-        owner_name: "Joinzoe",
-        owner_type: "organization",
-        ipa: String.try_convert(SharedValues::IPA_OUTPUT_PATH),
-        dsym: String.try_convert(SharedValues::DSYM_OUTPUT_PATH),
-        release_notes: String.try_convert(git_branch),
-        notify_testers: true
-      )
+      app_name: @ac_project_name,
+      api_token: @ac_token,
+      destinations: @ac_notify_group,
+      destination_type: @ac_destination_type,
+      owner_name: "Joinzoe",
+      owner_type: "organization",
+      ipa: String.try_convert(SharedValues::IPA_OUTPUT_PATH),
+      dsym: String.try_convert(SharedValues::DSYM_OUTPUT_PATH),
+      release_notes: String.try_convert(git_branch),
+      notify_testers: true
+    )
   end
 
   after_all do |lane|
