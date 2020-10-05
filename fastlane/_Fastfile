@@ -197,6 +197,7 @@ platform :ios do
         destinations: 'zoe-adhoc',
         destination_type: 'group',
         owner_name: "Joinzoe",
+        owner_type: "organization",
         ipa: 'build/covid-zoe Beta.ipa',
         notify_testers: true
       )
