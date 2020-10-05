@@ -1,0 +1,76 @@
+fastlane_version "2.160.0"
+
+platform :ios do
+  desc "iOS Build"
+  lane :release do |options|
+
+    project = Xcodeproj::Project.open("../ios/Covid.xcodeproj")
+    project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['CODE_SIGN_STYLE'] = "Manual"
+      end
+    end
+    project.save
+
+    @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
+    puts @changeLog
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+       path: "./ios/Covid.xcodeproj",
+    )
+
+    if options[:adhoc]
+      adhoc = true
+    else 
+      adhoc = false
+    end
+
+    sigh(
+      app_identifier: 'com.joinzoe.covid-zoe',
+      output_path: './build/profiles',
+      # provisioning_name: profile_name,
+      readonly: true,
+      # ignore_profiles_with_different_name: true,
+      adhoc: true
+    )
+
+    parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
+    profile_name = parsed["Name"];
+
+    gym(
+      workspace: "./ios/Covid.xcworkspace",
+      scheme: 'Beta',
+      clean: true,
+      configuration: 'Beta.Debug',
+      output_directory: "./build",
+      output_name: "covid-zoe Beta.ipa",
+      codesigning_identity: "Apple Distribution: Zoe Global Limited (2B2W2896D7)",
+      xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile_name}'",
+      include_bitcode: false,
+      verbose: true   
+    )
+
+    appcenter_upload(
+      api_token: '8e2f9cc07b1eea4590c8ec002769cc5914f9d1bb',
+      app_name: 'CovidSymptomTrackerIosBeta2',
+      destinations: 'delete-group',
+      destination_type: 'group',
+      ipa: 'build/covid-zoe Beta.ipa',
+      notify_testers: true,
+      owner_name: 'Joinzoe',
+    )
+
+  end
+
+end
+
+after_all do
+  build_info = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
+  build_type = lane_context[SharedValues::LANE_NAME]
+  new_build_message = "A new `#{build_type}` build has been uploaded!"
+end
+
+error do |lane, exception|
+
+end

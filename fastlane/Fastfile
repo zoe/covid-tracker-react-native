@@ -1,76 +1,212 @@
 fastlane_version "2.160.0"
 
-platform :ios do
-  desc "iOS Build"
+@keychain_name = "fastlane_tmp_keychain-db"
+
+# iOS
+@ios_app_id = ENV['iOS_APP_ID']
+@ios_scheme = ENV['iOS_SCHEME']
+
+# AppCenter configs
+@ac_token = ENV['APPCENTER_API_TOKEN']
+@ac_project_name = ENV['APPCENTER_PROJECT_NAME']
+@ac_notify_group = ENV['APPCENTER_NOTIFY_GROUP']
+@ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
+
+@slack_url = ENV['SLACK_WEB_HOOK']
+
+default_platform(:ios)
+
+lane :get_version_no do
+  @build_number = ENV['BUILD_BUILDNUMBER'] || "1"
+
+  @package_version = `node -e "console.log(require('../package.json').version);"`.strip!
+
+  if @build_number == "1"
+    @environment = "local"
+  else
+    @environment = ENV['NAME']  
+  end
+
+  #Only update the build number if its not already been updated
+  if @build_number.include? "."
+    @version = ENV['BUILD_BUILDNUMBER']
+  else
+    @version = "#{@package_version}.#{@build_number}-#{@environment}"
+  end
+  
+  puts "Build Number is #{@build_number}"
+  puts "Environment is #{@environment}"
+  puts "Version is #{@version}"
+end
+
+lane :release_notes do
+  @change_log = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
+end
+
+# lane :release_notes do |options|
+#   @change_log = conventional_changelog(format: 'markdown', title: options[:title])
+# end
+
+platform :android do
+
+  @ac_notify_group = "Android"
+  @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
+
+  before_all do
+  end
+
+  desc "Build Android app"
   lane :release do |options|
 
-    project = Xcodeproj::Project.open("../ios/Covid.xcodeproj")
-    project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['CODE_SIGN_STYLE'] = "Manual"
-      end
-    end
-    project.save
+    @export_method = nil
+    @build_configuration = 'Release'
 
-    @changeLog = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
-    puts @changeLog
-
-    update_code_signing_settings(
-      use_automatic_signing: false,
-       path: "./ios/Covid.xcodeproj",
-    )
-
-    if options[:adhoc]
-      adhoc = true
-    else 
-      adhoc = false
+    case options[:env]
+    when 'stage'
+      @export_method = 'ad-hoc'
+      @build_configuration = 'Release'
+      @ac_destination_type ='group'
+    when 'prod'
+      puts 'implement android release'
     end
 
-    sigh(
-      app_identifier: 'com.joinzoe.covid-zoe',
-      output_path: './build/profiles',
-      # provisioning_name: profile_name,
-      readonly: true,
-      # ignore_profiles_with_different_name: true,
-      adhoc: true
+    android_set_version_name(
+      version_name: String.try_convert(@version),
+      gradle_file: "./android/app/build.gradle"
     )
 
-    parsed = FastlaneCore::ProvisioningProfile.parse(lane_context[SharedValues::SIGH_PROFILE_PATH])
-    profile_name = parsed["Name"];
-
-    gym(
-      workspace: "./ios/Covid.xcworkspace",
-      scheme: 'Beta',
-      clean: true,
-      configuration: 'Beta.Debug',
-      output_directory: "./build",
-      output_name: "covid-zoe Beta.ipa",
-      codesigning_identity: "Apple Distribution: Zoe Global Limited (2B2W2896D7)",
-      xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile_name}'",
-      include_bitcode: false,
-      verbose: true   
+    android_set_version_code(
+      version_code: @build_number.to_i,
+      gradle_file: "./android/app/build.gradle"
     )
 
+    gradle(
+      task: "assemble",
+      build_type: @build_configuration,
+      project_dir: "./android"
+    )
+
+    case options[:env]
+    when 'stage'
+      # appcenter
+    when 'prod'
+    end
+  end
+
+  lane :appcenter do
     appcenter_upload(
-      api_token: '8e2f9cc07b1eea4590c8ec002769cc5914f9d1bb',
-      app_name: 'CovidSymptomTrackerIosBeta2',
-      destinations: 'delete-group',
-      destination_type: 'group',
-      ipa: 'build/covid-zoe Beta.ipa',
-      notify_testers: true,
-      owner_name: 'Joinzoe',
-    )
-
+        app_name: @ac_project_name,
+        api_token: @ac_token,
+        destinations: @ac_notify_group,
+        destination_type: @ac_destination_type,
+        owner_name: "Joinzoe",
+        owner_type: "organization",
+        file: "android/app/build/outputs/apk/release/app-release.apk",
+        release_notes: String.try_convert(git_branch),
+        notify_testers: true
+      )
   end
 
 end
 
-after_all do
-  build_info = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
-  build_type = lane_context[SharedValues::LANE_NAME]
-  new_build_message = "A new `#{build_type}` build has been uploaded!"
-end
+platform :ios do
 
-error do |lane, exception|
+  app_identifier = @ios_app_id
+  @ac_notify_group = "iOS"
+  @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
 
+  before_all do
+    setup_circle_ci
+  end
+
+  lane :certificates do
+    match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"], readonly: true)
+  end
+
+  desc "Build"
+  lane :release do |options|
+
+    @match_mode = @ac_destination_type
+    @export_method = nil
+    @build_configuration = 'Release'
+
+    get_version_no
+
+    increment_build_number(
+      xcodeproj: "./ios/Covid.xcodeproj",
+      build_number: "#{@build_number}"
+    )
+
+    # release_notes
+
+    case options[:env]
+    when 'stage'
+      # analyze_commits(match: '*')
+      @match_mode = 'adhoc'
+      @export_method = 'ad-hoc'
+      @build_configuration = 'Stage'
+      @ac_destination_type ='group'
+    when 'prod'
+      puts 'implement ios release'
+    end
+    
+    puts @change_log
+
+    match(
+      type: @match_mode,
+      app_identifier: @ios_app_id,
+      git_branch: "master",
+      readonly: true,
+      keychain_name: @keychain_name,
+    )
+    
+    gym(
+      # clean: true,
+      configuration: @build_configuration,
+      export_method: @export_method,
+      scheme: @ios_scheme,
+      output_directory: "./build",
+      workspace: "./ios/Covid.xcworkspace"
+    )
+
+    slack_payload = {
+      'Build Date' => Time.new.to_s,
+    }
+
+    case options[:env]
+    when 'stage'
+      appcenter
+    when 'prod'
+      # Upload to app store
+    end
+  end
+
+  lane :appcenter do
+    appcenter_upload(
+      app_name: @ac_project_name,
+      api_token: @ac_token,
+      destinations: @ac_notify_group,
+      destination_type: @ac_destination_type,
+      owner_name: "Joinzoe",
+      owner_type: "organization",
+      ipa: String.try_convert(SharedValues::IPA_OUTPUT_PATH),
+      dsym: String.try_convert(SharedValues::DSYM_OUTPUT_PATH),
+      release_notes: String.try_convert(git_branch),
+      notify_testers: true
+    )
+  end
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
 end
