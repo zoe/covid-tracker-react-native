@@ -97,7 +97,7 @@ platform :android do
     appcenter_upload(
         app_name: @ac_project_name,
         # api_token: @ac_token,
-        api_token: '8e2f9cc07b1eea4590c8ec002769cc5914f9d1bb',
+        api_token: @ac_token,
         destinations: @ac_notify_group,
         destination_type: @ac_destination_type,
         owner_name: "Joinzoe",
