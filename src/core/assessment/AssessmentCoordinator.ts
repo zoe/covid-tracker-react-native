@@ -43,7 +43,14 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
-      NavigatorService.goBack();
+      if (this.assessmentData.patientData.patientState.hasSchoolGroup) {
+        NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.goBack();
+      }
+    },
+    CovidTestConfirm: () => {
+      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     NHSTestDetail: () => {
       NavigatorService.goBack();
@@ -111,9 +118,8 @@ export class AssessmentCoordinator extends Coordinator {
 
   // The following navigations require the checking of some state and so these are passed in.
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
-    NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData });
-    // const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
-    // NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
+    const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
+    NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
   };
 
   goToNextHowYouFeelScreen = (healthy: boolean) => {

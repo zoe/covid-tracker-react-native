@@ -16,6 +16,7 @@ import Screen, { Header } from '@covid/components/Screen';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import { ListItem } from 'native-base';
 import NavigatorService from '@covid/NavigatorService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestConfirm'>;
@@ -36,7 +37,7 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
       return;
     }
     //await consentService.setConsentSigned('US', appConfig.consentVersionUS, appConfig.privacyPolicyVersionUS); //TODO
-    NavigatorService.goBack();
+    assessmentCoordinator.gotoNextScreen(props.route.name);
   };
 
   return (

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { Header0Text, Header3Text, RegularText, RegularBoldText } from '@covid/components/Text';
+import { Header0Text, Header3Text, RegularText, RegularBoldText, HeaderText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ArrayDistinctBy } from '@covid/utils/array';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 type Props = {
   schoolGroups: SubscribedSchoolGroupStats[];
@@ -101,9 +102,11 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <View key={group.id}>
         {!isLastItem && <View style={styles.lineStyle} />}
         <View style={styles.groupView}>
-          <Header3Text style={styles.schoolTitle}>{group.name}</Header3Text>
-          <RegularBoldText>{group.size}</RegularBoldText>
-          <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
+          <Header3Text style={styles.groupTitle}>{group.name}</Header3Text>
+          <RegularText>
+            <RegularBoldText>{group.size + ' '}</RegularBoldText>
+            <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
+          </RegularText>
           <View style={{ flexDirection: 'row', alignItems: 'center' }} />
         </View>
       </View>
@@ -115,17 +118,24 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')}</Header0Text>
       {data.map((school, index) => {
         return (
-          <View key={school.id}>
-            <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
-            <RegularBoldText>{school.size}</RegularBoldText>
-            <RegularText>Children being reported for</RegularText>
+          <TouchableOpacity
+            key={school.id}
+            onPress={() => {
+              schoolNetworkCoordinator.goToSchoolDashboard(school);
+            }}>
+            <RegularText style={styles.schoolTitle}>{school.name}</RegularText>
+            <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
+            <RegularText>
+              <RegularBoldText>{school.size + ' '}</RegularBoldText>
+              <RegularText>Children being reported for</RegularText>
+            </RegularText>
             {ArrayDistinctBy(school.groups, (group) => {
               return group.id;
             }).map((group, index) => {
               const last = index !== data.length - 1;
               return casesView(group, last);
             })}
-          </View>
+          </TouchableOpacity>
         );
       })}
     </View>
@@ -165,9 +175,16 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   schoolTitle: {
-    fontWeight: '500',
-    fontSize: 14,
-    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 18,
+    color: colors.textDark,
+    marginVertical: 16,
+  },
+  groupTitle: {
+    fontWeight: '400',
+    fontSize: 16,
+    color: colors.textDark,
+    marginVertical: 8,
   },
   headerText: {
     fontSize: 20,
