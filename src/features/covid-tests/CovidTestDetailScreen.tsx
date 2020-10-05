@@ -31,6 +31,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
+import NavigatorService from '@covid/NavigatorService';
 
 export interface CovidTestData
   extends CovidTestDateData,
@@ -74,7 +75,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       this.covidTestService
         .updateTest(test.id, infos)
         .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+          NavigatorService.goBack();
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -84,7 +85,14 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       this.covidTestService
         .addTest(infos)
         .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+          if (
+            infos.result === 'positive' &&
+            this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+          ) {
+            AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+          } else {
+            NavigatorService.goBack();
+          }
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });

@@ -43,11 +43,7 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     CovidTestDetail: () => {
-      if (this.assessmentData.patientData.patientState.hasSchoolGroup) {
-        NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.goBack();
-      }
+      NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData });
     },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
