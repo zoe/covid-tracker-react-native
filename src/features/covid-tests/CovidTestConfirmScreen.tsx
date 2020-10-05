@@ -1,21 +1,15 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ListItem } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appConfig from '@covid/appConfig';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 import Screen, { Header } from '@covid/components/Screen';
 import { CheckboxItem } from '@covid/components/Checkbox';
-import { ListItem } from 'native-base';
-import NavigatorService from '@covid/NavigatorService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type PropsType = {
@@ -26,8 +20,6 @@ type PropsType = {
 export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
   const [agreed, setAgreed] = useState(false);
 
-  const consentService = useInjection<IConsentService>(Services.Consent);
-
   const handleConsentClick = (checked: boolean) => {
     setAgreed(checked);
   };
@@ -36,7 +28,6 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
     if (!agreed) {
       return;
     }
-    //await consentService.setConsentSigned('US', appConfig.consentVersionUS, appConfig.privacyPolicyVersionUS); //TODO
     assessmentCoordinator.gotoNextScreen(props.route.name);
   };
 
