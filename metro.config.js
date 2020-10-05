@@ -7,6 +7,7 @@ module.exports = (async () => {
   return {
     transformer: {
       babelTransformerPath: require.resolve('./asset-transformer.js'),
+      assetPlugins: ['expo-asset/tools/hashAssetFiles'],
     },
     resolver: {
       assetExts: assetExts.filter((ext) => ext !== 'svg'),
