@@ -8,14 +8,7 @@ exports[`Button should match snapshot 1`] = `
   onGestureHandlerStateChange={[Function]}
   onHandlerStateChange={[Function]}
   rippleColor={0}
-  style={
-    Array [
-      Object {
-        "overflow": "hidden",
-      },
-      undefined,
-    ]
-  }
+  testID="buttonTestID"
 >
   <View
     accessible={true}
@@ -24,7 +17,6 @@ exports[`Button should match snapshot 1`] = `
         "opacity": 1,
       }
     }
-    testID="buttonTestID"
   >
     <View
       style={
