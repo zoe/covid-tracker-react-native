@@ -6,11 +6,7 @@ import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
-
-import {
-  UKEstimatedCaseCard,
-  TrendlineCard
-} from '@covid/components/Cards/EstimatedCase';
+import { UKEstimatedCaseCard, TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -29,6 +25,8 @@ import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -46,6 +44,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
+  const trendlineData = useSelector<RootState, ITrendlineData | undefined>((state) => state.content.trendlineData);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -87,7 +87,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
 
-      {isGBCountry() && <TrendlineCard lad="" ctaOnPress={onExploreTrendline} />}
+      {startupInfo?.show_trendline && trendlineData && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
         <View style={styles.calloutContainer}>

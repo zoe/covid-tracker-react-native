@@ -89,6 +89,7 @@ import {
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
+import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -283,6 +284,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
         {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
         <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
+        <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
         {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       </Stack.Navigator>
     );

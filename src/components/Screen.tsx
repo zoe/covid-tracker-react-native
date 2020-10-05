@@ -64,6 +64,7 @@ export type ScreenProps = {
   calloutType?: CallOutType;
   calloutTitle?: string;
   showBackButton?: boolean;
+  extendEdges?: boolean;
   scrollEnabled?: boolean;
 };
 
@@ -87,6 +88,8 @@ export default class Screen extends Component<ScreenProps> {
         );
       } else if (this.props.navigation && this.props.showBackButton) {
         return <NavHeader navigation={this.props.navigation} />;
+      } else if (this.props.extendEdges) {
+        return <View />;
       } else {
         return <View style={styles.statusBarBlock} />;
       }

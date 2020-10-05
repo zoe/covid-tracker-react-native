@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { StyleSheet, View, Text} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import * as Sharing from 'expo-sharing';
 import { captureRef } from 'react-native-view-shot';
 import { RouteProp } from '@react-navigation/native';
@@ -8,13 +8,21 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { colors, fontStyles } from '@theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import Screen, { Header } from '@covid/components/Screen';
-import { Header3Text, HeaderText, RegularText, RegularBoldText, MutedText, BrandedButton } from '@covid/components/Text';
-import { Button } from '@covid/components/Buttons/Button';
+import {
+  Header3Text,
+  RegularText,
+  BrandedButton,
+} from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import NavigatorService from '@covid/NavigatorService';
-import { WebView } from '@covid/components/WebView';
 import { DeltaTag } from '@covid/components/Cards/EstimatedCase/DeltaTag';
 import { Tabs } from '@covid/components/Nav/Tabs';
+import { useSelector } from 'react-redux';
+import { RootState } from '@covid/core/state/root';
+import { ITrendlineData } from './trendline.types';
+import { BackButton } from '@covid/components/PatientHeader';
+import { TrendLineTrendingViewChart, TrendlineTimeFilters } from '@covid/components/Stats/TrendLineTrendingViewChart';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import appCoordinator from '../AppCoordinator';
 // import i18n from '@covid/locale/i18n';
 
 const html = require('@assets/charts/trendline-explore.html');
@@ -26,10 +34,16 @@ type Props = {
 
 export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
 
-  const goNext = () => { };
-
   const viewRef = useRef<View>(null);
-  const webview = useRef<WebView>(null);
+
+  const [timeFilter, setTimeFilter] = useState<TrendlineTimeFilters>(TrendlineTimeFilters.week);
+  const trendlineData = useSelector<RootState, ITrendlineData | undefined>(
+    (state) => ({
+      name: state.content.personalizedLocalData?.name,
+      today: state.content.personalizedLocalData?.cases,
+      delta: state.content.trendlineData?.delta,
+    })
+  );
 
   const share = async () => {
     try {
@@ -40,48 +54,38 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Screen showBackButton navigation={navigation} style={styles.container} >
+    <View style={styles.root}>
+      <View style={{ position: 'absolute', zIndex: 100, top: 48, left: 16 }}>
+        <BackButton navigation={navigation} />
+      </View>
+      <Screen navigation={navigation} style={styles.container} extendEdges>
         <View style={styles.container} ref={viewRef}>
-
           <Header>
             <RegularText style={{ textAlign: 'center' }}>People with COVID in</RegularText>
-            <RegularText style={{ textAlign: 'center', fontWeight: '500', fontSize: 20, marginTop: 8 }}>Harringary</RegularText>
+            <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}>
+              <RegularText style={{ textAlign: 'center', fontWeight: '500', fontSize: 20, marginTop: 8 }}>
+                {trendlineData?.name}
+              </RegularText>
+            </TouchableOpacity>
           </Header>
 
-          <Header3Text style={styles.metric}>797</Header3Text>
+          <Header3Text style={styles.metric}>{trendlineData?.today}</Header3Text>
 
           <View style={styles.deltaTag}>
-            <DeltaTag change={797} from="last week" />
+            <DeltaTag change={trendlineData?.delta ?? 0} from="last week" />
           </View>
 
           <View style={styles.chartContainer}>
-            <WebView
-              ref={webview}
-              originWhitelist={['*']}
-              source={html}
-              style={styles.webview}
-              scrollEnabled={false}
-
-              onEvent={(type, payload) => {
-                console.log('web event', type, payload)
-
-              }} />
+            <TrendLineTrendingViewChart filter={timeFilter} />
           </View>
-
-          {/* <MutedText style={{
-            textAlign: 'center',
-            fontSize: 12,
-            marginTop: 8
-          }}>September</MutedText> */}
 
           <Tabs
             labels={['WEEK', 'MONTH', 'ALL']}
             onSelected={(value, index) => {
-              // console.log(webview.current?.call)
-              webview.current?.call('updateTimeWindow', { payload: { type: value } })
+              setTimeFilter(value as TrendlineTimeFilters)
             }}
-            styles={{ justifyContent: 'center', marginVertical: 32 }} />
+            styles={{ justifyContent: 'center', marginVertical: 32 }}
+          />
 
           <View style={{ maxWidth: '80%', alignSelf: 'center', marginTop: 12 }}>
             <BrandedButton style={styles.detailsButton} onPress={share}>
@@ -89,29 +93,25 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
             </BrandedButton>
           </View>
 
-
           <View style={styles.zoe}>
-        <PoweredByZoeSmall />
-      </View>
-
+            <PoweredByZoeSmall />
+          </View>
         </View>
+
       </Screen>
-
-      {/* <View style={styles.buttonsContainer}>
-        <Button onPress={goNext} branded>
-          CTA - a
-        </Button>
-        <Button onPress={() => NavigatorService.navigate('Dashboard')}>CTA 2</Button>
-      </View> */}
-
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     backgroundColor: colors.white,
+  },
+
+  container: {
+    flex: 1,
+    marginTop: 2
   },
 
   header: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   deltaTag: {
     marginTop: 16,
     marginVertical: 32,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   chartContainer: {
@@ -142,11 +142,6 @@ const styles = StyleSheet.create({
     height: 360,
     // paddingHorizontal: 16,
     // backgroundColor: 'red'
-  },
-
-  webview: {
-    height: '100%',
-    width: '100%',
   },
 
   button: {
@@ -177,5 +172,4 @@ const styles = StyleSheet.create({
   zoe: {
     marginTop: 16,
   },
-
 });

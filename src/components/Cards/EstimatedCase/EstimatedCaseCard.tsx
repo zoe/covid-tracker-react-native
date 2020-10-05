@@ -33,7 +33,6 @@ export const EstimatedCaseCard: React.FC<Props> = ({
 
   return (
     <View style={styles.root}>
-
       <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
       <MutedText style={styles.secondaryLabel}>{secondaryLabel}</MutedText>
 

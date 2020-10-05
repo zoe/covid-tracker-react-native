@@ -1,7 +1,9 @@
-import { colors } from '@theme';
 import React, { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { colors } from '@theme';
+
 import { FlexView } from '../FlexView';
 // import Animated from 'react-native-reanimated';
 import { RegularText } from '../Text';
@@ -10,14 +12,13 @@ interface Props {
   labels: string[];
   onSelected: (label: string, index: number) => void;
 
-  styles?: StyleProp<ViewStyle>
+  styles?: StyleProp<ViewStyle>;
 }
 
 export const Tabs: React.FC<Props> = ({ labels, onSelected, ...props }) => {
-
   const [translateValue] = useState(new Animated.Value(0));
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const tabWidth = 96
+  const tabWidth = 96;
 
   const onTabBarPress = (index: number) => {
     Animated.spring(translateValue, {
@@ -31,60 +32,61 @@ export const Tabs: React.FC<Props> = ({ labels, onSelected, ...props }) => {
     onSelected(labels[index], index);
   };
 
-  return <View style={[styles.container, props.styles]}>
-    <View>
-      <View style={[StyleSheet.absoluteFillObject]}>
-        <Animated.View
-          style={[
-            {
-              width: tabWidth,
-              transform: [{ translateX: translateValue }],
-            },
-          ]}>
-          <View style={styles.indicatorBar} />
-        </Animated.View>
+  return (
+    <View style={[styles.container, props.styles]}>
+      <View>
+        <View style={[StyleSheet.absoluteFillObject]}>
+          <Animated.View
+            style={[
+              {
+                width: tabWidth,
+                transform: [{ translateX: translateValue }],
+              },
+            ]}>
+            <View style={styles.indicatorBar} />
+          </Animated.View>
+        </View>
       </View>
-    </View>
 
-    {
-      labels.map((label, index) => {
-        const labelStyle = selectedIndex === index ? styles.selectedLabel : styles.idleLabel
+      {labels.map((label, index) => {
+        const labelStyle = selectedIndex === index ? styles.selectedLabel : styles.idleLabel;
         return (
-          <TouchableOpacity onPress={() => {
-            onTabBarPress(index)
-          }}>
-            <View style={[styles.tab, {
-              width: tabWidth
-            }]}>
+          <TouchableOpacity
+            key={label}
+            onPress={() => {
+              onTabBarPress(index);
+            }}>
+            <View
+              style={[
+                styles.tab,
+                {
+                  width: tabWidth,
+                },
+              ]}>
               <RegularText style={[styles.label, labelStyle]}>{label}</RegularText>
             </View>
           </TouchableOpacity>
-        )
-      })
-    }
-
-  </View>
-}
-
+        );
+      })}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
 
   tab: {
     // marginHorizontal: 24
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   label: {
-    fontSize: 14
+    fontSize: 14,
   },
 
-  idleLabel: {
-
-  },
+  idleLabel: {},
 
   selectedLabel: {
     color: colors.brand,
@@ -95,7 +97,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     height: 2,
     backgroundColor: colors.brand,
-    top: 36
-  }
-
-})
+    top: 36,
+  },
+});

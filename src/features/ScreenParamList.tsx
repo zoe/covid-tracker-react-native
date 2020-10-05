@@ -103,5 +103,6 @@ export type ScreenParamList = {
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };
+  SearchLAD: undefined;
   // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__
 };

@@ -7,6 +7,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
 
 // State interface
 
@@ -17,6 +18,7 @@ export type ContentState = {
   infoApiState: ApiState;
   startupInfo?: StartupInfo;
   personalizedLocalData?: PersonalisedLocalData;
+  trendlineData?: ITrendlineData;
 
   // Metrics
   ukMetricsApiState: ApiState;
@@ -73,6 +75,21 @@ export const fetchUKMetrics = createAsyncThunk(
   }
 );
 
+export const fetchTrendLineData = createAsyncThunk(
+  'content/fetch_trend_line_data',
+  async (): Promise<Partial<ContentState>> => {
+    const service = container.get<IContentService>(Services.Content);
+    const { delta, timeseries } = await service.getTrendLines()
+    if (!delta && !timeseries ) return { }
+    return {
+      trendlineData: {
+        delta: Math.round(delta),
+        timeseries: timeseries
+      }
+    };
+  }
+);
+
 export const updateTodayDate = createAction('context/update_today_date');
 export const addDismissCallout = createAction<string>('content/dismissed_callout');
 
@@ -123,6 +140,11 @@ export const contentSlice = createSlice({
       const { ukActive, ukDaily } = action.payload;
       current.ukActive = ukActive;
       current.ukDaily = ukDaily;
+    },
+
+    // Trendline data
+    [fetchTrendLineData.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.trendlineData = action.payload?.trendlineData;
     },
   },
 });
