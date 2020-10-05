@@ -11,6 +11,9 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import Screen, { Header } from '@covid/components/Screen';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { ICovidTestService } from '@covid/core/user/CovidTestService';
+import { Services } from '@covid/provider/services.types';
+import { useInjection } from '@covid/provider/services.hooks';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'CovidTestConfirm'>;
@@ -20,6 +23,8 @@ type PropsType = {
 export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
   const [agreed, setAgreed] = useState(false);
 
+  const covidTestService = useInjection<ICovidTestService>(Services.CovidTest);
+
   const handleConsentClick = (checked: boolean) => {
     setAgreed(checked);
   };
@@ -28,7 +33,10 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
     if (!agreed) {
       return;
     }
-    assessmentCoordinator.gotoNextScreen(props.route.name);
+
+    covidTestService.addTest(props.route.params.test).then(() => {
+      assessmentCoordinator.gotoNextScreen(props.route.name);
+    });
   };
 
   return (

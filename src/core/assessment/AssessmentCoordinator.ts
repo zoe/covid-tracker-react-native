@@ -42,9 +42,6 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestList: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
-    CovidTestDetail: () => {
-      NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData });
-    },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
@@ -176,6 +173,10 @@ export class AssessmentCoordinator extends Coordinator {
       ],
       1
     );
+  }
+
+  goToTestConfirm(test: CovidTest) {
+    NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test: test });
   }
 }
 

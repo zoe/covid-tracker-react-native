@@ -32,6 +32,7 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
 import NavigatorService from '@covid/NavigatorService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 export interface CovidTestData
   extends CovidTestDateData,
@@ -82,22 +83,22 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           this.setState({ submitting: false });
         });
     } else {
-      this.covidTestService
-        .addTest(infos)
-        .then(() => {
-          if (
-            infos.result === 'positive' &&
-            this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
-          ) {
-            AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-          } else {
+      if (
+        infos.result === 'positive' &&
+        this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+      ) {
+        assessmentCoordinator.goToTestConfirm(infos as CovidTest);
+      } else {
+        this.covidTestService
+          .addTest(infos)
+          .then(() => {
             NavigatorService.goBack();
-          }
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-          this.setState({ submitting: false });
-        });
+          })
+          .catch(() => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+            this.setState({ submitting: false });
+          });
+      }
     }
   }
 
