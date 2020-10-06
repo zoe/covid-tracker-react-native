@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
+import SplashScreen from 'react-native-splash-screen';
 
 import CovidApp from '@covid/CovidApp';
 import StorybookUIRoot from '@covid/storybook';
@@ -14,6 +15,7 @@ const ENABLE_STORYBOOK = false;
 
 const App: React.FC = () => {
   const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
+  SplashScreen.hide();
   return (
     <Provider store={store}>
       <ThemeProvider theme={Theme}>
