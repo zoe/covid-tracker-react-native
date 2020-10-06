@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
-  const postiveCountLabel = `Total number of people with COVID in `;
+  const postiveCountLabel = `${i18n.t('explore-trend-line.title')} `;
 
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
     name: state.content.personalizedLocalData?.name,

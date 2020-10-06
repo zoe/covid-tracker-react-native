@@ -1303,7 +1303,7 @@
   },
 
   "explore-trend-line": {
-    "title": "People with COVID in",
+    "title": "Estimated COVID cases in",
     "delta-week": "last week",
     "cta": "Share"
   },
