@@ -55,8 +55,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const { higherEducation } = route.params;
 
-  const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks?.filter((group) => group.school.higher_education === higherEducation)
+  const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>((state) =>
+    state.school.joinedSchoolNetworks?.filter((group) => group.school.higher_education === higherEducation)
   );
 
   const currentPatient = route.params.patientData.patientState;
