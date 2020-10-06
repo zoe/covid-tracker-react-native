@@ -26,7 +26,7 @@ import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetwo
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -45,7 +45,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     (state) => state.school.joinedSchoolNetworks
   );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
-  const trendlineData = useSelector<RootState, ITrendlineData | undefined>((state) => state.content.trendlineData);
+  const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -86,8 +86,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-
-      {startupInfo?.show_trendline && trendlineData && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+      {startupInfo?.show_trendline && localTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
         <View style={styles.calloutContainer}>

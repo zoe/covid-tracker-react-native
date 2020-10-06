@@ -7,7 +7,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
-import { ITrendlineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 
 // State interface
 
@@ -18,7 +18,11 @@ export type ContentState = {
   infoApiState: ApiState;
   startupInfo?: StartupInfo;
   personalizedLocalData?: PersonalisedLocalData;
-  trendlineData?: ITrendlineData;
+  localTrendline?: ITrendLineData;
+
+  // Explore trend line screen
+  exploreTrendline?: ITrendLineData;
+  exploreTrendlineUpdating: boolean;
 
   // Metrics
   ukMetricsApiState: ApiState;
@@ -39,6 +43,7 @@ const initialState: ContentState = {
   ukMetricsApiState: 'ready',
   todayDate: todaysDate(),
   dismissedCallouts: [],
+  exploreTrendlineUpdating: false,
 };
 
 // Async Actions
@@ -75,17 +80,30 @@ export const fetchUKMetrics = createAsyncThunk(
   }
 );
 
-export const fetchTrendLineData = createAsyncThunk(
-  'content/fetch_trend_line_data',
+export const fetchLocalTrendLine = createAsyncThunk(
+  'content/fetch_local_trend_line',
   async (): Promise<Partial<ContentState>> => {
     const service = container.get<IContentService>(Services.Content);
-    const { delta, timeseries } = await service.getTrendLines()
-    if (!delta && !timeseries ) return { }
+    const { delta, ...trendline } = await service.getTrendLines();
     return {
-      trendlineData: {
+      localTrendline: {
         delta: Math.round(delta),
-        timeseries: timeseries
-      }
+        ...trendline,
+      },
+    };
+  }
+);
+
+export const searchTrendLine = createAsyncThunk(
+  'content/search_trend_line',
+  async (query?: string): Promise<Partial<ContentState>> => {
+    const service = container.get<IContentService>(Services.Content);
+    const { delta, ...trendline } = await service.getTrendLines(query);
+    return {
+      exploreTrendline: {
+        delta: Math.round(delta),
+        ...trendline,
+      },
     };
   }
 );
@@ -143,8 +161,20 @@ export const contentSlice = createSlice({
     },
 
     // Trendline data
-    [fetchTrendLineData.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
-      current.trendlineData = action.payload?.trendlineData;
+    [fetchLocalTrendLine.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.localTrendline = action.payload?.localTrendline;
+      current.exploreTrendline = action.payload?.localTrendline;
+    },
+
+    [searchTrendLine.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.exploreTrendline = action.payload?.exploreTrendline;
+      current.exploreTrendlineUpdating = false;
+    },
+    [searchTrendLine.pending.type]: (current) => {
+      current.exploreTrendlineUpdating = true;
+    },
+    [searchTrendLine.rejected.type]: (current) => {
+      current.exploreTrendlineUpdating = false;
     },
   },
 });

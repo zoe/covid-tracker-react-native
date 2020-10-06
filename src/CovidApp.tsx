@@ -89,6 +89,7 @@ import {
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
+
 import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 

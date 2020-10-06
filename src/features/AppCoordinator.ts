@@ -25,7 +25,12 @@ import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import store from '@covid/core/state/store';
-import { fetchDismissedCallouts, fetchStartUpInfo, fetchTrendLineData, fetchUKMetrics } from '@covid/core/content/state/contentSlice';
+import {
+  fetchDismissedCallouts,
+  fetchStartUpInfo,
+  fetchLocalTrendLine,
+  fetchUKMetrics,
+} from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
@@ -158,7 +163,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   async fetchInitialData(): Promise<void> {
     await store.dispatch(fetchStartUpInfo());
     await store.dispatch(fetchDismissedCallouts());
-    await store.dispatch(fetchTrendLineData());
+    await store.dispatch(fetchLocalTrendLine());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }

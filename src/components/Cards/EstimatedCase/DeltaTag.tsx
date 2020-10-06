@@ -12,21 +12,18 @@ interface Props {
 }
 
 enum DeltaChange {
-  up, down
+  up,
+  down,
 }
 export const DeltaTag: React.FC<Props> = ({ change, from }) => {
-  const changeType = change > 0 ? DeltaChange.up : DeltaChange.down
+  const changeType = change >= 0 ? DeltaChange.up : DeltaChange.down;
   const text = changeType === DeltaChange.up ? 'Up by' : 'Down by';
-  const colorStyle = changeType === DeltaChange.up ? styles.up : styles.down
+  const colorStyle = changeType === DeltaChange.up ? styles.up : styles.down;
   return (
     <View style={{ flexDirection: 'row' }}>
       <View style={[styles.tag, colorStyle]}>
-        {
-          change >= 0 && <ArrowUp style={styles.icon} />
-        }
-        {
-          change < 0 && <ArrowDown style={styles.icon} />
-        }
+        {changeType === DeltaChange.up && <ArrowUp style={styles.icon} />}
+        {changeType === DeltaChange.down && <ArrowDown style={styles.icon} />}
         <CaptionText style={{ color: 'white' }}>{`${text} ${change}`}</CaptionText>
       </View>
       <MutedText style={styles.muted}>{`from ${from}`}</MutedText>
@@ -47,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.red,
   },
   down: {
-    backgroundColor: colors.green
+    backgroundColor: colors.green,
   },
   icon: {
     marginTop: 4,

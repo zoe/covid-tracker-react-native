@@ -1,31 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as Sharing from 'expo-sharing';
 import { captureRef } from 'react-native-view-shot';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors, fontStyles } from '@theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
-import Screen, { Header } from '@covid/components/Screen';
-import {
-  Header3Text,
-  RegularText,
-  BrandedButton,
-} from '@covid/components/Text';
+import { Header } from '@covid/components/Screen';
+import { Header3Text, RegularText, BrandedButton } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DeltaTag } from '@covid/components/Cards/EstimatedCase/DeltaTag';
 import { Tabs } from '@covid/components/Nav/Tabs';
-import { useSelector } from 'react-redux';
 import { RootState } from '@covid/core/state/root';
-import { ITrendlineData } from './trendline.types';
 import { BackButton } from '@covid/components/PatientHeader';
-import { TrendLineTrendingViewChart, TrendlineTimeFilters } from '@covid/components/Stats/TrendLineTrendingViewChart';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import appCoordinator from '../AppCoordinator';
-// import i18n from '@covid/locale/i18n';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
+import DropdownIcon from '@assets/icons/stats/dropdown.svg';
+import i18n from '@covid/locale/i18n';
+import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
 
-const html = require('@assets/charts/trendline-explore.html');
+import appCoordinator from '../AppCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Trendline'>;
@@ -33,72 +30,68 @@ type Props = {
 };
 
 export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
-
+  const dispatch = useDispatch();
   const viewRef = useRef<View>(null);
-
   const [timeFilter, setTimeFilter] = useState<TrendlineTimeFilters>(TrendlineTimeFilters.week);
-  const trendlineData = useSelector<RootState, ITrendlineData | undefined>(
-    (state) => ({
-      name: state.content.personalizedLocalData?.name,
-      today: state.content.personalizedLocalData?.cases,
-      delta: state.content.trendlineData?.delta,
-    })
-  );
+  const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
+    ...state.content.exploreTrendline,
+  }));
 
   const share = async () => {
     try {
       const uri = await captureRef(viewRef, { format: 'jpg' });
-      // https://github.com/expo/expo/issues/6920#issuecomment-580966657
       Sharing.shareAsync('file://' + uri);
-    } catch (_) { }
+    } catch (_) {}
   };
+
+  useEffect(() => {
+    dispatch(fetchLocalTrendLine());
+  }, []);
 
   return (
     <View style={styles.root}>
-      <View style={{ position: 'absolute', zIndex: 100, top: 48, left: 16 }}>
+      <View style={styles.nav}>
         <BackButton navigation={navigation} />
       </View>
-      <Screen navigation={navigation} style={styles.container} extendEdges>
-        <View style={styles.container} ref={viewRef}>
-          <Header>
-            <RegularText style={{ textAlign: 'center' }}>People with COVID in</RegularText>
-            <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}>
-              <RegularText style={{ textAlign: 'center', fontWeight: '500', fontSize: 20, marginTop: 8 }}>
-                {trendlineData?.name}
-              </RegularText>
-            </TouchableOpacity>
-          </Header>
+      <View style={styles.container} ref={viewRef}>
+        <Header>
+          <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
+          <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <RegularText style={styles.district}>{trendline?.name}</RegularText>
+              <DropdownIcon style={styles.arrow} />
+            </View>
+          </TouchableOpacity>
+        </Header>
 
-          <Header3Text style={styles.metric}>{trendlineData?.today}</Header3Text>
+        <Header3Text style={styles.metric}>{trendline?.today}</Header3Text>
 
-          <View style={styles.deltaTag}>
-            <DeltaTag change={trendlineData?.delta ?? 0} from="last week" />
-          </View>
-
-          <View style={styles.chartContainer}>
-            <TrendLineTrendingViewChart filter={timeFilter} />
-          </View>
-
-          <Tabs
-            labels={['WEEK', 'MONTH', 'ALL']}
-            onSelected={(value, index) => {
-              setTimeFilter(value as TrendlineTimeFilters)
-            }}
-            styles={{ justifyContent: 'center', marginVertical: 32 }}
-          />
-
-          <View style={{ maxWidth: '80%', alignSelf: 'center', marginTop: 12 }}>
-            <BrandedButton style={styles.detailsButton} onPress={share}>
-              <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>Share</Text>
-            </BrandedButton>
-          </View>
-
-          <View style={styles.zoe}>
-            <PoweredByZoeSmall />
-          </View>
+        <View style={styles.deltaTag}>
+          <DeltaTag change={trendline?.delta ?? 0} from={i18n.t('explore-trend-line.delta-week')} />
         </View>
 
-      </Screen>
+        <View style={styles.chartContainer}>
+          <TrendLineChart filter={timeFilter} viewMode={TrendLineViewMode.explore} />
+        </View>
+
+        <Tabs
+          labels={['WEEK', 'MONTH', 'ALL']}
+          onSelected={(value, index) => {
+            setTimeFilter(value as TrendlineTimeFilters);
+          }}
+          styles={{ justifyContent: 'center', marginVertical: 32 }}
+        />
+
+        <View style={styles.buttonsContainer}>
+          <BrandedButton style={styles.detailsButton} onPress={share}>
+            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
+          </BrandedButton>
+        </View>
+
+        <View style={styles.zoe}>
+          <PoweredByZoeSmall />
+        </View>
+      </View>
     </View>
   );
 };
@@ -109,18 +102,31 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 
+  nav: {
+    position: 'absolute',
+    zIndex: 100,
+    top: 48,
+    left: 16,
+  },
+
   container: {
     flex: 1,
-    marginTop: 2
+    paddingTop: 64,
   },
 
-  header: {
-    marginRight: 72,
+  district: {
+    textAlign: 'center',
+    fontWeight: '500',
+    fontSize: 20,
+    marginTop: 8,
   },
 
-  description: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
+  arrow: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    transform: [{ rotate: '-90deg' }],
+    marginTop: 9,
+    marginLeft: 6,
   },
 
   metric: {
@@ -138,10 +144,9 @@ const styles = StyleSheet.create({
   },
 
   chartContainer: {
-    width: '100%',
-    height: 360,
-    // paddingHorizontal: 16,
-    // backgroundColor: 'red'
+    marginLeft: 12,
+    marginRight: 20,
+    flex: 1,
   },
 
   button: {
@@ -151,8 +156,9 @@ const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    paddingHorizontal: 8,
-    marginBottom: 48,
+    maxWidth: '80%',
+    alignSelf: 'center',
+    marginTop: 12,
   },
 
   detailsButton: {
@@ -171,5 +177,6 @@ const styles = StyleSheet.create({
 
   zoe: {
     marginTop: 16,
+    marginBottom: 32,
   },
 });
