@@ -53,6 +53,8 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 
   const onNextButtonPress = useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
 
+  console.log('ENV: ', Env);
+
   return (
     <View style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -69,7 +71,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
 
         <View style={styles.rootContainer}>
           <View style={styles.covidContainer}>
-            <RegularText style={styles.subtitle}>{Env.NAME}</RegularText>
+            <RegularText style={styles.subtitle}>Env: {Env.NAME}</RegularText>
             <RegularText style={styles.subtitle}>{i18n.t('welcome.take-a-minute')}</RegularText>
           </View>
         </View>
