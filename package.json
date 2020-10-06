@@ -1,4 +1,6 @@
 {
+  "name": "covid-tracker-react-native",
+  "version": "1.0.0",
   "scripts": {
     "start": "react-native start",
     "start:reset": "react-native start --reset-cache",
@@ -31,7 +33,10 @@
     "fastlane:ios:stage": "yarn fastlane ios release env:stage appcenter:true",
     "fastlane:ios:prod": "yarn fastlane ios release env:prod",
     "fastlane:android:stage": "yarn fastlane android release env:stage",
-    "fastlane:android:prod": "yarn fastlane android release env:prod"
+    "fastlane:android:prod": "yarn fastlane android release env:prod",
+    "bump-patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
+    "bump-minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
+    "bump-major": "npm version major --no-git-tag-version && bundle exec fastlane bump"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.0.0",
@@ -155,7 +160,5 @@
       "pre-commit": "git-hooks/pre-commit.js",
       "pre-push": "git-hooks/pre-push.sh"
     }
-  },
-  "name": "covid-tracker-react-native",
-  "version": "1.0.0"
+  }
 }
