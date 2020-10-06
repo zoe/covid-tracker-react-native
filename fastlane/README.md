@@ -15,6 +15,11 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
+### bump
+```
+fastlane bump
+```
+Bump build numbers, and set the version to match the pacakage.json version.
 ### get_version_no
 ```
 fastlane get_version_no

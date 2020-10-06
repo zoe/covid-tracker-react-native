@@ -1,6 +1,6 @@
 {
-  "name": "covid-tracker-react-native",
-  "version": "1.0.0",
+  "name": "Covid",
+  "version": "1.0.6",
   "scripts": {
     "start": "react-native start",
     "start:reset": "react-native start --reset-cache",
@@ -34,9 +34,9 @@
     "fastlane:ios:prod": "yarn fastlane ios release env:prod",
     "fastlane:android:stage": "yarn fastlane android release env:stage",
     "fastlane:android:prod": "yarn fastlane android release env:prod",
-    "bump-patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
-    "bump-minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
-    "bump-major": "npm version major --no-git-tag-version && bundle exec fastlane bump"
+    "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
+    "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
+    "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.0.0",
