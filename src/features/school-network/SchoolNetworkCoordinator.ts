@@ -59,7 +59,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   };
 
   startFlow() {
-    NavigatorService.navigate('JoinSchool', { patientData: this.patientData });
+    NavigatorService.navigate('JoinSchool', { patientData: this.patientData, higherEducation: this.higherEducation });
   }
 
   closeFlow() {
@@ -94,6 +94,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
 
   setSelectedSchool(selectedSchool: SchoolModel) {
     this.selectedSchool = selectedSchool;
+
+    if (selectedSchool.higher_education) {
+      //TODO Join default group for school
+    }
   }
 
   async profileSelected(profile: Profile): Promise<void> {

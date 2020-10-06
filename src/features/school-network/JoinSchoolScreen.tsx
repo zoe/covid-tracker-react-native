@@ -56,8 +56,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const { higherEducation } = route.params;
 
   const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks
-    //?.filter((group) => group.school.higher_education === higherEducation) //TODO
+    (state) => state.school.joinedSchoolNetworks?.filter((group) => group.school.higher_education === higherEducation)
   );
 
   const currentPatient = route.params.patientData.patientState;
@@ -109,16 +108,28 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
       <Header>
-        <HeaderText>{i18n.t('school-networks.join-school.title')}</HeaderText>
-        <RegularText style={styles.topText}>
-          {i18n.t('school-networks.join-school.description')}
-          <RegularText
-            style={{ color: colors.purple }}
-            passProps={{ onPress: schoolNetworkCoordinator.goToSchoolIntro }}>
-            {' '}
-            {i18n.t('school-networks.join-school.description-link')}
+        <HeaderText>
+          {higherEducation
+            ? i18n.t('school-networks.join-school.title-higher-education')
+            : i18n.t('school-networks.join-school.title')}
+        </HeaderText>
+
+        {higherEducation && (
+          <RegularText style={styles.topText}>
+            {i18n.t('school-networks.join-school.description-higher-education')}
           </RegularText>
-        </RegularText>
+        )}
+        {!higherEducation && (
+          <RegularText style={styles.topText}>
+            {i18n.t('school-networks.join-school.description')}
+            <RegularText
+              style={{ color: colors.purple }}
+              passProps={{ onPress: schoolNetworkCoordinator.goToSchoolIntro }}>
+              {' '}
+              {i18n.t('school-networks.join-school.description-link')}
+            </RegularText>
+          </RegularText>
+        )}
       </Header>
 
       <ProgressBlock>
@@ -157,22 +168,30 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
                 <DropdownField
                   selectedValue={formikProps.values.schoolId}
                   onValueChange={formikProps.handleChange('schoolId')}
-                  label={i18n.t('school-networks.join-school.dropdown.label')}
+                  label={
+                    higherEducation
+                      ? i18n.t('school-networks.join-school.dropdown.label-higher-education')
+                      : i18n.t('school-networks.join-school.dropdown.label')
+                  }
                   items={getSchoolPickerItems}
                   error={formikProps.touched.schoolId && formikProps.errors.schoolId}
                 />
               )}
             </View>
 
-            <View style={styles.textContainer}>
-              <RegularText>
-                <RegularText>{i18n.t('school-networks.join-school.disclaimer-1')}</RegularText>
-                <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/')}>
-                  {i18n.t('school-networks.join-school.disclaimer-2')}
-                </ClickableText>
-              </RegularText>
-              <RegularText style={{ marginTop: 16 }}>{i18n.t('school-networks.join-school.disclaimer-3')}</RegularText>
-            </View>
+            {!higherEducation && (
+              <View style={styles.textContainer}>
+                <RegularText>
+                  <RegularText>{i18n.t('school-networks.join-school.disclaimer-1')}</RegularText>
+                  <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/')}>
+                    {i18n.t('school-networks.join-school.disclaimer-2')}
+                  </ClickableText>
+                </RegularText>
+                <RegularText style={{ marginTop: 16 }}>
+                  {i18n.t('school-networks.join-school.disclaimer-3')}
+                </RegularText>
+              </View>
+            )}
 
             <View>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
