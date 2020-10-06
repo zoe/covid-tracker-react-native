@@ -26,6 +26,7 @@ import { openWebLink } from '@covid/utils/links';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
+import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -52,9 +53,11 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [schools, setSchools] = useState<SchoolModel[]>([]);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const { higherEducation } = route.params;
 
   const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
+    //?.filter((group) => group.school.higher_education === higherEducation) //TODO
   );
 
   const currentPatient = route.params.patientData.patientState;
@@ -71,8 +74,12 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   }, []);
 
   const onSubmit = (schoolData: JoinSchoolData) => {
-    schoolNetworkCoordinator.setSelectedSchool(schools.filter((school) => school.id === schoolData.schoolId)[0]);
-    if (!currentJoinedGroup) {
+    const selectedSchool = schools.find((school) => school.id === schoolData.schoolId)!;
+    schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
+
+    if (selectedSchool.higher_education) {
+      NavigatorService.goBack();
+    } else if (!currentJoinedGroup) {
       schoolNetworkCoordinator.goToJoinGroup();
     } else {
       schoolNetworkCoordinator.goToGroupList();

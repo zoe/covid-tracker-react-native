@@ -16,6 +16,7 @@ import store from '@covid/core/state/store';
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
   appCoordinator: AppCoordinator;
   patientData: PatientData;
+  higherEducation: boolean;
 
   // Form state
   private selectedSchool?: SchoolModel;
@@ -50,13 +51,14 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     },
   };
 
-  init = (appCoordinator: AppCoordinator, patientData: PatientData) => {
+  init = (appCoordinator: AppCoordinator, patientData: PatientData, higherEducation: boolean) => {
     this.appCoordinator = appCoordinator;
     this.patientData = patientData;
+    this.higherEducation = higherEducation;
+    this.selectedSchool = undefined;
   };
 
-  startFlow(patientData: PatientData) {
-    this.patientData = patientData;
+  startFlow() {
     NavigatorService.navigate('JoinSchool', { patientData: this.patientData });
   }
 

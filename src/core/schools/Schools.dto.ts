@@ -10,6 +10,7 @@ export interface SchoolModel {
   id: string;
   name: string;
   size: number;
+  higher_education: boolean
 }
 
 // Subscribed school stats
