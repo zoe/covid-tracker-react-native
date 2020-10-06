@@ -1215,6 +1215,18 @@
     "contributors-so-far": "Colaboradores hasta ahora:"
   },
 
+  "explore-trend-line": {
+    "title": "",
+    "delta-week": "",
+    "cta": ""
+  },
+
+  "search-lad": {
+    "input-label": "",
+    "input-placeholder": "",
+    "no-result": ""
+  },
+
   "estimated-cases-card": {
     "covid-in-the-uk": "",
     "estimated-cases": "Uppskattade fall",
