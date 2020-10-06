@@ -3,7 +3,7 @@ import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { SchoolModel } from '@covid/core/schools/Schools.dto';
+import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -100,6 +100,7 @@ export type ScreenParamList = {
   CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
+  SchoolDashboard: { school: SubscribedSchoolStats };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };

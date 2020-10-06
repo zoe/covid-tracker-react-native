@@ -1485,6 +1485,21 @@
       "modal-body": "Are you sure you want to remove",
       "button-1": "Cancel",
       "button-2": "Remove"
+    },
+
+    "dashboard": {
+      "title": "Overview",
+      "at-the-school": "At the school",
+      "updated-on": "Updated on",
+      "students-with": "Students with",
+      "confirmed": "confirmed cases",
+      "reported": "reported symptoms",
+      "recovered": "recovered cases",
+      "total": "Total students\nreported for",
+      "more-details": "More details",
+      "faq": "FAQs",
+      "disclaimer": "For more information about responding to COVID reports at school, please contact your school and read our ",
+      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk."
     }
   }
 }

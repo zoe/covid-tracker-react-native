@@ -1,4 +1,4 @@
-import { AppCoordinator } from '@covid/features/AppCoordinator';
+import appCoordinator, { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { ScreenFlow, Coordinator, SelectProfile } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
@@ -8,9 +8,9 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { SchoolModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { SchoolModel, SubscribedSchoolGroupStats, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
-import { fetchSubscribedSchoolGroups, joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
+import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
@@ -45,6 +45,9 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     SchoolGroupList: () => {
       this.closeFlow();
     },
+    SchoolDashboard: () => {
+      NavigatorService.goBack();
+    },
   };
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData) => {
@@ -67,6 +70,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
 
   goToCreateSchoolGroup() {
     NavigatorService.navigate('CreateNetworkGroup');
+  }
+
+  resetToHome() {
+    NavigatorService.reset([{ name: appCoordinator.homeScreenName }], 0);
   }
 
   goToJoinGroup() {
@@ -120,6 +127,10 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     return this.schoolService.searchSchoolGroups(id).catch(() => {
       return [];
     });
+  }
+
+  goToSchoolDashboard(school: SubscribedSchoolStats) {
+    NavigatorService.navigate('SchoolDashboard', { school });
   }
 }
 
