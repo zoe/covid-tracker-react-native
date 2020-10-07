@@ -14,21 +14,40 @@ interface Props {
 enum DeltaChange {
   up,
   down,
+  none,
 }
 export const DeltaTag: React.FC<Props> = ({ change }) => {
   const changeType = change >= 0 ? DeltaChange.up : DeltaChange.down;
-  const text =
-    changeType === DeltaChange.up
-      ? i18n.t('dashboard.trendline-card.delta.up')
-      : i18n.t('dashboard.trendline-card.delta.down');
-  const colorStyle = changeType === DeltaChange.up ? styles.up : styles.down;
   const from = i18n.t('dashboard.trendline-card.delta.from-last-week');
+
+  const config = () => {
+    switch (changeType) {
+      case DeltaChange.up:
+        return {
+          text: `${i18n.t('dashboard.trendline-card.delta.up')} ${change}`,
+          icon: <ArrowUp style={styles.icon} />,
+          color: styles.up,
+        };
+      case DeltaChange.down:
+        return {
+          text: `${i18n.t('dashboard.trendline-card.delta.down')} ${change}`,
+          icon: <ArrowDown style={styles.icon} />,
+          color: styles.down,
+        };
+      case DeltaChange.none:
+        return {
+          text: i18n.t('dashboard.trendline-card.delta.none'),
+          icon: null,
+          color: styles.none,
+        };
+    }
+  };
+
   return (
     <View style={{ flexDirection: 'row' }}>
-      <View style={[styles.tag, colorStyle]}>
-        {changeType === DeltaChange.up && <ArrowUp style={styles.icon} />}
-        {changeType === DeltaChange.down && <ArrowDown style={styles.icon} />}
-        <CaptionText style={{ color: 'white' }}>{`${text} ${change}`}</CaptionText>
+      <View style={[styles.tag, config().color]}>
+        {config().icon}
+        <CaptionText style={{ color: 'white' }}>{config().text}</CaptionText>
       </View>
       <MutedText style={styles.muted}>{from}</MutedText>
     </View>
@@ -49,6 +68,9 @@ const styles = StyleSheet.create({
   },
   down: {
     backgroundColor: colors.green,
+  },
+  none: {
+    backgroundColor: colors.tertiary,
   },
   icon: {
     marginTop: 4,
