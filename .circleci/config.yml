@@ -9,10 +9,8 @@ orbs:
 # Custom jobs which are not part of the Orb
 jobs:
   checkout_code:
-    node:
-      -docker:
-        image: circleci/ruby:latest-node
     executor: rn/linux_js
+    node_version: '10'
     steps:
       - checkout
       - persist_to_workspace:
