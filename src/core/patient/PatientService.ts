@@ -179,6 +179,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const shouldShowUSStudyInvite = patient.contact_additional_studies === null;
     const hasBloodGroupAnswer = patient.blood_group != null;
     const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
+    const hasSchoolGroup = patient.has_school_group;
 
     return {
       ...patientState,
@@ -203,6 +204,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       shouldShowUSStudyInvite,
       hasBloodGroupAnswer,
       isNHSStudy,
+      hasSchoolGroup,
     };
   }
 

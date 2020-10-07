@@ -86,7 +86,8 @@
 
   "legal": {
     "i-agree": "I agree",
-    "back": "Back"
+    "back": "Back",
+    "confirm": "Confirm"
   },
 
   "next-question": "Next question",
@@ -364,7 +365,13 @@
     "required-date": "Please indicate the date this test occurred",
     "required-dates": "Please indicate between which two dates this test occurred",
     "required-mechanism": "Please indicate how the test was performed",
-    "required-result": "Please indicate the result of the test"
+    "required-result": "Please indicate the result of the test",
+
+    "confirm-test": {
+      "title": "Confirmation of\npositive test result",
+      "body": "Your child’s positive test result will be shared anonymously with their school and the parents of the children within your child’s School Bubble.\n\nWe will only share the below details:\n\n• Date of test \n• Result of test\n• School Bubble name\n\nIf you have not already done so, please contact the school immediately to notify them of this positive result.",
+      "consent": "I confirm that the information I entered is true and accurate to the extent of my knowledge and I agree to this data being shared anonymously with my school network."
+    }
   },
 
   "describe-symptoms": {
@@ -1387,8 +1394,8 @@
     "awaiting-members": "Awaiting more members",
     "no-cases": "No confirmed cases",
     "confirmed-cases": "confirmed cases",
-    "children-being-reported-for": "Children being reported for",
-    "child-being-reported-for": "Child being reported for",
+    "children-being-reported-for": "children being reported for",
+    "child-being-reported-for": "child being reported for",
 
     "intro": {
       "title": "Connect your children to their School Bubble",
