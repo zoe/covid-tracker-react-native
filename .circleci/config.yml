@@ -6,6 +6,12 @@ orbs:
   node: circleci/node@2.0.1
   rn: react-native-community/react-native@2.0.1
 
+executors:
+  node:
+    docker:
+      - image: circleci/ruby:latest-node
+    resource_class: large
+
 # Custom jobs which are not part of the Orb
 jobs:
   checkout_code:
@@ -69,7 +75,7 @@ workflows:
       # Build the iOS app in release mode and do not run tests
       - rn/ios_build:
           name: build_ios_release
-          project_path: ios/Example.xcodeproj
+          project_path: ios/Covid.xcodeproj
           device: "iPhone X"
           build_configuration: Release
           scheme: Example
@@ -78,7 +84,7 @@ workflows:
 
       # Build and test the iOS app in release mode
       - rn/ios_build_and_test:
-          project_path: "ios/Example.xcodeproj"
+          project_path: "ios/Covid.xcodeproj"
           device: "iPhone X"
           build_configuration: "Release"
           scheme: "Example"
