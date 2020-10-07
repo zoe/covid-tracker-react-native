@@ -40,10 +40,10 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
         </View>
       )}
 
-      <RegularText style={styles.primaryLabel}>
-        {postiveCountLabel}
+      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+        <RegularText style={styles.primaryLabel}>{postiveCountLabel}</RegularText>
         <RegularBoldText>{localTrendline?.name}</RegularBoldText>
-      </RegularText>
+      </View>
 
       <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
 
@@ -71,6 +71,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginHorizontal: 32,
     paddingVertical: 32,
+  },
+
+  description: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 
   chartContainer: {
