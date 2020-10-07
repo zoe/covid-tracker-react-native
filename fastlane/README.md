@@ -38,12 +38,7 @@ fastlane release_notes
 ```
 fastlane android release
 ```
-Build Android app
-### android appcenter
-```
-fastlane android appcenter
-```
-
+Build Android app for development
 
 ----
 
