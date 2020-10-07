@@ -66,9 +66,11 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <Header3Text style={styles.metric}>{trendline?.today}</Header3Text>
 
-        <View style={styles.deltaTag}>
-          <DeltaTag change={trendline?.delta ?? 0} from={i18n.t('explore-trend-line.delta-week')} />
-        </View>
+        {trendline?.delta && (
+          <View style={styles.deltaTag}>
+            <DeltaTag change={trendline.delta} />
+          </View>
+        )}
 
         <View style={styles.chartContainer}>
           <TrendLineChart filter={timeFilter} viewMode={TrendLineViewMode.explore} />

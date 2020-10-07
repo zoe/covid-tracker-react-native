@@ -47,9 +47,11 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
 
       <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
 
-      <View style={styles.deltaTag}>
-        <DeltaTag change={localTrendline?.delta ?? 0} from="last week" />
-      </View>
+      {localTrendline?.delta && (
+        <View style={styles.deltaTag}>
+          <DeltaTag change={localTrendline.delta} />
+        </View>
+      )}
 
       <View>
         <BrandedButton style={styles.detailsButton} onPress={onPress}>

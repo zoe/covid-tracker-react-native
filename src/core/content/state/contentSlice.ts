@@ -7,7 +7,7 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { ITrendLineData, ITrendLineTimeSeriesData } from '@covid/core/content/dto/ContentAPIContracts';
 
 // State interface
 
@@ -44,6 +44,14 @@ const initialState: ContentState = {
   todayDate: todaysDate(),
   dismissedCallouts: [],
   exploreTrendlineUpdating: false,
+};
+
+const getTrendLineDelta = (timeseries: ITrendLineTimeSeriesData[], from: number): number | undefined => {
+  if (!timeseries || timeseries.length === 0) {
+    return undefined;
+  }
+  const compareFromIndex = Math.min(timeseries.length, from);
+  return Math.round(timeseries[0].value - timeseries[compareFromIndex].value);
 };
 
 // Async Actions
@@ -84,10 +92,11 @@ export const fetchLocalTrendLine = createAsyncThunk(
   'content/fetch_local_trend_line',
   async (): Promise<Partial<ContentState>> => {
     const service = container.get<IContentService>(Services.Content);
-    const { delta, ...trendline } = await service.getTrendLines();
+    const { timeseries, ...trendline } = await service.getTrendLines();
     return {
       localTrendline: {
-        delta: Math.round(delta),
+        delta: getTrendLineDelta(timeseries, 7),
+        timeseries,
         ...trendline,
       },
     };
@@ -98,10 +107,11 @@ export const searchTrendLine = createAsyncThunk(
   'content/search_trend_line',
   async (query?: string): Promise<Partial<ContentState>> => {
     const service = container.get<IContentService>(Services.Content);
-    const { delta, ...trendline } = await service.getTrendLines(query);
+    const { timeseries, ...trendline } = await service.getTrendLines(query);
     return {
       exploreTrendline: {
-        delta: Math.round(delta),
+        delta: getTrendLineDelta(timeseries, 7),
+        timeseries,
         ...trendline,
       },
     };

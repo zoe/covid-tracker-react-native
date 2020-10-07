@@ -1,7 +1,6 @@
 export type TrendLineResponse = {
   lad: string;
   name: string;
-  delta: number;
   today: number;
   timeseries: ITrendLineTimeSeriesData[];
 };

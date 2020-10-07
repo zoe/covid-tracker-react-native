@@ -1298,7 +1298,12 @@
     "contributors-so-far": "Contributors so far:",
 
     "trendline-card": {
-      "cta": "Explore the graph"
+      "cta": "Explore the graph",
+      "delta": {
+        "up": "Up by",
+        "down": "Down by",
+        "from-last-week": "from last week"
+      }
     }
   },
 

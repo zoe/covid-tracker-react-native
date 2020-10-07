@@ -5,20 +5,24 @@ import { MutedText, CaptionText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import ArrowUp from '@assets/icons/stats/arrow-up.svg';
 import ArrowDown from '@assets/icons/stats/arrow-down.svg';
+import i18n from '@covid/locale/i18n';
 
 interface Props {
   change: number;
-  from: string;
 }
 
 enum DeltaChange {
   up,
   down,
 }
-export const DeltaTag: React.FC<Props> = ({ change, from }) => {
+export const DeltaTag: React.FC<Props> = ({ change }) => {
   const changeType = change >= 0 ? DeltaChange.up : DeltaChange.down;
-  const text = changeType === DeltaChange.up ? 'Up by' : 'Down by';
+  const text =
+    changeType === DeltaChange.up
+      ? i18n.t('dashboard.trendline-card.delta.up')
+      : i18n.t('dashboard.trendline-card.delta.down');
   const colorStyle = changeType === DeltaChange.up ? styles.up : styles.down;
+  const from = i18n.t('dashboard.trendline-card.delta.from-last-week');
   return (
     <View style={{ flexDirection: 'row' }}>
       <View style={[styles.tag, colorStyle]}>
@@ -26,7 +30,7 @@ export const DeltaTag: React.FC<Props> = ({ change, from }) => {
         {changeType === DeltaChange.down && <ArrowDown style={styles.icon} />}
         <CaptionText style={{ color: 'white' }}>{`${text} ${change}`}</CaptionText>
       </View>
-      <MutedText style={styles.muted}>{`from ${from}`}</MutedText>
+      <MutedText style={styles.muted}>{from}</MutedText>
     </View>
   );
 };
