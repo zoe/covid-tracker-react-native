@@ -305,8 +305,15 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   }
 
   async shouldShowTrendLine(): Promise<boolean> {
-    const variant = await startExperiment(experiments.Trend_Line_Launch, 2);
     const user = await this.userService.getUser();
+    // Check does user has trendline data for their lad
+    const timeseries = store.getState().content.localTrendline?.timeseries;
+    const hasTrendLineData = timeseries && timeseries.length > 0;
+    if (!hasTrendLineData) {
+      return false;
+    }
+    // Start A/B testing if they are within criteria
+    const variant = await startExperiment(experiments.Trend_Line_Launch, 2);
     return variant === 'variant_1' || user?.is_tester === true;
   }
 
