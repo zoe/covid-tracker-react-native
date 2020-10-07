@@ -10,8 +10,8 @@ orbs:
 jobs:
   checkout_code:
     node:
-      docker:
-        - image: circleci/ruby:latest-node
+      -docker:
+        image: circleci/ruby:latest-node
     executor: rn/linux_js
     steps:
       - checkout
