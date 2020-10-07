@@ -6,15 +6,12 @@ orbs:
   node: circleci/node@2.0.1
   rn: react-native-community/react-native@2.0.1
 
-executors:
-  node:
-    docker:
-      - image: circleci/ruby:latest-node
-    resource_class: large
-
 # Custom jobs which are not part of the Orb
 jobs:
   checkout_code:
+    node:
+      docker:
+        - image: circleci/ruby:latest-node
     executor: rn/linux_js
     steps:
       - checkout
