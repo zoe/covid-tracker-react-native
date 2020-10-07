@@ -1215,7 +1215,12 @@
     "contributors-so-far": "Colaboradores hasta ahora:",
 
     "trendline-card": {
-      "cta": ""
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      }
     }
   },
 

@@ -1338,7 +1338,12 @@
     "contributors-so-far": "Bidragsgivare hittills:",
 
     "trendline-card": {
-      "cta": ""
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      }
     }
   },
 
