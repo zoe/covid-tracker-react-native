@@ -3,10 +3,7 @@ import { StyleProp, StyleSheet, View, ViewStyle, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
-
-import { FlexView } from '../FlexView';
-// import Animated from 'react-native-reanimated';
-import { RegularText } from '../Text';
+import { RegularText } from '@covid/components/Text';
 
 interface Props {
   labels: string[];
@@ -35,7 +32,7 @@ export const Tabs: React.FC<Props> = ({ labels, onSelected, ...props }) => {
   return (
     <View style={[styles.container, props.styles]}>
       <View>
-        <View style={[StyleSheet.absoluteFillObject]}>
+        <View style={StyleSheet.absoluteFillObject}>
           <Animated.View
             style={[
               {

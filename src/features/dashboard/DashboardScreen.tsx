@@ -87,8 +87,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     })();
   }, [localTrendline]);
 
-  console.log(localTrendline);
-
   const hasNetworkData = networks && networks.length > 0;
 
   return (

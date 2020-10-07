@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { MutedText, CaptionText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
+import { colors } from '@theme';
 import ArrowUp from '@assets/icons/stats/arrow-up.svg';
 import ArrowDown from '@assets/icons/stats/arrow-down.svg';
 import i18n from '@covid/locale/i18n';

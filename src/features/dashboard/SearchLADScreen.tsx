@@ -15,6 +15,7 @@ import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { BackButton } from '@covid/components/PatientHeader';
 import { LADSearchResult } from '@covid/core/content/dto/ContentAPIContracts';
 import { useInjection } from '@covid/provider/services.hooks';
+import NavigatorService from '@covid/NavigatorService';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'SearchLAD'>;
@@ -41,7 +42,7 @@ export const SearchLADScreen: React.FC<RenderProps> = (props) => {
 
   const onItemSelected = (item: LADSearchResult) => {
     dispatch(searchTrendLine(item.lad));
-    props.navigation.pop();
+    NavigatorService.goBack();
   };
 
   const search = async (query: string) => {
