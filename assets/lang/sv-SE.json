@@ -18,7 +18,8 @@
 
   "legal": {
     "i-agree": "Jag godkänner",
-    "back": "Tillbaka"
+    "back": "Tillbaka",
+    "confirm": ""
   },
 
   "title-about-work": "Om ditt arbete",
@@ -313,7 +314,13 @@
     "required-date": "Ange datum när testet utfördes",
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
-    "required-result": "Ange testresultatet"
+    "required-result": "Ange testresultatet",
+
+    "confirm-test": {
+      "title": "",
+      "body": "",
+      "consent": ""
+    }
   },
 
   "how-you-feel": {
