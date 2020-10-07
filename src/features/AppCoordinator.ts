@@ -34,6 +34,7 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
+import { experiments, startExperiment } from '@covid/core/Experiments';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -301,6 +302,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   async shouldShowStudiesMenu(): Promise<boolean> {
     const consent = await AsyncStorageService.getDietStudyConsent();
     return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
+  }
+
+  async shouldShowTrendLine(): Promise<boolean> {
+    const variant = await startExperiment(experiments.Trend_Line_Launch, 2);
+    const user = await this.userService.getUser();
+    return variant === 'variant_1' || user?.is_tester === true;
   }
 
   goToVaccineRegistry() {

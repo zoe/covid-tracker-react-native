@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
@@ -18,7 +18,7 @@ import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
-import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import { fetchLocalTrendLine, updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
@@ -46,6 +46,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   );
   const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
+  const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -75,8 +76,18 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     return navigation.addListener('focus', () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
+      dispatch(fetchLocalTrendLine());
     });
   }, [navigation]);
+
+  useEffect(() => {
+    (async () => {
+      const flag = await appCoordinator.shouldShowTrendLine();
+      setShowTrendline(!!localTrendline);
+    })();
+  }, [localTrendline]);
+
+  console.log(localTrendline);
 
   const hasNetworkData = networks && networks.length > 0;
 
@@ -86,7 +97,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      {startupInfo?.show_trendline && localTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
