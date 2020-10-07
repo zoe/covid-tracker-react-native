@@ -253,6 +253,8 @@ export type PatientInfosRequest = {
   // NHS Study
   nhs_study_id: string;
   is_in_uk_nhs_asymptomatic_study: boolean;
+
+  has_school_group: boolean;
 };
 
 export type TokenInfoRequest = {
