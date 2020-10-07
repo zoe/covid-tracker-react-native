@@ -9,8 +9,9 @@ orbs:
 # Custom jobs which are not part of the Orb
 jobs:
   checkout_code:
-    executor: rn/linux_js
-    node_version: '10'
+    executor:
+      name: rn/linux_js
+      node_version: '10'
     steps:
       - checkout
       - persist_to_workspace:
