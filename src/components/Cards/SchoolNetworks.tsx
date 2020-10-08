@@ -127,7 +127,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
             <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
             <RegularText>
               <RegularBoldText>{school.size + ' '}</RegularBoldText>
-              <RegularText>Children being reported for</RegularText>
+              <RegularText>{getGroupSizeLabelText(school.size)}</RegularText>
             </RegularText>
             {ArrayDistinctBy(school.groups, (group) => {
               return group.id;

@@ -12,7 +12,6 @@ import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import { ValidationError } from '@covid/components/ValidationError';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
-import AssessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import {
   CovidTestDateData,
@@ -31,6 +30,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import { ClearButton } from '@covid/components/Buttons/ClearButton';
+import NavigatorService from '@covid/NavigatorService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 export interface CovidTestData
   extends CovidTestDateData,
@@ -74,22 +75,30 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       this.covidTestService
         .updateTest(test.id, infos)
         .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
+          NavigatorService.goBack();
         })
         .catch(() => {
           this.setState({ errorMessage: i18n.t('something-went-wrong') });
           this.setState({ submitting: false });
         });
     } else {
-      this.covidTestService
-        .addTest(infos)
-        .then(() => {
-          AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-          this.setState({ submitting: false });
-        });
+      if (
+        infos.result === 'positive' &&
+        this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+      ) {
+        this.setState({ submitting: false });
+        assessmentCoordinator.goToTestConfirm(infos as CovidTest);
+      } else {
+        this.covidTestService
+          .addTest(infos)
+          .then(() => {
+            NavigatorService.goBack();
+          })
+          .catch(() => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+            this.setState({ submitting: false });
+          });
+      }
     }
   }
 
@@ -113,7 +122,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
       }
 
       const infos = {
-        patient: AssessmentCoordinator.assessmentData.patientData.patientId,
+        patient: assessmentCoordinator.assessmentData.patientData.patientId,
         type: CovidTestType.Generic,
         ...CovidTestDateQuestion.createDTO(formData),
         ...CovidTestMechanismQuestion.createDTO(formData),
@@ -154,7 +163,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   }
 
   render() {
-    const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
     const { test } = this.props.route.params;
 
     const registerSchema = Yup.object()

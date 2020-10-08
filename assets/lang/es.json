@@ -86,7 +86,8 @@
 
   "legal": {
     "i-agree": "Acepto",
-    "back": "Volver"
+    "back": "Volver",
+    "confirm": ""
   },
 
   "next-question": "Siguiente pregunta",
@@ -362,7 +363,13 @@
     "required-date": "Indique la fecha de este examen",
     "required-dates": "Indique las fechas entre las que ocurrió este examen",
     "required-mechanism": "Indique cómo se realizó el examen",
-    "required-result": "Indique el resultado del examen"
+    "required-result": "Indique el resultado del examen",
+
+    "confirm-test": {
+      "title": "",
+      "body": "",
+      "consent": ""
+    }
   },
 
   "describe-symptoms": {
