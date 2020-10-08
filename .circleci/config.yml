@@ -1,91 +1,322 @@
-# Orb support is from version >= 2.1
 version: 2.1
 
-# Make sure you use the latest version of the Orb!
+references:
+  yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+  node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
+  pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
+
 orbs:
   node: circleci/node@2.0.1
-  rn: react-native-community/react-native@2.0.1
+  slack: circleci/slack@3.2.0
+  jq: circleci/jq@2.0.1
+  coveralls: coveralls/coveralls@1.0.6
 
-# Custom jobs which are not part of the Orb
-jobs:
-  checkout_code:
-    executor:
-      name: rn/linux_js
-      node_version: '10'
+executors:
+  node:
+    docker:
+      - image: circleci/ruby:latest-node
+        environment:
+          API_URL: $API_URL
+          AMPLITUDE_KEY: $AMPLITUDE_KEY
+    resource_class: large
+
+  mobile-build-box:
+    macos:
+      xcode: 12.0.0
+
+master_filter: &master_filter
+  branches:
+    only: master
+
+develop_filter: &develop_filter
+  branches:
+    only: develop
+
+stage_filter: &stage_filter
+  branches:
+    only: stage
+
+legacy_ota_filter: &legacy_ota_filter
+  branches:
+    only: release-0.x-legacy
+
+feature_filter: &feature_filter
+  branches:
+    ignore:
+      - master
+      - develop
+      - stage
+      - release-0.x-legacy
+
+commands:
+  prepare_code:
     steps:
       - checkout
-      - persist_to_workspace:
-          root: .
-          paths: .
-  analyse_js:
-    executor:
-      name: rn/linux_js
-      node_version: '10'
+      - restore_cache:
+          key: *yarn_cache_key
+      - restore_cache:
+          key: *node_cache_key
+      - restore_cache:
+          key: *pod_cache_key
+      - restore_cache:
+          key: *gem_cache_key
+
+  install_dependencies:
     steps:
-      - attach_workspace:
-          at: .
-      - rn/yarn_install
+      - run: gem install bundler
       - run:
-          name: Run ESLint
-          command: yarn eslint
+          name: Bundle install
+          command: bundle check || bundle install --path vendor/bundle --clean
+          environment:
+            BUNDLE_JOBS: '4'
+            BUNDLE_RETRY: '3'
+      - run: bundle update fastlane
+      - run: yarn
+      - save_cache:
+          key: *yarn_cache_key
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: *node_cache_key
+          paths:
+            - node_modules
+      - save_cache:
+          key: *pod_cache_key
+          paths:
+            - ios/Pods
+            - ~/Library/Caches/CocoaPods/Pods
+      - save_cache:
+          key: *gem_cache_key
+          paths:
+            - vendor/bundle
+
+  prepare_blank_env:
+    steps:
+      - run: echo "API_URL=" > .env
+      - run: echo "AMPLITUDE_KEY=" >> .env
+
+  prepare_deploy_env:
+    steps:
+      - run: echo "API_URL=$API_URL" > .env
+      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
+      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
+      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
+      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
+      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
+      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
+      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
+      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
+      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
+      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env
+      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+
+  build:
+    steps:
+      - checkout
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle update fastlane
+      - run: yarn
+
+jobs:
+  build:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - prepare_code
+      - install_dependencies
+
+  lint:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - prepare_code
       - run:
-          name: Flow
-          command: yarn flow
+          command: |
+            mkdir -p ~/reports
+            yarn lint:ci
+          when: always
+      - run: yarn prettier
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
+
+  i18n:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - prepare_code
+      - run: yarn test:i18n 'sv-SE'
+      - run: yarn test:i18n 'es'
+
+  test:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - prepare_code
+      - prepare_blank_env
       - run:
-          name: Jest
-          command: yarn jest
+          name: Run tests with JUnit as reporter
+          command: yarn test:coverage -- --ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+      - coveralls/upload
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit
+
+  deploy:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - build
+      # - deploy_ios
+      # - deploy_android
+
+  deploy_stage:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - prepare_code
+      - prepare_deploy_env
+      - install_dependencies
+      # - run: yarn fastlane:android:stage
+      - run: yarn fastlane:ios:stage
+      - store_artifacts:
+          path: ~/covid-react/build/covid-zoe.ipa
+      - store_artifacts:
+          path: ~/covid-react/build/covid-zoe.app.dSYM.zip
+      - store_artifacts:
+          path: ~/covid-react/android/app/build/outputs/apk/production/app-production-release.apk
+
+  deployed_stage:
+    executor: mobile-build-box
+    steps:
+      - slack/notify:
+          message: Deployed adhoc builds for iOS & Android
+          webhook: $SLACK_WEBHOOK
+
+  legacy_deploy:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - build
+      - legacy_ota_publish
 
 workflows:
-  test:
+  default:
     jobs:
-      # Checkout the code and persist to the Workspace
-      # Note: This is a job which is defined above and not part of the Orb
-      - checkout_code
-
-      # Analyze the Javascript using ESLint, Flow, and Jest
-      # Note: This is a job which is defined above and not part of the Orb
-      - analyse_js:
+      - build:
+          filters: *feature_filter
+      - lint:
+          filters: *feature_filter
           requires:
-            - checkout_code
-
-      # Build the Android app in debug mode
-      - rn/android_build:
-          name: build_android_debug
-          project_path: "android"
-          build_type: debug
+              - build
+      - i18n:
+          filters: *feature_filter
           requires:
-            - analyse_js
-
-      # Build and test the Android app in release mode
-      # Note: We split these into seperate jobs because we can build the Android app on a Linux machine and preserve the expensive MacOS executor minutes for when it's required
-      - rn/android_build:
-          name: build_android_release
-          project_path: "android"
-          build_type: release
+              - build
+      - test:
+          filters: *feature_filter
           requires:
-            - analyse_js
-      - rn/android_test:
-          detox_configuration: "android.emu.release"
+              - build
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: Awaiting manual approval to deploy to stage
+          context: slack-ci-covid-mobile
           requires:
-            - build_android_release
-
-
-      # Build the iOS app in release mode and do not run tests
-      - rn/ios_build:
-          name: build_ios_release
-          project_path: ios/Covid.xcodeproj
-          device: "iPhone X"
-          build_configuration: Release
-          scheme: Example
+            - lint
+            - i18n
+            - test
+      - wait_for_approval:
+          filters: *feature_filter
+          type: approval
           requires:
-            - analyse_js
-
-      # Build and test the iOS app in release mode
-      - rn/ios_build_and_test:
-          project_path: "ios/Covid.xcodeproj"
-          device: "iPhone X"
-          build_configuration: "Release"
-          scheme: "Example"
-          detox_configuration: "ios.sim.release"
+            - lint
+            - i18n
+            - test
+      - deploy_stage:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
           requires:
-            - analyse_js
+            - wait_for_approval
+      - deployed_stage:
+          context: slack-ci-covid-mobile
+          requires:
+            - deploy_stage
+
+  stage:
+    jobs:
+      - build:
+          filters: *stage_filter
+      - lint:
+          filters: *stage_filter
+          requires:
+              - build
+      - i18n:
+          filters: *stage_filter
+          requires:
+              - build
+      - test:
+          filters: *stage_filter
+          requires:
+              - build
+      - slack/approval-notification:
+          filters: *stage_filter
+          message: Awaiting manual approval to deploy to stage
+          context: slack-ci-covid-mobile
+          requires:
+            - lint
+            - i18n
+            - test
+      - wait_for_approval:
+          filters: *stage_filter
+          type: approval
+          requires:
+            - lint
+            - i18n
+            - test
+      - deploy_stage:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+            - wait_for_approval
+      - deployed_stage:
+          context: slack-ci-covid-mobile
+          requires:
+            - deploy_stage
+
+  develop:
+    jobs:
+      - build:
+          filters: *develop_filter
+      - deploy:
+          filters: *develop_filter
+          context: react-covid-tracker-dev
+          requires:
+            - build
+
+  master:
+    jobs:
+      - build:
+          filters: *master_filter
+      - slack/approval-notification:
+          message: Awaiting manual approval to deploy to production
+          context: slack-ci-covid-mobile
+          requires:
+            - build
+          filters: *master_filter
+      - wait_for_approval:
+          type: approval
+          requires:
+            - build
+          filters: *master_filter
+      - deploy:
+          filters: *master_filter 
+          context: react-covid-tracker-prod
+          requires:
+            - wait_for_approval
+
