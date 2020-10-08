@@ -121,7 +121,8 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
           <TouchableOpacity
             key={school.id}
             onPress={() => {
-              schoolNetworkCoordinator.goToSchoolDashboard(school);
+              // Disabled until school leaders sign off
+              // schoolNetworkCoordinator.goToSchoolDashboard(school);
             }}>
             <RegularText style={styles.schoolTitle}>{school.name}</RegularText>
             <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
