@@ -73,11 +73,12 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
     })();
   }, []);
 
-  const onSubmit = (schoolData: JoinSchoolData) => {
+  const onSubmit = async (schoolData: JoinSchoolData) => {
     const selectedSchool = schools.find((school) => school.id === schoolData.schoolId)!;
-    schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
+    await schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
 
     if (selectedSchool.higher_education) {
+      console.log(previouslyJoinedGroups);
       NavigatorService.goBack();
     } else if (!currentJoinedGroup) {
       schoolNetworkCoordinator.goToJoinGroup();
@@ -205,9 +206,16 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
                   </RegularText>
                 </TouchableOpacity>
               )}
-              <Button onPress={formikProps.handleSubmit} branded>
-                {i18n.t('school-networks.join-school.cta')}
-              </Button>
+              {higherEducation && previouslyJoinedGroups!.length === 0 && (
+                <Button onPress={formikProps.handleSubmit} branded>
+                  {i18n.t('school-networks.join-school.cta')}
+                </Button>
+              )}
+              {!higherEducation && (
+                <Button onPress={formikProps.handleSubmit} branded>
+                  {i18n.t('school-networks.join-school.cta')}
+                </Button>
+              )}
             </View>
           </Form>
         )}

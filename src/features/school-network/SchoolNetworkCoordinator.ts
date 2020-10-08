@@ -8,7 +8,12 @@ import { ILocalisationService } from '@covid/core/localisation/LocalisationServi
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { SchoolModel, SubscribedSchoolGroupStats, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import {
+  SchoolGroupModel,
+  SchoolModel,
+  SubscribedSchoolGroupStats,
+  SubscribedSchoolStats,
+} from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
@@ -92,11 +97,12 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     });
   }
 
-  setSelectedSchool(selectedSchool: SchoolModel) {
+  async setSelectedSchool(selectedSchool: SchoolModel) {
     this.selectedSchool = selectedSchool;
 
     if (selectedSchool.higher_education) {
-      //TODO Join default group for school
+      const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(selectedSchool.id);
+      await schoolNetworkCoordinator.addPatientToGroup(groups[0].id, this.patientData.patientId);
     }
   }
 
