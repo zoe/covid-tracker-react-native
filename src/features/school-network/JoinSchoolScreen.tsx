@@ -26,6 +26,7 @@ import { openWebLink } from '@covid/utils/links';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
+import NavigatorService from '@covid/NavigatorService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -52,9 +53,10 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const [schools, setSchools] = useState<SchoolModel[]>([]);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const { higherEducation } = route.params;
 
-  const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks
+  const previouslyJoinedGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>((state) =>
+    state.school.joinedSchoolNetworks?.filter((group) => group.school.higher_education === higherEducation)
   );
 
   const currentPatient = route.params.patientData.patientState;
@@ -66,13 +68,18 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   useEffect(() => {
     (async () => {
-      setSchools(await service.getSchools());
+      const schools = await service.getSchools();
+      setSchools(schools.filter((s) => s.higher_education === higherEducation));
     })();
   }, []);
 
-  const onSubmit = (schoolData: JoinSchoolData) => {
-    schoolNetworkCoordinator.setSelectedSchool(schools.filter((school) => school.id === schoolData.schoolId)[0]);
-    if (!currentJoinedGroup) {
+  const onSubmit = async (schoolData: JoinSchoolData) => {
+    const selectedSchool = schools.find((school) => school.id === schoolData.schoolId)!;
+    await schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
+
+    if (selectedSchool.higher_education) {
+      NavigatorService.goBack();
+    } else if (!currentJoinedGroup) {
       schoolNetworkCoordinator.goToJoinGroup();
     } else {
       schoolNetworkCoordinator.goToGroupList();
@@ -102,16 +109,28 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
       <Header>
-        <HeaderText>{i18n.t('school-networks.join-school.title')}</HeaderText>
-        <RegularText style={styles.topText}>
-          {i18n.t('school-networks.join-school.description')}
-          <RegularText
-            style={{ color: colors.purple }}
-            passProps={{ onPress: schoolNetworkCoordinator.goToSchoolIntro }}>
-            {' '}
-            {i18n.t('school-networks.join-school.description-link')}
+        <HeaderText>
+          {higherEducation
+            ? i18n.t('school-networks.join-school.title-higher-education')
+            : i18n.t('school-networks.join-school.title')}
+        </HeaderText>
+
+        {higherEducation && (
+          <RegularText style={styles.topText}>
+            {i18n.t('school-networks.join-school.description-higher-education')}
           </RegularText>
-        </RegularText>
+        )}
+        {!higherEducation && (
+          <RegularText style={styles.topText}>
+            {i18n.t('school-networks.join-school.description')}
+            <RegularText
+              style={{ color: colors.purple }}
+              passProps={{ onPress: schoolNetworkCoordinator.goToSchoolIntro }}>
+              {' '}
+              {i18n.t('school-networks.join-school.description-link')}
+            </RegularText>
+          </RegularText>
+        )}
       </Header>
 
       <ProgressBlock>
@@ -150,37 +169,52 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
                 <DropdownField
                   selectedValue={formikProps.values.schoolId}
                   onValueChange={formikProps.handleChange('schoolId')}
-                  label={i18n.t('school-networks.join-school.dropdown.label')}
+                  label={
+                    higherEducation
+                      ? i18n.t('school-networks.join-school.dropdown.label-higher-education')
+                      : i18n.t('school-networks.join-school.dropdown.label')
+                  }
                   items={getSchoolPickerItems}
                   error={formikProps.touched.schoolId && formikProps.errors.schoolId}
                 />
               )}
             </View>
 
-            <View style={styles.textContainer}>
-              <RegularText>
-                <RegularText>{i18n.t('school-networks.join-school.disclaimer-1')}</RegularText>
-                <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/')}>
-                  {i18n.t('school-networks.join-school.disclaimer-2')}
-                </ClickableText>
-              </RegularText>
-              <RegularText style={{ marginTop: 16 }}>{i18n.t('school-networks.join-school.disclaimer-3')}</RegularText>
-            </View>
+            {!higherEducation && (
+              <View style={styles.textContainer}>
+                <RegularText>
+                  <RegularText>{i18n.t('school-networks.join-school.disclaimer-1')}</RegularText>
+                  <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/')}>
+                    {i18n.t('school-networks.join-school.disclaimer-2')}
+                  </ClickableText>
+                </RegularText>
+                <RegularText style={{ marginTop: 16 }}>
+                  {i18n.t('school-networks.join-school.disclaimer-3')}
+                </RegularText>
+              </View>
+            )}
 
             <View>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
               )}
-              {currentJoinedGroup && (
+              {currentJoinedGroup && currentJoinedGroup.school.id === formikProps.values.schoolId && (
                 <TouchableOpacity style={{ margin: 16 }} onPress={() => setModalVisible(true)}>
                   <RegularText style={{ textAlign: 'center', color: colors.coral }}>
                     {i18n.t('school-networks.join-school.remove')}
                   </RegularText>
                 </TouchableOpacity>
               )}
-              <Button onPress={formikProps.handleSubmit} branded>
-                {i18n.t('school-networks.join-school.cta')}
-              </Button>
+              {higherEducation && previouslyJoinedGroups!.length === 0 && (
+                <Button onPress={formikProps.handleSubmit} branded>
+                  {i18n.t('school-networks.join-school.cta')}
+                </Button>
+              )}
+              {!higherEducation && (
+                <Button onPress={formikProps.handleSubmit} branded>
+                  {i18n.t('school-networks.join-school.cta')}
+                </Button>
+              )}
             </View>
           </Form>
         )}
