@@ -23,6 +23,7 @@ export type PatientStateType = {
   hasHayfever: boolean;
   shouldShowUSStudyInvite: boolean;
   hasBloodGroupAnswer: boolean;
+  hasSchoolGroup: boolean;
 };
 
 const initPatientState: PatientStateType = {
@@ -53,6 +54,7 @@ const initPatientState: PatientStateType = {
   hasDiabetesAnswers: true,
   shouldAskExtendedDiabetes: false,
   hasBloodGroupAnswer: true,
+  hasSchoolGroup: false,
 };
 
 export const getInitialPatientState = (patientId: string): PatientStateType => {
