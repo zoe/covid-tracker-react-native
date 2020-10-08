@@ -78,7 +78,6 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
     await schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
 
     if (selectedSchool.higher_education) {
-      console.log(previouslyJoinedGroups);
       NavigatorService.goBack();
     } else if (!currentJoinedGroup) {
       schoolNetworkCoordinator.goToJoinGroup();
