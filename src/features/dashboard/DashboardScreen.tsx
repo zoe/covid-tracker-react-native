@@ -25,6 +25,8 @@ import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import AnalyticsService from '@covid/core/Analytics';
+import { pushNotificationService } from '@covid/Services';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -62,6 +64,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const schoolNetworkFlow = () => schoolNetworkCoordinator.goToSchoolIntro();
+
+  useEffect(() => {
+    (async () => {
+      AnalyticsService.identify();
+      await pushNotificationService.refreshPushToken();
+    })();
+  }, []);
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
