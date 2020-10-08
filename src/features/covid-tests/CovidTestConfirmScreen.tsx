@@ -34,9 +34,17 @@ export const CovidTestConfirmScreen: FC<PropsType> = (props) => {
       return;
     }
 
-    covidTestService.addTest(props.route.params.test).then(() => {
-      assessmentCoordinator.gotoNextScreen(props.route.name);
-    });
+    const { test } = props.route.params;
+
+    if (test.id) {
+      covidTestService.updateTest(test.id, test).then(() => {
+        assessmentCoordinator.gotoNextScreen(props.route.name);
+      });
+    } else {
+      covidTestService.addTest(test).then(() => {
+        assessmentCoordinator.gotoNextScreen(props.route.name);
+      });
+    }
   };
 
   return (
