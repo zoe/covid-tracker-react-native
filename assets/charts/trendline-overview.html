@@ -111,24 +111,6 @@
     }
 
     window.covid.emit('loaded', {});
-
-    // sql.execute("SELECT * FROM uk_active_cases")
-    //   .done(function (data) {
-    //     var corrected_covid_positive = [];
-    //     var covid_dates = [];
-    //     $.each(data.rows, function (key, value) {
-    //       corrected_covid_positive.push(Math.round(value.corrected_covid_positive));
-    //       covid_dates.push(moment(value.date).format("D MMM"));
-    //     });
-
-    //     console.log(covid_dates)
-    //     console.log(covid_dates)
-
-    //     setupChart(covid_dates, corrected_covid_positive)
-    //   })
-    //   .error(function (errors) {
-    //     console.log("errors:" + errors);
-    //   });
   </script>
 </body>
 
