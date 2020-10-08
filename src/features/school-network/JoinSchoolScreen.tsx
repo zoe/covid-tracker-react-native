@@ -199,7 +199,7 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
               )}
-              {currentJoinedGroup && (
+              {currentJoinedGroup && currentJoinedGroup.school.id === formikProps.values.schoolId && (
                 <TouchableOpacity style={{ margin: 16 }} onPress={() => setModalVisible(true)}>
                   <RegularText style={{ textAlign: 'center', color: colors.coral }}>
                     {i18n.t('school-networks.join-school.remove')}
