@@ -68,7 +68,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   useEffect(() => {
     (async () => {
-      setSchools(await service.getSchools());
+      const schools = await service.getSchools();
+      setSchools(schools.filter((s) => s.higher_education === higherEducation));
     })();
   }, []);
 
