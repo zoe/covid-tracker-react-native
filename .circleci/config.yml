@@ -94,14 +94,12 @@ commands:
 
   prepare_blank_env:
     steps:
-      _ run: echo "NAME=" > .env
-      - run: echo "API_URL=" >> .env
+      - run: echo "API_URL=" > .env
       - run: echo "AMPLITUDE_KEY=" >> .env
 
   prepare_deploy_env:
     steps:
-      _ run: echo "NAME=$NAME" > .env
-      - run: echo "API_URL=$API_URL" >> .env
+      - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
       - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
@@ -112,6 +110,7 @@ commands:
       - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
       - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
       - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env
+      - run: echo "NAME=$NAME" >> .env 
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
 
   build:
