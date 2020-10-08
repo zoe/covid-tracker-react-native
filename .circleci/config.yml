@@ -11,6 +11,7 @@ orbs:
   slack: circleci/slack@3.2.0
   jq: circleci/jq@2.0.1
   coveralls: coveralls/coveralls@1.0.6
+  rn: react-native-community/react-native@2.0.1
 
 executors:
   node:
@@ -93,12 +94,14 @@ commands:
 
   prepare_blank_env:
     steps:
-      - run: echo "API_URL=" > .env
+      _ run: echo "NAME=" > .env
+      - run: echo "API_URL=" >> .env
       - run: echo "AMPLITUDE_KEY=" >> .env
 
   prepare_deploy_env:
     steps:
-      - run: echo "API_URL=$API_URL" > .env
+      _ run: echo "NAME=$NAME" > .env
+      - run: echo "API_URL=$API_URL" >> .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
       - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
