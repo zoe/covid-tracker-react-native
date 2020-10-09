@@ -176,7 +176,7 @@ export class AssessmentCoordinator extends Coordinator {
   }
 
   goToTestConfirm(test: CovidTest) {
-    NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test: test });
+    NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test });
   }
 }
 

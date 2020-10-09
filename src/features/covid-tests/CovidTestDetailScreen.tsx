@@ -72,15 +72,25 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
   submitCovidTest(infos: Partial<CovidTest>) {
     const { test } = this.props.route.params;
     if (test?.id) {
-      this.covidTestService
-        .updateTest(test.id, infos)
-        .then(() => {
-          NavigatorService.goBack();
-        })
-        .catch(() => {
-          this.setState({ errorMessage: i18n.t('something-went-wrong') });
-          this.setState({ submitting: false });
-        });
+      if (
+        test.result !== 'positive' &&
+        infos.result === 'positive' &&
+        this.props.route.params.assessmentData.patientData.patientState.hasSchoolGroup
+      ) {
+        this.setState({ submitting: false });
+        infos.id = this.testId;
+        assessmentCoordinator.goToTestConfirm(infos as CovidTest);
+      } else {
+        this.covidTestService
+          .updateTest(test.id, infos)
+          .then(() => {
+            NavigatorService.goBack();
+          })
+          .catch(() => {
+            this.setState({ errorMessage: i18n.t('something-went-wrong') });
+            this.setState({ submitting: false });
+          });
+      }
     } else {
       if (
         infos.result === 'positive' &&
