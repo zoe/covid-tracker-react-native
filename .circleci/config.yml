@@ -164,19 +164,23 @@ jobs:
       - checkout
       - *restore_android_cache
       - run: ls -la
-      - run:
-          name: Download Dependencies
-          command: ./android/gradlew androidDependencies --stacktrace --max-workers=2
-      - save_cache:
-          key: *gradle_cache_key
-          paths:
-            - ~/.gradle
-      - run:
-          name: Build
-          command: ./android/gradlew assembleDebug --stacktrace --max-workers=2
-      - store_artifacts:
-          path: app/build/outputs/apk/
-          destination: apks/
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle update fastlane
+      - run: ENVFILE=.env bundle exec fastlane android release env:staging
+      # - run:
+      #     name: Download Dependencies
+      #     command: ./android/gradlew androidDependencies --stacktrace --max-workers=2
+      # - save_cache:
+      #     key: *gradle_cache_key
+      #     paths:
+      #       - ~/.gradle
+      # - run:
+      #     name: Build
+      #     command: ./android/gradlew assembleDebug --stacktrace --max-workers=2
+      # - store_artifacts:
+      #     path: app/build/outputs/apk/
+      #     destination: apks/
       - persist_to_workspace:
           root: *workspace_root
           paths:
