@@ -240,10 +240,10 @@ workflows:
       #     filters: *feature_filter
       #     requires:
       #         - build
-      - test_android_deploy:
-          filters: *feature_filter
-          requires:
-              - build
+      # - test_android_deploy:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
       # - slack/approval-notification:
       #     filters: *feature_filter
       #     message: Awaiting manual approval to deploy to stage
