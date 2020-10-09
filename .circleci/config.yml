@@ -242,12 +242,14 @@ jobs:
 workflows:
   default:
     jobs:
-      - build
+      - build:
+          filters: *feature_filter
       - android-build:
+          filters: *feature_filter
           requires:
               - build
       # - build:
-      #     filters: *feature_filter
+      #     
       # - lint:
       #     filters: *feature_filter
       #     requires:
