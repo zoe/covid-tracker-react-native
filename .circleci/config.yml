@@ -1,10 +1,24 @@
 version: 2.1
 
 references:
+  workspace_root: &workspace_root /tmp/workspace
+
+  container_config: &container_config
+    docker:
+      - image: circleci/android:api-29
+    working_directory: *workspace_root
+    environment:
+      GRADLE_OPTS: -Xmx3200m -Dkotlin.compiler.execution.strategy=in-process
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
   yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
   node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
   pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
   gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  gradle_cache_key: &gradle_cache_key gradle-v1-{{ checksum "android/build.gradle" }}-{{ checksum  "android/app/build.gradle" }}
 
 orbs:
   node: circleci/node@2.0.1
@@ -55,13 +69,12 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          key: *yarn_cache_key
-      - restore_cache:
-          key: *node_cache_key
-      - restore_cache:
-          key: *pod_cache_key
-      - restore_cache:
-          key: *gem_cache_key
+          keys: 
+            - *yarn_cache_key
+            - *node_cache_key
+            - *pod_cache_key
+            - *gem_cache_key
+            - *gradle_cache_key
 
   install_dependencies:
     steps:
@@ -129,12 +142,38 @@ jobs:
       - prepare_code
       - install_dependencies
       - persist_to_workspace:
-          root: .
+          root: *workspace_root
           paths: 
             - .
-      - rn/android_build:
-          project_path: "android"
-          build_type: debug
+
+  build_android:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+      - checkout
+      - restore_cache:
+          keys:
+            - *yarn_cache_key
+            - *node_cache_key
+            - *gradle_cache_key
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies --stacktrace --max-workers=2
+      - save_cache:
+          key: *gradle_cache_key
+          paths:
+            - ~/.gradle
+      - run:
+          name: Build
+          command: ./gradlew assembleDebug --stacktrace --max-workers=2
+      - store_artifacts:
+          path: app/build/outputs/apk/
+          destination: apks/
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
           
   lint:
     executor: mobile-build-box
@@ -215,19 +254,15 @@ jobs:
       - build
       - legacy_ota_publish
 
-  # test_android_deploy:
-  #   executor: mobile-build-box
-  #   steps:
-  #     - prepare_code
-  #     - rn/android_build:
-  #         project_path: "android"
-  #         build_type: debug
-
 workflows:
   default:
     jobs:
       - build:
           filters: *feature_filter
+      - build_android:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+
       # - lint:
       #     filters: *feature_filter
       #     requires:
