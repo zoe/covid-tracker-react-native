@@ -1,31 +1,10 @@
 version: 2.1
 
 references:
-  workspace_root: &workspace_root /tmp/workspace
-
-  container_config: &container_config
-    docker:
-      - image: circleci/android:api-29
-    working_directory: *workspace_root
-    environment:
-      GRADLE_OPTS: -Xmx3200m -Dkotlin.compiler.execution.strategy=in-process
-
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
-
   yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
   node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
   pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
   gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
-  gradle_cache_key: &gradle_cache_key gradle-v1-{{ checksum "android/build.gradle" }}-{{ checksum  "android/app/build.gradle" }}
-
-  restore_android_cache: &restore_android_cache
-    restore_cache:
-      keys:
-        - *yarn_cache_key
-        - *node_cache_key
-        - *gradle_cache_key
 
 orbs:
   node: circleci/node@2.0.1
@@ -76,12 +55,13 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          keys: 
-            - *yarn_cache_key
-            - *node_cache_key
-            - *pod_cache_key
-            - *gem_cache_key
-            - *gradle_cache_key
+          key: *yarn_cache_key
+      - restore_cache:
+          key: *node_cache_key
+      - restore_cache:
+          key: *pod_cache_key
+      - restore_cache:
+          key: *gem_cache_key
 
   install_dependencies:
     steps:
@@ -146,46 +126,9 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - *attach_workspace
       - prepare_code
       - install_dependencies
-      - persist_to_workspace:
-          root: *workspace_root
-          paths: 
-            - .
 
-  build_android:
-    <<: *container_config
-    # working_directory: ~/covid-react
-    # working_directory: *workspace_root / android
-    working_directory: /tmp/workspace
-    steps:
-      - *attach_workspace
-      - checkout
-      - *restore_android_cache
-      - run: ls -la
-      - run: gem install bundler
-      - run: bundle install
-      - run: bundle update fastlane
-      - run: ENVFILE=.env bundle exec fastlane android release env:staging
-      # - run:
-      #     name: Download Dependencies
-      #     command: ./android/gradlew androidDependencies --stacktrace --max-workers=2
-      # - save_cache:
-      #     key: *gradle_cache_key
-      #     paths:
-      #       - ~/.gradle
-      # - run:
-      #     name: Build
-      #     command: ./android/gradlew assembleDebug --stacktrace --max-workers=2
-      # - store_artifacts:
-      #     path: app/build/outputs/apk/
-      #     destination: apks/
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - .
-          
   lint:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -234,7 +177,7 @@ jobs:
       - build
       # - deploy_ios
       # - deploy_android
-
+    
   deploy_stage:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -270,28 +213,18 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      - build_android:
+      - lint:
           filters: *feature_filter
-          context: react-covid-tracker-stage
           requires:
               - build
-
-      # - lint:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - i18n:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - test:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - test_android_deploy:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
+      - i18n:
+          filters: *feature_filter
+          requires:
+              - build
+      - test:
+          filters: *feature_filter
+          requires:
+              - build
       # - slack/approval-notification:
       #     filters: *feature_filter
       #     message: Awaiting manual approval to deploy to stage
@@ -388,4 +321,3 @@ workflows:
           context: react-covid-tracker-prod
           requires:
             - wait_for_approval
-
