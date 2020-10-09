@@ -6,6 +6,32 @@ references:
   pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
   gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
+  default_workspace: &default_workspace ~/covid-react
+
+  master_filter: &master_filter
+    branches:
+      only: master
+
+  develop_filter: &develop_filter
+    branches:
+      only: develop
+
+  stage_filter: &stage_filter
+    branches:
+      only: stage
+
+  legacy_ota_filter: &legacy_ota_filter
+    branches:
+      only: release-0.x-legacy
+
+  feature_filter: &feature_filter
+    branches:
+      ignore:
+        - master
+        - develop
+        - stage
+        - release-0.x-legacy
+
 orbs:
   node: circleci/node@2.0.1
   slack: circleci/slack@3.2.0
@@ -26,42 +52,17 @@ executors:
     macos:
       xcode: 12.0.0
 
-master_filter: &master_filter
-  branches:
-    only: master
-
-develop_filter: &develop_filter
-  branches:
-    only: develop
-
-stage_filter: &stage_filter
-  branches:
-    only: stage
-
-legacy_ota_filter: &legacy_ota_filter
-  branches:
-    only: release-0.x-legacy
-
-feature_filter: &feature_filter
-  branches:
-    ignore:
-      - master
-      - develop
-      - stage
-      - release-0.x-legacy
 
 commands:
   prepare_code:
     steps:
       - checkout
       - restore_cache:
-          key: *yarn_cache_key
-      - restore_cache:
-          key: *node_cache_key
-      - restore_cache:
-          key: *pod_cache_key
-      - restore_cache:
-          key: *gem_cache_key
+          keys: 
+            - *yarn_cache_key
+            - *node_cache_key
+            - *pod_cache_key
+            - *gem_cache_key
 
   install_dependencies:
     steps:
@@ -128,6 +129,10 @@ jobs:
     steps:
       - prepare_code
       - install_dependencies
+      - persist_to_workspace:
+          root: *default_workspace
+          paths:
+            - node_modules
 
   lint:
     executor: mobile-build-box
@@ -208,23 +213,54 @@ jobs:
       - build
       - legacy_ota_publish
 
+  android-build:
+    working_directory: *default_workspace
+    docker:
+      - image: circleci/android:api-29-node
+    steps:
+      - checkout:
+          path: *default_workspace
+
+      - attach_workspace:
+          at: *default_workspace
+
+      - restore_cache:
+          key: *gem_cache_key
+
+      - run: bundle install
+
+      - save_cache:
+          key: *gem_cache_key
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: fastlane android build
+          command: |
+            ENVFILE=.env bundle exec fastlane android release env:staging
+
 workflows:
   default:
     jobs:
-      - build:
-          filters: *feature_filter
-      - lint:
-          filters: *feature_filter
+      - build
+      - android-build:
           requires:
               - build
-      - i18n:
-          filters: *feature_filter
-          requires:
-              - build
-      - test:
-          filters: *feature_filter
-          requires:
-              - build
+      # - build:
+      #     filters: *feature_filter
+      # - lint:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - i18n:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - test:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+
       # - slack/approval-notification:
       #     filters: *feature_filter
       #     message: Awaiting manual approval to deploy to stage
@@ -249,75 +285,3 @@ workflows:
       #     context: slack-ci-covid-mobile
       #     requires:
       #       - deploy_stage
-
-  stage:
-    jobs:
-      - build:
-          filters: *stage_filter
-      - lint:
-          filters: *stage_filter
-          requires:
-              - build
-      - i18n:
-          filters: *stage_filter
-          requires:
-              - build
-      - test:
-          filters: *stage_filter
-          requires:
-              - build
-      - slack/approval-notification:
-          filters: *stage_filter
-          message: Awaiting manual approval to deploy to stage
-          context: slack-ci-covid-mobile
-          requires:
-            - lint
-            - i18n
-            - test
-      - wait_for_approval:
-          filters: *stage_filter
-          type: approval
-          requires:
-            - lint
-            - i18n
-            - test
-      - deploy_stage:
-          filters: *stage_filter
-          context: react-covid-tracker-stage
-          requires:
-            - wait_for_approval
-      - deployed_stage:
-          context: slack-ci-covid-mobile
-          requires:
-            - deploy_stage
-
-  develop:
-    jobs:
-      - build:
-          filters: *develop_filter
-      - deploy:
-          filters: *develop_filter
-          context: react-covid-tracker-dev
-          requires:
-            - build
-
-  master:
-    jobs:
-      - build:
-          filters: *master_filter
-      - slack/approval-notification:
-          message: Awaiting manual approval to deploy to production
-          context: slack-ci-covid-mobile
-          requires:
-            - build
-          filters: *master_filter
-      - wait_for_approval:
-          type: approval
-          requires:
-            - build
-          filters: *master_filter
-      - deploy:
-          filters: *master_filter 
-          context: react-covid-tracker-prod
-          requires:
-            - wait_for_approval
