@@ -182,10 +182,6 @@ jobs:
       # - deploy_ios
       # - deploy_android
 
-  # deploy_android:
-  #   executor: rn/android_build
-    
-
   deploy_stage:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -216,27 +212,32 @@ jobs:
       - build
       - legacy_ota_publish
 
+  test_android_deploy:
+    executor: rn
+    steps:
+      - rn/android_build:
+          project_path: "android"
+          build_type: debug
+
 workflows:
   default:
     jobs:
       - build:
           filters: *feature_filter
-      - lint:
+      # - lint:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - i18n:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - test:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      - test_android_deploy:
           filters: *feature_filter
-          requires:
-              - build
-      - i18n:
-          filters: *feature_filter
-          requires:
-              - build
-      - test:
-          filters: *feature_filter
-          requires:
-              - build
-      - rn/android_build:
-          name: build_android_release
-          project_path: "android"
-          build_type: debug
           requires:
               - build
       # - slack/approval-notification:
