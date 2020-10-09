@@ -196,8 +196,6 @@ jobs:
           path: ~/covid-react/build/covid-zoe.ipa
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.app.dSYM.zip
-      - store_artifacts:
-          path: ~/covid-react/android/app/build/outputs/apk/production/app-production-release.apk
 
   deployed_stage:
     executor: mobile-build-box
@@ -224,6 +222,8 @@ jobs:
       - attach_workspace:
           at: *default_workspace
 
+      - prepare_deploy_env
+
       - restore_cache:
           key: *gem_cache_key
 
@@ -236,8 +236,12 @@ jobs:
 
       - run:
           name: fastlane android build
+          no_output_timeout: 60m
           command: |
             ENVFILE=.env bundle exec fastlane android release env:staging
+
+      - store_artifacts:
+          path: ~/covid-react/android/app/build/outputs/apk/production/app-production-release.apk
 
 workflows:
   default:
@@ -246,6 +250,7 @@ workflows:
           filters: *feature_filter
       - android-build:
           filters: *feature_filter
+          context: react-covid-tracker-stage
           requires:
               - build
       # - build:
