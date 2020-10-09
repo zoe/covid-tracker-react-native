@@ -132,6 +132,9 @@ jobs:
           root: .
           paths: 
             - .
+      - rn/android_build:
+          project_path: "android"
+          build_type: debug
           
   lint:
     executor: mobile-build-box
@@ -212,13 +215,13 @@ jobs:
       - build
       - legacy_ota_publish
 
-  test_android_deploy:
-    executor: mobile-build-box
-    steps:
-      - prepare_code
-      - rn/android_build:
-          project_path: "android"
-          build_type: debug
+  # test_android_deploy:
+  #   executor: mobile-build-box
+  #   steps:
+  #     - prepare_code
+  #     - rn/android_build:
+  #         project_path: "android"
+  #         build_type: debug
 
 workflows:
   default:
