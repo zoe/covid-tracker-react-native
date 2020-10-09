@@ -158,14 +158,14 @@ jobs:
             - *gradle_cache_key
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies --stacktrace --max-workers=2
+          command: ./android/gradlew androidDependencies --stacktrace --max-workers=2
       - save_cache:
           key: *gradle_cache_key
           paths:
             - ~/.gradle
       - run:
           name: Build
-          command: ./gradlew assembleDebug --stacktrace --max-workers=2
+          command: ./android/gradlew assembleDebug --stacktrace --max-workers=2
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/
@@ -173,7 +173,6 @@ jobs:
           root: *workspace_root
           paths:
             - .
-
           
   lint:
     executor: mobile-build-box
