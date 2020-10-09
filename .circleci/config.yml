@@ -237,6 +237,8 @@ workflows:
           name: build_android_release
           project_path: "android"
           build_type: debug
+          requires:
+              - build
       # - slack/approval-notification:
       #     filters: *feature_filter
       #     message: Awaiting manual approval to deploy to stage
