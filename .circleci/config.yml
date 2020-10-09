@@ -215,6 +215,7 @@ jobs:
   test_android_deploy:
     executor: mobile-build-box
     steps:
+      - prepare_code
       - rn/android_build:
           project_path: "android"
           build_type: debug
