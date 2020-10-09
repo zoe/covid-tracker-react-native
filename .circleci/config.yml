@@ -178,6 +178,10 @@ jobs:
       # - deploy_ios
       # - deploy_android
 
+  # deploy_android:
+  #   executor: rn/android_build
+    
+
   deploy_stage:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -225,30 +229,34 @@ workflows:
           filters: *feature_filter
           requires:
               - build
-      - slack/approval-notification:
-          filters: *feature_filter
-          message: Awaiting manual approval to deploy to stage
-          context: slack-ci-covid-mobile
-          requires:
-            - lint
-            - i18n
-            - test
-      - wait_for_approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - lint
-            - i18n
-            - test
-      - deploy_stage:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - wait_for_approval
-      - deployed_stage:
-          context: slack-ci-covid-mobile
-          requires:
-            - deploy_stage
+      - rn/android_build:
+          name: build_android_release
+          project_path: "android"
+          build_type: debug
+      # - slack/approval-notification:
+      #     filters: *feature_filter
+      #     message: Awaiting manual approval to deploy to stage
+      #     context: slack-ci-covid-mobile
+      #     requires:
+      #       - lint
+      #       - i18n
+      #       - test
+      # - wait_for_approval:
+      #     filters: *feature_filter
+      #     type: approval
+      #     requires:
+      #       - lint
+      #       - i18n
+      #       - test
+      # - deploy_stage:
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
+      #     requires:
+      #       - wait_for_approval
+      # - deployed_stage:
+      #     context: slack-ci-covid-mobile
+      #     requires:
+      #       - deploy_stage
 
   stage:
     jobs:
