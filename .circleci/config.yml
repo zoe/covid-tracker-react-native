@@ -131,7 +131,7 @@ jobs:
       - install_dependencies
       - run:
           name: 'Bundle RN Android assets'
-          command: react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+          command: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - persist_to_workspace:
           root: *default_workspace
           paths:
