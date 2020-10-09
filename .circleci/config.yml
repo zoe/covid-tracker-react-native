@@ -261,6 +261,8 @@ workflows:
       - build_android:
           filters: *feature_filter
           context: react-covid-tracker-stage
+          requires:
+              - build
 
       # - lint:
       #     filters: *feature_filter
