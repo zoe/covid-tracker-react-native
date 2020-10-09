@@ -136,6 +136,8 @@ jobs:
           root: *default_workspace
           paths:
             - node_modules
+            - android/app/src/main/assets/index.android.bundle
+            - android/app/src/main/res
 
   lint:
     executor: mobile-build-box
