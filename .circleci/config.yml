@@ -158,11 +158,12 @@ jobs:
     <<: *container_config
     # working_directory: ~/covid-react
     # working_directory: *workspace_root / android
-    working_directory: /tmp/workspace/android
+    working_directory: /tmp/workspace
     steps:
       - *attach_workspace
       - checkout
       - *restore_android_cache
+      - run: ls -la
       - run:
           name: Download Dependencies
           command: ./android/gradlew androidDependencies --stacktrace --max-workers=2
