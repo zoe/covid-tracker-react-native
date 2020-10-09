@@ -20,6 +20,13 @@ references:
   gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
   gradle_cache_key: &gradle_cache_key gradle-v1-{{ checksum "android/build.gradle" }}-{{ checksum  "android/app/build.gradle" }}
 
+  restore_android_cache: &restore_android_cache
+    restore_cache:
+      keys:
+        - *yarn_cache_key
+        - *node_cache_key
+        - *gradle_cache_key
+
 orbs:
   node: circleci/node@2.0.1
   slack: circleci/slack@3.2.0
@@ -139,6 +146,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
+      - *attach_workspace
       - prepare_code
       - install_dependencies
       - persist_to_workspace:
@@ -148,14 +156,13 @@ jobs:
 
   build_android:
     <<: *container_config
+    # working_directory: ~/covid-react
+    # working_directory: *workspace_root / android
+    working_directory: /tmp/workspace/android
     steps:
       - *attach_workspace
       - checkout
-      - restore_cache:
-          keys:
-            - *yarn_cache_key
-            - *node_cache_key
-            - *gradle_cache_key
+      - *restore_android_cache
       - run:
           name: Download Dependencies
           command: ./android/gradlew androidDependencies --stacktrace --max-workers=2
