@@ -50,8 +50,6 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
 
   const [groupList, setGroupList] = useState<PickerItemProps[]>([]);
 
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
     (async () => {
       const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(

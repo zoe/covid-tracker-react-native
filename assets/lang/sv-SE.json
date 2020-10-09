@@ -18,7 +18,8 @@
 
   "legal": {
     "i-agree": "Jag godkänner",
-    "back": "Tillbaka"
+    "back": "Tillbaka",
+    "confirm": ""
   },
 
   "title-about-work": "Om ditt arbete",
@@ -313,7 +314,13 @@
     "required-date": "Ange datum när testet utfördes",
     "required-dates": "Ange mellan vilka två datum testet utfördes",
     "required-mechanism": "Ange hur testet utfördes",
-    "required-result": "Ange testresultatet"
+    "required-result": "Ange testresultatet",
+
+    "confirm-test": {
+      "title": "",
+      "body": "",
+      "consent": ""
+    }
   },
 
   "how-you-feel": {
@@ -1408,8 +1415,10 @@
 
     "join-school": {
       "title": "",
+      "title-higher-education": "",
       "description": "",
       "description-link": "",
+      "description-higher-education": "",
       "disclaimer-1": "",
       "disclaimer-2": "",
       "disclaimer-3": "",
@@ -1431,7 +1440,8 @@
       "description": "",
 
       "dropdown": {
-        "label": ""
+        "label": "",
+        "label-higher-education": "Select your university"
       },
 
       "input": {
@@ -1471,6 +1481,21 @@
       "modal-body": "",
       "button-1": "",
       "button-2": ""
+    },
+
+    "dashboard": {
+      "title": "",
+      "at-the-school": "",
+      "updated-on": "",
+      "students-with": "",
+      "confirmed": "",
+      "reported": "",
+      "recovered": "",
+      "total": "",
+      "more-details": "",
+      "faq": "",
+      "disclaimer": "",
+      "disclaimer2": ""
     }
   }
 }

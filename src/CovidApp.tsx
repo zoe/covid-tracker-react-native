@@ -87,6 +87,8 @@ import {
   SchoolSuccessScreen,
 } from '@covid/features/school-network';
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
+import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestConfirmScreen';
+import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDashboardScreen';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
@@ -239,6 +241,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="CovidTestList" component={CovidTestListScreen} options={noHeader} />
         <Stack.Screen name="CovidTestDetail" component={CovidTestDetailScreen} options={noHeader} />
         <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
+        <Stack.Screen name="CovidTestConfirm" component={CovidTestConfirmScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
@@ -280,6 +283,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
         <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
         <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
+        <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
+
         {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
         {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       </Stack.Navigator>
