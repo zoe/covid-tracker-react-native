@@ -185,7 +185,7 @@ jobs:
       - prepare_code
       - prepare_deploy_env
       - install_dependencies
-      # - run: yarn fastlane:android:stage
+      - run: yarn fastlane:android:stage
       - run: yarn fastlane:ios:stage
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
