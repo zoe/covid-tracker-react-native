@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
-import { Button } from 'native-base';
+import React, { useEffect, useRef, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Sharing from 'expo-sharing';

@@ -5,14 +5,10 @@ import moment from 'moment';
 
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { loadEstimatedCasesCartoMap, loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
-import Analytics, { events } from '@covid/core/Analytics';
+import { loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
 
 import { WebView } from '../WebView';
 import { MutedText } from '../Text';
-
-const overviewHtml = require('@assets/charts/trendline-overview.html');
-const exploreHtml = require('@assets/charts/trendline-explore.html');
 
 export enum TrendlineTimeFilters {
   week = 'WEEK',
@@ -112,7 +108,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
       <WebView
         ref={webview}
         originWhitelist={['*']}
-        source={{html}}
+        source={{ html }}
         style={styles.webview}
         scrollEnabled={false}
         onEvent={(type, payload) => {

@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Header3Text, RegularText, RegularBoldText, MutedText, BrandedButton } from '@covid/components/Text';
+import { BrandedButton, Header3Text, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
-import { ITrendLineData } from '@covid/features/dashboard/trendline.types';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 
 import { DeltaTag } from './DeltaTag';
