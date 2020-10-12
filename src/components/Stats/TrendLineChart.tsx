@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { loadEstimatedCasesCartoMap, loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
+import Analytics, { events } from '@covid/core/Analytics';
 
 import { WebView } from '../WebView';
 import { MutedText } from '../Text';
@@ -37,6 +39,7 @@ export const TrendLineEmptyView: React.FC = () => {
 };
 
 export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode }) => {
+  const [html, setHtml] = useState<string>('');
   const webview = useRef<WebView>(null);
   const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => {
     if (viewMode === TrendLineViewMode.explore) {
@@ -44,6 +47,15 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
     }
     return state.content.localTrendline;
   });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const x = viewMode === TrendLineViewMode.explore ? await loadTrendLineExplore() : await loadTrendLineOverview();
+        setHtml(x);
+      } catch (_) {}
+    })();
+  }, []);
 
   useEffect(() => {
     webview.current?.call('updateTimeWindow', { payload: { type: filter } });
@@ -95,14 +107,12 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
     return <TrendLineEmptyView />;
   }
 
-  const html = () => (viewMode === TrendLineViewMode.explore ? exploreHtml : overviewHtml);
-
   return (
     <View style={{ flexDirection: 'column', flex: 1, alignContent: 'center' }}>
       <WebView
         ref={webview}
         originWhitelist={['*']}
-        source={html()}
+        source={{html}}
         style={styles.webview}
         scrollEnabled={false}
         onEvent={(type, payload) => {
