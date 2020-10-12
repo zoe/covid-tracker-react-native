@@ -69,7 +69,7 @@ commands:
       - run: gem install bundler
       - run:
           name: Bundle install
-          command: bundle check || bundle install --path vendor/bundle --clean
+          command: bundle check || bundle install --path ./vendor/bundle --clean
           environment:
             BUNDLE_JOBS: '4'
             BUNDLE_RETRY: '3'
