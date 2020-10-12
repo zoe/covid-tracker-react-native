@@ -1,6 +1,9 @@
 apply plugin: "com.android.application"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
+logger.quiet('******')
+println project.env
+
 import com.android.build.OutputFile
 
 task downloadDependencies() {
@@ -99,11 +102,6 @@ apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/expo-updates/scripts/create-manifest-android.gradle"
 
-project.ext.envConfigFiles = [
-    debugstaging: ".env.staging",
-    debugproduction: ".env"
-]
-
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -150,12 +148,12 @@ android {
     }
 
     defaultConfig {
+        resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
         applicationId 'com.joinzoe.covid_zoe'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
         versionName "1.0.6"
-        resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
     }
     splits {
         abi {
@@ -193,35 +191,34 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
-    }
-
-    flavorDimensions "default"
-
-
-    productFlavors {
-
-        development {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.joinzoe.covid_zoe.development'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "Covid Dev"
-        }
         staging {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.joinzoe.covid_zoe.staging'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "Covid Stage"
-            manifestPlaceholders = [
-                appIcon: "@drawable/launcher_beta",
-            ]
-        }
-        production {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.joinzoe.covid_zoe'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "Covid"
+            initWith debug
+            manifestPlaceholders = [hostName:"com.joinzoe.covid_zoe"]
+            applicationIdSuffix ".staging"
         }
     }
+
+    // flavorDimensions "default"
+
+
+    // productFlavors {
+
+    //     development {
+    //         applicationId 'com.joinzoe.covid_zoe.development'
+    //         resValue "string", "build_config_package", "Covid Dev"
+    //     }
+    //     staging {
+    //         applicationId 'com.joinzoe.covid_zoe.staging'
+    //         resValue "string", "build_config_package", "com.joinzoe.covid_zoe.staging"
+    //         manifestPlaceholders = [
+    //             appIcon: "@drawable/launcher_beta",
+    //         ]
+    //     }
+    //     production {
+    //         applicationId 'com.joinzoe.covid_zoe'
+    //         resValue "string", "build_config_package", "Covid"
+    //     }
+    // }
 
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libc++_shared.so"
