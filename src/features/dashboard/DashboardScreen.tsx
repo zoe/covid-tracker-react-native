@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, schoolNetworkFeature, blog010 } from '@assets';
+import { shareAppV3, schoolNetworkFeature, infographicFacts } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
@@ -23,8 +23,10 @@ import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
-import { SchoolGroupSubscriptionResponse } from '@covid/core/schools/Schools.dto';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
+import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import AnalyticsService from '@covid/core/Analytics';
+import { pushNotificationService } from '@covid/Services';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 352;
@@ -39,7 +41,7 @@ const ShowSchoolModuleFeature = false;
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
-  const networks = useSelector<RootState, Optional<SchoolGroupSubscriptionResponse>>(
+  const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
 
@@ -64,6 +66,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const schoolNetworkFlow = () => schoolNetworkCoordinator.goToSchoolIntro();
 
   useEffect(() => {
+    (async () => {
+      AnalyticsService.identify();
+      await pushNotificationService.refreshPushToken();
+    })();
+  }, []);
+
+  useEffect(() => {
     return navigation.addListener('focus', () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
@@ -81,10 +90,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
           <ExternalCallout
-            link="https://covid.joinzoe.com/post/covid-on-the-rise?utm_source=App"
-            calloutID="blog_010"
-            imageSource={blog010}
-            aspectRatio={1.552}
+            link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
+            calloutID="infographic_facts"
+            imageSource={infographicFacts}
+            aspectRatio={1.229}
             screenName={route.name}
           />
         </View>
@@ -96,7 +105,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             marginHorizontal: 32,
             marginBottom: 16,
           }}>
-          <SchoolNetworks networks={networks!} />
+          <SchoolNetworks schoolGroups={networks!} />
         </View>
       )}
 

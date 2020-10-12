@@ -10,20 +10,16 @@ import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { Coordinator, ScreenFlow } from '@covid/core/Coordinator';
 
 import { IProfileService } from '../profile/ProfileService';
-
-type ScreenName = keyof ScreenParamList;
-type ScreenFlow = {
-  [key in ScreenName]: () => void;
-};
 
 export type AssessmentData = {
   assessmentId?: string;
   patientData: PatientData;
 };
 
-export class AssessmentCoordinator {
+export class AssessmentCoordinator extends Coordinator {
   @lazyInject(Services.Profile)
   private readonly profileService: IProfileService;
 
@@ -36,32 +32,18 @@ export class AssessmentCoordinator {
   assessmentData: AssessmentData;
   appCoordinator: AppCoordinator;
 
-  screenFlow: ScreenFlow = {
+  screenFlow: Partial<ScreenFlow> = {
     ProfileBackDate: () => {
       this.startAssessment();
-    },
-    LevelOfIsolation: () => {
-      if (this.assessmentData.patientData.patientState.isHealthWorker) {
-        NavigatorService.navigate('HealthWorkerExposure', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
-      }
     },
     HealthWorkerExposure: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      if (this.assessmentData.patientData.patientState.shouldAskLifestyleQuestion) {
-        NavigatorService.navigate('Lifestyle', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
-      }
-    },
-    Lifestyle: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
-    CovidTestDetail: () => {
-      NavigatorService.goBack();
+    CovidTestConfirm: () => {
+      NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     NHSTestDetail: () => {
       NavigatorService.goBack();
@@ -72,7 +54,16 @@ export class AssessmentCoordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-  } as ScreenFlow;
+    ViralThankYou: () => {
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+    },
+    ThankYouUK: () => {
+      NavigatorService.reset([{ name: 'Dashboard' }]);
+    },
+    ThankYou: () => {
+      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+    },
+  };
 
   init = (
     appCoordinator: AppCoordinator,
@@ -84,10 +75,11 @@ export class AssessmentCoordinator {
     this.assessmentData = assessmentData;
     this.userService = userService;
     this.assessmentService = assessmentService;
+    this.patientData = assessmentData.patientData;
   };
 
   startAssessment = () => {
-    const currentPatient = this.assessmentData.patientData.patientState;
+    const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
     this.assessmentService.initAssessment();
 
@@ -102,7 +94,7 @@ export class AssessmentCoordinator {
         }
       }
     } else {
-      this.appCoordinator.startPatientFlow(this.assessmentData.patientData);
+      this.appCoordinator.startPatientFlow(this.patientData);
     }
   };
 
@@ -114,15 +106,6 @@ export class AssessmentCoordinator {
     } else {
       const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
       NavigatorService.navigate(thankYouScreen);
-    }
-  };
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      // We don't have nextScreen logic for this page. Explain loudly.
-      console.error('[ROUTE] no next route found for:', screenName);
     }
   };
 
@@ -150,7 +133,6 @@ export class AssessmentCoordinator {
       : this.gotoEndAssessment();
   };
 
-  // Private helpers
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
     return (
       ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
@@ -177,14 +159,24 @@ export class AssessmentCoordinator {
   }
 
   editLocation() {
-    this.appCoordinator.startEditLocation(
-      this.assessmentData.patientData.patientState.profile,
-      this.assessmentData.patientData
+    this.appCoordinator.startEditLocation(this.patientData.patientState.profile, this.patientData);
+  }
+
+  gotoSelectProfile() {
+    NavigatorService.reset(
+      [
+        { name: 'Dashboard' },
+        {
+          name: 'SelectProfile',
+          params: { editing: true },
+        },
+      ],
+      1
     );
   }
 
-  shouldShowEditLocation() {
-    return this.localisationService.getConfig().enableEditProfile;
+  goToTestConfirm(test: CovidTest) {
+    NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test });
   }
 }
 

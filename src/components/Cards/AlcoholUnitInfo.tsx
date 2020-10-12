@@ -6,6 +6,7 @@ import { Pint, Shot, SmallGlass, StandardWine, LargeWine, BottleWine } from '@as
 import IInfoCircle from '@assets/icons/I-InfoCircle';
 import { RegularText, RegularBoldText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -15,43 +16,45 @@ interface UnitGuideItem {
   icon?: React.ReactElement;
   title: string;
   volume?: string;
-  unit: number;
+  unit: string;
 }
 
 const UNITS_GUIDE = (): UnitGuideItem[] => [
   {
     icon: <Pint />,
     title: i18n.t('diet-study.alcohol-unit-info.pints'),
-    unit: 2,
+    volume: i18n.t('diet-study.alcohol-unit-info.pints-volume'),
+    unit: i18n.t('diet-study.alcohol-unit-info.pints-units'),
   },
   {
     icon: <Shot />,
     title: i18n.t('diet-study.alcohol-unit-info.shots'),
-    volume: '25ml',
-    unit: 1,
+    volume: i18n.t('diet-study.alcohol-unit-info.shots-volume'),
+    unit: i18n.t('diet-study.alcohol-unit-info.shots-units'),
   },
   {
     icon: <SmallGlass />,
     title: i18n.t('diet-study.alcohol-unit-info.small-glass'),
-    unit: 1,
+    volume: i18n.t('diet-study.alcohol-unit-info.small-glass-volume'),
+    unit: i18n.t('diet-study.alcohol-unit-info.small-glass-units'),
   },
   {
     icon: <StandardWine />,
     title: i18n.t('diet-study.alcohol-unit-info.standard-glass'),
-    volume: '175ml',
-    unit: 2,
+    volume: i18n.t('diet-study.alcohol-unit-info.standard-glass-volume'),
+    unit: i18n.t('diet-study.alcohol-unit-info.standard-glass-units'),
   },
   {
     icon: <LargeWine />,
     title: i18n.t('diet-study.alcohol-unit-info.large-glass'),
-    volume: '250ml',
-    unit: 3,
+    volume: i18n.t('diet-study.alcohol-unit-info.large-glass-volume'),
+    unit: i18n.t('diet-study.alcohol-unit-info.large-glass-units'),
   },
   {
     icon: <BottleWine />,
     title: i18n.t('diet-study.alcohol-unit-info.bottle-wine'),
-    volume: '75cl',
-    unit: 9,
+    volume: i18n.t('diet-study.alcohol-unit-info.bottle-wine-volume'),
+    unit: i18n.t('diet-study.alcohol-unit-info.bottle-wine-units'),
   },
 ];
 
@@ -68,14 +71,23 @@ const UnitInfoItem: React.FC<UnitInfoItemProps> = ({ item }) => {
         {item.volume && <RegularText style={itemStyles.volumeLabel}>({item.volume})</RegularText>}
       </View>
       <View style={{ paddingLeft: 32, paddingBottom: 8 }}>
-        {item.unit === 1 && <RegularBoldText style={itemStyles.unitLabel}>{item.unit} unit</RegularBoldText>}
-        {item.unit > 1 && <RegularBoldText style={itemStyles.unitLabel}>{item.unit} units</RegularBoldText>}
+        <RegularBoldText style={itemStyles.unitLabel}>{item.unit}</RegularBoldText>
       </View>
     </>
   );
 };
 
 export const AlcoholUnitInfo: React.FC<Props> = ({ style }) => {
+  const unitsGuide = UNITS_GUIDE();
+  if (isUSCountry()) {
+    unitsGuide.push({
+      icon: <Pint />,
+      title: i18n.t('diet-study.alcohol-unit-info.malt-liquor'),
+      volume: i18n.t('diet-study.alcohol-unit-info.malt-liquor-volume'),
+      unit: i18n.t('diet-study.alcohol-unit-info.malt-liquor-units'),
+    });
+  }
+
   return (
     <View style={style}>
       <View style={styles.infoIcon}>
@@ -86,7 +98,7 @@ export const AlcoholUnitInfo: React.FC<Props> = ({ style }) => {
           {i18n.t('diet-study.alcohol-unit-info.label-1')} {i18n.t('diet-study.alcohol-unit-info.label-2')}
         </RegularText>
         <View style={{ height: 16 }} />
-        {UNITS_GUIDE().map((item) => (
+        {unitsGuide.map((item) => (
           <UnitInfoItem item={item} key={item.title} />
         ))}
       </View>

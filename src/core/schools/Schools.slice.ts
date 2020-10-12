@@ -1,9 +1,10 @@
-import { createSlice, createAsyncThunk, createAction, PrepareAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction, PrepareAction, Draft } from '@reduxjs/toolkit';
+import { PayloadAction } from 'typesafe-actions';
 
 import { container } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
-import { SchoolGroupSubscriptionModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 
 // State interface
@@ -12,9 +13,9 @@ export type SchoolState = {
   // Form state when joining a school
   selectedSchoolId?: string;
 
-  joinedSchoolNetworks?: SchoolGroupSubscriptionModel[];
+  joinedSchoolNetworks?: SubscribedSchoolGroupStats[]; //TODO Rename
 
-  joinedGroup?: SubscribedSchoolGroupStats;
+  joinedGroup?: SubscribedSchoolGroupStats; // TODO remove
 };
 
 // Default state
@@ -35,10 +36,9 @@ export const fetchSubscribedSchoolGroups = createAsyncThunk(
   async (): Promise<Partial<SchoolState>> => {
     const service = container.get<ISchoolService>(Services.SchoolService);
     const response = await service.getSubscribedSchoolGroups();
-    const groups = response.map((item) => camelizeKeys(item));
     return {
-      joinedSchoolNetworks: groups,
-    };
+      joinedSchoolNetworks: response,
+    } as Partial<SchoolState>;
   }
 );
 
@@ -52,15 +52,20 @@ export const schoolSlice = createSlice({
     [selectSchool.type]: (current, action) => {
       current.selectedSchoolId = action.payload;
     },
-    [joinedSchoolGroup.type]: (current, action) => {
+    [joinedSchoolGroup.type]: (
+      current: SchoolState,
+      action: PayloadAction<'school/joined_school_group', SubscribedSchoolGroupStats>
+    ) => {
+      //TODO unused
       current.joinedGroup = action.payload;
+      current.joinedSchoolNetworks = [...(current.joinedSchoolNetworks ?? []), action.payload];
     },
     [finishedSchoolGroup.type]: (current) => {
       delete current.joinedGroup;
     },
     [fetchSubscribedSchoolGroups.fulfilled.type]: (current, action: { payload: Partial<SchoolState> }) => {
       const { joinedSchoolNetworks } = action.payload;
-      if (joinedSchoolNetworks && joinedSchoolNetworks.length > 0) {
+      if (joinedSchoolNetworks) {
         current.joinedSchoolNetworks = joinedSchoolNetworks;
       }
     },

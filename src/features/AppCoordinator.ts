@@ -61,7 +61,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
   homeScreenName: ScreenName = 'WelcomeRepeat';
 
-  shouldShowCountryPicker: boolean = true;
+  shouldShowCountryPicker: boolean = false;
 
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
@@ -131,7 +131,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   };
 
   async init() {
-    let shouldShowCountryPicker = false;
     let user: UserResponse | null = null;
     let patientId: string | null = null;
 
@@ -144,14 +143,14 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
     if (patientId && user) {
       this.patientData = await this.patientService.getPatientDataById(patientId);
-      shouldShowCountryPicker = user!.country_code !== LocalisationService.userCountry;
+      this.shouldShowCountryPicker = user!.country_code !== LocalisationService.userCountry;
     }
 
     await this.fetchInitialData();
     this.setHomeScreenName();
 
     // Track insights
-    if (shouldShowCountryPicker) {
+    if (this.shouldShowCountryPicker) {
       Analytics.track(events.MISMATCH_COUNTRY_CODE, { current_country_code: LocalisationService.userCountry });
     }
   }
@@ -165,9 +164,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   }
 
   setHomeScreenName(): void {
-    // Set main route depending on API / Country
-    this.homeScreenName = store.getState().content.startupInfo?.show_new_dashboard ? 'Dashboard' : 'WelcomeRepeat';
-    this.homeScreenName = isGBCountry() ? this.homeScreenName : 'WelcomeRepeat';
+    this.homeScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
@@ -227,6 +224,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
       if (await this.consentService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
       } else if (await this.shouldShowDietStudyInvite()) {
+        this.startDietStudyFlow(this.patientData, false);
+      } else {
+        this.startAssessmentFlow(this.patientData);
+      }
+    } else if (isUSCountry() && !this.patientData.patientState.isReportedByAnother) {
+      if (await this.shouldShowDietStudyInvite()) {
         this.startDietStudyFlow(this.patientData, false);
       } else {
         this.startAssessmentFlow(this.patientData);
@@ -303,5 +306,4 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 }
 
 const appCoordinator = new AppCoordinator();
-
 export default appCoordinator;

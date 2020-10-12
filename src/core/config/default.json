@@ -3,7 +3,6 @@
   "enableMultiplePatients": true,
   "enablePersonalInformation": true,
   "enableCohorts": true,
-  "enableEditProfile": false,
 
   "showEthnicityQuestion": false,
   "showRaceQuestion": true,

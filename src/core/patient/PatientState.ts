@@ -11,9 +11,7 @@ export type PatientStateType = {
   isPeriodCapable: boolean;
   isReportedByAnother: boolean;
   isSameHousehold: boolean;
-  shouldAskLevelOfIsolation: boolean;
   shouldAskStudy: boolean;
-  shouldAskLifestyleQuestion: boolean;
   hasRaceEthnicityAnswer: boolean;
   hasPeriodAnswer: boolean;
   hasHormoneTreatmentAnswer: boolean;
@@ -25,6 +23,7 @@ export type PatientStateType = {
   hasHayfever: boolean;
   shouldShowUSStudyInvite: boolean;
   hasBloodGroupAnswer: boolean;
+  hasSchoolGroup: boolean;
 };
 
 const initPatientState: PatientStateType = {
@@ -44,9 +43,7 @@ const initPatientState: PatientStateType = {
   isPeriodCapable: false,
   isReportedByAnother: false,
   isSameHousehold: false,
-  shouldAskLevelOfIsolation: false,
   shouldAskStudy: false,
-  shouldAskLifestyleQuestion: false,
   hasRaceEthnicityAnswer: true,
   hasPeriodAnswer: true,
   hasHormoneTreatmentAnswer: true,
@@ -57,6 +54,7 @@ const initPatientState: PatientStateType = {
   hasDiabetesAnswers: true,
   shouldAskExtendedDiabetes: false,
   hasBloodGroupAnswer: true,
+  hasSchoolGroup: false,
 };
 
 export const getInitialPatientState = (patientId: string): PatientStateType => {

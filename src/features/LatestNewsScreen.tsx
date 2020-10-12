@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog010, dataPage003, notificationReminders, timUpdate008 } from '@assets';
+import { dataPage003, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { ShareAppCard } from '@covid/components/Cards/ShareApp';
@@ -45,22 +45,6 @@ export const LatestNewsScreen: React.FC<Props> = (props) => {
             )}
 
             <Header3Text style={styles.titleText}>{i18n.t('latest-news.title')}</Header3Text>
-
-            <ExternalCallout
-              link="https://covid.joinzoe.com/post/covid-on-the-rise?utm_source=App"
-              calloutID="blog_010"
-              imageSource={blog010}
-              aspectRatio={1.552}
-              screenName={props.route.name}
-            />
-
-            <ExternalCallout
-              link="https://youtu.be/UUwPmakoumQ"
-              calloutID="tim_update_008"
-              imageSource={timUpdate008}
-              aspectRatio={1.178}
-              screenName={props.route.name}
-            />
 
             <ExternalCallout
               link="https://covid.joinzoe.com/your-contribution?utm_source=App"

@@ -28,7 +28,7 @@ export const SchoolHowToScreen: React.FC<Props> = ({ route, navigation }) => {
     coordinator.gotoNextScreen(route.name);
   };
 
-  const currentPatient = coordinator.patientData?.patientState;
+  const currentPatient = route.params.patientData?.patientState;
 
   return (
     <View style={styles.container}>

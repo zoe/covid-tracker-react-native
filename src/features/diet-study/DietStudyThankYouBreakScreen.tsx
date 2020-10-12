@@ -13,7 +13,8 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import i18n from '@covid/locale/i18n';
 import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 import QuotationMark from '@assets/icons/QuotationMark';
-import { sarahBerryAvatar } from '@assets';
+import { chrisGardnerAvatar, sarahBerryAvatar } from '@assets';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 interface FormData {}
 
@@ -31,12 +32,14 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
     dietStudyCoordinator.gotoNextScreen(route.name);
   };
 
+  const avatar = isUSCountry() ? chrisGardnerAvatar : sarahBerryAvatar;
+
   return (
     <Screen profile={profile} navigation={navigation}>
       <Formik initialValues={{}} validationSchema={registerSchema} onSubmit={(values: FormData) => submit(values)}>
         {(props) => {
           return (
-            <Form>
+            <Form style={{ flex: 1 }}>
               <View style={styles.contentContainer}>
                 <View style={styles.textContainer}>
                   <View style={{ alignItems: 'center', marginBottom: 24 }}>
@@ -48,7 +51,7 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                 </View>
 
                 <View style={styles.avatarContainer}>
-                  <Image style={styles.avatar} source={sarahBerryAvatar} />
+                  <Image style={styles.avatar} source={avatar} />
                   <RegularText style={styles.avatarTitle}>
                     {i18n.t('diet-study.thank-you-break.sarah-name')}
                   </RegularText>
@@ -57,6 +60,8 @@ export const DietStudyThankYouBreakScreen: React.FC<Props> = ({ route, navigatio
                   </MutedText>
                 </View>
               </View>
+
+              <View style={{ flex: 1 }} />
 
               <RegularText style={styles.bottomText}>{i18n.t('diet-study.thank-you-break.return-later')}</RegularText>
 
