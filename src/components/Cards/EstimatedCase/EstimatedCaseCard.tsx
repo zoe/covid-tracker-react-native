@@ -67,17 +67,6 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
 
-  chartContainer: {
-    width: '100%',
-    height: 180,
-    paddingHorizontal: 16,
-  },
-
-  webview: {
-    height: '100%',
-    width: '100%',
-  },
-
   primaryLabel: {
     fontWeight: '500',
     color: colors.textDark,

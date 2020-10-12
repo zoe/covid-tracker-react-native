@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import * as Sharing from 'expo-sharing';
 import { captureRef } from 'react-native-view-shot';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors, fontStyles } from '@theme';
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header } from '@covid/components/Screen';
-import { Header3Text, RegularText, BrandedButton } from '@covid/components/Text';
+import { BrandedButton, Header3Text, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { DeltaTag } from '@covid/components/Cards/EstimatedCase/DeltaTag';
 import { Tabs } from '@covid/components/Nav/Tabs';
@@ -18,11 +17,8 @@ import { RootState } from '@covid/core/state/root';
 import { BackButton } from '@covid/components/PatientHeader';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
-import DropdownIcon from '@assets/icons/stats/dropdown.svg';
 import i18n from '@covid/locale/i18n';
 import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
-
-import appCoordinator from '../AppCoordinator';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Trendline'>;
@@ -53,10 +49,7 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
       <View style={styles.nav}>
         <BackButton navigation={navigation} />
       </View>
-      <View 
-        ref={viewRef}
-        style={styles.container}
-        collapsable={false}>
+      <View ref={viewRef} style={styles.container} collapsable={false}>
         <Header>
           <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
           {/* <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}> */}
