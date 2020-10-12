@@ -132,6 +132,9 @@ jobs:
       - run:
           name: 'Bundle RN Android assets'
           command: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+      - run:
+          name: 'Clean up after bundling'
+          command: rm -rf ./android/app/src/main/res/drawable-*
       - persist_to_workspace:
           root: *default_workspace
           paths:
