@@ -53,7 +53,10 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
       <View style={styles.nav}>
         <BackButton navigation={navigation} />
       </View>
-      <View style={styles.container} ref={viewRef}>
+      <View 
+        ref={viewRef}
+        style={styles.container}
+        collapsable={false}>
         <Header>
           <RegularText style={{ textAlign: 'center' }}>{i18n.t('explore-trend-line.title')}</RegularText>
           {/* <TouchableOpacity onPress={() => appCoordinator.goToSearchLAD()}> */}
