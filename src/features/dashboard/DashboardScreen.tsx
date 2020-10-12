@@ -46,7 +46,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
-  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
@@ -92,7 +91,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   useEffect(() => {
     (async () => {
       const flag = await appCoordinator.shouldShowTrendLine();
-      setShowTrendline(!!localTrendline);
+      setShowTrendline(flag);
     })();
   }, [localTrendline]);
 
