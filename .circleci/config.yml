@@ -64,7 +64,7 @@ commands:
             - *pod_cache_key
             - *gem_cache_key
 
-  install_dependencies:
+  bundler_install:
     steps:
       - run: gem install bundler
       - run:
@@ -74,6 +74,13 @@ commands:
             BUNDLE_JOBS: '4'
             BUNDLE_RETRY: '3'
       - run: bundle update fastlane
+      - save_cache:
+          key: *gem_cache_key
+          paths:
+            - vendor/bundle
+  
+  node_install:
+    steps:
       - run: yarn
       - save_cache:
           key: *yarn_cache_key
@@ -88,10 +95,11 @@ commands:
           paths:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
-      - save_cache:
-          key: *gem_cache_key
-          paths:
-            - vendor/bundle
+
+  install_dependencies:
+    steps:
+      - bundler_install
+      - node_install
 
   prepare_blank_env:
     steps:
@@ -139,6 +147,8 @@ jobs:
           root: *default_workspace
           paths:
             - node_modules
+            - vendor/bundle
+            - ios/Pods
             - android/app/src/main/assets/index.android.bundle
             - android/app/src/main/res
 
@@ -234,11 +244,7 @@ jobs:
       - prepare_deploy_env
       - restore_cache:
           key: *gem_cache_key
-      - run: bundle install
-      - save_cache:
-          key: *gem_cache_key
-          paths:
-            - vendor/bundle
+      - bundler_install
       - run:
           name: fastlane android build
           no_output_timeout: 60m
