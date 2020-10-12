@@ -220,31 +220,27 @@ jobs:
     working_directory: *default_workspace
     docker:
       - image: circleci/android:api-29-node
+    environment:
+      JAVA_OPTS: '-Xms512m -Xmx2g'
+      GRADLE_OPTS: '-Xmx3g -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError"'
     steps:
       - checkout:
           path: *default_workspace
-
       - attach_workspace:
           at: *default_workspace
-
       - prepare_deploy_env
-
       - restore_cache:
           key: *gem_cache_key
-
       - run: bundle install
-
       - save_cache:
           key: *gem_cache_key
           paths:
             - vendor/bundle
-
       - run:
           name: fastlane android build
           no_output_timeout: 60m
           command: |
             ENVFILE=.env bundle exec fastlane android release env:staging
-
       - store_artifacts:
           path: ~/covid-react/android/app/build/outputs/apk/production/app-production-release.apk
 
