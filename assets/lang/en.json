@@ -883,7 +883,7 @@
 
   "thank-you-uk": {
     "title": "Thank you for reporting.",
-    "subtitle": "As we ease lockdown, your daily reporting is more important than ever to avoid a second wave.",
+    "subtitle": "Testing alone can't get us through this second wave. Log your health today to help us predict outbreaks.",
     "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
     "cta-multi-profile": "Report for others"
@@ -1431,8 +1431,10 @@
 
     "join-school": {
       "title": "Select your child’s school",
+      "title-higher-education": "Select your university",
       "description": "Select the school you would like to link this account to. More information about",
       "description-link": "School Bubbles.",
+      "description-higher-education": "Select the university you would like to link this profile to.\n\nWe only list universities that are part of our pilot programme. Please only add your university if you have been directed to do so by a university representative.",
       "disclaimer-1": "We only list schools that are part of our pilot programme. Encourage your school's headteacher to register interest ",
       "disclaimer-2": "here.",
       "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
@@ -1443,7 +1445,8 @@
       },
 
       "dropdown": {
-        "label": "Select your child’s school"
+        "label": "Select your child’s school",
+        "label-higher-education": "Select your university"
       },
 
       "cta": "Next",

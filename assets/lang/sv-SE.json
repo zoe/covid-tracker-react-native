@@ -1436,8 +1436,10 @@
 
     "join-school": {
       "title": "",
+      "title-higher-education": "",
       "description": "",
       "description-link": "",
+      "description-higher-education": "",
       "disclaimer-1": "",
       "disclaimer-2": "",
       "disclaimer-3": "",
@@ -1459,7 +1461,8 @@
       "description": "",
 
       "dropdown": {
-        "label": ""
+        "label": "",
+        "label-higher-education": "Select your university"
       },
 
       "input": {
