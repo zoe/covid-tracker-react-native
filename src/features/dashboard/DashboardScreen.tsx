@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
-import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEstimatedCaseCard';
+import { UKEstimatedCaseCard, TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -18,13 +18,15 @@ import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
-import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import { fetchLocalTrendLine, updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 
@@ -44,6 +46,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
+  const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
+  const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -56,6 +60,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const onMoreDetails = async () => {
     openWebLink('https://covid.joinzoe.com/data');
+  };
+
+  const onExploreTrendline = async () => {
+    appCoordinator.goToTrendline();
   };
 
   const onShare = () => {
@@ -76,8 +84,16 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     return navigation.addListener('focus', () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
+      dispatch(fetchLocalTrendLine());
     });
   }, [navigation]);
+
+  useEffect(() => {
+    (async () => {
+      const flag = await appCoordinator.shouldShowTrendLine();
+      setShowTrendline(flag);
+    })();
+  }, [localTrendline]);
 
   const hasNetworkData = networks && networks.length > 0;
 
@@ -87,6 +103,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
           <ExternalCallout

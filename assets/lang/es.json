@@ -1219,7 +1219,28 @@
     "report-today": "Informe hoy, incluso si está bien",
     "report-now": "Informe ahora",
     "you-have-reported-x-times": "Has informado %{count} veces",
-    "contributors-so-far": "Colaboradores hasta ahora:"
+    "contributors-so-far": "Colaboradores hasta ahora:",
+
+    "trendline-card": {
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      }
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "",
+    "delta-week": "",
+    "cta": ""
+  },
+
+  "search-lad": {
+    "input-label": "",
+    "input-placeholder": "",
+    "no-result": ""
   },
 
   "estimated-cases-card": {

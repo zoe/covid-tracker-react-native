@@ -22,6 +22,7 @@ export const DISMISSED_CALLOUTS = 'dismissedCallouts';
 export type PersonalisedLocalData = {
   mapUrl: string;
   mapConfig?: Coordinates;
+  lad: string;
   name: string;
   cases: number;
   appUsers: number;

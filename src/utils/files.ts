@@ -2,6 +2,8 @@ import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
 
 export const EstimatedCasesCartoMap = require('@assets/carto/estimated-cases.html');
+export const TrendLineOverview = require('@assets/charts/trendline-overview.html');
+export const TrendLineExplore = require('@assets/charts/trendline-explore.html');
 
 export const loadHTMLAsString = async (asset: number | string): Promise<string> => {
   const file = Asset.fromModule(asset);
@@ -22,3 +24,5 @@ export const loadHTMLAsString = async (asset: number | string): Promise<string> 
 // (Not the best example as this method is async).
 
 export const loadEstimatedCasesCartoMap = async (): Promise<string> => loadHTMLAsString(EstimatedCasesCartoMap);
+export const loadTrendLineOverview = async (): Promise<string> => loadHTMLAsString(TrendLineOverview);
+export const loadTrendLineExplore = async (): Promise<string> => loadHTMLAsString(TrendLineExplore);
