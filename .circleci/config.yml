@@ -245,13 +245,18 @@ jobs:
       - restore_cache:
           key: *gem_cache_key
       - run: bundle install --path vendor/bundle --clean
+      # - run: echo "" >> android/gradle.properties
+      # - run: echo "KEYSTORE_FILE=$KEYSTORE_FILE" >> android/gradle.properties
+      # - run: echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> android/gradle.properties
+      # - run: echo "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" >> android/gradle.properties
+      # - run: echo "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" >> android/gradle.properties
       - run:
           name: fastlane android build
           no_output_timeout: 60m
           command: |
             ENVFILE=.env bundle exec fastlane android staging_android
       - store_artifacts:
-          path: ~/covid-react/android/app/build/outputs/apk/production/app-production-release.apk
+          path: ~/covid-react/android/app/build/outputs/apk/**/*.apk
 
 workflows:
   default:
