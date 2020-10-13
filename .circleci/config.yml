@@ -249,7 +249,7 @@ jobs:
           name: fastlane android build
           no_output_timeout: 60m
           command: |
-            ENVFILE=.env bundle exec fastlane android release env:staging
+            ENVFILE=.env bundle exec fastlane android staging_android
       - store_artifacts:
           path: ~/covid-react/android/app/build/outputs/apk/production/app-production-release.apk
 
