@@ -194,7 +194,7 @@ android {
     
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            // signingConfig signingConfigs.debug
             matchingFallbacks = ['debug']
         }
         staging {
@@ -204,7 +204,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release
             matchingFallbacks = ['release']
         }
     }
