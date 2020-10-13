@@ -31,6 +31,7 @@
     "fastlane:ios:stage": "yarn fastlane ios release env:stage appcenter:true",
     "fastlane:ios:prod": "yarn fastlane ios release env:prod",
     "fastlane:android:stage": "ENVFILE=.env.staging bundle exec fastlane android staging_android",
+    "fastlane:android": "yarn fastlane:android:stage",
     "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
     "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump"
