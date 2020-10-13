@@ -90,7 +90,7 @@ platform :android do
 
   JS_PACKAGE = load_json(json_path: "./package.json")
 
-  desc "Build a Staging AAB"
+  desc "Build Android Staging"
   lane :staging_android do
     gradle(
       task: 'assemble',
