@@ -38,7 +38,7 @@ fastlane release_notes
 ```
 fastlane android staging_android
 ```
-Build a Staging AAB
+Build Android Staging
 
 ----
 
