@@ -175,22 +175,22 @@ android {
         }
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-        }
-        release {
-            if (project.hasProperty('COVID_TRACKER_STORE_FILE')) {
-                storeFile file(COVID_TRACKER_STORE_FILE)
-                storePassword COVID_TRACKER_STORE_PASSWORD
-                keyAlias COVID_TRACKER_KEY_ALIAS
-                keyPassword COVID_TRACKER_KEY_PASSWORD
-            }
-        }
-    }
+    // signingConfigs {
+    //     debug {
+    //         storeFile file('debug.keystore')
+    //         storePassword 'android'
+    //         keyAlias 'androiddebugkey'
+    //         keyPassword 'android'
+    //     }
+    //     release {
+    //         if (project.hasProperty('COVID_TRACKER_STORE_FILE')) {
+    //             storeFile file(COVID_TRACKER_STORE_FILE)
+    //             storePassword COVID_TRACKER_STORE_PASSWORD
+    //             keyAlias COVID_TRACKER_KEY_ALIAS
+    //             keyPassword COVID_TRACKER_KEY_PASSWORD
+    //         }
+    //     }
+    // }
     
     buildTypes {
         debug {
