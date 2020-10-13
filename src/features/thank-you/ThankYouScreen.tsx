@@ -15,6 +15,7 @@ import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { FacebookSECard } from '@covid/components/Cards/FacebookSE';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -80,7 +81,9 @@ export default class ThankYouScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.shareSubtitle}>{i18n.t('check-in-tomorrow')}</RegularText>
 
-              <BrandedButton onPress={this.props.navigation.popToTop} style={styles.done}>
+              <BrandedButton
+                onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
+                style={styles.done}>
                 <RegularText>{i18n.t('completed')}</RegularText>
               </BrandedButton>
             </View>

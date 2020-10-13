@@ -1,5 +1,16 @@
 apply plugin: "com.android.application"
+
+project.ext.envConfigFiles = [
+    debug: ".env.dev",
+    staging: ".env.staging",
+    release: ".env",
+]
+
+
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
+logger.quiet('******')
+println project.env
 
 import com.android.build.OutputFile
 
@@ -90,19 +101,17 @@ task downloadDependencies() {
  *   extraPackagerArgs: []
  * ]
  */
-
 project.ext.react = [
+    entryFile: "index.js",
+    bundleInDebug: false,
+    bundleInStaging: true,
+    devDisabledInStaging: true,
     enableHermes: false
 ]
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/expo-updates/scripts/create-manifest-android.gradle"
-
-project.ext.envConfigFiles = [
-    debugstaging: ".env.staging",
-    debugproduction: ".env"
-]
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -150,12 +159,12 @@ android {
     }
 
     defaultConfig {
+        resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
         applicationId 'com.joinzoe.covid_zoe'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
         versionName "1.0.6"
-        resValue "string", "build_config_package", "com.joinzoe.covid_zoe"
     }
     splits {
         abi {
@@ -167,6 +176,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
         release {
             if (project.hasProperty('COVID_TRACKER_STORE_FILE')) {
                 storeFile file(COVID_TRACKER_STORE_FILE)
@@ -175,51 +190,22 @@ android {
                 keyPassword COVID_TRACKER_KEY_PASSWORD
             }
         }
-//        debug {
-//            storeFile file('debug.keystore')
-//            storePassword 'android'
-//            keyAlias 'androiddebugkey'
-//            keyPassword 'android'
-//        }
     }
+    
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-        }
-        release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-        }
-    }
-
-    flavorDimensions "default"
-
-
-    productFlavors {
-
-        development {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.joinzoe.covid_zoe.development'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "Covid Dev"
+            matchingFallbacks = ['debug']
         }
         staging {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.joinzoe.covid_zoe.staging'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "Covid Stage"
-            manifestPlaceholders = [
-                appIcon: "@drawable/launcher_beta",
-            ]
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug']
         }
-        production {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId 'com.joinzoe.covid_zoe'
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "Covid"
+        release {
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['release']
         }
     }
 

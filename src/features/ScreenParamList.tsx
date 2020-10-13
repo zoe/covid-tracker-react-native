@@ -3,6 +3,7 @@ import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -59,14 +60,13 @@ export type ScreenParamList = {
   CovidTestList: { assessmentData: AssessmentData; tests?: CovidTest[] };
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
+  CovidTestConfirm: { assessmentData: AssessmentData; test: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
   DescribeSymptoms: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
-  LevelOfIsolation: { assessmentData: AssessmentData };
   TreatmentSelection: { assessmentData: AssessmentData; location: string };
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
-  Lifestyle: { assessmentData: AssessmentData };
 
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
@@ -94,12 +94,14 @@ export type ScreenParamList = {
 
   // School network
   SchoolIntro: undefined;
-  SchoolHowTo: undefined;
+  SchoolHowTo: { patientData: PatientData };
   SelectSchool: undefined;
-  JoinSchool: undefined;
-  JoinSchoolGroup: undefined;
+  JoinSchool: { patientData: PatientData; higherEducation: boolean };
+  JoinSchoolGroup: { patientData: PatientData; selectedSchool: SchoolModel };
   CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
+  SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
+  SchoolDashboard: { school: SubscribedSchoolStats };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   // __HYGEN_INJECT_SCREEN_PARAMS_ABOVE__

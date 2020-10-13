@@ -20,9 +20,6 @@ const config: DbConfig = {
   dietStudies: {
     path: 'diet_studies.json',
   },
-  lifestyle: {
-    path: 'lifestyles.json',
-  },
   consents: {
     path: 'consents.json',
   },

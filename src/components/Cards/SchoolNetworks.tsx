@@ -1,18 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { Header0Text, Header3Text, RegularText, RegularBoldText } from '@covid/components/Text';
+import { Header0Text, Header3Text, RegularText, RegularBoldText, HeaderText } from '@covid/components/Text';
 import { colors } from '@theme';
-import {
-  SchoolGroupSubscriptionResponse,
-  SubscribedSchoolStats,
-  SubscribedSchoolGroupStats,
-} from '@covid/core/schools/Schools.dto';
+import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ArrayDistinctBy } from '@covid/utils/array';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 type Props = {
-  networks: SchoolGroupSubscriptionResponse;
+  schoolGroups: SubscribedSchoolGroupStats[];
 };
 
 enum SchoolGroupStatus {
@@ -29,8 +26,7 @@ enum SchoolGroupUIState {
 }
 
 export const SchoolNetworks: React.FC<Props> = (props) => {
-  const { networks } = props;
-  const data: SubscribedSchoolStats[] = TransformResponseToUIData(networks);
+  const data: SubscribedSchoolStats[] = TransformResponseToUIData(props.schoolGroups);
 
   const getStatus = (status: string | SchoolGroupStatus, cases?: number | null): SchoolGroupUIState => {
     switch (status) {
@@ -106,9 +102,11 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <View key={group.id}>
         {!isLastItem && <View style={styles.lineStyle} />}
         <View style={styles.groupView}>
-          <Header3Text style={styles.schoolTitle}>{group.name}</Header3Text>
-          <RegularBoldText>{group.size}</RegularBoldText>
-          <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
+          <Header3Text style={styles.groupTitle}>{group.name}</Header3Text>
+          <RegularText>
+            <RegularBoldText>{group.size + ' '}</RegularBoldText>
+            <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
+          </RegularText>
           <View style={{ flexDirection: 'row', alignItems: 'center' }} />
         </View>
       </View>
@@ -120,43 +118,50 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')}</Header0Text>
       {data.map((school, index) => {
         return (
-          <View key={school.id}>
-            <Header3Text style={styles.schoolTitle}>{school.name}</Header3Text>
-            <RegularBoldText>{school.size}</RegularBoldText>
-            <RegularText>Children being reported for</RegularText>
+          <TouchableOpacity
+            key={school.id}
+            onPress={() => {
+              // Disabled until school leaders sign off
+              // schoolNetworkCoordinator.goToSchoolDashboard(school);
+            }}>
+            <RegularText style={styles.schoolTitle}>{school.name}</RegularText>
+            <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
+            <RegularText>
+              <RegularBoldText>{school.size + ' '}</RegularBoldText>
+              <RegularText>{getGroupSizeLabelText(school.size)}</RegularText>
+            </RegularText>
             {ArrayDistinctBy(school.groups, (group) => {
               return group.id;
             }).map((group, index) => {
               const last = index !== data.length - 1;
               return casesView(group, last);
             })}
-          </View>
+          </TouchableOpacity>
         );
       })}
     </View>
   );
 };
 
-const TransformResponseToUIData = (data: SchoolGroupSubscriptionResponse): SubscribedSchoolStats[] => {
-  return data.reduce((initial: SubscribedSchoolStats[], network): SubscribedSchoolStats[] => {
-    const filtered = initial.filter((school) => school.id === network.school.id);
-    const hasSchool = filtered.length > 0;
-    const { id, name, size, status } = network;
+const TransformResponseToUIData = (data: SubscribedSchoolGroupStats[]): SubscribedSchoolStats[] => {
+  return data.reduce((initial: SubscribedSchoolStats[], group): SubscribedSchoolStats[] => {
+    const school = initial.find((school) => school.id === group.school.id);
 
-    if (hasSchool) {
-      const index = initial.indexOf(filtered[0]);
-      const school = initial[index];
+    if (school) {
+      const index = initial.indexOf(school);
       initial[index] = {
         ...school,
-        groups: [...school.groups, { id, name, size, status }],
+        cases: school.cases + group.cases,
+        groups: [...school.groups, group],
       };
       return initial;
     } else {
       initial.push({
-        id: network.school.id,
-        name: network.school.name,
-        size: network.school.size,
-        groups: [{ id, name, status, size }],
+        id: group.school.id,
+        name: group.school.name,
+        size: group.school.size,
+        cases: group.cases,
+        groups: [group],
       });
       return initial;
     }
@@ -171,9 +176,16 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   schoolTitle: {
-    fontWeight: '500',
-    fontSize: 14,
-    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 18,
+    color: colors.textDark,
+    marginVertical: 16,
+  },
+  groupTitle: {
+    fontWeight: '400',
+    fontSize: 16,
+    color: colors.textDark,
+    marginVertical: 8,
   },
   headerText: {
     fontSize: 20,

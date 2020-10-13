@@ -85,19 +85,16 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: true });
   }
 
-  goToSchoolNetwork() {
-    schoolNetworkCoordinator.startFlow(this.patientData);
-  }
-
-  shouldShowEditProfile() {
-    return this.localisationService.getConfig().enableEditProfile;
+  goToSchoolNetwork(higherEducation: boolean) {
+    schoolNetworkCoordinator.init(this.appCoordinator, this.patientData, higherEducation);
+    schoolNetworkCoordinator.startFlow();
   }
 
   shouldShowEditStudy() {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
-    const shouldAskStudy = config.enableCohorts && currentPatient.shouldAskStudy;
-    return shouldAskStudy;
+
+    return config.enableCohorts && currentPatient.shouldAskStudy;
   }
 
   shouldShowSchoolNetwork() {

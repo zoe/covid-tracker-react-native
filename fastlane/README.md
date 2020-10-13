@@ -34,11 +34,11 @@ fastlane release_notes
 ----
 
 ## Android
-### android release
+### android staging_android
 ```
-fastlane android release
+fastlane android staging_android
 ```
-Build Android app for development
+Build Android Staging
 
 ----
 
