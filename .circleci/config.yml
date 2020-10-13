@@ -244,7 +244,7 @@ jobs:
       - prepare_deploy_env
       - restore_cache:
           key: *gem_cache_key
-      - bundler_install
+      - run: bundle install --path vendor/bundle --clean
       - run:
           name: fastlane android build
           no_output_timeout: 60m
