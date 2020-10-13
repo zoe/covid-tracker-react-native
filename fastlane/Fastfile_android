@@ -1,0 +1,16 @@
+default_platform(:android)
+
+platform :android do
+
+  JS_PACKAGE = load_json(json_path: "../package.json")
+
+  desc "GPS: Build a Staging AAB"
+  lane :staging_gps do
+    gradle(
+      task: "clean assembleStaging",
+      print_command: false,
+    )
+  end
+
+
+end

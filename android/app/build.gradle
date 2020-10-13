@@ -1,4 +1,12 @@
 apply plugin: "com.android.application"
+
+project.ext.envConfigFiles = [
+    debug: ".env.dev",
+    staging: ".env.staging",
+    release: ".env",
+]
+
+
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 logger.quiet('******')
@@ -93,8 +101,11 @@ task downloadDependencies() {
  *   extraPackagerArgs: []
  * ]
  */
-
 project.ext.react = [
+    entryFile: "index.js",
+    bundleInDebug: false,
+    bundleInStaging: true,
+    devDisabledInStaging: true,
     enableHermes: false
 ]
 
@@ -165,6 +176,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
         release {
             if (project.hasProperty('COVID_TRACKER_STORE_FILE')) {
                 storeFile file(COVID_TRACKER_STORE_FILE)
@@ -173,52 +190,24 @@ android {
                 keyPassword COVID_TRACKER_KEY_PASSWORD
             }
         }
-//        debug {
-//            storeFile file('debug.keystore')
-//            storePassword 'android'
-//            keyAlias 'androiddebugkey'
-//            keyPassword 'android'
-//        }
     }
+    
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-        }
-        release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            matchingFallbacks = ['debug']
         }
         staging {
-            initWith debug
-            manifestPlaceholders = [hostName:"com.joinzoe.covid_zoe"]
-            applicationIdSuffix ".staging"
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug']
+        }
+        release {
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['release']
         }
     }
-
-    // flavorDimensions "default"
-
-
-    // productFlavors {
-
-    //     development {
-    //         applicationId 'com.joinzoe.covid_zoe.development'
-    //         resValue "string", "build_config_package", "Covid Dev"
-    //     }
-    //     staging {
-    //         applicationId 'com.joinzoe.covid_zoe.staging'
-    //         resValue "string", "build_config_package", "com.joinzoe.covid_zoe.staging"
-    //         manifestPlaceholders = [
-    //             appIcon: "@drawable/launcher_beta",
-    //         ]
-    //     }
-    //     production {
-    //         applicationId 'com.joinzoe.covid_zoe'
-    //         resValue "string", "build_config_package", "Covid"
-    //     }
-    // }
 
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libc++_shared.so"
