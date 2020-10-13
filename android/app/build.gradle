@@ -1,8 +1,8 @@
 apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
-    debug: ".env.dev",
-    staging: ".env.staging",
+    debug: ".env",
+    staging: ".env",
     release: ".env",
 ]
 
@@ -198,7 +198,7 @@ android {
             matchingFallbacks = ['debug']
         }
         staging {
-            signingConfig signingConfigs.debug
+            // signingConfig signingConfigs.debug
             matchingFallbacks = ['debug']
         }
         release {
