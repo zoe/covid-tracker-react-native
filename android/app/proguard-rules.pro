@@ -9,4 +9,4 @@
 
 # Add any project specific keep options here:
 
--keep class com.joinzoe.covid_zoe.BuildConfig { *; }
+# -keep class com.joinzoe.covid_zoe.BuildConfig { *; }

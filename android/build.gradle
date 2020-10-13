@@ -36,10 +36,4 @@ allprojects {
         jcenter()
         maven { url 'https://www.jitpack.io' }
     }
-    project.ext {
-        envConfigFiles = [
-            staging: ".env.staging",
-            prod: ".env",
-        ]
-    }
 }

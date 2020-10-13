@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog010, dataPage003, timUpdate008, notificationReminders } from '@assets';
+import { dataPage003, timUpdate013, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -18,8 +18,8 @@ import i18n from '@covid/locale/i18n';
 import PushNotificationService, { IPushTokenEnvironment } from '@covid/core/push-notifications/PushNotificationService';
 import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { IConsentService } from '@covid/core/consent/ConsentService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -77,18 +77,10 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-on-the-rise?utm_source=App"
-                calloutID="blog_010"
-                imageSource={blog010}
-                aspectRatio={1.552}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://youtu.be/UUwPmakoumQ"
-                calloutID="tim_update_008"
-                imageSource={timUpdate008}
-                aspectRatio={1.178}
+                link="https://www.youtube.com/watch?v=rv1ItSPkAHY"
+                calloutID="tim_update_013"
+                imageSource={timUpdate013}
+                aspectRatio={1.099}
                 screenName={this.props.route.name}
               />
 
@@ -115,25 +107,14 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </View>
 
               <BrandedButton
-                onPress={() => this.props.navigation.navigate(appCoordinator.homeScreenName)}
+                onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
                 style={styles.ctaSingleProfile}>
                 <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
               </BrandedButton>
 
               <View style={styles.ctaMultipleProfile}>
                 <ClickableText
-                  onPress={() =>
-                    this.props.navigation.reset({
-                      index: 1,
-                      routes: [
-                        { name: appCoordinator.homeScreenName },
-                        {
-                          name: 'SelectProfile',
-                          params: { editing: true },
-                        },
-                      ],
-                    })
-                  }
+                  onPress={() => assessmentCoordinator.gotoSelectProfile()}
                   style={styles.ctaMultipleProfileText}>
                   {i18n.t('thank-you-uk.cta-multi-profile')}
                 </ClickableText>

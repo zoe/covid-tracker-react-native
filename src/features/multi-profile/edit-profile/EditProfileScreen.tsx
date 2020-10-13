@@ -38,12 +38,10 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
           <SecondaryText>{i18n.t('edit-profile.text')}</SecondaryText>
         </Header>
 
-        {editProfileCoordinator.shouldShowEditProfile() && (
-          <LinkItem
-            title={i18n.t('edit-profile.your-location')}
-            action={() => editProfileCoordinator.goToEditLocation()}
-          />
-        )}
+        <LinkItem
+          title={i18n.t('edit-profile.your-location')}
+          action={() => editProfileCoordinator.goToEditLocation()}
+        />
 
         {false && (
           // Disabled
@@ -55,7 +53,10 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         )}
 
         {editProfileCoordinator.shouldShowSchoolNetwork() && (
-          <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork()} />
+          <>
+            <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork(false)} />
+            <LinkItem title="University network" action={() => editProfileCoordinator.goToSchoolNetwork(true)} />
+          </>
         )}
       </Screen>
 

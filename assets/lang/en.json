@@ -86,7 +86,8 @@
 
   "legal": {
     "i-agree": "I agree",
-    "back": "Back"
+    "back": "Back",
+    "confirm": "Confirm"
   },
 
   "next-question": "Next question",
@@ -364,7 +365,13 @@
     "required-date": "Please indicate the date this test occurred",
     "required-dates": "Please indicate between which two dates this test occurred",
     "required-mechanism": "Please indicate how the test was performed",
-    "required-result": "Please indicate the result of the test"
+    "required-result": "Please indicate the result of the test",
+
+    "confirm-test": {
+      "title": "Confirmation of\npositive test result",
+      "body": "Your child’s positive test result will be shared anonymously with their school and the parents of the children within your child’s School Bubble.\n\nWe will only share the below details:\n\n• Date of test \n• Result of test\n• School Bubble name\n\nIf you have not already done so, please contact the school immediately to notify them of this positive result.",
+      "consent": "I confirm that the information I entered is true and accurate to the extent of my knowledge and I agree to this data being shared anonymously with my school network."
+    }
   },
 
   "describe-symptoms": {
@@ -436,19 +443,6 @@
     "picker-health-status-not-healthy": "I'm not feeling quite right",
     "current-location": "You are currently reporting from:",
     "update-location": "Update Location"
-  },
-
-  "level-of-isolation": {
-    "screen-title": "Your time outside the home",
-    "screen-justification": "This information can help us understand the impact of social distancing and face masks on infection rates. These questions are completely optional.",
-    "question-little-interaction": "In the last week, how many times have you been outside your house, with little interaction with people outside your household (e.g. exercise)?",
-    "question-lots-of-people": "In the last week, how many times have you visited somewhere with lots of people (e.g. groceries, public transport, work, school)?",
-    "question-healthcare-provider": "In the last week, how many times have you visited a healthcare setting, including for work (e.g. hospital, clinic, dentist, pharmacy)?",
-    "placeholder-frequency": "Number of times this occurred",
-    "placeholder-optional": "*Optional",
-    "required-answer": "Please indicate the number of times this occurred",
-    "correct-answer": "Please correct your answer",
-    "whole-number": "Please enter a whole number"
   },
 
   "where-are-you": {
@@ -889,7 +883,7 @@
 
   "thank-you-uk": {
     "title": "Thank you for reporting.",
-    "subtitle": "As we ease lockdown, your daily reporting is more important than ever to avoid a second wave.",
+    "subtitle": "Testing alone can't get us through this second wave. Log your health today to help us predict outbreaks.",
     "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
     "cta-multi-profile": "Report for others"
@@ -989,50 +983,6 @@
     "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
   },
 
-  "lifestyle": {
-    "title": "Diet & lifestyle",
-    "explanation": "The following questions on weight, nutrition and exercise are to help us understand whether COVID may be impacting our health in these areas and how significant these effects are. These questions are all optional.",
-    "text": "Since March when COVID became prevalent:",
-    "please-select-option": "Please select an option",
-    "weight-change": {
-      "question": "How has your weight changed?",
-      "increased": "Increased",
-      "decreased": "Decreased",
-      "same": "Stayed the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "weight-difference": "By how much (an estimate is fine)?",
-    "diet-change": {
-      "question": "How was your diet changed in your opinion?",
-      "increased": "It has become healthier",
-      "decreased": "It has become more unhealthy",
-      "same": "It has stayed the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "snacking-change": {
-      "question": "How has your snacking changed?",
-      "increased": "I am snacking more",
-      "decreased": "I am snacking less",
-      "same": "My snacking levels are the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "alcohol-change": {
-      "question": "How has your alcohol consumption changed? ",
-      "no-alcohol": "I don't drink alcohol",
-      "increased": "I am drinking more alcohol",
-      "decreased": "I am drinking less alcohol",
-      "same": "My alcohol consumption is the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    },
-    "activity-change": {
-      "question": "Have your physical activity levels changed?",
-      "increased": "Yes, increased",
-      "decreased": "Yes, decreased",
-      "same": "No change, has remained the same",
-      "unsure-pfnts": "Unsure / Prefer not to say"
-    }
-  },
-
   "diet-study": {
     "drawer-menu-item": "Diet study",
     "answer-for-feb": "Answer for month of Feb",
@@ -1074,6 +1024,15 @@
       "sometimes-not-enough": "You sometimes did not have enough to eat",
       "often-not-enough": "You often did not have enough to eat",
       "pfnts": "Prefer not to say"
+    },
+
+    "food-availability": {
+      "label": "Which situation best describes your response to the prior question about a lack of food availability?",
+      "financial-limitations": "Financial limitations",
+      "shelter-in-place": "Shelter-in-place orders implemented in my community",
+      "shortages": "Shortages in food availability",
+      "avoidance": "Anxiety/avoidance associated with going to the grocery store",
+      "other": "Other"
     },
 
     "your-lifestyle": {
@@ -1131,7 +1090,24 @@
       "small-glass": "Small glass of fortified wine",
       "standard-glass": "Standard glass of wine",
       "large-glass": "Large glass of wine",
-      "bottle-wine": "Bottle of wine"
+      "bottle-wine": "Bottle of wine",
+      "malt-liquor": "",
+
+      "pints-volume": "570ml",
+      "shots-volume": "25ml",
+      "small-glass-volume": "100ml",
+      "standard-glass-volume": "175ml",
+      "large-glass-volume": "250ml",
+      "bottle-wine-volume": "750ml",
+      "malt-liquor-volume": "",
+
+      "pints-units": "2 units",
+      "shots-units": "1 unit",
+      "small-glass-units": "1 unit",
+      "standard-glass-units": "2 units",
+      "large-glass-units": "3 units",
+      "bottle-wine-units": "9 units",
+      "malt-liquor-units": ""
     },
 
     "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",
@@ -1397,8 +1373,8 @@
     "awaiting-members": "Awaiting more members",
     "no-cases": "No confirmed cases",
     "confirmed-cases": "confirmed cases",
-    "children-being-reported-for": "Children being reported for",
-    "child-being-reported-for": "Child being reported for",
+    "children-being-reported-for": "children being reported for",
+    "child-being-reported-for": "child being reported for",
 
     "intro": {
       "title": "Connect your children to their School Bubble",
@@ -1434,22 +1410,28 @@
 
     "join-school": {
       "title": "Select your child’s school",
+      "title-higher-education": "Select your university",
       "description": "Select the school you would like to link this account to. More information about",
       "description-link": "School Bubbles.",
+      "description-higher-education": "Select the university you would like to link this profile to.\n\nWe only list universities that are part of our pilot programme. Please only add your university if you have been directed to do so by a university representative.",
       "disclaimer-1": "We only list schools that are part of our pilot programme. Encourage your school's headteacher to register interest ",
       "disclaimer-2": "here.",
       "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
-
+      "remove": "Remove this school",
       "search": {
         "label": "Name of school",
         "placeholder": "Search for your child's school"
       },
 
       "dropdown": {
-        "label": "Select your child’s school"
+        "label": "Select your child’s school",
+        "label-higher-education": "Select your university"
       },
 
-      "cta": "Next"
+      "cta": "Next",
+      "modal-body": "Are you sure you want to remove",
+      "button-1": "Cancel",
+      "button-2": "Remove"
     },
 
     "join-group": {
@@ -1487,6 +1469,31 @@
         "title": "One moment",
         "description": "Looks like you're already part of this bubble."
       }
+    },
+
+    "groups-list": {
+      "title": "Your child's bubbles",
+      "subtitle": "Your child's bubbles at",
+      "text": "School bubbles your child is part of:",
+      "add-new-bubble": "\u002B Join another bubble",
+      "modal-body": "Are you sure you want to remove",
+      "button-1": "Cancel",
+      "button-2": "Remove"
+    },
+
+    "dashboard": {
+      "title": "Overview",
+      "at-the-school": "At the school",
+      "updated-on": "Updated on",
+      "students-with": "Students with",
+      "confirmed": "confirmed cases",
+      "reported": "reported symptoms",
+      "recovered": "recovered cases",
+      "total": "Total students\nreported for",
+      "more-details": "More details",
+      "faq": "FAQs",
+      "disclaimer": "For more information about responding to COVID reports at school, please contact your school and read our ",
+      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk."
     }
   }
 }

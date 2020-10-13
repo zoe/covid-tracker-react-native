@@ -9,7 +9,7 @@ storiesOf('SchoolNetworks', module)
   .addDecorator(DarkBackground)
   .add('default view', () => (
     <SchoolNetworks
-      networks={[
+      schoolGroups={[
         {
           id: '123',
           name: 'Test school',

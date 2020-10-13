@@ -68,6 +68,7 @@ public class MainApplication extends Application implements ReactApplication {
         return UpdatesController.getInstance().getBundleAssetName();
       }
     }
+
   };
 
   @Override

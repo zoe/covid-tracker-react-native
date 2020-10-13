@@ -86,47 +86,17 @@ end
 #   @change_log = conventional_changelog(format: 'markdown', title: options[:title])
 # end
 
-platform :android do 
-  desc "Build Android app for development"
-  lane :release do |options|
+platform :android do
 
-    # set flavor
-    case ENV["NAME"]
-    when "staging"
-        build_type = "stagingRelease"
-    when "production"
-        build_type = "productionRelease"
-    else
-        build_type = "developmentRelease"
-    end
+  JS_PACKAGE = load_json(json_path: "./package.json")
 
-    print build_type
-
+  desc "Build Android Staging"
+  lane :staging_android do
     gradle(
       task: 'assemble',
-      build_type: build_type,
+      build_type: 'staging',
       project_dir: "./android"   
     )
-
-    case options[:env]
-    when 'staging'
-      appcenter
-    when 'prod'
-    end
-
-  lane :appcenter do
-    appcenter_upload(
-        app_name: @ac_project_name,
-        api_token: '',
-        destinations: @ac_notify_group,
-        destination_type: @ac_destination_type,
-        owner_name: "Joinzoe",
-        owner_type: "organization",
-        file: "android/app/build/outputs/apk/release/app-release.apk",
-        release_notes: String.try_convert(git_branch),
-        notify_testers: true
-      )
-    end
   end
 end
 

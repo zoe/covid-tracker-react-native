@@ -97,8 +97,12 @@ export class LocalisationService implements ILocalisationService {
     }
   }
 
-  static getLocale() {
+  static getLanguageCode() {
     return i18n.locale.split('-')[0];
+  }
+
+  static getLocale() {
+    return i18n.locale;
   }
 }
 

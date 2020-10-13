@@ -1,10 +1,10 @@
-import mockDb from './mockDb';
-import { Patient, Assessment, Lifestyle, DietStudy } from './types';
+import bodyParser = require('body-parser');
+import express = require('express');
+import moment = require('moment');
+import uuid = require('uuid');
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const uuid = require('uuid');
-const moment = require('moment');
+import { Patient, Assessment, DietStudy } from './types';
+import mockDb from './mockDb';
 
 const db = mockDb();
 
@@ -211,18 +211,6 @@ app.post('/patients/', (req, res) => {
 app.get('/patient_list/', (_, res) => {
   res.header('Content-type', 'application/json');
   return res.send(db.patients.get());
-});
-
-/**
- * Lifestyle
- */
-
-app.post('/lifestyles/', (req, res) => {
-  const { body: lifestyle } = req as { body: Lifestyle };
-  const id = uuid.v1();
-
-  res.header('Content-type', 'application/json');
-  return res.send(db.lifestyles.save(id, { ...lifestyle, id }));
 });
 
 /**
