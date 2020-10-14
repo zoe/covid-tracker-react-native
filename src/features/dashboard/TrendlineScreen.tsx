@@ -29,7 +29,7 @@ type Props = {
 export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const viewRef = useRef<View>(null);
-  const [timeFilter, setTimeFilter] = useState<TrendlineTimeFilters>(TrendlineTimeFilters.week);
+  const [timeFilter, setTimeFilter] = useState<TrendlineTimeFilters>(TrendlineTimeFilters.all);
   const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
     ...state.content.exploreTrendline,
   }));
@@ -74,7 +74,7 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
         </View>
 
         <Tabs
-          labels={['WEEK', 'MONTH', 'ALL']}
+          labels={['ALL', 'MONTH', 'WEEK']}
           onSelected={(value, index) => {
             setTimeFilter(value as TrendlineTimeFilters);
           }}
