@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { Root } from 'native-base';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
@@ -17,8 +18,8 @@ import { shareAppV3, schoolNetworkFeature, infographicFacts } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
-import { useAppDispatch } from '@covid/core/state/store';
-import { fetchLocalTrendLine, updateTodayDate } from '@covid/core/content/state/contentSlice';
+import store, { useAppDispatch } from '@covid/core/state/store';
+import { ContentState, fetchLocalTrendLine, updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
@@ -46,7 +47,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
   );
-  const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => state.content.localTrendline);
+
+  const content = useSelector<RootState, Partial<ContentState> | undefined>((state) => ({
+    localTrendline: state.content.localTrendline,
+    startupInfo: state.content.startupInfo,
+  }));
+
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
   const headerConfig = {
@@ -88,12 +94,22 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation]);
 
+  // Fetch Trendline if needed after startup info has changed
+  useEffect(() => {
+    if (!content) return;
+    const { startupInfo, localTrendline } = content;
+    if (startupInfo?.local_data.lad && !localTrendline) {
+      store.dispatch(fetchLocalTrendLine());
+    }
+  }, [content?.startupInfo]);
+
+  // Calculate trendline feature flag on trendline data changed
   useEffect(() => {
     (async () => {
       const flag = await appCoordinator.shouldShowTrendLine();
       setShowTrendline(flag);
     })();
-  }, [localTrendline]);
+  }, [content?.localTrendline]);
 
   const hasNetworkData = networks && networks.length > 0;
 

@@ -164,7 +164,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   async fetchInitialData(): Promise<void> {
     await store.dispatch(fetchStartUpInfo());
     await store.dispatch(fetchDismissedCallouts());
-    await store.dispatch(fetchLocalTrendLine());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }
@@ -306,12 +305,19 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
   async shouldShowTrendLine(): Promise<boolean> {
     const user = await this.userService.getUser();
+    const { startupInfo, localTrendline } = store.getState().content;
+
+    // Check feature flag
+    if (startupInfo && !startupInfo.show_trendline) {
+      return false;
+    }
+
     // Check does user has trendline data for their lad
-    const timeseries = store.getState().content.localTrendline?.timeseries;
-    const hasTrendLineData = timeseries && timeseries.length > 0;
+    const hasTrendLineData = localTrendline?.timeseries && localTrendline?.timeseries.length > 0;
     if (!hasTrendLineData) {
       return false;
     }
+
     // Start A/B testing if they are within criteria
     const variant = await startExperiment(experiments.Trend_Line_Launch, 2);
     return variant === 'variant_1' || user?.is_tester === true;
