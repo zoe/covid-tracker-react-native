@@ -95,7 +95,7 @@ platform :android do
   @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
 
   desc "Build Android Staging"
-  lane :release do
+  lane :release do |options|
 
     case options[:env]
     when 'stage'
