@@ -19,6 +19,7 @@ import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import i18n from '@covid/locale/i18n';
 import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
+import { isIos } from '@covid/utils/platform';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Trendline'>;
@@ -80,11 +81,13 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
           styles={{ justifyContent: 'center', marginVertical: 32 }}
         />
 
-        <View style={styles.buttonsContainer}>
-          <BrandedButton style={styles.detailsButton} onPress={share}>
-            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
-          </BrandedButton>
-        </View>
+        {isIos && (
+          <View style={styles.buttonsContainer}>
+            <BrandedButton style={styles.detailsButton} onPress={share}>
+              <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
+            </BrandedButton>
+          </View>
+        )}
 
         <View style={styles.zoe}>
           <PoweredByZoeSmall />
