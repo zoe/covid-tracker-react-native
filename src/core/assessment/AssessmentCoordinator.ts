@@ -5,12 +5,17 @@ import { IUserService } from '@covid/core/user/UserService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
-import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import {
+  ILocalisationService,
+  isGBCountry,
+  isSECountry,
+  isUSCountry,
+} from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { Coordinator, ScreenFlow } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -62,6 +67,10 @@ export class AssessmentCoordinator extends Coordinator {
     },
     ThankYou: () => {
       NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+    },
+    ReportForOther: () => {
+      const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
+      NavigatorService.navigate(thankYouScreen);
     },
   };
 
@@ -177,6 +186,21 @@ export class AssessmentCoordinator extends Coordinator {
 
   goToTestConfirm(test: CovidTest) {
     NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test });
+  }
+
+  resetToCreateProfile() {
+    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
+    NavigatorService.reset(
+      [
+        { name: homeScreen },
+        {
+          name: 'SelectProfile',
+          params: { editing: true },
+        },
+        { name: 'CreateProfile', params: { avatarName: 'profile2' } },
+      ],
+      2
+    );
   }
 }
 
