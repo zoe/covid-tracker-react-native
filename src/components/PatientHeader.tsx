@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingHorizontal: 16,
+    overflow: 'visible',
   },
   center: {
     flex: 1,

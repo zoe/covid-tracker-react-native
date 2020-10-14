@@ -7,6 +7,8 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
+import { ITrendLineData, ITrendLineTimeSeriesData } from '@covid/core/content/dto/ContentAPIContracts';
+import store from '@covid/core/state/store';
 
 // State interface
 
@@ -17,6 +19,11 @@ export type ContentState = {
   infoApiState: ApiState;
   startupInfo?: StartupInfo;
   personalizedLocalData?: PersonalisedLocalData;
+  localTrendline?: ITrendLineData;
+
+  // Explore trend line screen
+  exploreTrendline?: ITrendLineData;
+  exploreTrendlineUpdating: boolean;
 
   // Metrics
   ukMetricsApiState: ApiState;
@@ -37,6 +44,15 @@ const initialState: ContentState = {
   ukMetricsApiState: 'ready',
   todayDate: todaysDate(),
   dismissedCallouts: [],
+  exploreTrendlineUpdating: false,
+};
+
+const getTrendLineDelta = (timeseries: ITrendLineTimeSeriesData[], from: number): number | undefined => {
+  if (!timeseries || timeseries.length === 0) {
+    return undefined;
+  }
+  const compareFromIndex = Math.min(timeseries.length, from);
+  return Math.round(timeseries[0].value - timeseries[compareFromIndex].value);
 };
 
 // Async Actions
@@ -69,6 +85,36 @@ export const fetchUKMetrics = createAsyncThunk(
     return {
       ukActive: (await service.getActiveCases()) ?? undefined,
       ukDaily: (await service.getDailyCases()) ?? undefined,
+    };
+  }
+);
+
+export const fetchLocalTrendLine = createAsyncThunk(
+  'content/fetch_local_trend_line',
+  async (): Promise<Partial<ContentState>> => {
+    const service = container.get<IContentService>(Services.Content);
+    const { timeseries, ...trendline } = await service.getTrendLines();
+    return {
+      localTrendline: {
+        delta: getTrendLineDelta(timeseries, 7),
+        timeseries,
+        ...trendline,
+      },
+    };
+  }
+);
+
+export const searchTrendLine = createAsyncThunk(
+  'content/search_trend_line',
+  async (query?: string): Promise<Partial<ContentState>> => {
+    const service = container.get<IContentService>(Services.Content);
+    const { timeseries, ...trendline } = await service.getTrendLines(query);
+    return {
+      exploreTrendline: {
+        delta: getTrendLineDelta(timeseries, 7),
+        timeseries,
+        ...trendline,
+      },
     };
   }
 );
@@ -123,6 +169,23 @@ export const contentSlice = createSlice({
       const { ukActive, ukDaily } = action.payload;
       current.ukActive = ukActive;
       current.ukDaily = ukDaily;
+    },
+
+    // Trendline data
+    [fetchLocalTrendLine.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.localTrendline = action.payload?.localTrendline;
+      current.exploreTrendline = action.payload?.localTrendline;
+    },
+
+    [searchTrendLine.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.exploreTrendline = action.payload?.exploreTrendline;
+      current.exploreTrendlineUpdating = false;
+    },
+    [searchTrendLine.pending.type]: (current) => {
+      current.exploreTrendlineUpdating = true;
+    },
+    [searchTrendLine.rejected.type]: (current) => {
+      current.exploreTrendlineUpdating = false;
     },
   },
 });

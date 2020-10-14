@@ -1302,7 +1302,28 @@
     "report-today": "Report today, even if you're well",
     "report-now": "Report now",
     "you-have-reported-x-times": "You’ve reported %{count} times",
-    "contributors-so-far": "Contributors so far:"
+    "contributors-so-far": "Contributors so far:",
+
+    "trendline-card": {
+      "cta": "Explore the graph",
+      "delta": {
+        "up": "Up by",
+        "down": "Down by",
+        "from-last-week": "from last week"
+      }
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "Estimated COVID cases in",
+    "delta-week": "last week",
+    "cta": "Share"
+  },
+
+  "search-lad": {
+    "input-label": "Search for a district",
+    "input-placeholder": "e.g Camdem",
+    "no-result": "No result"
   },
 
   "estimated-cases-card": {
