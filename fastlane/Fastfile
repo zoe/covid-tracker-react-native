@@ -7,9 +7,6 @@ fastlane_version "2.160.0"
 @ios_scheme = ENV['iOS_SCHEME']
 
 # AppCenter configs
-@ac_token = ENV['APPCENTER_API_TOKEN']
-@ac_project_name = ENV['APPCENTER_PROJECT_NAME']
-@ac_notify_group = ENV['APPCENTER_NOTIFY_GROUP']
 @ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
 
 @slack_url = ENV['SLACK_WEB_HOOK']
@@ -90,10 +87,13 @@ platform :android do
 
   JS_PACKAGE = load_json(json_path: "./package.json")
 
-  @ac_notify_group = "Android"
-  @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
-  @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
+  before_all do
+    @ac_notify_group = "Android"
+    @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
+    @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
+  end
 
+  
   desc "Build Android Staging"
   lane :release do |options|
 
@@ -137,12 +137,12 @@ end
 
 platform :ios do
 
-  app_identifier = @ios_app_id
-  @ac_notify_group = "iOS"
-  @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
-
+  
   before_all do
     setup_circle_ci
+    app_identifier = @ios_app_id
+    @ac_notify_group = "iOS"
+    @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
   end
 
   lane :certificates do
