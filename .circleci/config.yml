@@ -214,6 +214,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - yarn
       - attach_workspace:
           at: *default_workspace
       - prepare_deploy_env
