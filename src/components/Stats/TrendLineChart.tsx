@@ -126,7 +126,6 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
           }
         }}
       />
-      <MutedText style={styles.month}>{moment().format('MMMM')}</MutedText>
     </View>
   );
 };
