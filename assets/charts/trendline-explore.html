@@ -33,6 +33,7 @@
 
     var chart;
     var lineSeries;
+    var lineMin, lineMax = 0;
 
     function setupTradingView() {
       chart = LightweightCharts.createChart(document.body, {
@@ -102,8 +103,14 @@
       },
 
       setData: function (event) {
-        const { data } = event.payload;
+        const { data, min, max } = event.payload;
         dataset = data
+
+        if (min & max) {
+          lineMin = min
+          lineMax = max
+        }
+
         if (lineSeries) {
           lineSeries.setData(data)
         } else {
@@ -111,8 +118,15 @@
           lineSeries = chart.addLineSeries({
             color: primaryColor,
             lineWidth: 2,
-            priceScaleId: 'left'
+            priceScaleId: 'left',
+            autoscaleInfoProvider: () => ({
+                priceRange: {
+                    minValue: lineMin,
+                    maxValue: lineMax,
+                },
+            }),
           })
+          lineSeries
           lineSeries.setData(data);
           window.covid.updateTimeWindow({ payload: { type: 'WEEK' } })
         }

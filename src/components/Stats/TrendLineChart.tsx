@@ -93,8 +93,13 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
         return;
       case TrendLineViewMode.explore:
         const timeseriesSorted = timeseries.sort((a, b) => (a.date > b.date ? 1 : -1));
+        const values = timeseriesSorted.map((item) => item.value);
         webview.current?.call('setData', {
-          payload: { data: timeseriesSorted },
+          payload: {
+            data: timeseriesSorted,
+            min: Math.min(...values),
+            max: Math.max(...values),
+          },
         });
     }
   };
