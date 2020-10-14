@@ -256,7 +256,7 @@ jobs:
           command: |
             ENVFILE=.env bundle exec fastlane android staging_android
       - store_artifacts:
-          path: ~/covid-react/android/app/build/outputs/apk/**/*.apk
+          path: ~/covid-react/android/app/build/outputs
 
 workflows:
   default:
