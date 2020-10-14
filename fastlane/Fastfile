@@ -90,16 +90,48 @@ platform :android do
 
   JS_PACKAGE = load_json(json_path: "./package.json")
 
+  @ac_notify_group = "Android"
+  @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
+  @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
+
   desc "Build Android Staging"
-  lane :staging_android do
+  lane :release do
+
+    case options[:env]
+    when 'stage'
+      # analyze_commits(match: '*')
+      @build_configuration = 'staging'
+      @ac_destination_type ='group'
+    when 'prod'
+      puts 'implement ios release'
+    end
+
     gradle(
       task: 'assemble',
-      build_type: 'staging',
+      build_type: @build_configuration,
       project_dir: "./android"   
     )
 
-    apk_path = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    puts “APK path: #{apk_path}”
+    case options[:env]
+    when 'stage'
+      appcenter
+    when 'prod'
+      # Upload to play store
+    end
+  end
+
+  lane :appcenter do
+    appcenter_upload(
+      app_name: @ac_project_name,
+      api_token: @ac_token,
+      destinations: @ac_notify_group,
+      destination_type: @ac_destination_type,
+      owner_name: "Joinzoe",
+      owner_type: "organization",
+      file: String.try_convert(SharedValues::GRADLE_APK_OUTPUT_PATH),
+      release_notes: String.try_convert(git_branch),
+      notify_testers: true
+    )
   end
 end
 
