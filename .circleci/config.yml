@@ -12,13 +12,9 @@ references:
     branches:
       only: master
 
-  develop_filter: &develop_filter
-    branches:
-      only: develop
-
   stage_filter: &stage_filter
     branches:
-      only: stage
+      only: develop
 
   legacy_ota_filter: &legacy_ota_filter
     branches:
@@ -64,6 +60,11 @@ commands:
             - *pod_cache_key
             - *gem_cache_key
 
+  install_dependencies:
+    steps:
+      - bundler_install
+      - node_install
+
   bundler_install:
     steps:
       - run: gem install bundler
@@ -96,11 +97,6 @@ commands:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
 
-  install_dependencies:
-    steps:
-      - bundler_install
-      - node_install
-
   prepare_blank_env:
     steps:
       - run: echo "API_URL=" > .env
@@ -130,17 +126,6 @@ commands:
 
   build:
     steps:
-      - checkout
-      - run: gem install bundler
-      - run: bundle install
-      - run: bundle update fastlane
-      - run: yarn
-
-jobs:
-  build:
-    executor: mobile-build-box
-    working_directory: ~/covid-react
-    steps:
       - prepare_code
       - install_dependencies
       - run:
@@ -149,6 +134,16 @@ jobs:
       - run:
           name: 'Clean up after bundling'
           command: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
+
+jobs:
+
+  # Prepare code, install dependencies (node & ios & ruby), build android assets
+  # Save dependencies & bundled assets in workspace
+  build:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - build
       - persist_to_workspace:
           root: *default_workspace
           paths:
@@ -158,6 +153,7 @@ jobs:
             - android/app/src/main/assets/index.android.bundle
             - android/app/src/main/res
 
+  # Prepare code and run lint
   lint:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -174,6 +170,7 @@ jobs:
       - store_artifacts:
           path: ~/reports
 
+  # Prepare code and check i18n
   i18n:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -182,6 +179,7 @@ jobs:
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
+  # Prepare code and run tests
   test:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -199,43 +197,34 @@ jobs:
       - store_artifacts:
           path: ./reports/junit
 
-  deploy:
+  # Deploying to stage (upload to app center for ad-hoc build)
+  deploy-stage:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
       - build
-      # - deploy_ios
-      # - deploy_android
-    
-  deploy_stage:
+      - deploy_ios
+      - deploy_android
+
+
+  # Uses osx & xcode to build iOS project
+  deploy-ios:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - prepare_code
+      - checkout:
+          path: *default_workspace
+      - attach_workspace:
+          at: *default_workspace
       - prepare_deploy_env
-      - install_dependencies
-      # - run: yarn fastlane:android:stage
       - run: yarn fastlane:ios:stage
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.app.dSYM.zip
 
-  deployed_stage:
-    executor: mobile-build-box
-    steps:
-      - slack/notify:
-          message: Deployed adhoc builds for iOS & Android
-          webhook: $SLACK_WEBHOOK
-
-  legacy_deploy:
-    executor: mobile-build-box
-    working_directory: ~/covid-react
-    steps:
-      - build
-      - legacy_ota_publish
-
-  android-build:
+  # Uses android-api docker image to build android app
+  deploy-android:
     working_directory: *default_workspace
     docker:
       - image: circleci/android:api-29-node
@@ -259,52 +248,81 @@ jobs:
       - store_artifacts:
           path: ~/covid-react/android/app/build/outputs
 
+  deployed-stage:
+    executor: mobile-build-box
+    steps:
+      - slack/notify:
+          message: Deployed adhoc builds for iOS & Android
+          webhook: $SLACK_WEBHOOK
+
+  legacy_deploy:
+    executor: mobile-build-box
+    working_directory: ~/covid-react
+    steps:
+      - build
+      - legacy_ota_publish
+
 workflows:
-  default:
+  # default:
+  #   jobs:
+  #     - build:
+  #         filters: *feature_filter
+  #     - deploy-android:
+  #         filters: *feature_filter
+  #         context: react-covid-tracker-stage
+  #         requires:
+  #             - build          
+  #     - lint:
+  #         filters: *feature_filter
+  #         requires:
+  #             - build
+  #     - i18n:
+  #         filters: *feature_filter
+  #         requires:
+  #             - build
+  #     - test:
+  #         filters: *feature_filter
+  #         requires:
+  #             - build
+
+  test:
     jobs:
       - build:
           filters: *feature_filter
-      - android-build:
+      - lint:
+          filters: *feature_filter
+          requires:
+              - build
+      - i18n:
+          filters: *feature_filter
+          requires:
+              - build
+      - test:
+          filters: *feature_filter
+          requires:
+              - build
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: Awaiting manual approval to deploy to stage
+          context: slack-ci-covid-mobile
+          requires:
+            - lint
+            - i18n
+            - test
+      - wait_for_approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - lint
+            - i18n
+            - test
+      - deploy-stage:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
-              - build
-      # - build:
-      #     
-      # - lint:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - i18n:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - test:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-
-      # - slack/approval-notification:
-      #     filters: *feature_filter
-      #     message: Awaiting manual approval to deploy to stage
-      #     context: slack-ci-covid-mobile
-      #     requires:
-      #       - lint
-      #       - i18n
-      #       - test
-      # - wait_for_approval:
-      #     filters: *feature_filter
-      #     type: approval
-      #     requires:
-      #       - lint
-      #       - i18n
-      #       - test
-      # - deploy_stage:
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
-      #     requires:
-      #       - wait_for_approval
-      # - deployed_stage:
-      #     context: slack-ci-covid-mobile
-      #     requires:
-      #       - deploy_stage
+              - wait_for_approval
+      - deployed-stage:
+          context: slack-ci-covid-mobile
+          requires:
+            - deploy-ios
+            - deploy-android
