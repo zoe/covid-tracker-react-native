@@ -43,10 +43,7 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
           action={() => editProfileCoordinator.goToEditLocation()}
         />
 
-        {false && (
-          // Disabled
-          <LinkItem title={i18n.t('title-about-you')} action={() => editProfileCoordinator.goToEditAboutYou()} />
-        )}
+        <LinkItem title={i18n.t('title-about-you')} action={() => editProfileCoordinator.goToEditAboutYou()} />
 
         {editProfileCoordinator.shouldShowEditStudy() && (
           <LinkItem title={i18n.t('your-study.title')} action={() => editProfileCoordinator.goToEditYourStudy()} />
