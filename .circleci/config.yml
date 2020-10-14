@@ -54,11 +54,13 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          keys: 
-            - *yarn_cache_key
-            - *node_cache_key
-            - *pod_cache_key
-            - *gem_cache_key
+          key: *yarn_cache_key
+      - restore_cache:
+          key: *node_cache_key
+      - restore_cache:
+          key: *pod_cache_key
+      - restore_cache:
+          key: *gem_cache_key
 
   install-dependencies:
     steps:
