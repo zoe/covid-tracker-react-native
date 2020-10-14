@@ -213,8 +213,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - checkout:
-          path: *default_workspace
+      - prepare_code
       - attach_workspace:
           at: *default_workspace
       - prepare_deploy_env
