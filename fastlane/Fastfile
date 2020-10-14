@@ -97,6 +97,9 @@ platform :android do
       build_type: 'staging',
       project_dir: "./android"   
     )
+
+    apk_path = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    puts “APK path: #{apk_path}”
   end
 end
 
