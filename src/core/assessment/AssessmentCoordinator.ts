@@ -60,17 +60,16 @@ export class AssessmentCoordinator extends Coordinator {
       this.gotoEndAssessment();
     },
     ViralThankYou: () => {
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.goBack();
     },
     ThankYouUK: () => {
-      NavigatorService.reset([{ name: 'Dashboard' }]);
+      NavigatorService.goBack();
     },
     ThankYou: () => {
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.goBack();
     },
     ReportForOther: () => {
-      const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
-      NavigatorService.navigate(thankYouScreen);
+      this.goToThankYouScreen();
     },
   };
 
@@ -113,8 +112,7 @@ export class AssessmentCoordinator extends Coordinator {
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
-      const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
-      NavigatorService.navigate(thankYouScreen);
+      this.goToThankYouScreen();
     }
   };
 
@@ -155,10 +153,6 @@ export class AssessmentCoordinator extends Coordinator {
     );
   }
 
-  static getThankYouScreen = (): keyof ScreenParamList => {
-    return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
-  };
-
   static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
     return (
       config.enableMultiplePatients &&
@@ -186,6 +180,12 @@ export class AssessmentCoordinator extends Coordinator {
 
   goToTestConfirm(test: CovidTest) {
     NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test });
+  }
+
+  goToThankYouScreen() {
+    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
+    const thankYouScreen = isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
+    NavigatorService.reset([{ name: homeScreen }, { name: thankYouScreen }], 1);
   }
 
   resetToCreateProfile() {
