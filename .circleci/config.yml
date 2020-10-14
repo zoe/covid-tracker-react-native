@@ -50,7 +50,7 @@ executors:
 
 
 commands:
-  prepare_code:
+  prepare-code:
     steps:
       - checkout
       - restore_cache:
@@ -60,12 +60,12 @@ commands:
             - *pod_cache_key
             - *gem_cache_key
 
-  install_dependencies:
+  install-dependencies:
     steps:
-      - bundler_install
-      - node_install
+      - bundler-install
+      - node-install
 
-  bundler_install:
+  bundler-install:
     steps:
       - run: gem install bundler
       - run:
@@ -80,7 +80,7 @@ commands:
           paths:
             - vendor/bundle
   
-  node_install:
+  node-install:
     steps:
       - run: yarn
       - save_cache:
@@ -126,8 +126,8 @@ commands:
 
   build:
     steps:
-      - prepare_code
-      - install_dependencies
+      - prepare-code
+      - install-dependencies
       - run:
           name: 'Bundle RN Android assets'
           command: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
@@ -158,7 +158,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - prepare_code
+      - prepare-code
       - run:
           command: |
             mkdir -p ~/reports
@@ -175,7 +175,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - prepare_code
+      - prepare-code
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -184,7 +184,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
-      - prepare_code
+      - prepare-code
       - prepare_blank_env
       - run:
           name: Run tests with JUnit as reporter
@@ -203,8 +203,8 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - build
-      - deploy_ios
-      - deploy_android
+      - deploy-ios
+      - deploy-android
 
 
   # Uses osx & xcode to build iOS project
@@ -285,7 +285,7 @@ workflows:
   #         requires:
   #             - build
 
-  test:
+  default:
     jobs:
       - build:
           filters: *feature_filter
