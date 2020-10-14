@@ -217,6 +217,7 @@ jobs:
       - attach_workspace:
           at: *default_workspace
       - prepare_deploy_env
+      - run: bundle install --path vendor/bundle --clean
       - run: yarn fastlane:ios:stage
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
@@ -289,45 +290,46 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      - lint:
-          filters: *feature_filter
-          requires:
-              - build
-      - i18n:
-          filters: *feature_filter
-          requires:
-              - build
-      - test:
-          filters: *feature_filter
-          requires:
-              - build
-      - slack/approval-notification:
-          filters: *feature_filter
-          message: Awaiting manual approval to deploy to stage
-          context: slack-ci-covid-mobile
-          requires:
-            - lint
-            - i18n
-            - test
-      - wait_for_approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - lint
-            - i18n
-            - test
+      # - lint:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - i18n:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - test:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - slack/approval-notification:
+      #     filters: *feature_filter
+      #     message: Awaiting manual approval to deploy to stage
+      #     context: slack-ci-covid-mobile
+      #     requires:
+      #       - lint
+      #       - i18n
+      #       - test
+      # - wait_for_approval:
+      #     filters: *feature_filter
+      #     type: approval
+      #     requires:
+      #       - lint
+      #       - i18n
+      #       - test
       - deploy-ios:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
-              - wait_for_approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - wait_for_approval
-      - deployed-stage:
-          context: slack-ci-covid-mobile
-          requires:
-            - deploy-ios
-            - deploy-android
+              # - wait_for_approval
+              - build
+      # - deploy-android:
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
+      #     requires:
+      #         - wait_for_approval
+      # - deployed-stage:
+      #     context: slack-ci-covid-mobile
+      #     requires:
+      #       - deploy-ios
+      #       - deploy-android
