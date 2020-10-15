@@ -304,31 +304,30 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      - deploy-android:
+      - lint:
           filters: *feature_filter
-          context: react-covid-tracker-stage
           requires:
               - build
-      - deploy-ios:
+      - i18n:
           filters: *feature_filter
-          context: react-covid-tracker-stage
           requires:
-              - build  
+              - build
+      - test:
+          filters: *feature_filter
+          requires:
+              - build
+      # - deploy-android:
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
+      #     requires:
+      #         - build
+      # - deploy-ios:
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
+      #     requires:
+      #         - build  
       # - deployed-stage:
       #     context: slack-ci-covid-mobile
-      #     requires:
-      #         - build
-
-      # - lint:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - i18n:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - test:
-      #     filters: *feature_filter
       #     requires:
       #         - build
 
