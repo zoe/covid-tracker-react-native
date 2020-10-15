@@ -98,7 +98,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   useEffect(() => {
     if (!content) return;
     const { startupInfo, localTrendline } = content;
-    if (startupInfo?.local_data.lad && !localTrendline) {
+    if (startupInfo?.local_data?.lad && !localTrendline) {
       store.dispatch(fetchLocalTrendLine());
     }
   }, [content?.startupInfo]);
