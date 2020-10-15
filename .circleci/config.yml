@@ -127,7 +127,7 @@ commands:
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
       - run: echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
       - run: echo "" >> android/gradle.properties
-      - run: echo "KEYSTORE_FILE=../.signing/release.jks" >> android/gradle.properties
+      - run: echo "KEYSTORE_FILE=../../.signing/release.jks" >> android/gradle.properties
       - run: echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> android/gradle.properties
       - run: echo "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" >> android/gradle.properties
       - run: echo "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" >> android/gradle.properties
