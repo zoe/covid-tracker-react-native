@@ -262,6 +262,13 @@ jobs:
           message: Deployed adhoc builds for iOS & Android
           webhook: $SLACK_WEBHOOK
 
+  deployed-prod:
+    executor: mobile-build-box
+    steps:
+      - slack/notify:
+          message: Deployed release builds for iOS & Android
+          webhook: $SLACK_WEBHOOK
+
   legacy_deploy:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -284,10 +291,10 @@ workflows:
           context: react-covid-tracker-stage
           requires:
               - build  
-      - slack/notify:
-          context: slack-ci-covid-mobile
-          message: Testing ci builds for iOS & Android
-          webhook: $SLACK_WEBHOOK 
+      # - deployed-stage:
+      #     context: slack-ci-covid-mobile
+      #     requires:
+      #         - build
 
       # - lint:
       #     filters: *feature_filter
@@ -343,10 +350,11 @@ workflows:
           context: react-covid-tracker-stage
           requires:
               - wait_for_approval
-      - slack/notify:
+      - deployed-stage:
           context: slack-ci-covid-mobile
-          message: Deployed adhoc builds for iOS & Android
-          webhook: $SLACK_WEBHOOK 
+          requires:
+              - deploy-ios
+              - deploy-android
 
   production:
     jobs:
@@ -389,7 +397,8 @@ workflows:
           context: react-covid-tracker-prod
           requires:
               - wait_for_approval
-      - slack/notify:
+      - deployed-prod:
           context: slack-ci-covid-mobile
-          message: Deployed release builds for iOS & Android
-          webhook: $SLACK_WEBHOOK 
+          requires:
+              - deploy-ios
+              - deploy-android
