@@ -311,6 +311,9 @@ workflows:
             - lint
             - i18n
             - test
+
+  deploy:
+    jobs:
       - wait_for_approval:
           filters: *feature_filter
           type: approval
