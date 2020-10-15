@@ -46,27 +46,29 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
   };
 
   return (
-    <View ref={viewRef} style={styles.root}>
-      <View style={styles.chartContainer}>
-        <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
-        {/* use absolute overlay to prevent displaying blank chart */}
-        <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
-          <View style={styles.box} />
-        </TouchableWithoutFeedback>
-      </View>
-
-      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <RegularText style={styles.primaryLabel}>{postiveCountLabel}</RegularText>
-        <RegularBoldText>{localTrendline?.name}</RegularBoldText>
-      </View>
-
-      <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
-
-      {localTrendline?.delta && (
-        <View style={styles.deltaTag}>
-          <DeltaTag change={localTrendline.delta} />
+    <View style={styles.root}>
+      <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
+        <View style={styles.chartContainer}>
+          <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
+          {/* use absolute overlay to prevent displaying blank chart */}
+          <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
+            <View style={styles.box} />
+          </TouchableWithoutFeedback>
         </View>
-      )}
+
+        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+          <RegularText style={styles.primaryLabel}>{postiveCountLabel}</RegularText>
+          <RegularBoldText>{localTrendline?.name}</RegularBoldText>
+        </View>
+
+        <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
+
+        {localTrendline?.delta && (
+          <View style={styles.deltaTag}>
+            <DeltaTag change={localTrendline.delta} />
+          </View>
+        )}
+      </View>
 
       <View style={styles.divider} />
 
@@ -84,11 +86,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 16,
     marginHorizontal: 32,
-    paddingTop: 32,
-    paddingBottom: 18,
+    paddingBottom: 16,
+    paddingTop: 8,
   },
 
-  description: {
+  snapshotContainer: {
+    paddingTop: 24,
+    paddingBottom: 16,
+    borderRadius: 16,
+
+    backgroundColor: colors.white,
+    width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
   },
