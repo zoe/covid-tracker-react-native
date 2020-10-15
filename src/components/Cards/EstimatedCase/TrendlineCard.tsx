@@ -34,11 +34,12 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
   }));
 
   const onPress = () => {
-    Analytics.track(events.ESTIMATED_CASES_METRICS_MORE_DETAILS_CLICKED);
+    Analytics.track(events.TRENDLINE_MORE_DETAILS_CLICKED);
     ctaOnPress();
   };
 
   const share = async () => {
+    Analytics.track(events.TRENDLINE_OVERVIEW_SHARE_CLICKED);
     try {
       const uri = await captureRef(viewRef, { format: 'jpg' });
       Sharing.shareAsync('file://' + uri);
