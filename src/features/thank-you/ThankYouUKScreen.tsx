@@ -82,7 +82,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={blog015}
                 aspectRatio={1.552}
                 screenName={this.props.route.name}
-                imageStyles={{ borderRadius: 16 }}
+                imageStyles={{ borderRadius: 8 }}
               />
 
               <ExternalCallout
