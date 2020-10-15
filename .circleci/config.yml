@@ -300,46 +300,20 @@ jobs:
       - expo_ota_publish
 
 workflows:
-  test-production:
+  test-legacy-ota:
     jobs:
       - build:
           filters: *feature_filter
-      - slack/approval-notification:
-          filters: *feature_filter
-          message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
-          context: slack-ci-covid-mobile
-          requires:
-            - build
-      - store-release-approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - build
       - ota-release-approval:
           filters: *feature_filter
           type: approval
           requires:
             - build
-      - deploy-ios:
-          filters: *feature_filter
-          context: react-covid-tracker-prod
-          requires:
-              - store-release-approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-prod
-          requires:
-              - store-release-approval
       - ota-release:
           filters: *feature_filter
-          context: react-covid-tracker-prod
+          context: react-covid-tracker-stage
           requires:
               - ota-release-approval
-      - deployed-prod:
-          context: slack-ci-covid-mobile
-          requires:
-              - deploy-ios
-              - deploy-android
 
   # default:
   #   jobs:
