@@ -110,6 +110,7 @@ commands:
 
   prepare_deploy_env:
     steps:
+      - run: mkdir -p .signing
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
@@ -150,7 +151,6 @@ commands:
           name: Set expo release channel
           command: |
             echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-$RELEASE_CHANNEL_SUFFIX' >> $BASH_ENV
-      - login_to_expo
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
       # Legacy expo release channels
@@ -340,16 +340,12 @@ workflows:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - lint
-              - i18n
-              - test
+              - build
       - deploy-android:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - lint
-              - i18n
-              - test
+              - build
       - deployed-stage:
           context: slack-ci-covid-mobile
           requires:
