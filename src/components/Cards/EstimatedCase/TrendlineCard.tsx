@@ -44,15 +44,13 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
 
   return (
     <View ref={viewRef} style={styles.root}>
-      {isGBCountry() && (
-        <View style={styles.chartContainer}>
-          <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
-          {/* use absolute overlay to prevent displaying blank chart */}
-          <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
-            <View style={styles.box} />
-          </TouchableWithoutFeedback>
-        </View>
-      )}
+      <View style={styles.chartContainer}>
+        <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
+        {/* use absolute overlay to prevent displaying blank chart */}
+        <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
+          <View style={styles.box} />
+        </TouchableWithoutFeedback>
+      </View>
 
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
         <RegularText style={styles.primaryLabel}>{postiveCountLabel}</RegularText>
@@ -66,13 +64,12 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
           <DeltaTag change={localTrendline.delta} />
         </View>
       )}
-      {isGBCountry() && (
-        <View style={styles.buttonsContainer}>
-          <BrandedButton style={styles.detailsButton} onPress={share}>
-            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
-          </BrandedButton>
-        </View>
-      )}
+
+      <View style={styles.buttonsContainer}>
+        <BrandedButton style={styles.detailsButton} onPress={share}>
+          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
+        </BrandedButton>
+      </View>
     </View>
   );
 };
