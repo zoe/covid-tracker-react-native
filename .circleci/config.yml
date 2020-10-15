@@ -143,6 +143,21 @@ commands:
           name: 'Clean up after bundling'
           command: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
 
+  # Publish OTA releases through Expo
+  expo_ota_publish:
+    steps:
+      - run:
+          name: Set expo release channel
+          command: |
+            echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-$RELEASE_CHANNEL_SUFFIX' >> $BASH_ENV
+      - login_to_expo
+      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
+      # Legacy expo release channels
+      # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.9-prod
+      # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
+      # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
+
 jobs:
   # Prepare code, install dependencies (node & ios & ruby), build android assets
   # Save dependencies & bundled assets in workspace
@@ -274,7 +289,15 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - build
-      - legacy_ota_publish
+      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+
+  ota-release:
+    executor: node
+    working_directory: ~/covid-react
+    steps:
+      - build
+      - prepare_deploy_env
+      - expo_ota_publish
 
 workflows:
   default:
@@ -339,29 +362,52 @@ workflows:
           filters: *master_filter
       - slack/approval-notification:
           filters: *master_filter
-          message: Awaiting manual approval to deploy to stage
+          message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
           context: slack-ci-covid-mobile
           requires:
             - build
-      - wait_for_approval:
+      - store-release-approval:
           filters: *master_filter
           type: approval
           requires:
-            - lint
-            - i18n
-            - test
+            - build
+      - ota-release-approval:
+          filters: *master_filter
+          type: approval
+          requires:
+            - build
       - deploy-ios:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-              - wait_for_approval
+              - store-release-approval
       - deploy-android:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-              - wait_for_approval
+              - store-release-approval
+      - ota-release:
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+              - ota-release-approval
       - deployed-prod:
           context: slack-ci-covid-mobile
           requires:
               - deploy-ios
               - deploy-android
+
+  legacy-ota:
+    jobs:
+      - build:
+          filters: *legacy_ota_filter
+      - ota-release-approval:
+          filters: *legacy_ota_filter
+          type: approval
+          requires:
+            - build
+      - ota-release:
+          filters: *legacy_ota_filter
+          context: react-covid-tracker-prod
+          requires:
+              - ota-release-approval
