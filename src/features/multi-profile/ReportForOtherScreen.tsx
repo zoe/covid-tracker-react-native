@@ -7,7 +7,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import { profilesIcon } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
-import { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
+import assessmentCoordinator, { AssessmentCoordinator } from '@covid/core/assessment/AssessmentCoordinator';
 import {
   BrandedButton,
   ClickableText,
@@ -34,7 +34,7 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
 
   handleSkip = async () => {
     await this.profileService.recordAskedToReportForOther();
-    this.props.navigation.navigate(AssessmentCoordinator.getThankYouScreen());
+    assessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {
@@ -60,16 +60,7 @@ export default class ReportForOtherScreen extends Component<RenderProps, object>
 
                 <BrandedButton
                   onPress={() => {
-                    this.props.navigation.dispatch((state) => {
-                      return CommonActions.reset({
-                        index: 2,
-                        routes: [
-                          state.routes[0],
-                          { name: 'SelectProfile', params: { editing: true } },
-                          { name: 'CreateProfile', params: { avatarName: 'profile2' } },
-                        ],
-                      });
-                    });
+                    assessmentCoordinator.resetToCreateProfile();
                   }}>
                   <Text>{i18n.t('report-for-others-add-profiles')}</Text>
                 </BrandedButton>
