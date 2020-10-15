@@ -80,15 +80,11 @@ export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
           }}
           styles={{ justifyContent: 'center', marginVertical: 32 }}
         />
-
-        {isIos && (
-          <View style={styles.buttonsContainer}>
-            <BrandedButton style={styles.detailsButton} onPress={share}>
-              <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
-            </BrandedButton>
-          </View>
-        )}
-
+        <View style={styles.buttonsContainer}>
+          <BrandedButton style={styles.detailsButton} onPress={share}>
+            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
+          </BrandedButton>
+        </View>
         <View style={styles.zoe}>
           <PoweredByZoeSmall />
         </View>

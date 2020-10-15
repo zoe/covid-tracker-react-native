@@ -111,6 +111,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
   return (
     <View style={{ flexDirection: 'column', flex: 1, alignContent: 'center' }}>
       <WebView
+        androidHardwareAccelerationDisabled={true}
         ref={webview}
         originWhitelist={['*']}
         source={{ html }}

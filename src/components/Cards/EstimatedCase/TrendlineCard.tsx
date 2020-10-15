@@ -1,6 +1,8 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useRef} from 'react';
+import { StyleSheet, Text, TouchableWithoutFeedback, View,  } from 'react-native';
 import { useSelector } from 'react-redux';
+import { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
 
 import { BrandedButton, Header3Text, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
@@ -10,7 +12,6 @@ import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
-
 import { DeltaTag } from './DeltaTag';
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
+  const viewRef = useRef<View>(null);
   const postiveCountLabel = `${i18n.t('explore-trend-line.title')} `;
 
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
@@ -32,11 +34,21 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
     ctaOnPress();
   };
 
+  const share = async () => {
+    try {
+      const uri = await captureRef(viewRef, { format: 'jpg' });
+      Sharing.shareAsync('file://' + uri);
+    } catch (_) {}
+  };
+
   return (
-    <View style={styles.root}>
+    <View ref={viewRef} style={styles.root}>
       {isGBCountry() && (
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
+          {/* use absolute overlay to prevent displaying blank chart */}
+          <TouchableWithoutFeedback style={styles.hit} onPress={onPress}><View style={styles.box} /></TouchableWithoutFeedback>
+          
         </View>
       )}
 
@@ -52,14 +64,13 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
           <DeltaTag change={localTrendline.delta} />
         </View>
       )}
-
-      <View>
-        <BrandedButton style={styles.detailsButton} onPress={onPress}>
-          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>
-            {i18n.t('dashboard.trendline-card.cta')}
-          </Text>
-        </BrandedButton>
-      </View>
+      {isGBCountry() && (
+          <View style={styles.buttonsContainer}>
+            <BrandedButton style={styles.detailsButton} onPress={share}>
+              <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
+            </BrandedButton>
+          </View>
+        )}
     </View>
   );
 };
@@ -123,4 +134,23 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     fontSize: 14,
   },
+  buttonsContainer: {
+    maxWidth: '80%',
+    alignSelf: 'center',
+    marginTop: 12,
+  },
+  hit: {
+    height: '100%',
+    left: 16,
+    position: 'absolute',
+    width: '100%',
+  },
+  box: {
+    backgroundColor: 'red',
+    height: '100%',
+    left: 16,
+    opacity: 0,
+    position: 'absolute',
+    width: '100%',
+  }
 });
