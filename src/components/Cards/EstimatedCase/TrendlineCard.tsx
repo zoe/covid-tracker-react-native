@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View,  } from 'react-native';
+import React, { useRef } from 'react';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
@@ -12,6 +12,7 @@ import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
+
 import { DeltaTag } from './DeltaTag';
 
 interface Props {
@@ -47,8 +48,9 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
-          <TouchableWithoutFeedback style={styles.hit} onPress={onPress}><View style={styles.box} /></TouchableWithoutFeedback>
-          
+          <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
+            <View style={styles.box} />
+          </TouchableWithoutFeedback>
         </View>
       )}
 
@@ -65,12 +67,12 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
         </View>
       )}
       {isGBCountry() && (
-          <View style={styles.buttonsContainer}>
-            <BrandedButton style={styles.detailsButton} onPress={share}>
-              <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
-            </BrandedButton>
-          </View>
-        )}
+        <View style={styles.buttonsContainer}>
+          <BrandedButton style={styles.detailsButton} onPress={share}>
+            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
+          </BrandedButton>
+        </View>
+      )}
     </View>
   );
 };
@@ -152,5 +154,5 @@ const styles = StyleSheet.create({
     opacity: 0,
     position: 'absolute',
     width: '100%',
-  }
+  },
 });
