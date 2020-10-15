@@ -175,22 +175,24 @@ android {
         }
     }
 
-    // signingConfigs {
-    //     debug {
-    //         storeFile file('debug.keystore')
-    //         storePassword 'android'
-    //         keyAlias 'androiddebugkey'
-    //         keyPassword 'android'
-    //     }
-    //     release {
-    //         if (project.hasProperty('COVID_TRACKER_STORE_FILE')) {
-    //             storeFile file(COVID_TRACKER_STORE_FILE)
-    //             storePassword COVID_TRACKER_STORE_PASSWORD
-    //             keyAlias COVID_TRACKER_KEY_ALIAS
-    //             keyPassword COVID_TRACKER_KEY_PASSWORD
-    //         }
-    //     }
-    // }
+    signingConfigs {
+        debug {
+            // Override if needed during debug
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            // Env vars will be written into .properties and used here
+            if (project.hasProperty('KEYSTORE_FILE')) {
+                storeFile file(KEYSTORE_FILE)
+                storePassword KEYSTORE_PASSWORD
+                keyAlias KEYSTORE_KEY_ALIAS
+                keyPassword KEYSTORE_KEY_PASSWORD
+            }
+        }
+    }
     
     buildTypes {
         debug {
@@ -198,13 +200,13 @@ android {
             matchingFallbacks = ['debug']
         }
         staging {
-            // signingConfig signingConfigs.debug
-            matchingFallbacks = ['debug']
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             matchingFallbacks = ['release']
         }
     }

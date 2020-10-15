@@ -1,13 +1,36 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@2.0.1
+  slack: circleci/slack@3.2.0
+  jq: circleci/jq@2.0.1
+  coveralls: coveralls/coveralls@1.0.6
+  rn: react-native-community/react-native@2.0.1
+
+executors:
+  # Node with Ruby (Install node modules / gems / pods)
+  node:
+    docker:
+      - image: circleci/ruby:latest-node
+        environment:
+          API_URL: $API_URL
+          AMPLITUDE_KEY: $AMPLITUDE_KEY
+    resource_class: large
+
+  mobile-build-box:
+    macos:
+      xcode: 12.0.0
+
 references:
+  default_workspace: &default_workspace ~/covid-react
+
+  # Cache keys
   yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
   node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
   pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
   gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
-  default_workspace: &default_workspace ~/covid-react
-
+  # Branch filters
   master_filter: &master_filter
     branches:
       only: master
@@ -28,28 +51,8 @@ references:
         - stage
         - release-0.x-legacy
 
-orbs:
-  node: circleci/node@2.0.1
-  slack: circleci/slack@3.2.0
-  jq: circleci/jq@2.0.1
-  coveralls: coveralls/coveralls@1.0.6
-  rn: react-native-community/react-native@2.0.1
-
-executors:
-  node:
-    docker:
-      - image: circleci/ruby:latest-node
-        environment:
-          API_URL: $API_URL
-          AMPLITUDE_KEY: $AMPLITUDE_KEY
-    resource_class: large
-
-  mobile-build-box:
-    macos:
-      xcode: 12.0.0
-
-
 commands:
+  # Checks out code & restore cache for deps
   prepare_code:
     steps:
       - checkout
@@ -99,6 +102,7 @@ commands:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
 
+  # Prepare black env for testing
   prepare_blank_env:
     steps:
       - run: echo "API_URL=" > .env
@@ -120,12 +124,14 @@ commands:
       - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env
       - run: echo "NAME=$NAME" >> .env 
       - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
+      - run: echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
       - run: echo "" >> android/gradle.properties
-      - run: echo "KEYSTORE_FILE=$KEYSTORE_FILE" >> android/gradle.properties
+      - run: echo "KEYSTORE_FILE=../.signing/release.jks" >> android/gradle.properties
       - run: echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> android/gradle.properties
       - run: echo "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" >> android/gradle.properties
       - run: echo "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" >> android/gradle.properties
 
+  # Should prepare code, install deps & bundle assets
   build:
     steps:
       - prepare_code
@@ -138,7 +144,6 @@ commands:
           command: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
 
 jobs:
-
   # Prepare code, install dependencies (node & ios & ruby), build android assets
   # Save dependencies & bundled assets in workspace
   build:
@@ -265,74 +270,126 @@ jobs:
       - legacy_ota_publish
 
 workflows:
-  # default:
-  #   jobs:
-  #     - build:
-  #         filters: *feature_filter
-  #     - deploy-android:
-  #         filters: *feature_filter
-  #         context: react-covid-tracker-stage
-  #         requires:
-  #             - build          
-  #     - lint:
-  #         filters: *feature_filter
-  #         requires:
-  #             - build
-  #     - i18n:
-  #         filters: *feature_filter
-  #         requires:
-  #             - build
-  #     - test:
-  #         filters: *feature_filter
-  #         requires:
-  #             - build
-
   default:
     jobs:
       - build:
           filters: *feature_filter
-      - lint:
+      - deploy-android:
           filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+              - build
+      - deploy-ios:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+              - build  
+      - slack/notify:
+          context: slack-ci-covid-mobile
+          message: Testing ci builds for iOS & Android
+          webhook: $SLACK_WEBHOOK 
+
+      # - lint:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - i18n:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+      # - test:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+
+  staging:
+    jobs:
+      - build:
+          filters: *stage_filter
+      - lint:
+          filters: *stage_filter
           requires:
               - build
       - i18n:
-          filters: *feature_filter
+          filters: *stage_filter
           requires:
               - build
       - test:
-          filters: *feature_filter
+          filters: *stage_filter
           requires:
               - build
       - slack/approval-notification:
-          filters: *feature_filter
+          filters: *stage_filter
           message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
             - lint
             - i18n
             - test
-
-  deploy:
-    jobs:
       - wait_for_approval:
-          filters: *feature_filter
+          filters: *stage_filter
           type: approval
           requires:
             - lint
             - i18n
             - test
       - deploy-ios:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - build
-      - deploy-android:
-          filters: *feature_filter
+          filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
               - wait_for_approval
-      - deployed-stage:
+      - deploy-android:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+              - wait_for_approval
+      - slack/notify:
+          context: slack-ci-covid-mobile
+          message: Deployed adhoc builds for iOS & Android
+          webhook: $SLACK_WEBHOOK 
+
+  production:
+    jobs:
+      - build:
+          filters: *master_filter
+      - lint:
+          filters: *master_filter
+          requires:
+              - build
+      - i18n:
+          filters: *master_filter
+          requires:
+              - build
+      - test:
+          filters: *master_filter
+          requires:
+              - build
+      - slack/approval-notification:
+          filters: *master_filter
+          message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
-            - deploy-ios
-            - deploy-android
+            - lint
+            - i18n
+            - test
+      - wait_for_approval:
+          filters: *master_filter
+          type: approval
+          requires:
+            - lint
+            - i18n
+            - test
+      - deploy-ios:
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+              - wait_for_approval
+      - deploy-android:
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+              - wait_for_approval
+      - slack/notify:
+          context: slack-ci-covid-mobile
+          message: Deployed release builds for iOS & Android
+          webhook: $SLACK_WEBHOOK 
