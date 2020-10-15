@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Image, ImageSourcePropType, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Analytics, { events } from '@covid/core/Analytics';
@@ -16,6 +24,7 @@ type ExternalCalloutProps = {
   aspectRatio: number;
   postClicked?: VoidFunction;
   screenName: string;
+  imageStyles?: StyleProp<ImageStyle>;
   canDismiss?: boolean;
 };
 
@@ -45,7 +54,14 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
       {!dismissed && (
         <TouchableWithoutFeedback style={styles.container} onPress={clickCallout}>
           <View style={styles.viewContainer}>
-            <Image source={props.imageSource} style={[styles.image, { aspectRatio: props.aspectRatio }]} />
+            <Image
+              source={props.imageSource}
+              style={[
+                styles.image,
+                { aspectRatio: props.aspectRatio },
+                {...props.imageStyles as object}
+              ]}
+            />
             {canDismiss && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />

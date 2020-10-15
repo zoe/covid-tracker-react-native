@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { dataPage003, timUpdate013, notificationReminders } from '@assets';
+import { blog015, dataPage003, timUpdate013, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -77,12 +77,23 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=rv1ItSPkAHY"
-                calloutID="tim_update_013"
+                link="https://covid.joinzoe.com/post/covid-reinfection-immunity?utm_source=App"
+                calloutID="blog_015"
+                imageSource={blog015}
+                aspectRatio={1.552}
+                screenName={this.props.route.name}
+                imageStyles={{borderRadius: 16}}
+              />
+
+              <ExternalCallout
+                link="https://www.youtube.com/watch?v=9B5KI-r_nDU"
+                calloutID="tim_update_014"
                 imageSource={timUpdate013}
-                aspectRatio={1.099}
+                aspectRatio={1.1791}
                 screenName={this.props.route.name}
               />
+
+              <RegularText style={styles.dateLabel}>Oct 15, 2020</RegularText>
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
@@ -138,6 +149,11 @@ const styles = StyleSheet.create({
   },
   signOff: {
     textAlign: 'center',
+  },
+  dateLabel: {
+    textAlign: 'center',
+    marginTop: -16,
+    marginBottom: 8
   },
   content: {
     marginVertical: 32,
