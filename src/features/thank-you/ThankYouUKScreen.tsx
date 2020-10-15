@@ -82,7 +82,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 imageSource={blog015}
                 aspectRatio={1.552}
                 screenName={this.props.route.name}
-                imageStyles={{borderRadius: 16}}
+                imageStyles={{ borderRadius: 16 }}
               />
 
               <ExternalCallout
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   dateLabel: {
     textAlign: 'center',
     marginTop: -16,
-    marginBottom: 8
+    marginBottom: 8,
   },
   content: {
     marginVertical: 32,

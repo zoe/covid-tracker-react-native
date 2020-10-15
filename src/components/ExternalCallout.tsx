@@ -6,7 +6,7 @@ import {
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -56,11 +56,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
           <View style={styles.viewContainer}>
             <Image
               source={props.imageSource}
-              style={[
-                styles.image,
-                { aspectRatio: props.aspectRatio },
-                {...props.imageStyles as object}
-              ]}
+              style={[styles.image, { aspectRatio: props.aspectRatio }, { ...(props.imageStyles as object) }]}
             />
             {canDismiss && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
