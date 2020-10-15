@@ -300,48 +300,34 @@ jobs:
       - expo_ota_publish
 
 workflows:
-  test-legacy-ota:
+
+  default:
     jobs:
       - build:
           filters: *feature_filter
-      - ota-release-approval:
+      - deploy-android:
           filters: *feature_filter
-          type: approval
+          context: react-covid-tracker-prod
           requires:
-            - build
-      - ota-release:
+              - build
+      - deploy-ios:
           filters: *feature_filter
-          context: react-covid-tracker-stage
+          context: react-covid-tracker-prod
           requires:
-              - ota-release-approval
-
-  # default:
-  #   jobs:
-  #     - build:
-  #         filters: *feature_filter
-  #     - lint:
-  #         filters: *feature_filter
-  #         requires:
-  #             - build
-  #     - i18n:
-  #         filters: *feature_filter
-  #         requires:
-  #             - build
-  #     - test:
-  #         filters: *feature_filter
-  #         requires:
-  #             - build
-
-      # - deploy-android:
+              - build
+      # - lint:
       #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
       #     requires:
       #         - build
-      # - deploy-ios:
+      # - i18n:
       #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
       #     requires:
-      #         - build  
+      #         - build
+      # - test:
+      #     filters: *feature_filter
+      #     requires:
+      #         - build
+
       # - deployed-stage:
       #     context: slack-ci-covid-mobile
       #     requires:

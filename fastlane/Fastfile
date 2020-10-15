@@ -143,6 +143,7 @@ platform :ios do
     app_identifier = @ios_app_id
     @ac_notify_group = "iOS"
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
+    @ac_token = ENV['APPCENTER_IOS_TOKEN']
   end
 
   lane :certificates do
@@ -173,7 +174,10 @@ platform :ios do
       @build_configuration = 'Stage'
       @ac_destination_type ='group'
     when 'prod'
-      puts 'implement ios release'
+      @match_mode = 'appstore'
+      @export_method = 'app-store'
+      @build_configuration = 'Release'
+      @ac_destination_type ='store'
     end
     
     puts @change_log
@@ -199,12 +203,7 @@ platform :ios do
       'Build Date' => Time.new.to_s,
     }
 
-    case options[:env]
-    when 'stage'
-      appcenter
-    when 'prod'
-      # Upload to app store
-    end
+    appcenter
   end
 
   lane :appcenter do
