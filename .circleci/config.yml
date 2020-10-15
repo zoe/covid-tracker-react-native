@@ -313,43 +313,20 @@ workflows:
     jobs:
       - build:
           filters: *stage_filter
-      - lint:
-          filters: *stage_filter
-          requires:
-              - build
-      - i18n:
-          filters: *stage_filter
-          requires:
-              - build
-      - test:
-          filters: *stage_filter
-          requires:
-              - build
-      - slack/approval-notification:
-          filters: *stage_filter
-          message: Awaiting manual approval to deploy to stage
-          context: slack-ci-covid-mobile
-          requires:
-            - lint
-            - i18n
-            - test
-      - wait_for_approval:
-          filters: *stage_filter
-          type: approval
-          requires:
-            - lint
-            - i18n
-            - test
       - deploy-ios:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - wait_for_approval
+              - lint
+              - i18n
+              - test
       - deploy-android:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - wait_for_approval
+              - lint
+              - i18n
+              - test
       - deployed-stage:
           context: slack-ci-covid-mobile
           requires:
@@ -360,26 +337,12 @@ workflows:
     jobs:
       - build:
           filters: *master_filter
-      - lint:
-          filters: *master_filter
-          requires:
-              - build
-      - i18n:
-          filters: *master_filter
-          requires:
-              - build
-      - test:
-          filters: *master_filter
-          requires:
-              - build
       - slack/approval-notification:
           filters: *master_filter
           message: Awaiting manual approval to deploy to stage
           context: slack-ci-covid-mobile
           requires:
-            - lint
-            - i18n
-            - test
+            - build
       - wait_for_approval:
           filters: *master_filter
           type: approval
