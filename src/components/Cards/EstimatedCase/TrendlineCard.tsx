@@ -1,19 +1,17 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { BrandedButton, Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
+import { Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
-import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import Share from '@assets/icons/Share';
 
 import { DeltaTag } from './DeltaTag';
