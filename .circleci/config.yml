@@ -300,22 +300,43 @@ jobs:
       - expo_ota_publish
 
 workflows:
-  default:
+  test-staging:
     jobs:
       - build:
           filters: *feature_filter
-      - lint:
+      - deploy-ios:
           filters: *feature_filter
+          context: react-covid-tracker-stage
           requires:
               - build
-      - i18n:
+      - deploy-android:
           filters: *feature_filter
+          context: react-covid-tracker-stage
           requires:
               - build
-      - test:
-          filters: *feature_filter
+      - deployed-stage:
+          context: slack-ci-covid-mobile
           requires:
-              - build
+              - deploy-ios
+              - deploy-android
+
+  # default:
+  #   jobs:
+  #     - build:
+  #         filters: *feature_filter
+  #     - lint:
+  #         filters: *feature_filter
+  #         requires:
+  #             - build
+  #     - i18n:
+  #         filters: *feature_filter
+  #         requires:
+  #             - build
+  #     - test:
+  #         filters: *feature_filter
+  #         requires:
+  #             - build
+
       # - deploy-android:
       #     filters: *feature_filter
       #     context: react-covid-tracker-stage
