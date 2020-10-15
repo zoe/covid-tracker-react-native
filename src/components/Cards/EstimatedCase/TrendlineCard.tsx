@@ -3,8 +3,9 @@ import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { BrandedButton, Header3Text, RegularBoldText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
@@ -12,6 +13,8 @@ import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
+import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
+import Share from '@assets/icons/Share';
 
 import { DeltaTag } from './DeltaTag';
 
@@ -65,11 +68,12 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
         </View>
       )}
 
-      <View style={styles.buttonsContainer}>
-        <BrandedButton style={styles.detailsButton} onPress={share}>
-          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{i18n.t('explore-trend-line.cta')}</Text>
-        </BrandedButton>
-      </View>
+      <View style={styles.divider} />
+
+      <TouchableOpacity style={styles.shareTouchable} onPress={share}>
+        <Share style={styles.shareIcon} />
+        <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -80,7 +84,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 16,
     marginHorizontal: 32,
-    paddingVertical: 32,
+    paddingTop: 32,
+    paddingBottom: 18,
   },
 
   description: {
@@ -113,30 +118,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  detailsButton: {
-    paddingHorizontal: 52,
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: colors.purple,
-  },
-
   metric: {
     fontSize: 32,
     fontWeight: '300',
     lineHeight: 48,
     paddingTop: 8,
     color: colors.textDark,
-  },
-
-  detailsButtonLabel: {
-    color: colors.purple,
-    fontWeight: '300',
-    fontSize: 14,
-  },
-  buttonsContainer: {
-    maxWidth: '80%',
-    alignSelf: 'center',
-    marginTop: 12,
   },
   hit: {
     height: '100%',
@@ -151,5 +138,32 @@ const styles = StyleSheet.create({
     opacity: 0,
     position: 'absolute',
     width: '100%',
+  },
+
+  shareTouchable: {
+    marginTop: 16,
+    marginBottom: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+
+  divider: {
+    height: 1,
+    width: '92%',
+    alignSelf: 'center',
+    backgroundColor: colors.backgroundFour,
+  },
+
+  shareIcon: {
+    marginTop: 4,
+    marginRight: 8,
+  },
+
+  shareLabel: {
+    textAlign: 'center',
+    color: colors.purple,
+    fontSize: 14,
+    fontWeight: '300',
   },
 });
