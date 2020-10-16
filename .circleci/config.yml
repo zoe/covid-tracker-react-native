@@ -305,48 +305,74 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      - deploy-android:
+      - lint:
           filters: *feature_filter
-          context: react-covid-tracker-stage
           requires:
               - build
+      - i18n:
+          filters: *feature_filter
+          requires:
+              - build
+      - test:
+          filters: *feature_filter
+          requires:
+              - build
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: 'Awaiting manual approval to deploy native apps to staging'
+          context: slack-ci-covid-mobile
+          requires:
+            - lint
+            - i18n
+            - test
+      - adhoc-release-approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - lint
+            - i18n
+            - test
       - deploy-ios:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
-              - build
-      # - lint:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - i18n:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-      # - test:
-      #     filters: *feature_filter
-      #     requires:
-      #         - build
-
-      # - deployed-stage:
-      #     context: slack-ci-covid-mobile
-      #     requires:
-      #         - build
+              - adhoc-release-approval
+      - deploy-android:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+              - adhoc-release-approval
 
   staging:
     jobs:
       - build:
           filters: *stage_filter
+      - ota-release:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+              - ota-release-approval
+      - slack/approval-notification:
+          filters: *master_filter
+          message: 'Awaiting manual approval to deploy native apps to staging'
+          context: slack-ci-covid-mobile
+          requires:
+            - build
+      - adhoc-release-approval:
+          filters: *master_filter
+          type: approval
+          requires:
+            - build
       - deploy-ios:
-          filters: *stage_filter
+          filters: *master_filter
           context: react-covid-tracker-stage
           requires:
-              - build
+              - adhoc-release-approval
       - deploy-android:
-          filters: *stage_filter
+          filters: *master_filter
           context: react-covid-tracker-stage
           requires:
-              - build
+              - adhoc-release-approval
       - deployed-stage:
           context: slack-ci-covid-mobile
           requires:
