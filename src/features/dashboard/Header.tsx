@@ -124,8 +124,12 @@ const styles = StyleSheet.create({
   },
 
   dateLabel: {
+    borderWidth: 1,
+    borderColor: 'green',
     fontWeight: '500',
     color: 'white',
+    textAlign: 'center',
+    width: '100%',
   },
 
   reportButton: {
