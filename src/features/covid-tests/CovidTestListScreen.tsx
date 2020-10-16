@@ -128,7 +128,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
 
-          <ScrollView>
+          <ScrollView style={{ flex: 1 }}>
             {isLoading ? (
               <Loading status="" error={null} />
             ) : (
