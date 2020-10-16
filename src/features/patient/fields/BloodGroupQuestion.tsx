@@ -25,11 +25,11 @@ enum BloodGroupQuestionFields {
 
 export const BloodGroupQuestion = ({ formikProps }: Props) => {
   const bloodTypeItems = [
+    { label: i18n.t('blood-group.answers.dont-know'), value: BloodGroupQuestionFields.DONT_KNOW },
     { label: i18n.t('blood-group.answers.type-a'), value: BloodGroupQuestionFields.TYPE_A },
     { label: i18n.t('blood-group.answers.type-b'), value: BloodGroupQuestionFields.TYPE_B },
     { label: i18n.t('blood-group.answers.type-ab'), value: BloodGroupQuestionFields.TYPE_AB },
     { label: i18n.t('blood-group.answers.type-o'), value: BloodGroupQuestionFields.TYPE_O },
-    { label: i18n.t('blood-group.answers.dont-know'), value: BloodGroupQuestionFields.DONT_KNOW },
     { label: i18n.t('blood-group.answers.pfnts'), value: BloodGroupQuestionFields.PFNTS },
   ];
 
