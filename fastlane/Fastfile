@@ -7,7 +7,7 @@ fastlane_version "2.160.0"
 @ios_scheme = ENV['iOS_SCHEME']
 
 # AppCenter configs
-@ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
+# @ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
 
 @slack_url = ENV['SLACK_WEB_HOOK']
 
@@ -97,13 +97,12 @@ platform :android do
   desc "Build Android Staging"
   lane :release do |options|
 
-    case options[:env]
-    when 'stage'
-      # analyze_commits(match: '*')
+    if String.try_convert(git_branch) == 'master'
+      @build_configuration = 'release'
+      @ac_destination_type ='store'
+    else
       @build_configuration = 'staging'
       @ac_destination_type ='group'
-    when 'prod'
-      puts 'implement ios release'
     end
 
     gradle(
@@ -112,12 +111,7 @@ platform :android do
       project_dir: "./android"   
     )
 
-    case options[:env]
-    when 'stage'
-      appcenter
-    when 'prod'
-      # Upload to play store
-    end
+    appcenter
   end
 
   lane :appcenter do
@@ -166,18 +160,17 @@ platform :ios do
 
     # release_notes
 
-    case options[:env]
-    when 'stage'
+    if String.try_convert(git_branch) == 'master'
+      @match_mode = 'appstore'
+      @export_method = 'app-store'
+      @build_configuration = 'Release'
+      @ac_destination_type ='store'
+    else
       # analyze_commits(match: '*')
       @match_mode = 'adhoc'
       @export_method = 'ad-hoc'
       @build_configuration = 'Stage'
       @ac_destination_type ='group'
-    when 'prod'
-      @match_mode = 'appstore'
-      @export_method = 'app-store'
-      @build_configuration = 'Release'
-      @ac_destination_type ='store'
     end
     
     puts @change_log

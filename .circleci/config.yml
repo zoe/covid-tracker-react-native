@@ -239,7 +239,7 @@ jobs:
           at: *default_workspace
       - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
-      - run: yarn fastlane:ios:stage
+      - run: yarn fastlane:ios:release
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
       - store_artifacts:
@@ -263,7 +263,7 @@ jobs:
           key: *gem_cache_key
       - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
       - run:
-          name: fastlane android build
+          name: fastlane android release
           no_output_timeout: 60m
           command: |
             ENVFILE=.env bundle exec fastlane android release env:stage
