@@ -75,6 +75,8 @@ export default class Screen extends Component<ScreenProps> {
   render() {
     const profile = this.props.profile;
 
+    const scrollEnabled = this.props.scrollEnabled === undefined ? true : this.props.scrollEnabled;
+
     const header = () => {
       if (profile && this.props.navigation) {
         return (
@@ -99,14 +101,16 @@ export default class Screen extends Component<ScreenProps> {
       <SafeAreaView style={[styles.screen, this.props.style]}>
         {header()}
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: 'space-between',
-            }}
-            scrollEnabled={this.props.scrollEnabled ?? true}>
-            <View style={styles.pageBlock}>{this.props.children}</View>
-          </ScrollView>
+          {!scrollEnabled && <View style={styles.pageBlock}>{this.props.children}</View>}
+          {scrollEnabled && (
+            <ScrollView
+              contentContainerStyle={{
+                flexGrow: 1,
+                justifyContent: 'space-between',
+              }}>
+              <View style={styles.pageBlock}>{this.props.children}</View>
+            </ScrollView>
+          )}
         </KeyboardAvoidingView>
       </SafeAreaView>
     );
