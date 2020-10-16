@@ -239,7 +239,7 @@ jobs:
           at: *default_workspace
       - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
-      - run: yarn fastlane:ios:release
+      - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build/covid-zoe.ipa
       - store_artifacts:
@@ -266,7 +266,7 @@ jobs:
           name: fastlane android release
           no_output_timeout: 60m
           command: |
-            ENVFILE=.env bundle exec fastlane android release env:stage
+            ENVFILE=.env bundle exec fastlane android release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/android/app/build/outputs
 
@@ -310,11 +310,15 @@ workflows:
           context: react-covid-tracker-prod
           requires:
               - build
+          environment:
+            RELEASE_TYPE: 'stage'
       - deploy-ios:
           filters: *feature_filter
           context: react-covid-tracker-prod
           requires:
               - build
+          environment:
+            RELEASE_TYPE: stage'
       # - lint:
       #     filters: *feature_filter
       #     requires:
@@ -378,16 +382,22 @@ workflows:
           context: react-covid-tracker-prod
           requires:
               - store-release-approval
+          environment:
+            RELEASE_TYPE: 'prod'
       - deploy-android:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
               - store-release-approval
+          environment:
+            RELEASE_TYPE: 'prod'
       - ota-release:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
               - ota-release-approval
+          environment:
+            RELEASE_TYPE: 'prod'
       - deployed-prod:
           context: slack-ci-covid-mobile
           requires:

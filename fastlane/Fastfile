@@ -97,12 +97,13 @@ platform :android do
   desc "Build Android Staging"
   lane :release do |options|
 
-    if String.try_convert(git_branch) == 'master'
-      @build_configuration = 'release'
-      @ac_destination_type ='store'
-    else
+    case options[:env]
+    when 'stage'
       @build_configuration = 'staging'
       @ac_destination_type ='group'
+    when 'prod'
+      @build_configuration = 'release'
+      @ac_destination_type ='store'
     end
 
     gradle(
@@ -160,17 +161,17 @@ platform :ios do
 
     # release_notes
 
-    if String.try_convert(git_branch) == 'master'
-      @match_mode = 'appstore'
-      @export_method = 'app-store'
-      @build_configuration = 'Release'
-      @ac_destination_type ='store'
-    else
-      # analyze_commits(match: '*')
+    case options[:env]
+    when 'stage'
       @match_mode = 'adhoc'
       @export_method = 'ad-hoc'
       @build_configuration = 'Stage'
       @ac_destination_type ='group'
+    when 'prod'
+      @match_mode = 'appstore'
+      @export_method = 'app-store'
+      @build_configuration = 'Release'
+      @ac_destination_type ='store'
     end
     
     puts @change_log
