@@ -26,14 +26,12 @@ import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
-const HEADER_EXPANDED_HEIGHT = 352;
-const HEADER_COLLAPSED_HEIGHT = 124;
+const HEADER_EXPANDED_HEIGHT = 328;
+const HEADER_COLLAPSED_HEIGHT = 100;
 
 interface Props {
   navigation: DrawerNavigationProp<ScreenParamList>;
