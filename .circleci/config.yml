@@ -347,29 +347,34 @@ workflows:
     jobs:
       - build:
           filters: *stage_filter
+      - ota-release-approval:
+          filters: *stage_filter
+          type: approval
+          requires:
+            - build
       - ota-release:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
               - ota-release-approval
       - slack/approval-notification:
-          filters: *master_filter
+          filters: *stage_filter
           message: 'Awaiting manual approval to deploy native apps to staging'
           context: slack-ci-covid-mobile
           requires:
             - build
       - adhoc-release-approval:
-          filters: *master_filter
+          filters: *stage_filter
           type: approval
           requires:
             - build
       - deploy-ios:
-          filters: *master_filter
+          filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
               - adhoc-release-approval
       - deploy-android:
-          filters: *master_filter
+          filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
               - adhoc-release-approval
