@@ -307,12 +307,12 @@ workflows:
           filters: *feature_filter
       - deploy-android:
           filters: *feature_filter
-          context: react-covid-tracker-prod
+          context: react-covid-tracker-stage
           requires:
               - build
       - deploy-ios:
           filters: *feature_filter
-          context: react-covid-tracker-prod
+          context: react-covid-tracker-stage
           requires:
               - build
       # - lint:
