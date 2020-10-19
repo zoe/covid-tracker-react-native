@@ -161,6 +161,6 @@ const styles = StyleSheet.create({
   },
 
   contributorsCount: {
-    color: colors.white,
+    color: 'red',
   },
 });
