@@ -43,7 +43,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
 
   return (
     <View style={styles.root}>
-      <Image source={covidByZoeIcon} style={styles.covidByZoe} />
+      {/* <Image source={covidByZoeIcon} style={styles.covidByZoe} />
 
       <View style={styles.reportCard}>
         <Header3Text style={styles.dateLabel}>{content.todayDate}</Header3Text>
@@ -55,12 +55,21 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
             {i18n.t('dashboard.you-have-reported-x-times', { count: reportedCount })}
           </CaptionText>
         )}
-      </View>
+      </View> */}
 
       {contributors && (
         <>
           <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
           <Header3Text style={styles.contributorsCount}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '100' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '200' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '300' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '400' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '500' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '600' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '700' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '800' }]}>{prettyContributorsValue}</Header3Text>
+          <Header3Text style={[styles.test, { fontWeight: '900' }]}>{prettyContributorsValue}</Header3Text>
         </>
       )}
     </View>
@@ -161,6 +170,14 @@ const styles = StyleSheet.create({
   },
 
   contributorsCount: {
-    color: 'red',
+    borderColor: 'green',
+    borderWidth: 1,
+    color: colors.white,
+    fontWeight: '500',
+    textAlign: 'center',
+    width: '100%',
+  },
+  test: {
+    color: colors.white,
   },
 });
