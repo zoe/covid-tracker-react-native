@@ -161,7 +161,6 @@ const styles = StyleSheet.create({
   },
 
   contributorsCount: {
-    fontWeight: '500',
     color: colors.white,
   },
 });
