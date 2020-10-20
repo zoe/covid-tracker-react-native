@@ -28,6 +28,14 @@
 		BEC170DFB898467689E88E17 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 053721BE31D64BB2A6DD1112 /* Ionicons.ttf */; };
 		DAD8F0FC15DA43FFA43ACAC2 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2A0543FAFD34AD28885F6FF /* AntDesign.ttf */; };
 		F063B6FF2E7E4E97B771F9F9 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27BBE31145474300B39B3C33 /* Roboto.ttf */; };
+		F74394A4253F286200708825 /* SofiaPro-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = F743949C253F286100708825 /* SofiaPro-UltraLight.otf */; };
+		F74394A5253F286200708825 /* SofiaProRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F743949D253F286100708825 /* SofiaProRegular.otf */; };
+		F74394A6253F286200708825 /* SofiaPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F743949E253F286100708825 /* SofiaPro-Bold.otf */; };
+		F74394A7253F286200708825 /* SofiaPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = F743949F253F286100708825 /* SofiaPro-Black.otf */; };
+		F74394A8253F286200708825 /* SofiaPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = F74394A0253F286100708825 /* SofiaPro-Light.otf */; };
+		F74394A9253F286200708825 /* SofiaPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F74394A1253F286100708825 /* SofiaPro-Medium.otf */; };
+		F74394AA253F286200708825 /* SofiaPro-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F74394A2253F286100708825 /* SofiaPro-SemiBold.otf */; };
+		F74394AB253F286200708825 /* SofiaPro-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = F74394A3253F286100708825 /* SofiaPro-ExtraLight.otf */; };
 		F778D8FA252644E900CB635B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F778D8F9252644E800CB635B /* LaunchScreen.storyboard */; };
 		F7E2425225125F3700D03296 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7E2425125125F3700D03296 /* AppCenter-Config.plist */; };
 		F823E172FA094AAFBE34DD11 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D39F52C00735433899C82B37 /* Foundation.ttf */; };
@@ -82,6 +90,14 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EDA0543DD04E849644483E8F /* Pods-Covid.release (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.release (staging).xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.release (staging).xcconfig"; sourceTree = "<group>"; };
+		F743949C253F286100708825 /* SofiaPro-UltraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-UltraLight.otf"; path = "../assets/fonts/SofiaPro-UltraLight.otf"; sourceTree = "<group>"; };
+		F743949D253F286100708825 /* SofiaProRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SofiaProRegular.otf; path = ../assets/fonts/SofiaProRegular.otf; sourceTree = "<group>"; };
+		F743949E253F286100708825 /* SofiaPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-Bold.otf"; path = "../assets/fonts/SofiaPro-Bold.otf"; sourceTree = "<group>"; };
+		F743949F253F286100708825 /* SofiaPro-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-Black.otf"; path = "../assets/fonts/SofiaPro-Black.otf"; sourceTree = "<group>"; };
+		F74394A0253F286100708825 /* SofiaPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-Light.otf"; path = "../assets/fonts/SofiaPro-Light.otf"; sourceTree = "<group>"; };
+		F74394A1253F286100708825 /* SofiaPro-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-Medium.otf"; path = "../assets/fonts/SofiaPro-Medium.otf"; sourceTree = "<group>"; };
+		F74394A2253F286100708825 /* SofiaPro-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-SemiBold.otf"; path = "../assets/fonts/SofiaPro-SemiBold.otf"; sourceTree = "<group>"; };
+		F74394A3253F286100708825 /* SofiaPro-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SofiaPro-ExtraLight.otf"; path = "../assets/fonts/SofiaPro-ExtraLight.otf"; sourceTree = "<group>"; };
 		F778D8F9252644E800CB635B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7E2425125125F3700D03296 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../configs/stage/ios/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,6 +150,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F743949F253F286100708825 /* SofiaPro-Black.otf */,
+				F743949E253F286100708825 /* SofiaPro-Bold.otf */,
+				F74394A3253F286100708825 /* SofiaPro-ExtraLight.otf */,
+				F74394A0253F286100708825 /* SofiaPro-Light.otf */,
+				F74394A1253F286100708825 /* SofiaPro-Medium.otf */,
+				F74394A2253F286100708825 /* SofiaPro-SemiBold.otf */,
+				F743949C253F286100708825 /* SofiaPro-UltraLight.otf */,
+				F743949D253F286100708825 /* SofiaProRegular.otf */,
 				F7E2425125125F3700D03296 /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* Covid */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -276,6 +300,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F74394A4253F286200708825 /* SofiaPro-UltraLight.otf in Resources */,
+				F74394A5253F286200708825 /* SofiaProRegular.otf in Resources */,
+				F74394A6253F286200708825 /* SofiaPro-Bold.otf in Resources */,
+				F74394A7253F286200708825 /* SofiaPro-Black.otf in Resources */,
+				F74394A8253F286200708825 /* SofiaPro-Light.otf in Resources */,
+				F74394A9253F286200708825 /* SofiaPro-Medium.otf in Resources */,
+				F74394AA253F286200708825 /* SofiaPro-SemiBold.otf in Resources */,
+				F74394AB253F286200708825 /* SofiaPro-ExtraLight.otf in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F7E2425225125F3700D03296 /* AppCenter-Config.plist in Resources */,

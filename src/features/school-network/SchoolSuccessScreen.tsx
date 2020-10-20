@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   referenceCode: {
-    fontWeight: '400',
     fontSize: 20,
     color: colors.brand,
   },
