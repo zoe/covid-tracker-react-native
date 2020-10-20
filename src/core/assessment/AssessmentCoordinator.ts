@@ -71,6 +71,30 @@ export class AssessmentCoordinator extends Coordinator {
     ReportForOther: () => {
       this.goToThankYouScreen();
     },
+    HowYouFeel: (healthy: boolean) => {
+      if (healthy) {
+        this.gotoEndAssessment();
+      } else {
+        NavigatorService.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
+      }
+    },
+    WhereAreYou: (params: { location: string; endAssessment: boolean }) => {
+      if (params.endAssessment) {
+        this.gotoEndAssessment();
+      } else {
+        NavigatorService.navigate('TreatmentSelection', {
+          assessmentData: this.assessmentData,
+          location: params.location,
+        });
+      }
+    },
+    TreatmentSelection: (params: { other: boolean; location: string }) => {
+      if (params.other) {
+        NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location: params.location });
+      } else {
+        this.gotoEndAssessment();
+      }
+    },
   };
 
   init = (
@@ -116,28 +140,9 @@ export class AssessmentCoordinator extends Coordinator {
     }
   };
 
-  // The following navigations require the checking of some state and so these are passed in.
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
     const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
-  };
-
-  goToNextHowYouFeelScreen = (healthy: boolean) => {
-    return healthy
-      ? this.gotoEndAssessment()
-      : NavigatorService.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
-  };
-
-  goToNextWhereAreYouScreen = (location: string, endAssessment: boolean) => {
-    return endAssessment
-      ? this.gotoEndAssessment()
-      : NavigatorService.navigate('TreatmentSelection', { assessmentData: this.assessmentData, location });
-  };
-
-  goToNextTreatmentSelectionScreen = (other: boolean, location: string) => {
-    return other
-      ? NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
-      : this.gotoEndAssessment();
   };
 
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {

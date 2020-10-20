@@ -39,7 +39,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
   handleLocationSelection = async (location: string, endAssessment: boolean) => {
     try {
       await this.updateAssessment(location, endAssessment);
-      assessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment);
+      assessmentCoordinator.gotoNextScreen(this.props.route.name, { location, endAssessment });
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }

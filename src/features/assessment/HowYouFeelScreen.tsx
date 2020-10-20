@@ -40,7 +40,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     try {
       const isAssessmentComplete = true;
       await updateAssessment('healthy', isAssessmentComplete);
-      assessmentCoordinator.goToNextHowYouFeelScreen(true);
+      assessmentCoordinator.gotoNextScreen(route.name, true);
     } catch (error) {
       // Error already handled.
     }
@@ -49,7 +49,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const handleHaveSymptoms = async () => {
     try {
       await updateAssessment('not_healthy');
-      assessmentCoordinator.goToNextHowYouFeelScreen(false);
+      assessmentCoordinator.gotoNextScreen(route.name, false);
     } catch (error) {
       // Error already handled.
     }

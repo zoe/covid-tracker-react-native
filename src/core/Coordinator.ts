@@ -1,13 +1,11 @@
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import NavigatorService from '@covid/NavigatorService';
-import appCoordinator from '@covid/features/AppCoordinator';
 import { Profile } from '@covid/components/Collections/ProfileList';
 
 export type ScreenName = keyof ScreenParamList;
 export type ScreenFlow = {
-  [key in ScreenName]: () => void;
+  [key in ScreenName]: (param?: any) => void;
 };
 
 export interface UpdatePatient {
@@ -27,9 +25,9 @@ export abstract class Coordinator {
   patientData: PatientData;
   screenFlow: Partial<ScreenFlow>;
 
-  gotoNextScreen = (screenName: ScreenName) => {
+  gotoNextScreen = (screenName: ScreenName, params?: any) => {
     if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]!();
+      this.screenFlow[screenName]!(params);
     } else {
       console.error('[ROUTE] no next route found for:', screenName);
     }

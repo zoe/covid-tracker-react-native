@@ -25,7 +25,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
     const { location } = this.props.route.params;
 
     if (treatment === 'other') {
-      assessmentCoordinator.goToNextTreatmentSelectionScreen(true, location);
+      assessmentCoordinator.gotoNextScreen(this.props.route.name, { other: true, location });
     } else {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
@@ -33,7 +33,7 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
         assessment,
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );
-      assessmentCoordinator.goToNextTreatmentSelectionScreen(false, location);
+      assessmentCoordinator.gotoNextScreen(this.props.route.name, { other: false, location });
     }
   };
 
