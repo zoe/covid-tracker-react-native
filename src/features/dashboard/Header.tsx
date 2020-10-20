@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 
 import { Header3Text, RegularText, BrandedButton, CaptionText } from '@covid/components/Text';
 import { covidIcon, covidByZoeIcon } from '@assets';
@@ -10,7 +9,6 @@ import Analytics, { events } from '@covid/core/Analytics';
 import { cleanIntegerVal } from '@covid/utils/number';
 import { colors } from '@theme';
 import { RootState } from '@covid/core/state/root';
-import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { ContentState } from '@covid/core/content/state/contentSlice';
 
 interface Props {
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.predict,
     alignItems: 'center',
     width: '100%',
-    paddingTop: 40,
+    paddingTop: 16,
     paddingBottom: 24,
   },
 

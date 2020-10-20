@@ -113,10 +113,9 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
 
 const styles = StyleSheet.create({
   container: {
-    top: -32,
     flex: 1,
     backgroundColor: colors.predict,
-    marginBottom: 5,
+    marginBottom: -34,
   },
   subContainer: {
     paddingTop: 16,
@@ -139,7 +138,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
     position: 'absolute',
     right: 0,
-    marginTop: 56,
+    marginTop: 32,
     marginRight: 16,
   },
   scrollContainer: {
