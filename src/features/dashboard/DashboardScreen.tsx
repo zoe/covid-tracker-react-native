@@ -109,6 +109,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         </View>
       )}
 
+      {/*
       {ShowSchoolModuleFeature && (
         <View style={styles.calloutContainer}>
           <ExternalCallout
@@ -118,9 +119,11 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             screenName={route.name}
             postClicked={schoolNetworkFlow}
             canDismiss
-          />
+          />:
         </View>
       )}
+
+      */}
 
       {isGBCountry() && <EstimatedCasesMapCard />}
 
