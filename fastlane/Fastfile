@@ -2,6 +2,9 @@ fastlane_version "2.160.0"
 
 @keychain_name = "fastlane_tmp_keychain-db"
 
+# Node Project
+@package_json = load_json(json_path: "./package.json")
+
 # iOS
 @ios_app_id = ENV['iOS_APP_ID']
 @ios_scheme = ENV['iOS_SCHEME']
@@ -15,7 +18,6 @@ default_platform(:ios)
 
 ###
 desc 'Android: Increment versionCode and set versionName to package.json version.'
-package = load_json(json_path: "./package.json")
 
 private_lane :inc_ver_and do
   increment_version_code(
@@ -47,6 +49,13 @@ desc 'Bump build numbers, and set the version to match the pacakage.json version
 lane :bump do
   inc_ver_ios
   inc_ver_and
+end
+
+
+desc 'Get Expo OTA release channel name'
+lane :get_expo_release_channel do |options|
+  app_json = load_json(json_path: "./app.json")
+  "#{options[:env]}-v#{app_json['version']}" 
 end
 
 ###
@@ -151,12 +160,14 @@ platform :ios do
     @match_mode = @ac_destination_type
     @export_method = nil
     @build_configuration = 'Release'
-
+    @expo_release_channel = get_expo_release_channel(env: options[:env])
+    
     get_version_no
 
     increment_build_number(
-      xcodeproj: "./ios/Covid.xcodeproj",
+      version_number: @package_json['version'],
       build_number: "#{@build_number}"
+      xcodeproj: "./ios/Covid.xcodeproj",
     )
 
     # release_notes
@@ -191,6 +202,7 @@ platform :ios do
       scheme: @ios_scheme,
       output_directory: "./build",
       workspace: "./ios/Covid.xcworkspace"
+      xcargs: "EX_RELEASE_CHANNEL=#{@expo_release_channel}"
     )
 
     slack_payload = {
