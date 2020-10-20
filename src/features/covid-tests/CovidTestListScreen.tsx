@@ -102,7 +102,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
 
     return (
       <View style={styles.rootContainer}>
-        <Screen profile={currentPatient.profile} navigation={this.props.navigation} scrollEnabled={false}>
+        <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
           <Header>
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
@@ -128,17 +128,15 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
           </BrandedButton>
 
-          <ScrollView style={{ flex: 1 }}>
-            {isLoading ? (
-              <Loading status="" error={null} />
-            ) : (
-              <View style={styles.content}>
-                {this.state.covidTests.map((item: CovidTest) => {
-                  return <CovidTestRow type={item.type} item={item} key={key(item)} />;
-                })}
-              </View>
-            )}
-          </ScrollView>
+          {isLoading ? (
+            <Loading status="" error={null} />
+          ) : (
+            <View style={styles.content}>
+              {this.state.covidTests.map((item: CovidTest) => {
+                return <CovidTestRow type={item.type} item={item} key={key(item)} />;
+              })}
+            </View>
+          )}
         </Screen>
 
         <BrandedButton style={styles.continueButton} onPress={this.handleNextQuestion}>
