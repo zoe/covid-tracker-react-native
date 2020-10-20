@@ -21,7 +21,6 @@ type TreatmentSelectionProps = {
 
 export default class TreatmentSelectionScreen extends Component<TreatmentSelectionProps> {
   handleTreatment = async (treatment: string) => {
-    const { assessmentId } = assessmentCoordinator.assessmentData;
     const { location } = this.props.route.params;
 
     if (treatment === 'other') {
@@ -29,7 +28,6 @@ export default class TreatmentSelectionScreen extends Component<TreatmentSelecti
     } else {
       const assessment = { treatment };
       await assessmentService.completeAssessment(
-        assessmentId!,
         assessment,
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );

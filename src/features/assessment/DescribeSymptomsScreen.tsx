@@ -151,9 +151,8 @@ export default class DescribeSymptomsScreen extends Component<SymptomProps, Stat
       this.setState({ enableSubmit: false }); // Stop resubmissions
 
       try {
-        const { assessmentId } = AssessmentCoordinator.assessmentData;
-        var infos = this.createAssessmentInfos(formData);
-        await assessmentService.saveAssessment(assessmentId!, infos);
+        const assessment = this.createAssessmentInfos(formData);
+        await assessmentService.saveAssessment(assessment);
         AssessmentCoordinator.gotoNextScreen(this.props.route.name);
       } catch (error) {
         this.setState({ errorMessage: i18n.t('something-went-wrong') });

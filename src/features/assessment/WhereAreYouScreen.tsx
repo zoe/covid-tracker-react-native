@@ -20,19 +20,17 @@ type LocationProps = {
 
 export default class WhereAreYouScreen extends Component<LocationProps> {
   private async updateAssessment(status: string, isComplete = false) {
-    const { assessmentId } = assessmentCoordinator.assessmentData;
     const assessment = {
       location: status,
     };
 
     if (isComplete) {
       await assessmentService.completeAssessment(
-        assessmentId!,
         assessment,
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );
     } else {
-      await assessmentService.saveAssessment(assessmentId!, assessment);
+      await assessmentService.saveAssessment(assessment);
     }
   }
 

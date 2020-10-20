@@ -5,13 +5,10 @@ import { IAssessmentState } from './AssessmentState';
 import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
 
-type AssessmentId = string | null;
-
 export interface IAssessmentService {
   initAssessment(): void;
-  saveAssessment(assessmentId: AssessmentId, assessment: Partial<AssessmentInfosRequest>): Promise<AssessmentResponse>;
+  saveAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   completeAssessment(
-    assessmentId: AssessmentId,
     assessment: Partial<AssessmentInfosRequest> | null,
     patientInfo: PatientInfosRequest
   ): Promise<boolean>;
@@ -26,13 +23,10 @@ export default class AssessmentService implements IAssessmentService {
     this.state = state;
   }
 
-  private async saveToApi(
-    assessmentId: AssessmentId,
-    assessment: Partial<AssessmentInfosRequest>
-  ): Promise<AssessmentResponse> {
+  private async saveToApi(assessment: Partial<AssessmentInfosRequest>): Promise<AssessmentResponse> {
     let response;
-    if (assessmentId) {
-      response = await this.apiClient.updateAssessment(assessmentId, assessment as AssessmentInfosRequest);
+    if (assessment.id) {
+      response = await this.apiClient.updateAssessment(assessment.id, assessment as AssessmentInfosRequest);
     } else {
       response = await this.apiClient.addAssessment(assessment as AssessmentInfosRequest);
     }
@@ -42,7 +36,7 @@ export default class AssessmentService implements IAssessmentService {
   private async sendFullAssessmentToApi() {
     try {
       const assessment = this.state.getAssessment();
-      const response = await this.saveToApi(assessment.id!, assessment);
+      const response = await this.saveToApi(assessment);
       if (response.id) {
         this.state.updateAssessment({ id: response.id });
       }
@@ -60,17 +54,12 @@ export default class AssessmentService implements IAssessmentService {
     this.state.initAssessment();
   }
 
-  async saveAssessment(
-    assessmentId: AssessmentId,
-    assessment: Partial<AssessmentInfosRequest>
-  ): Promise<AssessmentResponse> {
+  async saveAssessment(assessment: Partial<AssessmentInfosRequest>) {
     await this.saveToState(assessment);
-    return {} as AssessmentResponse; // To fulfil interface requirement.
   }
 
   async completeAssessment(
-    assessmentId: AssessmentId,
-    assessment: Partial<AssessmentInfosRequest> | null = null,
+    assessment: Partial<AssessmentInfosRequest>,
     patientInfo: PatientInfosRequest
   ): Promise<boolean> {
     if (assessment) {
@@ -84,7 +73,7 @@ export default class AssessmentService implements IAssessmentService {
         }
       }
 
-      await this.saveAssessment(assessmentId, assessment);
+      await this.saveAssessment(assessment);
     }
 
     const response = this.sendFullAssessmentToApi();
