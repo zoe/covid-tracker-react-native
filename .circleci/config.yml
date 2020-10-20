@@ -114,6 +114,7 @@ commands:
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
+      - run: echo "EXPO_RELEASE_CHANNEL=$RELEASE_TYPE-v$(cat app.json | jq -r '.expo.version')"
       - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
       - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
       - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
@@ -150,11 +151,23 @@ commands:
       - run:
           name: Set expo release channel
           command: |
-            echo 'export RELEASE_CHANNEL=`cat app.json | jq -r '.expo.version' | cut -d. -f1`-$RELEASE_CHANNEL_SUFFIX' >> $BASH_ENV
+            echo "export RELEASE_CHANNEL=$(grep RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
       # Legacy expo release channels
-      # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.9-prod
+      #- run:
+      #    name: 'Legacy OTA 0.9-prod'
+      #    command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.9-prod
+      #- run:
+      #    name: 'Legacy OTA 0.12-prod'
+      #    command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
+      #- run:
+      #    name: 'Legacy OTA 0.13-prod'
+      #    command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
+      # - run:
+      #    name: 'Legacy OTA 0.14-prod'
+      #    command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.14-prod
+
       # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
       # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
 
@@ -292,7 +305,7 @@ jobs:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
 
   ota-release:
-    executor: node
+    executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
       - build
@@ -305,43 +318,58 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      - lint:
-          filters: *feature_filter
-          requires:
-              - build
-      - i18n:
-          filters: *feature_filter
-          requires:
-              - build
-      - test:
-          filters: *feature_filter
-          requires:
-              - build
-      - slack/approval-notification:
-          filters: *feature_filter
-          message: 'Awaiting manual approval to deploy native apps to staging'
-          context: slack-ci-covid-mobile
-          requires:
-            - lint
-            - i18n
-            - test
-      - adhoc-release-approval:
-          filters: *feature_filter
+#      - lint:
+#          filters: *feature_filter
+#          requires:
+#              - build
+#      - i18n:
+#          filters: *feature_filter
+#          requires:
+#              - build
+#      - test:
+#          filters: *feature_filter
+#          requires:
+#              - build
+#      - slack/approval-notification:
+#          filters: *feature_filter
+#          message: 'Awaiting manual approval to deploy native apps to staging'
+#          context: slack-ci-covid-mobile
+#          requires:
+#            - lint
+#            - i18n
+#            - test
+#      - adhoc-release-approval:
+#          filters: *feature_filter
+#          type: approval
+#          requires:
+#            - lint
+#            - i18n
+#            - test
+      - ota-release-approval:
+          filters: *feature_filter 
           type: approval
           requires:
-            - lint
-            - i18n
-            - test
+            - build
+#            - lint
+#            - i18n
+#            - test
+      - ota-release:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+              - ota-release-approval
       - deploy-ios:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
-              - adhoc-release-approval
+              - build
+              # - adhoc-release-approval
       - deploy-android:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
-              - adhoc-release-approval
+              - build 
+              # - adhoc-release-approval
 
   staging:
     jobs:
