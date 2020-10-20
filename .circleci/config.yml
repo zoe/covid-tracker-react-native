@@ -254,9 +254,7 @@ jobs:
       - run: bundle install --path vendor/bundle --clean
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
-          path: ~/covid-react/build/covid-zoe.ipa
-      - store_artifacts:
-          path: ~/covid-react/build/covid-zoe.app.dSYM.zip
+          path: ~/covid-react/build
 
   # Uses android-api docker image to build android app
   deploy-android:
