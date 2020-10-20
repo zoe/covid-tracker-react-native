@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
   regularBoldText: {
     ...fontStyles.bodyReg,
-    fontWeight: '600',
+    fontFamily: 'SofiaPro-SemiBold',
   },
 
   clickableText: {

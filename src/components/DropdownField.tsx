@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     minWidth: 70,
   },
-  dropdownLabel: { color: colors.secondary, flex: 1, fontWeight: '300', lineHeight: 24 },
+  dropdownLabel: { color: colors.secondary, flex: 1, lineHeight: 24 },
   dropdownSelectedLabel: { color: colors.primary },
   dropdownStyle: {
     marginTop: 8,

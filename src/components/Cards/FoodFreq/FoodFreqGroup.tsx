@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   selectedLabel: {
     borderRadius: 6,
     fontSize: 12,
-    fontWeight: '300',
     marginTop: 8,
     paddingVertical: 2,
     paddingHorizontal: 8,

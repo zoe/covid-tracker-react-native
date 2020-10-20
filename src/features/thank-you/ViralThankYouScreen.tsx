@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 20,
     lineHeight: 32,
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
     color: colors.primary,
     textAlign: 'center',
   },
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 20,
     lineHeight: 32,
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
     color: colors.primary,
     textAlign: 'center',
   },
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   },
 
   partner: {
-    fontWeight: '700',
+    fontFamily: 'SofiaPro-Bold',
     lineHeight: 24,
   },
 
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 24,
     lineHeight: 38,
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
   },
 
   modalContent: {
