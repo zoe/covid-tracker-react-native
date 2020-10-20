@@ -206,7 +206,7 @@ platform :ios do
       scheme: @ios_scheme,
       output_directory: "./build",
       workspace: "./ios/Covid.xcworkspace",
-      xcargs: "EX_RELEASE_CHANNEL=#{@expo_release_channel}"
+      xcargs: "EX_RELEASE_CHANNEL='#{@expo_release_channel}'"
     )
 
     slack_payload = {
