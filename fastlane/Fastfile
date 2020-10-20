@@ -165,9 +165,13 @@ platform :ios do
     get_version_no
 
     increment_build_number(
-      version_number: @package_json['version'],
-      build_number: "#{@build_number}"
       xcodeproj: "./ios/Covid.xcodeproj",
+      build_number: "#{@build_number}",
+    )
+
+    increment_version_number(
+      xcodeproj: "./ios/Covid.xcodeproj",
+      version_number: @package_json['version']
     )
 
     # release_notes
@@ -201,7 +205,7 @@ platform :ios do
       export_method: @export_method,
       scheme: @ios_scheme,
       output_directory: "./build",
-      workspace: "./ios/Covid.xcworkspace"
+      workspace: "./ios/Covid.xcworkspace",
       xcargs: "EX_RELEASE_CHANNEL=#{@expo_release_channel}"
     )
 
