@@ -114,7 +114,7 @@ commands:
       - run: echo "API_URL=$API_URL" > .env
       - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
       - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
-      - run: echo "EXPO_RELEASE_CHANNEL=$RELEASE_TYPE-v$(cat app.json | jq -r '.expo.version')"
+      - run: echo "EXPO_RELEASE_CHANNEL=$RELEASE_TYPE-v$(cat app.json | jq -r '.expo.version')" >> .env
       - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
       - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
       - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
@@ -151,7 +151,7 @@ commands:
       - run:
           name: Set expo release channel
           command: |
-            echo "export RELEASE_CHANNEL=$(grep RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
+            echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
       # Legacy expo release channels
