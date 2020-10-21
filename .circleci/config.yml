@@ -333,8 +333,8 @@ workflows:
 
   default:
     jobs:
-      #- build:
-      #    filters: *feature_filter
+      - build:
+          filters: *feature_filter
 #      - lint:
 #          filters: *feature_filter
 #          requires:
@@ -370,11 +370,11 @@ workflows:
 #            - lint
 #            - i18n
 #            - test
-#      - ota-release:
-#          filters: *feature_filter
-#          context: react-covid-tracker-stage
-#          requires:
-#              - ota-release-approval
+      - ota-release:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - build
 #      - deploy-ios:
 #          filters: *feature_filter
 #          context: react-covid-tracker-stage
@@ -390,8 +390,8 @@ workflows:
       - ota-rollback-approval:
           filters: *feature_filter 
           type: approval
-          #requires:
-          #  - build
+          requires:
+            - build
       - ota-rollback:
           filters: *feature_filter
           context: react-covid-tracker-stage
