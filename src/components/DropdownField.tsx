@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   labelStyle: {
+    fontFamily: 'SofiaProRegular',
     fontSize: 16,
     lineHeight: 30,
     marginBottom: 8,
@@ -218,6 +219,7 @@ const styles = StyleSheet.create({
   dropdownTextStyle: {
     backgroundColor: 'transparent',
     fontSize: 16,
+    fontFamily: 'SofiaProRegular',
     lineHeight: 24,
     color: colors.secondary,
   },

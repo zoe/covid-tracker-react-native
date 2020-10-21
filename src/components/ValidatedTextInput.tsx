@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     flex: 1,
     fontSize: 16,
+    fontFamily: 'SofiaProRegular',
     paddingLeft: 12,
     paddingRight: 16,
   },
