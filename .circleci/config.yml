@@ -314,6 +314,9 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
+      - prepare_code
+      - prepare_deploy_env
+      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run:
           name: Set expo release channel to perform rollback on
           command: |
@@ -323,14 +326,15 @@ jobs:
           # This command will not work if the expo dependencies is not defined like this ^x.x.x
           command: |
             echo "export EXPO_ROLLBACK_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)" >> $BASH_ENV
-      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION
+      - run: (yes || true) | npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios
+      - run: (yes || true) | npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android
 
 workflows:
 
   default:
     jobs:
-      - build:
-          filters: *feature_filter
+      #- build:
+      #    filters: *feature_filter
 #      - lint:
 #          filters: *feature_filter
 #          requires:
@@ -358,36 +362,36 @@ workflows:
 #            - lint
 #            - i18n
 #            - test
-      - ota-release-approval:
-          filters: *feature_filter 
-          type: approval
-          requires:
-            - build
+#      - ota-release-approval:
+#          filters: *feature_filter 
+#          type: approval
+#          requires:
+#            - build
 #            - lint
 #            - i18n
 #            - test
-      - ota-release:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - ota-release-approval
-      - deploy-ios:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - build
-              # - adhoc-release-approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - build 
-              # - adhoc-release-approval
+#      - ota-release:
+#          filters: *feature_filter
+#          context: react-covid-tracker-stage
+#          requires:
+#              - ota-release-approval
+#      - deploy-ios:
+#          filters: *feature_filter
+#          context: react-covid-tracker-stage
+#          requires:
+#              - build
+#              # - adhoc-release-approval
+#      - deploy-android:
+#          filters: *feature_filter
+#          context: react-covid-tracker-stage
+#          requires:
+#              - build 
+#              # - adhoc-release-approval
       - ota-rollback-approval:
           filters: *feature_filter 
           type: approval
-          requires:
-            - ota-release
+          #requires:
+          #  - build
       - ota-rollback:
           filters: *feature_filter
           context: react-covid-tracker-stage

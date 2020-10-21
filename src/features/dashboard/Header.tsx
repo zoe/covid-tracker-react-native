@@ -59,6 +59,7 @@ export const Header: React.FC<Props> = ({ reportedCount, reportOnPress }) => {
         <>
           <RegularText style={styles.contributorsLabel}>{i18n.t('dashboard.contributors-so-far')}</RegularText>
           <Header3Text style={styles.contributorsCount}>{prettyContributorsValue}</Header3Text>
+          <RegularText style={styles.contributorsLabel}>hello</RegularText>
         </>
       )}
     </View>
