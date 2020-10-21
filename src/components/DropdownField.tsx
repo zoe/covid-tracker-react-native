@@ -113,7 +113,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
     else if (index === lastIndex) borderRadiusStyle = styles.bottomBorderRadiusStyle;
 
     return (
-      <TouchableOpacity
+      <View
         style={[
           styles.picker,
           styles.dropdownTextStyle,
@@ -122,7 +122,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
         ]}>
         {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5 }} />}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
-      </TouchableOpacity>
+      </View>
     );
   };
 
