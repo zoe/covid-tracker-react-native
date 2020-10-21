@@ -314,6 +314,7 @@ jobs:
     executor: mobile-build-box
     working_directory: ~/covid-react
     steps:
+      - prepare_code
       - run:
           name: Set expo release channel to perform rollback on
           command: |
@@ -358,31 +359,31 @@ workflows:
 #            - lint
 #            - i18n
 #            - test
-      - ota-release-approval:
-          filters: *feature_filter 
-          type: approval
-          requires:
-            - build
+#      - ota-release-approval:
+#          filters: *feature_filter 
+#          type: approval
+#          requires:
+#            - build
 #            - lint
 #            - i18n
 #            - test
-      - ota-release:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - ota-release-approval
-      - deploy-ios:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - build
-              # - adhoc-release-approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - build 
-              # - adhoc-release-approval
+#      - ota-release:
+#          filters: *feature_filter
+#          context: react-covid-tracker-stage
+#          requires:
+#              - ota-release-approval
+#      - deploy-ios:
+#          filters: *feature_filter
+#          context: react-covid-tracker-stage
+#          requires:
+#              - build
+#              # - adhoc-release-approval
+#      - deploy-android:
+#          filters: *feature_filter
+#          context: react-covid-tracker-stage
+#          requires:
+#              - build 
+#              # - adhoc-release-approval
       - ota-rollback-approval:
           filters: *feature_filter 
           type: approval
