@@ -110,28 +110,7 @@ commands:
 
   prepare_deploy_env:
     steps:
-      - run: mkdir -p .signing
-      - run: echo "API_URL=$API_URL" > .env
-      - run: echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-      - run: echo "MATCH_PASSWORD=$MATCH_PASSWORD" >> .env
-      - run: echo "EXPO_RELEASE_CHANNEL=$RELEASE_TYPE-v$(cat app.json | jq -r '.expo.version')" >> .env
-      - run: echo "iOS_SCHEME=$iOS_SCHEME" >> .env
-      - run: echo "iOS_APP_ID=$iOS_APP_ID" >> .env
-      - run: echo "APPCENTER_API_TOKEN=$APPCENTER_API_TOKEN" >> .env
-      - run: echo "APPCENTER_ANDROID_TOKEN=$APPCENTER_ANDROID_TOKEN" >> .env
-      - run: echo "APPCENTER_IOS_PROJECT_NAME=$APPCENTER_IOS_PROJECT_NAME" >> .env
-      - run: echo "APPCENTER_NOTIFY_GROUP=$APPCENTER_NOTIFY_GROUP" >> .env
-      - run: echo "APPCENTER_DESTINATION_TYPE=$APPCENTER_DESTINATION_TYPE" >> .env
-      - run: echo "FASTLANE_PASSWORD=$FASTLANE_PASSWORD" >> .env
-      - run: echo "FASTLANE_SESSION=$FASTLANE_SESSION" >> .env
-      - run: echo "NAME=$NAME" >> .env 
-      - run: echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
-      - run: echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
-      - run: echo "" >> android/gradle.properties
-      - run: echo "KEYSTORE_FILE=../../.signing/release.jks" >> android/gradle.properties
-      - run: echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> android/gradle.properties
-      - run: echo "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" >> android/gradle.properties
-      - run: echo "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" >> android/gradle.properties
+      - run: bash .circleci/make_deploy_env.sh
 
   # Should prepare code, install deps & bundle assets
   build:
