@@ -315,6 +315,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - prepare_deploy_env
       - run:
           name: Set expo release channel to perform rollback on
           command: |
