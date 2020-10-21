@@ -17,6 +17,7 @@ executors:
           AMPLITUDE_KEY: $AMPLITUDE_KEY
     resource_class: large
 
+  # Xcode / iOS builds
   mobile-build-box:
     macos:
       xcode: 12.0.0
@@ -77,14 +78,14 @@ commands:
           name: Bundle install
           command: bundle check || bundle install --path vendor/bundle --clean
           environment:
-            BUNDLE_JOBS: '4'
-            BUNDLE_RETRY: '3'
+            BUNDLE_JOBS: "4"
+            BUNDLE_RETRY: "3"
       - run: bundle update fastlane
       - save_cache:
           key: *gem_cache_key
           paths:
             - vendor/bundle
-  
+
   node-install:
     steps:
       - run: yarn
@@ -118,19 +119,24 @@ commands:
       - prepare_code
       - install-dependencies
       - run:
-          name: 'Bundle RN Android assets'
+          name: "Bundle RN Android assets"
           command: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - run:
-          name: 'Clean up after bundling'
+          name: "Clean up after bundling"
           command: rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw
 
-  # Publish OTA releases through Expo
-  expo_ota_publish:
+  # OTA
+  set_expo_release_channel:
     steps:
       - run:
           name: Set expo release channel
           command: |
             echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
+
+  # Publish OTA releases through Expo
+  expo_ota_publish:
+    steps:
+      - set_expo_release_channel
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
       # Legacy expo release channels
@@ -146,7 +152,6 @@ commands:
       # - run:
       #    name: 'Legacy OTA 0.14-prod'
       #    command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.14-prod
-
       # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
       # - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
 
@@ -241,7 +246,7 @@ jobs:
     docker:
       - image: circleci/android:api-29-node
     environment:
-      JAVA_OPTS: '-Xms512m -Xmx2g'
+      JAVA_OPTS: "-Xms512m -Xmx2g"
       GRADLE_OPTS: '-Xmx3g -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx2g -XX:+HeapDumpOnOutOfMemoryError"'
     steps:
       - checkout:
@@ -272,6 +277,14 @@ jobs:
     steps:
       - slack/notify:
           message: Deployed release builds for iOS & Android
+          webhook: $SLACK_WEBHOOK
+
+  deployed-ota:
+    executor: mobile-build-box
+    steps:
+      - set_expo_release_channel
+      - slack/notify:
+          message: "Deployed OTA release for iOS & Android $RELEASE_CHANNEL"
           webhook: $SLACK_WEBHOOK
 
   legacy_deploy:
@@ -309,59 +322,37 @@ jobs:
       - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android --non-interactive
 
 workflows:
-
   default:
     jobs:
       - build:
           filters: *feature_filter
-#      - lint:
-#          filters: *feature_filter
-#          requires:
-#              - build
-#      - i18n:
-#          filters: *feature_filter
-#          requires:
-#              - build
-#      - test:
-#          filters: *feature_filter
-#          requires:
-#              - build
-      - slack/approval-notification:
-          filters: *feature_filter
-          message: 'Awaiting manual approval to deploy native apps to staging'
-          context: slack-ci-covid-mobile
-          requires:
-            - build
-      - adhoc-release-approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - build
-#      - ota-release-approval:
-#         filters: *feature_filter 
-#          type: approval
-#          requires:
-#            - build
-#            - lint
-#            - i18n
-#            - test
+      #      - lint:
+      #          filters: *feature_filter
+      #          requires:
+      #              - build
+      #      - i18n:
+      #          filters: *feature_filter
+      #          requires:
+      #              - build
+      #      - test:
+      #          filters: *feature_filter
+      #          requires:
+      #              - build
+
+      # OTA deploy
       - ota-release:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
             - build
-      - deploy-ios:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
+      - deployed-ota:
+          context: slack-ci-covid-mobile
           requires:
-            - adhoc-release-approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - adhoc-release-approval
+            - ota-release
+
+      # OTA rollback
       - ota-rollback-approval:
-          filters: *feature_filter 
+          filters: *feature_filter
           type: approval
           requires:
             - ota-release
@@ -369,25 +360,63 @@ workflows:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
-              - ota-rollback-approval
+            - ota-rollback-approval
+
+      # Native app deploy
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: "Awaiting manual approval to deploy native apps to staging"
+          context: slack-ci-covid-mobile
+          requires:
+            - build
+      - adhoc-release-approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - build
+      - deploy-ios:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
+      - deploy-android:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
 
   staging:
     jobs:
       - build:
           filters: *stage_filter
-      - ota-release-approval:
-          filters: *stage_filter
-          type: approval
-          requires:
-            - build
+
+      # OTA deploy
       - ota-release:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - ota-release-approval
+            - build
+      - deployed-ota:
+          context: slack-ci-covid-mobile
+          requires:
+            - ota-release
+
+      # OTA rollback
+      - ota-rollback-approval:
+          filters: *stage_filter
+          type: approval
+          requires:
+            - ota-release
+      - ota-rollback:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+            - ota-rollback-approval
+
+      # Native app deploy
       - slack/approval-notification:
           filters: *stage_filter
-          message: 'Awaiting manual approval to deploy native apps to staging'
+          message: "Awaiting manual approval to deploy native apps to staging"
           context: slack-ci-covid-mobile
           requires:
             - build
@@ -400,25 +429,55 @@ workflows:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - adhoc-release-approval
+            - adhoc-release-approval
       - deploy-android:
           filters: *stage_filter
           context: react-covid-tracker-stage
           requires:
-              - adhoc-release-approval
+            - adhoc-release-approval
       - deployed-stage:
           context: slack-ci-covid-mobile
           requires:
-              - deploy-ios
-              - deploy-android
+            - deploy-ios
+            - deploy-android
 
   production:
     jobs:
       - build:
           filters: *master_filter
+
+      # OTA deploy
+      - ota-release-approval:
+          filters: *master_filter
+          type: approval
+          requires:
+            - build
+      - ota-release:
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+            - ota-release-approval
+      - deployed-ota:
+          context: slack-ci-covid-mobile
+          requires:
+            - ota-release
+
+      # OTA rollback
+      - ota-rollback-approval:
+          filters: *master_filter
+          type: approval
+          requires:
+            - ota-release
+      - ota-rollback:
+          filters: *master_filter
+          context: react-covid-tracker-prod
+          requires:
+            - ota-rollback-approval
+
+      # Native app deploy
       - slack/approval-notification:
           filters: *master_filter
-          message: 'Awaiting manual approval to deploy to production (Options: OTA, Store)'
+          message: "Awaiting manual approval to deploy to production (Options: OTA, Store)"
           context: slack-ci-covid-mobile
           requires:
             - build
@@ -427,31 +486,21 @@ workflows:
           type: approval
           requires:
             - build
-      - ota-release-approval:
-          filters: *master_filter
-          type: approval
-          requires:
-            - build
       - deploy-ios:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-              - store-release-approval
+            - store-release-approval
       - deploy-android:
           filters: *master_filter
           context: react-covid-tracker-prod
           requires:
-              - store-release-approval
-      - ota-release:
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-              - ota-release-approval
+            - store-release-approval
       - deployed-prod:
           context: slack-ci-covid-mobile
           requires:
-              - deploy-ios
-              - deploy-android
+            - deploy-ios
+            - deploy-android
 
   legacy-ota:
     jobs:
@@ -466,4 +515,4 @@ workflows:
           filters: *legacy_ota_filter
           context: react-covid-tracker-prod
           requires:
-              - ota-release-approval
+            - ota-release-approval
