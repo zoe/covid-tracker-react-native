@@ -388,7 +388,7 @@ workflows:
           filters: *feature_filter 
           type: approval
           requires:
-            - ota-release
+            - build
       - ota-rollback:
           filters: *feature_filter
           context: react-covid-tracker-stage
