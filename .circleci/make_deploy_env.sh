@@ -8,9 +8,16 @@ echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
 EXPO_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)
 EXPO_OTA_VERSION=$(cat app.json | jq -r '.expo.version')
 EXPO_RELEASE_CHANNEL=$RELEASE_TYPE'-v'$EXPO_OTA_VERSION
+
+# Expo iOS 
 EXPO_PLIST_FOLDER=ios/Covid/Supporting
 EXPO_PLIST_TEMPLATE=$EXPO_PLIST_FOLDER/Expo.template.plist
 EXPO_PLIST=$EXPO_PLIST_FOLDER/Expo.plist
+
+# Expo Android
+EXPO_ANDROID_MANIFEST_FOLDER=android/app/src/main
+EXPO_ANDROID_MANIFEST=$EXPO_ANDROID_MANIFEST_FOLDER/AndroidManifest.xml
+EXPO_ANDROID_MANIFEST_TEMPLATE=$EXPO_ANDROID_MANIFEST_FOLDER/AndroidManifest.template.xml
 
 echo "NAME=$NAME" > .env
 echo "API_URL=$API_URL" >> .env
@@ -37,8 +44,21 @@ echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> android/gradle.properties
 echo "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS" >> android/gradle.properties
 echo "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD" >> android/gradle.properties
 
-
-echo $EXPO_VERSION
+# iOS
 rm -f $EXPO_PLIST
 sed -e 's/EX_RELEASE_CHANNEL/'$EXPO_RELEASE_CHANNEL'/' -e 's/EX_VERSION/'$EXPO_VERSION'/' $EXPO_PLIST_TEMPLATE > $EXPO_PLIST 
 
+# Android
+# ANDROID_EXPO_SDK_INJECT='    <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="'$EXPO_VERSION'"\/>'
+# ANDROID_EXPO_RELEASE_CHANNEL_INJECT='    <meta-data android:name="expo.modules.updates.EXPO_RELEASE_CHANNEL" android:value="'$EXPO_RELEASE_CHANNEL'"\/>'
+
+# Remove existing template file & copy current manifest to make a new template
+rm -f $EXPO_ANDROID_MANIFEST_TEMPLATE
+cp $EXPO_ANDROID_MANIFEST $EXPO_ANDROID_MANIFEST_TEMPLATE
+
+# Replace lines in templates, create new manifest, remove template
+rm -f $EXPO_ANDROID_MANIFEST
+sed -e 's/.*updates.EXPO_SDK_VERSION.*/    <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="'$EXPO_VERSION'"\/>/' $EXPO_ANDROID_MANIFEST_TEMPLATE > $EXPO_ANDROID_MANIFEST
+cp $EXPO_ANDROID_MANIFEST $EXPO_ANDROID_MANIFEST_TEMPLATE
+sed -e 's/.*updates.EXPO_RELEASE_CHANNEL.*/    <meta-data android:name="expo.modules.updates.EXPO_RELEASE_CHANNEL" android:value="'$EXPO_RELEASE_CHANNEL'"\/>/' $EXPO_ANDROID_MANIFEST_TEMPLATE > $EXPO_ANDROID_MANIFEST
+rm -f $EXPO_ANDROID_MANIFEST_TEMPLATE
