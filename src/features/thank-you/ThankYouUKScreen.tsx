@@ -80,9 +80,8 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 link="https://covid.joinzoe.com/post/long-covid?utm_source=App"
                 calloutID="blog_016"
                 imageSource={blog016}
-                aspectRatio={1.552}
+                aspectRatio={1.558}
                 screenName={this.props.route.name}
-                imageStyles={{ borderRadius: 8 }}
               />
 
               <ExternalCallout
