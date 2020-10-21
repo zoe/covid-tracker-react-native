@@ -326,15 +326,15 @@ jobs:
           # This command will not work if the expo dependencies is not defined like this ^x.x.x
           command: |
             echo "export EXPO_ROLLBACK_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)" >> $BASH_ENV
-      - run: (yes || true) | npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios
-      - run: (yes || true) | npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android
+      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios --non-interactive
+      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android --non-interactive
 
 workflows:
 
   default:
     jobs:
-      #- build:
-      #    filters: *feature_filter
+      - build:
+          filters: *feature_filter
 #      - lint:
 #          filters: *feature_filter
 #          requires:
@@ -347,57 +347,50 @@ workflows:
 #          filters: *feature_filter
 #          requires:
 #              - build
-#      - slack/approval-notification:
-#          filters: *feature_filter
-#          message: 'Awaiting manual approval to deploy native apps to staging'
-#          context: slack-ci-covid-mobile
-#          requires:
-#            - lint
-#            - i18n
-#            - test
-#      - adhoc-release-approval:
-#          filters: *feature_filter
-#          type: approval
-#          requires:
-#            - lint
-#            - i18n
-#            - test
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: 'Awaiting manual approval to deploy native apps to staging'
+          context: slack-ci-covid-mobile
+          requires:
+            - build
+      - adhoc-release-approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - build
 #      - ota-release-approval:
-#          filters: *feature_filter 
+#         filters: *feature_filter 
 #          type: approval
 #          requires:
 #            - build
 #            - lint
 #            - i18n
 #            - test
-#      - ota-release:
-#          filters: *feature_filter
-#          context: react-covid-tracker-stage
-#          requires:
-#              - ota-release-approval
-#      - deploy-ios:
-#          filters: *feature_filter
-#          context: react-covid-tracker-stage
-#          requires:
-#              - build
-#              # - adhoc-release-approval
-#      - deploy-android:
-#          filters: *feature_filter
-#          context: react-covid-tracker-stage
-#          requires:
-#              - build 
-#              # - adhoc-release-approval
+      - ota-release:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - build
+      - deploy-ios:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
+      - deploy-android:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
       - ota-rollback-approval:
           filters: *feature_filter 
           type: approval
-          #requires:
-          #  - build
+          requires:
+            - ota-release
       - ota-rollback:
           filters: *feature_filter
           context: react-covid-tracker-stage
           requires:
               - ota-rollback-approval
- 
 
   staging:
     jobs:
