@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 32,
     fontSize: 20,
-    fontWeight: '600',
     color: colors.primary,
     textAlign: 'center',
   },

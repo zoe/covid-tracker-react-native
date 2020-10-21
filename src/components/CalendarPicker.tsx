@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   today: {
     color: colors.purple,
-    fontWeight: '700',
+    fontFamily: 'SofiaPro-Bold',
   },
   calendarView: {
     padding: 10,

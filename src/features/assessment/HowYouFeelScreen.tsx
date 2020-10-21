@@ -94,7 +94,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
             <RegularText>
               <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
-              <RegularText style={{ fontWeight: 'bold' }}>{location}</RegularText>
+              <RegularText style={{ fontFamily: 'SofiaPro-Medium' }}>{location}</RegularText>
             </RegularText>
             <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
           </TouchableOpacity>

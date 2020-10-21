@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 24,
     textAlign: 'center',
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
   },
   flagIcon: {
     height: 32,
