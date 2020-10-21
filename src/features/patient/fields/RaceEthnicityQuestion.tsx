@@ -8,6 +8,7 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import i18n from '@covid/locale/i18n';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { colors } from '@theme';
 
 export interface RaceEthnicityData {
   race: string[];
@@ -87,7 +88,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
         {this.props.showRaceQuestion && (
           <FieldWrapper>
             <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{i18n.t('race-question')}</Label>
+              <Label style={styles.label}>{i18n.t('race-question')}</Label>
               <CheckboxList>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
             </Item>
           </FieldWrapper>
@@ -148,5 +149,10 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 const styles = StyleSheet.create({
   textItemStyle: {
     borderColor: 'transparent',
+  },
+  label: {
+    color: colors.primary,
+    fontFamily: 'SofiaProRegular',
+    fontSize: 16,
   },
 });

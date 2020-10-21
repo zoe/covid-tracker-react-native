@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   labelStyle: {
+    fontFamily: 'SofiaProRegular',
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 8,
