@@ -347,23 +347,19 @@ workflows:
 #          filters: *feature_filter
 #          requires:
 #              - build
-#      - slack/approval-notification:
-#          filters: *feature_filter
-#          message: 'Awaiting manual approval to deploy native apps to staging'
-#          context: slack-ci-covid-mobile
-#          requires:
-#            - lint
-#            - i18n
-#            - test
-#      - adhoc-release-approval:
-#          filters: *feature_filter
-#          type: approval
-#          requires:
-#            - lint
-#            - i18n
-#            - test
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: 'Awaiting manual approval to deploy native apps to staging'
+          context: slack-ci-covid-mobile
+          requires:
+            - build
+      - adhoc-release-approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - build
 #      - ota-release-approval:
-#          filters: *feature_filter 
+#         filters: *feature_filter 
 #          type: approval
 #          requires:
 #            - build
@@ -375,18 +371,16 @@ workflows:
           context: react-covid-tracker-stage
           requires:
             - build
-#      - deploy-ios:
-#          filters: *feature_filter
-#          context: react-covid-tracker-stage
-#          requires:
-#              - build
-#              # - adhoc-release-approval
-#      - deploy-android:
-#          filters: *feature_filter
-#          context: react-covid-tracker-stage
-#          requires:
-#              - build 
-#              # - adhoc-release-approval
+      - deploy-ios:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
+      - deploy-android:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
       - ota-rollback-approval:
           filters: *feature_filter 
           type: approval
@@ -397,7 +391,6 @@ workflows:
           context: react-covid-tracker-stage
           requires:
               - ota-rollback-approval
- 
 
   staging:
     jobs:
