@@ -326,8 +326,8 @@ jobs:
           # This command will not work if the expo dependencies is not defined like this ^x.x.x
           command: |
             echo "export EXPO_ROLLBACK_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)" >> $BASH_ENV
-      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios
-      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android
+      - run: yes | npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios
+      - run: yes | npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android
 
 workflows:
 
