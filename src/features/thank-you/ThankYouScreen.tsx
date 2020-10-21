@@ -84,7 +84,7 @@ export default class ThankYouScreen extends Component<RenderProps, State> {
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
                 style={styles.done}>
-                <RegularText>{i18n.t('completed')}</RegularText>
+                <RegularText>{i18n.t('thank-you-completed')}</RegularText>
               </BrandedButton>
             </View>
           </ScrollView>

@@ -471,9 +471,10 @@
   "thank-you-title": "Tack för att du rapporterar!",
   "blog-link": "https://covid19app.lu.se/",
   "thank-you-body": "Vi har nu tagit emot dagens rapport. Ditt deltagande är viktigare än någonsin i kampen mot covid-19.",
-  "check-in-tomorrow": "Om du har symtom på covid-19 kontakta 1177. Tryck på Klar för att gå till startsidan.",
+  "check-in-tomorrow": "Besök 1177.se om du har frågor som rör din hälsa eller covid-19.",
   "check-news-feed": "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://www.covid19app.lu.se/faq",
+  "thank-you-completed": "Startsida",
 
   "rating": {
     "how-are-we-doing": "Vad tycker du om vårt arbete?",
@@ -570,7 +571,7 @@
     "failed": "Misslyckades",
     "pending": "Väntar",
     "update": "",
-    "never-had-test": "Jag har inget nytt test att lägga till",
+    "never-had-test": "Jag har aldrig testats för covid-19",
     "above-list-correct": "Listan ovan är korrekt"
   },
 
