@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>EXUpdatesReleaseChannel</key>
-	<string>$(EX_RELEASE_CHANNEL)</string>
+	<string>stage-v1.0.0</string>
 	<key>EXUpdatesCheckOnLaunch</key>
 	<string>ALWAYS</string>
 	<key>EXUpdatesEnabled</key>
