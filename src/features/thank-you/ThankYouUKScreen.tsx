@@ -85,14 +85,14 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=9B5KI-r_nDU"
-                calloutID="tim_update_014"
+                link="https://youtu.be/jS_A6IZPKdA"
+                calloutID="tim_update_015"
                 imageSource={timUpdate013}
                 aspectRatio={1.1791}
                 screenName={this.props.route.name}
               />
 
-              <RegularText style={styles.dateLabel}>Oct 15, 2020</RegularText>
+              <RegularText style={styles.dateLabel}>Oct 23, 2020</RegularText>
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
