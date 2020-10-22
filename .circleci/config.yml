@@ -111,7 +111,6 @@ commands:
           key: *gem_cache_key
           paths:
             - vendor/bundle
-      - run: brew install imagemagick
 
   node-install:
     steps:
@@ -261,6 +260,8 @@ jobs:
           at: *default_workspace
       - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
+      - run: brew install librsvg
+      - run: brew install imagemagick
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
