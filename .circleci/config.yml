@@ -111,6 +111,7 @@ commands:
           key: *gem_cache_key
           paths:
             - vendor/bundle
+      - run: brew install imagemagick
 
   node-install:
     steps:
