@@ -53,4 +53,10 @@ export type AssessmentInfosRequest = {
 
   current_postcode: string;
   current_country_code: string;
+
+  rash: boolean;
+  skin_burning: boolean;
+  hair_loss: boolean;
+  feeling_down: boolean;
+  brain_fog: boolean;
 };

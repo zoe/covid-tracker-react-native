@@ -8,7 +8,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, Divider, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
@@ -104,9 +104,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
 
-          <ProgressBlock>
-            <ProgressStatus step={2} maxSteps={5} />
-          </ProgressBlock>
+          <Divider/>
 
           {isNHSStudy ? (
             <RegularText style={styles.content}>

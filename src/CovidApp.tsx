@@ -93,6 +93,7 @@ import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDash
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
 
 import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
+import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptomsScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -246,6 +247,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
         <Stack.Screen name="CovidTestConfirm" component={CovidTestConfirmScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
+        <Stack.Screen name="GeneralSymptoms" component={GeneralSymptomsScreen} options={noHeader} />
         <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
         <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />

@@ -75,7 +75,7 @@ export class AssessmentCoordinator extends Coordinator {
       if (healthy) {
         this.gotoEndAssessment();
       } else {
-        NavigatorService.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('GeneralSymptoms', { assessmentData: this.assessmentData });
       }
     },
     WhereAreYou: (params: { location: string; endAssessment: boolean }) => {
