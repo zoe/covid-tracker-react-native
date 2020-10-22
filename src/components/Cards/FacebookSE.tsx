@@ -20,9 +20,10 @@ export const FacebookSECard: React.FC = () => {
       <View style={styles.socialIconContainer}>
         <Image source={facebook} style={styles.socialIcon} />
       </View>
-      <RegularBoldText style={styles.primaryText}>Följ oss på Facebook för senaste nytt!</RegularBoldText>
+      <RegularBoldText style={styles.primaryText}>Följ oss på Facebook!</RegularBoldText>
       <RegularText style={styles.secondaryText}>
-        Här hittar du alltid de senaste kartorna, samt analyser och artiklar från COVID Symptom Study
+        På Facebook hittar du alltid det senaste om COVID Symptom Study, bland annat länkar, artiklar och information om
+        uppdateringar.
       </RegularText>
       <BrandedButton onPress={onButtonPress} style={styles.shareButton}>
         Följ oss på Facebook
