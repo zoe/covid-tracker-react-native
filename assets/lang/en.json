@@ -435,7 +435,8 @@
     "general-feeling-down": "Feeling down, depressed or hopeless",
     "general-brain-fog": "Loss of concentration or memory (brain fog)",
     "general-delirium": "Confusion, disorientation or drowsiness",
-    "general-allergy-increase": "Increase in your usual allergy symptoms"
+    "general-allergy-increase": "Increase in your usual allergy symptoms",
+    "follow-up-required": "Please complete follow up question."
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",

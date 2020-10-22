@@ -98,7 +98,12 @@ GeneralSymptomsQuestions.initialFormValues = (): GeneralSymptomsData => {
 };
 
 GeneralSymptomsQuestions.schema = () => {
-  return Yup.object();
+  return Yup.object().shape({
+    fatigueFollowUp: Yup.string().when('fatigue', {
+      is: true,
+      then: Yup.string().required(i18n.t('describe-symptoms.follow-up-required')),
+    }),
+  });
 };
 
 GeneralSymptomsQuestions.createAssessment = (formData: GeneralSymptomsData): Partial<AssessmentInfosRequest> => {
