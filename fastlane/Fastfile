@@ -64,7 +64,7 @@ lane :generate_beta_icons do
   add_badge(
     shield: 'Version-' + @package_version + '-orange',
     shield_geometry: '+0+25%',
-    shield_scale: 0.75
+    shield_scale: '0.75'
   )
 end
 ###
