@@ -19,8 +19,8 @@ export type AssessmentInfosRequest = {
   headache: boolean; // defaults to False
   headache_frequency: string; // 'all_of_the_day', 'most_of_day', 'some_of_day'
   shortness_of_breath: string; //'no', 'mild', 'significant' or 'severe', defaults to 'no'
-  red_welts_on_face_or_lips: string; // defaults to False
-  blisters_on_feet: string; // defaults to False
+  red_welts_on_face_or_lips: boolean; // defaults to False
+  blisters_on_feet: boolean; // defaults to False
   loss_of_smell: boolean; // defaults to False
   hoarse_voice: boolean; // defaults to False
   chest_pain: boolean; // defaults to False
@@ -54,9 +54,9 @@ export type AssessmentInfosRequest = {
   current_postcode: string;
   current_country_code: string;
 
-  rash: boolean;
-  skin_burning: boolean;
-  hair_loss: boolean;
-  feeling_down: boolean;
-  brain_fog: boolean;
+  rash: boolean; //defaults to False
+  skin_burning: boolean; //defaults to False
+  hair_loss: boolean; //defaults to False
+  feeling_down: boolean; //defaults to False
+  brain_fog: boolean; //defaults to False
 };
