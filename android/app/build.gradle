@@ -197,7 +197,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".qa"
-            // signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
             matchingFallbacks = ['debug']
         }
         staging {
