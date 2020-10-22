@@ -19,6 +19,9 @@ EXPO_ANDROID_MANIFEST_FOLDER=android/app/src/main
 EXPO_ANDROID_MANIFEST=$EXPO_ANDROID_MANIFEST_FOLDER/AndroidManifest.xml
 EXPO_ANDROID_MANIFEST_TEMPLATE=$EXPO_ANDROID_MANIFEST_FOLDER/AndroidManifest.template.xml
 
+COVID_IOS_APP_ID=com.joinzoe.covid-zoe
+COVID_ANDROID_APP_ID=com.joinzoe.covid_zoe
+
 echo "NAME=$NAME" > .env
 echo "API_URL=$API_URL" >> .env
 echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
@@ -62,3 +65,9 @@ sed -e 's/.*updates.EXPO_SDK_VERSION.*/    <meta-data android:name="expo.modules
 cp $EXPO_ANDROID_MANIFEST $EXPO_ANDROID_MANIFEST_TEMPLATE
 sed -e 's/.*updates.EXPO_RELEASE_CHANNEL.*/    <meta-data android:name="expo.modules.updates.EXPO_RELEASE_CHANNEL" android:value="'$EXPO_RELEASE_CHANNEL'"\/>/' $EXPO_ANDROID_MANIFEST_TEMPLATE > $EXPO_ANDROID_MANIFEST
 rm -f $EXPO_ANDROID_MANIFEST_TEMPLATE
+
+
+# Override app identifiers in expo's app.json
+if $RELEASE_TYPE == "stage" then
+  sed -e 's/'$COVID_IOS_APP_ID'/'$COVID_IOS_APP_ID'.qa/g' -e 's/'$COVID_ANDROID_APP_ID'/'$COVID_ANDROID_APP_ID'.qa/g' app.json > app.json.tmp && rm -f app.json && mv app.json.tmp app.json
+fi
