@@ -53,7 +53,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={4} maxSteps={5} />
+          <ProgressStatus step={5} maxSteps={5} />
         </ProgressBlock>
 
         <View style={styles.content}>

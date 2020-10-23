@@ -457,7 +457,13 @@
     "throat-chest-short-breath": "Shortness of breath or trouble breathing",
     "throat-chest-short-breath-follow-up": "How severe is your shortness of breath?",
     "throat-chest-chest-pain": "Unusual chest pain or tightness in your chest",
-    "throat-chest-heart-beat": "Unusually fast or irregular heartbeat (palpitations)"
+    "throat-chest-heart-beat": "Unusually fast or irregular heartbeat (palpitations)",
+
+    "gut-stomach-symptoms" : "Are you experiencing any symptoms in your gut or stomach area?",
+    "gut-stomach-abdominal-pain" : "Unusual abdominal pain or stomach ache",
+    "gut-stomach-nausea" : "Nausea or vomiting",
+    "gut-stomach-diarrhoea" : "Diarrhoea",
+    "gut-stomach-skipped-meals" : "Skipping meals"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",

@@ -53,9 +53,6 @@ export class AssessmentCoordinator extends Coordinator {
     NHSTestDetail: () => {
       NavigatorService.goBack();
     },
-    DescribeSymptoms: () => {
-      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
-    },
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
@@ -100,6 +97,12 @@ export class AssessmentCoordinator extends Coordinator {
     },
     HeadSymptoms: () => {
       NavigatorService.navigate('ThroatChestSymptoms', { assessmentData: this.assessmentData });
+    },
+    ThroatChestSymptoms: () => {
+      NavigatorService.navigate('GutStomachSymptoms', { assessmentData: this.assessmentData });
+    },
+    GutStomachSymptoms: () => {
+      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
   };
 
