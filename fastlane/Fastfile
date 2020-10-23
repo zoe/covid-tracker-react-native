@@ -117,7 +117,7 @@ platform :android do
 
     case options[:env]
     when 'stage'
-      generate_beta_icons
+      # generate_beta_icons
       @build_configuration = 'staging'
       @ac_destination_type ='group'
     when 'prod'
@@ -188,7 +188,7 @@ platform :ios do
 
     case options[:env]
     when 'stage'
-      generate_beta_icons
+      # generate_beta_icons
       @match_mode = 'adhoc'
       @export_method = 'ad-hoc'
       @build_configuration = 'Stage'

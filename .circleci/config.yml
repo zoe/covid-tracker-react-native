@@ -261,8 +261,6 @@ jobs:
           at: *default_workspace
       - prepare_deploy_env
       - run: bundle install --path vendor/bundle --clean
-      - run: brew install librsvg
-      - run: brew install imagemagick
       - run: yarn fastlane:ios:release env:$RELEASE_TYPE
       - store_artifacts:
           path: ~/covid-react/build
@@ -284,8 +282,6 @@ jobs:
       - restore_cache:
           key: *gem_cache_key
       - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
-      - run: apt-get install -y librsvg
-      - run: apt-get install -y imagemagick
       - run:
           name: fastlane android release
           no_output_timeout: 60m
