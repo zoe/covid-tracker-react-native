@@ -59,7 +59,9 @@ references:
 
   stage_filter: &stage_filter
     branches:
-      only: develop
+      only:
+        - develop
+        - stage
 
   legacy_ota_filter: &legacy_ota_filter
     branches:
@@ -374,18 +376,18 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      #      - lint:
-      #          filters: *feature_filter
-      #          requires:
-      #              - build
-      #      - i18n:
-      #          filters: *feature_filter
-      #          requires:
-      #              - build
-      #      - test:
-      #          filters: *feature_filter
-      #          requires:
-      #              - build
+      - lint:
+          filters: *feature_filter
+          requires:
+            - build
+      - i18n:
+          filters: *feature_filter
+          requires:
+            - build
+      - test:
+          filters: *feature_filter
+          requires:
+            - build
 
       # OTA deploy
       # - ota-release:
@@ -397,7 +399,6 @@ workflows:
       #     context: slack-ci-covid-mobile
       #     requires:
       #       - ota-release
-
       # # OTA rollback
       # - ota-rollback-approval:
       #     filters: *feature_filter
@@ -409,7 +410,6 @@ workflows:
       #     context: react-covid-tracker-stage
       #     requires:
       #       - ota-rollback-approval
-
       # Native app deploy
       # - slack/approval-notification:
       #     filters: *feature_filter
@@ -427,12 +427,12 @@ workflows:
       #     context: react-covid-tracker-stage
       #     requires:
       #       - adhoc-release-approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - build
-            # - adhoc-release-approval
+      # - deploy-android:
+      #     filters: *feature_filter
+      #     context: react-covid-tracker-stage
+      #     requires:
+      #       - build
+      # - adhoc-release-approval
 
   #
   # Branch [stage]
