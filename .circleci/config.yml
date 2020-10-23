@@ -431,30 +431,6 @@ workflows:
           context: react-covid-tracker-stage
           requires:
             - adhoc-release-approval
-<<<<<<< HEAD
-      - ota-rollback-approval:
-          filters: *feature_filter 
-          type: approval
-          requires:
-            - build
-      - ota-rollback:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - ota-rollback-approval
-||||||| parent of 402d0f1... chore(ota): set ota release channel & sdk in AndroidManifest.sml during CI step
-      - ota-rollback-approval:
-          filters: *feature_filter 
-          type: approval
-          requires:
-            - ota-release
-      - ota-rollback:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-              - ota-rollback-approval
-=======
->>>>>>> 402d0f1... chore(ota): set ota release channel & sdk in AndroidManifest.sml during CI step
 
   #
   # Branch [stage]
