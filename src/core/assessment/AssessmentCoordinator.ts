@@ -98,7 +98,9 @@ export class AssessmentCoordinator extends Coordinator {
     GeneralSymptoms: () => {
       NavigatorService.navigate('HeadSymptoms', { assessmentData: this.assessmentData });
     },
-    HeadSymptoms: () => {},
+    HeadSymptoms: () => {
+      NavigatorService.navigate('ThroatChestSymptoms', { assessmentData: this.assessmentData });
+    },
   };
 
   init = (

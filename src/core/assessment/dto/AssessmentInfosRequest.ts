@@ -65,4 +65,7 @@ export type AssessmentInfosRequest = {
   sneezing: boolean;
   earache: boolean;
   ear_ringing: boolean;
+  sore_throat: boolean;
+  swollen_glands: boolean;
+  irregular_heartbeat: boolean;
 };

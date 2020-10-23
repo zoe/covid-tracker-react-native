@@ -394,9 +394,9 @@
     "required-headache-frequency": "Please specify the frequency of your headaches ",
     "question-has-unusual-shortness-of-breath": "Are you experiencing unusual shortness of breath or have trouble breathing?",
     "picker-shortness-of-breath-none": "No",
-    "picker-shortness-of-breath-mild": "Yes. Mild symptoms - slight shortness of breath during ordinary activity",
-    "picker-shortness-of-breath-significant": "Yes. Significant symptoms - breathing is comfortable only at rest",
-    "picker-shortness-of-breath-severe": "Yes. Severe symptoms - breathing is difficult even at rest",
+    "picker-shortness-of-breath-mild": "Mild symptoms - slight shortness of breath during ordinary activity",
+    "picker-shortness-of-breath-significant": "Significant symptoms - breathing is comfortable only at rest",
+    "picker-shortness-of-breath-severe": "Severe symptoms - breathing is difficult even at rest",
     "question-has-sore-throat": "Do you have a sore or painful throat?",
     "question-has-loss-of-smell": "Do you have a loss of smell/taste?",
     "question-has-hoarse-voice": "Do you have an unusually hoarse voice?",
@@ -447,7 +447,17 @@
     "head-sneezing": "Sneezing more than usual",
     "head-eye-soreness": "Unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)",
     "head-earache": "Earache",
-    "head-ear-ringing": "Ringing in your ears"
+    "head-ear-ringing": "Ringing in your ears",
+
+    "throat-chest-symptoms": "Are you experiencing any symptoms in your throat or chest area?",
+    "throat-chest-sore-throat": "Sore or painful throat",
+    "throat-chest-swollen-glands": "Swollen neck glands",
+    "throat-chest-hoarde-voice": "Unusually hoarse voice",
+    "throat-chest-persistent-cough": "Persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)",
+    "throat-chest-short-breath": "Shortness of breath or trouble breathing",
+    "throat-chest-short-breath-follow-up": "How severe is your shortness of breath?",
+    "throat-chest-chest-pain": "Unusual chest pain or tightness in your chest",
+    "throat-chest-heart-beat": "Unusually fast or irregular heartbeat (palpitations)"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
