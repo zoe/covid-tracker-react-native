@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.predict,
     alignItems: 'center',
     width: '100%',
-    paddingTop: 40,
+    paddingTop: 16,
     paddingBottom: 24,
   },
 

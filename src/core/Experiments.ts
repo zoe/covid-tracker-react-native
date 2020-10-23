@@ -5,6 +5,7 @@ import { IUserService } from '@covid/core/user/UserService';
 
 export const experiments = {
   Experiment_001: 'Experiment_001', // Test alternative external callouts on UK Thank You Pags
+  Trend_Line_Launch: 'Trend_Line_Launch',
 };
 
 function hashToInt(s: string): number {

@@ -547,6 +547,7 @@
   "check-in-tomorrow": "Agradeceríamos que volviera a informarnos mañana, si puede hacerlo.",
   "check-news-feed": "Revise las novedades en nuestras <b>noticias</b> .",
   "faq-link": "https://covid.joinzoe.com/faq",
+  "thank-you-completed": "Listo",
 
   "rating": {
     "how-are-we-doing": "¿Cómo lo estamos haciendo?",
@@ -1219,7 +1220,29 @@
     "report-today": "Informe hoy, incluso si está bien",
     "report-now": "Informe ahora",
     "you-have-reported-x-times": "Has informado %{count} veces",
-    "contributors-so-far": "Colaboradores hasta ahora:"
+    "contributors-so-far": "Colaboradores hasta ahora:",
+
+    "trendline-card": {
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      },
+      "share-cta": ""
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "",
+    "delta-week": "",
+    "cta": ""
+  },
+
+  "search-lad": {
+    "input-label": "",
+    "input-placeholder": "",
+    "no-result": ""
   },
 
   "estimated-cases-card": {

@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { Root } from 'native-base';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
-import { UKEstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/UKEstimatedCaseCard';
+import { UKEstimatedCaseCard, TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMapCard';
 import { CollapsibleHeaderScrollView } from '@covid/features/dashboard/CollapsibleHeaderScrollView';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -17,8 +18,8 @@ import { shareAppV3, schoolNetworkFeature, infographicFacts } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
-import { useAppDispatch } from '@covid/core/state/store';
-import { updateTodayDate } from '@covid/core/content/state/contentSlice';
+import store, { useAppDispatch } from '@covid/core/state/store';
+import { ContentState, fetchLocalTrendLine, updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
@@ -29,8 +30,8 @@ import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
-const HEADER_EXPANDED_HEIGHT = 352;
-const HEADER_COLLAPSED_HEIGHT = 124;
+const HEADER_EXPANDED_HEIGHT = 328;
+const HEADER_COLLAPSED_HEIGHT = 100;
 
 interface Props {
   navigation: DrawerNavigationProp<ScreenParamList>;
@@ -45,6 +46,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     (state) => state.school.joinedSchoolNetworks
   );
 
+  const content = useSelector<RootState, Partial<ContentState> | undefined>((state) => ({
+    localTrendline: state.content.localTrendline,
+    startupInfo: state.content.startupInfo,
+  }));
+
+  const [showTrendline, setShowTrendline] = useState<boolean>(false);
+
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
     expanded: HEADER_EXPANDED_HEIGHT,
@@ -56,6 +64,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const onMoreDetails = async () => {
     openWebLink('https://covid.joinzoe.com/data');
+  };
+
+  const onExploreTrendline = async () => {
+    appCoordinator.goToTrendline();
   };
 
   const onShare = () => {
@@ -76,8 +88,26 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     return navigation.addListener('focus', () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
+      dispatch(fetchLocalTrendLine());
     });
   }, [navigation]);
+
+  // Fetch Trendline if needed after startup info has changed
+  useEffect(() => {
+    if (!content) return;
+    const { startupInfo, localTrendline } = content;
+    if (startupInfo?.local_data?.lad && !localTrendline) {
+      store.dispatch(fetchLocalTrendLine());
+    }
+  }, [content?.startupInfo]);
+
+  // Calculate trendline feature flag on trendline data changed
+  useEffect(() => {
+    (async () => {
+      const flag = await appCoordinator.shouldShowTrendLine();
+      setShowTrendline(flag);
+    })();
+  }, [content?.localTrendline]);
 
   const hasNetworkData = networks && networks.length > 0;
 
@@ -87,6 +117,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
           <ExternalCallout

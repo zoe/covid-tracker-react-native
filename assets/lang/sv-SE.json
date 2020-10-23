@@ -271,14 +271,14 @@
     "question-time-test-taken-error": "Ange tidpunkten för ditt möte",
     "question-pick-a-time": "Välj en tid",
 
-    "question-mechanism": "Hur utfördes testet?",
+    "question-mechanism": "Vilken typ av test gjorde du?",
     "picker-nose-swab": "En testpinne i näsan",
     "picker-throat-swab": "En testpinne i svalget",
     "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
     "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
     "picker-blood-sample": "Jag lämnade ett blodprov",
-    "picker-finger-prick": "Blodprov via ett stick i fingret",
-    "picker-blood-draw": "Blodprov med hjälp av en nål",
+    "picker-finger-prick": "Blodprov, stick i fingret (antikroppstest)",
+    "picker-blood-draw": "Blodprov i armvecket (antikroppstest)",
     "picker-other": "Annat sätt, ange vilket",
 
     "question-mechanism-specify": "Ange hur testet utfördes:",
@@ -301,7 +301,7 @@
       }
     },
 
-    "question-result": "Vad visar provsvaret?",
+    "question-result": "Ange provsvar",
     "picker-positive": "Positivt",
     "picker-negative": "Negativt",
     "picker-waiting": "Väntar på mina resultat",
@@ -365,8 +365,8 @@
     "required-headache-frequency": "Ange hur stor del av dagen du har haft huvudvärk",
     "question-has-sore-throat": "Har du ont i halsen?",
     "question-has-unusual-muscle-pains": "Har du mycket ont i musklerna?",
-    "question-other-symptoms": "Finns det några andra viktiga symtom som du vill berätta om?",
-    "placeholder-other-symptoms": "Andra symtom",
+    "question-other-symptoms": "Andra viktiga symtom eller troliga orsaker du vill berätta om?",
+    "placeholder-other-symptoms": "Annan information",
     "question-red-welts-on-face": "Har du haft upphöjda, röda, kliande utslag på huden eller har ditt ansikte eller dina läppar plötsligt svullnat upp?",
     "question-blisters-on-feet": "Har du haft några röda/lila sår eller blåsor på fötterna, inklusive tårna?",
     "question-has-nausea": "Har du känt dig illamående eller kräkts?",
@@ -378,7 +378,7 @@
 
   "where-are-you": {
     "question-location": "Var befinner du dig just nu?",
-    "picker-location-home": "Jag är hemma. Jag har inte uppsökt sjukvården pga misstänkt COVID-19.",
+    "picker-location-home": "Jag är hemma. Jag har inte haft kontakt med sjukvården pga att jag misstänker covid-19.",
     "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
     "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
     "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
@@ -468,12 +468,13 @@
     "button-text": "Dela appen"
   },
 
-  "thank-you-title": "Tack för att du fortsätter rapportera!",
+  "thank-you-title": "Tack för att du rapporterar!",
   "blog-link": "https://covid19app.lu.se/",
-  "thank-you-body": "Även om restriktionerna har lättat är ditt deltagande viktigare än någonsin i kampen mot covid-19.",
-  "check-in-tomorrow": "Om du har möjlighet uppskattar vi verkligen om du rapporterar hur du mår igen i morgon.",
+  "thank-you-body": "Vi har nu tagit emot dagens rapport. Ditt deltagande är viktigare än någonsin i kampen mot covid-19.",
+  "check-in-tomorrow": "Besök 1177.se om du har frågor som rör din hälsa eller covid-19.",
   "check-news-feed": "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
   "faq-link": "https://www.covid19app.lu.se/faq",
+  "thank-you-completed": "Startsida",
 
   "rating": {
     "how-are-we-doing": "Vad tycker du om vårt arbete?",
@@ -563,7 +564,7 @@
 
   "covid-test-list": {
     "title": "Dina covid-19-tester",
-    "text": "Om du har gjort ett covid-19-test någon gång, lägg till det nedan. Detta innefattar PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
+    "text": "Lägg till eventuellt covid-19-test nedan. Detta innefattar tester för pågående infektion, dvs. PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
     "add-new-test": "Lägg till nytt test",
     "positive": "Positivt",
     "negative": "Negativt",
@@ -608,7 +609,7 @@
 
   "face-mask": {
     "worn-a-mask-question": "Har du under den senaste veckan använt ett munskydd när du har lämnat ditt hem?",
-    "worn-a-mask-justification": "Varför frågar vi dig detta: Denna information kan hjälpa oss förstå om munskydd/andningsmasker minskar risken för covid-19-infektion. Det är helt frivilligt att svara på denna fråga.",
+    "worn-a-mask-justification": "Varför frågar vi dig detta: Dessa uppgifter kan hjälpa oss förstå hur social distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga men gör gärna en ungefärlig uppskattning av antalet gånger.",
     "never": "Aldrig",
     "sometimes": "Ibland",
     "most-of-the-time": "För det mesta",
@@ -1342,7 +1343,29 @@
     "report-today": "Rapportera idag, även om du har det bra",
     "report-now": "Rapportera nu",
     "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
-    "contributors-so-far": "Bidragsgivare hittills:"
+    "contributors-so-far": "Bidragsgivare hittills:",
+
+    "trendline-card": {
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      },
+      "share-cta": ""
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "",
+    "delta-week": "",
+    "cta": ""
+  },
+
+  "search-lad": {
+    "input-label": "",
+    "input-placeholder": "",
+    "no-result": ""
   },
 
   "estimated-cases-card": {
