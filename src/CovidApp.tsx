@@ -90,13 +90,13 @@ import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestCon
 import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDashboardScreen';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
-
-import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptomsScreen';
 import { HeadSymptomsScreen } from '@covid/features/assessment/HeadSymptomsScreen';
 import { ThroatChestSymptomsScreen } from '@covid/features/assessment/ThroatChestSymptomsScreen';
 import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachSymptomsScreen';
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
+
+import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();

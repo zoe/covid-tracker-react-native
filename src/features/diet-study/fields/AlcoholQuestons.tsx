@@ -1,6 +1,7 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -10,7 +11,6 @@ import { FieldWrapper } from '@covid/components/Screen';
 import { AlcoholFrequencyOptions, AlcoholUnitsOptions } from '@covid/core/diet-study/dto/DietStudyTypes';
 import DropdownField from '@covid/components/DropdownField';
 import { AlcoholUnitInfo } from '@covid/components/Cards/AlcoholUnitInfo';
-import { View } from 'react-native';
 
 export interface AlcoholData {
   alcoholFrequency: string;

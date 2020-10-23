@@ -23,7 +23,7 @@ type GutStomachSymptomsCheckBoxData = {
   skippedMeals: boolean;
 };
 
-type GutStomachSymptomsFollowUpData = {};
+type GutStomachSymptomsFollowUpData = any; //No follow up questions so type is unused.
 
 type Props = {
   formikProps: FormikProps<GutStomachSymptomsData>;

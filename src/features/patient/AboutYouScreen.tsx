@@ -4,6 +4,7 @@ import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
@@ -29,7 +30,6 @@ import { ScreenParamList } from '../ScreenParamList';
 import { HeightData, HeightQuestion } from './fields/HeightQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from './fields/RaceEthnicityQuestion';
 import { WeightData, WeightQuestion } from './fields/WeightQuestion';
-import { View } from 'react-native';
 
 const initialFormValues = {
   yearOfBirth: '',

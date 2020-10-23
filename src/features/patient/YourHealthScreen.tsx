@@ -4,6 +4,7 @@ import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
@@ -35,7 +36,6 @@ import {
   VitaminSupplementsQuestion,
 } from './fields/VitaminQuestion';
 import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
-import { View } from 'react-native';
 
 export interface YourHealthData
   extends BloodPressureData,
