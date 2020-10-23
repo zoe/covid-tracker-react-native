@@ -4,7 +4,7 @@ export default {
   apiBase: API_URL,
   amplitudeKey: AMPLITUDE_KEY,
 
-  assessmentVersion: '1.5.0',
+  assessmentVersion: '2.0.0',
   patientVersion: '1.6.0',
   covidTestVersion: '1.2.0',
   dietStudyVersion: '1.0.0',
