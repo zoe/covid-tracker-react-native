@@ -95,7 +95,7 @@ ThroatChestSymptomsQuestions.createAssessment = (
   formData: ThroatChestSymptomsData
 ): Partial<AssessmentInfosRequest> => {
   return {
-    sore_throat: formData.soreThroat, //TODO is new?
+    sore_throat: formData.soreThroat,
     swollen_glands: formData.swollenGlands,
     hoarse_voice: formData.hoarseVoice,
     persistent_cough: formData.persistentCough,

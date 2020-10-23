@@ -9,11 +9,8 @@ export type AssessmentInfosRequest = {
 
   health_status: string; //'healthy' for healthy as normal, 'not_healthy' for not feeling quite right
   fever: boolean; //defaults to False
-  chills_or_shivers: boolean; //defaults to False
   nausea: boolean; //defaults to False
   dizzy_light_headed: boolean; //defaults to False
-  temperature: number; //can be null
-  temperature_unit: string; //'C' for centigrade, 'F' for Fahrenheit
   persistent_cough: boolean; //defaults to False
   fatigue: string; //'no', 'mild' or 'severe', defaults to 'no'
   headache: boolean; // defaults to False
@@ -30,7 +27,6 @@ export type AssessmentInfosRequest = {
   other_symptoms: string;
 
   diarrhoea: boolean; //	defaults to False
-  diarrhoea_frequency: string; // 'one_to_two', 'three_to_four', 'five_or_more'
   unusual_muscle_pains: boolean; //	defaults to False
   delirium: boolean; //defaults to False
   skipped_meals: boolean; //defaults to False

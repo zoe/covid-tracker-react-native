@@ -92,7 +92,7 @@ HeadSymptomsQuestions.schema = () => {
   return Yup.object().shape({
     headacheFollowUp: Yup.string().when('headache', {
       is: true,
-      then: Yup.string().required(i18n.t('describe-symptoms.follow-up-required')),
+      then: Yup.string().required(i18n.t('describe-symptoms.required-headache-frequency')),
     }),
   });
 };
