@@ -163,7 +163,7 @@ const ConsentScreenSE: FC<PropsType> = ({ navigation, route, setAgreed }) => {
           'Lunds universitet, CRC,',
           'Jan Waldenströms gata 35, Malmö',
           'Tfn: 040-391149',
-          'covid-tracker@med.lu.se',
+          'covid-symptom-study@med.lu.se',
         ]}
         separator={'\n'}
       />
