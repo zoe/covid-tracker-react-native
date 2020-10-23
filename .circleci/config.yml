@@ -283,8 +283,8 @@ jobs:
       - restore_cache:
           key: *gem_cache_key
       - run: bundle install --path vendor/bundle --clean && cat android/gradle.properties
-      - run: brew install librsvg
-      - run: brew install imagemagick
+      - run: apt-get install -y librsvg
+      - run: apt-get install -y imagemagick
       - run:
           name: fastlane android release
           no_output_timeout: 60m
