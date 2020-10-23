@@ -102,6 +102,9 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('GutStomachSymptoms', { assessmentData: this.assessmentData });
     },
     GutStomachSymptoms: () => {
+      NavigatorService.navigate('OtherSymptoms', { assessmentData: this.assessmentData });
+    },
+    OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
   };

@@ -96,6 +96,7 @@ import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptom
 import { HeadSymptomsScreen } from '@covid/features/assessment/HeadSymptomsScreen';
 import { ThroatChestSymptomsScreen } from '@covid/features/assessment/ThroatChestSymptomsScreen';
 import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachSymptomsScreen';
+import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -253,6 +254,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="HeadSymptoms" component={HeadSymptomsScreen} options={noHeader} />
         <Stack.Screen name="ThroatChestSymptoms" component={ThroatChestSymptomsScreen} options={noHeader} />
         <Stack.Screen name="GutStomachSymptoms" component={GutStomachSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="OtherSymptoms" component={OtherSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
         <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />

@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
+import { Divider, HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -70,9 +70,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
         </Header>
 
-        <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={5} />
-        </ProgressBlock>
+        <Divider/>
 
         <>
           <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>

@@ -13,15 +13,11 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import {
-  ThroatChestSymptomsData,
-  ThroatChestSymptomsQuestions,
-} from '@covid/features/assessment/fields/ThroatChestSymptomsQuestions';
-
-import { ScreenParamList } from '../ScreenParamList';
-import {
   GutStomachSymptomsData,
   GutStomachSymptomsQuestions,
 } from '@covid/features/assessment/fields/GutStomachSymptomsQuestions';
+
+import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'GutStomachSymptoms'>;
@@ -43,11 +39,11 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
     <>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
-          <HeaderText>{i18n.t('describe-symptoms.throat-chest-symptoms')}</HeaderText>
+          <HeaderText>{i18n.t('describe-symptoms.gut-stomach-symptoms')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={4} maxSteps={5} />
+          <ProgressStatus step={4} maxSteps={6} />
         </ProgressBlock>
 
         <Formik
@@ -62,7 +58,7 @@ export const GutStomachSymptomsScreen: React.FC<Props> = ({ route, navigation })
                 <GutStomachSymptomsQuestions formikProps={props} />
                 <View style={{ flex: 1 }} />
                 <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('diet-study.next-section')}
+                  {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>
             );

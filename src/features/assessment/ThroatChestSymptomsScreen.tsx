@@ -43,7 +43,7 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={3} maxSteps={5} />
+          <ProgressStatus step={3} maxSteps={6} />
         </ProgressBlock>
 
         <Formik
@@ -58,7 +58,7 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
                 <ThroatChestSymptomsQuestions formikProps={props} />
                 <View style={{ flex: 1 }} />
                 <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
-                  {i18n.t('diet-study.next-section')}
+                  {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>
             );

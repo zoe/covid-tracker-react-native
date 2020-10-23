@@ -12,47 +12,47 @@ import { BrandedButton, HeaderText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
-import { HeadSymptomsData, HeadSymptomsQuestions } from '@covid/features/assessment/fields/HeadSymptomsQuestions';
+import { OtherSymptomsData, OtherSymptomsQuestions } from '@covid/features/assessment/fields/OtherSymptomsQuestions';
 
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'HeadSymptoms'>;
-  route: RouteProp<ScreenParamList, 'HeadSymptoms'>;
+  navigation: StackNavigationProp<ScreenParamList, 'OtherSymptoms'>;
+  route: RouteProp<ScreenParamList, 'OtherSymptoms'>;
 };
 
-export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
+export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (formData: HeadSymptomsData) => {
-    await assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
+  const handleSubmit = async (formData: OtherSymptomsData) => {
+    await assessmentService.saveAssessment(OtherSymptomsQuestions.createAssessment(formData));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 
-  const registerSchema = Yup.object().shape({}).concat(HeadSymptomsQuestions.schema());
+  const registerSchema = Yup.object().shape({}).concat(OtherSymptomsQuestions.schema());
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
     <>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
-          <HeaderText>{i18n.t('describe-symptoms.head-symptoms')}</HeaderText>
+          <HeaderText>{i18n.t('describe-symptoms.other-symptoms')}</HeaderText>
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={6} />
+          <ProgressStatus step={5} maxSteps={6} />
         </ProgressBlock>
 
         <Formik
           initialValues={{
-            ...HeadSymptomsQuestions.initialFormValues(),
+            ...OtherSymptomsQuestions.initialFormValues(),
           }}
           validationSchema={registerSchema}
-          onSubmit={(values: HeadSymptomsData) => handleSubmit(values)}>
+          onSubmit={(values: OtherSymptomsData) => handleSubmit(values)}>
           {(props) => {
             return (
               <Form style={{ flexGrow: 1 }}>
-                <HeadSymptomsQuestions formikProps={props} />
+                <OtherSymptomsQuestions formikProps={props} />
                 <View style={{ flex: 1 }} />
                 <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
                   {i18n.t('describe-symptoms.next')}

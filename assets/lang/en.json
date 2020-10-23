@@ -432,7 +432,10 @@
     "gut-stomach-abdominal-pain": "Unusual abdominal pain or stomach ache",
     "gut-stomach-nausea": "Nausea or vomiting",
     "gut-stomach-diarrhoea": "Diarrhoea",
-    "gut-stomach-skipped-meals": "Skipping meals"
+    "gut-stomach-skipped-meals": "Skipping meals",
+
+    "other-symptoms": "Any other important symptoms you want to share with us?",
+    "next": "Next"
   },
 
   "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
