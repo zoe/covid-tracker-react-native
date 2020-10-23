@@ -44,13 +44,15 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
         </CheckboxItem>
 
         {checkBoxData.followUp && props.values[checkBoxData.value] && (
-          <DropdownField
-            selectedValue={props.values[checkBoxData.followUp.value]}
-            onValueChange={props.handleChange(checkBoxData.followUp.value)}
-            label={checkBoxData.followUp.label}
-            items={checkBoxData.followUp.options}
-            error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
-          />
+          <View style={{ marginBottom: 16 }}>
+            <DropdownField
+              selectedValue={props.values[checkBoxData.followUp.value]}
+              onValueChange={props.handleChange(checkBoxData.followUp.value)}
+              label={checkBoxData.followUp.label}
+              items={checkBoxData.followUp.options}
+              error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
+            />
+          </View>
         )}
       </View>
     );

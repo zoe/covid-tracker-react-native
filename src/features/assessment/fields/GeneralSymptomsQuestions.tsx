@@ -59,7 +59,7 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
     { label: i18n.t('describe-symptoms.general-rash'), value: 'rash' },
     { label: i18n.t('describe-symptoms.general-foot-sores'), value: 'blisters' },
     { label: i18n.t('describe-symptoms.general-face-welts'), value: 'welts' },
-    { label: i18n.t('describe-symptoms.general-skin-burning'), value: 'skinBurning' }, //TODO is this new?
+    { label: i18n.t('describe-symptoms.general-skin-burning'), value: 'skinBurning' },
     { label: i18n.t('describe-symptoms.general-hair-loss'), value: 'hairLoss' },
     { label: i18n.t('describe-symptoms.general-muscle-pain'), value: 'musclePains' },
     { label: i18n.t('describe-symptoms.general-feeling-down'), value: 'feelingDown' },
