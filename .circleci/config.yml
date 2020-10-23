@@ -83,7 +83,7 @@ commands:
   prepare_code:
     steps:
       - checkout
-      - git clone https://github.com/zoe/covid-symptoms-study-assets private-assets
+      - run: git clone https://github.com/zoe/covid-symptoms-study-assets private-assets
       - restore_cache:
           key: *yarn_cache_key
       - restore_cache:
