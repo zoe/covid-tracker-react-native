@@ -194,3 +194,7 @@ web-build/
 ios/Pods/
 *.cer
 *.mobileprovision
+
+
+# Fonts
+android/app/src/main/assets/fonts/SofiaPro*.otf
