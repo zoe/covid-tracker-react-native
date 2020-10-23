@@ -298,143 +298,145 @@ export default class YourWorkScreen extends Component<YourWorkProps, State> {
             return (
               <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <Form>
-                  <DropdownField
-                    selectedValue={isHealthcareStaff}
-                    onValueChange={handleChange('isHealthcareStaff')}
-                    label={i18n.t('are-you-healthcare-staff')}
-                    items={healthcareStaffOptions}
-                    error={touched.isHealthcareStaff && errors.isHealthcareStaff}
-                  />
+                  <View style={{ marginHorizontal: 16 }}>
+                    <DropdownField
+                      selectedValue={isHealthcareStaff}
+                      onValueChange={handleChange('isHealthcareStaff')}
+                      label={i18n.t('are-you-healthcare-staff')}
+                      items={healthcareStaffOptions}
+                      error={touched.isHealthcareStaff && errors.isHealthcareStaff}
+                    />
 
-                  <YesNoField
-                    selectedValue={isCarer}
-                    onValueChange={handleChange('isCarer')}
-                    label={i18n.t('are-you-carer')}
-                    error={touched.isCarer && errors.isCarer}
-                  />
+                    <YesNoField
+                      selectedValue={isCarer}
+                      onValueChange={handleChange('isCarer')}
+                      label={i18n.t('are-you-carer')}
+                      error={touched.isCarer && errors.isCarer}
+                    />
 
-                  {/* if is healthcare worker question is yes */}
-                  {showWorkerAndCarerQuestions && (
-                    <View>
-                      <FieldWrapper>
-                        <Item stackedLabel style={styles.textItemStyle}>
-                          <Label>{i18n.t('label-physically-worked-in-places')}</Label>
+                    {/* if is healthcare worker question is yes */}
+                    {showWorkerAndCarerQuestions && (
+                      <View>
+                        <FieldWrapper>
+                          <Item stackedLabel style={styles.textItemStyle}>
+                            <Label>{i18n.t('label-physically-worked-in-places')}</Label>
 
-                          <CheckboxList>
-                            <CheckboxItem
-                              value={this.state.atHospitalInpatient}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atHospitalInpatient: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-hospital-inpatient')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atHospitalOutpatient}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atHospitalOutpatient: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-hospital-outpatient')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atClinicOutsideHospital}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atClinicOutsideHospital: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-clinic-outside-hospital')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atCareFacility}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atCareFacility: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-nursing-home')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atHomeHealth}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atHomeHealth: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-home-health')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atSchoolClinic}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atSchoolClinic: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-school-clinic')}
-                            </CheckboxItem>
-                            <CheckboxItem
-                              value={this.state.atOtherFacility}
-                              onChange={(value: boolean) =>
-                                this.setState({
-                                  atOtherFacility: value,
-                                })
-                              }>
-                              {i18n.t('your-work.worked-other-facility')}
-                            </CheckboxItem>
-                          </CheckboxList>
-                        </Item>
-                      </FieldWrapper>
+                            <CheckboxList>
+                              <CheckboxItem
+                                value={this.state.atHospitalInpatient}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atHospitalInpatient: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-hospital-inpatient')}
+                              </CheckboxItem>
+                              <CheckboxItem
+                                value={this.state.atHospitalOutpatient}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atHospitalOutpatient: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-hospital-outpatient')}
+                              </CheckboxItem>
+                              <CheckboxItem
+                                value={this.state.atClinicOutsideHospital}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atClinicOutsideHospital: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-clinic-outside-hospital')}
+                              </CheckboxItem>
+                              <CheckboxItem
+                                value={this.state.atCareFacility}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atCareFacility: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-nursing-home')}
+                              </CheckboxItem>
+                              <CheckboxItem
+                                value={this.state.atHomeHealth}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atHomeHealth: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-home-health')}
+                              </CheckboxItem>
+                              <CheckboxItem
+                                value={this.state.atSchoolClinic}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atSchoolClinic: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-school-clinic')}
+                              </CheckboxItem>
+                              <CheckboxItem
+                                value={this.state.atOtherFacility}
+                                onChange={(value: boolean) =>
+                                  this.setState({
+                                    atOtherFacility: value,
+                                  })
+                                }>
+                                {i18n.t('your-work.worked-other-facility')}
+                              </CheckboxItem>
+                            </CheckboxList>
+                          </Item>
+                        </FieldWrapper>
 
-                      <DropdownField
-                        selectedValue={hasPatientInteraction}
-                        onValueChange={handleChange('hasPatientInteraction')}
-                        label={i18n.t('label-interacted-with-infected-patients')}
-                        items={patientInteractionOptions}
-                        error={touched.hasPatientInteraction && errors.hasPatientInteraction}
-                      />
-
-                      <DropdownField
-                        selectedValue={hasUsedPPEEquipment}
-                        onValueChange={handleChange('hasUsedPPEEquipment')}
-                        label={i18n.t('label-used-ppe-equipment')}
-                        items={equipmentUsageOptions}
-                        error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
-                      />
-
-                      {hasUsedPPEEquipment === 'always' && (
                         <DropdownField
-                          selectedValue={ppeAvailabilityAlways}
-                          onValueChange={handleChange('ppeAvailabilityAlways')}
-                          label={i18n.t('label-chose-an-option')}
-                          items={availabilityAlwaysOptions}
-                          error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
+                          selectedValue={hasPatientInteraction}
+                          onValueChange={handleChange('hasPatientInteraction')}
+                          label={i18n.t('label-interacted-with-infected-patients')}
+                          items={patientInteractionOptions}
+                          error={touched.hasPatientInteraction && errors.hasPatientInteraction}
                         />
-                      )}
 
-                      {hasUsedPPEEquipment === 'sometimes' && (
                         <DropdownField
-                          selectedValue={ppeAvailabilitySometimes}
-                          onValueChange={handleChange('ppeAvailabilitySometimes')}
-                          label={i18n.t('label-chose-an-option')}
-                          items={availabilitySometimesOptions}
-                          error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
+                          selectedValue={hasUsedPPEEquipment}
+                          onValueChange={handleChange('hasUsedPPEEquipment')}
+                          label={i18n.t('label-used-ppe-equipment')}
+                          items={equipmentUsageOptions}
+                          error={touched.hasUsedPPEEquipment && errors.hasUsedPPEEquipment}
                         />
-                      )}
 
-                      {hasUsedPPEEquipment === 'never' && (
-                        <DropdownField
-                          selectedValue={ppeAvailabilityNever}
-                          onValueChange={handleChange('ppeAvailabilityNever')}
-                          label={i18n.t('label-chose-an-option')}
-                          items={availabilityNeverOptions}
-                          error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
-                        />
-                      )}
-                    </View>
-                  )}
+                        {hasUsedPPEEquipment === 'always' && (
+                          <DropdownField
+                            selectedValue={ppeAvailabilityAlways}
+                            onValueChange={handleChange('ppeAvailabilityAlways')}
+                            label={i18n.t('label-chose-an-option')}
+                            items={availabilityAlwaysOptions}
+                            error={touched.ppeAvailabilityAlways && errors.ppeAvailabilityAlways}
+                          />
+                        )}
+
+                        {hasUsedPPEEquipment === 'sometimes' && (
+                          <DropdownField
+                            selectedValue={ppeAvailabilitySometimes}
+                            onValueChange={handleChange('ppeAvailabilitySometimes')}
+                            label={i18n.t('label-chose-an-option')}
+                            items={availabilitySometimesOptions}
+                            error={touched.ppeAvailabilitySometimes && errors.ppeAvailabilitySometimes}
+                          />
+                        )}
+
+                        {hasUsedPPEEquipment === 'never' && (
+                          <DropdownField
+                            selectedValue={ppeAvailabilityNever}
+                            onValueChange={handleChange('ppeAvailabilityNever')}
+                            label={i18n.t('label-chose-an-option')}
+                            items={availabilityNeverOptions}
+                            error={touched.ppeAvailabilityNever && errors.ppeAvailabilityNever}
+                          />
+                        )}
+                      </View>
+                    )}
+                  </View>
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(errors).length && props.submitCount > 0 && (

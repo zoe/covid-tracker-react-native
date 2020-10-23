@@ -49,6 +49,5 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
 });

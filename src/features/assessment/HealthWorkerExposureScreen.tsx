@@ -175,7 +175,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                   />
 
                   {!!props.values.interactedAnyPatients && props.values.interactedAnyPatients === 'yes' && (
-                    <>
+                    <View style={{ marginHorizontal: 16 }}>
                       <DropdownField
                         selectedValue={props.values.treatedPatientsWithCovid}
                         onValueChange={props.handleChange('treatedPatientsWithCovid')}
@@ -216,7 +216,7 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
                           items={availabilityNeverOptions}
                         />
                       )}
-                    </>
+                    </View>
                   )}
                 </View>
 

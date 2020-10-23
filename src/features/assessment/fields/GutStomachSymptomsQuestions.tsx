@@ -5,7 +5,7 @@ import { Item } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { FieldLabel } from '@covid/components/Text';
+import { FieldLabel, RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
@@ -41,10 +41,8 @@ export const GutStomachSymptomsQuestions: SymptomQuestions<Props, GutStomachSymp
 
   return (
     <View style={{ marginVertical: 16 }}>
-      <FieldLabel style={{ paddingVertical: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</FieldLabel>
-      <Item stackedLabel style={styles.textItemStyle}>
-        <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
-      </Item>
+      <RegularText style={{ paddingTop: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</RegularText>
+      <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>
   );
 };
@@ -70,9 +68,3 @@ GutStomachSymptomsQuestions.createAssessment = (formData: GutStomachSymptomsData
     skipped_meals: formData.skippedMeals,
   };
 };
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});

@@ -1,12 +1,13 @@
 import { FormikProps } from 'formik';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
 import { FieldWrapper } from '@covid/components/Screen';
 import { ValidationError } from '@covid/components/ValidationError';
 import i18n from '@covid/locale/i18n';
+import { RegularText } from '@covid/components/Text';
 
 export interface HormoneTreatmentData {
   hormoneTreatment: string[];
@@ -127,12 +128,12 @@ export class HormoneTreatmentQuestion extends Component<Props, object> {
     const formikProps = this.props.formikProps;
     return (
       <FieldWrapper>
-        <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('your-health.label-taking-hormone-treatment')}</Label>
+        <View style={styles.textItemStyle}>
+          <RegularText>{i18n.t('your-health.label-taking-hormone-treatment')}</RegularText>
           <CheckboxList>
             {createTreatmentCheckboxes(this.HormoneTreatmentCheckboxes, this.props.formikProps)}
           </CheckboxList>
-        </Item>
+        </View>
         {!!formikProps.errors.hormoneTreatment && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.hormoneTreatment as string} />
         )}

@@ -10,6 +10,7 @@ import { FieldWrapper } from '@covid/components/Screen';
 import { AlcoholFrequencyOptions, AlcoholUnitsOptions } from '@covid/core/diet-study/dto/DietStudyTypes';
 import DropdownField from '@covid/components/DropdownField';
 import { AlcoholUnitInfo } from '@covid/components/Cards/AlcoholUnitInfo';
+import { View } from 'react-native';
 
 export interface AlcoholData {
   alcoholFrequency: string;
@@ -85,7 +86,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
 
   return (
     <>
-      <FieldWrapper>
+      <FieldWrapper style={{ marginHorizontal: 16 }}>
         <FieldLabel>{i18n.t('diet-study.alcohol-frequency.label')}</FieldLabel>
         <DropdownField
           selectedValue={formikProps.values.alcoholFrequency}
@@ -97,8 +98,8 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
 
       {formikProps.values.alcoholFrequency !== '' &&
         formikProps.values.alcoholFrequency !== AlcoholFrequencyOptions.NEVER && (
-          <>
-            <AlcoholUnitInfo style={{ marginHorizontal: 16 }} />
+          <View style={{ marginHorizontal: 16 }}>
+            <AlcoholUnitInfo />
             <FieldWrapper>
               <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>
               <DropdownField
@@ -108,7 +109,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
                 items={unitsItems}
               />
             </FieldWrapper>
-          </>
+          </View>
         )}
     </>
   );

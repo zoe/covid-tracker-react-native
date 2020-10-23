@@ -21,9 +21,8 @@ export const OtherSymptomsQuestions: SymptomQuestions<Props, OtherSymptomsData> 
   const { formikProps } = props;
 
   return (
-    <FieldWrapper style={{ margin: 16, marginTop: 32 }}>
+    <FieldWrapper style={{ marginTop: 32 }}>
       <Textarea
-        style={styles.textarea}
         rowSpan={5}
         bordered
         placeholder={i18n.t('placeholder-optional-question')}
@@ -50,9 +49,3 @@ OtherSymptomsQuestions.createAssessment = (formData: OtherSymptomsData): Partial
     other_symptoms: formData.otherSymptoms,
   };
 };
-
-const styles = StyleSheet.create({
-  textarea: {
-    width: '100%',
-  },
-});

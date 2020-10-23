@@ -55,7 +55,10 @@ export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }
           {(props) => {
             return (
               <Form style={{ flexGrow: 1 }}>
-                <ThroatChestSymptomsQuestions formikProps={props} />
+                <View style={{ marginHorizontal: 16 }}>
+                  <ThroatChestSymptomsQuestions formikProps={props} />
+                </View>
+
                 <View style={{ flex: 1 }} />
                 <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
                   {i18n.t('describe-symptoms.next')}

@@ -126,7 +126,6 @@ WeightQuestion.schema = () => {
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
 
   fieldRow: {
