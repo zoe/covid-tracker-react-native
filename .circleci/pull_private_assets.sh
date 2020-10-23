@@ -6,7 +6,7 @@ rm -rf .private-assets
 git clone git@github.com:zoe/covid-symptoms-study-assets.git .private-assets
 
 mkdir -p .private-assets
-mkdir -p assets/fonts/
+mkdir -p assets/fonts
 
 # Copy assets into iOS folders
 cp -f .private-assets/assets/fonts/SofiaPro*.otf assets/fonts/
