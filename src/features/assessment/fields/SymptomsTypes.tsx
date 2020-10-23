@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { PickerItemProps } from 'react-native';
+import { PickerItemProps, View } from 'react-native';
 import { FormikProps } from 'formik';
 
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
@@ -34,9 +34,8 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
 ): JSX.Element[] {
   return data.map((checkBoxData) => {
     return (
-      <>
+      <View key={checkBoxData.value}>
         <CheckboxItem
-          key={checkBoxData.value}
           value={props.values[checkBoxData.value]}
           onChange={(checked: boolean) => {
             props.setFieldValue(checkBoxData.value, checked);
@@ -53,7 +52,7 @@ export function createSymptomCheckboxes<T extends BoolObject, F extends StringOb
             error={props.touched[checkBoxData.followUp.value] && props.errors[checkBoxData.followUp.value]}
           />
         )}
-      </>
+      </View>
     );
   });
 }

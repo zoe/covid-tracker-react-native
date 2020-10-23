@@ -51,9 +51,8 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
         label: i18n.t('describe-symptoms.general-fatigue-follow-up'),
         value: 'fatigueFollowUp',
         options: [
-          { label: i18n.t('describe-symptoms.general-fatigue-mild'), value: 'mild' },
-          { label: i18n.t('describe-symptoms.general-fatigue-severe'), value: 'severe' },
-          { label: i18n.t('describe-symptoms.general-fatigue-struggle'), value: 'extreme' },
+          { label: i18n.t('describe-symptoms.picker-fatigue-mild'), value: 'mild' },
+          { label: i18n.t('describe-symptoms.picker-fatigue-severe'), value: 'severe' },
         ],
       },
     },

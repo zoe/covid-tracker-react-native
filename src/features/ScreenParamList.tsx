@@ -68,6 +68,7 @@ export type ScreenParamList = {
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
   GeneralSymptoms: { assessmentData: AssessmentData };
+  HeadSymptoms: { assessmentData: AssessmentData };
 
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };

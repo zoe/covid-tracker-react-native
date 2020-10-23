@@ -54,9 +54,15 @@ export type AssessmentInfosRequest = {
   current_postcode: string;
   current_country_code: string;
 
-  rash: boolean; //defaults to False
-  skin_burning: boolean; //defaults to False
-  hair_loss: boolean; //defaults to False
-  feeling_down: boolean; //defaults to False
-  brain_fog: boolean; //defaults to False
+  //defaults to False
+  rash: boolean;
+  skin_burning: boolean;
+  hair_loss: boolean;
+  feeling_down: boolean;
+  brain_fog: boolean;
+  altered_smell: boolean;
+  runny_nose: boolean;
+  sneezing: boolean;
+  earache: boolean;
+  ear_ringing: boolean;
 };
