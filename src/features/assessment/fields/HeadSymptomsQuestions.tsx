@@ -44,7 +44,7 @@ export const HeadSymptomsQuestions: SymptomQuestions<Props, HeadSymptomsData> = 
       label: i18n.t('describe-symptoms.head-headache'),
       value: 'headache',
       followUp: {
-        label: i18n.t('describe-symptoms.general-fatigue-follow-up'),
+        label: i18n.t('describe-symptoms.head-headache-follow-up'),
         value: 'headacheFollowUp',
         options: [
           { label: i18n.t('describe-symptoms.picker-headache-frequency-allday'), value: 'all_of_the_day' },
