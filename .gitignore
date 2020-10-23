@@ -194,3 +194,15 @@ web-build/
 ios/Pods/
 *.cer
 *.mobileprovision
+
+#fonts
+/assets/fonts
+/android/app/src/main/assets/fonts/SofiaPro-Black.otf
+/android/app/src/main/assets/fonts/SofiaPro-Bold.otf
+/android/app/src/main/assets/fonts/SofiaPro-ExtraLight.otf
+/android/app/src/main/assets/fonts/SofiaPro-Light.otf
+/android/app/src/main/assets/fonts/SofiaPro-Medium.otf
+/android/app/src/main/assets/fonts/SofiaPro-SemiBold.otf
+/android/app/src/main/assets/fonts/SofiaPro-UltraLight.otf
+/android/app/src/main/assets/fonts/SofiaProRegular.otf
+
