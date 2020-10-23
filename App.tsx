@@ -17,14 +17,14 @@ const ENABLE_STORYBOOK = false;
 const App: React.FC = () => {
   const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
   const [fontsLoaded] = useFonts({
-    sofiaProBlack: require('./assets/fonts/SofiaPro-Black.otf'),
-    sofiaProBold: require('./assets/fonts/SofiaPro-Bold.otf'),
-    sofiaProExtraLight: require('./assets/fonts/SofiaPro-ExtraLight.otf'),
-    sofiaProLight: require('./assets/fonts/SofiaPro-Light.otf'),
-    sofiaProMedium: require('./assets/fonts/SofiaPro-Medium.otf'),
-    sofiaProSemiBold: require('./assets/fonts/SofiaPro-SemiBold.otf'),
-    sofiaProUltraLight: require('./assets/fonts/SofiaPro-UltraLight.otf'),
-    sofiaProRegular: require('./assets/fonts/SofiaProRegular.otf'),
+    sofiaProBlack: require('@assets/fonts/SofiaPro-Black.otf'),
+    sofiaProBold: require('@assets/fonts/SofiaPro-Bold.otf'),
+    sofiaProExtraLight: require('@assets/fonts/SofiaPro-ExtraLight.otf'),
+    sofiaProLight: require('@assets/fonts/SofiaPro-Light.otf'),
+    sofiaProMedium: require('@assets/fonts/SofiaPro-Medium.otf'),
+    sofiaProSemiBold: require('@assets/fonts/SofiaPro-SemiBold.otf'),
+    sofiaProUltraLight: require('@assets/fonts/SofiaPro-UltraLight.otf'),
+    sofiaProRegular: require('@assets/fonts/SofiaProRegular.otf'),
   });
   SplashScreen.hide();
   return (
