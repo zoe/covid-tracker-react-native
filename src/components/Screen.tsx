@@ -64,6 +64,8 @@ export type ScreenProps = {
   calloutType?: CallOutType;
   calloutTitle?: string;
   showBackButton?: boolean;
+  extendEdges?: boolean;
+  scrollEnabled?: boolean;
 };
 
 export default class Screen extends Component<ScreenProps> {
@@ -72,6 +74,8 @@ export default class Screen extends Component<ScreenProps> {
 
   render() {
     const profile = this.props.profile;
+
+    const scrollEnabled = this.props.scrollEnabled === undefined ? true : this.props.scrollEnabled;
 
     const header = () => {
       if (profile && this.props.navigation) {
@@ -86,6 +90,8 @@ export default class Screen extends Component<ScreenProps> {
         );
       } else if (this.props.navigation && this.props.showBackButton) {
         return <NavHeader navigation={this.props.navigation} />;
+      } else if (this.props.extendEdges) {
+        return <View />;
       } else {
         return <View style={styles.statusBarBlock} />;
       }
@@ -95,13 +101,16 @@ export default class Screen extends Component<ScreenProps> {
       <SafeAreaView style={[styles.screen, this.props.style]}>
         {header()}
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: 'space-between',
-            }}>
-            <View style={styles.pageBlock}>{this.props.children}</View>
-          </ScrollView>
+          {!scrollEnabled && <View style={styles.pageBlock}>{this.props.children}</View>}
+          {scrollEnabled && (
+            <ScrollView
+              contentContainerStyle={{
+                flexGrow: 1,
+                justifyContent: 'space-between',
+              }}>
+              <View style={styles.pageBlock}>{this.props.children}</View>
+            </ScrollView>
+          )}
         </KeyboardAvoidingView>
       </SafeAreaView>
     );

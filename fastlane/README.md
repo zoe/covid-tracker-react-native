@@ -20,6 +20,16 @@ or alternatively using `brew install fastlane`
 fastlane bump
 ```
 Bump build numbers, and set the version to match the pacakage.json version.
+### get_expo_release_channel
+```
+fastlane get_expo_release_channel
+```
+Get Expo OTA release channel name
+### generate_beta_icons
+```
+fastlane generate_beta_icons
+```
+Create Beta icons
 ### get_version_no
 ```
 fastlane get_version_no
@@ -34,11 +44,16 @@ fastlane release_notes
 ----
 
 ## Android
-### android staging_android
+### android release
 ```
-fastlane android staging_android
+fastlane android release
 ```
 Build Android Staging
+### android appcenter
+```
+fastlane android appcenter
+```
+
 
 ----
 

@@ -5,12 +5,17 @@ import { IUserService } from '@covid/core/user/UserService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
-import { ILocalisationService, isSECountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import {
+  ILocalisationService,
+  isGBCountry,
+  isSECountry,
+  isUSCountry,
+} from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { Coordinator, ScreenFlow } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -55,13 +60,16 @@ export class AssessmentCoordinator extends Coordinator {
       this.gotoEndAssessment();
     },
     ViralThankYou: () => {
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.goBack();
     },
     ThankYouUK: () => {
-      NavigatorService.reset([{ name: 'Dashboard' }]);
+      NavigatorService.goBack();
     },
     ThankYou: () => {
-      NavigatorService.reset([{ name: 'WelcomeRepeat' }]);
+      NavigatorService.goBack();
+    },
+    ReportForOther: () => {
+      this.goToThankYouScreen();
     },
   };
 
@@ -104,8 +112,7 @@ export class AssessmentCoordinator extends Coordinator {
     if (await AssessmentCoordinator.shouldShowReportForOthers(config, this.profileService)) {
       NavigatorService.navigate('ReportForOther');
     } else {
-      const thankYouScreen = AssessmentCoordinator.getThankYouScreen();
-      NavigatorService.navigate(thankYouScreen);
+      this.goToThankYouScreen();
     }
   };
 
@@ -146,10 +153,6 @@ export class AssessmentCoordinator extends Coordinator {
     );
   }
 
-  static getThankYouScreen = (): keyof ScreenParamList => {
-    return isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
-  };
-
   static async shouldShowReportForOthers(config: ConfigType, profileService: IProfileService) {
     return (
       config.enableMultiplePatients &&
@@ -177,6 +180,27 @@ export class AssessmentCoordinator extends Coordinator {
 
   goToTestConfirm(test: CovidTest) {
     NavigatorService.navigate('CovidTestConfirm', { assessmentData: this.assessmentData, test });
+  }
+
+  goToThankYouScreen() {
+    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
+    const thankYouScreen = isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
+    NavigatorService.reset([{ name: homeScreen }, { name: thankYouScreen }], 1);
+  }
+
+  resetToCreateProfile() {
+    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
+    NavigatorService.reset(
+      [
+        { name: homeScreen },
+        {
+          name: 'SelectProfile',
+          params: { editing: true },
+        },
+        { name: 'CreateProfile', params: { avatarName: 'profile2' } },
+      ],
+      2
+    );
   }
 }
 
