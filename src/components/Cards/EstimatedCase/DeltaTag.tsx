@@ -30,7 +30,7 @@ export const DeltaTag: React.FC<Props> = ({ change }) => {
         };
       case DeltaChange.down:
         return {
-          text: `${i18n.t('dashboard.trendline-card.delta.down')} ${change}`,
+          text: `${i18n.t('dashboard.trendline-card.delta.down')} ${Math.abs(change)}`,
           icon: <ArrowDown style={styles.icon} />,
           color: styles.down,
         };
