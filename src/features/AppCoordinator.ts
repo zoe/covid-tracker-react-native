@@ -26,7 +26,6 @@ import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import store from '@covid/core/state/store';
 import {
-  ContentState,
   fetchDismissedCallouts,
   fetchLocalTrendLine,
   fetchStartUpInfo,
@@ -36,7 +35,6 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { PayloadAction } from '@reduxjs/toolkit';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
