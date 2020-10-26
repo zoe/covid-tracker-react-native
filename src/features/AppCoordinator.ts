@@ -26,15 +26,17 @@ import { PatientData } from '@covid/core/patient/PatientData';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
 import store from '@covid/core/state/store';
 import {
+  ContentState,
   fetchDismissedCallouts,
-  fetchStartUpInfo,
   fetchLocalTrendLine,
+  fetchStartUpInfo,
   fetchUKMetrics,
 } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
-import { experiments, startExperiment, assignCohort, Cohorts, TrendLineCohort } from '@covid/core/Experiments';
+import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -305,17 +307,24 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
   async shouldShowTrendLine(): Promise<boolean> {
     const user = await this.userService.getUser();
-    const { startupInfo, localTrendline } = store.getState().content;
+    const { startupInfo } = store.getState().content;
 
-    // Check feature flag
+    // Check feature flag (BE should check does user have LAD, is missing LAD will return false)
     if (startupInfo && !startupInfo.show_trendline) {
       return false;
     }
 
-    // Check does user has trendline data for their lad
-    const hasTrendLineData = localTrendline?.timeseries && localTrendline?.timeseries.length > 0;
+    if (!startupInfo?.local_data?.lad) { return false; }
 
-    return hasTrendLineData ?? false;
+    // Check does local trendline has enough data
+    try {
+      const result = await store.dispatch(fetchLocalTrendLine());
+      // TODO: Warning this is not typed. Need to look into typing with async thunk
+      const localTrendline = result.payload as ITrendLineData;
+      return !!localTrendline?.timeseries && localTrendline?.timeseries?.length > 0;
+    } catch (error) {
+      return false;
+    }
   }
 
   goToVaccineRegistry() {
