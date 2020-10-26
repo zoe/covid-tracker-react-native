@@ -8,6 +8,21 @@ export const experiments = {
   Trend_Line_Launch: 'Trend_Line_Launch',
 };
 
+export enum Cohorts {
+  PersonalizedMap = 'Personalized map',
+  TrendLine = 'Trend line',
+}
+
+export enum PersonalizedMapCohort {
+  WithLAD = 'With LAD',
+  MissingLAD = 'Missing LAD',
+}
+
+export enum TrendLineCohort {
+  WithTrendLine = 'With trend line',
+  MissingTrendline = 'Missing trend line',
+}
+
 function hashToInt(s: string): number {
   // Implementation of a quick and evenly spread hash to an integer:
   // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
@@ -36,4 +51,13 @@ export async function startExperiment(experimentName: string, totalVariants: num
   payload[experimentName] = variant;
   Analytics.identify(payload);
   return variant;
+}
+
+export async function assignCohort(cohort: string, group: string) {
+  const profile = await container.get<IUserService>(Services.User).getUser();
+  if (!profile || !cohort || !group) return null;
+
+  const payload: { [index: string]: string } = {};
+  payload[cohort] = group;
+  Analytics.identify(payload);
 }

@@ -34,7 +34,7 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
-import { experiments, startExperiment } from '@covid/core/Experiments';
+import { experiments, startExperiment, assignCohort, Cohorts, TrendLineCohort } from '@covid/core/Experiments';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -314,13 +314,8 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
     // Check does user has trendline data for their lad
     const hasTrendLineData = localTrendline?.timeseries && localTrendline?.timeseries.length > 0;
-    if (!hasTrendLineData) {
-      return false;
-    }
 
-    // Start A/B testing if they are within criteria
-    const variant = await startExperiment(experiments.Trend_Line_Launch, 2);
-    return variant === 'variant_1' || user?.is_tester === true;
+    return hasTrendLineData ?? false;
   }
 
   goToVaccineRegistry() {
