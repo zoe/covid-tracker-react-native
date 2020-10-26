@@ -152,7 +152,7 @@ export const contentSlice = createSlice({
       current.personalizedLocalData = personalizedLocalData;
 
       // Set Cohort for Personalized map
-      const cohort = startupInfo?.local_data.lad ? PersonalizedMapCohort.WithLAD : PersonalizedMapCohort.MissingLAD;
+      const cohort = startupInfo?.local_data?.lad ? PersonalizedMapCohort.WithLAD : PersonalizedMapCohort.MissingLAD;
       assignCohort(Cohorts.PersonalizedMap, cohort);
     },
 
