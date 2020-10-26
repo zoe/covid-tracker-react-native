@@ -89,7 +89,11 @@ export const fetchUKMetrics = createAsyncThunk(
   }
 );
 
-export const fetchLocalTrendLine = createAsyncThunk(
+export type FetchLocalTrendlinePayload = {
+  localTrendline: ITrendLineData;
+};
+
+export const fetchLocalTrendLine = createAsyncThunk<Promise<Partial<ContentState>>>(
   'content/fetch_local_trend_line',
   async (): Promise<Partial<ContentState>> => {
     const service = container.get<IContentService>(Services.Content);
@@ -100,7 +104,7 @@ export const fetchLocalTrendLine = createAsyncThunk(
         timeseries,
         ...trendline,
       },
-    };
+    } as Partial<ContentState>;
   }
 );
 
@@ -152,7 +156,7 @@ export const contentSlice = createSlice({
       current.personalizedLocalData = personalizedLocalData;
 
       // Set Cohort for Personalized map
-      const cohort = startupInfo?.local_data.lad ? PersonalizedMapCohort.WithLAD : PersonalizedMapCohort.MissingLAD;
+      const cohort = startupInfo?.local_data?.lad ? PersonalizedMapCohort.WithLAD : PersonalizedMapCohort.MissingLAD;
       assignCohort(Cohorts.PersonalizedMap, cohort);
     },
 
