@@ -27,14 +27,14 @@ import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/E
 import store from '@covid/core/state/store';
 import {
   fetchDismissedCallouts,
-  fetchStartUpInfo,
   fetchLocalTrendLine,
+  FetchLocalTrendlinePayload,
+  fetchStartUpInfo,
   fetchUKMetrics,
 } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
-import { experiments, startExperiment } from '@covid/core/Experiments';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -305,22 +305,33 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
 
   async shouldShowTrendLine(): Promise<boolean> {
     const user = await this.userService.getUser();
-    const { startupInfo, localTrendline } = store.getState().content;
+    const { startupInfo } = store.getState().content;
 
-    // Check feature flag
+    // Check feature flag (BE should check does user have LAD, is missing LAD will return false)
     if (startupInfo && !startupInfo.show_trendline) {
       return false;
     }
 
-    // Check does user has trendline data for their lad
-    const hasTrendLineData = localTrendline?.timeseries && localTrendline?.timeseries.length > 0;
-    if (!hasTrendLineData) {
+    if (!startupInfo?.local_data?.lad) {
       return false;
     }
 
-    // Start A/B testing if they are within criteria
-    const variant = await startExperiment(experiments.Trend_Line_Launch, 2);
-    return variant === 'variant_1' || user?.is_tester === true;
+    // Check does local trendline has enough data
+    try {
+      const result = await store.dispatch(fetchLocalTrendLine());
+
+      // TODO: Warning this is not typed. Need to look into typing with async thunk
+      const { localTrendline } = result.payload as FetchLocalTrendlinePayload;
+
+      // Double check local trendline results
+      if (!result || !localTrendline) {
+        return false;
+      }
+
+      return !!localTrendline.timeseries && localTrendline.timeseries?.length > 0;
+    } catch (error) {
+      return false;
+    }
   }
 
   goToVaccineRegistry() {
