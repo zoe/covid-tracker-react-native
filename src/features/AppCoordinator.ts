@@ -28,13 +28,13 @@ import store from '@covid/core/state/store';
 import {
   fetchDismissedCallouts,
   fetchLocalTrendLine,
+  FetchLocalTrendlinePayload,
   fetchStartUpInfo,
   fetchUKMetrics,
 } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
-import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -312,14 +312,23 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
       return false;
     }
 
-    if (!startupInfo?.local_data?.lad) { return false; }
+    if (!startupInfo?.local_data?.lad) {
+      return false;
+    }
 
     // Check does local trendline has enough data
     try {
       const result = await store.dispatch(fetchLocalTrendLine());
+
       // TODO: Warning this is not typed. Need to look into typing with async thunk
-      const localTrendline = result.payload as ITrendLineData;
-      return !!localTrendline?.timeseries && localTrendline?.timeseries?.length > 0;
+      const { localTrendline } = result.payload as FetchLocalTrendlinePayload;
+
+      // Double check local trendline results
+      if (!result || !localTrendline) {
+        return false;
+      }
+
+      return !!localTrendline.timeseries && localTrendline.timeseries?.length > 0;
     } catch (error) {
       return false;
     }
