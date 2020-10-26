@@ -8,7 +8,7 @@ import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { ITrendLineData, ITrendLineTimeSeriesData } from '@covid/core/content/dto/ContentAPIContracts';
-import store from '@covid/core/state/store';
+import { Cohorts, TrendLineCohort, PersonalizedMapCohort, assignCohort } from '@covid/core/Experiments';
 
 // State interface
 
@@ -150,6 +150,10 @@ export const contentSlice = createSlice({
       const { startupInfo, personalizedLocalData } = action.payload;
       current.startupInfo = startupInfo;
       current.personalizedLocalData = personalizedLocalData;
+
+      // Set Cohort for Personalized map
+      const cohort = startupInfo?.local_data.lad ? PersonalizedMapCohort.WithLAD : PersonalizedMapCohort.MissingLAD;
+      assignCohort(Cohorts.PersonalizedMap, cohort);
     },
 
     // DismissedCallouts reducer
@@ -173,8 +177,14 @@ export const contentSlice = createSlice({
 
     // Trendline data
     [fetchLocalTrendLine.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      const localTrendline = action.payload?.localTrendline;
       current.localTrendline = action.payload?.localTrendline;
       current.exploreTrendline = action.payload?.localTrendline;
+
+      // Set Cohort for Trendline
+      const hasTrendLineData = localTrendline?.timeseries && localTrendline?.timeseries.length > 0;
+      const cohort = hasTrendLineData ? TrendLineCohort.WithTrendLine : TrendLineCohort.MissingTrendline;
+      assignCohort(Cohorts.TrendLine, cohort);
     },
 
     [searchTrendLine.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
