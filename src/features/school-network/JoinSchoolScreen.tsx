@@ -15,7 +15,6 @@ import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { Button } from '@covid/components/Buttons/Button';
-import DropdownField from '@covid/components/DropdownField';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
@@ -44,7 +43,9 @@ enum InputMode {
 
 const validationSchema = () => {
   return Yup.object().shape({
-    schoolId: Yup.string().required(i18n.t('validation-error-text-required')),
+    schoolId: Yup.string()
+      .required('Please enter your school code.')
+      .matches(/^[a-zA-Z0-9_-]{7}$/, 'Code contains seven characters'),
   });
 };
 
@@ -61,11 +62,6 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
   const currentPatient = route.params.patientData.patientState;
 
-  const getSchoolPickerItems = schools.map<PickerItemProps>((s) => ({
-    label: s.name,
-    value: s.id,
-  }));
-
   useEffect(() => {
     (async () => {
       const schools = await service.getSchools();
@@ -74,16 +70,8 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
   }, []);
 
   const onSubmit = async (schoolData: JoinSchoolData) => {
-    const selectedSchool = schools.find((school) => school.id === schoolData.schoolId)!;
-    await schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
-
-    if (selectedSchool.higher_education) {
-      NavigatorService.goBack();
-    } else if (!currentJoinedGroup) {
-      schoolNetworkCoordinator.goToJoinGroup();
-    } else {
-      schoolNetworkCoordinator.goToGroupList();
-    }
+    const school = await service.getSchoolById(schoolData.schoolId);
+    console.log('school: ', school);
   };
 
   const onRemove = (schoolId: string) => {
@@ -156,44 +144,15 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
 
             <View>
               <View style={{ height: 16 }} />
-              {inputMode === InputMode.input && (
-                <GenericTextField
-                  formikProps={formikProps}
-                  placeholder={i18n.t('school-networks.join-school.search.placeholder')}
-                  label={i18n.t('school-networks.join-school.search.label')}
-                  name="schoolName"
-                  showError
-                />
-              )}
-              {inputMode === InputMode.dropdown && (
-                <DropdownField
-                  selectedValue={formikProps.values.schoolId}
-                  onValueChange={formikProps.handleChange('schoolId')}
-                  label={
-                    higherEducation
-                      ? i18n.t('school-networks.join-school.dropdown.label-higher-education')
-                      : i18n.t('school-networks.join-school.dropdown.label')
-                  }
-                  items={getSchoolPickerItems}
-                  error={formikProps.touched.schoolId && formikProps.errors.schoolId}
-                />
-              )}
+              <GenericTextField
+                formikProps={formikProps}
+                placeholder="Enter School Code"
+                label="School Code"
+                maxLength={7}
+                name="schoolId"
+                showError
+              />
             </View>
-
-            {!higherEducation && (
-              <View style={styles.textContainer}>
-                <RegularText>
-                  <RegularText>{i18n.t('school-networks.join-school.disclaimer-1')}</RegularText>
-                  <ClickableText onPress={() => openWebLink('https://covid.joinzoe.com/')}>
-                    {i18n.t('school-networks.join-school.disclaimer-2')}
-                  </ClickableText>
-                </RegularText>
-                <RegularText style={{ marginTop: 16 }}>
-                  {i18n.t('school-networks.join-school.disclaimer-3')}
-                </RegularText>
-              </View>
-            )}
-
             <View>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
