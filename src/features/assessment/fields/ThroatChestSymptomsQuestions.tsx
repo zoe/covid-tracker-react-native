@@ -40,7 +40,7 @@ export const ThroatChestSymptomsQuestions: SymptomQuestions<Props, ThroatChestSy
   const checkboxes: SymptomCheckBoxData<ThroatChestSymptomsCheckBoxData, ThroatChestSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.throat-chest-sore-throat'), value: 'soreThroat' },
     { label: i18n.t('describe-symptoms.throat-chest-swollen-glands'), value: 'swollenGlands' },
-    { label: i18n.t('describe-symptoms.throat-chest-hoarde-voice'), value: 'hoarseVoice' },
+    { label: i18n.t('describe-symptoms.throat-chest-hoarse-voice'), value: 'hoarseVoice' },
     { label: i18n.t('describe-symptoms.throat-chest-persistent-cough'), value: 'persistentCough' },
     {
       label: i18n.t('describe-symptoms.throat-chest-short-breath'),
