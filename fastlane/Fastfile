@@ -149,6 +149,7 @@ platform :android do
   end
 end
 
+
 platform :ios do
 
   
@@ -163,7 +164,7 @@ platform :ios do
   lane :certificates do
     match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"], readonly: true)
   end
-
+  
   desc "Build"
   lane :release do |options|
 
@@ -208,6 +209,7 @@ platform :ios do
       git_branch: "master",
       readonly: true,
       keychain_name: @keychain_name,
+      force_for_new_devices: @match_mode.eql?('adhoc')
     )
     
     gym(
