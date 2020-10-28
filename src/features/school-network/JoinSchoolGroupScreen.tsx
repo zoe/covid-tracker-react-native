@@ -15,8 +15,6 @@ import { Button } from '@covid/components/Buttons/Button';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import { useAppDispatch } from '@covid/core/state/store';
-import { joinedSchoolGroup } from '@covid/core/schools/Schools.slice';
 import i18n from '@covid/locale/i18n';
 import { SchoolGroupModel } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -104,7 +102,7 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
       </Header>
 
       <ProgressBlock>
-        <ProgressStatus step={2} maxSteps={3} color={colors.brand} />
+        <ProgressStatus step={3} maxSteps={4} color={colors.brand} />
       </ProgressBlock>
 
       <Formik

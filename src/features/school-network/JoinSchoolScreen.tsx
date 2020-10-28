@@ -1,91 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { PickerItemProps, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Formik, FormikProps } from 'formik';
+import { Formik } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
 
 import { colors } from '@theme';
-import { ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { GenericTextField } from '@covid/components/GenericTextField';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import Screen from '@covid/components/Screen';
 import { Button } from '@covid/components/Buttons/Button';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
-import { SchoolModel, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ValidationError } from '@covid/components/ValidationError';
-import { openWebLink } from '@covid/utils/links';
-import { RootState } from '@covid/core/state/root';
-import { Optional } from '@covid/utils/types';
-import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import NavigatorService from '@covid/NavigatorService';
 
-type Props = {
+import { JoinHeader } from './partials';
+
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
   route: RouteProp<ScreenParamList, 'JoinSchool'>;
-};
-
-type JoinSchoolData = {
-  schoolId: string;
-};
-
-enum InputMode {
-  input,
-  dropdown,
 }
 
-const validationSchema = () => {
-  return Yup.object().shape({
-    schoolId: Yup.string()
+function JoinSchoolScreen({ route, navigation }: IProps) {
+  const service = useInjection<ISchoolService>(Services.SchoolService);
+  const currentPatient = route.params.patientData.patientState;
+
+  const validationSchema = Yup.object().shape({
+    schoolCode: Yup.string()
       .required('Please enter your school code.')
       .matches(/^[a-zA-Z0-9_-]{7}$/, 'Code contains seven characters'),
   });
-};
-
-export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
-  const service = useInjection<ISchoolService>(Services.SchoolService);
-
-  const currentPatient = route.params.patientData.patientState;
 
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
-      <Header>
-        <HeaderText>i18n.t('school-networks.join-school.title')</HeaderText>
-        <RegularText style={styles.topText}>
-          {i18n.t('school-networks.join-school.description')}
-          <RegularText
-            style={{ color: colors.purple }}
-            passProps={{ onPress: schoolNetworkCoordinator.goToSchoolIntro }}>
-            {' '}
-            {i18n.t('school-networks.join-school.description-link')}
-          </RegularText>
-        </RegularText>
-      </Header>
-      <ProgressBlock>
-        <ProgressStatus step={1} maxSteps={3} color={colors.brand} />
-      </ProgressBlock>
+      <JoinHeader
+        headerText="school-networks.join-school.school-code-title"
+        bodyText="school-networks.join-school.school-code-instructions"
+        currentStep={1}
+        maxSteps={4}
+      />
       <Formik
-        initialValues={{ schoolId: '' }}
-        validationSchema={validationSchema()}
-        onSubmit={async ({ schoolId }, FormikProps) => {
+        initialValues={{ schoolCode: '' }}
+        validationSchema={validationSchema}
+        onSubmit={async ({ schoolCode }, FormikProps) => {
           try {
             // setIsLoading(true);
-            const response = await service.getSchoolById(schoolId);
-            console.log('** response **');
-            console.log(response);
-            navigation.goBack();
+            const response = await service.getSchoolById(schoolCode);
+            NavigatorService.navigate('ConfirmSchool', {
+              patientData: route.params.patientData,
+              school: response[0],
+            });
           } catch (error) {
-            await FormikProps.setFieldError('schoolId', 'Incorrect code');
-            // setIsLoading(false);
-            console.log('*** error ***');
-            console.log(error);
+            FormikProps.setFieldError('schoolId', 'Incorrect code');
           }
         }}>
         {(formikProps) => (
@@ -94,10 +64,9 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
               <View style={{ height: 16 }} />
               <GenericTextField
                 formikProps={formikProps}
-                placeholder="Enter Code"
-                label="Code"
+                placeholder={i18n.t('school-networks.join-school.school-code-placeholder')}
                 maxLength={7}
-                name="schoolId"
+                name="schoolCode"
                 showError
               />
             </View>
@@ -114,23 +83,15 @@ export const JoinSchoolScreen: React.FC<Props> = ({ route, navigation, ...props 
       </Formik>
     </Screen>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    height: '100%',
-    backgroundColor: colors.white,
-  },
   formContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
   },
   textContainer: {
     marginHorizontal: 16,
-  },
-  topText: {
-    marginTop: 16,
   },
   primaryButton: {
     marginTop: 16,
@@ -141,3 +102,5 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
 });
+
+export default JoinSchoolScreen;
