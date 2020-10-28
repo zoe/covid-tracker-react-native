@@ -99,7 +99,12 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
 
   shouldShowSchoolNetwork() {
     const currentPatient = this.patientData.patientState;
-    const birthYear = this.patientData.patientInfo?.year_of_birth ?? 1900;
+    const birthYear = this.patientData.patientInfo?.year_of_birth;
+
+    // If undefined (they haven't completed the register flow)
+    if (!birthYear) {
+      return false;
+    }
     const age = new Date().getFullYear() - birthYear;
     const schoolAged = age > 1 && age < 20;
     return isGBCountry() && currentPatient.isReportedByAnother && schoolAged;
