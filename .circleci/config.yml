@@ -376,63 +376,62 @@ workflows:
     jobs:
       - build:
           filters: *feature_filter
-      - lint:
-          filters: *feature_filter
-          requires:
-            - build
-      - i18n:
-          filters: *feature_filter
-          requires:
-            - build
-      - test:
-          filters: *feature_filter
-          requires:
-            - build
+      # - lint:
+      #     filters: *feature_filter
+      #     requires:
+      #       - build
+      # - i18n:
+      #     filters: *feature_filter
+      #     requires:
+      #       - build
+      # - test:
+      #     filters: *feature_filter
+      #     requires:
+      #       - build
 
       # OTA deploy
-      # - ota-release:
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
-      #     requires:
-      #       - build
-      # - deployed-ota:
-      #     context: slack-ci-covid-mobile
-      #     requires:
-      #       - ota-release
-      # # OTA rollback
-      # - ota-rollback-approval:
-      #     filters: *feature_filter
-      #     type: approval
-      #     requires:
-      #       - ota-release
-      # - ota-rollback:
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
-      #     requires:
-      #       - ota-rollback-approval
+      - ota-release:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - build
+      - deployed-ota:
+          context: slack-ci-covid-mobile
+          requires:
+            - ota-release
+      # OTA rollback
+      - ota-rollback-approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - ota-release
+      - ota-rollback:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - ota-rollback-approval
       # Native app deploy
-      # - slack/approval-notification:
-      #     filters: *feature_filter
-      #     message: "Awaiting manual approval to deploy native apps to staging"
-      #     context: slack-ci-covid-mobile
-      #     requires:
-      #       - build
-      # - adhoc-release-approval:
-      #     filters: *feature_filter
-      #     type: approval
-      #     requires:
-      #       - build
-      # - deploy-ios:
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
-      #     requires:
-      #       - adhoc-release-approval
-      # - deploy-android:
-      #     filters: *feature_filter
-      #     context: react-covid-tracker-stage
-      #     requires:
-      #       - build
-      # - adhoc-release-approval
+      - slack/approval-notification:
+          filters: *feature_filter
+          message: "Awaiting manual approval to deploy native apps to staging"
+          context: slack-ci-covid-mobile
+          requires:
+            - build
+      - adhoc-release-approval:
+          filters: *feature_filter
+          type: approval
+          requires:
+            - build
+      - deploy-ios:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
+      - deploy-android:
+          filters: *feature_filter
+          context: react-covid-tracker-stage
+          requires:
+            - adhoc-release-approval
 
   #
   # Branch [stage]
