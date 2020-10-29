@@ -1441,6 +1441,7 @@
       "disclaimer-2": "here.",
       "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
       "remove": "Remove this school",
+      "removeHigherEducation": "Remove this university",
       "search": {
         "label": "Name of school",
         "placeholder": "Search for your child's school"
