@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -10,15 +11,20 @@ import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import Screen from '@covid/components/Screen';
+import { RegularText } from '@covid/components/Text';
+import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import { Button } from '@covid/components/Buttons/Button';
+import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 import i18n from '@covid/locale/i18n';
 import { ValidationError } from '@covid/components/ValidationError';
 import NavigatorService from '@covid/NavigatorService';
+import { RootState } from '@covid/core/state/root';
+import { selectJoinedGroups, selectPreviouslyJoinedGroups } from '@covid/core/schools/Schools.slice';
 
-import { JoinHeader } from './partials';
+import { JoinHeader, RemoveSchoolButton } from './partials';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'JoinSchool'>;
@@ -26,8 +32,21 @@ interface IProps {
 }
 
 function JoinSchoolScreen({ route, navigation }: IProps) {
+  const [isModalVisible, setModalVisible] = useState(false);
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const currentPatient = route.params.patientData.patientState;
+
+  const currentJoinedGroup = useSelector((state: RootState) =>
+    selectPreviouslyJoinedGroups(state, currentPatient.patientId, false)
+  );
+
+  const previouslyJoinedGroups = useSelector((state: RootState) => selectJoinedGroups(state, false));
+
+  const onRemove = (schoolId: string) => {
+    schoolNetworkCoordinator.removePatientFromGroupList(previouslyJoinedGroups!, schoolId, currentPatient.patientId);
+    setModalVisible(false);
+    schoolNetworkCoordinator.closeFlow();
+  };
 
   const validationSchema = Yup.object().shape({
     schoolCode: Yup.string()
@@ -60,23 +79,59 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
         }}>
         {(formikProps) => (
           <Form style={styles.formContainer}>
-            <View>
-              <View style={{ height: 16 }} />
-              <GenericTextField
-                formikProps={formikProps}
-                placeholder={i18n.t('school-networks.join-school.school-code-placeholder')}
-                maxLength={7}
-                name="schoolCode"
-                showError
+            {isModalVisible && (
+              <TwoButtonModal
+                bodyText={
+                  i18n.t('school-networks.join-school.modal-body') + ' ' + currentJoinedGroup!.school.name + '?'
+                }
+                button1Text={i18n.t('school-networks.join-school.button-1')}
+                button2Text={i18n.t('school-networks.join-school.button-2')}
+                button1Callback={() => setModalVisible(false)}
+                button2Callback={() => {
+                  if (currentJoinedGroup) {
+                    onRemove(currentJoinedGroup.school.id);
+                  }
+                }}
               />
+            )}
+            <View>
+              <View style={{ marginTop: 16 }}>
+                {currentJoinedGroup ? (
+                  <View style={styles.box}>
+                    <RegularText>{currentJoinedGroup.school.name}</RegularText>
+                  </View>
+                ) : (
+                  <GenericTextField
+                    formikProps={formikProps}
+                    placeholder={i18n.t('school-networks.join-school.school-code-placeholder')}
+                    maxLength={7}
+                    name="schoolCode"
+                    showError
+                  />
+                )}
+              </View>
             </View>
             <View>
               {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
                 <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
               )}
-              <Button onPress={formikProps.handleSubmit} branded>
-                {i18n.t('school-networks.join-school.cta')}
-              </Button>
+              {currentJoinedGroup ? (
+                <>
+                  <RemoveSchoolButton onPress={() => setModalVisible(true)} text="school-networks.join-school.remove" />
+                  <Button
+                    onPress={async () => {
+                      await schoolNetworkCoordinator.setSelectedSchool(currentJoinedGroup.school);
+                      schoolNetworkCoordinator.goToGroupList();
+                    }}
+                    branded>
+                    {i18n.t('school-networks.join-school.cta')}
+                  </Button>
+                </>
+              ) : (
+                <Button onPress={formikProps.handleSubmit} branded>
+                  {i18n.t('school-networks.join-school.cta')}
+                </Button>
+              )}
             </View>
           </Form>
         )}
@@ -89,6 +144,15 @@ const styles = StyleSheet.create({
   formContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
+  },
+  box: {
+    alignContent: 'center',
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
+    justifyContent: 'center',
+    marginTop: 16,
+    marginHorizontal: 16,
+    padding: 16,
   },
   textContainer: {
     marginHorizontal: 16,

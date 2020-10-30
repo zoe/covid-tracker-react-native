@@ -19,7 +19,6 @@ import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
-//
 import { RootState } from '@covid/core/state/root';
 import { selectJoinedGroups, selectPreviouslyJoinedGroups } from '@covid/core/schools/Schools.slice';
 
