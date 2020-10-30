@@ -129,23 +129,23 @@
 
     let cartoMap;
 
-    document.addEventListener('new-center', function(event) {
+    document.addEventListener('new-center', function (event) {
       const { lat, lng, zoom } = event.payload;
       window.covid.config.map = { lat, lng, zoom };
       cartoMap.map.setView([lat, lng], config.map.zoom);
-    })  
+    })
 
     window.covid = {
       config,
-      updateMapView: function(event) {
+      updateMapView: function (event) {
         const { lat, lng, zoom } = event.payload;
         window.covid.config.map = { lat, lng, zoom }
         if (cartoMap) {
           cartoMap.map.setView([lat, lng], zoom);
         }
       },
-      emit: function(event, data) {
-        window.ReactNativeWebView.postMessage(JSON.stringify({ 
+      emit: function (event, data) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({
           type: event, data
         }));
       }
@@ -169,7 +169,7 @@
       };
 
       cartodb
-        .createVis('map', 'https://joinzoe.cartodb.com/api/v2/viz/36e8c81d-cfbf-4e4d-9d59-a219852fd25e/viz.json', mapConfig)
+        .createVis('map', 'https://joinzoe.cartodb.com/api/v2/viz/056c4d9d-e6a1-43d4-a1f2-81538b1f62a7/viz.json', mapConfig)
         .done(function (vis, layers) {
           cartoMap = vis;
           layers[1].setInteraction(true);
