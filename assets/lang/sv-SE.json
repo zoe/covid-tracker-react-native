@@ -1446,11 +1446,18 @@
       "disclaimer-2": "",
       "disclaimer-3": "",
       "remove": "",
+      "removeHigherEducation": "",
 
       "search": {
         "label": "",
         "placeholder": ""
       },
+
+      "school-code-title": "",
+      "school-code-instructions": "",
+      "school-code-placeholder": "",
+      "school-code-confirm": "",
+      "school-code-confirm-instructions": "",
 
       "cta": "",
       "modal-body": "",
