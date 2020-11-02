@@ -1443,7 +1443,10 @@
       "university-network-header": "",
       "university-network-body": "",
       "school-network-header": "",
-      "school-network-body": ""
+      "school-network-body": "",
+      "more-information": "",
+      "school-url": "",
+      "university-url": ""
     },
 
     "join-group": {
