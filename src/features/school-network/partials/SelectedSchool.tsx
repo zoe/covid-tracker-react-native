@@ -14,22 +14,24 @@ import { RemoveSchoolButton } from './';
 
 interface IProps {
   title: string;
-  body: string;
-  organisation: string;
+  body?: string;
+  organisation?: string;
   currentJoinedGroup: SubscribedSchoolGroupStats;
   previouslyJoinedGroups: SubscribedSchoolGroupStats[] | undefined;
   currentPatient: PatientStateType;
   removeText: string;
+  hasBubbles?: boolean;
 }
 
 function SelectedSchool({
   title,
-  body,
-  organisation,
+  body = '',
+  organisation = '',
   currentJoinedGroup,
   previouslyJoinedGroups,
   currentPatient,
   removeText,
+  hasBubbles = false,
 }: IProps) {
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -43,22 +45,24 @@ function SelectedSchool({
     <>
       <Header>
         <HeaderText>{i18n.t(title)}</HeaderText>
-        <RegularText style={styles.spacer}>{i18n.t(body)}</RegularText>
+        {body.length ? <RegularText style={styles.spacer}>{i18n.t(body)}</RegularText> : null}
       </Header>
       <Header>
-        <Header3Text>{organisation}</Header3Text>
+        {organisation.length ? <Header3Text>{organisation}</Header3Text> : null}
         <RegularText style={styles.spacer}>{currentJoinedGroup.school.name}</RegularText>
       </Header>
       <View style={styles.formContainer}>
         <RemoveSchoolButton onPress={() => setModalVisible(true)} text={removeText} />
-        <Button
-          onPress={async () => {
-            await schoolNetworkCoordinator.setSelectedSchool(currentJoinedGroup.school);
-            schoolNetworkCoordinator.goToGroupList();
-          }}
-          branded>
-          {i18n.t('school-networks.join-school.cta')}
-        </Button>
+        {hasBubbles ? (
+          <Button
+            onPress={async () => {
+              await schoolNetworkCoordinator.setSelectedSchool(currentJoinedGroup.school);
+              schoolNetworkCoordinator.goToGroupList();
+            }}
+            branded>
+            {i18n.t('school-networks.join-school.cta')}
+          </Button>
+        ) : null}
       </View>
       {isModalVisible && (
         <TwoButtonModal

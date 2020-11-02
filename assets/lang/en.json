@@ -1462,10 +1462,13 @@
       "button-1": "Cancel",
       "button-2": "Remove",
 
-      "university-network-header": "University Networks",
-      "university-network-body": "More information about University Networks",
+      "university-network-header": "Your University",
+      "university-network-body": "",
       "school-network-header": "School Networks",
-      "school-network-body": "More information about School Networks"
+      "school-network-body": "More information about School Networks",
+      "more-information": "More information about",
+      "school-url": "",
+      "university-url": ""
     },
 
     "join-group": {

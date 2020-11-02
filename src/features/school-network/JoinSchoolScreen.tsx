@@ -30,12 +30,13 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
       {currentJoinedGroup ? (
         <SelectedSchool
           title="school-networks.join-school.school-network-header"
-          body="school-networks.join-school.school-network-body"
+          body="school-networks.join-school.more-information"
           organisation="School"
           currentJoinedGroup={currentJoinedGroup}
           previouslyJoinedGroups={previouslyJoinedGroups}
           currentPatient={currentPatient}
           removeText="school-networks.join-school.remove"
+          hasBubbles
         />
       ) : (
         <>

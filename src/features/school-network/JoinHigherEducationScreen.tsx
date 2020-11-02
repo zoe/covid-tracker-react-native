@@ -41,8 +41,6 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
       {currentJoinedGroup ? (
         <SelectedSchool
           title="school-networks.join-school.university-network-header"
-          body="school-networks.join-school.university-network-body"
-          organisation="University"
           currentJoinedGroup={currentJoinedGroup}
           previouslyJoinedGroups={previouslyJoinedGroups}
           currentPatient={patientData.patientState}
