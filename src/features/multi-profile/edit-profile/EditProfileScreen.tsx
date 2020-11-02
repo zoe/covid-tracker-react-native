@@ -53,10 +53,11 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         )}
 
         {editProfileCoordinator.shouldShowSchoolNetwork() && (
-          <>
-            <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork(false)} />
-            <LinkItem title="University network" action={() => editProfileCoordinator.goToSchoolNetwork(true)} />
-          </>
+          <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork(false)} />
+        )}
+
+        {editProfileCoordinator.shouldShowUniNetwork() && (
+          <LinkItem title="University network" action={() => editProfileCoordinator.goToSchoolNetwork(true)} />
         )}
       </Screen>
 
