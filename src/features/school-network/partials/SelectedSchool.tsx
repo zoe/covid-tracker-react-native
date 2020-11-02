@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import { Button } from '@covid/components/Buttons/Button';
+import { Header } from '@covid/components/Screen';
+import { HeaderText, RegularText, Header3Text } from '@covid/components/Text';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import i18n from '@covid/locale/i18n';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
@@ -17,6 +19,7 @@ interface IProps {
   currentJoinedGroup: SubscribedSchoolGroupStats;
   previouslyJoinedGroups: SubscribedSchoolGroupStats[] | undefined;
   currentPatient: PatientStateType;
+  removeText: string;
 }
 
 function SelectedSchool({
@@ -26,6 +29,7 @@ function SelectedSchool({
   currentJoinedGroup,
   previouslyJoinedGroups,
   currentPatient,
+  removeText,
 }: IProps) {
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -37,12 +41,16 @@ function SelectedSchool({
 
   return (
     <>
-      <Text>{title}</Text>
-      <Text>{body}</Text>
-      <Text>{organisation}</Text>
-      <Text>{currentJoinedGroup.school.name}</Text>
+      <Header>
+        <HeaderText>{i18n.t(title)}</HeaderText>
+        <RegularText style={styles.spacer}>{i18n.t(body)}</RegularText>
+      </Header>
+      <Header>
+        <Header3Text>{organisation}</Header3Text>
+        <RegularText style={styles.spacer}>{currentJoinedGroup.school.name}</RegularText>
+      </Header>
       <View style={styles.formContainer}>
-        <RemoveSchoolButton onPress={() => setModalVisible(true)} text="school-networks.join-school.remove" />
+        <RemoveSchoolButton onPress={() => setModalVisible(true)} text={removeText} />
         <Button
           onPress={async () => {
             await schoolNetworkCoordinator.setSelectedSchool(currentJoinedGroup.school);
@@ -54,7 +62,6 @@ function SelectedSchool({
       </View>
       {isModalVisible && (
         <TwoButtonModal
-          // bodyText={i18n.t('school-networks.join-school.modal-body') + ' ' + currentJoinedGroup!.school.name + '?'}
           bodyText={`${i18n.t('school-networks.join-school.modal-body')} ${currentJoinedGroup.school.name}?`}
           button1Text={i18n.t('school-networks.join-school.button-1')}
           button2Text={i18n.t('school-networks.join-school.button-2')}
@@ -74,6 +81,9 @@ const styles = StyleSheet.create({
   formContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
+  },
+  spacer: {
+    marginTop: 16,
   },
 });
 

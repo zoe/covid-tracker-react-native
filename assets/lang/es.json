@@ -1438,7 +1438,12 @@
       "cta": "",
       "modal-body": "",
       "button-1": "",
-      "button-2": ""
+      "button-2": "",
+
+      "university-network-header": "",
+      "university-network-body": "",
+      "school-network-header": "",
+      "school-network-body": ""
     },
 
     "join-group": {

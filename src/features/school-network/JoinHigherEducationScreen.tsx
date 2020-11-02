@@ -22,7 +22,8 @@ import { Services } from '@covid/provider/services.types';
 import { RootState } from '@covid/core/state/root';
 import { selectJoinedGroups, selectPreviouslyJoinedGroups } from '@covid/core/schools/Schools.slice';
 
-import { JoinHeader, RemoveSchoolButton } from './partials';
+import { JoinHeader, RemoveSchoolButton, SelectedSchool } from './partials';
+import { UniversityForm } from './forms';
 
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'ConfirmSchool'>;
@@ -62,70 +63,29 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
 
   return (
     <Screen profile={patientData.patientState.profile} navigation={navigation}>
-      <JoinHeader
-        headerText="school-networks.join-school.title-higher-education"
-        bodyText="school-networks.join-school.description-higher-education"
-        currentStep={1}
-        maxSteps={1}
-      />
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={async ({ schoolId }, FormikProps) => {
-          try {
-            const selectedSchool = schools.find((school) => school.id === schoolId)!;
-            await schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
-            NavigatorService.goBack();
-          } catch (error) {
-            console.log('** error **');
-            console.log(error);
-            FormikProps.setFieldError('schoolId', 'Update error');
-          }
-        }}>
-        {(formikProps) => (
-          <Form style={styles.formContainer}>
-            {isModalVisible && (
-              <TwoButtonModal
-                bodyText={
-                  i18n.t('school-networks.join-school.modal-body') + ' ' + currentJoinedGroup!.school.name + '?'
-                }
-                button1Text={i18n.t('school-networks.join-school.button-1')}
-                button2Text={i18n.t('school-networks.join-school.button-2')}
-                button1Callback={() => setModalVisible(false)}
-                button2Callback={() => {
-                  onRemove(formikProps.values.schoolId);
-                }}
-              />
-            )}
-            <DropdownField
-              selectedValue={formikProps.values.schoolId}
-              onValueChange={formikProps.handleChange('schoolId')}
-              label={i18n.t('school-networks.join-school.dropdown.label-higher-education')}
-              items={schools.map((item) => ({ label: item.name, value: item.id }))}
-              error={formikProps.touched.schoolId && formikProps.errors.schoolId}
-            />
-            {currentJoinedGroup ? (
-              <RemoveSchoolButton
-                onPress={() => setModalVisible(true)}
-                text="school-networks.join-school.removeHigherEducation"
-              />
-            ) : (
-              <Button onPress={formikProps.handleSubmit} branded>
-                {i18n.t('school-networks.join-school.cta')}
-              </Button>
-            )}
-          </Form>
-        )}
-      </Formik>
+      {currentJoinedGroup ? (
+        <SelectedSchool
+          title="school-networks.join-school.university-network-header"
+          body="school-networks.join-school.university-network-body"
+          organisation="University"
+          currentJoinedGroup={currentJoinedGroup}
+          previouslyJoinedGroups={previouslyJoinedGroups}
+          currentPatient={patientData.patientState}
+          removeText="school-networks.join-school.removeHigherEducation"
+        />
+      ) : (
+        <>
+          <JoinHeader
+            headerText="school-networks.join-school.title-higher-education"
+            bodyText="school-networks.join-school.description-higher-education"
+            currentStep={1}
+            maxSteps={1}
+          />
+          <UniversityForm currentJoinedGroup={currentJoinedGroup} schools={schools} />
+        </>
+      )}
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  formContainer: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
-  },
-});
 
 export default JoinHigherEducationScreen;

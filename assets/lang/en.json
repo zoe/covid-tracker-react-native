@@ -1460,7 +1460,12 @@
       "cta": "Next",
       "modal-body": "Are you sure you want to remove",
       "button-1": "Cancel",
-      "button-2": "Remove"
+      "button-2": "Remove",
+
+      "university-network-header": "University Networks",
+      "university-network-body": "More information about University Networks",
+      "school-network-header": "School Networks",
+      "school-network-body": "More information about School Networks"
     },
 
     "join-group": {
