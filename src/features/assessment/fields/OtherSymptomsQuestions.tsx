@@ -46,6 +46,6 @@ OtherSymptomsQuestions.schema = () => {
 
 OtherSymptomsQuestions.createAssessment = (formData: OtherSymptomsData): Partial<AssessmentInfosRequest> => {
   return {
-    other_symptoms: formData.otherSymptoms,
+    other_symptoms: formData.otherSymptoms ? formData.otherSymptoms : null,
   };
 };

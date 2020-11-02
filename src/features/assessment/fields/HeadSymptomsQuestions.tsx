@@ -98,7 +98,7 @@ HeadSymptomsQuestions.schema = () => {
 HeadSymptomsQuestions.createAssessment = (formData: HeadSymptomsData): Partial<AssessmentInfosRequest> => {
   return {
     headache: formData.headache,
-    headache_frequency: formData.headache ? formData.headacheFollowUp : '',
+    headache_frequency: formData.headache ? formData.headacheFollowUp : null,
     dizzy_light_headed: formData.dizzy,
     loss_of_smell: formData.lossTasteSmell,
     altered_smell: formData.alteredTasteSmell,

@@ -97,7 +97,7 @@ ThroatChestSymptomsQuestions.createAssessment = (
     swollen_glands: formData.swollenGlands,
     hoarse_voice: formData.hoarseVoice,
     persistent_cough: formData.persistentCough,
-    shortness_of_breath: formData.shortBreath ? formData.shortBreathFollowUp : '',
+    shortness_of_breath: formData.shortBreath ? formData.shortBreathFollowUp : 'no',
     chest_pain: formData.chestPain,
     irregular_heartbeat: formData.heartbeat,
   };

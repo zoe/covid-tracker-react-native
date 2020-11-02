@@ -14,7 +14,7 @@ export type AssessmentInfosRequest = {
   persistent_cough: boolean; //defaults to False
   fatigue: string; //'no', 'mild' or 'severe', defaults to 'no'
   headache: boolean; // defaults to False
-  headache_frequency: string; // 'all_of_the_day', 'most_of_day', 'some_of_day'
+  headache_frequency: string | null; // 'all_of_the_day', 'most_of_day', 'some_of_day'
   shortness_of_breath: string; //'no', 'mild', 'significant' or 'severe', defaults to 'no'
   red_welts_on_face_or_lips: boolean; // defaults to False
   blisters_on_feet: boolean; // defaults to False
@@ -24,7 +24,7 @@ export type AssessmentInfosRequest = {
   abdominal_pain: boolean; // defaults to False
   eye_soreness: boolean; //defaults to False
   typical_hayfever: boolean; //defaults to False
-  other_symptoms: string;
+  other_symptoms: string | null;
 
   diarrhoea: boolean; //	defaults to False
   unusual_muscle_pains: boolean; //	defaults to False
