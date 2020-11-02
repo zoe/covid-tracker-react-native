@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { Button } from '@covid/components/Buttons/Button';
 import { Header } from '@covid/components/Screen';
@@ -21,6 +21,7 @@ interface IProps {
   currentPatient: PatientStateType;
   removeText: string;
   hasBubbles?: boolean;
+  link?: string;
 }
 
 function SelectedSchool({
@@ -32,6 +33,7 @@ function SelectedSchool({
   currentPatient,
   removeText,
   hasBubbles = false,
+  link = '',
 }: IProps) {
   const [isModalVisible, setModalVisible] = useState(false);
 
