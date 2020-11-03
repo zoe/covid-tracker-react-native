@@ -90,6 +90,11 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     schoolNetworkCoordinator.startFlow();
   }
 
+  goToUniversityNetwork() {
+    schoolNetworkCoordinator.init(this.appCoordinator, this.patientData, true);
+    NavigatorService.navigate('JoinHigherEducation', { patientData: this.patientData });
+  }
+
   shouldShowEditStudy() {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();

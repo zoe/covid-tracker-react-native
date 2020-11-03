@@ -1441,16 +1441,33 @@
       "disclaimer-2": "",
       "disclaimer-3": "",
       "remove": "",
+      "removeHigherEducation": "",
 
       "search": {
         "label": "",
         "placeholder": ""
       },
 
+      "school-code-title": "",
+      "school-code-instructions": "",
+      "school-code-placeholder": "",
+      "school-code-confirm": "",
+      "school-code-confirm-instructions": "",
+
       "cta": "",
       "modal-body": "",
       "button-1": "",
-      "button-2": ""
+      "button-2": "",
+
+      "university-network-header": "",
+      "university-network-body": "",
+      "school-network-header": "",
+      "school-network-body": "",
+      "more-information": "",
+      "school-url-label": "",
+      "school-url": "",
+      "university-url-label": "",
+      "university-url": ""
     },
 
     "join-group": {

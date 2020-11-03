@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import NavigatorService from '@covid/NavigatorService';
 import i18n from '@covid/locale/i18n';
 import { HeaderText, SecondaryText, Header3Text } from '@covid/components/Text';
 import Screen, { Header } from '@covid/components/Screen';
@@ -57,7 +58,7 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         )}
 
         {editProfileCoordinator.shouldShowUniNetwork() && (
-          <LinkItem title="University network" action={() => editProfileCoordinator.goToSchoolNetwork(true)} />
+          <LinkItem title="University network" action={() => editProfileCoordinator.goToUniversityNetwork()} />
         )}
       </Screen>
 

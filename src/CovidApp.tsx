@@ -84,6 +84,8 @@ import {
   JoinSchoolGroupScreen,
   CreateNetworkGroupScreen,
   SchoolSuccessScreen,
+  ConfirmSchoolScreen,
+  JoinHigherEducationScreen,
 } from '@covid/features/school-network';
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestConfirmScreen';
@@ -295,6 +297,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
         <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
         <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
+        <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
+        <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
 
         {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
         <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />

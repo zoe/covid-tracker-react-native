@@ -1460,10 +1460,16 @@
       "disclaimer-2": "here.",
       "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
       "remove": "Remove this school",
+      "removeHigherEducation": "Remove this university",
       "search": {
         "label": "Name of school",
         "placeholder": "Search for your child's school"
       },
+      "school-code-title": "Enter your Unique School Network Code",
+      "school-code-instructions": "Your child's school UCN should have been shared with you by a school representative. Please contact the school if you cannot find this code.",
+      "school-code-placeholder": "Enter your code here",
+      "school-code-confirm": "Confirm your child's school",
+      "school-code-confirm-instructions": "Please confirm the below school name is correct. If the school below is not correct, please double check you have entered the correct UCN (Unique COVID Network) code. For further help, please contact ",
 
       "dropdown": {
         "label": "Select your child’s school",
@@ -1473,7 +1479,17 @@
       "cta": "Next",
       "modal-body": "Are you sure you want to remove",
       "button-1": "Cancel",
-      "button-2": "Remove"
+      "button-2": "Remove",
+
+      "university-network-header": "Your University",
+      "university-network-body": "",
+      "school-network-header": "School Networks",
+      "school-network-body": "More information about School Networks",
+      "more-information": "More information about",
+      "school-url-label": "School Networks",
+      "school-url": "https://covid.joinzoe.com/schools",
+      "university-url-label": "",
+      "university-url": ""
     },
 
     "join-group": {

@@ -106,6 +106,8 @@ export type ScreenParamList = {
   SchoolSuccess: undefined;
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
   SchoolDashboard: { school: SubscribedSchoolStats };
+  ConfirmSchool: { patientData: PatientData; school: SchoolModel };
+  JoinHigherEducation: { patientData: PatientData };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };
