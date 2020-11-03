@@ -14,7 +14,7 @@ type ProgressProps = {
 
 const ProgressStatus: React.FC<ProgressProps> = (props) => {
   const progress = (props.step * 100) / props.maxSteps;
-  const color = props.color ?? colors.purple;
+  const color = props.color ?? colors.predict;
   return (
     <View style={styles.progressBar}>
       <Progress.Bar

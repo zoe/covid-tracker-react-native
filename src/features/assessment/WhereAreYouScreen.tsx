@@ -20,26 +20,24 @@ type LocationProps = {
 
 export default class WhereAreYouScreen extends Component<LocationProps> {
   private async updateAssessment(status: string, isComplete = false) {
-    const { assessmentId } = assessmentCoordinator.assessmentData;
     const assessment = {
       location: status,
     };
 
     if (isComplete) {
       await assessmentService.completeAssessment(
-        assessmentId!,
         assessment,
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );
     } else {
-      await assessmentService.saveAssessment(assessmentId!, assessment);
+      await assessmentService.saveAssessment(assessment);
     }
   }
 
   handleLocationSelection = async (location: string, endAssessment: boolean) => {
     try {
       await this.updateAssessment(location, endAssessment);
-      assessmentCoordinator.goToNextWhereAreYouScreen(location, endAssessment);
+      assessmentCoordinator.gotoNextScreen(this.props.route.name, { location, endAssessment });
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
@@ -55,7 +53,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={4} maxSteps={5} />
+          <ProgressStatus step={6} maxSteps={6} />
         </ProgressBlock>
 
         <View style={styles.content}>
