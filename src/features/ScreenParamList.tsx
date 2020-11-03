@@ -62,11 +62,15 @@ export type ScreenParamList = {
   NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   CovidTestConfirm: { assessmentData: AssessmentData; test: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
-  DescribeSymptoms: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
   TreatmentSelection: { assessmentData: AssessmentData; location: string };
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
+  GeneralSymptoms: { assessmentData: AssessmentData };
+  HeadSymptoms: { assessmentData: AssessmentData };
+  ThroatChestSymptoms: { assessmentData: AssessmentData };
+  GutStomachSymptoms: { assessmentData: AssessmentData };
+  OtherSymptoms: { assessmentData: AssessmentData };
 
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };

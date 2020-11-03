@@ -170,7 +170,6 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
   labelStyle: {
     fontSize: 16,

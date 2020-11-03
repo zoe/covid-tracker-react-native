@@ -12,6 +12,7 @@ import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/S
 import ProgressStatus from '@covid/components/ProgressStatus';
 import { assessmentService } from '@covid/Services';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -34,8 +35,7 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
   });
 
   handleUpdateTreatment = async (formData: TreatmentData) => {
-    const { assessmentId } = assessmentCoordinator.assessmentData;
-    let assessment;
+    let assessment: Partial<AssessmentInfosRequest> = {};
 
     if (formData.description) {
       assessment = {
@@ -44,7 +44,6 @@ export default class TreatmentOtherScreen extends Component<TreatmentOtherProps>
     }
 
     await assessmentService.completeAssessment(
-      assessmentId!,
       assessment,
       assessmentCoordinator.assessmentData.patientData.patientInfo!
     );
