@@ -54,14 +54,11 @@ export const EditProfileScreen: React.FC<RenderProps> = (props) => {
         )}
 
         {editProfileCoordinator.shouldShowSchoolNetwork() && (
-          <>
-            <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork(false)} />
-            <LinkItem title="University network" action={() => editProfileCoordinator.goToUniversityNetwork()} />
-            {/* <LinkItem
-              title="University network"
-              action={() => NavigatorService.navigate('JoinHigherEducation', { patientData })}
-            /> */}
-          </>
+          <LinkItem title="School network" action={() => editProfileCoordinator.goToSchoolNetwork(false)} />
+        )}
+
+        {editProfileCoordinator.shouldShowUniNetwork() && (
+          <LinkItem title="University network" action={() => editProfileCoordinator.goToUniversityNetwork()} />
         )}
       </Screen>
 

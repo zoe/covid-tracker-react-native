@@ -8,7 +8,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, Divider, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { ICovidTestService } from '@covid/core/user/CovidTestService';
@@ -74,10 +74,10 @@ export default class CovidTestListScreen extends Component<Props, State> {
     AssessmentCoordinator.goToAddEditTest(testType);
   };
 
-  handleNextQuestion = async () => {
+  handleNextButton = async () => {
     try {
-      const { assessmentId } = AssessmentCoordinator.assessmentData;
-      const currentPatient = AssessmentCoordinator.assessmentData.patientData.patientState;
+      const { assessmentData } = this.props.route.params;
+      const currentPatient = assessmentData.patientData.patientState;
 
       const patientId = currentPatient.patientId;
 
@@ -85,10 +85,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
         patient: patientId,
       } as Partial<AssessmentInfosRequest>;
 
-      const response = await assessmentService.saveAssessment(assessmentId ?? null, assessment);
-      if (!assessmentId) {
-        AssessmentCoordinator.assessmentData.assessmentId = response.id;
-      }
+      await assessmentService.saveAssessment(assessment);
       AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });
@@ -107,9 +104,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
 
-          <ProgressBlock>
-            <ProgressStatus step={2} maxSteps={5} />
-          </ProgressBlock>
+          <Divider />
 
           {isNHSStudy ? (
             <RegularText style={styles.content}>
@@ -139,7 +134,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
           )}
         </Screen>
 
-        <BrandedButton style={styles.continueButton} onPress={this.handleNextQuestion}>
+        <BrandedButton style={styles.continueButton} onPress={this.handleNextButton}>
           <Text>
             {this.state.covidTests.length === 0
               ? i18n.t('covid-test-list.never-had-test')
