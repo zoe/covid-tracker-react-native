@@ -31,6 +31,8 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
         <SelectedSchool
           title="school-networks.join-school.school-network-header"
           body="school-networks.join-school.more-information"
+          link="school-networks.join-school.school-url"
+          linkLabel="school-networks.join-school.school-url-label"
           organisation="School"
           currentJoinedGroup={currentJoinedGroup}
           previouslyJoinedGroups={previouslyJoinedGroups}

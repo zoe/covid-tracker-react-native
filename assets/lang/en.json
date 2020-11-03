@@ -1467,7 +1467,9 @@
       "school-network-header": "School Networks",
       "school-network-body": "More information about School Networks",
       "more-information": "More information about",
-      "school-url": "",
+      "school-url-label": "School Networks",
+      "school-url": "https://covid.joinzoe.com/schools",
+      "university-url-label": "",
       "university-url": ""
     },
 

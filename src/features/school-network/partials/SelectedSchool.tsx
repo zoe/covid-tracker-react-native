@@ -3,37 +3,40 @@ import { View, StyleSheet } from 'react-native';
 
 import { Button } from '@covid/components/Buttons/Button';
 import { Header } from '@covid/components/Screen';
-import { HeaderText, RegularText, Header3Text } from '@covid/components/Text';
+import { ClickableText, HeaderText, RegularText, Header3Text } from '@covid/components/Text';
 import { TwoButtonModal } from '@covid/components/TwoButtonModal';
 import i18n from '@covid/locale/i18n';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { PatientStateType } from '@covid/core/patient/PatientState';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { openWebLink } from '@covid/utils/links';
 
 import { RemoveSchoolButton } from './';
 
 interface IProps {
   title: string;
   body?: string;
+  link?: string;
+  linkLabel?: string;
   organisation?: string;
   currentJoinedGroup: SubscribedSchoolGroupStats;
   previouslyJoinedGroups: SubscribedSchoolGroupStats[] | undefined;
   currentPatient: PatientStateType;
   removeText: string;
   hasBubbles?: boolean;
-  link?: string;
 }
 
 function SelectedSchool({
   title,
   body = '',
+  link = '',
+  linkLabel = '',
   organisation = '',
   currentJoinedGroup,
   previouslyJoinedGroups,
   currentPatient,
   removeText,
   hasBubbles = false,
-  link = '',
 }: IProps) {
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -43,11 +46,25 @@ function SelectedSchool({
     schoolNetworkCoordinator.closeFlow();
   };
 
+  const getBody = () => {
+    if (body.length) {
+      return (
+        <View style={styles.body}>
+          <RegularText>{i18n.t(body)} </RegularText>
+          {link.length ? (
+            <ClickableText onPress={() => openWebLink(i18n.t(link))}>{i18n.t(linkLabel)}</ClickableText>
+          ) : null}
+        </View>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       <Header>
         <HeaderText>{i18n.t(title)}</HeaderText>
-        {body.length ? <RegularText style={styles.spacer}>{i18n.t(body)}</RegularText> : null}
+        {getBody()}
       </Header>
       <Header>
         {organisation.length ? <Header3Text>{organisation}</Header3Text> : null}
@@ -89,6 +106,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   spacer: {
+    marginTop: 16,
+  },
+  body: {
+    alignItems: 'center',
+    flexDirection: 'row',
     marginTop: 16,
   },
 });
