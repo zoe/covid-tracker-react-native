@@ -253,24 +253,7 @@
     "takes-nsaids": "¿Toma habitualmente \"AINE\", como ibuprofeno, nurofen, diclofenaco, naproxeno?",
     "takes-any-blood-pressure-medication": "¿Habitualmente toma medicamentos para la presión?",
     "takes-pril-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-pril\", como enalapril, lisinopril, captopril, ramipril?",
-    "takes-sartan-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-sartan\", como losartan, valsartan, irbesartan?",
-    "vitamins": {
-      "question-taking-vitamins": "¿Has tomado vitaminas u otros suplementos regularmente durante más de 3 meses? Regularmente significa más de 3 días a la semana. Seleccione todas las que correspondan",
-      "question-justification": "Estamos explorando los posibles efectos de los suplementos vitamínicos sobre en la infeccion COVID-19",
-      "checkbox-no": "No",
-      "checkbox-vitamin-c": "Vitamina C",
-      "checkbox-vitamin-d": "Vitamina D",
-      "checkbox-omega-3-fish-oil": "Omega-3 o aceite de pescado",
-      "checkbox-zinc": "Zinc",
-      "checkbox-garlic": "Ajo",
-      "checkbox-probiotics": "Probióticos",
-      "checkbox-multivitamins-minerals": "Multivitamínicos y minerales",
-      "checkbox-other-specify": "Otras, por favor especifique",
-      "checkbox-pfnts": "Prefiero no decir",
-      "question-please-specify": "Por favor especifique que vitaminas o suplementos",
-      "please-select-vitamins": "Seleccione una opción",
-      "placeholder-optional": "*Opcional"
-    }
+    "takes-sartan-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-sartan\", como losartan, valsartan, irbesartan?"
   },
 
   "covid-test": {
