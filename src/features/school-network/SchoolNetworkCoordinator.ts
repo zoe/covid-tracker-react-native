@@ -99,7 +99,6 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
 
   async setSelectedSchool(selectedSchool: SchoolModel) {
     this.selectedSchool = selectedSchool;
-
     if (selectedSchool.higher_education) {
       const groups: SchoolGroupModel[] = await schoolNetworkCoordinator.searchSchoolGroups(selectedSchool.id);
       await schoolNetworkCoordinator.addPatientToGroup(groups[0].id, this.patientData.patientId);

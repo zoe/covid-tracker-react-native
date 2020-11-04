@@ -21,7 +21,6 @@ import ThankYouScreen from '@covid/features/thank-you/ThankYouScreen';
 import ThankYouUKScreen from '@covid/features/thank-you/ThankYouUKScreen';
 import ViralThankYouScreen from '@covid/features/thank-you/ViralThankYouScreen';
 import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
-import DescribeSymptomsScreen from '@covid/features/assessment/DescribeSymptomsScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
 import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScreen';
 import TreatmentOtherScreen from '@covid/features/assessment/TreatmentOtherScreen';
@@ -85,12 +84,19 @@ import {
   JoinSchoolGroupScreen,
   CreateNetworkGroupScreen,
   SchoolSuccessScreen,
+  ConfirmSchoolScreen,
+  JoinHigherEducationScreen,
 } from '@covid/features/school-network';
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestConfirmScreen';
 import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDashboardScreen';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
+import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptomsScreen';
+import { HeadSymptomsScreen } from '@covid/features/assessment/HeadSymptomsScreen';
+import { ThroatChestSymptomsScreen } from '@covid/features/assessment/ThroatChestSymptomsScreen';
+import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachSymptomsScreen';
+import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 
 import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
@@ -246,7 +252,11 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="NHSTestDetail" component={NHSTestDetailScreen} options={noHeader} />
         <Stack.Screen name="CovidTestConfirm" component={CovidTestConfirmScreen} options={noHeader} />
         <Stack.Screen name="HowYouFeel" component={HowYouFeelScreen} options={noHeader} />
-        <Stack.Screen name="DescribeSymptoms" component={DescribeSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="GeneralSymptoms" component={GeneralSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="HeadSymptoms" component={HeadSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="ThroatChestSymptoms" component={ThroatChestSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="GutStomachSymptoms" component={GutStomachSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="OtherSymptoms" component={OtherSymptomsScreen} options={noHeader} />
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
         <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
@@ -287,6 +297,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
         <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
         <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
+        <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
+        <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
 
         {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
         <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
