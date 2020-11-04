@@ -177,9 +177,6 @@
   "past-symptom-changed-little-worse": "Blivit lite sämre",
   "past-symptom-changed-much-worse": "Blivit mycket sämre",
 
-  "label-past-symptoms-had-covid": "Tror du att du redan har haft COVID-19, men att du inte testades?",
-  "label-past-symptoms-classic": "Har du haft de klassiska symtomen (hög feber och ihållande hosta) i flera dagar?",
-
   "title-health-worker-exposure": "Exponering för COVID-19 för vårdpersonal",
   "health-worker-exposure-question-interacted-any-patients": "Har du det senaste dygnet träffat patienter (ej via telefon eller videolänk)?",
   "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik COVID-19-infektion?",

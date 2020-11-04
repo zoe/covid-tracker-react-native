@@ -205,8 +205,6 @@
   "label-past-symptoms-days-ago": "¿Hace cuántos días comenzaron los síntomas?",
   "label-past-symptoms-still-have": "¿Aún tiene síntomas?",
   "label-past-symptoms-changed": "¿Cómo han cambiado los síntomas en los últimos días?",
-  "label-past-symptoms-had-covid": "¿Cree que ya tuvo COVID-19, pero no se le realizó el examen?",
-  "label-past-symptoms-classic": "¿Tuvo los síntomas clásicos (fiebre alta y tos persistente) por varios días?",
 
   "label-past-symptoms": "Tuvo alguno de estos síntomas (seleccione todos los que correspondan):",
   "label-past-symptom-anosmia": "Pérdida de olfato/gusto",
