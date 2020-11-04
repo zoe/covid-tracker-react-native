@@ -56,7 +56,10 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
             return (
               <Form style={{ flexGrow: 1 }}>
                 <View style={{ marginHorizontal: 16 }}>
-                  <GeneralSymptomsQuestions formikProps={props} />
+                  <GeneralSymptomsQuestions
+                    formikProps={props}
+                    hasHayfever={route.params.assessmentData.patientData.patientState.hasHayfever}
+                  />
                 </View>
 
                 <View style={{ flex: 1 }} />
