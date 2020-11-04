@@ -106,8 +106,11 @@ GeneralSymptomsQuestions.schema = () => {
   });
 };
 
-GeneralSymptomsQuestions.createAssessment = (formData: GeneralSymptomsData): Partial<AssessmentInfosRequest> => {
-  return {
+GeneralSymptomsQuestions.createAssessment = (
+  formData: GeneralSymptomsData,
+  hasHayfever: boolean
+): Partial<AssessmentInfosRequest> => {
+  let assessment: Partial<AssessmentInfosRequest> = {
     fever: formData.fever,
     fatigue: formData.fatigue ? formData.fatigueFollowUp : 'no',
     rash: formData.rash,
@@ -119,6 +122,14 @@ GeneralSymptomsQuestions.createAssessment = (formData: GeneralSymptomsData): Par
     feeling_down: formData.feelingDown,
     brain_fog: formData.brainFog,
     delirium: formData.delirium,
-    typical_hayfever: formData.typicalHayFever,
   };
+
+  if (hasHayfever) {
+    assessment = {
+      ...assessment,
+      typical_hayfever: formData.typicalHayFever,
+    };
+  }
+
+  return assessment;
 };
