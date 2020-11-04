@@ -14,6 +14,7 @@ import { naturalCompare } from '@covid/utils/array';
 export interface ISchoolService {
   getSubscribedSchoolGroups(): Promise<SubscribedSchoolGroupStats[]>;
   getSchools(): Promise<SchoolModel[]>;
+  getSchoolById(id: string, higherEducation?: boolean): Promise<SchoolModel[]>;
   searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]>;
   joinGroup(groupId: string, patientId: string): Promise<SchoolGroupJoinedResponse>;
   leaveGroup(groupId: string, patientId: string): Promise<void>;
@@ -26,6 +27,10 @@ export class SchoolService implements ISchoolService {
 
   getSchools(): Promise<SchoolModel[]> {
     return this.apiClient.get<SchoolModel[]>('/schools/');
+  }
+
+  getSchoolById(id: string, higherEducation: boolean = false): Promise<SchoolModel[]> {
+    return this.apiClient.get<SchoolModel[]>(`/schools/`, { verify: id, higher_education: higherEducation });
   }
 
   async searchSchoolGroups(schoolId: string): Promise<SchoolGroupModel[]> {

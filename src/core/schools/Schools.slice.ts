@@ -7,6 +7,8 @@ import { camelizeKeys } from '@covid/core/api/utils';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
 
+import { RootState } from '../state/root';
+
 // State interface
 
 export type SchoolState = {
@@ -71,3 +73,12 @@ export const schoolSlice = createSlice({
     },
   },
 });
+
+// selectors
+export const selectJoinedGroups = (state: RootState, higherEducation: boolean = false) =>
+  state.school.joinedSchoolNetworks?.filter((group) => group.school.higher_education === higherEducation);
+
+export const selectPreviouslyJoinedGroups = (state: RootState, patientId: string, higherEduction: boolean = false) => {
+  const previouslyJoinedGroups = selectJoinedGroups(state, higherEduction);
+  return previouslyJoinedGroups ? previouslyJoinedGroups.find((s) => s.patient_id === patientId) : undefined;
+};

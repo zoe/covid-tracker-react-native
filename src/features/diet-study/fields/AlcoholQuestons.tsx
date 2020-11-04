@@ -1,6 +1,7 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
@@ -85,7 +86,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
 
   return (
     <>
-      <FieldWrapper>
+      <FieldWrapper style={{ marginHorizontal: 16 }}>
         <FieldLabel>{i18n.t('diet-study.alcohol-frequency.label')}</FieldLabel>
         <DropdownField
           selectedValue={formikProps.values.alcoholFrequency}
@@ -97,8 +98,8 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
 
       {formikProps.values.alcoholFrequency !== '' &&
         formikProps.values.alcoholFrequency !== AlcoholFrequencyOptions.NEVER && (
-          <>
-            <AlcoholUnitInfo style={{ marginHorizontal: 16 }} />
+          <View style={{ marginHorizontal: 16 }}>
+            <AlcoholUnitInfo />
             <FieldWrapper>
               <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>
               <DropdownField
@@ -108,7 +109,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
                 items={unitsItems}
               />
             </FieldWrapper>
-          </>
+          </View>
         )}
     </>
   );

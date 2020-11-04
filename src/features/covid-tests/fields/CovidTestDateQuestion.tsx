@@ -8,7 +8,7 @@ import { StyleSheet, View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { ClickableText } from '@covid/components/Text';
+import { ClickableText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
@@ -95,59 +95,55 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
       />
 
       {formikProps.values.knowsDateOfTest === 'yes' && (
-        <View style={styles.field}>
-          <Item stackedLabel>
-            <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</Label>
-            {state.showDatePicker ? (
-              <CalendarPicker
-                onDateChange={setTestDate}
-                maxDate={today}
-                {...(!!formikProps.values.dateTakenSpecific && {
-                  selectedStartDate: formikProps.values.dateTakenSpecific,
-                })}
-              />
-            ) : (
-              <ClickableText onPress={() => setState({ ...state, showDatePicker: true })} style={styles.fieldText}>
-                {formikProps.values.dateTakenSpecific ? (
-                  moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
-                ) : (
-                  <Text>{i18n.t('covid-test.required-date')}</Text>
-                )}
-              </ClickableText>
-            )}
-          </Item>
-        </View>
+        <>
+          <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</RegularText>
+          {state.showDatePicker ? (
+            <CalendarPicker
+              onDateChange={setTestDate}
+              maxDate={today}
+              {...(!!formikProps.values.dateTakenSpecific && {
+                selectedStartDate: formikProps.values.dateTakenSpecific,
+              })}
+            />
+          ) : (
+            <ClickableText onPress={() => setState({ ...state, showDatePicker: true })} style={styles.fieldText}>
+              {formikProps.values.dateTakenSpecific ? (
+                moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
+              ) : (
+                <Text>{i18n.t('covid-test.required-date')}</Text>
+              )}
+            </ClickableText>
+          )}
+        </>
       )}
 
       {formikProps.values.knowsDateOfTest === 'no' && (
-        <View style={styles.field}>
-          <Item stackedLabel>
-            <Label style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</Label>
+        <>
+          <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</RegularText>
 
-            {state.showRangePicker ? (
-              <CalendarPicker
-                allowRangeSelection
-                // @ts-ignore Incorrect types on onDateChange, ignore it.
-                onDateChange={setRangeTestDates}
-                selectedStartDate={formikProps.values.dateTakenBetweenStart}
-                selectedEndDate={formikProps.values.dateTakenBetweenEnd}
-                maxDate={today}
-              />
-            ) : (
-              <ClickableText onPress={() => setState({ ...state, showRangePicker: true })} style={styles.fieldText}>
-                {formikProps.values.dateTakenBetweenStart && formikProps.values.dateTakenBetweenEnd ? (
-                  <>
-                    {moment(formikProps.values.dateTakenBetweenStart).format('MMMM D')}
-                    {' - '}
-                    {moment(formikProps.values.dateTakenBetweenEnd).format('MMMM D')}
-                  </>
-                ) : (
-                  <Text>{i18n.t('covid-test.question-select-a-date-range')}</Text>
-                )}
-              </ClickableText>
-            )}
-          </Item>
-        </View>
+          {state.showRangePicker ? (
+            <CalendarPicker
+              allowRangeSelection
+              // @ts-ignore Incorrect types on onDateChange, ignore it.
+              onDateChange={setRangeTestDates}
+              selectedStartDate={formikProps.values.dateTakenBetweenStart}
+              selectedEndDate={formikProps.values.dateTakenBetweenEnd}
+              maxDate={today}
+            />
+          ) : (
+            <ClickableText onPress={() => setState({ ...state, showRangePicker: true })} style={styles.fieldText}>
+              {formikProps.values.dateTakenBetweenStart && formikProps.values.dateTakenBetweenEnd ? (
+                <>
+                  {moment(formikProps.values.dateTakenBetweenStart).format('MMMM D')}
+                  {' - '}
+                  {moment(formikProps.values.dateTakenBetweenEnd).format('MMMM D')}
+                </>
+              ) : (
+                <Text>{i18n.t('covid-test.question-select-a-date-range')}</Text>
+              )}
+            </ClickableText>
+          )}
+        </>
       )}
     </FieldWrapper>
   );
@@ -157,11 +153,6 @@ const styles = StyleSheet.create({
   labelStyle: {
     marginVertical: 16,
   },
-
-  field: {
-    marginHorizontal: 16,
-  },
-
   fieldText: {
     ...fontStyles.bodyReg,
     color: colors.black,

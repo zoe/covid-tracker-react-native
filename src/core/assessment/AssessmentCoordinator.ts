@@ -53,9 +53,6 @@ export class AssessmentCoordinator extends Coordinator {
     NHSTestDetail: () => {
       NavigatorService.goBack();
     },
-    DescribeSymptoms: () => {
-      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
-    },
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
@@ -70,6 +67,45 @@ export class AssessmentCoordinator extends Coordinator {
     },
     ReportForOther: () => {
       this.goToThankYouScreen();
+    },
+    HowYouFeel: (healthy: boolean) => {
+      if (healthy) {
+        this.gotoEndAssessment();
+      } else {
+        NavigatorService.navigate('GeneralSymptoms', { assessmentData: this.assessmentData });
+      }
+    },
+    WhereAreYou: (params: { location: string; endAssessment: boolean }) => {
+      if (params.endAssessment) {
+        this.gotoEndAssessment();
+      } else {
+        NavigatorService.navigate('TreatmentSelection', {
+          assessmentData: this.assessmentData,
+          location: params.location,
+        });
+      }
+    },
+    TreatmentSelection: (params: { other: boolean; location: string }) => {
+      if (params.other) {
+        NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location: params.location });
+      } else {
+        this.gotoEndAssessment();
+      }
+    },
+    GeneralSymptoms: () => {
+      NavigatorService.navigate('HeadSymptoms', { assessmentData: this.assessmentData });
+    },
+    HeadSymptoms: () => {
+      NavigatorService.navigate('ThroatChestSymptoms', { assessmentData: this.assessmentData });
+    },
+    ThroatChestSymptoms: () => {
+      NavigatorService.navigate('GutStomachSymptoms', { assessmentData: this.assessmentData });
+    },
+    GutStomachSymptoms: () => {
+      NavigatorService.navigate('OtherSymptoms', { assessmentData: this.assessmentData });
+    },
+    OtherSymptoms: () => {
+      NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
   };
 
@@ -116,28 +152,9 @@ export class AssessmentCoordinator extends Coordinator {
     }
   };
 
-  // The following navigations require the checking of some state and so these are passed in.
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
     const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
-  };
-
-  goToNextHowYouFeelScreen = (healthy: boolean) => {
-    return healthy
-      ? this.gotoEndAssessment()
-      : NavigatorService.navigate('DescribeSymptoms', { assessmentData: this.assessmentData });
-  };
-
-  goToNextWhereAreYouScreen = (location: string, endAssessment: boolean) => {
-    return endAssessment
-      ? this.gotoEndAssessment()
-      : NavigatorService.navigate('TreatmentSelection', { assessmentData: this.assessmentData, location });
-  };
-
-  goToNextTreatmentSelectionScreen = (other: boolean, location: string) => {
-    return other
-      ? NavigatorService.navigate('TreatmentOther', { assessmentData: this.assessmentData, location })
-      : this.gotoEndAssessment();
   };
 
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
