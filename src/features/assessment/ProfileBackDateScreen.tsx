@@ -28,12 +28,7 @@ import { RaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patien
 import { DiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
-interface BackfillData
-  extends BloodPressureData,
-    RaceEthnicityData,
-    AtopyData,
-    DiabetesData,
-    BloodGroupData {}
+interface BackfillData extends BloodPressureData, RaceEthnicityData, AtopyData, DiabetesData, BloodGroupData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;

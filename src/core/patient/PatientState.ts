@@ -23,7 +23,6 @@ export type PatientStateType = {
   hasSchoolGroup: boolean;
 };
 
-
 const initPatientState: PatientStateType = {
   patientId: '',
   hasHayfever: false,
