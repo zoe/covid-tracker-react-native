@@ -13,7 +13,6 @@ export type PatientStateType = {
   isSameHousehold: boolean;
   shouldAskStudy: boolean;
   hasRaceEthnicityAnswer: boolean;
-  hasVitaminAnswer: boolean;
   hasAtopyAnswers: boolean;
   hasDiabetes: boolean;
   hasDiabetesAnswers: boolean;
@@ -23,6 +22,7 @@ export type PatientStateType = {
   hasBloodGroupAnswer: boolean;
   hasSchoolGroup: boolean;
 };
+
 
 const initPatientState: PatientStateType = {
   patientId: '',
@@ -43,7 +43,6 @@ const initPatientState: PatientStateType = {
   isSameHousehold: false,
   shouldAskStudy: false,
   hasRaceEthnicityAnswer: true,
-  hasVitaminAnswer: true,
   hasAtopyAnswers: true,
   shouldShowUSStudyInvite: false,
   hasDiabetes: false,

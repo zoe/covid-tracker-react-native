@@ -151,8 +151,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
 
-    const hasVitaminAnswer = !!patient.vs_asked_at;
-
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
@@ -175,7 +173,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isHealthWorker,
       hasRaceEthnicityAnswer,
       hasBloodPressureAnswer,
-      hasVitaminAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,

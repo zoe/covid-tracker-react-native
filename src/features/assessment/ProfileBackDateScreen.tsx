@@ -25,19 +25,12 @@ import {
   BloodPressureMedicationQuestion,
 } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
-import {
-  VitaminSupplementsQuestion,
-  VitaminSupplementData,
-  supplementValues,
-  SupplementValue,
-} from '@covid/features/patient/fields/VitaminQuestion';
 import { DiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
 interface BackfillData
   extends BloodPressureData,
     RaceEthnicityData,
-    VitaminSupplementData,
     AtopyData,
     DiabetesData,
     BloodGroupData {}
@@ -51,7 +44,6 @@ type State = {
   errorMessage: string;
   needBloodPressureAnswer: boolean;
   needRaceEthnicityAnswer: boolean;
-  needVitaminAnswer: boolean;
   needAtopyAnswers: boolean;
   needDiabetesAnswers: boolean;
   needBloodGroupAnswer: boolean;
@@ -61,7 +53,6 @@ const initialState: State = {
   errorMessage: '',
   needBloodPressureAnswer: false,
   needRaceEthnicityAnswer: false,
-  needVitaminAnswer: false,
   needAtopyAnswers: false,
   needDiabetesAnswers: false,
   needBloodGroupAnswer: false,
@@ -112,15 +103,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
       then: Yup.string().required(),
     }),
-
-    vitaminSupplements: Yup.array<string>().when([], {
-      is: () => this.state.needVitaminAnswer,
-      then: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
-    }),
-    vitaminOther: Yup.string().when('vitaminSupplements', {
-      is: (val: string[]) => val.includes(supplementValues.OTHER),
-      then: Yup.string(),
-    }),
   });
 
   async componentDidMount() {
@@ -130,7 +112,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needRaceEthnicityAnswer:
         (this.features.showRaceQuestion || this.features.showEthnicityQuestion) &&
         !currentPatient.hasRaceEthnicityAnswer,
-      needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
       needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
       needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
@@ -147,7 +128,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       .then((response) => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
-        if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
         if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
         if (formData.diabetesType) {
@@ -206,17 +186,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       }
     }
 
-    if (this.state.needVitaminAnswer) {
-      const supplementsDoc = VitaminSupplementsQuestion.createSupplementsDoc(
-        formData.vitaminSupplements as SupplementValue[],
-        formData.vitaminOther as string
-      );
-      infos = {
-        ...infos,
-        ...supplementsDoc,
-      };
-    }
-
     if (this.state.needAtopyAnswers) {
       infos = {
         ...infos,
@@ -261,7 +230,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           initialValues={{
             ...RaceEthnicityQuestion.initialFormValues(),
             ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
             ...BloodGroupQuestion.initialFormValues(),
@@ -292,10 +260,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
                     formikProps={props as FormikProps<RaceEthnicityData>}
                   />
-                )}
-
-                {this.state.needVitaminAnswer && (
-                  <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
                 )}
 
                 {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />}

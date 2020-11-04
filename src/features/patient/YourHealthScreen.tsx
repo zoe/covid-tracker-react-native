@@ -27,20 +27,9 @@ import { stripAndRound } from '@covid/utils/number';
 import { ScreenParamList } from '../ScreenParamList';
 
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
-import {
-  SupplementValue,
-  supplementValues,
-  VitaminSupplementData,
-  VitaminSupplementsQuestion,
-} from './fields/VitaminQuestion';
 import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
 
-export interface YourHealthData
-  extends BloodPressureData,
-    VitaminSupplementData,
-    AtopyData,
-    DiabetesData,
-    BloodGroupData {
+export interface YourHealthData extends BloodPressureData, AtopyData, DiabetesData, BloodGroupData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -144,11 +133,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     takesBloodPressureMedications: Yup.string().required(), // pril
     takesAnyBloodPressureMedications: Yup.string().required(),
     takesBloodPressureMedicationsSartan: Yup.string().required(),
-    vitaminSupplements: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
-    vitaminOther: Yup.string().when('vitaminSupplements', {
-      is: (val: string[]) => val.includes(supplementValues.OTHER),
-      then: Yup.string(),
-    }),
   });
 
   handleUpdateHealth(formData: YourHealthData) {
@@ -161,7 +145,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       .then((_) => {
         currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
-        currentPatient.hasVitaminAnswer = true;
         currentPatient.hasAtopyAnswers = true;
         if (formData.diabetesType) {
           currentPatient.hasDiabetesAnswers = true;
@@ -179,10 +162,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
   private createPatientInfos(formData: YourHealthData) {
     const smokerStatus = formData.smokerStatus === 'no' ? 'never' : formData.smokerStatus;
-    const vitamin_supplements_doc = VitaminSupplementsQuestion.createSupplementsDoc(
-      formData.vitaminSupplements as SupplementValue[],
-      formData.vitaminOther as string
-    );
     let infos = {
       has_heart_disease: formData.hasHeartDisease === 'yes',
       has_diabetes: formData.hasDiabetes === 'yes',
@@ -197,7 +176,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       takes_corticosteroids: formData.takesCorticosteroids === 'yes',
       takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
       limited_activity: formData.limitedActivity === 'yes',
-      ...vitamin_supplements_doc,
       ...BloodGroupQuestion.createDTO(formData),
     } as Partial<PatientInfosRequest>;
 
@@ -275,7 +253,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           initialValues={{
             ...initialFormValues,
             ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
             ...BloodGroupQuestion.initialFormValues(),
@@ -399,8 +376,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   />
 
                   <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
-
-                  <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
 
                   <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
 
