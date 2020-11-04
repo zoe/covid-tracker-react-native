@@ -6,7 +6,7 @@
     "start:reset": "react-native start --reset-cache",
     "android": "ENVFILE=.env.staging react-native run-android --variant=staging --appId=com.joinzoe.covid_zoe",
     "ios": "react-native run-ios",
-    "ios:staging": "ENVFILE=.env.staging react-native run-ios --scheme Beta --configuration Beta.Debug --simulator='iPhone 8'",
+    "ios:staging": "ENVFILE=.env.staging react-native run-ios --scheme 'Covid Debug' --configuration Debug --simulator='iPhone 8'",
     "web": "expo start --web",
     "test": "jest --maxWorker=2",
     "test:coverage": "jest --maxWorker=2 --coverage --reporters=default --reporters=jest-junit && coveralls < coverage/lcov.info",
