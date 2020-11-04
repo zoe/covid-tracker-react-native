@@ -55,6 +55,8 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
   }
 
   function setRangeTestDates(selectedDate: Moment, type: string): void {
+    // BUG: calendarPicker firing twice and sending null object on second event
+    if (!selectedDate) return;
     if (type === 'END_DATE') {
       formikProps.values.dateTakenBetweenEnd = convertToDate(selectedDate);
       setState({
