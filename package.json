@@ -28,6 +28,7 @@
     "reset": "watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install",
     "postinstall": "cd ios && pod install",
     "fastlane": "ENVFILE=.env bundle exec fastlane",
+    "fastlane:ios:register": "bundle exec fastlane register && bundle exec fastlane match adhoc -a com.joinzoe.covid-zoe.qa",
     "fastlane:ios:release": "yarn fastlane ios release",
     "fastlane:android:release": "yarn fastlane android release",
     "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",

@@ -258,3 +258,10 @@ platform :ios do
     # )
   end
 end
+
+
+lane :register do
+  register_devices(
+    devices_file: "./fastlane/devices.txt"
+  )
+end
