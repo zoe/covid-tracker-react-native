@@ -40,6 +40,11 @@ fastlane get_version_no
 fastlane release_notes
 ```
 
+### register
+```
+fastlane register
+```
+
 
 ----
 
