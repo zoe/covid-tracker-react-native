@@ -1418,7 +1418,7 @@
         "placeholder": "Search for your child's school"
       },
       "school-code-title": "Enter your Unique School Network Code",
-      "school-code-instructions": "Your child's school UCN should have been shared with you by a school representative. Please contact the school if you cannot find this code.",
+      "school-code-instructions": "Your child's Unique School Network Code should have been shared with you by a school representative. Please contact the school if you cannot find this code.",
       "school-code-placeholder": "Enter your code here",
       "school-code-confirm": "Confirm your child's school",
       "school-code-confirm-instructions": "Please confirm the below school name is correct. If the school below is not correct, please double check you have entered the correct UCN (Unique COVID Network) code. For further help, please contact your school leader.",
