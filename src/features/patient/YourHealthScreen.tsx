@@ -27,24 +27,9 @@ import { stripAndRound } from '@covid/utils/number';
 import { ScreenParamList } from '../ScreenParamList';
 
 import { BloodPressureData, BloodPressureMedicationQuestion } from './fields/BloodPressureMedicationQuestion';
-import { HormoneTreatmentData, HormoneTreatmentQuestion, TreatmentValue } from './fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion, periodValues } from './fields/PeriodQuestion';
-import {
-  SupplementValue,
-  supplementValues,
-  VitaminSupplementData,
-  VitaminSupplementsQuestion,
-} from './fields/VitaminQuestion';
 import { DiabetesQuestions, DiabetesData } from './fields/DiabetesQuestions';
 
-export interface YourHealthData
-  extends BloodPressureData,
-    PeriodData,
-    HormoneTreatmentData,
-    VitaminSupplementData,
-    AtopyData,
-    DiabetesData,
-    BloodGroupData {
+export interface YourHealthData extends BloodPressureData, AtopyData, DiabetesData, BloodGroupData {
   isPregnant: string;
   hasHeartDisease: string;
   hasDiabetes: string;
@@ -90,16 +75,12 @@ type HealthProps = {
 type State = {
   errorMessage: string;
   showPregnancyQuestion: boolean;
-  showPeriodQuestion: boolean;
-  showHormoneTherapyQuestion: boolean;
   showDiabetesQuestion: boolean;
 };
 
 const initialState: State = {
   errorMessage: '',
   showPregnancyQuestion: false,
-  showPeriodQuestion: false,
-  showHormoneTherapyQuestion: false,
   showDiabetesQuestion: false,
 };
 
@@ -117,8 +98,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     this.state = {
       ...initialState,
       showPregnancyQuestion: features.showPregnancyQuestion && currentPatient.isFemale,
-      showPeriodQuestion: currentPatient.isPeriodCapable,
-      showHormoneTherapyQuestion: currentPatient.isPeriodCapable,
       showDiabetesQuestion: false,
     };
   }
@@ -128,33 +107,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       is: () => this.state.showPregnancyQuestion,
       then: Yup.string().required(),
     }),
-    havingPeriods: Yup.string().when([], {
-      is: () => this.state.showPeriodQuestion,
-      then: Yup.string().required(i18n.t('your-health.please-select-periods')),
-    }),
-    periodFrequency: Yup.string().when('havingPeriods', {
-      is: periodValues.CURRENTLY,
-      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
-    }),
-    weeksPregnant: Yup.number().when('havingPeriods', {
-      is: periodValues.PREGNANT,
-      then: Yup.number()
-        .typeError(i18n.t('your-health.correct-weeks-pregnant'))
-        .min(0, i18n.t('your-health.correct-weeks-pregnant'))
-        .max(50, i18n.t('your-health.correct-weeks-pregnant')),
-    }),
-    periodStoppedAge: Yup.number().when('havingPeriods', {
-      is: periodValues.STOPPED,
-      then: Yup.number()
-        .typeError(i18n.t('your-health.correct-period-stopped-age'))
-        .min(0, i18n.t('your-health.correct-period-stopped-age'))
-        .max(100, i18n.t('your-health.correct-period-stopped-age')),
-    }),
-    hormoneTreatment: Yup.array<string>().when([], {
-      is: () => this.state.showHormoneTherapyQuestion,
-      then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
-    }),
-
     hasHeartDisease: Yup.string().required(),
     hasDiabetes: Yup.string().required(),
     hasHayfever: Yup.string().required(),
@@ -181,11 +133,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
     takesBloodPressureMedications: Yup.string().required(), // pril
     takesAnyBloodPressureMedications: Yup.string().required(),
     takesBloodPressureMedicationsSartan: Yup.string().required(),
-    vitaminSupplements: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
-    vitaminOther: Yup.string().when('vitaminSupplements', {
-      is: (val: string[]) => val.includes(supplementValues.OTHER),
-      then: Yup.string(),
-    }),
   });
 
   handleUpdateHealth(formData: YourHealthData) {
@@ -198,9 +145,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       .then((_) => {
         currentPatient.hasCompletedPatientDetails = true;
         currentPatient.hasBloodPressureAnswer = true;
-        currentPatient.hasPeriodAnswer = true;
-        currentPatient.hasHormoneTreatmentAnswer = true;
-        currentPatient.hasVitaminAnswer = true;
         currentPatient.hasAtopyAnswers = true;
         if (formData.diabetesType) {
           currentPatient.hasDiabetesAnswers = true;
@@ -218,10 +162,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
 
   private createPatientInfos(formData: YourHealthData) {
     const smokerStatus = formData.smokerStatus === 'no' ? 'never' : formData.smokerStatus;
-    const vitamin_supplements_doc = VitaminSupplementsQuestion.createSupplementsDoc(
-      formData.vitaminSupplements as SupplementValue[],
-      formData.vitaminOther as string
-    );
     let infos = {
       has_heart_disease: formData.hasHeartDisease === 'yes',
       has_diabetes: formData.hasDiabetes === 'yes',
@@ -236,7 +176,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       takes_corticosteroids: formData.takesCorticosteroids === 'yes',
       takes_any_blood_pressure_medications: formData.takesAnyBloodPressureMedications === 'yes',
       limited_activity: formData.limitedActivity === 'yes',
-      ...vitamin_supplements_doc,
       ...BloodGroupQuestion.createDTO(formData),
     } as Partial<PatientInfosRequest>;
 
@@ -283,22 +222,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
       }
     }
 
-    if (this.state.showPeriodQuestion) {
-      const periodDoc = PeriodQuestion.createPeriodDoc(formData);
-      infos = {
-        ...infos,
-        ...periodDoc,
-      };
-    }
-
-    if (this.state.showHormoneTherapyQuestion && formData.hormoneTreatment.length) {
-      const treatmentsDoc = HormoneTreatmentQuestion.createTreatmentsDoc(formData.hormoneTreatment as TreatmentValue[]);
-      infos = {
-        ...infos,
-        ...treatmentsDoc,
-      };
-    }
-
     if (this.state.showDiabetesQuestion) {
       infos = {
         ...infos,
@@ -330,9 +253,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
           initialValues={{
             ...initialFormValues,
             ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...PeriodQuestion.initialFormValues(),
-            ...HormoneTreatmentQuestion.initialFormValues(),
-            ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
             ...BloodGroupQuestion.initialFormValues(),
@@ -366,12 +286,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                         label={i18n.t('your-health.are-you-pregnant')}
                       />
                     </>
-                  )}
-
-                  {this.state.showPeriodQuestion && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
-
-                  {this.state.showHormoneTherapyQuestion && (
-                    <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
                   )}
 
                   <YesNoField
@@ -462,8 +376,6 @@ export default class YourHealthScreen extends Component<HealthProps, State> {
                   />
 
                   <BloodPressureMedicationQuestion formikProps={props as FormikProps<BloodPressureData>} />
-
-                  <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
 
                   <BloodGroupQuestion formikProps={props as FormikProps<BloodGroupData>} />
 

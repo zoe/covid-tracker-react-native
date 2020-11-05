@@ -151,22 +151,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
 
-    const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
-    const hasHormoneTreatmentAnswer =
-      !isPeriodCapable ||
-      !!patient.ht_none ||
-      !!patient.ht_combined_oral_contraceptive_pill ||
-      !!patient.ht_progestone_only_pill ||
-      !!patient.ht_mirena_or_other_coil ||
-      !!patient.ht_depot_injection_or_implant ||
-      !!patient.ht_hormone_treatment_therapy ||
-      !!patient.ht_oestrogen_hormone_therapy ||
-      !!patient.ht_testosterone_hormone_therapy ||
-      !!patient.ht_pfnts ||
-      !!patient.ht_other;
-
-    const hasVitaminAnswer = !!patient.vs_asked_at;
-
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
@@ -189,9 +173,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isHealthWorker,
       hasRaceEthnicityAnswer,
       hasBloodPressureAnswer,
-      hasPeriodAnswer,
-      hasHormoneTreatmentAnswer,
-      hasVitaminAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
