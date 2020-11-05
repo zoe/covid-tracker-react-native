@@ -165,6 +165,9 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
     const hasSchoolGroup = patient.has_school_group;
 
+    const age = new Date().getFullYear() - patient.year_of_birth;
+    const isMinor = age > 0 && age < 20;
+
     return {
       ...patientState,
       profile,
@@ -186,6 +189,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasBloodGroupAnswer,
       isNHSStudy,
       hasSchoolGroup,
+      isMinor,
     };
   }
 

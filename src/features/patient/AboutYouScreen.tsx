@@ -127,6 +127,9 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
+
+          const age = new Date().getFullYear() - cleanIntegerVal(formData.yearOfBirth);
+          currentPatient.isMinor = age > 0 && age < 20;
           this.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
