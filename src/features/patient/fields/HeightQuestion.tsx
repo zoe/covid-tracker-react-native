@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
 
   cmField: {
     flex: 6,
+    marginRight: 4,
   },
 
   primaryFieldRow: {
@@ -149,12 +150,13 @@ const styles = StyleSheet.create({
   },
 
   inchesField: {
-    marginLeft: 4,
+    marginHorizontal: 4,
     flex: 5,
   },
 
   unitsField: {
     flex: 2,
-    margin: -8,
+    marginLeft: 4,
+    marginTop: -8,
   },
 });
