@@ -85,29 +85,15 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    return navigation.addListener('focus', () => {
+    return navigation.addListener('focus', async () => {
       dispatch(updateTodayDate());
       dispatch(fetchSubscribedSchoolGroups());
-      dispatch(fetchLocalTrendLine());
-    });
-  }, [navigation]);
-
-  // Fetch Trendline if needed after startup info has changed
-  useEffect(() => {
-    if (!content) return;
-    const { startupInfo, localTrendline } = content;
-    if (startupInfo?.local_data?.lad && !localTrendline) {
-      store.dispatch(fetchLocalTrendLine());
-    }
-  }, [content?.startupInfo]);
-
-  // Calculate trendline feature flag on trendline data changed
-  useEffect(() => {
-    (async () => {
+      // Decide whether or not to show trendline feature
+      // - This will check for user's lad & do they have local trendline data & BE feature toggle
       const flag = await appCoordinator.shouldShowTrendLine();
       setShowTrendline(flag);
-    })();
-  }, [content?.localTrendline]);
+    });
+  }, [navigation]);
 
   const hasNetworkData = networks && networks.length > 0;
 

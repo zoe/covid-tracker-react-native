@@ -2,7 +2,7 @@ import { FormikProps } from 'formik';
 import moment from 'moment';
 import { Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { fontStyles, colors } from '@theme';
 import i18n from '@covid/locale/i18n';
@@ -10,6 +10,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 import { FieldWrapper } from '@covid/components/Screen';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CheckboxItem, CheckboxList } from '@covid/components/Checkbox';
+import { RegularText } from '@covid/components/Text';
 
 export interface VitaminSupplementData {
   vitaminSupplements: string[];
@@ -151,13 +152,13 @@ export class VitaminSupplementsQuestion extends Component<Props, object> {
     const { formikProps } = this.props;
     return (
       <FieldWrapper>
-        <Item stackedLabel style={styles.textItemStyle}>
-          <Label>{i18n.t('your-health.vitamins.question-taking-vitamins')}</Label>
-          <Label style={styles.infoText}>{i18n.t('your-health.vitamins.question-justification')}</Label>
+        <View style={styles.textItemStyle}>
+          <RegularText>{i18n.t('your-health.vitamins.question-taking-vitamins')}</RegularText>
+          <RegularText style={styles.infoText}>{i18n.t('your-health.vitamins.question-justification')}</RegularText>
           <CheckboxList>
             {createSupplementCheckboxes(this.vitaminSupplementsCheckboxes, this.props.formikProps)}
           </CheckboxList>
-        </Item>
+        </View>
         {!!formikProps.errors.vitaminSupplements && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.vitaminSupplements as string} />
         )}
@@ -179,6 +180,8 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   infoText: {
+    marginTop: 16,
+    marginBottom: 8,
     ...fontStyles.bodySmallLight,
     color: colors.primary,
   },

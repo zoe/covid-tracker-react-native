@@ -4,6 +4,7 @@ import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
@@ -362,98 +363,100 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           {(props) => {
             return (
               <Form>
-                <GenericTextField
-                  formikProps={props}
-                  label={i18n.t('what-year-were-you-born')}
-                  placeholder={i18n.t('placeholder-year-of-birth')}
-                  name="yearOfBirth"
-                  keyboardType="numeric"
-                  showError
-                />
-
-                <DropdownField
-                  placeholder={i18n.t('placeholder-sex')}
-                  selectedValue={props.values.sex}
-                  onValueChange={props.handleChange('sex')}
-                  label={i18n.t('your-sex-at-birth')}
-                  items={sexAtBirthItems}
-                  error={props.touched.sex && props.errors.sex}
-                />
-
-                <DropdownField
-                  selectedValue={props.values.genderIdentity}
-                  onValueChange={props.handleChange('genderIdentity')}
-                  label={i18n.t('label-gender-identity')}
-                  items={genderIdentityItems}
-                  error={props.touched.genderIdentity && props.errors.genderIdentity}
-                />
-
-                {props.values.genderIdentity === 'other' && (
+                <View style={{ marginHorizontal: 16 }}>
                   <GenericTextField
                     formikProps={props}
-                    label={i18n.t('label-gender-identity-other')}
-                    name="genderIdentityDescription"
-                    placeholder={i18n.t('placeholder-optional')}
-                  />
-                )}
-
-                <RaceEthnicityQuestion
-                  showRaceQuestion={this.state.showRaceQuestion}
-                  showEthnicityQuestion={this.state.showEthnicityQuestion}
-                  formikProps={props as FormikProps<RaceEthnicityData>}
-                />
-
-                <HeightQuestion formikProps={props as FormikProps<HeightData>} />
-
-                <WeightQuestion formikProps={props as FormikProps<WeightData>} label={i18n.t('your-weight')} />
-
-                {!this.props.route.params.editing && (
-                  <GenericTextField
-                    formikProps={props}
-                    label={i18n.t('your-postcode')}
-                    placeholder={i18n.t('placeholder-postcode')}
-                    name="postcode"
-                    inputProps={{ autoCompleteType: 'postal-code' }}
+                    label={i18n.t('what-year-were-you-born')}
+                    placeholder={i18n.t('placeholder-year-of-birth')}
+                    name="yearOfBirth"
+                    keyboardType="numeric"
                     showError
                   />
-                )}
 
-                <DropdownField
-                  selectedValue={props.values.everExposed}
-                  onValueChange={props.handleChange('everExposed')}
-                  label={i18n.t('have-you-been-exposed')}
-                  items={everExposedItems}
-                  error={props.touched.everExposed && props.errors.everExposed}
-                />
+                  <DropdownField
+                    placeholder={i18n.t('placeholder-sex')}
+                    selectedValue={props.values.sex}
+                    onValueChange={props.handleChange('sex')}
+                    label={i18n.t('your-sex-at-birth')}
+                    items={sexAtBirthItems}
+                    error={props.touched.sex && props.errors.sex}
+                  />
 
-                <YesNoField
-                  label={i18n.t('housebound-problems')}
-                  selectedValue={props.values.houseboundProblems}
-                  onValueChange={props.handleChange('houseboundProblems')}
-                />
+                  <DropdownField
+                    selectedValue={props.values.genderIdentity}
+                    onValueChange={props.handleChange('genderIdentity')}
+                    label={i18n.t('label-gender-identity')}
+                    items={genderIdentityItems}
+                    error={props.touched.genderIdentity && props.errors.genderIdentity}
+                  />
 
-                <YesNoField
-                  label={i18n.t('needs-help')}
-                  selectedValue={props.values.needsHelp}
-                  onValueChange={props.handleChange('needsHelp')}
-                />
+                  {props.values.genderIdentity === 'other' && (
+                    <GenericTextField
+                      formikProps={props}
+                      label={i18n.t('label-gender-identity-other')}
+                      name="genderIdentityDescription"
+                      placeholder={i18n.t('placeholder-optional')}
+                    />
+                  )}
 
-                <YesNoField
-                  label={i18n.t('help-available')}
-                  selectedValue={props.values.helpAvailable}
-                  onValueChange={props.handleChange('helpAvailable')}
-                />
+                  <RaceEthnicityQuestion
+                    showRaceQuestion={this.state.showRaceQuestion}
+                    showEthnicityQuestion={this.state.showEthnicityQuestion}
+                    formikProps={props as FormikProps<RaceEthnicityData>}
+                  />
 
-                <YesNoField
-                  label={i18n.t('mobility-aid')}
-                  selectedValue={props.values.mobilityAid}
-                  onValueChange={props.handleChange('mobilityAid')}
-                />
+                  <HeightQuestion formikProps={props as FormikProps<HeightData>} />
 
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                  <WeightQuestion formikProps={props as FormikProps<WeightData>} label={i18n.t('your-weight')} />
+
+                  {!this.props.route.params.editing && (
+                    <GenericTextField
+                      formikProps={props}
+                      label={i18n.t('your-postcode')}
+                      placeholder={i18n.t('placeholder-postcode')}
+                      name="postcode"
+                      inputProps={{ autoCompleteType: 'postal-code' }}
+                      showError
+                    />
+                  )}
+
+                  <DropdownField
+                    selectedValue={props.values.everExposed}
+                    onValueChange={props.handleChange('everExposed')}
+                    label={i18n.t('have-you-been-exposed')}
+                    items={everExposedItems}
+                    error={props.touched.everExposed && props.errors.everExposed}
+                  />
+
+                  <YesNoField
+                    label={i18n.t('housebound-problems')}
+                    selectedValue={props.values.houseboundProblems}
+                    onValueChange={props.handleChange('houseboundProblems')}
+                  />
+
+                  <YesNoField
+                    label={i18n.t('needs-help')}
+                    selectedValue={props.values.needsHelp}
+                    onValueChange={props.handleChange('needsHelp')}
+                  />
+
+                  <YesNoField
+                    label={i18n.t('help-available')}
+                    selectedValue={props.values.helpAvailable}
+                    onValueChange={props.handleChange('helpAvailable')}
+                  />
+
+                  <YesNoField
+                    label={i18n.t('mobility-aid')}
+                    selectedValue={props.values.mobilityAid}
+                    onValueChange={props.handleChange('mobilityAid')}
+                  />
+
+                  <ErrorText>{this.state.errorMessage}</ErrorText>
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                    <ValidationError error={i18n.t('validation-error-text')} />
+                  )}
+                </View>
 
                 <BrandedButton
                   onPress={props.handleSubmit}

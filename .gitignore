@@ -197,4 +197,4 @@ ios/Pods/
 
 # Fonts
 android/app/src/main/assets/fonts/SofiaPro*.otf
-assets/fonts/SofiaPro*.otf
+/assets/fonts/*
