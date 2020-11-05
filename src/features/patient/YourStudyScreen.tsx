@@ -100,6 +100,16 @@ const AllCohorts: CohortDefinition[] = [
     country: 'US',
   },
   {
+    key: 'is_in_us_origins',
+    label: 'ORIGINS',
+    country: 'US',
+  },
+  {
+    key: 'is_in_us_school_reopenings',
+    label: 'Schools Reopenings Study',
+    country: 'US',
+  },
+  {
     key: 'is_in_us_partners_biobank',
     label: 'Partners Biobank',
     country: 'US',
@@ -222,16 +232,6 @@ const AllCohorts: CohortDefinition[] = [
   {
     key: 'is_in_us_mary_washington_healthcare',
     label: 'Mary Washington Healthcare',
-    country: 'US',
-  },
-  {
-    key: 'is_in_us_origins',
-    label: 'ORIGINS',
-    country: 'US',
-  },
-  {
-    key: 'is_in_us_school_reopenings',
-    label: 'Schools Reopenings Study',
     country: 'US',
   },
   //For now, the NOTA is being sent to the backend and failing silently since the field doesn't exist, not to the users knowledge
