@@ -142,27 +142,25 @@ export default class CovidApp extends Component<object, State> {
 
     return (
       <SafeAreaProvider>
-        <Provider store={store}>
-          <Root>
-            <Header style={{ display: 'none' }}>
-              <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-            </Header>
-            <NavigationContainer
-              ref={(navigatorRef) => {
-                NavigatorService.setContainer(navigatorRef);
-              }}
-              onStateChange={NavigatorService.handleStateChange}>
-              <Drawer.Navigator
-                drawerContent={(props) => <DrawerMenu {...props} />}
-                screenOptions={{ swipeEnabled: false }}
-                drawerStyle={{
-                  width: Dimensions.get('screen').width,
-                }}>
-                <Drawer.Screen name="Main" component={this.mainNavStack} />
-              </Drawer.Navigator>
-            </NavigationContainer>
-          </Root>
-        </Provider>
+        <Root>
+          <Header style={{ display: 'none' }}>
+            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+          </Header>
+          <NavigationContainer
+            ref={(navigatorRef) => {
+              NavigatorService.setContainer(navigatorRef);
+            }}
+            onStateChange={NavigatorService.handleStateChange}>
+            <Drawer.Navigator
+              drawerContent={(props) => <DrawerMenu {...props} />}
+              screenOptions={{ swipeEnabled: false }}
+              drawerStyle={{
+                width: Dimensions.get('screen').width,
+              }}>
+              <Drawer.Screen name="Main" component={this.mainNavStack} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </Root>
       </SafeAreaProvider>
     );
   }

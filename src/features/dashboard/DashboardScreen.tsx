@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { Root } from 'native-base';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
@@ -28,6 +27,8 @@ import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+// delete me
+import { set } from '@covid/core/errors/slice';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -103,6 +104,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      <Button title="tap me" onPress={() => dispatch(set({ active: true }))} />
       {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
