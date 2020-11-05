@@ -224,6 +224,16 @@ const AllCohorts: CohortDefinition[] = [
     label: 'Mary Washington Healthcare',
     country: 'US',
   },
+  {
+    key: 'is_in_us_origins',
+    label: 'ORIGINS',
+    country: 'US',
+  },
+  {
+    key: 'is_in_us_school_reopenings',
+    label: 'Schools Reopenings Study',
+    country: 'US',
+  },
   //For now, the NOTA is being sent to the backend and failing silently since the field doesn't exist, not to the users knowledge
   {
     key: 'is_in_none_of_the_above',
