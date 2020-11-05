@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { Form, Item, Label } from 'native-base';
+import { Form, Item, Label, View } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
@@ -371,13 +371,14 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                   <>
                     <RegularText style={styles.standaloneLabel}>{i18n.t('your-study.if-not')}</RegularText>
 
-                    <GenericTextField
-                      formikProps={props}
-                      label={i18n.t('your-study.add-study-names')}
-                      name="clinicalStudyNames"
-                      placeholder={i18n.t('placeholder-optional')}
-                    />
-                    <>
+                    <View style={{ marginHorizontal: 16 }}>
+                      <GenericTextField
+                        formikProps={props}
+                        label={i18n.t('your-study.add-study-names')}
+                        name="clinicalStudyNames"
+                        placeholder={i18n.t('placeholder-optional')}
+                      />
+
                       <GenericTextField
                         formikProps={props}
                         label={i18n.t('your-study.contact-name')}
@@ -397,7 +398,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
                         name="clinicalStudyNctIds"
                         placeholder={i18n.t('placeholder-optional')}
                       />
-                    </>
+                    </View>
                   </>
                 )}
 
