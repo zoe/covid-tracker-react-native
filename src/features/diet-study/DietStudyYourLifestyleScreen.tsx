@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import { Form } from 'native-base';
 import * as Yup from 'yup';
@@ -69,8 +69,6 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
         <HeaderText>{i18n.t('diet-study.your-lifestyle.title-2')}</HeaderText>
       </Header>
 
-      <Divider />
-
       <Formik
         initialValues={{
           ...FoodSecurityQuestion.initialFormValues(),
@@ -84,12 +82,11 @@ const DietStudyYourLifestyleScreen: React.FC<Props> = ({ route, navigation }) =>
         onSubmit={(values: FormData) => updateDietStudy(values)}>
         {(props) => {
           return (
-            <Form>
+            <Form style={{ marginHorizontal: 16 }}>
+              <Divider />
               <FoodSecurityQuestion formikProps={props as FormikProps<FoodSecurityData>} />
 
-              <Header>
-                <HeaderText>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
-              </Header>
+              <HeaderText style={{ marginVertical: 16 }}>{i18n.t('diet-study.your-lifestyle.title')}</HeaderText>
 
               <Divider />
 

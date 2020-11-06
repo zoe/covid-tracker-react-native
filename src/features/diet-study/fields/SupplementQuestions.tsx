@@ -87,9 +87,7 @@ export const SupplementQuestions: SupplementQuestions<Props, SupplementData> = (
       {formikProps.values.takesSupplements === 'yes' && (
         <View style={{ marginVertical: 16 }}>
           <FieldLabel style={{ marginBottom: 4 }}>{i18n.t('diet-study.supplements.label')}</FieldLabel>
-          <Item stackedLabel style={styles.textItemStyle}>
-            <CheckboxList>{createSupplementCheckboxes(checkboxes, formikProps)}</CheckboxList>
-          </Item>
+          <CheckboxList>{createSupplementCheckboxes(checkboxes, formikProps)}</CheckboxList>
         </View>
       )}
 
