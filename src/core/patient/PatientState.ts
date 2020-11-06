@@ -59,3 +59,8 @@ export const getInitialPatientState = (patientId: string): PatientStateType => {
     patientId,
   } as PatientStateType;
 };
+
+export const isMinorAge = (yearOfBirth: number): boolean => {
+  const age = new Date().getFullYear() - yearOfBirth;
+  return age >= 0 && age < 20;
+};
