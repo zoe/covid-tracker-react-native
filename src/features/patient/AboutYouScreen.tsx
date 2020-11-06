@@ -432,7 +432,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     error={props.touched.everExposed && props.errors.everExposed}
                   />
 
-                  {!isMinor &&  (
+                  {!isMinor && (
                     <>
                       <YesNoField
                         label={i18n.t('housebound-problems')}
