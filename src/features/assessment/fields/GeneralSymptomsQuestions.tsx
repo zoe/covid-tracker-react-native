@@ -1,11 +1,10 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { Item } from 'native-base';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { FieldLabel, RegularText } from '@covid/components/Text';
+import { RegularText } from '@covid/components/Text';
 import { CheckboxList } from '@covid/components/Checkbox';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import {
@@ -37,6 +36,7 @@ type GeneralSymptomsFollowUpData = {
 
 type Props = {
   formikProps: FormikProps<GeneralSymptomsData>;
+  hasHayfever: boolean;
 };
 
 export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsData> = (props: Props) => {
@@ -65,8 +65,11 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
     { label: i18n.t('describe-symptoms.general-feeling-down'), value: 'feelingDown' },
     { label: i18n.t('describe-symptoms.general-brain-fog'), value: 'brainFog' },
     { label: i18n.t('describe-symptoms.general-delirium'), value: 'delirium' },
-    { label: i18n.t('describe-symptoms.general-allergy-increase'), value: 'typicalHayFever' },
   ];
+
+  if (props.hasHayfever) {
+    checkboxes.push({ label: i18n.t('describe-symptoms.general-allergy-increase'), value: 'typicalHayFever' });
+  }
 
   return (
     <View style={{ marginVertical: 16 }}>
@@ -103,8 +106,11 @@ GeneralSymptomsQuestions.schema = () => {
   });
 };
 
-GeneralSymptomsQuestions.createAssessment = (formData: GeneralSymptomsData): Partial<AssessmentInfosRequest> => {
-  return {
+GeneralSymptomsQuestions.createAssessment = (
+  formData: GeneralSymptomsData,
+  hasHayfever: boolean
+): Partial<AssessmentInfosRequest> => {
+  let assessment: Partial<AssessmentInfosRequest> = {
     fever: formData.fever,
     fatigue: formData.fatigue ? formData.fatigueFollowUp : 'no',
     rash: formData.rash,
@@ -116,6 +122,14 @@ GeneralSymptomsQuestions.createAssessment = (formData: GeneralSymptomsData): Par
     feeling_down: formData.feelingDown,
     brain_fog: formData.brainFog,
     delirium: formData.delirium,
-    typical_hayfever: formData.typicalHayFever,
   };
+
+  if (hasHayfever) {
+    assessment = {
+      ...assessment,
+      typical_hayfever: formData.typicalHayFever,
+    };
+  }
+
+  return assessment;
 };

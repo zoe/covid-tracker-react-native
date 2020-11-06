@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
 
   primaryField: {
     flex: 6,
+    marginRight: 4,
   },
 
   primaryFieldRow: {
@@ -157,11 +158,12 @@ const styles = StyleSheet.create({
 
   poundsField: {
     flex: 5,
-    marginLeft: 4,
+    marginHorizontal: 4,
   },
 
   secondaryField: {
     flex: 2,
-    margin: -8,
+    marginTop: -8,
+    marginLeft: 4,
   },
 });

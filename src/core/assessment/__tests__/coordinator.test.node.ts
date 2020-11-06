@@ -8,8 +8,6 @@ describe('Checks if user needs to back fill any profile questions', () => {
     const config = getConfig()!;
     const state = getInitialPatientState('000');
     state.hasRaceEthnicityAnswer = false;
-    state.hasPeriodAnswer = true;
-    state.hasHormoneTreatmentAnswer = true;
     state.hasBloodPressureAnswer = true;
     expect(AssessmentCoordinator.mustBackFillProfile(state, config)).toBe(false);
   });
@@ -19,8 +17,6 @@ describe('Checks if user needs to back fill any profile questions', () => {
     const config = getConfig()!;
     const state = getInitialPatientState('000');
     state.hasRaceEthnicityAnswer = false;
-    state.hasPeriodAnswer = false;
-    state.hasHormoneTreatmentAnswer = false;
     state.hasBloodPressureAnswer = false;
     expect(AssessmentCoordinator.mustBackFillProfile(state, config)).toBe(true);
   });
