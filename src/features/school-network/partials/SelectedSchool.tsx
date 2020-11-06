@@ -11,7 +11,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { openWebLink } from '@covid/utils/links';
 
-import { RemoveSchoolButton } from './';
+import RemoveSchoolButton from './RemoveSchoolButton';
 
 interface IProps {
   title: string;
