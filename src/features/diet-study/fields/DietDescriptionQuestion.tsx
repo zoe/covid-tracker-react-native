@@ -69,9 +69,7 @@ export const DietDescriptionQuestion: DietDescriptionQuestion<Props, DietData> =
   return (
     <View style={{ marginVertical: 16 }}>
       <FieldLabel style={{ marginBottom: 4 }}>{i18n.t('diet-study.diet.label')}</FieldLabel>
-      <Item stackedLabel style={styles.textItemStyle}>
-        <CheckboxList>{createCheckboxes(checkboxes, formikProps)}</CheckboxList>
-      </Item>
+      <CheckboxList>{createCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>
   );
 };
@@ -112,9 +110,3 @@ DietDescriptionQuestion.createDTO = (formData: DietData): Partial<DietStudyReque
     ...getSupplementDoc(formData),
   } as Partial<DietStudyRequest>;
 };
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});

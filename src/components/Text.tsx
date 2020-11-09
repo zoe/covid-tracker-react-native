@@ -122,13 +122,11 @@ const styles = StyleSheet.create({
   },
 
   fieldLabel: {
-    paddingHorizontal: 16,
     marginBottom: -16,
   },
 
   divider: {
     borderBottomWidth: 2,
     borderColor: colors.backgroundFour,
-    marginHorizontal: 16,
   },
 });

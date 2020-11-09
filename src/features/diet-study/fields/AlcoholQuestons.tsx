@@ -86,7 +86,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
 
   return (
     <>
-      <FieldWrapper style={{ marginHorizontal: 16 }}>
+      <FieldWrapper>
         <FieldLabel>{i18n.t('diet-study.alcohol-frequency.label')}</FieldLabel>
         <DropdownField
           selectedValue={formikProps.values.alcoholFrequency}
@@ -98,7 +98,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
 
       {formikProps.values.alcoholFrequency !== '' &&
         formikProps.values.alcoholFrequency !== AlcoholFrequencyOptions.NEVER && (
-          <View style={{ marginHorizontal: 16 }}>
+          <>
             <AlcoholUnitInfo />
             <FieldWrapper>
               <FieldLabel>{i18n.t('diet-study.alcohol-units.label')}</FieldLabel>
@@ -109,7 +109,7 @@ export const AlcoholQuestions: AlcoholQuestions<Props, AlcoholData> = (props: Pr
                 items={unitsItems}
               />
             </FieldWrapper>
-          </View>
+          </>
         )}
     </>
   );
