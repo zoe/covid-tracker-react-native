@@ -1,12 +1,10 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
 import { Dimensions, StatusBar, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
 import { Notifications } from 'expo';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -112,7 +110,7 @@ class State {
 }
 
 const initialState = {
-  isLoaded: false,
+  isLoaded: true,
   isOnline: true,
   isApiOnline: true,
 };
@@ -124,12 +122,6 @@ export default class CovidApp extends Component<object, State> {
   }
 
   async componentDidMount() {
-    await Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-    });
-    this.setState({ isLoaded: true });
-
     Notifications.addListener((notif) => {
       if (notif.origin === 'selected') {
         Analytics.track(events.OPEN_FROM_NOTIFICATION);
@@ -138,8 +130,6 @@ export default class CovidApp extends Component<object, State> {
   }
 
   render() {
-    if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
-
     return (
       <SafeAreaProvider>
         <Root>

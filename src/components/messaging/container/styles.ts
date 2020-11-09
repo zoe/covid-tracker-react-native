@@ -10,7 +10,7 @@ interface SProps {
 
 export const SContainerView = styled(View)<SProps>`
   ${(props) => `
-    backgroundColor: ${props.active ? 'rgba(0,0,0,0.8)' : null};
+    backgroundColor: ${props.active ? 'rgba(0,0,0,0.3)' : null};
     height: ${props.height}px;
     flex: 1;
     position: absolute;

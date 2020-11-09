@@ -3,6 +3,8 @@ import { Animated, Easing, TouchableOpacity, Text } from 'react-native';
 
 import { TColorPalette, TColorShade } from '@covid/themes';
 
+import { ThemeButton } from '../../Buttons';
+
 // import Icon from '../icon';
 
 import {
@@ -17,10 +19,10 @@ import {
 type StyleObject = { [key: string]: string | number };
 
 interface IButtonProps {
-  text: string;
+  title: string;
   onPress: () => void;
-  buttonContainerStyle?: StyleObject;
-  buttonTextStyle?: StyleObject;
+  buttonColorPalette: TColorPalette;
+  buttonColorShade: TColorShade;
 }
 
 interface IProps {
@@ -89,17 +91,20 @@ function Toast({
         <SMessageText colorPalette={colorPalette} colorShade={colorShade}>
           {message}
         </SMessageText>
-        {/*
+
         {button && (
-          <STouchableOpactity onPress={button.onPress} style={button.buttonContainerStyle}>
-            <SActionText textColor={textColor} style={button.buttonTextStyle}>
-              {button.text}
-            </SActionText>
-          </STouchableOpactity>
-        )}*/}
-        <TouchableOpacity onPress={handleClose}>
-          <Text style={{ color: 'white' }}> X </Text>
-        </TouchableOpacity>
+          <ThemeButton
+            colorPalette={button.buttonColorPalette}
+            colorShade={button.buttonColorShade}
+            onPress={button.onPress}
+            title={button.title}
+          />
+        )}
+        {onClose && (
+          <TouchableOpacity onPress={handleClose}>
+            <Text style={{ color: 'white' }}> X </Text>
+          </TouchableOpacity>
+        )}
       </SCardView>
     </SContainerView>
   );

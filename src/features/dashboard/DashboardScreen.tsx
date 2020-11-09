@@ -104,7 +104,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <Button title="tap me" onPress={() => dispatch(set({ active: true }))} />
+      <Button title="tap me" onPress={() => dispatch(set({ active: true, dissmissable: true }))} />
+      <Button title="press me" onPress={() => dispatch(set({ active: true, dissmissable: false, variant: 'top' }))} />
       {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (

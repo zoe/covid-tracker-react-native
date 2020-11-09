@@ -28,6 +28,7 @@ const App: React.FC = () => {
     sofiaProRegular: require('@assets/fonts/SofiaProRegular.otf'),
   });
   SplashScreen.hide();
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={Theme}>

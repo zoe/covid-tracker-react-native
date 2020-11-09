@@ -4,6 +4,7 @@ import { RootState } from '@covid/core/state/root';
 
 export interface IError {
   active: boolean;
+  dissmissable?: boolean;
   errorList?: { [key: string]: string };
   errorStatus?: string;
   message?: string;
