@@ -65,7 +65,7 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
         <RegularText>{i18n.t('diet-study.first-calories-label')}</RegularText>
 
         <View style={styles.fieldRow}>
-          <View style={styles.secondaryField}>
+          <View style={styles.leftField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.startHour}
@@ -73,7 +73,7 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
               items={hourItems}
             />
           </View>
-          <View style={styles.secondaryField}>
+          <View style={styles.middleField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.startMinute}
@@ -81,7 +81,7 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
               items={minItems}
             />
           </View>
-          <View style={styles.secondaryField}>
+          <View style={styles.rightField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.startMeridianIndicator}
@@ -96,7 +96,7 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
         <RegularText>{i18n.t('diet-study.last-calories-label')}</RegularText>
 
         <View style={styles.fieldRow}>
-          <View style={styles.secondaryField}>
+          <View style={styles.leftField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.endHour}
@@ -104,7 +104,7 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
               items={hourItems}
             />
           </View>
-          <View style={styles.secondaryField}>
+          <View style={styles.middleField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.endMinute}
@@ -112,7 +112,7 @@ export const EatingWindowQuestions: EatingWindowQuestions<Props, EatingWindowDat
               items={minItems}
             />
           </View>
-          <View style={styles.secondaryField}>
+          <View style={styles.rightField}>
             <DropdownField
               onlyPicker
               selectedValue={formikProps.values.endMeridianIndicator}
@@ -161,43 +161,22 @@ EatingWindowQuestions.createDTO = (formData: EatingWindowData): Partial<DietStud
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
 
   fieldRow: {
     flexDirection: 'row',
   },
 
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-
-  primaryField: {
-    flex: 6,
-  },
-
-  primaryFieldRow: {
-    flex: 6,
-    flexDirection: 'row',
-  },
-
-  tertiaryField: {
-    flex: 5,
-    marginRight: 8,
-  },
-
-  stonesField: {
-    flex: 5,
+  leftField: {
+    flex: 2,
     marginRight: 4,
   },
-
-  poundsField: {
-    flex: 5,
-    marginLeft: 4,
-  },
-
-  secondaryField: {
+  middleField: {
     flex: 2,
-    margin: -8,
+    marginHorizontal: 4,
+  },
+  rightField: {
+    flex: 2,
+    marginLeft: 4,
   },
 });
