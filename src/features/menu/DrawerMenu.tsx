@@ -53,7 +53,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
     try {
       const data = await consentService.getStudyStatus();
       setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
-      setShowDietStudy(true);
+      setShowDietStudy(data.should_ask_diet_study);
     } catch (_) {
       setShowVaccineRegistry(false);
       setShowDietStudy(false);
