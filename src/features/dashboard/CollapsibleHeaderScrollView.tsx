@@ -94,15 +94,18 @@ export const CollapsibleHeaderScrollView: React.FC<CollapsibleHeaderScrollViewPr
           scrollIndicatorInsets={{
             top: config.expanded,
           }}
-          onScroll={Animated.event([
-            {
-              nativeEvent: {
-                contentOffset: {
-                  y: scrollY,
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    y: scrollY,
+                  },
                 },
               },
-            },
-          ])}
+            ],
+            { useNativeDriver: true }
+          )}
           scrollEventThrottle={16}>
           {children}
         </ScrollView>

@@ -45,4 +45,26 @@ export const colors: IColorPalettes = {
       fgColor: '#fff',
     },
   },
+  uiDark: {
+    lighter: {
+      bgColor: '#919EAB',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#637381',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#454F5B',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#212B36',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#000000',
+      fgColor: '#fff',
+    },
+  },
 };

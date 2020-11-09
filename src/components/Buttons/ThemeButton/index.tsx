@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';

@@ -1,4 +1,4 @@
-import { IGrid, TGridSizes } from './grid';
+import { IGrid } from './grid';
 import { IColorPalettes } from './colors';
 
 export interface IThemeVars {

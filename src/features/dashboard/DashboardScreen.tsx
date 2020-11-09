@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';

@@ -12,4 +12,5 @@ export const grid: IGrid = {
   xxl: 24,
   xxxl: 32,
   xxxxl: 48,
+  gutter: 16,
 };
