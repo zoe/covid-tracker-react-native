@@ -126,7 +126,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
               )}
               <ExtraWeightQuestions isFemale={isFemale} formikProps={props as FormikProps<ExtraWeightData>} />
 
-              <Header>
+              <Header style={{ marginHorizontal: 0 }}>
                 <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
               </Header>
 
