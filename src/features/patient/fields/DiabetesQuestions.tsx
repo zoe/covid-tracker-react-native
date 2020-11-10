@@ -70,7 +70,6 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
 
   return (
     <View>
-      <Label style={styles.labelStyle}>{i18n.t('diabetes.justification')}</Label>
       <DropdownField
         items={diabetesTypeOptions}
         selectedValue={formikProps.values.diabetesType}
