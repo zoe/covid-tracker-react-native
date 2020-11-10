@@ -146,11 +146,17 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       gender: formData.sex === 'male' ? 1 : formData.sex === 'female' ? 0 : formData.sex === 'pfnts' ? 2 : 3,
       gender_identity: formData.genderIdentity,
       interacted_with_covid: formData.everExposed,
-      housebound_problems: formData.houseboundProblems === 'yes',
-      needs_help: formData.needsHelp === 'yes',
-      help_available: formData.helpAvailable === 'yes',
-      mobility_aid: formData.mobilityAid === 'yes',
     } as Partial<PatientInfosRequest>;
+
+    if (!isMinorAge(cleanIntegerVal(formData.yearOfBirth))) {
+      infos = {
+        ...infos,
+        housebound_problems: formData.houseboundProblems === 'yes',
+        needs_help: formData.needsHelp === 'yes',
+        help_available: formData.helpAvailable === 'yes',
+        mobility_aid: formData.mobilityAid === 'yes',
+      };
+    }
 
     if (formData.race) {
       infos = {
