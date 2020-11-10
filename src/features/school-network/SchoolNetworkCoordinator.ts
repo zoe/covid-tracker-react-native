@@ -43,7 +43,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
       NavigatorService.navigate('SchoolHowTo', { patientData: this.patientData });
     },
     SchoolHowTo: () => {
-      NavigatorService.navigate('SelectProfile', { editing: false });
+      NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
     },
     JoinSchoolGroup: () => {
       this.goToGroupList();
