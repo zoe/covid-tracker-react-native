@@ -83,7 +83,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
     switch (viewMode) {
       case TrendLineViewMode.overview:
         const overviewSorted = timeseries.sort((a: any, b: any) => (a.date < b.date ? 1 : -1));
-        const filtered = overviewSorted.filter((_: any, index: number) => index <= 7);
+        const filtered = overviewSorted.filter((_: any, index: number) => index <= 30);
         webview.current?.call('setData', {
           payload: {
             labels: filtered.map((item) => item.label).reverse(),
