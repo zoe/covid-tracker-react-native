@@ -85,10 +85,13 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
       case TrendLineViewMode.overview:
         const overviewSorted = timeseries.sort((a: any, b: any) => (a.date < b.date ? 1 : -1));
         const filtered = overviewSorted.filter((_: any, index: number) => index <= 30);
-        const monthLabels = (filtered ?? []).map((data) => moment(data.date).format("MMM"))
-        const monthLabelSet = monthLabels.reduce((unique: string[], item: string) => unique.includes(item) ? unique : [...unique, item], []);
+        const monthLabels = (filtered ?? []).map((data) => moment(data.date).format('MMM'));
+        const monthLabelSet = monthLabels.reduce(
+          (unique: string[], item: string) => (unique.includes(item) ? unique : [...unique, item]),
+          []
+        );
         if (monthLabelSet.length > 0) {
-          setMonthRangeLabel(`${monthLabelSet[0]} - ${monthLabelSet[monthLabelSet.length - 1]}`)
+          setMonthRangeLabel(`${monthLabelSet[0]} - ${monthLabelSet[monthLabelSet.length - 1]}`);
         }
         webview.current?.call('setData', {
           payload: {
@@ -133,13 +136,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
           }
         }}
       />
-      {
-        monthRangeLabel && (
-          <RegularText style={{ textAlign: 'center', fontSize: 12 }}>
-            {monthRangeLabel}
-          </RegularText>
-        )
-      }
+      {monthRangeLabel && <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>}
     </View>
   );
 };
