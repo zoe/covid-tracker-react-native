@@ -118,7 +118,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
     },
     ArchiveReason: () => {
-      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
+      NavigatorService.navigate('SelectProfile'); // Go back to SelectProfile with last used params
     },
     ValidationStudyIntro: () => {
       NavigatorService.navigate('ValidationStudyInfo');
