@@ -91,7 +91,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
           []
         );
         if (monthLabelSet.length > 0) {
-          setMonthRangeLabel(`${monthLabelSet[0]} - ${monthLabelSet[monthLabelSet.length - 1]}`);
+          setMonthRangeLabel(`${monthLabelSet[monthLabelSet.length - 1]} - ${monthLabelSet[0]}`);
         }
         webview.current?.call('setData', {
           payload: {
