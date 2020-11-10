@@ -24,6 +24,7 @@ import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { Coordinator, UpdatePatient } from '@covid/core/Coordinator';
 import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/EditProfileCoordinator';
+import { isMinorAge } from '@covid/core/patient/PatientState';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -127,6 +128,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
           currentPatient.isFemale = formData.sex !== 'male';
           currentPatient.isPeriodCapable =
             !['', 'male', 'pfnts'].includes(formData.sex) || !['', 'male', 'pfnts'].includes(formData.genderIdentity);
+          currentPatient.isMinor = isMinorAge(cleanIntegerVal(formData.yearOfBirth));
           this.coordinator.gotoNextScreen(this.props.route.name);
         })
         .catch(() => {
@@ -144,11 +146,17 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
       gender: formData.sex === 'male' ? 1 : formData.sex === 'female' ? 0 : formData.sex === 'pfnts' ? 2 : 3,
       gender_identity: formData.genderIdentity,
       interacted_with_covid: formData.everExposed,
-      housebound_problems: formData.houseboundProblems === 'yes',
-      needs_help: formData.needsHelp === 'yes',
-      help_available: formData.helpAvailable === 'yes',
-      mobility_aid: formData.mobilityAid === 'yes',
     } as Partial<PatientInfosRequest>;
+
+    if (!isMinorAge(cleanIntegerVal(formData.yearOfBirth))) {
+      infos = {
+        ...infos,
+        housebound_problems: formData.houseboundProblems === 'yes',
+        needs_help: formData.needsHelp === 'yes',
+        help_available: formData.helpAvailable === 'yes',
+        mobility_aid: formData.mobilityAid === 'yes',
+      };
+    }
 
     if (formData.race) {
       infos = {
@@ -361,6 +369,8 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
             return this.handleUpdateHealth(values);
           }}>
           {(props) => {
+            const isMinor = isMinorAge(cleanIntegerVal(props.values.yearOfBirth));
+
             return (
               <Form>
                 <View style={{ marginHorizontal: 16 }}>
@@ -428,29 +438,33 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
                     error={props.touched.everExposed && props.errors.everExposed}
                   />
 
-                  <YesNoField
-                    label={i18n.t('housebound-problems')}
-                    selectedValue={props.values.houseboundProblems}
-                    onValueChange={props.handleChange('houseboundProblems')}
-                  />
+                  {!isMinor && (
+                    <>
+                      <YesNoField
+                        label={i18n.t('housebound-problems')}
+                        selectedValue={props.values.houseboundProblems}
+                        onValueChange={props.handleChange('houseboundProblems')}
+                      />
 
-                  <YesNoField
-                    label={i18n.t('needs-help')}
-                    selectedValue={props.values.needsHelp}
-                    onValueChange={props.handleChange('needsHelp')}
-                  />
+                      <YesNoField
+                        label={i18n.t('needs-help')}
+                        selectedValue={props.values.needsHelp}
+                        onValueChange={props.handleChange('needsHelp')}
+                      />
 
-                  <YesNoField
-                    label={i18n.t('help-available')}
-                    selectedValue={props.values.helpAvailable}
-                    onValueChange={props.handleChange('helpAvailable')}
-                  />
+                      <YesNoField
+                        label={i18n.t('help-available')}
+                        selectedValue={props.values.helpAvailable}
+                        onValueChange={props.handleChange('helpAvailable')}
+                      />
 
-                  <YesNoField
-                    label={i18n.t('mobility-aid')}
-                    selectedValue={props.values.mobilityAid}
-                    onValueChange={props.handleChange('mobilityAid')}
-                  />
+                      <YesNoField
+                        label={i18n.t('mobility-aid')}
+                        selectedValue={props.values.mobilityAid}
+                        onValueChange={props.handleChange('mobilityAid')}
+                      />
+                    </>
+                  )}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
                   {!!Object.keys(props.errors).length && props.submitCount > 0 && (
