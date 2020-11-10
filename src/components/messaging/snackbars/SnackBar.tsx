@@ -5,15 +5,9 @@ import { TColorPalette, TColorShade } from '@covid/themes';
 
 import { Text } from '../../typography';
 
-import {
-  SCardView,
-  SContainerView,
-  SMessageText,
-  // STouchableOpactity,
-  TVariant,
-} from './styles';
+import { SCardView, SContainerView, SMessageText, TVariant } from './styles';
 
-type StyleObject = { [key: string]: string | number };
+// type StyleObject = { [key: string]: string | number };
 
 type TCta = {
   action: () => void;
