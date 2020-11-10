@@ -758,7 +758,8 @@
   "report-for-others-not-right-now": "¿No ahora? Puede agregar perfiles adicionales en el ícono de menú en cualquier momento.",
   "report-for-others-skip": "Omitir",
 
-  "select-profile-title": "Seleccione el perfil para el que informará",
+  "select-profile-title-assessment": "Seleccione el perfil para el que informará",
+  "select-profile-title-edit": "Seleccione el perfil que desea editar",
   "select-profile-text": "O agregue más perfiles",
   "select-profile-button": "Nuevo perfil",
   "select-profile-last-report": "Último informe:",
