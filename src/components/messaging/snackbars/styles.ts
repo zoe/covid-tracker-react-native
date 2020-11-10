@@ -1,7 +1,9 @@
-import { Animated, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import styled from '@covid/themes/styled-components';
 import { TColorPalette, TColorShade } from '@covid/themes';
+
+import { Text } from '../../typography';
 
 export type TVariant = 'top' | 'bottom';
 
@@ -40,22 +42,6 @@ interface IMessageTextProps {
 
 export const SMessageText = styled(Text)<IMessageTextProps>`
   ${(props) => `
-    color: ${props.theme.colors[props.colorPalette][props.colorShade].fgColor};
     flex: 1;
   `}
 `;
-
-// export const STouchableOpactity = styled(TouchableOpacity)`
-//   border-color: white;
-//   border-width: 0;
-//   border-left-width: 1px;
-//   padding-horizontal: ${(props: { theme: IThemeVars }) => props.theme.spacing}px;
-//   margin-left: ${(props: { theme: IThemeVars }) => props.theme.spacing}px;
-// `;
-
-// export const SActionText = styled(Text)`
-//   color: ${(props: { textColor: string }) => props.textColor};
-//   text-transform: ${(props: { theme: IThemeVars }) => props.theme.typography.body.button.textTransform};
-//   letter-spacing: ${(props: { theme: IThemeVars }) => props.theme.typography.body.button.letterSpacing};
-//   font-weight: ${(props: { theme: IThemeVars }) => props.theme.typography.body.button.fontWeight};
-// `;

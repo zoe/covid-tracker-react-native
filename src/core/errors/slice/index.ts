@@ -7,12 +7,13 @@ export interface IError {
   dissmissable?: boolean;
   errorList?: { [key: string]: string };
   errorStatus?: string;
-  message?: string;
+  message: string;
   variant?: 'top' | 'bottom';
 }
 
 const initialState: IError = {
   active: false,
+  message: '',
 };
 
 const errorSlice = createSlice({

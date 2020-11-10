@@ -15,14 +15,20 @@ function MessagingContainer() {
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(set({ active: false }));
+    dispatch(set({ active: false, message: '' }));
   };
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
-      console.log('Connection type', state.type);
-      console.log('Is connected?', state.isConnected);
-      dispatch(set({ active: !state.isConnected, dissmissable: false }));
+      console.log('connection: ', state.isConnected);
+      dispatch(
+        set({
+          active: !state.isConnected,
+          dissmissable: false,
+          variant: 'top',
+          message: 'No internet connection',
+        })
+      );
     });
 
     const cleanUp = () => {
@@ -37,16 +43,9 @@ function MessagingContainer() {
       {error.active && (
         <SnackBar
           active={error.active}
-          iconName="iconName"
-          message="There is an error"
-          onClose={error.dissmissable ? handleClose : undefined}
+          message={error.message}
           variant={error.variant ? error.variant : 'bottom'}
-          button={{
-            title: 'push',
-            onPress: handleClose,
-            buttonColorPalette: 'blue',
-            buttonColorShade: 'main',
-          }}
+          cta={{ label: ' X ', action: handleClose }}
         />
       )}
     </SContainerView>

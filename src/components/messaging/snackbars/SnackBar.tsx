@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Animated, Easing, TouchableOpacity, Text } from 'react-native';
+import { Animated, Easing, TouchableOpacity } from 'react-native';
 
 import { TColorPalette, TColorShade } from '@covid/themes';
 
-import { ThemeButton } from '../../Buttons';
-
-// import Icon from '../icon';
+import { Text } from '../../typography';
 
 import {
-  // SActionText,
   SCardView,
   SContainerView,
   SMessageText,
@@ -18,23 +15,19 @@ import {
 
 type StyleObject = { [key: string]: string | number };
 
-interface IButtonProps {
-  title: string;
-  onPress: () => void;
-  buttonColorPalette: TColorPalette;
-  buttonColorShade: TColorShade;
-}
+type TCta = {
+  action: () => void;
+  label: string;
+};
 
 interface IProps {
   active: boolean;
-  button?: IButtonProps;
   colorPalette?: TColorPalette;
   colorShade?: TColorShade;
-  iconName: string;
   message: string;
   colorClass?: TColorPalette;
   variant?: TVariant;
-  onClose?: () => void;
+  cta?: TCta;
 }
 
 const DURATION = 500;
@@ -52,19 +45,17 @@ const config = {
 
 function Toast({
   active,
-  button,
   colorPalette = 'uiDark',
   colorShade = 'darker',
   message,
-  iconName,
-  onClose,
+  cta = undefined,
   variant = 'bottom',
 }: IProps) {
   const [animValue] = useState(new Animated.Value(0));
 
   const handleClose = () => {
     animate(false);
-    setTimeout(onClose, DURATION);
+    setTimeout(cta?.action, DURATION);
   };
 
   const animate = (active: boolean) => {
@@ -91,18 +82,11 @@ function Toast({
         <SMessageText colorPalette={colorPalette} colorShade={colorShade}>
           {message}
         </SMessageText>
-
-        {button && (
-          <ThemeButton
-            colorPalette={button.buttonColorPalette}
-            colorShade={button.buttonColorShade}
-            onPress={button.onPress}
-            title={button.title}
-          />
-        )}
-        {onClose && (
+        {cta && (
           <TouchableOpacity onPress={handleClose}>
-            <Text style={{ color: 'white' }}> X </Text>
+            <Text colorPalette={colorPalette} colorShade={colorShade}>
+              {cta.label}
+            </Text>
           </TouchableOpacity>
         )}
       </SCardView>

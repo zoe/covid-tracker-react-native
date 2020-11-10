@@ -16,6 +16,7 @@ export type TColorShade = keyof IColorShades;
 export interface IColorPalettes {
   blue: IColorShades;
   green: IColorShades;
+  ui: IColorShades;
   uiDark: IColorShades;
 }
 

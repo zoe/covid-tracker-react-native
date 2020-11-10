@@ -27,6 +27,7 @@ import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import { H1, Text } from '@covid/components/typography';
 // delete me
 import { set } from '@covid/core/errors/slice';
 
@@ -104,8 +105,20 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <Button title="tap me" onPress={() => dispatch(set({ active: true, dissmissable: true }))} />
-      <Button title="press me" onPress={() => dispatch(set({ active: true, dissmissable: false, variant: 'top' }))} />
+      <H1>Snackbar test buttons</H1>
+      <Text textClass="h6">Temp text to demonstrate the new text component</Text>
+      <Button
+        title="Top down"
+        onPress={() =>
+          dispatch(set({ active: true, dissmissable: false, variant: 'top', message: 'message from the top' }))
+        }
+      />
+      <Button
+        title="bottom up"
+        onPress={() =>
+          dispatch(set({ active: true, dissmissable: true, variant: 'bottom', message: 'message from the bottom' }))
+        }
+      />
       {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
