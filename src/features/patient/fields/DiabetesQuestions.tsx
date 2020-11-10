@@ -131,7 +131,9 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
         showError
       />
 
-      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
+      <View style={{ marginHorizontal: -8 }}>
+        <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
+      </View>
 
       {formikProps.values.diabetesTreatmentOtherOral && (
         <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
@@ -230,16 +232,17 @@ const styles = StyleSheet.create({
   },
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
   fieldRow: {
     flexDirection: 'row',
   },
   primaryField: {
     flex: 4,
+    marginRight: 4,
   },
   secondaryField: {
     flex: 4,
     margin: -8,
+    marginHorizontal: 4,
   },
 });
