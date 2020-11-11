@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
   calloutContainer: {
     marginHorizontal: 24,
   },
-  image: {},
   zoe: {
     marginBottom: 32,
   },
