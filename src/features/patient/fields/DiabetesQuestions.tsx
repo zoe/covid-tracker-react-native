@@ -70,7 +70,6 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
 
   return (
     <View>
-      <Label style={styles.labelStyle}>{i18n.t('diabetes.justification')}</Label>
       <DropdownField
         items={diabetesTypeOptions}
         selectedValue={formikProps.values.diabetesType}
@@ -231,16 +230,17 @@ const styles = StyleSheet.create({
   },
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
   fieldRow: {
     flexDirection: 'row',
   },
   primaryField: {
     flex: 4,
+    marginRight: 4,
   },
   secondaryField: {
     flex: 4,
     margin: -8,
+    marginHorizontal: 4,
   },
 });
