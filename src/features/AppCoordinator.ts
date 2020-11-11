@@ -34,7 +34,7 @@ import {
 } from '@covid/core/content/state/contentSlice';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
-import { Coordinator, SelectProfile } from '@covid/core/Coordinator';
+import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -43,7 +43,7 @@ type ScreenFlow = {
 
 export type NavigationType = StackNavigationProp<ScreenParamList, keyof ScreenParamList>;
 
-export class AppCoordinator extends Coordinator implements SelectProfile {
+export class AppCoordinator extends Coordinator implements SelectProfile, EditableProfile {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -108,17 +108,17 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
     WelcomeRepeat: () => {
       const config = this.getConfig();
       if (config.enableMultiplePatients) {
-        NavigatorService.navigate('SelectProfile', { editing: true });
+        NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
       } else {
         this.startAssessmentFlow(this.patientData);
       }
     },
     Dashboard: () => {
       // UK only so currently no need to check config.enableMultiplePatients
-      NavigatorService.navigate('SelectProfile', { editing: true });
+      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
     },
     ArchiveReason: () => {
-      NavigatorService.navigate('SelectProfile', { editing: true });
+      NavigatorService.navigate('SelectProfile'); // Go back to SelectProfile with last used params
     },
     ValidationStudyIntro: () => {
       NavigatorService.navigate('ValidationStudyInfo');
@@ -178,7 +178,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile {
   }
 
   resetToProfileStartAssessment() {
-    NavigatorService.navigate('SelectProfile', { editing: true });
+    NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
     this.startAssessmentFlow(this.patientData);
   }
 

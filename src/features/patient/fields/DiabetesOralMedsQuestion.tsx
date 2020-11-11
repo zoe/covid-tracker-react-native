@@ -9,6 +9,8 @@ import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { RegularText } from '@covid/components/Text';
+import { FieldWrapper } from '@covid/components/Screen';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
@@ -105,10 +107,13 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
 
   return (
     <View>
-      <Item stackedLabel style={styles.textItemStyle}>
-        <Label>{i18n.t('diabetes.which-oral-treatment')}</Label>
-        <CheckboxList>{createDiabetesCheckboxes(diabetesOralMedsOptions, formikProps)}</CheckboxList>
-      </Item>
+      <FieldWrapper>
+        <View style={styles.textItemStyle}>
+          <RegularText>{i18n.t('diabetes.which-oral-treatment')}</RegularText>
+          <CheckboxList>{createDiabetesCheckboxes(diabetesOralMedsOptions, formikProps)}</CheckboxList>
+        </View>
+      </FieldWrapper>
+
       {formikProps.values.diabetesOralOtherMedicationNotListed && (
         <GenericTextField
           formikProps={formikProps}
@@ -117,6 +122,7 @@ export const DiabetesOralMedsQuestion: FormikDiabetesInputFC<Props, DiabetesOral
           showError={!!formikProps.errors.diabetesOralOtherMedication && formikProps.submitCount > 0}
         />
       )}
+
       <View style={{ marginHorizontal: 16 }}>
         {!!formikProps.errors.diabetesOralMeds && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.diabetesOralMeds as string} />

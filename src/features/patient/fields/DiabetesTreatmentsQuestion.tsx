@@ -8,6 +8,8 @@ import i18n from '@covid/locale/i18n';
 import { CheckboxList, CheckboxItem } from '@covid/components/Checkbox';
 import { ValidationError } from '@covid/components/ValidationError';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { RegularText } from '@covid/components/Text';
+import { FieldWrapper } from '@covid/components/Screen';
 
 import { FormikDiabetesInputFC } from './DiabetesQuestions';
 
@@ -123,10 +125,13 @@ export const DiabetesTreamentsQuestion: FormikDiabetesInputFC<Props, DiabetesTre
 
   return (
     <View>
-      <Item stackedLabel style={styles.textItemStyle}>
-        <Label>{i18n.t('diabetes.which-treatment')}</Label>
-        <CheckboxList>{createDiabetesCheckboxes(diabetesTreatmentCheckboxes, formikProps)}</CheckboxList>
-      </Item>
+      <FieldWrapper>
+        <View style={styles.textItemStyle}>
+          <RegularText>{i18n.t('diabetes.which-treatment')}</RegularText>
+          <CheckboxList>{createDiabetesCheckboxes(diabetesTreatmentCheckboxes, formikProps)}</CheckboxList>
+        </View>
+      </FieldWrapper>
+
       <View style={{ marginHorizontal: 16 }}>
         {!!formikProps.errors.diabetesTreatments && formikProps.submitCount > 0 && (
           <ValidationError error={formikProps.errors.diabetesTreatments as string} />

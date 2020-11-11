@@ -9,14 +9,12 @@ import { colors } from '@theme';
 import { Header } from '@covid/components/Screen';
 import { HeaderText, SecondaryText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { DrawerToggle } from '@covid/components/DrawerToggle';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { Profile, ProfileList } from '@covid/components/Collections/ProfileList';
 import { ProfileCard } from '@covid/components/ProfileCard';
 import { offlineService } from '@covid/Services';
 import { BackButton } from '@covid/components/PatientHeader';
 import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
-import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 import { useInjection } from '@covid/provider/services.hooks';
 import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
@@ -31,7 +29,7 @@ type RenderProps = {
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
 
-type SelectProfileCoordinator = (Coordinator & SelectProfile) | (Coordinator & SelectProfile & EditableProfile);
+export type SelectProfileCoordinator = (Coordinator & SelectProfile) | (Coordinator & SelectProfile & EditableProfile);
 
 const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   const {
@@ -46,11 +44,11 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     retryListProfiles,
   } = useProfileList();
 
-  const { editing } = route.params;
-  const coordinator: SelectProfileCoordinator = editing ? appCoordinator : schoolNetworkCoordinator;
+  const { assessmentFlow } = route.params;
+  const coordinator: SelectProfileCoordinator = appCoordinator;
 
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-  const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
+  const showCreateProfile = assessmentFlow && localisationService.getConfig().enableMultiplePatients;
 
   useEffect(() => {
     return navigation.addListener('focus', listProfiles);
@@ -66,7 +64,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   };
 
   const gotoCreateProfile = async () => {
-    if (editing) (coordinator as EditableProfile).goToCreateProfile(await getNextAvatarName());
+    (coordinator as EditableProfile).goToCreateProfile(await getNextAvatarName());
   };
 
   const getPatientThen = async (profile: Profile, callback: (patient: Profile) => void) => {
@@ -90,14 +88,13 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.rootContainer}>
-          <View style={styles.navContainer}>
-            {!!navigation && <BackButton navigation={stackNav} />}
-            {editing && <DrawerToggle navigation={navigation} style={styles.menuToggle} />}
-          </View>
+          <View style={styles.navContainer}>{!!navigation && <BackButton navigation={stackNav} />}</View>
 
           <Header>
-            <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>{i18n.t('select-profile-title')}</HeaderText>
-            {editing && <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>}
+            <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>
+              {assessmentFlow ? i18n.t('select-profile-title-assessment') : i18n.t('select-profile-title-edit')}
+            </HeaderText>
+            {assessmentFlow && <SecondaryText>{i18n.t('select-profile-text')}</SecondaryText>}
           </Header>
 
           <ProfileList
@@ -110,10 +107,10 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
               <ProfileCard
                 profile={profile}
                 onEditPressed={
-                  editing
+                  assessmentFlow
                     ? () => {
                         getPatientThen(profile, (profile) => {
-                          if (editing) (coordinator as EditableProfile).startEditProfile(profile);
+                          (coordinator as EditableProfile).startEditProfile(profile);
                         });
                       }
                     : undefined
@@ -128,7 +125,13 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
                 : undefined
             }
             onProfileSelected={(profile: Profile, i: number) => {
-              getPatientThen(profile, (profile) => coordinator.profileSelected(profile));
+              getPatientThen(profile, (profile) => {
+                if (assessmentFlow) {
+                  coordinator.profileSelected(profile);
+                } else {
+                  (coordinator as EditableProfile).startEditProfile(profile);
+                }
+              });
             }}
             onRetry={() => retryListProfiles()}
           />

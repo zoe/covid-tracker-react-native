@@ -4,14 +4,13 @@ import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { getDaysAgo } from '@covid/utils/datetime';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientStateType, getInitialPatientState } from '@covid/core/patient/PatientState';
+import { PatientStateType, getInitialPatientState, isMinorAge } from '@covid/core/patient/PatientState';
 import { container } from '@covid/provider/services';
 import { PatientData } from '@covid/core/patient/PatientData';
 
@@ -165,6 +164,8 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
     const hasSchoolGroup = patient.has_school_group;
 
+    const isMinor = isMinorAge(patient.year_of_birth);
+
     return {
       ...patientState,
       profile,
@@ -186,6 +187,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasBloodGroupAnswer,
       isNHSStudy,
       hasSchoolGroup,
+      isMinor,
     };
   }
 

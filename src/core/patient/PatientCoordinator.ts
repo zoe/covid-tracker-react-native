@@ -23,13 +23,17 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
 
   screenFlow: Partial<ScreenFlow> = {
     YourStudy: () => {
-      NavigatorService.navigate('YourWork', { patientData: this.patientData });
-    },
-    YourWork: () => {
       NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
     },
-    AboutYou: () => {
+    YourWork: () => {
       NavigatorService.navigate('YourHealth', { patientData: this.patientData });
+    },
+    AboutYou: () => {
+      if (this.patientData.patientState.isMinor && this.patientData.patientState.isReportedByAnother) {
+        NavigatorService.navigate('YourHealth', { patientData: this.patientData });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
     },
     YourHealth: () => {
       NavigatorService.navigate('PreviousExposure', { patientData: this.patientData });
@@ -52,7 +56,7 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
     if (shouldAskStudy) {
       NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: false });
     } else {
-      NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
     }
   };
 
