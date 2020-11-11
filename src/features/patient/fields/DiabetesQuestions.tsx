@@ -131,9 +131,7 @@ export const DiabetesQuestions: FormikDiabetesInputFC<Props, DiabetesData> = ({ 
         showError
       />
 
-      <View style={{ marginHorizontal: -8 }}>
-        <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
-      </View>
+      <DiabetesTreamentsQuestion formikProps={formikProps as FormikProps<DiabetesTreatmentsData>} />
 
       {formikProps.values.diabetesTreatmentOtherOral && (
         <DiabetesOralMedsQuestion formikProps={formikProps as FormikProps<DiabetesOralMedsData>} />
