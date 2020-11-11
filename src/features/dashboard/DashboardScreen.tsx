@@ -103,6 +103,17 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      {/* School Networks */}
+      {hasNetworkData && (
+        <View
+          style={{
+            marginHorizontal: 32,
+            marginBottom: 16,
+          }}>
+          <SchoolNetworks schoolGroups={networks!} />
+        </View>
+      )}
+
       {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
@@ -114,16 +125,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             aspectRatio={1.229}
             screenName={route.name}
           />
-        </View>
-      )}
-
-      {hasNetworkData && (
-        <View
-          style={{
-            marginHorizontal: 32,
-            marginBottom: 16,
-          }}>
-          <SchoolNetworks schoolGroups={networks!} />
         </View>
       )}
 
