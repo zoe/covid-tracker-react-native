@@ -127,6 +127,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         </View>
       )}
 
+      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
           <ExternalCallout
