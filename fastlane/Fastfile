@@ -44,11 +44,17 @@ package = load_json(json_path: "./package.json")
   )
 end
 
+private_lane :set_build_number do
+  # Increment build number to current date
+  build_number = Time.new.strftime("%Y.%m.%d")
+  increment_build_number build_number: build_number
+end
 
 desc 'Bump build numbers, and set the version to match the pacakage.json version.'
 lane :bump do
   inc_ver_ios
   inc_ver_and
+  set_build_number
 end
 
 
