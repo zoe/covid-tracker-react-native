@@ -161,10 +161,7 @@ export class AssessmentCoordinator extends Coordinator {
     return (
       ((config.showRaceQuestion || config.showEthnicityQuestion) && !currentPatient.hasRaceEthnicityAnswer) ||
       currentPatient.shouldAskExtendedDiabetes ||
-      !currentPatient.hasPeriodAnswer ||
-      !currentPatient.hasHormoneTreatmentAnswer ||
       !currentPatient.hasBloodPressureAnswer ||
-      !currentPatient.hasVitaminAnswer ||
       !currentPatient.hasAtopyAnswers ||
       !currentPatient.hasBloodGroupAnswer
     );

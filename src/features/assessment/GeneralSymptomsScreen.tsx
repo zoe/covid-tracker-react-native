@@ -27,12 +27,13 @@ type Props = {
 export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
+  const hasHayfever = route.params.assessmentData.patientData.patientState.hasHayfever;
+  const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
+
   const handleSubmit = async (formData: GeneralSymptomsData) => {
-    await assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(formData));
+    await assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(formData, hasHayfever));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
-
-  const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
@@ -56,7 +57,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
             return (
               <Form style={{ flexGrow: 1 }}>
                 <View style={{ marginHorizontal: 16 }}>
-                  <GeneralSymptomsQuestions formikProps={props} />
+                  <GeneralSymptomsQuestions formikProps={props} hasHayfever={hasHayfever} />
                 </View>
 
                 <View style={{ flex: 1 }} />

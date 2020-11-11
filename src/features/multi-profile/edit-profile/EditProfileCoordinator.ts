@@ -110,9 +110,8 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     if (!birthYear) {
       return false;
     }
-    const age = new Date().getFullYear() - birthYear;
-    const schoolAged = age > 1 && age < 20;
-    return isGBCountry() && currentPatient.isReportedByAnother && schoolAged;
+
+    return isGBCountry() && currentPatient.isReportedByAnother && !currentPatient.isMinor;
   }
 
   shouldShowUniNetwork() {
