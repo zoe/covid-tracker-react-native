@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -28,6 +28,7 @@ import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import SchoolModule from '@assets/icons/SchoolsModule';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -68,6 +69,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const onExploreTrendline = async () => {
     appCoordinator.goToTrendline();
+  };
+
+  const onSchoolsModuleClick = async () => {
+    appCoordinator.goToSchoolNetworkInfo();
   };
 
   const onShare = () => {
@@ -112,6 +117,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           }}>
           <SchoolNetworks schoolGroups={networks!} />
         </View>
+      )}
+
+      {isGBCountry() && (
+        <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
+          <View style={styles.schoolModuleContainer}>
+            <SchoolModule />
+          </View>
+        </TouchableWithoutFeedback>
       )}
 
       {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
@@ -163,6 +176,11 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  schoolModuleContainer: {
+    marginHorizontal: 32,
+    marginBottom: 16,
+    height: 200,
+  },
   calloutContainer: {
     marginHorizontal: 24,
   },
