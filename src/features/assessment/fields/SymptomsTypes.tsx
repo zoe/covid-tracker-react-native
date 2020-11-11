@@ -10,10 +10,10 @@ import DropdownField from '@covid/components/DropdownField';
 export interface SymptomQuestions<P, Data> extends React.FC<P> {
   initialFormValues: () => Data;
   schema: () => Yup.ObjectSchema;
-  createAssessment: (data: Data) => Partial<AssessmentInfosRequest>;
+  createAssessment: (data: Data, param?: any) => Partial<AssessmentInfosRequest>;
 }
 
-type BoolObject = { [key: string]: boolean };
+type BoolObject = { [key: string]: boolean | undefined };
 type StringObject = { [key: string]: string };
 
 export type SymptomCheckBoxData<T extends BoolObject, F extends StringObject> = {

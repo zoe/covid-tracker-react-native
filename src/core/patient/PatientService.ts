@@ -4,14 +4,13 @@ import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
 import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { getDaysAgo } from '@covid/utils/datetime';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientStateType, getInitialPatientState } from '@covid/core/patient/PatientState';
+import { PatientStateType, getInitialPatientState, isMinorAge } from '@covid/core/patient/PatientState';
 import { container } from '@covid/provider/services';
 import { PatientData } from '@covid/core/patient/PatientData';
 
@@ -151,22 +150,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isReportedByAnother = patient.reported_by_another || false;
     const isSameHousehold = patient.same_household_as_reporter || false;
 
-    const hasPeriodAnswer = !isPeriodCapable || !!patient.period_status;
-    const hasHormoneTreatmentAnswer =
-      !isPeriodCapable ||
-      !!patient.ht_none ||
-      !!patient.ht_combined_oral_contraceptive_pill ||
-      !!patient.ht_progestone_only_pill ||
-      !!patient.ht_mirena_or_other_coil ||
-      !!patient.ht_depot_injection_or_implant ||
-      !!patient.ht_hormone_treatment_therapy ||
-      !!patient.ht_oestrogen_hormone_therapy ||
-      !!patient.ht_testosterone_hormone_therapy ||
-      !!patient.ht_pfnts ||
-      !!patient.ht_other;
-
-    const hasVitaminAnswer = !!patient.vs_asked_at;
-
     // Decide whether patient needs to answer YourStudy questions
     const consent = await this.consentService.getConsentSigned();
     const shouldAskStudy = (isUSCountry() && consent && consent.document === 'US Nurses') || isGBCountry();
@@ -181,6 +164,8 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
     const hasSchoolGroup = patient.has_school_group;
 
+    const isMinor = isMinorAge(patient.year_of_birth);
+
     return {
       ...patientState,
       profile,
@@ -189,9 +174,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isHealthWorker,
       hasRaceEthnicityAnswer,
       hasBloodPressureAnswer,
-      hasPeriodAnswer,
-      hasHormoneTreatmentAnswer,
-      hasVitaminAnswer,
       hasCompletedPatientDetails,
       isReportedByAnother,
       isSameHousehold,
@@ -205,6 +187,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasBloodGroupAnswer,
       isNHSStudy,
       hasSchoolGroup,
+      isMinor,
     };
   }
 

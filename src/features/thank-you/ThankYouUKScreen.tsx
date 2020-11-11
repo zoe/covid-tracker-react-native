@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog018, dataPage003, notificationReminders, timUpdate016 } from '@assets';
+import { blog018, blog019, dataPage003, notificationReminders, timUpdate017 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -85,14 +85,23 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://youtu.be/q-SwbhDIdxY"
-                calloutID="tim_update_016"
-                imageSource={timUpdate016}
-                aspectRatio={1.1791}
+                link="https://covid.joinzoe.com/post/together-well-get-through-this?utm_source=App"
+                calloutID="blog_019"
+                imageSource={blog019}
+                aspectRatio={1.555}
+                screenName={this.props.route.name}
+                imageStyles={{ borderRadius: 8 }}
+              />
+
+              <ExternalCallout
+                link="https://youtu.be/H7O1U-ZSR0w"
+                calloutID="tim_update_017"
+                imageSource={timUpdate017}
+                aspectRatio={1.0}
                 screenName={this.props.route.name}
               />
 
-              <RegularText style={styles.dateLabel}>Oct 29, 2020</RegularText>
+              {/*<RegularText style={styles.dateLabel}>Oct 29, 2020</RegularText>*/}
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout

@@ -30,7 +30,7 @@ export const HoursSleepQuestion: HoursSleepQuestion<Props, HoursSleepData> = (pr
   return (
     <>
       <FieldLabel>{i18n.t('diet-study.hours-of-sleep-weekday-label')}</FieldLabel>
-      <FieldWrapper style={{ padding: 16 }}>
+      <FieldWrapper style={{ paddingVertical: 16 }}>
         <ValidatedTextInput
           placeholder={i18n.t('diet-study.hours-of-sleep-placeholder')}
           value={formikProps.values.hoursSleepWeekdays}
@@ -44,7 +44,7 @@ export const HoursSleepQuestion: HoursSleepQuestion<Props, HoursSleepData> = (pr
       </FieldWrapper>
 
       <FieldLabel>{i18n.t('diet-study.hours-of-sleep-weekend-label')}</FieldLabel>
-      <FieldWrapper style={{ padding: 16 }}>
+      <FieldWrapper style={{ paddingVertical: 16 }}>
         <ValidatedTextInput
           placeholder={i18n.t('diet-study.hours-of-sleep-placeholder')}
           value={formikProps.values.hoursSleepWeekends}

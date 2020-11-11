@@ -29,11 +29,13 @@ export const ProfileCard: React.FC<Props> = (props) => {
       </View>
       <ClippedText>{profile.name}</ClippedText>
       <LastReported timeAgo={profile.last_reported_at} />
-      <TouchableOpacity onPress={props.onEditPressed}>
-        <SecondaryText style={{ textAlign: 'center', fontSize: 12, color: colors.accent }}>
-          {i18n.t('nav-edit-profile')}
-        </SecondaryText>
-      </TouchableOpacity>
+      {props.onEditPressed && (
+        <TouchableOpacity onPress={props.onEditPressed}>
+          <SecondaryText style={{ textAlign: 'center', fontSize: 12, color: colors.accent }}>
+            {i18n.t('nav-edit-profile')}
+          </SecondaryText>
+        </TouchableOpacity>
+      )}
     </Card>
   );
 };

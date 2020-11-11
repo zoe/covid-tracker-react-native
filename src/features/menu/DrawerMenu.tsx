@@ -94,7 +94,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           image={<EditProfilesIcon />}
           label={i18n.t('nav-edit-profile')}
           onPress={() => {
-            NavigatorService.navigate('SelectProfile', { editing: true });
+            NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
           }}
         />
 
