@@ -1,14 +1,14 @@
 import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
 import { View } from 'native-base';
 
 import { colors } from '@theme';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import Screen, { Header } from '@covid/components/Screen';
 import SchoolConnectImage from '@assets/school-network-modules/connect.svg';
-import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { ClickableText, Header3Text, HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { Button } from '@covid/components/Buttons/Button';
 import NavigatorService from '@covid/NavigatorService';
@@ -24,18 +24,34 @@ export const SchoolNetworkInfoScreen: React.FC<Props> = ({ route, navigation }) 
       <Screen showBackButton navigation={navigation} style={styles.container}>
         <View style={styles.container}>
           <Header>
-            <HeaderText style={styles.header}>{i18n.t('school-networks.intro.title')}</HeaderText>
+            <HeaderText style={styles.header}>{i18n.t('school-networks.info.title')}</HeaderText>
           </Header>
 
           <View style={styles.description}>
-            <RegularBoldText>{i18n.t('school-networks.intro.point-1.title')}</RegularBoldText>
-            <RegularText>{i18n.t('school-networks.intro.point-1.description')}</RegularText>
-            <View style={{ height: 16 }} />
-            <RegularBoldText>{i18n.t('school-networks.intro.point-2.title')}</RegularBoldText>
-            <RegularText>{i18n.t('school-networks.intro.point-2.description')}</RegularText>
-            <View style={{ height: 16 }} />
-            <RegularBoldText>{i18n.t('school-networks.intro.point-3.title')}</RegularBoldText>
-            <RegularText>{i18n.t('school-networks.intro.point-3.description')}</RegularText>
+            <RegularText>{i18n.t('school-networks.info.text')}</RegularText>
+          </View>
+
+          <View style={styles.ctaContainer}>
+            <Header3Text>{i18n.t('school-networks.info.cta-title')}</Header3Text>
+            <RegularText style={{ marginTop: 16, marginBottom: 8 }}>
+              {i18n.t('school-networks.info.cta-text')}
+            </RegularText>
+            <HeaderText>
+              <ClickableText
+                onPress={() => Linking.openURL('https://covid.joinzoe.com/schoolnetworks?utm_source=App')}
+                style={{ fontSize: 18 }}>
+                {i18n.t('school-networks.info.cta-link')}
+              </ClickableText>
+            </HeaderText>
+          </View>
+
+          <View style={styles.learnMoreContainer}>
+            <RegularText style={{ paddingBottom: 8 }}>{i18n.t('school-networks.info.learn-more-title')}</RegularText>
+
+            <ClickableText
+              onPress={() => Linking.openURL('https://covid.joinzoe.com/post/covid-school-communities?utm_source=App')}>
+              {i18n.t('school-networks.info.learn-more-text')}
+            </ClickableText>
           </View>
         </View>
       </Screen>
@@ -50,7 +66,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    marginRight: 72,
+    marginRight: 36,
   },
 
   description: {
@@ -58,14 +74,18 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
 
-  button: {
-    marginVertical: 16,
-    marginHorizontal: 24,
-    marginBottom: 32,
+  ctaContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: colors.tertiary,
+    padding: 16,
+    marginVertical: 36,
+    marginHorizontal: 8,
   },
 
-  buttonsContainer: {
-    paddingHorizontal: 8,
-    marginBottom: 48,
+  learnMoreContainer: {
+    paddingHorizontal: 16,
   },
 });
