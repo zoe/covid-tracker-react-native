@@ -8,7 +8,7 @@ import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { loadTrendLineExplore, loadTrendLineOverview } from '@covid/utils/files';
 
 import { WebView } from '../WebView';
-import { MutedText } from '../Text';
+import { MutedText, RegularText } from '../Text';
 
 export enum TrendlineTimeFilters {
   week = 'WEEK',
@@ -36,6 +36,7 @@ export const TrendLineEmptyView: React.FC = () => {
 
 export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode }) => {
   const [html, setHtml] = useState<string>('');
+  const [monthRangeLabel, setMonthRangeLabel] = useState<string>('');
   const webview = useRef<WebView>(null);
   const trendline = useSelector<RootState, ITrendLineData | undefined>((state) => {
     if (viewMode === TrendLineViewMode.explore) {
@@ -83,7 +84,17 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
     switch (viewMode) {
       case TrendLineViewMode.overview:
         const overviewSorted = timeseries.sort((a: any, b: any) => (a.date < b.date ? 1 : -1));
-        const filtered = overviewSorted.filter((_: any, index: number) => index <= 7);
+        const filtered = overviewSorted.filter((_: any, index: number) => index <= 30);
+        const monthLabels = (filtered ?? []).map((data) => moment(data.date).format('MMM'));
+        const monthLabelSet = monthLabels.reduce(
+          (unique: string[], item: string) => (unique.includes(item) ? unique : [...unique, item]),
+          []
+        );
+        if (monthLabelSet.length >= 2) {
+          setMonthRangeLabel(`${monthLabelSet[monthLabelSet.length - 1]} - ${monthLabelSet[0]}`);
+        } else if (monthLabelSet.length === 1) {
+          setMonthRangeLabel(`${monthLabelSet[0]}`);
+        }
         webview.current?.call('setData', {
           payload: {
             labels: filtered.map((item) => item.label).reverse(),
@@ -127,6 +138,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
           }
         }}
       />
+      {monthRangeLabel && <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>}
     </View>
   );
 };
