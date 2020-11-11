@@ -94,7 +94,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
           setMonthRangeLabel(`${monthLabelSet[monthLabelSet.length - 1]} - ${monthLabelSet[0]}`);
         } else if (monthLabelSet.length === 1) {
           setMonthRangeLabel(`${monthLabelSet[0]}`);
-        } 
+        }
         webview.current?.call('setData', {
           payload: {
             labels: filtered.map((item) => item.label).reverse(),
