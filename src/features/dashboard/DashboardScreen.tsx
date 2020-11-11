@@ -37,8 +37,6 @@ interface Props {
   route: RouteProp<ScreenParamList, 'Dashboard'>;
 }
 
-const ShowSchoolModuleFeature = false;
-
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
@@ -118,19 +116,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             marginBottom: 16,
           }}>
           <SchoolNetworks schoolGroups={networks!} />
-        </View>
-      )}
-
-      {ShowSchoolModuleFeature && (
-        <View style={styles.calloutContainer}>
-          <ExternalCallout
-            calloutID="schoolNetworkModule"
-            imageSource={schoolNetworkFeature}
-            aspectRatio={311 / 253}
-            screenName={route.name}
-            postClicked={schoolNetworkFlow}
-            canDismiss
-          />
         </View>
       )}
 
