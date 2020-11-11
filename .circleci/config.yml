@@ -63,6 +63,14 @@ references:
         - develop
         - stage
 
+  ota_filter: &ota_filter
+    branches:
+      only:
+        - master
+        - develop
+        - stage
+        - release-0.x-legacy
+
   legacy_ota_filter: &legacy_ota_filter
     branches:
       only: release-0.x-legacy
@@ -364,6 +372,7 @@ jobs:
 ###
 
 workflows:
+
   #
   # Branch (Ingoring) [master, develop, stage, release-0.x-legacy]
   # - Build app assets
@@ -371,104 +380,31 @@ workflows:
   # |-- Check i18n string
   # |-- Run Tests
   #
-
-  default:
+  test:
     jobs:
       - build:
           filters: *feature_filter
-      # - lint:
-      #     filters: *feature_filter
-      #     requires:
-      #       - build
-      # - i18n:
-      #     filters: *feature_filter
-      #     requires:
-      #       - build
-      # - test:
-      #     filters: *feature_filter
-      #     requires:
-      #       - build
+      - lint:
+          filters: *feature_filter
+          requires:
+            - build
+      - i18n:
+          filters: *feature_filter
+          requires:
+            - build
+      - test:
+          filters: *feature_filter
+          requires:
+            - build
 
-      # OTA deploy
-      - ota-release:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - build
-      - deployed-ota:
-          context: slack-ci-covid-mobile
-          requires:
-            - ota-release
-      # OTA rollback
-      - ota-rollback-approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - ota-release
-      - ota-rollback:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - ota-rollback-approval
-      # Native app deploy
-      - slack/approval-notification:
-          filters: *feature_filter
-          message: "Awaiting manual approval to deploy native apps to staging"
-          context: slack-ci-covid-mobile
-          requires:
-            - build
-      - adhoc-release-approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - build
-      - deploy-ios:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - adhoc-release-approval
-      - deploy-android:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - adhoc-release-approval
-
-  #
-  # Branch [stage]
-  # - OTA Release (Automatic) then message slack
   # - App Center distribution (with approval)
   # |-- iOS / Android Release to App Center
   # |-- Message slack message on App Center upload successful
   #
-
-  staging:
+  adhoc:
     jobs:
       - build:
           filters: *stage_filter
-
-      # OTA deploy
-      - ota-release:
-          filters: *stage_filter
-          context: react-covid-tracker-stage
-          requires:
-            - build
-      - deployed-ota:
-          context: slack-ci-covid-mobile
-          requires:
-            - ota-release
-
-      # OTA rollback
-      - ota-rollback-approval:
-          filters: *stage_filter
-          type: approval
-          requires:
-            - ota-release
-      - ota-rollback:
-          filters: *stage_filter
-          context: react-covid-tracker-stage
-          requires:
-            - ota-rollback-approval
-
       # Native app deploy
       - slack/approval-notification:
           filters: *stage_filter
@@ -497,50 +433,16 @@ workflows:
             - deploy-ios
             - deploy-android
 
-  #
-  # Branch [master]
-  # - OTA Release (with approval) then message slack
-  # |-- OTA Rollback (with approval) if OTA release is successful
   # - App / Store release through AppCenter (with approval)
   # |-- iOS Release to app store (through AppCenter)
   # |-- Android Release to play store (through AppCenter)
   # |-- Message slack message on iOS & Android upload successful
   #
-
-  production:
+  store:
     jobs:
       - build:
           filters: *master_filter
-
-      # OTA deploy
-      - ota-release-approval:
-          filters: *master_filter
-          type: approval
-          requires:
-            - build
-      - ota-release:
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - ota-release-approval
-      - deployed-ota:
-          context: slack-ci-covid-mobile
-          requires:
-            - ota-release
-
-      # OTA rollback
-      - ota-rollback-approval:
-          filters: *master_filter
-          type: approval
-          requires:
-            - ota-release
-      - ota-rollback:
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - ota-rollback-approval
-
-      # Native app deploy
+    # Native app deploy
       - slack/approval-notification:
           filters: *master_filter
           message: "Awaiting manual approval to deploy to production (Options: OTA, Store)"
@@ -568,6 +470,41 @@ workflows:
             - deploy-ios
             - deploy-android
 
+  # - OTA Release (Automatic) then message slack
+  ota:
+    jobs:
+      - build:
+          filters: *ota_filter
+      # Staging OTA deploy
+      - ota-release:
+          name: "Stage OTA"
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+            - build
+      - deployed-ota:
+          context: slack-ci-covid-mobile
+          requires:
+            - Stage OTA
+
+      # Production OTA deploy
+      - ota-release-approval:
+          name: "Prod approval"
+          filters: *master_filter
+          type: approval
+          requires:
+            - build
+      - ota-release:
+          name: "Prod OTA"
+          filters: *master_filter
+          context: react-covid-tracker-stage
+          requires:
+            - Prod approval
+      - deployed-ota:
+          context: slack-ci-covid-mobile
+          requires:
+            - Prod OTA
+
   legacy-ota:
     jobs:
       - build:
@@ -582,3 +519,27 @@ workflows:
           context: react-covid-tracker-prod
           requires:
             - ota-release-approval
+
+  # OTA Rollback (with approval) if OTA release is successful
+  rollback:
+    jobs:
+      # Staging OTA rollback
+      - ota-rollback-approval:
+          name: 'Stage approval'
+          filters: *stage_filter
+          type: approval
+      - ota-rollback:
+          filters: *stage_filter
+          context: react-covid-tracker-stage
+          requires:
+            - Stage approval
+      # Production OTA rollback
+      - ota-rollback-approval:
+          name: 'Production approval'
+          filters: *master_filter
+          type: approval
+      - ota-rollback:
+          filters: *master_filter
+          context: react-covid-tracker-stage
+          requires:
+            - Production approval
