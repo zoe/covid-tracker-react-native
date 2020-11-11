@@ -65,7 +65,6 @@ OtherInfoQuestion.createDTO = (formData: OtherInfoData): Partial<DietStudyReques
 const styles = StyleSheet.create({
   input: {
     marginVertical: 12,
-    marginHorizontal: 16,
   },
   limit: {
     paddingLeft: 16,

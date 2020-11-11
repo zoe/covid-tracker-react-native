@@ -5,7 +5,7 @@ import { Coordinator, ScreenFlow, UpdatePatient } from '@covid/core/Coordinator'
 import { PatientData } from '@covid/core/patient/PatientData';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { Services } from '@covid/provider/services.types';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { ILocalisationService, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { lazyInject } from '@covid/provider/services';
 
@@ -22,11 +22,18 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
   private readonly localisationService: ILocalisationService;
 
   screenFlow: Partial<ScreenFlow> = {
-    YourWork: () => {
+    YourStudy: () => {
       NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
     },
-    AboutYou: () => {
+    YourWork: () => {
       NavigatorService.navigate('YourHealth', { patientData: this.patientData });
+    },
+    AboutYou: () => {
+      if (this.patientData.patientState.isMinor && this.patientData.patientState.isReportedByAnother) {
+        NavigatorService.navigate('YourHealth', { patientData: this.patientData });
+      } else {
+        NavigatorService.navigate('YourWork', { patientData: this.patientData });
+      }
     },
     YourHealth: () => {
       NavigatorService.navigate('PreviousExposure', { patientData: this.patientData });
@@ -43,7 +50,14 @@ export class PatientCoordinator extends Coordinator implements UpdatePatient {
   };
 
   startPatient = () => {
-    NavigatorService.navigate('YourWork', { patientData: this.patientData });
+    const currentPatient = this.patientData.patientState;
+    const shouldAskStudy = isUSCountry() && currentPatient.shouldAskStudy;
+
+    if (shouldAskStudy) {
+      NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: false });
+    } else {
+      NavigatorService.navigate('AboutYou', { patientData: this.patientData, editing: false });
+    }
   };
 
   updatePatientInfo(patientInfo: Partial<PatientInfosRequest>) {

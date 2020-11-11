@@ -117,7 +117,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
         onSubmit={(values: FormData) => updateDietStudy(values)}>
         {(props) => {
           return (
-            <Form>
+            <Form style={{ marginHorizontal: 16 }}>
               {props.values.weightUnsure === false && (
                 <WeightQuestion
                   formikProps={props as FormikProps<WeightData>}
@@ -126,7 +126,7 @@ const DietStudyAboutYouScreen: React.FC<Props> = ({ route, navigation }) => {
               )}
               <ExtraWeightQuestions isFemale={isFemale} formikProps={props as FormikProps<ExtraWeightData>} />
 
-              <Header>
+              <Header style={{ marginHorizontal: 0 }}>
                 <HeaderText>{i18n.t('diet-study.about-you.title')}</HeaderText>
               </Header>
 

@@ -29,7 +29,6 @@ interface YourHealthData {
   stillHavePastSymptoms: string;
   pastSymptomsDaysAgo: string;
   pastSymptomsChanged: string;
-  alreadyHadCovid: string;
   classicSymptoms: string;
 }
 
@@ -38,7 +37,6 @@ const initialFormValues = {
   stillHavePastSymptoms: 'no',
   pastSymptomsDaysAgo: '',
   pastSymptomsChanged: 'no',
-  alreadyHadCovid: 'no',
   classicSymptoms: 'no',
 };
 
@@ -100,14 +98,6 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       is: 'yes',
       then: Yup.string().required(),
     }),
-    alreadyHadCovid: Yup.string().when('unwellMonthBefore', {
-      is: 'yes',
-      then: Yup.string().required(),
-    }),
-    classicSymptoms: Yup.string().when('alreadyHadCovid', {
-      is: 'yes',
-      then: Yup.string().required(),
-    }),
   });
 
   handleUpdateHealth(formData: YourHealthData) {
@@ -134,7 +124,6 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
       infos = {
         ...infos,
         still_have_past_symptoms: formData.stillHavePastSymptoms === 'yes',
-        already_had_covid: formData.alreadyHadCovid === 'yes',
         past_symptom_anosmia: this.state.pastSymptomAnosmia,
         past_symptom_shortness_of_breath: this.state.pastSymptomShortnessOfBreath,
         past_symptom_fatigue: this.state.pastSymptomFatigue,
@@ -155,13 +144,6 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
           past_symptoms_changed: formData.pastSymptomsChanged,
         };
       }
-    }
-
-    if (infos.already_had_covid) {
-      infos = {
-        ...infos,
-        classic_symptoms: formData.classicSymptoms === 'yes',
-      };
     }
 
     return infos;
@@ -291,20 +273,6 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
                         items={symptomChangeChoices}
                       />
                     </>
-                  )}
-
-                  <YesNoField
-                    selectedValue={props.values.alreadyHadCovid}
-                    onValueChange={props.handleChange('alreadyHadCovid')}
-                    label={i18n.t('label-past-symptoms-had-covid')}
-                  />
-
-                  {props.values.alreadyHadCovid === 'yes' && (
-                    <YesNoField
-                      selectedValue={props.values.classicSymptoms}
-                      onValueChange={props.handleChange('classicSymptoms')}
-                      label={i18n.t('label-past-symptoms-classic')}
-                    />
                   )}
 
                   <ErrorText>{this.state.errorMessage}</ErrorText>
