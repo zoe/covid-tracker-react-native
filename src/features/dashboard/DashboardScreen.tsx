@@ -109,6 +109,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       {/* School Networks */}
+      {isGBCountry() && (
+        <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
+          <View style={styles.schoolModuleContainer}>
+            <SchoolModule />
+          </View>
+        </TouchableWithoutFeedback>
+      )}
+
       {hasNetworkData && (
         <View
           style={{
@@ -118,16 +126,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           <SchoolNetworks schoolGroups={networks!} />
         </View>
       )}
-
-      {isGBCountry() && (
-        <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
-          <View style={styles.schoolModuleContainer}>
-            <SchoolModule />
-          </View>
-        </TouchableWithoutFeedback>
-      )}
-
-      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
         <View style={styles.calloutContainer}>
@@ -178,7 +176,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   schoolModuleContainer: {
     marginHorizontal: 32,
-    marginBottom: 16,
+    marginBottom: 8,
     height: 200,
   },
   calloutContainer: {
