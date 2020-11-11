@@ -1,17 +1,15 @@
-import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, UpdatePatient } from '@covid/core/Coordinator';
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { ILocalisationService, isGBCountry } from '@covid/core/localisation/LocalisationService';
+import { homeScreenName, ILocalisationService, isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
 
 export class EditProfileCoordinator extends Coordinator implements UpdatePatient {
-  appCoordinator: AppCoordinator;
   userService: IUserService;
   patientData: PatientData;
 
@@ -41,7 +39,7 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     NHSDetails: () => {
       NavigatorService.reset(
         [
-          { name: this.appCoordinator.homeScreenName, params: {} },
+          { name: homeScreenName(), params: {} },
           {
             name: 'SelectProfile',
             params: {
@@ -56,8 +54,7 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     },
   };
 
-  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
-    this.appCoordinator = appCoordinator;
+  init = (patientData: PatientData, userService: IUserService) => {
     this.patientData = patientData;
     this.userService = userService;
   };
@@ -85,13 +82,13 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     NavigatorService.navigate('YourStudy', { patientData: this.patientData, editing: true });
   }
 
-  goToSchoolNetwork(higherEducation: boolean) {
-    schoolNetworkCoordinator.init(this.appCoordinator, this.patientData, higherEducation);
+  goToSchoolNetwork() {
+    schoolNetworkCoordinator.init(this.patientData, false);
     schoolNetworkCoordinator.startFlow();
   }
 
   goToUniversityNetwork() {
-    schoolNetworkCoordinator.init(this.appCoordinator, this.patientData, true);
+    schoolNetworkCoordinator.init(this.patientData, true);
     NavigatorService.navigate('JoinHigherEducation', { patientData: this.patientData });
   }
 

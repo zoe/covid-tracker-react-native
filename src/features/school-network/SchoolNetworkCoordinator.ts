@@ -1,10 +1,9 @@
-import appCoordinator, { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { ScreenFlow, Coordinator, SelectProfile } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Services } from '@covid/provider/services.types';
 import { IPatientService } from '@covid/core/patient/PatientService';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { homeScreenName, ILocalisationService } from '@covid/core/localisation/LocalisationService';
 import { IUserService } from '@covid/core/user/UserService';
 import { lazyInject } from '@covid/provider/services';
 import { Profile } from '@covid/components/Collections/ProfileList';
@@ -19,7 +18,6 @@ import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
-  appCoordinator: AppCoordinator;
   patientData: PatientData;
   higherEducation: boolean;
 
@@ -56,8 +54,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     },
   };
 
-  init = (appCoordinator: AppCoordinator, patientData: PatientData, higherEducation: boolean) => {
-    this.appCoordinator = appCoordinator;
+  init = (patientData: PatientData, higherEducation: boolean) => {
     this.patientData = patientData;
     this.higherEducation = higherEducation;
     this.selectedSchool = undefined;
@@ -80,7 +77,7 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
   }
 
   resetToHome() {
-    NavigatorService.reset([{ name: appCoordinator.homeScreenName }], 0);
+    NavigatorService.reset([{ name: homeScreenName() }], 0);
   }
 
   goToJoinGroup() {

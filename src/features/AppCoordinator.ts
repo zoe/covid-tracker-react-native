@@ -7,6 +7,7 @@ import {
   isUSCountry,
   ILocalisationService,
   LocalisationService,
+  homeScreenName,
 } from '@covid/core/localisation/LocalisationService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
@@ -74,17 +75,17 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       if (this.patientData && this.shouldShowCountryPicker) {
         NavigatorService.replace('CountrySelect', {
           onComplete: () => {
-            NavigatorService.replace(this.homeScreenName);
+            NavigatorService.replace(homeScreenName());
           },
         });
       } else if (this.patientData) {
-        NavigatorService.replace(this.homeScreenName);
+        NavigatorService.replace(homeScreenName());
       } else {
         NavigatorService.replace('Welcome');
       }
     },
     Login: () => {
-      NavigatorService.reset([{ name: this.homeScreenName }]);
+      NavigatorService.reset([{ name: homeScreenName() }]);
     },
     Register: () => {
       const config = appCoordinator.getConfig();
@@ -132,7 +133,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       NavigatorService.navigate('Register');
     },
     VaccineRegistryInfo: () => {
-      NavigatorService.navigate(this.homeScreenName);
+      NavigatorService.navigate(homeScreenName());
     },
   };
 
@@ -153,7 +154,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     }
 
     await this.fetchInitialData();
-    this.setHomeScreenName();
 
     // Track insights
     if (this.shouldShowCountryPicker) {
@@ -167,10 +167,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }
-  }
-
-  setHomeScreenName(): void {
-    this.homeScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
   }
 
   getConfig(): ConfigType {
@@ -205,13 +201,13 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   async startEditProfile(profile: Profile) {
     await this.setPatientByProfile(profile);
 
-    editProfileCoordinator.init(this, this.patientData, this.userService);
+    editProfileCoordinator.init(this.patientData, this.userService);
     editProfileCoordinator.startEditProfile();
   }
 
   async startEditLocation(profile: Profile, patientData?: PatientData) {
     if (!patientData) await this.setPatientByProfile(profile);
-    editProfileCoordinator.init(this, patientData ?? this.patientData, this.userService);
+    editProfileCoordinator.init(patientData ?? this.patientData, this.userService);
     editProfileCoordinator.goToEditLocation();
   }
 
