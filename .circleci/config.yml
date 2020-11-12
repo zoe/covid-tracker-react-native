@@ -402,6 +402,7 @@ workflows:
           requires:
             - build
       - deployed-ota:
+          name: 'Stage OTA Deployed'
           context: slack-ci-covid-mobile
           requires:
             - Stage OTA
@@ -420,6 +421,7 @@ workflows:
           requires:
             - Prod OTA approval
       - deployed-ota:
+          name: 'Prod OTA Deployed'
           context: slack-ci-covid-mobile
           requires:
             - Prod OTA
@@ -454,6 +456,7 @@ workflows:
           requires:
             - Adhoc approval
       - deployed-stage:
+          name: 'Stage apps published'
           context: slack-ci-covid-mobile
           requires:
             - Adhoc iOS
@@ -485,6 +488,7 @@ workflows:
           requires:
             - Store approval
       - deployed-prod:
+          name: 'Prod apps published'
           context: slack-ci-covid-mobile
           requires:
             - Store iOS
