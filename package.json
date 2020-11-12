@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --maxWorker=2",
+    "test": "jest --maxWorker=2 --silent",
     "test:coverage": "jest --maxWorker=2 --coverage && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
     "test:updateSnapshots": "jest -u",

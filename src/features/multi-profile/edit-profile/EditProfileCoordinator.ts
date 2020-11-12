@@ -44,7 +44,7 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
             name: 'SelectProfile',
             params: {
               patientData: this.patientData,
-              editing: true,
+              assessmentFlow: false,
             },
           },
           { name: 'EditProfile', params: { patientData: this.patientData } },
