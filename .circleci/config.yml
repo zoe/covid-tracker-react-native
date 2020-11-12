@@ -239,7 +239,7 @@ jobs:
       - prepare_blank_env
       - run:
           name: Run tests with JUnit as reporter
-          command: yarn test:coverage --ci
+          command: yarn test:coverage -- --ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
       - coveralls/upload
