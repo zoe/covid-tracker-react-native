@@ -44,10 +44,8 @@ package = load_json(json_path: "./package.json")
   )
 end
 
-private_lane :set_build_number do
-  # Increment build number to current date
-  build_number = Time.new.strftime("%Y.%m.%d")
-  increment_build_number build_number: build_number
+lane :get_build_number_by_time do
+   Time.new.strftime("%Y%m%d%H%M") # e.g 202011121515
 end
 
 desc 'Bump build numbers, and set the version to match the pacakage.json version.'
@@ -115,13 +113,12 @@ platform :android do
     @ac_notify_group = "Android"
     @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
-    set_build_number
-     # Increment build number to current date
-    build_number = Time.new.strftime("%Y.%m.%d")
-    increment_build_number(
-      xcodeproj: './ios/Covid.xcodeproj',
-      build_number: number
+
+    android_set_version_code(
+      version_code: get_build_number_by_time(),
+      gradle_file: "android/app/build.gradle"
     )
+
   end
   
   desc "Build Android Staging"
@@ -164,14 +161,16 @@ end
 
 platform :ios do
 
-  
   before_all do
     setup_circle_ci
     app_identifier = @ios_app_id
     @ac_notify_group = "iOS"
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_IOS_TOKEN']
-    set_build_number
+    increment_build_number(
+      build_number: get_build_number_by_time(),
+      xcodeproj: './ios/Covid.xcodeproj',
+    )
   end
 
   lane :certificates do

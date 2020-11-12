@@ -15,6 +15,11 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
+### get_build_number_by_time
+```
+fastlane get_build_number_by_time
+```
+
 ### bump
 ```
 fastlane bump
