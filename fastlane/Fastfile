@@ -45,7 +45,7 @@ package = load_json(json_path: "./package.json")
 end
 
 lane :get_build_number_by_time do
-   Time.new.strftime("%Y%m%d%H%M") # e.g 202011121515
+  Time.new.strftime("%Y%m%d%H%M") # e.g 202011121515
 end
 
 desc 'Bump build numbers, and set the version to match the pacakage.json version.'
@@ -115,7 +115,7 @@ platform :android do
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
 
     android_set_version_code(
-      version_code: get_build_number_by_time(),
+      version_code: "#{get_build_number_by_time()}",
       gradle_file: "android/app/build.gradle"
     )
 
