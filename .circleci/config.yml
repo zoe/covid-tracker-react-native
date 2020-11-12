@@ -399,17 +399,7 @@ workflows:
           context: slack-ci-covid-mobile
           requires:
             - ota-release
-      # OTA rollback
-      - ota-rollback-approval:
-          filters: *feature_filter
-          type: approval
-          requires:
-            - ota-release
-      - ota-rollback:
-          filters: *feature_filter
-          context: react-covid-tracker-stage
-          requires:
-            - ota-rollback-approval
+
       # Native app deploy
       - slack/approval-notification:
           filters: *feature_filter
@@ -566,8 +556,6 @@ workflows:
           name: 'Prod rollback'
           filters: *master_filter
           type: approval
-          requires:
-            - ota-release
       - ota-rollback:
           filters: *master_filter
           context: react-covid-tracker-prod
@@ -579,8 +567,6 @@ workflows:
           name: 'Stage rollback'
           filters: *stage_filter
           type: approval
-          requires:
-            - ota-release
       - ota-rollback:
           filters: *stage_filter
           context: react-covid-tracker-stage
