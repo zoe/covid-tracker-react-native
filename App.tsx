@@ -11,6 +11,7 @@ import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import { container } from '@covid/provider/services';
 import store from '@covid/core/state/store';
 import { Theme } from '@covid/themes';
+import { MessagingContainer } from '@covid/components';
 
 const ENABLE_STORYBOOK = false;
 
@@ -30,6 +31,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={Theme}>
+        <MessagingContainer />
         <ServiceProvider container={container}>{fontsLoaded ? <Root /> : null}</ServiceProvider>
       </ThemeProvider>
     </Provider>

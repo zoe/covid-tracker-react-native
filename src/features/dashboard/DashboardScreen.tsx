@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -29,6 +29,9 @@ import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import SchoolModule from '@assets/icons/SchoolsModule';
+//delete me
+import { set } from '@covid/core/errors/slice';
+// end delete me
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -108,6 +111,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      <Button
+        title="Top down"
+        onPress={() =>
+          dispatch(set({ active: true, dissmissable: false, variant: 'top', message: 'message from the top' }))
+        }
+      />
       {/* School Networks */}
       {isGBCountry() && (
         <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
