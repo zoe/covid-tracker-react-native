@@ -158,7 +158,7 @@ export default class CovidApp extends Component<object, State> {
                 drawerStyle={{
                   width: Dimensions.get('screen').width,
                 }}>
-                <Drawer.Screen name="Main" component={this.mainNavStack} />
+                <Drawer.Screen name="Main" component={this.mainNavStack} options={{ headerShown: false }} />
               </Drawer.Navigator>
             </NavigationContainer>
           </Root>
