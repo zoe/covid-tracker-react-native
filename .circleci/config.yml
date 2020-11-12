@@ -69,7 +69,7 @@ references:
 
   release_filter: &release_filter
     branches:
-      ignore:
+      only:
         - master
         - develop
         - stage
