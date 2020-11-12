@@ -1,43 +1,53 @@
-import {FieldWrapper} from "./Screen";
-import {Item, Label} from "native-base";
-import {ValidatedTextInput} from "./ValidatedTextInput";
-import React from "react";
-import {KeyboardTypeOptions, StyleSheet} from "react-native";
+import { FormikProps } from 'formik';
+import React from 'react';
+import { KeyboardTypeOptions, StyleSheet, StyleProp, TextInputProps, ViewStyle } from 'react-native';
 
-interface GenericTextFieldProps {
-    formikProps: any,
-    name: string,
-    label?: string,
-    placeholder?: string | undefined,
-    keyboardType?: KeyboardTypeOptions
-    inputProps?: any,
+import { FieldWrapper } from './Screen';
+import { ValidatedTextInput } from './ValidatedTextInput';
+import { ValidationError } from './ValidationError';
+import { RegularText } from './Text';
+
+interface GenericTextFieldProps extends TextInputProps {
+  formikProps: FormikProps<any>;
+  name: string;
+  label?: string;
+  placeholder?: string;
+  keyboardType?: KeyboardTypeOptions;
+  showError?: boolean;
+  inputProps?: any;
+  wrapperStyle?: StyleProp<ViewStyle>;
 }
 
 export const GenericTextField = (props: GenericTextFieldProps) => {
-    const {formikProps, name, label, placeholder, keyboardType, ...inputProps} = props;
-    return (
-      <FieldWrapper>
-          <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{label}</Label>
-              <ValidatedTextInput
-                placeholder={placeholder || ''}
-                value={formikProps.values[name]}
-                onChangeText={formikProps.handleChange(name)}
-                onBlur={formikProps.handleBlur(name)}
-                error={formikProps.touched[name] && formikProps.errors[name]}
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                }}
-                keyboardType={keyboardType}
-                {...inputProps}
-              />
-          </Item>
-      </FieldWrapper>
-    )
+  const { formikProps, name, label, placeholder, keyboardType, showError, inputProps, ...otherProps } = props;
+  return (
+    <FieldWrapper style={[styles.fieldWrapper, props.wrapperStyle]}>
+      {!!label && <RegularText>{label}</RegularText>}
+      <ValidatedTextInput
+        placeholder={placeholder ?? ''}
+        value={formikProps.values[name]}
+        onChangeText={formikProps.handleChange(name)}
+        onBlur={formikProps.handleBlur(name)}
+        error={formikProps.touched[name] && formikProps.errors[name]}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+        keyboardType={keyboardType}
+        {...inputProps}
+        {...otherProps}
+      />
+
+      {showError && !!formikProps.touched[name] && !!formikProps.errors[name] && (
+        <ValidationError
+          // @ts-ignore - need to solve type for ValidationError error prop
+          error={formikProps.errors[name]}
+        />
+      )}
+    </FieldWrapper>
+  );
 };
 
 const styles = StyleSheet.create({
-    textItemStyle: {
-        borderColor: 'transparent'
-    },
-})
+  fieldWrapper: {
+    flex: 1,
+  },
+});

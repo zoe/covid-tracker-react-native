@@ -1,148 +1,114 @@
-import React, {Component} from "react";
-import {Platform, StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, ProgressBlock, screenWidth} from "../../components/Screen";
-import {BrandedButton, HeaderText} from "../../components/Text";
-import {Form, Item, Label, Text, Textarea} from "native-base";
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Formik } from 'formik';
+import { Form, Item, Label, Text, Textarea } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
 
-import ProgressStatus from "../../components/ProgressStatus";
+import i18n from '@covid/locale/i18n';
+import { BrandedButton, HeaderText } from '@covid/components/Text';
+import Screen, { FieldWrapper, Header, ProgressBlock } from '@covid/components/Screen';
+import ProgressStatus from '@covid/components/ProgressStatus';
+import { assessmentService } from '@covid/Services';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 
-import {Formik} from "formik";
-import * as Yup from "yup";
-
-import {colors, fontStyles} from "../../../theme"
-import UserService from "../../core/user/UserService";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
-
-
-const PICKER_WIDTH = (Platform.OS === 'ios') ? undefined : '100%';
+import { ScreenParamList } from '../ScreenParamList';
 
 const initialFormValues = {
-    description: '',
-}
+  description: '',
+};
 
 interface TreatmentData {
-    description: string;
+  description: string;
 }
 
 type TreatmentOtherProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'TreatmentOther'>
-    route: RouteProp<ScreenParamList, 'TreatmentOther'>;
-}
-
+  navigation: StackNavigationProp<ScreenParamList, 'TreatmentOther'>;
+  route: RouteProp<ScreenParamList, 'TreatmentOther'>;
+};
 
 export default class TreatmentOtherScreen extends Component<TreatmentOtherProps> {
-    constructor(props: TreatmentOtherProps) {
-        super(props);
-        this.handleUpdateTreatment = this.handleUpdateTreatment.bind(this);
+  registerSchema = Yup.object().shape({
+    description: Yup.string(),
+  });
+
+  handleUpdateTreatment = async (formData: TreatmentData) => {
+    let assessment: Partial<AssessmentInfosRequest> = {};
+
+    if (formData.description) {
+      assessment = {
+        treatment: formData.description,
+      };
     }
 
-    registerSchema = Yup.object().shape({
-        description: Yup.string(),
-    });
+    await assessmentService.completeAssessment(
+      assessment,
+      assessmentCoordinator.assessmentData.patientData.patientInfo!
+    );
+    assessmentCoordinator.gotoNextScreen(this.props.route.name);
+  };
 
-    handleUpdateTreatment(formData: TreatmentData) {
+  render() {
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+    const title =
+      this.props.route.params.location === 'back_from_hospital'
+        ? i18n.t('treatment-other-title-after')
+        : i18n.t('treatment-other-title-during');
+    const question =
+      this.props.route.params.location === 'back_from_hospital'
+        ? i18n.t('treatment-other-question-treatment-after')
+        : i18n.t('treatment-other-question-treatment-during');
 
-        const assessmentId = this.props.route.params.assessmentId;
-        const location = this.props.route.params.location;
-        const goToNextScreen = () => this.props.navigation.navigate('ThankYou');
+    return (
+      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+        <Header>
+          <HeaderText>{title}</HeaderText>
+        </Header>
 
-        if (!formData.description) {
-            goToNextScreen();
-        } else {
-            const userService = new UserService();
-            userService.updateAssessment(assessmentId, {
-                treatment: formData.description
-            }).then(r => goToNextScreen());
-        }
-    }
+        <ProgressBlock>
+          <ProgressStatus step={5} maxSteps={5} />
+        </ProgressBlock>
 
-    render() {
-        return (
-            <Screen>
-                <Header>
-                    <HeaderText>What treatment are you receiving in hospital?</HeaderText>
-                </Header>
+        <Formik
+          initialValues={initialFormValues}
+          validationSchema={this.registerSchema}
+          onSubmit={(values: TreatmentData) => {
+            return this.handleUpdateTreatment(values);
+          }}>
+          {(props) => {
+            return (
+              <Form>
+                <FieldWrapper style={{ marginVertical: 64 }}>
+                  <Item stackedLabel>
+                    <Label style={{ marginBottom: 16 }}>{question}</Label>
+                    <Textarea
+                      style={styles.textarea}
+                      rowSpan={5}
+                      bordered
+                      placeholder={i18n.t('placeholder-optional-question')}
+                      value={props.values.description}
+                      onChangeText={props.handleChange('description')}
+                      underline={false}
+                    />
+                  </Item>
+                </FieldWrapper>
 
-                <ProgressBlock>
-                    <ProgressStatus step={5} maxSteps={5}/>
-                </ProgressBlock>
-
-                <Formik
-                    initialValues={initialFormValues}
-                    validationSchema={this.registerSchema}
-                    onSubmit={(values: TreatmentData) => {
-                        return this.handleUpdateTreatment(values)
-                    }}
-                >
-                    {props => {
-                        return (
-                            <Form>
-                                <FieldWrapper style={{marginVertical: 64}}>
-                                    <Item stackedLabel>
-                                        <Label style={{marginBottom: 16}}>What medical treatment are you receiving?</Label>
-                                        <Textarea
-                                            style={styles.textarea}
-                                            rowSpan={5}
-                                            bordered
-                                            placeholder="*Optional"
-                                            value={props.values.description}
-                                            onChangeText={props.handleChange("description")}
-                                            underline={false}
-                                        />
-                                    </Item>
-                                </FieldWrapper>
-
-
-                                <BrandedButton onPress={props.handleSubmit}>
-                                    <Text style={[fontStyles.bodyLight, styles.buttonText]}>Done</Text>
-                                </BrandedButton>
-
-                            </Form>
-                        )
-                    }}
-                </Formik>
-
-            </Screen>
-        )
-    }
+                <BrandedButton onPress={props.handleSubmit}>
+                  <Text>{i18n.t('completed')}</Text>
+                </BrandedButton>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Screen>
+    );
+  }
 }
 
-
 const styles = StyleSheet.create({
-    fieldRow: {
-        flexDirection: "row",
-    },
-
-    primaryField: {
-        flex: 3,
-    },
-
-    secondaryField: {
-        flex: 1,
-    },
-
-    picker: {
-        width: screenWidth - 16,
-        marginTop: 16,
-    },
-
-    smallPicker: {
-        // width: 40,
-    },
-
-    textarea: {
-        width: '100%',
-    },
-
-    button: {
-        borderRadius: 8,
-        height: 56,
-        backgroundColor: colors.brand,
-    },
-    buttonText: {
-        color: colors.white,
-    },
-
-})
+  textarea: {
+    width: '100%',
+  },
+});

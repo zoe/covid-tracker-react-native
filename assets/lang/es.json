@@ -1,0 +1,1499 @@
+{
+  "create-account": {
+    "title": "Crear nueva cuenta",
+    "btn": "Crear cuenta",
+    "login": "Iniciar sesión",
+    "existing-account": "en cuenta existente.",
+    "email": "Su correo electrónico",
+    "password": "Crear contraseña",
+    "if-you-have-an-account": "¿Ya tiene una cuenta?",
+    "already-registered": "Ya existe una cuenta con este correo electrónico. Intente iniciar sesión.",
+    "email-required": "Ingrese su dirección de correo electrónico",
+    "email-error": "Corrija su dirección de correo electrónico",
+    "password-required": "Ingrese una contraseña",
+    "password-too-simple": "La contraseña debe tener al menos 8 caracteres y no solo números",
+    "something-went-wrong": "Algo salió mal: %{msg}",
+    "error": "Error n.º 01. Informe sobre esto a covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "login": {
+    "title": "Inicie sesión en\nsu cuenta",
+    "email-label": "Correo electrónico",
+    "password-label": "Contraseña",
+    "dont-have-account": "¿No tiene una cuenta?",
+    "create-account": "Crear cuenta",
+    "forgot-your-password": "¿Olvidó su contraseña?",
+    "button": "Iniciar sesión",
+    "user-not-found-exception": "No lo pudimos identificar. Intente nuevamente.",
+    "exception": "No se puede iniciar sesión. Intente nuevamente."
+  },
+
+  "reset-password": {
+    "title": "Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña",
+    "email-label": "Correo electrónico",
+    "email-error": "Ingrese un correo electrónico válido",
+    "button": "Restablecer contraseña",
+    "error": "Error n.º 02. Informe sobre esto a covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "reset-password-confirm": {
+    "title": "Revise su correo electrónico",
+    "text": "Se le envió un enlace de restablecimiento de contraseña.",
+    "button": "Volver"
+  },
+
+  "optional-info": {
+    "title": "Información opcional de contacto",
+    "description": "Indique su nombre y número de teléfono. Esto es opcional. Si desea compartir su información con otro estudio, esto nos permitirá identificarlo.",
+    "name-placeholder": "Su nombre",
+    "phone-placeholder": "Número de teléfono",
+    "button": "Continuar"
+  },
+
+  "welcome": {
+    "title": "COVID Symptom Study",
+    "sign-in": "Iniciar sesión",
+    "take-a-minute": "Tómese 1 minuto diario y ayude a combatir el brote en su comunidad.",
+    "disclaimer": "Esta aplicación le permite ayudar a los demás, pero \n no da consejos de salud. Si necesita \n consejos de salud",
+    "disclaimer-link": "visite el sitio web de NHS",
+    "tell-me-more": "Más información",
+    "visit-the-website": "Visite el sitio web",
+    "see-how-your-area-is-affected": "Siga los hallazgos que usted hizo posibles",
+    "report-button": "Informe hoy, incluso si está bien",
+    "how-you-can-help": {
+      "title": "Cómo puede ayudar",
+      "text1": "Tómese 1 minuto diario para informar cómo se siente, aunque esté bien. Luego, vea cómo está afectada su área.",
+      "text2": "La información que comparta no se usará para fines comerciales. No necesita darnos su nombre. Esta aplicación no da consejos de salud."
+    },
+    "from-researchers": "De los médicos e investigadores de",
+    "create-account": "Crear cuenta",
+    "research": "INVESTIGACIÓN"
+  },
+
+  "names": {
+    "harvard-th-chan-school-of-public-health": "Harvard T.H. Chan School of Public Health",
+    "mass-general-hospital": "Massachusetts General Hospital",
+    "kings-college-london": "King's College London",
+    "stanford-university-school-of-medicine": "Stanford University School of Medicine",
+    "zoe": "ZOE"
+  },
+
+  "before-we-start": {
+    "title": "Estoy en un ensayo o estudio de investigación, y deseo que mis datos se entreguen a los investigadores de ese estudio.",
+    "yes": "Sí, estoy",
+    "no": "No, no estoy"
+  },
+
+  "legal": {
+    "i-agree": "Acepto",
+    "back": "Volver",
+    "confirm": ""
+  },
+
+  "next-question": "Siguiente pregunta",
+  "completed": "Listo",
+  "something-went-wrong": "Algo salió mal, intente nuevamente más tarde",
+  "choose-one-of-these-options": "Elija una de las opciones",
+
+  "your-work": {
+    "worked-hospital-inpatient": "Paciente hospitalizado",
+    "worked-hospital-outpatient": "Paciente ambulatorio",
+    "worked-clinic-outside-hospital": "Clínica fuera de un hospital",
+    "worked-nursing-home": "Casa de reposo/cuidado de adulto mayor o cuidado grupal",
+    "worked-home-health": "Salud en el hogar",
+    "worked-school-clinic": "Clínica escolar",
+    "worked-other-facility": "Otro establecimiento de atención de salud"
+  },
+
+  "back-date-profile-title": "Algunas preguntas adicionales sobre usted",
+  "update-profile": "Actualizar perfil",
+  "create-profile": "Crear",
+
+  "title-about-work": "Acerca de su trabajo",
+
+  "your-study": {
+    "title": "Tu estudio clínico",
+    "label-cohort": "Eres parte de alguno de estos estudios de pobalación o alguna de estas organizaciones?",
+    "add-study-names": "Añada los nombres de tus estudios",
+    "contact-name": "Si lo sabes, cuál es el nombre de la persona de contacto en tu estudio (investigador, médico, coordinador del estudio, etc.)",
+    "uni-hospital": "Si lo sabes, qué universidad o hospital lleva a cabo este estudio?",
+    "nct-number": "Si lo sabes, cuál es el número NCT?",
+    "if-not": "Sino"
+  },
+
+  "required-is-healthcare-worker": "Indique si trabaja en el área de la salud",
+  "required-is-carer": "Indique si es un cuidador",
+
+  "are-you-healthcare-staff": "¿Trabaja en el área de la salud (hospital, cuidado de ancianos o en la comunidad)?",
+  "yes-interacting-patients": "Sí, interactúo con pacientes",
+  "yes-not-interacting-patients": "Sí, pero no interactúo con pacientes",
+  "are-you-carer": "¿Cuida a varias personas en la comunidad, con contacto directo con los pacientes?",
+
+  "label-physically-worked-in-places": "Desde que comenzó la epidemia de COVID-19, ¿ha trabajado físicamente en? (marque todas las que correspondan)",
+  "label-interacted-with-infected-patients": "¿ALGUNA VEZ interactuó en persona con pacientes sospechosos o con infección por COVID-19 documentada?",
+  "required-has-patient-interaction": "Indique si tuvo contacto con pacientes infectados",
+
+  "label-used-ppe-equipment": "Desde que comenzó la epidemia de COVID-19, ¿ha usado equipo de protección personal (EPP) en el trabajo?",
+  "label-used-ppe-equipment-footnote": "* Según los requisitos del trabajo, EPP puede incluir guantes, mascarillas, protectores faciales, etc.",
+  "label-ppe-equipment-available": "¿Está disponible el EPP que necesita?",
+  "label-chose-an-option": "Elija una de las opciones",
+  "label-check-all-that-apply": "Marque todas las que correspondan",
+  "required-ppe-availability": "Especifique el nivel de disponibilidad del EPP en el trabajo.",
+
+  "title-about-you": "Acerca de usted",
+
+  "what-year-were-you-born": "¿En qué año nació?",
+  "placeholder-year-of-birth": "Año de nacimiento",
+  "required-year-of-birth": "Ingrese su año de nacimiento",
+  "correct-year-of-birth": "Corrija su año de nacimiento",
+
+  "your-sex-at-birth": "¿Qué sexo se le asignó al nacer?",
+  "sex-at-birth-male": "Masculino",
+  "sex-at-birth-female": "Femenino",
+  "sex-at-birth-intersex": "Intersexual",
+  "sex-at-birth-pfnts": "Prefiero no decir",
+  "placeholder-sex": "Sexo asignado",
+  "required-sex-at-birth": "Indique el sexo que se le asignó al nacer",
+
+  "label-gender-identity": "¿Con qué género se identifica más?",
+  "label-gender-identity-other": "Especifique lo que desee:",
+
+  "gender-identity-male": "Masculino",
+  "gender-identity-female": "Femenino",
+  "gender-identity-pfnts": "Prefiero no decir",
+  "placeholder-gender-identity": "Su identidad de género",
+  "required-gender-identity": "Indique el género con el que más se identifica",
+  "gender-identity-other": "Otras, por favor especifique",
+  "error-gender-identity-length": "Máximo 30 caracteres",
+
+  "your-height": "Su altura",
+  "placeholder-height": "Altura",
+  "placeholder-feet": "Pies",
+  "placeholder-inches": "Pulg.",
+  "placeholder-height-unit": "Unidades de altura",
+  "picker-feet": "ft",
+  "picker-cm": "cm",
+  "required-height-in-cm": "Ingrese su altura en centímetros como un número",
+  "required-height-in-ft-in": "Ingrese su altura en pies y pulgadas",
+
+  "your-weight": "Su peso",
+  "placeholder-weight": "Peso",
+  "placeholder-stones": "Stones",
+  "placeholder-pounds": "Libras",
+  "required-weight-in-kg": "Ingrese su peso en kilogramos",
+  "required-weight-in-lb": "Ingrese su peso en libras",
+
+  "placeholder-weight-unit": "Unidades de peso",
+  "picker-pounds": "lb",
+  "picker-kg": "kg",
+
+  "your-postcode": "¿Su código postal?",
+  "placeholder-postcode": "Código postal",
+  "required-postcode": "Ingrese su código postal",
+  "postcode-too-long": "Corrija su código postal",
+
+  "picker-yes": "Sí",
+  "picker-no": "No",
+  "picker-unsure": "Insegura",
+  "please-select-option": "Seleccione una opción",
+  "placeholder-optional-question": "*Opcional",
+  "placeholder-optional": "Opcional",
+
+  "previous-exposure-title": "Exposición anterior a COVID",
+  "required-ever-exposed": "Indique si estuvo expuesto a alguien con infección por COVID-19",
+  "label-unwell-month-before": "¿Se sintió mal durante el mes anterior a informar en esta aplicación?",
+  "label-past-symptoms-days-ago": "¿Hace cuántos días comenzaron los síntomas?",
+  "label-past-symptoms-still-have": "¿Aún tiene síntomas?",
+  "label-past-symptoms-changed": "¿Cómo han cambiado los síntomas en los últimos días?",
+
+  "label-past-symptoms": "Tuvo alguno de estos síntomas (seleccione todos los que correspondan):",
+  "label-past-symptom-anosmia": "Pérdida de olfato/gusto",
+  "label-past-symptom-breath": "Dificultad inusual para respirar",
+  "label-past-symptom-fatigue": "Fatiga inusual",
+  "label-past-symptom-fever": "Fiebre",
+  "label-past-symptom-skipped-meals": "Se salta comidas",
+  "label-past-symptom-cough": "Tos persistente",
+  "label-past-symptom-diarrhoea": "Diarrea",
+  "label-past-symptom-chest-pain": "Dolor o presión inusual en el pecho",
+  "label-past-symptom-hoarse-voice": "Voz ronca",
+  "label-past-symptom-abdominal-pain": "Dolor abdominal",
+  "label-past-symptom-confusion": "Confusión, desorientación, somnolencia",
+  "past-symptom-changed-much-better": "Mucho mejor",
+  "past-symptom-changed-little-better": "Un poco mejor",
+  "past-symptom-changed-same": "Igual",
+  "past-symptom-changed-little-worse": "Un poco peor",
+  "past-symptom-changed-much-worse": "Mucho peor",
+
+  "your-health": {
+    "page-title": "Acerca de su salud",
+    "health-problems-that-limit-activity": "En general, ¿tiene problemas de salud que lo hagan limitar sus actividades?",
+    "are-you-pregnant": "¿Está embarazada?",
+    "picker-pregnant": "Estoy embarazada",
+    "picker-pfnts": "Prefiero no decir",
+    "picker-other": "Otro",
+    "have-heart-disease": "¿Tiene enfermedad cardíaca?",
+    "have-diabetes": "¿Tiene diabetes?",
+    "have-hayfever": "¿Tiene la fiebre del heno (alergia al polen)?",
+    "have-eczema": "¿Tiene eccemas?",
+    "have-asthma": "¿Tiene asthma?",
+    "have-lung-disease": "¿Tiene alguna enfermedad pulmonar?",
+    "is-smoker": "¿Fuma?",
+    "never-smoked": "Nunca",
+    "not-currently-smoking": "No actualmente",
+    "yes-smoking": "Sí",
+    "years-since-last-smoked": "¿Hace cuántos años fumó por última vez?",
+    "has-kidney-disease": "¿Tiene enfermedad renal?",
+    "has-cancer": "¿Vive con cáncer?",
+    "what-cancer-type": "¿Qué tipo de cáncer tiene?",
+    "is-on-chemotherapy": "¿Está en quimioterapia o inmunoterapia para el cáncer?",
+    "takes-immunosuppressant": "¿Toma habitualmente inmunosupresores (como esteroides, metotrexato, agentes biológicos)?",
+    "takes-asprin": "¿Toma aspirina habitualmente (aspirina de niños o dosis normal)?",
+    "takes-nsaids": "¿Toma habitualmente \"AINE\", como ibuprofeno, nurofen, diclofenaco, naproxeno?",
+    "takes-any-blood-pressure-medication": "¿Habitualmente toma medicamentos para la presión?",
+    "takes-pril-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-pril\", como enalapril, lisinopril, captopril, ramipril?",
+    "takes-sartan-blood-pressure-medication": "¿Toma habitualmente medicamentos para la presión que terminan en \"-sartan\", como losartan, valsartan, irbesartan?"
+  },
+
+  "covid-test": {
+    "page-title": "Estado de COVID-19",
+    "page-title-detail-add": "Agregar nuevo examen",
+    "page-title-detail-update": "Actualizar examen",
+    "add-test": "Agregar examen",
+    "update-test": "Actualizar examen",
+
+    "delete-test": "Elimina la prueba",
+    "delete-test-alert-title": "¿Eliminar esta prueba?",
+    "delete-test-alert-text": "Esta información se perderá. ¿Desea continuar?",
+
+    "question-select-a-date-range": "Seleccione un intervalo de fechas",
+    "question-select-a-date": "Seleccione una fecha",
+
+    "question-time-test-taken": "¿A qué hora tomaste la prueba?",
+    "question-time-test-taken-error": "Ingrese la hora de su cita",
+    "question-pick-a-time": "Elige una hora",
+
+    "question-mechanism": "¿Cómo se realizó este examen?",
+    "picker-nose-swab": "Usaron un hisopo en mi nariz",
+    "picker-throat-swab": "Usaron un hisopo en mi garganta",
+    "picker-nose-throat-swab": "Con un hisopo en mi nariz o garganta",
+    "picker-saliva-sample": "Escupí en un vaso/tubo",
+    "picker-blood-sample": "Di una muestra de sangre",
+    "picker-finger-prick": "Un examen de sangre con un pinchazo en el dedo",
+    "picker-blood-draw": "Un examen de sangre, hecho usando un aguja",
+    "picker-other": "Otro, especifique",
+
+    "question-mechanism-specify": "Indique cómo se realizó el examen",
+    "question-trained-worker": "¿Un trabajador calificado te hizo la prueba mediante un hisopo?",
+
+    "location": {
+      "question": "¿Dónde se realizó la prueba?",
+      "specify": "Por favor especifique",
+      "answers": {
+        "at-home": "Hogar",
+        "drive-through-rtc": "",
+        "drop-in-facility": "",
+        "hospital": "Centro hospitalario o clínica",
+        "gp": "",
+        "chemist-pharmacy": "",
+        "store-pharmacy": "Tienda o farmacia clínica",
+        "work": "Trabajo (excluyendo hospital)",
+        "local-health-department": "",
+        "other": "Otro sitio, por favor especifique"
+      }
+    },
+
+    "question-result": "¿Cuáles son los resultados de esta prueba?",
+    "picker-positive": "Positivo",
+    "picker-negative": "Negativo",
+    "picker-waiting": "Esperando resultados",
+    "picker-test-failed": "No está claro / Falló el examen",
+
+    "question-knows-date-of-test": "¿Sabe la fecha de su examen?",
+    "question-date-test-occurred": "¿Cuándo fue su examen?",
+    "question-date-test-occurred-guess": "¿Entre qué fechas cree que se realizó el examen?",
+
+    "required-date": "Indique la fecha de este examen",
+    "required-dates": "Indique las fechas entre las que ocurrió este examen",
+    "required-mechanism": "Indique cómo se realizó el examen",
+    "required-result": "Indique el resultado del examen",
+
+    "confirm-test": {
+      "title": "",
+      "body": "",
+      "consent": ""
+    }
+  },
+
+  "describe-symptoms": {
+    "picker-fatigue-mild": "Fatiga leve",
+    "picker-fatigue-severe": "Fatiga grave: me cuesta levantarme de la cama",
+    "picker-headache-frequency-allday": "Todo el día",
+    "picker-headache-frequency-mostday": "La mayor parte del día",
+    "picker-headache-frequency-someday": "Parte del día",
+    "required-headache-frequency": "Especifique la frecuencia de los dolores de cabeza ",
+    "picker-shortness-of-breath-mild": "Sí. Síntomas leves: dificultad para respirar durante la actividad normal",
+    "picker-shortness-of-breath-significant": "Sí. Síntomas importantes: respirar solo es cómodo en reposo",
+    "picker-shortness-of-breath-severe": "Sí. Síntomas graves: respirar es difícil incluso en reposo",
+    "question-other-symptoms": "¿Tiene otros síntomas que quiera compartir?",
+    "placeholder-other-symptoms": "Otros síntomas",
+
+    "check-all-that-apply": "Elige todo los que se aplican",
+    "general-symptoms": "¿Está experimentando algunos síntomas ajabo?",
+    "general-fever": "Fiebre (al menos 37.8°C o 100°F)",
+    "general-fatigue": "Fatiga inusual",
+    "general-fatigue-follow-up": "¿Como severo es su fatiga?",
+    "general-fatigue-mild": "Fatiga leve",
+    "general-fatigue-severe": "Tengo dificultad a levantarse",
+    "general-rash": "Sarpullido en sus brazos o torso",
+    "general-foot-sores": "Rojo/morado úlceras o las ampollas en sus pies, incluyendo sus dedos del pie",
+    "general-face-welts": "Ronchas de picazón roja elevada en su piel o la inflamación inmediato de la cara o labios",
+    "general-skin-burning": "Sensaciones extraños desagradables en su piel como hormigueo o ardiente",
+    "general-hair-loss": "Pérdida de pelo inusual",
+    "general-muscle-pain": "Dolores fuertes y unusual en sus músculos",
+    "general-feeling-down": "Se siente triste, depresivo o sin esparanza",
+    "general-brain-fog": "La perdida de concentración o la memoria (niebla de cerebro)",
+    "general-delirium": "Confusion, desorientacion, somnolencia",
+    "general-allergy-increase": "Una subida inusual en sus síntomas se la alergia",
+    "follow-up-required": "Por favor complete las siguientes preguntas",
+
+    "head-symptoms": "¿Tiene algunos síntomas en su cabeza?",
+    "head-headache": "El dolor de cabeza",
+    "head-headache-follow-up": "Con qué frecuencia tiene dolor de cabeza",
+    "head-dizzy": "El mareo",
+    "head-loss-smell": "La pérdida del olor/gusto",
+    "head-altered-smell": "El olor/gusto alterado",
+    "head-runny-nose": "Secrecion nasal",
+    "head-sneezing": "Estornudando con más frecuencia",
+    "head-eye-soreness": "Dolor o incomodidad inusual de los ojos (e.j La sensibilidad de las luces, lágrimas excesivos, o ojos rojos/rosados)",
+    "head-earache": "El dolor de oídos",
+    "head-ear-ringing": "Zumbido en sus orejas",
+
+    "throat-chest-symptoms": "¿Tiene algunas síntomas en sus garganta o pecho?",
+    "throat-chest-sore-throat": "Dolor en su garganta",
+    "throat-chest-swollen-glands": "Glándulas hinchadas en el cuello",
+    "throat-chest-hoarse-voice": "La voz ronca",
+    "throat-chest-persistent-cough": "Una tos persistiente (tosiendo para más que una hora, or 3 or más episodios de tos en 24 horas)",
+    "throat-chest-short-breath": "Falta de aliento o dificultad para respirar",
+    "throat-chest-short-breath-follow-up": "Que es la severidad de sus falta de aliento?",
+    "throat-chest-chest-pain": "Dolor del pecho inusual o la opresión en el pecho",
+    "throat-chest-heart-beat": "Una latido de corazon rápida o irregular (palpitaciones)",
+
+    "gut-stomach-symptoms": "¿Tiene algunos síntomas en su estómago?",
+    "gut-stomach-abdominal-pain": "Dolor inusual en el abdominal o dolor del estómago",
+    "gut-stomach-nausea": "Náuseas o vómitos",
+    "gut-stomach-diarrhoea": "La diarrea",
+    "gut-stomach-skipped-meals": "Faltando comida",
+
+    "other-symptoms": "Hay otros síntomas importantes que quiere compartir?",
+    "next": "Siguiente"
+  },
+
+  "health-worker-exposure-question-interacted-any-patients": "En el último día, ¿ha interactuado en persona con pacientes?",
+  "health-worker-exposure-question-treated-patients-with-covid": "En el último día, ¿trató a pacientes en persona con infección documentada o supuesta por COVID-19?",
+  "health-worker-exposure-picker-patient-interaction-yes-documented": "Sí, solo casos de COVID-19 documentados",
+  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Sí, solo casos sospechosos de COVID-19",
+  "health-worker-exposure-picker-patient-interaction-yes-both": "Sí, casos documentados y sospechosos de COVID-19",
+  "health-worker-exposure-picker-patient-interaction-no": "No que yo sepa",
+  "health-worker-exposure-question-has-used-ppe-equipment": "En el último día, ¿usó equipo de protección personal (EPP) en el trabajo? *Según los requisitos del trabajo, EPP puede incluir guantes, mascarillas, protectores faciales, etc.",
+  "health-worker-exposure-picker-ppe-always": "Siempre",
+  "health-worker-exposure-picker-ppe-sometimes": "A veces",
+  "health-worker-exposure-picker-ppe-never": "Nunca",
+  "health-worker-exposure-picker-ppe-always-all-needed": "Tuve todo el EPP que necesitaba para trabajar",
+  "health-worker-exposure-picker-ppe-always-reused": "Tuve que reutilizar el EPP por escasez",
+  "health-worker-exposure-picker-ppe-sometimes-all-needed": "No siempre tuve que usar EPP, pero tuve suficiente cuando lo necesité",
+  "health-worker-exposure-picker-ppe-sometimes-not-enough": "Podría haber usado EPP siempre, pero no tenía suficiente",
+  "health-worker-exposure-picker-ppe-sometimes-reused": "Tuve que reutilizar el EPP por escasez",
+  "health-worker-exposure-picker-ppe-never-not-needed": "No necesité EPP",
+  "health-worker-exposure-picker-ppe-never-not-available": "Necesité EPP, pero no estaba disponible",
+
+  "how-you-feel": {
+    "question-health-status": "¿Cómo se siente físicamente ahora?",
+    "picker-health-status-healthy": "Me siento normal físicamente",
+    "picker-health-status-not-healthy": "No me siento muy bien",
+    "current-location": "Actualmente de dónde está informando:",
+    "update-location": "Actualiza su ubicación"
+  },
+
+  "where-are-you": {
+    "question-location": "¿Dónde se encuentra?",
+    "picker-location-home": "En casa. No he ido a una clínica u hospital por síntomas sospechosos de COVID-19.",
+    "picker-location-hospital": "Estoy en la clínica u hospital con síntomas sospechosos de COVID-19.",
+    "picker-location-back-from-hospital": "Volví de la clínica u hospital, me gustaría contarles sobre mi tratamiento.",
+    "picker-location-back-from-hospital-already-reported": "Volví de la clínica u hospital, ya les conté sobre mi tratamiento."
+  },
+
+  "treatment-other-title-after": "¿Qué tratamiento recibió en el hospital?",
+  "treatment-other-title-during": "¿Qué tratamiento está recibiendo en el hospital?",
+  "treatment-other-question-treatment-after": "¿Qué tratamiento médico recibió?",
+  "treatment-other-question-treatment-during": "¿Qué tratamiento médico está recibiendo?",
+
+  "treatment-selection-title-after": "¿Qué tratamiento recibió en el hospital?",
+  "treatment-selection-title-during": "¿Qué tratamiento está recibiendo ahora?",
+  "treatment-selection-picker-none": "Ninguno",
+  "treatment-selection-picker-oxygen": "Oxígeno y líquidos*",
+  "treatment-selection-picker-subtext-oxygen": "* Apoyo respiratorio a través de una máscara de oxígeno, sin presión.",
+  "treatment-selection-picker-non-invasive-ventilation": "Ventilación no invasiva*",
+  "treatment-selection-picker-subtext-non-invasive-ventilation": "* Apoyo respiratorio a través de una máscara de oxígeno, que impulsa oxígeno a los pulmones.",
+  "treatment-selection-picker-invasive-ventilation": "Ventilación invasiva*",
+  "treatment-selection-picker-subtext-invasive-ventilation": "* Apoyo respiratorio a través de un tubo insertado. Las personas generalmente están dormidas para esto.",
+  "treatment-selection-picker-other": "Otro",
+
+  "have-you-been-exposed": "¿Ha estado ALGUNA VEZ expuesto a alguien con infección documentada o sospechada por COVID-19 (como compañeros de trabajo, familiares, etc.)",
+  "exposed-yes-documented": "Sí, solo casos de COVID-19 documentados",
+  "exposed-yes-undocumented": "Sí, solo casos sospechosos de COVID-19",
+  "exposed-both": "Sí, casos documentados y sospechosos de COVID-19",
+  "exposed-no": "No que yo sepa",
+  "housebound-problems": "En general, ¿tiene problemas de salud que lo hagan estar en casa?",
+  "needs-help": "¿Necesita ayuda de alguien habitualmente?",
+  "help-available": "Si necesita ayuda, ¿puede contar en alguien cerca de usted?",
+  "mobility-aid": "¿Regularmente usa un bastón, andador o silla de ruedas para moverse?",
+
+  "select-country": "Seleccione su país de residencia",
+  "website-home": "https://covid.joinzoe.com/",
+
+  "title-health-worker-exposure": "Exposición del trabajador de salud al COVID",
+  "required-treated-patients-with-covid": "Indique si trató a algún paciente con COVID-19 en el último día",
+  "required-has-used-ppe-equipment": "Indique la frecuencia con la que usó EPP",
+  "required-ppe-availability-always": "Indique la disponibilidad de EPP",
+  "required-ppe-availability-sometimes": "Indique la disponibilidad de EPP",
+  "required-ppe-availability-never": "Indique la disponibilidad de EPP",
+
+  "thank-you": {
+    "check-for-updates": "Revise nuestro %{link} para ver noticias.",
+    "news-feed": "noticias",
+    "our-methodology-title": "La metodología detrás de nuestros cálculos",
+    "methodology-body-1": "Hemos desarrollado modelos de aprendizaje mecánicos para calcular la cantidad de personas que actualmente tiene síntomas de COVID.\n\nEstos valores podrían ser una señal temprana de COVID en su zona hoy, en comparación con los casos confirmados que llegan después e incluyen solo a personas que se hicieron el examen.\n\nNuestros valores se calculan en 3 pasos:\n\n1. Conocemos qué síntomas predicen mejor el COVID, según los usuarios de la aplicación que se han sometido a exámenes en todo el mundo (",
+    "methodology-body-2": ")\n\n2. Calculamos la cantidad total de usuarios de la aplicación en su país actualmente con COVID, ya que aplicamos esas reglas a los síntomas registrados de todos los usuarios en su país\n\n3. Extrapolamos a toda la población del país a partir de los usuarios de la aplicación, según las proporciones según geografía, edad y género",
+    "read-more-here": "lea más aquí",
+    "estimate-exclusions": "*Nuestros valores no incluyen a personas menores de 20 años o mayores de 70 o con infecciones asintomáticas por COVID, ya que no tenemos suficientes datos para modelar esto.",
+    "read-more-on": "Lea más en nuestro",
+    "blog": "blog.",
+    "people-with-covid-in": "Personas con síntomas de COVID\n",
+    "today": "hoy",
+    "report-tomorrow": "Gracias! Por favor, reporte nuevamente mañana, incluso si siente bien",
+    "loading-data": "Cargando datos de su zona",
+    "estimate-for": "Valores de",
+    "of-residents": "de %{number} residentes",
+    "learn-more": "Obtenga más información",
+    "almost-there": "¡Ya casi terminamos! Solo necesitamos",
+    "more-people": "%{number} personas más",
+    "from-your-country": "de su país que informen a través de la aplicación, para proporcionar valores diarios precisos de COVID",
+    "please-share": "Comparta la aplicación",
+    "contribution-rank": ": clasificación en contribución",
+    "places-since-yesterday": "lugares desde ayer",
+    "out-of": "de",
+    "counties": "condados",
+    "sharing-is-caring": "Compartir es amar",
+    "the-more-reports": "Mientras más personas informen, mejores serán los cálculos y más rápido podrá ayudar a su comunidad a combatir el COVID",
+    "share-this-app": "Compartir la aplicación",
+    "thank-you-for-joining": "Gracias por unirse a millones de personas que apoyan a los científicos de",
+    "to-help-communities": "para ayudar a nuestras comunidades.",
+    "visit-our": "Visite nuestro",
+    "website": "sitio web",
+    "to-see-discoveries": "para ver los hallazgos que usted hizo posibles",
+    "done": "Listo",
+    "share-area-locked": "Estoy ayudando a combatir el #COVID19 – Solo necesitamos %{missing} personas más en la aplicación para obtener los valores de COVID para %{area}. Para ayudar, tómese 1 minuto diario para informar cómo se siente. También recibirá los valores de COVID de su zona. Descargue la aplicación",
+    "share-area-unlocked": "Estoy ayudando a combatir el #COVID19 – Se calcula que %{cases} personas tienen síntomas de COVID hoy en %{area}. Para ayudar, tómese 1 minuto diario para informar cómo se siente. También recibirá los valores de COVID de su zona. Descargue la aplicación"
+  },
+
+  "share-this-app": {
+    "message": "¡Podemos ayudar a vencer el #COVID19 juntos! Únase y tómese un minuto diario para ayudar a combatir el brote en nuestra comunidad. Descargue la aplicación",
+    "url": "https://covid.joinzoe.com/us",
+    "primary-text": "Comparta esta aplicación",
+    "secondary-text": "Mientras más personas informen sus síntomas, más podemos ayudar a quienes están en riesgo.",
+    "button-text": "Compartir la aplicación"
+  },
+
+  "donate": {
+    "banner": "SOLICITUD URGENTE",
+    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
+    "primary-text": "Mantenga activo el estudio de síntomas de COVID",
+    "secondary-text": "Sin financiamiento, el apoyo fundamental para la investigación del COVID, NHS no puede continuar. ¿Nos ayudaría?",
+    "button-text": "Donar ahora"
+  },
+
+  "thank-you-title": "Gracias por su ayuda y contribución vital para el estudio del COVID-19.",
+  "blog-link": "https://covid.joinzoe.com/blog",
+  "thank-you-body": "Gracias por unirse a millones de personas que apoyan a los científicos de Massachusetts General Hospital, Stanford University School of Medicine y King's College London para ayudar a nuestros servicios de salud.",
+  "check-in-tomorrow": "Agradeceríamos que volviera a informarnos mañana, si puede hacerlo.",
+  "check-news-feed": "Revise las novedades en nuestras <b>noticias</b> .",
+  "faq-link": "https://covid.joinzoe.com/faq",
+  "thank-you-completed": "Listo",
+
+  "rating": {
+    "how-are-we-doing": "¿Cómo lo estamos haciendo?",
+    "would-you-recommend": "¿Recomendaría esta aplicación a un amigo o colega?",
+    "cta-yes": "Sí, lo haría",
+    "cta-no": "No, no lo haría",
+    "rate-this-app": "Califique esta aplicación",
+    "explanation": "Sus comentarios pueden ayudar a que más personas se unan a la batalla contra el COVID-19",
+    "cta-rate": "Calificar",
+    "cta-later": "No ahora",
+    "thank-you-for-rating": "Gracias por sus comentarios.\nEstamos trabajando para mejorar las cosas"
+  },
+
+  "research-updates": "Noticias de la investigación",
+  "faqs": "Preguntas frecuentes",
+  "privacy-policy": "Política de privacidad",
+  "nav-edit-profile": "Editar perfil",
+  "nav-share-this-app": "Comparte esta aplicación",
+  "delete-my-data": "Eliminar mis datos",
+  "delete-data-alert-title": "¿Está seguro?",
+  "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
+  "push-notifications": "Activa los recordatorios",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "estimated-cases": "Casos estimados",
+  "logout": "Cerrar sesión",
+
+  "your-country-title": "Su país",
+  "your-country-text": "No sabemos con certeza en qué país está debido a la configuración de su teléfono.",
+  "united-states": "Estados Unidos",
+  "united-kingdom": "Reino Unido",
+  "sweden": "Suecia",
+
+  "never-reported": "No informado",
+  "today": "Hoy",
+  "yesterday": "Ayer",
+  "days-ago": "Hace %{diffDays} días",
+
+  "adult-or-child-title": "¿Para quién le gustaría informar?",
+  "adult-or-child-text": "Por el momento, solo puede crear perfiles adicionales para residentes de EE. UU.",
+  "person-over-18": "Persona mayor de 18",
+  "person-under-18": "Persona menor de 18",
+
+  "adult-consent-title": "Consentimiento de adulto",
+  "child-consent-title": "Consentimiento de niño",
+  "adult-consent-confirm": "Confirmo lo anterior",
+  "child-consent-confirm": "Confirmo que soy el tutor legal del niño y que he hecho lo anterior",
+  "consent": "consentimiento",
+  "consent-summary": "resumen de lo que hacemos",
+  "child-consent-text-1": "Si su hijo tiene edad suficiente para comprender nuestros",
+  "child-consent-text-2": "requisitos, explíquele que compartirá información acerca de él o ella y lo que haremos con ella. Si cree que su hijo tiene edad suficiente para tomar decisiones, confirme que ha consentido compartir datos con nosotros.",
+  "adult-consent-text-1": "Confirme que mostró o leyó nuestra",
+  "adult-consent-text-2": "pantalla a la persona por la que ingresa los datos, que son mayores de 18 años y que dieron su consentimiento para compartir sus datos con nosotros.",
+  "consent-create-profile": "Crear perfil",
+
+  "consent-normal-us": {
+    "existing-study": "Si usted está en un estudio clínico o de investigación vigente (p. ej., los estudios Nurses Health Study) y desea que sus datos se compartan con los investigadores en ese estudio,",
+    "click-here": "haga clic aquí",
+    "purpose": "Propósito",
+    "purpose-body": "Mediante su uso de esta app y el seguimiento de si se siente bien o tiene síntomas, usted ayudará a la ciencia médica y los proveedores de atención de salud (como Massachusetts General Hospital) a comprender mejor el Coronavirus (COVID-19).\n\nEsta app le permite ayudar a las otras personas, pero no le entrega consejos de salud. Si necesita consejos de salud, visite el sitio web sobre el Coronavirus de los CDC ",
+    "information-sharing": "Información compartida",
+    "information-sharing-body": "Esta app fue diseñada por médicos y científicos de Massachusetts General Hospital, Harvard School of Public Health, Stanford University, King's College London y Zoe Global Limited, una empresa de tecnología de la salud. Ellos tienen acceso a la información que ingrese, que también puede compartirse con los hospitales que se indican en nuestro aviso de privacidad.\n\nNinguna información que comparta se usará con fines comerciales. Se usará un código anónimo para reemplazar sus datos personales cuando comparta información con los investigadores aparte de la que se mencionó antes.",
+    "your-consent": "Su consentimiento",
+    "your-consent-body": "Haciendo clic en la casilla a continuación, da su consentimiento a que usemos la información personal que recopilemos a través del uso que haga de esta app de la forma que describimos.\n\nPara obtener más información acerca de cómo usamos y compartimos la información personal sobre usted, consulte nuestra",
+    "privacy-policy": "Política de Privacidad ",
+    "you-may-withdraw": "Puede retirar su consentimiento en cualquier momento si nos envía un correo electrónico a",
+    "any-questions": "Cualquier pregunta que tenga puede enviarla a",
+    "i-consent": "Doy mi consentimiento para el procesamiento de mis datos personales (incluidos, entre otros, los datos que proporcione en relación con mi salud) como se establece en este consentimiento y en la",
+    "terms": "Términos de Uso",
+    "and": "y",
+    "read-accepted": "Leí y acepto los "
+  },
+
+  "consent-nurses-us": {
+    "header-1": "CONSENTIMIENTO INFORMADO PARA UN ESTUDIO DE INVESTIGACIÓN",
+    "para-1": "Este consentimiento para investigación fue aprobado por el Consejo de Revisión Institucional de Massachusetts General Hospital (Protocolo de Partners Human Research Committee N.º 2020P000909 Fecha de la versión: 3/31/2020)",
+    "header-2": "Acerca de este formulario de consentimiento",
+    "para-2": "Lea este formulario atentamente. Le da información importante acerca de un estudio de investigación.\n\nSi tiene alguna pregunta acerca de la investigación o de este formulario, no dude en preguntar. La participación en este estudio de investigación es su decisión. ",
+    "header-3": "¿Por qué se realiza este estudio de investigación?",
+    "para-3": "Hacemos esta investigación para determinar los factores de salud y estilo de vida relacionados con los síntomas y resultados correspondientes al Coronavirus (COVID-19). Mediante su uso de esta app, que consiste en una serie de preguntas destinadas a recopilar datos sobre si usted se siente bien o si tiene síntomas, estará ayudando a la ciencia médica y los proveedores de atención de salud en todo el país a comprender mejor esta enfermedad. Esta app está diseñada para ser una herramienta de recopilación de datos y para ayudar a los profesionales médicos e investigadores a comprender esta enfermedad. No entrega consejos de salud. Los Centros para el Control y la Prevención de Enfermedades tienen información de acceso público relativa al COVID-19 que puede encontrar en:",
+    "header-4": "¿Por cuánto tiempo participaré en este estudio de investigación?",
+    "para-4": "Su uso de esta aplicación móvil es totalmente voluntario. Puede usarla cuanto lo desee, poco o mucho, y puede dejar de usarla en cualquier momento. Consideramos que responder la serie de preguntas lleva cosa de minutos (no más de 10 minutos en promedio). ",
+    "header-5": "¿Qué pasará en este estudio de investigación?",
+    "para-5": "Le haremos una serie de preguntas relativas a su ocupación, su posible afiliación a algunos estudios en curso o centros de investigación, características personales básicas (género o edad), su estado de salud, medicamentos que toma, cómo se siente, qué síntomas podría estar presentando y qué tratamientos, si correspondiera, ha recibido en entornos ambulatorios o de hospital. También le preguntaremos acerca del resultado de cualquiera de esos tratamientos. Todas las preguntas son opcionales y no hace falta que responda ninguna pregunta qué le incomode responder. ",
+    "header-6": "¿Cuáles son los riesgos y las posibles molestias por participar en este estudio de investigación?",
+    "para-6": "No esperamos que experimente ningún riesgo o posible molestia asociados con participar en este estudio. Tal vez haya quienes no se sientan cómodos respondiendo algunas de las preguntas, pero ninguna de las preguntas implica una obligación de responderla. Aunque se tomaron las medidas de precaución necesarias, existe un leve riesgo, como sucede con todos los datos digitales, de que terceros no identificados en este formulario de consentimiento puedan acceder involuntariamente a la información compartida con nosotros.",
+    "header-7": "¿Cuáles son los posibles beneficios por participar en este estudio de investigación?",
+    "para-7": "No existen beneficios directos para usted por participar en este estudio. Su participación puede contribuir de forma más general, con todos los demás participantes, al avance de la investigación del virus COVID.",
+    "header-8": "¿Puedo seguir recibiendo atención médica en hospitales afiliados con la investigación de este estudio, o si dejo de participar?",
+    "para-8": "Sí. Su decisión no cambiará la atención médica que recibe en hospitales afiliados ahora o en el futuro. No habrán penalizaciones y no perderá beneficios que recibe ahora o qué tiene derecho a recibir. La participación en este estudio de investigación es su decisión. Puede decidir no participar. Si decide participar ahora, puede cambiar de parecer y salirse más adelante. ",
+    "header-9": "¿Qué debo hacer si quiero dejar de participar en el estudio?",
+    "para-9": "Sí participa en este estudio de investigación y desea salirse, debe informárnoslo. Puede retirar su consentimiento en cualquier momento si nos envía un correo electrónico a",
+    "header-10": "¿Recibiré algún pago al participar en este estudio de investigación?",
+    "para-10": "No se harán pagos por participar en este estudio de investigación voluntario.",
+    "header-11": "¿Cuánto tendré que pagar en caso de participar en este estudio de investigación?",
+    "para-11": "La participación voluntaria en este estudio de investigación no tendrá costo para usted.",
+    "header-12": "Si tengo preguntas o inquietudes acerca de este estudio de investigación, ¿a quién puedo llamar?",
+    "para-12": "El personal de Zoe Global Ltd. creó la app, y le da soporte y es responsable por ella. Cualquier pregunta que tenga puede enviarla a",
+    "para-12-2": "También puede comunicarse con el personal local del estudio en predict@mgh.harvard.edu.\n\nSi lo redirigieron a esta app por su participación en otro estudio de investigación, debe comunicarse con el contacto del estudio correspondiente o el Consejo de Revisión Institucional que está asociado con cada estudio. Si el estudio está afiliado con Mass General Brigham Health/Partners Healthcare, comuníquese con la oficina de Partners Human Research Committee. Puede llamarlos al 857-282-1900.",
+    "header-13": "Si participo en este estudio de investigación, ¿cómo protegerán mi privacidad?",
+    "para-13": "Durante esta investigación, se recopilará información identificable acerca de su salud.  En el resto de esta sección, nos referimos a esta información simplemente como “información de salud”. En general, conforme a la legislación federal, la información de salud es privada. Sin embargo, hay excepciones a esta regla y debe saber quién puede tener la posibilidad de ver, usar y compartir su información de salud para investigación y por qué puede tener que hacerlo.",
+    "header-14": "En este estudio, recopilaremos información de salud acerca de:",
+    "para-14": "- su estado y condición de salud en relación con el COVID-19,\n- cualquier medicamento que esté tomando,\n- cómo se siente,\n- qué síntomas podría estar presentando, \n- qué tratamientos, si corresponde, ha recibido en entornos ambulatorios y de hospital,\n- el resultado de cualquiera de esos tratamientos.",
+    "header-15": "Who may see, use, and share your identifiable health information and why they may need to do so:",
+    "para-15": "Si desea conocer todos los detalles de los datos que recopilamos, quién puede ver, usar y compartir sus datos y los motivos para hacerlo, consulte la",
+    "para-15-2": "En resumen, el plan de privacidad detalla que podemos compartir sus datos con los investigadores que participan en este estudio que incluye a Zoe, otros investigadores y centros médicos que son parte de este estudio y sus consejos de ética, además de otras personas.\n\nNinguna información que comparta se usará con fines comerciales. No usaremos ni compartiremos su información para listas de correo o marketing.\n\nAlgunas personas o grupos que reciben su información de salud podrían usarla o compartirla sin su permiso de formas que no se describen en este formulario. Compartimos su información de salud solo como se estipula en este formulario de consentimiento y le pedimos a todo el que la reciba de nosotros que adopte medidas para proteger su privacidad. \n\nComo las investigaciones implican un proceso continuo, no podemos darle una fecha exacta de cuándo destruiremos o dejaremos de usar o revelar su información de salud.\n\nPodemos vincular los datos recopilados como parte de esta app con datos adicionales recopilados a través de su participación en otros estudios de investigación a los que dio su consentimiento en las siguientes instituciones: Massachusetts General Hospital, Brigham and Women’s Hospital, hospitales Mass General Brigham (anteriormente Partners Healthcare) u otras instituciones de investigación asociadas. Se pueden incluir datos anonimizados (es decir, en los que se eliminó cualquier información que pueda identificarlo como individuo) en las bases de datos públicas en el futuro.",
+    "header-16": "Sus derechos de privacidad",
+    "para-16": "Tiene derecho a no firmar este formulario que nos permite usar y compartir su información de salud para investigación; sin embargo, si no lo firma, no puede participar en este estudio de investigación.\n\nTiene el derecho de retirar su permiso para que usemos o compartamos su información de salud para este estudio de investigación. Si desea retirar su permiso, debe notificarnos por escrito mediante correo electrónico a",
+    "para-16-2": "Tras retirar su permiso, no puede continuar participando en el estudio.\n\nSi retira su permiso, no podremos recuperar la información que ya hayamos usado o revelado a otras personas.\n\nUsted tiene derecho a ver y recibir una copia de su información de salud protegida. Para solicitar esta información, comuníquese con la persona a cargo de este estudio. Solo puede obtener dicha información después de que finalice la investigación.\n\nSi hace clic a continuación, da su consentimiento a que usemos la información personal que recopilemos a través del uso que haga de esta app de la forma que describimos.\n\nPara obtener más información acerca de cómo usamos y compartimos la información personal sobre usted, consulte nuestro aviso de privacidad",
+    "informed-consent-authorization": "Consentimiento informado y autorización",
+    "header-17": "Declaración de la persona que otorga el consentimiento informado y autorización",
+    "body-17": "- He leído este formulario de consentimiento.\n- Se me explicó este estudio de investigación, incluidos los riesgos y los posibles beneficios (si los hubiera), otros tratamientos o procedimientos posibles y otros aspectos importantes del estudio.\n- Tuve la oportunidad de hacer preguntas.\n- Comprendo la información que se me entregó.",
+    "header-18": "Firma digital del sujeto:",
+    "body-18": "Doy mi consentimiento para participar en este estudio de investigación y acepto permitir que se use y comparta mi información de salud como se describió anteriormente.\n\nAdemás, usted confirma que leyó y comprende la Política de privacidad y los Términos de uso. La política de privacidad describe qué datos se recopilan, cómo se almacenan, protegen y comparten, así como cuáles son sus derechos sobre esos datos. Los términos establecen que la aplicación no está prevista para dar consejos médicos, para emergencias ni es un dispositivo médico. Además, describen las limitaciones de responsabilidad y los planes para compartir datos.",
+    "i-consent": "Doy mi consentimiento para el procesamiento de mis datos personales (incluidos, entre otros, los datos que proporcione en relación con mi salud) como se establece en este consentimiento y en la",
+    "i-read-accept": "Leí y acepto los",
+    "terms-of-use": "Términos de Uso",
+    "privacy-policy": "Política de Privacidad",
+    "i-agree": "Acepto"
+  },
+
+  "terms-of-use-us": {
+    "header-1": "Fecha de entrada en vigencia: 27 de marzo de 2020",
+    "para-1": "Bienvenidos a COVID-19 Symptom Tracker proporcionado por Zoe Global Limited (así como por sus filiales, “Zoe” y en el uso de “nosotros” y “nos”). Continúe leyendo para conocer las reglas y restricciones que rigen el uso de nuestro(s) sitio(s) web, productos, servicios y aplicaciones (los “Servicios”) por parte del usuario. Mediante esta aplicación y con el seguimiento de si usted se encuentra bien o si presenta síntomas, estará ayudando a que la ciencia médica y los proveedores de atención de salud de todo el país (como el Massachusetts General Hospital) entiendan más sobre el coronavirus (COVID-19). Los Servicios no están pensados para fines comerciales. En caso de dudas, comentarios o inquietudes con respecto a estas condiciones o a los Servicios:",
+    "para-2": "Para plantear consultas, envíe un mensaje de correo electrónico dirigido a covidtrackingquestionsus@joinzoe.com y, si desea retirarse de la aplicación, envíe un mensaje de correo electrónico dirigido a leavecovidtracking@joinzoe.com.\nDirección: Zoe Global Limited, 164 Westminster Bridge Road, London SE1 7RW, United Kingdom\n",
+    "para-3": "Estas Condiciones de uso (las “Condiciones”) constituyen un contrato vinculante entre usted y nosotros. Cualquier forma de uso de los Servicios por parte del usuario significa que el usuario acepta todas estas Condiciones y que estas Condiciones permanecerán vigentes mientras el usuario utilice los Servicios. Estas Condiciones incluyen las disposiciones de este documento y las disposiciones de nuestra",
+    "privacy-policy": "Política de privacidad.",
+    "header-2": "Lea estas Condiciones cuidadosamente.",
+    "para-4": "Estas Condiciones contienen información importante sobre los Servicios brindados.  Estas Condiciones incluyen información acerca de futuros cambios en estas Condiciones, limitaciones de responsabilidad civil, renuncia a demandas colectivas y resolución de controversias mediante arbitraje en lugar de por la vía judicial.",
+    "para-5": "CONSIDERE QUE EL USO Y ACCESO A NUESTROS SERVICIOS POR PARTE DEL USUARIO SE RIGEN POR LAS SIGUIENTES CONDICIONES; SI NO ESTÁ DE ACUERDO CON TODO LO SIGUIENTE, NO PODRÁ USAR NI ACCEDER A LOS SERVICIOS EN FORMA ALGUNA.",
+    "para-6": "AVISO SOBRE ARBITRAJE Y RENUNCIA A DEMANDAS COLECTIVAS",
+    "para-7": "EXCEPTO EN AQUELLOS TIPOS DE CONTROVERSIAS QUE SE DESCRIBEN A CONTINUACIÓN EN LA SECCIÓN DEL ACUERDO DE ARBITRAJE, USTED ACEPTA QUE LAS CONTROVERSIAS SURGIDAS ENTRE USTED Y NOSOTROS SE RESOLVERÁN MEDIANTE ARBITRAJE VINCULANTE INDIVIDUAL Y QUE USTED RENUNCIA AL DERECHO A PARTICIPAR EN UNA DEMANDA COLECTIVA O EN UN ARBITRAJE COLECTIVO.",
+    "header-3": "¿Cambiarán estas Condiciones en algún momento?",
+    "para-8": "Siempre estamos tratando de mejorar nuestros Servicios, por lo cual es posible que estas Condiciones deban cambiar, a la par de nuestros Servicios. Nos reservamos el derecho a modificar las Condiciones en cualquier momento, en cuyo caso publicaremos un aviso en nuestro sitio web en la dirección https://covid.joinzoe.com/us, publicaremos un aviso dentro de la aplicación, le enviaremos un mensaje de correo electrónico o le notificaremos por algún otro medio.",
+    "para-9": "Si no está de acuerdo con las nuevas Condiciones, podrá rechazarlas; pero eso significa que ya no podrá utilizar los Servicios. Si usa los Servicios en cualquier forma tras la publicación de algún cambio en las Condiciones, significa que está de acuerdo con todos los cambios.",
+    "para-10": "Excepto los cambios que nosotros realicemos en el modo descrito en este documento, no entrará en vigencia ninguna otra enmienda o modificación de estas Condiciones, a menos que conste por escrito y que esté firmada tanto por usted como por nosotros. ",
+    "header-4": "¿Qué sucede con mi privacidad?",
+    "para-11": "Zoe se toma la privacidad de los usuarios con mucha seriedad. Para conocer la actual Política de privacidad de Zoe, haga clic aquí.",
+    "header-5": "¿Cuáles son los fundamentos del uso de Zoe?",
+    "para-12": "Es posible que deba registrarse para crear una cuenta asociada a una dirección de correo electrónico. Usted declara y garantiza ser una persona con la mayoría de edad necesaria para establecer un contrato vinculante (o contar con el permiso de sus padres o tutores para usar los Servicios y que sus padres o tutores aceptan estas Condiciones en nombre de usted). Si usted acepta estas Condiciones en nombre de alguna organización o entidad, entonces declara y garantiza contar con autorización para aceptar estas Condiciones en nombre de tal organización o entidad y para obligarlas a estas Condiciones (en cuyo caso, las referencias a “usted”, “su” y “sus” en estas Condiciones se referirán a dicha organización o entidad, excepto en esta oración).",
+    "para-13": "Usted sólo utilizará los Servicios para su propio uso interno, personal y no comercial, no los usará en nombre o a beneficio de algún tercero, y sólo los utilizará en formas que cumplan con todas las leyes aplicables a su caso. Si tales leyes aplicables prohíben el uso de los Servicios, entonces no tiene autorización para utilizar los Servicios. No podemos responsabilizarnos y no nos responsabilizaremos con respecto a usos de los Servicios en formas que infrinjan la ley.",
+    "header-6": "No es un consejo médico; no se aplica a emergencias.",
+    "para-14": "Zoe no ofrece consejos o diagnósticos médicos ni se dedica al ejercicio profesional de la medicina. Nuestros Servicios no pretenden sustituir el consejo, diagnóstico o tratamiento médico profesional y solo se ofrecen con fines informativos y comunicativos. Los Servicios no pretenden ser y no se deben considerar como el ejercicio profesional de la medicina, la enfermería, la farmacia u otros consejos de atención de salud por parte de Zoe.",
+    "para-15": "Los Servicios no buscan diagnosticar o tratar alguna condición. Solo un profesional médico puede determinar el curso de tratamiento adecuado para usted y determinar lo que es seguro, apropiado y eficaz sobre la base de sus necesidades. Puede confiar en cualquier información que proporcione Zoe o que se relacione con los Servicios exclusivamente bajo su propio riesgo. Usted es el único responsable de cualquier decisión o acción que adopte basándose en la información y en los materiales disponibles a través de los Servicios.",
+    "para-16": "Los proveedores de atención de salud y los pacientes siempre deben buscar información de diagnóstico aplicable en las fuentes confiables apropiadas. Los proveedores de atención de salud nunca deben reservarse un consejo médico profesional ni retrasar la entrega del mismo debido a algo que hayan leído en relación con nuestros Servicios.",
+    "para-17": "LOS SERVICIOS JAMÁS SE DEBEN USAR COMO UN SUSTITUTO DE LA ATENCIÓN DE EMERGENCIA. SI USTED TIENE UNA EMERGENCIA DE SALUD MÉDICA O MENTAL, SI ESTÁ PENSANDO EN EL SUICIDIO O EN REALIZAR ACCIONES QUE LE PUEDAN CAUSAR DAÑO A USTED O A LOS DEMÁS, DEBE BUSCAR TRATAMIENTO DE EMERGENCIA EN LA SALA DE EMERGENCIAS MÁS CERCANA O LLAMAR AL 911.",
+    "header-7": "No es un dispositivo médico.",
+    "para-18": "Los Servicios no son dispositivos médicos y no están dirigidos a un uso como dispositivos médicos. Además, los Servicios no están regulados ni aprobados por la Administración de Alimentos y Medicamentos de Estados Unidos ni están diseñados para detectar o prevenir las causas de alguna afección médica. Los Servicios no sustituyen la atención médica o la supervisión de un adulto. Usted reconoce, entiende y acepta que el uso de los Servicios queda totalmente bajo su propio riesgo.",
+    "header-8": "¿Zoe cambiará alguna vez los Servicios?",
+    "para-19": "Siempre estamos intentando mejorar nuestros Servicios, por lo cual podrían cambiar con el tiempo. Podemos suspender o descontinuar cualquier parte de los Servicios o podemos lanzar nuevas funciones o imponer límites en determinadas funciones o restringir el acceso a parte o a la totalidad de los Servicios.",
+    "header-9": "¿Qué sucede si deseo dejar de usar los Servicios?",
+    "para-20": "Usted es libre de hacerlo en cualquier momento. Consulte nuestra Política de privacidad, así como las licencias anteriores, para que entienda cómo tratamos la información que nos entrega una vez que deja de utilizar nuestros Servicios.\n\nZoe también es libre de terminar (o suspender el acceso a) su uso de los Servicios por cualquier motivo según nuestro criterio, lo cual incluye su incumplimiento de estas Condiciones. Zoe tiene el derecho exclusivo a decidir si usted ha infringido alguna de las restricciones establecidas en estas Condiciones.",
+    "para-21": "Aquellas disposiciones que deban subsistir tras la terminación de estas Condiciones debido a su naturaleza subsistirán tras la terminación. Por ejemplo, subsistirán a la terminación: cualquier limitación a nuestra responsabilidad civil, cualquier condición relativa a la propiedad o a los derechos de propiedad intelectual y aquellas condiciones relativas a controversias entre nosotros, lo cual incluye, sin limitación, el acuerdo de arbitraje.",
+    "header-10": "Aplicaciones móviles",
+    "para-22": "Usted reconoce y acepta que la disponibilidad de nuestra aplicación móvil depende de las tiendas de terceros desde las cuales se descarga la aplicación, por ejemplo, App Store de Apple o el mercado de aplicaciones para Android de Google (cada una es una “Tienda de aplicaciones”). Cada tienda de aplicaciones podría tener sus propios términos y condiciones que debería aceptar antes de descargar las aplicaciones móviles de esa tienda, lo cual incluye las condiciones específicas relacionadas con App Store de Apple que se establecen a continuación. Usted acepta cumplir con los términos y las condiciones de la tienda de aplicaciones y su licencia de uso de nuestra aplicación está condicionada al cumplimiento de tales términos y condiciones de la tienda de aplicaciones. En la medida en que tales términos y condiciones de la tienda de aplicaciones sean menos restrictivos que los términos y las condiciones de estas Condiciones de uso o que generen conflictos con los términos y las condiciones de estas Condiciones de uso, se aplicarán los términos y las condiciones que sean más restrictivas o conflictivas en estas Condiciones de uso.",
+    "header-11": "Estas Condiciones rigen el uso de todos los Servicios, incluidas nuestras aplicaciones para iOS (la “Aplicación”) disponibles a través de App Store de Apple, Inc. (“Apple”), pero también rigen las siguientes condiciones adicionales para la Aplicación:",
+    "para-23": "A. Tanto usted como Zoe reconocen que las Condiciones se pactan únicamente entre usted y Zoe, y no entre usted y Apple, y que Apple no es responsable de la Aplicación;",
+    "para-24": "B. Se le otorga una licencia para la Aplicación en forma limitada, no exclusiva, intransferible y no sublicenciable, solo para que sea utilizada en relación con los Servicios para su propio uso privado, personal y no comercial, con subordinación a todos los términos y a todas las condiciones que figuran en estas Condiciones por ser aplicables a los Servicios;",
+    "para-25": "C. Sólo utilizará la Aplicación en relación con un dispositivo Apple que sea de su propiedad o que esté bajo su control;",
+    "para-26": "D. Usted reconoce y acepta que Apple no tiene ninguna obligación de brindar algún servicio de mantenimiento y asistencia con respecto a la Aplicación;",
+    "para-27": "E. En caso de que la Aplicación no cumpla con alguna garantía aplicable, incluidas las garantías implícitas en la ley, podrá notificar a Apple sobre dicho incumplimiento; tras la notificación, la única obligación de garantía de parte de Apple hacia usted será reembolsarle el precio de compra, si lo hay, de la Aplicación;",
+    "para-28": "F. Usted reconoce y acepta que Zoe, y no Apple, es responsable de atender cualquier reclamación que tenga usted o algún tercero en relación con la Aplicación;",
+    "para-29": "G. Usted reconoce y acepta que si algún tercero reclama que la Aplicación o la posesión y el uso de la misma por parte del usuario infringen los derechos de propiedad intelectual de ese tercero, entonces Zoe, y no Apple, se encargará de la investigación, defensa, conciliación y liberación de tales reclamaciones sobre infracción;",
+    "para-30": "H. Usted declara y garantiza que no se encuentra en algún país sometido a un embargo por parte del gobierno de Estados Unidos ni designado por el gobierno de Estados Unidos como un país que “presta asistencia a grupos terroristas” y declara y garantiza que no figura en ninguna lista de partes prohibidas o restringidas del gobierno de Estados Unidos;",
+    "para-31": "I. Tanto usted como Zoe reconocen y aceptan que, al usar la Aplicación, usted cumplirá con todas las condiciones aplicables de un acuerdo con terceros que puedan afectar o ser afectadas por tal uso; y",
+    "para-32": "J. Tanto usted como Zoe reconocen y aceptan que Apple y que las filiales de Apple son terceros beneficiarios de estas Condiciones y que una vez que usted las acepte, Apple tendrá derecho (y se considerará que usted aceptó ese derecho) a exigir su cumplimiento en contra de usted en su calidad de tercero beneficiario de las mismas.",
+    "header-12": "¿Qué más debo saber?",
+    "header-13": "Exención de garantía.",
+    "para-33": "Zoe y los licenciatarios, los proveedores, los colaboradores, las entidades matrices, subsidiarias o afiliadas de Zoe y cada uno de sus respectivos funcionarios, directores, miembros, empleados, consultores, empleados contratados, representantes y agentes, así como cada uno de sus respectivos sucesores y cesionarios (Zoe y todas esas partes en conjunto constituyen las “Partes de Zoe”) no formulan declaraciones ni garantías en relación con los Servicios, y las Partes de Zoe no se responsabilizarán de la exactitud, el cumplimiento de derechos de autor, la legalidad o la decencia del material contenido en los Servicios o al cual se acceda mediante los Servicios, así como tampoco se responsabilizarán por reclamaciones, acciones, procedimientos de demanda, costos, gastos, daños o responsabilidades civiles que surjan del uso de los Servicios o que se relacionen de algún modo con su participación en los Servicios. LOS SERVICIOS SON PROPORCIONADOS POR ZOE (Y POR LOS LICENCIATARIOS Y PROVEEDORES DE ZOE) “TAL CUAL”, SIN GARANTÍAS DE NINGÚN TIPO, SEAN EXPRESAS O IMPLÍCITAS, LO CUAL INCLUYE, ENTRE OTRAS, GARANTÍAS IMPLÍCITAS DE COMERCIABILIDAD, DE IDONEIDAD PARA UN FIN DETERMINADO, DE INEXISTENCIA DE INFRACCIÓN O DE QUE EL USO DE LOS SERVICIOS SERÁ ININTERRUMPIDO O LIBRE DE ERROR. ALGUNOS ESTADOS NO PERMITEN LIMITACIONES A LA DURACIÓN DE UNA GARANTÍA IMPLÍCITA, POR LO CUAL ES POSIBLE QUE ESTAS LIMITACIONES NO SE APLIQUEN A SU CASO.",
+    "header-14": "Limitación de responsabilidad civil.",
+    "para-34": "AL MÁXIMO PERMITIDO POR LA LEY APLICABLE, NINGUNA DE LAS PARTES DE ZOE SERÁ RESPONSABLE ANTE USTED O ANTE ALGUNA OTRA PERSONA EN NINGUNA CIRCUNSTANCIA Y BAJO NINGUNA TEORÍA LEGAL (LO CUAL INCLUYE, SIN LIMITACIÓN, RESPONSABILIDAD EXTRACONTRACTUAL, CONTRACTUAL, OBJETIVA O DE OTRO TIPO) EN CASO DE (A) DAÑOS INDIRECTOS, ESPECIALES, INCIDENTALES, PUNITIVOS O EMERGENTES DE CUALQUIER TIPO, LO CUAL INCLUYE DAÑOS POR LUCRO CESANTE, INTERRUPCIÓN DE NEGOCIOS, PÉRDIDA DE DATOS, PÉRDIDA DEL BUEN NOMBRE, PARO, EXACTITUD DE LOS RESULTADOS O FALLA O MAL FUNCIONAMIENTO COMPUTACIONAL, (B) PRODUCTOS, SERVICIOS O TECNOLOGÍAS DE REEMPLAZO, (C) CANTIDADES QUE SUPEREN CIEN (100) DÓLARES EN CONJUNTO O (D) ASUNTOS QUE EXCEDAN NUESTRO CONTROL RAZONABLE. ALGUNOS ESTADOS NO PERMITEN EXCLUSIÓN O LIMITACIÓN DE DAÑOS INCIDENTALES O EMERGENTES O DE ALGUNOS OTROS DAÑOS, POR LO CUAL ES POSIBLE QUE LA LIMITACIÓN Y LAS EXCLUSIONES ANTERIORES NO SE APLIQUEN A SU CASO.",
+    "header-15": "Cesión.",
+    "para-35": "Usted no puede ceder, delegar o transferir de ninguna forma estas Condiciones ni sus derechos u obligaciones en virtud del presente, como tampoco su cuenta de Servicios (por efecto de la ley o de otro modo) sin el previo consentimiento por escrito de Zoe. Nosotros podemos transferir, ceder o delegar estas Condiciones y nuestros derechos y obligaciones sin consentimiento.",
+    "header-16": "Elección de ley.",
+    "para-36": "Estas Condiciones se rigen y serán interpretadas de acuerdo con la Ley Federal de Arbitraje, la ley federal aplicable y las leyes del Estado de Massachusetts, sin considerar conflictos entre las disposiciones legales de las mismas.",
+    "header-17": "Acuerdo de arbitraje.",
+    "para-37": "Lea cuidadosamente el siguiente ACUERDO DE ARBITRAJE pues exige que usted someta a arbitraje determinadas controversias y reclamaciones con Zoe y limita la forma en que podrá buscar resarcimiento de Zoe. Tanto usted como Zoe reconocen y aceptan que con respecto a cualquier controversia surgida de o relacionada con el objeto de estas Condiciones, los ejecutivos, directores, empleados y contratistas independientes de Zoe (el “Personal”) son terceros beneficiarios de estas Condiciones y que una vez que usted acepta estas Condiciones, el Personal tendrá derecho (y se considerará que usted aceptó ese derecho) a exigir el cumplimiento de estas Condiciones en contra de usted como un tercero beneficiario de las mismas.",
+    "para-38": "(a) Reglas de arbitraje; Aplicabilidad del acuerdo de arbitraje. Las partes harán lo máximo posible por resolver cualquier controversia, reclamación, cuestión o desavenencia que surja o que se relacione con el objeto de estas Condiciones en forma directa a través de negociaciones de buena fe, lo cual constituirá una condición previa para que cualquiera de las partes inicie un arbitraje. Si tales negociaciones no resuelven la controversia, se resolverá de manera definitiva mediante un arbitraje vinculante en Boston, Massachusetts. El arbitraje será en inglés y de conformidad con las Reglas y el Procedimiento de Arbitraje Simplificado de JAMS (las “Reglas”) vigentes en ese momento a cargo de un árbitro comercial con experiencia sustancial en la resolución de controversias sobre propiedad intelectual y contratos comerciales. El árbitro se seleccionará a partir de la lista apropiada de árbitros de JAMS de conformidad con tales Reglas. La sentencia sobre el laudo que dicte dicho árbitro podrá ser presentada en cualquier tribunal de jurisdicción competente.",
+    "para-39": "(b) Costos de arbitraje. Las Reglas regirán el pago de todas las tasas de arbitraje. Zoe pagará todas las tasas de arbitraje de reclamaciones inferiores a setenta y cinco mil (75.000) dólares. Zoe no procurará el pago de los honorarios y costos de sus abogados en el arbitraje, a menos que el árbitro determine que su reclamación es frívola.",
+    "para-40": "(c) Tribunal de Menor Cuantía; Infracción. Tanto usted como Zoe pueden entablar reclamaciones, si califican, en los tribunales de menor cuantía de Boston, Massachusetts o de cualquier condado de Estados Unidos en que viva o trabaje. Además, no obstante la obligación anterior de someter las controversias a arbitraje, cada parte tendrá derecho a solicitar medidas cautelares u otras medidas en equidad en cualquier momento y en cualquier tribunal de jurisdicción competente, con el fin de evitar la consumación o una amenaza de falta, apropiación indebida o infracción a derechos de autor, marcas comerciales, secretos comerciales, patentes u otros derechos de propiedad intelectual de alguna de las partes.",
+    "para-41": "(d) Renuncia a un juicio por jurado. USTED Y ZOE RENUNCIAN A CUALQUIER DERECHO CONSTITUCIONAL Y REGLAMENTARIO DE RECURRIR A TRIBUNALES Y ENTABLAR UN JUICIO ANTE UN JUEZ O POR JURADO. En lugar de esto, usted y Zoe optan a que las reclamaciones y controversias se resuelvan mediante arbitraje. Los procedimientos de arbitraje suelen ser más limitados, más eficientes y menos costosos que las reglas aplicables en un tribunal y están condicionadas a una revisión muy limitada de parte de un tribunal. En cualquier litigio entre usted y Zoe con respecto a si descartar o exigir el cumplimiento de un laudo arbitral, USTED Y ZOE RENUNCIAN A TODOS LOS DERECHOS A UN JUICIO POR JURADO y eligen que la controversia sea resuelta por un juez.",
+    "para-42": "(e) Renuncia a acciones colectivas o consolidadas. TODAS LAS RECLAMACIONES Y CONTROVERSIAS DEL ÁMBITO DE ESTE ACUERDO DE ARBITRAJE DEBEN SER ARBITRADAS O LITIGADAS DE MANERA INDIVIDUAL Y NO DE MANERA COLECTIVA. LAS RECLAMACIONES DE PARTE DE MÁS DE UN CLIENTE O USUARIO NO PODRÁN SER ARBITRADAS O LITIGADAS EN FORMA CONJUNTA O CONSOLIDADA CON LAS RECLAMACIONES DE CUALQUIER OTRO CLIENTE O USUARIO. Sin embargo, si se determina que esta renuncia a las acciones colectivas o consolidadas no es válida o no es exigible, ni usted ni Zoe tendrán derecho a un arbitraje; en lugar de esto, todas las reclamaciones y controversias se resolverán en un tribunal, según lo establecido a continuación en (g).",
+    "para-43": "(f) Exclusión voluntaria. Usted tiene derecho a optar por no someterse a las disposiciones de esta Sección mediante un aviso por escrito sobre su decisión de exclusión enviado a la siguiente dirección: Zoe Global, 192 South Street, Suite 100, Boston, MA 02111, con sello postal de menos de treinta (30) días desde la primera aceptación de estas Condiciones. Debe incluir (i) su nombre y domicilio de residencia, (ii) la dirección de correo electrónico o el número de teléfono asociados a su cuenta y (iii) una declaración clara de su opción de no someterse al acuerdo de arbitraje de estas Condiciones.",
+    "para-44": "(g) Sede exclusiva. Si usted envía el aviso de exclusión voluntaria que aparece en (f) o en cualquiera de las circunstancias en que el acuerdo de arbitraje anterior permita que usted o Zoe litiguen en tribunales alguna controversia surgida de o relacionada con el objeto de estas Condiciones, entonces no se aplicará este acuerdo de arbitraje a ninguna de las partes y tanto usted como Zoe aceptan que cualquier procedimiento judicial (salvo acciones de menor cuantía) se procesará en los tribunales estatales o federales que se sitúan en, respectivamente, Boston, Massachusetts, o en el distrito federal que le corresponda a ese condado.",
+    "para-45": "(h) Divisibilidad. Si se determina que no es aplicable la citada prohibición de acciones colectivas y de otras reclamaciones presentadas en nombre de terceros, entonces todo el texto precedente de esta sección del Acuerdo de arbitraje quedará nulo y perderá efecto. Este acuerdo de arbitraje subsistirá a la terminación de su relación con Zoe.",
+    "header-18": "Varios.",
+    "para-46": "Una omisión de cualquier tipo de parte de usted o de nosotros en el ejercicio de algún derecho establecido en el presente no se considerará como una renuncia a otros derechos del presente. Si se determina que alguna disposición de estas Condiciones no es aplicable o no es válida, se limitará o eliminará dicha disposición en la mínima medida necesaria, de modo que estas Condiciones permanezcan en pleno vigor, efecto y exigibilidad. Usted y Zoe aceptan que estas Condiciones constituyen la declaración completa y exclusiva del entendimiento mutuo entre usted y Zoe y que estas Condiciones reemplazan y cancelan la totalidad de los acuerdos, las comunicaciones y los demás entendimientos previos, tanto escritos como verbales, en relación con el objeto de estas Condiciones.",
+    "para-47": "Salvo que se establezca de manera expresa en las secciones anteriores sobre la Aplicación de Apple y el acuerdo de arbitraje, usted y Zoe aceptan que no existen terceros beneficiarios previstos en estas Condiciones.",
+    "back": "Volver"
+  },
+  "privacy-policy-us": {
+    "header-1": "Política de privacidad de la aplicación COVID-19 Symptom Study",
+    "para-1": "Fecha de entrada en vigencia: jueves, mayo 07, 2020\n\nEn Zoe Global Limited (así como en sus filiales “Zoe” y en el uso de “nosotros” y “nos”), su privacidad es un tema muy serio. Siga leyendo para descubrir cómo tratamos su información personal. Cuando usted usa o accede de cualquier forma a la aplicación COVID-19 Symptom Study y al sitio web asociado covid.joinzoe.com (en conjunto, los “Servicios”), está reconociendo que acepta las prácticas y políticas descritas en esta Política de privacidad y, por este medio, nos autoriza a recopilar, utilizar y compartir su información de las siguientes maneras. \n\nRecuerde que el uso de nuestros Servicios en todo momento se rige por nuestras Condiciones de uso, las cuales incorporan esta Política de privacidad. Cualquier término que aparezca en esta Política sin la definición correspondiente tendrá las definiciones que se entregan en las Condiciones de uso.",
+    "header-2": "Alcance de esta Política de privacidad",
+    "para-2": "Esta Política de privacidad contempla la forma en que tratamos los Datos personales que se recopilan cuando usted usa o accede a nuestros Servicios. “Datos Personales” significa toda la información que identifique o que se relacione con una persona en particular y, además, incluye aquella información denominada “información de identificación personal” o “información personal” en virtud de las leyes, las normas o los reglamentos aplicables sobre privacidad de los datos.",
+    "header-3": "Fuentes de datos personales",
+    "para-3": "Recopilamos datos personales sobre usted a través de:\n\n• Usted:\n\n- cuando nos entrega dicha información directamente y\n\n- cuando se recopilan automáticamente Datos personales sobre usted en relación con su uso de nuestros Servicios.\n\n• En nuestro sitio web de COVID-19 Study https://covid.joinzoe.com/ recopilamos Datos personales a través de cookies y de tecnologías similares, como etiquetas de pixeles, balizas web, objetos GIF transparentes y JavaScript (en conjunto, las “Cookies”) para permitir que nuestros servidores reconozcan a su navegador web y nos digan cómo y cuándo nos visita y usa nuestro sitio web, con el fin de analizar tendencias, conocer nuestra base de usuarios y operar y mejorar nuestro sitio web. Las cookies son pequeñas porciones de datos, por lo común, archivos de texto, que se instalan en su computadora, tableta, teléfono o dispositivo similar cuando usted visita nuestros Servicios a través de ellos. También podríamos complementar la información que recopilamos de usted con información de terceros, como aquellos que instalan sus propias cookies en su(s) dispositivo(s). Por ejemplo, Google, Inc. (“Google”) usa cookies en relación con sus propios servicios de Google Analytics. La capacidad de Google para usar y compartir la información que recopila Google Analytics acerca de sus visitas a los Servicios se rige por las Condiciones de uso de Google Analytics y por la Política de privacidad de Google. Usted tiene la opción de rechazar el uso de las cookies de Google si visita la página de inhabilitación de publicidad de Google en www.google.com/privacy_ads.html o mediante el complemento de inhabilitación para navegadores de Google Analytics en https://tools.google.com/dlpage/gaoptout/. Considere que, debido a nuestro uso de cookies, en este momento el sitio web no admite las solicitudes de “No rastrear” enviadas desde un navegador. Para obtener más información sobre nuestro uso de cookies, consulte nuestra Política de cookies https://joinzoe.com/static/websiteprivacypolicy.pdf",
+    "header-4": "Los datos personales que recopilamos",
+    "para-4": "Recopilamos y procesamos los siguientes tipos de datos personales sobre usted:\n\nIdentificadores personales:\n\nRecopilamos identificadores personales de usted y de su dispositivo, como nombre (opcional), dirección de correo electrónico (opcional), número de teléfono (opcional), nombre de usuario y contraseña, dirección IP, identificación del dispositivo, ubicación (código postal) y otros identificadores, incluido año de nacimiento. Recuerde que es opcional entregar su nombre y número de teléfono. También recopilamos su dirección IP. (Todo lo anterior constituye los “Identificadores personales”.)\n\nProcesamos Identificadores personales con el propósito de brindarle Servicios y para elaborar, mejorar, promover y ejecutar los Servicios. Por ejemplo, compartimos algunos de estos identificadores personales con los investigadores médicos de la Escuela de Salud Pública T Chan de Harvard, Massachusetts General Hospital, King's College London y de la Escuela de Medicina de Stanford University. Es posible que le pidamos sus impresiones o comentarios sobre la aplicación y que realicemos otras encuestas (desde luego, voluntarias). También podríamos enviarle información acerca de nuevas versiones de la aplicación o de aplicaciones similares que tengamos en el futuro. Cada mensaje de correo electrónico para marketing que enviamos incluye un vínculo para poder dejar de recibir esos mensajes.\n\nCaracterísticas de los datos de salud y de otras clasificaciones protegidas:\n\nA través de nuestro Servicio, usted puede elegir enviar información relacionada con su salud, como sexo de nacimiento y cómo se identifica en la actualidad, edad, estatura, peso e información sobre su salud, enfermedades preexistentes y síntomas (incluida su temperatura corporal). También puede enviar el estado de su examen de COVID-19 y los detalles de cualquier tratamiento, si acaso es usted un trabajador de la salud y su uso de equipos de protección, así como visitas a hospitales o clínicas. (Todo lo anterior constituye “Datos de salud y otras clasificaciones protegidas”.)\n\nProcesamos los datos de salud y otras clasificaciones protegidas con los siguientes propósitos:\n\n• Entender mejor los síntomas de COVID-19.\n• Monitorear la propagación de COVID-19.\n• Avanzar en la investigación científica en cuanto a vínculos entre salud del paciente y respuesta a la infección por COVID-19.\n• Identificar la exposición a COVID-19 en los trabajadores de la salud.\n• Brindarle Servicios.\n• En el futuro podríamos utilizar estos datos para colaborar con proveedores de atención de salud, como hospitales, en el apoyo a personas enfermas.",
+    "header-5": "Datos personales de menores de 18 años",
+    "para-5": "Como lo señalan las Condiciones de uso, no recopilamos ni solicitamos de manera intencional Datos personales de menores de 18 años; si usted es menor de 18 años, no intente registrarse, utilizar de otro modo los Servicios ni de enviarnos algún Dato personal. Si descubrimos que hemos recopilado Datos personales de alguien menor de 18 años, eliminaremos esa información a la brevedad posible. Si cree que un menor de 18 años podría habernos entregado Datos personales, comuníquese con nosotros a dpo@joinzoe.com.",
+    "header-6": "Divulgación de datos personales",
+    "para-6": "Terceros procesadores: Recurrimos a terceros para que procesen por nosotros algunos de sus datos personales, por ejemplo, proveedores de seguridad y prevención de fraudes, proveedores de alojamiento, comunicaciones y otras tecnologías, proveedores de análisis y personal de aumento y contratación de personal. Cuando los autorizamos a que accedan a sus datos, no les permitimos que los usen para sus propios fines. Tenemos un contrato con cada procesador que les exige procesar los datos únicamente de acuerdo con nuestras instrucciones y con el debido cuidado al utilizarlos.\n\nEntre estos procesadores se cuentan:\n\n• Plataforma Google Cloud\n• SurveyMonkey\n• Segment\n• Expo\n• Google Firebase\n• Amplitude\n• Google G Suite\n• MailChimp\n• Mailgun\n• Intercom\n• Sentry\n• Cloudflare\n• Sqreen\n\nColaboradores de investigación y otros terceros: \n\nColaboradores de investigación: El propósito de nuestros servicios es entender y evitar la propagación de COVID-19. Con este fin, compartimos datos con quienes realizan investigaciones en salud, por ejemplo, personas que trabajan en:\n\n• Hospitales\n• Clínicas\n• Universidades\n• Organizaciones de beneficencia en salud\n• Otras instituciones de investigación\n\nPor ejemplo, los médicos y científicos de Massachusetts General Hospital, Harvard School of Public Health, Stanford University y King's College London tendrán acceso a sus Datos personales con el propósito ya citado. A continuación, una lista de las instituciones con que compartimos sus Datos personales. (Considere que esta lista solo se incluye como un ejemplo y que podemos agregar instituciones a la lista.) Se eliminará la identificación de aquellos datos que se compartan con colaboradores de investigación que no sean hospitales o instituciones docentes.",
+    "header-7": "Algunas instituciones con las que compartimos datos",
+    "para-7": "Algunas instituciones con las que compartimos datos (sin limitación):\n\nHarvard University\nStanford University\nMassachusetts General Hospital\nTufts University\nBerkeley University\nKing’s College London\nGuys & St Thomas' Hospitals\nServicio Nacional de Salud del Reino Unido (UK National Health Service)\nSwansea University (banco de datos SAIL)\nNottingham University\nUniversidad de Trento\nUniversidad de Lund\n\nTransferencia: Podemos reestructurar la forma en que brindamos los Servicios y, como parte de esto, sus Datos personales podrían transferirse a una de nuestras filiales o a una organización sin fines de lucro.",
+    "header-8": "Seguridad y conservación de los datos",
+    "para-8": "Es nuestra intención proteger sus Datos personales del acceso, el uso y la divulgación no autorizados mediante medidas de seguridad física, técnica, organizacional y administrativa apropiadas para el tipo de Datos personales y con la forma en que los procesamos. Si bien trabajamos para proteger la seguridad de su cuenta y de los demás datos que tenemos en nuestros registros, considere que ningún método de transmisión de datos por Internet o de almacenamiento de datos es completamente seguro. No podemos garantizar la seguridad total de algún dato compartido con nosotros y, salvo que la ley lo exija de manera expresa, no somos responsables en caso de robo, destrucción, pérdida o divulgación involuntaria de su información o de contenidos.\n\nHoy no podemos establecer ningún límite de tiempo en particular para el almacenamiento de sus datos personales sensibles, pero los mantendremos bajo revisiones periódicas y nos aseguraremos de no conservarlos más tiempo del necesario. Como ejemplo, actualmente recopilamos su nombre para poder transmitirlo a los profesionales de la salud, si es necesario, con el fin de proteger sus intereses vitales o los intereses vitales de otra persona. Una vez que ya no sea necesario, eliminaremos todos los nombres de nuestros registros. Por el contrario, es probable que los datos sobre la propagación del virus sean en extremo valiosos para los investigadores que estudian este virus, así como para comprender la propagación de epidemias en el futuro. Por tanto, es probable que conservemos esta información durante mucho más tiempo.\n\nEn algunos casos conservamos los Datos personales durante más tiempo, si es necesario para cumplir con nuestras obligaciones legales, resolver controversias o si lo requieren de alguna otra manera las leyes, las normas o los reglamentos aplicables. Además, podemos conservar información de manera anónima o agregada cuando dicha información no lo identifique en forma personal.",
+    "header-9": "Sus derechos",
+    "para-9": "Derechos de los residentes de California\n\nLa ley de privacidad de California nos exige proporcionar la siguiente información, aunque no vendamos sus datos:\n\nSi usted es un residente de California, tiene los derechos descritos en esta sección en virtud de la Ley de Privacidad del Consumidor de California (“CCPA”). Consulte la sección “Ejercicio de sus derechos” que aparece a continuación para recibir instrucciones sobre cómo ejercer estos derechos. Si existe algún conflicto entre esta sección y cualquier otra disposición de esta Política de privacidad y usted es un residente de California, prevalecerá en la extensión de dicho conflicto aquel cuerpo que más proteja los Datos personales. Si tiene alguna duda sobre esta sección o si alguna de las siguientes disposiciones se aplica a su caso, comuníquese con nosotros a dpo@joinzoe.com\n\nAcceso\n\nTiene derecho a pedir determinada información sobre nuestra recopilación y uso de sus Datos personales en los últimos 12 meses. Le entregaremos la siguiente información:\n\n• Las categorías de Datos personales recopiladas sobre usted.\n\n• Las categorías de fuentes de las cuales se recopilaron esos Datos personales.\n\n• El propósito comercial o de negocios para la recopilación o venta de sus Datos personales.\n\n• Las categorías de terceros con los que hemos compartido sus Datos personales.\n\n• Las partes específicas de Datos personales recopiladas sobre usted.\n\nSi hemos revelado sus Datos personales con un fin comercial en los últimos 12 meses, identificaremos las categorías de Datos personales compartidas con cada categoría de terceros destinatarios.\n\nEliminación\n\nTiene derecho a pedir que eliminemos los Datos personales recopilados de parte de usted.\n\nEjercicio de sus derechos\n\nPara ejercer los derechos ya descritos, debe enviarnos una solicitud que (1) entregue suficiente información para poder verificar que usted es la persona sobre quien hemos recopilado Datos personales y que (2) describa su solicitud con suficiente detalle para permitirnos comprenderla, evaluarla y responderla. Cada solicitud que cumpla con ambos criterios será considerada una “Solicitud válida”. Es posible que no respondamos a solicitudes que no cumplan estos criterios. Sólo usaremos los Datos personales incluidos en una solicitud válida para verificarlo y para ejecutar su solicitud. No necesita una cuenta para enviar una Solicitud válida.\n\n\n\nTrabajaremos para responder a su Solicitud válida en un plazo de 45 días a contar de la fecha der recepción. No le cobraremos por una Solicitud válida, a menos que su(s) Solicitud(es) válida(s) sea(n) excesiva(s), repetitiva(s) o manifiestamente infundada(s). Si determinamos que su Solicitud válida justifica un cobro, le notificaremos sobre el cargo y le explicaremos la decisión antes de ejecutar su solicitud.\n\nPuede enviar una Solicitud válida con los siguientes métodos:\n\n• Correo electrónico dirigido a: dpo@joinzoe.com\n\nVenta de datos personales\n\nNo vendemos sus Datos personales.\n\nNo lo discriminaremos si ejerce sus derechos conferidos en la Ley CCPA.",
+    "header-10": "Derechos de privacidad en las leyes de otros estados",
+    "para-10": "Derechos de los residentes de California\n\nNo entregaremos sus Datos personales a terceros para fines de mercadotecnia directa de dichos terceros\n\nEs posible que su navegador le ofrezca la opción de “No rastrear”, lo cual permite señalar a los operadores de sitios web y a las aplicaciones y a los servicios web que no desea que dichos operadores efectúen un seguimiento a determinadas actividades suyas en línea en el tiempo y en diferentes sitios web.  En este momento nuestros servicios no admiten solicitudes de NO rastrear. Para obtener más información sobre “No rastrear”, puede visitar www.allaboutdnt.com.\n\nDerechos de los residentes de Nevada\n\nLa ley de Nevada exige la siguiente redacción, aunque no vendamos sus datos: Si usted es residente de Nevada, tiene derecho a rechazar la venta de ciertos Datos personales a terceros que pretendan vender o emitir licencias por esos Datos personales. Puede ejercer este derecho si se comunica con nosotros a dpo@joinzoe.com con el asunto “Nevada Do Not Sell Request” (Solicitud de No Vender de Nevada) y nos indica su nombre. Nosotros no vendemos sus Datos personales, según lo definido en el Capítulo 603A de los Estatutos Revisados de Nevada.",
+    "header-11": "Derechos del sujeto de datos en la Unión Europea",
+    "para-11": "Residentes de la UE\n\nEs posible que tenga más derechos con respecto a sus Datos personales en virtud del Reglamento General de Protección de Datos de la UE (“GDPR”), como se indica a continuación.\n\nEn esta sección, los términos “Datos personales” y “procesamiento” se emplean tal y como se definen en el GDPR, pero “Datos personales” en general significa información relacionada con una persona identificable, en tanto “procesamiento” suele contemplar las acciones que se pueden efectuar en relación con los datos, como recopilación, uso, almacenamiento y divulgación.  Zoe Global Limited será el controlador de sus Datos personales procesados en relación con los Servicios.\n\nSi existe algún conflicto entre esta sección y cualquier otra disposición de esta Política de privacidad, prevalecerá en la extensión de dicho conflicto la política o la parte que más proteja los Datos personales.  Si tiene alguna duda sobre esta sección o si alguna de las siguientes situaciones se aplica a su caso, comuníquese con nosotros adpo@joinzoe.com.",
+    "header-12": "Causales de uso y procesamiento de datos personales",
+    "para-12": "Solo procesaremos sus Datos personales si contamos con una base lícita. Entre las bases lícitas para el procesamiento se cuentan el consentimiento y nuestros “intereses legítimos” o el interés legítimo de los demás, como se describe a continuación.\n\nIntereses legítimos: La base legal para el procesamiento de sus Datos personales es nuestro interés legítimo por brindarle los Servicios y por elaborar, mejorar, comercializar y ejecutar los Servicios.\n\nConsentimiento:   En algunos casos procesamos los Datos personales sobre la base del consentimiento expreso que nos otorga al momento de recopilar dichos datos.  Cuando procesamos Datos personales basados en su consentimiento, se le indica así de manera expresa al momento de la recopilación. En forma específica, procesamos la categoría Datos de salud y Otras clasificaciones protegidas sobre la base de su consentimiento. Debido a los estrictos requisitos normativos impuestos, necesitamos de su consentimiento para procesar datos sobre su salud, lo cual significa que si usted no nos otorga consentimiento (o si lo retira), no podemos permitirle que use la aplicación. No lo decimos por falta de amabilidad, sino porque no podemos brindarle el servicio sin su consentimiento.\n\nSi desea detener el procesamiento de sus datos de salud y de otras clasificaciones protegidas, puede retirar su consentimiento en cualquier momento mediante un mensaje de correo electrónico dirigido a leavecovidtracking-us@joinzoe.com. Cuando retire su consentimiento, eliminaremos todos los Datos de salud y las Otras clasificaciones protegidas que tengamos sobre usted.\n\nOtras causales de procesamiento:  En forma periódica, también podríamos necesitar el procesamiento de Datos personales para cumplir con una obligación legal, si es necesario, con el fin de proteger los intereses vitales de usted o de otros sujetos de datos o si es necesario para una tarea ejecutada por el interés público.",
+    "header-13": "Derechos de los sujetos de derechos en la UE",
+    "para-13-1": "En virtud del RGPD, usted tiene una serie de importantes derechos con respecto a sus Datos personales, incluidos los que se establecen a continuación. Para recibir más información sobre estos derechos o para enviar una solicitud, escriba un mensaje de correo electrónico dirigido a dpo@joinzoe.com. Considere que, en algunas circunstancias, es posible que no podamos atender su solicitud de manera plena, por ejemplo, si es frívola o en extremo impracticable, si arriesga los derechos de los demás o si no es una exigencia por ley, en cuyo caso, le responderemos de igual modo para notificarle la decisión.  En algunos casos, también es posible que necesitemos información adicional, la cual podría incluir Datos personales, si es necesario, con el fin de verificar su identidad y la naturaleza de su solicitud.\n\n• Acceso:  Puede pedir más información sobre los Datos personales que tengamos sobre usted y una copia de dichos Datos personales. También puede acceder a algunos de sus Datos personales al iniciar sesión de usuario en su cuenta.\n\n• Rectificación: Si cree que alguno de los Datos personales que tenemos sobre usted es incorrecto o incompleto, puede pedir que corrijamos o completemos dichos datos.\n\n• Borrado: Puede pedir que borremos algunos o todos sus Datos personales de nuestros sistemas.\n\n• Retiro de consentimiento: Si estamos procesando sus Datos personales sobre la base del consentimiento (como se indica al momento de la recopilación de dichos datos), tiene derecho a retirar su consentimiento en cualquier momento. Sin embargo, considere que si ejerce este derecho, podría tener que entregar su consentimiento expreso en cada caso de uso o divulgación de algunos de sus Datos personales, si se necesita tal uso o divulgación para permitirle que use algunos o todos nuestros Servicios.\n\n• Portabilidad:  Puede pedir una copia de sus Datos personales en un formato de lectura mecánica.  También puede pedir que transmitamos los datos a otro controlador, cuando sea técnicamente factible.\n\n• Objeción: Se puede comunicar con nosotros para informar que se opone al uso o a la divulgación de sus Datos personales con ciertos propósitos, por ejemplo, para mercadotecnia directa.\n\n• Restricción del procesamiento:  Puede pedir que restrinjamos nuevos procesamientos de sus Datos personales.\n\nPara acceder a más información sobre cada uno de esos derechos, incluidas las circunstancias en que aplican, consulte la Directriz de la Oficina del Comisionado de Información del Reino Unido (ICO) sobre los derechos individuales en virtud del Reglamento General de Protección de Datos.\n\nSi desea ejercer alguno de esos derechos, envíe un mensaje de correo electrónico, llame o escriba a nuestro oficial de protección de los datos con los siguientes datos de contacto.\n\nEl Reglamento General de Protección de Datos le otorga el derecho a quejarse ante una autoridad supervisora, en particular, en el estado de la Unión Europea (o del Espacio Económico Europeo) en que usted trabaje, viva normalmente o donde haya ocurrido cualquier presunta infracción a las leyes de protección de datos. La autoridad supervisora del Reino Unido es el Comisionado de la Información, con quien se puede comunicar en",
+    "para-13-2": "o al teléfono: +44 0303 123 1113.",
+    "header-14": "Transferencias de datos personales",
+    "para-14": "Los Servicios se alojan y funcionan en el Reino Unido y en Estados Unidos (“EE. UU.”) a través de Zoe Global Limited y de sus proveedores de servicios y de los terceros con los cuales compartimos la información (consulte la sección Distribución de Datos Personales) y es posible que las leyes de EE. UU. sean distintas a las leyes de su lugar de residencia. Con su uso de los Servicios, usted reconoce y acepta que cualquier Dato personal sobre usted, al margen de si lo proporciona usted u si se obtiene mediante un tercero, será entregado a Zoe Global Limited y a terceros (como se indica en esta Política de privacidad) en EE. UU. y alojado en servidores de EE. UU. y autoriza a que Zoe transfiera, almacene y procese su información hacia y en EE. UU. y, posiblemente, en otros países.",
+    "header-15": "Cambios a esta Política de privacidad",
+    "para-15": "Siempre tratamos de mejorar nuestros Servicios, por lo cual también podríamos tener que cambiar esta Política de privacidad con regularidad, pero le avisaremos de los cambios con un aviso publicado en la aplicación o en nuestro sitio web, con un mensaje de correo electrónico o por algún otro medio. Considere que si ha optado por no recibir nuestros correos electrónicos con avisos legales (o si no nos ha dado su dirección de correo electrónico), de igual modo esos avisos legales seguirán rigiendo su uso de los Servicios y usted seguirá siendo responsable de leerlos y comprenderlos. Si usa los Servicios tras la publicación de algún cambio en la Política de privacidad, significa que está de acuerdo con todos los cambios. El uso de la información que recopilamos se rige por la Política de privacidad vigente al momento en que se recopila dicha información.",
+    "header-16": "Sobre nosotros",
+    "para-16": "Nuestra dirección es: Zoe Global Limited, 164 Westminster Bridge Road, London SE1 7RW, United Kingdom\nOficial de Protección de Datos: dpo@joinzoe.com",
+    "back": "Volver"
+  },
+
+  "create-profile-title": "Dar un nombre al perfil nuevo",
+  "create-profile-text": "Este nombre es solo para usted. Elija un nombre que le permita saber la persona por la que está informando.",
+  "create-profile-placeholder": "por ej., nombre, alias o relación",
+  "create-profile-button": "Continuar",
+
+  "report-for-others-title": "¿Informa en nombre de alguien más?",
+  "report-for-others-text": "Ahora puede crear perfiles para otras personas para informar en su nombre.",
+  "report-for-others-add-profiles": "Agregar perfiles",
+  "report-for-others-subtext": "Ahora puede informar en nombre de alguien más.",
+  "report-for-others-not-right-now": "¿No ahora? Puede agregar perfiles adicionales en el ícono de menú en cualquier momento.",
+  "report-for-others-skip": "Omitir",
+
+  "select-profile-title-assessment": "Seleccione el perfil para el que informará",
+  "select-profile-title-edit": "Seleccione el perfil que desea editar",
+  "select-profile-text": "O agregue más perfiles",
+  "select-profile-button": "Nuevo perfil",
+  "select-profile-last-report": "Último informe:",
+  "default-profile-name": "Yo",
+
+  "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
+
+  "validation-error-text-required": "Por favor, de más detalles",
+
+  "race-question": "¿Cuál es su raza? (marque todas las que correspondan):",
+  "race-other-question": "Especifique su raza",
+  "ethnicity-question": "¿Cuál es su etnia:",
+  "prefer-not-to-say": "Prefiero no decir",
+  "please-select-race": "Seleccione una opción",
+
+  "uk-asian": "Asiático/Asiático británico: indio, paquistaní, bangladesí, otro",
+  "uk-black": "Afrodescendiente/afrobritánico: caribeño, africano, otro",
+  "uk-mixed-white-black": "Raza mixta: blanco y afrodescendiente/afrobritánico",
+  "uk-mixed-other": "Raza mixta: otro",
+  "uk-white": "Blanco: británico, irlandés, otro",
+  "uk-chinese": "Chino/chino-británico",
+  "uk-middle-eastern": "Medio Oriente/británico del Medio Oriente: árabe, turco, otro",
+  "uk-other": "Otro grupo étnico",
+
+  "us-indian_native": "Nativo norteamericano o nativo de Alaska",
+  "us-asian": "Asiático",
+  "us-black": "Afrodescendiente o afroamericano",
+  "us-hawaiian_pacific": "Nativo de Hawaii u otras islas del Pacífico",
+  "us-white": "Blanco",
+  "us-other": "Otro, especifique",
+  "hispanic": "Hispano, latino o de origen español",
+  "not-hispanic": "No hispano, latino ni de origen español",
+
+  "answer-for": "Respuesta por %{name}",
+  "profile-name-too-long": "Ingrese un nombre de perfil con menos de 32 caracteres",
+  "total-people-contributing": "%{total} personas que contribuyen",
+  "join-total-people-contributing": "Únase a las %{total} personas que contribuyen en todo el mundo",
+
+  "covid-test-list": {
+    "title": "Sus exámenes de COVID-19",
+    "text": "Si se realizó un examen de COVID-19, agregue a continuación. Puede editarlos en cualquier momento.",
+    "add-new-test": "Agregar nuevo examen",
+    "positive": "Positivo",
+    "negative": "Negativo",
+    "failed": "Falló",
+    "pending": "Pendiente",
+    "update": "",
+    "never-had-test": "Nunca me he hecho un examen de COVID",
+    "above-list-correct": "La lista anterior es correcta"
+  },
+
+  "errors": {
+    "button-retry": "Reintentar",
+    "button-okay": "Aceptar",
+    "status-loading": "Cargando...",
+    "status-retrying": "Reintentando...",
+    "user-is-offline": "Actualmente está desconectado. Revise su conexión.",
+    "resource-not-found": "El servidor no pudo encontrar sus detalles",
+    "server-is-busy": "El servidor está ocupado. Espere, luego intente nuevamente",
+    "server-error": "El servidor no pudo responder en este momento. Espere, luego intente nuevamente."
+  },
+
+  "back": "Volver",
+
+  "edit-profile": {
+    "title": "la configuración de perfil",
+    "your-location": "Su ubicación",
+    "text": "",
+    "archive-cta": "Archivar este perfil",
+    "done": "Listo",
+    "next": "Siguiente",
+
+    "location": {
+      "title": "Mi ubicacion",
+      "label": "Su código postal permanente",
+      "disclaimer": "Se usa su ubicación para ubicar el brote de COVID-19 y rastrear síntomas. Se puede encontrar como usamos sus datos en nuestro  política de privicidad",
+      "not-current-address": "Estás informando temporalmente des de una ubicación diferente a la de arriba?",
+      "still-in-country": "Todavía está en los Estados Unidos?",
+      "other-postcode": "Ponga el cógido postal que quiere informar:",
+      "select-country": "Por favor, elige que país está ahora:"
+    }
+  },
+
+  "archive-confirmation": {
+    "title": "Archivar este perfil?",
+    "text": "Ya no podras reportar esta persona. Quieres proceder?",
+    "confirm": "Archivo",
+    "cancel": "Canelar"
+  },
+
+  "archive-reason": {
+    "title": "Perfil archivado",
+    "text": "Nos ayuda entender porque archivas este perfil. Esto ayudará a predecir con mayor precisión los niveles de COVID",
+    "text2": "Esta pregunta es opcional",
+    "choice-duplicate-account": "Es una cuenta duplicada",
+    "choice-no-report": "No quiero reportar para ellos",
+    "choice-moved-away": "Esta persona se mudó",
+    "choice-other": "Otro",
+    "choice-pfnts": "Prefiero no decir",
+    "choice-passed-away": "Esta persona se murió"
+  },
+
+  "face-mask": {
+    "worn-a-mask-question": "Durante la semana pasada, ¿llevaste una máscara de protección fuera de tu casa?",
+    "worn-a-mask-justification": "Por qué preguntamos esto: Esta información puede ayudarnos a entender si el uso de máscaras reduce el riesgo de infección de COVID. Esta pregunta es totalmente opcional.",
+    "never": "Nunca",
+    "sometimes": "Alguna vez",
+    "most-of-the-time": "La mayoría de las veces",
+    "always": "Siempre",
+    "not-applicable": "No aplica",
+    "type-of-mask-question": "¿Qué tipo de máscara utiliza?",
+    "cloth_scarf": "Un paño o bufanda",
+    "surgical": "Máscara quirúrgica",
+    "respirator": "Máscara N95/FFP",
+    "not-sure": "No estoy seguro/prefiero no decir",
+    "other": "Otras, por favor especifique:"
+  },
+
+  "us-study-invite": {
+    "title": "Estudios nuevos de COVID\ny como se puede ayudar",
+    "body": "Está interesado en ser contactado para obtener información sobre estudios adicionales relacionados con COVID-19 o el uso de esta aplicación?",
+    "button": "Estoy interesado"
+  },
+
+  "diabetes": {
+    "justification": "Indicó previamente que tenía diabetes lo cual es un factor de riesgo para COVID. Nuestros científicos tienen un par de preguntas más para entenderla mejor. Estas preguntas son opcionales.",
+    "which-type": "¿Qué tipo de diabetes le han diagnosticado?",
+    "answer-type-1": "Diabetes tipo 1",
+    "answer-type-2": "Diabetes tipo 2",
+    "answer-gestational": "Diabetes gestacional (durante el embarazo)",
+    "answer-unsure": "No estoy seguro del tipo de diabetes que tengo",
+    "answer-other": "Otra forma de diabetes, por favor especifique",
+    "most-recent-hemoglobin-measure": "¿Cuál fue su valor de hemoglobina A1c más reciente?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "¿En qué año le diagnosticaron diabetes?",
+    "which-treatment": "¿Qué tratamientos para lo diabetes toma? Selecciona todas las opciones que correspondan:",
+    "answer-none": "Ninguno",
+    "answer-lifestyle-mod": "Modificaciones del estilo de vida (ej. ejercicio, dieta, control del peso)",
+    "answer-daily-injections": "Inyecciones de insulina de acción prolongada una o dos veces al día o insulina \"basal\" (ej. glargine, detemir, degludec o NPH en una mezcla de insulinas)",
+    "answer-rapid-injections": "Inyecciones de insulina de acción rápida con las comidas o insulina \"en bolo\" (ej. lispro, aspart, glulisine, o mezcla de insulinas)",
+    "answer-insulin-pump": "Infusión continua en una bomba de insulina",
+    "answer-non-insulin-injections": "Inyecciones de un medicamento para la diabetes sin insulina o agonistas del receptor GLP-1 (ej. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Medicamentos tomados por vía oral",
+    "which-oral-treatment": "¿Qué medicamentos para la diabetes tomados por vía oral toma? Selecciona todas las opciones que correspondan:",
+    "answer-oral-biguanide": "Metformina",
+    "answer-sulfonylurea": "Sulfonilurea (ej. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "Inhibidores del DPP-4 (ej. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinidas (ej. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones o glitazones (ej. rosiglitazone, pioglitazone)",
+    "answer-sglt": "Inhibidores del SGLT-2(ej. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Otras medicamentos tomados por vía oral no incluidos en esta lista",
+    "please-specify-other-oral-meds": "Especifique qué medicamentos toma por vía oral.",
+    "please-select-diabetes-type": "Seleccion una opción",
+    "please-select-diabetes-treatment": "Seleccione uno o más de los anteriores",
+    "question-use-cgm": "¿Utiliza un monitor continuo de glucosa (CGM)?"
+  },
+
+  "diet-study": {
+    "drawer-menu-item": "Estudo de la dieta",
+    "answer-for-feb": "responde para el mes de febrero",
+    "answer-for-last-4-weeks": "responde para las últimas cuatro semanas",
+    "required": "Esto es obligatorio",
+    "intro": {
+      "title": "COVID y la dieta",
+      "description-1": " Queríamos preguntarle algunas preguntas sobre la dieta y el estilo de vida para ayudar a los investigadores entender como la dieta puede afectar la probabilidad y la gravedad de contratar COVID.",
+      "description-2": "También, querían entender cómo el pandémico ha afectado nuestras dietas y hábitos del estilo de vida. Tomará 10-15 minutos para completar.\n\nSolo apoyamos reportando para el perfil con la etiqueta ‘Yo’.",
+      "cta-yes": "Si, vamos a hacerlo",
+      "cta-no-later": "No, pero pregúntame más tarde",
+      "cta-no-never": "Falta y no me pregunte otra vez"
+    },
+    "next-section": "Siguiente sección",
+    "about-you": {
+      "title": "Su estilo de vida",
+      "intro-1": "Responde estas preguntas por pensar de sus hábitos típicos en el último/a ",
+      "intro-2": "4 semanas",
+      "answer-again-1": "Por favor, responde las mismas preguntas, pero esta vez para",
+      "answer-again-2": "Febrero 2020",
+      "answer-again-3": "Antes del pandémico de COVID"
+    },
+    "weight-label": "Su peso",
+    "weight-unsure-label": "No se mi peso",
+    "was-pregnant-label": "Estoy/estaba embarazada",
+    "hours-of-sleep-weekday-label": "Cuántas horas dormía en la noche de entre semana (Domingo a Jueves)?",
+    "hours-of-sleep-weekend-label": "Cuántas horas dormía en las noches de fin de semana (Viernes a Sábado)?",
+    "hours-of-sleep-placeholder": "Horas por noche",
+    "shift-work-label": "Trabajaba turnos fuera de las horas de trabaja normales (7am a 6pm)?",
+    "food-security": {
+      "label": "¿Cuáles de las siguientes declaraciones describen mejor el alimento que ha comido en su casa durante este tiempo?",
+      "always-had-enough": "Siempre tenía bastante de los tipos de alimentos que quería comer.",
+      "enough-not-kinds-wanted": "Tenía bastante alimento a comer, pero no siempre los tipos de alimento que quería",
+      "sometimes-not-enough": " A veces, no tenía bastante alimento a comer",
+      "often-not-enough": "Con frecuencia no tenía bastante alimento a comer",
+      "pfnts": "Prefiero no decir"
+    },
+    "food-availability": {
+      "label": "Cual situación describe mejor su respuesta a la pregunta anterior sobre la falta de disponibilidad de alimentos",
+      "financial-limitations": "Limitaciones fiscal",
+      "shelter-in-place": "Shelter-in-place orders implemented in my community",
+      "shortages": "Escasez de disponibilidad de alimentos",
+      "avoidance": "Ansiedad/el evitar asociado con irse al supermercado",
+      "other": "Otro"
+    },
+    "your-lifestyle": {
+      "title": "Hábitos de dieta",
+      "title-2": "El acceso a alimentos"
+    },
+    "physical-activity": {
+      "label": "Con qué frecuencia ha participado en actividades físicos que sube su ritmo cardiaco y dura para 20 minutos cada vez",
+      "less-than-once-a-month": "Menos de un mes",
+      "less-than-once-a-week": "Por lo menos una vez al mes, pero menos de una vez a la semana",
+      "once-a-week": "Una vez a la semana",
+      "twice-a-week": "Dos veces a la semana",
+      "three-to-four-times-a-week": "3 a 4 veces a la semana",
+      "five-or-more": "5 o más veces a la semana",
+      "pfnts": "Prefiero no decir"
+    },
+    "food-frequency": {
+      "rarely-or-never": "Casi nunca o nunca",
+      "less-than-once-a-week": "Menos de una vez a la semana",
+      "once-a-week": "Una vez a la semana",
+      "two-to-three-a-week": "2 a 3 veces a la semana",
+      "four-to-six-a-week": "4 a 6 veces a la semana",
+      "one-to-two-a-day": "1 a 2 veces al día",
+      "three-to-four-a-day": "3 a 4 veces al día",
+      "five-plus-a-day": "5 o más veces al día"
+    },
+    "alcohol-frequency": {
+      "label": "Con qué frecuencia tomaba un trago que tenía alcohol?",
+      "never": "Nunca",
+      "monthly": "Al mes",
+      "two-to-four-a-month": "2 a 4 veces al mes",
+      "two-to-three-a-week": "2 a 3 veces a la semana",
+      "four-or-more-a-week": "4 o más veces a la semana",
+      "pfnts": "Prefiero no decir"
+    },
+    "alcohol-units": {
+      "label": "Cuántos tragos tenía con alcohol en un dia tipico cuando estaba tomando ",
+      "one-to-two": "1 o 2",
+      "three-to-four": "3 o 4",
+      "five-to-six": "5 o 6",
+      "seven-to-nine": "7, 8, 9",
+      "ten-or-more": "10 o más",
+      "pfnts": "Prefiero no decir"
+    },
+    "alcohol-unit-info": {
+      "label-1": "Un trago se define como un trago estándar de alcohol",
+      "label-2": "Typical standard drinks in common alcoholic beverages: Los tragos estándares típicos ",
+      "pints": "Cerveza regular",
+      "shots": "shot de licor destilado",
+      "small-glass": "Mesa de vino pequeño",
+      "standard-glass": "Mesa de vino estándar",
+      "bottle-wine": "Botella de vino",
+      "large-glass": "Mesa de vino grande",
+      "malt-liquor": "licor de malta",
+
+      "pints-volume": "12 fl oz",
+      "shots-volume": "1.5 fl oz",
+      "small-glass-volume": "4 fl oz",
+      "standard-glass-volume": "6-7 fl oz",
+      "large-glass-volume": "8-9 fl oz",
+      "bottle-wine-volume": "26 fl oz",
+      "malt-liquor-volume": "8-9 fl oz",
+
+      "pints-units": "1 trago estandar",
+      "shots-units": "1 trago estandar",
+      "small-glass-units": "1 trago estandar",
+      "standard-glass-units": "1.5 trago estandar",
+      "large-glass-units": "2 trago estandar",
+      "bottle-wine-units": "5 trago estandar",
+      "malt-liquor-units": "1 trago estandar"
+    },
+    "takes-supplements-label": "Tomaba suplementos (por lo menos 3 a 4 veces a la semana) normalmente?",
+    "supplements": {
+      "label": "Cuáles vitaminas o suplementos tomaba (por los menos 3 a 4 veces a la semana)?",
+      "fiber": "Suplementos de la fibra (e.g. Metamucil, Citrucel, Inulin, Psyllium, Benefiber)",
+      "probiotic": "Las cápsulas probióticos/bolsitas",
+      "iron": "Tabletas de hierro",
+      "calcium": "Tabletas de calcio",
+      "vitamin-d": "Suplementos de la vitamina D",
+      "zinc": "Suplementos del cinc",
+      "vitamin-c": "Suplementos de la vitamina C",
+      "multivitamin": "Tabeltos de multivitaminas",
+      "omega3": "Fish or omega 3 oils and capsules Pescado o aceite de omega 3 y las cápsulas",
+      "garlic": "Suplemento de ajo",
+      "other": "Otro",
+      "pfnts": "Prefiero no decir",
+      "specify": "Por favor especifica los otros suplementos"
+    },
+    "first-calories-label": "Después de caminar, normalmente a qué hora comía o tomaba algo (incluyendo aperitivo)?",
+    "main-meals-label": "¿Cuántas comidas 'principales' comes normalmente en un día? (Una comida principal es el almuerzo o la cena, sin incluir el desayuno)",
+    "eats-breakfast-label": "¿Tomabas desayuno?",
+    "last-calories-label": "¿Cuál era la última hora del día en la que normalmente comerías o beberías algo que no fuera agua / café solo o té sin leche? (incluidos los snacks)",
+    "main-meals-placeholder": "La comida principal del día ",
+    "snacks-label": "Típicamente, cuantas veces comía los aperitivos en un día (un aperitivo es cualquier comida que se come fuera del desayuno, el almuerzo, o la cena)?",
+    "snacks-placeholder": "Come los aperitivos por dia",
+    "lost-control": "Se preocupe que ha perdido control sobre cuánto come durante las 4 semanas? ",
+    "diet": {
+      "label": "¿Cuales opciones por debajo de mejor describe durantes las 4 semanas? Se puede seleccionar más que un opción",
+      "mixed": "Una dieta mixta típica (incluyendo casi todo/todo las comidas además de carne, pescado o los mariscos)",
+      "vegetarian": "Vegetariano (incluye huevos/o los lácteos)",
+      "vegan": "Vegano (no productos de los animales)",
+      "pescatarian": "Pescetariano (no carne aparte del pescado o los mariscos)",
+      "keto": "Ketogenica o Atkins",
+      "low-carb": "La dieta baja en carbohidratos (incluye la dieta de Paleo o minimizando carbohidratos)",
+      "low-fat": "Dieta baja en grasa",
+      "gluten-free": "Dieta sin gluten",
+      "lactose-free": "Dieta sin lactosa",
+      "low-calorie": "Dieta baja en calorías (una dieta baja en calorías es 1200-1500 kcal/day)"
+    },
+    "typical-diet": {
+      "title": "Su dieta tipica",
+      "text-1": "Esas preguntas pregúntale sobre comidas y tragos podría tener en una semana típica durante este marco de tiempo. No se preocupe si algunas cosas come o toma no están mencionada",
+      "text-2": "Por favor, seleccione con qué frecuencia come por los menos las siguientes comidas y tragos. Una porción incluye: un manojo de uvas, una naranja, una porción de zanahorias, una ensalada chiquita, un pedazo de pan, un vaso de soda o refresco. ",
+      "fruit-1": "Fruta",
+      "fruit-2": "(enlatada/fresca)",
+      "fruit_juice-1": "Jugo de fruta",
+      "fruit_juice-2": "(No de concentrado)",
+      "salad-1": "Ensalada",
+      "salad-2": "(No adorno añade a los sandwiches)",
+      "vegetables-1": "Vegetales",
+      "vegetables-2": "(entalada / congelado / fresco pero no son papas)",
+      "chips-1": "Papas fritas",
+      "chips-2": "",
+      "pulses-1": "Los frijoles o las legumbres incluyendo frijoles negros, los garbanzos, las lentejas",
+      "pulses-2": "Como frijoles al horno, los garbanzos, dahl ",
+      "fibre_rich_breakfast-1": "Cereal rico en fibra",
+      "fibre_rich_breakfast-2": "Como All Bran, Fiber One, La avena, Muesli",
+      "wholemeal_bread-1": "Pan integral, pita o pan sin levadura",
+      "wholemeal_bread-2": "",
+      "cheese_yogurt-1": "Queso / el yogur",
+      "cheese_yogurt-2": "",
+      "crisps_snacks-1": "Los chips/ aperitivos sabrosos",
+      "crisps_snacks-2": "",
+      "sweets-1": "Las galletas, las pasteles, los chocolates, las dulces, los postres",
+      "sweets-2": "",
+      "ice_cream-1": "Helado / crema",
+      "ice_cream-2": "",
+      "fizzy_pop-1": "Tragos/soda carbonatada sin alcohol (con azúcar o no dieta) ",
+      "fizzy_pop-2": "(Con azucar o no dieta)",
+      "red_meat-1": "Carne, cordero, chancho",
+      "red_meat-2": "Los bisteces, los asados, las costillas, la carne molida (no sirve como un hamburguesa) ",
+      "white_meat-1": "El ollo o el pavo ",
+      "white_meat-2": "(no en la masa o el pan rallado)",
+      "red_processed_meat-1": "Los chorizos, el tocino, el corned beef, o las hamburguesas",
+      "red_processed_meat-2": "",
+      "white_processed_meat-1": "Los nuggets de pollo/pavo, las hamburguesas de pavo, los pasteles de pollo, o en masa o en el pan rallado. ",
+      "white_processed_meat-2": "",
+      "white_fish_battered_breaded-1": "El pescado blanco en masa o el pan rallado - como ‘el pescado frito con papas fritas’",
+      "white_fish_battered_breaded-2": "",
+      "white_fish-1": "El pescado blanco no en masa o el pan rallado (el bacalao, la tilapia, hel halibut,el  robalo, el eglefino)",
+      "white_fish-2": "",
+      "oily_fish-1": "Los pescados aceitosos - como el arenque, las sardinas, el salmón, la trucha, la caballa, el atún fresco (no enlatado)",
+      "oily_fish-2": "(no el atún enlatado)",
+      "eggs-1": "Los huevos, - como cocido, frito, huevos revueltos etc..",
+      "eggs-2": "",
+      "fast_food-1": "Comida rapida",
+      "fast_food-2": "",
+      "live-probiotic-1": "Probióticos vivos o alimentos fermentados",
+      "live-probiotic-2": "e.g. el chucrut, kimchi, yakult, yogur vivo, kefir",
+      "white-bread-1": "El pan blanco",
+      "rice-1": "El arroz",
+      "pasta-1": "La Pasta",
+      "refined_breakfast-1": "Los cereales refinados",
+      "refined_breakfast-2": "e.g. rice krispies, cheerios, cornflakes",
+      "section-meat": "Los carnes enteras",
+      "section-processed-meat": "Los carnes procesadas/ productos de carne",
+      "section-fish": "El pescado",
+      "section-other": "Otro",
+      "section-refined-carbs": "Los carbohidratos refinados",
+      "portions_of_fruit-label": "En general, cuantas porciones de la fruta comía en un día? (Excepto 100% jugo de fruta. Ejemplos incluye un puñado de uvas, una naranja, un puñado de fruta seca)",
+      "portions_of_fruit-placeholder": "Las porciones al día",
+      "glasses_of_juice-label": "En general, cuantos vasos de 100% jugo de fruta o vegetal tomaba en un dia? (Un vaso es 8 oz)",
+      "glasses_of_juice-placeholder": "Los vasos al día",
+      "portions_of_veg-label": "En general, cuantas porciones de vegetales comida al día? (Ejemplos incluye 3 cucharadas grandes de zanahorias, una ensalada chiquita, una media taza de brócoli)",
+      "portions_of_veg-placeholder": "Porciones al día",
+      "milk-label": "Típicamente, cual leche usaba o tomaba, como tragos calientes y fríos o en cereal? ",
+      "milk-whole": "La leche entera",
+      "milk-semi": "1% o 2% leche (baja en grasa)",
+      "milk-skimmed": "Leche sin grasa",
+      "milk-plant": "Leche de plantas, como leche de almendra o soya.",
+      "milk-rarely-never": "Casi nunca/nunca usa leche",
+      "milk-other": "Otro",
+      "noticed-a-change": "¿Ha notado un cambio en su dieta hasta Febrero 2020?"
+    },
+    "other-info": {
+      "label": "Hay más información de su dieta y estilo de vida que quería compartir",
+      "placeholder": "Opcional",
+      "text-limit": "Ensure this field has no more than {{count}} characters. Asegura que esta seccion no tiene mas que {{count}} caracteres",
+      "text-limit-caption": "Maximo {{count}} caracteres"
+    },
+    "diet-changed": {
+      "not-sure": "No estoy segura"
+    },
+    "continue-cta": "Continuar",
+    "complete-cta": "Responde para Febrero 2020",
+    "consent": {
+      "header": " Antes de continuar",
+      "paragraph": " Nuestros colegas al Kings College Londres, quien analiza estos datos, le gustaría usar sus resultados como parte de las investigaciones adicionales en los áreas de nutrición y la salud más allá de COVID.\n\nNos gustaría preguntar su consentimiento para usar sus datos de estas maneras no COVID? Los datos compartidos también incluiría datos como su edad, estatura, peso y enfermedades médicos pre existiendo que nos ha dicho en el app. \n\nEsto es completamente opcional. Sin embargo, si lo haces, dará una contribución muy valiosa a la futura nutrición y las investigaciones de salud.",
+      "buttons-header": "Se da consentimiento para usar estos datos para las investigaciones futuras de nutrición y salud? ",
+      "yes": "Sí estoy de acuerdo",
+      "no": "No, no doy consentimiento"
+    },
+    "thank-you": {
+      "title": "Gracias",
+      "text-1": "Le agradecemos tomando el tiempo para ayudar a avanzar la ciencia y entender mejor cómo la dieta se puede afectar la probabilidad y la severidad de contratar COVID."
+    },
+    "thank-you-break": {
+      "description-1": "Gracias por responder estas preguntas importantes. El pandémico ha llevado al cambio de nuestras conductas de alimentación. Ayúdanos a entender cómo esta situación le ha afectado para responder estas preguntas para Febrero (antes del pandémico).",
+      "return-later": "Si quería tomar una descanza, se puede regresar a estas preguntas por hacer un clic a ‘Estudio de dieta’ del menú en la superior esquina derecha de la pantalla de inicio",
+      "sarah-name": "Prof Christopher Gardner",
+      "sarah-description": "Nutrition Scientist,\nStanford University"
+    }
+  },
+
+  "blood-group": {
+    "justification": "Estamos preguntando esto porque otros estudios han demostrado que tu grupo sanguíneo puede afectar el riesgo y la severidad de la infección de COVID y vamos a explorar esto en nuestra gran base de datos",
+    "question": "Si lo sabes, ¿cuál es tu grupo sanguíneo?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "No sé mi grupo sanguíneo con certeza",
+      "pfnts": "Prefiero no decir"
+    }
+  },
+
+  "dashboard": {
+    "report-today": "Informe hoy, incluso si está bien",
+    "report-now": "Informe ahora",
+    "you-have-reported-x-times": "Has informado %{count} veces",
+    "contributors-so-far": "Colaboradores hasta ahora:",
+
+    "trendline-card": {
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      },
+      "share-cta": ""
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "",
+    "delta-week": "",
+    "cta": ""
+  },
+
+  "search-lad": {
+    "input-label": "",
+    "input-placeholder": "",
+    "no-result": ""
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Uppskattade fall",
+    "daily": "Dagliga nya fall",
+    "active": "Aktiva fall",
+    "cta": "Fler detaljer"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Panel",
+    "second-tab": "Últimas noticias"
+  },
+
+  "latest-news": {
+    "title": "Últimas noticias"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID en la {{location}}",
+    "current-estimates": "estimaciones actuales",
+    "active-cases-in-area": "Casos activos\nen su área",
+    "not-enough-contributors": "No hay suficientes colaboradores\nen esta área",
+    "share": "Comparte tu mapa",
+    "update-postcode": "Actualice su código postal para ver nuestros casos estimados en su área",
+    "update-postcode-cta": "Actualizar código postal"
+  },
+
+  "__IGNORE__": {
+    "partners": {
+      "powered-by": false,
+      "data-analysis": false
+    },
+
+    "validation-study-intro": {
+      "title": false,
+      "subtitle": false,
+      "info": false,
+      "yes": false,
+      "no": false,
+      "app-name": false
+    },
+
+    "validation-study-info": {
+      "title": false,
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "interested": false,
+      "visit-next": false
+    },
+
+    "covid-test": {
+      "question-invite-to-test": false
+    },
+
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
+    },
+
+    "vaccine-registry": {
+      "covid-prevention": false,
+      "can-we-contact": false,
+      "yes": false,
+      "no": false,
+      "next": false,
+      "creating-registry": false,
+      "not-ourselves": false,
+      "not-share": false,
+      "prioritise": false,
+      "tell-friends": false,
+      "share-title": false,
+      "share-text": false,
+      "callout-title": false,
+      "callout-text": false,
+      "callout-link-text": false,
+      "menu-item": false
+    },
+
+    "nhs-study-intro": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "nhsID-placeholder": false,
+      "text-3": false,
+      "text-cancel": false,
+      "consent": false,
+      "next": false
+    },
+
+    "nhs-study-questions": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "text-3": false,
+      "text-link": false
+    },
+
+    "nhs-test-detail": {
+      "title": false,
+      "date-label": false,
+      "date-required": false,
+      "mechanism-label": false,
+      "mechanism-required": false,
+      "mechanism-saliva": false,
+      "mechanism-swab": false,
+      "fridge-label": false,
+      "fridge-required": false,
+      "days-label": false,
+      "days-required": false,
+      "days-placeholder": false,
+      "cta-add": false
+    },
+
+    "covid-test-list": {
+      "nhs-text": false,
+      "nhs-text-link": false
+    }
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+    "child-being-reported-for": "",
+
+    "info": {
+      "title": "",
+      "text": "",
+      "cta-title": "",
+      "cta-text": "",
+      "cta-link": "",
+      "learn-more-title": "",
+      "learn-more-text": ""
+    },
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "title-higher-education": "",
+      "description": "",
+      "description-link": "",
+      "description-higher-education": "",
+      "disclaimer-1": "",
+      "disclaimer-2": "",
+      "disclaimer-3": "",
+      "remove": "",
+      "removeHigherEducation": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "school-code-title": "",
+      "school-code-instructions": "",
+      "school-code-placeholder": "",
+      "school-code-confirm": "",
+      "school-code-confirm-instructions": "",
+
+      "cta": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": "",
+
+      "university-network-header": "",
+      "university-network-body": "",
+      "school-network-header": "",
+      "school-network-body": "",
+      "more-information": "",
+      "school-url-label": "",
+      "school-url": "",
+      "university-url-label": "",
+      "university-url": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": "",
+        "label-higher-education": "Select your university"
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
+    },
+
+    "groups-list": {
+      "title": "",
+      "subtitle": "",
+      "text": "",
+      "add-new-bubble": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": ""
+    },
+
+    "dashboard": {
+      "title": "",
+      "at-the-school": "",
+      "updated-on": "",
+      "students-with": "",
+      "confirmed": "",
+      "reported": "",
+      "recovered": "",
+      "total": "",
+      "more-details": "",
+      "faq": "",
+      "disclaimer": "",
+      "disclaimer2": ""
+    }
+  }
+}

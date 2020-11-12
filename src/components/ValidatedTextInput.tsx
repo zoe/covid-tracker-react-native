@@ -1,45 +1,66 @@
-import React, {Component} from "react";
-import {StyleSheet, TextInput, TextInputProps, View} from "react-native";
-import {colors} from "../../theme";
-import {Icon} from "native-base";
+import React, { Component } from 'react';
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
+
+import Error from '@assets/icons/Error';
+import { colors } from '@theme';
 
 interface Props extends TextInputProps {
-    error?: any;
+  error?: any;
 }
 
-// todo: icon
-export class ValidatedTextInput extends Component<Props, {}> {
-    private textInput: any;
+export class ValidatedTextInput extends Component<Props, object> {
+  private textInput: any;
 
-    focus() {
-        this.textInput.focus();
-    }
+  focus() {
+    this.textInput.focus();
+  }
 
-    render() {
-        const {error} = this.props;
-        return (
-          <View style={{flexDirection: "row"}}>
-              <TextInput
-                ref={(input) => this.textInput = input}
-                {...this.props}
-                style={[
-                    styles.inputStyle,
-                    {borderBottomColor: error ? colors.feedbackBad : colors.tertiary}
-                ]}
-              />
-              {error && <Icon name='close' style={{color: colors.feedbackBad}}/>}
-          </View>
-        );
-    }
+  render() {
+    const { error } = this.props;
+    return (
+      <View
+        style={[
+          styles.inputWrapper,
+          {
+            borderColor: error ? colors.feedbackBad : 'transparent',
+          },
+        ]}>
+        <TextInput
+          ref={(input) => (this.textInput = input)}
+          style={[styles.inputStyle, this.props.multiline ? styles.multipleLines : styles.singleLine]}
+          placeholderTextColor={colors.secondary}
+          {...this.props}
+        />
+        {error && <Error />}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    inputStyle: {
-        flex: 1,
-        height: 40,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.primary,
-        fontSize: 16,
-        marginVertical: 10
-    }
+  inputWrapper: {
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+    borderWidth: 1,
+    paddingRight: 8,
+  },
+  inputStyle: {
+    color: colors.primary,
+    flex: 1,
+    fontSize: 16,
+    fontFamily: 'SofiaProRegular',
+    paddingLeft: 12,
+    paddingRight: 16,
+  },
+  singleLine: {
+    height: 48,
+  },
+  multipleLines: {
+    height: 96,
+    marginVertical: 8,
+  },
 });

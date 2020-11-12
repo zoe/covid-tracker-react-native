@@ -1,136 +1,86 @@
-import React, {Component} from "react";
-import {StyleSheet} from "react-native";
-import Screen, {FieldWrapper, Header, ProgressBlock} from "../../components/Screen";
-import {HeaderText} from "../../components/Text";
-import {Form, Text} from "native-base";
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import ProgressStatus from "../../components/ProgressStatus";
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { HeaderText } from '@covid/components/Text';
+import i18n from '@covid/locale/i18n';
+import { assessmentService } from '@covid/Services';
+import { SelectorButton } from '@covid/components/SelectorButton';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 
-import {colors, fontStyles} from "../../../theme"
-import UserService, {isUSLocale} from "../../core/user/UserService";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
-import {BigButton} from "../../components/Button";
-
+import { ScreenParamList } from '../ScreenParamList';
 
 type LocationProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>
-    route: RouteProp<ScreenParamList, 'WhereAreYou'>;
-}
+  navigation: StackNavigationProp<ScreenParamList, 'WhereAreYou'>;
+  route: RouteProp<ScreenParamList, 'WhereAreYou'>;
+};
 
 export default class WhereAreYouScreen extends Component<LocationProps> {
-    constructor(props: LocationProps) {
-        super(props);
-        this.handleAtHome = this.handleAtHome.bind(this);
-        this.handleAtHospital = this.handleAtHospital.bind(this);
-        this.handleBackAtHome = this.handleBackAtHome.bind(this);
-        this.handleStillAtHome = this.handleStillAtHome.bind(this);
+  private async updateAssessment(status: string, isComplete = false) {
+    const assessment = {
+      location: status,
+    };
+
+    if (isComplete) {
+      await assessmentService.completeAssessment(
+        assessment,
+        assessmentCoordinator.assessmentData.patientData.patientInfo!
+      );
+    } else {
+      await assessmentService.saveAssessment(assessment);
     }
+  }
 
-    handleAtHome() {
-        this.updateAssessment('home')
-            .then(response => this.props.navigation.navigate('LevelOfIsolation', {
-                assessmentId: this.props.route.params.assessmentId,
-            }))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
+  handleLocationSelection = async (location: string, endAssessment: boolean) => {
+    try {
+      await this.updateAssessment(location, endAssessment);
+      assessmentCoordinator.gotoNextScreen(this.props.route.name, { location, endAssessment });
+    } catch (error) {
+      this.setState({ errorMessage: i18n.t('something-went-wrong') });
     }
+  };
 
-    handleAtHospital() {
-        this.updateAssessment('hospital')
-            .then(response => this.props.navigation.navigate('TreatmentSelection', {
-                assessmentId: this.props.route.params.assessmentId,
-                location: 'hospital'
-            }))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
-    }
+  render() {
+    const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
 
-    handleBackAtHome() {
-        this.updateAssessment('back_from_hospital')
-            .then(response => this.props.navigation.navigate('TreatmentSelection', {
-                assessmentId: this.props.route.params.assessmentId,
-                location: 'back_from_hospital'
-            }))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
-    }
+    return (
+      <Screen profile={currentPatient.profile} navigation={this.props.navigation}>
+        <Header>
+          <HeaderText>{i18n.t('where-are-you.question-location')}</HeaderText>
+        </Header>
 
-    handleStillAtHome() {
-        this.updateAssessment('back_from_hospital')
-            .then(response => this.props.navigation.navigate('ThankYou'))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
-    }
+        <ProgressBlock>
+          <ProgressStatus step={6} maxSteps={6} />
+        </ProgressBlock>
 
-    private updateAssessment(status: string) {
-        const assessmentId = this.props.route.params.assessmentId;
-        const userService = new UserService();
-        const promise = userService.updateAssessment(assessmentId, {
-            location: status
-        });
-        return promise;
-    }
-
-
-    render() {
-
-
-        const medicalBuilding = isUSLocale() ? "clinic or hospital" : "hospital";
-
-        return (
-            <Screen>
-                <Header>
-                    <HeaderText>Where are you right now?</HeaderText>
-                </Header>
-
-                <ProgressBlock>
-                    <ProgressStatus step={4} maxSteps={5}/>
-                </ProgressBlock>
-
-                <Form style={styles.form}>
-
-
-                    <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={this.handleAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I'm at home. I haven't been to a {medicalBuilding} for suspected COVID-19 symptoms.</Text>
-                        </BigButton>
-                    </FieldWrapper>
-
-                    <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={this.handleAtHospital}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am at the {medicalBuilding} with suspected COVID-19 symptoms.</Text>
-                        </BigButton>
-                    </FieldWrapper>
-
-                    <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={this.handleBackAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am back from the {medicalBuilding}, I'd like to tell you about my treatment.</Text>
-                        </BigButton>
-                    </FieldWrapper>
-
-                    <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={this.handleStillAtHome}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>I am back from the {medicalBuilding}, I've already told you about my treatment.</Text>
-                        </BigButton>
-                    </FieldWrapper>
-                </Form>
-
-            </Screen>
-        )
-    }
+        <View style={styles.content}>
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('home', true)}
+            text={i18n.t('where-are-you.picker-location-home')}
+          />
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('hospital', false)}
+            text={i18n.t('where-are-you.picker-location-hospital')}
+          />
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('back_from_hospital', false)}
+            text={i18n.t('where-are-you.picker-location-back-from-hospital')}
+          />
+          <SelectorButton
+            onPress={() => this.handleLocationSelection('back_from_hospital', true)}
+            text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
+          />
+        </View>
+      </Screen>
+    );
+  }
 }
 
-
 const styles = StyleSheet.create({
-
-    form: {
-        marginVertical: 32,
-    },
-
-    fieldWrapper: {
-        // marginVertical: 32,
-    },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
-})
+  content: {
+    marginVertical: 32,
+  },
+});

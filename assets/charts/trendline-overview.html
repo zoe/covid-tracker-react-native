@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body class="data-page">
+
+  <canvas id="overTime" class="chartjs-render-monitor"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+  <script>
+    const primaryColor = '#0165B5'
+    var ctx = document.getElementById('overTime');
+    var chart;
+
+    window.covid = {
+      setData: function (event) {
+        const { labels, values } = event.payload;
+        setupChart(labels, values)
+      },
+      emit: function (event, data) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({
+          type: event, data
+        }));
+      }
+    };
+
+    window.covid.emit('loaded', {});
+
+    Chart.defaults.global.defaultFontSize = 10;
+
+    const setupChart = function (labels, data) {
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Predicted # of cases',
+            data: data,
+            borderWidth: 2,
+            borderColor: primaryColor,
+            pointBorderColor: primaryColor,
+            pointBackgroundColor: primaryColor,
+            pointHoverBackgroundColor: primaryColor,
+            pointHoverBorderColor: primaryColor,
+            pointBorderWidth: 2,
+            pointHoverRadius: 2,
+            pointHoverBorderWidth: 1,
+            pointRadius: 0.1,
+            fill: false,
+		    lineTension: 0,
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          legend: {
+            display: false,
+          },
+          tooltips: {
+            callbacks: {
+              label: function (tooltipItems, data) {
+                return 'Predicted # of cases: ' + data.datasets[0].data[tooltipItems.index].toLocaleString();
+              }
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                max: Math.max(...data),
+                stepSize: Math.max(...data) / 30,
+                callback: (value) => Math.round(value),
+              },
+              gridLines: {
+                color: "rgba(0, 0, 0, 0.05)",
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                // type: 'time',
+                // time: {
+                //   unit: 'day'
+                // },
+                // beginAtZero: false,
+                // autoSkip: true,
+                // maxTicksLimit: 6
+                maxRotation: 0,
+                minRotation: 0
+              },
+              gridLines: {
+                color: "transparent",
+              }
+            }]
+          },
+          label: {
+            fontFamily: 'Sofia pro',
+          }
+        }
+      });
+    }
+
+    window.covid.emit('loaded', {});
+  </script>
+</body>
+
+</html>

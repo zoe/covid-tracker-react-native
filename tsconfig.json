@@ -2,10 +2,8 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
+    "target": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
@@ -15,6 +13,17 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
-  }
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"],
+      "@theme": ["./theme"],
+      "@theme/*": ["./theme/*"],
+      "@covid/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules/", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

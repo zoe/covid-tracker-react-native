@@ -1,0 +1,1522 @@
+{
+  "create-account": {
+    "title": "Skapa nytt konto",
+    "btn": "Skapa konto",
+    "login": "Logga in",
+    "existing-account": "till befintligt konto.",
+    "email": "Din e-postadress",
+    "password": "Skapa lösenord",
+    "if-you-have-an-account": "Har du redan ett konto?",
+    "already-registered": "Ett konto kopplat till denna e-postadress finns redan. Försök logga in i stället.",
+    "email-required": "Ange din e-postadress",
+    "email-error": "Korrigera din e-postadress",
+    "password-required": "Ange ett lösenord",
+    "password-too-simple": "Lösenordet måste vara minst åtta tecken långt och får inte bara innehålla siffror",
+    "something-went-wrong": "Någonting gick fel: %{msg}",
+    "error": "Fel nr 01. Rapportera detta till covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "legal": {
+    "i-agree": "Jag godkänner",
+    "back": "Tillbaka",
+    "confirm": ""
+  },
+
+  "title-about-work": "Om ditt arbete",
+  "are-you-healthcare-staff": "Arbetar du inom hälso- och sjukvården (sjukhus, primärvård, kommunal omsorg, privat vård eller omsorg)?",
+  "yes-interacting-patients": "Ja, och jag träffar patienter",
+  "yes-not-interacting-patients": "Ja, men för närvarande träffar jag inga patienter",
+  "are-you-carer": "Vårdar du flera personer i samhället och har direktkontakt med dina patienter?",
+  "required-is-healthcare-worker": "Ange om du är vårdpersonal",
+  "required-is-carer": "Ange om du arbetar som vårdare",
+  "label-physically-worked-in-places": "Har du, sedan COVID-19-epidemin startade, arbetat på?",
+  "your-work": {
+    "worked-hospital-inpatient": "Sjukhus (inom slutenvård)",
+    "worked-hospital-outpatient": "Öppenvårdsmottagning",
+    "worked-clinic-outside-hospital": "Vårdcentral",
+    "worked-nursing-home": "Vårdhem/äldreboende eller gruppboende",
+    "worked-home-health": "Hemtjänst",
+    "worked-school-clinic": "Elevhälsa",
+    "worked-other-facility": "Annan vårdanläggning"
+  },
+
+  "label-interacted-with-infected-patients": "Har du NÅGONSIN haft direktkontakt med patienter med bekräftad eller sannolik COVID-19-infektion?",
+  "required-has-patient-interaction": "Ange om du har haft direktkontakt med patient med COVID-19",
+
+  "label-used-ppe-equipment": "Sedan COVID-19-epidemin startade, har du använt skyddsutrustning på arbetet?",
+  "label-used-ppe-equipment-footnote": "*Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
+  "label-ppe-equipment-available": "Är all den personliga skyddsutrustning du behöver tillgänglig?",
+  "label-chose-an-option": "Välj ett av alternativen",
+  "label-check-all-that-apply": "Markera alla som är tillämpliga",
+  "required-ppe-availability": "Ange tillgänglighetsnivån för skyddsutrustning på arbetet.",
+
+  "title-about-you": "Om dig",
+
+  "what-year-were-you-born": "Vilket år är du född?",
+  "placeholder-year-of-birth": "Födelseår",
+  "required-year-of-birth": "Ange ditt födelseår",
+  "correct-year-of-birth": "Korrigera ditt födelseår",
+
+  "your-sex-at-birth": "Vilket kön tilldelades du när du föddes?",
+  "sex-at-birth-male": "Man",
+  "sex-at-birth-female": "Kvinna",
+  "sex-at-birth-intersex": "Intersex",
+  "sex-at-birth-pfnts": "Vill inte ange",
+  "placeholder-sex": "Tilldelat kön",
+  "required-sex-at-birth": "Ange det kön du tilldelades vid födseln",
+
+  "label-gender-identity": "Vilket kön identifierar du dig mest med?",
+  "label-gender-identity-other": "Ange som du vill:",
+
+  "gender-identity-male": "Man",
+  "gender-identity-female": "Kvinna",
+  "gender-identity-pfnts": "Vill inte ange",
+  "placeholder-gender-identity": "Din könsidentitet",
+  "required-gender-identity": "Ange det kön du identifierar dig mest med",
+  "gender-identity-other": "Annat, ange",
+  "error-gender-identity-length": "Maximalt 30 tecken",
+
+  "your-height": "Längd",
+  "placeholder-height": "Längd",
+  "placeholder-feet": "Feet",
+  "placeholder-inches": "Inches",
+  "placeholder-height-unit": "Height Units",
+  "picker-feet": "ft",
+  "picker-cm": "cm",
+  "required-height-in-cm": "Ange din längd i centimeter",
+  "required-height-in-ft-in": "Please enter your height in feet & inches",
+
+  "your-weight": "Vikt",
+  "placeholder-weight": "Vikt",
+  "placeholder-stones": "Stones",
+  "placeholder-pounds": "Pounds",
+  "required-weight-in-kg": "Ange din vikt i kg",
+  "required-weight-in-lb": "Please enter your weight in pounds",
+
+  "placeholder-weight-unit": "Weight units",
+  "picker-pounds": "lbs",
+  "picker-kg": "kg",
+
+  "your-postcode": "Postnummer",
+  "placeholder-postcode": "Postnummer",
+  "required-postcode": "Ange ditt postnummer",
+  "postcode-too-long": "Korrigera ditt postnummer",
+
+  "picker-yes": "Ja",
+  "picker-no": "Nej",
+  "picker-unsure": "Osäker",
+  "please-select-option": "Välj ett alternativ",
+  "placeholder-optional-question": "*Valfritt",
+  "placeholder-optional": "Valfri",
+
+  "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
+  "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
+  "exposed-yes-undocumented": "Ja, sannolikt COVID-19-fall",
+  "exposed-both": "Ja, både bekräftat och sannolikt COVID-19-fall",
+  "exposed-no": "Inte vad jag vet",
+
+  "housebound-problems": "Har du några hälsoproblem som gör att du har svårt att lämna hemmet?",
+  "needs-help": "Behöver du regelbundet hjälp från andra personer?",
+  "help-available": "Om du behöver hjälp, har du någon nära dig som kan hjälpa dig?",
+  "mobility-aid": "Använder du regelbundet käpp, rullator eller rullstol för att ta dig fram?",
+
+  "your-health": {
+    "page-title": "Om din hälsa",
+    "health-problems-that-limit-activity": "Har du några hälsoproblem som vanligtvis kräver att du begränsar dina aktiviteter?",
+    "are-you-pregnant": "Är du gravid?",
+    "picker-pregnant": "Jag är gravid",
+    "picker-pfnts": "Vill ej uppge",
+    "picker-other": "Annat",
+    "have-heart-disease": "Har du någon hjärtsjukdom?",
+    "have-diabetes": "Har du diabetes?",
+    "have-hayfever": "Har du pollenallergi (säsongsbetonad allergi)?",
+    "have-eczema": "Har du eksem?",
+    "have-asthma": "Har du astma?",
+    "have-lung-disease": "Har du en lungsjukdom?",
+    "is-smoker": "Röker du?",
+    "never-smoked": "Nej, aldrig rökt",
+    "not-currently-smoking": "Nej, men tidigare varit rökare",
+    "yes-smoking": "Ja, röker",
+    "years-since-last-smoked": "Hur många år är det sedan du rökte?",
+    "has-kidney-disease": "Har du någon njursjukdom?",
+    "has-cancer": "Har du cancer?",
+    "what-cancer-type": "Vilken typ av cancer har du?",
+    "is-on-chemotherapy": "Behandlas din cancer med kemoterapi eller immunoterapi?",
+    "takes-immunosuppressant": "Tar du regelbundet mediciner som kan påverka ditt immunförsvar, t.ex. kortisontabletter, Metotrexate® eller biologiska läkemedel (som används vid t.ex. vissa typer av cancer eller reumatisk sjukdom)?",
+    "takes-asprin": "Tar du regelbundet aspirin/acetylsalicylsyra (inkl. acetylsalicylsyra i lågdos t.ex. Trombyl®)?",
+    "takes-nsaids": "Tar du regelbundet icke-steroida antiinflammatoriska läkemedel (NSAID), t.ex. Ipren®, Brufen®, Eeze®, Voltaren®, eller Naproxen®?”",
+    "takes-any-blood-pressure-medication": "Tar du regelbundet någon blodtryckssänkande medicin?",
+    "takes-pril-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar med -pril, t.ex. enalapril (t.ex. Enalapril®, Renitec®), lisinopril (t.ex. Lisinopril®, Zestril®), captopril (t.ex. Captopril®) eller ramipril (t.ex. Ramipril®, Triatec®)?",
+    "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
+  },
+
+  "previous-exposure-title": "Tidigare exponering för COVID-19",
+  "required-ever-exposed": "Ange om du har träffat någon med COVID-19-infektion",
+  "label-unwell-month-before": "Har du känt dig sjuk under månaden innan du började rapportera i denna app?",
+
+  "label-past-symptoms": "Hade du någon av följande symtom (markera alla som stämde in på dig):",
+  "label-past-symptom-anosmia": "Förlust av lukt/smak",
+  "label-past-symptom-breath": "Andningsbesvär",
+  "label-past-symptom-fatigue": "Uttalad trötthet",
+  "label-past-symptom-fever": "Feber",
+  "label-past-symptom-skipped-meals": "Aptitlöshet",
+  "label-past-symptom-cough": "Ihållande hosta",
+  "label-past-symptom-diarrhoea": "Diarré",
+  "label-past-symptom-chest-pain": "Ovanlig smärta i bröstet eller tryck över bröstet",
+  "label-past-symptom-hoarse-voice": "Heshet",
+  "label-past-symptom-abdominal-pain": "Ont i magen",
+  "label-past-symptom-confusion": "Förvirring, desorientering eller dåsighet",
+
+  "label-past-symptoms-days-ago": "För hur många dagar sedan började dina symtom?",
+  "label-past-symptoms-still-have": "Har du fortfarande symtom?",
+
+  "label-past-symptoms-changed": "Hur har dina symtom förändrats under de senaste dagarna?",
+  "past-symptom-changed-much-better": "Blivit mycket bättre",
+  "past-symptom-changed-little-better": "Blivit lite bättre",
+  "past-symptom-changed-same": "Ingen förändring",
+  "past-symptom-changed-little-worse": "Blivit lite sämre",
+  "past-symptom-changed-much-worse": "Blivit mycket sämre",
+
+  "title-health-worker-exposure": "Exponering för COVID-19 för vårdpersonal",
+  "health-worker-exposure-question-interacted-any-patients": "Har du det senaste dygnet träffat patienter (ej via telefon eller videolänk)?",
+  "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik COVID-19-infektion?",
+  "health-worker-exposure-picker-patient-interaction-yes-documented": "Ja, bekräftat COVID-19-fall",
+  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Ja, sannolikt COVID-19-fall",
+  "health-worker-exposure-picker-patient-interaction-yes-both": "Ja, både bekräftade och sannolika COVID-19-fall",
+  "health-worker-exposure-picker-patient-interaction-no": "Inte vad jag vet",
+
+  "health-worker-exposure-question-has-used-ppe-equipment": "Har du det senaste dygnet använt skyddsutrustning på arbetet *Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
+  "health-worker-exposure-picker-ppe-always": "Alltid",
+  "health-worker-exposure-picker-ppe-sometimes": "Ibland",
+  "health-worker-exposure-picker-ppe-never": "Aldrig",
+
+  "health-worker-exposure-picker-ppe-always-all-needed": "Jag har haft tillgång till all skyddsutrustning jag behöver för arbetet",
+  "health-worker-exposure-picker-ppe-always-reused": "Jag har varit tvungen att återanvända skyddsutrustning pga bristande tillgång",
+  "health-worker-exposure-picker-ppe-sometimes-all-needed": "Jag har inte behövt använda skyddsutrustning hela tiden, men när jag behövt det så har det funnits tillräckligt",
+  "health-worker-exposure-picker-ppe-sometimes-not-enough": "Jag borde ha använt skyddsutrustning hela tiden, men har inte haft tillräcklig tillgång",
+  "health-worker-exposure-picker-ppe-sometimes-reused": "Jag har varit tvungen att återanvända skyddsutrustning pga bristande tillgång",
+  "health-worker-exposure-picker-ppe-never-not-needed": "Jag har inte behövt någon skyddsutrustning",
+  "health-worker-exposure-picker-ppe-never-not-available": "Jag behövde skyddsutrustning, men ingen fanns tillgänglig",
+
+  "required-treated-patients-with-covid": "Ange om du har behandlat några patienter med COVID-19 det senaste dygnet",
+  "required-has-used-ppe-equipment": "Ange hur ofta du har använt skyddsutrustning",
+  "required-ppe-availability-always": "Ange tillgängligheten av skyddsutrustning för dig",
+  "required-ppe-availability-sometimes": "Ange tillgängligheten av skyddsutrustning för dig",
+  "required-ppe-availability-never": "Ange tillgängligheten av skyddsutrustning för dig",
+
+  "covid-test": {
+    "page-title": "Test för COVID-19",
+    "page-title-detail-add": "Lägg till nytt test",
+    "page-title-detail-update": "Uppdatera test",
+    "add-test": "Lägg till test",
+    "update-test": "Uppdatera test",
+
+    "delete-test": "Ta bort testet",
+    "delete-test-alert-title": "Ta bort testet?",
+    "delete-test-alert-text": "Informationen kommer att gå förlorad. Vill du fortsätta?",
+
+    "question-select-a-date-range": "Välj ett datumintervall",
+    "question-select-a-date": "Välj ett datum",
+
+    "question-time-test-taken": "Vilken tid tog du testet?",
+    "question-time-test-taken-error": "Ange tidpunkten för ditt möte",
+    "question-pick-a-time": "Välj en tid",
+
+    "question-mechanism": "Vilken typ av test gjorde du?",
+    "picker-nose-swab": "En testpinne i näsan",
+    "picker-throat-swab": "En testpinne i svalget",
+    "picker-nose-throat-swab": "En testpinne i näsan eller svalget",
+    "picker-saliva-sample": "Jag spottade i en kopp/ett rör",
+    "picker-blood-sample": "Jag lämnade ett blodprov",
+    "picker-finger-prick": "Blodprov, stick i fingret (antikroppstest)",
+    "picker-blood-draw": "Blodprov i armvecket (antikroppstest)",
+    "picker-other": "Annat sätt, ange vilket",
+
+    "question-mechanism-specify": "Ange hur testet utfördes:",
+    "question-trained-worker": "Utfördes testet av utbildad personal?",
+
+    "location": {
+      "question": "Var utfördes testet?",
+      "specify": "Por favor especifique",
+      "answers": {
+        "at-home": "Hemma",
+        "drive-through-rtc": "",
+        "drop-in-facility": "Drop-in testcenter",
+        "hospital": "Sjukhus",
+        "gp": "Vårdcentral",
+        "chemist-pharmacy": "Apotek",
+        "store-pharmacy": "Tienda o farmacia clínica",
+        "work": "På arbetsplatsen (undantaget sjukhus och vårdcentral)",
+        "local-health-department": "",
+        "other": "Annat, ange"
+      }
+    },
+
+    "question-result": "Ange provsvar",
+    "picker-positive": "Positivt",
+    "picker-negative": "Negativt",
+    "picker-waiting": "Väntar på mina resultat",
+    "picker-test-failed": "Inkonklusivt / provtagning misslyckades",
+
+    "question-knows-date-of-test": "Vet du vilket datum du testades?",
+    "question-date-test-occurred": "När testades du?",
+    "question-date-test-occurred-guess": "Mellan vilka två datum tror du att testet utfördes?",
+
+    "required-date": "Ange datum när testet utfördes",
+    "required-dates": "Ange mellan vilka två datum testet utfördes",
+    "required-mechanism": "Ange hur testet utfördes",
+    "required-result": "Ange testresultatet",
+
+    "confirm-test": {
+      "title": "",
+      "body": "",
+      "consent": ""
+    }
+  },
+
+  "how-you-feel": {
+    "question-health-status": "Hur mår du i kroppen just nu?",
+    "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
+    "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
+    "current-location": "Du rapporterar just nu från:",
+    "update-location": "Uppdatera plats"
+  },
+
+  "describe-symptoms": {
+    "picker-fatigue-mild": "Lindrig trötthet",
+    "picker-fatigue-severe": "Svår trötthet - Jag har svårt att ta mig upp ur sängen",
+    "picker-shortness-of-breath-mild": "- Ja. Lindriga symtom - viss andnöd under vanliga aktiviteter",
+    "picker-shortness-of-breath-significant": "- Ja. Måttliga symtom - andningen är bara bekväm i vila",
+    "picker-shortness-of-breath-severe": "- Ja. Allvarliga symtom - andningen är påverkad även i vila",
+    "picker-headache-frequency-allday": "Hela dagen",
+    "picker-headache-frequency-mostday": "Största delen av dagen",
+    "picker-headache-frequency-someday": "Del av dagen",
+    "required-headache-frequency": "Ange hur stor del av dagen du har haft huvudvärk",
+    "question-other-symptoms": "Andra viktiga symtom eller troliga orsaker du vill berätta om?",
+    "placeholder-other-symptoms": "Annan information",
+
+    "check-all-that-apply": "Markera alla tillämpliga alternativ",
+    "general-symptoms": "Har du några av följande symtom?",
+    "general-fever": "Feber (minst 37,8 °C)",
+    "general-fatigue": "Ovanlig trötthet",
+    "general-fatigue-follow-up": "Hur uttalad är din trötthet?",
+    "general-fatigue-mild": "Lindrig trötthet",
+    "general-fatigue-severe": "Allvarlig trötthet - Jag har svårt att ta mig upp ur sängen",
+    "general-rash": "Utslag på armar eller bål",
+    "general-foot-sores": "Röda/lila sår eller blåsor på fötterna, inklusive tårna",
+    "general-face-welts": "Upphöjda, röda, kliande utslag på huden eller plötslig svullnad i ansikte eller av läpparna",
+    "general-skin-burning": "Konstig eller obehaglig känsla i huden, t.ex. stickningar, domningar eller en brännande känsla",
+    "general-hair-loss": "Ovanligt håravfall",
+    "general-muscle-pain": "Svår muskelsmärta eller -värk",
+    "general-feeling-down": "Jag känner mig nedstämd, håglös eller har en känsla av hopplöshet",
+    "general-brain-fog": "Nedsatt koncentrationsförmåga eller minnesförmåga (hjärndimma/hjärntrötthet)",
+    "general-delirium": "Förvirring, desorientering eller dåsighet",
+    "general-allergy-increase": "Jag har mer allergisymtom än vanligt",
+    "follow-up-required": "Svara på uppföljningsfrågan.",
+
+    "head-symptoms": "Har du några symtom från huvud, näsa, ögon eller öron?",
+    "head-headache": "Huvudvärk",
+    "head-headache-follow-up": "Hur ofta har du huvudvärk?",
+    "head-dizzy": "Yr eller snurrig",
+    "head-loss-smell": "Förlust av lukt- och/eller smaksinne",
+    "head-altered-smell": "Förändrad lukt/smak (saker luktar eller smakar inte som de brukar)",
+    "head-runny-nose": "Snorig eller snuvig",
+    "head-sneezing": "Nyser mer än vanligt",
+    "head-eye-soreness": "Ovanligt ont eller irritation i ögnen (t.ex. ljuskänslighet, rinnande ögon, eller röda ögon [ögoninflammation])",
+    "head-earache": "Ont i öronen",
+    "head-ear-ringing": "Det ringer i öronen",
+
+    "throat-chest-symptoms": "Har du några symtom i hals- eller bröstregionen?",
+    "throat-chest-sore-throat": "Ont eller irriterad i halsen",
+    "throat-chest-swollen-glands": "Svullna lymfkörtlar på halsen",
+    "throat-chest-hoarse-voice": "Ovanligt hes röst",
+    "throat-chest-persistent-cough": "Ihållande hosta (hostar mycket under mer än en timme, eller har haft tre eller fler hostattacker under ett dygn)",
+    "throat-chest-short-breath": "Andningsbesvär eller det känns som att jag inte får tillräckligt med luft",
+    "throat-chest-short-breath-follow-up": "Hur allvarliga är dina andningsbesvär?",
+    "throat-chest-chest-pain": "Ovanlig bröstsmärta eller stramhet i bröstet",
+    "throat-chest-heart-beat": "Ovanligt snabbt eller oregelbundet hjärtslag (hjärtklappning)",
+
+    "gut-stomach-symptoms": "Har du symtom i området kring buken eller magen?",
+    "gut-stomach-abdominal-pain": "Ovanligt ont i buken eller magen",
+    "gut-stomach-nausea": "Illamående eller kräkningar",
+    "gut-stomach-diarrhoea": "Diarré",
+    "gut-stomach-skipped-meals": "Hoppat över måltider",
+
+    "other-symptoms": "Andra viktiga symtom du vill berätta om?",
+    "next": "Nästa"
+  },
+
+  "where-are-you": {
+    "question-location": "Var befinner du dig just nu?",
+    "picker-location-home": "Jag är hemma. Jag har inte haft kontakt med sjukvården pga att jag misstänker covid-19.",
+    "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
+    "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
+    "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
+  },
+
+  "treatment-other-title-after": "Vilken behandling fick du på sjukhuset",
+  "treatment-other-title-during": "Vilken behandling får du på sjukhuset?",
+  "treatment-other-question-treatment-after": "Vilken medicinsk behandling fick du?",
+  "treatment-other-question-treatment-during": "Vilken medicinsk behandling får du?",
+
+  "treatment-selection-title-after": "Vilken behandling fick du under tiden du var på sjukhuset?",
+  "treatment-selection-title-during": "Vilken behandling får du just nu?",
+  "treatment-selection-picker-none": "Ingen",
+  "treatment-selection-picker-oxygen": "Syrgas* och vätska",
+  "treatment-selection-picker-subtext-oxygen": "* Syrgas i vanlig syrgasmask, utan extra tryck",
+  "treatment-selection-picker-non-invasive-ventilation": "Andningshjälp* och syrgas",
+  "treatment-selection-picker-subtext-non-invasive-ventilation": "* Andningshjälp med hjälp av en syrgasmask som trycker ner syre i lungorna",
+  "treatment-selection-picker-invasive-ventilation": "Respiratorvård*",
+  "treatment-selection-picker-subtext-invasive-ventilation": "* Andningshjälp med respirator. Man är oftast sövd om man vårdas i respirator",
+  "treatment-selection-picker-other": "Annat",
+
+  "login": {
+    "title": "Logga in på ditt konto",
+    "email-label": "E-postadress",
+    "password-label": "Lösenord",
+    "dont-have-account": "Har du inget konto?",
+    "create-account": "Skapa konto",
+    "forgot-your-password": "Glömt lösenordet?",
+    "button": "Logga in",
+    "user-not-found-exception": "Vi kunde inte identifiera dig. Försök igen.",
+    "exception": "Det gick inte att logga in. Försök igen."
+  },
+
+  "reset-password": {
+    "title": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord",
+    "email-label": "E-postadress",
+    "email-error": "Ange en giltig e-postadress",
+    "button": "Återställ lösenord",
+    "error": "Fel nr 02. Rapportera detta till covid-bugs@joinzoe.com: %{msg}"
+  },
+
+  "reset-password-confirm": {
+    "title": "Kolla din e-post",
+    "text": "Vi har skickat en länk för återställning av lösenordet.",
+    "button": "Tillbaka"
+  },
+
+  "welcome": {
+    "title": "COVID Symptom Study",
+    "sign-in": "Logga in",
+    "take-a-minute": "Lägg 1 minut om dagen på att hjälpa oss bekämpa covid-19.",
+    "disclaimer": "Med den här appen kan du hjälpa andra, men den ger dig inga hälsoråd. För hälsorådgivning ber vi dig besöka",
+    "disclaimer-link": "1177.se",
+    "tell-me-more": "Berätta mer",
+    "visit-the-website": "Besök webbplatsen",
+    "see-how-your-area-is-affected": "Se hur ditt län påverkas av covid-19 just nu. Ditt deltagande är viktigt. Besök webbplatsen ",
+    "report-button": "Rapportera i dag, även om du är frisk",
+    "how-you-can-help": {
+      "title": "Så här kan du hjälpa till",
+      "text1": "Lägg 1 minut om dagen på att rapportera hur du mår, även om du känner dig frisk. Se sedan hur smittspridningen ser ut i ditt område.",
+      "text2": "Ingen information som du delar kommer att användas för kommersiella syften. Du uppger inte ditt namn eller ditt personnummer. Den här appen erbjuder ingen hälsorådgivning."
+    },
+    "from-researchers": "Från läkare och forskare vid",
+    "create-account": "Skapa konto",
+    "research": "Aktuellt"
+  },
+  "total-people-contributing": "%{total} personer bidrar",
+  "join-total-people-contributing": "Bli en av de %{total} personerna i världen som bidrar",
+
+  "select-country": "Välj det land du bor i",
+  "your-country-title": "Ditt land",
+  "your-country-text": "Vi är inte säker på vilket land du befinner dig i på grund av hur ditt telefonnummer är konfigurerat.",
+  "united-states": "USA",
+  "united-kingdom": "Storbritannien",
+  "sweden": "Sverige",
+
+  "thank-you": {
+    "check-for-updates": "Håll gärna utkik efter uppdateringar i vårt %{link}.",
+    "news-feed": "nyhetsflöde"
+  },
+
+  "share-this-app": {
+    "message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
+    "url": "https://covid19app.lu.se/",
+    "primary-text": "Hjälp till att sprida appen",
+    "secondary-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
+    "button-text": "Dela appen"
+  },
+
+  "thank-you-title": "Tack för att du rapporterar!",
+  "blog-link": "https://covid19app.lu.se/",
+  "thank-you-body": "Vi har nu tagit emot dagens rapport. Ditt deltagande är viktigare än någonsin i kampen mot covid-19.",
+  "check-in-tomorrow": "Besök 1177.se om du har frågor som rör din hälsa eller covid-19.",
+  "check-news-feed": "Håll gärna utkik efter uppdateringar i vårt <b>nyhetsflöde</b>.",
+  "faq-link": "https://www.covid19app.lu.se/faq",
+  "thank-you-completed": "Startsida",
+
+  "rating": {
+    "how-are-we-doing": "Vad tycker du om vårt arbete?",
+    "would-you-recommend": "Skulle du rekommendera appen till en vän eller kollega?",
+    "cta-yes": "Ja, det skulle jag",
+    "cta-no": "Nej, det skulle jag inte",
+    "rate-this-app": "Betygsätt appen",
+    "explanation": "Din feedback kan leda till att fler personer hjälper oss i kampen mot COVID-19.",
+    "cta-rate": "Betygsätt",
+    "cta-later": "Inte nu",
+    "thank-you-for-rating": "Tack för din feedback.\nVi jobbar hela tiden på att förbättra appen"
+  },
+
+  "research-updates": "Aktuella forskningsnyheter",
+  "faqs": "Vanliga frågor",
+  "privacy-policy": "Integritetsmeddelande",
+  "nav-edit-profile": "Redigera profil",
+  "nav-share-this-app": "Dela denna appen",
+  "delete-my-data": "Ta bort mina uppgifter",
+  "delete-data-alert-title": "Är du säker?",
+  "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
+  "push-notifications": "Slå på påminnelser",
+  "cancel": "Avbryt",
+  "delete": "Ta bort",
+  "estimated-cases": "Uppskattade fall",
+  "logout": "Logga ut",
+
+  "never-reported": "Aldrig rapporterat",
+  "today": "I dag",
+  "yesterday": "I går",
+  "days-ago": "%{diffDays} dagar sedan",
+
+  "adult-or-child-title": "Vem vill du rapportera åt?",
+  "adult-or-child-text": "Just nu kan du bara skapa ytterligare profiler för personer som är bosatta i Sverige.",
+  "person-over-18": "Person över 18 år",
+  "person-under-18": "Person under 18 år",
+
+  "adult-consent-title": "Vuxens medgivande",
+  "child-consent-title": "Barns medgivande",
+  "adult-consent-confirm": "Jag bekräftar ovan",
+  "child-consent-confirm": "Jag bekräftar att jag är barnets vårdnadshavare och att jag har gjort ovan",
+  "consent": "consent",
+  "consent-summary": "sammanfattning av vad vi gör",
+
+  "child-consent-text-1": "Om barnet är tillräckligt gammalt för att förstå våra",
+  "child-consent-text-2": "krav ber vi dig förklara för barnet att du delar information om honom eller henne med oss och vad vi kommer att göra med den. Om du tror att barnet är tillräckligt gammalt för att fatta ett eget beslut ber vi dig bekräfta att han eller hon har gett sitt medgivande till att du delar uppgifterna med oss.",
+  "adult-consent-text-1": "Bekräfta att du har visat eller läst vår",
+  "adult-consent-text-2": "skärm för den individ som du anger uppgifterna åt, att denne är 18 år eller äldre och att han eller hon har gett sitt medgivande till att du delar uppgifterna med oss.",
+  "consent-create-profile": "Skapa profil",
+
+  "create-profile-title": "Ge den nya profilen ett namn",
+  "create-profile-text": "Det här namnet är bara till för dig. Välj ett namn som gör det enkelt för dig att veta vilken person du rapporterar åt.",
+  "create-profile-placeholder": "t.ex. namn, smeknamn eller relation",
+  "create-profile-button": "Fortsätt",
+
+  "answer-for": "Svara åt %{name}",
+  "profile-name-too-long": "Ange ett profilnamn med färre än 32 tecken",
+
+  "report-for-others-title": "Rapporterar du åt någon annan?",
+  "report-for-others-text": "Du kan nu skapa profiler för andra personer som du vill rapportera åt.",
+  "report-for-others-add-profiles": "Lägg till profiler",
+  "report-for-others-subtext": "Du kan nu rapportera å någon annans vägnar.",
+  "report-for-others-not-right-now": "Inte just nu? Du kan när som helst lägga till ytterligare profiler från menyikonen ovan.",
+  "report-for-others-skip": "Hoppa över",
+
+  "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
+  "select-profile-title-edit": "Välj den profil du vill redigera",
+  "select-profile-text": "Eller lägg till fler profiler",
+  "select-profile-button": "Ny profil",
+  "select-profile-last-report": "Sista rapport:",
+  "default-profile-name": "Jag",
+
+  "next-question": "Nästa fråga",
+  "completed": "Klar",
+  "something-went-wrong": "Någonting gick fel, var god försök igen senare",
+  "choose-one-of-these-options": "Välj ett av alternativen",
+  "prefer-not-to-say": "Föredrar att inte svara",
+
+  "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
+
+  "validation-error-text-required": "Vänligen ge mer information",
+
+  "website-home": "https://covid.joinzoe.com/",
+
+  "back-date-profile-title": "Några fler frågor om dig",
+  "update-profile": "Uppdatera profilen",
+  "create-profile": "Skapa",
+
+  "covid-test-list": {
+    "title": "Dina covid-19-tester",
+    "text": "Lägg till eventuellt covid-19-test nedan. Detta innefattar tester för pågående infektion, dvs. PCR (näsa/svalg/saliv) och antikroppstester (blodprover). Du kan redigera dessa när som helst i framtiden.",
+    "add-new-test": "Lägg till nytt test",
+    "positive": "Positivt",
+    "negative": "Negativt",
+    "failed": "Misslyckades",
+    "pending": "Väntar",
+    "update": "",
+    "never-had-test": "Jag har aldrig testats för covid-19",
+    "above-list-correct": "Listan ovan är korrekt"
+  },
+
+  "errors": {
+    "button-retry": "Försök igen",
+    "button-okay": "Ok",
+    "status-loading": "Hämtar...",
+    "status-retrying": "Försöker igen...",
+    "user-is-offline": "Du är för närvarande offline. Kontrollera din anslutning.",
+    "resource-not-found": "Servern kunde inte hitta dina uppgifter",
+    "server-is-busy": "Servern är upptagen. Vänta och försök sedan igen",
+    "server-error": "Servern kunde inte svara just nu. Vänta och försök sedan igen."
+  },
+
+  "back": "Tillbaka",
+
+  "edit-profile": {
+    "title": "Min profil",
+    "your-location": "Din plats",
+    "text": "",
+    "archive-cta": "",
+    "done": "Klar",
+    "next": "Nästa",
+
+    "location": {
+      "title": "Min plats",
+      "label": "Postnumret till din hemadress (t.ex. 205 02)",
+      "disclaimer": "itt postnummer används för att kartlägga hur covid-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
+      "not-current-address": "Rapporterar du från en annan plats än ovan?",
+      "still-in-country": "Befinner du dig fortfarande i Sverige?",
+      "other-postcode": "Ange det postnummer du vill rapportera från",
+      "select-country": "Välj det land du befinner dig i just nu"
+    }
+  },
+
+  "face-mask": {
+    "worn-a-mask-question": "Har du under den senaste veckan använt ett munskydd när du har lämnat ditt hem?",
+    "worn-a-mask-justification": "Varför frågar vi dig detta: Dessa uppgifter kan hjälpa oss förstå hur social distansering och användning av munskydd kan påverka smittspridningen. Alla frågor är helt frivilliga men gör gärna en ungefärlig uppskattning av antalet gånger.",
+    "never": "Aldrig",
+    "sometimes": "Ibland",
+    "most-of-the-time": "För det mesta",
+    "always": "Alltid",
+    "not-applicable": "Inte tillämpligt",
+    "type-of-mask-question": "Vilken typ av munskydd/andningsmask använder du? Markera alla tillämpliga",
+    "cloth_scarf": "Tyg eller scarf",
+    "surgical": "Kirurgiskt munskydd",
+    "respirator": "N95-/FFP-skyddsmask",
+    "not-sure": "Inte säker/föredrar att inte berätta",
+    "other": "Annan, ange vilken:"
+  },
+
+  "diabetes": {
+    "justification": "Du angav tidigare att du har diabetes, vilket är en viktig riskfaktor för covid-19. Våra forskare har några uppföljande frågor för att de ska förstå mer om detta. Alla frågor är helt frivilliga.",
+    "which-type": "Vilken typ av diabetes har du?",
+    "answer-type-1": "Diabetes typ 1",
+    "answer-type-2": "Diabetes typ 2",
+    "answer-gestational": "Graviditetsdiabetes",
+    "answer-unsure": "Osäker",
+    "answer-other": "Annan typ, ange vilken-",
+    "most-recent-hemoglobin-measure": "Vad var ditt senaste HbA1c? ",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "Vilket år blev du diagnosticerad?",
+    "which-treatment": "Vilken diabetesbehandling har du? Markera alla som stämmer för dig:",
+    "answer-none": "Ingen",
+    "answer-lifestyle-mod": "Enbart livsstilsförändring (t.ex. fysisk aktivitet, kostomläggning eller viktnedgång)",
+    "answer-daily-injections": "Långverkande insulin/basinsulin eller mixinsulin (t.ex. Lantus®, Toujeo®, Levemir®, Tresiba®, Insulatard® eller Novomix®)",
+    "answer-rapid-injections": "Snabbverkande insulin (t.ex. Novorapid®, Humalog®, Fiasp®, Actrapid® eller Apidra®) som ges som måltidsinuslin och/eller hyperglykemi",
+    "answer-insulin-pump": "Kontinuerlig infusion med en insulinpump",
+    "answer-non-insulin-injections": "Injektioner med GLP-1-analog (t.ex. Victoza®, Xultophy®, Ozempic® eller Trulicity®) ",
+    "answer-other-oral-meds": "Tablettbehandling",
+    "which-oral-treatment": "Vilka läkemedel som tas oralt tar du för din diabetes? Markera alla alternativ som stämmer för dig",
+    "answer-oral-biguanide": "Metformin (t.ex. Metformin®, Janumet® eller Glucophage®)",
+    "answer-sulfonylurea": "Sulfonylurea (t.ex. Mindiab®, Daonil®, Glibenklamid® eller Glimepirid®)",
+    "answer-dpp": "DPP-4-hämmare (t.ex. Januvia®, Onglyza® eller Trajenta®)",
+    "answer-meglitinides": "Meglitinider (t.ex. NovoNorm® eller Repaglinid®)",
+    "answer-thiazolidinediones": "Glitazoner (t.ex. Actos® eller Pioglitazone®)",
+    "answer-sglt": "SGLT-2-hämmare (t.ex. Jardiance®, Forxiga®, Steglatro® eller Invokana®)",
+    "answer-other-oral-meds-not-listed": "Annan sorts tabletter som inte finns med i listan",
+    "please-specify-other-oral-meds": "Ange vilka läkemedel du tar oralt",
+    "please-select-diabetes-type": "Välj ett alternativ",
+    "please-select-diabetes-treatment": "Välj ett eller flera av alternativen ovan",
+    "question-use-cgm": "Använder du en kontinuerlig glukosmonitor (CGM)?"
+  },
+
+  "diet-study": {
+    "drawer-menu-item": "",
+    "answer-for-feb": "",
+    "answer-for-last-4-weeks": "",
+    "required": "",
+
+    "intro": {
+      "title": "COVID & Diet",
+      "description-1": "",
+      "description-2": "",
+      "cta-yes": "",
+      "cta-no-later": "",
+      "cta-no-never": ""
+    },
+
+    "next-section": "",
+
+    "about-you": {
+      "title": "",
+      "intro-1": "",
+      "intro-2": "",
+      "answer-again-1": "",
+      "answer-again-2": "",
+      "answer-again-3": ""
+    },
+
+    "weight-label": "",
+    "weight-unsure-label": "",
+    "was-pregnant-label": "",
+    "hours-of-sleep-weekday-label": "",
+    "hours-of-sleep-weekend-label": "",
+    "hours-of-sleep-placeholder": "",
+    "shift-work-label": "",
+    "food-security": {
+      "label": "",
+      "always-had-enough": "",
+      "enough-not-kinds-wanted": "",
+      "sometimes-not-enough": "",
+      "often-not-enough": "",
+      "pfnts": ""
+    },
+
+    "food-availability": {
+      "label": "",
+      "financial-limitations": "",
+      "shelter-in-place": "",
+      "shortages": "",
+      "avoidance": "",
+      "other": ""
+    },
+
+    "your-lifestyle": {
+      "title": "",
+      "title-2": ""
+    },
+
+    "physical-activity": {
+      "label": "",
+      "less-than-once-a-month": "",
+      "less-than-once-a-week": "",
+      "once-a-week": "",
+      "twice-a-week": "",
+      "three-to-four-times-a-week": "",
+      "five-or-more": "",
+      "pfnts": ""
+    },
+
+    "food-frequency": {
+      "rarely-or-never": "",
+      "less-than-once-a-week": "",
+      "once-a-week": "",
+      "two-to-three-a-week": "",
+      "four-to-six-a-week": "",
+      "one-to-two-a-day": "",
+      "three-to-four-a-day": "",
+      "five-plus-a-day": ""
+    },
+
+    "alcohol-frequency": {
+      "label": "",
+      "never": "",
+      "monthly": "",
+      "two-to-four-a-month": "",
+      "two-to-three-a-week": "",
+      "four-or-more-a-week": "",
+      "pfnts": ""
+    },
+
+    "alcohol-units": {
+      "label": "",
+      "one-to-two": "",
+      "three-to-four": "",
+      "five-to-six": "",
+      "seven-to-nine": "",
+      "ten-or-more": "",
+      "pfnts": ""
+    },
+
+    "alcohol-unit-info": {
+      "label-1": "",
+      "label-2": "",
+      "pints": "",
+      "shots": "",
+      "small-glass": "",
+      "standard-glass": "",
+      "large-glass": "",
+      "bottle-wine": "",
+      "malt-liquor": "",
+
+      "pints-volume": "",
+      "shots-volume": "",
+      "small-glass-volume": "",
+      "standard-glass-volume": "",
+      "large-glass-volume": "",
+      "bottle-wine-volume": "",
+      "malt-liquor-volume": "",
+
+      "pints-units": "",
+      "shots-units": "",
+      "small-glass-units": "",
+      "standard-glass-units": "",
+      "large-glass-units": "3",
+      "bottle-wine-units": "",
+      "malt-liquor-units": ""
+    },
+
+    "takes-supplements-label": "",
+
+    "supplements": {
+      "label": "",
+      "fiber": "",
+      "probiotic": "",
+      "iron": "",
+      "calcium": "",
+      "vitamin-d": "",
+      "zinc": "",
+      "vitamin-c": "",
+      "multivitamin": "",
+      "omega3": "",
+      "garlic": "",
+      "other": "",
+      "pfnts": "",
+      "specify": ""
+    },
+
+    "first-calories-label": "",
+    "last-calories-label": "",
+    "eats-breakfast-label": "",
+    "main-meals-label": "",
+    "main-meals-placeholder": "",
+    "snacks-label": "",
+    "snacks-placeholder": "",
+    "lost-control": "",
+
+    "diet": {
+      "label": "",
+      "mixed": "",
+      "vegetarian": "",
+      "vegan": "",
+      "pescatarian": "",
+      "keto": "",
+      "low-carb": "",
+      "low-fat": "",
+      "gluten-free": "",
+      "lactose-free": "",
+      "low-calorie": ""
+    },
+
+    "typical-diet": {
+      "title": "",
+      "text-1": "",
+      "text-2": "",
+      "fruit-1": "",
+      "fruit-2": "",
+      "fruit_juice-1": "",
+      "fruit_juice-2": "",
+      "salad-1": "",
+      "salad-2": "",
+      "vegetables-1": "",
+      "vegetables-2": "",
+      "chips-1": "",
+      "chips-2": "",
+      "pulses-1": "",
+      "pulses-2": "",
+      "fibre_rich_breakfast-1": "",
+      "fibre_rich_breakfast-2": "",
+      "wholemeal_bread-1": "",
+      "wholemeal_bread-2": "",
+      "cheese_yogurt-1": "",
+      "cheese_yogurt-2": "",
+      "crisps_snacks-1": "",
+      "crisps_snacks-2": "",
+      "sweets-1": "",
+      "sweets-2": "",
+      "ice_cream-1": "",
+      "ice_cream-2": "",
+      "fizzy_pop-1": "",
+      "fizzy_pop-2": "",
+      "red_meat-1": "",
+      "red_meat-2": "",
+      "white_meat-1": "",
+      "white_meat-2": "",
+      "red_processed_meat-1": "",
+      "red_processed_meat-2": "",
+      "white_processed_meat-1": "",
+      "white_processed_meat-2": "",
+      "white_fish_battered_breaded-1": "",
+      "white_fish_battered_breaded-2": "",
+      "white_fish-1": "",
+      "white_fish-2": "",
+      "oily_fish-1": "",
+      "oily_fish-2": "",
+      "eggs-1": "",
+      "eggs-2": "",
+      "fast_food-1": "",
+      "fast_food-2": "",
+      "live-probiotic-1": "",
+      "live-probiotic-2": "",
+      "white-bread-1": "",
+      "rice-1": "",
+      "pasta-1": "",
+      "refined_breakfast-1": "",
+      "refined_breakfast-2": "",
+
+      "section-meat": "",
+      "section-processed-meat": "",
+      "section-fish": "",
+      "section-other": "",
+      "section-refined-carbs": "",
+
+      "portions_of_fruit-label": "",
+      "portions_of_fruit-placeholder": "",
+      "glasses_of_juice-label": "",
+      "glasses_of_juice-placeholder": "",
+      "portions_of_veg-label": "",
+      "portions_of_veg-placeholder": "",
+
+      "milk-label": "",
+      "milk-whole": "",
+      "milk-semi": "",
+      "milk-skimmed": "",
+      "milk-rarely-never": "",
+      "milk-plant": "",
+      "milk-other": "",
+
+      "noticed-a-change": ""
+    },
+
+    "other-info": {
+      "label": "",
+      "placeholder": "",
+      "text-limit": "",
+      "text-limit-caption": ""
+    },
+
+    "diet-changed": {
+      "not-sure": ""
+    },
+
+    "continue-cta": "",
+    "complete-cta": "",
+
+    "consent": {
+      "header": "",
+      "paragraph": "",
+      "buttons-header": "",
+      "yes": "",
+      "no": ""
+    },
+
+    "thank-you": {
+      "title": "",
+      "text-1": ""
+    },
+
+    "thank-you-break": {
+      "description-1": "",
+      "sarah-name": "",
+      "sarah-description": "",
+      "return-later": ""
+    }
+  },
+
+  "blood-group": {
+    "justification": "Vi frågar detta då andra studier har visat att vilken blodgrupp man har kan påverka både risken att drabbas av covid-19 samt hur allvarligt sjuk man blir. Vi vill undersöka detta i vår stora deltagargrupp.",
+    "question": "Känner du till vilken blodgrupp du har? Vilken?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "Jag är inte helt säker på vilken blodgrupp jag har",
+      "pfnts": "Föredrar att inte berätta"
+    }
+  },
+
+  "__IGNORE__": {
+    "optional-info.title": false,
+    "optional-info.description": false,
+    "optional-info.name-placeholder": false,
+    "optional-info.phone-placeholder": false,
+    "optional-info.button": false,
+    "name.zoe": false,
+    "names.harvard-th-chan-school-of-public-health": false,
+    "names.mass-general-hospital": false,
+    "names.kings-college-london": false,
+    "names.stanford-university-school-of-medicine": false,
+    "names.zoe": false,
+    "label-cohort": false,
+    "donate.banner": false,
+    "donate.url": false,
+    "donate.primary-text": false,
+    "donate.secondary-text": false,
+    "donate.button-text": false,
+    "race-question": false,
+    "race-other-question": false,
+    "ethnicity-question": false,
+    "please-select-race": false,
+    "uk-asian": false,
+    "uk-black": false,
+    "uk-mixed-white-black": false,
+    "uk-mixed-other": false,
+    "uk-white": false,
+    "uk-chinese": false,
+    "uk-middle-eastern": false,
+    "uk-other": false,
+    "us-indian_native": false,
+    "us-asian": false,
+    "us-black": false,
+    "us-hawaiian_pacific": false,
+    "us-white": false,
+    "us-other": false,
+    "hispanic": false,
+    "not-hispanic": false,
+
+    "before-we-start": {
+      "title": false,
+      "yes": false,
+      "no": false
+    },
+
+    "thank-you": {
+      "check-for-updates": false,
+      "news-feed": false,
+      "our-methodology-title": false,
+      "methodology-body-1": false,
+      "methodology-body-2": false,
+      "read-more-here": false,
+      "estimate-exclusions": false,
+      "read-more-on": false,
+      "blog": false,
+      "people-with-covid-in": false,
+      "today": false,
+      "report-tomorrow": false,
+      "loading-data": false,
+      "estimate-for": false,
+      "of-residents": false,
+      "learn-more": false,
+      "almost-there": false,
+      "more-people": false,
+      "from-your-country": false,
+      "please-share": false,
+      "contribution-rank": false,
+      "places-since-yesterday": false,
+      "out-of": false,
+      "counties": false,
+      "sharing-is-caring": false,
+      "the-more-reports": false,
+      "share-this-app": false,
+      "thank-you-for-joining": false,
+      "to-help-communities": false,
+      "visit-our": false,
+      "website": false,
+      "to-see-discoveries": false,
+      "done": false,
+      "share-area-locked": false,
+      "share-area-unlocked": false
+    },
+    "your-study": {
+      "title": false,
+      "label-cohort": false,
+      "add-study-names": false,
+      "contact-name": false,
+      "uni-hospital": false,
+      "nct-number": false,
+      "if-not": false
+    },
+
+    "covid-test": {
+      "question-invite-to-test": false
+    },
+
+    "partners": {
+      "powered-by": false,
+      "data-analysis": false
+    },
+
+    "validation-study-intro": {
+      "title": false,
+      "subtitle": false,
+      "info": false,
+      "yes": false,
+      "no": false,
+      "app-name": false
+    },
+
+    "validation-study-info": {
+      "title": false,
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "interested": false,
+      "visit-next": false
+    },
+
+    "consent-normal-us": {
+      "existing-study": false,
+      "click-here": false,
+      "purpose": false,
+      "purpose-body": false,
+      "information-sharing": false,
+      "information-sharing-body": false,
+      "your-consent": false,
+      "your-consent-body": false,
+      "privacy-policy": false,
+      "you-may-withdraw": false,
+      "any-questions": false,
+      "i-consent": false,
+      "terms": false,
+      "and": false,
+      "read-accepted": false
+    },
+
+    "consent-nurses-us": {
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "header-4": false,
+      "para-4": false,
+      "header-5": false,
+      "para-5": false,
+      "header-6": false,
+      "para-6": false,
+      "header-7": false,
+      "para-7": false,
+      "header-8": false,
+      "para-8": false,
+      "header-9": false,
+      "para-9": false,
+      "header-10": false,
+      "para-10": false,
+      "header-11": false,
+      "para-11": false,
+      "header-12": false,
+      "para-12": false,
+      "para-12-2": false,
+      "header-13": false,
+      "para-13": false,
+      "header-14": false,
+      "para-14": false,
+      "header-15": false,
+      "para-15": false,
+      "para-15-2": false,
+      "header-16": false,
+      "para-16": false,
+      "para-16-2": false,
+      "informed-consent-authorization": false,
+      "header-17": false,
+      "body-17": false,
+      "header-18": false,
+      "body-18": false,
+      "i-consent": false,
+      "i-read-accept": false,
+      "terms-of-use": false,
+      "privacy-policy": false,
+      "i-agree": false
+    },
+
+    "terms-of-use-us": {
+      "header-1": false,
+      "para-1": false,
+      "para-2": false,
+      "para-3": false,
+      "privacy-policy": false,
+      "header-2": false,
+      "para-4": false,
+      "para-5": false,
+      "para-6": false,
+      "para-7": false,
+      "header-3": false,
+      "para-8": false,
+      "para-9": false,
+      "para-10": false,
+      "header-4": false,
+      "para-11": false,
+      "header-5": false,
+      "para-12": false,
+      "para-13": false,
+      "header-6": false,
+      "para-14": false,
+      "para-15": false,
+      "para-16": false,
+      "para-17": false,
+      "header-7": false,
+      "para-18": false,
+      "header-8": false,
+      "para-19": false,
+      "header-9": false,
+      "para-20": false,
+      "para-21": false,
+      "header-10": false,
+      "para-22": false,
+      "header-11": false,
+      "para-23": false,
+      "para-24": false,
+      "para-25": false,
+      "para-26": false,
+      "para-27": false,
+      "para-28": false,
+      "para-29": false,
+      "para-30": false,
+      "para-31": false,
+      "para-32": false,
+      "header-12": false,
+      "header-13": false,
+      "para-33": false,
+      "header-14": false,
+      "para-34": false,
+      "header-15": false,
+      "para-35": false,
+      "header-16": false,
+      "para-36": false,
+      "header-17": false,
+      "para-37": false,
+      "para-38": false,
+      "para-39": false,
+      "para-40": false,
+      "para-41": false,
+      "para-42": false,
+      "para-43": false,
+      "para-44": false,
+      "para-45": false,
+      "header-18": false,
+      "para-46": false,
+      "para-47": false,
+      "back": false
+    },
+    "privacy-policy-us": {
+      "header-1": false,
+      "para-1": false,
+      "header-2": false,
+      "para-2": false,
+      "header-3": false,
+      "para-3": false,
+      "header-4": false,
+      "para-4": false,
+      "header-5": false,
+      "para-5": false,
+      "header-6": false,
+      "para-6": false,
+      "header-7": false,
+      "para-7": false,
+      "header-8": false,
+      "para-8": false,
+      "header-9": false,
+      "para-9": false,
+      "header-10": false,
+      "para-10": false,
+      "header-11": false,
+      "para-11": false,
+      "header-12": false,
+      "para-12": false,
+      "header-13": false,
+      "para-13-1": false,
+      "para-13-2": false,
+      "header-14": false,
+      "para-14": false,
+      "header-15": false,
+      "para-15": false,
+      "header-16": false,
+      "para-16": false,
+      "back": false
+    },
+    "thank-you-uk": {
+      "title": false,
+      "subtitle": false,
+      "sign-off": false,
+      "cta-single-profile": false,
+      "cta-multi-profile": false
+    },
+
+    "archive-confirmation": {
+      "title": false,
+      "text": false,
+      "confirm": false,
+      "cancel": false
+    },
+
+    "archive-reason": {
+      "title": false,
+      "text": false,
+      "text2": false,
+      "choice-duplicate-account": false,
+      "choice-no-report": false,
+      "choice-moved-away": false,
+      "choice-other": false,
+      "choice-pfnts": false,
+      "choice-passed-away": false
+    },
+
+    "us-study-invite": {
+      "title": false,
+      "body": false,
+      "button": false
+    },
+
+    "vaccine-registry": {
+      "covid-prevention": false,
+      "can-we-contact": false,
+      "yes": false,
+      "no": false,
+      "next": false,
+      "creating-registry": false,
+      "not-ourselves": false,
+      "not-share": false,
+      "prioritise": false,
+      "tell-friends": false,
+      "share-title": false,
+      "share-text": false,
+      "callout-title": false,
+      "callout-text": false,
+      "callout-link-text": false,
+      "menu-item": false
+    },
+
+    "nhs-study-intro": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "nhsID-placeholder": false,
+      "text-3": false,
+      "text-cancel": false,
+      "consent": false,
+      "next": false
+    },
+
+    "nhs-study-questions": {
+      "title": false,
+      "text-1": false,
+      "text-2": false,
+      "text-3": false,
+      "text-link": false
+    },
+
+    "nhs-test-detail": {
+      "title": false,
+      "date-label": false,
+      "date-required": false,
+      "mechanism-label": false,
+      "mechanism-required": false,
+      "mechanism-saliva": false,
+      "mechanism-swab": false,
+      "fridge-label": false,
+      "fridge-required": false,
+      "days-label": false,
+      "days-required": false,
+      "days-placeholder": false,
+      "cta-add": false
+    },
+
+    "covid-test-list": {
+      "nhs-text": false,
+      "nhs-text-link": false
+    }
+  },
+
+  "dashboard": {
+    "report-today": "Rapportera idag, även om du har det bra",
+    "report-now": "Rapportera nu",
+    "you-have-reported-x-times": "Du har rapporterat %{count} gånger",
+    "contributors-so-far": "Bidragsgivare hittills:",
+
+    "trendline-card": {
+      "cta": "",
+      "delta": {
+        "up": "",
+        "down": "",
+        "from-last-week": ""
+      },
+      "share-cta": ""
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "",
+    "delta-week": "",
+    "cta": ""
+  },
+
+  "search-lad": {
+    "input-label": "",
+    "input-placeholder": "",
+    "no-result": ""
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "",
+    "estimated-cases": "Casos estimados",
+    "daily": "Nuevos casos diarios",
+    "active": "Casos activos",
+    "cta": "Más detalles"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Senaste nytt"
+  },
+
+  "latest-news": {
+    "title": "Senaste nytt"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID på {{location}}",
+    "current-estimates": "Aktuella uppskattningar",
+    "active-cases-in-area": "Aktiva ärenden\ni ditt område",
+    "not-enough-contributors": "Inte tillräckligt med bidragsgivare\npå detta område",
+    "share": "Dela din karta",
+    "update-postcode": "Uppdatera ditt postnummer för att se våra uppskattade fall i ditt område",
+    "update-postcode-cta": "Uppdatera postnumret"
+  },
+
+  "school-networks": {
+    "title": "",
+    "whole-school": "",
+    "awaiting-members": "",
+    "no-cases": "",
+    "confirmed-cases": "",
+    "children-being-reported-for": "",
+    "child-being-reported-for": "",
+
+    "info": {
+      "title": "",
+      "text": "",
+      "cta-title": "",
+      "cta-text": "",
+      "cta-link": "",
+      "learn-more-title": "",
+      "learn-more-text": ""
+    },
+
+    "intro": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "point-3": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "how-to": {
+      "title": "",
+      "point-1": {
+        "title": "",
+        "description": ""
+      },
+      "point-2": {
+        "title": "",
+        "description": ""
+      },
+      "cta": "",
+      "skip": ""
+    },
+
+    "join-school": {
+      "title": "",
+      "title-higher-education": "",
+      "description": "",
+      "description-link": "",
+      "description-higher-education": "",
+      "disclaimer-1": "",
+      "disclaimer-2": "",
+      "disclaimer-3": "",
+      "remove": "",
+      "removeHigherEducation": "",
+
+      "search": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "school-code-title": "",
+      "school-code-instructions": "",
+      "school-code-placeholder": "",
+      "school-code-confirm": "",
+      "school-code-confirm-instructions": "",
+
+      "cta": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": "",
+
+      "university-network-header": "",
+      "university-network-body": "",
+      "school-network-header": "",
+      "school-network-body": "",
+      "more-information": "",
+      "school-url-label": "",
+      "school-url": "",
+      "university-url-label": "",
+      "university-url": ""
+    },
+
+    "join-group": {
+      "title": "",
+      "description": "",
+
+      "dropdown": {
+        "label": "",
+        "label-higher-education": "Select your university"
+      },
+
+      "input": {
+        "label": "",
+        "placeholder": ""
+      },
+
+      "cta": "",
+      "next": ""
+    },
+
+    "success": {
+      "joined-title": "",
+      "joined-description": "",
+      "created-title": "",
+      "school-name": "",
+      "group-name": "",
+      "ref-code-is": "",
+      "copy-code": "",
+      "share": "",
+      "cta": ""
+    },
+
+    "join-error": {
+      "cta-okay": "",
+      "duplicated-membership": {
+        "title": "",
+        "description": ""
+      }
+    },
+
+    "groups-list": {
+      "title": "",
+      "subtitle": "",
+      "text": "",
+      "add-new-bubble": "",
+      "modal-body": "",
+      "button-1": "",
+      "button-2": ""
+    },
+
+    "dashboard": {
+      "title": "",
+      "at-the-school": "",
+      "updated-on": "",
+      "students-with": "",
+      "confirmed": "",
+      "reported": "",
+      "recovered": "",
+      "total": "",
+      "more-details": "",
+      "faq": "",
+      "disclaimer": "",
+      "disclaimer2": ""
+    }
+  }
+}

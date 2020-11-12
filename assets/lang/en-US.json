@@ -1,19 +1,146 @@
 {
+  "welcome": {
+    "take-a-minute": "Take 1 minute each day and help fight the outbreak in your community."
+  },
+
   "your-postcode": "Your zipcode?",
   "placeholder-postcode": "zipcode",
   "required-postcode": "Please enter your zipcode",
+  "postcode-too-long": "Please correct your zipcode",
 
-  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhea?",
-  "placeholder-diarrhoea": "hasDiarrhea",
+  "label-past-symptom-diarrhoea": "Diarrhea",
 
-  "button-at-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
-  "do-you-use-a-stick": "Do you regularly use a cane, walker or wheelchair to get about?",
+  "edit-profile": {
+    "location": {
+      "title": "My location",
+      "label": "Your permanent home zipcode (e.g. 00123)",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and study symptoms. You can find out how we use your data in our Privacy policy",
+      "not-current-address": "Are you temporarily reporting from a different location than above?",
+      "still-in-country": "Are you still in the US?",
+      "other-postcode": "Enter the zipcode you wish to report for:",
+      "select-country": "Please select which country you are now in:"
+    }
+  },
+
+  "where-are-you": {
+    "picker-location-home": "I'm at home. I haven't been to a clinic or hospital for suspected COVID-19 symptoms.",
+    "picker-location-hospital": "I am at the clinic or hospital with suspected COVID-19 symptoms.",
+    "picker-location-back-from-hospital": "I am back from the clinic or hospital, I'd like to tell you about my treatment.",
+    "picker-location-back-from-hospital-already-reported": "I am back from the clinic or hospital, I've already told you about my treatment."
+  },
+
+  "your-health": {
+    "checkbox-oestrogen-hormone-therapy": "Estrogen hormone therapy for gender transitioning"
+  },
+
+  "describe-symptoms": {
+    "question-has-diarrhoea": "Are you experiencing diarrhea?"
+  },
+
   "mobility-aid": "Do you regularly use a cane, walker or wheelchair to get about?",
 
-  "share-with-friends-message": "We can help beat #COVID19 together! Join me and take one minute a day to help fight the outbreak in our community. 🙏🏼 Download the app",
-  "share-with-friends-url": "https://covid.joinzoe.com/us",
+  "share-this-app": {
+    "message": "We can help beat #COVID19 together! Join me and take one minute a day to help fight the outbreak in our community. 🙏 Download the app",
+    "url": "https://covid.joinzoe.com/us"
+  },
+
   "website-home": "https://covid.joinzoe.com/us",
 
   "thank-you-body": "Thank you for joining millions of people supporting scientists at Massachusetts General Hospital, Stanford University School of Medicine & King's College London to help our health services.",
-  "blog-link": "https://covid.joinzoe.com/us-blog"
+  "blog-link": "https://covid.joinzoe.com/us-blog",
+  "faq-link": "https://covid.joinzoe.com/us-faq",
+
+  "race-question": "What is your race? (check all that apply):",
+  "race-other-question": "Please specify your race",
+
+  "your-study": {
+    "title": "Your clinical study",
+    "label-cohort": "Is your study one of the following?"
+  },
+
+  "adult-or-child-text": "Right now, you can only create additional profiles for US residents.",
+
+  "diet-study": {
+    "alcohol-unit-info": {
+      "label-1": "A drink is defined as one standard drink of alcohol.",
+      "label-2": "Typical standard drinks in common alcoholic beverages:",
+      "pints": "Pint or can of beer/lager/cider",
+      "shots": "Single shot of distilled spirits",
+      "small-glass": "Small glass of table wine",
+      "standard-glass": "Standard glass of table wine",
+      "large-glass": "Large glass of table wine",
+      "bottle-wine": "Bottle of wine",
+      "malt-liquor": "Malt liqour",
+
+      "pints-volume": "12 fl oz",
+      "shots-volume": "1.5 fl oz",
+      "small-glass-volume": "4 fl oz",
+      "standard-glass-volume": "6-7 fl oz",
+      "large-glass-volume": "8-9 fl oz",
+      "bottle-wine-volume": "26 fl oz",
+      "malt-liquor-volume": "8-9 fl oz",
+
+      "pints-units": "1 standard drink",
+      "shots-units": "1 standard drink",
+      "small-glass-units": "1 standard drink",
+      "standard-glass-units": "1.5 standard drink",
+      "large-glass-units": "2 standard drinks",
+      "bottle-wine-units": "5 standard drinks",
+      "malt-liquor-units": "1 standard drink"
+    },
+
+    "consent": {
+      "paragraph": "Our colleagues at MGH, Harvard School of T.H. Chan School of Public Health, and King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. \n\nWe'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. \n\nThis is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research."
+    },
+
+    "alcohol-units": {
+      "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one standard drink of alcohol."
+    },
+    "supplements": {
+      "fiber": "Fiber Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Benefiber)"
+    },
+    "main-meals-label": "How many 'main' or full meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
+    "lost-control": "Do you worry that you had lost control over how much you eat over the 4 weeks?",
+    "diet": {
+      "low-calorie": "Low-calorie diet (a low calorie diet is 1200-1500 kcal/day"
+    },
+    "typical-diet": {
+      "text-2": "Please select how often you eat at least ONE portion of the following foods & drinks. A portion includes: a handful of grapes, an orange, a serving of carrots, a side salad, a slice of bread, a glass of soda or soft drink.",
+      "fruit_juice-1": "Fruit juice ",
+      "fruit_juice-2": "(not from concentrate)",
+      "vegetables-2": "(canned / frozen / fresh but not potatoes)",
+      "chips-1": "French fries / fried potatoes",
+      "pulses-1": "Beans or legumes including black beans, chick peas, lentils",
+      "fibre_rich_breakfast-1": "Fiber-rich breakfast cereal",
+      "fibre_rich_breakfast-2": "like All Bran, Fiber One, Oatmeal, Muesli",
+      "wholemeal_bread-1": "Whole grain bread, pita or flatbread",
+      "crisps_snacks-1": "Chips / savoury snacks",
+      "sweets-1": "Cookies, cakes, chocolate, candy, desserts",
+      "fizzy_pop-1": "Non alcoholic fizzy drinks/soda (not sugar-free or diet",
+      "red_meat-2": "Steaks, roasts, chops, shoulders, or ground meat (not served as a burger)",
+      "white_meat-2": "(not in batter or breadcrumbs)",
+      "red_processed_meat-1": "Sausages, bacon, corned beef, or burgers",
+      "white_processed_meat-1": "Chicken/turkey nuggets, turkey burgers, chicken pot pies, or in batter or breaded",
+      "white_fish_battered_breaded-1": "White fish in batter or breaded – like ‘fish ‘n chips’",
+      "white_fish-1": "White fish not in batter or breaded (cod, tilapia, halibut, bass, haddock)",
+      "oily_fish-1": "Oily fish – like herrings, sardines, salmon, trout, mackerel, fresh tuna (not canned tuna)",
+      "refined_breakfast-2": "e.g. rice krispies, cheerios, cornflakes",
+      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice did you drink a day? (A standard glass is 8 oz cup)",
+      "portions_of_veg-label": "On average, how many portions of VEGETABLES did you eat a day? (Examples include 3 heaped tablespoons of carrots, a side salad, ½ cup of broccoli)",
+      "milk-whole": "Whole milk",
+      "milk-semi": "1% or 2% (low or reduced fat) milk",
+      "milk-skimmed": "Skim milk",
+      "milk-plant": "Plant-based milk such as almond or soya milk"
+    },
+
+    "intro": {
+      "description-2": "They also want to understand how the pandemic has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'."
+    },
+
+    "thank-you-break": {
+      "description-1": "\"Thank you for answering these important questions. The pandemic has led to many of us changing our eating behaviors. Help us understand how this has impacted you by answering these questions for Feb (pre-pandemic).\"",
+      "sarah-name": "Prof Christopher Gardner",
+      "sarah-description": "Nutrition Scientist,\nStanford University"
+    }
+  }
 }

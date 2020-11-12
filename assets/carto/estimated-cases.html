@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Easy example | CartoDB.js</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .map-container {
+      display: flex;
+    }
+
+    .covid-map {
+      width: 100%;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-height: 100vh !important;
+    }
+
+    .map-legend-mobile {
+      position: absolute !important;
+      display: block !important;
+      background-color: white !important;
+      padding-bottom: 20px !important;
+      bottom: 0;
+    }
+
+    .leaflet-control-attribution {
+      visibility: hidden;
+    }
+
+    @media screen and (max-height: 400px) {
+      .map-legend-mobile {
+        visibility: hidden;
+      }
+    }
+
+    .CDB-infowindow-inner {
+      padding: 8px 4px !important;
+    }
+
+    .CDB-infowindow-subtitle h5 {
+      margin-bottom: 0px !important;
+    }
+
+    .CDB-infowindow-listItem {
+      margin-top: 0px !important;
+    }
+
+    li.CDB-infowindow-listItem {
+      padding-bottom: 0px !important;
+    }
+
+    div.cartodb-infowindow {
+      max-width: 180px !important;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <link rel="stylesheet"
+    href="https://cartodb-libs.global.ssl.fastly.net/cartodbui/assets/1.0.0-assets.173/stylesheets/builder_embed.css">
+  <link rel="stylesheet"
+    href="https://assets-global.website-files.com/5e3d471e8cf4751833faf0f9/css/joinzozoe-6588f74e1279182-600bce95d784d.3350ecb78.min.css">
+</head>
+
+<body class="data-page">
+
+  <div class="map-container">
+
+    <div id="interactive-map" class="covid-map">
+      <div id="map"></div>
+    </div>
+
+    <div class="map-legend-mobile">
+      <div class="legend-list">
+        <div class="legend-list__item">
+
+          <div class="legend_icon"></div>
+          <div class="legend_label">Not enough data</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _1"></div>
+          <div class="legend_label">0 - 1000 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _2"></div>
+          <div class="legend_label">1000 - 2000 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _3"></div>
+          <div class="legend_label">2000 - 3000 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _4"></div>
+          <div class="legend_label">3000 - 5000 cases pm</div>
+        </div>
+        <div class="legend-list__item">
+          <div class="legend_icon _5"></div>
+          <div class="legend_label">5000 + cases pm</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- include cartodb.js library -->
+  <!-- <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5e3d471e8cf4751833faf0f9" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+  <script src="https://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+  <script>
+
+    // Default
+    const config = {
+      map: {
+        lat: 53.963843,
+        lng: -3.823242,
+        zoom: 6,
+      }
+    };
+
+    let cartoMap;
+
+    document.addEventListener('new-center', function (event) {
+      const { lat, lng, zoom } = event.payload;
+      window.covid.config.map = { lat, lng, zoom };
+      cartoMap.map.setView([lat, lng], config.map.zoom);
+    })
+
+    window.covid = {
+      config,
+      updateMapView: function (event) {
+        const { lat, lng, zoom } = event.payload;
+        window.covid.config.map = { lat, lng, zoom }
+        if (cartoMap) {
+          cartoMap.map.setView([lat, lng], zoom);
+        }
+      },
+      emit: function (event, data) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({
+          type: event, data
+        }));
+      }
+    };
+
+    window.onload = function main() {
+      //Create map
+
+      const mapConfig = {
+        shareable: false,
+        title: false,
+        description: false,
+        search: false,
+        zoomControl: true,
+        tiles_loader: true,
+        center_lat: window.covid.config.map.lat,
+        center_lon: window.covid.config.map.lng,
+        zoom: 6,
+        scrollwheel: false,
+        cartodb_logo: false
+      };
+
+      cartodb
+        .createVis('map', 'https://joinzoe.cartodb.com/api/v2/viz/056c4d9d-e6a1-43d4-a1f2-81538b1f62a7/viz.json', mapConfig)
+        .done(function (vis, layers) {
+          cartoMap = vis;
+          layers[1].setInteraction(true);
+          layers[1].on('featureClick', function (e, latlng, pos, data) {
+            cartodb.log.log(e, latlng, pos, data);
+            setTimeout(
+              function () {
+                $('.CDB-infowindow-close').on('click', function () {
+                  $('.cartodb-infowindow').css('visibility', 'hidden');
+                  return false;
+                });
+              }, 500);
+          });
+          var map = vis.getNativeMap();
+          vis.map.set({ minZoom: 5, maxZoom: 9 });
+
+          window.covid.emit('mapLoaded', {});
+        })
+        .error(function (err) {
+          console.log(err);
+        });
+    };
+  </script>
+
+</body>
+
+</html>

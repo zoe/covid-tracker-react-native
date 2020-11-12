@@ -1,53 +1,68 @@
-import React from "react";
-import {StyleSheet} from "react-native";
-import {Item, CheckBox, View} from "native-base";
-import {TouchableWithoutFeedback} from "react-native-gesture-handler";
-import {RegularText} from "./Text";
+import { Item, View } from 'native-base';
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
-type CheckboxProps = {
-    value: any;
-    onChange: any;
-    children: any;
+import { colors } from '@theme/colors';
+import Check from '@assets/icons/Check';
+
+import { RegularText } from './Text';
+import { ITest } from './types';
+
+const checkboxStyles = StyleSheet.create({
+  checkboxList: {
+    marginVertical: 16,
+    width: '100%',
+  },
+
+  checkboxRow: {
+    paddingVertical: 6,
+    borderColor: 'transparent',
+  },
+
+  checkboxLabel: {
+    marginLeft: 16,
+    marginRight: 32,
+  },
+
+  checkBoxText: {
+    borderColor: 'transparent',
+  },
+
+  checkBox: {
+    borderRadius: 8,
+    backgroundColor: colors.backgroundTertiary,
+    borderColor: 'transparent',
+    width: 32,
+    height: 32,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+});
+
+interface CheckboxProps extends ITest {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  children: React.ReactNode;
 }
-
-export const CheckboxItem = (props: CheckboxProps) => {
-    return (
-      <Item style={cbStyles.checkboxRow}>
-          <CheckBox
-            checked={props.value}
-            onPress={() => props.onChange(!props.value)}
-          />
-          <TouchableWithoutFeedback onPress={() => props.onChange(!props.value)}>
-              <RegularText style={cbStyles.checkboxLabel}>{props.children}</RegularText>
-          </TouchableWithoutFeedback>
-      </Item>
-    );
-};
 
 type CheckboxListProps = {
-    children: any;
-}
-
-export const CheckboxList = (props: CheckboxListProps) => {
-    return (
-      <View style={cbStyles.checkboxList}>
-          {props.children}
-      </View>
-    )
+  children: React.ReactNode;
 };
 
-const cbStyles = StyleSheet.create({
-    checkboxList: {
-        marginVertical: 16,
-        width: '100%'
-    },
+export const CheckboxItem: React.FC<CheckboxProps> = (props) => {
+  return (
+    <Item style={checkboxStyles.checkboxRow}>
+      <TouchableOpacity style={checkboxStyles.checkBox} onPress={() => props.onChange(!props.value)}>
+        {props.value && <Check />}
+      </TouchableOpacity>
+      <Item style={checkboxStyles.checkBoxText} onPress={() => props.onChange(!props.value)}>
+        <RegularText style={{ ...checkboxStyles.checkboxLabel }}>{props.children}</RegularText>
+      </Item>
+    </Item>
+  );
+};
 
-    checkboxRow: {
-        paddingVertical: 6,
-        borderColor: "transparent",
-    },
-
-    checkboxLabel: {
-        marginLeft: 16
-    }
-});
+export const CheckboxList: React.FC<CheckboxListProps> = ({ children }) => (
+  <View style={checkboxStyles.checkboxList}>{children}</View>
+);

@@ -1,112 +1,96 @@
-import React, {Component} from "react";
-import {StyleSheet} from "react-native";
-import Screen, {Header, ProgressBlock, FieldWrapper} from "../../components/Screen";
-import {screenWidth} from "../../components/Screen";
-import {HeaderText} from "../../components/Text";
-import {Text, Form} from "native-base";
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 
-import ProgressStatus from "../../components/ProgressStatus";
+import ProgressStatus from '@covid/components/ProgressStatus';
+import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import { Divider, HeaderText, RegularText } from '@covid/components/Text';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import i18n from '@covid/locale/i18n';
+import { assessmentService } from '@covid/Services';
+import { USStudyInvite } from '@covid/components/USStudyInvite';
+import { SelectorButton } from '@covid/components/SelectorButton';
+import { colors } from '@theme';
 
-import {colors, fontStyles} from "../../../theme"
-import i18n from "../../locale/i18n"
-import UserService from "../../core/user/UserService";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {ScreenParamList} from "../ScreenParamList";
-import {RouteProp} from "@react-navigation/native";
-import {BigButton} from "../../components/Button";
+import { ScreenParamList } from '../ScreenParamList';
 
-
-type HowYouFeelProps = {
-    navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>
-    route: RouteProp<ScreenParamList, 'HowYouFeel'>;
-}
-
-type State = {
-    errorMessage: string;
-}
-
-const initialState: State = {
-    errorMessage: ""
+type Props = {
+  navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
+  route: RouteProp<ScreenParamList, 'HowYouFeel'>;
 };
 
+export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [location, setLocation] = useState('');
 
-export default class HowYouFeelScreen extends Component<HowYouFeelProps, State> {
-    constructor(props: HowYouFeelProps) {
-        super(props);
-        this.state = initialState;
+  useEffect(() => {
+    const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
+    const { getName } = require('country-list');
 
-        // Fix reference to `this` inside these functions
-        this.handleFeelNormal = this.handleFeelNormal.bind(this);
-        this.handleHaveSymptoms = this.handleHaveSymptoms.bind(this);
+    return navigation.addListener('focus', () => {
+      const location = patientInfo?.current_country_code
+        ? getName(patientInfo?.current_country_code)
+        : patientInfo?.current_postcode ?? patientInfo?.postcode!;
+      setLocation(location);
+    });
+  }, [navigation]);
+
+  const handlePress = async (healthy: boolean) => {
+    const status = healthy ? 'healthy' : 'not_healthy';
+    await updateAssessment(status, healthy);
+    assessmentCoordinator.gotoNextScreen(route.name, healthy);
+  };
+
+  async function updateAssessment(status: string, isComplete: boolean) {
+    try {
+      const assessment = {
+        health_status: status,
+      };
+      if (isComplete) {
+        await assessmentService.completeAssessment(
+          assessment,
+          assessmentCoordinator.assessmentData.patientData.patientInfo!
+        );
+      } else {
+        await assessmentService.saveAssessment(assessment);
+      }
+    } catch (error) {
+      setErrorMessage(i18n.t('something-went-wrong'));
     }
+  }
 
-    handleFeelNormal() {
-        this.updateAssessment('healthy')
-            .then(response => this.props.navigation.navigate('ThankYou'))
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
-    }
+  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+  return (
+    <>
+      <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
 
-    handleHaveSymptoms() {
-        this.updateAssessment('not_healthy')
-            .then(response => this.props.navigation.navigate('DescribeSymptoms', {assessmentId: response.data.id}))// todo julien: thank you
-            .catch(err => this.setState({errorMessage: "Something went wrong, please try again later"}));
-    }
+      <Screen profile={currentPatient.profile} navigation={navigation}>
+        <Header>
+          <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
+        </Header>
 
-    private updateAssessment(status: string) {
-        const assessmentId = this.props.route.params.assessmentId;
-        const userService = new UserService();
-        const promise = userService.updateAssessment(assessmentId, {
-            health_status: status
-        });
-        return promise;
-    }
+        <Divider />
 
-    render() {
-        return (
-            <Screen>
-                <Header>
-                    <HeaderText>How do you feel physically right now?</HeaderText>
-                </Header>
+        <>
+          <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
+            <RegularText>
+              <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
+              <RegularText style={{ fontFamily: 'SofiaPro-Medium' }}>{location}</RegularText>
+            </RegularText>
+            <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
+          </TouchableOpacity>
 
-                <ProgressBlock>
-                    <ProgressStatus step={3} maxSteps={5}/>
-                </ProgressBlock>
-
-                <Form style={styles.form}>
-
-
-                    <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={this.handleFeelNormal}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("feel-normal")}</Text>
-                        </BigButton>
-                    </FieldWrapper>
-
-                    <FieldWrapper style={styles.fieldWrapper}>
-                        <BigButton onPress={this.handleHaveSymptoms}>
-                            <Text style={[fontStyles.bodyLight, styles.buttonText]}>{i18n.t("have-symptoms")}</Text>
-                        </BigButton>
-                    </FieldWrapper>
-
-                </Form>
-
-            </Screen>
-        )
-    }
-}
-
-
-const styles = StyleSheet.create({
-
-    form: {
-        marginVertical: 32,
-    },
-
-    fieldWrapper: {
-        marginVertical: 32,
-    },
-
-    buttonText: {
-        color: colors.primary,
-    },
-
-})
+          <SelectorButton
+            onPress={() => handlePress(true)}
+            text={i18n.t('how-you-feel.picker-health-status-healthy')}
+          />
+          <SelectorButton
+            onPress={() => handlePress(false)}
+            text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
+          />
+        </>
+      </Screen>
+    </>
+  );
+};

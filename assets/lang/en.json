@@ -1,37 +1,132 @@
 {
-  "create-account-title": "Create an account",
-  "create-account-btn": "Create account",
-  "create-account-login": "Log in",
-  "create-account-if-you-have-an-account": "if you already have an account",
-  "create-account-already-registered": "An account already exists with this email address",
-  "create-account-password-too-simple": "Your password must be at least 8 characters long and not numbers only",
+  "create-account": {
+    "title": "Create new account",
+    "btn": "Create account",
+    "login": "Log in",
+    "existing-account": "to existing account.",
+    "email": "Your email",
+    "password": "Create password",
+    "if-you-have-an-account": "Already have an account?",
+    "already-registered": "An account already exists with this email address. Try to log in instead.",
+    "email-required": "Please enter your email address",
+    "email-error": "Please correct your email address",
+    "password-required": "Please enter a password",
+    "password-too-simple": "Your password must be at least 8 characters long and not numbers only",
+    "something-went-wrong": "Something went wrong: %{msg}",
+    "error": "Error #01. Please report this to covid-bugs@joinzoe.com: %{msg}"
+  },
 
-  "next-question": "Next Question",
-  "feel-normal": "I feel physically normal",
-  "have-symptoms": "I'm not feeling quite right",
+  "login": {
+    "title": "Log in to\nyour account",
+    "email-label": "Email",
+    "password-label": "Password",
+    "dont-have-account": "Don't have an account?",
+    "create-account": "Create account",
+    "forgot-your-password": "Forgot your password?",
+    "button": "Log in",
+    "user-not-found-exception": "We couldn't identify you. Please try again.",
+    "exception": "Unable to log in. Please try again."
+  },
 
-  "login-title": "Log in to\nyour account",
-  "login-label": "Email",
-  "password": "Password",
-  "forgot-password": "Forgot password?",
-  "log-in": "Log in",
-  "dont-have-account": "Don't have an account?",
-  "create-account": "Create account",
-  "user-not-found-exception": "We couldn't identify you. Please try again.",
-  "login-exception": "Unable to log in. Please try again.",
+  "reset-password": {
+    "title": "Enter your email and we’ll send you a link to reset your password",
+    "email-label": "Email",
+    "email-error": "Please enter a valid email",
+    "button": "Reset password",
+    "error": "Error #02. Please report this to covid-bugs@joinzoe.com: %{msg}"
+  },
 
+  "reset-password-confirm": {
+    "title": "Check your email",
+    "text": "We've sent you a password reset link.",
+    "button": "Back"
+  },
+
+  "optional-info": {
+    "title": "Optional contact information",
+    "description": "Please share your name and phone number. This is optional. If you want to share your information with another study this will help us identify you.",
+    "name-placeholder": "Your name",
+    "phone-placeholder": "Phone number",
+    "button": "Continue"
+  },
+
+  "welcome": {
+    "title": "COVID Symptom Study",
+    "sign-in": "Log in",
+    "take-a-minute": "Take 1 minute each day and help fight the outbreak.",
+    "disclaimer": "This app allows you to help others, but does \n not give health advice. If you need health \n advice please",
+    "disclaimer-link": "visit the NHS website",
+    "tell-me-more": "Create account",
+    "visit-the-website": "Visit the website",
+    "see-how-your-area-is-affected": "Follow the discoveries \nyou made possible",
+    "report-button": "Report today, even if you're well",
+    "how-you-can-help": {
+      "title": "How you can help",
+      "text1": "Take 1 minute a day to report how you feel, even if well. Then see how your area is affected.",
+      "text2": "No information you share will be used for commercial purposes. You do not need to give us your name. This app does not give health advice."
+    },
+    "from-researchers": "From Physicians and Researchers at",
+    "create-account": "Create account",
+    "research": "RESEARCH"
+  },
+
+  "before-we-start": {
+    "title": "I am in an existing research study or trial, and I want my data to be shared with investigators on that study.",
+    "yes": "Yes, I am",
+    "no": "No, I am not"
+  },
+
+  "names": {
+    "harvard-th-chan-school-of-public-health": "Harvard T.H. Chan School of Public Health",
+    "mass-general-hospital": "Massachusetts General Hospital",
+    "kings-college-london": "King's College London",
+    "stanford-university-school-of-medicine": "Stanford University School of Medicine",
+    "zoe": "ZOE"
+  },
+
+  "legal": {
+    "i-agree": "I agree",
+    "back": "Back",
+    "confirm": "Confirm"
+  },
+
+  "next-question": "Next question",
+  "completed": "Done",
   "something-went-wrong": "Something went wrong, please try again later",
   "choose-one-of-these-options": "Choose one of the options",
 
+  "your-work": {
+    "worked-hospital-inpatient": "Hospital inpatient",
+    "worked-hospital-outpatient": "Hospital outpatient",
+    "worked-clinic-outside-hospital": "Clinic outside a hospital",
+    "worked-nursing-home": "Nursing home/elderly care or group care facility",
+    "worked-home-health": "Home health",
+    "worked-school-clinic": "School clinic",
+    "worked-other-facility": "Other health care facility"
+  },
+
+  "back-date-profile-title": "Some additional questions about you",
+  "update-profile": "Update profile",
+  "create-profile": "Create",
+
   "title-about-work": "About your work",
-  "label-cohort": "Are you participating in any of these research studies or part of these organizations?",
+
+  "your-study": {
+    "title": "Study membership",
+    "label-cohort": "Are you part of one of these population studies or organisations?",
+    "add-study-names": "Add the names of your studies",
+    "contact-name": "If you know it, what is the name of your contact at the study (investigator, physician, study coordinator, etc.)?",
+    "uni-hospital": "If you know it, what university or hospital runs this study?",
+    "nct-number": "What is the NCT number (if you know it)?",
+    "if-not": "If not"
+  },
 
   "required-is-healthcare-worker": "Please indicate if you are a healthcare worker",
   "required-is-carer": "Please indicate if you are a carer",
 
   "are-you-healthcare-staff": "Are you a healthcare worker (including hospital, elderly care, or in the community)",
-  "yes-treating-patients": "Yes, currently treat patients",
-  "yes-not-treating-patients": "Yes, do not currently treat patients",
+  "yes-interacting-patients": "Yes, I currently interact with patients",
+  "yes-not-interacting-patients": "Yes, but I do not currently interact with patients",
   "are-you-carer": "Do you care for multiple people in the community, with direct contact with your patients?",
 
   "label-physically-worked-in-places": "Since the COVID-19 epidemic began, have you physically worked in? (check all that apply)",
@@ -43,7 +138,6 @@
   "label-ppe-equipment-available": "Is the PPE equipment you need available?",
   "label-chose-an-option": "Choose one of the options",
   "label-check-all-that-apply": "Check all that apply",
-  "required-has-used-ppe-equipment": "Please indicate whether you've used PPE equipment at work.",
   "required-ppe-availability": "Please specify the availability level of PPE equipment at work.",
 
   "title-about-you": "About you",
@@ -68,8 +162,9 @@
   "gender-identity-female": "Female",
   "gender-identity-pfnts": "Prefer not to say",
   "placeholder-gender-identity": "Your gender identity",
-  "required-gender-identity": "Please indicate the sex you were assigned at birth",
+  "required-gender-identity": "Please indicate the gender you most identify with",
   "gender-identity-other": "Other, please specify",
+  "error-gender-identity-length": "Maximum 30 characters",
 
   "your-height": "Your height",
   "placeholder-height": "Height",
@@ -78,11 +173,15 @@
   "placeholder-height-unit": "Height Units",
   "picker-feet": "ft",
   "picker-cm": "cm",
+  "required-height-in-cm": "Please enter your height in centimeters as a number",
+  "required-height-in-ft-in": "Please enter your height in feet & inches",
 
   "your-weight": "Your weight",
   "placeholder-weight": "Weight",
   "placeholder-stones": "Stones",
   "placeholder-pounds": "Pounds",
+  "required-weight-in-kg": "Please enter your weight in kilograms",
+  "required-weight-in-lb": "Please enter your weight in pounds",
 
   "placeholder-weight-unit": "Weight units",
   "picker-pounds": "lbs",
@@ -90,44 +189,1332 @@
 
   "your-postcode": "Your postcode?",
   "placeholder-postcode": "Postcode",
-  "required-postcode": "Please enter your postcode (first part is sufficient)",
+  "required-postcode": "Please enter your postcode",
+  "postcode-too-long": "Please correct your postcode",
 
-  "are-you-a-member-of-twins": "Are you a member of the UK Twins Study?",
-  "placeholder-twins": "isTwinsStudy",
   "picker-yes": "Yes",
   "picker-no": "No",
+  "picker-unsure": "Unsure",
+  "please-select-option": "Please select an option",
+  "placeholder-optional-question": "*Optional",
+  "placeholder-optional": "Optional",
 
-  "do-you-use-a-stick": "Do you regularly use a stick, walking frame or wheelchair to get about?",
+  "previous-exposure-title": "Previous exposure to COVID",
+  "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
+  "label-unwell-month-before": "Have you felt unwell in the month before you started reporting on this app?",
+  "label-past-symptoms-days-ago": "How many days ago did your symptoms start?",
+  "label-past-symptoms-still-have": "Are you still experiencing symptoms?",
+  "label-past-symptoms-changed": "How have your symptoms changed over the last few days?",
 
-  "have-you-been-exposed" : "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
-  "exposed-yes-documented" : "Yes, documented COVID-19 cases only",
-  "exposed-yes-undocumented" : "Yes, suspected COVID-19 case only",
+  "label-past-symptoms": "Did you have any of the following symptoms (please select all that apply):",
+  "label-past-symptom-anosmia": "Loss of smell/taste",
+  "label-past-symptom-breath": "Unusual shortness of breath",
+  "label-past-symptom-fatigue": "Unusual fatigue",
+  "label-past-symptom-fever": "Fever",
+  "label-past-symptom-skipped-meals": "Skipped meals",
+  "label-past-symptom-cough": "Persistent cough",
+  "label-past-symptom-diarrhoea": "Diarrhoea",
+  "label-past-symptom-chest-pain": "Unusual chest pain or tightness in your chest",
+  "label-past-symptom-hoarse-voice": "Hoarse voice",
+  "label-past-symptom-abdominal-pain": "Abdominal pain",
+  "label-past-symptom-confusion": "Confusion, disorientation, drowsiness",
+  "past-symptom-changed-much-better": "Much better",
+  "past-symptom-changed-little-better": "A little better",
+  "past-symptom-changed-same": "The same",
+  "past-symptom-changed-little-worse": "A little worse",
+  "past-symptom-changed-much-worse": "Much worse",
+
+  "your-health": {
+    "page-title": "About your health",
+    "health-problems-that-limit-activity": "In general, do you have any health problems that require you to limit your activities?",
+    "are-you-pregnant": "Are you pregnant?",
+    "picker-pregnant": "I'm pregnant",
+    "picker-pfnts": "Prefer not to say",
+    "picker-other": "Other",
+    "have-heart-disease": "Do you have heart disease?",
+    "have-diabetes": "Do you have diabetes?",
+    "have-hayfever": "Do you have hayfever (seasonal allergies)?",
+    "have-eczema": "Do you have eczema?",
+    "have-asthma": "Do you have asthma?",
+    "have-lung-disease": "Do you have lung disease?",
+    "is-smoker": "Do you smoke?",
+    "never-smoked": "Never",
+    "not-currently-smoking": "Not currently",
+    "yes-smoking": "Yes",
+    "years-since-last-smoked": "How many years since you last smoked?",
+    "has-kidney-disease": "Do you have kidney disease?",
+    "has-cancer": "Are you living with cancer?",
+    "what-cancer-type": "What type of cancer do you have?",
+    "is-on-chemotherapy": "Are you on chemotherapy or immunotherapy for cancer?",
+    "takes-immunosuppressant": "Do you regularly take immunosuppressant medications (including steroids, methotrexate, biologic agents)?",
+    "takes-asprin": "Do you regularly take aspirin (baby aspirin or standard dose)?",
+    "takes-nsaids": "Do you regularly take \"NSAIDs\" like ibuprofen, nurofen, diclofenac, naproxen?",
+    "takes-any-blood-pressure-medication": "Are you regularly taking any blood pressure medications?",
+    "takes-pril-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-pril\", such as enalapril, lisinopril, captopril, ramipril?",
+    "takes-sartan-blood-pressure-medication": "Are you regularly taking blood pressure medications ending in \"-sartan\", such as losarton, valsartan, irbesartan?"
+  },
+
+  "covid-test": {
+    "page-title": "COVID-19 status",
+    "page-title-detail-add": "Add COVID test",
+    "page-title-detail-update": "Update test",
+    "add-test": "Add new test",
+    "update-test": "Update test",
+    "delete-test": "Delete test",
+
+    "delete-test-alert-title": "Delete this test?",
+    "delete-test-alert-text": "This information will be lost. Do you want to continue?",
+
+    "question-select-a-date-range": "Select a date range",
+    "question-select-a-date": "Select a date",
+
+    "question-mechanism": "How was this test performed?",
+    "picker-nose-swab": "Someone swabbed my nose",
+    "picker-throat-swab": "Someone swabbed my throat",
+    "picker-nose-throat-swab": "A swab of my nose or throat",
+    "picker-saliva-sample": "I spat in a cup/tube",
+    "picker-blood-sample": "I gave a blood sample",
+    "picker-finger-prick": "A finger-prick blood test",
+    "picker-blood-draw": "A blood test, done using a needle",
+    "picker-other": "Other, please specify",
+
+    "question-mechanism-specify": "Please indicate how the test was performed",
+
+    "question-trained-worker": "Did a trained worker swab you?",
+
+    "location": {
+      "question": "Where was your test performed?",
+      "specify": "Please specify the test location",
+      "answers": {
+        "at-home": "At Home",
+        "drive-through-rtc": "Drive-through Regional Testing Centre",
+        "drop-in-facility": "Drop-in testcenter",
+        "hospital": "Hospital (not drive-through)",
+        "gp": "GP",
+        "chemist-pharmacy": "Chemist / Pharmacy",
+        "store-pharmacy": "Store or pharmacy clinic",
+        "work": "Work (excluding hospital or GP)",
+        "local-health-department": "Local health department",
+        "other": "Other, please specify"
+      }
+    },
+
+    "question-invite-to-test": "Did we invite you to perform this test?",
+
+    "question-result": "What are the results of this test?",
+    "picker-positive": "Positive",
+    "picker-negative": "Negative",
+    "picker-waiting": "Waiting for results",
+    "picker-test-failed": "Not clear / failed",
+
+    "question-knows-date-of-test": "Do you know the date of your test?",
+    "question-date-test-occurred": "When was your test?",
+    "question-time-test-taken": "What time did you take the test?",
+    "question-pick-a-time": "Pick a time",
+    "question-time-test-taken-error": "Please enter the time of your appointment",
+    "question-date-test-occurred-guess": "Between which two dates do you think you had your test?",
+
+    "required-date": "Please indicate the date this test occurred",
+    "required-dates": "Please indicate between which two dates this test occurred",
+    "required-mechanism": "Please indicate how the test was performed",
+    "required-result": "Please indicate the result of the test",
+
+    "confirm-test": {
+      "title": "Confirmation of\npositive test result",
+      "body": "Your child’s positive test result will be shared anonymously with their school and the parents of the children within your child’s School Bubble.\n\nWe will only share the below details:\n\n• Date of test \n• Result of test\n• School Bubble name\n\nIf you have not already done so, please contact the school immediately to notify them of this positive result.",
+      "consent": "I confirm that the information I entered is true and accurate to the extent of my knowledge and I agree to this data being shared anonymously with my school network."
+    }
+  },
+
+  "describe-symptoms": {
+    "picker-fatigue-mild": "Mild fatigue",
+    "picker-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
+    "picker-headache-frequency-allday": "All of the day",
+    "picker-headache-frequency-mostday": "Most of the day",
+    "picker-headache-frequency-someday": "Some of the day",
+    "required-headache-frequency": "Please specify the frequency of your headaches ",
+    "picker-shortness-of-breath-mild": "Mild symptoms - slight shortness of breath during ordinary activity",
+    "picker-shortness-of-breath-significant": "Significant symptoms - breathing is comfortable only at rest",
+    "picker-shortness-of-breath-severe": "Severe symptoms - breathing is difficult even at rest",
+    "question-other-symptoms": "Are there other important symptoms you want to share with us?",
+    "placeholder-other-symptoms": "Other symptoms",
+
+    "check-all-that-apply": "Check all that apply",
+    "general-symptoms": "Are you experiencing any of the below symptoms?",
+    "general-fever": "Fever (at least 37.8°C or 100°F)",
+    "general-fatigue": "Unusual fatigue",
+    "general-fatigue-follow-up": "How severe is your fatigue?",
+    "general-fatigue-mild": "Mild fatigue",
+    "general-fatigue-severe": "Severe fatigue - I struggle to get out of bed",
+    "general-rash": "Rash on your arms or torso",
+    "general-foot-sores": "Red/purple sores or blisters on your feet, including your toes",
+    "general-face-welts": "Raised, red, itchy welts on the skin or sudden swelling of the face or lips",
+    "general-skin-burning": "Strange, unpleasant sensations in your skin like pins & needles or burning",
+    "general-hair-loss": "Unusual hair loss",
+    "general-muscle-pain": "Unusual strong muscle pains or aches",
+    "general-feeling-down": "Feeling down, depressed or hopeless",
+    "general-brain-fog": "Loss of concentration or memory (brain fog)",
+    "general-delirium": "Confusion, disorientation or drowsiness",
+    "general-allergy-increase": "Increase in your usual allergy symptoms",
+    "follow-up-required": "Please complete follow up question.",
+
+    "head-symptoms": "Are you experiencing any symptoms in your head area?",
+    "head-headache": "Headache",
+    "head-headache-follow-up": "How often are you experiencing headaches?",
+    "head-dizzy": "Dizziness or light-headedness",
+    "head-loss-smell": "Loss of smell / taste",
+    "head-altered-smell": "Altered smell / taste (things smell or taste different to usual)",
+    "head-runny-nose": "Runny nose",
+    "head-sneezing": "Sneezing more than usual",
+    "head-eye-soreness": "Unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)",
+    "head-earache": "Earache",
+    "head-ear-ringing": "Ringing in your ears",
+
+    "throat-chest-symptoms": "Are you experiencing any symptoms in your throat or chest area?",
+    "throat-chest-sore-throat": "Sore or painful throat",
+    "throat-chest-swollen-glands": "Swollen neck glands",
+    "throat-chest-hoarse-voice": "Unusually hoarse voice",
+    "throat-chest-persistent-cough": "Persistent cough (coughing a lot for more than an hour, or 3 or more coughing episodes in 24 hours)",
+    "throat-chest-short-breath": "Shortness of breath or trouble breathing",
+    "throat-chest-short-breath-follow-up": "How severe is your shortness of breath?",
+    "throat-chest-chest-pain": "Unusual chest pain or tightness in your chest",
+    "throat-chest-heart-beat": "Unusually fast or irregular heartbeat (palpitations)",
+
+    "gut-stomach-symptoms": "Are you experiencing any symptoms in your gut or stomach area?",
+    "gut-stomach-abdominal-pain": "Unusual abdominal pain or stomach ache",
+    "gut-stomach-nausea": "Nausea or vomiting",
+    "gut-stomach-diarrhoea": "Diarrhoea",
+    "gut-stomach-skipped-meals": "Skipping meals",
+
+    "other-symptoms": "Any other important symptoms you want to share with us?",
+    "next": "Next"
+  },
+
+  "health-worker-exposure-question-interacted-any-patients": "In the last day, have you interacted with any patients in person?",
+  "health-worker-exposure-question-treated-patients-with-covid": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
+  "health-worker-exposure-picker-patient-interaction-yes-documented": "Yes, documented COVID-19 cases only",
+  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Yes, suspected COVID-19 cases only",
+  "health-worker-exposure-picker-patient-interaction-yes-both": "Yes, both documented and suspected COVID-19 cases",
+  "health-worker-exposure-picker-patient-interaction-no": "Not that I know of",
+  "health-worker-exposure-question-has-used-ppe-equipment": "In the last day, did you use personal protective equipment (PPE) at work? *Depending on your specific work requirements, PPE might include gloves, masks, face shields, etc.",
+  "health-worker-exposure-picker-ppe-always": "Always",
+  "health-worker-exposure-picker-ppe-sometimes": "Sometimes",
+  "health-worker-exposure-picker-ppe-never": "Never",
+  "health-worker-exposure-picker-ppe-always-all-needed": "I have had all the PPE I need for work",
+  "health-worker-exposure-picker-ppe-always-reused": "I had to reuse PPE because of shortage",
+  "health-worker-exposure-picker-ppe-sometimes-all-needed": "I haven't always needed to use PPE, but have had enough when I did",
+  "health-worker-exposure-picker-ppe-sometimes-not-enough": "I would have used PPE all the time, but I haven't had enough",
+  "health-worker-exposure-picker-ppe-sometimes-reused": "I've had to reuse PPE because of shortage",
+  "health-worker-exposure-picker-ppe-never-not-needed": "I haven't needed PPE",
+  "health-worker-exposure-picker-ppe-never-not-available": "I needed PPE, but it was not available",
+
+  "how-you-feel": {
+    "question-health-status": "How do you feel physically right now?",
+    "picker-health-status-healthy": "I feel physically normal",
+    "picker-health-status-not-healthy": "I'm not feeling quite right",
+    "current-location": "You are currently reporting from:",
+    "update-location": "Update Location"
+  },
+
+  "where-are-you": {
+    "question-location": "Where are you right now?",
+    "picker-location-home": "I'm at home. I haven't been to a hospital for suspected COVID-19 symptoms.",
+    "picker-location-hospital": "I am at the hospital with suspected COVID-19 symptoms.",
+    "picker-location-back-from-hospital": "I am back from the hospital, I'd like to tell you about my treatment.",
+    "picker-location-back-from-hospital-already-reported": "I am back from the hospital, I've already told you about my treatment."
+  },
+
+  "treatment-other-title-after": "What treatment did you receive while in the hospital?",
+  "treatment-other-title-during": "What treatment are you receiving in hospital?",
+  "treatment-other-question-treatment-after": "What medical treatment did you receive?",
+  "treatment-other-question-treatment-during": "What medical treatment are you receiving?",
+
+  "treatment-selection-title-after": "What treatment did you receive while in the hospital?",
+  "treatment-selection-title-during": "What treatment are you receiving right now?",
+  "treatment-selection-picker-none": "None",
+  "treatment-selection-picker-oxygen": "Oxygen and fluids*",
+  "treatment-selection-picker-subtext-oxygen": "* Breathing support through an oxygen mask, no pressure applied.",
+  "treatment-selection-picker-non-invasive-ventilation": "Non-invasive ventilation*",
+  "treatment-selection-picker-subtext-non-invasive-ventilation": "* Breathing support through an oxygen mask, which pushes oxygen into your lungs.",
+  "treatment-selection-picker-invasive-ventilation": "Invasive ventilation*",
+  "treatment-selection-picker-subtext-invasive-ventilation": "* Breathing support through an inserted tube. People are usually asleep for this procedure.",
+  "treatment-selection-picker-other": "Other",
+
+  "have-you-been-exposed": "Have you EVER been exposed to someone with documented or suspected COVID-19 infection (such as co-workers, family members, or others)",
+  "exposed-yes-documented": "Yes, documented COVID-19 cases only",
+  "exposed-yes-undocumented": "Yes, suspected COVID-19 case only",
   "exposed-both": "Yes, both documented & suspected COVID-19 cases",
-  "exposed-no" : "Not that I know of",
+  "exposed-no": "Not that I know of",
   "housebound-problems": "In general, do you have any health problems that require you to stay at home?",
   "needs-help": "Do you need someone to help you on a regular basis?",
   "help-available": "If you need help, can you count on someone close to you?",
   "mobility-aid": "Do you regularly use a stick, walking frame or wheelchair to get about?",
 
-  "are-you-experiencing-diarrhoea": "Are you experiencing diarrhoea?",
-  "placeholder-diarrhoea": "hasDiarrhoea",
-
   "select-country": "Select country of residence",
   "website-home": "https://covid.joinzoe.com/",
-  "share-with-friends-message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well  🙏🏼. Download the app",
-  "share-with-friends-url": "https://covid.joinzoe.com/",
 
   "title-health-worker-exposure": "Healthcare Worker Exposure to COVID",
-  "label-interacted-with-infected-patients-last-day": "In the last day, did you treat patients in person with documented or presumed COVID-19 infection?",
-  "label-used-ppe-equipment-last-day" : "In the last day, did you use personal protective equipment (PPE) at work? ",
+  "required-treated-patients-with-covid": "Please indicate whether you've treated any patients with COVID-19 in the last day",
+  "required-has-used-ppe-equipment": "Please indicate how often you've used PPE equipment",
+  "required-ppe-availability-always": "Please indicate the availability of PPE equipment to you",
+  "required-ppe-availability-sometimes": "Please indicate the availability of PPE equipment to you",
+  "required-ppe-availability-never": "Please indicate the availability of PPE equipment to you",
+
+  "thank-you": {
+    "check-for-updates": "Please check our %{link} for updates.",
+    "news-feed": "news feed",
+    "our-methodology-title": "The methodology behind our estimates",
+    "methodology-body-1": "We have developed machine learning models to estimate the number of people who currently have COVID symptoms.\n\nThese estimates could be an earlier signal of COVID in your area today vs the confirmed cases which only come later and include only the people who tested.\n\nOur estimates are calculated in 3 steps:\n\n1. We learn which symptoms best predict COVID, based on app users who have been tested all around the world (",
+    "methodology-body-2": ")\n\n2. We estimate total number of app users in your county with COVID today by applying those rules to all users’ logged symptoms in your county\n\n3. We extrapolate to the whole county population from app users, based on geography, age & gender proportions",
+    "read-more-here": "read more here",
+    "estimate-exclusions": "*Our estimates do not include people aged under 20 or over 70 or with asymptomatic COVID infections, since we have too little data to model these.",
+    "read-more-on": "Read more on our",
+    "blog": "blog.",
+    "people-with-covid-in": "People with COVID symptoms in\n",
+    "today": "today",
+    "report-tomorrow": "Thank you, please report again tomorrow, even if you’re well.",
+    "loading-data": "Loading data for your area",
+    "estimate-for": "Estimate for",
+    "of-residents": "of %{number} residents",
+    "learn-more": "Learn more",
+    "almost-there": "Almost there! We only need",
+    "more-people": "%{number} more people",
+    "from-your-country": "from your county to report via the app, to provide accurate daily COVID estimates",
+    "please-share": "Please share the app",
+    "contribution-rank": "'s rank in contribution",
+    "places-since-yesterday": "places since yesterday",
+    "out-of": "out of",
+    "counties": "counties",
+    "sharing-is-caring": "Sharing is caring",
+    "the-more-reports": "The more people report, the better our estimates & the faster you can help your community fight COVID",
+    "share-this-app": "Share this app",
+    "thank-you-for-joining": "Thank you for joining millions of people supporting scientists at",
+    "to-help-communities": "to help our communities.",
+    "visit-our": "Visit our",
+    "website": "website",
+    "to-see-discoveries": "to see the discoveries you made possible",
+    "done": "Done",
+    "share-area-locked": "I’m helping to fight #COVID19 – We only need %{missing} more people on the app to get a COVID estimate for %{area}. Please help by taking 1 min daily to report how you feel 🙏. You also get an estimate of COVID in your area. Download the app",
+    "share-area-unlocked": "I’m helping to fight #COVID19 – %{cases} people are estimated to have COVID symptoms in %{area} today. Please help by taking 1 min daily to report how you feel 🙏. You also get an estimate of COVID in your area. Download the app"
+  },
+
+  "share-this-app": {
+    "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
+    "url": "https://covid.joinzoe.com/",
+    "primary-text": "Please share this app",
+    "secondary-text": "As we ease lockdown, it's more important than ever that more people are reporting in your area.",
+    "button-text": "Share this app"
+  },
+
+  "donate": {
+    "banner": "URGENT APPEAL",
+    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
+    "primary-text": "Keep the COVID Symptom Study alive",
+    "secondary-text": "Without funding, critical COVID research cannot continue. Will you help?",
+    "button-text": "Donate now"
+  },
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
-  "thank-you-body": "Thank you for joining millions of people supporting scientists at King’s College London to help our health services.",
+  "thank-you-body": "Thank you for reporting. As we ease lockdown, your daily reporting is more important than ever to avoid a second wave.",
   "check-in-tomorrow": "We would appreciate it if you could check back in tomorrow if you feel up to it.",
-  "check-news-feed" : "Please check our <b>news feed</b> for updates.",
+  "check-news-feed": "Please check our <b>news feed</b> for updates.",
+  "faq-link": "https://covid.joinzoe.com/faq",
+  "thank-you-completed": "Done",
+
+  "rating": {
+    "how-are-we-doing": "How are we doing?",
+    "would-you-recommend": "Would you recommend this app to a friend or colleague?",
+    "cta-yes": "Yes, I would",
+    "cta-no": "No, I wouldn't",
+    "rate-this-app": "Please rate this app",
+    "explanation": "Your feedback can help more people join the fight against COVID-19",
+    "cta-rate": "Rate",
+    "cta-later": "Not now",
+    "thank-you-for-rating": "Thank you for your feedback.\nWe're working hard to improve things"
+  },
 
   "research-updates": "Research updates",
-  "faqs": "FAQs",
-  "privacy-policy": "Privacy Policy"
+  "faqs": "Frequently asked questions",
+  "privacy-policy": "Privacy policy",
+  "nav-edit-profile": "Edit profile",
+  "nav-share-this-app": "Share this app",
+  "delete-my-data": "Delete my data",
+  "delete-data-alert-title": "Are you sure?",
+  "delete-data-alert-text": "Deleting your account and data cannot be undone.",
+  "push-notifications": "Turn on reminders",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "estimated-cases": "Estimated cases",
+  "logout": "Log out",
+
+  "your-country-title": "Your country",
+  "your-country-text": "We're not certain which country you're in because of how your phone is configured.",
+  "united-states": "United States",
+  "united-kingdom": "United Kingdom",
+  "sweden": "Sweden",
+
+  "never-reported": "Not reported",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "days-ago": "%{diffDays} days ago",
+
+  "adult-or-child-title": "Who would you like to report for?",
+  "adult-or-child-text": "Right now, you can only create additional profiles for UK residents.",
+  "person-over-18": "Person over 18",
+  "person-under-18": "Person under 18",
+
+  "adult-consent-title": "Adult consent",
+  "child-consent-title": "Child consent",
+  "adult-consent-confirm": "I confirm the above",
+  "child-consent-confirm": "I, and my child (to the extent they are able), consent to your processing their personal data as you have described it.",
+  "consent": "consent",
+  "consent-summary": "summary of what we do",
+  "child-consent-text-1": "Please explain to your child, to the extent that they are able to understand, what happens when you report their data through this app.\n\nWe need your consent, and your child’s consent if they are old enough to give it, to process all the information you enter about them. We will use it to carry out research on all aspects of COVID-19, as well as using it to follow the spread of the virus and to alert people, such as yourself, if there has been an outbreak that might affect you. For more information, please see a",
+  "child-consent-text-2": "on our website.\n\nIf you are happy to give that consent and your child, if they are capable of understanding what it means, also agrees, please indicate below.",
+  "adult-consent-text-1": "Please confirm that you have shown or read our",
+  "adult-consent-text-2": "screen to the individual on whose behalf you are entering the data, that they are 18 or over, and that they have given their consent for you to share their data with us.",
+  "consent-create-profile": "Create profile",
+
+  "create-profile-title": "Give new profile a name",
+  "create-profile-text": "This name is just for you. Choose a name that would allow you to know which person you are reporting for.",
+  "create-profile-placeholder": "e.g. name, nickname or relation",
+  "create-profile-button": "Continue",
+
+  "report-for-others-title": "Reporting on behalf of someone else?",
+  "report-for-others-text": "You can now create profiles for other people on whose behalf you want to report.",
+  "report-for-others-add-profiles": "Add profiles",
+  "report-for-others-subtext": "You can now report on behalf of someone else.",
+  "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
+  "report-for-others-skip": "Skip",
+
+  "select-profile-title-assessment": "Select profile you want to report for",
+  "select-profile-title-edit": "Select profile you want to edit",
+  "select-profile-text": "Or add more profiles",
+  "select-profile-button": "New profile",
+  "select-profile-last-report": "Last report:",
+  "default-profile-name": "Me",
+
+  "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+
+  "validation-error-text-required": "Please provide more details",
+
+  "race-question": "Which of the following best describes your ethnicity?",
+  "race-other-question": "Please specify your ethnicity",
+  "ethnicity-question": "What is your ethnicity:",
+  "prefer-not-to-say": "Prefer not to say",
+  "please-select-race": "Please select an option",
+
+  "uk-asian": "Asian/Asian British - Indian, Pakistani, Bangladeshi, other",
+  "uk-black": "Black/Black British - Caribbean, African, other",
+  "uk-mixed-white-black": "Mixed race - White and Black/Black British",
+  "uk-mixed-other": "Mixed race - other",
+  "uk-white": "White - British, Irish, other",
+  "uk-chinese": "Chinese/Chinese British",
+  "uk-middle-eastern": "Middle Eastern/Middle Eastern British - Arab, Turkish, other",
+  "uk-other": "Other ethnic group",
+
+  "us-indian_native": "American Indian or Alaska Native",
+  "us-asian": "Asian",
+  "us-black": "Black or African-American",
+  "us-hawaiian_pacific": "Native Hawaiian or other Pacific Islander",
+  "us-white": "White",
+  "us-other": "Other, please specify",
+  "hispanic": "Hispanic or Latino or Spanish origin",
+  "not-hispanic": "Not Hispanic or Latino, or Spanish origin",
+
+  "answer-for": "Answer for %{name}",
+  "profile-name-too-long": "Enter a profile name with less that 32 characters",
+  "total-people-contributing": "%{total} people contributing",
+  "join-total-people-contributing": "Join %{total} people contributing worldwide",
+
+  "covid-test-list": {
+    "title": "Your COVID-19 tests",
+    "text": "If you’ve ever had a COVID-19 test, please add below. This includes PCR, antigen and antibody tests. You can edit these at any time in the future.",
+    "nhs-text": "Once you start day 1 of your study, please add test details daily over the 21-day period. If any of your results are positive, please update the relevant test result below. For more information and instructions, read our ",
+    "nhs-text-link": "NHS Asymptomatic Staff Testing Pilot Guide",
+    "add-new-test": "Add new test",
+    "positive": "Positive",
+    "negative": "Negative",
+    "failed": "Failed",
+    "pending": "Waiting for result",
+    "update": "Update result",
+    "never-had-test": "I have never had a COVID test",
+    "above-list-correct": "This list is correct"
+  },
+
+  "errors": {
+    "button-retry": "Retry",
+    "button-okay": "Ok",
+    "status-loading": "Loading...",
+    "status-retrying": "Retrying...",
+    "user-is-offline": "You are currently offline. Please check your connection.",
+    "resource-not-found": "The server couldn't find your details",
+    "server-is-busy": "Server is busy. Please wait, then try again",
+    "server-error": "Server couldn't respond at this time. Please wait, then try again."
+  },
+
+  "back": "Back",
+
+  "partners": {
+    "powered-by": "Powered by",
+    "data-analysis": "All data analysed daily with *King’s College London* and shared with the *NHS*"
+  },
+
+  "validation-study-intro": {
+    "title": "We have a vital new COVID study and we need your help",
+    "subtitle": "590,761 people like you have already joined the study. Please help us get to 700,000.",
+    "info": "You just need to keep logging on this app",
+    "yes": "Learn more",
+    "no": "No, thank you",
+    "app-name": "COVID Symptom Study"
+  },
+
+  "validation-study-info": {
+    "title": "How does the study work?",
+    "header-1": "Help develop a new \ndigital test for Covid-19",
+    "para-1": "Physical tests like swabs and antibody testing for Covid-19 infection are not accessible to everyone and take time to produce results. This study, by researchers at King’s College London, aims to test the accuracy of computer software that could be used as a quicker, simpler ‘digital test’, based on symptoms reported in the Covid Symptom Study app.",
+    "header-2": "What will I have to do?",
+    "para-2": "Very little - just keep logging in the app as you have done already. You may be asked to get a swab test, and report your results in the app, to improve the prediction of the digital test. This test can be done at home (with a test kit posted to you) or at a testing centre.",
+    "header-3": "How does this digital test work?",
+    "para-3": "This test aims to predict the likelihood of individuals being infected with Covid-19 based on their symptoms reported in the app – and how these symptoms compare to those from people tested using traditional physical tests.\n\nYou will be helping in the fight against Covid-19 by contributing to this study and the development of the digital test.",
+    "interested": "Interested?",
+    "visit-next": "Visit the next page to see the detailed information sheet and join using the consent form at the bottom."
+  },
+
+  "consent-normal-us": {
+    "existing-study": "If you are in an existing research or clinical study (e.g. Nurses’ Health Studies) and you want your data to be shared with investigators on that study,",
+    "click-here": "click here",
+    "purpose": "Purpose",
+    "purpose-body": "By using this app and tracking if you are well or have symptoms, you will be helping medical science and healthcare providers across the country (such as Massachusetts General Hospital) to better understand Coronavirus (COVID-19).\n\nThis app allows you to help others, but does not give health advice. If you need health advice please visit the CDC Coronavirus website",
+    "information-sharing": "Information sharing",
+    "information-sharing-body": "This app is designed by doctors and scientists at Massachusetts General Hospital, Harvard School of Public Health, Stanford University, King's College London and Zoe Global Limited, a health technology company. They have access to the information you enter, which may also be shared with hospitals listed in our privacy notice.\n\nNo information you share will be used for commercial purposes. An anonymous code will be used to replace your personal details when sharing information with researchers beyond those mentioned above.",
+    "your-consent": "Your consent",
+    "your-consent-body": "By checking the box below, you consent to our using the personal information we collect through your use of this app in the way we have described.\n\nFor more information about how we use and share personal information about you, please see our",
+    "privacy-policy": "Privacy Policy",
+    "you-may-withdraw": "You may withdraw your consent at any time by emailing",
+    "any-questions": "Any questions may be sent to",
+    "i-consent": "I consent to the processing of my personal data (including without limitation data I provide relating to my health) as set forth in this consent and in the",
+    "terms": "Terms of Use",
+    "and": "and",
+    "read-accepted": "I have read and accept Zoe Global’s"
+  },
+
+  "consent-nurses-us": {
+    "header-1": "RESEARCH STUDY/HEALTHCARE WORKER INFORMED CONSENT",
+    "para-1": "This research consent form has been approved by the Institutional Review Board at Massachusetts General Hospital (Partners Human Research Committee Protocol #2020P000909 Version Date: 3/31/2020)",
+    "header-2": "About this consent form",
+    "para-2": "Please read this form carefully. It tells you important information about a research study.\n\nIf you have any questions about the research or about this form, please ask. Taking part in this research study is up to you.",
+    "header-3": "Why is this research study being done?",
+    "para-3": "We are doing this research to determine health and lifestyle factors related to the symptoms and outcomes associated with the Coronavirus (COVID-19). By using this app that consists of a series of questions meant to collect data on whether you are well or have symptoms, you will be helping medical science and healthcare providers across the country to better understand this disease. This app is designed to be a tool for data collection and to help medical professionals and researchers understand this disease. It does not give health advice. The Centers for Disease Control and Prevention has publicly-accessible information related to COVID-19 that can be found at:",
+    "header-4": "How long will I take part in this research study?",
+    "para-4": "Your use of this mobile application is completely voluntary. You can use it as little or as much as you would like and can stop using it at any time. We find that answering the series of questions takes a matter of minutes (no more than 10 minutes on average).",
+    "header-5": "What will happen in this research study?",
+    "para-5": "We will ask you a series of questions related to your occupation, your possible affiliation with certain ongoing studies or research centers, basic personal characteristics (gender/age), your health status, any medications you are using, how you are feeling, what symptoms you might be experiencing, and what, if any, treatments you’ve received either in outpatient or in-hospital settings. We will also ask you about what the outcome of any of those treatments. All questions are optional and you need not answer any questions you are uncomfortable answering.",
+    "header-6": "What are the risks and possible discomforts from being in this research study?",
+    "para-6": "We don’t expect you to experience any risks or possible discomforts associated with being in this study. Some people may not feel comfortable answering some of the questions asked, but no question is required to be answered. While necessary security precautions have been taken, there is a minor risk as there is with all digital data that information shared with us may be inadvertently accessed by others not identified in this consent form.",
+    "header-7": "What are the possible benefits from being in this research study?",
+    "para-7": "There are no direct benefits to you for taking part in this study. Your participation may contribute more widely, with all the other participants to the advancement of research into the COVID virus.",
+    "header-8": "Can I still get medical care within hospitals affiliated with the research in this study, or if I stop taking part?",
+    "para-8": "Yes. Your decision won’t change the medical care you get within affiliated hospitals now or in the future. There will be no penalty, and you won’t lose any benefits you receive now or have a right to receive. Taking part in this research study is up to you. You can decide not to take part. If you decide to take part now, you can change your mind and drop out later.",
+    "header-9": "What should I do if I want to stop taking part in the study?",
+    "para-9": "If you take part in this research study, and want to drop out, you should tell us. You may withdraw your consent at any time by emailing",
+    "header-10": "Will I be paid to take part in this research study?",
+    "para-10": "No payments will be made for participation in this voluntary research study.",
+    "header-11": "What will I have to pay for if I take part in this research study?",
+    "para-11": "Voluntary participation in this research study will come at no-cost to you.",
+    "header-12": "If I have questions or concerns about this research study, whom can I call?",
+    "para-12": "Zoe Global Ltd. Staff has built the app and is supporting and responsible for it. Any questions may be sent to",
+    "para-12-2": "You may also contact local U.S. based study staff at predict@mgh.harvard.edu.\n\nIf you were directed to this app because of your participation in another research study, you should contact the applicable study contact or Institutional Review Board that is associated with each study. If the study is affiliated with Mass General Brigham Health / Partners Healthcare, please contact the Partners Human Research Committee office. You can call them at 857-282-1900.",
+    "header-13": "If I take part in this research study, how will you protect my privacy?",
+    "para-13": "During this research, identifiable information about your health will be collected. In the rest of this section, we refer to this information simply as “health information”. In general, under federal law, health information is private. However, there are exceptions to this rule, and you should know who may be able to see, use, and share your health information for research and why they may need to do so.",
+    "header-14": "In this study, we will collect health information about:",
+    "para-14": "- your health status and condition related to COVID-19\n- any medications you are using\n- how you are feeling\n- what symptoms you might be experiencing\n- what, if any, treatments you’ve received either in outpatient or in-hospital settings\n- the outcome of any of those treatments",
+    "header-15": "Who may see, use, and share your identifiable health information and why they may need to do so:",
+    "para-15": "For complete details of the data we collect, who may see, use, and share your data and the reasons for doing so, please see the",
+    "para-15-2": "In brief, the privacy plan details that we may share your data with the researchers involved with this study which includes Zoe , other researchers and medical centers that are part of this study and their ethics boards, in addition to other individuals.\n\nNo information you share will be used for commercial purposes. We will not use or share your information for any mailing or marketing list.\n\nSome people or groups who get your health information might use or share your health information without your permission in ways that are not described in this form. We share your health information only as provided in this consent form, and we ask anyone who receives it from us to take measures to protect your privacy.\n\nBecause research is an ongoing process, we cannot give you an exact date when we will either destroy or stop using or sharing your health information.\n\nWe may link data collected as a part of this app with additional data collected through your participation in other research studies you have consented to at the following institutions: Massachusetts General Hospital, Brigham and Women’s Hospital, Mass General Brigham Hospitals (formerly Partners Healthcare), or other partnering research institutions. Deidentified data, meaning that any information that can identify you as an individual has been removed, may be included in public databases in the future.",
+    "header-16": "Your Privacy Rights",
+    "para-16": "You have the right not to sign this form that allows us to use and share your health information for research; however, if you don’t sign it, you cannot take part in this research study.\n\nYou have the right to withdraw your permission for us to use or share your health information for this research study. If you want to withdraw your permission, you must notify us in writing by emailing",
+    "para-16-2": "Once permission is withdrawn, you cannot continue to take part in the study.\n\nIf you withdraw your permission, we will not be able to take back information that has already been used or shared with others.\n\nYou have the right to see and get a copy of your health information. To ask for this information, please contact the person in charge of this study. You may only get such information after research is finished.\n\nBy clicking below, you consent to our using the personal information we collect through your use of this app in the way we have described.\n\nFor more information about how we use and share personal information about you, please see our",
+    "informed-consent-authorization": "Informed Consent and Authorization",
+    "header-17": "Statement of Person Giving Informed Consent and Authorization",
+    "body-17": "- I have read this consent form.\n- This research study has been explained to me, including risks and possible benefits (if any), other possible treatments or procedures, and other important things about the study.\n- I have had the opportunity to ask questions.\n- I understand the information given to me.",
+    "header-18": "Digital Signature of Subject:",
+    "body-18": "I give my consent to take part in this research study and agree to allow my health information to be used and shared as described above.\n\nIn addition, you acknowledge that you have read and understand the Privacy Policy and Terms of Use. The privacy policy describes what data is collected, how it is stored, secured, and shared, and with whom, and what your rights are to that data. The terms state that that the application is not meant to give medical advice, is not meant for emergencies and is not a medical device, and describes limitations of liability and data sharing plans.",
+    "i-consent": "I consent to the processing of my personal data (including without limitation data I provide relating to my health) as set forth in this consent and in the",
+    "i-read-accept": "I have read and accept Zoe Global’s",
+    "terms-of-use": "Terms of Use",
+    "privacy-policy": "Privacy Policy",
+    "i-agree": "I agree"
+  },
+
+  "terms-of-use-us": {
+    "header-1": "Effective date: March 27, 2020",
+    "para-1": "Welcome to the COVID-19 Symptom Study, provided by Zoe Global Limited (together with its affiliates, “Zoe, “us,” “we”). Please read on to learn the rules and restrictions that govern your use of our website(s), products, services and applications (the “Services”). By using this app and tracking if you are well or have symptoms, you will be helping medical science and healthcare providers across the country (such as Massachusetts General Hospital) to better understand Coronavirus (COVID-19). The Services are not intended for commercial purposes. If you have any questions, comments, or concerns regarding these terms or the Services, please contact us at:",
+    "para-2": "For queries please email covidtrackingquestions-us@joinzoe.com and to leave leavecovidtracking-us@joinzoe.com Address: Zoe Global Limited, 164 Westminster Bridge Road, London SE1 7RW, United Kingdom",
+    "para-3": "These Terms of Use (the “Terms”) are a binding contract between you and us. Your use of the Services in any way means that you agree to all of these Terms, and these Terms will remain in effect while you use the Services. These Terms include the provisions in this document as well as those in our",
+    "privacy-policy": "Privacy Policy.",
+    "header-2": "Please read these Terms carefully.",
+    "para-4": "They cover important information about Services provided to you. These Terms include information about future changes to these Terms, limitations of liability, a class action waiver and resolution of disputes by arbitration instead of in court.",
+    "para-5": "PLEASE NOTE THAT YOUR USE OF AND ACCESS TO OUR SERVICES ARE SUBJECT TO THE FOLLOWING TERMS; IF YOU DO NOT AGREE TO ALL OF THE FOLLOWING, YOU MAY NOT USE OR ACCESS THE SERVICES IN ANY MANNER.",
+    "para-6": "ARBITRATION NOTICE AND CLASS ACTION WAIVER:",
+    "para-7": "EXCEPT FOR CERTAIN TYPES OF DISPUTES DESCRIBED IN THE ARBITRATION AGREEMENT SECTION BELOW, YOU AGREE THAT DISPUTES BETWEEN YOU AND US WILL BE RESOLVED BY BINDING, INDIVIDUAL ARBITRATION AND YOU WAIVE YOUR RIGHT TO PARTICIPATE IN A CLASS ACTION LAWSUIT OR CLASS-WIDE ARBITRATION.",
+    "header-3": "Will these Terms ever change?",
+    "para-8": "We are constantly trying to improve our Services, so these Terms may need to change along with our Services. We reserve the right to change the Terms at any time, but if we do, we will place a notice on our site located at https://covid.joinzoe.com/us, post a notice within the app, send you an email, and/or notify you by some other means.",
+    "para-9": "If you don’t agree with the new Terms, you are free to reject them; unfortunately, that means you will no longer be able to use the Services. If you use the Services in any way after a change to the Terms is effective, that means you agree to all of the changes.",
+    "para-10": "Except for changes by us as described here, no other amendment or modification of these Terms will be effective unless in writing and signed by both you and us.",
+    "header-4": "What about my privacy?",
+    "para-11": "Zoe takes the privacy of its users very seriously. For the current Zoe Privacy Policy, please click here.",
+    "header-5": "What are the basics of using Zoe?",
+    "para-12": "You may be required to sign up for an account using your email. You represent and warrant that you are an individual of legal age to form a binding contract (or if not, you’ve received your parent’s or guardian’s permission to use the Services and have gotten your parent or guardian to agree to these Terms on your behalf). If you’re agreeing to these Terms on behalf of an organization or entity, you represent and warrant that you are authorized to agree to these Terms on that organization’s or entity’s behalf and bind them to these Terms (in which case, the references to “you” and “your” in these Terms, except for in this sentence, refer to that organization or entity).",
+    "para-13": "You will only use the Services for your own internal, personal, non-commercial use, and not on behalf of or for the benefit of any third party, and only in a manner that complies with all laws that apply to you. If your use of the Services is prohibited by applicable laws, then you aren’t authorized to use the Services. We can’t and won’t be responsible for your using the Services in a way that breaks the law.",
+    "header-6": "No Medical Advice; Not for Emergencies.",
+    "para-14": "Zoe does not offer medical advice or diagnoses, or engage in the practice of medicine. Our Services are not intended to be a substitute for professional medical advice, diagnosis, or treatment and are offered for informational and communicative purposes only. The Services are not intended to be, and must not be taken to be, the practice of medicine, nursing, pharmacy or other healthcare advice by Zoe.",
+    "para-15": "The Services are not meant to diagnose or treat any conditions – only your medical professional can determine the right course of treatment for you and determine what is safe, appropriate and effective based on your needs. Reliance on any information provided by Zoe or in connection with the Services is solely at your own risk. You are solely responsible for any decisions or actions you take based on the information and materials available through the Services. Healthcare providers and patients should always obtain applicable diagnostic information from appropriate trusted sources. Healthcare providers should never withhold professional medical advice or delay in providing it because of something they have read in connection with our Services.",
+    "para-16": "THE SERVICES SHOULD NEVER BE USED AS A SUBSTITUTE FOR EMERGENCY CARE. IF YOU HAVE A MEDICAL OR MENTAL HEALTH EMERGENCY, ARE THINKING ABOUT SUICIDE OR TAKING ACTIONS THAT MAY CAUSE HARM TO YOU OR TO OTHERS, YOU SHOULD SEEK EMERGENCY TREATMENT AT THE NEAREST EMERGENCY ROOM OR DIAL 911.",
+    "para-17": "You will only use the Services for your own internal, personal, non-commercial use, and not on behalf of or for the benefit of any third party, and only in a manner that complies with all laws that apply to you. If your use of the Services is prohibited by applicable laws, then you aren’t authorized to use the Services. We can’t and won’t be responsible for your using the Services in a way that breaks the law.",
+    "header-7": "Not a Medical Device.",
+    "para-18": "The Services are not medical devices and are not intended to be used as medical devices. Furthermore, the Services are neither regulated nor approved by the U.S. Food and Drug Administration, and are not designed to detect or prevent causes of any medical condition. The Services are not a substitute for medical care or adult supervision. You acknowledge, understand and agree that your use of the Services is entirely at your own risk.",
+    "header-8": "Will Zoe ever change the Services?",
+    "para-19": "We’re always trying to improve our Services, so they may change over time. We may suspend or discontinue any part of the Services, or we may introduce new features or impose limits on certain features or restrict access to parts or all of the Services.",
+    "header-9": "What if I want to stop using the Services?",
+    "para-20": "You’re free to do that at any time; please refer to our Privacy Policy, as well as the licenses above, to understand how we treat information you provide to us after you have stopped using our Services. Zoe is also free to terminate (or suspend access to) your use of the Services for any reason in our discretion, including your breach of these Terms. Zoe has the sole right to decide whether you are in violation of any of the restrictions set forth in these Terms.",
+    "para-21": "Provisions that, by their nature, should survive termination of these Terms shall survive termination. By way of example, all of the following will survive termination: any limitations on our liability, any terms regarding ownership or intellectual property rights, and terms regarding disputes between us, including without limitation the arbitration agreement.",
+    "header-10": "Mobile Applications.",
+    "para-22": "You acknowledge and agree that the availability of our mobile application is dependent on the third party stores from which you download the application, e.g., the App Store from Apple or the Android app market from Google (each an “App Store”). Each App Store may have its own terms and conditions to which you must agree before downloading mobile applications from such store, including the specific terms relating to Apple App Store set forth below. You agree to comply with, and your license to use our application is conditioned upon your compliance with, such App Store terms and conditions. To the extent such other terms and conditions from such App Store are less restrictive than, or otherwise conflict with, the terms and conditions of these Terms of Use, the more restrictive or conflicting terms and conditions in these Terms of Use apply.",
+    "header-11": "I use the Zoe App available via the Apple App Store – should I know anything about that?",
+    "para-23": "A. Both you and Zoe acknowledge that the Terms are concluded between you and Zoe only, and not with Apple, and that Apple is not responsible for the Application;",
+    "para-24": "B. The Application is licensed to you on a limited, non-exclusive, non-transferrable, non-sublicensable basis, solely to be used in connection with the Services for your private, personal, non-commercial use, subject to all the terms and conditions of these Terms as they are applicable to the Services;",
+    "para-25": "C. You will only use the Application in connection with an Apple device that you own or control;",
+    "para-26": "D. You acknowledge and agree that Apple has no obligation whatsoever to furnish any maintenance and support services with respect to the Application;",
+    "para-27": "E. In the event of any failure of the Application to conform to any applicable warranty, including those implied by law, you may notify Apple of such failure; upon notification, Apple’s sole warranty obligation to you will be to refund to you the purchase price, if any, of the Application",
+    "para-28": "F. You acknowledge and agree that Zoe, and not Apple, is responsible for addressing any claims you or any third party may have in relation to the Application;",
+    "para-29": "G. You acknowledge and agree that, in the event of any third-party claim that the Application or your possession and use of the Application infringes that third party’s intellectual property rights, Zoe, and not Apple, will be responsible for the investigation, defense, settlement and discharge of any such infringement claim;",
+    "para-30": "H. You represent and warrant that you are not located in a country subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a “terrorist supporting” country, and that you are not listed on any U.S. Government list of prohibited or restricted parties;",
+    "para-31": "I. Both you and Zoe acknowledge and agree that, in your use of the Application, you will comply with any applicable third-party terms of agreement which may affect or be affected by such use; and",
+    "para-32": "J. Both you and Zoe acknowledge and agree that Apple and Apple’s subsidiaries are third-party beneficiaries of these Terms, and that upon your acceptance of these Terms, Apple will have the right (and will be deemed to have accepted the right) to enforce these Terms against you as the third-party beneficiary hereof.",
+    "header-12": "What else do I need to know?",
+    "header-13": "Warranty Disclaimer.",
+    "para-33": "Zoe and its licensors, suppliers, partners, parent, subsidiaries or affiliated entities, and each of their respective officers, directors, members, employees, consultants, contract employees, representatives and agents, and each of their respective successors and assigns (Zoe and all such parties together, the “Zoe Parties”) make no representations or warranties concerning the Services, and the Zoe Parties will not be responsible or liable for the accuracy, copyright compliance, legality, or decency of material contained in or accessed through the Services or any claims, actions, suits procedures, costs, expenses, damages or liabilities arising out of use of, or in any way related to your participation in, the Services. THE SERVICES ARE PROVIDED BY ZOE (AND ITS LICENSORS AND SUPPLIERS) ON AN “AS-IS” BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR THAT USE OF THE SERVICES WILL BE UNINTERRUPTED OR ERROR-FREE. SOME STATES DO NOT ALLOW LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY LASTS, SO THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU.",
+    "header-14": "Limitation of Liability.",
+    "para-34": "TO THE FULLEST EXTENT ALLOWED BY APPLICABLE LAW, UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY (INCLUDING, WITHOUT LIMITATION, TORT, CONTRACT, STRICT LIABILITY, OR OTHERWISE) SHALL ANY OF THE ZOE PARTIES BE LIABLE TO YOU OR TO ANY OTHER PERSON FOR (A) ANY INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES OF ANY KIND, INCLUDING DAMAGES FOR LOST PROFITS, BUSINESS INTERRUPTION, LOSS OF DATA, LOSS OF GOODWILL, WORK STOPPAGE, ACCURACY OF RESULTS, OR COMPUTER FAILURE OR MALFUNCTION, (B) ANY SUBSTITUTE GOODS, SERVICES OR TECHNOLOGY, (C) ANY AMOUNT, IN THE AGGREGATE, IN EXCESS OF ONE-HUNDRED ($100) DOLLARS OR (D) ANY MATTER BEYOND OUR REASONABLE CONTROL. SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL OR CERTAIN OTHER DAMAGES, SO THE ABOVE LIMITATION AND EXCLUSIONS MAY NOT APPLY TO YOU.",
+    "header-15": "Assignment.",
+    "para-35": "You may not assign, delegate or transfer these Terms or your rights or obligations hereunder, or your Services account, in any way (by operation of law or otherwise) without Zoe’s prior written consent. We may transfer, assign, or delegate these Terms and our rights and obligations without consent.",
+    "header-16": "Choice of Law.",
+    "para-36": "These Terms are governed by and will be construed under the Federal Arbitration Act, applicable federal law, and the laws of the State of Massachusetts, without regard to the conflicts of laws provisions thereof.",
+    "header-17": "Arbitration Agreement.",
+    "para-37": "Please read the following ARBITRATION AGREEMENT carefully because it requires you to arbitrate certain disputes and claims with Zoe and limits the manner in which you can seek relief from Zoe. Both you and Zoe acknowledge and agree that for the purposes of any dispute arising out of or relating to the subject matter of these Terms, Zoe’s officers, directors, employees and independent contractors (“Personnel”) are third-party beneficiaries of these Terms, and that upon your acceptance of these Terms, Personnel will have the right (and will be deemed to have accepted the right) to enforce these Terms against you as the third-party beneficiary hereof.",
+    "para-38": "(a) Arbitration Rules; Applicability of Arbitration Agreement. The parties shall use their best efforts to settle any dispute, claim, question, or disagreement arising out of or relating to the subject matter of these Terms directly through good-faith negotiations, which shall be a precondition to either party initiating arbitration. If such negotiations do not resolve the dispute, it shall be finally settled by binding arbitration in Boston, Massachusetts. The arbitration will proceed in the English language, in accordance with the JAMS Streamlined Arbitration Rules and Procedures (the “Rules”) then in effect, by one commercial arbitrator with substantial experience in resolving intellectual property and commercial contract disputes. The arbitrator shall be selected from the appropriate list of JAMS arbitrators in accordance with such Rules. Judgment upon the award rendered by such arbitrator may be entered in any court of competent jurisdiction.",
+    "para-39": "(b) Costs of Arbitration. The Rules will govern payment of all arbitration fees. Zoe will pay all arbitration fees for claims less than seventy-five thousand ($75,000) dollars. Zoe will not seek its attorneys’ fees and costs in arbitration unless the arbitrator determines that your claim is frivolous.",
+    "para-40": "(c) Small Claims Court; Infringement. Either you or Zoe may assert claims, if they qualify, in small claims court in Boston, Massachusetts or any United States county where you live or work. Furthermore, notwithstanding the foregoing obligation to arbitrate disputes, each party shall have the right to pursue injunctive or other equitable relief at any time, from any court of competent jurisdiction, to prevent the actual or threatened infringement, misappropriation or violation of a party's copyrights, trademarks, trade secrets, patents or other intellectual property rights.",
+    "para-41": "(d) Waiver of Jury Trial. YOU AND ZOE WAIVE ANY CONSTITUTIONAL AND STATUTORY RIGHTS TO GO TO COURT AND HAVE A TRIAL IN FRONT OF A JUDGE OR JURY. You and Zoe are instead choosing to have claims and disputes resolved by arbitration. Arbitration procedures are typically more limited, more efficient, and less costly than rules applicable in court and are subject to very limited review by a court. In any litigation between you and Zoe over whether to vacate or enforce an arbitration award, YOU AND ZOE WAIVE ALL RIGHTS TO A JURY TRIAL, and elect instead to have the dispute be resolved by a judge.",
+    "para-42": "(e) Waiver of Class or Consolidated Actions. ALL CLAIMS AND DISPUTES WITHIN THE SCOPE OF THIS ARBITRATION AGREEMENT MUST BE ARBITRATED OR LITIGATED ON AN INDIVIDUAL BASIS AND NOT ON A CLASS BASIS. CLAIMS OF MORE THAN ONE CUSTOMER OR USER CANNOT BE ARBITRATED OR LITIGATED JOINTLY OR CONSOLIDATED WITH THOSE OF ANY OTHER CUSTOMER OR USER. If however, this waiver of class or consolidated actions is deemed invalid or unenforceable, neither you nor Zoe is entitled to arbitration; instead all claims and disputes will be resolved in a court as set forth in (g) below.",
+    "para-43": "(f) Opt-out. You have the right to opt out of the provisions of this Section by sending written notice of your decision to opt out to the following address: Zoe Global, 192 South Street, Suite 100, Boston, MA 02111, postmarked within thirty (30) days of first accepting these Terms. You must include (i) your name and residence address, (ii) the email address and/or telephone number associated with your account, and (iii) a clear statement that you want to opt out of these Terms’ arbitration agreement.",
+    "para-44": "(g) Exclusive Venue. If you send the opt-out notice in (f), and/or in any circumstances where the foregoing arbitration agreement permits either you or Zoe to litigate any dispute arising out of or relating to the subject matter of these Terms in court, then the foregoing arbitration agreement will not apply to either party, and both you and Zoe agree that any judicial proceeding (other than small claims actions) will be brought in the state or federal courts located in, respectively, Boston, Massachusetts, or the federal district in which that county falls.",
+    "para-45": "(h) Severability. If the prohibition against class actions and other claims brought on behalf of third parties contained above is found to be unenforceable, then all of the preceding language in this Arbitration Agreement section will be null and void. This arbitration agreement will survive the termination of your relationship with Zoe.",
+    "header-18": "Miscellaneous.",
+    "para-46": "The failure of either you or us to exercise, in any way, any right herein shall not be deemed a waiver of any further rights hereunder. If any provision of these Terms are found to be unenforceable or invalid, that provision will be limited or eliminated, to the minimum extent necessary, so that these Terms shall otherwise remain in full force and effect and enforceable. You and Zoe agree that these Terms are the complete and exclusive statement of the mutual understanding between you and Zoe, and that these Terms supersede and cancel all previous written and oral agreements, communications and other understandings relating to the subject matter of these Terms.",
+    "para-47": "Except as expressly set forth in the sections above regarding the Apple Application and the arbitration agreement, you and Zoe agree there are no third-party beneficiaries intended under these Terms.",
+    "back": "Back"
+  },
+  "privacy-policy-us": {
+    "header-1": "COVID-19 Symptom Study App Privacy Policy",
+    "para-1": "Effective Date: May 7, 2020\n\nAt Zoe Global Limited (together with its affiliates, “Zoe,” “we,” “us”) we take your privacy seriously. Please read the following to learn how we treat your personal information. By using or accessing the COVID-19 Symptom Study app and associated website covid.joinzoe.com (together, the “Services”) in any manner, you acknowledge that you accept the practices and policies outlined in this Privacy Policy, and you hereby consent that we will collect, use, and share your information in the following ways.\n\nRemember that your use of our Services is at all times subject to our Terms of Use, which incorporates this Privacy Policy. Any terms we use in this Policy without defining them have the definitions given to them in the Terms of Use.",
+    "header-2": "What this Privacy Policy Covers",
+    "para-2": "This Privacy Policy covers how we treat Personal Data that we gather when you access or use our Services. “Personal Data” means any information that identifies or relates to a particular individual and also includes information referred to as “personally identifiable information” or “personal information” under applicable data privacy laws, rules, or regulations.",
+    "header-3": "Sources of Personal Data",
+    "para-3": "We collect Personal Data about you from:\n\n• You:\n\n- when you provide such information directly to us, and\n\n- when Personal Data about you is automatically collected in connection with your use of our Services\n\n• On our COVID-19 Study website https://covid.joinzoe.com/ we collect Personal Data through cookies and similar technologies such as pixel tags, web beacons, clear GIFs, and JavaScript (collectively, “Cookies”) to enable our servers to recognize your web browser and tell us how and when you visit and use our website, to analyze trends, learn about our user base and operate and improve our website. Cookies are small pieces of data– usually text files – placed on your computer, tablet, phone, or similar device when you use that device to visit our Services. We may also supplement the information we collect from you with information received from third parties, including third parties that have placed their own Cookies on your device(s). For example, Google, Inc. (“Google”) uses cookies in connection with its Google Analytics services. Google’s ability to use and share information collected by Google Analytics about your visits to the Services is subject to the Google Analytics Terms of Use and the Google Privacy Policy. You have the option to opt-out of Google’s use of cookies by visiting the Google advertising opt-out page at www.google.com/privacy_ads.html or the Google Analytics Opt-out Browser Add-on at https://tools.google.com/dlpage/gaoptout/. Please note that because of our use of Cookies, the website does not support “Do Not Track” requests sent from a browser at this time. For more information about our use of cookies, please see our Cookie Policy https://joinzoe.com/static/websiteprivacypolicy.pdf",
+    "header-4": "Personal Data We Collect",
+    "para-4": "We collect and process of the following types of Personal Data about you:\n\nPersonal Identifiers:\n\nWe collect personal identifiers from you and your device such as your name (optional), email address (optional), phone number (optional), a user name and password, IP address, device ID, location (zip code) and other identifiers including your year of birth. Note that providing your name and phone number is optional. We also collect your IP address (All of the foregoing, “Personal Identifiers.”)\n\nWe process Personal Identifiers for the purposes of providing you the Services and developing, improving, promoting and running the Services. For example, we share some of these personal identifiers with medical researchers at Harvard T Chan School of Public Health, Massachusetts General Hospital, King's College London and Stanford University School of Medicine. We may ask for your feedback on the app and we may conduct other surveys (which are of course voluntary). We may also send you information about new versions of the app or similar apps we may have in the future. Every marketing email sent by us will include a link you can click to opt-out from receiving such emails.\n\nHealth data and other protected classification characteristics:\n\nThrough our Service, you may choose to submit health related information about yourself, such as your sex at birth and how you identify today, your age, your height, weight and information about your health, pre-existing conditions and symptoms (including your body temperature). You may also submit your COVID-19 test status and details of any treatment, whether you are a healthcare worker and your use of protective equipment, and visits to hospital or clinics. (All of the foregoing, “Health Data and Other Protected Classifications”)\n\nWe process Health Data and Other Protected Classifications for the following purposes:\n\n• To better understand symptoms of COVID-19\n• To track the spread of COVID-19\n• To advance scientific research into the links between patient's health and their response to infection by COVID-19\n• To identify the exposure of healthcare workers to COVID-19\n• To provide you with the Services\n• In the future we may use this data to help healthcare providers such as hospitals support sick individuals",
+    "header-5": "Personal Data of Children",
+    "para-5": "As noted in the Terms of Use, we do not knowingly collect or solicit Personal Data from children under 18; if you are a child under 18, please do not attempt to register for or otherwise use the Services or send us any Personal Data. If we learn we have collected Personal Data from a child under 18, we will delete that information as quickly as possible. If you believe that a child under 18 may have provided us Personal Data, please contact us at dpo@joinzoe.com.",
+    "header-6": "Sharing of Personal Data",
+    "para-6": "Third party processors: We use third parties to process some of your Personal Data on our behalf, for example security and fraud prevention providers, hosting and other technology and communications providers, analytics providers, and staff augmentation and contract personnel. When we allow them access to your data, we do not permit them to use it for their own purposes. We have in place with each processor a contract that requires them only to process the data on our instructions and to take proper care in using it.\n\nThese processors include:\n\n• Google Cloud Platform\n• SurveyMonkey\n• Segment\n• Expo\n• Google Firebase\n• Amplitude\n• Google G Suite\n• MailChimp\n• Mailgun\n• Intercom\n• Sentry\n• Cloudflare\n• Sqreen\n\nResearch Partners and Other Third Parties:\n\nResearch Partners: The purpose of our Services is to understand and prevent the spread of COVID-19. In order to do this, we share data with people doing health research, for example, people working in:\n\n• Hospitals\n• Clinics\n• Universities\n• Health charities\n• Other research institutions\n\nFor example, doctors and scientists at Massachusetts General Hospital, Harvard School of Public Health, Stanford University, and King's College London will have access to your Personal Data for the foregoing purpose. Below is a list of institutions with whom we share your Personal Data. (Please note that this list is provided as an example only, and we may add institutions to this list.) Data shared with research partners other than hospitals and teaching institutions will be de-identified.",
+    "header-7": "Institutions we share data with include",
+    "para-7": "Institutions we share data with include (without limitation):\n\nHarvard University\nStanford University\nMassachusetts General Hospital\nTufts University\nBerkeley University\nKing’s College London\nGuys & St Thomas' Hospitals\nUK National Health Service\nSwansea University (SAIL Databank)\nNottingham University\nUniversity of Trento\nLund University\n\nTransfer: We may restructure how we provide the Services, and as part of that, your Personal Data may be transferred to one of our affiliates or to a not-for-profit organization.",
+    "header-8": "Data Security and Retention",
+    "para-8": "We seek to protect your Personal Data from unauthorized access, use and disclosure using appropriate physical, technical, organizational and administrative security measures based on the type of Personal Data and how we are processing that data. Although we work to protect the security of your account and other data that we hold in our records, please be aware that no method of transmitting data over the Internet or storing data is completely secure. We cannot guarantee the complete security of any data you share with us, and except as expressly required by law, we are not responsible for the theft, destruction, loss or inadvertent disclosure of your information or content.\n\nWe are unable today to set any particular time limit on the storage of your sensitive personal data, but we will keep it under regular review and ensure that it is not kept longer than is necessary. By way of example, we currently collect your name so that we are able to pass this on to health care professionals if it is necessary to protect your vital interests or the vital interests of another person. Once this is no longer required, we will delete all names from our records. In contrast, data about the spread of the virus is likely to be extremely valuable for researchers studying both this virus and in understanding epidemic spread for the future. We are likely, therefore, to retain this information for much longer\n\nIn some cases we retain Personal Data for longer, if doing so is necessary to comply with our legal obligations, resolve disputes or is otherwise required by applicable law, rule or regulation. We may further retain information in an anonymous or aggregated form where that information would not identify you personally.",
+    "header-9": "Your rights",
+    "para-9": "California Resident Rights\n\nCalifornia privacy law requires us to provide the following information, even though we do not sell your data:\n\nIf you are a California resident, you have the rights outlined in this section under the California Consumer Privacy Act (“CCPA”). Please see the “Exercising Your Rights” section below for instructions regarding how to exercise these rights. If there are any conflicts between this section and any other provision of this Privacy Policy and you are a California resident, the portion that is more protective of Personal Data shall control to the extent of such conflict. If you have any questions about this section or whether any of the following applies to you, please contact us at dpo@joinzoe.com\n\nAccess\n\nYou have the right to request certain information about our collection and use of your Personal Data over the past 12 months. We will provide you with the following information:\n\n• The categories of Personal Data that we have collected about you.\n\n• The categories of sources from which that Personal Data was collected.\n\n• The business or commercial purpose for collecting or selling your Personal Data.\n\n• The categories of third parties with whom we have shared your Personal Data.\n\n• The specific pieces of Personal Data that we have collected about you.\n\nIf we have disclosed your Personal Data for a business purpose over the past 12 months, we will identify the categories of Personal Data shared with each category of third party recipient.\n\nDeletion\n\nYou have the right to request that we delete the Personal Data that we have collected from you.\n\nExercising Your Rights\n\nTo exercise the rights described above, you must send us a request that (1) provides sufficient information to allow us to verify that you are the person about whom we have collected Personal Data, and (2) describes your request in sufficient detail to allow us to understand, evaluate, and respond to it. Each request that meets both of these criteria will be considered a “Valid Request.” We may not respond to requests that do not meet these criteria. We will only use Personal Data provided in a Valid Request to verify you and complete your request. You do not need an account to submit a Valid Request.\n\n\n\nWe will work to respond to your Valid Request within 45 days of receipt. We will not charge you a fee for making a Valid Request unless your Valid Request(s) is excessive, repetitive, or manifestly unfounded. If we determine that your Valid Request warrants a fee, we will notify you of the fee and explain that decision before completing your request.\n\nYou may submit a Valid Request using the following methods:\n\n• Emailing us at: dpo@joinzoe.com\n\nPersonal Data Sales\n\nWe do not sell your Personal Data.\n\nWe Will Not Discriminate Against You for Exercising Your Rights Under the CCPA",
+    "header-10": "Other State Law Privacy Rights",
+    "para-10": "California Resident Rights\n\nWe will not provide your Personal Data to third parties for such third parties’ direct marketing purposes;\n\nYour browser may offer you a “Do Not Track” option, which allows you to signal to operators of websites and web applications and services that you do not wish such operators to track certain of your online activities over time and across different websites. Our Services do not support DO Not Track requests at this time. To find out more about “Do Not Track,” you can visit www.allaboutdnt.com.\n\nNevada Resident Rights\n\nNevada law requires the following wording even though we do not sell your data: If you are a resident of Nevada, you have the right to opt-out of the sale of certain Personal Data to third parties who intend to license or sell that Personal Data. You can exercise this right by contacting us at dpo@joinzoe.com with the subject line “Nevada Do Not Sell Request” and providing us with your name. We do not sell your Personal Data as defined in Nevada Revised Statutes Chapter 603A.",
+    "header-11": "European Union Data Subject Rights",
+    "para-11": "EU Residents\n\nYou may have additional rights under the EU General Data Protection Regulation (the “GDPR”) with respect to your Personal Data, as outlined below.\n\nFor this section, we use the terms “Personal Data” and “processing” as they are defined in the GDPR, but “Personal Data” generally means information relating to an identifiable person, and “processing” generally covers actions that can be performed in connection with data such as collection, use, storage and disclosure. Zoe Global Limited will be the controller of your Personal Data processed in connection with the Services.\n\nIf there are any conflicts between this this section and any other provision of this Privacy Policy, the policy or portion that is more protective of Personal Data shall control to the extent of such conflict. If you have any questions about this section or whether any of the following applies to you, please contact us at dpo@joinzoe.com.",
+    "header-12": "Personal Data Use and Processing Grounds",
+    "para-12": "We will only process your Personal Data if we have a lawful basis for doing so. Lawful bases for processing include consent and our “legitimate interests” or the legitimate interest of others, as further described below.\n\nLegitimate Interests: Our legal basis for processing your Personal Identifiers is our legitimate interest in providing you the Services and developing, improving, marketing and running the Services.\n\nConsent: In some cases, we process Personal Data based on the consent you expressly grant to us at the time we collect such data. When we process Personal Data based on your consent, it will be expressly indicated to you at the point and time of collection. Specifically, we process the category of Health Data and Other Protected Classifications based on your consent. Because of the tight regulatory requirements placed on us, we need your consent to process data about your health, which means that if you do not consent (or withdraw your consent), we cannot allow you to use the app. This is not meant unkindly, we are simply not able to provide you with the service without your consent.\n\nIf you wish us to stop processing Health Data and Other Protected Classifications, you may withdraw your consent at any time by emailing us at leavecovidtracking-us@joinzoe.com. When you withdraw your consent, we will delete all Health Data and Other Protected Classifications we hold about you.\n\nOther Processing Grounds: From time to time we may also need to process Personal Data to comply with a legal obligation, if it is necessary to protect the vital interests of you or other data subjects, or if it is necessary for a task carried out in the public interest.",
+    "header-13": "EU Data Subject Rights",
+    "para-13-1": "Under the GDPR you have a number of important rights with respect to your Personal Data, including those set forth below. For more information about these rights, or to submit a request, please email us at dpo@joinzoe.com. Please note that in some circumstances, we may not be able to fully comply with your request, such as if it is frivolous or extremely impractical, if it jeopardizes the rights of others, or if it is not required by law, but in those circumstances, we will still respond to notify you of such a decision. In some cases, we may also need to you to provide us with additional information, which may include Personal Data, if necessary to verify your identity and the nature of your request.\n\n• Access: You can request more information about the Personal Data we hold about you and request a copy of such Personal Data. You can also access certain of your Personal Data by logging on to your account.\n\n• Rectification: If you believe that any Personal Data we are holding about you is incorrect or incomplete, you can request that we correct or supplement such data.\n\n• Erasure: You can request that we erase some or all of your Personal Data from our systems.\n\n• Withdrawal of Consent: If we are processing your Personal Data based on your consent (as indicated at the time of collection of such data), you have the right to withdraw your consent at any time. Please note, however, that if you exercise this right, you may have to then provide express consent on a case-by-case basis for the use or disclosure of certain of your Personal Data, if such use or disclosure is necessary to enable you to utilize some or all of our Services.\n\n• Portability: You can ask for a copy of your Personal Data in a machine-readable format. You can also request that we transmit the data to another controller where technically feasible.\n\n• Objection: You can contact us to let us know that you object to the further use or disclosure of your Personal Data for certain purposes, such as for direct marketing purposes.\n\n• Restriction of Processing: You can ask us to restrict further processing of your Personal Data.\n\nFor further information on each of those rights, including the circumstances in which they apply, see the Guidance from the United Kingdom Information Commissioner’s Office (ICO) on individuals rights under the General Data Protection Regulation.\n\nIf you would like to exercise any of those rights, please email, call or write to our data protection officer using the contact details given below.\n\nThe General Data Protection Regulation also gives you the right to lodge a complaint with a supervisory authority, in particular in the European Union (or European Economic Area) state where you work, normally live or where any alleged infringement of data protection laws occurred. The supervisory authority in the UK is the Information Commissioner who may be contacted at",
+    "para-13-2": "or telephone: +44 0303 123 1113.",
+    "header-14": "Transfers of Personal Data",
+    "para-14": "The Services are hosted and operated in the United Kingdom and in the United States (“U.S.”) through Zoe Global Limited and its service providers and the third parties with whom we share information (see the Sharing of Personal Data section above), and laws in the U.S. may differ from the laws where you reside. By using the Services, you acknowledge and agree that any Personal Data about you, regardless of whether provided by you or obtained from a third party, is being provided to Zoe Global Limited and third parties (as disclosed in this Privacy Policy) in the U.S. and will be hosted on U.S. servers, and you authorize Zoe to transfer, store and process your information to and in the U.S., and possibly other countries.",
+    "header-15": "Changes to this Privacy Policy",
+    "para-15": "We’re constantly trying to improve our Services, so we may need to change this Privacy Policy from time to time as well, but we will alert you to changes by placing a notice in the app or on our website, by sending you an email, and/or by some other means. Please note that if you’ve opted not to receive legal notice emails from us (or you haven’t provided us with your email address), those legal notices will still govern your use of the Services, and you are still responsible for reading and understanding them. If you use the Services after any changes to the Privacy Policy have been posted, that means you agree to all of the changes. Use of information we collect is subject to the Privacy Policy in effect at the time such information is collected.",
+    "header-16": "About us",
+    "para-16": "Our address is: Zoe Global Limited, 164 Westminster Bridge Road, London SE1 7RW, United Kingdom\nData Protection Officer: dpo@joinzoe.com",
+    "back": "Back"
+  },
+
+  "thank-you-uk": {
+    "title": "Thank you for reporting.",
+    "subtitle": "Testing alone can't get us through this second wave. Log your health today to help us predict outbreaks.",
+    "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
+    "cta-single-profile": "Back to home screen",
+    "cta-multi-profile": "Report for others"
+  },
+
+  "edit-profile": {
+    "title": "My profile",
+    "your-location": "Your location",
+    "text": "",
+    "archive-cta": "Archive this profile",
+    "done": "Done",
+    "next": "Next",
+
+    "location": {
+      "title": "My location",
+      "label": "Your permanent home postcode (e.g. SE1)",
+      "disclaimer": "Your location is used to localise COVID-19 outbreaks and study symptoms. You can find out how we use your data in our Privacy policy",
+      "not-current-address": "Are you temporarily reporting from a different location than above?",
+      "still-in-country": "Are you still in the UK?",
+      "other-postcode": "Enter the postcode you wish to report for",
+      "select-country": "Please select which country you are now in"
+    }
+  },
+
+  "archive-confirmation": {
+    "title": "Archive this profile?",
+    "text": "You'll no longer be able to report for this individual. Do you want to proceed?",
+    "confirm": "Archive",
+    "cancel": "Cancel"
+  },
+
+  "archive-reason": {
+    "title": "Profile archived",
+    "text": "Help us understand why you archived this profile. This will help to more accurately predict levels of COVID.",
+    "text2": "This question is optional.",
+    "choice-duplicate-account": "It's a duplicate account",
+    "choice-no-report": "I don't want to report for them",
+    "choice-moved-away": "This person has moved away",
+    "choice-other": "Other",
+    "choice-pfnts": "Prefer not to say",
+    "choice-passed-away": "This person has passed away"
+  },
+
+  "face-mask": {
+    "worn-a-mask-question": "In the last week, did you wear a face mask when outside the house?",
+    "worn-a-mask-justification": "This information can help us understand if face masks reduce COVID infection risk. This question is completely optional.",
+    "never": "Never",
+    "sometimes": "Sometimes",
+    "most-of-the-time": "Most of the time",
+    "always": "Always",
+    "not-applicable": "Not applicable",
+    "type-of-mask-question": "What kind of face mask do you use? Check all that apply",
+    "cloth_scarf": "Cloth or scarf",
+    "surgical": "Surgical mask",
+    "respirator": "N95/FFP respirator",
+    "not-sure": "Not sure/prefer not to say",
+    "other": "Other, please specify:"
+  },
+
+  "us-study-invite": {
+    "title": "New COVID studies\n& how you can help",
+    "body": "Are you interested in being contacted to learn about additional studies related to COVID-19 or use of this app?",
+    "button": "I am interested"
+  },
+
+  "diabetes": {
+    "justification": "You previously indicated that you had diabetes, which is an important risk factor for COVID. Our scientists have a couple of follow up questions to understand more about this. These questions are completely optional.",
+    "which-type": "What kind of diabetes do you have?",
+    "answer-type-1": "Type 1 diabetes",
+    "answer-type-2": "Type 2 diabetes",
+    "answer-gestational": "Gestational diabetes (during pregnancy)",
+    "answer-unsure": "Unsure",
+    "answer-other": "Other, please specify",
+    "most-recent-hemoglobin-measure": "What was your most recent hemoglobin A1c?",
+    "hemoglobin-measurement-unit-percent": "%",
+    "hemoglobin-measurement-unit-mol": "mmol/mol",
+    "when-was-diagnosed": "What year were you diagnosed with diabetes?",
+    "which-treatment": "Which diabetes treatments do you use? Select all that apply:",
+    "answer-none": "None",
+    "answer-lifestyle-mod": "Lifestyle modification (e.g. exercise, diet, weight management)",
+    "answer-daily-injections": "Once or twice daily injections of long acting insulin or \"basal\" insulin (e.g. glargine, detemir, degludec or NPH in premixed insulin)",
+    "answer-rapid-injections": "Rapid acting insulin injections with meals or as \"bolus\" (e.g. lispro, aspart, glulisine, or in premixed insulin)",
+    "answer-insulin-pump": "Continuous infusion in an insulin pump",
+    "answer-non-insulin-injections": "Injections of a non-insulin diabetes medication or GLP-1 receptor agonists (e.g. semaglutide, dulaglutide, liraglutide)",
+    "answer-other-oral-meds": "Medications taken by mouth",
+    "which-oral-treatment": "Which oral medications do you use? Select all that apply",
+    "answer-oral-biguanide": "Biguanide (Metformin)",
+    "answer-sulfonylurea": "Sulfonylurea (e.g. glipizide, glyburide, glimepiride, gliclazide)",
+    "answer-dpp": "DPP-4 inhibitors (e.g. saxagliptin, sitagliptin, linagliptin)",
+    "answer-meglitinides": "Meglitinides (e.g. repaglinide, nateglinide)",
+    "answer-thiazolidinediones": "Thiazolidinediones or Glitazones (e.g. rosiglitazone, pioglitazone)",
+    "answer-sglt": "SGLT-2 inhibitors (e.g. canagliflozin, dapagliflozin)",
+    "answer-other-oral-meds-not-listed": "Other oral diabetes medication not listed",
+    "please-specify-other-oral-meds": "Please specify the oral medications",
+    "please-select-diabetes-type": "Please select an option",
+    "please-select-diabetes-treatment": "Please select one or more of the above",
+    "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
+  },
+
+  "diet-study": {
+    "drawer-menu-item": "Diet study",
+    "answer-for-feb": "Answer for month of Feb",
+    "answer-for-last-4-weeks": "Answer for last 4 weeks",
+
+    "required": "This is required",
+
+    "intro": {
+      "title": "COVID & Diet",
+      "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
+      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'.",
+      "cta-yes": "Yes, let's do it",
+      "cta-no-later": "No, but ask me later",
+      "cta-no-never": "Skip and don't ask me again"
+    },
+
+    "next-section": "Next section",
+
+    "about-you": {
+      "title": "Your lifestyle",
+      "intro-1": "Answer these questions thinking back over your typical habits over the last ",
+      "intro-2": "4 weeks.",
+      "answer-again-1": "Please answer the same set of questions, but this time for ",
+      "answer-again-2": "February 2020",
+      "answer-again-3": ", before the COVID pandemic spread."
+    },
+
+    "weight-label": "Your weight",
+    "weight-unsure-label": "I don't know my weight",
+    "was-pregnant-label": "I am/was pregnant",
+    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
+    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
+    "hours-of-sleep-placeholder": "Hours per night",
+    "shift-work-label": "Did you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
+    "food-security": {
+      "label": "Which of the following statements best describes the food eaten in your household in this time-frame?",
+      "always-had-enough": "You all always had enough of the kinds of foods you wanted to eat",
+      "enough-not-kinds-wanted": "You all had enough to eat, but not always the kinds of food you wanted",
+      "sometimes-not-enough": "You sometimes did not have enough to eat",
+      "often-not-enough": "You often did not have enough to eat",
+      "pfnts": "Prefer not to say"
+    },
+
+    "food-availability": {
+      "label": "Which situation best describes your response to the prior question about a lack of food availability?",
+      "financial-limitations": "Financial limitations",
+      "shelter-in-place": "Shelter-in-place orders implemented in my community",
+      "shortages": "Shortages in food availability",
+      "avoidance": "Anxiety/avoidance associated with going to the grocery store",
+      "other": "Other"
+    },
+
+    "your-lifestyle": {
+      "title": "Dietary habits",
+      "title-2": "Food Access"
+    },
+
+    "physical-activity": {
+      "label": "How frequently have you typically engaged in physical activity that raised your heart rate and lasted for 20 minutes at a time?",
+      "less-than-once-a-month": "Less than once a month",
+      "less-than-once-a-week": "At least once a month, but less than once a week",
+      "once-a-week": "About once a week",
+      "twice-a-week": "About twice a week",
+      "three-to-four-times-a-week": "3-4 times per week",
+      "five-or-more": "5 or more times per week",
+      "pfnts": "Prefer not to say"
+    },
+
+    "food-frequency": {
+      "rarely-or-never": "Rarely or never",
+      "less-than-once-a-week": "Less than once a week",
+      "once-a-week": "Once a week",
+      "two-to-three-a-week": "2 to 3 times a week",
+      "four-to-six-a-week": "4 to 6 times a week",
+      "one-to-two-a-day": "1 to 2 times a day",
+      "three-to-four-a-day": "3 to 4 times a day",
+      "five-plus-a-day": "5+ times a day"
+    },
+
+    "alcohol-frequency": {
+      "label": "How often did you have a drink containing alcohol?",
+      "never": "Never",
+      "monthly": "Monthly",
+      "two-to-four-a-month": "2 to 4 times a month",
+      "two-to-three-a-week": "2 to 3 times a week",
+      "four-or-more-a-week": "4 or more times a week",
+      "pfnts": "Prefer not to say"
+    },
+
+    "alcohol-units": {
+      "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one unit of alcohol.",
+      "one-to-two": "1 or 2",
+      "three-to-four": "3 or 4",
+      "five-to-six": "5 or 6",
+      "seven-to-nine": "7, 8, 9",
+      "ten-or-more": "10 or more",
+      "pfnts": "Prefer not to say"
+    },
+
+    "alcohol-unit-info": {
+      "label-1": "A drink is defined as one unit of alcohol.",
+      "label-2": "Typical units in common alcoholic beverages:",
+      "pints": "Pint or can of beer/lager/cider",
+      "shots": "Single shot of spirits",
+      "small-glass": "Small glass of fortified wine",
+      "standard-glass": "Standard glass of wine",
+      "large-glass": "Large glass of wine",
+      "bottle-wine": "Bottle of wine",
+      "malt-liquor": "",
+
+      "pints-volume": "570ml",
+      "shots-volume": "25ml",
+      "small-glass-volume": "100ml",
+      "standard-glass-volume": "175ml",
+      "large-glass-volume": "250ml",
+      "bottle-wine-volume": "750ml",
+      "malt-liquor-volume": "",
+
+      "pints-units": "2 units",
+      "shots-units": "1 unit",
+      "small-glass-units": "1 unit",
+      "standard-glass-units": "2 units",
+      "large-glass-units": "3 units",
+      "bottle-wine-units": "9 units",
+      "malt-liquor-units": ""
+    },
+
+    "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",
+
+    "supplements": {
+      "label": "What vitamins or supplements did you take (at least 3-4 times a week)?",
+      "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
+      "probiotic": "Probiotic capsules / sachets",
+      "iron": "Iron tablets",
+      "calcium": "Calcium tablets",
+      "vitamin-d": "Vitamin D supplements",
+      "zinc": "Zinc supplements",
+      "vitamin-c": "Vitamin C supplements",
+      "multivitamin": "Multivitamin tablets ",
+      "omega3": "Fish or omega 3 oils and capsules",
+      "garlic": "Garlic supplement",
+      "other": "Other",
+      "pfnts": "Prefer not to say",
+      "specify": "Please specify the other supplements"
+    },
+
+    "first-calories-label": "After waking, what time did you typically first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "last-calories-label": "What was the latest time of day that you would typically eat or drink anything other than water/black coffee and plain tea? (including snacks)",
+    "eats-breakfast-label": "Did you typically eat breakfast?",
+    "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
+    "main-meals-placeholder": "Main meals per day",
+    "snacks-label": "How many times did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
+    "snacks-placeholder": "Eat snacks per day",
+    "lost-control": "Do you worry that you had lost control over how much you eat?",
+    "diet": {
+      "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",
+      "mixed": "Typical mixed diet (including most/all foods as well as meat, fish or seafood)",
+      "vegetarian": "Vegetarian (includes eggs and/or dairy)",
+      "vegan": "Vegan (no animal products)",
+      "pescatarian": "Pescatarian (no meat other than fish or seafood)",
+      "keto": "Ketogenic or Atkins",
+      "low-carb": "Low-carbohydrate diet (includes the Paleo diet or minimising carbs)",
+      "low-fat": "Low-fat diet",
+      "gluten-free": "Gluten-free diet",
+      "lactose-free": "Lactose-free diet",
+      "low-calorie": "Low-calorie diet"
+    },
+
+    "typical-diet": {
+      "title": "Your typical diet",
+      "text-1": "These questions ask about some foods & drinks you might have in a ‘typical’ week during this time-frame.\n\nDo not be concerned if some things you eat or drink are not mentioned.",
+      "text-2": "Please select how often you eat at least ONE portion of the following foods & drinks. A portion includes: a handful of grapes, an orange, a serving of carrots, a side salad, a slice of bread, a glass of pop.",
+      "fruit-1": "Fruit",
+      "fruit-2": "(tinned / fresh)",
+      "fruit_juice-1": "Fruit juice ",
+      "fruit_juice-2": "(not cordial or squash)",
+      "salad-1": "Salad",
+      "salad-2": "(not garnish added to sandwiches)",
+      "vegetables-1": "Vegetables",
+      "vegetables-2": "(tinned / frozen / fresh but not potatoes)",
+      "chips-1": "Chips / fried potatoes",
+      "chips-2": "",
+      "pulses-1": "Beans or pulses",
+      "pulses-2": "like baked beans, chick peas, dahl",
+      "fibre_rich_breakfast-1": "Fibre-rich breakfast cereal",
+      "fibre_rich_breakfast-2": "like Weetabix, Fruit ‘n Fibre, Porridge, Muesli",
+      "wholemeal_bread-1": "Wholemeal bread or chapattis",
+      "wholemeal_bread-2": "",
+      "cheese_yogurt-1": "Cheese / yoghurt",
+      "cheese_yogurt-2": "",
+      "crisps_snacks-1": "Crisps / savoury snacks",
+      "crisps_snacks-2": "",
+      "sweets-1": "Sweet biscuits, cakes, chocolate, sweets",
+      "sweets-2": "",
+      "ice_cream-1": "Ice cream / cream",
+      "ice_cream-2": "",
+      "fizzy_pop-1": "Non alcoholic fizzy drinks/pop",
+      "fizzy_pop-2": "(not sugar free or diet)",
+      "red_meat-1": "Beef, Lamb, Pork, Ham",
+      "red_meat-2": "Steaks, roasts, joints, mince or chops",
+      "white_meat-1": "Chicken or Turkey",
+      "white_meat-2": "Steaks, roasts, joints, mince or portions (not in batter or breadcrumbs)",
+      "red_processed_meat-1": "Sausages, bacon, corned beef, meat pies/pasties, burgers",
+      "red_processed_meat-2": "",
+      "white_processed_meat-1": "Chicken/turkey nuggets/twizzlers, turkey burgers, chicken pies, or in batter or breadcrumbs",
+      "white_processed_meat-2": "",
+      "white_fish_battered_breaded-1": "White fish in batter or breadcrumbs – like ‘fish ‘n chips’",
+      "white_fish_battered_breaded-2": "",
+      "white_fish-1": "White fish not in batter or breadcrumbs",
+      "white_fish-2": "",
+      "oily_fish-1": "Oily fish – like herrings, sardines, salmon, trout, mackerel, fresh tuna",
+      "oily_fish-2": "(not tinned tuna)",
+      "eggs-1": "Eggs - as boiled, fried, scrambled, etc.",
+      "eggs-2": "",
+      "fast_food-1": "Fast food",
+      "fast_food-2": "",
+      "live-probiotic-1": "Live probiotic or fermented food products",
+      "live-probiotic-2": "e.g. sauerkraut, kimchi, yakult, live yogurt, kefir",
+      "white-bread-1": "White bread",
+      "rice-1": "Rice",
+      "pasta-1": "Pasta",
+      "refined_breakfast-1": "Refined breakfast cereals",
+      "refined_breakfast-2": "e.g. rice krispies, cornflakes, coco pops",
+
+      "section-meat": "Whole meats",
+      "section-processed-meat": "Processed meats / meat products",
+      "section-fish": "Fish",
+      "section-other": "Other",
+      "section-refined-carbs": "Refined carbohydrates",
+
+      "portions_of_fruit-label": "On average, how many portions of FRUIT did you eat a day? (Excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
+      "portions_of_fruit-placeholder": "Portions per day",
+      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice did you drink a day? (A standard glass is 230 ml)",
+      "glasses_of_juice-placeholder": "Glasses per day",
+      "portions_of_veg-label": "On average, how many portions of VEGETABLES did you eat a day? (Examples include 3 heaped tablespoons of carrots, a side salad, 2 spears of broccoli)",
+      "portions_of_veg-placeholder": "Portions per day",
+
+      "milk-label": "What milk did you usually use or drink, such as in hot & cold drinks or on cereal?",
+      "milk-whole": "Whole / full-fat milk",
+      "milk-semi": "Semi-skimmed milk",
+      "milk-skimmed": "Skimmed milk",
+      "milk-rarely-never": "Rarely/never use milk",
+      "milk-plant": "Plant-based milk",
+      "milk-other": "Other",
+
+      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
+    },
+
+    "other-info": {
+      "label": "Is there any other information about your diet & lifestyle you would like to share?",
+      "placeholder": "Optional",
+      "text-limit": "Ensure this field has no more than {{count}} characters.",
+      "text-limit-caption": "Max {{count}} characters"
+    },
+
+    "diet-changed": {
+      "not-sure": "Not sure"
+    },
+
+    "continue-cta": "Continue",
+    "complete-cta": "Answer for February 2020",
+
+    "consent": {
+      "header": "Before you continue",
+      "paragraph": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. \n\nWe'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. \n\nThis is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
+      "buttons-header": "Do you consent to using this data for further research into nutrition and health?",
+      "yes": "Yes, I agree",
+      "no": "No, I do not consent"
+    },
+
+    "thank-you": {
+      "title": "Thank you",
+      "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID."
+    },
+
+    "thank-you-break": {
+      "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
+      "sarah-name": "Dr Sarah Berry",
+      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
+      "return-later": "If you'd like to take a break, you can return to these questions by clicking 'Diet Study' from the menu in the top right corner of the home screen. "
+    }
+  },
+
+  "blood-group": {
+    "justification": "Other studies have shown that your blood group may affect both your risk and severity of COVID infection.",
+    "question": "What is your blood group?",
+    "answers": {
+      "type-a": "A",
+      "type-b": "B",
+      "type-ab": "AB",
+      "type-o": "O",
+      "dont-know": "I don't know",
+      "pfnts": "Prefer not to say"
+    }
+  },
+
+  "vaccine-registry": {
+    "covid-prevention": "COVID Prevention",
+    "can-we-contact": "Can we contact you about potential studies involving vaccines or other preventative treatments in the future?",
+    "yes": "Yes, I am interested",
+    "no": "No, thank you",
+    "next": "Next",
+    "creating-registry": "Thank you for joining our registry",
+    "not-ourselves": "Though we will not be running any vaccine studies ourselves, various teams working on vaccines and other preventive treatments are asking us if we can find recruits. Therefore we are creating a list for them which you are now on.",
+    "not-share": "We will not share your details with anyone, but will alert you when a relevant study becomes available.",
+    "prioritise": "We aim to prioritise people who have been regularly logging on the app, and who are early members of this list.",
+    "tell-friends": "Please tell your friends",
+    "share-title": "Please share this app",
+    "share-text": "Do you know anyone who would be interested in this app or vaccine trials?",
+    "callout-title": "VACCINE",
+    "callout-text": "Would you like to join our COVID-19 vaccine registry?",
+    "callout-link-text": "I am interested",
+    "menu-item": "Join the vaccine registry"
+  },
+
+  "dashboard": {
+    "report-today": "Report today, even if you're well",
+    "report-now": "Report now",
+    "you-have-reported-x-times": "You’ve reported %{count} times",
+    "contributors-so-far": "Contributors so far:",
+
+    "trendline-card": {
+      "cta": "Explore the graph",
+      "delta": {
+        "up": "Up by",
+        "down": "Down by",
+        "from-last-week": "from last week"
+      },
+      "share-cta": "Share your graph"
+    }
+  },
+
+  "explore-trend-line": {
+    "title": "Estimated COVID cases in",
+    "delta-week": "last week",
+    "cta": "Share"
+  },
+
+  "search-lad": {
+    "input-label": "Search for a district",
+    "input-placeholder": "e.g Camdem",
+    "no-result": "No result"
+  },
+
+  "estimated-cases-card": {
+    "covid-in-the-uk": "COVID in the UK",
+    "estimated-cases": "Estimated cases",
+    "daily": "Daily new cases",
+    "active": "Active cases",
+    "cta": "More details"
+  },
+
+  "tab-navigator": {
+    "first-tab": "Dashboard",
+    "second-tab": "Latest News"
+  },
+
+  "latest-news": {
+    "title": "Latest News"
+  },
+
+  "covid-cases-map": {
+    "covid-in-x": "COVID in {{location}}",
+    "current-estimates": "Current estimates",
+    "active-cases-in-area": "Active cases\nin your area",
+    "not-enough-contributors": "Not enough contributors\nin this area",
+    "share": "Share your map",
+    "update-postcode": "Please provide your full postcode to see our estimated cases in your area",
+    "update-postcode-cta": "Update postcode"
+  },
+
+  "nhs-study-intro": {
+    "title": "NHS Asymptomatic Staff Testing Pilot",
+    "text-1": "Thank you for agreeing to participate in this pilot to enable the NHS to evaluate the service for asymptomatic testing of staff. In doing this you consent to share your data and provide samples for a 21-day period in line with the protocol.",
+    "text-2": "Please enter your Unique Identifier:",
+    "nhsID-placeholder": "Unique Identifier",
+    "text-3": "This number is provided as part of enrolment by the research nurse on site. If you are not part of this study please ",
+    "text-cancel": "click here.",
+    "consent": "I consent to the COVID Symptom Study sharing my name, email address and NHS ID with the NHS Asymptomatic study to identify me.",
+    "next": "Next"
+  },
+
+  "nhs-study-questions": {
+    "title": "About this study",
+    "text-1": "You need to log your test samples and health daily over the 21-day period in this app. Please note that you will not be able to retrospectively add health information for missed days.",
+    "text-2": "If you develop any symptoms before you start providing test samples as part of this study, please get in touch with your local contact. (Contact details can be found on your instruction sheet).",
+    "text-3": "Full instructions about sample collection and returns can be found in our ",
+    "text-link": "Asymptomatic Staff Testing Pilot Guide"
+  },
+
+  "nhs-test-detail": {
+    "title": "Add COVID test",
+    "date-label": "Select the date you had this test",
+    "date-required": "Please indicate the date this test occurred",
+    "mechanism-label": "What test have you taken?",
+    "mechanism-required": "This is required",
+    "mechanism-saliva": "Saliva",
+    "mechanism-swab": "Swab",
+    "fridge-label": "Has the saliva sample been stored in a fridge?",
+    "fridge-required": "This is required",
+    "days-label": "How many days has the saliva sample been stored in a fridge before drop off?",
+    "days-required": "This is required",
+    "days-placeholder": "Select days",
+    "cta-add": "Add test"
+  },
+
+  "school-networks": {
+    "title": "My School Bubbles",
+    "whole-school": "Whole school",
+    "awaiting-members": "Awaiting more members",
+    "no-cases": "No confirmed cases",
+    "confirmed-cases": "confirmed cases",
+    "children-being-reported-for": "children being reported for",
+    "child-being-reported-for": "child being reported for",
+
+    "info": {
+      "title": "We now have launched our School Communities programme",
+      "text": "To help your child’s school better safeguard children, receive daily health insights for your child’s bubble whilst contributing to the UK's largest citizen science project to help understand COVID in children, get your headteacher onboard:",
+      "cta-title": "Ask the headteacher to register your school ",
+      "cta-text": "Send them the link below to get them started:",
+      "cta-link": "covid.joinzoe.com/schoolnetworks",
+      "learn-more-title": "To learn more about this new programme:",
+      "learn-more-text": "Read our blog post"
+    },
+
+    "intro": {
+      "title": "Connect your children to their School Bubble",
+      "point-1": {
+        "title": "Why connect to a School Bubble?",
+        "description": "Get real-time insights on the COVID status of your child’s bubble at school"
+      },
+      "point-2": {
+        "title": "How it works",
+        "description": "We will monitor reports within your child’s School Bubble and send you an alert in real-time if anyone in the bubble reports their child as having had a positive COVID test."
+      },
+      "point-3": {
+        "title": "What you need to do",
+        "description": "Connect your child/children’s profile to their School Bubble and report for yourself and for your child/children daily."
+      },
+      "cta": "Connect to school network",
+      "skip": "Skip"
+    },
+
+    "how-to": {
+      "title": "How to connect to a school network",
+      "point-1": {
+        "title": "Existing profiles",
+        "description": "If you’ve already created a profile for your children, open the side nav, tap on “My profiles” and tap on your child’s account. Then, tap “School Network”. Once you add a school it will appear on your dashboard under “My Networks”"
+      },
+      "point-2": {
+        "title": "New profiles",
+        "description": "While creating a new profile, you will find a dropdown labeled “School Network”. Select the school you want to connect to and it will appear on your dashboard once their profile is created."
+      },
+      "cta": "View profiles now",
+      "skip": "Skip"
+    },
+
+    "join-school": {
+      "title": "Select your child’s school",
+      "title-higher-education": "Select your university",
+      "description": "Select the school you would like to link this account to. More information about",
+      "description-link": "School Bubbles.",
+      "description-higher-education": "Select the university you would like to link this profile to.\n\nWe only list universities that are part of our pilot programme. Please only add your university if you have been directed to do so by a university representative.",
+      "disclaimer-1": "We only list schools that are part of our pilot programme. Encourage your school's headteacher to register interest ",
+      "disclaimer-2": "here.",
+      "disclaimer-3": "Please only add your child's profile to a School Bubble if directed to by their school.",
+      "remove": "Remove this school",
+      "removeHigherEducation": "Remove this university",
+      "search": {
+        "label": "Name of school",
+        "placeholder": "Search for your child's school"
+      },
+      "school-code-title": "Enter your Unique School Network Code",
+      "school-code-instructions": "Your child's Unique School Network Code should have been shared with you by a school representative. Please contact the school if you cannot find this code.",
+      "school-code-placeholder": "Enter your code here",
+      "school-code-confirm": "Confirm your child's school",
+      "school-code-confirm-instructions": "Please confirm the below school name is correct. If the school below is not correct, please double check you have entered the correct UCN (Unique COVID Network) code. For further help, please contact your school leader.",
+
+      "dropdown": {
+        "label": "Select your child’s school",
+        "label-higher-education": "Select your university"
+      },
+
+      "cta": "Next",
+      "modal-body": "Are you sure you want to remove",
+      "button-1": "Cancel",
+      "button-2": "Remove",
+
+      "university-network-header": "Your University",
+      "university-network-body": "",
+      "school-network-header": "School Networks",
+      "school-network-body": "More information about School Networks",
+      "more-information": "More information about",
+      "school-url-label": "School Networks",
+      "school-url": "https://covid.joinzoe.com/schools",
+      "university-url-label": "",
+      "university-url": ""
+    },
+
+    "join-group": {
+      "title": "Join your child’s bubble",
+      "description": "Select your child’s bubble at %{school}",
+
+      "dropdown": {
+        "label": "Select bubble from below"
+      },
+
+      "input": {
+        "label": "Join an existing bubble",
+        "placeholder": "Find a class or bubble"
+      },
+
+      "cta": "Create a new group",
+      "next": "Next"
+    },
+
+    "success": {
+      "joined-title": "You’ve successfully joined",
+      "joined-description": "Once we have enough children being reported for in this bubble on a regular basis we will alert you in about confirmed COVID cases.\n\nPlease be aware that it could take 1 to 2 weeks before this happens.",
+      "created-title": "Great! Your group has been created",
+      "school-name": "School name",
+      "group-name": "School Bubble",
+      "ref-code-is": "Your groups reference code is:",
+      "copy-code": "Copy reference",
+      "share": "Share this link",
+      "cta": "Done"
+    },
+
+    "join-error": {
+      "cta-okay": "Okay",
+      "duplicated-membership": {
+        "title": "One moment",
+        "description": "Looks like you're already part of this bubble."
+      }
+    },
+
+    "groups-list": {
+      "title": "Your child's bubbles",
+      "subtitle": "Your child's bubbles at",
+      "text": "School bubbles your child is part of:",
+      "add-new-bubble": "\u002B Join another bubble",
+      "modal-body": "Are you sure you want to remove",
+      "button-1": "Cancel",
+      "button-2": "Remove"
+    },
+
+    "dashboard": {
+      "title": "Overview",
+      "at-the-school": "At the school",
+      "updated-on": "Updated on",
+      "students-with": "Students with",
+      "confirmed": "confirmed cases",
+      "reported": "reported symptoms",
+      "recovered": "recovered cases",
+      "total": "Total students\nreported for",
+      "more-details": "More details",
+      "faq": "FAQs",
+      "disclaimer": "For more information about responding to COVID reports at school, please contact your school and read our ",
+      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk."
+    }
+  }
 }

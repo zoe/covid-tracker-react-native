@@ -1,34 +1,37 @@
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
-import {screenWidth} from "../components/Screen";
 
+import { colors } from '@theme';
+
+import { screenWidth } from './Screen';
 
 type ProgressProps = {
-    step: number;
-    maxSteps: number;
-}
+  step: number;
+  maxSteps: number;
+  color?: string;
+};
 
-export default class ProgressStatus extends Component<ProgressProps> {
-    render() {
-        const progress = this.props.step * 100 / this.props.maxSteps;
-        const width = screenWidth - 16;
-        const progressWidth = width * progress / 100;
-        // console.log("[DEBUG[ Progress:", this.props.step, this.props.maxSteps, progress, progressWidth);
-        return (
-          <View style={styles.progressBar}>
-              <Progress.Bar progress={progress / 100} width={screenWidth - 16}>
-
-              </Progress.Bar>
-          </View>
-        );
-    }
-}
+const ProgressStatus: React.FC<ProgressProps> = (props) => {
+  const progress = (props.step * 100) / props.maxSteps;
+  const color = props.color ?? colors.predict;
+  return (
+    <View style={styles.progressBar}>
+      <Progress.Bar
+        progress={progress / 100}
+        width={screenWidth - 36}
+        color={color}
+        unfilledColor={colors.backgroundFour}
+        borderWidth={0}
+        height={2}
+      />
+    </View>
+  );
+};
+export default ProgressStatus;
 
 const styles = StyleSheet.create({
-    progressBar: {
-        width: screenWidth - 16,
-
-        // borderWidth: 1, borderColor: 'red',
-    }
+  progressBar: {
+    width: screenWidth - 36,
+  },
 });
