@@ -138,7 +138,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
           }
         }}
       />
-      {monthRangeLabel && <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>}
+      {!!monthRangeLabel && <RegularText style={{ textAlign: 'center', fontSize: 12 }}>{monthRangeLabel}</RegularText>}
     </View>
   );
 };
