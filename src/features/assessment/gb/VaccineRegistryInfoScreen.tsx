@@ -103,18 +103,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginVertical: 12,
     textAlign: 'center',
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
   },
   interestedTest2: {
     marginHorizontal: 8,
     marginTop: 12,
     marginBottom: 40,
     textAlign: 'center',
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
     color: colors.primary,
   },
   interestedTest3: {
-    fontWeight: '500',
+    fontFamily: 'SofiaPro-Medium',
     color: colors.primary,
   },
   shareCard: {

@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -211,25 +211,27 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
           {(props) => {
             return (
               <Form>
-                <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
-                <CovidTestMechanismQuestion formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
-                <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
-                <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
-                <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
+                <View style={{ marginHorizontal: 16 }}>
+                  <CovidTestDateQuestion formikProps={props as FormikProps<CovidTestDateData>} test={test} />
+                  <CovidTestMechanismQuestion formikProps={props as FormikProps<CovidTestMechanismData>} test={test} />
+                  <CovidTestLocationQuestion formikProps={props as FormikProps<CovidTestLocationData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                  <CovidTestInvitedQuestion formikProps={props as FormikProps<CovidTestInvitedData>} test={test} />
 
-                <ErrorText>{this.state.errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
+                  <ErrorText>{this.state.errorMessage}</ErrorText>
+                  {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                    <ValidationError error={i18n.t('validation-error-text')} />
+                  )}
 
-                {this.testId && (
-                  <ClearButton
-                    text={i18n.t('covid-test.delete-test')}
-                    onPress={async () => {
-                      await this.promptDeleteTest();
-                    }}
-                  />
-                )}
+                  {this.testId && (
+                    <ClearButton
+                      text={i18n.t('covid-test.delete-test')}
+                      onPress={async () => {
+                        await this.promptDeleteTest();
+                      }}
+                    />
+                  )}
+                </View>
 
                 <BrandedButton onPress={props.handleSubmit}>
                   <Text>{i18n.t(this.testId ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>

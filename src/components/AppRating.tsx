@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import { Toast, View } from 'native-base';
 import React, { Component } from 'react';
 import { Linking, Platform, StyleSheet, TouchableOpacity } from 'react-native';
@@ -12,6 +11,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import { IContentService } from '@covid/core/content/ContentService';
 import { RegularBoldText, RegularText } from '@covid/components/Text';
 import { isUSCountry, isSECountry } from '@covid/core/localisation/LocalisationService';
+import { useConstants } from '@covid/utils/hooks';
 
 type PropsType = object;
 
@@ -20,6 +20,7 @@ type State = {
   showTakeToStore: boolean;
 };
 
+const Constants = useConstants();
 const USiOSLink = `https://apps.apple.com/us/app/covid-symptom-study/id1503529611`;
 const UKiOSLink = `https://apps.apple.com/gb/app/covid-symptom-study/id1503529611`;
 const SEiOSLink = `https://apps.apple.com/se/app/covid-symptom-study/id1503529611`;

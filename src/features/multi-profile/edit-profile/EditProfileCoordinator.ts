@@ -90,6 +90,11 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
     schoolNetworkCoordinator.startFlow();
   }
 
+  goToUniversityNetwork() {
+    schoolNetworkCoordinator.init(this.appCoordinator, this.patientData, true);
+    NavigatorService.navigate('JoinHigherEducation', { patientData: this.patientData });
+  }
+
   shouldShowEditStudy() {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
@@ -98,6 +103,18 @@ export class EditProfileCoordinator extends Coordinator implements UpdatePatient
   }
 
   shouldShowSchoolNetwork() {
+    const currentPatient = this.patientData.patientState;
+    const birthYear = this.patientData.patientInfo?.year_of_birth;
+
+    // If undefined - the patient hasn't completed the register flow
+    if (!birthYear) {
+      return false;
+    }
+
+    return isGBCountry() && currentPatient.isReportedByAnother && !currentPatient.isMinor;
+  }
+
+  shouldShowUniNetwork() {
     return isGBCountry();
   }
 }

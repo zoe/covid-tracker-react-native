@@ -36,7 +36,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
               {'\n'}
             </RegularText>
           )}
-          <RegularText style={{ fontWeight: '600' }}>{description}</RegularText>
+          <RegularText style={{ fontFamily: 'SofiaPro-SemiBold' }}>{description}</RegularText>
         </RegularText>
         {onPress && (
           <ClickableText style={{ fontSize: 14 }} onPress={onPress}>
@@ -74,7 +74,7 @@ export const SchoolDashboardScreen: React.FC<Props> = (props) => {
           <Header>
             <HeaderText style={styles.header}>
               <HeaderText>{school.name + ' '}</HeaderText>
-              <HeaderText style={{ fontWeight: 'bold' }}>{i18n.t('school-networks.dashboard.title')}</HeaderText>
+              <HeaderText>{i18n.t('school-networks.dashboard.title')}</HeaderText>
             </HeaderText>
           </Header>
 
@@ -197,6 +197,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     textAlign: 'center',
     marginBottom: 8,
-    fontWeight: '500',
   },
 });

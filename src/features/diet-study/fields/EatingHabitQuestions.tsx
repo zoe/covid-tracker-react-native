@@ -42,7 +42,7 @@ export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> 
       </FieldWrapper>
 
       <FieldLabel>{i18n.t('diet-study.main-meals-label')}</FieldLabel>
-      <FieldWrapper style={{ padding: 16 }}>
+      <FieldWrapper style={{ paddingVertical: 16 }}>
         <ValidatedTextInput
           placeholder={i18n.t('diet-study.main-meals-placeholder')}
           value={formikProps.values.mainMeals}
@@ -56,7 +56,7 @@ export const EatingHabitQuestions: EatingHabitQuestions<Props, EatingHabitData> 
       </FieldWrapper>
 
       <FieldLabel>{i18n.t('diet-study.snacks-label')}</FieldLabel>
-      <FieldWrapper style={{ padding: 16 }}>
+      <FieldWrapper style={{ paddingVertical: 16 }}>
         <ValidatedTextInput
           placeholder={i18n.t('diet-study.snacks-placeholder')}
           value={formikProps.values.snacks}

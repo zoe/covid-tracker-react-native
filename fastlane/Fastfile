@@ -1,90 +1,273 @@
-fastlane_version "2.145.0"
+fastlane_version "2.160.0"
 
-desc "iOS publishing lanes"
-platform :ios do
-  desc "iOS Dev Channel (AppCenter)"
-  lane :dev do |options|
-    appcenter_upload(
-      api_token: options[:app_token],
-      owner_name: "Joinzoe",
-      owner_type: "organization",
-      app_name: options[:app_name],
-      file: Dir.pwd + "/app.ipa",
-      notify_testers: true,
-    )
-  end
+@keychain_name = "fastlane_tmp_keychain-db"
 
-  desc "iOS Stage Channel (TestFlight)"
-  lane :stage do
-    upload_to_testflight(
-      username: ENV["ITUNES_CONNECT_USER"],
-      password: ENV["ITUNES_CONNECT_PASSWORD"],
-      ipa: Dir.pwd + "/app.ipa",
-    )
-  end
+# Node Project
+@package_json = load_json(json_path: "./package.json")
 
-  desc "TODO: iOS Production Channel (App Store)"
-  lane :production do
-  end
+# iOS
+@ios_app_id = ENV['iOS_APP_ID']
+@ios_scheme = ENV['iOS_SCHEME']
+
+# AppCenter configs
+# @ac_destination_type = ENV['APPCENTER_DESTINATION_TYPE']
+
+@slack_url = ENV['SLACK_WEB_HOOK']
+
+default_platform(:ios)
+
+###
+desc 'Android: Increment versionCode and set versionName to package.json version.'
+
+private_lane :inc_ver_and do
+  increment_version_code(
+    gradle_file_path: "./android/app/build.gradle",
+  )
+
+  increment_version_name(
+    gradle_file_path: "./android/app/build.gradle",
+    version_name: package['version']
+  )
 end
 
-desc "Android publishing lanes"
-platform :android do
-  desc "Android Dev Channel (AppCenter)"
-  lane :dev do |options|
-    appcenter_upload(
-      api_token: options[:app_token],
-      owner_name: "Joinzoe",
-      owner_type: "organization",
-      app_name: options[:app_name],
-      file: Dir.pwd + "/app.aab",
-      notify_testers: true,
-    )
-  end
 
-  desc "Android Stage Channel (Play Store Beta)"
-  lane :stage do
-    upload_to_play_store(
-      track: "beta",
-      aab: Dir.pwd + "/app.aab",
-      json_key: Dir.pwd + "/playstore.json",
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-    )
-  end
+desc 'iOS: Increment build number and set the version to package.json version.'
+private_lane :inc_ver_ios do
+package = load_json(json_path: "./package.json")
 
-  desc "TODO: Android Production Channel (Play Store)"
-  lane :production do
-  end
+  increment_build_number(
+    xcodeproj: './ios/' + package['name'] + '.xcodeproj'
+  )
+  increment_version_number(
+    xcodeproj: './ios/' + package['name'] + '.xcodeproj',
+    version_number: package['version']
+  )
 end
 
-after_all do
-  build_info = lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]
-  build_type = lane_context[SharedValues::LANE_NAME]
-  new_build_message = "A new `#{build_type}` build has been uploaded!"
-  if !build_info.nil?
-    slack(
-      success: true,
-      message: new_build_message,
-      default_payloads: [:last_git_commit, :last_git_commit_hash],
-      payload: {
-        "App Version": "#{build_info["id"]} (#{build_info["short_version"]})",
-        "Platform": build_info["app_os"],
-        "Download URL": "<#{build_info["download_url"]}|Click here>",
-      },
-      attachment_properties: {
-        thumb_url: build_info["app_icon_url"],
-      },
-    )
+lane :get_build_number_by_time do
+  Time.new.strftime("%Y%m%d%H%M") # e.g 202011121515
+end
+
+desc 'Bump build numbers, and set the version to match the pacakage.json version.'
+lane :bump do
+  inc_ver_ios
+  inc_ver_and
+  set_build_number
+end
+
+
+desc 'Get Expo OTA release channel name'
+lane :get_expo_release_channel do |options|
+  app_json = load_json(json_path: "./app.json")
+  "#{options[:env]}-v#{app_json['version']}"
+end
+
+desc 'Create Beta icons'
+lane :generate_beta_icons do
+  @package_version = `node -e "console.log(require('../package.json').version);"`.strip!
+  add_badge(
+    shield: 'Version-' + @package_version + '-orange',
+    shield_geometry: '+0+25%',
+    shield_scale: '0.75'
+  )
+end
+###
+
+
+lane :get_version_no do
+  @build_number = ENV['BUILD_BUILDNUMBER'] || get_build_number_by_time()
+
+  @package_version = `node -e "console.log(require('../package.json').version);"`.strip!
+
+  if @build_number == "1"
+    @environment = "local"
   else
-    slack(message: new_build_message)
+    @environment = ENV['NAME']  
+  end
+
+  #Only update the build number if its not already been updated
+  if @build_number.include? "."
+    @version = ENV['BUILD_BUILDNUMBER']
+  else
+    @version = "#{@package_version}.#{@build_number}-#{@environment}"
+  end
+  
+  puts "Build Number is #{@build_number}"
+  puts "Environment is #{@environment}"
+  puts "Version is #{@version}"
+end
+
+lane :release_notes do
+  @change_log = changelog_from_git_commits(pretty: '• %s', merge_commit_filtering: 'exclude_merges', commits_count: 30)
+end
+
+# lane :release_notes do |options|
+#   @change_log = conventional_changelog(format: 'markdown', title: options[:title])
+# end
+
+platform :android do
+
+  JS_PACKAGE = load_json(json_path: "./package.json")
+
+  before_all do
+    get_version_no
+
+    @ac_notify_group = "Android"
+    @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
+    @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
+  end
+  
+  desc "Build Android Staging"
+  lane :release do |options|
+
+    case options[:env]
+    when 'stage'
+      # generate_beta_icons
+      @build_configuration = 'staging'
+      @ac_destination_type ='group'
+    when 'prod'
+      @build_configuration = 'release'
+      @ac_destination_type ='store'
+    end
+
+    gradle(
+      task: 'assemble',
+      build_type: @build_configuration,
+      project_dir: "./android",
+      properties: {
+        "versionCode" => @build_number,
+        "versionName" => @package_json['version'],
+      }
+    )
+
+    appcenter
+  end
+
+  lane :appcenter do
+    appcenter_upload(
+      app_name: @ac_project_name,
+      api_token: @ac_token,
+      destinations: @ac_notify_group,
+      destination_type: @ac_destination_type,
+      owner_name: "Joinzoe",
+      owner_type: "organization",
+      file: String.try_convert(SharedValues::GRADLE_APK_OUTPUT_PATH),
+      release_notes: String.try_convert(git_branch),
+      notify_testers: true
+    )
   end
 end
 
-error do |lane, exception|
-  slack(
-    pretext: "@here",
-    success: false,
+
+platform :ios do
+
+  before_all do
+    get_version_no
+    setup_circle_ci
+    app_identifier = @ios_app_id
+    @ac_notify_group = "iOS"
+    @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
+    @ac_token = ENV['APPCENTER_IOS_TOKEN']
+    increment_build_number(
+      build_number: "#{@build_number}",
+      xcodeproj: './ios/Covid.xcodeproj',
+    )
+  end
+
+  lane :certificates do
+    match(app_identifier: ["com.joinzoe.covid-zoe", "com.joinzoe.covid-zoe.qa"], readonly: true)
+  end
+  
+  desc "Build"
+  lane :release do |options|
+
+    @match_mode = @ac_destination_type
+    @export_method = nil
+    @build_configuration = 'Release'
+    @expo_release_channel = get_expo_release_channel(env: options[:env])
+    
+    increment_version_number(
+      xcodeproj: "./ios/Covid.xcodeproj",
+      version_number: @package_json['version']
+    )
+
+    # release_notes
+
+    case options[:env]
+    when 'stage'
+      # generate_beta_icons
+      @match_mode = 'adhoc'
+      @export_method = 'ad-hoc'
+      @build_configuration = 'Stage'
+      @ac_destination_type ='group'
+    when 'prod'
+      @match_mode = 'appstore'
+      @export_method = 'app-store'
+      @build_configuration = 'Release'
+      @ac_destination_type ='store'
+    end
+    
+    puts @change_log
+
+    match(
+      type: @match_mode,
+      app_identifier: @ios_app_id,
+      git_branch: "master",
+      readonly: true,
+      keychain_name: @keychain_name,
+      force_for_new_devices: @match_mode.eql?('adhoc')
+    )
+    
+    gym(
+      # clean: true,
+      configuration: @build_configuration,
+      export_method: @export_method,
+      scheme: @ios_scheme,
+      output_directory: "./build",
+      workspace: "./ios/Covid.xcworkspace",
+      xcargs: "EX_RELEASE_CHANNEL='#{@expo_release_channel}'"
+    )
+
+    slack_payload = {
+      'Build Date' => Time.new.to_s,
+    }
+
+    appcenter
+  end
+
+  lane :appcenter do
+    appcenter_upload(
+      app_name: @ac_project_name,
+      api_token: @ac_token,
+      destinations: @ac_notify_group,
+      destination_type: @ac_destination_type,
+      owner_name: "Joinzoe",
+      owner_type: "organization",
+      ipa: String.try_convert(SharedValues::IPA_OUTPUT_PATH),
+      dsym: String.try_convert(SharedValues::DSYM_OUTPUT_PATH),
+      release_notes: String.try_convert(git_branch),
+      notify_testers: true
+    )
+  end
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+lane :register do
+  register_devices(
+    devices_file: "./fastlane/devices.txt"
   )
 end

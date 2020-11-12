@@ -24,31 +24,11 @@ import {
   BloodPressureData,
   BloodPressureMedicationQuestion,
 } from '@covid/features/patient/fields/BloodPressureMedicationQuestion';
-import {
-  HormoneTreatmentData,
-  HormoneTreatmentQuestion,
-  TreatmentValue,
-} from '@covid/features/patient/fields/HormoneTreatmentQuestion';
-import { PeriodData, PeriodQuestion, periodValues } from '@covid/features/patient/fields/PeriodQuestion';
 import { RaceEthnicityData, RaceEthnicityQuestion } from '@covid/features/patient/fields/RaceEthnicityQuestion';
-import {
-  VitaminSupplementsQuestion,
-  VitaminSupplementData,
-  supplementValues,
-  SupplementValue,
-} from '@covid/features/patient/fields/VitaminQuestion';
 import { DiabetesData, DiabetesQuestions } from '@covid/features/patient/fields/DiabetesQuestions';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 
-interface BackfillData
-  extends BloodPressureData,
-    RaceEthnicityData,
-    PeriodData,
-    HormoneTreatmentData,
-    VitaminSupplementData,
-    AtopyData,
-    DiabetesData,
-    BloodGroupData {}
+interface BackfillData extends BloodPressureData, RaceEthnicityData, AtopyData, DiabetesData, BloodGroupData {}
 
 type BackDateProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ProfileBackDate'>;
@@ -59,9 +39,6 @@ type State = {
   errorMessage: string;
   needBloodPressureAnswer: boolean;
   needRaceEthnicityAnswer: boolean;
-  needPeriodStatusAnswer: boolean;
-  needHormoneTreatmentAnswer: boolean;
-  needVitaminAnswer: boolean;
   needAtopyAnswers: boolean;
   needDiabetesAnswers: boolean;
   needBloodGroupAnswer: boolean;
@@ -71,9 +48,6 @@ const initialState: State = {
   errorMessage: '',
   needBloodPressureAnswer: false,
   needRaceEthnicityAnswer: false,
-  needPeriodStatusAnswer: false,
-  needHormoneTreatmentAnswer: false,
-  needVitaminAnswer: false,
   needAtopyAnswers: false,
   needDiabetesAnswers: false,
   needBloodGroupAnswer: false,
@@ -124,41 +98,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       is: () => this.state.needRaceEthnicityAnswer && isUSCountry(),
       then: Yup.string().required(),
     }),
-
-    havingPeriods: Yup.string().when([], {
-      is: () => this.state.needPeriodStatusAnswer,
-      then: Yup.string().required(i18n.t('your-health.please-select-periods')),
-    }),
-    periodFrequency: Yup.string().when('havingPeriods', {
-      is: periodValues.CURRENTLY,
-      then: Yup.string().required(i18n.t('your-health.please-select-period-frequency')),
-    }),
-    weeksPregnant: Yup.number().when('havingPeriods', {
-      is: periodValues.PREGNANT,
-      then: Yup.number()
-        .typeError(i18n.t('your-health.correct-weeks-pregnant'))
-        .min(0, i18n.t('your-health.correct-weeks-pregnant'))
-        .max(50, i18n.t('your-health.correct-weeks-pregnant')),
-    }),
-    periodStoppedAge: Yup.number().when('havingPeriods', {
-      is: periodValues.STOPPED,
-      then: Yup.number()
-        .typeError(i18n.t('your-health.correct-period-stopped-age'))
-        .min(0, i18n.t('your-health.correct-period-stopped-age'))
-        .max(100, i18n.t('your-health.correct-period-stopped-age')),
-    }),
-    hormoneTreatment: Yup.array<string>().when([], {
-      is: () => this.state.needHormoneTreatmentAnswer,
-      then: Yup.array<string>().min(1, i18n.t('your-health.please-select-hormone-treatments')),
-    }),
-    vitaminSupplements: Yup.array<string>().when([], {
-      is: () => this.state.needVitaminAnswer,
-      then: Yup.array<string>().min(1, i18n.t('your-health.vitamins.please-select-vitamins')),
-    }),
-    vitaminOther: Yup.string().when('vitaminSupplements', {
-      is: (val: string[]) => val.includes(supplementValues.OTHER),
-      then: Yup.string(),
-    }),
   });
 
   async componentDidMount() {
@@ -168,9 +107,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       needRaceEthnicityAnswer:
         (this.features.showRaceQuestion || this.features.showEthnicityQuestion) &&
         !currentPatient.hasRaceEthnicityAnswer,
-      needPeriodStatusAnswer: !currentPatient.hasPeriodAnswer,
-      needHormoneTreatmentAnswer: !currentPatient.hasHormoneTreatmentAnswer,
-      needVitaminAnswer: !currentPatient.hasVitaminAnswer,
       needAtopyAnswers: !currentPatient.hasAtopyAnswers,
       needDiabetesAnswers: currentPatient.shouldAskExtendedDiabetes,
       needBloodGroupAnswer: !currentPatient.hasBloodGroupAnswer,
@@ -187,9 +123,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       .then((response) => {
         if (formData.race) currentPatient.hasRaceEthnicityAnswer = true;
         if (formData.takesAnyBloodPressureMedications) currentPatient.hasBloodPressureAnswer = true;
-        if (formData.havingPeriods) currentPatient.hasPeriodAnswer = true;
-        if (formData.hormoneTreatment?.length) currentPatient.hasHormoneTreatmentAnswer = true;
-        if (formData.vitaminSupplements?.length) currentPatient.hasVitaminAnswer = true;
         if (formData.hasHayfever) currentPatient.hasAtopyAnswers = true;
         if (formData.hasHayfever === 'yes') currentPatient.hasHayfever = true;
         if (formData.diabetesType) {
@@ -248,33 +181,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
       }
     }
 
-    if (this.state.needPeriodStatusAnswer) {
-      const periodDoc = PeriodQuestion.createPeriodDoc(formData);
-      infos = {
-        ...infos,
-        ...periodDoc,
-      };
-    }
-
-    if (this.state.needHormoneTreatmentAnswer) {
-      const treatmentsDoc = HormoneTreatmentQuestion.createTreatmentsDoc(formData.hormoneTreatment as TreatmentValue[]);
-      infos = {
-        ...infos,
-        ...treatmentsDoc,
-      };
-    }
-
-    if (this.state.needVitaminAnswer) {
-      const supplementsDoc = VitaminSupplementsQuestion.createSupplementsDoc(
-        formData.vitaminSupplements as SupplementValue[],
-        formData.vitaminOther as string
-      );
-      infos = {
-        ...infos,
-        ...supplementsDoc,
-      };
-    }
-
     if (this.state.needAtopyAnswers) {
       infos = {
         ...infos,
@@ -319,9 +225,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
           initialValues={{
             ...RaceEthnicityQuestion.initialFormValues(),
             ...BloodPressureMedicationQuestion.initialFormValues(),
-            ...HormoneTreatmentQuestion.initialFormValues(),
-            ...PeriodQuestion.initialFormValues(),
-            ...VitaminSupplementsQuestion.initialFormValues(),
             ...AtopyQuestions.initialFormValues(),
             ...DiabetesQuestions.initialFormValues(),
             ...BloodGroupQuestion.initialFormValues(),
@@ -352,16 +255,6 @@ export default class ProfileBackDateScreen extends Component<BackDateProps, Stat
                     showEthnicityQuestion={this.features.showEthnicityQuestion}
                     formikProps={props as FormikProps<RaceEthnicityData>}
                   />
-                )}
-
-                {this.state.needPeriodStatusAnswer && <PeriodQuestion formikProps={props as FormikProps<PeriodData>} />}
-
-                {this.state.needHormoneTreatmentAnswer && (
-                  <HormoneTreatmentQuestion formikProps={props as FormikProps<HormoneTreatmentData>} />
-                )}
-
-                {this.state.needVitaminAnswer && (
-                  <VitaminSupplementsQuestion formikProps={props as FormikProps<VitaminSupplementData>} />
                 )}
 
                 {this.state.needAtopyAnswers && <AtopyQuestions formikProps={props as FormikProps<AtopyData>} />}

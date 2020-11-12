@@ -8,6 +8,8 @@ import { GenericTextField } from '@covid/components/GenericTextField';
 import { FieldWrapper } from '@covid/components/Screen';
 import i18n from '@covid/locale/i18n';
 import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { colors } from '@theme';
+import { RegularText } from '@covid/components/Text';
 
 export interface RaceEthnicityData {
   race: string[];
@@ -86,19 +88,19 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
       <View>
         {this.props.showRaceQuestion && (
           <FieldWrapper>
-            <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{i18n.t('race-question')}</Label>
+            <View style={styles.textItemStyle}>
+              <RegularText>{i18n.t('race-question')}</RegularText>
               <CheckboxList>{createRaceCheckboxes(this.UKRaceCheckboxes, this.props.formikProps)}</CheckboxList>
-            </Item>
+            </View>
           </FieldWrapper>
         )}
 
         {this.props.showEthnicityQuestion && (
           <FieldWrapper>
-            <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{i18n.t('race-question')}</Label>
+            <View style={styles.textItemStyle}>
+              <RegularText>{i18n.t('race-question')}</RegularText>
               <CheckboxList>{createRaceCheckboxes(this.USRaceCheckboxes, this.props.formikProps)}</CheckboxList>
-            </Item>
+            </View>
           </FieldWrapper>
         )}
 
@@ -112,8 +114,8 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 
         {isUSCountry() && (
           <FieldWrapper>
-            <Item stackedLabel style={styles.textItemStyle}>
-              <Label>{i18n.t('ethnicity-question')}</Label>
+            <View style={styles.textItemStyle}>
+              <RegularText>{i18n.t('ethnicity-question')}</RegularText>
               <CheckboxList>
                 <CheckboxItem
                   value={this.props.formikProps.values.ethnicity === 'hispanic'}
@@ -137,7 +139,7 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
                   {i18n.t('prefer-not-to-say')}
                 </CheckboxItem>
               </CheckboxList>
-            </Item>
+            </View>
           </FieldWrapper>
         )}
       </View>
@@ -148,5 +150,10 @@ export class RaceEthnicityQuestion extends Component<RaceEthnicityQuestionProps,
 const styles = StyleSheet.create({
   textItemStyle: {
     borderColor: 'transparent',
+  },
+  label: {
+    color: colors.primary,
+    fontFamily: 'SofiaProRegular',
+    fontSize: 16,
   },
 });

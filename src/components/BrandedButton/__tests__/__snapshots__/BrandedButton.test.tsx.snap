@@ -4,7 +4,7 @@ exports[`BrandedButton tests renders correctly 1`] = `
 <View
   accessible={true}
   focusable={true}
-  isTVSelectable={true}
+  forwardedRef={[Function]}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -44,6 +44,7 @@ exports[`BrandedButton tests renders correctly 1`] = `
       Array [
         Object {
           "color": "#565A5C",
+          "fontFamily": "SofiaPro-Light",
           "fontSize": 16,
           "lineHeight": 24,
         },

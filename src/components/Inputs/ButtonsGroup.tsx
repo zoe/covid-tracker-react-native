@@ -62,9 +62,9 @@ export const ButtonsGroup: React.FC<Props> = ({ label, selectedValue, items, err
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
   labelStyle: {
+    fontFamily: 'SofiaProRegular',
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 8,

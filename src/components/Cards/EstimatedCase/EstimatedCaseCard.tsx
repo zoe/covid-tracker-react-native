@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
   },
 
   primaryLabel: {
-    fontWeight: '500',
     color: colors.textDark,
   },
 
@@ -99,14 +98,12 @@ const styles = StyleSheet.create({
 
   metric: {
     fontSize: 32,
-    fontWeight: '300',
     lineHeight: 48,
     paddingVertical: 4,
     color: colors.textDark,
   },
 
   metricLabel: {
-    fontWeight: '300',
     color: colors.secondary,
   },
 
@@ -117,7 +114,6 @@ const styles = StyleSheet.create({
 
   detailsButtonLabel: {
     color: colors.purple,
-    fontWeight: '300',
     fontSize: 14,
   },
 });

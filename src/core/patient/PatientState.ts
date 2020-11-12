@@ -13,9 +13,6 @@ export type PatientStateType = {
   isSameHousehold: boolean;
   shouldAskStudy: boolean;
   hasRaceEthnicityAnswer: boolean;
-  hasPeriodAnswer: boolean;
-  hasHormoneTreatmentAnswer: boolean;
-  hasVitaminAnswer: boolean;
   hasAtopyAnswers: boolean;
   hasDiabetes: boolean;
   hasDiabetesAnswers: boolean;
@@ -24,6 +21,7 @@ export type PatientStateType = {
   shouldShowUSStudyInvite: boolean;
   hasBloodGroupAnswer: boolean;
   hasSchoolGroup: boolean;
+  isMinor: boolean;
 };
 
 const initPatientState: PatientStateType = {
@@ -45,9 +43,6 @@ const initPatientState: PatientStateType = {
   isSameHousehold: false,
   shouldAskStudy: false,
   hasRaceEthnicityAnswer: true,
-  hasPeriodAnswer: true,
-  hasHormoneTreatmentAnswer: true,
-  hasVitaminAnswer: true,
   hasAtopyAnswers: true,
   shouldShowUSStudyInvite: false,
   hasDiabetes: false,
@@ -55,6 +50,7 @@ const initPatientState: PatientStateType = {
   shouldAskExtendedDiabetes: false,
   hasBloodGroupAnswer: true,
   hasSchoolGroup: false,
+  isMinor: false,
 };
 
 export const getInitialPatientState = (patientId: string): PatientStateType => {
@@ -62,4 +58,9 @@ export const getInitialPatientState = (patientId: string): PatientStateType => {
     ...initPatientState,
     patientId,
   } as PatientStateType;
+};
+
+export const isMinorAge = (yearOfBirth: number): boolean => {
+  const age = new Date().getFullYear() - yearOfBirth;
+  return age >= 0 && age < 20;
 };

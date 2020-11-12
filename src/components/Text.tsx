@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
   regularBoldText: {
     ...fontStyles.bodyReg,
-    fontWeight: '600',
+    fontFamily: 'SofiaPro-SemiBold',
   },
 
   clickableText: {
@@ -122,13 +122,11 @@ const styles = StyleSheet.create({
   },
 
   fieldLabel: {
-    paddingHorizontal: 16,
     marginBottom: -16,
   },
 
   divider: {
     borderBottomWidth: 2,
     borderColor: colors.backgroundFour,
-    marginHorizontal: 16,
   },
 });

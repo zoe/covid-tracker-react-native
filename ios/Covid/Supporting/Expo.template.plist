@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EXUpdatesReleaseChannel</key>
+	<string>EX_RELEASE_CHANNEL</string>
+	<key>EXUpdatesCheckOnLaunch</key>
+	<string>ALWAYS</string>
+	<key>EXUpdatesEnabled</key>
+	<true/>
+	<key>EXUpdatesLaunchWaitMs</key>
+	<integer>10000</integer>
+	<key>EXUpdatesSDKVersion</key>
+	<string>EX_VERSION</string>
+	<key>EXUpdatesURL</key>
+	<string>https://exp.host/@julien.lavigne/covid-zoe</string>
+</dict>
+</plist>

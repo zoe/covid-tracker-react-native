@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog016, dataPage003, timUpdate013, notificationReminders } from '@assets';
+import { blog020, dataPage003, notificationReminders, timUpdate018 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -77,22 +77,23 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/long-covid?utm_source=App"
-                calloutID="blog_016"
-                imageSource={blog016}
-                aspectRatio={1.558}
+                link="https://covid.joinzoe.com/post/covid-school-communities?utm_source=App"
+                calloutID="blog_020"
+                imageSource={blog020}
+                aspectRatio={1.555}
                 screenName={this.props.route.name}
+                imageStyles={{ borderRadius: 8 }}
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=9B5KI-r_nDU"
-                calloutID="tim_update_014"
-                imageSource={timUpdate013}
-                aspectRatio={1.1791}
+                link="https://www.youtube.com/watch?v=AI2-0x5fP_s"
+                calloutID="tim_update_018"
+                imageSource={timUpdate018}
+                aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
 
-              <RegularText style={styles.dateLabel}>Oct 15, 2020</RegularText>
+              {/*<RegularText style={styles.dateLabel}>Oct 29, 2020</RegularText>*/}
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout

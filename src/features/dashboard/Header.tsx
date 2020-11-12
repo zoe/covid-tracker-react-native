@@ -122,8 +122,9 @@ const styles = StyleSheet.create({
   },
 
   dateLabel: {
-    fontWeight: '500',
     color: 'white',
+    textAlign: 'center',
+    width: '100%',
   },
 
   reportButton: {
@@ -155,7 +156,11 @@ const styles = StyleSheet.create({
   },
 
   contributorsCount: {
-    fontWeight: '500',
+    color: colors.white,
+    textAlign: 'center',
+    width: '100%',
+  },
+  test: {
     color: colors.white,
   },
 });

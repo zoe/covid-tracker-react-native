@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     lineHeight: 48,
     color: colors.primary,
-    fontWeight: '500',
+    fontFamily: 'SofiaPro-Medium',
     textAlign: 'center',
   },
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
     color: colors.primary,
   },
 

@@ -4,9 +4,8 @@
     "slug": "covid-zoe",
     "owner": "julien.lavigne",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": ["ios", "android"],
-    "version": "0.14",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

@@ -113,7 +113,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
     else if (index === lastIndex) borderRadiusStyle = styles.bottomBorderRadiusStyle;
 
     return (
-      <TouchableOpacity
+      <View
         style={[
           styles.picker,
           styles.dropdownTextStyle,
@@ -122,7 +122,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
         ]}>
         {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5 }} />}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -170,9 +170,9 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
   labelStyle: {
+    fontFamily: 'SofiaProRegular',
     fontSize: 16,
     lineHeight: 30,
     marginBottom: 8,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     minWidth: 70,
   },
-  dropdownLabel: { color: colors.secondary, flex: 1, fontWeight: '300', lineHeight: 24 },
+  dropdownLabel: { color: colors.secondary, flex: 1, lineHeight: 24 },
   dropdownSelectedLabel: { color: colors.primary },
   dropdownStyle: {
     marginTop: 8,
@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
   dropdownTextStyle: {
     backgroundColor: 'transparent',
     fontSize: 16,
+    fontFamily: 'SofiaProRegular',
     lineHeight: 24,
     color: colors.secondary,
   },

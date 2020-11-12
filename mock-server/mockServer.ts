@@ -1,9 +1,10 @@
-import mockDb from './mockDb';
-import { Patient, Assessment, DietStudy } from './types';
-import express = require('express');
 import bodyParser = require('body-parser');
-import uuid = require('uuid');
+import express = require('express');
 import moment = require('moment');
+import uuid = require('uuid');
+
+import { Patient, Assessment, DietStudy } from './types';
+import mockDb from './mockDb';
 
 const db = mockDb();
 

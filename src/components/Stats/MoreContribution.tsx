@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   almostThere: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: '300',
     textAlign: 'center',
     color: colors.primary,
   },
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
   almostThereCount: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '700',
+    fontFamily: 'SofiaPro-Bold',
     color: colors.primary,
   },
 

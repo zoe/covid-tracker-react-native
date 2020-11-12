@@ -1,5 +1,4 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -19,6 +18,9 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import NavigatorService from '@covid/NavigatorService';
+import { useConstants } from '@covid/utils/hooks';
+
+const Constants = useConstants();
 
 const isDevChannel = () => {
   return Constants.manifest.releaseChannel === '0-dev';
@@ -92,7 +94,7 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           image={<EditProfilesIcon />}
           label={i18n.t('nav-edit-profile')}
           onPress={() => {
-            NavigatorService.navigate('SelectProfile', { editing: true });
+            NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
           }}
         />
 

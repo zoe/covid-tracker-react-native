@@ -1,13 +1,13 @@
 import { FormikProps } from 'formik';
 import React from 'react';
-import { KeyboardTypeOptions, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { KeyboardTypeOptions, StyleSheet, StyleProp, TextInputProps, ViewStyle } from 'react-native';
 
 import { FieldWrapper } from './Screen';
 import { ValidatedTextInput } from './ValidatedTextInput';
 import { ValidationError } from './ValidationError';
 import { RegularText } from './Text';
 
-interface GenericTextFieldProps {
+interface GenericTextFieldProps extends TextInputProps {
   formikProps: FormikProps<any>;
   name: string;
   label?: string;
@@ -49,6 +49,5 @@ export const GenericTextField = (props: GenericTextFieldProps) => {
 const styles = StyleSheet.create({
   fieldWrapper: {
     flex: 1,
-    marginHorizontal: 16,
   },
 });

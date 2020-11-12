@@ -304,7 +304,6 @@ const styles = StyleSheet.create({
   },
 
   primaryLabel: {
-    fontWeight: '500',
     textAlign: 'center',
     color: colors.textDark,
   },
@@ -344,7 +343,6 @@ const styles = StyleSheet.create({
   },
 
   stats: {
-    fontWeight: '300',
     marginRight: 8,
   },
 
@@ -379,7 +377,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.purple,
     fontSize: 14,
-    fontWeight: '300',
   },
 
   detailsButton: {
@@ -392,7 +389,6 @@ const styles = StyleSheet.create({
 
   detailsButtonLabel: {
     color: colors.purple,
-    fontWeight: '300',
     fontSize: 14,
   },
 

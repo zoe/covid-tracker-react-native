@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { gbFlag, svFlag, usFlag } from '@assets';
+import { svFlag, usFlag } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { lazyInject } from '@covid/provider/services';
@@ -22,6 +22,10 @@ type Props = {
 const US_CODE = 'US';
 const GB_CODE = 'GB';
 const SV_CODE = 'SE';
+
+// ./icons/gb-flag.png
+
+const gbFlag = require('./gb-flag.png');
 
 export class CountrySelectScreen extends Component<Props, object> {
   @lazyInject(Services.Localisation)
@@ -44,6 +48,7 @@ export class CountrySelectScreen extends Component<Props, object> {
   };
 
   public render() {
+    console.log('usFlag', usFlag);
     return (
       <View style={styles.container}>
         <Text style={styles.text}>{i18n.t('select-country')}</Text>
@@ -52,7 +57,7 @@ export class CountrySelectScreen extends Component<Props, object> {
             <Image source={usFlag} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.selectCountry(GB_CODE)}>
-            <Image source={gbFlag} />
+            <Image source={require('./gb-flag.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.selectCountry(SV_CODE)}>
             <Image source={svFlag} />

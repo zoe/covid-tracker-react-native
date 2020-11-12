@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     alignSelf: 'center',
     paddingLeft: 2,
-    fontWeight: '500',
+    fontFamily: 'SofiaPro-Medium',
     fontSize: 14,
   },
 });

@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     textAlign: 'center',
     fontSize: 16,
-    fontWeight: '300',
+    fontFamily: 'SofiaPro-Light',
     lineHeight: 24,
     marginTop: 8,
   },

@@ -176,20 +176,17 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   schoolTitle: {
-    fontWeight: '400',
     fontSize: 18,
     color: colors.textDark,
     marginVertical: 16,
   },
   groupTitle: {
-    fontWeight: '400',
     fontSize: 16,
     color: colors.textDark,
     marginVertical: 8,
   },
   headerText: {
     fontSize: 20,
-    fontWeight: '500',
     textAlign: 'center',
     marginTop: 0,
     color: colors.textDark,

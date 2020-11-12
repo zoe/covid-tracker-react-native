@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: '300',
     color: colors.secondary,
     textAlign: 'center',
   },
@@ -56,7 +55,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: '300',
     color: colors.secondary,
     textAlign: 'center',
   },
@@ -64,7 +62,6 @@ const styles = StyleSheet.create({
   positionBold: {
     fontSize: 24,
     lineHeight: 32,
-    fontWeight: '500',
     color: colors.primary,
   },
 });

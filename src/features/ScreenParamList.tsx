@@ -37,7 +37,7 @@ export type ScreenParamList = {
 
   // Profile screens
   ReportForOther: undefined;
-  SelectProfile: { editing: boolean };
+  SelectProfile: { assessmentFlow: boolean };
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };
   ConsentForOther: { profileName: string; avatarName?: string; consentType: ConsentType };
@@ -62,11 +62,15 @@ export type ScreenParamList = {
   NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   CovidTestConfirm: { assessmentData: AssessmentData; test: CovidTest };
   HowYouFeel: { assessmentData: AssessmentData };
-  DescribeSymptoms: { assessmentData: AssessmentData };
   WhereAreYou: { assessmentData: AssessmentData };
   TreatmentSelection: { assessmentData: AssessmentData; location: string };
   TreatmentOther: { assessmentData: AssessmentData; location: string };
   ProfileBackDate: { assessmentData: AssessmentData };
+  GeneralSymptoms: { assessmentData: AssessmentData };
+  HeadSymptoms: { assessmentData: AssessmentData };
+  ThroatChestSymptoms: { assessmentData: AssessmentData };
+  GutStomachSymptoms: { assessmentData: AssessmentData };
+  OtherSymptoms: { assessmentData: AssessmentData };
 
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
@@ -93,6 +97,7 @@ export type ScreenParamList = {
   EstimatedCases: undefined;
 
   // School network
+  SchoolNetworkInfo: undefined;
   SchoolIntro: undefined;
   SchoolHowTo: { patientData: PatientData };
   SelectSchool: undefined;
@@ -102,6 +107,8 @@ export type ScreenParamList = {
   SchoolSuccess: undefined;
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
   SchoolDashboard: { school: SubscribedSchoolStats };
+  ConfirmSchool: { patientData: PatientData; school: SchoolModel };
+  JoinHigherEducation: { patientData: PatientData };
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };

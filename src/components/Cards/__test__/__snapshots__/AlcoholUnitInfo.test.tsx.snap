@@ -37,10 +37,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
             "backgroundColor": "transparent",
             "borderWidth": 0,
           },
-          undefined,
-          Object {
-            "opacity": 1,
-          },
           Object {
             "flex": 0,
             "height": 65,
@@ -54,138 +50,29 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
     >
       <RNSVGGroup
         fill={null}
-        fillOpacity={1}
-        fillRule={1}
-        font={Object {}}
-        matrix={
-          Array [
-            1,
-            0,
-            0,
-            1,
-            0,
-            0,
-          ]
-        }
-        opacity={1}
-        originX={0}
-        originY={0}
         propList={
           Array [
             "fill",
           ]
         }
-        rotation={0}
-        scaleX={1}
-        scaleY={1}
-        skewX={0}
-        skewY={0}
-        stroke={null}
-        strokeDasharray={null}
-        strokeDashoffset={null}
-        strokeLinecap={0}
-        strokeLinejoin={0}
-        strokeMiterlimit={4}
-        strokeOpacity={1}
-        strokeWidth={1}
-        vectorEffect={0}
-        x={0}
-        y={0}
       >
         <RNSVGPath
           d="M2 13L2 6.75"
-          fill={
-            Array [
-              0,
-              4278190080,
-            ]
-          }
-          fillOpacity={1}
-          fillRule={1}
-          matrix={
-            Array [
-              1,
-              0,
-              0,
-              1,
-              0,
-              0,
-            ]
-          }
-          opacity={1}
-          originX={0}
-          originY={0}
           propList={
             Array [
               "stroke",
             ]
           }
-          rotation={0}
-          scaleX={1}
-          scaleY={1}
-          skewX={0}
-          skewY={0}
-          stroke={
-            Array [
-              0,
-              4280559147,
-            ]
-          }
-          strokeDasharray={null}
-          strokeDashoffset={null}
-          strokeLinecap={0}
-          strokeLinejoin={0}
-          strokeMiterlimit={4}
-          strokeOpacity={1}
-          strokeWidth={1}
-          vectorEffect={0}
-          x={0}
-          y={0}
+          stroke={4280559147}
         />
         <RNSVGPath
           d="M2 3.75C2.9665 3.75 3.75 2.9665 3.75 2C3.75 1.0335 2.9665 0.25 2 0.25C1.0335 0.25 0.25 1.0335 0.25 2C0.25 2.9665 1.0335 3.75 2 3.75Z"
-          fill={
-            Array [
-              0,
-              4280559147,
-            ]
-          }
-          fillOpacity={1}
-          fillRule={1}
-          matrix={
-            Array [
-              1,
-              0,
-              0,
-              1,
-              0,
-              0,
-            ]
-          }
-          opacity={1}
-          originX={0}
-          originY={0}
+          fill={4280559147}
           propList={
             Array [
               "fill",
             ]
           }
-          rotation={0}
-          scaleX={1}
-          scaleY={1}
-          skewX={0}
-          skewY={0}
-          stroke={null}
-          strokeDasharray={null}
-          strokeDashoffset={null}
-          strokeLinecap={0}
-          strokeLinejoin={0}
-          strokeMiterlimit={4}
-          strokeOpacity={1}
-          strokeWidth={1}
-          vectorEffect={0}
-          x={0}
-          y={0}
         />
       </RNSVGGroup>
     </RNSVGSvgView>
@@ -204,6 +91,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         Array [
           Object {
             "color": "#565A5C",
+            "fontFamily": "SofiaProRegular",
             "fontSize": 16,
             "lineHeight": 24,
           },
@@ -260,10 +148,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 35,
@@ -277,143 +161,29 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M5.92331 14.5H10.0767C10.571 14.5 10.9911 14.1389 11.0653 13.6502L11.8865 8.24694C11.9621 7.74969 12 7.24744 12 6.74448V1.5H4V6.74448C4 7.24744 4.03795 7.74969 4.11351 8.24695L4.93466 13.6502C5.00892 14.1389 5.42905 14.5 5.92331 14.5Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M4 4.5H12"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -423,6 +193,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -440,6 +211,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -467,8 +239,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {
@@ -516,10 +288,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 18,
@@ -533,143 +301,29 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M2.84713 9.80078H7.15287C7.64171 9.80078 8.0589 9.44737 8.13927 8.96518L9.5 0.800781H0.5L1.86073 8.96518C1.9411 9.44737 2.35829 9.80078 2.84713 9.80078Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M1.5 6.60156V6.60156C2.40165 7.4066 3.56809 7.85156 4.77683 7.85156H5.22317C6.43191 7.85156 7.59835 7.4066 8.5 6.60156V6.60156"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -679,6 +333,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -696,6 +351,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -723,8 +379,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {
@@ -772,10 +428,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 21,
@@ -789,93 +441,20 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M4.11983 10.25H5.88017C6.73596 10.25 7.53514 9.8223 8.00984 9.11023C8.80055 7.92417 9.06091 6.46212 8.72824 5.07601L7.75 1H2.25L1.27176 5.07601C0.939091 6.46212 1.19945 7.92417 1.99016 9.11023C2.46486 9.8223 3.26404 10.25 4.11983 10.25Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -885,6 +464,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -902,6 +482,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -929,8 +510,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {
@@ -978,10 +559,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 20,
@@ -995,193 +572,38 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M6.75 0.75H1.25L0.679628 4.05816C0.324575 6.11747 1.91031 8 4 8C6.08969 8 7.67542 6.11746 7.32037 4.05816L6.75 0.75Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M4 8.5V12.75"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M2 13.25H6"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -1191,6 +613,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -1208,6 +631,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -1235,8 +659,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {
@@ -1284,10 +708,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 21,
@@ -1301,193 +721,38 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M7.75 0.75H2.25L1.33651 5.57843C0.902081 7.87471 2.66299 10 5 10C7.33701 10 9.09792 7.87471 8.66349 5.57843L7.75 0.75Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M5 10V13"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M3 13.25H7"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -1497,6 +762,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -1514,6 +780,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -1541,8 +808,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {
@@ -1590,10 +857,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 20,
@@ -1607,143 +870,29 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M1.66309 15H6.3369C6.4288 15 6.50507 14.929 6.51162 14.8373L6.87972 9.68394C6.95705 8.60129 6.62344 7.52926 5.94542 6.68167C5.33352 5.91674 5.00016 4.96633 5.00016 3.98677V1H3.00016L3.00005 3.98677C3.00002 4.96633 2.66662 5.91672 2.05469 6.68164C1.3766 7.52925 1.04295 8.60132 1.12029 9.68404L1.48838 14.8373C1.49493 14.929 1.5712 15 1.66309 15Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M3 2.75H5"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -1753,6 +902,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -1770,6 +920,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -1797,8 +948,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {
@@ -1846,10 +997,6 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
                 "backgroundColor": "transparent",
                 "borderWidth": 0,
               },
-              undefined,
-              Object {
-                "opacity": 1,
-              },
               Object {
                 "flex": 0,
                 "height": 35,
@@ -1863,143 +1010,29 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         >
           <RNSVGGroup
             fill={null}
-            fillOpacity={1}
-            fillRule={1}
-            font={Object {}}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
             propList={
               Array [
                 "fill",
               ]
             }
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
           >
             <RNSVGPath
               d="M5.92331 14.5H10.0767C10.571 14.5 10.9911 14.1389 11.0653 13.6502L11.8865 8.24694C11.9621 7.74969 12 7.24744 12 6.74448V1.5H4V6.74448C4 7.24744 4.03795 7.74969 4.11351 8.24695L4.93466 13.6502C5.00892 14.1389 5.42905 14.5 5.92331 14.5Z"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
             <RNSVGPath
               d="M4 4.5H12"
-              fill={
-                Array [
-                  0,
-                  4278190080,
-                ]
-              }
-              fillOpacity={1}
-              fillRule={1}
-              matrix={
-                Array [
-                  1,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                ]
-              }
-              opacity={1}
-              originX={0}
-              originY={0}
               propList={
                 Array [
                   "stroke",
                 ]
               }
-              rotation={0}
-              scaleX={1}
-              scaleY={1}
-              skewX={0}
-              skewY={0}
-              stroke={
-                Array [
-                  0,
-                  4280559147,
-                ]
-              }
-              strokeDasharray={null}
-              strokeDashoffset={null}
-              strokeLinecap={0}
-              strokeLinejoin={0}
-              strokeMiterlimit={4}
-              strokeOpacity={1}
-              strokeWidth={1}
-              vectorEffect={0}
-              x={0}
-              y={0}
+              stroke={4280559147}
             />
           </RNSVGGroup>
         </RNSVGSvgView>
@@ -2009,6 +1042,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
             },
@@ -2036,8 +1070,8 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
           Array [
             Object {
               "color": "#565A5C",
+              "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
-              "fontWeight": "600",
               "lineHeight": 24,
             },
             Object {

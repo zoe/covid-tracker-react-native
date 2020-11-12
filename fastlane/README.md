@@ -12,48 +12,77 @@ Install _fastlane_ using
 ```
 [sudo] gem install fastlane -NV
 ```
-or alternatively using `brew cask install fastlane`
+or alternatively using `brew install fastlane`
 
 # Available Actions
-## iOS
-### ios dev
+### get_build_number_by_time
 ```
-fastlane ios dev
+fastlane get_build_number_by_time
 ```
-iOS publishing lanes
 
-iOS Dev Channel (AppCenter)
-### ios stage
+### bump
 ```
-fastlane ios stage
+fastlane bump
 ```
-TODO: iOS Stage Channel (AppCenter/TestFlight)
-### ios prodution
+Bump build numbers, and set the version to match the pacakage.json version.
+### get_expo_release_channel
 ```
-fastlane ios prodution
+fastlane get_expo_release_channel
 ```
-TODO: iOS Production Channel (App Store)
+Get Expo OTA release channel name
+### generate_beta_icons
+```
+fastlane generate_beta_icons
+```
+Create Beta icons
+### get_version_no
+```
+fastlane get_version_no
+```
+
+### release_notes
+```
+fastlane release_notes
+```
+
+### register
+```
+fastlane register
+```
+
 
 ----
 
 ## Android
-### android dev
+### android release
 ```
-fastlane android dev
+fastlane android release
 ```
-Android publishing lanes
+Build Android Staging
+### android appcenter
+```
+fastlane android appcenter
+```
 
-Android Dev Channel (AppCenter)
-### android stage
+
+----
+
+## iOS
+### ios certificates
 ```
-fastlane android stage
+fastlane ios certificates
 ```
-TODO: Android Stage Channel (AppCenter/Play Store Beta)
-### android prodution
+
+### ios release
 ```
-fastlane android prodution
+fastlane ios release
 ```
-TODO: Android Production Channel (Play Store)
+Build
+### ios appcenter
+```
+fastlane ios appcenter
+```
+
 
 ----
 

@@ -108,13 +108,16 @@ const DietStudyTypicalDietScreen: React.FC<Props> = ({ route, navigation }) => {
               <View style={[styles.divider, styles.padded]} />
 
               <FoodFreqQuestion formikProps={props as FormikProps<FoodFreqData>} />
-              <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
-              <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
-              <OtherInfoQuestion formikProps={props as FormikProps<OtherInfoData>} />
 
-              {timePeriod === LAST_4_WEEKS && (
-                <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
-              )}
+              <View style={{ marginHorizontal: 16 }}>
+                <FruitNVegConsumptionQuestions formikProps={props as FormikProps<FruitNVegConsumptionData>} />
+                <MilkTypeQuestion formikProps={props as FormikProps<MilkTypesData>} />
+                <OtherInfoQuestion formikProps={props as FormikProps<OtherInfoData>} />
+
+                {timePeriod === LAST_4_WEEKS && (
+                  <DietChangedQuestion formikProps={props as FormikProps<DietChangedData>} />
+                )}
+              </View>
 
               <ErrorText style={{ marginHorizontal: 16 }}>{form.errorMessage}</ErrorText>
 
