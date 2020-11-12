@@ -193,7 +193,7 @@ export default class CovidTestDetailScreen extends Component<CovidProps, State> 
         </Header>
 
         <ProgressBlock>
-          <ProgressStatus step={2} maxSteps={5} />
+          <ProgressStatus step={1} maxSteps={2} />
         </ProgressBlock>
 
         <Formik
