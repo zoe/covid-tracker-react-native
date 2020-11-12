@@ -45,7 +45,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
   }
 
   return (
-    <View>
+    <FieldWrapper>
       <Label style={[styles.labelStyle, { color: colors.primary }]}>
         {i18n.t('covid-test.question-time-test-taken')}
       </Label>
@@ -71,7 +71,7 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
           <ValidationError error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime} />
         </View>
       )}
-    </View>
+    </FieldWrapper>
   );
 };
 
