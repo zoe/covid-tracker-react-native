@@ -139,7 +139,11 @@ platform :android do
     gradle(
       task: 'assemble',
       build_type: @build_configuration,
-      project_dir: "./android"   
+      project_dir: "./android",
+      properties: {
+        "versionCode" => @build_number,
+        "versionName" => @package_json['version'],
+      }
     )
 
     appcenter
@@ -171,7 +175,7 @@ platform :ios do
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_IOS_TOKEN']
     increment_build_number(
-      build_number: "#{£build_number}",
+      build_number: "#{@build_number}",
       xcodeproj: './ios/Covid.xcodeproj',
     )
   end
