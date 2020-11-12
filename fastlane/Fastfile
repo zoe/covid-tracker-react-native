@@ -115,8 +115,8 @@ platform :android do
     @ac_notify_group = "Android"
     @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
+    set_build_number
   end
-
   
   desc "Build Android Staging"
   lane :release do |options|
@@ -165,6 +165,7 @@ platform :ios do
     @ac_notify_group = "iOS"
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_IOS_TOKEN']
+    set_build_number
   end
 
   lane :certificates do
