@@ -185,7 +185,7 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'Dashboard' },
         {
           name: 'SelectProfile',
-          params: { editing: true },
+          params: { assessmentFlow: true },
         },
       ],
       1
@@ -209,7 +209,7 @@ export class AssessmentCoordinator extends Coordinator {
         { name: homeScreen },
         {
           name: 'SelectProfile',
-          params: { editing: true },
+          params: { assessmentFlow: true },
         },
         { name: 'CreateProfile', params: { avatarName: 'profile2' } },
       ],

@@ -37,7 +37,7 @@ export type ScreenParamList = {
 
   // Profile screens
   ReportForOther: undefined;
-  SelectProfile: { editing: boolean };
+  SelectProfile: { assessmentFlow: boolean };
   CreateProfile: { avatarName: string };
   AdultOrChild: { profileName: string; avatarName?: string };
   ConsentForOther: { profileName: string; avatarName?: string; consentType: ConsentType };
@@ -97,6 +97,7 @@ export type ScreenParamList = {
   EstimatedCases: undefined;
 
   // School network
+  SchoolNetworkInfo: undefined;
   SchoolIntro: undefined;
   SchoolHowTo: { patientData: PatientData };
   SelectSchool: undefined;

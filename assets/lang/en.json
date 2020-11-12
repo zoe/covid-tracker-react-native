@@ -588,7 +588,8 @@
   "report-for-others-not-right-now": "Not right now? You can add additional profiles from the menu icon above at any time.",
   "report-for-others-skip": "Skip",
 
-  "select-profile-title": "Select profile you want to report for",
+  "select-profile-title-assessment": "Select profile you want to report for",
+  "select-profile-title-edit": "Select profile you want to edit",
   "select-profile-text": "Or add more profiles",
   "select-profile-button": "New profile",
   "select-profile-last-report": "Last report:",
@@ -1369,6 +1370,16 @@
     "confirmed-cases": "confirmed cases",
     "children-being-reported-for": "children being reported for",
     "child-being-reported-for": "child being reported for",
+
+    "info": {
+      "title": "We now have launched our School Communities programme",
+      "text": "To help your child’s school better safeguard children, receive daily health insights for your child’s bubble whilst contributing to the UK's largest citizen science project to help understand COVID in children, get your headteacher onboard:",
+      "cta-title": "Ask the headteacher to register your school ",
+      "cta-text": "Send them the link below to get them started:",
+      "cta-link": "covid.joinzoe.com/schoolnetworks",
+      "learn-more-title": "To learn more about this new programme:",
+      "learn-more-text": "Read our blog post"
+    },
 
     "intro": {
       "title": "Connect your children to their School Bubble",

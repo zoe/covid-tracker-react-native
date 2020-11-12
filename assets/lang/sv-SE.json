@@ -510,7 +510,8 @@
   "report-for-others-not-right-now": "Inte just nu? Du kan när som helst lägga till ytterligare profiler från menyikonen ovan.",
   "report-for-others-skip": "Hoppa över",
 
-  "select-profile-title": "Välj den profil du vill rapportera åt",
+  "select-profile-title-assessment": "Välj den profil du vill rapportera åt",
+  "select-profile-title-edit": "Välj den profil du vill redigera",
   "select-profile-text": "Eller lägg till fler profiler",
   "select-profile-button": "Ny profil",
   "select-profile-last-report": "Sista rapport:",
@@ -1373,6 +1374,16 @@
     "confirmed-cases": "",
     "children-being-reported-for": "",
     "child-being-reported-for": "",
+
+    "info": {
+      "title": "",
+      "text": "",
+      "cta-title": "",
+      "cta-text": "",
+      "cta-link": "",
+      "learn-more-title": "",
+      "learn-more-text": ""
+    },
 
     "intro": {
       "title": "",

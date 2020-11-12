@@ -66,13 +66,14 @@ export class WelcomeRepeatScreen extends Component<PropsType, WelcomeRepeatScree
 
   async componentDidMount() {
     const userCount = await this.contentService.getUserCount();
+    const cleanUserCount = userCount ? cleanIntegerVal(userCount as string) : 0;
 
     AnalyticsService.identify();
     await pushNotificationService.refreshPushToken();
 
     this.setState({
       calloutBoxContent: this.contentService.getCalloutBoxDefault(),
-      userCount: cleanIntegerVal(userCount as string),
+      userCount: cleanUserCount,
     });
   }
 

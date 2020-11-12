@@ -73,9 +73,7 @@ export const MilkTypeQuestion: MilkTypeQuestion<Props, MilkTypesData> = (props: 
   return (
     <View>
       <FieldLabel style={{ marginBottom: 4 }}>{i18n.t('diet-study.typical-diet.milk-label')}</FieldLabel>
-      <Item stackedLabel style={styles.textItemStyle}>
-        <CheckboxList>{createCheckboxes(checkboxes, formikProps)}</CheckboxList>
-      </Item>
+      <CheckboxList>{createCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>
   );
 };
@@ -94,9 +92,3 @@ MilkTypeQuestion.initialFormValues = (): MilkTypesData => {
 MilkTypeQuestion.schema = () => Yup.object().shape({});
 
 MilkTypeQuestion.createDTO = (formData: MilkTypesData): Partial<DietStudyRequest> => formData;
-
-const styles = StyleSheet.create({
-  textItemStyle: {
-    borderColor: 'transparent',
-  },
-});
