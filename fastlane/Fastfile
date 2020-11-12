@@ -115,12 +115,6 @@ platform :android do
     @ac_notify_group = "Android"
     @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
-    
-    android_set_version_code(
-      version_code: "#{@build_number}",
-      gradle_file: "android/app/build.gradle"
-    )
-
   end
   
   desc "Build Android Staging"
