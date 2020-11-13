@@ -29,6 +29,7 @@ export const OtherSymptomsQuestions: SymptomQuestions<Props, OtherSymptomsData> 
         value={formikProps.values.otherSymptoms}
         onChangeText={formikProps.handleChange('otherSymptoms')}
         underline={false}
+        style={{ borderRadius: 8 }}
       />
     </FieldWrapper>
   );
