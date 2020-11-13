@@ -341,7 +341,7 @@
 
     "check-all-that-apply": "Check all that apply",
     "general-symptoms": "Are you experiencing any of the below symptoms?",
-    "general-fever": "Fever or feeling hot",
+    "general-fever": "Fever or feel too hot",
     "question-your-temperature": "If you are able to measure it, what is your temperature?",
     "placeholder-temperature": "Enter temperature",
     "picker-celsius": "°C",
