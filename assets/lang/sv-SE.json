@@ -297,7 +297,7 @@
 
     "check-all-that-apply": "Markera alla tillämpliga alternativ",
     "general-symptoms": "Har du några av följande symtom?",
-    "general-fever": "Feber (minst 37,8 °C)",
+    "general-fever": "Jag har feber eller känner mig varm",
     "question-your-temperature": "Om du kan ta tempen, vad är den?",
     "placeholder-temperature": "Ange temperatur",
     "picker-celsius": "°C",
