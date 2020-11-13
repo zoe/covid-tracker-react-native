@@ -1,16 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
 import { TStyleObject } from '@covid/utils/types';
 
-import { SText, STouchableOpacity } from './styles';
+import { Text } from '../../typography';
 
-/**
- * Example purposes only
- * This is an example of a themed button
- * Do not implement yet
- */
+import { STouchableOpacity } from './styles';
 
 interface IProps {
   colorPalette: TColorPalette;
@@ -48,9 +43,9 @@ function ThemeButton({
       rhythm={rhythm}
       simple={simple}
       style={style}>
-      <SText colorPalette={colorPalette} colorShade={colorShade}>
+      <Text colorPalette={colorPalette} colorShade={colorShade} inverted={inverted}>
         {title}
-      </SText>
+      </Text>
     </STouchableOpacity>
   );
 }

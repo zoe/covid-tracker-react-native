@@ -1,8 +1,8 @@
 export type TMessageTypes = 'BANNER' | 'DIALOG' | 'SNACKBAR';
 
 export interface IUIAction {
-  action: () => void;
-  name: string;
+  action: string;
+  label: string;
 }
 
 export interface IUIMessage {

@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Animated, Easing, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { TColorPalette, TColorShade } from '@covid/themes';
+import { IUIAction } from '@covid/core/ui-messaging';
 
 import { Text } from '../../typography';
 
 import { SCardView, SContainerView, SMessageText, TVariant } from './styles';
 
-type TCta = {
-  action: () => void;
-  label: string;
-};
-
 interface IProps {
+  action?: IUIAction;
   active: boolean;
   colorPalette?: TColorPalette;
   colorShade?: TColorShade;
   message: string;
-  colorClass?: TColorPalette;
   variant?: TVariant;
-  cta?: TCta;
 }
 
 const DURATION = 500;
@@ -36,18 +32,24 @@ const config = {
 };
 
 function Toast({
+  action = undefined,
   active,
   colorPalette = 'uiDark',
   colorShade = 'darker',
   message,
-  cta = undefined,
   variant = 'bottom',
 }: IProps) {
   const [animValue] = useState(new Animated.Value(0));
+  const dispatch = useDispatch();
 
-  const handleClose = () => {
+  const deserializeFunction = (funcString) => new Function(`return ${funcString}`)();
+
+  const handleClose = (f: () => void) => {
     animate(false);
-    setTimeout(cta?.action, DURATION);
+    if (action?.action) {
+      const newF = deserializeFunction(action.action);
+      setTimeout(newF, DURATION);
+    }
   };
 
   const animate = (active: boolean) => {
@@ -74,10 +76,10 @@ function Toast({
         <SMessageText colorPalette={colorPalette} colorShade={colorShade}>
           {message}
         </SMessageText>
-        {cta && (
-          <TouchableOpacity onPress={handleClose}>
+        {action && (
+          <TouchableOpacity onPress={() => handleClose(eval(action.action))}>
             <Text colorPalette={colorPalette} colorShade={colorShade}>
-              {cta.label}
+              {action.label}
             </Text>
           </TouchableOpacity>
         )}

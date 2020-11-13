@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Dimensions, Text, View } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 
-import { selectUIMessages, addMessage, IUIMessage } from '@covid/core/ui-messaging';
+import { selectUIMessages, addMessage, IUIMessage, reset } from '@covid/core/ui-messaging';
 
 import { SnackBar } from '../snackbars';
 import { Dialog } from '../dialogs';
@@ -11,23 +11,27 @@ import { Dialog } from '../dialogs';
 import { SContainerView } from './styles';
 
 function MessagingContainer() {
-  const { height, width } = Dimensions.get('window');
+  const { width } = Dimensions.get('window');
   const uiMessageCollection = useSelector(selectUIMessages);
   const dispatch = useDispatch();
 
-  const handleClose = () => {
-    // dispatch(set({ active: false, message: '' }));
+  const handleReset = () => {
+    dispatch(reset());
   };
+
+  const serializeFunction = (func) => func.toString();
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
-      console.log('connection: ', state.isConnected);
-      dispatch(
-        addMessage({
-          messageType: 'SNACKBAR',
-          message: 'No internet connection',
-        })
-      );
+      if (!state.isConnected) {
+        dispatch(
+          addMessage({
+            actions: [{ label: 'close', action: serializeFunction(handleReset) }],
+            messageType: 'SNACKBAR',
+            message: 'No internet connection',
+          })
+        );
+      }
     });
 
     const cleanUp = () => {
@@ -46,15 +50,18 @@ function MessagingContainer() {
       case 'DIALOG':
         return <Dialog message={message} />;
       default:
-        return <SnackBar active message={message.message} variant="top" />;
+        return (
+          <SnackBar
+            active
+            message={message.message}
+            variant="top"
+            action={message.actions ? message.actions[0] : undefined}
+          />
+        );
     }
   };
 
-  return (
-    <SContainerView height={1} width={width}>
-      {message ? getMessage(message) : null}
-    </SContainerView>
-  );
+  return <SContainerView width={width}>{message ? getMessage(message) : null}</SContainerView>;
 }
 
 export default MessagingContainer;

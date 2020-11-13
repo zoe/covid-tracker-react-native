@@ -23,10 +23,13 @@ export const SContainerView = styled(View)<IContainerViewProps>`
 
 export const SMessageWindowView = styled(View)`
   ${(props) => `
-    align-items: center;
     background-color: white;
     border-radius: ${props.theme.grid.l}px;
-    padding: 16px;
-    width: 50%;
+    padding: ${props.theme.grid.xl}px ${props.theme.grid.l}px;
+    width: 62%;
   `}
+`;
+
+export const STitleView = styled(View)`
+  align-items: center;
 `;
