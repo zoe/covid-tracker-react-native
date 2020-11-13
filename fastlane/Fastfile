@@ -169,7 +169,7 @@ platform :ios do
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_IOS_TOKEN']
     increment_build_number(
-      build_number: @build_number,
+      build_number: "#{@build_number}",
       xcodeproj: './ios/Covid.xcodeproj',
     )
   end
