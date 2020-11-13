@@ -12,6 +12,9 @@ import {
   SymptomCheckBoxData,
   SymptomQuestions,
 } from '@covid/features/assessment/fields/SymptomsTypes';
+import { FieldWrapper } from '@covid/components/Screen';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import DropdownField from '@covid/components/DropdownField';
 
 export type GeneralSymptomsData = GeneralSymptomsCheckBoxData & GeneralSymptomsFollowUpData;
 
@@ -74,6 +77,34 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
   return (
     <View style={{ marginVertical: 16 }}>
       <RegularText style={{ paddingTop: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</RegularText>
+      <FieldWrapper style={styles.fieldWrapper}>
+        <RegularText>{i18n.t('describe-symptoms.question-your-temperature')}</RegularText>
+        <View style={styles.fieldRow}>
+          <View style={styles.primaryField}>
+            <ValidatedTextInput
+              placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
+              value={props.values.temperature}
+              onChangeText={props.handleChange('temperature')}
+              onBlur={props.handleBlur('temperature')}
+              error={props.touched.temperature && props.errors.temperature}
+              returnKeyType="next"
+              onSubmitEditing={() => {}}
+              keyboardType="numeric"
+            />
+          </View>
+
+          <View style={styles.secondaryField}>
+            <DropdownField
+              selectedValue={props.values.temperatureUnit}
+              onValueChange={props.handleChange('temperatureUnit')}
+              error={props.touched.temperatureUnit && props.errors.temperatureUnit}
+              items={temperatureItems}
+              onlyPicker
+            />
+          </View>
+        </View>
+      </FieldWrapper>
+
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>
   );
