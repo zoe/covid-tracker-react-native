@@ -1,7 +1,7 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { RegularText } from '@covid/components/Text';
@@ -12,9 +12,9 @@ import {
   SymptomCheckBoxData,
   SymptomQuestions,
 } from '@covid/features/assessment/fields/SymptomsTypes';
-import { FieldWrapper } from '@covid/components/Screen';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import DropdownField from '@covid/components/DropdownField';
+import { cleanFloatVal } from '@covid/utils/number';
 
 export type GeneralSymptomsData = GeneralSymptomsCheckBoxData & GeneralSymptomsFollowUpData;
 
@@ -35,6 +35,8 @@ type GeneralSymptomsCheckBoxData = {
 
 type GeneralSymptomsFollowUpData = {
   fatigueFollowUp: string;
+  temperature: string; // Temperature: 37.3
+  temperatureUnit: string;
 };
 
 type Props = {
@@ -45,8 +47,11 @@ type Props = {
 export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsData> = (props: Props) => {
   const { formikProps } = props;
 
-  const checkboxes: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
+  const fever_checkbox: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
     { label: i18n.t('describe-symptoms.general-fever'), value: 'fever' },
+  ];
+
+  const checkboxes: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
     {
       label: i18n.t('describe-symptoms.general-fatigue'),
       value: 'fatigue',
@@ -74,45 +79,56 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
     checkboxes.push({ label: i18n.t('describe-symptoms.general-allergy-increase'), value: 'typicalHayFever' });
   }
 
-  return (
-    <View style={{ marginVertical: 16 }}>
-      <RegularText style={{ paddingTop: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</RegularText>
-      <FieldWrapper style={styles.fieldWrapper}>
-        <RegularText>{i18n.t('describe-symptoms.question-your-temperature')}</RegularText>
-        <View style={styles.fieldRow}>
-          <View style={styles.primaryField}>
-            <ValidatedTextInput
-              placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
-              value={props.values.temperature}
-              onChangeText={props.handleChange('temperature')}
-              onBlur={props.handleBlur('temperature')}
-              error={props.touched.temperature && props.errors.temperature}
-              returnKeyType="next"
-              onSubmitEditing={() => {}}
-              keyboardType="numeric"
-            />
-          </View>
+  const temperatureItems = [
+    { label: i18n.t('describe-symptoms.picker-celsius'), value: 'C' },
+    { label: i18n.t('describe-symptoms.picker-fahrenheit'), value: 'F' },
+  ];
 
-          <View style={styles.secondaryField}>
-            <DropdownField
-              selectedValue={props.values.temperatureUnit}
-              onValueChange={props.handleChange('temperatureUnit')}
-              error={props.touched.temperatureUnit && props.errors.temperatureUnit}
-              items={temperatureItems}
-              onlyPicker
-            />
+  return (
+    <View style={{ marginTop: 16, marginBottom: 32 }}>
+      <RegularText style={{ paddingTop: 16 }}>{i18n.t('describe-symptoms.check-all-that-apply')}</RegularText>
+
+      <CheckboxList>{createSymptomCheckboxes(fever_checkbox, formikProps)}</CheckboxList>
+
+      {formikProps.values.fever && (
+        <View style={{ marginVertical: 16 }}>
+          <RegularText>{i18n.t('describe-symptoms.question-your-temperature')}</RegularText>
+          <View style={styles.fieldRow}>
+            <View style={styles.primaryField}>
+              <ValidatedTextInput
+                placeholder={i18n.t('describe-symptoms.placeholder-temperature')}
+                value={formikProps.values.temperature}
+                onChangeText={formikProps.handleChange('temperature')}
+                onBlur={formikProps.handleBlur('temperature')}
+                error={formikProps.touched.temperature && formikProps.errors.temperature}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+                keyboardType="numeric"
+              />
+            </View>
+            <View style={styles.secondaryField}>
+              <DropdownField
+                selectedValue={formikProps.values.temperatureUnit}
+                onValueChange={formikProps.handleChange('temperatureUnit')}
+                error={formikProps.touched.temperatureUnit && formikProps.errors.temperatureUnit}
+                items={temperatureItems}
+                onlyPicker
+              />
+            </View>
           </View>
         </View>
-      </FieldWrapper>
+      )}
 
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
     </View>
   );
 };
 
-GeneralSymptomsQuestions.initialFormValues = (): GeneralSymptomsData => {
+GeneralSymptomsQuestions.initialFormValues = (defaultTemperatureUnit = 'C'): GeneralSymptomsData => {
   return {
     fever: false,
+    temperature: '',
+    temperatureUnit: defaultTemperatureUnit,
     fatigue: false,
     fatigueFollowUp: '',
     rash: false,
@@ -162,5 +178,40 @@ GeneralSymptomsQuestions.createAssessment = (
     };
   }
 
+  if (formData.temperature) {
+    // Temperature is optional.
+    assessment = {
+      ...assessment,
+      temperature: cleanFloatVal(formData.temperature),
+      temperature_unit: formData.temperatureUnit,
+    };
+  }
+
   return assessment;
 };
+
+const styles = StyleSheet.create({
+  fieldRow: {
+    flexDirection: 'row',
+  },
+
+  fieldWrapper: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+
+  textItemStyle: {
+    borderColor: 'transparent',
+  },
+
+  primaryField: {
+    flex: 3,
+    marginRight: 4,
+  },
+
+  secondaryField: {
+    flex: 1,
+    marginLeft: 4,
+    marginTop: -8,
+  },
+});

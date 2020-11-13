@@ -8,7 +8,7 @@ import { CheckboxItem } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
 
 export interface SymptomQuestions<P, Data> extends React.FC<P> {
-  initialFormValues: () => Data;
+  initialFormValues: (defaultTemperatureUnit?: string) => Data;
   schema: () => Yup.ObjectSchema;
   createAssessment: (data: Data, param?: any) => Partial<AssessmentInfosRequest>;
 }

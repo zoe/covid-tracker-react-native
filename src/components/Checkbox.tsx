@@ -10,7 +10,6 @@ import { ITest } from './types';
 
 const checkboxStyles = StyleSheet.create({
   checkboxList: {
-    marginVertical: 16,
     width: '100%',
   },
 
