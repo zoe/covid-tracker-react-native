@@ -19,14 +19,15 @@ default_platform(:ios)
 ###
 desc 'Android: Increment versionCode and set versionName to package.json version.'
 
-private_lane :inc_ver_and do
+private_lane :inc_ver_android do
   increment_version_code(
     gradle_file_path: "./android/app/build.gradle",
+    version_code: @build_number
   )
 
   increment_version_name(
     gradle_file_path: "./android/app/build.gradle",
-    version_name: package['version']
+    version_name: @package['version']
   )
 end
 
@@ -51,7 +52,7 @@ end
 desc 'Bump build numbers, and set the version to match the pacakage.json version.'
 lane :bump do
   inc_ver_ios
-  inc_ver_and
+  inc_ver_android
   set_build_number
 end
 
@@ -111,7 +112,7 @@ platform :android do
 
   before_all do
     get_version_no
-
+    inc_ver_android
     @ac_notify_group = "Android"
     @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
@@ -133,11 +134,7 @@ platform :android do
     gradle(
       task: 'assemble',
       build_type: @build_configuration,
-      project_dir: "./android",
-      properties: {
-        "versionCode" => @build_number,
-        "versionName" => @package_json['version'],
-      }
+      project_dir: "./android"
     )
 
     appcenter
