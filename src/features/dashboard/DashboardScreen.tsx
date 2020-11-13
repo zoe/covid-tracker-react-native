@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native';
+import { Button, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { Root } from 'native-base';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { Header, CompactHeader } from '@covid/features/dashboard/Header';
@@ -18,8 +17,8 @@ import { shareAppV3, schoolNetworkFeature, infographicFacts } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
-import store, { useAppDispatch } from '@covid/core/state/store';
-import { ContentState, fetchLocalTrendLine, updateTodayDate } from '@covid/core/content/state/contentSlice';
+import { useAppDispatch } from '@covid/core/state/store';
+import { ContentState, updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
@@ -29,9 +28,8 @@ import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import SchoolModule from '@assets/icons/SchoolsModule';
-//delete me
-import { set } from '@covid/core/errors/slice';
-// end delete me
+//
+import { addMessage, reset } from '@covid/core/ui-messaging/slice';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -111,12 +109,23 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <Button
-        title="Top down"
-        onPress={() =>
-          dispatch(set({ active: true, dissmissable: false, variant: 'top', message: 'message from the top' }))
-        }
-      />
+      <View
+        style={{
+          borderWidth: 2,
+          borderColor: 'green',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          margin: 16,
+          padding: 8,
+        }}>
+        <Button title="Banner" onPress={() => dispatch(addMessage({ message: 'Dont Panic', messageType: 'BANNER' }))} />
+        <Button title="Dialog" onPress={() => dispatch(addMessage({ message: 'Dont Panic', messageType: 'DIALOG' }))} />
+        <Button
+          title="Snackbar"
+          onPress={() => dispatch(addMessage({ message: 'Dont Panic', messageType: 'SNACKBAR' }))}
+        />
+        <Button title="reset" onPress={() => dispatch(reset())} />
+      </View>
       {/* School Networks */}
       {isGBCountry() && (
         <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
