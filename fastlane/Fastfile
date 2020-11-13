@@ -111,19 +111,10 @@ platform :android do
 
   before_all do
     get_version_no
+
     @ac_notify_group = "Android"
     @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
-
-    gradle_path = './android/app/build.gradle'
-    increment_version_code(
-      gradle_file_path: gradle_path,
-      version_code: @build_number.to_i
-    )
-    increment_version_name(
-      gradle_file_path: gradle_path,
-      version_name: @package_json['version']
-    )
   end
   
   desc "Build Android Staging"
