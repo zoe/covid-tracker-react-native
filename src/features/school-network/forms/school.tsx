@@ -45,25 +45,22 @@ function SchoolForm({ patientData }: IProps) {
       }}>
       {(formikProps) => (
         <Form style={styles.formContainer}>
-          <View>
-            <View style={{ marginTop: 16 }}>
-              <GenericTextField
-                formikProps={formikProps}
-                placeholder={i18n.t('school-networks.join-school.school-code-placeholder')}
-                maxLength={7}
-                name="schoolCode"
-                showError
-              />
-            </View>
-          </View>
-          <View>
+          <View style={{ margin: 16 }}>
+            <GenericTextField
+              formikProps={formikProps}
+              placeholder={i18n.t('school-networks.join-school.school-code-placeholder')}
+              maxLength={7}
+              name="schoolCode"
+              showError
+            />
             {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
-              <ValidationError style={{ marginHorizontal: 16 }} error={i18n.t('validation-error-text')} />
+              <ValidationError error={i18n.t('validation-error-text')} />
             )}
-            <Button onPress={formikProps.handleSubmit} branded>
-              {i18n.t('school-networks.join-school.cta')}
-            </Button>
           </View>
+
+          <Button onPress={formikProps.handleSubmit} branded>
+            {i18n.t('school-networks.join-school.cta')}
+          </Button>
         </Form>
       )}
     </Formik>

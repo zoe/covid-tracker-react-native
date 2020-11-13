@@ -70,7 +70,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
   }
 
   return (
-    <FieldWrapper>
+    <>
       <YesNoField
         selectedValue={formikProps.values.knowsDateOfTest}
         onValueChange={(value: string) => {
@@ -145,7 +145,7 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
           )}
         </>
       )}
-    </FieldWrapper>
+    </>
   );
 };
 

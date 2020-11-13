@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { Form } from 'native-base';
 import React, { Component } from 'react';
 import * as Yup from 'yup';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { BrandedButton, HeaderText, SecondaryText } from '@covid/components/Text';
@@ -59,7 +60,13 @@ export default class CreateProfileScreen extends Component<RenderProps> {
           {(props) => {
             return (
               <Form>
-                <GenericTextField formikProps={props} name="name" placeholder={i18n.t('create-profile-placeholder')} />
+                <View style={{ marginHorizontal: 16 }}>
+                  <GenericTextField
+                    formikProps={props}
+                    name="name"
+                    placeholder={i18n.t('create-profile-placeholder')}
+                  />
+                </View>
 
                 <BrandedButton onPress={props.handleSubmit}>{i18n.t('create-profile-button')}</BrandedButton>
               </Form>
