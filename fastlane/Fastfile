@@ -27,7 +27,7 @@ private_lane :inc_ver_android do
 
   increment_version_name(
     gradle_file_path: "./android/app/build.gradle",
-    version_name: @package['version']
+    version_name: @package_json['version']
   )
 end
 
