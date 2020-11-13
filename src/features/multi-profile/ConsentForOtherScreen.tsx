@@ -127,11 +127,11 @@ export default class ConsentForOtherScreen extends Component<RenderProps, Consen
           {this.secondaryText}
         </Header>
 
-        <ListItem>
+        <View style={{ marginHorizontal: 16 }}>
           <CheckboxItem value={this.state.consentChecked} onChange={this.handleConsentClick}>
             {this.consentLabel}
           </CheckboxItem>
-        </ListItem>
+        </View>
 
         <ErrorText>{this.state.errorMessage}</ErrorText>
 
