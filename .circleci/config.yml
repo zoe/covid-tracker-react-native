@@ -82,6 +82,16 @@ references:
         - stage
         - release-0.x-legacy
 
+  rollback_stage_filter: &rollback_stage_filter
+    branches:
+      only:
+        - rollback-stage
+
+  rollback_prod_filter: &rollback_prod_filter
+    branches:
+      only:
+        - rollback-prod
+
 ###
 ### Define shared commands:
 ### ---------------------------------------------------------------------------------------------
@@ -532,10 +542,10 @@ workflows:
       # Production OTA rollback
       - ota-rollback-approval:
           name: 'Prod rollback'
-          filters: *master_filter
+          filters: *rollback_prod_filter
           type: approval
       - ota-rollback:
-          filters: *master_filter
+          filters: *rollback_prod_filter
           context: react-covid-tracker-prod
           requires:
             - Prod rollback
@@ -543,10 +553,10 @@ workflows:
       # Staging OTA rollback
       - ota-rollback-approval:
           name: 'Stage rollback'
-          filters: *stage_filter
+          filters: *rollback_stage_filter
           type: approval
       - ota-rollback:
-          filters: *stage_filter
+          filters: *rollback_stage_filter
           context: react-covid-tracker-stage
           requires:
             - Stage rollback
