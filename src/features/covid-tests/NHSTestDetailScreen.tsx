@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik, FormikProps } from 'formik';
 import { Form, Text } from 'native-base';
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import * as Yup from 'yup';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
@@ -174,10 +174,12 @@ export default class NHSTestDetailScreen extends Component<CovidProps, State> {
           {(props) => {
             return (
               <Form>
-                <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
-                <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
-                <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
-                <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                <View style={{ marginHorizontal: 16 }}>
+                  <NHSTestDateQuestion formikProps={props as FormikProps<NHSTestDateData>} test={test} />
+                  <CovidTestTimeQuestion formikProps={props as FormikProps<ICovidTestTimeData>} test={test} />
+                  <NHSTestMechanismQuestion formikProps={props as FormikProps<NHSTestMechanismData>} test={test} />
+                  <CovidTestResultQuestion formikProps={props as FormikProps<CovidTestResultData>} test={test} />
+                </View>
 
                 <ErrorText>{this.state.errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
