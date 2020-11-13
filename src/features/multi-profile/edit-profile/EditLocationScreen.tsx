@@ -128,7 +128,7 @@ export const EditLocationScreen: React.FC<RenderProps> = (props) => {
         }}>
         {(props) => {
           return (
-            <Form>
+            <Form style={{ marginHorizontal: 16 }}>
               <GenericTextField
                 formikProps={props}
                 label={i18n.t('edit-profile.location.label')}
