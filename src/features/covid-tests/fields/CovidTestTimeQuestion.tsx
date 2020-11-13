@@ -46,37 +46,31 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
 
   return (
     <FieldWrapper>
-      <View style={[styles.field]}>
-        <View>
-          <Label style={[styles.labelStyle, { color: colors.primary }]}>
-            {i18n.t('covid-test.question-time-test-taken')}
-          </Label>
-          <ActionButton
-            error={getHasError()}
-            icon={<DropdownIcon />}
-            onPress={() => setState({ ...state, showTimePicker: true })}>
-            {props.formikProps.values.dateTestTime
-              ? moment(new Date(props.formikProps.values.dateTestTime)).format('h:mm a')
-              : 'Select time'}
-          </ActionButton>
-          {state.showTimePicker ? (
-            <DateTimePickerModal
-              isVisible={state.showTimePicker}
-              headerTextIOS={i18n.t('covid-test.question-pick-a-time')}
-              mode="time"
-              onConfirm={handleSetTime}
-              onCancel={() => setState({ ...state, showTimePicker: false })}
-            />
-          ) : null}
-          {!!props.formikProps.errors.dateTestTime && (
-            <View style={{ marginTop: 4, marginHorizontal: 4 }}>
-              <ValidationError
-                error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime}
-              />
-            </View>
-          )}
+      <Label style={[styles.labelStyle, { color: colors.primary }]}>
+        {i18n.t('covid-test.question-time-test-taken')}
+      </Label>
+      <ActionButton
+        error={getHasError()}
+        icon={<DropdownIcon />}
+        onPress={() => setState({ ...state, showTimePicker: true })}>
+        {props.formikProps.values.dateTestTime
+          ? moment(new Date(props.formikProps.values.dateTestTime)).format('h:mm a')
+          : 'Select time'}
+      </ActionButton>
+      {state.showTimePicker ? (
+        <DateTimePickerModal
+          isVisible={state.showTimePicker}
+          headerTextIOS={i18n.t('covid-test.question-pick-a-time')}
+          mode="time"
+          onConfirm={handleSetTime}
+          onCancel={() => setState({ ...state, showTimePicker: false })}
+        />
+      ) : null}
+      {!!props.formikProps.errors.dateTestTime && (
+        <View style={{ marginTop: 4, marginHorizontal: 4 }}>
+          <ValidationError error={props.formikProps.touched.dateTestTime && props.formikProps.errors.dateTestTime} />
         </View>
-      </View>
+      )}
     </FieldWrapper>
   );
 };
@@ -84,10 +78,6 @@ export const CovidTestTimeQuestion: ICovidTestTimeQuestion<IProps, ICovidTestTim
 const styles = StyleSheet.create({
   labelStyle: {
     marginVertical: 16,
-  },
-
-  field: {
-    marginHorizontal: 16,
   },
 });
 
