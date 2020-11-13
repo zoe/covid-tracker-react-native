@@ -46,7 +46,7 @@ package = load_json(json_path: "./package.json")
 end
 
 lane :get_build_number_by_time do
-  Time.new.strftime("%Y%m%d%H%M") # e.g 202011121515
+  "#{Date.today.year % 100}#{Time.new.strftime("%m%d%H%M")}"  # e.g 2011121515
 end
 
 desc 'Bump build numbers, and set the version to match the pacakage.json version.'
