@@ -8,7 +8,7 @@ import { StyleSheet, View } from 'react-native';
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { ClickableText } from '@covid/components/Text';
+import { ClickableText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 
@@ -47,40 +47,32 @@ export const NHSTestDateQuestion: NHSTestDateQuestion<Props, NHSTestDateData> = 
   }
 
   return (
-    <FieldWrapper>
-      <View style={styles.field}>
-        <Item stackedLabel>
-          <Label style={styles.labelStyle}>{i18n.t('nhs-test-detail.date-label')}</Label>
-          {showDatePicker ? (
-            <CalendarPicker
-              onDateChange={setTestDate}
-              maxDate={today}
-              {...(!!formikProps.values.dateTakenSpecific && {
-                selectedStartDate: formikProps.values.dateTakenSpecific,
-              })}
-            />
+    <>
+      <RegularText style={styles.labelStyle}>{i18n.t('nhs-test-detail.date-label')}</RegularText>
+      {showDatePicker ? (
+        <CalendarPicker
+          onDateChange={setTestDate}
+          maxDate={today}
+          {...(!!formikProps.values.dateTakenSpecific && {
+            selectedStartDate: formikProps.values.dateTakenSpecific,
+          })}
+        />
+      ) : (
+        <ClickableText onPress={() => setShowDatePicker(true)} style={styles.fieldText}>
+          {formikProps.values.dateTakenSpecific ? (
+            moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
           ) : (
-            <ClickableText onPress={() => setShowDatePicker(true)} style={styles.fieldText}>
-              {formikProps.values.dateTakenSpecific ? (
-                moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
-              ) : (
-                <Text>{i18n.t('covid-test.required-date')}</Text>
-              )}
-            </ClickableText>
+            <Text>{i18n.t('covid-test.required-date')}</Text>
           )}
-        </Item>
-      </View>
-    </FieldWrapper>
+        </ClickableText>
+      )}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   labelStyle: {
     marginVertical: 16,
-  },
-
-  field: {
-    marginHorizontal: 16,
   },
 
   fieldText: {

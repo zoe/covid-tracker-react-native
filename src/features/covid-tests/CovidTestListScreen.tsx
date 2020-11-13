@@ -104,7 +104,9 @@ export default class CovidTestListScreen extends Component<Props, State> {
             <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
           </Header>
 
-          <Divider />
+          <ProgressBlock>
+            <ProgressStatus step={0} maxSteps={1} />
+          </ProgressBlock>
 
           {isNHSStudy ? (
             <RegularText style={styles.content}>
