@@ -3,10 +3,11 @@ import { Dimensions, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 
-import { selectUIMessages, addMessage, IUIMessage, reset } from '@covid/core/ui-messaging';
+import { selectUIMessages, addMessage, IUIMessage } from '@covid/core/ui-messaging';
 
-import { SnackBar } from '../snackbars';
+import { Banner } from '../banners';
 import { Dialog } from '../dialogs';
+import { SnackBar } from '../snackbars';
 
 import { SContainerView } from './styles';
 
@@ -15,20 +16,13 @@ function MessagingContainer() {
   const uiMessageCollection = useSelector(selectUIMessages);
   const dispatch = useDispatch();
 
-  const handleReset = () => {
-    dispatch(reset());
-  };
-
-  const serializeFunction = (func) => func.toString();
-
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
         dispatch(
           addMessage({
-            actions: [{ label: 'close', action: serializeFunction(handleReset) }],
             messageType: 'SNACKBAR',
-            message: 'No internet connection',
+            message: { title: '', body: 'No internet connection' },
           })
         );
       }
@@ -46,17 +40,12 @@ function MessagingContainer() {
   const getMessage = (message: IUIMessage) => {
     switch (message.messageType) {
       case 'BANNER':
-        return <Text>BANNER</Text>;
+        return <Banner message={message} />;
       case 'DIALOG':
         return <Dialog message={message} />;
       default:
         return (
-          <SnackBar
-            active
-            message={message.message}
-            variant="top"
-            action={message.actions ? message.actions[0] : undefined}
-          />
+          <SnackBar active message={message} variant="top" action={message.actions ? message.actions[0] : undefined} />
         );
     }
   };

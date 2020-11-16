@@ -118,11 +118,19 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           margin: 16,
           padding: 8,
         }}>
-        <Button title="Banner" onPress={() => dispatch(addMessage({ message: 'Dont Panic', messageType: 'BANNER' }))} />
-        <Button title="Dialog" onPress={() => dispatch(addMessage({ message: 'Dont Panic', messageType: 'DIALOG' }))} />
+        <Button
+          title="Banner"
+          onPress={() => dispatch(addMessage({ message: { body: 'Dont Panic' }, messageType: 'BANNER' }))}
+        />
+        <Button
+          title="Dialog"
+          onPress={() =>
+            dispatch(addMessage({ message: { title: 'An error', body: 'Dont panic' }, messageType: 'DIALOG' }))
+          }
+        />
         <Button
           title="Snackbar"
-          onPress={() => dispatch(addMessage({ message: 'Dont Panic', messageType: 'SNACKBAR' }))}
+          onPress={() => dispatch(addMessage({ message: { body: 'Dont Panic' }, messageType: 'SNACKBAR' }))}
         />
         <Button title="reset" onPress={() => dispatch(reset())} />
       </View>

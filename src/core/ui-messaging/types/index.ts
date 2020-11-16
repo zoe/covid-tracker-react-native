@@ -5,10 +5,15 @@ export interface IUIAction {
   label: string;
 }
 
+export interface IUIMessageContent {
+  title?: string;
+  body: string;
+}
+
 export interface IUIMessage {
   actions?: IUIAction[];
   messageType: TMessageTypes;
-  message: string;
+  message: IUIMessageContent;
 }
 
 export interface IUIMessageCollection {

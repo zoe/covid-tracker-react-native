@@ -3,7 +3,7 @@ import { Animated, Easing, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { TColorPalette, TColorShade } from '@covid/themes';
-import { IUIAction } from '@covid/core/ui-messaging';
+import { IUIAction, IUIMessage, reset } from '@covid/core/ui-messaging';
 
 import { Text } from '../../typography';
 
@@ -14,7 +14,7 @@ interface IProps {
   active: boolean;
   colorPalette?: TColorPalette;
   colorShade?: TColorShade;
-  message: string;
+  message: IUIMessage;
   variant?: TVariant;
 }
 
@@ -34,22 +34,17 @@ const config = {
 function Toast({
   action = undefined,
   active,
-  colorPalette = 'uiDark',
-  colorShade = 'darker',
+  colorPalette = 'blue',
+  colorShade = 'main',
   message,
   variant = 'bottom',
 }: IProps) {
   const [animValue] = useState(new Animated.Value(0));
   const dispatch = useDispatch();
 
-  const deserializeFunction = (funcString) => new Function(`return ${funcString}`)();
-
-  const handleClose = (f: () => void) => {
+  const handleClose = () => {
     animate(false);
-    if (action?.action) {
-      const newF = deserializeFunction(action.action);
-      setTimeout(newF, DURATION);
-    }
+    setTimeout(() => dispatch(reset()), DURATION);
   };
 
   const animate = (active: boolean) => {
@@ -74,15 +69,13 @@ function Toast({
     <SContainerView variant={variant} style={{ transform: [{ translateY: animateTo }] }}>
       <SCardView colorPalette={colorPalette} colorShade={colorShade}>
         <SMessageText colorPalette={colorPalette} colorShade={colorShade}>
-          {message}
+          {message.message.body}
         </SMessageText>
-        {action && (
-          <TouchableOpacity onPress={() => handleClose(eval(action.action))}>
-            <Text colorPalette={colorPalette} colorShade={colorShade}>
-              {action.label}
-            </Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity onPress={handleClose}>
+          <Text colorPalette={colorPalette} colorShade={colorShade}>
+            close
+          </Text>
+        </TouchableOpacity>
       </SCardView>
     </SContainerView>
   );
