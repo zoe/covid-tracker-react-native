@@ -52,7 +52,7 @@ const Welcome1Screen: React.FC<PropsType> = ({ navigation }) => {
   const onSelectCountryPress = useCallback(() => navigation.navigate('CountrySelect'), [navigation.navigate]);
 
   const onNextButtonPress = useCallback(() => navigation.navigate('Welcome2'), [navigation.navigate]);
-  
+
   return (
     <View style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.scrollView}>
