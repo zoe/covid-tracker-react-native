@@ -19,14 +19,15 @@ default_platform(:ios)
 ###
 desc 'Android: Increment versionCode and set versionName to package.json version.'
 
-private_lane :inc_ver_and do
+private_lane :inc_ver_android do
   increment_version_code(
     gradle_file_path: "./android/app/build.gradle",
+    version_code: @build_number
   )
 
   increment_version_name(
     gradle_file_path: "./android/app/build.gradle",
-    version_name: package['version']
+    version_name: @package_json['version']
   )
 end
 
@@ -45,13 +46,13 @@ package = load_json(json_path: "./package.json")
 end
 
 lane :get_build_number_by_time do
-  Time.new.strftime("%Y%m%d%H%M") # e.g 202011121515
+  "#{Date.today.year % 100}#{Time.new.strftime("%m%d%H%M")}"  # e.g 2011121515
 end
 
 desc 'Bump build numbers, and set the version to match the pacakage.json version.'
 lane :bump do
   inc_ver_ios
-  inc_ver_and
+  inc_ver_android
   set_build_number
 end
 
@@ -75,7 +76,7 @@ end
 
 
 lane :get_version_no do
-  @build_number = ENV['BUILD_BUILDNUMBER'] || "1"
+  @build_number = ENV['BUILD_BUILDNUMBER'] || get_build_number_by_time()
 
   @package_version = `node -e "console.log(require('../package.json').version);"`.strip!
 
@@ -110,15 +111,11 @@ platform :android do
   JS_PACKAGE = load_json(json_path: "./package.json")
 
   before_all do
+    get_version_no
+    inc_ver_android
     @ac_notify_group = "Android"
     @ac_project_name = ENV['APPCENTER_ANDROID_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_ANDROID_TOKEN']
-
-    android_set_version_code(
-      version_code: "#{get_build_number_by_time()}",
-      gradle_file: "android/app/build.gradle"
-    )
-
   end
   
   desc "Build Android Staging"
@@ -137,7 +134,7 @@ platform :android do
     gradle(
       task: 'assemble',
       build_type: @build_configuration,
-      project_dir: "./android"   
+      project_dir: "./android"
     )
 
     appcenter
@@ -162,13 +159,14 @@ end
 platform :ios do
 
   before_all do
+    get_version_no
     setup_circle_ci
     app_identifier = @ios_app_id
     @ac_notify_group = "iOS"
     @ac_project_name = ENV['APPCENTER_IOS_PROJECT_NAME']
     @ac_token = ENV['APPCENTER_IOS_TOKEN']
     increment_build_number(
-      build_number: get_build_number_by_time(),
+      build_number: "#{@build_number}",
       xcodeproj: './ios/Covid.xcodeproj',
     )
   end
@@ -185,13 +183,6 @@ platform :ios do
     @build_configuration = 'Release'
     @expo_release_channel = get_expo_release_channel(env: options[:env])
     
-    get_version_no
-
-    increment_build_number(
-      xcodeproj: "./ios/Covid.xcodeproj",
-      build_number: "#{@build_number}",
-    )
-
     increment_version_number(
       xcodeproj: "./ios/Covid.xcodeproj",
       version_number: @package_json['version']

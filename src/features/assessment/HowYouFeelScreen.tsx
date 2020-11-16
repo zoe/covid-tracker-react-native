@@ -70,7 +70,9 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <HeaderText>{i18n.t('how-you-feel.question-health-status')}</HeaderText>
         </Header>
 
-        <Divider />
+        <ProgressBlock>
+          <ProgressStatus step={0} maxSteps={1} />
+        </ProgressBlock>
 
         <>
           <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
