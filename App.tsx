@@ -1,9 +1,11 @@
 import 'reflect-metadata';
 import React from 'react';
+import { LogBox } from 'react-native';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import SplashScreen from 'react-native-splash-screen';
 import { useFonts } from 'expo-font';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import CovidApp from '@covid/CovidApp';
 import StorybookUIRoot from '@covid/storybook';
@@ -28,11 +30,16 @@ const App: React.FC = () => {
     sofiaProRegular: require('@assets/fonts/SofiaProRegular.otf'),
   });
   SplashScreen.hide();
+  // *** //
+  LogBox.ignoreAllLogs(true);
+  // *** //
   return (
     <Provider store={store}>
       <ThemeProvider theme={Theme}>
-        <MessagingContainer />
-        <ServiceProvider container={container}>{fontsLoaded ? <Root /> : null}</ServiceProvider>
+        <SafeAreaProvider>
+          <MessagingContainer />
+          <ServiceProvider container={container}>{fontsLoaded ? <Root /> : null}</ServiceProvider>
+        </SafeAreaProvider>
       </ThemeProvider>
     </Provider>
   );

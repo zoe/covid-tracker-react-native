@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import styled from '@covid/themes/styled-components';
 // import { TColorPalette, TColorShade } from '@covid/themes';
@@ -21,7 +21,7 @@ export const SContainerView = styled(View)<IContainerViewProps>`
   `}
 `;
 
-export const SMessageWindowView = styled(View)`
+export const SMessageWindowView = styled(Animated.View)`
   ${(props) => `
     background-color: white;
     border-radius: ${props.theme.grid.l}px;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Animated, Easing, TouchableOpacity } from 'react-native';
+import { Animated, Dimensions, Easing, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { TColorPalette, TColorShade } from '@covid/themes';
@@ -21,15 +21,6 @@ interface IProps {
 const DURATION = 500;
 const RANGE_FROM = 0;
 const RANGE_TO = 1;
-const START_Y_BOTTOM = 200;
-const END_Y_BOTTOM = -16;
-const START_Y_TOP = -200;
-const END_Y_TOP = 16;
-
-const config = {
-  bottom: { start: START_Y_BOTTOM, end: END_Y_BOTTOM },
-  top: { start: START_Y_TOP, end: END_Y_TOP },
-};
 
 function Toast({
   action = undefined,
@@ -41,6 +32,12 @@ function Toast({
 }: IProps) {
   const [animValue] = useState(new Animated.Value(0));
   const dispatch = useDispatch();
+  const { height } = Dimensions.get('window');
+
+  const config = {
+    bottom: { start: height + 200, end: height - 16 },
+    top: { start: -200, end: 16 },
+  };
 
   const handleClose = () => {
     animate(false);

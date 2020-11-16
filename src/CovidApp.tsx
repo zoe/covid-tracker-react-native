@@ -142,29 +142,25 @@ export default class CovidApp extends Component<object, State> {
     if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
 
     return (
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <Root>
-            <Header style={{ display: 'none' }}>
-              <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-            </Header>
-            <NavigationContainer
-              ref={(navigatorRef) => {
-                NavigatorService.setContainer(navigatorRef);
-              }}
-              onStateChange={NavigatorService.handleStateChange}>
-              <Drawer.Navigator
-                drawerContent={(props) => <DrawerMenu {...props} />}
-                screenOptions={{ swipeEnabled: false }}
-                drawerStyle={{
-                  width: Dimensions.get('screen').width,
-                }}>
-                <Drawer.Screen name="Main" component={this.mainNavStack} options={{ headerShown: false }} />
-              </Drawer.Navigator>
-            </NavigationContainer>
-          </Root>
-        </Provider>
-      </SafeAreaProvider>
+      <Root>
+        <Header style={{ display: 'none' }}>
+          <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+        </Header>
+        <NavigationContainer
+          ref={(navigatorRef) => {
+            NavigatorService.setContainer(navigatorRef);
+          }}
+          onStateChange={NavigatorService.handleStateChange}>
+          <Drawer.Navigator
+            drawerContent={(props) => <DrawerMenu {...props} />}
+            screenOptions={{ swipeEnabled: false }}
+            drawerStyle={{
+              width: Dimensions.get('screen').width,
+            }}>
+            <Drawer.Screen name="Main" component={this.mainNavStack} options={{ headerShown: false }} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </Root>
     );
   }
 

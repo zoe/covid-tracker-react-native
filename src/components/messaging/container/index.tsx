@@ -42,10 +42,15 @@ function MessagingContainer() {
       case 'BANNER':
         return <Banner message={message} />;
       case 'DIALOG':
-        return <Dialog message={message} />;
+        return <Dialog active message={message} />;
       default:
         return (
-          <SnackBar active message={message} variant="top" action={message.actions ? message.actions[0] : undefined} />
+          <SnackBar
+            active
+            message={message}
+            variant="bottom"
+            action={message.actions ? message.actions[0] : undefined}
+          />
         );
     }
   };
