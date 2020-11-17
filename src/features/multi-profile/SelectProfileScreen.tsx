@@ -48,7 +48,7 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
   const coordinator: SelectProfileCoordinator = appCoordinator;
 
   const localisationService = useInjection<ILocalisationService>(Services.Localisation);
-  const showCreateProfile = assessmentFlow && localisationService.getConfig().enableMultiplePatients;
+  const showCreateProfile = localisationService.getConfig().enableMultiplePatients;
 
   useEffect(() => {
     return navigation.addListener('focus', listProfiles);
