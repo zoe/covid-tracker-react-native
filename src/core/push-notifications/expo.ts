@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
@@ -13,7 +14,13 @@ export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
     let token = null;
     try {
       if (await this.isGranted()) {
-        token = await Notifications.getExpoPushTokenAsync();
+        if (!Constants.manifest) {
+          // Absence of the manifest means we're in bare workflow
+          // @ts-ignore
+          token = await Notifications.getExpoPushTokenAsync({ experienceId: '@julien.lavigne/covid-zoe' });
+        } else {
+          token = await Notifications.getExpoPushTokenAsync();
+        }
       }
     } catch (error) {
       // silently discard errors.
