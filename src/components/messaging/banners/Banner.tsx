@@ -15,7 +15,7 @@ interface IProps {
   message: IUIMessage;
 }
 
-const DURATION = 500;
+const DURATION = 300;
 const RANGE_FROM = 0;
 const RANGE_TO = 1;
 
@@ -26,8 +26,7 @@ function Banner({ active = true, message }: IProps) {
   const { top } = useSafeAreaInsets();
 
   const handleClose = () => {
-    animate(false);
-    setTimeout(() => dispatch(reset()), DURATION);
+    dispatch(reset());
   };
 
   const animate = (active: boolean) => {
@@ -52,8 +51,8 @@ function Banner({ active = true, message }: IProps) {
     <SContainerView top={top} width={width} style={{ transform: [{ translateY: animateTo }] }}>
       <Text>{message.message.body}</Text>
       <SButtonRowView>
-        <ThemeButton onPress={() => dispatch(reset())} title="Action 1" colorPalette="teal" colorShade="main" simple />
-        <ThemeButton onPress={() => dispatch(reset())} title="Action 1" colorPalette="teal" colorShade="main" simple />
+        <ThemeButton onPress={handleClose} title="Action 1" colorPalette="teal" colorShade="main" simple />
+        <ThemeButton onPress={handleClose} title="Action 1" colorPalette="teal" colorShade="main" simple />
       </SButtonRowView>
     </SContainerView>
   );

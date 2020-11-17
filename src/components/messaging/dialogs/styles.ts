@@ -11,7 +11,6 @@ export interface IContainerViewProps {
 export const SContainerView = styled(View)<IContainerViewProps>`
   ${(props) => `
     align-items: center;
-    background-color: rgba(0,0,0,0.3);
     height: ${props.height};
     justify-content: center;
     left: 0;

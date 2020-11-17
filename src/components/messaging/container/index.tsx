@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
@@ -12,7 +12,7 @@ import { SnackBar } from '../snackbars';
 import { SContainerView } from './styles';
 
 function MessagingContainer() {
-  const { width } = Dimensions.get('window');
+  const { height, width } = Dimensions.get('window');
   const uiMessageCollection = useSelector(selectUIMessages);
   const dispatch = useDispatch();
 
@@ -55,7 +55,11 @@ function MessagingContainer() {
     }
   };
 
-  return <SContainerView width={width}>{message ? getMessage(message) : null}</SContainerView>;
+  return (
+    <SContainerView active={!!message} height={height} width={width}>
+      {message ? getMessage(message) : null}
+    </SContainerView>
+  );
 }
 
 export default MessagingContainer;

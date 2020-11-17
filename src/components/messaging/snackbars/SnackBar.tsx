@@ -18,11 +18,11 @@ interface IProps {
   variant?: TVariant;
 }
 
-const DURATION = 500;
+const DURATION = 300;
 const RANGE_FROM = 0;
 const RANGE_TO = 1;
 
-function Toast({
+function Snackbar({
   action = undefined,
   active,
   colorPalette = 'blue',
@@ -35,22 +35,21 @@ function Toast({
   const { height } = Dimensions.get('window');
 
   const config = {
-    bottom: { start: height + 200, end: height - 16 },
+    bottom: { start: 200, end: -16 },
     top: { start: -200, end: 16 },
   };
 
   const handleClose = () => {
-    animate(false);
-    setTimeout(() => dispatch(reset()), DURATION);
+    dispatch(reset());
   };
 
-  const animate = (active: boolean) => {
+  const animate = (active: boolean, cb?: () => void) => {
     Animated.timing(animValue, {
       toValue: active ? RANGE_TO : RANGE_FROM,
       duration: DURATION,
       easing: Easing.elastic(1),
       useNativeDriver: true,
-    }).start();
+    }).start(cb);
   };
 
   useEffect(() => {
@@ -78,4 +77,4 @@ function Toast({
   );
 }
 
-export default Toast;
+export default Snackbar;
