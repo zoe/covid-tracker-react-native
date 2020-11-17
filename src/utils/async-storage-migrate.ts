@@ -11,14 +11,21 @@ const Manifest = {
 };
 
 const shouldMigrate = async (): Promise<boolean> => {
-  if (!FileSystem.documentDirectory) {
-    return false;
+  if (Platform.OS === 'ios') {
+    if (!FileSystem.documentDirectory) {
+      return false;
+    }
+    try {
+      const content = await FileSystem.readAsStringAsync(Manifest.from(AsyncLocalStorageFolderOptions.from));
+      return !!content;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
-  try {
-    const content = await FileSystem.readAsStringAsync(Manifest.from(AsyncLocalStorageFolderOptions.from));
-    return !!content;
-  } catch (error) {
-    console.error(error);
+  if (Platform.OS === 'android') {
+    return false;
+  } else {
     return false;
   }
 };
