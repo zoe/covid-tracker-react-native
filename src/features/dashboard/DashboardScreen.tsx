@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -28,8 +28,6 @@ import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import SchoolModule from '@assets/icons/SchoolsModule';
-//
-import { addMessage, reset } from '@covid/core/ui-messaging/slice';
 
 // const HEADER_EXPANDED_HEIGHT = 400; // With report count & total contribution
 const HEADER_EXPANDED_HEIGHT = 328;
@@ -109,31 +107,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <View
-        style={{
-          borderWidth: 2,
-          borderColor: 'green',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          margin: 16,
-          padding: 8,
-        }}>
-        <Button
-          title="Banner"
-          onPress={() => dispatch(addMessage({ message: { body: 'Dont Panic' }, messageType: 'BANNER' }))}
-        />
-        <Button
-          title="Dialog"
-          onPress={() =>
-            dispatch(addMessage({ message: { title: 'An error', body: 'Dont panic' }, messageType: 'DIALOG' }))
-          }
-        />
-        <Button
-          title="Snackbar"
-          onPress={() => dispatch(addMessage({ message: { body: 'Dont Panic' }, messageType: 'SNACKBAR' }))}
-        />
-        <Button title="reset" onPress={() => dispatch(reset())} />
-      </View>
       {/* School Networks */}
       {isGBCountry() && (
         <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>

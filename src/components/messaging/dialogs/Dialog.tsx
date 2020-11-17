@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, Button, Dimensions, Easing, View } from 'react-native';
+import { Animated, Dimensions, Easing, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { IUIMessage, reset } from '@covid/core/ui-messaging';
@@ -53,8 +53,14 @@ function Dialog({ active, message }: IProps) {
           <Text rhythm={theme.grid.xxxl}>{message.message.body}</Text>
         </STitleView>
         <View>
-          <ThemeButton onPress={() => dispatch(reset())} title="Action 1" colorPalette="blue" colorShade="main" />
-          <Button title="Close" onPress={() => dispatch(reset())} />
+          <ThemeButton onPress={() => dispatch(reset())} title="Action 1" colorPalette="teal" colorShade="main" />
+          <ThemeButton
+            onPress={() => dispatch(reset())}
+            title="Action 1"
+            colorPalette="burgundy"
+            colorShade="main"
+            simple
+          />
         </View>
       </SMessageWindowView>
     </SContainerView>

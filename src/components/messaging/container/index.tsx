@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Dimensions, Text } from 'react-native';
+import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 

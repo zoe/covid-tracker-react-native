@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IUIMessage, reset } from '@covid/core/ui-messaging';
 
+import { ThemeButton } from '../../Buttons';
 import { Text } from '../../typography';
 
 import { SContainerView, SButtonRowView } from './styles';
@@ -33,7 +34,7 @@ function Banner({ active = true, message }: IProps) {
     Animated.timing(animValue, {
       toValue: active ? RANGE_TO : RANGE_FROM,
       duration: DURATION,
-      easing: Easing.elastic(1),
+      easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   };
@@ -51,8 +52,8 @@ function Banner({ active = true, message }: IProps) {
     <SContainerView top={top} width={width} style={{ transform: [{ translateY: animateTo }] }}>
       <Text>{message.message.body}</Text>
       <SButtonRowView>
-        <Button title="Close" onPress={handleClose} />
-        <Button title="Close" onPress={() => dispatch(reset())} />
+        <ThemeButton onPress={() => dispatch(reset())} title="Action 1" colorPalette="teal" colorShade="main" simple />
+        <ThemeButton onPress={() => dispatch(reset())} title="Action 1" colorPalette="teal" colorShade="main" simple />
       </SButtonRowView>
     </SContainerView>
   );

@@ -23,6 +23,28 @@ export const colors: IColorPalettes = {
       fgColor: '#fff',
     },
   },
+  burgundy: {
+    lighter: {
+      bgColor: '#C9A4BA',
+      fgColor: '#800044',
+    },
+    light: {
+      bgColor: '#C9A4BA',
+      fgColor: '#800044',
+    },
+    main: {
+      bgColor: '#A10056',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#800044',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#800044',
+      fgColor: '#fff',
+    },
+  },
   green: {
     lighter: {
       bgColor: '#E3F1DF',
@@ -42,6 +64,28 @@ export const colors: IColorPalettes = {
     },
     darker: {
       bgColor: '#173630',
+      fgColor: '#fff',
+    },
+  },
+  teal: {
+    lighter: {
+      bgColor: '#A8B8BF',
+      fgColor: '#023650',
+    },
+    light: {
+      bgColor: '#A8B8BF',
+      fgColor: '#023650',
+    },
+    main: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#023650',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#023650',
       fgColor: '#fff',
     },
   },

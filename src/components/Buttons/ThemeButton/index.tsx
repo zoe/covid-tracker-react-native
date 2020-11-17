@@ -43,7 +43,11 @@ function ThemeButton({
       rhythm={rhythm}
       simple={simple}
       style={style}>
-      <Text colorPalette={colorPalette} colorShade={colorShade} inverted={inverted}>
+      <Text
+        colorPalette={colorPalette}
+        colorShade={colorShade}
+        inverted={inverted}
+        textClass={simple ? 'pBold' : 'pLight'}>
         {title}
       </Text>
     </STouchableOpacity>

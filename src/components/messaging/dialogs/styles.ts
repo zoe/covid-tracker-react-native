@@ -15,6 +15,7 @@ export const SContainerView = styled(View)<IContainerViewProps>`
     height: ${props.height};
     justify-content: center;
     left: 0;
+    padding: ${props.theme.grid.xxxl}px;
     position: absolute;
     top: 0;
     width: ${props.width};
@@ -26,7 +27,7 @@ export const SMessageWindowView = styled(Animated.View)`
     background-color: white;
     border-radius: ${props.theme.grid.l}px;
     padding: ${props.theme.grid.xl}px ${props.theme.grid.l}px;
-    width: 62%;
+    width: 100%;
   `}
 `;
 

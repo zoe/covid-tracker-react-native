@@ -46,6 +46,7 @@ export type ITextClass = {
   h6Light: TText;
   h6Medium: TText;
   p: TText;
+  pBold: TText;
   pLight: TText;
   default: TText;
   button: TText;
