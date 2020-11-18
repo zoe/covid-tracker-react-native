@@ -178,7 +178,7 @@ android {
     signingConfigs {
         debug {
             // Override if needed during debug
-            storeFile file('debug.keystore')
+//            storeFile file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
@@ -196,12 +196,12 @@ android {
     
     buildTypes {
         debug {
-            // applicationIdSuffix ".qa"
+            applicationIdSuffix ".qa"
             signingConfig signingConfigs.debug
             matchingFallbacks = ['debug']
         }
         staging {
-            // applicationIdSuffix ".qa"
+            applicationIdSuffix ".qa"
             signingConfig signingConfigs.release
             matchingFallbacks = ['debug', 'release']
         }
