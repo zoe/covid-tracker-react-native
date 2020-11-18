@@ -14,14 +14,8 @@ export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
     let token = null;
     try {
       if (await this.isGranted()) {
-        if (!Constants.manifest) {
-          // Absence of the manifest means we're in bare workflow
-          // @ts-ignore
-          token = await Notifications.getExpoPushTokenAsync({ experienceId: '@julien.lavigne/covid-zoe' });
-          return token.data;
-        } else {
-          token = await Notifications.getExpoPushTokenAsync();
-        }
+        token = await Notifications.getExpoPushTokenAsync({ experienceId: '@julien.lavigne/covid-zoe' });
+        return token.data;
       }
     } catch (error) {
       // silently discard errors.
