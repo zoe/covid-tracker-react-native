@@ -239,6 +239,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    apply plugin: 'com.google.gms.google-services'
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -274,7 +276,3 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 // Run with: ./gradlew --build-file build.gradle assembleNoDynatraceDebug
 // Link: https://oliverspryn.medium.com/conditional-gradle-configuration-by-build-variant-331695240598
 def task = gradle.startParameter.taskNames[0] ?: "" // Get "assemble{BUILD_TYPE}"
-
-if (!task.toLowerCase().contains("release")) {
-    apply plugin: 'com.google.gms.google-services'
-}
