@@ -70,6 +70,6 @@ rm -f $EXPO_ANDROID_MANIFEST_TEMPLATE
 
 
 # Override app identifiers in expo's app.json
-if [ $RELEASE_TYPE == "stage" ]; then
-  # sed -e 's/'$COVID_IOS_APP_ID'/'$COVID_IOS_APP_ID'.qa/g' -e 's/'$COVID_ANDROID_APP_ID'/'$COVID_ANDROID_APP_ID'.qa/g' app.json > app.json.tmp && rm -f app.json && mv app.json.tmp app.json
-fi
+# if [ $RELEASE_TYPE == "stage" ]; then
+#   sed -e 's/'$COVID_IOS_APP_ID'/'$COVID_IOS_APP_ID'.qa/g' -e 's/'$COVID_ANDROID_APP_ID'/'$COVID_ANDROID_APP_ID'.qa/g' app.json > app.json.tmp && rm -f app.json && mv app.json.tmp app.json
+# fi
