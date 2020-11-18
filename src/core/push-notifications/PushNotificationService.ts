@@ -75,8 +75,7 @@ export default class PushNotificationService {
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
-    return true;
-    // return isDateBefore(pushToken.lastUpdated, aWeekAgo());
+    return isDateBefore(pushToken.lastUpdated, aWeekAgo());
   }
 
   private async sendPushToken(pushToken: PushToken) {
