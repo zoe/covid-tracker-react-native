@@ -5,6 +5,8 @@ mkdir -p .signing
 echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
 echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
 
+cp google-services.json ./android/app/google-services.json
+
 EXPO_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)
 EXPO_OTA_VERSION=$(cat app.json | jq -r '.expo.version')
 EXPO_RELEASE_CHANNEL=$RELEASE_TYPE'-v'$EXPO_OTA_VERSION
