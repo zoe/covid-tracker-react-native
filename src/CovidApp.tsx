@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Dimensions, StatusBar, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
@@ -131,10 +131,9 @@ export default class CovidApp extends Component<object, State> {
     });
     this.setState({ isLoaded: true });
 
-    Notifications.addListener((notif) => {
-      if (notif.origin === 'selected') {
-        Analytics.track(events.OPEN_FROM_NOTIFICATION);
-      }
+    Notifications.addNotificationResponseReceivedListener((response) => {
+      // const url = response.notification.request.content.data.url;
+      Analytics.track(events.OPEN_FROM_NOTIFICATION);
     });
   }
 

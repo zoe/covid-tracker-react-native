@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 
 import { IPushTokenEnvironment } from './PushNotificationService';
@@ -14,8 +14,9 @@ export default class ExpoPushTokenEnvironment implements IPushTokenEnvironment {
     let token = null;
     try {
       if (await this.isGranted()) {
-        token = await Notifications.getExpoPushTokenAsync({ experienceId: '@julien.lavigne/covid-zoe' });
-        return token.data;
+        const { data } = await Notifications.getExpoPushTokenAsync({ experienceId: '@julien.lavigne/covid-zoe' });
+        token = data;
+        return token;
       }
     } catch (error) {
       // silently discard errors.
