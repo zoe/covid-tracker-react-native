@@ -5,8 +5,6 @@ mkdir -p .signing
 echo "$GOOGLE_SERVICE_JSON" | base64 --decode > google-services.json
 echo $KEYSTORE_FILE | base64 -d > .signing/release.jks
 
-cp google-services.json ./android/app/google-services.json
-
 EXPO_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)
 EXPO_OTA_VERSION=$(cat app.json | jq -r '.expo.version')
 EXPO_RELEASE_CHANNEL=$RELEASE_TYPE'-v'$EXPO_OTA_VERSION
@@ -72,4 +70,9 @@ rm -f $EXPO_ANDROID_MANIFEST_TEMPLATE
 # Override app identifiers in expo's app.json
 if [ $RELEASE_TYPE == "stage" ]; then
   sed -e 's/'$COVID_IOS_APP_ID'/'$COVID_IOS_APP_ID'.qa/g' -e 's/'$COVID_ANDROID_APP_ID'/'$COVID_ANDROID_APP_ID'.qa/g' app.json > app.json.tmp && rm -f app.json && mv app.json.tmp app.json
+fi
+
+# Only copy service json for Android Prod app for now
+if [ $RELEASE_TYPE == "prod" ]; then
+  cp google-services.json ./android/app/google-services.json
 fi
