@@ -31,7 +31,7 @@ const App: React.FC = () => {
   });
   SplashScreen.hide();
   // *** //
-  LogBox.ignoreAllLogs(true);
+  // LogBox.ignoreAllLogs(true);
   // *** //
   return (
     <Provider store={store}>
