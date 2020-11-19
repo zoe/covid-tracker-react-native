@@ -104,7 +104,6 @@ import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
 
 class State {
   isLoaded: boolean;
@@ -174,47 +173,6 @@ export default class CovidApp extends Component<object, State> {
         }}>
         <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
       </Drawer.Navigator>
-    );
-  };
-
-  tabNavigator = () => {
-    return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let icon;
-            const tintColor = focused ? colors.brand : colors.tertiary;
-
-            switch (route.name) {
-              case 'Dashboard':
-                icon = dashboard;
-                break;
-              case 'LatestNews':
-                icon = news;
-                break;
-            }
-
-            return <Image resizeMethod="auto" source={icon} style={{ tintColor, width: 24, height: 24 }} />;
-          },
-        })}
-        tabBarOptions={{
-          labelStyle: {
-            fontSize: 12,
-          },
-          activeTintColor: colors.brand,
-          inactiveTintColor: colors.tertiary,
-        }}>
-        <Tab.Screen
-          name="Dashboard"
-          component={DashboardScreen}
-          options={{ title: i18n.t('tab-navigator.first-tab') }}
-        />
-        <Tab.Screen
-          name="LatestNews"
-          component={LatestNewsScreen}
-          options={{ title: i18n.t('tab-navigator.second-tab') }}
-        />
-      </Tab.Navigator>
     );
   };
 

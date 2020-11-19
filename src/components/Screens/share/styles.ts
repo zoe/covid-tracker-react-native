@@ -1,0 +1,85 @@
+import { Image, View } from 'react-native';
+
+import styled from '@covid/themes/styled-components';
+import { TColorPalette, TColorShade } from '@covid/themes';
+
+export interface IContainerViewProps {
+  height: number;
+  width: number;
+}
+
+export const SContainerView = styled(View)<IContainerViewProps>`
+  ${(props) => `
+    align-items: center;
+    height: ${props.height};
+    justify-content: center;
+    left: 0;
+    padding: ${props.theme.grid.xxxl}px;
+    position: absolute;
+    top: 0;
+    width: ${props.width};
+  `}
+`;
+
+export const SShareContainerView = styled(View)`
+  ${(props) => `
+    background-color: white;
+    border-top-left-radius: ${props.theme.grid.l}px;
+    border-top-right-radius: ${props.theme.grid.l}px;
+    padding: ${props.theme.grid.xl}px ${props.theme.grid.l}px;
+    width: 100%;
+  `}
+`;
+
+export interface IShareLabelProps {
+  colorPalette: TColorPalette;
+  colorShade: TColorShade;
+}
+
+export const SShareLabelView = styled(View)<IShareLabelProps>`
+  ${(props) => `
+    background-color: ${props.theme.colors[props.colorPalette][props.colorShade].bgColor};
+    border-bottom-left-radius: ${props.theme.grid.l}px;
+    border-bottom-right-radius: ${props.theme.grid.l}px;
+    padding: ${props.theme.grid.xl}px ${props.theme.grid.l}px;
+    width: 100%;
+  `}
+`;
+
+export const SRowView = styled(View)`
+  ${(props) => `
+    flex-direction: row;
+  `}
+`;
+
+export const STextContainer = styled(View)`
+  ${(props) => `
+    flex: 1;
+    padding-right: 16px;
+  `}
+`;
+
+export const SLogoContainer = styled(View)`
+  ${(props) => `
+    align-items: center;
+  `}
+`;
+
+export const SImageContainer = styled(View)`
+  ${(props) => `
+    background-color: #082A5D; 
+    border-radius: ${props.theme.grid.s}px;
+    height: ${props.theme.grid.xxxxl}px;
+    margin-bottom: ${props.theme.grid.l}px;
+    padding: ${props.theme.grid.xs}px;
+    width: ${props.theme.grid.xxxxl}px;
+  `}
+`;
+
+export const SImage = styled(Image)`
+  ${(props) => `
+    width: 100%;
+    height: 100%;
+    resize-mode: contain;
+  `}
+`;

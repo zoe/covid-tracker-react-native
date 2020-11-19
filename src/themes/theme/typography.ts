@@ -20,26 +20,32 @@ export const text: ITextClass = {
   h1: getTextProperties(32, 48, 'SofiaPro-SemiBold'),
   h1Light: getTextProperties(32, 48, 'SofiaPro-Light'),
   h1Medium: getTextProperties(32, 48, 'SofiaPro-Medium'),
+  h1Regular: getTextProperties(12, 16),
   //
   h2: getTextProperties(28, 40, 'SofiaPro-SemiBold'),
   h2Light: getTextProperties(28, 40, 'SofiaPro-Light'),
   h2Medium: getTextProperties(28, 40, 'SofiaPro-Medium'),
+  h2Regular: getTextProperties(12, 16),
   //
   h3: getTextProperties(24, 32, 'SofiaPro-SemiBold'),
   h3Light: getTextProperties(24, 32, 'SofiaPro-Light'),
   h3Medium: getTextProperties(24, 32, 'SofiaPro-Medium'),
+  h3Regular: getTextProperties(12, 16),
   //
   h4: getTextProperties(20, 24, 'SofiaPro-SemiBold'),
   h4Light: getTextProperties(20, 24, 'SofiaPro-Light'),
   h4Medium: getTextProperties(20, 24, 'SofiaPro-Medium'),
+  h4Regular: getTextProperties(12, 16),
   //
   h5: getTextProperties(16, 24, 'SofiaPro-SemiBold'),
   h5Light: getTextProperties(16, 24, 'SofiaPro-Light'),
   h5Medium: getTextProperties(16, 24, 'SofiaPro-Medium'),
+  h5Regular: getTextProperties(12, 16),
   //
   h6: getTextProperties(12, 16, 'SofiaPro-SemiBold'),
   h6Light: getTextProperties(12, 16, 'SofiaPro-Light'),
   h6Medium: getTextProperties(12, 16, 'SofiaPro-Medium'),
+  h6Regular: getTextProperties(12, 16),
   //
   p: getTextProperties(16, 24),
   pBold: getTextProperties(16, 24, 'SofiaPro-SemiBold'),

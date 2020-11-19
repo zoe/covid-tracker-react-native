@@ -1,11 +1,17 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Dimensions, Text, View } from 'react-native';
+
+import ShareContainer from './container';
+import ShareLabel from './label';
+import { SContainerView } from './styles';
 
 function ShareScreen() {
+  const { height, width } = Dimensions.get('window');
   return (
-    <View>
-      <Text>Share Screen</Text>
-    </View>
+    <SContainerView height={height} width={width}>
+      <ShareContainer />
+      <ShareLabel />
+    </SContainerView>
   );
 }
 
