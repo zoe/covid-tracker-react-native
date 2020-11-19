@@ -5,14 +5,11 @@ import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
 import { Dimensions, StatusBar, Image } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
 import { Notifications } from 'expo';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
-import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -90,6 +87,8 @@ import {
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestConfirmScreen';
 import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDashboardScreen';
+// import { ModalNavigator } from '@covid/routes';
+import { ShareScreen } from '@covid/components';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
 import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptomsScreen';
@@ -98,6 +97,7 @@ import { ThroatChestSymptomsScreen } from '@covid/features/assessment/ThroatChes
 import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachSymptomsScreen';
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 import { SchoolNetworkInfoScreen } from '@covid/features/school-network/SchoolNetworkInfo';
+import { MainNavigator } from '@covid/routes';
 
 import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
@@ -151,18 +151,31 @@ export default class CovidApp extends Component<object, State> {
             NavigatorService.setContainer(navigatorRef);
           }}
           onStateChange={NavigatorService.handleStateChange}>
-          <Drawer.Navigator
-            drawerContent={(props) => <DrawerMenu {...props} />}
-            screenOptions={{ swipeEnabled: false }}
-            drawerStyle={{
-              width: Dimensions.get('screen').width,
-            }}>
-            <Drawer.Screen name="Main" component={this.mainNavStack} options={{ headerShown: false }} />
-          </Drawer.Navigator>
+          <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
+            <Stack.Screen name="Main" component={this.drawNavigator} />
+            <Stack.Screen
+              name="Share"
+              component={ShareScreen}
+              options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.6)' } }}
+            />
+          </Stack.Navigator>
         </NavigationContainer>
       </Root>
     );
   }
+
+  drawNavigator = () => {
+    return (
+      <Drawer.Navigator
+        drawerContent={(props) => <DrawerMenu {...props} />}
+        screenOptions={{ swipeEnabled: false }}
+        drawerStyle={{
+          width: Dimensions.get('screen').width,
+        }}>
+        <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
+      </Drawer.Navigator>
+    );
+  };
 
   tabNavigator = () => {
     return (

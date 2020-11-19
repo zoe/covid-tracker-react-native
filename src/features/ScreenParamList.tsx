@@ -110,6 +110,11 @@ export type ScreenParamList = {
   ConfirmSchool: { patientData: PatientData; school: SchoolModel };
   JoinHigherEducation: { patientData: PatientData };
 
+  //
+  Modal: undefined;
+  Main: undefined;
+  Share: undefined;
+
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };
   SearchLAD: object;

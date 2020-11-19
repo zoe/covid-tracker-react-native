@@ -15,7 +15,7 @@ type HowYouFeelProps = {
   route: RouteProp<ScreenParamList, 'AdultOrChild'>;
 };
 
-export default class BeforeWeStart extends Component<HowYouFeelProps> {
+export default class AdultOrChildScreen extends Component<HowYouFeelProps> {
   buildRouteParams = (consentType: ConsentType) => {
     return {
       consentType,

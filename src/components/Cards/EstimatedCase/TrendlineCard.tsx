@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 import { Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
+  const { navigate } = useNavigation();
   const viewRef = useRef<View>(null);
   const positiveCountLabel = `${i18n.t('explore-trend-line.title')} `;
 
@@ -71,7 +73,8 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
 
       <View style={styles.divider} />
 
-      <TouchableOpacity style={styles.shareTouchable} onPress={share}>
+      {/* <TouchableOpacity style={styles.shareTouchable} onPress={share}> */}
+      <TouchableOpacity style={styles.shareTouchable} onPress={() => navigate('Share')}>
         <Share style={styles.shareIcon} />
         <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
       </TouchableOpacity>
