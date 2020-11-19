@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   formContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
+    marginHorizontal: 16,
   },
 });
 

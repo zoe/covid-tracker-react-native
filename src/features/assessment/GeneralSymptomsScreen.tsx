@@ -16,6 +16,9 @@ import {
   GeneralSymptomsData,
   GeneralSymptomsQuestions,
 } from '@covid/features/assessment/fields/GeneralSymptomsQuestions';
+import { useInjection } from '@covid/provider/services.hooks';
+import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -26,6 +29,9 @@ type Props = {
 
 export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
+
+  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
+  const features = localisationService.getConfig();
 
   const hasHayfever = route.params.assessmentData.patientData.patientState.hasHayfever;
   const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
@@ -49,7 +55,7 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
 
         <Formik
           initialValues={{
-            ...GeneralSymptomsQuestions.initialFormValues(),
+            ...GeneralSymptomsQuestions.initialFormValues(features.defaultTemperatureUnit),
           }}
           validationSchema={registerSchema}
           onSubmit={(values: GeneralSymptomsData) => handleSubmit(values)}>
