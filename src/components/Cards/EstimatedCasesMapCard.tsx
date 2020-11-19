@@ -4,6 +4,7 @@ import { captureRef } from 'react-native-view-shot';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Sharing from 'expo-sharing';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { WebView } from '@covid/components/WebView';
 import { BrandedButton, Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
@@ -106,7 +107,9 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   );
 };
 
-interface Props {}
+interface Props {
+  isSharing?: boolean;
+}
 
 type MapConfig = {
   coordinates: Coordinates;
@@ -117,7 +120,8 @@ const DEFAULT_MAP_CENTER: Coordinates = { lat: 53.963843, lng: -3.823242 };
 const ZOOM_LEVEL_CLOSER = 10.5;
 const ZOOM_LEVEL_FURTHER = 6;
 
-export const EstimatedCasesMapCard: React.FC<Props> = () => {
+export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
+  const { navigate } = useNavigation();
   const patientService = useInjection<IPatientService>(Services.Patient);
 
   const localData = useSelector<RootState, PersonalisedLocalData | undefined>(
@@ -217,11 +221,12 @@ export const EstimatedCasesMapCard: React.FC<Props> = () => {
 
   const share = async () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_SHARE_CLICKED);
-    try {
-      const uri = await captureRef(viewRef, { format: 'jpg' });
-      // https://github.com/expo/expo/issues/6920#issuecomment-580966657
-      Sharing.shareAsync('file://' + uri);
-    } catch (_) {}
+    navigate('Share', { sharable: 'MAP' });
+    // try {
+    //   const uri = await captureRef(viewRef, { format: 'jpg' });
+    //   // https://github.com/expo/expo/issues/6920#issuecomment-580966657
+    //   Sharing.shareAsync('file://' + uri);
+    // } catch (_) {}
   };
 
   const showMap = () => {
@@ -256,9 +261,13 @@ export const EstimatedCasesMapCard: React.FC<Props> = () => {
         </View>
 
         <View style={styles.mapContainer}>
-          <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
-            {map()}
-          </TouchableOpacity>
+          {isSharing ? (
+            map()
+          ) : (
+            <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
+              {map()}
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.statsContainer}>
@@ -273,18 +282,21 @@ export const EstimatedCasesMapCard: React.FC<Props> = () => {
               <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
             </View>
           )}
-          <TouchableOpacity style={styles.backIcon} onPress={showMap}>
-            <ChevronRight width={32} height={32} />
-          </TouchableOpacity>
+          {!isSharing && (
+            <TouchableOpacity style={styles.backIcon} onPress={showMap}>
+              <ChevronRight width={32} height={32} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
       <View style={styles.divider} />
-
-      <TouchableOpacity style={styles.shareTouchable} onPress={share}>
-        <Share style={styles.shareIcon} />
-        <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
-      </TouchableOpacity>
+      {!isSharing && (
+        <TouchableOpacity style={styles.shareTouchable} onPress={share}>
+          <Share style={styles.shareIcon} />
+          <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

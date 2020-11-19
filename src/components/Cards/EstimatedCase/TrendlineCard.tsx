@@ -74,7 +74,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
       <View style={styles.divider} />
 
       {/* <TouchableOpacity style={styles.shareTouchable} onPress={share}> */}
-      <TouchableOpacity style={styles.shareTouchable} onPress={() => navigate('Share')}>
+      <TouchableOpacity style={styles.shareTouchable} onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}>
         <Share style={styles.shareIcon} />
         <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
       </TouchableOpacity>

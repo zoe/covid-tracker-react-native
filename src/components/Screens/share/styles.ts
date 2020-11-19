@@ -11,14 +11,24 @@ export interface IContainerViewProps {
 export const SContainerView = styled(View)<IContainerViewProps>`
   ${(props) => `
     align-items: center;
-    height: ${props.height};
+    height: ${props.height}px;
     justify-content: center;
     left: 0;
-    padding: ${props.theme.grid.xxxl}px;
+    padding: ${props.theme.grid.s}px ${props.theme.grid.xxxl}px;
     position: absolute;
     top: 0;
     width: ${props.width};
   `}
+`;
+
+export const SContentView = styled(View)`
+  flex: 1;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const SButtonView = styled(View)`
+  width: 100%;
 `;
 
 export const SShareContainerView = styled(View)`
@@ -26,8 +36,18 @@ export const SShareContainerView = styled(View)`
     background-color: white;
     border-top-left-radius: ${props.theme.grid.l}px;
     border-top-right-radius: ${props.theme.grid.l}px;
-    padding: ${props.theme.grid.xl}px ${props.theme.grid.l}px;
+    padding: ${props.theme.grid.s}px;
     width: 100%;
+  `}
+`;
+
+export interface ITrendViewProps {
+  height: number;
+}
+
+export const STrendlineContainer = styled(View)<ITrendViewProps>`
+  ${(props) => `
+    height: ${props.height}px;
   `}
 `;
 
