@@ -339,7 +339,11 @@
 
     "check-all-that-apply": "Elige todo los que se aplican",
     "general-symptoms": "¿Está experimentando algunos síntomas ajabo?",
-    "general-fever": "Fiebre (al menos 37.8°C o 100°F)",
+    "general-fever": "Fiebre",
+    "question-your-temperature": "Si puede medirla, ¿cuál es su temperatura?",
+    "placeholder-temperature": "Ingresar temperatura",
+    "picker-celsius": "°C",
+    "picker-fahrenheit": "°F",
     "general-fatigue": "Fatiga inusual",
     "general-fatigue-follow-up": "¿Como severo es su fatiga?",
     "general-fatigue-mild": "Fatiga leve",

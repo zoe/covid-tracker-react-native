@@ -68,10 +68,6 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     NavigatorService.navigate('SelectProfile');
   }
 
-  goToSchoolIntro() {
-    NavigatorService.navigate('SchoolIntro');
-  }
-
   goToCreateSchoolGroup() {
     NavigatorService.navigate('CreateNetworkGroup');
   }
