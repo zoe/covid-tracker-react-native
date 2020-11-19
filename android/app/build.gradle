@@ -178,7 +178,7 @@ android {
     signingConfigs {
         debug {
             // Override if needed during debug
-            storeFile file('debug.keystore')
+           storeFile file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
@@ -238,6 +238,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    apply plugin: 'com.google.gms.google-services'
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -270,4 +273,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
-// apply plugin: 'com.google.gms.google-services'
+// Run with: ./gradlew --build-file build.gradle assembleNoDynatraceDebug
+// Link: https://oliverspryn.medium.com/conditional-gradle-configuration-by-build-variant-331695240598
+def task = gradle.startParameter.taskNames[0] ?: "" // Get "assemble{BUILD_TYPE}"
