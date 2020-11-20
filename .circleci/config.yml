@@ -50,37 +50,32 @@ references:
   yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
   node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
   pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-  gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v3-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
   # Branch filter
   master_filter: &master_filter
     branches:
       only: master
 
-  stage_filter: &stage_filter
+  develop_filter: &develop_filter
     branches:
       only:
         - develop
-        - stage
-
-  legacy_ota_filter: &legacy_ota_filter
-    branches:
-      only: release-0.x-legacy
 
   release_filter: &release_filter
     branches:
       only:
         - master
         - develop
-        - stage
 
   feature_filter: &feature_filter
     branches:
       ignore:
         - master
         - develop
-        - stage
+        - develop-legacy
         - release-0.x-legacy
+        - stage
 
 ###
 ### Define shared commands:
@@ -405,7 +400,7 @@ workflows:
       # Staging OTA deploy
       - ota-release:
           name: 'Stage OTA'
-          filters: *stage_filter
+          filters: *develop_filter
           context: react-covid-tracker-stage
           requires:
             - build
@@ -444,26 +439,26 @@ workflows:
       # |-- iOS / Android Release to App Center
       # |-- Message slack message on App Center upload successful
       - slack/approval-notification:
-          filters: *stage_filter
+          filters: *develop_filter
           message: "Awaiting manual approval to deploy native apps to staging"
           context: slack-ci-covid-mobile
           requires:
             - build
       - adhoc-release-approval:
           name: 'Adhoc approval'
-          filters: *stage_filter
+          filters: *develop_filter
           type: approval
           requires:
             - build
       - deploy-ios:
           name: 'Adhoc iOS'
-          filters: *stage_filter
+          filters: *develop_filter
           context: react-covid-tracker-stage
           requires:
             - Adhoc approval
       - deploy-android:
           name: 'Adhoc Android'
-          filters: *stage_filter
+          filters: *develop_filter
           context: react-covid-tracker-stage
           requires:
             - Adhoc approval
@@ -510,21 +505,6 @@ workflows:
             - Store iOS
             - Store Android
 
-  legacy-ota:
-    jobs:
-      - build:
-          filters: *legacy_ota_filter
-      - ota-release-approval:
-          filters: *legacy_ota_filter
-          type: approval
-          requires:
-            - build
-      - legacy-ota-release:
-          filters: *legacy_ota_filter
-          context: react-covid-tracker-prod
-          requires:
-            - ota-release-approval
-  
   # OTA Rollback (with approval) if OTA release is successful
 
   rollbacks:
@@ -543,10 +523,10 @@ workflows:
       # Staging OTA rollback
       - ota-rollback-approval:
           name: 'Stage rollback'
-          filters: *stage_filter
+          filters: *develop_filter
           type: approval
       - ota-rollback:
-          filters: *stage_filter
+          filters: *develop_filter
           context: react-covid-tracker-stage
           requires:
             - Stage rollback
