@@ -1,14 +1,12 @@
 import { TouchableOpacity } from 'react-native';
 
 import styled from '@covid/themes/styled-components';
-import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
+import { TColorPalette, TColorShade } from '@covid/themes';
 
 interface SProps {
   colorPalette: TColorPalette;
   colorShade: TColorShade;
-  disabled: boolean;
   outline: boolean;
-  rhythm: TGridSizes;
   simple: boolean;
 }
 
@@ -21,9 +19,10 @@ export const STouchableOpacity = styled(TouchableOpacity)<SProps>`
     border-color: ${
       props.outline && !props.simple ? props.theme.colors[props.colorPalette][props.colorShade].bgColor : 'transparent'
     };
-    border-radius: ${props.theme.grid.xl};
+    border-radius: ${props.theme.grid.l};
+    height: ${props.theme.grid.xxxl};
     justify-content: center;
-    margin-bottom: ${props.rhythm}px;
     padding: ${props.theme.grid.s}px ${props.theme.grid.l}px;
+    width: ${props.theme.grid.xxxl};
   `}
 `;

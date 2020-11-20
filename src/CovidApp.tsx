@@ -4,9 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StatusBar, Image } from 'react-native';
-import { Notifications } from 'expo';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Dimensions, StatusBar } from 'react-native';
+import * as Notifications from 'expo-notifications';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
@@ -130,10 +129,9 @@ export default class CovidApp extends Component<object, State> {
     });
     this.setState({ isLoaded: true });
 
-    Notifications.addListener((notif) => {
-      if (notif.origin === 'selected') {
-        Analytics.track(events.OPEN_FROM_NOTIFICATION);
-      }
+    Notifications.addNotificationResponseReceivedListener((response) => {
+      // const url = response.notification.request.content.data.url;
+      Analytics.track(events.OPEN_FROM_NOTIFICATION);
     });
   }
 
@@ -155,7 +153,7 @@ export default class CovidApp extends Component<object, State> {
             <Stack.Screen
               name="Share"
               component={ShareScreen}
-              options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.6)' } }}
+              options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
             />
           </Stack.Navigator>
         </NavigationContainer>

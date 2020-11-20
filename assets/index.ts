@@ -87,6 +87,3 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
 export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
-
-// School
-export const schoolNetworkFeature = require('./school-network-modules/new_feature.png');

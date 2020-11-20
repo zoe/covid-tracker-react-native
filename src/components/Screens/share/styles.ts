@@ -5,6 +5,8 @@ import { TColorPalette, TColorShade } from '@covid/themes';
 
 export interface IContainerViewProps {
   height: number;
+  top: number;
+  bottom: number;
   width: number;
 }
 
@@ -12,12 +14,21 @@ export const SContainerView = styled(View)<IContainerViewProps>`
   ${(props) => `
     align-items: center;
     height: ${props.height}px;
-    justify-content: center;
     left: 0;
-    padding: ${props.theme.grid.s}px ${props.theme.grid.xxxl}px;
+    padding: ${props.top ? props.top : props.theme.grid.l}px ${props.theme.grid.xxxl}px ${
+    props.bottom ? props.bottom : props.theme.grid.s
+  }px;
     position: absolute;
     top: 0;
-    width: ${props.width};
+    width: ${props.width}px;
+  `}
+`;
+
+export const SCloseContainerView = styled(View)`
+  ${(props) => `
+    margin-bottom: ${props.theme.grid.xs}px;
+    width: 100%;
+    z-index: 5;
   `}
 `;
 
@@ -36,7 +47,6 @@ export const SShareContainerView = styled(View)`
     background-color: white;
     border-top-left-radius: ${props.theme.grid.l}px;
     border-top-right-radius: ${props.theme.grid.l}px;
-    padding: ${props.theme.grid.s}px;
     width: 100%;
   `}
 `;

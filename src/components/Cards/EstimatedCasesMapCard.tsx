@@ -222,11 +222,6 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
   const share = async () => {
     Analytics.track(events.ESTIMATED_CASES_MAP_SHARE_CLICKED);
     navigate('Share', { sharable: 'MAP' });
-    // try {
-    //   const uri = await captureRef(viewRef, { format: 'jpg' });
-    //   // https://github.com/expo/expo/issues/6920#issuecomment-580966657
-    //   Sharing.shareAsync('file://' + uri);
-    // } catch (_) {}
   };
 
   const showMap = () => {
@@ -253,7 +248,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
   return (
     <View style={styles.root}>
       <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
-        <View style={styles.headerContainer}>
+        <View style={{ marginVertical: isSharing ? 4 : 24 }}>
           <Header3Text style={styles.primaryLabel}>
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
           </Header3Text>
@@ -270,7 +265,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
           )}
         </View>
 
-        <View style={styles.statsContainer}>
+        <View style={[styles.statsContainer, { paddingVertical: isSharing ? 4 : 12 }]}>
           {!!activeCases && (
             <View style={styles.statsRow}>
               <Header0Text style={styles.stats}>{activeCases}</Header0Text>
@@ -290,12 +285,14 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
         </View>
       </View>
 
-      <View style={styles.divider} />
       {!isSharing && (
-        <TouchableOpacity style={styles.shareTouchable} onPress={share}>
-          <Share style={styles.shareIcon} />
-          <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
-        </TouchableOpacity>
+        <>
+          <View style={styles.divider} />
+          <TouchableOpacity style={styles.shareTouchable} onPress={share}>
+            <Share style={styles.shareIcon} />
+            <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
+          </TouchableOpacity>
+        </>
       )}
     </View>
   );
@@ -309,10 +306,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 32,
     paddingVertical: 8,
     overflow: 'hidden',
-  },
-
-  headerContainer: {
-    marginVertical: 24,
   },
 
   primaryLabel: {
@@ -344,7 +337,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     paddingHorizontal: 16,
-    paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
