@@ -1,16 +1,9 @@
 version: 2.1
 
-master_filter: &master_filter
-  branches:
-    only: master
 
 develop_filter: &develop_filter
   branches:
-    only: develop
-
-stage_filter: &stage_filter
-  branches:
-    only: stage
+    only: develop-legacy
 
 legacy_ota_filter: &legacy_ota_filter
   branches:
@@ -21,8 +14,9 @@ feature_filter: &feature_filter
     ignore:
       - master
       - develop
-      - stage
+      - develop-legacy
       - release-0.x-legacy
+      - stage
 
 orbs:
   node: circleci/node@2.0.1
@@ -64,27 +58,7 @@ commands:
       - set_release_channel
       - login_to_expo
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
-  deploy_android:
-    steps:
-      - run:
-          command: npx expo-cli build:android -t app-bundle --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
-          no_output_timeout: 2h
-      - run: curl -o fastlane/app.aab "$(npx expo-cli url:apk --non-interactive)"
-      - run: echo "$PLAY_STORE_JSON" | base64 --decode > fastlane/playstore.json
-      - run: bundle exec fastlane android $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_ANDROID app_token:$APPCENTER_API_TOKEN
-      - store_artifacts:
-          path: ~/covid-react/fastlane/app.apk
-  deploy_ios:
-    steps:
-      - run:
-          command: npx expo-cli build:ios --release-channel ${RELEASE_CHANNEL} --non-interactive --no-publish
-          no_output_timeout: 2h
-      - run: curl -o fastlane/app.ipa "$(npx expo-cli url:ipa --non-interactive)"
-      - run: bundle exec fastlane fastlane-credentials add --username $ITUNES_CONNECT_USER --password $ITUNES_CONNECT_PASSWORD
-      - run: bundle exec fastlane ios $FASTLANE_LANE app_name:$APPCENTER_APP_NAME_IOS app_token:$APPCENTER_API_TOKEN
-      - run: bundle exec fastlane fastlane-credentials remove --username $ITUNES_CONNECT_USER
-      - store_artifacts:
-          path: ~/covid-react/fastlane/app.ipa
+
   legacy_ota_publish:
     steps:
       - login_to_expo
@@ -106,14 +80,13 @@ jobs:
       - run: npm run test:coverage -- --ci
       - coveralls/upload
 
-  deploy:
+  develop_deploy:
     executor: node
     working_directory: ~/covid-react
     steps:
       - build
       - publish_to_expo
-      # - deploy_ios
-      # - deploy_android
+
   legacy_deploy:
     executor: node
     working_directory: ~/covid-react
@@ -127,57 +100,15 @@ workflows:
       - build_and_test:
           filters: *feature_filter
 
-  stage:
-    jobs:
-      - build_and_test:
-          filters: *stage_filter
-      - slack/approval-notification:
-          message: Awaiting manual approval to deploy to stage
-          context: slack-ci-covid-mobile
-          requires:
-            - build_and_test
-          filters: *stage_filter
-      - wait_for_approval:
-          type: approval
-          requires:
-            - build_and_test
-          filters: *stage_filter
-      - deploy:
-          filters: *stage_filter
-          context: react-covid-tracker-stage
-          requires:
-            - wait_for_approval
-
   develop:
     jobs:
       - build_and_test:
           filters: *develop_filter
-      - deploy:
+      - develop_deploy:
           filters: *develop_filter
           context: react-covid-tracker-dev
           requires:
             - build_and_test
-
-  master:
-    jobs:
-      - build_and_test:
-          filters: *master_filter
-      - slack/approval-notification:
-          message: Awaiting manual approval to deploy to production
-          context: slack-ci-covid-mobile
-          requires:
-            - build_and_test
-          filters: *master_filter
-      - wait_for_approval:
-          type: approval
-          requires:
-            - build_and_test
-          filters: *master_filter
-      - deploy:
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - wait_for_approval
 
   legacy_ota_release:
     jobs:
