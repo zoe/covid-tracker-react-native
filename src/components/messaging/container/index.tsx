@@ -19,12 +19,12 @@ function MessagingContainer() {
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (!state.isConnected) {
-        dispatch(
-          addMessage({
-            messageType: 'SNACKBAR',
-            message: { title: '', body: 'No internet connection' },
-          })
-        );
+        // dispatch(
+        //   addMessage({
+        //     messageType: 'SNACKBAR',
+        //     message: { title: '', body: 'No internet connection' },
+        //   })
+        // );
       }
     });
 
