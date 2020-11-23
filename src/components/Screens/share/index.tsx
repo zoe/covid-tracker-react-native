@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Dimensions, View, ScrollView } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -19,7 +19,7 @@ function ShareScreen() {
   const { bottom, top } = useSafeAreaInsets();
   const viewRef = useRef<View>(null);
   const route = useRoute();
-  const sharable = route.params.sharable; // TODO: type this
+  const sharable = route.params.sharable;
 
   const share = async () => {
     try {
