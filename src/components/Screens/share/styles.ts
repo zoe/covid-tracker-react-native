@@ -26,7 +26,6 @@ export const SContainerView = styled(View)<IContainerViewProps>`
 
 export const SCloseContainerView = styled(View)`
   ${(props) => `
-    margin-bottom: ${props.theme.grid.xs}px;
     width: 100%;
     z-index: 5;
   `}
@@ -39,7 +38,10 @@ export const SContentView = styled(View)`
 `;
 
 export const SButtonView = styled(View)`
-  width: 100%;
+  ${(props) => `
+    margin-bottom: ${props.theme.grid.xl}px;
+    width: 100%;
+  `}
 `;
 
 export const SShareContainerView = styled(View)`

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, View, ScrollView } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { useNavigation, useRoute } from '@react-navigation/native';
