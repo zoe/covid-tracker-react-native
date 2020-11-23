@@ -50,7 +50,7 @@ references:
   yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
   node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
   pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-  gem_cache_key: &gem_cache_key gems-v2-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v3-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
   # Branch filter
   master_filter: &master_filter
