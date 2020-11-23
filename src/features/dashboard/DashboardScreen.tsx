@@ -90,6 +90,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const hasNetworkData = networks && networks.length > 0;
 
+  console.log('NETWORKS: ', networks);
+
   return (
     <CollapsibleHeaderScrollView
       config={headerConfig}
