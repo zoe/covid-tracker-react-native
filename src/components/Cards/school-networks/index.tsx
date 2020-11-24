@@ -119,12 +119,12 @@ function SchoolNetworks(props: Props) {
 
   return (
     <View style={styles.container}>
-      <Header0Text style={styles.headerText}>{i18n.t('school-networks.title')}</Header0Text>
       {data.map((school, index) => {
         console.log('DATA: ', data);
         return (
           <>
-            <Card />
+            <Card schoolName={school.name} />
+            {/* */}
             <TouchableOpacity
               key={school.id}
               onPress={() => {

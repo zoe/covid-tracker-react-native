@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
+
+import { STitleText, SSchoolNameText } from './styles';
 
 interface IProps {
   schoolName: string;
@@ -10,8 +12,8 @@ interface IProps {
 function SchoolHeader({ schoolName }: IProps) {
   return (
     <View>
-      <Text>{i18n.t('school-networks.title')}</Text>
-      <Text>{schoolName}</Text>
+      <STitleText textClass="h4Medium">{i18n.t('school-networks.title')}</STitleText>
+      <SSchoolNameText textClass="pSmallLight">{schoolName}</SSchoolNameText>
     </View>
   );
 }
