@@ -22,8 +22,8 @@ import { fetchLocalTrendLine } from '@covid/core/content/state/contentSlice';
 import { isIos } from '@covid/utils/platform';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'Trendline'>;
-  route: RouteProp<ScreenParamList, 'Trendline'>;
+  navigation?: StackNavigationProp<ScreenParamList, 'Trendline'>;
+  route?: RouteProp<ScreenParamList, 'Trendline'>;
 };
 
 export const TrendlineScreen: React.FC<Props> = ({ route, navigation }) => {
