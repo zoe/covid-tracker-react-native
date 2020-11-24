@@ -38,8 +38,15 @@ export const SStatsContainerView = styled(View)<IStatsViewProps>`
   `}
 `;
 
-export const SStatusView = styled(View)`
+export const SHealthStatus = styled(View)`
   ${(props) => `
+    align-items: center;
     flex-direction: row;
+  `}
+`;
+
+export const SHealthStatusText = styled(Text)`
+  ${(props) => `
+    margin-left: ${props.theme.grid.s}px;
   `}
 `;

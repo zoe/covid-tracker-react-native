@@ -16,7 +16,7 @@ function SchoolNetworksCard({ schoolName }: IProps) {
     <View>
       <SchoolHeader schoolName={schoolName} />
       <SchoolStats />
-      <SchoolStats />
+      <SchoolStats isLast />
     </View>
   );
 }

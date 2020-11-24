@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 
 import { StatusIndicator } from '../../status';
 
+import { SHealthStatus, SHealthStatusText } from './styles';
+
 function HealthStatus() {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <SHealthStatus>
       <StatusIndicator colorPalette="green" />
-      <Text>reported feeling unwell</Text>
-    </View>
+      <SHealthStatusText>reported feeling unwell</SHealthStatusText>
+    </SHealthStatus>
   );
 }
 

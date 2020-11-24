@@ -125,7 +125,7 @@ function SchoolNetworks(props: Props) {
           <>
             <Card schoolName={school.name} />
             {/* */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               key={school.id}
               onPress={() => {
                 // Disabled until school leaders sign off
@@ -143,7 +143,7 @@ function SchoolNetworks(props: Props) {
                 const last = index !== data.length - 1;
                 return casesView(group, last);
               })}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </>
         );
       })}
