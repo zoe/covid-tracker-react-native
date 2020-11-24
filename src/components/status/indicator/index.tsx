@@ -6,11 +6,11 @@ import { SIndicatorView } from './styles';
 
 interface IProps {
   colorPalette: TColorPalette;
-  colorShade: TColorShade;
+  colorShade?: TColorShade;
 }
 
-function Indicator({ colorPalette, colorShade }: IProps) {
+function StatusIndicator({ colorPalette, colorShade = 'main' }: IProps) {
   return <SIndicatorView colorPalette={colorPalette} colorShade={colorShade} />;
 }
 
-export default Indicator;
+export default StatusIndicator;

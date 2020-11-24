@@ -7,6 +7,9 @@ import { colors } from '@theme';
 import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { ArrayDistinctBy } from '@covid/utils/array';
 import schoolNetworkCoordinator from '@covid/features/school-network/SchoolNetworkCoordinator';
+import { StatusIndicator } from '@covid/components';
+
+import Card from './Card';
 
 type Props = {
   schoolGroups: SubscribedSchoolGroupStats[];
@@ -25,7 +28,7 @@ enum SchoolGroupUIState {
   unknown,
 }
 
-export const SchoolNetworks: React.FC<Props> = (props) => {
+function SchoolNetworks(props: Props) {
   const data: SubscribedSchoolStats[] = TransformResponseToUIData(props.schoolGroups);
 
   const getStatus = (status: string | SchoolGroupStatus, cases?: number | null): SchoolGroupUIState => {
@@ -103,6 +106,7 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
         {!isLastItem && <View style={styles.lineStyle} />}
         <View style={styles.groupView}>
           <Header3Text style={styles.groupTitle}>{group.name}</Header3Text>
+          <StatusIndicator colorPalette="green" />
           <RegularText>
             <RegularBoldText>{group.size + ' '}</RegularBoldText>
             <RegularText>{getGroupSizeLabelText(group.size)}</RegularText>
@@ -119,30 +123,33 @@ export const SchoolNetworks: React.FC<Props> = (props) => {
       {data.map((school, index) => {
         console.log('DATA: ', data);
         return (
-          <TouchableOpacity
-            key={school.id}
-            onPress={() => {
-              // Disabled until school leaders sign off
-              // schoolNetworkCoordinator.goToSchoolDashboard(school);
-            }}>
-            <RegularText style={styles.schoolTitle}>{school.name}</RegularText>
-            <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
-            <RegularText>
-              <RegularBoldText>{school.size + ' '}</RegularBoldText>
-              <RegularText>{getGroupSizeLabelText(school.size)}</RegularText>
-            </RegularText>
-            {ArrayDistinctBy(school.groups, (group) => {
-              return group.id;
-            }).map((group, index) => {
-              const last = index !== data.length - 1;
-              return casesView(group, last);
-            })}
-          </TouchableOpacity>
+          <>
+            <Card />
+            <TouchableOpacity
+              key={school.id}
+              onPress={() => {
+                // Disabled until school leaders sign off
+                // schoolNetworkCoordinator.goToSchoolDashboard(school);
+              }}>
+              <RegularText style={styles.schoolTitle}>{school.name}</RegularText>
+              <RegularText style={styles.groupTitle}>{i18n.t('school-networks.dashboard.at-the-school')}</RegularText>
+              <RegularText>
+                <RegularBoldText>{school.size + ' '}</RegularBoldText>
+                <RegularText>{getGroupSizeLabelText(school.size)}</RegularText>
+              </RegularText>
+              {ArrayDistinctBy(school.groups, (group) => {
+                return group.id;
+              }).map((group, index) => {
+                const last = index !== data.length - 1;
+                return casesView(group, last);
+              })}
+            </TouchableOpacity>
+          </>
         );
       })}
     </View>
   );
-};
+}
 
 const TransformResponseToUIData = (data: SubscribedSchoolGroupStats[]): SubscribedSchoolStats[] => {
   return data.reduce((initial: SubscribedSchoolStats[], group): SubscribedSchoolStats[] => {
@@ -207,3 +214,5 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
 });
+
+export default SchoolNetworks;
