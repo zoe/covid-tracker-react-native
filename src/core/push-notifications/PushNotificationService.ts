@@ -10,6 +10,7 @@ import { isAndroid } from '../../utils/platform';
 import Analytics, { events } from '../Analytics';
 
 import { PushToken, IPushTokenRemoteClient } from './types';
+import moment from 'moment';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -75,7 +76,8 @@ export default class PushNotificationService {
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
-    return isDateBefore(pushToken.lastUpdated, aWeekAgo());
+    const rolloverDate = moment('2020-11-24', 'YYYY-MM-DD');
+    return isDateBefore(pushToken.lastUpdated, aWeekAgo() || isDateBefore(pushToken.lastUpdated, rolloverDate));
   }
 
   private async sendPushToken(pushToken: PushToken) {
@@ -89,7 +91,7 @@ export default class PushNotificationService {
       if (!pushToken) {
         await this.initPushToken();
       } else if (this.tokenNeedsRefreshing(pushToken)) {
-        await this.sendPushToken(pushToken);
+        await this.initPushToken();
       }
     } catch (error) {
       // Do nothing.
