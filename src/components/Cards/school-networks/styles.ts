@@ -1,9 +1,16 @@
 import { View } from 'react-native';
 
 import styled from '@covid/themes/styled-components';
-import { TColorPalette, TColorShade, TGridSizes } from '@covid/themes';
 
 import { Text } from '../../typography';
+
+export const SContainerView = styled(View)`
+  ${(props) => `
+    background-color: white;
+    border-radius: ${props.theme.grid.m}px;
+    padding: ${props.theme.grid.l}px ${props.theme.grid.xxl}px; 
+  `}
+`;
 
 export const STitleText = styled(Text)`
   ${(props) => `

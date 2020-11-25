@@ -4,11 +4,15 @@ import { StatusIndicator } from '../../status';
 
 import { SHealthStatus, SHealthStatusText } from './styles';
 
-function HealthStatus() {
+interface IProps {
+  reported: number;
+}
+
+function HealthStatus({ reported }: IProps) {
   return (
     <SHealthStatus>
-      <StatusIndicator colorPalette="green" />
-      <SHealthStatusText>reported feeling unwell</SHealthStatusText>
+      <StatusIndicator colorPalette={reported ? 'orange' : 'green'} />
+      <SHealthStatusText>{reported} reported feeling unwell</SHealthStatusText>
     </SHealthStatus>
   );
 }

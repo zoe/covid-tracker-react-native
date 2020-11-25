@@ -4,23 +4,38 @@ import { Text } from '../../typography';
 
 import { SStatsContainerView } from './styles';
 import HealthStatus from './HealthStatus';
-import { THealthStatus } from './types';
 
 interface IProps {
+  active: boolean;
+  bubbleName?: string;
+  size: number;
   isLast?: boolean;
-  healthStatus?: THealthStatus;
+  reported: number;
+  total: number;
 }
 
-function SchoolStats({ isLast = false, healthStatus = null }: IProps) {
+function SchoolStats({ active, bubbleName = '', size, isLast = false, reported, total }: IProps) {
+  const getToSignUpMessage = () => {
+    const count = Math.round(total * 0.3) - size;
+    const message = `${count} more parent${count > 1 && 's'} needed to sign up their children`;
+    return message;
+  };
+
   return (
     <SStatsContainerView isLast={isLast}>
       <Text textClass="pSmallLight" rhythm={8}>
-        Entire School or Bubbble Name
+        {bubbleName.length ? bubbleName : 'Entire School'}
       </Text>
-      <Text textClass="p" rhythm={healthStatus ? 8 : 12}>
-        n / n children signed up
+      <Text textClass="p" rhythm={active ? 8 : 12}>
+        {size} / {total} children signed up
       </Text>
-      {healthStatus && <HealthStatus />}
+      {active ? (
+        <HealthStatus reported={reported} />
+      ) : (
+        <Text textClass="pLight" colorPalette="uiDark" colorShade="main" inverted>
+          {getToSignUpMessage()}
+        </Text>
+      )}
     </SStatsContainerView>
   );
 }
