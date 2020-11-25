@@ -1,5 +1,6 @@
 import { Platform, Linking } from 'react-native';
 import * as IntentLauncher from 'expo-intent-launcher';
+import moment from 'moment';
 
 import { aWeekAgo, isDateBefore, now } from '@covid/utils/datetime';
 
@@ -10,7 +11,6 @@ import { isAndroid } from '../../utils/platform';
 import Analytics, { events } from '../Analytics';
 
 import { PushToken, IPushTokenRemoteClient } from './types';
-import moment from 'moment';
 
 const KEY_PUSH_TOKEN = 'PUSH_TOKEN';
 const PLATFORM_ANDROID = 'ANDROID';
@@ -76,8 +76,7 @@ export default class PushNotificationService {
   }
 
   private tokenNeedsRefreshing(pushToken: PushToken) {
-    const rolloverDate = moment('2020-11-24', 'YYYY-MM-DD');
-    return isDateBefore(pushToken.lastUpdated, aWeekAgo() || isDateBefore(pushToken.lastUpdated, rolloverDate));
+    return isDateBefore(pushToken.lastUpdated, aWeekAgo());
   }
 
   private async sendPushToken(pushToken: PushToken) {
@@ -113,10 +112,10 @@ export default class PushNotificationService {
   static async openSettings() {
     switch (Platform.OS) {
       case 'ios':
-        Linking.openURL('app-settings:');
+        await Linking.openURL('app-settings:');
         break;
       case 'android':
-        IntentLauncher.startActivityAsync(IntentLauncher.ACTION_NOTIFICATION_SETTINGS);
+        await IntentLauncher.startActivityAsync(IntentLauncher.ACTION_NOTIFICATION_SETTINGS);
         break;
       default:
         break;
