@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog022, dataPage003, notificationReminders, timUpdate019, webinar } from '@assets';
+import { blog022, dataPage003, notificationReminders, timUpdate020 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -77,14 +77,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://us02web.zoom.us/webinar/register/8116058673984/WN_a1NXbddxQsqDgwqXP-5ZRg"
-                calloutID="vaccine_webinar"
-                imageSource={webinar}
-                aspectRatio={1.21}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
                 link="https://covid.joinzoe.com/post/did-lockdown-2-0-work-heres-whats-going-on-with-covid-19-across-the-country?utm_source=App"
                 calloutID="blog_022"
                 imageSource={blog022}
@@ -93,9 +85,9 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=9WsLHvVFGD0"
-                calloutID="tim_update_019"
-                imageSource={timUpdate019}
+                link="https://www.youtube.com/watch?v=sM1K2-yTf6k"
+                calloutID="tim_update_020"
+                imageSource={timUpdate020}
                 aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
