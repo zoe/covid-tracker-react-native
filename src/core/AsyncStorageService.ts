@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
 import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
+import { migrateIfNeeded } from '@covid/utils/async-storage-migrate';
 
 import { AuthenticatedUser } from './user/UserService';
 
@@ -35,6 +36,7 @@ export type Coordinates = {
 
 export class AsyncStorageService {
   public static async GetStoredData(): Promise<AuthenticatedUser | null> {
+    await migrateIfNeeded();
     let userToken: string | null = '';
     let userId: string | null = '';
     try {
