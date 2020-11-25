@@ -1,10 +1,9 @@
 import React from 'react';
 import { Share, View } from 'react-native';
 
-import { SubscribedSchoolStats, SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
+import { SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
 import { ShareButton } from '../../Buttons';
-import { Text } from '../../typography';
 
 import SchoolHeader from './SchoolHeader';
 import SchoolStats from './SchoolStats';
