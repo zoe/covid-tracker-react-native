@@ -21,9 +21,9 @@ function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = fals
   const getToSignUpMessage = () => {
     const count = Math.round(total * 0.3) - size;
     if (count === 1) {
-      return i18n.t('school-networks.dashboard.more-parents-singular');
+      return `${count} ${i18n.t('school-networks.dashboard.more-parents-singular')}`;
     }
-    return i18n.t('school-networks.dashboard.more-parents');
+    return `${count} ${i18n.t('school-networks.dashboard.more-parents')}`;
   };
 
   return (
