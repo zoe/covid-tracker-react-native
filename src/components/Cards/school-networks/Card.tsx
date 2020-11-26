@@ -49,8 +49,8 @@ function SchoolNetworksCard({ school }: IProps) {
               size={group.size}
               isLast={isLast}
               key={group.id}
-              reported={Math.round(Math.random() * 1)}
-              total={Math.round(Math.random() * 20)}
+              reported={group.daily_reported_symptoms}
+              total={group.max_size}
             />
           </>
         );
