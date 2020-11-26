@@ -1,6 +1,7 @@
 import React from 'react';
 import { Share, View } from 'react-native';
 
+import i18n from '@covid/locale/i18n';
 import { SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
 import { ShareButton } from '../../Buttons';
@@ -46,17 +47,18 @@ function SchoolNetworksCard({ school }: IProps) {
             <SchoolStats
               active={group.status === 'active'}
               bubbleName={group.name}
-              size={group.size}
+              daily={group.daily_assessments}
               isLast={isLast}
               key={group.id}
               reported={group.daily_reported_symptoms}
+              size={group.size}
               total={group.max_size}
             />
           </>
         );
       })}
       <View>
-        <ShareButton label="Share this with someone" onPress={share} />
+        <ShareButton label={i18n.t('generic.share-this-with-someone')} onPress={share} />
       </View>
     </View>
   );

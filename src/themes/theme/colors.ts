@@ -47,23 +47,23 @@ export const colors: IColorPalettes = {
   },
   green: {
     lighter: {
-      bgColor: '#E3F1DF',
-      fgColor: '#414F3E',
+      bgColor: '#C0D904',
+      fgColor: '#fff',
     },
     light: {
-      bgColor: '#BBE5B3',
-      fgColor: '#414F3E',
+      bgColor: '#C0D904',
+      fgColor: '#fff',
     },
     main: {
-      bgColor: '#50B83C',
+      bgColor: '#C0D904',
       fgColor: '#fff',
     },
     dark: {
-      bgColor: '#108043',
+      bgColor: '#C0D904',
       fgColor: '#fff',
     },
     darker: {
-      bgColor: '#173630',
+      bgColor: '#C0D904',
       fgColor: '#fff',
     },
   },

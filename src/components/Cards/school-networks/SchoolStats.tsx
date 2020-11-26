@@ -1,5 +1,7 @@
 import React from 'react';
 
+import i18n from '@covid/locale/i18n';
+
 import { Text } from '../../typography';
 
 import { SStatsContainerView } from './styles';
@@ -8,27 +10,40 @@ import HealthStatus from './HealthStatus';
 interface IProps {
   active: boolean;
   bubbleName?: string;
-  size: number;
+  daily?: number | undefined;
   isLast?: boolean;
   reported: number;
+  size: number;
   total: number;
 }
 
-function SchoolStats({ active, bubbleName = '', size, isLast = false, reported, total }: IProps) {
+function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = false, reported, size, total }: IProps) {
   const getToSignUpMessage = () => {
     const count = Math.round(total * 0.3) - size;
-    const message = `${count} more parent${count > 1 && 's'} needed to sign up their children`;
-    return message;
+    if (count === 1) {
+      return i18n.t('school-networks.dashboard.more-parents-singular');
+    }
+    return i18n.t('school-networks.dashboard.more-parents');
   };
 
   return (
     <SStatsContainerView isLast={isLast}>
-      <Text textClass="pSmallLight" rhythm={8}>
-        {bubbleName.length ? bubbleName : 'Entire School'}
+      <Text textClass="pSmallLight" rhythm={8} colorPalette="uiDark" colorShade="main" inverted>
+        {bubbleName.length ? bubbleName : i18n.t('school-networks.dashboard.entire-school')}
       </Text>
-      <Text textClass="p" rhythm={active ? 8 : 12}>
-        {size} / {total} children signed up
+      <Text textClass="p" rhythm={active ? 8 : 12} colorPalette="uiDark" colorShade="darker" inverted>
+        {size} / {total} children signed up {i18n.t('school-networks.dashboard.children-signed-up')}
       </Text>
+      {active && daily !== undefined && (
+        <Text textClass="pLight" rhythm={8} colorPalette="uiDark" colorShade="darker" inverted>
+          {`${daily} ${
+            daily === 1
+              ? i18n.t('school-networks.dashboard.report-for-today-singular')
+              : i18n.t('school-networks.dashboard.report-for-today')
+          }`}
+        </Text>
+      )}
+
       {active ? (
         <HealthStatus reported={reported} />
       ) : (

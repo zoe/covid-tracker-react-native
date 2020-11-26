@@ -38,7 +38,7 @@ interface IStatsViewProps {
 
 export const SStatsContainerView = styled(View)<IStatsViewProps>`
   ${(props) => `
-    border-color: grey;
+    border-color: ${props.theme.colors.ui.dark.bgColor};
     border-bottom-width: ${props.isLast ? 0 : 1}px;
     margin-bottom: ${props.theme.grid.xxl}px;
     padding-bottom: ${props.theme.grid.m}px;

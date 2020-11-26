@@ -1518,7 +1518,17 @@
       "more-details": "More details",
       "faq": "FAQs",
       "disclaimer": "For more information about responding to COVID reports at school, please contact your school and read our ",
-      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk."
+      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk.",
+      "children-signed-up": "children signed up",
+      "entire-school": "Entire school",
+      "more-parents": "more parents needed to sign up their children",
+      "more-parents-singular": "more parent needed to sign up their children",
+      "reported-unwell": "reported feeling unwell",
+      "report-for-today": "children reported for today",
+      "report-for-today-singular": "child reported for today"
     }
+  },
+  "generic": {
+    "share-this-with-someone": "Share this with someone"
   }
 }
