@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog022, dataPage003, notificationReminders, timUpdate020 } from '@assets';
+import { blog022, dataPage003, notificationReminders, timUpdate020, vaccineWebinar } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -81,6 +81,14 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="blog_022"
                 imageSource={blog022}
                 aspectRatio={1.555}
+                screenName={this.props.route.name}
+              />
+
+              <ExternalCallout
+                link="https://youtu.be/rD6t5OHbDN0"
+                calloutID="vaccine_webinar"
+                imageSource={vaccineWebinar}
+                aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
 
