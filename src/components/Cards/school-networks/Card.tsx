@@ -43,18 +43,16 @@ function SchoolNetworksCard({ school }: IProps) {
       {school.groups.map((group, index) => {
         const isLast = index === school.groups.length - 1;
         return (
-          <>
-            <SchoolStats
-              active={group.status === 'active'}
-              bubbleName={group.name}
-              daily={group.daily_assessments}
-              isLast={isLast}
-              key={group.id}
-              reported={group.daily_reported_symptoms}
-              size={group.size}
-              total={group.max_size}
-            />
-          </>
+          <SchoolStats
+            active={group.status === 'active'}
+            bubbleName={group.name}
+            daily={group.daily_assessments}
+            isLast={isLast}
+            key={group.id}
+            reported={group.daily_reported_symptoms}
+            size={group.size}
+            total={group.max_size}
+          />
         );
       })}
       <View>
