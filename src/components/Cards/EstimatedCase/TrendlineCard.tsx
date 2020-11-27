@@ -14,6 +14,7 @@ import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import Share from '@assets/icons/Share';
+import { Text } from '@covid/components';
 
 import { DeltaTag } from './DeltaTag';
 
@@ -39,17 +40,15 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
     ctaOnPress();
   };
 
-  const share = async () => {
-    Analytics.track(events.TRENDLINE_OVERVIEW_SHARE_CLICKED);
-    try {
-      const uri = await captureRef(viewRef, { format: 'jpg' });
-      Sharing.shareAsync('file://' + uri);
-    } catch (_) {}
-  };
-
   return (
     <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
+        <Text textClass="h4Regular" rhythm={8}>
+          Active COVID case in [AREA]
+        </Text>
+        <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
+          Evolution of estimated active cases this month
+        </Text>
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
@@ -59,7 +58,21 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             </TouchableWithoutFeedback>
           )}
         </View>
-
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            width: '100%',
+            paddingHorizontal: 16,
+            marginBottom: 24,
+          }}>
+          <View style={{ marginRight: 12 }}>
+            <Text textClass="h0Regular">1969</Text>
+          </View>
+          <View style={{ width: '30%' }}>
+            <Text textClass="pSmallLight">Active cases in your area</Text>
+          </View>
+        </View>
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
           <RegularText style={styles.primaryLabel}>{positiveCountLabel}</RegularText>
           <RegularBoldText>{localTrendline?.name}</RegularBoldText>
