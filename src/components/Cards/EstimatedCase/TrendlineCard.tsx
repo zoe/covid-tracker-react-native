@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 import { Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
@@ -17,10 +18,12 @@ import Share from '@assets/icons/Share';
 import { DeltaTag } from './DeltaTag';
 
 interface Props {
-  ctaOnPress: VoidFunction;
+  ctaOnPress?: VoidFunction;
+  isSharing?: boolean;
 }
 
-export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
+export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isSharing = false }) => {
+  const { navigate } = useNavigation();
   const viewRef = useRef<View>(null);
   const positiveCountLabel = `${i18n.t('explore-trend-line.title')} `;
 
@@ -45,14 +48,16 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
   };
 
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
-          <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
-            <View style={styles.box} />
-          </TouchableWithoutFeedback>
+          {!isSharing && (
+            <TouchableWithoutFeedback style={styles.hit} onPress={onPress}>
+              <View style={styles.box} />
+            </TouchableWithoutFeedback>
+          )}
         </View>
 
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -63,18 +68,22 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress }) => {
         <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
 
         {localTrendline?.delta && (
-          <View style={styles.deltaTag}>
+          <View style={[styles.deltaTag, { marginBottom: isSharing ? 0 : 20 }]}>
             <DeltaTag change={localTrendline.delta} />
           </View>
         )}
       </View>
 
-      <View style={styles.divider} />
+      {!isSharing && (
+        <>
+          <View style={styles.divider} />
 
-      <TouchableOpacity style={styles.shareTouchable} onPress={share}>
-        <Share style={styles.shareIcon} />
-        <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.shareTouchable} onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}>
+            <Share style={styles.shareIcon} />
+            <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -84,7 +93,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 16,
-    marginHorizontal: 32,
     paddingBottom: 16,
     paddingTop: 8,
   },

@@ -4,15 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StatusBar, Image } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
+import { Dimensions, StatusBar } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
-import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -90,6 +86,8 @@ import {
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestConfirmScreen';
 import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDashboardScreen';
+// import { ModalNavigator } from '@covid/routes';
+import { ShareScreen } from '@covid/components';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
 import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptomsScreen';
@@ -98,13 +96,13 @@ import { ThroatChestSymptomsScreen } from '@covid/features/assessment/ThroatChes
 import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachSymptomsScreen';
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 import { SchoolNetworkInfoScreen } from '@covid/features/school-network/SchoolNetworkInfo';
+import { MainNavigator } from '@covid/routes';
 
 import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
 
 class State {
   isLoaded: boolean;
@@ -150,57 +148,29 @@ export default class CovidApp extends Component<object, State> {
             NavigatorService.setContainer(navigatorRef);
           }}
           onStateChange={NavigatorService.handleStateChange}>
-          <Drawer.Navigator
-            drawerContent={(props) => <DrawerMenu {...props} />}
-            screenOptions={{ swipeEnabled: false }}
-            drawerStyle={{
-              width: Dimensions.get('screen').width,
-            }}>
-            <Drawer.Screen name="Main" component={this.mainNavStack} options={{ headerShown: false }} />
-          </Drawer.Navigator>
+          <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
+            <Stack.Screen name="Main" component={this.drawNavigator} />
+            <Stack.Screen
+              name="Share"
+              component={ShareScreen}
+              options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
+            />
+          </Stack.Navigator>
         </NavigationContainer>
       </Root>
     );
   }
 
-  tabNavigator = () => {
+  drawNavigator = () => {
     return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let icon;
-            const tintColor = focused ? colors.brand : colors.tertiary;
-
-            switch (route.name) {
-              case 'Dashboard':
-                icon = dashboard;
-                break;
-              case 'LatestNews':
-                icon = news;
-                break;
-            }
-
-            return <Image resizeMethod="auto" source={icon} style={{ tintColor, width: 24, height: 24 }} />;
-          },
-        })}
-        tabBarOptions={{
-          labelStyle: {
-            fontSize: 12,
-          },
-          activeTintColor: colors.brand,
-          inactiveTintColor: colors.tertiary,
+      <Drawer.Navigator
+        drawerContent={(props) => <DrawerMenu {...props} />}
+        screenOptions={{ swipeEnabled: false }}
+        drawerStyle={{
+          width: Dimensions.get('screen').width,
         }}>
-        <Tab.Screen
-          name="Dashboard"
-          component={DashboardScreen}
-          options={{ title: i18n.t('tab-navigator.first-tab') }}
-        />
-        <Tab.Screen
-          name="LatestNews"
-          component={LatestNewsScreen}
-          options={{ title: i18n.t('tab-navigator.second-tab') }}
-        />
-      </Tab.Navigator>
+        <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
+      </Drawer.Navigator>
     );
   };
 
