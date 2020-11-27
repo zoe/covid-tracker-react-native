@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { MutedText } from '@covid/components/Text';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
@@ -42,10 +42,10 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
     <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
         <Text textClass="h4Regular" rhythm={8}>
-          Active COVID case in {localTrendline?.name}
+          {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
         </Text>
         <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
-          Evolution of estimated active cases this month
+          {i18n.t('explore-trend-line.evolution-of')}
         </Text>
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
@@ -69,7 +69,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
           </View>
           <View style={{ width: '30%' }}>
             <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
-              Active cases in your area
+              {i18n.t('explore-trend-line.active-cases-in-your-area')}
             </Text>
           </View>
         </View>
