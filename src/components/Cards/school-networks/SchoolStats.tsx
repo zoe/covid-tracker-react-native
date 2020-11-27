@@ -17,9 +17,11 @@ interface IProps {
   total: number;
 }
 
+const GROUP_ACTIVATION_THRESHOLD = 0.1;
+
 function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = false, reported, size, total }: IProps) {
   const getToSignUpMessage = () => {
-    const count = Math.round(total * 0.3) - size;
+    const count = Math.round(total * GROUP_ACTIVATION_THRESHOLD) - size;
     if (count === 1) {
       return `${count} ${i18n.t('school-networks.dashboard.more-parents-singular')}`;
     }
