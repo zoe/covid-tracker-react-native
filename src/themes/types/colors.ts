@@ -17,6 +17,7 @@ export interface IColorPalettes {
   blue: IColorShades;
   burgundy: IColorShades;
   green: IColorShades;
+  orange: IColorShades;
   teal: IColorShades;
   ui: IColorShades;
   uiDark: IColorShades;

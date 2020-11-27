@@ -51,6 +51,10 @@ export const text: ITextClass = {
   pBold: getTextProperties(16, 24, 'SofiaPro-SemiBold'),
   pLight: getTextProperties(16, 24, 'SofiaPro-Light'),
   //
+  pSmall: getTextProperties(14, 20),
+  pSmallBold: getTextProperties(14, 20, 'SofiaPro-SemiBold'),
+  pSmallLight: getTextProperties(14, 20, 'SofiaPro-Light'),
+  //
   default: getTextProperties(16, 24),
   button: {
     fontFamily: 'SofiaPro-Bold',

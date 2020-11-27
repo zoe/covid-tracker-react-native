@@ -47,23 +47,45 @@ export const colors: IColorPalettes = {
   },
   green: {
     lighter: {
-      bgColor: '#E3F1DF',
-      fgColor: '#414F3E',
+      bgColor: '#C0D904',
+      fgColor: '#fff',
     },
     light: {
-      bgColor: '#BBE5B3',
-      fgColor: '#414F3E',
+      bgColor: '#C0D904',
+      fgColor: '#fff',
     },
     main: {
-      bgColor: '#50B83C',
+      bgColor: '#C0D904',
       fgColor: '#fff',
     },
     dark: {
-      bgColor: '#108043',
+      bgColor: '#C0D904',
       fgColor: '#fff',
     },
     darker: {
-      bgColor: '#173630',
+      bgColor: '#C0D904',
+      fgColor: '#fff',
+    },
+  },
+  orange: {
+    lighter: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#FF9600',
       fgColor: '#fff',
     },
   },
@@ -91,45 +113,45 @@ export const colors: IColorPalettes = {
   },
   ui: {
     lighter: {
-      bgColor: '#f5f5f5',
+      bgColor: '#ffffff', // primary
       fgColor: '#000',
     },
     light: {
-      bgColor: '#C0C0C0',
+      bgColor: '#F7F7F7', // secondary
       fgColor: '#000',
     },
     main: {
-      bgColor: '#8C8C8C',
+      bgColor: '#EEEEEF', // tertiary
       fgColor: '#fff',
     },
     dark: {
-      bgColor: '#575757',
+      bgColor: '#E2E2E2', // quaternary
       fgColor: '#fff',
     },
     darker: {
-      bgColor: '#222222',
+      bgColor: '#AAACAD',
       fgColor: '#fff',
     },
   },
   uiDark: {
     lighter: {
-      bgColor: '#919EAB',
-      fgColor: '#fff',
+      bgColor: '#E2E2E2',
+      fgColor: '#000',
     },
     light: {
-      bgColor: '#637381',
-      fgColor: '#fff',
+      bgColor: '#AAACAD', // base quaternary
+      fgColor: '#000',
     },
     main: {
-      bgColor: '#454F5B',
+      bgColor: '#888B8C', // base tertiary
       fgColor: '#fff',
     },
     dark: {
-      bgColor: '#212B36',
+      bgColor: '#565A5C', // base secondary
       fgColor: '#fff',
     },
     darker: {
-      bgColor: '#000000',
+      bgColor: '#24262B', // base primary
       fgColor: '#fff',
     },
   },
