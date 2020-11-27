@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { captureRef } from 'react-native-view-shot';
-import * as Sharing from 'expo-sharing';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
@@ -44,7 +42,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
     <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
         <Text textClass="h4Regular" rhythm={8}>
-          Active COVID case in [AREA]
+          Active COVID case in {localTrendline?.name}
         </Text>
         <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
           Evolution of estimated active cases this month
@@ -64,21 +62,17 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             justifyContent: 'flex-start',
             width: '100%',
             paddingHorizontal: 16,
-            marginBottom: 24,
+            marginBottom: 12,
           }}>
           <View style={{ marginRight: 12 }}>
-            <Text textClass="h0Regular">1969</Text>
+            <Text textClass="h0Regular">{localTrendline?.today}</Text>
           </View>
           <View style={{ width: '30%' }}>
-            <Text textClass="pSmallLight">Active cases in your area</Text>
+            <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+              Active cases in your area
+            </Text>
           </View>
         </View>
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <RegularText style={styles.primaryLabel}>{positiveCountLabel}</RegularText>
-          <RegularBoldText>{localTrendline?.name}</RegularBoldText>
-        </View>
-
-        <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
 
         {localTrendline?.delta && (
           <View style={[styles.deltaTag, { marginBottom: isSharing ? 0 : 20 }]}>
@@ -142,8 +136,12 @@ const styles = StyleSheet.create({
   },
 
   deltaTag: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     marginTop: 8,
     marginBottom: 20,
+    paddingLeft: 16,
+    width: '100%',
   },
 
   metric: {
