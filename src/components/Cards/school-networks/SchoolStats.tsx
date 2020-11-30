@@ -34,7 +34,7 @@ function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = fals
         {bubbleName.length ? bubbleName : i18n.t('school-networks.dashboard.entire-school')}
       </Text>
       <Text textClass="p" rhythm={active ? 8 : 12} colorPalette="uiDark" colorShade="darker" inverted>
-        {size} / {total} children signed up {i18n.t('school-networks.dashboard.children-signed-up')}
+        {size} / {total} {i18n.t('school-networks.dashboard.children-signed-up')}
       </Text>
       {active && daily !== undefined && (
         <Text textClass="pLight" rhythm={8} colorPalette="uiDark" colorShade="darker" inverted>
