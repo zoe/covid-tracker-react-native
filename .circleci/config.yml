@@ -61,12 +61,14 @@ references:
     branches:
       only:
         - develop
+        - fixes/ios-async-storage
 
   release_filter: &release_filter
     branches:
       only:
         - master
         - develop
+        - fixes/ios-async-storage
 
   feature_filter: &feature_filter
     branches:
