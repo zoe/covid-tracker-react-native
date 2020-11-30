@@ -80,7 +80,6 @@ export class LoginScreen extends Component<PropsType, StateType> {
         appCoordinator
           .setPatientById(patientId)
           .then(() => appCoordinator.fetchInitialData())
-          .then(() => appCoordinator.setHomeScreenName())
           .then(() => {
             appCoordinator.gotoNextScreen(this.props.route.name);
           });
