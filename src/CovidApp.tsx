@@ -65,8 +65,6 @@ import { DietStudyConsentScreen } from '@covid/features/diet-study/DietStudyCons
 import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStudyThankYouBreakScreen';
 import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
-import { dashboard, news } from '@assets';
-import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
@@ -97,8 +95,8 @@ import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachS
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 import { SchoolNetworkInfoScreen } from '@covid/features/school-network/SchoolNetworkInfo';
 import { MainNavigator } from '@covid/routes';
-
-import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
+import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
+import { SearchLADScreen } from '@covid/features';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
 const Stack = createStackNavigator<ScreenParamList>();
@@ -253,6 +251,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+        <Stack.Screen name="DashboardUS" component={DashboardUSScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
         <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
