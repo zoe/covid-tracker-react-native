@@ -1,12 +1,10 @@
 import React, { useRef } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { captureRef } from 'react-native-view-shot';
-import * as Sharing from 'expo-sharing';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { Header3Text, MutedText, RegularBoldText, RegularText } from '@covid/components/Text';
+import { MutedText } from '@covid/components/Text';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
@@ -14,6 +12,8 @@ import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import Share from '@assets/icons/Share';
+import { Text } from '@covid/components';
+import ChevronRight from '@assets/icons/ChevronRight';
 
 import { DeltaTag } from './DeltaTag';
 
@@ -39,17 +39,15 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
     ctaOnPress();
   };
 
-  const share = async () => {
-    Analytics.track(events.TRENDLINE_OVERVIEW_SHARE_CLICKED);
-    try {
-      const uri = await captureRef(viewRef, { format: 'jpg' });
-      Sharing.shareAsync('file://' + uri);
-    } catch (_) {}
-  };
-
   return (
     <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
+        <Text textClass="h4Regular" rhythm={8}>
+          {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
+        </Text>
+        <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
+          {i18n.t('explore-trend-line.evolution-of')}
+        </Text>
         <View style={styles.chartContainer}>
           <TrendLineChart filter={TrendlineTimeFilters.week} viewMode={TrendLineViewMode.overview} />
           {/* use absolute overlay to prevent displaying blank chart */}
@@ -59,13 +57,37 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             </TouchableWithoutFeedback>
           )}
         </View>
-
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <RegularText style={styles.primaryLabel}>{positiveCountLabel}</RegularText>
-          <RegularBoldText>{localTrendline?.name}</RegularBoldText>
-        </View>
-
-        <Header3Text style={styles.metric}>{localTrendline?.today}</Header3Text>
+        <TouchableOpacity
+          onPress={onPress}
+          style={{
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            width: '100%',
+            paddingHorizontal: 16,
+            marginBottom: 12,
+          }}>
+          <View style={{ marginRight: 12 }}>
+            <Text textClass="h0Regular">{localTrendline?.today}</Text>
+          </View>
+          <View style={{ width: '30%' }}>
+            <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+              {i18n.t('explore-trend-line.active-cases-in-your-area')}
+            </Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                width: 48,
+                height: 48,
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+              }}>
+              <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
+            </View>
+          </View>
+        </TouchableOpacity>
 
         {localTrendline?.delta && (
           <View style={[styles.deltaTag, { marginBottom: isSharing ? 0 : 20 }]}>
@@ -129,8 +151,12 @@ const styles = StyleSheet.create({
   },
 
   deltaTag: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     marginTop: 8,
     marginBottom: 20,
+    paddingLeft: 16,
+    width: '100%',
   },
 
   metric: {

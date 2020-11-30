@@ -1295,7 +1295,10 @@
   "explore-trend-line": {
     "title": "Estimated COVID cases in",
     "delta-week": "last week",
-    "cta": "Share"
+    "cta": "Share",
+    "active-covid-cases": "Active COVID cases",
+    "evolution-of": "Evolution of estimated active cases this month",
+    "active-cases-in-your-area": "Active cases in your area"
   },
 
   "search-lad": {
