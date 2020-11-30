@@ -13,6 +13,7 @@ import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import Share from '@assets/icons/Share';
 import { Text } from '@covid/components';
+import ChevronRight from '@assets/icons/ChevronRight';
 
 import { DeltaTag } from './DeltaTag';
 
@@ -56,8 +57,10 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             </TouchableWithoutFeedback>
           )}
         </View>
-        <View
+        <TouchableOpacity
+          onPress={onPress}
           style={{
+            alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: '100%',
@@ -72,7 +75,19 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
               {i18n.t('explore-trend-line.active-cases-in-your-area')}
             </Text>
           </View>
-        </View>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                width: 48,
+                height: 48,
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+              }}>
+              <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
+            </View>
+          </View>
+        </TouchableOpacity>
 
         {localTrendline?.delta && (
           <View style={[styles.deltaTag, { marginBottom: isSharing ? 0 : 20 }]}>
