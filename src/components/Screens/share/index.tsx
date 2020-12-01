@@ -29,11 +29,11 @@ function ShareScreen() {
   };
 
   return (
-    <SContainerView bottom={bottom} height={height} top={top} width={width} ref={viewRef}>
+    <SContainerView bottom={bottom} height={height} top={top} width={width}>
       <SCloseContainerView>
         <IconButton imgSrc={closeIcon} onPress={() => Navigation.goBack()} />
       </SCloseContainerView>
-      <SContentView>
+      <SContentView ref={viewRef} collapsable={false}>
         <ShareContainer sharable={sharable} />
         <ShareLabel />
       </SContentView>
