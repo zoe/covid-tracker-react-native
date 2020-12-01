@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Header3Text, RegularText, MutedText, BrandedButton } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
+import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
+import { Text } from '@covid/components';
+import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
+import { RightArrow } from '@assets';
 
 interface Props {
   primaryLabel: string;
@@ -33,25 +35,31 @@ export const EstimatedCaseCard: React.FC<Props> = ({
 
   return (
     <View style={styles.root}>
-      <Header3Text style={styles.primaryLabel}>{primaryLabel}</Header3Text>
-      <MutedText style={styles.secondaryLabel}>{secondaryLabel}</MutedText>
-
+      <Text textClass="h4Regular" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
+        {primaryLabel}
+      </Text>
+      <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+        {secondaryLabel}
+      </Text>
       <View style={styles.metricRow}>
-        <View style={styles.metricContainer}>
-          <Header3Text style={styles.metric}>{leftMetric}</Header3Text>
+        <View>
+          <Text textClass="h1Regular">{leftMetric}</Text>
           <RegularText style={styles.metricLabel}>{leftMetricLabel}</RegularText>
         </View>
         <View style={styles.divider} />
-        <View style={styles.metricContainer}>
+        <View>
           <Header3Text style={styles.metric}>{rightMetric}</Header3Text>
           <RegularText style={styles.metricLabel}>{rightMetricLabel}</RegularText>
         </View>
       </View>
 
       <View>
-        <BrandedButton style={styles.detailsButton} onPress={onPress}>
-          <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
-        </BrandedButton>
+        <TouchableOpacity onPress={onPress} style={{ alignItems: 'center', flexDirection: 'row' }}>
+          <RightArrow />
+          <Text textClass="pMedium" colorPalette="burgundy" style={{ marginHorizontal: 8 }}>
+            {ctaLabel}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -59,20 +67,11 @@ export const EstimatedCaseCard: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 16,
     marginVertical: 8,
     paddingVertical: 32,
-  },
-
-  primaryLabel: {
-    color: colors.textDark,
-  },
-
-  secondaryLabel: {
-    marginVertical: 8,
-    fontSize: 14,
+    paddingHorizontal: 16,
   },
 
   detailsButton: {
@@ -83,10 +82,10 @@ const styles = StyleSheet.create({
   },
 
   metricRow: {
+    borderColor: 'green',
+    borderWidth: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     width: '100%',
-    marginHorizontal: 24,
     marginVertical: 24,
     marginBottom: 32,
   },
