@@ -95,3 +95,4 @@ export { default as ShareIcon } from './icons/Share';
 
 //
 export * from './icons/stats';
+export { default as C19 } from './logos/C19';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import { covidIcon, createdByZoe } from '@assets';
+import { covidIcon, createdByZoe, C19 } from '@assets';
 import { TColorPalette, TColorShade } from '@covid/themes';
 
 import { Text } from '../../typography';
@@ -24,7 +24,7 @@ function ShareLabel({ colorPalette = 'teal', colorShade = 'main' }: IProps) {
         </STextContainer>
         <SLogoContainer>
           <SImageContainer>
-            <SImage source={covidIcon} />
+            <C19 />
           </SImageContainer>
           <Image source={createdByZoe} />
         </SLogoContainer>
