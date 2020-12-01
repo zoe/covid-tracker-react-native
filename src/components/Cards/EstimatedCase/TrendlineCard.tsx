@@ -25,7 +25,6 @@ interface Props {
 export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isSharing = false }) => {
   const { navigate } = useNavigation();
   const viewRef = useRef<View>(null);
-  const positiveCountLabel = `${i18n.t('explore-trend-line.title')} `;
 
   const localTrendline = useSelector<RootState, ITrendLineData | undefined>((state) => ({
     name: state.content.personalizedLocalData?.name,
@@ -40,7 +39,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
   };
 
   return (
-    <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
+    <View style={styles.root}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
         <Text textClass="h4Regular" rhythm={8}>
           {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
@@ -64,7 +63,6 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             flexDirection: 'row',
             justifyContent: 'flex-start',
             width: '100%',
-            paddingHorizontal: 16,
             marginBottom: 12,
           }}>
           <View style={{ marginRight: 12 }}>
@@ -112,28 +110,27 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 16,
     paddingBottom: 16,
     paddingTop: 8,
+    marginVertical: 8,
   },
 
   snapshotContainer: {
     paddingTop: 24,
     paddingBottom: 16,
+    paddingHorizontal: 16,
     borderRadius: 16,
 
     backgroundColor: colors.white,
     width: '100%',
     flexDirection: 'column',
-    alignItems: 'center',
   },
 
   chartContainer: {
     width: '100%',
     height: 190,
-    paddingHorizontal: 16,
     paddingBottom: 8,
   },
 
@@ -155,7 +152,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginTop: 8,
     marginBottom: 20,
-    paddingLeft: 16,
     width: '100%',
   },
 

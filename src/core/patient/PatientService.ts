@@ -1,4 +1,4 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
@@ -11,7 +11,6 @@ import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
 import { PatientStateType, getInitialPatientState, isMinorAge } from '@covid/core/patient/PatientState';
-import { container } from '@covid/provider/services';
 import { PatientData } from '@covid/core/patient/PatientData';
 
 export interface IPatientService {
@@ -26,10 +25,8 @@ export interface IPatientService {
 
 @injectable()
 export class PatientService extends ApiClientBase implements IPatientService {
-  // Use accessor to get around circularing dependency
-  private get consentService(): IConsentService {
-    return container.get<IConsentService>(Services.Consent);
-  }
+  @inject(Services.Consent)
+  public consentService: IConsentService;
 
   protected client = ApiClientBase.client;
 

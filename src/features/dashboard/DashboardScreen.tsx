@@ -15,7 +15,6 @@ import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import { infographicFacts, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
@@ -98,44 +97,37 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      {/* School Networks */}
-      {isGBCountry() && (
+      <View style={styles.calloutContainer}>
+        {/* School Networks */}
         <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
           <View style={styles.schoolModuleContainer}>
             <SchoolModule />
           </View>
         </TouchableWithoutFeedback>
-      )}
 
-      {hasNetworkData && (
-        <View
-          style={{
-            marginHorizontal: 32,
-            marginBottom: 16,
-          }}>
-          <SchoolNetworks schoolGroups={networks!} />
-        </View>
-      )}
+        {hasNetworkData && (
+          <View
+            style={{
+              marginVertical: 8,
+            }}>
+            <SchoolNetworks schoolGroups={networks!} />
+          </View>
+        )}
 
-      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+        {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
-      {isGBCountry() && (
-        <View style={styles.calloutContainer}>
-          <ExternalCallout
-            link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
-            calloutID="infographic_facts"
-            imageSource={infographicFacts}
-            aspectRatio={1.229}
-            screenName={route.name}
-          />
-        </View>
-      )}
+        <ExternalCallout
+          link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
+          calloutID="infographic_facts"
+          imageSource={infographicFacts}
+          aspectRatio={1.229}
+          screenName={route.name}
+        />
 
-      {isGBCountry() && <EstimatedCasesMapCard />}
+        <EstimatedCasesMapCard />
 
-      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
+        <UKEstimatedCaseCard onPress={onMoreDetails} />
 
-      <View style={styles.calloutContainer}>
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}
@@ -154,14 +146,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   schoolModuleContainer: {
-    marginHorizontal: 32,
-    marginBottom: 8,
     height: 200,
   },
   calloutContainer: {
-    marginHorizontal: 24,
+    marginHorizontal: 16,
   },
   zoe: {
-    marginBottom: 32,
+    marginVertical: 32,
   },
 });
