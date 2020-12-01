@@ -11,7 +11,7 @@ import { ThemeButton, IconButton } from '../../Buttons';
 
 import ShareContainer from './container';
 import ShareLabel from './label';
-import { SContainerView, SContentView, SButtonView, SCloseContainerView } from './styles';
+import { SContainerView, SContentView, SInnerContentView, SButtonView, SCloseContainerView } from './styles';
 
 function ShareScreen() {
   const Navigation = useNavigation();
@@ -33,9 +33,11 @@ function ShareScreen() {
       <SCloseContainerView>
         <IconButton imgSrc={closeIcon} onPress={() => Navigation.goBack()} />
       </SCloseContainerView>
-      <SContentView ref={viewRef} collapsable={false}>
-        <ShareContainer sharable={sharable} />
-        <ShareLabel />
+      <SContentView>
+        <SInnerContentView ref={viewRef} collapsable={false}>
+          <ShareContainer sharable={sharable} />
+          <ShareLabel />
+        </SInnerContentView>
       </SContentView>
       <SButtonView>
         <ThemeButton colorPalette="blue" colorShade="main" title="Share" onPress={share} />
