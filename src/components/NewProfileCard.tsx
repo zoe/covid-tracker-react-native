@@ -13,9 +13,6 @@ export const NewProfileCard: React.FC = () => {
     <Card style={styles.card} transparent>
       <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
       <RegularText>{i18n.t('select-profile-button')}</RegularText>
-      <SecondaryText style={{ textAlign: 'center', fontSize: 12, color: colors.accent }}>
-        {i18n.t('create-profile')}
-      </SecondaryText>
       <View style={{ height: 14 }} />
     </Card>
   );
@@ -31,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     width: '100%',
     borderRadius: 16,
-    minHeight: 200,
+    height: 224,
     paddingVertical: 12,
     paddingHorizontal: 12,
     alignItems: 'center',
