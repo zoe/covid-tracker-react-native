@@ -8,7 +8,6 @@ export const SContainerView = styled(View)`
   ${(props) => `
     background-color: white;
     border-radius: ${props.theme.grid.m}px;
-    padding: ${props.theme.grid.l}px ${props.theme.grid.xxl}px; 
   `}
 `;
 

@@ -40,7 +40,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
   };
 
   return (
-    <View style={[styles.root, { marginHorizontal: isSharing ? 0 : 32 }]}>
+    <View style={styles.root}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
         <Text textClass="h4Regular" rhythm={8}>
           {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingBottom: 16,
     paddingTop: 8,
+    marginVertical: 8,
   },
 
   snapshotContainer: {

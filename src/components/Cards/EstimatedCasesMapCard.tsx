@@ -303,8 +303,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 16,
-    marginHorizontal: 32,
     paddingVertical: 8,
+    marginVertical: 8,
     overflow: 'hidden',
   },
 
