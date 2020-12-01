@@ -38,6 +38,7 @@ export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
+export const usPartnersDash = require('./logos/us_partners_dash.png');
 export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
@@ -91,3 +92,6 @@ export const cartoMapHtml = require('./carto/estimated-cases.html');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';
+
+//
+export * from './icons/stats';

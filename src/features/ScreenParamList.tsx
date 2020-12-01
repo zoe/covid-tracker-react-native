@@ -94,6 +94,7 @@ export type ScreenParamList = {
   ValidationStudyConsent: { viewOnly: boolean };
 
   Dashboard: undefined;
+  DashboardUS: undefined;
   EstimatedCases: undefined;
 
   // School network

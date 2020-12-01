@@ -82,6 +82,7 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
+import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -163,6 +164,7 @@ function MainNavigator() {
       <Stack.Screen name="DietStudyConsent" component={DietStudyConsentScreen} options={noHeader} />
       <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
       <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
+      <Stack.Screen name="DashboardUS" component={DashboardUSScreen} options={noHeader} />
       <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
       <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
       <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
@@ -176,7 +178,6 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
-
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
