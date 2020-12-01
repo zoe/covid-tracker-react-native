@@ -20,6 +20,7 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -60,13 +61,15 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
+              <View style={{ marginTop: 24 }}>
+                <BigGreenTickFilled />
+              </View>
+
               <Header>
                 <HeaderText style={styles.headerText}>{i18n.t('thank-you-uk.title')}</HeaderText>
               </Header>
 
-              <View>
-                <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
-              </View>
+              <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
@@ -120,14 +123,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
 
-              <View style={styles.content}>
-                <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
-              </View>
-
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
                 style={styles.ctaSingleProfile}>
-                <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
+                <RegularText style={styles.ctaSingleProfileText}>
+                  {i18n.t('thank-you-uk.cta-single-profile')}
+                </RegularText>
               </BrandedButton>
 
               <View style={styles.ctaMultipleProfile}>
@@ -148,7 +149,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
-    marginTop: 15,
   },
   subTitle: {
     textAlign: 'center',
@@ -156,15 +156,12 @@ const styles = StyleSheet.create({
   },
   signOff: {
     textAlign: 'center',
+    marginHorizontal: 18,
   },
   dateLabel: {
     textAlign: 'center',
     marginTop: -16,
     marginBottom: 8,
-  },
-  content: {
-    marginVertical: 32,
-    marginHorizontal: 18,
   },
   scrollView: {
     flexGrow: 1,
@@ -173,7 +170,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     alignSelf: 'center',
     maxWidth: 500,
-    padding: 10,
+    padding: 18,
   },
   socialIconContainer: {
     marginVertical: -10,
@@ -194,17 +191,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   ctaMultipleProfileText: {
-    color: colors.primary,
+    color: colors.purple,
   },
   ctaSingleProfileText: {
-    color: colors.primary,
+    color: colors.brand,
   },
   ctaSingleProfile: {
-    marginTop: 10,
-    marginBottom: 20,
-    marginHorizontal: 40,
+    marginVertical: 20,
+    paddingTop: 8,
     backgroundColor: colors.backgroundSecondary,
-    borderColor: colors.primary,
+    borderColor: colors.brand,
     borderWidth: 1,
   },
 });
