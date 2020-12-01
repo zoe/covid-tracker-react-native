@@ -66,8 +66,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   navigation: NavigationType;
   patientData: PatientData;
 
-  homeScreenName: ScreenName = 'WelcomeRepeat';
-
   shouldShowCountryPicker: boolean = false;
 
   screenFlow: Partial<ScreenFlow> = {
@@ -116,6 +114,9 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     },
     Dashboard: () => {
       // UK only so currently no need to check config.enableMultiplePatients
+      NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
+    },
+    DashboardUS: () => {
       NavigatorService.navigate('SelectProfile', { assessmentFlow: true });
     },
     ArchiveReason: () => {

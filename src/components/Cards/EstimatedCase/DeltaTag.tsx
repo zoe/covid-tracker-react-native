@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { MutedText, CaptionText } from '@covid/components/Text';
+import { CaptionText } from '@covid/components/Text';
 import { colors } from '@theme';
-import ArrowUp from '@assets/icons/stats/arrow-up.svg';
-import ArrowDown from '@assets/icons/stats/arrow-down.svg';
 import i18n from '@covid/locale/i18n';
+import { ArrowDown, ArrowUp } from '@assets';
 
 interface Props {
   change: number;
@@ -25,13 +24,13 @@ export const DeltaTag: React.FC<Props> = ({ change }) => {
       case DeltaChange.up:
         return {
           text: `${i18n.t('dashboard.trendline-card.delta.up')} ${change}`,
-          icon: <ArrowUp style={styles.icon} />,
+          icon: <ArrowUp color={colors.red} />,
           color: styles.up,
         };
       case DeltaChange.down:
         return {
           text: `${i18n.t('dashboard.trendline-card.delta.down')} ${Math.abs(change)}`,
-          icon: <ArrowDown style={styles.icon} />,
+          icon: <ArrowDown color={colors.green} />,
           color: styles.down,
         };
       case DeltaChange.none:
@@ -46,31 +45,33 @@ export const DeltaTag: React.FC<Props> = ({ change }) => {
   return (
     <View style={{ flexDirection: 'row' }}>
       <View style={[styles.tag, config().color]}>
-        {config().icon}
-        <CaptionText style={{ color: 'white' }}>{config().text}</CaptionText>
+        <View style={styles.icon}>{config().icon}</View>
+        <CaptionText style={[config().color]}>{`${config().text} ${from}`}</CaptionText>
       </View>
-      <MutedText style={styles.muted}>{from}</MutedText>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   tag: {
+    borderWidth: 1,
     flexDirection: 'row',
-    backgroundColor: colors.red,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
     marginRight: 8,
   },
   up: {
-    backgroundColor: colors.red,
+    borderColor: colors.red,
+    color: colors.red,
   },
   down: {
-    backgroundColor: colors.green,
+    borderColor: colors.green,
+    color: colors.green,
   },
   none: {
-    backgroundColor: colors.tertiary,
+    borderColor: colors.tertiary,
+    color: colors.tertiary,
   },
   icon: {
     marginTop: 4,

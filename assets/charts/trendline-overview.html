@@ -61,7 +61,7 @@
             pointHoverBorderWidth: 1,
             pointRadius: 0.1,
             fill: false,
-		    lineTension: 0,
+		        lineTension: 0,
           }]
         },
         options: {
@@ -79,15 +79,17 @@
           scales: {
             yAxes: [{
               ticks: {
+                beginAtZero : true,
                 max: Math.max(...data),
                 stepSize: Math.max(...data) / 30,
-                callback: (value) => Math.round(value),
+                callback: (value) => Math.round(value / 100) * 100,
               },
               gridLines: {
                 color: "rgba(0, 0, 0, 0.05)",
               }
             }],
             xAxes: [{
+              display: false,
               ticks: {
                 // type: 'time',
                 // time: {

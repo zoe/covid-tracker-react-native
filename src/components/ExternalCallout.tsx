@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
 
   viewContainer: {
     marginVertical: 20,
-    marginHorizontal: 10,
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',

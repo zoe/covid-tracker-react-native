@@ -859,7 +859,7 @@
   },
 
   "thank-you-uk": {
-    "title": "Thank you for reporting.",
+    "title": "Thank you for reporting",
     "subtitle": "Testing alone can't get us through this second wave. Log your health today to help us predict outbreaks.",
     "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
@@ -1295,7 +1295,10 @@
   "explore-trend-line": {
     "title": "Estimated COVID cases in",
     "delta-week": "last week",
-    "cta": "Share"
+    "cta": "Share",
+    "active-covid-cases": "Active COVID cases",
+    "evolution-of": "Evolution of estimated active cases this month",
+    "active-cases-in-your-area": "Active cases in your area"
   },
 
   "search-lad": {
