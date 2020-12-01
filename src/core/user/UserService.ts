@@ -11,7 +11,6 @@ import { handleServiceError } from '../api/ApiServiceErrors';
 import { objectToQueryString, camelizeKeys } from '../api/utils';
 import { ConsentService, IConsentService } from '../consent/ConsentService';
 import { ILocalisationService, LocalisationService } from '../localisation/LocalisationService';
-import { IPatientService } from '../patient/PatientService';
 
 import { LoginOrRegisterResponse, PiiRequest, UserResponse, UpdateCountryCodeRequest } from './dto/UserAPIContracts';
 
@@ -41,9 +40,6 @@ export default class UserService extends ApiClientBase implements IUserService {
 
   @inject(Services.Localisation)
   public localisationService: ILocalisationService;
-
-  @inject(Services.Patient)
-  public patientService: IPatientService;
 
   public hasUser = false;
 
