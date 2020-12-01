@@ -108,7 +108,7 @@ export class LocalisationService implements ILocalisationService {
 }
 
 export const homeScreenName = (): ScreenName => {
-  return LocalisationService.userCountry === 'GB' ? 'Dashboard' : 'WelcomeRepeat';
+  return isGBCountry() ? 'Dashboard' : isUSCountry() ? 'DashboardUS' : 'WelcomeRepeat';
 };
 
 export const isUSCountry = () => LocalisationService.userCountry === 'US';

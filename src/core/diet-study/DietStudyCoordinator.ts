@@ -12,6 +12,7 @@ import { PatientData } from '@covid/core/patient/PatientData';
 import { AsyncStorageService } from '../AsyncStorageService';
 
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -72,21 +73,21 @@ export class DietStudyCoordinator {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
 
       if (!timePeriod) {
-        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
+        NavigatorService.reset([{ name: homeScreenName() }]);
         NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
         return;
       }
 
-      NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
+      NavigatorService.reset([{ name: homeScreenName() }]);
       NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
     },
     DietStudyThankYouBreak: () => {
       const { timePeriod } = this.dietStudyParam.dietStudyData;
       if (timePeriod === PRE_LOCKDOWN) {
-        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
+        NavigatorService.reset([{ name: homeScreenName() }]);
         NavigatorService.navigate('DietStudyAboutYou', this.dietStudyParam);
       } else {
-        NavigatorService.reset([{ name: this.appCoordinator.homeScreenName }]);
+        NavigatorService.reset([{ name: homeScreenName() }]);
         NavigatorService.navigate('DietStudyConsent', this.dietStudyParam);
       }
     },
@@ -95,7 +96,7 @@ export class DietStudyCoordinator {
     },
     DietStudyThankYou: () => {
       if (this.dietStudyData.startedFromMenu) {
-        NavigatorService.navigate(this.appCoordinator.homeScreenName);
+        NavigatorService.navigate(homeScreenName());
       } else {
         this.appCoordinator.startAssessmentFlow(this.dietStudyData.patientData);
       }
