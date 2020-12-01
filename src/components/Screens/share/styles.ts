@@ -37,6 +37,10 @@ export const SContentView = styled(View)`
   width: 100%;
 `;
 
+export const SInnerContentView = styled(View)`
+  padding: 4px;
+`;
+
 export const SButtonView = styled(View)`
   ${(props) => `
     margin-bottom: ${props.theme.grid.xl}px;
