@@ -92,3 +92,6 @@ export const cartoMapHtml = require('./carto/estimated-cases.html');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';
+
+//
+export * from './icons/stats';

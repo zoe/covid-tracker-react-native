@@ -1334,7 +1334,10 @@
   "explore-trend-line": {
     "title": "",
     "delta-week": "",
-    "cta": ""
+    "cta": "",
+    "active-covid-cases": "",
+    "evolution-of": "",
+    "active-cases-in-your-area": ""
   },
 
   "search-lad": {
