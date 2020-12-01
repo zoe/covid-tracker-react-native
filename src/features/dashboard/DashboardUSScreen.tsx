@@ -16,7 +16,7 @@ import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
-import { PartnerLogoUS } from '@covid/components/Logos/PartnerLogo';
+import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -74,7 +74,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       </View>
 
       <View style={styles.zoe}>
-        <PartnerLogoUS />
+        <PartnerLogoUSDash />
         <PoweredByZoeSmall />
       </View>
     </CollapsibleHeaderScrollView>
