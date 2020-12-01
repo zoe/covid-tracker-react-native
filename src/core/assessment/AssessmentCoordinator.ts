@@ -45,10 +45,18 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      const currentPatient = this.patientData.patientState;
+      if (currentPatient.shouldAskVaccineQuestions) {
+        NavigatorService.navigate('Vaccines', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
     },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+    },
+    Vaccines: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     NHSTestDetail: () => {
       NavigatorService.goBack();
