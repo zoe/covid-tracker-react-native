@@ -5,6 +5,7 @@ import { Text } from '@covid/components';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { RightArrow } from '@assets';
+import ChevronRight from '@assets/icons/ChevronRight';
 
 interface Props {
   primaryLabel: string;
@@ -34,12 +35,19 @@ export const EstimatedCaseCard: React.FC<Props> = ({
 
   return (
     <View style={styles.root}>
-      <Text textClass="h4Regular" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
-        {primaryLabel}
-      </Text>
-      <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
-        {secondaryLabel}
-      </Text>
+      <TouchableOpacity
+        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+        onPress={onPress}>
+        <View>
+          <Text textClass="h4Regular" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
+            {primaryLabel}
+          </Text>
+          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+            {secondaryLabel}
+          </Text>
+        </View>
+        <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
+      </TouchableOpacity>
       <View style={styles.metricRow}>
         <View style={styles.metricBox}>
           <Text textClass="h1Regular">{leftMetric}</Text>
