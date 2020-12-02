@@ -21,7 +21,7 @@ type Props = {
   route: RouteProp<ScreenParamList, 'Vaccines'>;
 };
 
-export const VaccinesScreen: React.FC<Props> = ({ route, navigation }) => {
+export const VaccineScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (formData: OtherSymptomsData) => {

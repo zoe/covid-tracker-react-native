@@ -18,6 +18,7 @@ import {
   CreateNetworkGroupScreen,
   CreateProfileScreen,
   DashboardScreen,
+  DashboardUSScreen,
   DietStudyAboutYouScreen,
   DietStudyConsentScreen,
   DietStudyIntroScreen,
@@ -67,6 +68,7 @@ import {
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
   TrendlineScreen,
+  VaccineScreen,
   VaccineRegistryInfoScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
@@ -81,7 +83,6 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
-import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -176,6 +177,8 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
+      <Stack.Screen name="Vaccines" component={VaccineScreen} options={noHeader} />
+
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
