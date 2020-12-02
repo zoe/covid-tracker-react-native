@@ -17,7 +17,6 @@ export const compareLocale = (locale: string): number => {
   const additional = localeI18nKeys.filter(
     (key: string) => !key.startsWith(IGNORE_PREFIX) && !defaultI18nKeys.includes(key)
   );
-  console.log("[I18N] Doesn't exist in default:", additional);
   errors += additional.length;
 
   const missing = defaultI18nKeys.filter(

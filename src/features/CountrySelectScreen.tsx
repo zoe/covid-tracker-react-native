@@ -48,7 +48,6 @@ export class CountrySelectScreen extends Component<Props, object> {
   };
 
   public render() {
-    console.log('usFlag', usFlag);
     return (
       <View style={styles.container}>
         <Text style={styles.text}>{i18n.t('select-country')}</Text>
