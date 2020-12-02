@@ -35,9 +35,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
 
   return (
     <View style={styles.root}>
-      <TouchableOpacity
-        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
-        onPress={onPress}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View>
           <Text textClass="h4Regular" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
             {primaryLabel}
@@ -46,8 +44,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
             {secondaryLabel}
           </Text>
         </View>
-        <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={48} width={48} />
-      </TouchableOpacity>
+      </View>
       <View style={styles.metricRow}>
         <View style={styles.metricBox}>
           <Text textClass="h1Regular">{leftMetric}</Text>
