@@ -46,7 +46,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
             {secondaryLabel}
           </Text>
         </View>
-        <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={32} width={32} />
+        <ChevronRight backgroundColor="white" chveronColor={colors.primary} height={48} width={48} />
       </TouchableOpacity>
       <View style={styles.metricRow}>
         <View style={styles.metricBox}>
