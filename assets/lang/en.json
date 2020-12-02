@@ -1256,6 +1256,17 @@
     }
   },
 
+  "vaccines": {
+    "title": "Have you had a COVID-19 vaccine?",
+    "weekly-label": "Weekly question",
+    "question-text": "Tell us if you’ve had at least one dose of a COVID-19 vaccine. If you are part of a trial and had an injection, even of a placebo, answer yes below. ",
+    "answer-yes": "Yes, I’ve had a COVID-19 vaccine or placebo injection",
+    "answer-no": "No, I’ve never had a COVID-19 vaccine or placebo injection",
+    "yes-info": "We’re tracking the roll out of vaccines and how they work. We’ll ask more questions about your vaccine experience soon.",
+    "no-info": "We’ll ask again next week to help track the vaccination effort.",
+    "confirm": "Confirm"
+  },
+
   "vaccine-registry": {
     "covid-prevention": "COVID Prevention",
     "can-we-contact": "Can we contact you about potential studies involving vaccines or other preventative treatments in the future?",

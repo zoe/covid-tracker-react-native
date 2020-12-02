@@ -11,4 +11,4 @@ export { default as TreatmentSelectionScreen } from './TreatmentSelectionScreen'
 export { default as WhereAreYouScreen } from './WhereAreYouScreen';
 export { VaccineRegistryInfoScreen } from './gb/VaccineRegistryInfoScreen';
 export { VaccineRegistrySignUpScreen } from './gb/VaccineRegistrySignUpScreen';
-export { VaccineScreen } from './VaccinesScreen';
+export { VaccineScreen } from './VaccineScreen';
