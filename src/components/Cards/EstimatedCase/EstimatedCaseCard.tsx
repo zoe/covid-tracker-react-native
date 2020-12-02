@@ -42,14 +42,18 @@ export const EstimatedCaseCard: React.FC<Props> = ({
         {secondaryLabel}
       </Text>
       <View style={styles.metricRow}>
-        <View>
+        <View style={styles.metricBox}>
           <Text textClass="h1Regular">{leftMetric}</Text>
-          <RegularText style={styles.metricLabel}>{leftMetricLabel}</RegularText>
+          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+            {leftMetricLabel}
+          </Text>
         </View>
         <View style={styles.divider} />
-        <View>
-          <Header3Text style={styles.metric}>{rightMetric}</Header3Text>
-          <RegularText style={styles.metricLabel}>{rightMetricLabel}</RegularText>
+        <View style={[styles.metricBox, { paddingHorizontal: 16 }]}>
+          <Text textClass="h1Regular">{rightMetric}</Text>
+          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+            {rightMetricLabel}
+          </Text>
         </View>
       </View>
 
@@ -82,12 +86,15 @@ const styles = StyleSheet.create({
   },
 
   metricRow: {
-    borderColor: 'green',
-    borderWidth: 1,
     flexDirection: 'row',
-    width: '100%',
+    justifyContent: 'space-between',
     marginVertical: 24,
     marginBottom: 32,
+    width: '100%',
+  },
+
+  metricBox: {
+    width: '50%',
   },
 
   metricContainer: {
