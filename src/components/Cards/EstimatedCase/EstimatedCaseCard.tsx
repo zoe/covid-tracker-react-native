@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Header3Text, RegularText, MutedText } from '@covid/components/Text';
 import { Text } from '@covid/components';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
