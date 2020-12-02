@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { CaptionText } from '@covid/components/Text';
+import { Text } from '@covid/components';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ArrowDown, ArrowUp } from '@assets';
@@ -42,11 +43,12 @@ export const DeltaTag: React.FC<Props> = ({ change }) => {
     }
   };
 
+  const { color, icon, text } = config();
   return (
     <View style={{ flexDirection: 'row' }}>
-      <View style={[styles.tag, config().color]}>
-        <View style={styles.icon}>{config().icon}</View>
-        <CaptionText style={[config().color]}>{`${config().text} ${from}`}</CaptionText>
+      <View style={[styles.tag, color]}>
+        <View style={styles.icon}>{icon}</View>
+        <Text textClass="pSmall" style={{ color: color.color }}>{`${text} ${from}`}</Text>
       </View>
     </View>
   );
