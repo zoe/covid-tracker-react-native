@@ -18,14 +18,16 @@ interface IProps {
 }
 
 const GROUP_ACTIVATION_THRESHOLD = 0.1;
+const GROUP_ACTIVATION_MINIMUM = 3;
 
 function SchoolStats({ active, bubbleName = '', daily = undefined, isLast = false, reported, size, total }: IProps) {
   const getToSignUpMessage = () => {
     const count = Math.round(total * GROUP_ACTIVATION_THRESHOLD) - size;
-    if (count === 1) {
-      return `${count} ${i18n.t('school-networks.dashboard.more-parents-singular')}`;
+    const profilesNeeded = Math.min(count, GROUP_ACTIVATION_MINIMUM);
+    if (profilesNeeded === 1) {
+      return `${profilesNeeded} ${i18n.t('school-networks.dashboard.more-parents-singular')}`;
     }
-    return `${count} ${i18n.t('school-networks.dashboard.more-parents')}`;
+    return `${profilesNeeded} ${i18n.t('school-networks.dashboard.more-parents')}`;
   };
 
   return (
