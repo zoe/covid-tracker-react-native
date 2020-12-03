@@ -1,9 +1,6 @@
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import { IUserService } from '@covid/core/user/UserService';
-import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
 import NavigatorService from '@covid/NavigatorService';
-import { DietChangedOption } from '@covid/features/diet-study/fields/DietChangedQuestion';
-import { DietStudyData, PRE_LOCKDOWN } from '@covid/core/diet-study/DietStudyCoordinator';
 import { ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 
@@ -11,29 +8,18 @@ class DietStudyPlaybackCoordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: IUserService;
-  //dietStudyService: IDietStudyRemoteClient;
-  //dietStudyData: DietStudyData;
+  patientData: PatientData;
 
   screenFlow: ScreenFlow = {
-    DietStudyAboutYou: () => {
-      // NavigatorService.navigate('DietStudyYourLifestyle', this.dietStudyParam);
-    },
-    DietStudyYourLifestyle: () => {
-      // NavigatorService.navigate('DietStudyTypicalDiet', this.dietStudyParam);
+    DietStudyPlaybackIntro: () => {
+      //NavigatorService.navigate('DietStudyYourLifestyle');
     },
   } as ScreenFlow;
 
-  init = (
-    appCoordinator: AppCoordinator,
-    patientData: PatientData,
-    // dietStudyData: DietStudyData,
-    userService: IUserService
-    // dietStudyService: IDietStudyRemoteClient
-  ) => {
+  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
     this.appCoordinator = appCoordinator;
-    //this.dietStudyData = dietStudyData;
     this.userService = userService;
-    //this.dietStudyService = dietStudyService;
+    this.patientData = patientData;
   };
 
   startDietStudyPlayback = async () => {
