@@ -68,12 +68,22 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   useEffect(() => setShowUpdatePostcode(startupInfo?.show_edit_location), [startupInfo]);
 
   useEffect(() => {
-    Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
-    (async () => {
+    let isMounted = true;
+    const runAsync = async () => {
       try {
-        setHtml(await loadEstimatedCasesCartoMap());
+        Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
+        const data = await loadEstimatedCasesCartoMap();
+        if (isMounted) {
+          setHtml(data);
+        }
       } catch (_) {}
-    })();
+    };
+
+    runAsync();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
