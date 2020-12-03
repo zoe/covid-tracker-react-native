@@ -1,5 +1,4 @@
 import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IAssessmentRemoteClient } from './AssessmentApiClient';
 import { IAssessmentState } from './AssessmentState';
@@ -13,8 +12,6 @@ export interface IAssessmentService {
     assessment: Partial<AssessmentInfosRequest> | null,
     patientInfo: PatientInfosRequest
   ): Promise<boolean>;
-
-  saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean>;
 }
 
 export default class AssessmentService implements IAssessmentService {

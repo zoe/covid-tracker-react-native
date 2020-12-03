@@ -7,7 +7,6 @@ export interface IVaccineService {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean>;
 }
 
-@injectable()
 export class VaccineService implements IVaccineService {
   apiClient: IVaccineRemoteClient;
 

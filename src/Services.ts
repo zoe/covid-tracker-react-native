@@ -4,13 +4,13 @@ import OfflineService from '@covid/core/offline/OfflineService';
 import PushNotificationService, {
   PushNotificationApiClient,
 } from '@covid/core/push-notifications/PushNotificationService';
+import { VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
+import { VaccineService } from '@covid/core/vaccine/VaccineService';
 
 import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
 import ReduxAssessmentState from './core/assessment/AssessmentState';
 import ExpoPushTokenEnvironment from './core/push-notifications/expo';
-import { VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
-import { VaccineService } from '@covid/core/vaccine/VaccineService';
 
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();
