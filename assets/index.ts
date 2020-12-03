@@ -75,7 +75,6 @@ export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const donate = require('./thank-you-modules/donate.png');
-export const infographicFacts = require('./thank-you-modules/infographic_facts.png');
 export const vaccineWebinar = require('./thank-you-modules/vaccine_webinar.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');

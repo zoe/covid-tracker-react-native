@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { infographicFacts, shareAppV3 } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -105,14 +105,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         )}
 
         {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
-
-        <ExternalCallout
-          link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
-          calloutID="infographic_facts"
-          imageSource={infographicFacts}
-          aspectRatio={1.229}
-          screenName={route.name}
-        />
 
         <EstimatedCasesMapCard />
 
