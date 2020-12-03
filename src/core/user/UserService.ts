@@ -75,7 +75,6 @@ export default class UserService extends ApiClientBase implements IUserService {
   public async logout() {
     this.hasUser = false;
     await this.deleteLocalUserData();
-    NavigatorService.navigate('CountrySelect');
   }
 
   private async deleteLocalUserData() {

@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { captureRef } from 'react-native-view-shot';
+import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import * as Sharing from 'expo-sharing';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { WebView } from '@covid/components/WebView';
-import { BrandedButton, Header0Text, Header3Text, MutedText, RegularText } from '@covid/components/Text';
+import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import ChevronRight from '@assets/icons/ChevronRight';
 import Share from '@assets/icons/Share';
@@ -22,6 +20,7 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { Text } from '@covid/components';
 
 const MAP_HEIGHT = 246;
 
@@ -258,11 +257,13 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
   return (
     <View style={styles.root}>
       <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
-        <View style={{ marginVertical: isSharing ? 4 : 24 }}>
-          <Header3Text style={styles.primaryLabel}>
+        <View style={{ marginVertical: isSharing ? 4 : 24, paddingHorizontal: 16 }}>
+          <Text textClass="h4Regular" rhythm={8}>
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
-          </Header3Text>
-          <MutedText style={styles.secondaryLabel}>{i18n.t('covid-cases-map.current-estimates')}</MutedText>
+          </Text>
+          <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+            {i18n.t('covid-cases-map.current-estimates')}
+          </Text>
         </View>
 
         <View style={styles.mapContainer}>
@@ -271,25 +272,6 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
           ) : (
             <TouchableOpacity activeOpacity={0.6} onPress={onMapTapped}>
               {map()}
-            </TouchableOpacity>
-          )}
-        </View>
-
-        <View style={[styles.statsContainer, { paddingVertical: isSharing ? 4 : 12 }]}>
-          {!!activeCases && (
-            <View style={styles.statsRow}>
-              <Header0Text style={styles.stats}>{activeCases}</Header0Text>
-              <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.active-cases-in-area')}</MutedText>
-            </View>
-          )}
-          {!activeCases && (
-            <View style={styles.statsRow}>
-              <MutedText style={styles.statsLabel}>{i18n.t('covid-cases-map.not-enough-contributors')}</MutedText>
-            </View>
-          )}
-          {!isSharing && (
-            <TouchableOpacity style={styles.backIcon} onPress={showMap}>
-              <ChevronRight width={32} height={32} />
             </TouchableOpacity>
           )}
         </View>
