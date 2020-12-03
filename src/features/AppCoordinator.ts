@@ -285,10 +285,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     NavigatorService.navigate('Trendline', { lad });
   }
 
-  goToSchoolNetworkInfo() {
-    NavigatorService.navigate('SchoolNetworkInfo');
-  }
-
   goToSearchLAD() {
     NavigatorService.navigate('SearchLAD');
   }

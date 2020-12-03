@@ -59,10 +59,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     appCoordinator.goToTrendline();
   };
 
-  const onSchoolsModuleClick = async () => {
-    appCoordinator.goToSchoolNetworkInfo();
-  };
-
   const onShare = async () => {
     const shareMessage = i18n.t('share-this-app.message');
     await share(shareMessage);
