@@ -9,6 +9,8 @@ import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
 import ReduxAssessmentState from './core/assessment/AssessmentState';
 import ExpoPushTokenEnvironment from './core/push-notifications/expo';
+import { VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
+import { VaccineService } from '@covid/core/vaccine/VaccineService';
 
 const apiClient = new ApiClient();
 const localStorageService = new LocalStorageService();
@@ -26,3 +28,6 @@ export const pushNotificationService = new PushNotificationService(
 const assessmentState = new ReduxAssessmentState();
 const assessmentApiClient = new AssessmentApiClient(apiClient);
 export const assessmentService = new AssessmentService(assessmentApiClient, assessmentState);
+
+const vaccineApiClient = new VaccineApiClient(apiClient);
+export const vaccineService = new VaccineService(vaccineApiClient);

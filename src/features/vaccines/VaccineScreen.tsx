@@ -8,11 +8,10 @@ import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { assessmentService } from '@covid/Services';
+import { vaccineService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { VaccineRequest } from '@covid/core/vaccines/dto/VaccineRequest';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { colors } from '@theme';
-import IInfoCircle from '@assets/icons/I-InfoCircle';
 import InfoCircle from '@assets/icons/InfoCircle';
 
 import { ScreenParamList } from '../ScreenParamList';
@@ -34,7 +33,7 @@ export const VaccineScreen: React.FC<Props> = ({ route, navigation }) => {
       taken: takenVaccine === 'yes',
     } as Partial<VaccineRequest>;
     const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
-    await assessmentService.saveVaccineResponse(patientId, payload);
+    await vaccineService.saveVaccineResponse(patientId, payload);
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 

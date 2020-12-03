@@ -95,7 +95,7 @@ import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachS
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 import { MainNavigator } from '@covid/routes';
 import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
-import { VaccineScreen } from '@covid/features/assessment/VaccineScreen';
+import { VaccineScreen } from '@covid/features/vaccines';
 import { SearchLADScreen } from '@covid/features';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
