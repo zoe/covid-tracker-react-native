@@ -19,6 +19,8 @@ PODS:
   - AppCenterReactNativeShared (3.1.2):
     - AppCenter/Core (= 3.3.4)
   - boost-for-react-native (1.63.0)
+  - BVLinearGradient (2.5.6):
+    - React
   - DoubleConversion (1.1.6)
   - EXAmplitude (8.3.1):
     - Amplitude (~> 6.0.0)
@@ -361,6 +363,7 @@ DEPENDENCIES:
   - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
   - appcenter-core (from `../node_modules/appcenter/ios`)
   - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXAmplitude (from `../node_modules/expo-analytics-amplitude/ios`)
   - EXApplication (from `../node_modules/expo-application/ios`)
@@ -446,6 +449,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/appcenter/ios"
   appcenter-crashes:
     :path: "../node_modules/appcenter-crashes/ios"
+  BVLinearGradient:
+    :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   EXAmplitude:
@@ -591,6 +596,7 @@ SPEC CHECKSUMS:
   appcenter-crashes: 9fb422480b397e8ef1894cb8635b65c78b7d8618
   AppCenterReactNativeShared: 66667cd2dfad295b84bbf0f462e0e139e2128284
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   EXAmplitude: caa186767e48b4efcb07cf74be76ff16f4700e48
   EXApplication: c346c5ab7d1a4607f1863e93490b79fe838148b1

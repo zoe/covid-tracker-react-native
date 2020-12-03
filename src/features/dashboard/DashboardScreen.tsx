@@ -21,7 +21,7 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { SchoolNetworks } from '@covid/components';
+import { ColorBar, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
@@ -102,6 +102,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             <SchoolModule />
           </View>
         </TouchableWithoutFeedback>
+
+        <ColorBar />
 
         {hasNetworkData && (
           <View
