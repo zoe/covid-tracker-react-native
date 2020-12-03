@@ -1,1 +1,1 @@
-export { default as ColorBar } from './color-bar';
+export { default as GradientColorBar } from './gradient-color-bar';

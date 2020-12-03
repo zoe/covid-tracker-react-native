@@ -6,7 +6,7 @@ interface IProps {
   height?: number;
 }
 
-function ColorBar({ colors = ['#FF9600', '#FFD519', '#C0D904', '#A0B406'], height = 4 }: IProps) {
+function GradientColorBar({ colors = ['#FF9600', '#FFD519', '#C0D904', '#A0B406'], height = 4 }: IProps) {
   return (
     <LinearGradient
       colors={colors}
@@ -22,4 +22,4 @@ function ColorBar({ colors = ['#FF9600', '#FFD519', '#C0D904', '#A0B406'], heigh
   );
 }
 
-export default ColorBar;
+export default GradientColorBar;
