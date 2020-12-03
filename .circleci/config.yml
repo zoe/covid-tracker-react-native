@@ -134,7 +134,7 @@ commands:
             - ios/Pods
             - ~/Library/Caches/CocoaPods/Pods
 
-  # Prepare black env for testing
+  # Prepare blank env for testing
   prepare_blank_env:
     steps:
       - run: echo "API_URL=" > .env
@@ -171,18 +171,6 @@ commands:
       - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
       - run: npx expo-cli publish --non-interactive --max-workers 1 --release-channel ${RELEASE_CHANNEL}
 
-  expo_ota_legacy_publish:
-    steps:
-      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run:
-          name: "Legacy OTA 0.9-prod"
-          command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.9-prod
-      - run:
-          name: "Legacy OTA 0.12-prod"
-          command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.12-prod
-      - run:
-          name: "Legacy OTA 0.13-prod"
-          command: npx expo-cli publish --non-interactive --max-workers 1 --release-channel 0.13-prod
 
 ###
 ### Define jobs
@@ -307,14 +295,6 @@ jobs:
       - prepare_deploy_env
       - expo_ota_publish
 
-  legacy-ota-release:
-    executor: mobile-build-box
-    working_directory: ~/covid-react
-    steps:
-      - build
-      - prepare_deploy_env
-      - expo_ota_legacy_publish
-
   ota-rollback:
     executor: mobile-build-box
     working_directory: ~/covid-react
@@ -377,20 +357,12 @@ workflows:
 
   tests:
     jobs:
-      - build:
-          filters: *feature_filter
       - lint:
           filters: *feature_filter
-          requires:
-            - build
       - i18n:
           filters: *feature_filter
-          requires:
-            - build
       - test:
           filters: *feature_filter
-          requires:
-            - build
 
   ota:
     jobs:
