@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -25,7 +25,6 @@ import { SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
-import SchoolModule from '@assets/icons/SchoolsModule';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -96,13 +95,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        {/* School Networks */}
-        <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
-          <View style={styles.schoolModuleContainer}>
-            <SchoolModule />
-          </View>
-        </TouchableWithoutFeedback>
-
         {hasNetworkData && (
           <View
             style={{
@@ -143,9 +135,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  schoolModuleContainer: {
-    height: 200,
-  },
   calloutContainer: {
     marginHorizontal: 16,
   },
