@@ -38,10 +38,12 @@ export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
+export const usPartnersDash = require('./logos/us_partners_dash.png');
 export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 export const covidByZoeIcon = require('./logos/covid_app_by_zoe.png');
+export const createdByZoe = require('./logos/created-by-zoe.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');
@@ -87,3 +89,11 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
 export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
+
+// share svg
+export { default as ShareIcon } from './icons/Share';
+
+//
+export * from './icons/stats';
+export * from './icons/svgIcons';
+export { default as C19 } from './logos/C19';

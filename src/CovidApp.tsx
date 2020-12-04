@@ -4,15 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import { Header, Root, View } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StatusBar, Image } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
+import { Dimensions, StatusBar } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';
-import store from '@covid/core/state/store';
 import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -69,8 +65,6 @@ import { DietStudyConsentScreen } from '@covid/features/diet-study/DietStudyCons
 import { DietStudyThankYouBreakScreen } from '@covid/features/diet-study/DietStudyThankYouBreakScreen';
 import NavigatorService from '@covid/NavigatorService';
 import { EditLocationScreen } from '@covid/features/multi-profile/edit-profile/EditLocationScreen';
-import { dashboard, news } from '@assets';
-import { LatestNewsScreen } from '@covid/features/LatestNewsScreen';
 import { NHSIntroScreen } from '@covid/features/patient/NHSIntro';
 import { NHSDetailsScreen } from '@covid/features/patient/NHSDetailsScreen';
 import NHSTestDetailScreen from '@covid/features/covid-tests/NHSTestDetailScreen';
@@ -90,6 +84,8 @@ import {
 import { SchoolGroupListScreen } from '@covid/features/school-network/SchoolGroupListScreen';
 import { CovidTestConfirmScreen } from '@covid/features/covid-tests/CovidTestConfirmScreen';
 import { SchoolDashboardScreen } from '@covid/features/school-network/SchoolDashboardScreen';
+// import { ModalNavigator } from '@covid/routes';
+import { ShareScreen } from '@covid/components';
 // __HYGEN_INJECTED_IMPORTS_BELOW__
 import { TrendlineScreen } from '@covid/features/dashboard/TrendlineScreen';
 import { GeneralSymptomsScreen } from '@covid/features/assessment/GeneralSymptomsScreen';
@@ -103,7 +99,6 @@ import { SearchLADScreen } from './features/dashboard/SearchLADScreen';
 
 const Stack = createStackNavigator<ScreenParamList>();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
 
 class State {
   isLoaded: boolean;
@@ -140,70 +135,38 @@ export default class CovidApp extends Component<object, State> {
     if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
 
     return (
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <Root>
-            <Header style={{ display: 'none' }}>
-              <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-            </Header>
-            <NavigationContainer
-              ref={(navigatorRef) => {
-                NavigatorService.setContainer(navigatorRef);
-              }}
-              onStateChange={NavigatorService.handleStateChange}>
-              <Drawer.Navigator
-                drawerContent={(props) => <DrawerMenu {...props} />}
-                screenOptions={{ swipeEnabled: false }}
-                drawerStyle={{
-                  width: Dimensions.get('screen').width,
-                }}>
-                <Drawer.Screen name="Main" component={this.mainNavStack} options={{ headerShown: false }} />
-              </Drawer.Navigator>
-            </NavigationContainer>
-          </Root>
-        </Provider>
-      </SafeAreaProvider>
+      <Root>
+        <Header style={{ display: 'none' }}>
+          <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+        </Header>
+        <NavigationContainer
+          ref={(navigatorRef) => {
+            NavigatorService.setContainer(navigatorRef);
+          }}
+          onStateChange={NavigatorService.handleStateChange}>
+          <Stack.Navigator headerMode="none" mode="modal" initialRouteName="Main">
+            <Stack.Screen name="Main" component={this.drawNavigator} />
+            <Stack.Screen
+              name="Share"
+              component={ShareScreen}
+              options={{ cardStyle: { backgroundColor: 'rgba(0,0,0,0.8)' } }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Root>
     );
   }
 
-  tabNavigator = () => {
+  drawNavigator = () => {
     return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let icon;
-            const tintColor = focused ? colors.brand : colors.tertiary;
-
-            switch (route.name) {
-              case 'Dashboard':
-                icon = dashboard;
-                break;
-              case 'LatestNews':
-                icon = news;
-                break;
-            }
-
-            return <Image resizeMethod="auto" source={icon} style={{ tintColor, width: 24, height: 24 }} />;
-          },
-        })}
-        tabBarOptions={{
-          labelStyle: {
-            fontSize: 12,
-          },
-          activeTintColor: colors.brand,
-          inactiveTintColor: colors.tertiary,
+      <Drawer.Navigator
+        drawerContent={(props) => <DrawerMenu {...props} />}
+        screenOptions={{ swipeEnabled: false }}
+        drawerStyle={{
+          width: Dimensions.get('screen').width,
         }}>
-        <Tab.Screen
-          name="Dashboard"
-          component={DashboardScreen}
-          options={{ title: i18n.t('tab-navigator.first-tab') }}
-        />
-        <Tab.Screen
-          name="LatestNews"
-          component={LatestNewsScreen}
-          options={{ title: i18n.t('tab-navigator.second-tab') }}
-        />
-      </Tab.Navigator>
+        <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
+      </Drawer.Navigator>
     );
   };
 

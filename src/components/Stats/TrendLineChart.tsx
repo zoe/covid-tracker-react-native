@@ -84,7 +84,7 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
     switch (viewMode) {
       case TrendLineViewMode.overview:
         const overviewSorted = timeseries.sort((a: any, b: any) => (a.date < b.date ? 1 : -1));
-        const filtered = overviewSorted.filter((_: any, index: number) => index <= 30);
+        const filtered = overviewSorted.filter((_: any, index: number) => index <= 90);
         const monthLabels = (filtered ?? []).map((data) => moment(data.date).format('MMM'));
         const monthLabelSet = monthLabels.reduce(
           (unique: string[], item: string) => (unique.includes(item) ? unique : [...unique, item]),

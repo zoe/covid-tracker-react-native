@@ -1212,7 +1212,10 @@
   "explore-trend-line": {
     "title": "",
     "delta-week": "",
-    "cta": ""
+    "cta": "",
+    "active-covid-cases": "",
+    "evolution-of": "",
+    "active-cases-in-your-area": ""
   },
 
   "search-lad": {
@@ -1487,7 +1490,17 @@
       "more-details": "",
       "faq": "",
       "disclaimer": "",
-      "disclaimer2": ""
+      "disclaimer2": "",
+      "children-signed-up": "",
+      "entire-school": "",
+      "more-parents": "",
+      "more-parents-singular": "",
+      "reported-unwell": "",
+      "report-for-today": "",
+      "report-for-today-singular": ""
     }
+  },
+  "generic": {
+    "share-this-with-someone": ""
   }
 }

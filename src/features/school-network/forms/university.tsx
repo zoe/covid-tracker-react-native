@@ -35,8 +35,6 @@ function UniversityForm({ currentJoinedGroup, schools }: IProps) {
           await schoolNetworkCoordinator.setSelectedSchool(selectedSchool);
           NavigatorService.goBack();
         } catch (error) {
-          console.log('** error **');
-          console.log(error);
           FormikProps.setFieldError('schoolId', 'Update error');
         }
       }}>
