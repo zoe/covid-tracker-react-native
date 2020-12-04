@@ -114,6 +114,7 @@ export type ScreenParamList = {
   DietStudyPlaybackIntro: undefined;
   DietStudyPlaybackGlobal: undefined;
   DietStudyPlaybackDietQuality: undefined;
+  DietStudyPlaybackYourDiet: undefined;
 
   //
   Modal: undefined;

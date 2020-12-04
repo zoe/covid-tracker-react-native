@@ -86,6 +86,7 @@ import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 import DietStudyPlaybackIntroScreen from '@covid/features/diet-study-playback/DietStudyPlaybackIntroScreen';
 import { DietStudyPlaybackGlobalScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGlobalScreen';
 import { DietStudyPlaybackDietQualityScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackDietQualityScreen';
+import { DietStudyPlaybackYourDietScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourDietScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -188,6 +189,7 @@ function MainNavigator() {
         component={DietStudyPlaybackDietQualityScreen}
         options={noHeader}
       />
+      <Stack.Screen name="DietStudyPlaybackYourDiet" component={DietStudyPlaybackYourDietScreen} options={noHeader} />
 
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
