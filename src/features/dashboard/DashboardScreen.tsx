@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { infographicFacts, shareAppV3 } from '@assets';
+import { shareAppV3, webinarInvite } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
@@ -26,7 +26,6 @@ import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
-import SchoolModule from '@assets/icons/SchoolsModule';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -61,10 +60,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     appCoordinator.goToTrendline();
   };
 
-  const onSchoolsModuleClick = async () => {
-    appCoordinator.goToSchoolNetworkInfo();
-  };
-
   const onShare = async () => {
     const shareMessage = i18n.t('share-this-app.message');
     await share(shareMessage);
@@ -96,14 +91,13 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      {/* School Networks */}
-      {isGBCountry() && (
-        <TouchableWithoutFeedback onPress={onSchoolsModuleClick}>
-          <View style={styles.schoolModuleContainer}>
-            <SchoolModule />
-          </View>
-        </TouchableWithoutFeedback>
-      )}
+      <ExternalCallout
+        link="https://us02web.zoom.us/webinar/register/4716069965500/WN_0FyYubk1SMGe58xH2Ee9cw"
+        calloutID="webinar_invite_dec_09"
+        imageSource={webinarInvite}
+        aspectRatio={1.079}
+        screenName={route.name}
+      />
 
       {hasNetworkData && (
         <View
@@ -118,18 +112,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
       {isGBCountry() && (
-        <View style={styles.calloutContainer}>
-          <ExternalCallout
-            link="https://covid.joinzoe.com/earlysymptomsdiscoveries?utm_source=App"
-            calloutID="infographic_facts"
-            imageSource={infographicFacts}
-            aspectRatio={1.229}
-            screenName={route.name}
-          />
+        <View style={{ marginBottom: 8, marginTop: 24 }}>
+          <EstimatedCasesMapCard />
         </View>
       )}
-
-      {isGBCountry() && <EstimatedCasesMapCard />}
 
       {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
 
@@ -151,11 +137,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  schoolModuleContainer: {
-    marginHorizontal: 32,
-    marginBottom: 8,
-    height: 200,
-  },
   calloutContainer: {
     marginHorizontal: 24,
   },

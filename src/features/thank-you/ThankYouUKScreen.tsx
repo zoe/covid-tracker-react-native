@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog022, dataPage003, notificationReminders, timUpdate020 } from '@assets';
+import { blog023, blog024, dataPage003, notificationReminders, timUpdate021 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -77,17 +77,25 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/did-lockdown-2-0-work-heres-whats-going-on-with-covid-19-across-the-country?utm_source=App"
-                calloutID="blog_022"
-                imageSource={blog022}
+                link="https://covid.joinzoe.com/post/vitamins-reduce-covid-risk?utm_source=App"
+                calloutID="blog_023"
+                imageSource={blog023}
                 aspectRatio={1.555}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=sM1K2-yTf6k"
-                calloutID="tim_update_020"
-                imageSource={timUpdate020}
+                link="https://covid.joinzoe.com/post/covid-vaccines-expert-questions?utm_source=App"
+                calloutID="blog_024"
+                imageSource={blog024}
+                aspectRatio={1.555}
+                screenName={this.props.route.name}
+              />
+
+              <ExternalCallout
+                link="https://www.youtube.com/watch?v=AGH8nInkA14"
+                calloutID="tim_update_021"
+                imageSource={timUpdate021}
                 aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
