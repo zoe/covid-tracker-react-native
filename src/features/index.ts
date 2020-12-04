@@ -8,6 +8,7 @@ export { LoginScreen } from './login/LoginScreen';
 export * from './multi-profile';
 export * from './password-reset';
 export * from './patient';
+export { default as QualityScore } from './quality-score';
 export * from './register';
 export * from './school-network';
 export { SplashScreen } from './SplashScreen';
