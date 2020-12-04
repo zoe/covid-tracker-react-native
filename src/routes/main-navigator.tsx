@@ -56,7 +56,6 @@ import {
   SchoolGroupListScreen,
   SchoolHowToScreen,
   SchoolIntroScreen,
-  SchoolNetworkInfoScreen,
   SchoolSuccessScreen,
   SearchLADScreen,
   SelectProfileScreen,
@@ -171,7 +170,6 @@ function MainNavigator() {
       <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
       <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
       <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
-      <Stack.Screen name="SchoolNetworkInfo" component={SchoolNetworkInfoScreen} options={noHeader} />
       <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
       <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
       <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
