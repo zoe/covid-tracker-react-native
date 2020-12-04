@@ -91,6 +91,10 @@ export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
 export const doctorsAvatars = require('./doctors-avatars.png');
 
+export const dietStudyPlaybackGlobal1 = require('./global-stats-1.png');
+export const dietStudyPlaybackGlobal2 = require('./global-stats-2.png');
+export const dietStudyPlaybackGlobal3 = require('./global-stats-3.png');
+
 // share svg
 export { default as ShareIcon } from './icons/Share';
 

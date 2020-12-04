@@ -84,6 +84,7 @@ import {
 } from '@covid/features';
 import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 import DietStudyPlaybackIntroScreen from '@covid/features/diet-study-playback/DietStudyPlaybackIntroScreen';
+import { DietStudyPlaybackGlobalScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGlobalScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -180,6 +181,7 @@ function MainNavigator() {
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackIntro" component={DietStudyPlaybackIntroScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackGlobal" component={DietStudyPlaybackGlobalScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

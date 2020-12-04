@@ -27,7 +27,7 @@ const DietStudyPlaybackIntroScreen: React.FC<Props> = ({ route, navigation }) =>
           <Image style={styles.avatar} source={doctorsAvatars} />
           <RegularText style={styles.namesText}>{'Dr Sarah Berry\n& Prof Christopher Gardner'}</RegularText>
           <CaptionText style={styles.uniText}>
-            {"Nutrional Scientists\nKing's College London & Stanford University"}
+            {"Nutritional Scientists\nKing's College London & Stanford University"}
           </CaptionText>
 
           <BasicCard>
@@ -59,22 +59,18 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
   },
-
   scrollView: {
     flexGrow: 1,
     justifyContent: 'space-between',
   },
-
   rootContainer: {
     paddingHorizontal: 16,
   },
-
   navContainer: {
     paddingHorizontal: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
   avatar: {
     resizeMode: 'contain',
     height: undefined,

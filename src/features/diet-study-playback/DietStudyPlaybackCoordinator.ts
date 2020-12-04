@@ -12,7 +12,7 @@ class DietStudyPlaybackCoordinator {
 
   screenFlow: ScreenFlow = {
     DietStudyPlaybackIntro: () => {
-      //NavigatorService.navigate('DietStudyYourLifestyle');
+      NavigatorService.navigate('DietStudyPlaybackGlobal');
     },
   } as ScreenFlow;
 
