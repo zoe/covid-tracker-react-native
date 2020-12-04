@@ -20,6 +20,9 @@ class DietStudyPlaybackCoordinator {
     DietStudyPlaybackDietQuality: () => {
       NavigatorService.navigate('DietStudyPlaybackYourDiet');
     },
+    DietStudyPlaybackYourDiet: () => {
+      NavigatorService.navigate('DietStudyPlaybackGutHealth');
+    },
   } as ScreenFlow;
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
