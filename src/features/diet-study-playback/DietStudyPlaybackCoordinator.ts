@@ -14,6 +14,9 @@ class DietStudyPlaybackCoordinator {
     DietStudyPlaybackIntro: () => {
       NavigatorService.navigate('DietStudyPlaybackGlobal');
     },
+    DietStudyPlaybackGlobal: () => {
+      NavigatorService.navigate('DietStudyPlaybackDietQuality');
+    },
   } as ScreenFlow;
 
   init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {

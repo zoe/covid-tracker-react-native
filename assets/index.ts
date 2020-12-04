@@ -94,6 +94,7 @@ export const doctorsAvatars = require('./doctors-avatars.png');
 export const dietStudyPlaybackGlobal1 = require('./global-stats-1.png');
 export const dietStudyPlaybackGlobal2 = require('./global-stats-2.png');
 export const dietStudyPlaybackGlobal3 = require('./global-stats-3.png');
+export const dietStudyPlaybackFoodHeader = require('./diet-playback-food-banner.png');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';
