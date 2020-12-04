@@ -5,9 +5,8 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { WebView } from '@covid/components/WebView';
-import { BrandedButton, Header3Text, MutedText, RegularText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
-import ChevronRight from '@assets/icons/ChevronRight';
+import { BrandedButton, MutedText } from '@covid/components/Text';
+import { colors } from '@theme';
 import Share from '@assets/icons/Share';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
@@ -87,6 +86,15 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
 
   return (
     <View style={[styles.root, root]}>
+      <View style={{ marginVertical: 24, paddingHorizontal: 16 }}>
+        <Text textClass="h4Regular" rhythm={8}>
+          {primaryLabel}
+        </Text>
+        <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+          {i18n.t('covid-cases-map.current-estimates')}
+        </Text>
+      </View>
+
       {showCartoMap && (
         <View style={styles.mapContainer}>
           <TouchableOpacity activeOpacity={0.6} onPress={showMap}>
@@ -94,23 +102,21 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
           </TouchableOpacity>
         </View>
       )}
-
-      <View style={[styles.headerContainer, { width: '90%' }]}>
-        <Header3Text style={[styles.primaryLabel, { marginTop: 4 }]}>{primaryLabel}</Header3Text>
-        <View style={styles.emptyStateArrow}>
-          <TouchableOpacity style={[styles.backIcon, { marginBottom: 8 }]} onPress={onArrowTapped}>
-            <ChevronRight width={32} height={32} />
-          </TouchableOpacity>
-        </View>
-        {showUpdatePostcode && <RegularText style={styles.secondaryLabel}>{secondaryLabel}</RegularText>}
-      </View>
-
       {showUpdatePostcode && (
-        <View>
-          <BrandedButton style={styles.detailsButton} onPress={onPress}>
-            <Text style={[fontStyles.bodyLight, styles.detailsButtonLabel]}>{ctaLabel}</Text>
-          </BrandedButton>
-        </View>
+        <>
+          <View style={{ paddingHorizontal: 16, paddingVertical: 16 }}>
+            <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
+              {secondaryLabel}
+            </Text>
+          </View>
+          <View style={{ paddingHorizontal: 16 }}>
+            <BrandedButton style={styles.detailsButton} onPress={onPress}>
+              <Text textClass="pLight" colorPalette="burgundy">
+                {ctaLabel}
+              </Text>
+            </BrandedButton>
+          </View>
+        </>
       )}
     </View>
   );
@@ -292,7 +298,6 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 16,
     paddingVertical: 8,
@@ -303,13 +308,6 @@ const styles = StyleSheet.create({
   primaryLabel: {
     textAlign: 'center',
     color: colors.textDark,
-  },
-
-  secondaryLabel: {
-    textAlign: 'center',
-    marginTop: 8,
-    fontSize: 14,
-    paddingHorizontal: 24,
   },
 
   mapContainer: {
