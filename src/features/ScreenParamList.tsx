@@ -97,7 +97,6 @@ export type ScreenParamList = {
   EstimatedCases: undefined;
 
   // School network
-  SchoolNetworkInfo: undefined;
   SchoolIntro: undefined;
   SchoolHowTo: { patientData: PatientData };
   SelectSchool: undefined;
