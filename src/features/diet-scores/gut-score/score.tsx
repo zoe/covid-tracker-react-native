@@ -1,25 +1,24 @@
 import React from 'react';
+import { View } from 'react-native';
 
-import { ScoreCard, Text } from '@covid/components';
+import { TStyleObject } from '@covid/utils/types';
 
 import DietScoreHeader from '../diet-score-header';
 
 import ScoreRange from './score-range';
 
 interface IProps {
+  style?: TStyleObject;
   subTitle: string;
   title: string;
 }
 
-function Score({ title, subTitle }: IProps) {
+function Score({ title, subTitle, style = {} }: IProps) {
   return (
-    <>
-      <DietScoreHeader title={title} subTitle={subTitle} />
+    <View style={style}>
+      <DietScoreHeader title={title} subTitle={subTitle} rhythm={24} />
       <ScoreRange />
-      <ScoreCard backgroundColor="#FFD519" direction="UP">
-        <Text textClass="pSmall">You</Text>
-      </ScoreCard>
-    </>
+    </View>
   );
 }
 

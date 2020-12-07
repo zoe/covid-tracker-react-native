@@ -3,16 +3,28 @@ import { View } from 'react-native';
 
 import { ScoreCard, SolidColorBar, Text } from '@covid/components';
 
-function ScoreCategory() {
+interface IProps {
+  active?: boolean;
+  statusColor: string;
+  title: string;
+}
+
+function ScoreCategory({ active, statusColor, title }: IProps) {
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <Text>Title</Text>
+      <Text textClass="pSmall" colorPalette="uiDark" colorShade="dark" inverted rhythm={20}>
+        {title}
+      </Text>
       <View style={{ width: '100%' }}>
-        <SolidColorBar backgroundColor="green" />
+        <SolidColorBar backgroundColor={statusColor} />
       </View>
-      <ScoreCard backgroundColor="#FFD519" direction="UP">
-        <Text textClass="pSmall">You</Text>
-      </ScoreCard>
+      {active && (
+        <View>
+          <ScoreCard backgroundColor={statusColor} direction="UP">
+            <Text textClass="pSmall">You</Text>
+          </ScoreCard>
+        </View>
+      )}
     </View>
   );
 }
