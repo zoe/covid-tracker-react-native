@@ -66,4 +66,6 @@ export type AssessmentInfosRequest = {
   sore_throat: boolean;
   swollen_glands: boolean;
   irregular_heartbeat: boolean;
+  chills_or_shivers: boolean;
+  unusual_joint_pains: boolean;
 };
