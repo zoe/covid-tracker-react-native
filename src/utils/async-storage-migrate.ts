@@ -3,7 +3,7 @@ import * as FileSystem from 'expo-file-system';
 
 const AsyncLocalStorageFolderOptions = {
   fromList: [
-    `${FileSystem.documentDirectory}/RCTAsyncLocalStorage`,
+    `${FileSystem.documentDirectory}RCTAsyncLocalStorage`,
     `${FileSystem.documentDirectory}ExponentExperienceData/%2540julien.lavigne%252Fcovid-zoe/RCTAsyncLocalStorage`,
   ],
   to: `${FileSystem.documentDirectory}RCTAsyncLocalStorage_V1`,
@@ -29,7 +29,7 @@ const firstInList = async (fromList: string[]): Promise<ManifestSearchResult> =>
       found = !!content;
       path = Manifest.from(fromList[i]);
     } catch (error) {
-      console.error(error);
+      //
     } finally {
       i++;
     }

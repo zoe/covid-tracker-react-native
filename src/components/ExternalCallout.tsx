@@ -52,7 +52,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   return (
     <>
       {!dismissed && (
-        <TouchableWithoutFeedback style={styles.container} onPress={clickCallout}>
+        <TouchableWithoutFeedback onPress={clickCallout}>
           <View style={styles.viewContainer}>
             <Image
               source={props.imageSource}
@@ -71,11 +71,8 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
-
   viewContainer: {
-    marginVertical: 20,
-    marginHorizontal: 10,
+    marginVertical: 8,
     alignSelf: 'center',
     flex: 1,
     flexDirection: 'row',

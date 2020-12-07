@@ -73,10 +73,7 @@ export class RegisterScreen extends Component<PropsType, State> {
           Analytics.identify({ isTester });
           Analytics.track(events.SIGNUP);
           const patientId = response.user.patients[0];
-          await appCoordinator
-            .setPatientById(patientId)
-            .then(() => appCoordinator.fetchInitialData())
-            .then(() => appCoordinator.setHomeScreenName());
+          await appCoordinator.setPatientById(patientId).then(() => appCoordinator.fetchInitialData());
           appCoordinator.gotoNextScreen(this.props.route.name);
         })
         .catch((err: AxiosError) => {

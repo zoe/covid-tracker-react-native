@@ -15,14 +15,13 @@ import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import { shareAppV3, webinarInvite } from '@assets';
 import i18n from '@covid/locale/i18n';
-import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { SchoolNetworks } from '@covid/components/Cards/SchoolNetworks';
+import { SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
@@ -91,35 +90,31 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <ExternalCallout
-        link="https://us02web.zoom.us/webinar/register/4716069965500/WN_0FyYubk1SMGe58xH2Ee9cw"
-        calloutID="webinar_invite_dec_09"
-        imageSource={webinarInvite}
-        aspectRatio={1.079}
-        screenName={route.name}
-      />
-
-      {hasNetworkData && (
-        <View
-          style={{
-            marginHorizontal: 32,
-            marginBottom: 16,
-          }}>
-          <SchoolNetworks schoolGroups={networks!} />
-        </View>
-      )}
-
-      {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
-
-      {isGBCountry() && (
-        <View style={{ marginBottom: 8, marginTop: 24 }}>
-          <EstimatedCasesMapCard />
-        </View>
-      )}
-
-      {isGBCountry() && <UKEstimatedCaseCard onPress={onMoreDetails} />}
-
       <View style={styles.calloutContainer}>
+        <ExternalCallout
+          link="https://us02web.zoom.us/webinar/register/4716069965500/WN_0FyYubk1SMGe58xH2Ee9cw"
+          calloutID="webinar_invite_dec_09"
+          imageSource={webinarInvite}
+          aspectRatio={1.079}
+          screenName={route.name}
+        />
+
+        {hasNetworkData && (
+          <View
+            style={{
+              marginVertical: 8,
+            }}>
+            <SchoolNetworks schoolGroups={networks!} />
+          </View>
+        )}
+
+        {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
+
+        <EstimatedCasesMapCard />
+
+        <UKEstimatedCaseCard onPress={onMoreDetails} />
+
+
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}
@@ -138,9 +133,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   calloutContainer: {
-    marginHorizontal: 24,
+    marginHorizontal: 16,
   },
   zoe: {
-    marginBottom: 32,
+    marginVertical: 32,
   },
 });
