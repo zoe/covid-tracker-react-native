@@ -1,15 +1,14 @@
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import { IUserService } from '@covid/core/user/UserService';
 import NavigatorService from '@covid/NavigatorService';
-import { ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 
-class DietStudyPlaybackCoordinator {
+class DietStudyPlaybackCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: IUserService;
-  patientData: PatientData;
 
   screenFlow: ScreenFlow = {
     DietStudyPlaybackIntro: () => {
@@ -43,14 +42,6 @@ class DietStudyPlaybackCoordinator {
 
   startDietStudyPlayback = async () => {
     NavigatorService.navigate('DietStudyPlaybackIntro');
-  };
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
   };
 }
 

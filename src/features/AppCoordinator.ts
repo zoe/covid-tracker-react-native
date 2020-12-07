@@ -221,15 +221,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     editProfileCoordinator.goToEditLocation();
   }
 
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (Object.keys(this.screenFlow).includes(screenName)) {
-      (this.screenFlow as ScreenFlow)[screenName]();
-    } else {
-      // We don't have nextScreen logic for this page. Explain loudly.
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
-  };
-
   async profileSelected(profile: Profile) {
     await this.setPatientByProfile(profile);
     if (isGBCountry() && !this.patientData.patientState.isReportedByAnother) {
