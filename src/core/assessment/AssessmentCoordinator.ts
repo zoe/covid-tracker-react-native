@@ -16,6 +16,7 @@ import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -68,8 +69,8 @@ export class AssessmentCoordinator extends Coordinator {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
     },
-    VaccineTrialOrNational: (vaccineType: string) => {
-      if (vaccineType === 'covid_trial') {
+    VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
+      if (vaccineType === VaccineTypes.COVID_TRIAL) {
         NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });

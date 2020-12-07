@@ -19,6 +19,21 @@ export type Dose = {
   date_taken_between_end: string;
 };
 
+export type DoseSymptomsRequest = {
+  id: string;
+  patient: string; //	Patient ID
+  dose: string; // Dose ID
+
+  pain: boolean;
+  redness: boolean;
+  swelling: boolean;
+  swollen_armpit_glands: boolean;
+  warmth: boolean;
+  itch: boolean;
+  tenderness: boolean;
+  other: string;
+};
+
 export enum VaccineTypes {
   COVID_TRIAL = 'covid_trial',
   COVID_VACCINE = 'covid_vaccine',
@@ -45,18 +60,3 @@ export enum VaccineLocations {
   HOSPITAL = 'hospital',
   OTHER = 'other',
 }
-
-export type DoseSymptomsRequest = {
-  id: string;
-  patient: string; //	Patient ID
-  dose: string; // Dose ID
-
-  pain: boolean;
-  redness: boolean;
-  swelling: boolean;
-  swollen_armpit_glands: boolean;
-  warmth: boolean;
-  itch: boolean;
-  tenderness: boolean;
-  other: string;
-};

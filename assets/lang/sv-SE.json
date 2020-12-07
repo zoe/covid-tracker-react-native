@@ -1276,14 +1276,44 @@
     },
 
     "vaccines": {
-      "title": "",
-      "weekly-label": "",
-      "question-text": "",
-      "answer-yes": "",
-      "answer-no": "",
-      "yes-info": "",
-      "no-info": "",
-      "confirm": ""
+      "yes-no": {
+        "title": "",
+        "description": "",
+        "answer-yes": "",
+        "answer-no": ""
+      },
+      "trial-or-national": {
+        "label": "",
+        "title": "",
+        "answer-national": "",
+        "answer-trial": ""
+      },
+      "placebo": {
+        "label": "",
+        "title": "",
+        "answer-yes": "",
+        "answer-no": "",
+        "answer-unsure": ""
+      },
+      "thank-you": {
+        "title": "",
+        "text": "",
+        "confirm": ""
+      },
+      "dose-symptoms": {
+        "label": "",
+        "title": "",
+        "question": "",
+        "pain": "",
+        "redness": "",
+        "swelling": "",
+        "glands": "",
+        "warmth": "",
+        "itch": "",
+        "tenderness": "",
+        "other": "",
+        "next": ""
+      }
     },
 
     "nhs-study-intro": {

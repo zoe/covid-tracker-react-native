@@ -1,18 +1,16 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import { Form, Text } from 'native-base';
+import React from 'react';
+import { Form } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { vaccineService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { colors } from '@theme';
-import InfoCircle from '@assets/icons/InfoCircle';
+import { VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -22,10 +20,7 @@ type Props = {
 };
 
 export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isSubmitting, setSubmitting] = useState(false);
-
-  const handlePress = async (vaccineType: string) => {
+  const handlePress = async (vaccineType: VaccineTypes) => {
     assessmentCoordinator.gotoNextScreen(route.name, vaccineType);
   };
 
@@ -35,23 +30,22 @@ export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigatio
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
           <View style={{ flexDirection: 'row', flex: 1 }}>
-            <RegularText>How did you receive your vaccination?</RegularText>
+            <RegularText>{i18n.t('vaccines.trial-or-national.label')}</RegularText>
           </View>
 
-          <HeaderText>How did you receive your vaccination?</HeaderText>
+          <HeaderText>{i18n.t('vaccines.trial-or-national.title')}</HeaderText>
         </Header>
 
-        <View style={{ marginHorizontal: 16 }}>
-          <View style={{ marginVertical: 16 }}>
-            <RegularText>{i18n.t('vaccines.question-text')}</RegularText>
-          </View>
-
+        <View style={{ marginHorizontal: 16, marginVertical: 16 }}>
           <Form style={{ flexGrow: 1 }}>
             <SelectorButton
-              onPress={() => handlePress('covid_national')}
-              text="I was vaccinated during the national roll out of COVID-19 vaccines"
+              onPress={() => handlePress(VaccineTypes.COVID_VACCINE)}
+              text={i18n.t('vaccines.trial-or-national.answer-national')}
             />
-            <SelectorButton onPress={() => handlePress('covid_trial')} text="I participated in a trial" />
+            <SelectorButton
+              onPress={() => handlePress(VaccineTypes.COVID_TRIAL)}
+              text={i18n.t('vaccines.trial-or-national.answer-trial')}
+            />
           </Form>
         </View>
       </Screen>

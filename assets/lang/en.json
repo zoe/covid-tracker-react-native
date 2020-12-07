@@ -1259,14 +1259,48 @@
   },
 
   "vaccines": {
-    "title": "Have you had a COVID-19 vaccine?",
-    "weekly-label": "Weekly question",
-    "question-text": "Tell us if you’ve had at least one dose of a COVID-19 vaccine. If you are part of a trial and had an injection, even of a placebo, answer yes below. ",
-    "answer-yes": "Yes, I’ve had a COVID-19 vaccine or placebo injection",
-    "answer-no": "No, I’ve never had a COVID-19 vaccine or placebo injection",
-    "yes-info": "We’re tracking the roll out of vaccines and how they work. We’ll ask more questions about your vaccine experience soon.",
-    "no-info": "We’ll ask again next week to help track the vaccination effort.",
-    "confirm": "Confirm"
+    "yes-no": {
+      "title": "Your COVID-19 vaccines",
+      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nIf you are part of a trial and had an injection, even of a placebo, answer yes below.",
+      "answer-yes": "Yes, I’ve had a COVID-19 vaccine or placebo injection",
+      "answer-no": "No, I’ve never had a COVID-19 vaccine or placebo injection"
+    },
+
+    "trial-or-national": {
+      "label": "About your recent vaccine",
+      "title": "How did you receive your vaccination?",
+      "answer-national": "I was vaccinated during the national roll out of COVID-19 vaccines ",
+      "answer-trial": "I participated in a trial"
+    },
+
+    "placebo": {
+      "label": "About your recent vaccine",
+      "title": "As a trial participant, what type of vaccine did you receive?",
+      "answer-yes": "I received a real vaccine injection",
+      "answer-no": "I received a placebo injection",
+      "answer-unsure": "I don't know yet"
+    },
+
+    "thank-you": {
+      "title": "Please provide daily health reports following your COVID-19 vaccination",
+      "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
+      "confirm": "Start daily report"
+    },
+
+    "dose-symptoms": {
+      "label": "About your recent vaccine",
+      "title": "Are you experiencing any symptoms near the injection site?",
+      "question": "Check all that apply:",
+      "pain": "Pain",
+      "redness": "Redness",
+      "swelling": "Swelling",
+      "glands": "Swollen glands in the armpit",
+      "warmth": "Warmth",
+      "itch": "Itch",
+      "tenderness": "Tenderness",
+      "other": "Other",
+      "next": "Next"
+    }
   },
 
   "vaccine-registry": {

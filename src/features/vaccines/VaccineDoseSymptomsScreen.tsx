@@ -41,21 +41,21 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
           <View style={{ flexDirection: 'row', flex: 1 }}>
-            <RegularText>{i18n.t('vaccines.weekly-label')}</RegularText>
+            <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
           </View>
 
-          <HeaderText>Are you experiencing any symptoms near the injection site?</HeaderText>
+          <HeaderText>{i18n.t('vaccines.dose-symptoms.title')}</HeaderText>
         </Header>
 
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>
-            <RegularText>{i18n.t('vaccines.question-text')}</RegularText>
+            <RegularText>{i18n.t('vaccines.dose-symptoms.question')}</RegularText>
           </View>
         </View>
       </Screen>
 
       <BrandedButton style={styles.continueButton} onPress={handleSubmit} hideLoading={isSubmitting}>
-        <Text>{i18n.t('vaccines.confirm')}</Text>
+        <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
       </BrandedButton>
     </View>
   );
