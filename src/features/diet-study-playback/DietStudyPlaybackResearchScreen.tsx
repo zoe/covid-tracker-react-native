@@ -64,8 +64,7 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
                 discoveries. You can opt-out at any time, and will only receive science updates.
               </RegularText>
 
-              {/*TODO OnPress*/}
-              <BrandedButton onPress={() => {}} style={styles.moreButton}>
+              <BrandedButton onPress={() => {coordinator.signUpToNewsletter()}} style={styles.moreButton}>
                 Yes, I'd love to know more
               </BrandedButton>
             </View>

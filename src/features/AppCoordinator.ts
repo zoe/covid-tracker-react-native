@@ -204,7 +204,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   startDietStudyPlaybackFlow(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.userService);
+    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService);
     dietStudyPlaybackCoordinator.startDietStudyPlayback();
   }
 

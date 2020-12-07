@@ -4,11 +4,12 @@ import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { IContentService } from '@covid/core/content/ContentService';
 
 class DietStudyPlaybackCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
-  userService: IUserService;
+  contentService: IContentService;
 
   screenFlow: ScreenFlow = {
     DietStudyPlaybackIntro: () => {
@@ -34,15 +35,19 @@ class DietStudyPlaybackCoordinator extends Coordinator {
     },
   } as ScreenFlow;
 
-  init = (appCoordinator: AppCoordinator, patientData: PatientData, userService: IUserService) => {
+  init = (appCoordinator: AppCoordinator, patientData: PatientData, contentService: IContentService) => {
     this.appCoordinator = appCoordinator;
-    this.userService = userService;
+    this.contentService = contentService;
     this.patientData = patientData;
   };
 
   startDietStudyPlayback = async () => {
     NavigatorService.navigate('DietStudyPlaybackIntro');
   };
+
+  signUpToNewsletter() {
+    this.contentService.signUpForDietNewsletter();
+  }
 }
 
 const dietStudyPlaybackCoordinator = new DietStudyPlaybackCoordinator();
