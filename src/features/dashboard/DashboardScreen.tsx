@@ -21,11 +21,11 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { GradientColorBar, SchoolNetworks, ScoreCard, Text } from '@covid/components';
+import { SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
-import { QualityScore } from '@covid/features';
+import { GutScore, QualityScore } from '@covid/features';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -100,19 +100,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           screenName={route.name}
         />
 
-        <GradientColorBar />
-
-        <ScoreCard backgroundColor="pink">
-          <Text textClass="h6">You</Text>
-          <Text textClass="pMedium">42</Text>
-        </ScoreCard>
-
-        <ScoreCard backgroundColor="pink" direction="UP">
-          <Text textClass="h6">You</Text>
-          <Text textClass="pMedium">42</Text>
-        </ScoreCard>
-
         <QualityScore />
+
+        <GutScore />
 
         {hasNetworkData && (
           <View

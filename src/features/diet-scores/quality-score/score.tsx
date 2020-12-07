@@ -2,26 +2,24 @@ import React from 'react';
 
 import { GradientColorBar, ScoreCard, Text } from '@covid/components';
 
+import DietScoreHeader from '../diet-score-header';
+
 import ScoreRange from './score-range';
 import { SScoreContainerView } from './styles';
 
 interface IProps {
+  subTitle: string;
   title: string;
 }
 
-function Score({ title }: IProps) {
+function Score({ subTitle, title }: IProps) {
   return (
     <>
-      <Text textClass="h4Regular" rhythm={8}>
-        {title}
-      </Text>
-      <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
-        February 2020
-      </Text>
+      <DietScoreHeader title={title} subTitle={subTitle} />
       <SScoreContainerView>
         <ScoreCard backgroundColor="#FFD519">
-          <Text>You</Text>
-          <Text>42</Text>
+          <Text textClass="pSmall">You</Text>
+          <Text textClass="h5Medium">42</Text>
         </ScoreCard>
         <GradientColorBar />
         <ScoreRange startScore={5} startScoreLabel="Poor" endScore={15} endScoreLabel="Excellent" />
