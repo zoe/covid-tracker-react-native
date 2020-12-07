@@ -1325,8 +1325,8 @@
   },
 
   "covid-cases-map": {
-    "covid-in-x": "COVID in {{location}}",
-    "current-estimates": "Current estimates",
+    "covid-in-x": "Active COVID cases in {{location}}",
+    "current-estimates": "Current estimates of cases per million people",
     "active-cases-in-area": "Active cases\nin your area",
     "not-enough-contributors": "Not enough contributors\nin this area",
     "share": "Share your map",
@@ -1377,16 +1377,6 @@
     "confirmed-cases": "confirmed cases",
     "children-being-reported-for": "children being reported for",
     "child-being-reported-for": "child being reported for",
-
-    "info": {
-      "title": "We now have launched our School Communities programme",
-      "text": "To help your child’s school better safeguard children, receive daily health insights for your child’s bubble whilst contributing to the UK's largest citizen science project to help understand COVID in children, get your headteacher onboard:",
-      "cta-title": "Ask the headteacher to register your school ",
-      "cta-text": "Send them the link below to get them started:",
-      "cta-link": "covid.joinzoe.com/schoolnetworks",
-      "learn-more-title": "To learn more about this new programme:",
-      "learn-more-text": "Read our blog post"
-    },
 
     "intro": {
       "title": "Connect your children to their School Bubble",

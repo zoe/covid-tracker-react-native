@@ -93,7 +93,6 @@ import { HeadSymptomsScreen } from '@covid/features/assessment/HeadSymptomsScree
 import { ThroatChestSymptomsScreen } from '@covid/features/assessment/ThroatChestSymptomsScreen';
 import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachSymptomsScreen';
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
-import { SchoolNetworkInfoScreen } from '@covid/features/school-network/SchoolNetworkInfo';
 import { MainNavigator } from '@covid/routes';
 import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 import { SearchLADScreen } from '@covid/features';
@@ -257,7 +256,6 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
         <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
         <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
-        <Stack.Screen name="SchoolNetworkInfo" component={SchoolNetworkInfoScreen} options={noHeader} />
         <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
         <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
         <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />

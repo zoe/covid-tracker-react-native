@@ -69,6 +69,8 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   shouldShowCountryPicker: boolean = false;
 
+  thisUser: UserResponse | null;
+
   screenFlow: Partial<ScreenFlow> = {
     Splash: () => {
       if (this.patientData && this.shouldShowCountryPicker) {
@@ -77,7 +79,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
             NavigatorService.replace(homeScreenName());
           },
         });
-      } else if (this.patientData) {
+      } else if (this.patientData && this.thisUser) {
         NavigatorService.replace(homeScreenName());
       } else {
         NavigatorService.replace('Welcome');
@@ -147,6 +149,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
     if (this.userService.hasUser) {
       user = await this.userService.getUser();
+      this.thisUser = user;
       patientId = user?.patients[0] ?? null;
     }
 
@@ -286,10 +289,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   goToTrendline(lad?: string) {
     NavigatorService.navigate('Trendline', { lad });
-  }
-
-  goToSchoolNetworkInfo() {
-    NavigatorService.navigate('SchoolNetworkInfo');
   }
 
   goToSearchLAD() {
