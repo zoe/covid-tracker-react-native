@@ -45,9 +45,15 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
+      // After finishing with COVID Tests, we check to ask about Vaccines.
+      // Only UK Users above 16 years, will be eligible (shouldAskVaccineQuestions = True)
+      // After they've entered a Vaccine, they won't be asked again.
+      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
       const currentPatient = this.patientData.patientState;
       if (currentPatient.shouldAskVaccineQuestions) {
-        NavigatorService.navigate('Vaccines', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('VaccineYesNo', { assessmentData: this.assessmentData });
+      } else if (currentPatient.shouldAskDoseSymptoms) {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
@@ -55,7 +61,27 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    Vaccines: () => {
+    VaccineYesNo: (takenVaccine: string) => {
+      if (takenVaccine === 'yes') {
+        NavigatorService.navigate('VaccineTrialOrNational', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
+    VaccineTrialOrNational: (vaccineType: string) => {
+      if (vaccineType === 'covid_trial') {
+        NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+      }
+    },
+    VaccineTrialPlacebo: () => {
+      NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+    },
+    VaccineDoseSymptoms: () => {
+      NavigatorService.navigate('VaccineThankYou', { assessmentData: this.assessmentData });
+    },
+    VaccineThankYou: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     NHSTestDetail: () => {

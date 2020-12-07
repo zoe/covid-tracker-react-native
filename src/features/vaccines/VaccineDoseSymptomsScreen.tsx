@@ -10,35 +10,29 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { vaccineService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { colors } from '@theme';
 import InfoCircle from '@assets/icons/InfoCircle';
 
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'Vaccines'>;
-  route: RouteProp<ScreenParamList, 'Vaccines'>;
+  navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;
+  route: RouteProp<ScreenParamList, 'VaccineDoseSymptoms'>;
 };
 
-export const VaccineScreen: React.FC<Props> = ({ route, navigation }) => {
+export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
-  const [takenVaccine, setTakenVaccine] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
     setSubmitting(true);
 
-    const payload = {
-      taken: takenVaccine === 'yes',
-    } as Partial<VaccineRequest>;
+    // TODO: Save DOSE SYMPTOM
+    const payload = {} as Partial<DoseSymptomsRequest>;
     const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
-    await vaccineService.saveVaccineResponse(patientId, payload);
+    await vaccineService.saveDoseSymptoms(patientId, payload);
     assessmentCoordinator.gotoNextScreen(route.name);
-  };
-
-  const handlePress = async (taken: string) => {
-    setTakenVaccine(taken);
   };
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
@@ -50,40 +44,13 @@ export const VaccineScreen: React.FC<Props> = ({ route, navigation }) => {
             <RegularText>{i18n.t('vaccines.weekly-label')}</RegularText>
           </View>
 
-          <HeaderText>{i18n.t('vaccines.title')}</HeaderText>
+          <HeaderText>Are you experiencing any symptoms near the injection site?</HeaderText>
         </Header>
 
         <View style={{ marginHorizontal: 16 }}>
           <View style={{ marginVertical: 16 }}>
             <RegularText>{i18n.t('vaccines.question-text')}</RegularText>
           </View>
-
-          <Form style={{ flexGrow: 1 }}>
-            <SelectorButton onPress={() => handlePress('yes')} text={i18n.t('vaccines.answer-yes')} />
-            <SelectorButton onPress={() => handlePress('no')} text={i18n.t('vaccines.answer-no')} />
-
-            {takenVaccine === 'yes' && (
-              <View style={{ marginVertical: 16, flexDirection: 'row' }}>
-                <View>
-                  <InfoCircle />
-                </View>
-                <View>
-                  <RegularText>{i18n.t('vaccines.yes-info')}</RegularText>
-                </View>
-              </View>
-            )}
-
-            {takenVaccine === 'no' && (
-              <View style={{ marginVertical: 16, flexDirection: 'row' }}>
-                <View style={{ marginRight: 8 }}>
-                  <InfoCircle />
-                </View>
-                <View>
-                  <RegularText>{i18n.t('vaccines.no-info')}</RegularText>
-                </View>
-              </View>
-            )}
-          </Form>
         </View>
       </Screen>
 

@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { IVaccineRemoteClient } from '@covid/core/vaccine/VaccineApiClient';
 
 export interface IVaccineService {
@@ -15,6 +15,11 @@ export class VaccineService implements IVaccineService {
   }
   async saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean> {
     await this.apiClient.saveVaccineResponse(patientId, payload);
+    return true;
+  }
+
+  async saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean> {
+    await this.apiClient.saveDoseSymptoms(patientId, payload);
     return true;
   }
 }
