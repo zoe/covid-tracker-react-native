@@ -89,6 +89,7 @@ import { DietStudyPlaybackDietQualityScreen } from '@covid/features/diet-study-p
 import { DietStudyPlaybackYourDietScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourDietScreen';
 import { DietStudyPlaybackGutHealthScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGutHealthScreen';
 import { DietStudyPlaybackYourGutScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourGutScreen';
+import { DietStudyPlaybackResearchScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackResearchScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -194,6 +195,7 @@ function MainNavigator() {
       <Stack.Screen name="DietStudyPlaybackYourDiet" component={DietStudyPlaybackYourDietScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
 
 
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}

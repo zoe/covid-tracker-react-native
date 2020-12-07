@@ -97,6 +97,7 @@ export const dietStudyPlaybackGlobal3 = require('./global-stats-3.png');
 export const dietStudyPlaybackFoodHeader = require('./diet-playback-food-banner.png');
 export const dietStudyPlaybackGutHeader = require('./diet-playback-gut-banner.png');
 export const dietStudyPlaybackGutDiagram = require('./gut-diagram.png');
+export const fallingFoodBackground = require('./backgrounds/falling-food.png');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';

@@ -3,6 +3,7 @@ import { IUserService } from '@covid/core/user/UserService';
 import NavigatorService from '@covid/NavigatorService';
 import { ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 
 class DietStudyPlaybackCoordinator {
   appCoordinator: AppCoordinator;
@@ -25,6 +26,12 @@ class DietStudyPlaybackCoordinator {
     },
     DietStudyPlaybackGutHealth: () => {
       NavigatorService.navigate('DietStudyPlaybackYourGut');
+    },
+    DietStudyPlaybackYourGut: () => {
+      NavigatorService.navigate('DietStudyPlaybackResearch');
+    },
+    DietStudyPlaybackResearch: () => {
+      NavigatorService.navigate(homeScreenName());
     },
   } as ScreenFlow;
 
