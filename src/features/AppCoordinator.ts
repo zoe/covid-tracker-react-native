@@ -254,6 +254,10 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.startDietStudyFlow(this.patientData, true);
   }
 
+  goToDietStudyPlayback() {
+    this.startDietStudyPlaybackFlow(this.patientData);
+  }
+
   goToUKValidationStudy() {
     NavigatorService.navigate('ValidationStudyIntro');
   }
