@@ -51,7 +51,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
           <HeaderText>{i18n.t('vaccines.dose-symptoms.title')}</HeaderText>
         </Header>
 
-        <View style={{ marginHorizontal: 16 }}>
+        <View>
           <Formik
             initialValues={{
               ...DoesSymptomsQuestions.initialFormValues(),

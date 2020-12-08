@@ -12,6 +12,7 @@ import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 import { VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
+import { NewButton } from '@covid/components/NewButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -38,13 +39,13 @@ export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigatio
           <HeaderText>{i18n.t('vaccines.trial-or-national.title')}</HeaderText>
         </Header>
 
-        <View style={{ marginHorizontal: 16, marginVertical: 16 }}>
+        <View style={{ marginHorizontal: 16 }}>
           <Form style={{ flexGrow: 1 }}>
-            <SelectorButton
+            <NewButton
               onPress={() => handlePress(VaccineTypes.COVID_VACCINE)}
               text={i18n.t('vaccines.trial-or-national.answer-national')}
             />
-            <SelectorButton
+            <NewButton
               onPress={() => handlePress(VaccineTypes.COVID_TRIAL)}
               text={i18n.t('vaccines.trial-or-national.answer-trial')}
             />

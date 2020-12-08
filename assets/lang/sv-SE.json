@@ -109,7 +109,7 @@
   "placeholder-optional-question": "*Valfritt",
   "placeholder-optional": "Valfri",
   "placeholder-max-500": "",
-  
+
   "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik covid-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented": "Ja, bekräftat covid-19-fall",
   "exposed-yes-undocumented": "Ja, sannolikt covid-19-fall",
