@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
   },
 
   reportCard: {
-    width: '85%',
+    alignSelf: 'stretch',
+    marginHorizontal: 16,
     backgroundColor: 'rgba(255,255,255,0.1)',
     borderRadius: 16,
     alignItems: 'center',

@@ -40,10 +40,10 @@
     "worked-other-facility": "Annan vårdanläggning"
   },
 
-  "label-interacted-with-infected-patients": "Har du NÅGONSIN haft direktkontakt med patienter med bekräftad eller sannolik COVID-19-infektion?",
-  "required-has-patient-interaction": "Ange om du har haft direktkontakt med patient med COVID-19",
+  "label-interacted-with-infected-patients": "Har du NÅGONSIN haft direktkontakt med patienter med bekräftad eller sannolik covid-19-infektion?",
+  "required-has-patient-interaction": "Ange om du har haft direktkontakt med en patient med covid-19",
 
-  "label-used-ppe-equipment": "Sedan COVID-19-epidemin startade, har du använt skyddsutrustning på arbetet?",
+  "label-used-ppe-equipment": "Sedan covid-19-epidemin startade, har du använt skyddsutrustning på arbetet?",
   "label-used-ppe-equipment-footnote": "*Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
   "label-ppe-equipment-available": "Är all den personliga skyddsutrustning du behöver tillgänglig?",
   "label-chose-an-option": "Välj ett av alternativen",
@@ -109,10 +109,10 @@
   "placeholder-optional-question": "*Valfritt",
   "placeholder-optional": "Valfri",
 
-  "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik COVID-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
-  "exposed-yes-documented": "Ja, bekräftat COVID-19-fall",
-  "exposed-yes-undocumented": "Ja, sannolikt COVID-19-fall",
-  "exposed-both": "Ja, både bekräftat och sannolikt COVID-19-fall",
+  "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik covid-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
+  "exposed-yes-documented": "Ja, bekräftat covid-19-fall",
+  "exposed-yes-undocumented": "Ja, sannolikt covid-19-fall",
+  "exposed-both": "Ja, både bekräftat och sannolikt covid-19-fall",
   "exposed-no": "Inte vad jag vet",
 
   "housebound-problems": "Har du några hälsoproblem som gör att du har svårt att lämna hemmet?",
@@ -150,8 +150,8 @@
     "takes-sartan-blood-pressure-medication": "Tar du regelbundet blodtrycksmediciner där den aktiva substansen slutar på -sartan, t.ex. candesartan (t.ex. Candesartan®, Atacand®, Candexetil®) losartan (t.ex. Losartan®, Cozaar®), valsartan (Valsartan®, Diovan®) eller irbesartan (t.ex. Ibesartan®, Aprovel®)?"
   },
 
-  "previous-exposure-title": "Tidigare exponering för COVID-19",
-  "required-ever-exposed": "Ange om du har träffat någon med COVID-19-infektion",
+  "previous-exposure-title": "Tidigare exponering för covid-19",
+  "required-ever-exposed": "Ange om du har träffat någon med covid-19-infektion",
   "label-unwell-month-before": "Har du känt dig sjuk under månaden innan du började rapportera i denna app?",
 
   "label-past-symptoms": "Hade du någon av följande symtom (markera alla som stämde in på dig):",
@@ -177,12 +177,12 @@
   "past-symptom-changed-little-worse": "Blivit lite sämre",
   "past-symptom-changed-much-worse": "Blivit mycket sämre",
 
-  "title-health-worker-exposure": "Exponering för COVID-19 för vårdpersonal",
+  "title-health-worker-exposure": "Exponering för covid-19 för vårdpersonal",
   "health-worker-exposure-question-interacted-any-patients": "Har du det senaste dygnet träffat patienter (ej via telefon eller videolänk)?",
-  "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik COVID-19-infektion?",
-  "health-worker-exposure-picker-patient-interaction-yes-documented": "Ja, bekräftat COVID-19-fall",
-  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Ja, sannolikt COVID-19-fall",
-  "health-worker-exposure-picker-patient-interaction-yes-both": "Ja, både bekräftade och sannolika COVID-19-fall",
+  "health-worker-exposure-question-treated-patients-with-covid": "Har du det senaste dygnet personligen träffat patienter med bekräftad eller sannolik covid-19-infektion?",
+  "health-worker-exposure-picker-patient-interaction-yes-documented": "Ja, bekräftat covid-19-fall",
+  "health-worker-exposure-picker-patient-interaction-yes-suspected": "Ja, sannolikt covid-19-fall",
+  "health-worker-exposure-picker-patient-interaction-yes-both": "Ja, både bekräftade och sannolika covid-19-fall",
   "health-worker-exposure-picker-patient-interaction-no": "Inte vad jag vet",
 
   "health-worker-exposure-question-has-used-ppe-equipment": "Har du det senaste dygnet använt skyddsutrustning på arbetet *Beroende på särskilda krav på arbetsplatsen kan skyddsutrustning omfatta handskar, visir, andningsskydd, munskydd osv.",
@@ -352,8 +352,8 @@
 
   "where-are-you": {
     "question-location": "Var befinner du dig just nu?",
-    "picker-location-home": "Jag är hemma. Jag har inte haft kontakt med sjukvården pga att jag misstänker covid-19.",
-    "picker-location-hospital": "Jag är på sjukhuset pga misstänkt COVID-19.",
+    "picker-location-home": "Jag är hemma (eller på annan plats) men har inte varit på ett sjukhus pga misstänkt covid-19.",
+    "picker-location-hospital": "Jag är på sjukhuset pga misstänkt covid-19.",
     "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
     "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
   },
@@ -408,7 +408,7 @@
     "disclaimer-link": "1177.se",
     "tell-me-more": "Berätta mer",
     "visit-the-website": "Besök webbplatsen",
-    "see-how-your-area-is-affected": "Se hur ditt län påverkas av covid-19 just nu. Ditt deltagande är viktigt. Besök webbplatsen ",
+    "see-how-your-area-is-affected": "Ditt deltagande är viktigare än någonsin i kampen mot covid-19. Se hur våra studiedeltagares data används av forskarna.",
     "report-button": "Rapportera i dag, även om du är frisk",
     "how-you-can-help": {
       "title": "Så här kan du hjälpa till",
@@ -438,7 +438,7 @@
     "message": "Hjälp till att bromsa spridningen av #COVID19 och skydda de som tillhör en riskgrupp genom att själv rapportera dina symtom varje dag, även om du känner dig frisk 🙏. Ladda ned appen",
     "url": "https://covid19app.lu.se/",
     "primary-text": "Hjälp till att sprida appen",
-    "secondary-text": "Ju fler som rapporterar sina symtom, desto bättre kan vi skydda de som riskerar att bli allvarligt sjuka",
+    "secondary-text": "Ju fler som rapporterar hur de mår, desto bättre kan vi kartlägga smittspridningen av covid-19",
     "button-text": "Dela appen"
   },
 
@@ -466,7 +466,7 @@
   "faqs": "Vanliga frågor",
   "privacy-policy": "Integritetsmeddelande",
   "nav-edit-profile": "Redigera profil",
-  "nav-share-this-app": "Dela denna appen",
+  "nav-share-this-app": "Dela appen",
   "delete-my-data": "Ta bort mina uppgifter",
   "delete-data-alert-title": "Är du säker?",
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
@@ -574,7 +574,7 @@
     "location": {
       "title": "Min plats",
       "label": "Postnumret till din hemadress (t.ex. 205 02)",
-      "disclaimer": "itt postnummer används för att kartlägga hur covid-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
+      "disclaimer": "Ditt postnummer används för att kartlägga hur covid-19 sprids i Sverige. Du hittar information om hur dina data används i ZOEs integritetsmeddelande.",
       "not-current-address": "Rapporterar du från en annan plats än ovan?",
       "still-in-country": "Befinner du dig fortfarande i Sverige?",
       "other-postcode": "Ange det postnummer du vill rapportera från",
@@ -1334,7 +1334,10 @@
   "explore-trend-line": {
     "title": "",
     "delta-week": "",
-    "cta": ""
+    "cta": "",
+    "active-covid-cases": "",
+    "evolution-of": "",
+    "active-cases-in-your-area": ""
   },
 
   "search-lad": {
@@ -1378,16 +1381,6 @@
     "confirmed-cases": "",
     "children-being-reported-for": "",
     "child-being-reported-for": "",
-
-    "info": {
-      "title": "",
-      "text": "",
-      "cta-title": "",
-      "cta-text": "",
-      "cta-link": "",
-      "learn-more-title": "",
-      "learn-more-text": ""
-    },
 
     "intro": {
       "title": "",
@@ -1520,7 +1513,17 @@
       "more-details": "",
       "faq": "",
       "disclaimer": "",
-      "disclaimer2": ""
+      "disclaimer2": "",
+      "children-signed-up": "",
+      "entire-school": "",
+      "more-parents": "",
+      "more-parents-singular": "",
+      "reported-unwell": "",
+      "report-for-today": "",
+      "report-for-today-singular": ""
     }
+  },
+  "generic": {
+    "share-this-with-someone": "Share this with someone"
   }
 }

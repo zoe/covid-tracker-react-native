@@ -1,10 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog022, dataPage003, notificationReminders, timUpdate019, webinar } from '@assets';
+import { blog023, blog024, dataPage003, notificationReminders, timUpdate021 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -20,6 +19,7 @@ import ExpoPushTokenEnvironment from '@covid/core/push-notifications/expo';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -60,13 +60,15 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
         <SafeAreaView>
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.rootContainer}>
+              <View style={{ marginTop: 24 }}>
+                <BigGreenTickFilled />
+              </View>
+
               <Header>
                 <HeaderText style={styles.headerText}>{i18n.t('thank-you-uk.title')}</HeaderText>
               </Header>
 
-              <View>
-                <RegularText style={styles.subTitle}>{i18n.t('thank-you-uk.subtitle')}</RegularText>
-              </View>
+              <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
               <ExternalCallout
                 link="https://covid.joinzoe.com/your-contribution?utm_source=App"
@@ -77,25 +79,25 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://us02web.zoom.us/webinar/register/8116058673984/WN_a1NXbddxQsqDgwqXP-5ZRg"
-                calloutID="vaccine_webinar"
-                imageSource={webinar}
-                aspectRatio={1.21}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/did-lockdown-2-0-work-heres-whats-going-on-with-covid-19-across-the-country?utm_source=App"
-                calloutID="blog_022"
-                imageSource={blog022}
+                link="https://covid.joinzoe.com/post/vitamins-reduce-covid-risk?utm_source=App"
+                calloutID="blog_023"
+                imageSource={blog023}
                 aspectRatio={1.555}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=9WsLHvVFGD0"
-                calloutID="tim_update_019"
-                imageSource={timUpdate019}
+                link="https://covid.joinzoe.com/post/covid-vaccines-expert-questions?utm_source=App"
+                calloutID="blog_024"
+                imageSource={blog024}
+                aspectRatio={1.555}
+                screenName={this.props.route.name}
+              />
+
+              <ExternalCallout
+                link="https://www.youtube.com/watch?v=AGH8nInkA14"
+                calloutID="tim_update_021"
+                imageSource={timUpdate021}
                 aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
@@ -120,14 +122,12 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               {this.state.inviteToStudy && <InviteToStudy placement="ThankYouUK" />}
 
-              <View style={styles.content}>
-                <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
-              </View>
-
               <BrandedButton
                 onPress={() => assessmentCoordinator.gotoNextScreen(this.props.route.name)}
                 style={styles.ctaSingleProfile}>
-                <Text style={styles.ctaSingleProfileText}>{i18n.t('thank-you-uk.cta-single-profile')}</Text>
+                <RegularText style={styles.ctaSingleProfileText}>
+                  {i18n.t('thank-you-uk.cta-single-profile')}
+                </RegularText>
               </BrandedButton>
 
               <View style={styles.ctaMultipleProfile}>
@@ -148,7 +148,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
-    marginTop: 15,
   },
   subTitle: {
     textAlign: 'center',
@@ -156,15 +155,12 @@ const styles = StyleSheet.create({
   },
   signOff: {
     textAlign: 'center',
+    marginHorizontal: 18,
   },
   dateLabel: {
     textAlign: 'center',
     marginTop: -16,
     marginBottom: 8,
-  },
-  content: {
-    marginVertical: 32,
-    marginHorizontal: 18,
   },
   scrollView: {
     flexGrow: 1,
@@ -173,7 +169,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     alignSelf: 'center',
     maxWidth: 500,
-    padding: 10,
+    padding: 18,
   },
   socialIconContainer: {
     marginVertical: -10,
@@ -194,17 +190,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   ctaMultipleProfileText: {
-    color: colors.primary,
+    color: colors.purple,
   },
   ctaSingleProfileText: {
-    color: colors.primary,
+    color: colors.brand,
   },
   ctaSingleProfile: {
-    marginTop: 10,
-    marginBottom: 20,
-    marginHorizontal: 40,
+    marginVertical: 20,
+    paddingTop: 8,
     backgroundColor: colors.backgroundSecondary,
-    borderColor: colors.primary,
+    borderColor: colors.brand,
     borderWidth: 1,
   },
 });

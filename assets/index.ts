@@ -38,10 +38,12 @@ export const svPartners = require('./logos/sv_partners.png');
 export const svPartnersReturn = require('./logos/sv_partners_return.png');
 export const usPartners = require('./logos/us_partners.png');
 export const usPartnersReturn = require('./logos/us_partners_return.png');
+export const usPartnersDash = require('./logos/us_partners_dash.png');
 export const zoe = require('./logos/zoe.png');
 export const poweredByZoeSmall = require('./logos/powered_by_zoe_small.png');
 export const facebook = require('./logos/facebook.png');
 export const covidByZoeIcon = require('./logos/covid_app_by_zoe.png');
+export const createdByZoe = require('./logos/created-by-zoe.png');
 
 // Profiles
 export const addProfile = require('./profiles/add_profile.png');
@@ -64,17 +66,17 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog022 = require('./thank-you-modules/blog_022.png');
+export const blog023 = require('./thank-you-modules/blog_023.png');
+export const blog024 = require('./thank-you-modules/blog_024.png');
 export const incidence011 = require('./thank-you-modules/incidence_011.png');
-export const timUpdate019 = require('./thank-you-modules/tim_update_019.png');
+export const timUpdate021 = require('./thank-you-modules/tim_update_021.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const donate = require('./thank-you-modules/donate.png');
-export const infographicFacts = require('./thank-you-modules/infographic_facts.png');
-export const webinar = require('./thank-you-modules/webinar.png');
+export const webinarInvite = require('./thank-you-modules/webinar_invite.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');
@@ -87,3 +89,11 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
 export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
+
+// share svg
+export { default as ShareIcon } from './icons/Share';
+
+//
+export * from './icons/stats';
+export * from './icons/svgIcons';
+export { default as C19 } from './logos/C19';

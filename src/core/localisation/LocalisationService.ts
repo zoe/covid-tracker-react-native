@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import * as Localization from 'expo-localization';
 
 import i18n from '@covid/locale/i18n';
+import { ScreenName } from '@covid/core/Coordinator';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 import { ConfigType, getCountryConfig } from '../Config';
@@ -105,6 +106,10 @@ export class LocalisationService implements ILocalisationService {
     return i18n.locale;
   }
 }
+
+export const homeScreenName = (): ScreenName => {
+  return isGBCountry() ? 'Dashboard' : isUSCountry() ? 'DashboardUS' : 'WelcomeRepeat';
+};
 
 export const isUSCountry = () => LocalisationService.userCountry === 'US';
 export const isGBCountry = () => LocalisationService.userCountry === 'GB';

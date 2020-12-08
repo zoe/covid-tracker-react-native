@@ -94,10 +94,10 @@ export type ScreenParamList = {
   ValidationStudyConsent: { viewOnly: boolean };
 
   Dashboard: undefined;
+  DashboardUS: undefined;
   EstimatedCases: undefined;
 
   // School network
-  SchoolNetworkInfo: undefined;
   SchoolIntro: undefined;
   SchoolHowTo: { patientData: PatientData };
   SelectSchool: undefined;
@@ -109,6 +109,11 @@ export type ScreenParamList = {
   SchoolDashboard: { school: SubscribedSchoolStats };
   ConfirmSchool: { patientData: PatientData; school: SchoolModel };
   JoinHigherEducation: { patientData: PatientData };
+
+  //
+  Modal: undefined;
+  Main: undefined;
+  Share: undefined;
 
   // __HYGEN_INJECT_SCREEN_PARAMS_BELOW__
   Trendline: { lad?: string };

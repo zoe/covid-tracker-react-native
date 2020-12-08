@@ -859,7 +859,7 @@
   },
 
   "thank-you-uk": {
-    "title": "Thank you for reporting.",
+    "title": "Thank you for reporting",
     "subtitle": "Testing alone can't get us through this second wave. Log your health today to help us predict outbreaks.",
     "sign-off": "Thank you for helping our scientists to understand COVID-19 better, and provide analysis to the NHS daily.",
     "cta-single-profile": "Back to home screen",
@@ -1295,7 +1295,10 @@
   "explore-trend-line": {
     "title": "Estimated COVID cases in",
     "delta-week": "last week",
-    "cta": "Share"
+    "cta": "Share",
+    "active-covid-cases": "Active COVID cases",
+    "evolution-of": "Evolution of estimated active cases this month",
+    "active-cases-in-your-area": "Active cases in your area"
   },
 
   "search-lad": {
@@ -1322,8 +1325,8 @@
   },
 
   "covid-cases-map": {
-    "covid-in-x": "COVID in {{location}}",
-    "current-estimates": "Current estimates",
+    "covid-in-x": "Active COVID cases in {{location}}",
+    "current-estimates": "Current estimates of cases per million people",
     "active-cases-in-area": "Active cases\nin your area",
     "not-enough-contributors": "Not enough contributors\nin this area",
     "share": "Share your map",
@@ -1367,23 +1370,13 @@
   },
 
   "school-networks": {
-    "title": "My School Bubbles",
+    "title": "School status",
     "whole-school": "Whole school",
     "awaiting-members": "Awaiting more members",
     "no-cases": "No confirmed cases",
     "confirmed-cases": "confirmed cases",
     "children-being-reported-for": "children being reported for",
     "child-being-reported-for": "child being reported for",
-
-    "info": {
-      "title": "We now have launched our School Communities programme",
-      "text": "To help your child’s school better safeguard children, receive daily health insights for your child’s bubble whilst contributing to the UK's largest citizen science project to help understand COVID in children, get your headteacher onboard:",
-      "cta-title": "Ask the headteacher to register your school ",
-      "cta-text": "Send them the link below to get them started:",
-      "cta-link": "covid.joinzoe.com/schoolnetworks",
-      "learn-more-title": "To learn more about this new programme:",
-      "learn-more-text": "Read our blog post"
-    },
 
     "intro": {
       "title": "Connect your children to their School Bubble",
@@ -1518,7 +1511,17 @@
       "more-details": "More details",
       "faq": "FAQs",
       "disclaimer": "For more information about responding to COVID reports at school, please contact your school and read our ",
-      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk."
+      "disclaimer2": ". The school will inform you directly if they feel that your child is at risk.",
+      "children-signed-up": "children signed up",
+      "entire-school": "Entire school",
+      "more-parents": "more parents needed to sign up their children",
+      "more-parents-singular": "more parent needed to sign up their children",
+      "reported-unwell": "reported feeling unwell",
+      "report-for-today": "children reported for today",
+      "report-for-today-singular": "child reported for today"
     }
+  },
+  "generic": {
+    "share-this-with-someone": "Share this with someone"
   }
 }

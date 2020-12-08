@@ -23,25 +23,135 @@ export const colors: IColorPalettes = {
       fgColor: '#fff',
     },
   },
-  green: {
+  burgundy: {
     lighter: {
-      bgColor: '#E3F1DF',
-      fgColor: '#414F3E',
+      bgColor: '#C9A4BA',
+      fgColor: '#800044',
     },
     light: {
-      bgColor: '#BBE5B3',
-      fgColor: '#414F3E',
+      bgColor: '#C9A4BA',
+      fgColor: '#800044',
     },
     main: {
-      bgColor: '#50B83C',
+      bgColor: '#A10056',
       fgColor: '#fff',
     },
     dark: {
-      bgColor: '#108043',
+      bgColor: '#800044',
       fgColor: '#fff',
     },
     darker: {
-      bgColor: '#173630',
+      bgColor: '#800044',
+      fgColor: '#fff',
+    },
+  },
+  green: {
+    lighter: {
+      bgColor: '#C0D904',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#C0D904',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#C0D904',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#C0D904',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#C0D904',
+      fgColor: '#fff',
+    },
+  },
+  orange: {
+    lighter: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#FF9600',
+      fgColor: '#fff',
+    },
+  },
+  teal: {
+    lighter: {
+      bgColor: '#A8B8BF',
+      fgColor: '#023650',
+    },
+    light: {
+      bgColor: '#A8B8BF',
+      fgColor: '#023650',
+    },
+    main: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#023650',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#023650',
+      fgColor: '#fff',
+    },
+  },
+  ui: {
+    lighter: {
+      bgColor: '#ffffff', // primary
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#F7F7F7', // secondary
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#EEEEEF', // tertiary
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#E2E2E2', // quaternary
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#AAACAD',
+      fgColor: '#fff',
+    },
+  },
+  uiDark: {
+    lighter: {
+      bgColor: '#E2E2E2',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#AAACAD', // base quaternary
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#888B8C', // base tertiary
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#565A5C', // base secondary
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#24262B', // base primary
       fgColor: '#fff',
     },
   },
