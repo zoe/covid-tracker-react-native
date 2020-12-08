@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { View } from 'native-base';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -12,6 +13,7 @@ import { assessmentService } from '@covid/Services';
 import { USStudyInvite } from '@covid/components/USStudyInvite';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
+import { NewButton } from '@covid/components/NewButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -83,14 +85,13 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
             <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
           </TouchableOpacity>
 
-          <SelectorButton
-            onPress={() => handlePress(true)}
-            text={i18n.t('how-you-feel.picker-health-status-healthy')}
-          />
-          <SelectorButton
-            onPress={() => handlePress(false)}
-            text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
-          />
+          <View style={{ marginHorizontal: 16 }}>
+            <NewButton onPress={() => handlePress(true)} text={i18n.t('how-you-feel.picker-health-status-healthy')} />
+            <NewButton
+              onPress={() => handlePress(false)}
+              text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
+            />
+          </View>
         </>
       </Screen>
     </>

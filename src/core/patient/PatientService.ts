@@ -164,7 +164,6 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const shouldAskDoseSymptoms = patient.vaccine_status.status === VaccineStatus.ASK_DOSE_SYMPTOMS;
     const isMinor = isMinorAge(patient.year_of_birth);
 
-
     return {
       ...patientState,
       profile,

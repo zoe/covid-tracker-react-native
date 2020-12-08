@@ -17,7 +17,6 @@ import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
-import { VaccineData } from '@covid/core/vaccine/VaccineData';
 
 import { IProfileService } from '../profile/ProfileService';
 
