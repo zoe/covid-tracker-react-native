@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -10,6 +10,7 @@ import {
   ClickableText,
   Header3Text,
   HeaderText,
+  RegularBoldText,
   RegularText,
   SecondaryText,
 } from '@covid/components/Text';
@@ -25,6 +26,7 @@ type Props = {
 
 export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
+  const [showNewsletterButton, setShowNewsletterButton] = useState<boolean>(true);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -64,9 +66,21 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
                 discoveries. You can opt-out at any time, and will only receive science updates.
               </RegularText>
 
-              <BrandedButton onPress={() => {coordinator.signUpToNewsletter()}} style={styles.moreButton}>
-                Yes, I'd love to know more
-              </BrandedButton>
+              {showNewsletterButton && (
+                <BrandedButton
+                  onPress={() => {
+                    coordinator.signUpToNewsletter().then(() => setShowNewsletterButton(false));
+                  }}
+                  style={styles.moreButton}>
+                  Yes, I'd love to know more
+                </BrandedButton>
+              )}
+
+              {!showNewsletterButton && (
+                <RegularBoldText style={{ textAlign: 'center', marginBottom: 16, marginTop: 24 }}>
+                  {'\u2713 '}Great, keep an eye on your inbox!
+                </RegularBoldText>
+              )}
             </View>
           </BasicCard>
 

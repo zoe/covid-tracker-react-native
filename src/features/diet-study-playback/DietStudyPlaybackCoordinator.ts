@@ -46,7 +46,7 @@ class DietStudyPlaybackCoordinator extends Coordinator {
   };
 
   signUpToNewsletter() {
-    this.contentService.signUpForDietNewsletter();
+    return this.contentService.signUpForDietNewsletter();
   }
 }
 
