@@ -9,6 +9,7 @@ import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
+import Needle from '@assets/icons/Needle';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -27,9 +28,13 @@ export const VaccineThankYouScreen: React.FC<Props> = ({ route, navigation }) =>
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <View style={{ marginHorizontal: 16, marginTop: 36 }}>
-          <HeaderText>{i18n.t('vaccines.thank-you.title')}</HeaderText>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Needle height={64} width={64} />
+          </View>
 
-          <RegularText>{i18n.t('vaccines.thank-you.text')}</RegularText>
+          <HeaderText style={{ marginTop: 36, textAlign: 'center' }}>{i18n.t('vaccines.thank-you.title')}</HeaderText>
+
+          <RegularText style={{ marginTop: 36, textAlign: 'center' }}>{i18n.t('vaccines.thank-you.text')}</RegularText>
         </View>
       </Screen>
 
