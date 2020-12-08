@@ -22,8 +22,12 @@ type Props = {
 };
 
 export const VaccineTrialPlaceboScreen: React.FC<Props> = ({ route, navigation }) => {
-  const handlePress = async (placeboStatus: PlaceboStatus) => {
-    // Save vaccine placebo on screen
+  const handlePress = async (placebo: PlaceboStatus) => {
+    const vaccine = { placebo };
+    assessmentCoordinator.assessmentData.vaccineData = {
+      ...assessmentCoordinator.assessmentData.vaccineData!,
+      ...vaccine,
+    };
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 

@@ -8,7 +8,6 @@ import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 import { NewButton } from '@covid/components/NewButton';
 
@@ -20,7 +19,7 @@ type Props = {
 };
 
 export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
-  const handlePress = async (takenVaccine: string) => {
+  const handlePress = async (takenVaccine: boolean) => {
     assessmentCoordinator.gotoNextScreen(route.name, takenVaccine);
   };
 
@@ -32,14 +31,14 @@ export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
           <HeaderText>{i18n.t('vaccines.yes-no.title')}</HeaderText>
         </Header>
 
-        <View style={{ marginHorizontal: 16 }}>
-          <View style={{ marginVertical: 16 }}>
+        <View style={{ marginHorizontal: 16, marginVertical: 16 }}>
+          <View>
             <RegularText>{i18n.t('vaccines.yes-no.description')}</RegularText>
           </View>
 
           <Form style={{ flexGrow: 1 }}>
-            <NewButton onPress={() => handlePress('yes')} text={i18n.t('vaccines.yes-no.answer-yes')} />
-            <NewButton onPress={() => handlePress('no')} text={i18n.t('vaccines.yes-no.answer-no')} />
+            <NewButton onPress={() => handlePress(true)} text={i18n.t('vaccines.yes-no.answer-yes')} />
+            <NewButton onPress={() => handlePress(false)} text={i18n.t('vaccines.yes-no.answer-no')} />
           </Form>
         </View>
       </Screen>

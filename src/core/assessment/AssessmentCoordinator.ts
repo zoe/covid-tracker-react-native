@@ -16,13 +16,15 @@ import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
-import { VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineData } from '@covid/core/vaccine/VaccineData';
 
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
   assessmentId?: string;
   patientData: PatientData;
+  vaccineData?: VaccineRequest;
 };
 
 export class AssessmentCoordinator extends Coordinator {
@@ -62,8 +64,8 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    VaccineYesNo: (takenVaccine: string) => {
-      if (takenVaccine === 'yes') {
+    VaccineYesNo: (takenVaccine: boolean) => {
+      if (takenVaccine) {
         NavigatorService.navigate('VaccineTrialOrNational', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });

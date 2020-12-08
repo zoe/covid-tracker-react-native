@@ -10,7 +10,7 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
-import { VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { NewButton } from '@covid/components/NewButton';
 
@@ -22,8 +22,16 @@ type Props = {
 };
 
 export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigation }) => {
-  const handlePress = async (vaccineType: VaccineTypes) => {
-    assessmentCoordinator.gotoNextScreen(route.name, vaccineType);
+  const handlePress = async (vaccine_type: VaccineTypes) => {
+    const vaccine = { vaccine_type } as Partial<VaccineRequest>;
+
+    // Save vaccine_type in assessmentCoordinator for submission later
+    assessmentCoordinator.assessmentData.vaccineData = {
+      ...assessmentCoordinator.assessmentData.vaccineData!,
+      ...vaccine,
+    };
+
+    assessmentCoordinator.gotoNextScreen(route.name, vaccine_type);
   };
 
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
