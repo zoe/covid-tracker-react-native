@@ -8,11 +8,11 @@ import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { NewButton } from '@covid/components/NewButton';
+import { vaccineService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -30,6 +30,12 @@ export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigatio
       ...assessmentCoordinator.assessmentData.vaccineData!,
       ...vaccine,
     };
+
+    if (vaccine_type === VaccineTypes.COVID_VACCINE) {
+      // Save Vaccine to server
+      const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
+      await vaccineService.saveVaccineResponse(patientId, vaccine);
+    }
 
     assessmentCoordinator.gotoNextScreen(route.name, vaccine_type);
   };

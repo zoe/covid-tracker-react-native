@@ -6,7 +6,7 @@ export type VaccineRequest = {
   vaccine_type: VaccineTypes;
   brand: VaccineBrands | null;
   placebo: PlaceboStatus | null;
-  doses: Dose[];
+  doses: Partial<Dose>[];
 };
 
 export type Dose = {

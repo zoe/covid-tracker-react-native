@@ -8,11 +8,11 @@ import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 import { PlaceboStatus } from '@covid/core/vaccine/dto/VaccineRequest';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { NewButton } from '@covid/components/NewButton';
+import { vaccineService } from '@covid/Services';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -23,11 +23,17 @@ type Props = {
 
 export const VaccineTrialPlaceboScreen: React.FC<Props> = ({ route, navigation }) => {
   const handlePress = async (placebo: PlaceboStatus) => {
+    // Update state in assessmentCoordinator
     const vaccine = { placebo };
     assessmentCoordinator.assessmentData.vaccineData = {
       ...assessmentCoordinator.assessmentData.vaccineData!,
       ...vaccine,
     };
+
+    // Save Vaccine to server
+    const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
+    await vaccineService.saveVaccineResponse(patientId, vaccine);
+
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 
