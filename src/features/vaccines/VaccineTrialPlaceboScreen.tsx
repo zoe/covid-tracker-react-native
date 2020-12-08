@@ -11,8 +11,8 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { PlaceboStatus } from '@covid/core/vaccine/dto/VaccineRequest';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
-import { NewButton } from '@covid/components/NewButton';
 import { vaccineService } from '@covid/Services';
+import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -52,9 +52,15 @@ export const VaccineTrialPlaceboScreen: React.FC<Props> = ({ route, navigation }
 
         <View style={{ marginHorizontal: 16, marginVertical: 16 }}>
           <Form style={{ flexGrow: 1 }}>
-            <NewButton onPress={() => handlePress(PlaceboStatus.NO)} text={i18n.t('vaccines.placebo.answer-yes')} />
-            <NewButton onPress={() => handlePress(PlaceboStatus.YES)} text={i18n.t('vaccines.placebo.answer-no')} />
-            <NewButton
+            <SelectorButton
+              onPress={() => handlePress(PlaceboStatus.NO)}
+              text={i18n.t('vaccines.placebo.answer-yes')}
+            />
+            <SelectorButton
+              onPress={() => handlePress(PlaceboStatus.YES)}
+              text={i18n.t('vaccines.placebo.answer-no')}
+            />
+            <SelectorButton
               onPress={() => handlePress(PlaceboStatus.UNSURE)}
               text={i18n.t('vaccines.placebo.answer-unsure')}
             />

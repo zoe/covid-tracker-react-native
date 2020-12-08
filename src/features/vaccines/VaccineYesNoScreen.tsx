@@ -9,7 +9,7 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import { NewButton } from '@covid/components/NewButton';
+import { SelectorButton } from '@covid/components/SelectorButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -37,8 +37,8 @@ export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
           </View>
 
           <Form style={{ flexGrow: 1 }}>
-            <NewButton onPress={() => handlePress(true)} text={i18n.t('vaccines.yes-no.answer-yes')} />
-            <NewButton onPress={() => handlePress(false)} text={i18n.t('vaccines.yes-no.answer-no')} />
+            <SelectorButton onPress={() => handlePress(true)} text={i18n.t('vaccines.yes-no.answer-yes')} />
+            <SelectorButton onPress={() => handlePress(false)} text={i18n.t('vaccines.yes-no.answer-no')} />
           </Form>
         </View>
       </Screen>

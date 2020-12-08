@@ -10,7 +10,6 @@ import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { NewButton } from '@covid/components/NewButton';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -58,19 +57,19 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         </ProgressBlock>
 
         <View style={styles.content}>
-          <NewButton
+          <SelectorButton
             onPress={() => this.handleLocationSelection('home', true)}
             text={i18n.t('where-are-you.picker-location-home')}
           />
-          <NewButton
+          <SelectorButton
             onPress={() => this.handleLocationSelection('hospital', false)}
             text={i18n.t('where-are-you.picker-location-hospital')}
           />
-          <NewButton
+          <SelectorButton
             onPress={() => this.handleLocationSelection('back_from_hospital', false)}
             text={i18n.t('where-are-you.picker-location-back-from-hospital')}
           />
-          <NewButton
+          <SelectorButton
             onPress={() => this.handleLocationSelection('back_from_hospital', true)}
             text={i18n.t('where-are-you.picker-location-back-from-hospital-already-reported')}
           />
