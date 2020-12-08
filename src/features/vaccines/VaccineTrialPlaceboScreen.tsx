@@ -32,7 +32,7 @@ export const VaccineTrialPlaceboScreen: React.FC<Props> = ({ route, navigation }
 
     // Save Vaccine to server
     const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
-    await vaccineService.saveVaccineResponse(patientId, vaccine);
+    await vaccineService.saveVaccineResponse(patientId, assessmentCoordinator.assessmentData.vaccineData);
 
     assessmentCoordinator.gotoNextScreen(route.name);
   };

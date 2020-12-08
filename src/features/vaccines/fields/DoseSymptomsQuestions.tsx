@@ -11,10 +11,8 @@ import {
   createSymptomCheckboxes,
   DoseSymptomQuestions,
   SymptomCheckBoxData,
-  SymptomQuestions,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { FieldWrapper } from '@covid/components/Screen';
 
 export type DoesSymptomsData = DoesSymptomsCheckBoxData & DoesSymptomsFollowUpData;
 
@@ -52,8 +50,8 @@ export const DoesSymptomsQuestions: DoseSymptomQuestions<Props, DoesSymptomsData
   ];
 
   return (
-    <View style={{ marginVertical: 16 }}>
-      <RegularText style={{ paddingTop: 16 }}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
+    <View style={{ marginVertical: 8 }}>
+      <RegularText style={{ paddingBottom: 8 }}>{i18n.t('vaccines.dose-symptoms.check-all-that-apply')}</RegularText>
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
 
       {formikProps.values.other && (
