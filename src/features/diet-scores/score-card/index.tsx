@@ -1,34 +1,34 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 type TDirection = 'UP' | 'DOWN';
 
 interface IProps {
-  backgroundColor: string;
+  backgroundColor: any;
   children: ReactNode | ReactNode[] | ReactElement | ReactElement[];
   direction?: TDirection;
 }
 
 function ScoreCard({ backgroundColor, children, direction = 'DOWN' }: IProps) {
   return (
-    <View
+    <Animated.View
       style={[
         {
           alignItems: 'center',
           alignSelf: 'flex-start',
-          backgroundColor,
+          ...backgroundColor,
           borderRadius: 8,
           flexDirection: 'column',
           justifyContent: 'center',
-          paddingHorizontal: 20,
           paddingVertical: 8,
+          width: 60,
         },
         direction === 'DOWN' ? { marginBottom: 14 } : { marginTop: 14 },
       ]}>
-      <View
+      <Animated.View
         style={[
           {
-            backgroundColor,
+            ...backgroundColor,
             height: 20,
             position: 'absolute',
             transform: [{ rotate: '45deg' }],
@@ -38,7 +38,7 @@ function ScoreCard({ backgroundColor, children, direction = 'DOWN' }: IProps) {
         ]}
       />
       {children}
-    </View>
+    </Animated.View>
   );
 }
 

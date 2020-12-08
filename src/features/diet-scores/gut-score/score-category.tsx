@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { ScoreCard, SolidColorBar, Text } from '@covid/components';
+import { SolidColorBar, Text } from '@covid/components';
 
 interface IProps {
   active?: boolean;
@@ -18,13 +18,13 @@ function ScoreCategory({ active, statusColor, title }: IProps) {
       <View style={{ width: '100%' }}>
         <SolidColorBar backgroundColor={statusColor} />
       </View>
-      {active && (
+      {/* {active && (
         <View>
           <ScoreCard backgroundColor={statusColor} direction="UP">
             <Text textClass="pSmall">You</Text>
           </ScoreCard>
         </View>
-      )}
+      )} */}
     </View>
   );
 }
