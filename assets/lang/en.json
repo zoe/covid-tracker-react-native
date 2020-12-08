@@ -198,6 +198,7 @@
   "please-select-option": "Please select an option",
   "placeholder-optional-question": "*Optional",
   "placeholder-optional": "Optional",
+  "placeholder-max-500": "",
 
   "previous-exposure-title": "Previous exposure to COVID",
   "required-ever-exposed": "Please indicate if you've been exposed to someone with COVID-19 infection",
@@ -1290,7 +1291,7 @@
     "dose-symptoms": {
       "label": "About your recent vaccine",
       "title": "Are you experiencing any symptoms near the injection site?",
-      "question": "Check all that apply:",
+      "check-all-that-apply": "Check all that apply:",
       "pain": "Pain",
       "redness": "Redness",
       "swelling": "Swelling",

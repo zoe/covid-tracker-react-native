@@ -198,6 +198,7 @@
   "please-select-option": "Seleccione una opción",
   "placeholder-optional-question": "*Opcional",
   "placeholder-optional": "Opcional",
+  "placeholder-max-500": "",
 
   "previous-exposure-title": "Exposición anterior a COVID",
   "required-ever-exposed": "Indique si estuvo expuesto a alguien con infección por COVID-19",
@@ -1339,7 +1340,7 @@
       "dose-symptoms": {
         "label": "",
         "title": "",
-        "question": "",
+        "check-all-that-apply": "",
         "pain": "",
         "redness": "",
         "swelling": "",

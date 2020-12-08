@@ -1,5 +1,3 @@
-import { injectable } from 'inversify';
-
 import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { IVaccineRemoteClient } from '@covid/core/vaccine/VaccineApiClient';
 
