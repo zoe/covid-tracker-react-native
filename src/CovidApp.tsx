@@ -13,9 +13,9 @@ import { CountrySelectScreen } from '@covid/features/CountrySelectScreen';
 import { DrawerMenu } from '@covid/features/menu/DrawerMenu';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { SplashScreen } from '@covid/features/SplashScreen';
-import ThankYouScreen from '@covid/features/thank-you/ThankYouScreen';
+import ThankYouSEScreen from '@covid/features/thank-you/ThankYouSEScreen';
 import ThankYouUKScreen from '@covid/features/thank-you/ThankYouUKScreen';
-import ViralThankYouScreen from '@covid/features/thank-you/ViralThankYouScreen';
+import ThankYouUSScreen from '@covid/features/thank-you/ThankYouUSScreen';
 import CovidTestDetailScreen from '@covid/features/covid-tests/CovidTestDetailScreen';
 import HealthWorkerExposureScreen from '@covid/features/assessment/HealthWorkerExposureScreen';
 import ProfileBackDateScreen from '@covid/features/assessment/ProfileBackDateScreen';
@@ -223,8 +223,8 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
         <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
         <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
-        <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
-        <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={noHeader} />
+        <Stack.Screen name="ThankYouSE" component={ThankYouSEScreen} options={noHeader} />
+        <Stack.Screen name="ThankYouUS" component={ThankYouUSScreen} options={noHeader} />
         <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
         <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
         <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
