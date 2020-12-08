@@ -13,6 +13,7 @@ import { SelectorButton } from '@covid/components/SelectorButton';
 import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { colors } from '@theme';
 import InfoCircle from '@assets/icons/InfoCircle';
+import { InlineNeedle } from '@covid/components/InlineNeedle';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -40,7 +41,8 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
-          <View style={{ flexDirection: 'row', flex: 1 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <InlineNeedle />
             <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
           </View>
 

@@ -10,9 +10,10 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
+import { PlaceboStatus } from '@covid/core/vaccine/dto/VaccineRequest';
+import { InlineNeedle } from '@covid/components/InlineNeedle';
 
 import { ScreenParamList } from '../ScreenParamList';
-import { PlaceboStatus } from '@covid/core/vaccine/dto/VaccineRequest';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineTrialPlacebo'>;
@@ -30,7 +31,8 @@ export const VaccineTrialPlaceboScreen: React.FC<Props> = ({ route, navigation }
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
-          <View style={{ flexDirection: 'row', flex: 1 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <InlineNeedle />
             <RegularText>{i18n.t('vaccines.placebo.label')}</RegularText>
           </View>
 
@@ -39,9 +41,18 @@ export const VaccineTrialPlaceboScreen: React.FC<Props> = ({ route, navigation }
 
         <View style={{ marginHorizontal: 16, marginVertical: 16 }}>
           <Form style={{ flexGrow: 1 }}>
-            <SelectorButton onPress={() => handlePress(PlaceboStatus.NO)} text={i18n.t('vaccines.placebo.answer-yes')} />
-            <SelectorButton onPress={() => handlePress(PlaceboStatus.YES)} text={i18n.t('vaccines.placebo.answer-no')} />
-            <SelectorButton onPress={() => handlePress(PlaceboStatus.UNSURE)} text={i18n.t('vaccines.placebo.answer-unsure')} />
+            <SelectorButton
+              onPress={() => handlePress(PlaceboStatus.NO)}
+              text={i18n.t('vaccines.placebo.answer-yes')}
+            />
+            <SelectorButton
+              onPress={() => handlePress(PlaceboStatus.YES)}
+              text={i18n.t('vaccines.placebo.answer-no')}
+            />
+            <SelectorButton
+              onPress={() => handlePress(PlaceboStatus.UNSURE)}
+              text={i18n.t('vaccines.placebo.answer-unsure')}
+            />
           </Form>
         </View>
       </Screen>

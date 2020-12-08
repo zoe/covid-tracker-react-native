@@ -11,6 +11,7 @@ import i18n from '@covid/locale/i18n';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 import { VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { InlineNeedle } from '@covid/components/InlineNeedle';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -29,7 +30,8 @@ export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigatio
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
-          <View style={{ flexDirection: 'row', flex: 1 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <InlineNeedle />
             <RegularText>{i18n.t('vaccines.trial-or-national.label')}</RegularText>
           </View>
 
