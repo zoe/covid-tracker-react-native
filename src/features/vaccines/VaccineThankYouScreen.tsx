@@ -29,7 +29,7 @@ export const VaccineThankYouScreen: React.FC<Props> = ({ route, navigation }) =>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <View style={{ marginHorizontal: 16, marginTop: 36 }}>
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <Needle height={64} width={64} />
+            <Needle height={64} width={64} color={colors.brand} />
           </View>
 
           <HeaderText style={{ marginTop: 36, textAlign: 'center' }}>{i18n.t('vaccines.thank-you.title')}</HeaderText>
