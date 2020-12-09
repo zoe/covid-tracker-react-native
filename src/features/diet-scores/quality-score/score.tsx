@@ -32,7 +32,6 @@ function Score({
   title,
 }: IProps) {
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const animatedColorValue = useRef(new Animated.Value(0)).current;
   const { width } = Dimensions.get('window');
 
   const getToValue = () => {

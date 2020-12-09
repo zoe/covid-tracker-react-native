@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, Easing, View } from 'react-native';
 
-import { GradientColorBar, Text } from '@covid/components';
+import { Text } from '@covid/components';
 import { TStyleObject } from '@covid/utils/types';
 
 import DietScoreHeader from '../diet-score-header';

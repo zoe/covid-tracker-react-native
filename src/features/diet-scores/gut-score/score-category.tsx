@@ -18,13 +18,6 @@ function ScoreCategory({ active, statusColor, title }: IProps) {
       <View style={{ width: '100%' }}>
         <SolidColorBar backgroundColor={statusColor} />
       </View>
-      {/* {active && (
-        <View>
-          <ScoreCard backgroundColor={statusColor} direction="UP">
-            <Text textClass="pSmall">You</Text>
-          </ScoreCard>
-        </View>
-      )} */}
     </View>
   );
 }
