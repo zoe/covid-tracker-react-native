@@ -5,7 +5,6 @@ import { Text } from '@covid/components';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { RightArrow } from '@assets';
-import ChevronRight from '@assets/icons/ChevronRight';
 
 interface Props {
   primaryLabel: string;
@@ -64,7 +63,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
       <View>
         <TouchableOpacity onPress={onPress} style={{ alignItems: 'center', flexDirection: 'row' }}>
           <RightArrow />
-          <Text textClass="pMedium" colorPalette="burgundy" style={{ marginHorizontal: 8 }}>
+          <Text textClass="pMedium" colorPalette="burgundy" colorShade="main" inverted style={{ marginHorizontal: 8 }}>
             {ctaLabel}
           </Text>
         </TouchableOpacity>
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 16,
     marginVertical: 8,
-    paddingVertical: 32,
+    paddingVertical: 24,
     paddingHorizontal: 16,
   },
 
