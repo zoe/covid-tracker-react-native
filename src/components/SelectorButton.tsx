@@ -1,22 +1,26 @@
 import { Text } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { GestureResponderEvent, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { colors, fontStyles } from '@theme';
 
-import { BigButton, IButtonPress } from './BigButton';
 import { FieldWrapper } from './Screen';
 
-interface SelectorButtonProps {
+type IButtonPress = ((event: GestureResponderEvent) => void) | undefined;
+
+interface Props {
   onPress?: IButtonPress;
   text: string;
 }
 
-export const SelectorButton: React.FC<SelectorButtonProps> = (props) => (
+export const SelectorButton: React.FC<Props> = (props) => (
   <FieldWrapper style={styles.fieldWrapper}>
-    <BigButton onPress={props.onPress}>
-      <Text style={[fontStyles.bodyLight, styles.buttonText]}>{props.text}</Text>
-    </BigButton>
+    <TouchableOpacity onPress={props.onPress} testID="buttonTestID">
+      <View style={styles.bigButton}>
+        <Text style={[fontStyles.bodyReg, styles.buttonText]}>{props.text}</Text>
+      </View>
+    </TouchableOpacity>
   </FieldWrapper>
 );
 
@@ -26,6 +30,15 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: colors.primary,
+    color: colors.brand,
+    textAlign: 'center',
+  },
+
+  bigButton: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.brand,
+    backgroundColor: colors.white,
+    padding: 16,
   },
 });

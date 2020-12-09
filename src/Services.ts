@@ -4,6 +4,8 @@ import OfflineService from '@covid/core/offline/OfflineService';
 import PushNotificationService, {
   PushNotificationApiClient,
 } from '@covid/core/push-notifications/PushNotificationService';
+import { VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
+import { VaccineService } from '@covid/core/vaccine/VaccineService';
 
 import { AssessmentApiClient } from './core/assessment/AssessmentApiClient';
 import AssessmentService from './core/assessment/AssessmentService';
@@ -26,3 +28,6 @@ export const pushNotificationService = new PushNotificationService(
 const assessmentState = new ReduxAssessmentState();
 const assessmentApiClient = new AssessmentApiClient(apiClient);
 export const assessmentService = new AssessmentService(assessmentApiClient, assessmentState);
+
+const vaccineApiClient = new VaccineApiClient(apiClient);
+export const vaccineService = new VaccineService(vaccineApiClient);
