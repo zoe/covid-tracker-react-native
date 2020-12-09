@@ -25,7 +25,16 @@ function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }
   const getToValue = () => {
     const current = currentValue - minValue;
     const range = maxValue - minValue;
-    return current / range;
+    const percent = current / range;
+    if (percent < 0.25) {
+      return 0;
+    } else if (percent >= 0.25 && percent < 0.5) {
+      return 0.3;
+    } else if (percent >= 0.5 && percent < 0.75) {
+      return 0.6;
+    } else {
+      return 1;
+    }
   };
 
   const run = () => {
