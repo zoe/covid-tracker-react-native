@@ -72,6 +72,14 @@ export type ScreenParamList = {
   GutStomachSymptoms: { assessmentData: AssessmentData };
   OtherSymptoms: { assessmentData: AssessmentData };
 
+  // Vaccines
+  VaccineYesNo: { assessmentData: AssessmentData };
+  VaccineTrialOrNational: { assessmentData: AssessmentData };
+  VaccineTrialPlacebo: { assessmentData: AssessmentData };
+  VaccineDoseSymptoms: { assessmentData: AssessmentData };
+  VaccineThankYou: { assessmentData: AssessmentData };
+
+  // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
 

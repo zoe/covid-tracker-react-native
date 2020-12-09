@@ -95,6 +95,13 @@ import { GutStomachSymptomsScreen } from '@covid/features/assessment/GutStomachS
 import { OtherSymptomsScreen } from '@covid/features/assessment/OtherSymptomsScreen';
 import { MainNavigator } from '@covid/routes';
 import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
+import {
+  VaccineThankYouScreen,
+  VaccineTrialOrNationalScreen,
+  VaccineTrialPlaceboScreen,
+  VaccineYesNoScreen,
+  VaccineDoseSymptomsScreen,
+} from '@covid/features/vaccines';
 import { SearchLADScreen } from '@covid/features';
 // __HYGEN_INJECTED_IMPORTS_ABOVE__
 
@@ -251,6 +258,7 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="EstimatedCases" component={EstimatedCasesScreen} options={noHeader} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={noHeader} />
         <Stack.Screen name="NHSIntro" component={NHSIntroScreen} options={noHeader} />
+        <Stack.Screen name="DashboardUS" component={DashboardUSScreen} options={noHeader} />
         <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
         <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
         <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
@@ -262,7 +270,11 @@ export default class CovidApp extends Component<object, State> {
         <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
         <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
         <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
-
+        <Stack.Screen name="VaccineYesNo" component={VaccineYesNoScreen} options={noHeader} />
+        <Stack.Screen name="VaccineTrialOrNational" component={VaccineTrialOrNationalScreen} options={noHeader} />
+        <Stack.Screen name="VaccineTrialPlacebo" component={VaccineTrialPlaceboScreen} options={noHeader} />
+        <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
+        <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
         {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
         <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
         <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

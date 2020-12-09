@@ -18,12 +18,14 @@ import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
   assessmentId?: string;
   patientData: PatientData;
+  vaccineData?: VaccineRequest;
 };
 
 export class AssessmentCoordinator extends Coordinator {
@@ -47,10 +49,44 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      // After finishing with COVID Tests, we check to ask about Vaccines.
+      // Only UK Users above 16 years, will be eligible (shouldAskVaccineQuestions = True)
+      // After they've entered a Vaccine, they won't be asked again.
+      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
+      const currentPatient = this.patientData.patientState;
+      if (currentPatient.shouldAskVaccineQuestions) {
+        NavigatorService.navigate('VaccineYesNo', { assessmentData: this.assessmentData });
+      } else if (currentPatient.shouldAskDoseSymptoms) {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
     },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+    },
+    VaccineYesNo: (takenVaccine: boolean) => {
+      if (takenVaccine) {
+        NavigatorService.navigate('VaccineTrialOrNational', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
+    VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
+      if (vaccineType === VaccineTypes.COVID_TRIAL) {
+        NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+      }
+    },
+    VaccineTrialPlacebo: () => {
+      NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+    },
+    VaccineDoseSymptoms: () => {
+      NavigatorService.navigate('VaccineThankYou', { assessmentData: this.assessmentData });
+    },
+    VaccineThankYou: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     NHSTestDetail: () => {
       NavigatorService.goBack();

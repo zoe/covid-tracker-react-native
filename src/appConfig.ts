@@ -8,6 +8,7 @@ export default {
   patientVersion: '1.6.0',
   covidTestVersion: '1.2.0',
   dietStudyVersion: '1.0.0',
+  vaccineVersion: '1.0.0',
 
   nursesConsentVersionUS: 'v2',
   consentVersionUS: 'v1',

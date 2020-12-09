@@ -34,14 +34,14 @@ export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: conta
 
 type PatientHeaderProps = {
   profile: Profile;
-  navigation: StackNavigationProp<ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList>;
   simpleCallout?: boolean;
   type?: CallOutType;
   calloutTitle?: string;
 };
 
 type NavbarProps = {
-  navigation: StackNavigationProp<ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList>;
   rightComponent?: React.ReactNode;
 };
 
