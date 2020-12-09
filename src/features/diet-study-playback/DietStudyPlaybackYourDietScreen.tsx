@@ -29,8 +29,7 @@ export const DietStudyPlaybackYourDietScreen: React.FC<Props> = ({ route, naviga
           <SecondaryText style={styles.subtext}>
             This diet quality score is a measure of how healthy and balanced your diet is.
           </SecondaryText>
-
-          <QualityScore />
+          <QualityScore beforeScore={coordinator.dietScore.diet_score} duringScore={coordinator.dietScore.diet_score} />
 
           <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
 

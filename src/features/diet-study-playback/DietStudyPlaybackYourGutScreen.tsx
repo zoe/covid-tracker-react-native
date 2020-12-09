@@ -29,7 +29,10 @@ export const DietStudyPlaybackYourGutScreen: React.FC<Props> = ({ route, navigat
             This score measures the ratio of gut ‘friendly’ to gut ‘unfriendly’ foods.
           </SecondaryText>
 
-          <GutScore />
+          <GutScore
+            beforeScore={coordinator.dietScore.gut_friendly_score}
+            duringScore={coordinator.dietScore.gut_friendly_score}
+          />
 
           <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
 

@@ -37,6 +37,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
+import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -63,6 +64,9 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   @lazyInject(Services.DietStudy)
   dietStudyService: IDietStudyRemoteClient;
+
+  @lazyInject(Services.DietScore)
+  dietScoreService: IDietScoreRemoteClient;
 
   navigation: NavigationType;
   patientData: PatientData;
@@ -204,7 +208,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   startDietStudyPlaybackFlow(patientData: PatientData) {
-    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService);
+    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
     dietStudyPlaybackCoordinator.startDietStudyPlayback();
   }
 

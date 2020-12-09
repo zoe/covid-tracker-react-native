@@ -3,14 +3,18 @@ import React from 'react';
 import Score from './score';
 import { SContainerView } from './styles';
 
-function QualityScore() {
-  const minValue = 5;
-  const maxValue = 15;
-  const getRandomValue = () => minValue + Math.round(Math.random() * (maxValue - minValue));
+interface IProps {
+  beforeScore: number;
+  duringScore: number;
+  minValue?: number;
+  maxValue?: number;
+}
+
+function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }: IProps) {
   return (
     <SContainerView>
       <Score
-        currentValue={getRandomValue()}
+        currentValue={beforeScore}
         minValue={minValue}
         minValueLabel="Poor"
         maxValue={maxValue}
@@ -20,7 +24,7 @@ function QualityScore() {
         style={{ marginBottom: 48 }}
       />
       <Score
-        currentValue={getRandomValue()}
+        currentValue={duringScore}
         minValue={minValue}
         minValueLabel="Poor"
         maxValue={maxValue}

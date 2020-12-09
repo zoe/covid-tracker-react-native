@@ -3,21 +3,28 @@ import React from 'react';
 import { SContainerView } from './styles';
 import Score from './score';
 
-function GutScore() {
+interface IProps {
+  beforeScore: number;
+  duringScore: number;
+  minValue?: number;
+  maxValue?: number;
+}
+
+function GutScore({ beforeScore, duringScore, minValue = 0, maxValue = 10 }: IProps) {
   return (
     <SContainerView>
       <Score
-        currentValue={Math.round(Math.random() * 10)}
-        minValue={0}
-        maxValue={10}
+        currentValue={beforeScore}
+        minValue={minValue}
+        maxValue={maxValue}
         title="Before the pandemic"
         subTitle="February 2020"
         style={{ marginBottom: 48 }}
       />
       <Score
-        currentValue={Math.round(Math.random() * 10)}
-        minValue={0}
-        maxValue={10}
+        currentValue={duringScore}
+        minValue={minValue}
+        maxValue={maxValue}
         title="During the pandemic"
         subTitle="September - October 2020"
       />
