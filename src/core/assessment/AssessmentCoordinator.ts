@@ -76,14 +76,26 @@ export class AssessmentCoordinator extends Coordinator {
       if (vaccineType === VaccineTypes.COVID_TRIAL) {
         NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
       } else {
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+        NavigatorService.reset([
+          { name: homeScreenName() },
+          { name: 'SelectProfile', params: { assessmentFlow: true } },
+          { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData } },
+        ]);
       }
     },
     VaccineTrialPlacebo: () => {
-      NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+      NavigatorService.reset([
+        { name: homeScreenName() },
+        { name: 'SelectProfile', params: { assessmentFlow: true } },
+        { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData } },
+      ]);
     },
     VaccineDoseSymptoms: () => {
-      NavigatorService.navigate('VaccineThankYou', { assessmentData: this.assessmentData });
+      NavigatorService.reset([
+        { name: homeScreenName() },
+        { name: 'SelectProfile', params: { assessmentFlow: true } },
+        { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
+      ]);
     },
     VaccineThankYou: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
