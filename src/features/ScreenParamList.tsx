@@ -85,9 +85,9 @@ export type ScreenParamList = {
   DietStudyConsent: { dietStudyData: DietStudyData };
 
   // Completion screens
-  ThankYou: undefined;
+  ThankYouSE: undefined;
   ThankYouUK: undefined;
-  ViralThankYou: undefined;
+  ThankYouUS: undefined;
 
   ValidationStudyIntro: undefined;
   ValidationStudyInfo: undefined;
