@@ -36,6 +36,7 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
+import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -202,6 +203,11 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     dietStudyCoordinator.startDietStudy();
   }
 
+  startDietStudyPlaybackFlow(patientData: PatientData) {
+    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService);
+    dietStudyPlaybackCoordinator.startDietStudyPlayback();
+  }
+
   async startEditProfile(profile: Profile) {
     await this.setPatientByProfile(profile);
 
@@ -214,15 +220,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     editProfileCoordinator.init(patientData ?? this.patientData, this.userService);
     editProfileCoordinator.goToEditLocation();
   }
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (Object.keys(this.screenFlow).includes(screenName)) {
-      (this.screenFlow as ScreenFlow)[screenName]();
-    } else {
-      // We don't have nextScreen logic for this page. Explain loudly.
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
-  };
 
   async profileSelected(profile: Profile) {
     await this.setPatientByProfile(profile);
@@ -255,6 +252,10 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   goToDietStart() {
     this.startDietStudyFlow(this.patientData, true);
+  }
+
+  goToDietStudyPlayback() {
+    this.startDietStudyPlaybackFlow(this.patientData);
   }
 
   goToUKValidationStudy() {

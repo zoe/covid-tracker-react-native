@@ -5,7 +5,7 @@ import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPICont
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
-import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
 import { IContentApiClient } from '@covid/core/content/ContentApiClient';
@@ -23,6 +23,7 @@ export interface IContentService {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
+  signUpForDietNewsletter(): Promise<void>;
 }
 
 @injectable()
@@ -104,5 +105,9 @@ export default class ContentService implements IContentService {
 
   public searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse> {
     return this.apiClient.searchLAD(query, page, size);
+  }
+
+  public signUpForDietNewsletter(): Promise<void> {
+    return this.apiClient.signUpForDietNewsletter();
   }
 }

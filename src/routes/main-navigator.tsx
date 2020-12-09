@@ -82,6 +82,13 @@ import {
   YourWorkScreen,
 } from '@covid/features';
 import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
+import DietStudyPlaybackIntroScreen from '@covid/features/diet-study-playback/DietStudyPlaybackIntroScreen';
+import { DietStudyPlaybackGlobalScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGlobalScreen';
+import { DietStudyPlaybackDietQualityScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackDietQualityScreen';
+import { DietStudyPlaybackYourDietScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourDietScreen';
+import { DietStudyPlaybackGutHealthScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGutHealthScreen';
+import { DietStudyPlaybackYourGutScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourGutScreen';
+import { DietStudyPlaybackResearchScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackResearchScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -176,6 +183,19 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackIntro" component={DietStudyPlaybackIntroScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackGlobal" component={DietStudyPlaybackGlobalScreen} options={noHeader} />
+      <Stack.Screen
+        name="DietStudyPlaybackDietQuality"
+        component={DietStudyPlaybackDietQualityScreen}
+        options={noHeader}
+      />
+      <Stack.Screen name="DietStudyPlaybackYourDiet" component={DietStudyPlaybackYourDietScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
+
+
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

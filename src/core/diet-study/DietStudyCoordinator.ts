@@ -13,6 +13,7 @@ import { AsyncStorageService } from '../AsyncStorageService';
 
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
 import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { Coordinator } from '@covid/core/Coordinator';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -51,7 +52,7 @@ export type DietStudyData = {
   startedFromMenu: boolean;
 };
 
-export class DietStudyCoordinator {
+export class DietStudyCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   userService: IUserService;
@@ -161,14 +162,6 @@ export class DietStudyCoordinator {
       }
     } else {
       NavigatorService.navigate('DietStudyThankYou', this.dietStudyParam);
-    }
-  };
-
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (this.screenFlow[screenName]) {
-      this.screenFlow[screenName]();
-    } else {
-      console.error('[ROUTE] no next route found for:', screenName);
     }
   };
 }
