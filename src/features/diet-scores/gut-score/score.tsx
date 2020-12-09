@@ -40,7 +40,7 @@ function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }
   const run = () => {
     Animated.timing(animatedValue, {
       toValue: getToValue(),
-      delay: 6000,
+      delay: 500,
       duration: 1000,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: false,

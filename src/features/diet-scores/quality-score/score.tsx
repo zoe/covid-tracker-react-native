@@ -43,7 +43,7 @@ function Score({
   const run = () => {
     Animated.timing(animatedValue, {
       toValue: getToValue(),
-      delay: 5000,
+      delay: 500,
       duration: 1000,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: false,
