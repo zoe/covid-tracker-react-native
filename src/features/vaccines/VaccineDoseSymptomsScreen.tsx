@@ -41,7 +41,7 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Screen profile={currentPatient.profile}>
         <Header>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <InlineNeedle />

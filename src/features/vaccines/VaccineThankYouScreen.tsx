@@ -26,7 +26,7 @@ export const VaccineThankYouScreen: React.FC<Props> = ({ route, navigation }) =>
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={currentPatient.profile} navigation={navigation}>
+      <Screen profile={currentPatient.profile}>
         <View style={{ marginHorizontal: 16, marginTop: 36 }}>
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <Needle height={64} width={64} color={colors.brand} />
