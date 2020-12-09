@@ -4,9 +4,9 @@ export const colors = {
   predict: '#082A5D',
   accent: '#A0278F',
 
-  primary: '#565A5C',
-  secondary: '#888B8C',
-  tertiary: '#AAACAD',
+  primary: '#24262B',
+  secondary: '#565A5C',
+  tertiary: '#888B8C',
 
   backgroundPrimary: '#FFFFFF',
   backgroundSecondary: '#F7F7F7',
