@@ -45,8 +45,8 @@ class DietStudyPlaybackCoordinator extends Coordinator {
     NavigatorService.navigate('DietStudyPlaybackIntro');
   };
 
-  signUpToNewsletter() {
-    return this.contentService.signUpForDietNewsletter();
+  signUpToNewsletter(signup: boolean) {
+    return this.contentService.signUpForDietNewsletter(signup);
   }
 }
 

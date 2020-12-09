@@ -18,6 +18,7 @@ import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/Di
 import { colors, fontStyles } from '@theme';
 import { fallingFoodBackground } from '@assets';
 import { BasicCard } from '@covid/components/Cards/BasicCard';
+import Analytics, { events } from '@covid/core/Analytics';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackResearch'>;
@@ -69,7 +70,10 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
               {showNewsletterButton && (
                 <BrandedButton
                   onPress={() => {
-                    coordinator.signUpToNewsletter().then(() => setShowNewsletterButton(false));
+                    coordinator.signUpToNewsletter(true).then(() => {
+                      Analytics.track(events.DIET_STUDY_NEWSLETTER_SIGNUP);
+                      setShowNewsletterButton(false);
+                    });
                   }}
                   style={styles.moreButton}>
                   Yes, I'd love to know more
@@ -77,9 +81,20 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
               )}
 
               {!showNewsletterButton && (
-                <RegularBoldText style={{ textAlign: 'center', marginBottom: 16, marginTop: 24 }}>
-                  {'\u2713 '}Great, keep an eye on your inbox!
-                </RegularBoldText>
+                <>
+                  <RegularBoldText style={{ textAlign: 'center', marginBottom: 16, marginTop: 24 }}>
+                    {'\u2713 '}Great, keep an eye on your inbox!
+                  </RegularBoldText>
+                  <ClickableText
+                    style={{ textAlign: 'center', marginTop: 16 }}
+                    onPress={() => {
+                      coordinator.signUpToNewsletter(false).then(() => {
+                        setShowNewsletterButton(true);
+                      });
+                    }}>
+                    Opt-out of email updates
+                  </ClickableText>
+                </>
               )}
             </View>
           </BasicCard>
