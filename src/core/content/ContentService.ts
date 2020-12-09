@@ -23,7 +23,7 @@ export interface IContentService {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
-  signUpForDietNewsletter(): Promise<void>;
+  signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
 @injectable()
@@ -107,7 +107,7 @@ export default class ContentService implements IContentService {
     return this.apiClient.searchLAD(query, page, size);
   }
 
-  public signUpForDietNewsletter(): Promise<void> {
-    return this.apiClient.signUpForDietNewsletter();
+  public signUpForDietNewsletter(signup: boolean): Promise<void> {
+    return this.apiClient.signUpForDietNewsletter(signup);
   }
 }

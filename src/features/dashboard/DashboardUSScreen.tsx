@@ -14,12 +14,13 @@ import { dietStudyPlaybackReady, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
-import AnalyticsService from '@covid/core/Analytics';
+import AnalyticsService, { events } from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
 import { useSelector } from 'react-redux';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import Analytics from '@covid/core/Analytics';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -81,6 +82,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
         {showDietStudyPlayback && (
           <TouchableWithoutFeedback
             onPress={() => {
+              Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
               appCoordinator.goToDietStudyPlayback();
             }}>
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />

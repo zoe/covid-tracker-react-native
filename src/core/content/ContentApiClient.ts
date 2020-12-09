@@ -11,7 +11,7 @@ export interface IContentApiClient {
   getStartupInfo(): Promise<StartupInfo>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
-  signUpForDietNewsletter(): Promise<void>;
+  signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
 @injectable()
@@ -36,9 +36,9 @@ export class ContentApiClient implements IContentApiClient {
     return this.apiClient.get<LADSearchResponse>(`/search_lads?query=${query}&size=${size}&page=${page}`);
   }
 
-  signUpForDietNewsletter(): Promise<void> {
+  signUpForDietNewsletter(signup: boolean): Promise<void> {
     const infos = {
-      nutrition_newsletter: true,
+      nutrition_newsletter: signup,
     };
     return this.apiClient.patch(`/users/email_preference/`, infos);
   }
