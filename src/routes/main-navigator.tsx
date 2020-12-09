@@ -26,6 +26,13 @@ import {
   DietStudyThankYouScreen,
   DietStudyTypicalDietScreen,
   DietStudyYourLifestyleScreen,
+  DietStudyPlaybackIntroScreen,
+  DietStudyPlaybackGlobalScreen,
+  DietStudyPlaybackDietQualityScreen,
+  DietStudyPlaybackYourDietScreen,
+  DietStudyPlaybackGutHealthScreen,
+  DietStudyPlaybackYourGutScreen,
+  DietStudyPlaybackResearchScreen,
   EditLocationScreen,
   EditProfileScreen,
   EstimatedCasesScreen,
@@ -87,13 +94,6 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
-import DietStudyPlaybackIntroScreen from '@covid/features/diet-study-playback/DietStudyPlaybackIntroScreen';
-import { DietStudyPlaybackGlobalScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGlobalScreen';
-import { DietStudyPlaybackDietQualityScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackDietQualityScreen';
-import { DietStudyPlaybackYourDietScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourDietScreen';
-import { DietStudyPlaybackGutHealthScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGutHealthScreen';
-import { DietStudyPlaybackYourGutScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourGutScreen';
-import { DietStudyPlaybackResearchScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackResearchScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();

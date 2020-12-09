@@ -8,8 +8,6 @@ import { BackButton } from '@covid/components/PatientHeader';
 import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
-import { dietStudyPlaybackGlobal1, dietStudyPlaybackGlobal2, dietStudyPlaybackGlobal3 } from '@assets';
-import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourDiet'>;
@@ -70,13 +68,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: colors.brand,
   },
-  infoCards: {
-    width: '100%',
-    aspectRatio: 1200 / 1270,
-    height: undefined,
-    resizeMode: 'contain',
-    marginBottom: 48,
-  },
   titleText: {
     marginVertical: 16,
   },
@@ -85,9 +76,5 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginVertical: 16,
-  },
-  imageCard: {
-    padding: 0,
-    borderRadius: 20,
   },
 });

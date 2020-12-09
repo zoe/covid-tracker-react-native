@@ -113,8 +113,4 @@ const styles = StyleSheet.create({
   subtitle: {
     marginVertical: 16,
   },
-  imageCard: {
-    padding: 0,
-    borderRadius: 20,
-  },
 });

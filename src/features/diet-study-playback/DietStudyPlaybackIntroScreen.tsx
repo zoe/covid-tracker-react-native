@@ -5,7 +5,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
-import { BrandedButton, CaptionText, Header3Text, MutedText, RegularText, SecondaryText } from '@covid/components/Text';
+import { BrandedButton, CaptionText, Header3Text, RegularText, SecondaryText } from '@covid/components/Text';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
 import { BasicCard } from '@covid/components/Cards/BasicCard';
@@ -16,7 +16,7 @@ type Props = {
   route: RouteProp<ScreenParamList, 'DietStudyPlaybackIntro'>;
 };
 
-const DietStudyPlaybackIntroScreen: React.FC<Props> = ({ route, navigation }) => {
+export const DietStudyPlaybackIntroScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
 
   return (

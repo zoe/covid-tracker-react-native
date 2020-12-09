@@ -54,7 +54,6 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
               understand your overall diet quality before and during the pandemic.
             </RegularText>
 
-            {/*TODO OnPress*/}
             <ClickableText
               style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
               onPress={() => openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback')}>
@@ -114,9 +113,5 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginVertical: 16,
-  },
-  imageCard: {
-    padding: 0,
-    borderRadius: 20,
   },
 });
