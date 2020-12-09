@@ -83,7 +83,11 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
     },
     VaccineDoseSymptoms: () => {
-      NavigatorService.navigate('VaccineThankYou', { assessmentData: this.assessmentData });
+      NavigatorService.reset([
+        { name: homeScreenName() },
+        { name: 'SelectProfile', params: { assessmentFlow: true } },
+        { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
+      ]);
     },
     VaccineThankYou: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
