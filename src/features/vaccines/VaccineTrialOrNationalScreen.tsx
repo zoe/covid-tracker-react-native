@@ -9,7 +9,7 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { vaccineService } from '@covid/Services';
 import { SelectorButton } from '@covid/components/SelectorButton';
@@ -34,6 +34,7 @@ export const VaccineTrialOrNationalScreen: React.FC<Props> = ({ route, navigatio
     if (vaccine_type === VaccineTypes.COVID_VACCINE) {
       // Save Vaccine to server
       const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
+      vaccine.brand = VaccineBrands.PFIZER;
       await vaccineService.saveVaccineResponse(patientId, vaccine);
     }
 
