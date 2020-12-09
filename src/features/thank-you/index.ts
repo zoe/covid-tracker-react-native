@@ -1,3 +1,3 @@
-export { default as ThankYouScreen } from './ThankYouScreen';
+export { default as ThankYouSEScreen } from './ThankYouSEScreen';
 export { default as ThankYouUKScreen } from './ThankYouUKScreen';
-export { default as ViralThankYouScreen } from './ViralThankYouScreen';
+export { default as ThankYouUSScreen } from './ThankYouUSScreen';

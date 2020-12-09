@@ -9,7 +9,7 @@ import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { AreaStatsResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { IUserService } from '@covid/core/user/UserService';
-import { ClickableText, RegularText } from '@covid/components/Text';
+import { ClickableText, RegularBoldText, RegularText } from '@covid/components/Text';
 import BrandedSpinner from '@covid/components/Spinner';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { lazyInject } from '@covid/provider/services';
@@ -25,8 +25,8 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'ViralThankYou'>;
-  route: RouteProp<ScreenParamList, 'ViralThankYou'>;
+  navigation: StackNavigationProp<ScreenParamList, 'ThankYouUS'>;
+  route: RouteProp<ScreenParamList, 'ThankYouUS'>;
 };
 
 type State = {
@@ -124,7 +124,7 @@ const ThankYouModal: React.FC<{
   </Modal>
 );
 
-export default class ViralThankYouScreen extends Component<Props, State> {
+export default class ThankYouUSScreen extends Component<Props, State> {
   @lazyInject(Services.User)
   private userService: IUserService;
 
