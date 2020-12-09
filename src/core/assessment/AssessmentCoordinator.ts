@@ -6,10 +6,12 @@ import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContract
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import {
+  homeScreenName,
   ILocalisationService,
   isGBCountry,
   isSECountry,
   isUSCountry,
+  LocalisationService,
 } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
@@ -92,13 +94,13 @@ export class AssessmentCoordinator extends Coordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-    ViralThankYou: () => {
+    ThankYouUS: () => {
       NavigatorService.goBack();
     },
     ThankYouUK: () => {
       NavigatorService.goBack();
     },
-    ThankYou: () => {
+    ThankYouSE: () => {
       NavigatorService.goBack();
     },
     ReportForOther: () => {
@@ -233,13 +235,13 @@ export class AssessmentCoordinator extends Coordinator {
   }
 
   goToThankYouScreen() {
-    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
-    const thankYouScreen = isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
+    const homeScreen: ScreenName = homeScreenName();
+    const thankYouScreen: ScreenName = isUSCountry() ? 'ThankYouUS' : isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
     NavigatorService.reset([{ name: homeScreen }, { name: thankYouScreen }], 1);
   }
 
   resetToCreateProfile() {
-    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
+    const homeScreen: ScreenName = homeScreenName();
     NavigatorService.reset(
       [
         { name: homeScreen },
