@@ -62,8 +62,9 @@ import {
   SelectProfileScreen,
   SplashScreen,
   TermsOfUseUSScreen,
-  ThankYouScreen,
   ThankYouUKScreen,
+  ThankYouSEScreen,
+  ThankYouUSScreen,
   ThroatChestSymptomsScreen,
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
@@ -78,7 +79,6 @@ import {
   ValidationStudyConsentScreen,
   ValidationStudyInfoScreen,
   ValidationStudyIntroScreen,
-  ViralThankYouScreen,
   Welcome1Screen,
   Welcome2Screen,
   WelcomeRepeatScreen,
@@ -141,8 +141,8 @@ function MainNavigator() {
       <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
       <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
       <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
-      <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
-      <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={noHeader} />
+      <Stack.Screen name="ThankYouSE" component={ThankYouSEScreen} options={noHeader} />
+      <Stack.Screen name="ThankYouUS" component={ThankYouUSScreen} options={noHeader} />
       <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
       <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
       <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />

@@ -20,8 +20,8 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import { ScreenParamList } from '../ScreenParamList';
 
 type RenderProps = {
-  navigation: StackNavigationProp<ScreenParamList, 'ThankYou'>;
-  route: RouteProp<ScreenParamList, 'ThankYou'>;
+  navigation: StackNavigationProp<ScreenParamList, 'ThankYouSE'>;
+  route: RouteProp<ScreenParamList, 'ThankYouSE'>;
 };
 
 type State = {
@@ -34,7 +34,7 @@ const initialState = {
   shouldShowReminders: false,
 };
 
-export default class ThankYouScreen extends Component<RenderProps, State> {
+export default class ThankYouSEScreen extends Component<RenderProps, State> {
   private pushService: IPushTokenEnvironment = new ExpoPushTokenEnvironment();
 
   state = initialState;
