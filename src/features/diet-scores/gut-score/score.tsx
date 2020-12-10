@@ -20,12 +20,18 @@ interface IProps {
 
 function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }: IProps) {
   const animatedValue = useRef(new Animated.Value(0)).current;
+  const translateXValue = useRef(new Animated.Value(0)).current;
   const { width } = Dimensions.get('window');
 
-  const getToValue = () => {
+  const getPercentValue = () => {
     const current = currentValue - minValue;
     const range = maxValue - minValue;
     const percent = current / range;
+    return percent;
+  };
+
+  const getToValue = () => {
+    const percent = getPercentValue();
     if (percent < 0.25) {
       return 0;
     } else if (percent >= 0.25 && percent < 0.5) {
@@ -41,13 +47,21 @@ function Score({ currentValue, minValue, maxValue, style = {}, subTitle, title }
     Animated.timing(animatedValue, {
       toValue: getToValue(),
       delay: 500,
-      duration: 1000,
+      duration: 800,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: false,
+    }).start();
+    //
+    Animated.timing(translateXValue, {
+      toValue: getPercentValue(),
+      delay: 500,
+      duration: 800,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: false,
     }).start();
   };
 
-  const translateX = animatedValue.interpolate({
+  const translateX = translateXValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0, width - 64],
   });

@@ -30,8 +30,8 @@ export const DietStudyPlaybackYourGutScreen: React.FC<Props> = ({ route, navigat
           </SecondaryText>
 
           <GutScore
-            beforeScore={coordinator.dietScore.gut_friendly_score}
-            duringScore={coordinator.dietScore.gut_friendly_score}
+            beforeScore={coordinator.dietScore.pre_gut_friendly_score}
+            duringScore={coordinator.dietScore.post_gut_friendly_score}
           />
 
           <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>

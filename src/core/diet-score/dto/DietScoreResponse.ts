@@ -1,4 +1,6 @@
 export type TDietScoreResponse = {
-  diet_score: number;
-  gut_friendly_score: number;
+  post_diet_score: number;
+  post_gut_friendly_score: number;
+  pre_diet_score: number;
+  pre_gut_friendly_score: number;
 };

@@ -44,7 +44,7 @@ function Score({
     Animated.timing(animatedValue, {
       toValue: getToValue(),
       delay: 500,
-      duration: 1000,
+      duration: 800,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: false,
     }).start();

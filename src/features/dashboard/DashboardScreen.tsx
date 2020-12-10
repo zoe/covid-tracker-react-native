@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -106,8 +106,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             <SchoolNetworks schoolGroups={networks!} />
           </View>
         )}
-
-        <Button title="diet study" onPress={() => appCoordinator.goToDietStudyPlayback()} />
 
         {showTrendline && <TrendlineCard ctaOnPress={onExploreTrendline} />}
 
