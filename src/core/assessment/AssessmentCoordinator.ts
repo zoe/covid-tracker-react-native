@@ -8,10 +8,8 @@ import { AppCoordinator } from '@covid/features/AppCoordinator';
 import {
   homeScreenName,
   ILocalisationService,
-  isGBCountry,
   isSECountry,
   isUSCountry,
-  LocalisationService,
 } from '@covid/core/localisation/LocalisationService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
@@ -57,7 +55,7 @@ export class AssessmentCoordinator extends Coordinator {
       if (currentPatient.shouldAskVaccineQuestions) {
         NavigatorService.navigate('VaccineYesNo', { assessmentData: this.assessmentData });
       } else if (currentPatient.shouldAskDoseSymptoms) {
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
@@ -67,7 +65,7 @@ export class AssessmentCoordinator extends Coordinator {
     },
     VaccineYesNo: (takenVaccine: boolean) => {
       if (takenVaccine) {
-        NavigatorService.navigate('VaccineTrialOrNational', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
@@ -87,7 +85,7 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.reset([
         { name: homeScreenName() },
         { name: 'SelectProfile', params: { assessmentFlow: true } },
-        { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData } },
+        { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData, recordVaccine: true } },
       ]);
     },
     VaccineDoseSymptoms: () => {
@@ -265,6 +263,13 @@ export class AssessmentCoordinator extends Coordinator {
       ],
       2
     );
+  }
+
+  setVaccine(vaccine: Partial<VaccineRequest>) {
+    this.assessmentData.vaccineData = {
+      ...this.assessmentData.vaccineData!,
+      ...vaccine,
+    };
   }
 }
 
