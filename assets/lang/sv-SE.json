@@ -355,7 +355,7 @@
 
   "where-are-you": {
     "question-location": "Var befinner du dig just nu?",
-    "picker-location-home": "Jag är hemma (eller på annan plats) men har inte varit på ett sjukhus pga misstänkt covid-19.",
+    "picker-location-home": "Jag är hemma (eller på annan plats) och har inte varit på ett sjukhus pga misstänkt covid-19.",
     "picker-location-hospital": "Jag är på sjukhuset pga misstänkt covid-19.",
     "picker-location-back-from-hospital": "Jag har kommit hem från sjukhuset och jag vill gärna berätta om min behandling.",
     "picker-location-back-from-hospital-already-reported": "Jag har kommit hem från sjukhuset och jag har redan berättat om behandlingen jag fick."
