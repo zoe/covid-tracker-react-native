@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     height: 224,
     paddingTop: 10,
     paddingBottom: 15,
-    paddingHorizontal: 12,
     alignItems: 'center',
   },
   placeholder: {
