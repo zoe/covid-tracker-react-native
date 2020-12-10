@@ -56,9 +56,8 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     width: '100%',
     borderRadius: 16,
-    height: 224,
-    paddingTop: 10,
-    paddingBottom: 15,
+    minHeight: 224,
+    paddingVertical: 12,
     alignItems: 'center',
   },
   placeholder: {
