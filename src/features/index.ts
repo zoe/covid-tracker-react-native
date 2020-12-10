@@ -14,3 +14,5 @@ export * from './school-network';
 export { SplashScreen } from './SplashScreen';
 export * from './thank-you';
 export * from './validation-study';
+export * from './vaccines';
+export * from './diet-study-playback';

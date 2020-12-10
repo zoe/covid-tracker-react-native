@@ -88,6 +88,15 @@ export default class Screen extends Component<ScreenProps> {
             calloutTitle={this.props.calloutTitle}
           />
         );
+      } else if (profile && !this.props.navigation) {
+        return (
+          <PatientHeader
+            profile={profile}
+            simpleCallout={this.props.simpleCallout}
+            type={this.props.calloutType}
+            calloutTitle={this.props.calloutTitle}
+          />
+        );
       } else if (this.props.navigation && this.props.showBackButton) {
         return <NavHeader navigation={this.props.navigation} />;
       } else if (this.props.extendEdges) {

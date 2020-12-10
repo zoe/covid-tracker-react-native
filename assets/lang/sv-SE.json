@@ -108,6 +108,7 @@
   "please-select-option": "Välj ett alternativ",
   "placeholder-optional-question": "*Valfritt",
   "placeholder-optional": "Valfri",
+  "placeholder-max-500": "",
 
   "have-you-been-exposed": "Har du NÅGONSIN exponerats för en person med bekräftad eller sannolik covid-19-infektion (t.ex. kollega, familjemedlem eller annan)? Markera alla som är relevanta.",
   "exposed-yes-documented": "Ja, bekräftat covid-19-fall",
@@ -302,6 +303,7 @@
     "placeholder-temperature": "Ange temperatur",
     "picker-celsius": "°C",
     "picker-fahrenheit": "°F",
+    "general-chills": "Jag har frossa eller huttrar (känner mig kall)",
     "general-fatigue": "Ovanlig trötthet",
     "general-fatigue-follow-up": "Hur uttalad är din trötthet?",
     "general-fatigue-mild": "Lindrig trötthet",
@@ -312,6 +314,7 @@
     "general-skin-burning": "Konstig eller obehaglig känsla i huden, t.ex. stickningar, domningar eller en brännande känsla",
     "general-hair-loss": "Ovanligt håravfall",
     "general-muscle-pain": "Svår muskelsmärta eller -värk",
+    "general-joint-pain": "Ovanlig ledsmärta eller -värk",
     "general-feeling-down": "Jag känner mig nedstämd, håglös eller har en känsla av hopplöshet",
     "general-brain-fog": "Nedsatt koncentrationsförmåga eller minnesförmåga (hjärndimma/hjärntrötthet)",
     "general-delirium": "Förvirring, desorientering eller dåsighet",
@@ -1271,6 +1274,47 @@
       "callout-text": false,
       "callout-link-text": false,
       "menu-item": false
+    },
+
+    "vaccines": {
+      "yes-no": {
+        "title": "",
+        "description": "",
+        "answer-yes": "",
+        "answer-no": ""
+      },
+      "trial-or-national": {
+        "label": "",
+        "title": "",
+        "answer-national": "",
+        "answer-trial": ""
+      },
+      "placebo": {
+        "label": "",
+        "title": "",
+        "answer-yes": "",
+        "answer-no": "",
+        "answer-unsure": ""
+      },
+      "thank-you": {
+        "title": "",
+        "text": "",
+        "confirm": ""
+      },
+      "dose-symptoms": {
+        "label": "",
+        "title": "",
+        "check-all-that-apply": "",
+        "pain": "",
+        "redness": "",
+        "swelling": "",
+        "glands": "",
+        "warmth": "",
+        "itch": "",
+        "tenderness": "",
+        "other": "",
+        "next": ""
+      }
     },
 
     "nhs-study-intro": {

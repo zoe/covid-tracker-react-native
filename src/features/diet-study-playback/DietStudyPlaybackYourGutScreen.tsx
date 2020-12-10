@@ -84,13 +84,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: colors.brand,
   },
-  infoCards: {
-    width: '100%',
-    aspectRatio: 1200 / 1270,
-    height: undefined,
-    resizeMode: 'contain',
-    marginBottom: 48,
-  },
   titleText: {
     marginVertical: 16,
   },
@@ -99,9 +92,5 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginVertical: 16,
-  },
-  imageCard: {
-    padding: 0,
-    borderRadius: 20,
   },
 });

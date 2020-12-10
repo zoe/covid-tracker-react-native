@@ -3,6 +3,7 @@ import { Icon } from 'native-base';
 import React from 'react';
 import { View, StyleSheet, Image, StyleProp, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { NavigationProp } from '@react-navigation/native';
 
 import { colors } from '@theme';
 import { AvatarName, getAvatarByName } from '@covid/utils/avatar';
@@ -12,7 +13,6 @@ import { Profile } from '@covid/components/Collections/ProfileList';
 import { ScreenName } from '@covid/core/Coordinator';
 
 import { ClippedText, RegularText } from './Text';
-import { NavigationProp } from '@react-navigation/native';
 
 type BackButtonProps = {
   navigation: NavigationProp<ScreenParamList, ScreenName>;
@@ -36,14 +36,14 @@ export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: conta
 
 type PatientHeaderProps = {
   profile: Profile;
-  navigation: StackNavigationProp<ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList>;
   simpleCallout?: boolean;
   type?: CallOutType;
   calloutTitle?: string;
 };
 
 type NavbarProps = {
-  navigation: StackNavigationProp<ScreenParamList>;
+  navigation?: StackNavigationProp<ScreenParamList>;
   rightComponent?: React.ReactNode;
 };
 

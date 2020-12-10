@@ -19,6 +19,7 @@ import { colors, fontStyles } from '@theme';
 import { fallingFoodBackground } from '@assets';
 import { BasicCard } from '@covid/components/Cards/BasicCard';
 import Analytics, { events } from '@covid/core/Analytics';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackResearch'>;
@@ -50,8 +51,11 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
             the science:
           </RegularText>
 
-          {/*TODO OnPress*/}
-          <ClickableText style={{ ...fontStyles.bodySmallLight, color: colors.purple }} onPress={() => {}}>
+          <ClickableText
+            style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
+            onPress={() => {
+              openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback');
+            }}>
             {'\n\u279D '}The science behind these results
           </ClickableText>
 

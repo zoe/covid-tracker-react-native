@@ -5,17 +5,10 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
-import {
-  BrandedButton,
-  ClickableText,
-  Header3Text,
-  HeaderText,
-  RegularText,
-  SecondaryText,
-} from '@covid/components/Text';
+import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
-import { colors, fontStyles } from '@theme';
-import { dietStudyPlaybackGlobal1, dietStudyPlaybackGutDiagram, dietStudyPlaybackGutHeader } from '@assets';
+import { colors } from '@theme';
+import { dietStudyPlaybackGutDiagram, dietStudyPlaybackGutHeader } from '@assets';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
 
 type Props = {
@@ -104,13 +97,6 @@ const styles = StyleSheet.create({
   },
   subtext: {
     marginBottom: 16,
-  },
-  subtitle: {
-    marginVertical: 16,
-  },
-  imageCard: {
-    padding: 0,
-    borderRadius: 20,
   },
   diagram: {
     width: '100%',

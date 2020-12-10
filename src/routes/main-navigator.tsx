@@ -18,6 +18,7 @@ import {
   CreateNetworkGroupScreen,
   CreateProfileScreen,
   DashboardScreen,
+  DashboardUSScreen,
   DietStudyAboutYouScreen,
   DietStudyConsentScreen,
   DietStudyIntroScreen,
@@ -25,6 +26,13 @@ import {
   DietStudyThankYouScreen,
   DietStudyTypicalDietScreen,
   DietStudyYourLifestyleScreen,
+  DietStudyPlaybackIntroScreen,
+  DietStudyPlaybackGlobalScreen,
+  DietStudyPlaybackDietQualityScreen,
+  DietStudyPlaybackYourDietScreen,
+  DietStudyPlaybackGutHealthScreen,
+  DietStudyPlaybackYourGutScreen,
+  DietStudyPlaybackResearchScreen,
   EditLocationScreen,
   EditProfileScreen,
   EstimatedCasesScreen,
@@ -68,6 +76,11 @@ import {
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
   TrendlineScreen,
+  VaccineYesNoScreen,
+  VaccineTrialOrNationalScreen,
+  VaccineTrialPlaceboScreen,
+  VaccineDoseSymptomsScreen,
+  VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
@@ -81,14 +94,6 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
-import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
-import DietStudyPlaybackIntroScreen from '@covid/features/diet-study-playback/DietStudyPlaybackIntroScreen';
-import { DietStudyPlaybackGlobalScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGlobalScreen';
-import { DietStudyPlaybackDietQualityScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackDietQualityScreen';
-import { DietStudyPlaybackYourDietScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourDietScreen';
-import { DietStudyPlaybackGutHealthScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackGutHealthScreen';
-import { DietStudyPlaybackYourGutScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackYourGutScreen';
-import { DietStudyPlaybackResearchScreen } from '@covid/features/diet-study-playback/DietStudyPlaybackResearchScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -194,8 +199,11 @@ function MainNavigator() {
       <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
-
-
+      <Stack.Screen name="VaccineYesNo" component={VaccineYesNoScreen} options={noHeader} />
+      <Stack.Screen name="VaccineTrialOrNational" component={VaccineTrialOrNationalScreen} options={noHeader} />
+      <Stack.Screen name="VaccineTrialPlacebo" component={VaccineTrialPlaceboScreen} options={noHeader} />
+      <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
+      <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

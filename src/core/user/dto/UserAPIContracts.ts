@@ -255,7 +255,16 @@ export type PatientInfosRequest = {
   is_in_uk_nhs_asymptomatic_study: boolean;
 
   has_school_group: boolean;
+  should_ask_vaccine_questions: boolean;
+  vaccine_status: VaccineStatus;
 };
+
+export enum VaccineStatus {
+  DO_NOT_ASK = 'do_not_ask',
+  ASK_VACCINE_QUESTION = 'ask_about_vaccines',
+  ASK_DOSE_SYMPTOMS = 'ask_dose_symptoms',
+  HAS_VACCINES = 'has_vaccines',
+}
 
 export type TokenInfoRequest = {
   token: string;

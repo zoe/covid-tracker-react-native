@@ -23,6 +23,7 @@ import {
   dietStudyPlaybackGlobal3,
 } from '@assets';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
+import { openWebLink } from '@covid/utils/links';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackDietQuality'>;
@@ -53,8 +54,9 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
               understand your overall diet quality before and during the pandemic.
             </RegularText>
 
-            {/*TODO OnPress*/}
-            <ClickableText style={{ ...fontStyles.bodySmallLight, color: colors.purple }} onPress={() => {}}>
+            <ClickableText
+              style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
+              onPress={() => openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback')}>
               {'\n'}* Learn more about the Short Form FFQ tool developed by Cleghorn et al. that we used in this blog.
             </ClickableText>
           </DoctorSpeechCard>
@@ -111,9 +113,5 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginVertical: 16,
-  },
-  imageCard: {
-    padding: 0,
-    borderRadius: 20,
   },
 });
