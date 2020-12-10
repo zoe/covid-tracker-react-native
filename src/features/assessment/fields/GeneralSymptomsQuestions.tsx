@@ -20,6 +20,7 @@ export type GeneralSymptomsData = GeneralSymptomsCheckBoxData & GeneralSymptomsF
 
 type GeneralSymptomsCheckBoxData = {
   fever: boolean;
+  chills: boolean;
   fatigue: boolean;
   rash: boolean;
   blisters: boolean;
@@ -27,6 +28,7 @@ type GeneralSymptomsCheckBoxData = {
   skinBurning: boolean;
   hairLoss: boolean;
   musclePains: boolean;
+  jointPains: boolean;
   feelingDown: boolean;
   brainFog: boolean;
   delirium: boolean;
@@ -52,6 +54,7 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
   ];
 
   const checkboxes: SymptomCheckBoxData<GeneralSymptomsCheckBoxData, GeneralSymptomsFollowUpData>[] = [
+    { label: i18n.t('describe-symptoms.general-chills'), value: 'chills' },
     {
       label: i18n.t('describe-symptoms.general-fatigue'),
       value: 'fatigue',
@@ -70,6 +73,7 @@ export const GeneralSymptomsQuestions: SymptomQuestions<Props, GeneralSymptomsDa
     { label: i18n.t('describe-symptoms.general-skin-burning'), value: 'skinBurning' },
     { label: i18n.t('describe-symptoms.general-hair-loss'), value: 'hairLoss' },
     { label: i18n.t('describe-symptoms.general-muscle-pain'), value: 'musclePains' },
+    { label: i18n.t('describe-symptoms.general-joint-pain'), value: 'jointPains' },
     { label: i18n.t('describe-symptoms.general-feeling-down'), value: 'feelingDown' },
     { label: i18n.t('describe-symptoms.general-brain-fog'), value: 'brainFog' },
     { label: i18n.t('describe-symptoms.general-delirium'), value: 'delirium' },
@@ -129,6 +133,7 @@ GeneralSymptomsQuestions.initialFormValues = (defaultTemperatureUnit = 'C'): Gen
     fever: false,
     temperature: '',
     temperatureUnit: defaultTemperatureUnit,
+    chills: false,
     fatigue: false,
     fatigueFollowUp: '',
     rash: false,
@@ -137,6 +142,7 @@ GeneralSymptomsQuestions.initialFormValues = (defaultTemperatureUnit = 'C'): Gen
     skinBurning: false,
     hairLoss: false,
     musclePains: false,
+    jointPains: false,
     feelingDown: false,
     brainFog: false,
     delirium: false,
@@ -159,6 +165,7 @@ GeneralSymptomsQuestions.createAssessment = (
 ): Partial<AssessmentInfosRequest> => {
   let assessment: Partial<AssessmentInfosRequest> = {
     fever: formData.fever,
+    chills_or_shivers: formData.chills,
     fatigue: formData.fatigue ? formData.fatigueFollowUp : 'no',
     rash: formData.rash,
     blisters_on_feet: formData.blisters,
@@ -166,6 +173,7 @@ GeneralSymptomsQuestions.createAssessment = (
     skin_burning: formData.skinBurning,
     hair_loss: formData.hairLoss,
     unusual_muscle_pains: formData.musclePains,
+    unusual_joint_pains: formData.jointPains,
     feeling_down: formData.feelingDown,
     brain_fog: formData.brainFog,
     delirium: formData.delirium,

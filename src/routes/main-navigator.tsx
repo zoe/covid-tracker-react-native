@@ -18,6 +18,7 @@ import {
   CreateNetworkGroupScreen,
   CreateProfileScreen,
   DashboardScreen,
+  DashboardUSScreen,
   DietStudyAboutYouScreen,
   DietStudyConsentScreen,
   DietStudyIntroScreen,
@@ -68,6 +69,11 @@ import {
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
   TrendlineScreen,
+  VaccineYesNoScreen,
+  VaccineTrialOrNationalScreen,
+  VaccineTrialPlaceboScreen,
+  VaccineDoseSymptomsScreen,
+  VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
@@ -81,7 +87,6 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
-import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -176,6 +181,11 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
+      <Stack.Screen name="VaccineYesNo" component={VaccineYesNoScreen} options={noHeader} />
+      <Stack.Screen name="VaccineTrialOrNational" component={VaccineTrialOrNationalScreen} options={noHeader} />
+      <Stack.Screen name="VaccineTrialPlacebo" component={VaccineTrialPlaceboScreen} options={noHeader} />
+      <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
+      <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
