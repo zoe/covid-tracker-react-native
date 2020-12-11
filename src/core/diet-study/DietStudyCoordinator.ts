@@ -8,11 +8,11 @@ import { CallOutType } from '@covid/components/PatientHeader';
 import i18n from '@covid/locale/i18n';
 import { DietChangedOption } from '@covid/features/diet-study/fields/DietChangedQuestion';
 import { PatientData } from '@covid/core/patient/PatientData';
+import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 
 import { AsyncStorageService } from '../AsyncStorageService';
 
 import { IDietStudyRemoteClient } from './DietStudyApiClient';
-import { homeScreenName } from '@covid/core/localisation/LocalisationService';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
