@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
+    backgroundColor: colors.darkblue,
     marginTop: 32,
     marginBottom: 8,
     color: colors.brand,

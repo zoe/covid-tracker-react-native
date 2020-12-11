@@ -20,8 +20,9 @@ export const DoctorSpeechCard: React.FC<CardProps> = (c) => {
         </View>
         {c.children}
       </BasicCard>
-
-      <Image style={styles.avatar} source={doctorsAvatars} />
+      <View style={{ position: 'absolute', elevation: 5, backgroundColor: 'transparent' }}>
+        <Image style={styles.avatar} source={doctorsAvatars} />
+      </View>
     </View>
   );
 };
@@ -37,6 +38,5 @@ const styles = StyleSheet.create({
     width: 120,
     marginTop: 16,
     aspectRatio: 1.8,
-    position: 'absolute',
   },
 });

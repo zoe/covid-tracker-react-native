@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     top: 45,
   },
   button: {
+    backgroundColor: colors.darkblue,
     marginTop: 32,
     marginBottom: 8,
     color: colors.brand,

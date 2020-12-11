@@ -130,11 +130,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   nextButton: {
+    backgroundColor: colors.darkblue,
     marginTop: 32,
     marginBottom: 8,
     color: colors.brand,
   },
   moreButton: {
+    backgroundColor: colors.darkblue,
     marginTop: 8,
     color: colors.brand,
   },

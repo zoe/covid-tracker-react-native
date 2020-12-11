@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     color: colors.secondary,
   },
   button: {
+    backgroundColor: colors.darkblue,
     marginTop: 32,
     marginBottom: 8,
     color: colors.brand,
