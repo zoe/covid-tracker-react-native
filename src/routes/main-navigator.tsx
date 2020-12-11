@@ -18,6 +18,7 @@ import {
   CreateNetworkGroupScreen,
   CreateProfileScreen,
   DashboardScreen,
+  DashboardUSScreen,
   DietStudyAboutYouScreen,
   DietStudyConsentScreen,
   DietStudyIntroScreen,
@@ -61,18 +62,23 @@ import {
   SelectProfileScreen,
   SplashScreen,
   TermsOfUseUSScreen,
-  ThankYouScreen,
   ThankYouUKScreen,
+  ThankYouSEScreen,
+  ThankYouUSScreen,
   ThroatChestSymptomsScreen,
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
   TrendlineScreen,
+  VaccineYesNoScreen,
+  VaccineTrialOrNationalScreen,
+  VaccineTrialPlaceboScreen,
+  VaccineDoseSymptomsScreen,
+  VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
   ValidationStudyInfoScreen,
   ValidationStudyIntroScreen,
-  ViralThankYouScreen,
   Welcome1Screen,
   Welcome2Screen,
   WelcomeRepeatScreen,
@@ -81,7 +87,6 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
-import { DashboardUSScreen } from '@covid/features/dashboard/DashboardUSScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -136,8 +141,8 @@ function MainNavigator() {
       <Stack.Screen name="WhereAreYou" component={WhereAreYouScreen} options={noHeader} />
       <Stack.Screen name="TreatmentSelection" component={TreatmentSelectionScreen} options={noHeader} />
       <Stack.Screen name="TreatmentOther" component={TreatmentOtherScreen} options={noHeader} />
-      <Stack.Screen name="ThankYou" component={ThankYouScreen} options={noHeader} />
-      <Stack.Screen name="ViralThankYou" component={ViralThankYouScreen} options={noHeader} />
+      <Stack.Screen name="ThankYouSE" component={ThankYouSEScreen} options={noHeader} />
+      <Stack.Screen name="ThankYouUS" component={ThankYouUSScreen} options={noHeader} />
       <Stack.Screen name="ThankYouUK" component={ThankYouUKScreen} options={noHeader} />
       <Stack.Screen name="Login" component={LoginScreen} options={noHeader} />
       <Stack.Screen name="CreateProfile" component={CreateProfileScreen} options={noHeader} />
@@ -176,6 +181,11 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
+      <Stack.Screen name="VaccineYesNo" component={VaccineYesNoScreen} options={noHeader} />
+      <Stack.Screen name="VaccineTrialOrNational" component={VaccineTrialOrNationalScreen} options={noHeader} />
+      <Stack.Screen name="VaccineTrialPlacebo" component={VaccineTrialPlaceboScreen} options={noHeader} />
+      <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
+      <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

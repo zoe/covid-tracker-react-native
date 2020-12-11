@@ -6,8 +6,8 @@ import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContract
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
 import {
+  homeScreenName,
   ILocalisationService,
-  isGBCountry,
   isSECountry,
   isUSCountry,
 } from '@covid/core/localisation/LocalisationService';
@@ -16,12 +16,14 @@ import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
+import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
 
 export type AssessmentData = {
   assessmentId?: string;
   patientData: PatientData;
+  vaccineData?: VaccineRequest;
 };
 
 export class AssessmentCoordinator extends Coordinator {
@@ -45,10 +47,56 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      // After finishing with COVID Tests, we check to ask about Vaccines.
+      // Only UK Users above 16 years, will be eligible (shouldAskVaccineQuestions = True)
+      // After they've entered a Vaccine, they won't be asked again.
+      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
+      const currentPatient = this.patientData.patientState;
+      if (currentPatient.shouldAskVaccineQuestions) {
+        NavigatorService.navigate('VaccineYesNo', { assessmentData: this.assessmentData });
+      } else if (currentPatient.shouldAskDoseSymptoms) {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
     },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
+    },
+    VaccineYesNo: (takenVaccine: boolean) => {
+      if (takenVaccine) {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
+    VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
+      if (vaccineType === VaccineTypes.COVID_TRIAL) {
+        NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.reset([
+          { name: homeScreenName() },
+          { name: 'SelectProfile', params: { assessmentFlow: true } },
+          { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData } },
+        ]);
+      }
+    },
+    VaccineTrialPlacebo: () => {
+      NavigatorService.reset([
+        { name: homeScreenName() },
+        { name: 'SelectProfile', params: { assessmentFlow: true } },
+        { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData, recordVaccine: true } },
+      ]);
+    },
+    VaccineDoseSymptoms: () => {
+      NavigatorService.reset([
+        { name: homeScreenName() },
+        { name: 'SelectProfile', params: { assessmentFlow: true } },
+        { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
+      ]);
+    },
+    VaccineThankYou: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     NHSTestDetail: () => {
       NavigatorService.goBack();
@@ -56,13 +104,13 @@ export class AssessmentCoordinator extends Coordinator {
     TreatmentOther: () => {
       this.gotoEndAssessment();
     },
-    ViralThankYou: () => {
+    ThankYouUS: () => {
       NavigatorService.goBack();
     },
     ThankYouUK: () => {
       NavigatorService.goBack();
     },
-    ThankYou: () => {
+    ThankYouSE: () => {
       NavigatorService.goBack();
     },
     ReportForOther: () => {
@@ -197,13 +245,13 @@ export class AssessmentCoordinator extends Coordinator {
   }
 
   goToThankYouScreen() {
-    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
-    const thankYouScreen = isUSCountry() ? 'ViralThankYou' : isSECountry() ? 'ThankYou' : 'ThankYouUK';
+    const homeScreen: ScreenName = homeScreenName();
+    const thankYouScreen: ScreenName = isUSCountry() ? 'ThankYouUS' : isSECountry() ? 'ThankYouSE' : 'ThankYouUK';
     NavigatorService.reset([{ name: homeScreen }, { name: thankYouScreen }], 1);
   }
 
   resetToCreateProfile() {
-    const homeScreen: ScreenName = isGBCountry() ? 'Dashboard' : 'WelcomeRepeat';
+    const homeScreen: ScreenName = homeScreenName();
     NavigatorService.reset(
       [
         { name: homeScreen },
@@ -215,6 +263,13 @@ export class AssessmentCoordinator extends Coordinator {
       ],
       2
     );
+  }
+
+  setVaccine(vaccine: Partial<VaccineRequest>) {
+    this.assessmentData.vaccineData = {
+      ...this.assessmentData.vaccineData!,
+      ...vaccine,
+    };
   }
 }
 

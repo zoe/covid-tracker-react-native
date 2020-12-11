@@ -198,6 +198,7 @@
   "please-select-option": "Seleccione una opción",
   "placeholder-optional-question": "*Opcional",
   "placeholder-optional": "Opcional",
+  "placeholder-max-500": "",
 
   "previous-exposure-title": "Exposición anterior a COVID",
   "required-ever-exposed": "Indique si estuvo expuesto a alguien con infección por COVID-19",
@@ -344,6 +345,7 @@
     "placeholder-temperature": "Ingresar temperatura",
     "picker-celsius": "°C",
     "picker-fahrenheit": "°F",
+    "general-chills": "Los tiritónes (Se siente frío)",
     "general-fatigue": "Fatiga inusual",
     "general-fatigue-follow-up": "¿Como severo es su fatiga?",
     "general-fatigue-mild": "Fatiga leve",
@@ -354,6 +356,7 @@
     "general-skin-burning": "Sensaciones extraños desagradables en su piel como hormigueo o ardiente",
     "general-hair-loss": "Pérdida de pelo inusual",
     "general-muscle-pain": "Dolores fuertes y unusual en sus músculos",
+    "general-joint-pain": "El dolor en sus articulaciónes o dolor inusual",
     "general-feeling-down": "Se siente triste, depresivo o sin esparanza",
     "general-brain-fog": "La perdida de concentración o la memoria (niebla de cerebro)",
     "general-delirium": "Confusion, desorientacion, somnolencia",
@@ -1307,6 +1310,47 @@
       "callout-text": false,
       "callout-link-text": false,
       "menu-item": false
+    },
+
+    "vaccines": {
+      "yes-no": {
+        "title": "",
+        "description": "",
+        "answer-yes": "",
+        "answer-no": ""
+      },
+      "trial-or-national": {
+        "label": "",
+        "title": "",
+        "answer-national": "",
+        "answer-trial": ""
+      },
+      "placebo": {
+        "label": "",
+        "title": "",
+        "answer-yes": "",
+        "answer-no": "",
+        "answer-unsure": ""
+      },
+      "thank-you": {
+        "title": "",
+        "text": "",
+        "confirm": ""
+      },
+      "dose-symptoms": {
+        "label": "",
+        "title": "",
+        "check-all-that-apply": "",
+        "pain": "",
+        "redness": "",
+        "swelling": "",
+        "glands": "",
+        "warmth": "",
+        "itch": "",
+        "tenderness": "",
+        "other": "",
+        "next": ""
+      }
     },
 
     "nhs-study-intro": {
