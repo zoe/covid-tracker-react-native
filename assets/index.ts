@@ -67,6 +67,7 @@ export const notificationReminders = require('./thank-you-modules/notification_r
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
 export const blog025 = require('./thank-you-modules/blog_025.png');
+export const blog026 = require('./thank-you-modules/blog_026.png');
 export const incidence011 = require('./thank-you-modules/incidence_011.png');
 export const timUpdate022 = require('./thank-you-modules/tim_update_022.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
