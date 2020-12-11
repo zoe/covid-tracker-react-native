@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3 } from '@assets';
+import { shareAppV3, webinar_dec_09 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -91,6 +91,14 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <ExternalCallout
+          link="https://www.youtube.com/watch?v=RFucRBhp9DU&feature=youtu.be"
+          calloutID="webinar_dec_09"
+          imageSource={webinar_dec_09}
+          aspectRatio={1.21}
+          screenName={route.name}
+        />
+
         {hasNetworkData && (
           <View
             style={{
