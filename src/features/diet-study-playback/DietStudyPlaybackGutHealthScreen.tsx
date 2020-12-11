@@ -5,13 +5,7 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
-import {
-  BrandedButton,
-  Header3Text,
-  HeaderText,
-  RegularText,
-  SecondaryText,
-} from '@covid/components/Text';
+import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
 import { dietStudyPlaybackGutDiagram, dietStudyPlaybackGutHeader } from '@assets';

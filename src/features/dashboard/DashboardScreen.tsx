@@ -98,7 +98,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           aspectRatio={1.079}
           screenName={route.name}
         />
-
         {hasNetworkData && (
           <View
             style={{
@@ -113,7 +112,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         <EstimatedCasesMapCard />
 
         <UKEstimatedCaseCard onPress={onMoreDetails} />
-
 
         <ExternalCallout
           calloutID="sharev3"

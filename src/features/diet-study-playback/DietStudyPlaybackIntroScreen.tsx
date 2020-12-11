@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -10,6 +10,9 @@ import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/Di
 import { colors } from '@theme';
 import { BasicCard } from '@covid/components/Cards/BasicCard';
 import { doctorsAvatars, QuoteMarks } from '@assets';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackIntro'>;

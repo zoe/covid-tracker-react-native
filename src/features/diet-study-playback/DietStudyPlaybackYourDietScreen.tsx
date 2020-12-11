@@ -1,13 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
 import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } from '@covid/components/Text';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
+import { QualityScore } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourDiet'>;
@@ -26,8 +27,10 @@ export const DietStudyPlaybackYourDietScreen: React.FC<Props> = ({ route, naviga
           <SecondaryText style={styles.subtext}>
             This diet quality score is a measure of how healthy and balanced your diet is.
           </SecondaryText>
-
-          {/*TODO Add dynamic component here*/}
+          <QualityScore
+            beforeScore={coordinator.dietScore.pre_diet_score}
+            duringScore={coordinator.dietScore.post_diet_score}
+          />
 
           <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
 

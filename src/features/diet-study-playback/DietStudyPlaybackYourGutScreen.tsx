@@ -9,6 +9,7 @@ import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } fr
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
+import { GutScore } from '@covid/features';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourGut'>;
@@ -28,7 +29,10 @@ export const DietStudyPlaybackYourGutScreen: React.FC<Props> = ({ route, navigat
             This score measures the ratio of gut ‘friendly’ to gut ‘unfriendly’ foods.
           </SecondaryText>
 
-          {/*TODO Add dynamic component here*/}
+          <GutScore
+            beforeScore={coordinator.dietScore.pre_gut_friendly_score}
+            duringScore={coordinator.dietScore.post_gut_friendly_score}
+          />
 
           <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
 
