@@ -1024,6 +1024,7 @@
     },
 
     "covid-test": {
+      "question-is-rapid-test": false,
       "question-invite-to-test": false
     },
 
