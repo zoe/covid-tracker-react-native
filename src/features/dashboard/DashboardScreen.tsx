@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, webinar_dec_09 } from '@assets';
+import { blog026, shareAppV3, webinar_dec_09 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -92,10 +92,18 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
+          link="https://covid.joinzoe.com/post/covid-vaccine-questions?utm_source=App"
+          calloutID="blog_026"
+          imageSource={blog026}
+          aspectRatio={1033 / 600}
+          screenName={route.name}
+        />
+
+        <ExternalCallout
           link="https://www.youtube.com/watch?v=RFucRBhp9DU&feature=youtu.be"
           calloutID="webinar_dec_09"
           imageSource={webinar_dec_09}
-          aspectRatio={1.21}
+          aspectRatio={1376 / 800}
           screenName={route.name}
         />
 
