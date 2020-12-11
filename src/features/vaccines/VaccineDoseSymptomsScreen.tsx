@@ -14,6 +14,7 @@ import { vaccineService } from '@covid/Services';
 import { colors } from '@theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
+import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -27,21 +28,29 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (formData: DoesSymptomsData) => {
-    setSubmitting(true);
-
-    const payload = DoesSymptomsQuestions.createDoseSymptoms(formData);
-    const patientId = assessmentCoordinator.assessmentData.patientData.patientId;
-
-    // TODO: Catch errors
-    await vaccineService.saveDoseSymptoms(patientId, payload);
-    assessmentCoordinator.gotoNextScreen(route.name);
+    if (!isSubmitting) {
+      setSubmitting(true);
+      const patientId = route.params.assessmentData.patientData.patientId;
+      try {
+        if (route.params.recordVaccine) {
+          await vaccineService.saveVaccineResponse(patientId, route.params.assessmentData.vaccineData!);
+        }
+        const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
+        await vaccineService.saveDoseSymptoms(patientId, dosePayload);
+      } catch (e) {
+        setErrorMessage(i18n.t('something-went-wrong'));
+        //TODO Show error message toast?
+      } finally {
+        assessmentCoordinator.gotoNextScreen(route.name);
+      }
+    }
   };
 
   const registerSchema = Yup.object().shape({}).concat(DoesSymptomsQuestions.schema());
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+  const currentPatient = route.params.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
-      <Screen profile={currentPatient.profile}>
+      <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <InlineNeedle />
@@ -66,7 +75,11 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
                   </View>
 
                   <View style={{ flex: 1 }} />
-                  <BrandedButton style={styles.continueButton} onPress={props.handleSubmit} hideLoading={isSubmitting}>
+                  <BrandedButton
+                    style={styles.continueButton}
+                    onPress={props.handleSubmit}
+                    enable={!isSubmitting}
+                    hideLoading={!isSubmitting}>
                     <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
                   </BrandedButton>
                 </Form>

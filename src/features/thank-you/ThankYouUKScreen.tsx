@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog023, blog024, dataPage003, notificationReminders, timUpdate021 } from '@assets';
+import { blog025, dataPage003, notificationReminders, timUpdate022, webinar_dec_09 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -79,25 +79,25 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/vitamins-reduce-covid-risk?utm_source=App"
-                calloutID="blog_023"
-                imageSource={blog023}
+                link="https://covid.joinzoe.com/post/covid-asymptomatic-classic-symptoms?utm_source=App"
+                calloutID="blog_025"
+                imageSource={blog025}
                 aspectRatio={1.555}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-vaccines-expert-questions?utm_source=App"
-                calloutID="blog_024"
-                imageSource={blog024}
-                aspectRatio={1.555}
+                link="https://www.youtube.com/watch?v=RFucRBhp9DU&feature=youtu.be"
+                calloutID="webinar_dec_09"
+                imageSource={webinar_dec_09}
+                aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=AGH8nInkA14"
-                calloutID="tim_update_021"
-                imageSource={timUpdate021}
+                link="https://www.youtube.com/watch?v=XJBPiGwItPE&feature=youtu.be"
+                calloutID="tim_update_022"
+                imageSource={timUpdate022}
                 aspectRatio={1.21}
                 screenName={this.props.route.name}
               />

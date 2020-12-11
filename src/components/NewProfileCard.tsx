@@ -13,7 +13,6 @@ export const NewProfileCard: React.FC = () => {
     <Card style={styles.card} transparent>
       <Image source={addProfile} style={styles.addImage} resizeMode="contain" />
       <RegularText>{i18n.t('select-profile-button')}</RegularText>
-      <View style={{ height: 14 }} />
     </Card>
   );
 };
@@ -22,15 +21,15 @@ const styles = StyleSheet.create({
   addImage: {
     width: '100%',
     height: 130,
-    marginBottom: 10,
+    marginBottom: 16,
   },
   card: {
     backgroundColor: colors.white,
+    shadowRadius: 0,
     width: '100%',
     borderRadius: 16,
-    height: 224,
+    minHeight: 224,
     paddingVertical: 12,
-    paddingHorizontal: 12,
     alignItems: 'center',
   },
 });

@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, webinarInvite } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -91,13 +91,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ExternalCallout
-          link="https://us02web.zoom.us/webinar/register/4716069965500/WN_0FyYubk1SMGe58xH2Ee9cw"
-          calloutID="webinar_invite_dec_09"
-          imageSource={webinarInvite}
-          aspectRatio={1.079}
-          screenName={route.name}
-        />
         {hasNetworkData && (
           <View
             style={{

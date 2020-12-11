@@ -1262,9 +1262,9 @@
   "vaccines": {
     "yes-no": {
       "title": "Your COVID-19 vaccines",
-      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nIf you are part of a trial and had an injection, even of a placebo, answer yes below.",
-      "answer-yes": "Yes, I’ve had a COVID-19 vaccine or placebo injection",
-      "answer-no": "No, I’ve never had a COVID-19 vaccine or placebo injection"
+      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.",
+      "answer-yes": "Yes, I’ve had a COVID-19 vaccine",
+      "answer-no": "No, I’ve never had a COVID-19 vaccine"
     },
 
     "trial-or-national": {
@@ -1283,7 +1283,7 @@
     },
 
     "thank-you": {
-      "title": "Please provide daily health reports following your COVID-19 vaccination",
+      "title": "Thank you.\nPlease continue to provide daily health reports following your COVID-19 vaccination ",
       "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
       "confirm": "Start daily report"
     },

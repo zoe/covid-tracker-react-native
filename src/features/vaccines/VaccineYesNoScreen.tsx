@@ -10,6 +10,7 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { SelectorButton } from '@covid/components/SelectorButton';
+import { VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -19,11 +20,23 @@ type Props = {
 };
 
 export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
+  const coordinator = assessmentCoordinator;
+
   const handlePress = async (takenVaccine: boolean) => {
-    assessmentCoordinator.gotoNextScreen(route.name, takenVaccine);
+    if (takenVaccine) {
+      const vaccine: Partial<VaccineRequest> = {
+        vaccine_type: VaccineTypes.COVID_VACCINE,
+        brand: VaccineBrands.PFIZER,
+      };
+
+      // Save vaccine in coordinator for submission later
+      coordinator.setVaccine(vaccine);
+    }
+
+    coordinator.gotoNextScreen(route.name, takenVaccine);
   };
 
-  const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+  const currentPatient = route.params.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
