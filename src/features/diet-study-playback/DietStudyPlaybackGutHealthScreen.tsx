@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -18,10 +18,10 @@ type Props = {
 
 export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
-
+  const { width } = Dimensions.get('window');
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={[styles.scrollView, { paddingTop: width * 0.68 }]}>
         <View style={styles.rootContainer}>
           <HeaderText style={styles.titleText}>Let’s go one step further & dive into gut health</HeaderText>
           <SecondaryText style={styles.subtext}>
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
     justifyContent: 'space-between',
-    paddingTop: 200,
   },
   rootContainer: {
     paddingHorizontal: 16,

@@ -1,13 +1,12 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
 import {
   BrandedButton,
-  CaptionText,
   ClickableText,
   Header3Text,
   HeaderText,
@@ -16,12 +15,7 @@ import {
 } from '@covid/components/Text';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors, fontStyles } from '@theme';
-import {
-  dietStudyPlaybackFoodHeader,
-  dietStudyPlaybackGlobal1,
-  dietStudyPlaybackGlobal2,
-  dietStudyPlaybackGlobal3,
-} from '@assets';
+import { dietStudyPlaybackFoodHeader } from '@assets';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
 import { openWebLink } from '@covid/utils/links';
 
@@ -32,10 +26,11 @@ type Props = {
 
 export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
+  const { width } = Dimensions.get('window');
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={[styles.scrollView, { paddingTop: width * 0.68 }]}>
         <View style={styles.rootContainer}>
           <HeaderText style={styles.titleText}>Diet quality impacts our long-term health</HeaderText>
           <SecondaryText style={styles.subtext}>
@@ -80,7 +75,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
     justifyContent: 'space-between',
-    paddingTop: 200,
   },
   rootContainer: {
     paddingHorizontal: 16,
@@ -100,7 +94,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     width: '100%',
-    aspectRatio: 1200 / 714,
+    aspectRatio: 1.6806722689 / 1,
     height: undefined,
     resizeMode: 'contain',
     position: 'absolute',
