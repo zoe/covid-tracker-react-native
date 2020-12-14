@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import {
@@ -69,10 +69,17 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
                   </View>
 
                   <View style={{ flex: 1 }} />
+
+                  {!!Object.keys(props.errors).length && (
+                    <View style={{ marginHorizontal: 16, marginBottom: 24 }}>
+                      <ErrorText>{i18n.t('validation-error-text')}</ErrorText>
+                    </View>
+                  )}
+
                   <BrandedButton
                     style={styles.continueButton}
                     onPress={props.handleSubmit}
-                    enable={!isSubmitting && Object.keys(props.errors).length === 0}
+                    enable={!isSubmitting}
                     hideLoading={!isSubmitting}>
                     <Text>{i18n.t('vaccines.dose-symptoms.next')}</Text>
                   </BrandedButton>
