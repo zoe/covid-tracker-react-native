@@ -10,7 +10,7 @@ type CardProps = {
 };
 
 export const BasicCard: React.FC<CardProps> = (c) => {
-  return <Card style={[styles.card, c.style]}>{c.children}</Card>
+  return <Card style={[styles.card, c.style]}>{c.children}</Card>;
 };
 
 const styles = StyleSheet.create({
