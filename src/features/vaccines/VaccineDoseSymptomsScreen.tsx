@@ -14,9 +14,9 @@ import { vaccineService } from '@covid/Services';
 import { colors } from '@theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
+import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
-import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;
