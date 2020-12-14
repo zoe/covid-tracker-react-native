@@ -40,7 +40,7 @@ function SchoolNetworks(props: Props) {
   return (
     <SContainerView>
       {data.map((school, index) => {
-        return school.higher_education ? null : <Card school={school} key={index} />;
+        return school.higher_education ? null : <Card school={school} key={school.id} />;
       })}
     </SContainerView>
   );
