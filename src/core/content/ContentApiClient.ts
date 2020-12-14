@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 
-import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { AreaStatsResponse, PatientInfosRequest, StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { Services } from '@covid/provider/services.types';
 import { IApiClient } from '@covid/core/api/ApiClient';
 
@@ -11,6 +11,7 @@ export interface IContentApiClient {
   getStartupInfo(): Promise<StartupInfo>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
+  signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
 @injectable()
@@ -33,5 +34,12 @@ export class ContentApiClient implements IContentApiClient {
 
   searchLAD(query: string, page: number = 0, size: number = 20): Promise<LADSearchResponse> {
     return this.apiClient.get<LADSearchResponse>(`/search_lads?query=${query}&size=${size}&page=${page}`);
+  }
+
+  signUpForDietNewsletter(signup: boolean): Promise<void> {
+    const infos = {
+      nutrition_newsletter: signup,
+    };
+    return this.apiClient.patch(`/users/email_preference/`, infos);
   }
 }

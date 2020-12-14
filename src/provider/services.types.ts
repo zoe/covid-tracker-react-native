@@ -3,6 +3,7 @@ export const Services = {
   ContentApi: Symbol('ContentApi'),
   Content: Symbol('Content'),
   User: Symbol('User'),
+  DietScore: Symbol('DietScore'),
   DietStudy: Symbol('DietStudy'),
   IncidenceHttpApi: Symbol('IncidenceHttpApi'),
   PredictiveMetricsClient: Symbol('IPredictiveMetricsClient'),

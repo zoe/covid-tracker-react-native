@@ -89,6 +89,16 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
 export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
+export const doctorsAvatars = require('./doctors-avatars.png');
+
+export const dietStudyPlaybackGlobal1 = require('./global-stats-1.png');
+export const dietStudyPlaybackGlobal2 = require('./global-stats-2.png');
+export const dietStudyPlaybackGlobal3 = require('./global-stats-3.png');
+export const dietStudyPlaybackFoodHeader = require('./diet-playback-food-banner.png');
+export const dietStudyPlaybackGutHeader = require('./diet-playback-gut-banner.png');
+export const dietStudyPlaybackGutDiagram = require('./gut-diagram.png');
+export const fallingFoodBackground = require('./backgrounds/falling-food.png');
+export const dietStudyPlaybackReady = require('./diet-playback-ready.png');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';

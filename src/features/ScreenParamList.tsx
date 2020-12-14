@@ -118,6 +118,14 @@ export type ScreenParamList = {
   ConfirmSchool: { patientData: PatientData; school: SchoolModel };
   JoinHigherEducation: { patientData: PatientData };
 
+  DietStudyPlaybackIntro: undefined;
+  DietStudyPlaybackGlobal: undefined;
+  DietStudyPlaybackDietQuality: undefined;
+  DietStudyPlaybackYourDiet: undefined;
+  DietStudyPlaybackGutHealth: undefined;
+  DietStudyPlaybackYourGut: undefined;
+  DietStudyPlaybackResearch: undefined;
+
   //
   Modal: undefined;
   Main: undefined;

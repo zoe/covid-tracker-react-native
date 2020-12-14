@@ -10,9 +10,9 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { SelectorButton } from '@covid/components/SelectorButton';
+import { VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
-import { VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineYesNo'>;
