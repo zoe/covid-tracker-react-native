@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog025, dataPage003, notificationReminders, timUpdate022, webinar_dec_09 } from '@assets';
+import { blog025, dataPage003, notificationReminders, timUpdate022 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -83,14 +83,6 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 calloutID="blog_025"
                 imageSource={blog025}
                 aspectRatio={1.555}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://www.youtube.com/watch?v=RFucRBhp9DU&feature=youtu.be"
-                calloutID="webinar_dec_09"
-                imageSource={webinar_dec_09}
-                aspectRatio={1.21}
                 screenName={this.props.route.name}
               />
 

@@ -107,7 +107,10 @@ export default class PreviousExposureScreen extends Component<HealthProps, State
 
     this.patientService
       .updatePatientInfo(patientId, infos)
-      .then((_) => {
+      .then(async (info) => {
+        const currentState = patientCoordinator.patientData.patientState;
+        patientCoordinator.patientData.patientInfo = info;
+        patientCoordinator.patientData.patientState = await this.patientService.updatePatientState(currentState, info);
         patientCoordinator.gotoNextScreen(this.props.route.name);
       })
       .catch((_) => {
