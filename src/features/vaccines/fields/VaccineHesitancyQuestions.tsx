@@ -1,4 +1,4 @@
-import { FormikProps } from 'formik';
+import { FastField, FormikProps } from 'formik';
 import React from 'react';
 import { PickerItemProps, View } from 'react-native';
 import * as Yup from 'yup';
@@ -14,23 +14,23 @@ import {
 import i18n from '@covid/locale/i18n';
 
 type VaccineHesitancyCheckBoxData = {
-  religious: boolean;
-  philosophical: boolean;
-  pregnancy: boolean;
-  safety: boolean;
-  notSure: boolean;
-  medication: boolean;
-  availability: boolean;
-  necessary: boolean;
-  unsureIsWorking: boolean;
-  heardBadReactionExperience: boolean;
+  reason_religion: boolean;
+  reason_personal_belief: boolean;
+  reason_pregnancy_breastfeeding: boolean;
+  reason_safety: boolean;
+  reason_knowledge: boolean;
+  reason_illness: boolean;
+  reason_availability: boolean;
+  reason_unnecessary: boolean;
+  reason_efficacy: boolean;
+  reason_bad_reaction: boolean;
+  reason_pfnts: boolean;
   other: boolean;
-  pnts: boolean;
 };
 
 export type VaccineHesitancyData = {
   acceptVaccine: string;
-  otherReason?: string;
+  reason_other?: string;
 } & VaccineHesitancyCheckBoxData;
 
 type Props = {
@@ -47,18 +47,18 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
   ];
 
   const checkboxes: BooleanCheckBoxData[] = [
-    { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'religious' },
-    { label: i18n.t('vaccines.hesitancy.philosophical'), formKey: 'philosophical' },
-    { label: i18n.t('vaccines.hesitancy.pregnancy'), formKey: 'pregnancy' },
-    { label: i18n.t('vaccines.hesitancy.safety-concern'), formKey: 'safety' },
-    { label: i18n.t('vaccines.hesitancy.do-not-know'), formKey: 'notSure' },
-    { label: i18n.t('vaccines.hesitancy.illness'), formKey: 'medication' },
-    { label: i18n.t('vaccines.hesitancy.availability'), formKey: 'availability' },
-    { label: i18n.t('vaccines.hesitancy.unnecessary'), formKey: 'necessary' },
-    { label: i18n.t('vaccines.hesitancy.unsureIsWorking'), formKey: 'unsureIsWorking' },
-    { label: i18n.t('vaccines.hesitancy.bad-reaction'), formKey: 'heardBadReactionExperience' },
+    { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
+    { label: i18n.t('vaccines.hesitancy.philosophical'), formKey: 'reason_personal_belief' },
+    { label: i18n.t('vaccines.hesitancy.pregnancy'), formKey: 'reason_pregnancy_breastfeeding' },
+    { label: i18n.t('vaccines.hesitancy.safety-concern'), formKey: 'reason_safety' },
+    { label: i18n.t('vaccines.hesitancy.do-not-know'), formKey: 'reason_knowledge' },
+    { label: i18n.t('vaccines.hesitancy.illness'), formKey: 'reason_illness' },
+    { label: i18n.t('vaccines.hesitancy.availability'), formKey: 'reason_availability' },
+    { label: i18n.t('vaccines.hesitancy.unnecessary'), formKey: 'reason_unnecessary' },
+    { label: i18n.t('vaccines.hesitancy.unsureIsWorking'), formKey: 'reason_efficacy' },
+    { label: i18n.t('vaccines.hesitancy.bad-reaction'), formKey: 'reason_bad_reaction' },
     { label: i18n.t('vaccines.hesitancy.Other'), formKey: 'other' },
-    { label: i18n.t('vaccines.hesitancy.not-to-say'), formKey: 'pnts' },
+    { label: i18n.t('vaccines.hesitancy.not-to-say'), formKey: 'reason_pfnts' },
   ];
 
   return (
@@ -83,7 +83,7 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
           data={checkboxes}
           showAdditionalInputProps={{
             label: i18n.t('vaccines.hesitancy.specify'),
-            key: 'otherReason',
+            key: 'reason_other',
             show: formikProps.values['other'],
             inputProps: {
               multiline: true,
@@ -99,28 +99,33 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
 VaccineHesitancyQuestions.initialFormValues = (): VaccineHesitancyData => {
   return {
     acceptVaccine: '',
-    religious: false,
-    philosophical: false,
-    pregnancy: false,
-    safety: false,
-    notSure: false,
-    medication: false,
-    availability: false,
-    necessary: false,
-    unsureIsWorking: false,
-    heardBadReactionExperience: false,
+    reason_other: '',
+    reason_religion: false,
+    reason_personal_belief: false,
+    reason_pregnancy_breastfeeding: false,
+    reason_safety: false,
+    reason_knowledge: false,
+    reason_illness: false,
+    reason_availability: false,
+    reason_unnecessary: false,
+    reason_efficacy: false,
+    reason_bad_reaction: false,
+    reason_pfnts: false,
     other: false,
-    pnts: false,
   };
 };
 
 VaccineHesitancyQuestions.schema = () => {
   return Yup.object().shape({
     acceptVaccine: Yup.string().required(),
-    otherReason: Yup.string(),
+    reason_other: Yup.string().required().when(['other'], {
+      is: true,
+      then: Yup.string().required(),
+    }),
   });
 };
 
 VaccineHesitancyQuestions.createDTO = (formData: VaccineHesitancyData): Partial<any> => {
-  return {};
+  const { acceptVaccine, other, ...data } = formData;
+  return data;
 };
