@@ -194,6 +194,7 @@
 
   "picker-yes": "Sí",
   "picker-no": "No",
+  "picker-do-not-know": "",
   "picker-unsure": "Insegura",
   "please-select-option": "Seleccione una opción",
   "placeholder-optional-question": "*Opcional",
@@ -1350,6 +1351,23 @@
         "tenderness": "",
         "other": "",
         "next": ""
+      },
+      "hesitancy": {
+        "title": "",
+        "check-all-that-apply": "",
+        "religious": "",
+        "philosophical": "",
+        "pregnancy": "",
+        "safety-concern": "",
+        "do-not-know": "",
+        "illness": "",
+        "availability": "",
+        "unnecessary": "",
+        "unsureIsWorking": "",
+        "bad-reaction": "",
+        "Other": "",
+        "not-to-say": "",
+        "specify": ""
       }
     },
 

@@ -104,6 +104,7 @@
 
   "picker-yes": "Ja",
   "picker-no": "Nej",
+  "picker-do-not-know": "",
   "picker-unsure": "Osäker",
   "please-select-option": "Välj ett alternativ",
   "placeholder-optional-question": "*Valfritt",
@@ -1314,6 +1315,24 @@
         "tenderness": "",
         "other": "",
         "next": ""
+      },
+
+      "hesitancy": {
+        "title": "",
+        "check-all-that-apply": "",
+        "religious": "",
+        "philosophical": "",
+        "pregnancy": "",
+        "safety-concern": "",
+        "do-not-know": "",
+        "illness": "",
+        "availability": "",
+        "unnecessary": "",
+        "unsureIsWorking": "",
+        "bad-reaction": "",
+        "Other": "",
+        "not-to-say": "",
+        "specify": ""
       }
     },
 

@@ -194,6 +194,7 @@
 
   "picker-yes": "Yes",
   "picker-no": "No",
+  "picker-do-not-know": "I do not know yet",
   "picker-unsure": "Unsure",
   "please-select-option": "Please select an option",
   "placeholder-optional-question": "*Optional",
@@ -1301,6 +1302,24 @@
       "tenderness": "Tenderness",
       "other": "Other",
       "next": "Next"
+    },
+
+    "hesitancy": {
+      "title": "Would you consider taking a COVID-19 vaccine?",
+      "check-all-that-apply": "Tell us why (check all that apply):",
+      "religious": "Religious reasons",
+      "philosophical": "Personal belief / philosophical reasons",
+      "pregnancy": "Pregnancy / breastfeeding",
+      "safety-concern": "Safety concern",
+      "do-not-know": "Do not know enough about it",
+      "illness": "Illness / medication",
+      "availability": "Do not think it will be available to me",
+      "unnecessary": "Do not think it is necessary",
+      "unsureIsWorking": "Do not think it is working",
+      "bad-reaction": "Knows someboby that experienced bad reaction to vaccines",
+      "Other": "Other",
+      "not-to-say": "Prefer not to say",
+      "specify": "Please specify the other reason"      
     }
   },
 
