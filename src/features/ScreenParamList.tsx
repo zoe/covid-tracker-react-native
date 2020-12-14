@@ -78,6 +78,7 @@ export type ScreenParamList = {
   VaccineTrialPlacebo: { assessmentData: AssessmentData };
   VaccineDoseSymptoms: { assessmentData: AssessmentData; recordVaccine: boolean };
   VaccineThankYou: { assessmentData: AssessmentData };
+  VaccineHesitancy: { assessmentData: AssessmentData };
 
   // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };
