@@ -115,7 +115,7 @@ class State {
 }
 
 const initialState = {
-  isLoaded: false,
+  isLoaded: true,
   isOnline: true,
   isApiOnline: true,
 };
@@ -127,12 +127,6 @@ export default class CovidApp extends Component<object, State> {
   }
 
   async componentDidMount() {
-    await Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-    });
-    this.setState({ isLoaded: true });
-
     Notifications.addNotificationResponseReceivedListener((response) => {
       // const url = response.notification.request.content.data.url;
       Analytics.track(events.OPEN_FROM_NOTIFICATION);
