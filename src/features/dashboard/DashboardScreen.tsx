@@ -91,7 +91,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <Button title="Diet study" onPress={() => appCoordinator.goToDietStudyPlayback()} />
         {hasNetworkData && (
           <View
             style={{
