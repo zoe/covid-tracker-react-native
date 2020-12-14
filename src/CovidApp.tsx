@@ -134,8 +134,6 @@ export default class CovidApp extends Component<object, State> {
   }
 
   render() {
-    if (!this.state.isLoaded) return <View style={{ flex: 1, backgroundColor: colors.predict }} />;
-
     return (
       <Root>
         <Header style={{ display: 'none' }}>
