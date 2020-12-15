@@ -91,6 +91,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <Button title="diet study" onPress={() => appCoordinator.goToDietStudyPlayback()} />
         <ExternalCallout
           link="https://covid.joinzoe.com/post/covid-vaccine-questions?utm_source=App"
           calloutID="blog_026"

@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -26,11 +26,11 @@ type Props = {
 
 export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
-  const { width } = Dimensions.get('window');
-
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={[styles.scrollView, { paddingTop: width * 0.68 }]}>
+      <ScrollView contentContainerStyle={[styles.scrollView]}>
+        <Image style={styles.banner} source={dietStudyPlaybackFoodHeader} />
+        <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
         <View style={styles.rootContainer}>
           <HeaderText style={styles.titleText}>Diet quality impacts our long-term health</HeaderText>
           <SecondaryText style={styles.subtext}>
@@ -61,8 +61,6 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
           </BrandedButton>
         </View>
       </ScrollView>
-      <Image style={styles.banner} source={dietStudyPlaybackFoodHeader} />
-      <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
     </SafeAreaView>
   );
 };
@@ -97,8 +95,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1.6806722689 / 1,
     height: undefined,
     resizeMode: 'contain',
-    position: 'absolute',
-    top: 0,
   },
   titleText: {
     marginVertical: 16,

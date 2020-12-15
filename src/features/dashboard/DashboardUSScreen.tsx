@@ -70,6 +70,15 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        {/* {showDietStudyPlayback && ( */}
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
+            appCoordinator.goToDietStudyPlayback();
+          }}>
+          <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+        </TouchableWithoutFeedback>
+        {/* )} */}
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}
@@ -77,16 +86,6 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
           screenName={route.name}
           postClicked={onShare}
         />
-
-        {showDietStudyPlayback && (
-          <TouchableWithoutFeedback
-            onPress={() => {
-              Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
-              appCoordinator.goToDietStudyPlayback();
-            }}>
-            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
-          </TouchableWithoutFeedback>
-        )}
       </View>
 
       <View style={styles.zoe}>
