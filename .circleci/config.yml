@@ -61,14 +61,12 @@ references:
     branches:
       only:
         - develop
-        - fixes/white-screen-chuck
 
   release_filter: &release_filter
     branches:
       only:
         - master
         - develop
-        - fixes/white-screen-chuck
 
   feature_filter: &feature_filter
     branches:
@@ -78,7 +76,6 @@ references:
         - develop-legacy
         - release-0.x-legacy
         - stage
-        - fixes/white-screen-chuck
 
 ###
 ### Define shared commands:
