@@ -62,8 +62,8 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   async initAppState() {
     await appCoordinator.init();
-    appCoordinator.gotoNextScreen(this.props.route.name);
     RNSplashScreen.hide();
+    appCoordinator.gotoNextScreen(this.props.route.name);
   }
 
   private reloadAppState = async () => {
