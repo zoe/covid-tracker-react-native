@@ -157,6 +157,12 @@ export class AssessmentCoordinator extends Coordinator {
     OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
+    AboutYourVaccine: () => {
+      NavigatorService.goBack();
+    },
+    VaccineList: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+    },
   };
 
   init = (

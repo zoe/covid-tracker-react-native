@@ -1,7 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
-import key from 'weak-key';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -12,13 +11,12 @@ import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { vaccineService } from '@covid/Services';
-import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
-import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;

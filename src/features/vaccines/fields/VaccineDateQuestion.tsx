@@ -12,32 +12,31 @@ import { ClickableText, RegularText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
+import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export interface VaccineDateData {
-  knowsDateOfTest: string; // only for ux logic
-  dateTakenBetweenStart: Date | undefined;
-  dateTakenBetweenEnd: Date | undefined;
-  dateTakenSpecific: Date | undefined;
+  firstDoseDate: Date | undefined;
+  secondDoseDate: Date | undefined;
 }
+// TODO Insert 2 specific dates here
 
 interface Props {
   formikProps: FormikProps<VaccineDateData>;
-  test?: CovidTest;
 }
 
 export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
-  initialFormValues: (test?: CovidTest) => Data;
+  initialFormValues: (vaccine?: VaccineRequest) => Data;
   schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<CovidTest>;
+  createDTO: (data: Data) => Partial<VaccineRequest>;
 }
 
-export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateData> = (props: Props) => {
+export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = (props: Props) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
   const [state, setState] = useState({
-    showDatePicker: false,
-    showRangePicker: false,
+    showFirstDatePicker: false,
+    showSecondDatePicker: false,
   });
 
   function convertToDate(selectedDate: Moment) {
@@ -46,104 +45,60 @@ export const CovidTestDateQuestion: CovidTestDateQuestion<Props, CovidTestDateDa
     return selectedDate.toDate();
   }
 
-  function setTestDate(selectedDate: Moment): void {
-    formikProps.values.dateTakenSpecific = convertToDate(selectedDate);
+  function setFirstDoseDate(selectedDate: Moment): void {
+    formikProps.values.firstDoseDate = convertToDate(selectedDate);
     setState({
       ...state,
-      showDatePicker: false,
+      showFirstDatePicker: false,
     });
   }
 
-  function setRangeTestDates(selectedDate: Moment, type: string): void {
-    // BUG: calendarPicker firing twice and sending null object on second event
-    if (!selectedDate) return;
-    if (type === 'END_DATE') {
-      formikProps.values.dateTakenBetweenEnd = convertToDate(selectedDate);
-      setState({
-        ...state,
-        showRangePicker: false,
-      });
-    } else {
-      formikProps.values.dateTakenBetweenStart = convertToDate(selectedDate);
-      formikProps.values.dateTakenBetweenEnd = undefined;
-    }
+  function setSecondDoseDate(selectedDate: Moment): void {
+    formikProps.values.secondDoseDate = convertToDate(selectedDate);
+    setState({
+      ...state,
+      showSecondDatePicker: false,
+    });
   }
 
   return (
     <>
-      <YesNoField
-        selectedValue={formikProps.values.knowsDateOfTest}
-        onValueChange={(value: string) => {
-          if (value === 'yes') {
-            formikProps.values.dateTakenBetweenStart = undefined;
-            formikProps.values.dateTakenBetweenEnd = undefined;
-            formikProps.values.dateTakenSpecific = undefined;
-            setState({
-              ...state,
-              showDatePicker: true,
-            });
-          } else {
-            formikProps.values.dateTakenSpecific = undefined;
-            setState({
-              ...state,
-              showRangePicker: true,
-            });
-          }
-          formikProps.setFieldValue('knowsDateOfTest', value);
-        }}
-        label={i18n.t('covid-test.question-knows-date-of-test')}
-      />
-
-      {formikProps.values.knowsDateOfTest === 'yes' && (
-        <>
-          <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred')}</RegularText>
-          {state.showDatePicker ? (
-            <CalendarPicker
-              onDateChange={setTestDate}
-              maxDate={today}
-              {...(!!formikProps.values.dateTakenSpecific && {
-                selectedStartDate: formikProps.values.dateTakenSpecific,
-              })}
-            />
+      <RegularText style={styles.labelStyle}>First dose</RegularText>
+      {state.showFirstDatePicker ? (
+        <CalendarPicker
+          onDateChange={setFirstDoseDate}
+          maxDate={today}
+          {...(!!formikProps.values.firstDoseDate && {
+            selectedStartDate: formikProps.values.firstDoseDate,
+          })}
+        />
+      ) : (
+        <ClickableText onPress={() => setState({ ...state, showFirstDatePicker: true })} style={styles.fieldText}>
+          {formikProps.values.firstDoseDate ? (
+            moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')
           ) : (
-            <ClickableText onPress={() => setState({ ...state, showDatePicker: true })} style={styles.fieldText}>
-              {formikProps.values.dateTakenSpecific ? (
-                moment(formikProps.values.dateTakenSpecific).format('MMMM D, YYYY')
-              ) : (
-                <Text>{i18n.t('covid-test.required-date')}</Text>
-              )}
-            </ClickableText>
+            <Text>{i18n.t('covid-test.required-date')}</Text>
           )}
-        </>
+        </ClickableText>
       )}
 
-      {formikProps.values.knowsDateOfTest === 'no' && (
-        <>
-          <RegularText style={styles.labelStyle}>{i18n.t('covid-test.question-date-test-occurred-guess')}</RegularText>
-
-          {state.showRangePicker ? (
-            <CalendarPicker
-              allowRangeSelection
-              // @ts-ignore Incorrect types on onDateChange, ignore it.
-              onDateChange={setRangeTestDates}
-              selectedStartDate={formikProps.values.dateTakenBetweenStart}
-              selectedEndDate={formikProps.values.dateTakenBetweenEnd}
-              maxDate={today}
-            />
+      <RegularText style={styles.labelStyle}>Second dose</RegularText>
+      {state.showSecondDatePicker ? (
+        <CalendarPicker
+          onDateChange={setSecondDoseDate}
+          maxDate={today}
+          {...(!!formikProps.values.secondDoseDate && {
+            selectedStartDate: formikProps.values.secondDoseDate,
+          })}
+        />
+      ) : (
+        <ClickableText onPress={() => setState({ ...state, showSecondDatePicker: true })} style={styles.fieldText}>
+          {formikProps.values.secondDoseDate ? (
+            moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')
           ) : (
-            <ClickableText onPress={() => setState({ ...state, showRangePicker: true })} style={styles.fieldText}>
-              {formikProps.values.dateTakenBetweenStart && formikProps.values.dateTakenBetweenEnd ? (
-                <>
-                  {moment(formikProps.values.dateTakenBetweenStart).format('MMMM D')}
-                  {' - '}
-                  {moment(formikProps.values.dateTakenBetweenEnd).format('MMMM D')}
-                </>
-              ) : (
-                <Text>{i18n.t('covid-test.question-select-a-date-range')}</Text>
-              )}
-            </ClickableText>
+            <Text>{i18n.t('covid-test.required-date')}</Text>
           )}
-        </>
+        </ClickableText>
       )}
     </>
   );
@@ -161,26 +116,21 @@ const styles = StyleSheet.create({
   },
 });
 
-CovidTestDateQuestion.initialFormValues = (test?: CovidTest): CovidTestDateData => {
-  function getInitialKnowsDateOfTest(test: CovidTest | undefined): string {
-    if (test === undefined) {
-      return '';
-    } else {
-      return test.date_taken_specific ? 'yes' : 'no';
-    }
-  }
-
+VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateData => {
   return {
-    knowsDateOfTest: getInitialKnowsDateOfTest(test),
-    dateTakenSpecific: test?.date_taken_specific ? moment(test.date_taken_specific).toDate() : undefined,
-    dateTakenBetweenStart: test?.date_taken_between_start ? moment(test.date_taken_between_start).toDate() : undefined,
-    dateTakenBetweenEnd: test?.date_taken_between_end ? moment(test.date_taken_between_end).toDate() : undefined,
+    firstDoseDate: vaccine?.doses[0]?.date_taken_specific
+      ? moment(vaccine.doses[0].date_taken_specific).toDate()
+      : undefined,
+    secondDoseDate: vaccine?.doses[1]?.date_taken_specific
+      ? moment(vaccine.doses[0].date_taken_specific).toDate()
+      : undefined,
   };
 };
 
-CovidTestDateQuestion.schema = () => {
+VaccineDateQuestion.schema = () => {
   return Yup.object().shape({
-    knowsDateOfTest: Yup.string().required(),
+    firstDoseDate: Yup.date(),
+    secondDoseDate: Yup.date(),
   });
 };
 
@@ -188,10 +138,10 @@ function formatDateToPost(date: Date | undefined) {
   return date ? moment(date).format('YYYY-MM-DD') : null;
 }
 
-CovidTestDateQuestion.createDTO = (formData: CovidTestDateData): Partial<CovidTest> => {
+VaccineDateQuestion.createDTO = (formData: VaccineDateData): Partial<VaccineRequest> => {
+  //TODO
   return {
-    date_taken_specific: formatDateToPost(formData.dateTakenSpecific),
-    date_taken_between_start: formatDateToPost(formData.dateTakenBetweenStart),
-    date_taken_between_end: formatDateToPost(formData.dateTakenBetweenEnd),
-  } as Partial<CovidTest>;
+    date_taken_specific: formatDateToPost(formData.firstDoseDate),
+    date_taken_between_start: formatDateToPost(formData.secondDoseDate),
+  } as Partial<VaccineRequest>;
 };
