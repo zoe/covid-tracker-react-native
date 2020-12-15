@@ -172,6 +172,7 @@ export default class CovidApp extends Component<object, State> {
         screenOptions={{ swipeEnabled: false }}
         drawerStyle={{
           width: Dimensions.get('screen').width,
+          backgroundColor: 'red',
         }}>
         <Drawer.Screen name="Main" component={MainNavigator} options={{ headerShown: false }} />
       </Drawer.Navigator>
