@@ -10,6 +10,7 @@ export interface IVaccineRemoteClient {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse>;
+  listVaccines(): Promise<VaccineRequest[]>;
 }
 
 @injectable()
@@ -45,5 +46,9 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       '/dose_symptoms/',
       payload as DoseSymptomsRequest
     );
+  }
+
+  listVaccines(): Promise<VaccineRequest[]> {
+    return this.apiClient.get<VaccineRequest[]>(`/vaccines/`); //TODO Is this correct
   }
 }

@@ -8,6 +8,7 @@ export interface IVaccineService {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean>;
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<boolean>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean>;
+  listVaccines(): Promise<VaccineRequest[]>
 }
 
 @injectable()
@@ -40,5 +41,9 @@ export class VaccineService implements IVaccineService {
   public async saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean> {
     await this.apiClient.saveDoseSymptoms(patientId, payload);
     return true;
+  }
+
+  listVaccines(): Promise<VaccineRequest[]> {
+    return this.apiClient.listVaccines();
   }
 }
