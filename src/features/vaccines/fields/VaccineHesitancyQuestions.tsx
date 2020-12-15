@@ -29,7 +29,7 @@ type VaccineHesitancyCheckBoxData = {
 };
 
 export type VaccineHesitancyData = {
-  acceptVaccine: string;
+  plan: string;
   reason_other?: string;
 } & VaccineHesitancyCheckBoxData;
 
@@ -43,20 +43,20 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
   const dropdowns: PickerItemProps[] = [
     { label: i18n.t('picker-yes'), value: 'yes' },
     { label: i18n.t('picker-no'), value: 'no' },
-    { label: i18n.t('picker-do-not-know'), value: 'do-not-know' },
+    { label: i18n.t('picker-do-not-know'), value: 'unsure' },
   ];
 
   const checkboxes: BooleanCheckBoxData[] = [
     { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
     { label: i18n.t('vaccines.hesitancy.philosophical'), formKey: 'reason_personal_belief' },
     { label: i18n.t('vaccines.hesitancy.pregnancy'), formKey: 'reason_pregnancy_breastfeeding' },
-    { label: i18n.t('vaccines.hesitancy.safety-concern'), formKey: 'reason_safety' },
-    { label: i18n.t('vaccines.hesitancy.do-not-know'), formKey: 'reason_knowledge' },
     { label: i18n.t('vaccines.hesitancy.illness'), formKey: 'reason_illness' },
+    { label: i18n.t('vaccines.hesitancy.safety-concern'), formKey: 'reason_safety' },
+    { label: i18n.t('vaccines.hesitancy.bad-reaction'), formKey: 'reason_bad_reaction' },
+    { label: i18n.t('vaccines.hesitancy.do-not-know'), formKey: 'reason_knowledge' },
+    { label: i18n.t('vaccines.hesitancy.unsure-is-working'), formKey: 'reason_efficacy' },
     { label: i18n.t('vaccines.hesitancy.availability'), formKey: 'reason_availability' },
     { label: i18n.t('vaccines.hesitancy.unnecessary'), formKey: 'reason_unnecessary' },
-    { label: i18n.t('vaccines.hesitancy.unsureIsWorking'), formKey: 'reason_efficacy' },
-    { label: i18n.t('vaccines.hesitancy.bad-reaction'), formKey: 'reason_bad_reaction' },
     { label: i18n.t('vaccines.hesitancy.Other'), formKey: 'other' },
     { label: i18n.t('vaccines.hesitancy.not-to-say'), formKey: 'reason_pfnts' },
   ];
@@ -64,8 +64,8 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
   return (
     <View style={{ marginVertical: 8 }}>
       <DropdownField
-        selectedValue={formikProps.values.acceptVaccine}
-        onValueChange={formikProps.handleChange('acceptVaccine')}
+        selectedValue={formikProps.values.plan}
+        onValueChange={formikProps.handleChange('plan')}
         label={i18n.t('label-chose-an-option')}
         items={dropdowns}
       />
@@ -98,7 +98,7 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
 
 VaccineHesitancyQuestions.initialFormValues = (): VaccineHesitancyData => {
   return {
-    acceptVaccine: '',
+    plan: '',
     reason_other: '',
     reason_religion: false,
     reason_personal_belief: false,
@@ -126,6 +126,6 @@ VaccineHesitancyQuestions.schema = () => {
 };
 
 VaccineHesitancyQuestions.createDTO = (formData: VaccineHesitancyData): Partial<any> => {
-  const { acceptVaccine, other, ...data } = formData;
+  const { plan, other, ...data } = formData;
   return data;
 };
