@@ -117,7 +117,7 @@ VaccineHesitancyQuestions.initialFormValues = (): VaccineHesitancyData => {
 
 VaccineHesitancyQuestions.schema = () => {
   return Yup.object().shape({
-    acceptVaccine: Yup.string().required(),
+    plan: Yup.string().required(),
     reason_other: Yup.string().required().when(['other'], {
       is: true,
       then: Yup.string().required(),
@@ -126,6 +126,6 @@ VaccineHesitancyQuestions.schema = () => {
 };
 
 VaccineHesitancyQuestions.createDTO = (formData: VaccineHesitancyData): Partial<any> => {
-  const { plan, other, ...data } = formData;
+  const { other, ...data } = formData;
   return data;
 };

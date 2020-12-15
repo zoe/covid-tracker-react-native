@@ -6,14 +6,18 @@ import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
-import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
+import i18n from '@covid/locale/i18n';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components';
 import {
   VaccineHesitancyData,
   VaccineHesitancyQuestions,
 } from '@covid/features/vaccines/fields/VaccineHesitancyQuestions';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -26,23 +30,23 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
+  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
+
   const handleSubmit = async (formData: VaccineHesitancyData) => {
-    // if (!isSubmitting) {
-    //   setSubmitting(true);
-    //   const patientId = route.params.assessmentData.patientData.patientId;
-    //   try {
-    //     if (route.params.recordVaccine) {
-    //       await vaccineService.saveVaccineResponse(patientId, route.params.assessmentData.vaccineData!);
-    //     }
-    //     const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
-    //     await vaccineService.saveDoseSymptoms(patientId, dosePayload);
-    //   } catch (e) {
-    //     setErrorMessage(i18n.t('something-went-wrong'));
-    //     //TODO Show error message toast?
-    //   } finally {
-    //     assessmentCoordinator.gotoNextScreen(route.name);
-    //   }
-    // }
+    if (!isSubmitting) {
+      setSubmitting(true);
+      const patientId = route.params.assessmentData.patientData.patientId;
+      try {
+        const dto = VaccineHesitancyQuestions.createDTO(formData);
+        await vaccineService.saveVaccinePlan(patientId, dto);
+        assessmentCoordinator.gotoNextScreen(route.name);
+      } catch (e) {
+        setErrorMessage(i18n.t('something-went-wrong'));
+        //TODO Show error message toast?
+      } finally {
+        setSubmitting(false);
+      }
+    }
   };
 
   const registerSchema = Yup.object().shape({}).concat(VaccineHesitancyQuestions.schema());

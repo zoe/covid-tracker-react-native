@@ -95,6 +95,9 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
       ]);
     },
+    VaccineHesitancy: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+    },
     VaccineThankYou: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },

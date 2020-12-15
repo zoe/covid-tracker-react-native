@@ -1,18 +1,20 @@
+import { inject, injectable } from 'inversify';
+
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
-import { DoseSymptomsRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { DoseSymptomsResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
+import { DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { DoseSymptomsResponse, VaccinePlanResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
+import { Services } from '@covid/provider/services.types';
 
 export interface IVaccineRemoteClient {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
+  saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse>;
 }
 
+@injectable()
 export class VaccineApiClient implements IVaccineRemoteClient {
-  apiClient: IApiClient;
-  constructor(apiClient: IApiClient) {
-    this.apiClient = apiClient;
-  }
+  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
     payload = {
@@ -21,6 +23,17 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       version: appConfig.vaccineVersion,
     };
     return this.apiClient.post<VaccineRequest, VaccineResponse>('/vaccines/', payload as VaccineRequest);
+  }
+
+  saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse> {
+    payload = {
+      ...payload,
+      patient: patientId,
+    };
+    return this.apiClient.post<VaccinePlanRequest, VaccinePlanResponse>(
+      '/vaccine_plans/',
+      payload as VaccinePlanRequest
+    );
   }
 
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse> {
