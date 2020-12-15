@@ -28,6 +28,7 @@ const TransformResponseToUIData = (data: SubscribedSchoolGroupStats[]): Subscrib
         size: group.school.size,
         cases: group.cases,
         groups: [group],
+        higher_education: group.school.higher_education,
       });
       return initial;
     }
@@ -36,11 +37,10 @@ const TransformResponseToUIData = (data: SubscribedSchoolGroupStats[]): Subscrib
 
 function SchoolNetworks(props: Props) {
   const data: SubscribedSchoolStats[] = TransformResponseToUIData(props.schoolGroups);
-
   return (
     <SContainerView>
-      {data.map((school) => {
-        return <Card school={school} key={school.id} />;
+      {data.map((school, index) => {
+        return school.higher_education ? null : <Card school={school} key={school.id} />;
       })}
     </SContainerView>
   );
