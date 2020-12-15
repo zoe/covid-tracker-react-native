@@ -67,7 +67,7 @@ export class AssessmentCoordinator extends Coordinator {
       if (takenVaccine) {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
       } else {
-        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
       }
     },
     VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
