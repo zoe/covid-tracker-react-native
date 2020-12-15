@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -14,6 +14,7 @@ import {
   RegularText,
   SecondaryText,
 } from '@covid/components/Text';
+import { Text } from '@covid/components';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors, fontStyles } from '@theme';
 import { fallingFoodBackground } from '@assets';
@@ -51,14 +52,14 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
             the science:
           </RegularText>
 
-          <ClickableText
-            style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
+          <TouchableOpacity
             onPress={() => {
               openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback');
             }}>
-            {'\n\u279D '}The science behind these results
-          </ClickableText>
-
+            <Text textClass="pMedium" colorPalette="burgundy">
+              {'\n\u279D '}The science behind these results
+            </Text>
+          </TouchableOpacity>
           <BasicCard style={styles.imageCard}>
             <Image style={styles.fallingFoodImage} source={fallingFoodBackground} />
 

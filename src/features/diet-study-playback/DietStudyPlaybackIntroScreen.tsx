@@ -60,6 +60,7 @@ export default DietStudyPlaybackIntroScreen;
 
 const styles = StyleSheet.create({
   safeArea: {
+    backgroundColor: 'white',
     flex: 1,
   },
   scrollView: {
