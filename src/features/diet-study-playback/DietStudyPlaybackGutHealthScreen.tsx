@@ -21,10 +21,10 @@ export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navig
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
       <ScrollView contentContainerStyle={[styles.scrollView]}>
         <View>
           <Image style={styles.banner} source={dietStudyPlaybackGutHeader} />
-          <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
         </View>
         <View style={styles.rootContainer}>
           <HeaderText style={styles.titleText}>Let’s go one step further & dive into gut health</HeaderText>
@@ -64,6 +64,7 @@ export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navig
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: colors.backgroundPrimary,
+    borderColor: 'green',
     flex: 1,
   },
   scrollView: {
@@ -78,7 +79,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'absolute',
-    top: 45,
+    top: 30,
+    zIndex: 5,
+    elevation: 5,
   },
   button: {
     backgroundColor: colors.darkblue,

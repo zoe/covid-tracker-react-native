@@ -28,9 +28,9 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
   const coordinator = dietStudyPlaybackCoordinator;
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
       <ScrollView contentContainerStyle={[styles.scrollView]}>
         <Image style={styles.banner} source={dietStudyPlaybackFoodHeader} />
-        <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
         <View style={styles.rootContainer}>
           <HeaderText style={styles.titleText}>Diet quality impacts our long-term health</HeaderText>
           <SecondaryText style={styles.subtext}>
@@ -82,7 +82,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'absolute',
-    top: 45,
+    top: 30,
+    zIndex: 5,
+    elevation: 5,
   },
   button: {
     backgroundColor: colors.darkblue,

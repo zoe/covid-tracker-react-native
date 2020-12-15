@@ -96,9 +96,6 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
                       <Text style={{ marginLeft: 8 }}>Great, keep an eye on your inbox!</Text>
                     </View>
                   </View>
-                  {/* <RegularBoldText style={{ textAlign: 'center', marginBottom: 16, marginTop: 24 }}>
-                    {'\u2713 '}Great, keep an eye on your inbox!
-                  </RegularBoldText> */}
                   <ClickableText
                     style={{ textAlign: 'center', marginTop: 16 }}
                     onPress={() => {
