@@ -10,7 +10,6 @@ import {
   ClickableText,
   Header3Text,
   HeaderText,
-  RegularBoldText,
   RegularText,
   SecondaryText,
 } from '@covid/components/Text';
