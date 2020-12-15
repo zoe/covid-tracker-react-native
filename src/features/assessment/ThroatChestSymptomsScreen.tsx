@@ -27,8 +27,8 @@ type Props = {
 export const ThroatChestSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (formData: ThroatChestSymptomsData) => {
-    await assessmentService.saveAssessment(ThroatChestSymptomsQuestions.createAssessment(formData));
+  const handleSubmit = (formData: ThroatChestSymptomsData) => {
+    assessmentService.saveAssessment(ThroatChestSymptomsQuestions.createAssessment(formData));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 

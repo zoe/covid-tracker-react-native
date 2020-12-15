@@ -3,6 +3,8 @@ import { IVaccineRemoteClient } from '@covid/core/vaccine/VaccineApiClient';
 
 export interface IVaccineService {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean>;
+  saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean>;
+  listVaccines(): Promise<VaccineRequest[]>
 }
 
 export class VaccineService implements IVaccineService {
@@ -32,5 +34,9 @@ export class VaccineService implements IVaccineService {
   async saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean> {
     await this.apiClient.saveDoseSymptoms(patientId, payload);
     return true;
+  }
+
+  listVaccines(): Promise<VaccineRequest[]> {
+    return this.apiClient.listVaccines();
   }
 }

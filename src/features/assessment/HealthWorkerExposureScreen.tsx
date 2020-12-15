@@ -56,10 +56,10 @@ export default class HealthWorkerExposureScreen extends Component<HealthWorkerEx
     this.state = initialState;
   }
 
-  handleUpdate = async (formData: HealthWorkerExposureData) => {
+  handleUpdate = (formData: HealthWorkerExposureData) => {
     try {
       const assessment = this.createAssessment(formData);
-      await assessmentService.saveAssessment(assessment);
+      assessmentService.saveAssessment(assessment);
       AssessmentCoordinator.gotoNextScreen(this.props.route.name);
     } catch (error) {
       this.setState({ errorMessage: i18n.t('something-went-wrong') });

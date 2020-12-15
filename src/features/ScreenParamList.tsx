@@ -4,6 +4,7 @@ import { PatientStateType } from '@covid/core/patient/PatientState';
 import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export enum ConsentType {
   Adult = 'adult',
@@ -78,6 +79,8 @@ export type ScreenParamList = {
   VaccineTrialPlacebo: { assessmentData: AssessmentData };
   VaccineDoseSymptoms: { assessmentData: AssessmentData; recordVaccine: boolean };
   VaccineThankYou: { assessmentData: AssessmentData };
+  VaccineList: { assessmentData: AssessmentData };
+  AboutYourVaccine: { assessmentData: AssessmentData; doseIndex?: number };
 
   // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };

@@ -30,7 +30,7 @@ export default class WhereAreYouScreen extends Component<LocationProps> {
         assessmentCoordinator.assessmentData.patientData.patientInfo!
       );
     } else {
-      await assessmentService.saveAssessment(assessment);
+      assessmentService.saveAssessment(assessment);
     }
   }
 

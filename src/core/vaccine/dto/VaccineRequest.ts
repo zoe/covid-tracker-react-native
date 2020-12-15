@@ -12,7 +12,7 @@ export type VaccineRequest = {
 export type Dose = {
   id: string;
   vaccine: string;
-  location: VaccineTypes;
+  location: VaccineLocations;
   sequence: number;
   date_taken_specific: string;
   date_taken_between_start: string;
