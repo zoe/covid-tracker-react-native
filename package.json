@@ -1,6 +1,6 @@
 {
   "name": "Covid",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "scripts": {
     "start": "react-native start",
     "start:reset": "react-native start --reset-cache",

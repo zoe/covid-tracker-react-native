@@ -48,7 +48,7 @@ function SchoolNetworksCard({ school }: IProps) {
             bubbleName={group.name}
             daily={group.daily_assessments}
             isLast={isLast}
-            key={group.id}
+            key={`${group.id}-${index}`}
             reported={group.daily_reported_symptoms}
             size={group.size}
             total={group.max_size}
