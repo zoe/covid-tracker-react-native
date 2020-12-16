@@ -95,6 +95,8 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
+import { VaccineListScreen } from '@covid/features/vaccines/VaccineListScreen';
+import { AboutYourVaccineScreen } from '@covid/features/vaccines/AboutYourVaccineScreen';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -206,6 +208,8 @@ function MainNavigator() {
       <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
       <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
       <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
+      <Stack.Screen name="VaccineList" component={VaccineListScreen} options={noHeader} />
+      <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

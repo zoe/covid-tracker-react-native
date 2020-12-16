@@ -1,7 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
-import key from 'weak-key';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -12,13 +11,12 @@ import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { vaccineService } from '@covid/Services';
-import { CovidTestRow } from '@covid/components/CovidTestRow/CovidTestRow';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
-import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
@@ -58,7 +56,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     coordinator.gotoNextScreen(route.name);
   };
 
-  const MainContent = () => {
+  const ListContent = () => {
     if (isLoading) {
       return <Loading status="" error={null} />;
     } else {
@@ -66,7 +64,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         <>
           {vaccines.length === 0 && (
             <BrandedButton style={styles.newButton} onPress={() => goToAddEditVaccine()}>
-              <Text style={styles.newText}>{i18n.t('covid-test-list.add-new-test')}</Text>
+              <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
             </BrandedButton>
           )}
 
@@ -84,7 +82,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.rootContainer}>
       <Screen profile={patientData.patientState.profile} navigation={navigation}>
         <Header>
-          <HeaderText>{i18n.t('covid-test-list.title')}</HeaderText>
+          <HeaderText>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
         </Header>
 
         <ProgressBlock>
@@ -92,17 +90,19 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         </ProgressBlock>
 
         <View style={styles.content}>
-          <RegularText>{i18n.t('covid-test-list.text')}</RegularText>
+          <RegularText>{i18n.t('vaccines.vaccine-list.description')}</RegularText>
         </View>
 
-        <MainContent />
+        <ListContent />
       </Screen>
 
       <BrandedButton style={styles.continueButton} onPress={handleNextButton}>
         <Text>
           {vaccines.length === 0
-            ? i18n.t('covid-test-list.never-had-test')
-            : i18n.t('covid-test-list.above-list-correct')}
+            ? i18n.t('vaccines.vaccine-list.no-vaccine')
+            : vaccines[0].doses[1].date_taken_specific === undefined // 2nd dose not logged
+            ? i18n.t('vaccines.vaccine-list.no-2nd')
+            : i18n.t('vaccines.vaccine-list.correct-info')}
         </Text>
       </BrandedButton>
     </View>

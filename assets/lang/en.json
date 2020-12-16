@@ -1304,6 +1304,25 @@
       "next": "Next"
     },
 
+    "vaccine-list": {
+      "title": "Your COVID-19 vaccines",
+      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now.",
+      "add-button": "Add vaccine",
+      "correct-info": "This information is correct",
+      "no-vaccine": "I haven't had a vaccine",
+      "no-2nd": "I haven't had a second dose"
+    },
+
+    "your-vaccine": {
+      "title": "Tell us about your vaccine",
+      "first-dose": "About your first dose",
+      "second-dose": "About your second dose",
+      "when-injection": "When was your injection?",
+      "have-had-second": "Have you had a second dose yet?",
+      "select-date": "Select date",
+      "confirm": "Confirm"
+    },
+    
     "hesitancy": {
       "title": "Would you accept a COVID019 vaccine if offered?",
       "check-all-that-apply": "Please tell us why (check all that apply):",
