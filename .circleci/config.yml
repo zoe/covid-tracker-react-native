@@ -120,7 +120,8 @@ commands:
 
   node-install:
     steps:
-      - run: yarn
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - run: yarn --immutable
       - save_cache:
           key: *yarn_cache_key
           paths:
