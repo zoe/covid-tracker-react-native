@@ -13,4 +13,6 @@ export const Services = {
   Patient: Symbol('Patient'),
   CovidTest: Symbol('CovidTest'),
   SchoolService: Symbol('SchoolService'),
+  Vaccine: Symbol('Vaccine'),
+  VaccineApiClient: Symbol('VaccineApiClient'),
 };

@@ -194,6 +194,7 @@
 
   "picker-yes": "Sí",
   "picker-no": "No",
+  "picker-do-not-know": "",
   "picker-unsure": "Insegura",
   "please-select-option": "Seleccione una opción",
   "placeholder-optional-question": "*Opcional",
@@ -1350,6 +1351,24 @@
         "tenderness": "",
         "other": "",
         "next": ""
+      },
+      "hesitancy": {
+        "title": "",
+        "check-all-that-apply": "",
+        "vaccine-trial": "",
+        "religious": "",
+        "philosophical": "",
+        "pregnancy": "",
+        "illness": "",
+        "safety-concern": "",
+        "bad-reaction": "",
+        "do-not-know": "",
+        "unsure-is-working": "",
+        "availability": "",
+        "unnecessary": "",
+        "Other": "",
+        "not-to-say": "",
+        "specify": ""
       },
       "vaccine-list": {
         "title": "",

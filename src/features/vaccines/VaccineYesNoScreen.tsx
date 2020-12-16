@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 
@@ -11,6 +11,9 @@ import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -21,8 +24,14 @@ type Props = {
 
 export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = assessmentCoordinator;
+  const currentPatient = route.params.assessmentData.patientData.patientState;
+
+  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const handlePress = async (takenVaccine: boolean) => {
+    setDisabled(true);
+
     if (takenVaccine) {
       const vaccine: Partial<VaccineRequest> = {
         vaccine_type: VaccineTypes.COVID_VACCINE,
@@ -33,10 +42,14 @@ export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
       coordinator.setVaccine(vaccine);
     }
 
-    coordinator.gotoNextScreen(route.name, takenVaccine);
+    const hasPlans = await vaccineService.hasVaccinePlans(currentPatient.patientId);
+    coordinator.gotoNextScreen(route.name, {
+      takenVaccine,
+      hasPlans,
+    });
+    setDisabled(false);
   };
 
-  const currentPatient = route.params.assessmentData.patientData.patientState;
   return (
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
@@ -50,8 +63,16 @@ export const VaccineYesNoScreen: React.FC<Props> = ({ route, navigation }) => {
           </View>
 
           <Form style={{ flexGrow: 1 }}>
-            <SelectorButton onPress={() => handlePress(true)} text={i18n.t('vaccines.yes-no.answer-yes')} />
-            <SelectorButton onPress={() => handlePress(false)} text={i18n.t('vaccines.yes-no.answer-no')} />
+            <SelectorButton
+              onPress={() => handlePress(true)}
+              text={i18n.t('vaccines.yes-no.answer-yes')}
+              disable={disabled}
+            />
+            <SelectorButton
+              onPress={() => handlePress(false)}
+              text={i18n.t('vaccines.yes-no.answer-no')}
+              disable={disabled}
+            />
           </Form>
         </View>
       </Screen>

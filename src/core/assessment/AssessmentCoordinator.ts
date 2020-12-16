@@ -54,9 +54,11 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    VaccineYesNo: (takenVaccine: boolean) => {
+    VaccineYesNo: ({ takenVaccine, hasPlans }: { takenVaccine: boolean; hasPlans: boolean }) => {
       if (takenVaccine) {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
+      } else if (!hasPlans) {
+        NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
@@ -85,6 +87,9 @@ export class AssessmentCoordinator extends Coordinator {
         { name: 'SelectProfile', params: { assessmentFlow: true } },
         { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
       ]);
+    },
+    VaccineHesitancy: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     VaccineThankYou: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
