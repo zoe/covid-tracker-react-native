@@ -49,18 +49,7 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      // After finishing with COVID Tests, we check to ask about Vaccines.
-      // Only UK Users above 16 years, will be eligible (shouldAskVaccineQuestions = True)
-      // After they've entered a Vaccine, they won't be asked again.
-      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
-      const currentPatient = this.patientData.patientState;
-      if (currentPatient.shouldAskVaccineQuestions) {
-        NavigatorService.navigate('VaccineYesNo', { assessmentData: this.assessmentData });
-      } else if (currentPatient.shouldAskDoseSymptoms) {
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
-      } else {
-        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
-      }
+      NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
     },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
@@ -161,7 +150,13 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.goBack();
     },
     VaccineList: () => {
-      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
+      const currentPatient = this.patientData.patientState;
+      if (currentPatient.shouldAskDoseSymptoms) {
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
     },
   };
 
