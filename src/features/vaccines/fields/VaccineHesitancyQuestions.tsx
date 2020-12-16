@@ -14,6 +14,7 @@ import {
 import i18n from '@covid/locale/i18n';
 
 type VaccineHesitancyCheckBoxData = {
+  reason_vaccine_trial: boolean;
   reason_religion: boolean;
   reason_personal_belief: boolean;
   reason_pregnancy_breastfeeding: boolean;
@@ -47,6 +48,7 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
   ];
 
   const checkboxes: BooleanCheckBoxData[] = [
+    { label: i18n.t('vaccines.hesitancy.vaccine-trial'), formKey: 'reason_vaccine_trial' },
     { label: i18n.t('vaccines.hesitancy.religious'), formKey: 'reason_religion' },
     { label: i18n.t('vaccines.hesitancy.philosophical'), formKey: 'reason_personal_belief' },
     { label: i18n.t('vaccines.hesitancy.pregnancy'), formKey: 'reason_pregnancy_breastfeeding' },
@@ -62,11 +64,10 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
   ];
 
   return (
-    <View style={{ marginVertical: 8 }}>
+    <View style={{ marginBottom: 8 }}>
       <DropdownField
         selectedValue={formikProps.values.plan}
         onValueChange={formikProps.handleChange('plan')}
-        label={i18n.t('label-chose-an-option')}
         items={dropdowns}
       />
 
@@ -100,6 +101,7 @@ VaccineHesitancyQuestions.initialFormValues = (): VaccineHesitancyData => {
   return {
     plan: '',
     reason_other: '',
+    reason_vaccine_trial: false,
     reason_religion: false,
     reason_personal_belief: false,
     reason_pregnancy_breastfeeding: false,
@@ -118,7 +120,7 @@ VaccineHesitancyQuestions.initialFormValues = (): VaccineHesitancyData => {
 VaccineHesitancyQuestions.schema = () => {
   return Yup.object().shape({
     plan: Yup.string().required(),
-    reason_other: Yup.string().required().when(['other'], {
+    reason_other: Yup.string().when('other', {
       is: true,
       then: Yup.string().required(),
     }),

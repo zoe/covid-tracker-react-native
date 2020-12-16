@@ -51,6 +51,7 @@ export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) =
 
   const registerSchema = Yup.object().shape({}).concat(VaccineHesitancyQuestions.schema());
   const currentPatient = route.params.assessmentData.patientData.patientState;
+
   return (
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>

@@ -1305,8 +1305,9 @@
     },
 
     "hesitancy": {
-      "title": "Would you consider taking a COVID-19 vaccine?",
-      "check-all-that-apply": "Tell us why (check all that apply):",
+      "title": "Would you accept a COVID019 vaccine if offered?",
+      "check-all-that-apply": "Please tell us why (check all that apply):",
+      "vaccine-trial": "I took part on a vaccine trial",
       "religious": "Religious reasons",
       "philosophical": "Personal belief / philosophical reasons",
       "pregnancy": "Pregnancy / breastfeeding",

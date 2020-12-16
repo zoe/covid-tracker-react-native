@@ -3,10 +3,16 @@ import { inject, injectable } from 'inversify';
 import appConfig from '@covid/appConfig';
 import { IApiClient } from '@covid/core/api/ApiClient';
 import { DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { DoseSymptomsResponse, VaccinePlanResponse, VaccineResponse } from '@covid/core/vaccine/dto/VaccineResponse';
+import {
+  DoseSymptomsResponse,
+  VaccinePlanResponse,
+  VaccinePlansResponse,
+  VaccineResponse,
+} from '@covid/core/vaccine/dto/VaccineResponse';
 import { Services } from '@covid/provider/services.types';
 
 export interface IVaccineRemoteClient {
+  getVaccinePlans(patientId: string): Promise<VaccinePlansResponse>;
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse>;
@@ -14,7 +20,12 @@ export interface IVaccineRemoteClient {
 
 @injectable()
 export class VaccineApiClient implements IVaccineRemoteClient {
-  constructor(@inject(Services.Api) private apiClient: IApiClient) {}
+  @inject(Services.Api)
+  private readonly apiClient: IApiClient;
+
+  public async getVaccinePlans(patientId: string): Promise<VaccinePlansResponse> {
+    return this.apiClient.get<VaccinePlansResponse>('/vaccine_plans/');
+  }
 
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
     payload = {

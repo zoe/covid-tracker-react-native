@@ -63,11 +63,13 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    VaccineYesNo: (takenVaccine: boolean) => {
+    VaccineYesNo: ({ takenVaccine, hasPlans }: { takenVaccine: boolean; hasPlans: boolean }) => {
       if (takenVaccine) {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
-      } else {
+      } else if (!hasPlans) {
         NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
     },
     VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
