@@ -88,14 +88,6 @@ commands:
     steps:
       - checkout
       - run: bash .circleci/pull_private_assets.sh
-      - restore_cache:
-          key: *yarn_cache_key
-      - restore_cache:
-          key: *node_cache_key
-      - restore_cache:
-          key: *pod_cache_key
-      - restore_cache:
-          key: *gem_cache_key
 
   install-dependencies:
     steps:
@@ -104,6 +96,8 @@ commands:
 
   bundler-install:
     steps:
+      - restore_cache:
+          key: *gem_cache_key
       - run: gem install bundler
       - run:
           name: Bundle install
@@ -119,6 +113,12 @@ commands:
 
   node-install:
     steps:
+      - restore_cache:
+          key: *yarn_cache_key
+      - restore_cache:
+          key: *node_cache_key
+      - restore_cache:
+          key: *pod_cache_key
       - run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - run:
           name: Install Dependencies
