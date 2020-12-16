@@ -5,7 +5,6 @@ import { Text } from '@covid/components';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { RightArrow } from '@assets';
-import ChevronRight from '@assets/icons/ChevronRight';
 
 interface Props {
   primaryLabel: string;

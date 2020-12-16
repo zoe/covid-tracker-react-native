@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -10,13 +10,13 @@ import {
   ClickableText,
   Header3Text,
   HeaderText,
-  RegularBoldText,
   RegularText,
   SecondaryText,
 } from '@covid/components/Text';
+import { Text } from '@covid/components';
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
-import { colors, fontStyles } from '@theme';
-import { fallingFoodBackground } from '@assets';
+import { colors } from '@theme';
+import { fallingFoodBackground, Tick, StandardArrowRight } from '@assets';
 import { BasicCard } from '@covid/components/Cards/BasicCard';
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
@@ -51,14 +51,17 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
             the science:
           </RegularText>
 
-          <ClickableText
-            style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
+          <TouchableOpacity
             onPress={() => {
               openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback');
             }}>
-            {'\n\u279D '}The science behind these results
-          </ClickableText>
-
+            <View style={{ alignItems: 'center', flexDirection: 'row', marginTop: 24 }}>
+              <StandardArrowRight />
+              <Text textClass="pMedium" colorPalette="burgundy" style={{ marginLeft: 8 }}>
+                The science behind these results
+              </Text>
+            </View>
+          </TouchableOpacity>
           <BasicCard style={styles.imageCard}>
             <Image style={styles.fallingFoodImage} source={fallingFoodBackground} />
 
@@ -86,9 +89,12 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
 
               {!showNewsletterButton && (
                 <>
-                  <RegularBoldText style={{ textAlign: 'center', marginBottom: 16, marginTop: 24 }}>
-                    {'\u2713 '}Great, keep an eye on your inbox!
-                  </RegularBoldText>
+                  <View style={{ alignItems: 'center', marginTop: 16 }}>
+                    <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+                      <Tick />
+                      <Text style={{ marginLeft: 8 }}>Great, keep an eye on your inbox!</Text>
+                    </View>
+                  </View>
                   <ClickableText
                     style={{ textAlign: 'center', marginTop: 16 }}
                     onPress={() => {
