@@ -11,6 +11,7 @@ import {
   DropdownField,
   FormQuestion,
 } from '@covid/components';
+import { VaccinePlanRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import i18n from '@covid/locale/i18n';
 
 type VaccineHesitancyCheckBoxData = {
@@ -127,7 +128,7 @@ VaccineHesitancyQuestions.schema = () => {
   });
 };
 
-VaccineHesitancyQuestions.createDTO = (formData: VaccineHesitancyData): Partial<any> => {
+VaccineHesitancyQuestions.createDTO = (formData: VaccineHesitancyData): Partial<VaccinePlanRequest> => {
   const { other, ...data } = formData;
   return data;
 };
