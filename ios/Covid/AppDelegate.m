@@ -14,6 +14,9 @@
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
 
+#import <RNSplashScreen.h>
+
+
 // #if DEBUG
 // #import <FlipperKit/FlipperClient.h>
 // #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -58,12 +61,19 @@
     controller.delegate = self;
     [controller startAndShowLaunchScreen:self.window];
   #endif
+  
+  self.window.rootViewController.view.backgroundColor = [UIColor colorWithRed:8.0/255.9
+                                                                        green:42.0/255.0
+                                                                         blue:93.0/255.0
+                                                                        alpha:1.0];
 
   [super application:application didFinishLaunchingWithOptions:launchOptions];
 
   [AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+  
+  [RNSplashScreen show];
 
   return YES;
 }
