@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import { covidIcon, createdByZoe, C19 } from '@assets';
+import { createdByZoe, C19 } from '@assets';
 import { TColorPalette, TColorShade } from '@covid/themes';
 
 import { Text } from '../../typography';
