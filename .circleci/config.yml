@@ -47,10 +47,10 @@ references:
   default_workspace: &default_workspace ~/covid-react
 
   # Cache keys
-  yarn_cache_key: &yarn_cache_key yarn-v2-{{ checksum "yarn.lock" }}-{{ arch }}
-  node_cache_key: &node_cache_key node-v2-{{ checksum "package.json" }}-{{ arch }}
-  pod_cache_key: &pod_cache_key pod-v3-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-  gem_cache_key: &gem_cache_key gems-v4-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+  node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
+  pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v3-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
   # Branch filter
   master_filter: &master_filter
@@ -96,7 +96,6 @@ commands:
           key: *pod_cache_key
       - restore_cache:
           key: *gem_cache_key
-      - yarn
 
   install-dependencies:
     steps:
@@ -201,7 +200,6 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - node-install
       - run:
           command: |
             mkdir -p ~/reports
@@ -219,7 +217,6 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
-      - node-install
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -230,7 +227,6 @@ jobs:
     steps:
       - prepare_code
       - prepare_blank_env
-      - node-install
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage
