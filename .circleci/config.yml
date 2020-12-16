@@ -121,7 +121,9 @@ commands:
   node-install:
     steps:
       - run: curl -o- -L https://yarnpkg.com/install.sh | bash
-      - run: yarn --immutable
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
       - save_cache:
           key: *yarn_cache_key
           paths:
