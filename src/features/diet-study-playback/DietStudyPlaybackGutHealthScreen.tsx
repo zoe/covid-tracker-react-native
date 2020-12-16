@@ -21,8 +21,8 @@ export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navig
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
       <ScrollView contentContainerStyle={[styles.scrollView]}>
+        <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
         <View>
           <Image style={styles.banner} source={dietStudyPlaybackGutHeader} />
         </View>
