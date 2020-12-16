@@ -61,16 +61,8 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   return (
     <Screen profile={assessmentData.patientData.profile} navigation={navigation}>
       <Header>
-        <HeaderText>
-          {i18n.t(
-            assessmentData.vaccineData ? 'covid-test.page-title-detail-update' : 'covid-test.page-title-detail-add'
-          )}
-        </HeaderText>
+        <HeaderText>{i18n.t('vaccines.your-vaccine.title')}</HeaderText>
       </Header>
-
-      <ProgressBlock>
-        <ProgressStatus step={1} maxSteps={2} />
-      </ProgressBlock>
 
       <Formik
         initialValues={{
@@ -80,18 +72,17 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
         onSubmit={(values: AboutYourVaccineData) => handleAction(values)}>
         {(props) => {
           return (
-            <Form>
+            <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
-                <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>}/>
-
+                <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>} />
                 <ErrorText>{errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 )}
               </View>
-
+              <View style={{ flex: 1 }} />
               <BrandedButton onPress={props.handleSubmit}>
-                <Text>{i18n.t(assessmentData.vaccineData ? 'covid-test.update-test' : 'covid-test.add-test')}</Text>
+                <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
               </BrandedButton>
             </Form>
           );
@@ -101,6 +92,4 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   );
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});

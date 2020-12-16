@@ -3,22 +3,22 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Item, Label, Text } from 'native-base';
 import moment, { Moment } from 'moment';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
 import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { ClickableText, RegularText } from '@covid/components/Text';
+import { CaptionText, ClickableText, Header3Text, RegularText, SecondaryText } from '@covid/components/Text';
 import { colors, fontStyles } from '@theme';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import YesNoField from '@covid/components/YesNoField';
 import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Calendar, CalendarIcon } from '@assets';
 
 export interface VaccineDateData {
   firstDoseDate: Date | undefined;
   secondDoseDate: Date | undefined;
 }
-// TODO Insert 2 specific dates here
 
 interface Props {
   formikProps: FormikProps<VaccineDateData>;
@@ -34,10 +34,8 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
-  const [state, setState] = useState({
-    showFirstDatePicker: false,
-    showSecondDatePicker: false,
-  });
+  const [showFirstPicker, setShowFirstPicker] = useState(false);
+  const [showSecondPicker, setShowSecondPicker] = useState(false);
 
   function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();
@@ -47,24 +45,19 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
 
   function setFirstDoseDate(selectedDate: Moment): void {
     formikProps.values.firstDoseDate = convertToDate(selectedDate);
-    setState({
-      ...state,
-      showFirstDatePicker: false,
-    });
+    setShowFirstPicker(false);
   }
 
   function setSecondDoseDate(selectedDate: Moment): void {
     formikProps.values.secondDoseDate = convertToDate(selectedDate);
-    setState({
-      ...state,
-      showSecondDatePicker: false,
-    });
+    setShowSecondPicker(false);
   }
 
   return (
     <>
-      <RegularText style={styles.labelStyle}>First dose</RegularText>
-      {state.showFirstDatePicker ? (
+      <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
+      <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+      {showFirstPicker ? (
         <CalendarPicker
           onDateChange={setFirstDoseDate}
           maxDate={today}
@@ -73,17 +66,21 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
           })}
         />
       ) : (
-        <ClickableText onPress={() => setState({ ...state, showFirstDatePicker: true })} style={styles.fieldText}>
+        <TouchableOpacity onPress={() => setShowFirstPicker(true)} style={styles.dateBox}>
+          <CalendarIcon />
           {formikProps.values.firstDoseDate ? (
-            moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')
+            <RegularText style={{ marginStart: 8 }}>
+              {moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')}
+            </RegularText>
           ) : (
-            <Text>{i18n.t('covid-test.required-date')}</Text>
+            <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
           )}
-        </ClickableText>
+        </TouchableOpacity>
       )}
 
-      <RegularText style={styles.labelStyle}>Second dose</RegularText>
-      {state.showSecondDatePicker ? (
+      <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
+      <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+      {showSecondPicker ? (
         <CalendarPicker
           onDateChange={setSecondDoseDate}
           maxDate={today}
@@ -92,13 +89,16 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
           })}
         />
       ) : (
-        <ClickableText onPress={() => setState({ ...state, showSecondDatePicker: true })} style={styles.fieldText}>
+        <TouchableOpacity onPress={() => setShowSecondPicker(true)} style={styles.dateBox}>
+          <CalendarIcon />
           {formikProps.values.secondDoseDate ? (
-            moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')
+            <RegularText style={{ marginStart: 8 }}>
+              {moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')}
+            </RegularText>
           ) : (
-            <Text>{i18n.t('covid-test.required-date')}</Text>
+            <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
           )}
-        </ClickableText>
+        </TouchableOpacity>
       )}
     </>
   );
@@ -108,11 +108,12 @@ const styles = StyleSheet.create({
   labelStyle: {
     marginVertical: 16,
   },
-  fieldText: {
-    ...fontStyles.bodyReg,
-    color: colors.black,
-    alignSelf: 'center',
-    paddingBottom: 10,
+  dateBox: {
+    marginVertical: 8,
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 8,
+    flexDirection: 'row',
+    padding: 16,
   },
 });
 
