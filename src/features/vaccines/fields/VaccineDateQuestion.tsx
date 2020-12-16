@@ -18,6 +18,7 @@ import { Calendar, CalendarIcon } from '@assets';
 export interface VaccineDateData {
   firstDoseDate: Date | undefined;
   secondDoseDate: Date | undefined;
+  hadSecondDose: string;
 }
 
 interface Props {
@@ -78,27 +79,42 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
         </TouchableOpacity>
       )}
 
-      <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
-      <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
-      {showSecondPicker ? (
-        <CalendarPicker
-          onDateChange={setSecondDoseDate}
-          maxDate={today}
-          {...(!!formikProps.values.secondDoseDate && {
-            selectedStartDate: formikProps.values.secondDoseDate,
-          })}
-        />
-      ) : (
-        <TouchableOpacity onPress={() => setShowSecondPicker(true)} style={styles.dateBox}>
-          <CalendarIcon />
-          {formikProps.values.secondDoseDate ? (
-            <RegularText style={{ marginStart: 8 }}>
-              {moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')}
-            </RegularText>
+      <YesNoField
+        selectedValue={formikProps.values.hadSecondDose}
+        onValueChange={(value: string) => {
+          if (value === 'no') {
+            formikProps.values.secondDoseDate = undefined;
+          }
+          formikProps.setFieldValue('hadSecondDose', value);
+        }}
+        label={i18n.t('vaccines.your-vaccine.have-had-second')}
+      />
+
+      {formikProps.values.hadSecondDose === 'yes' && (
+        <>
+          <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
+          <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+          {showSecondPicker ? (
+            <CalendarPicker
+              onDateChange={setSecondDoseDate}
+              maxDate={today}
+              {...(!!formikProps.values.secondDoseDate && {
+                selectedStartDate: formikProps.values.secondDoseDate,
+              })}
+            />
           ) : (
-            <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+            <TouchableOpacity onPress={() => setShowSecondPicker(true)} style={styles.dateBox}>
+              <CalendarIcon />
+              {formikProps.values.secondDoseDate ? (
+                <RegularText style={{ marginStart: 8 }}>
+                  {moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')}
+                </RegularText>
+              ) : (
+                <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+              )}
+            </TouchableOpacity>
           )}
-        </TouchableOpacity>
+        </>
       )}
     </>
   );
@@ -125,6 +141,7 @@ VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateD
     secondDoseDate: vaccine?.doses[1]?.date_taken_specific
       ? moment(vaccine.doses[0].date_taken_specific).toDate()
       : undefined,
+    hadSecondDose: vaccine?.doses[1]?.date_taken_specific ? 'yes' : 'no',
   };
 };
 

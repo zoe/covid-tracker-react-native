@@ -1369,6 +1369,23 @@
         "Other": "",
         "not-to-say": "",
         "specify": ""
+      },
+      "vaccine-list": {
+        "title": "",
+        "description": "",
+        "add-button": "",
+        "correct-info": "",
+        "no-vaccine": "",
+        "no-2nd": ""
+      },
+      "your-vaccine": {
+        "title": "",
+        "first-dose": "",
+        "second-dose": "",
+        "when-injection": "",
+        "have-had-second": "",
+        "select-date": "",
+        "confirm": ""
       }
     },
 
