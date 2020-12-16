@@ -96,7 +96,6 @@ commands:
           key: *pod_cache_key
       - restore_cache:
           key: *gem_cache_key
-      - yarn
 
   install-dependencies:
     steps:
