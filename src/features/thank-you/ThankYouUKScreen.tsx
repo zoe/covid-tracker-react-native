@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog025, dataPage003, notificationReminders, timUpdate022 } from '@assets';
+import { blog025, blog027, dataPage003, notificationReminders, timUpdate022, timUpdate023 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -79,23 +79,21 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-asymptomatic-classic-symptoms?utm_source=App"
-                calloutID="blog_025"
-                imageSource={blog025}
-                aspectRatio={1.555}
+                link="https://covid.joinzoe.com/post/getting-ready-covid-christmas?utm_source=App"
+                calloutID="blog_027"
+                imageSource={blog027}
+                aspectRatio={1032 / 600}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=XJBPiGwItPE&feature=youtu.be"
-                calloutID="tim_update_022"
-                imageSource={timUpdate022}
-                aspectRatio={1.21}
+                link="https://youtu.be/YP4T2qgoh7o"
+                calloutID="tim_update_023"
+                imageSource={timUpdate023}
+                aspectRatio={1029 / 600}
                 screenName={this.props.route.name}
               />
-
-              {/*<RegularText style={styles.dateLabel}>Oct 29, 2020</RegularText>*/}
-
+              
               {this.state.shouldShowReminders && (
                 <ExternalCallout
                   calloutID="notificationReminders"
