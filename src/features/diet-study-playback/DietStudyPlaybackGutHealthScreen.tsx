@@ -64,7 +64,6 @@ export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navig
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: colors.backgroundPrimary,
-    borderColor: 'green',
     flex: 1,
   },
   scrollView: {
