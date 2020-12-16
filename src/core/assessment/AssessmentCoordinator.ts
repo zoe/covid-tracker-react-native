@@ -19,6 +19,8 @@ import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
+import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
+import { assessmentService } from '@covid/Services';
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -178,7 +180,7 @@ export class AssessmentCoordinator extends Coordinator {
   startAssessment = () => {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
-    this.assessmentService.initAssessment();
+    this.assessmentService.initAssessment(this.patientData.patientState.patientId);
 
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
@@ -208,6 +210,13 @@ export class AssessmentCoordinator extends Coordinator {
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
     const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
+  };
+
+  goToAddEditVaccine = (doseIndex?: number) => {
+    NavigatorService.navigate('AboutYourVaccine', {
+      assessmentData: this.assessmentData,
+      doseIndex,
+    });
   };
 
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
