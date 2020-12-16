@@ -40,7 +40,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse> {
     payload = {
       ...payload,
-      patient: patientId,
+      patient_id: patientId,
     };
     return this.apiClient.post<VaccinePlanRequest, VaccinePlanResponse>(
       '/vaccine_plans/',

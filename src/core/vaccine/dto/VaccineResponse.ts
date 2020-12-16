@@ -8,7 +8,7 @@ export type DoseSymptomsResponse = {
 
 export type VaccinePlanResponse = {
   id: string;
-  patient: string;
+  patient_id: string;
 };
 
 export type VaccinePlansResponse = VaccinePlanResponse[];
