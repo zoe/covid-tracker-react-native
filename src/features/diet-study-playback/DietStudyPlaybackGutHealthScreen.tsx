@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -18,10 +18,14 @@ type Props = {
 
 export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
-  const { width } = Dimensions.get('window');
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={[styles.scrollView, { paddingTop: width * 0.68 }]}>
+      <ScrollView contentContainerStyle={[styles.scrollView]}>
+        <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
+        <View>
+          <Image style={styles.banner} source={dietStudyPlaybackGutHeader} />
+        </View>
         <View style={styles.rootContainer}>
           <HeaderText style={styles.titleText}>Let’s go one step further & dive into gut health</HeaderText>
           <SecondaryText style={styles.subtext}>
@@ -53,8 +57,6 @@ export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navig
           </BrandedButton>
         </View>
       </ScrollView>
-      <Image style={styles.banner} source={dietStudyPlaybackGutHeader} />
-      <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
     </SafeAreaView>
   );
 };
@@ -76,7 +78,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'absolute',
-    top: 45,
+    top: 30,
+    zIndex: 5,
+    elevation: 5,
   },
   button: {
     backgroundColor: colors.darkblue,
@@ -89,8 +93,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1200 / 714,
     height: undefined,
     resizeMode: 'contain',
-    position: 'absolute',
-    top: 0,
   },
   titleText: {
     marginVertical: 16,

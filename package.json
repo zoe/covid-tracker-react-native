@@ -7,7 +7,7 @@
     "android": "ENVFILE=.env.staging react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
     "android:devices": " ~/Library/Android/sdk/emulator/emulator -list-avds",
     "ios": "react-native run-ios --scheme 'Covid Debug' --configuration Debug",
-    "ios:staging": "ENVFILE=.env.staging npm run ios -- --simulator='iPhone 11'",
+    "ios:staging": "ENVFILE=.env.staging npm run ios -- --simulator='iPhone 8'",
     "ios:devices": "xcrun simctl list",
     "web": "expo start --web",
     "test": "jest --maxWorker=2 --runInBand --detectOpenHandles",

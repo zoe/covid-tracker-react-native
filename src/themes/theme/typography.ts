@@ -60,6 +60,7 @@ export const text: ITextClass = {
   pSmall: getTextProperties(14, 20),
   pSmallBold: getTextProperties(14, 20, 'SofiaPro-SemiBold'),
   pSmallLight: getTextProperties(14, 20, 'SofiaPro-Light'),
+  pXSmall: getTextProperties(12, 16),
   //
   default: getTextProperties(16, 24),
   button: {
