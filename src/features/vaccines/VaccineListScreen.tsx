@@ -49,7 +49,13 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   );
 
   const handleNextButton = async () => {
-    coordinator.gotoNextScreen(route.name);
+    const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
+    const takenVaccine = vaccines.length > 0;
+
+    coordinator.gotoNextScreen(route.name, {
+      takenVaccine,
+      hasPlans,
+    });
   };
 
   const ListContent = () => {
