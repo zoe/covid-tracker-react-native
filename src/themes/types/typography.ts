@@ -1,4 +1,4 @@
-export type TTypeSizes = 2 | 4 | 8 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 40 | 48 | 56 | 64 | 72 | 80;
+export type TTypeSizes = 2 | 4 | 8 | 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 40 | 48 | 56 | 64 | 72 | 80;
 
 export type TFontStyle = 'normal' | 'italic';
 
@@ -67,6 +67,7 @@ export type ITextClass = {
   pLight: TText;
   pMedium: TText;
   pSmall: TText;
+  pXSmall: TText;
   pSmallBold: TText;
   pSmallLight: TText;
   default: TText;

@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import RNSplashScreen from 'react-native-splash-screen';
 import { RouteProp } from '@react-navigation/native';
 
 import { colors } from '@theme';
@@ -61,6 +62,7 @@ export class SplashScreen extends Component<Props, SplashState> {
 
   async initAppState() {
     await appCoordinator.init();
+    RNSplashScreen.hide();
     appCoordinator.gotoNextScreen(this.props.route.name);
   }
 

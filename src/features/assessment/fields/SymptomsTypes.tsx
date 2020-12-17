@@ -6,11 +6,18 @@ import { FormikProps } from 'formik';
 import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
 import { CheckboxItem } from '@covid/components/Checkbox';
 import DropdownField from '@covid/components/DropdownField';
+import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 export interface SymptomQuestions<P, Data> extends React.FC<P> {
   initialFormValues: (defaultTemperatureUnit?: string) => Data;
   schema: () => Yup.ObjectSchema;
   createAssessment: (data: Data, param?: any) => Partial<AssessmentInfosRequest>;
+}
+
+export interface DoseSymptomQuestions<P, Data> extends React.FC<P> {
+  initialFormValues: () => Data;
+  schema: () => Yup.ObjectSchema;
+  createDoseSymptoms: (data: Data, param?: any) => Partial<DoseSymptomsRequest>;
 }
 
 type BoolObject = { [key: string]: boolean | undefined };

@@ -72,6 +72,14 @@ export type ScreenParamList = {
   GutStomachSymptoms: { assessmentData: AssessmentData };
   OtherSymptoms: { assessmentData: AssessmentData };
 
+  // Vaccines
+  VaccineYesNo: { assessmentData: AssessmentData };
+  VaccineTrialOrNational: { assessmentData: AssessmentData };
+  VaccineTrialPlacebo: { assessmentData: AssessmentData };
+  VaccineDoseSymptoms: { assessmentData: AssessmentData; recordVaccine: boolean };
+  VaccineThankYou: { assessmentData: AssessmentData };
+
+  // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
 
@@ -109,6 +117,14 @@ export type ScreenParamList = {
   SchoolDashboard: { school: SubscribedSchoolStats };
   ConfirmSchool: { patientData: PatientData; school: SchoolModel };
   JoinHigherEducation: { patientData: PatientData };
+
+  DietStudyPlaybackIntro: undefined;
+  DietStudyPlaybackGlobal: undefined;
+  DietStudyPlaybackDietQuality: undefined;
+  DietStudyPlaybackYourDiet: undefined;
+  DietStudyPlaybackGutHealth: undefined;
+  DietStudyPlaybackYourGut: undefined;
+  DietStudyPlaybackResearch: undefined;
 
   //
   Modal: undefined;

@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog023, blog024, dataPage003, notificationReminders, timUpdate021 } from '@assets';
+import { blog025, blog027, dataPage003, notificationReminders, timUpdate022, timUpdate023 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -79,31 +79,21 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/vitamins-reduce-covid-risk?utm_source=App"
-                calloutID="blog_023"
-                imageSource={blog023}
-                aspectRatio={1.555}
+                link="https://covid.joinzoe.com/post/getting-ready-covid-christmas?utm_source=App"
+                calloutID="blog_027"
+                imageSource={blog027}
+                aspectRatio={1032 / 600}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-vaccines-expert-questions?utm_source=App"
-                calloutID="blog_024"
-                imageSource={blog024}
-                aspectRatio={1.555}
+                link="https://youtu.be/YP4T2qgoh7o"
+                calloutID="tim_update_023"
+                imageSource={timUpdate023}
+                aspectRatio={1029 / 600}
                 screenName={this.props.route.name}
               />
-
-              <ExternalCallout
-                link="https://www.youtube.com/watch?v=AGH8nInkA14"
-                calloutID="tim_update_021"
-                imageSource={timUpdate021}
-                aspectRatio={1.21}
-                screenName={this.props.route.name}
-              />
-
-              {/*<RegularText style={styles.dateLabel}>Oct 29, 2020</RegularText>*/}
-
+              
               {this.state.shouldShowReminders && (
                 <ExternalCallout
                   calloutID="notificationReminders"

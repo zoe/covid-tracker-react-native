@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, webinarInvite } from '@assets';
+import { blog026, shareAppV3, smell_video_dec16, webinar_dec_09 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -92,10 +92,18 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
-          link="https://us02web.zoom.us/webinar/register/4716069965500/WN_0FyYubk1SMGe58xH2Ee9cw"
-          calloutID="webinar_invite_dec_09"
-          imageSource={webinarInvite}
-          aspectRatio={1.079}
+          link="https://youtu.be/UNwOvNF1R4Q"
+          calloutID="smell_video_dec16"
+          imageSource={smell_video_dec16}
+          aspectRatio={1029 / 600}
+          screenName={route.name}
+        />
+
+        <ExternalCallout
+          link="https://covid.joinzoe.com/post/covid-vaccine-questions?utm_source=App"
+          calloutID="blog_026"
+          imageSource={blog026}
+          aspectRatio={1033 / 600}
           screenName={route.name}
         />
 
@@ -113,7 +121,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         <EstimatedCasesMapCard />
 
         <UKEstimatedCaseCard onPress={onMoreDetails} />
-
 
         <ExternalCallout
           calloutID="sharev3"

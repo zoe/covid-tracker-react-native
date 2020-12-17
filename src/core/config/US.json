@@ -1,10 +1,10 @@
 {
-    "country": "US",
+  "country": "US",
 
-    "showEthnicityQuestion": true,
-    "showRaceQuestion": false,
+  "showEthnicityQuestion": true,
+  "showRaceQuestion": false,
 
-    "defaultHeightUnit": "ft",
-    "defaultWeightUnit": "lbs",
-    "defaultTemperatureUnit": "F"
+  "defaultHeightUnit": "ft",
+  "defaultWeightUnit": "lbs",
+  "defaultTemperatureUnit": "F"
 }

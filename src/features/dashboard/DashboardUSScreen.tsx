@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, Pressable, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { PoweredByZoeSmall } from '@covid/components/Logos/PoweredByZoe';
 import { CompactHeader, Header } from '@covid/features/dashboard/Header';
@@ -10,13 +11,15 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3 } from '@assets';
+import { dietStudyPlaybackReady, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
-import AnalyticsService from '@covid/core/Analytics';
+import Analytics, { events } from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
+import { RootState } from '@covid/core/state/root';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -29,6 +32,9 @@ interface Props {
 export const DashboardUSScreen: React.FC<Props> = (params) => {
   const dispatch = useAppDispatch();
   const { route, navigation } = params;
+
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
+  const [showDietStudyPlayback] = useState<boolean | undefined>(startupInfo?.show_diet_score);
 
   const headerConfig = {
     compact: HEADER_COLLAPSED_HEIGHT,
@@ -46,7 +52,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
 
   useEffect(() => {
     (async () => {
-      AnalyticsService.identify();
+      Analytics.identify();
       await pushNotificationService.refreshPushToken();
     })();
   }, []);
@@ -64,6 +70,15 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        {showDietStudyPlayback && (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
+              appCoordinator.goToDietStudyPlayback();
+            }}>
+            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+          </TouchableWithoutFeedback>
+        )}
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareAppV3}
@@ -92,5 +107,12 @@ const styles = StyleSheet.create({
   },
   zoe: {
     marginBottom: 32,
+  },
+  dietStudyImage: {
+    width: '100%',
+    aspectRatio: 1200 / 1266,
+    height: undefined,
+    resizeMode: 'contain',
+    marginVertical: 8,
   },
 });
