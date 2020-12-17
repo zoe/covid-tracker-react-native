@@ -7,17 +7,16 @@ import { StyleSheet, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
-import { colors } from '@theme';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
-import { vaccineService } from '@covid/Services';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDateData, VaccineDateQuestion } from '@covid/features/vaccines/fields/VaccineDateQuestion';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -29,8 +28,7 @@ type Props = {
 interface AboutYourVaccineData extends VaccineDateData {}
 
 export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
-  // TODO Inject
-  const vaccineService: IVaccineService = vaccineService;
+  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);

@@ -1350,6 +1350,12 @@
         "have-had-second": "",
         "select-date": "",
         "confirm": ""
+      },
+      "vaccine-card": {
+        "dose-1": "",
+        "dose-2": "",
+        "add-date": "",
+        "add-info": ""
       }
     },
 

@@ -1322,6 +1322,13 @@
       "select-date": "Select date",
       "confirm": "Confirm"
     },
+
+    "vaccine-card": {
+      "dose-1": "Dose 1",
+      "dose-2": "Dose 2",
+      "add-date": "Add date",
+      "add-info": "Add dose information"
+    },
     
     "hesitancy": {
       "title": "Would you accept a COVID019 vaccine if offered?",

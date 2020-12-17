@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import moment from 'moment';
 import { Text } from 'native-base';
 
-import { BrandedButton, RegularBoldText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, RegularText } from '@covid/components/Text';
 import { pending, tick } from '@assets';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
@@ -35,7 +35,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
 
   return (
     <View style={styles.container}>
-      <RegularText>Dose 1</RegularText>
+      <RegularText>{i18n.t('vaccines.vaccine-card.dose-1')}</RegularText>
       <View style={styles.row}>
         <Image source={getIcon(hasFirstDoseDate)} style={styles.tick} />
         <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
@@ -47,10 +47,10 @@ export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
         onPress={() => {
           //TODO
         }}>
-        <Text style={styles.buttonText}>{i18n.t('covid-test-list.add-new-test')}</Text>
+        <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-date')}</Text>
       </BrandedButton>
 
-      <RegularText>Dose 2</RegularText>
+      <RegularText style={{ marginTop: 16 }}>{i18n.t('vaccines.vaccine-card.dose-2')}</RegularText>
       <View style={styles.row}>
         <Image source={getIcon(hasSecondDoseDate)} style={styles.tick} />
         <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
@@ -63,20 +63,31 @@ export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
         onPress={() => {
           //TODO
         }}>
-        <Text style={styles.buttonText}>{i18n.t('covid-test-list.add-new-test')}</Text>
+        <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-info')}</Text>
       </BrandedButton>
 
-      <RegularBoldText style={styles.deleteText}>Delete vaccine</RegularBoldText>
+      <ClickableText
+        onPress={() => {
+          //TODO
+        }}
+        style={styles.deleteText}>
+        Delete vaccine
+      </ClickableText>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 16,
+    borderColor: colors.tertiary,
   },
   row: {
+    marginVertical: 8,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   tick: {
     marginEnd: 8,
@@ -87,6 +98,7 @@ const styles = StyleSheet.create({
     color: colors.secondary,
   },
   button: {
+    marginVertical: 4,
     borderWidth: 1,
     height: 40,
     borderColor: colors.purple,
@@ -97,7 +109,8 @@ const styles = StyleSheet.create({
     color: colors.purple,
   },
   deleteText: {
-    marginVertical: 32,
+    marginTop: 24,
+    marginBottom: 8,
     textAlign: 'center',
     color: colors.purple,
   },

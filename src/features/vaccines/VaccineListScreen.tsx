@@ -10,11 +10,12 @@ import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
-import { vaccineService } from '@covid/Services';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
+import { useInjection } from '@covid/provider/services.hooks';
+import { Services } from '@covid/provider/services.types';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -24,8 +25,7 @@ type Props = {
 };
 
 export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
-  // TODO Inject
-  const vaccineService: IVaccineService = vaccineService;
+  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
 
   const [vaccines, setVaccines] = useState<VaccineRequest[]>([]);
@@ -79,22 +79,16 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.rootContainer}>
-      <Screen profile={patientData.patientState.profile} navigation={navigation}>
-        <Header>
-          <HeaderText>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
-        </Header>
+    <Screen style={styles.rootContainer} profile={patientData.patientState.profile} navigation={navigation}>
+      <Header>
+        <HeaderText>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
+      </Header>
 
-        <ProgressBlock>
-          <ProgressStatus step={0} maxSteps={1} />
-        </ProgressBlock>
+      <View style={styles.content}>
+        <RegularText>{i18n.t('vaccines.vaccine-list.description')}</RegularText>
+      </View>
 
-        <View style={styles.content}>
-          <RegularText>{i18n.t('vaccines.vaccine-list.description')}</RegularText>
-        </View>
-
-        <ListContent />
-      </Screen>
+      <ListContent />
 
       <BrandedButton style={styles.continueButton} onPress={handleNextButton}>
         <Text>
@@ -105,14 +99,14 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
             : i18n.t('vaccines.vaccine-list.correct-info')}
         </Text>
       </BrandedButton>
-    </View>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: colors.backgroundPrimary,
+    backgroundColor: colors.backgroundSecondary,
   },
   content: {
     margin: 16,
