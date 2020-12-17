@@ -42,10 +42,10 @@ export const text: ITextClass = {
   h4Medium: getTextProperties(20, 24, 'SofiaPro-Medium'),
   h4Regular: getTextProperties(20, 24),
   //
-  h5: getTextProperties(16, 24, 'SofiaPro-SemiBold'),
-  h5Light: getTextProperties(16, 24, 'SofiaPro-Light'),
-  h5Medium: getTextProperties(16, 24, 'SofiaPro-Medium'),
-  h5Regular: getTextProperties(16, 24),
+  h5: getTextProperties(18, 24, 'SofiaPro-SemiBold'),
+  h5Light: getTextProperties(18, 24, 'SofiaPro-Light'),
+  h5Medium: getTextProperties(18, 24, 'SofiaPro-Medium'),
+  h5Regular: getTextProperties(18, 24),
   //
   h6: getTextProperties(12, 16, 'SofiaPro-SemiBold'),
   h6Light: getTextProperties(12, 16, 'SofiaPro-Light'),
@@ -60,6 +60,7 @@ export const text: ITextClass = {
   pSmall: getTextProperties(14, 20),
   pSmallBold: getTextProperties(14, 20, 'SofiaPro-SemiBold'),
   pSmallLight: getTextProperties(14, 20, 'SofiaPro-Light'),
+  pXSmall: getTextProperties(12, 16),
   //
   default: getTextProperties(16, 24),
   button: {

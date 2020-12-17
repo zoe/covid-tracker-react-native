@@ -47,10 +47,10 @@ references:
   default_workspace: &default_workspace ~/covid-react
 
   # Cache keys
-  yarn_cache_key: &yarn_cache_key yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-  node_cache_key: &node_cache_key node-v1-{{ checksum "package.json" }}-{{ arch }}
-  pod_cache_key: &pod_cache_key pod-v2-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
-  gem_cache_key: &gem_cache_key gems-v3-{{ checksum "Gemfile.lock" }}-{{ arch }}
+  yarn_cache_key: &yarn_cache_key yarn-v2-{{ checksum "yarn.lock" }}-{{ arch }}
+  node_cache_key: &node_cache_key node-v2-{{ checksum "package.json" }}-{{ arch }}
+  pod_cache_key: &pod_cache_key pod-v3-{{ checksum "ios/Podfile.lock" }}-{{ arch }}
+  gem_cache_key: &gem_cache_key gems-v4-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
   # Branch filter
   master_filter: &master_filter
@@ -88,14 +88,6 @@ commands:
     steps:
       - checkout
       - run: bash .circleci/pull_private_assets.sh
-      - restore_cache:
-          key: *yarn_cache_key
-      - restore_cache:
-          key: *node_cache_key
-      - restore_cache:
-          key: *pod_cache_key
-      - restore_cache:
-          key: *gem_cache_key
 
   install-dependencies:
     steps:
@@ -104,6 +96,8 @@ commands:
 
   bundler-install:
     steps:
+      - restore_cache:
+          key: *gem_cache_key
       - run: gem install bundler
       - run:
           name: Bundle install
@@ -119,7 +113,16 @@ commands:
 
   node-install:
     steps:
-      - run: yarn
+      - restore_cache:
+          key: *yarn_cache_key
+      - restore_cache:
+          key: *node_cache_key
+      - restore_cache:
+          key: *pod_cache_key
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
       - save_cache:
           key: *yarn_cache_key
           paths:
@@ -200,6 +203,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - node-install
       - run:
           command: |
             mkdir -p ~/reports
@@ -217,6 +221,7 @@ jobs:
     working_directory: ~/covid-react
     steps:
       - prepare_code
+      - node-install
       - run: yarn test:i18n 'sv-SE'
       - run: yarn test:i18n 'es'
 
@@ -227,6 +232,7 @@ jobs:
     steps:
       - prepare_code
       - prepare_blank_env
+      - node-install
       - run:
           name: Run tests with JUnit as reporter
           command: yarn test:coverage
