@@ -1327,7 +1327,8 @@
       "dose-1": "Dose 1",
       "dose-2": "Dose 2",
       "add-date": "Add date",
-      "add-info": "Add dose information"
+      "add-info": "Add dose information",
+      "delete": "Delete vaccines"
     },
     
     "hesitancy": {

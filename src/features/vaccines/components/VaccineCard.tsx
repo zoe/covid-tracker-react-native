@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, ViewStyle } from 'react-native';
 import moment from 'moment';
 import { Text } from 'native-base';
 
@@ -11,9 +11,12 @@ import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 type Props = {
   vaccine: VaccineRequest;
+  style?: ViewStyle;
+  onPressDose: (index: number) => void;
+  onPressDelete: () => void;
 };
 
-export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
+export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose, onPressDelete }) => {
   const formatDateString = (dateString: string): string => {
     return moment(dateString).format('MMM D YYYY');
   };
@@ -34,7 +37,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
   const hasSecondDoseDate = !!vaccine.doses[1].date_taken_specific;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <RegularText>{i18n.t('vaccines.vaccine-card.dose-1')}</RegularText>
       <View style={styles.row}>
         <Image source={getIcon(hasFirstDoseDate)} style={styles.tick} />
@@ -42,11 +45,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
           {hasFirstDoseDate ? formatVaccineDate(vaccine.doses[0] as Dose) : 'Logged but date missing'}
         </RegularText>
       </View>
-      <BrandedButton
-        style={styles.button}
-        onPress={() => {
-          //TODO
-        }}>
+      <BrandedButton style={styles.button} onPress={() => onPressDose(0)}>
         <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-date')}</Text>
       </BrandedButton>
 
@@ -57,21 +56,12 @@ export const VaccineCard: React.FC<Props> = ({ vaccine }) => {
           {hasSecondDoseDate ? formatVaccineDate(vaccine.doses[1] as Dose) : 'Not yet logged'}
         </RegularText>
       </View>
-      <BrandedButton
-        style={styles.button}
-        enable={hasFirstDoseDate}
-        onPress={() => {
-          //TODO
-        }}>
+      <BrandedButton style={styles.button} enable={hasFirstDoseDate} onPress={() => onPressDose(1)}>
         <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-info')}</Text>
       </BrandedButton>
 
-      <ClickableText
-        onPress={() => {
-          //TODO
-        }}
-        style={styles.deleteText}>
-        Delete vaccine
+      <ClickableText onPress={() => onPressDelete()} style={styles.deleteText}>
+        {i18n.t('vaccines.vaccine-card.delete')}
       </ClickableText>
     </View>
   );

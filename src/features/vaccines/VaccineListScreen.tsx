@@ -2,11 +2,10 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { colors } from '@theme';
-import ProgressStatus from '@covid/components/ProgressStatus';
-import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
+import Screen from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
@@ -68,11 +67,21 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
             </BrandedButton>
           )}
 
-          <View style={styles.content}>
+          <>
             {vaccines.map((item: VaccineRequest) => {
-              return <VaccineCard vaccine={item} key={item.id} />;
+              return (
+                <VaccineCard
+                  style={{ marginVertical: 8 }}
+                  vaccine={item}
+                  key={item.id}
+                  onPressDose={(i) => {
+                    coordinator.goToAddEditVaccine(i);
+                  }}
+                  onPressDelete={() => vaccineService.deleteVaccine(item.id)}
+                />
+              );
             })}
-          </View>
+          </>
         </>
       );
     }
@@ -80,13 +89,9 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <Screen style={styles.rootContainer} profile={patientData.patientState.profile} navigation={navigation}>
-      <Header>
-        <HeaderText>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
-      </Header>
+      <HeaderText style={{ marginVertical: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 
-      <View style={styles.content}>
-        <RegularText>{i18n.t('vaccines.vaccine-list.description')}</RegularText>
-      </View>
+      <RegularText style={{ marginVertical: 8 }}>{i18n.t('vaccines.vaccine-list.description')}</RegularText>
 
       <ListContent />
 
@@ -107,9 +112,6 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     backgroundColor: colors.backgroundSecondary,
-  },
-  content: {
-    margin: 16,
   },
   newButton: {
     marginHorizontal: 16,

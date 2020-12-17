@@ -1,7 +1,6 @@
 import { inject, injectable } from 'inversify';
 
 import { Dose, DoseSymptomsRequest, VaccinePlanRequest, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { VaccinePlansResponse } from '@covid/core/vaccine/dto/VaccineResponse';
 import { IVaccineRemoteClient } from '@covid/core/vaccine/VaccineApiClient';
 import { Services } from '@covid/provider/services.types';
 
@@ -10,6 +9,7 @@ export interface IVaccineService {
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean>;
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<boolean>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<boolean>;
+  deleteVaccine(vaccineId: string): Promise<void>;
   listVaccines(): Promise<VaccineRequest[]>;
 }
 
@@ -52,5 +52,9 @@ export class VaccineService implements IVaccineService {
 
   listVaccines(): Promise<VaccineRequest[]> {
     return this.apiClient.listVaccines();
+  }
+
+  deleteVaccine(vaccineId: string): Promise<void> {
+    return this.apiClient.deleteVaccine(vaccineId);
   }
 }

@@ -17,6 +17,7 @@ export interface IVaccineRemoteClient {
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse>;
   listVaccines(): Promise<VaccineRequest[]>;
+  deleteVaccine(vaccineId: string): Promise<void>;
 }
 
 @injectable()
@@ -60,6 +61,10 @@ export class VaccineApiClient implements IVaccineRemoteClient {
   }
 
   listVaccines(): Promise<VaccineRequest[]> {
-    return this.apiClient.get<VaccineRequest[]>(`/vaccines/`); //TODO Is this correct
+    return this.apiClient.get<VaccineRequest[]>(`/vaccines/`);
+  }
+
+  deleteVaccine(vaccineId: string): Promise<void> {
+    return this.apiClient.delete<{ id: string }, void>(`/vaccines/`, { id: vaccineId }); //TODO CHECK THIS
   }
 }
