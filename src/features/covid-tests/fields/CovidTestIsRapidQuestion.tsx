@@ -26,15 +26,13 @@ export interface CovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
 
 export const CovidTestIsRapidQuestion: CovidTestIsRapidQuestion<Props, CovidTestIsRapidData> = (props: Props) => {
   const { formikProps } = props;
-  return isGBCountry() ? (
+  return (
     <YesNoField
       selectedValue={formikProps.values.isRapidTest}
       onValueChange={formikProps.handleChange('isRapidTest')}
       error={formikProps.touched.isRapidTest && formikProps.errors.isRapidTest}
       label={i18n.t('covid-test.question-is-rapid-test')}
     />
-  ) : (
-    <></>
   );
 };
 
