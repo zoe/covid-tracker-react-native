@@ -33,8 +33,8 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose, onPr
     }
   };
 
-  const hasFirstDoseDate = !!vaccine.doses[0].date_taken_specific;
-  const hasSecondDoseDate = !!vaccine.doses[1].date_taken_specific;
+  const hasFirstDoseDate = !!vaccine.doses[0]?.date_taken_specific;
+  const hasSecondDoseDate = !!vaccine.doses[1]?.date_taken_specific;
 
   return (
     <View style={[styles.container, style]}>
@@ -42,23 +42,29 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose, onPr
       <View style={styles.row}>
         <Image source={getIcon(hasFirstDoseDate)} style={styles.tick} />
         <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
-          {hasFirstDoseDate ? formatVaccineDate(vaccine.doses[0] as Dose) : 'Logged but date missing'}
+          {hasFirstDoseDate
+            ? formatVaccineDate(vaccine.doses[0] as Dose)
+            : i18n.t('vaccines.vaccine-card.date-missing')}
         </RegularText>
       </View>
-      <BrandedButton style={styles.button} onPress={() => onPressDose(0)}>
-        <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-date')}</Text>
-      </BrandedButton>
+      {!hasFirstDoseDate && (
+        <BrandedButton style={styles.button} onPress={() => onPressDose(0)}>
+          <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-date')}</Text>
+        </BrandedButton>
+      )}
 
       <RegularText style={{ marginTop: 16 }}>{i18n.t('vaccines.vaccine-card.dose-2')}</RegularText>
       <View style={styles.row}>
         <Image source={getIcon(hasSecondDoseDate)} style={styles.tick} />
         <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
-          {hasSecondDoseDate ? formatVaccineDate(vaccine.doses[1] as Dose) : 'Not yet logged'}
+          {hasSecondDoseDate ? formatVaccineDate(vaccine.doses[1] as Dose) : i18n.t('vaccines.vaccine-card.not-logged')}
         </RegularText>
       </View>
-      <BrandedButton style={styles.button} enable={hasFirstDoseDate} onPress={() => onPressDose(1)}>
-        <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-info')}</Text>
-      </BrandedButton>
+      {!hasSecondDoseDate && (
+        <BrandedButton style={styles.button} enable={hasFirstDoseDate} onPress={() => onPressDose(1)}>
+          <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-info')}</Text>
+        </BrandedButton>
+      )}
 
       <ClickableText onPress={() => onPressDelete()} style={styles.deleteText}>
         {i18n.t('vaccines.vaccine-card.delete')}

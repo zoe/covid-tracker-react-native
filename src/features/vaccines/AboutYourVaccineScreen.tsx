@@ -6,13 +6,14 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import moment from 'moment';
 
 import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDateData, VaccineDateQuestion } from '@covid/features/vaccines/fields/VaccineDateQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -40,19 +41,39 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     if (!submitting) {
       setSubmitting(true);
 
-      const vaccine = {
-        ...assessmentData.vaccineData,
-        patient: assessmentData.patientData.patientId,
+      function formatDateToPost(date: Date) {
+        return moment(date).format('YYYY-MM-DD');
+      }
 
-        ...VaccineDateQuestion.createDTO(formData),
+      const vaccine = {
+        patient: assessmentData.patientData.patientId,
+        vaccine_type: VaccineTypes.COVID_VACCINE,
+        brand: VaccineBrands.PFIZER,
+        ...assessmentData.vaccineData,
       } as Partial<VaccineRequest>;
 
-      submitVaccine(vaccine as VaccineRequest);
+      if (formData.firstDoseDate) {
+        if (vaccine.doses![0]) {
+          vaccine.doses![0].date_taken_specific! = formatDateToPost(formData.firstDoseDate);
+        } else {
+          vaccine.doses?.push({ sequence: 1, date_taken_specific: formatDateToPost(formData.firstDoseDate) });
+        }
+      }
+
+      if (formData.secondDoseDate) {
+        if (vaccine.doses![1]) {
+          vaccine.doses![1].date_taken_specific! = formatDateToPost(formData.secondDoseDate);
+        } else {
+          vaccine.doses?.push({ sequence: 2, date_taken_specific: formatDateToPost(formData.secondDoseDate) });
+        }
+      }
+
+      submitVaccine(vaccine);
     }
   };
 
-  const submitVaccine = (vaccine: VaccineRequest) => {
-    //TODO
+  const submitVaccine = async (vaccine: Partial<VaccineRequest>) => {
+    await vaccineService.saveVaccineResponse(assessmentData.patientData.patientId, vaccine);
     coordinator.gotoNextScreen(route.name);
   };
 

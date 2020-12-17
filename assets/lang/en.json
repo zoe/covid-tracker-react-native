@@ -1328,9 +1328,11 @@
       "dose-2": "Dose 2",
       "add-date": "Add date",
       "add-info": "Add dose information",
-      "delete": "Delete vaccines"
+      "delete": "Delete vaccine",
+      "date-missing": "Logged but date missing",
+      "not-logged": "Not yet logged"
     },
-    
+
     "hesitancy": {
       "title": "Would you accept a COVID019 vaccine if offered?",
       "check-all-that-apply": "Please tell us why (check all that apply):",

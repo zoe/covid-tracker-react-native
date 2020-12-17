@@ -1356,7 +1356,9 @@
         "dose-2": "",
         "add-date": "",
         "add-info": "",
-        "delete": ""
+        "delete": "",
+        "date-missing": "",
+        "not-logged": ""
       }
     },
 

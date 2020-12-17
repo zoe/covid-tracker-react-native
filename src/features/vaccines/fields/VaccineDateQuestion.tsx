@@ -1,19 +1,16 @@
 import { FormikProps } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Item, Label, Text } from 'native-base';
 import moment, { Moment } from 'moment';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import i18n from '@covid/locale/i18n';
-import { FieldWrapper } from '@covid/components/Screen';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { CaptionText, ClickableText, Header3Text, RegularText, SecondaryText } from '@covid/components/Text';
-import { colors, fontStyles } from '@theme';
-import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
+import { Header3Text, RegularText, SecondaryText } from '@covid/components/Text';
+import { colors } from '@theme';
 import YesNoField from '@covid/components/YesNoField';
-import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { Calendar, CalendarIcon } from '@assets';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { CalendarIcon } from '@assets';
 
 export interface VaccineDateData {
   firstDoseDate: Date | undefined;
@@ -28,7 +25,6 @@ interface Props {
 export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (vaccine?: VaccineRequest) => Data;
   schema: () => Yup.ObjectSchema;
-  createDTO: (data: Data) => Partial<VaccineRequest>;
 }
 
 export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = (props: Props) => {
@@ -150,16 +146,4 @@ VaccineDateQuestion.schema = () => {
     firstDoseDate: Yup.date(),
     secondDoseDate: Yup.date(),
   });
-};
-
-function formatDateToPost(date: Date | undefined) {
-  return date ? moment(date).format('YYYY-MM-DD') : null;
-}
-
-VaccineDateQuestion.createDTO = (formData: VaccineDateData): Partial<VaccineRequest> => {
-  //TODO
-  return {
-    date_taken_specific: formatDateToPost(formData.firstDoseDate),
-    date_taken_between_start: formatDateToPost(formData.secondDoseDate),
-  } as Partial<VaccineRequest>;
 };

@@ -1,8 +1,8 @@
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
@@ -33,23 +33,20 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const { patientData } = route.params.assessmentData;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const vaccines = await vaccineService.listVaccines();
-        const patientId = patientData.patientId;
-        const patientVaccines = vaccines.filter((v) => v.patient === patientId);
-        setVaccines(patientVaccines);
-        setLoading(false);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  const goToAddEditVaccine = (doseIndex?: number) => {
-    coordinator.goToAddEditVaccine(doseIndex);
-  };
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      vaccineService
+        .listVaccines()
+        .then((vaccines) => {
+          const patientId = patientData.patientId;
+          const patientVaccines = vaccines.filter((v) => v.patient === patientId);
+          setVaccines(patientVaccines);
+          setLoading(false);
+        })
+        .catch(() => {});
+    }, [])
+  );
 
   const handleNextButton = async () => {
     coordinator.gotoNextScreen(route.name);
@@ -62,7 +59,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       return (
         <>
           {vaccines.length === 0 && (
-            <BrandedButton style={styles.newButton} onPress={() => goToAddEditVaccine()}>
+            <BrandedButton style={styles.newButton} onPress={() => coordinator.goToAddEditVaccine()}>
               <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
             </BrandedButton>
           )}
@@ -75,7 +72,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
                   vaccine={item}
                   key={item.id}
                   onPressDose={(i) => {
-                    coordinator.goToAddEditVaccine(i);
+                    coordinator.goToAddEditVaccine(item, i);
                   }}
                   onPressDelete={() => vaccineService.deleteVaccine(item.id)}
                 />
@@ -95,11 +92,16 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
       <ListContent />
 
-      <BrandedButton style={styles.continueButton} onPress={handleNextButton}>
+      <View style={{ flex: 1 }} />
+
+      <BrandedButton
+        style={styles.continueButton}
+        onPress={handleNextButton}
+        enable={!!vaccines[0]?.doses[0]?.date_taken_specific}>
         <Text>
           {vaccines.length === 0
             ? i18n.t('vaccines.vaccine-list.no-vaccine')
-            : vaccines[0].doses[1].date_taken_specific === undefined // 2nd dose not logged
+            : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
             ? i18n.t('vaccines.vaccine-list.no-2nd')
             : i18n.t('vaccines.vaccine-list.correct-info')}
         </Text>
@@ -123,6 +125,6 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     marginHorizontal: 16,
-    marginBottom: 32,
+    marginBottom: 8,
   },
 });
