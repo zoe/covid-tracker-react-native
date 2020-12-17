@@ -1346,7 +1346,7 @@
     "delta-week": "last week",
     "cta": "Share",
     "active-covid-cases": "Active COVID cases",
-    "evolution-of": "Evolution of estimated active cases this month",
+    "evolution-of": "Evolution of estimated cases in the last 3 months",
     "active-cases-in-your-area": "Active cases in your area"
   },
 

@@ -21,6 +21,7 @@ export interface IPatientService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   getPatientDataById(patientId: string): Promise<PatientData>;
   getPatientDataByProfile(profile: Profile): Promise<PatientData>;
+  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
 }
 
 @injectable()
@@ -112,7 +113,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return null;
   }
 
-  private async updatePatientState(
+  public async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {

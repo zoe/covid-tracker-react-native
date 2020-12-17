@@ -26,6 +26,13 @@ import {
   DietStudyThankYouScreen,
   DietStudyTypicalDietScreen,
   DietStudyYourLifestyleScreen,
+  DietStudyPlaybackIntroScreen,
+  DietStudyPlaybackGlobalScreen,
+  DietStudyPlaybackDietQualityScreen,
+  DietStudyPlaybackYourDietScreen,
+  DietStudyPlaybackGutHealthScreen,
+  DietStudyPlaybackYourGutScreen,
+  DietStudyPlaybackResearchScreen,
   EditLocationScreen,
   EditProfileScreen,
   EstimatedCasesScreen,
@@ -181,6 +188,17 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackIntro" component={DietStudyPlaybackIntroScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackGlobal" component={DietStudyPlaybackGlobalScreen} options={noHeader} />
+      <Stack.Screen
+        name="DietStudyPlaybackDietQuality"
+        component={DietStudyPlaybackDietQualityScreen}
+        options={noHeader}
+      />
+      <Stack.Screen name="DietStudyPlaybackYourDiet" component={DietStudyPlaybackYourDietScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
+      <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
       <Stack.Screen name="VaccineYesNo" component={VaccineYesNoScreen} options={noHeader} />
       <Stack.Screen name="VaccineTrialOrNational" component={VaccineTrialOrNationalScreen} options={noHeader} />
       <Stack.Screen name="VaccineTrialPlacebo" component={VaccineTrialPlaceboScreen} options={noHeader} />

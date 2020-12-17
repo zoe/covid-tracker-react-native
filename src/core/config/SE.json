@@ -1,10 +1,10 @@
 {
-    "country": "SE",
-    "enableMultiplePatients": false,
-    "enablePersonalInformation": false,
-    "enableCohorts": true,
+  "country": "SE",
+  "enableMultiplePatients": false,
+  "enablePersonalInformation": false,
+  "enableCohorts": true,
 
-    "showEthnicityQuestion": false,
-    "showRaceQuestion": false,
-    "thousandSeparator": " "
+  "showEthnicityQuestion": false,
+  "showRaceQuestion": false,
+  "thousandSeparator": " "
 }

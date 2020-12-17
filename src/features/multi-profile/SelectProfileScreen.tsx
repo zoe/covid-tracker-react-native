@@ -1,5 +1,5 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RouteProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,7 +25,7 @@ import appCoordinator from '../AppCoordinator';
 import { useProfileList } from './ProfileList.hooks';
 
 type RenderProps = {
-  navigation: DrawerNavigationProp<ScreenParamList, 'SelectProfile'>;
+  navigation: NavigationProp<ScreenParamList, 'SelectProfile'>;
   route: RouteProp<ScreenParamList, 'SelectProfile'>;
 };
 
@@ -81,14 +81,11 @@ const SelectProfileScreen: React.FC<RenderProps> = ({ navigation, route }) => {
     }
   };
 
-  // @ts-ignore
-  const stackNav: StackNavigationProp<ScreenParamList> = navigation;
-
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.rootContainer}>
-          <View style={styles.navContainer}>{!!navigation && <BackButton navigation={stackNav} />}</View>
+          <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
 
           <Header>
             <HeaderText style={{ marginBottom: 12, paddingRight: 24 }}>

@@ -11,6 +11,7 @@ import { IPatientService, PatientService } from '@covid/core/patient/PatientServ
 import { IProfileService, ProfileService } from '@covid/core/profile/ProfileService';
 import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestService';
 import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
+import { IDietScoreRemoteClient, DietScoreApiClient } from '@covid/core/diet-score/DietScoreApiClient';
 import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService, SchoolService } from '@covid/core/schools/SchoolService';
@@ -36,6 +37,8 @@ container.bind<IProfileService>(Services.Profile).to(ProfileService).inSingleton
 container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSingletonScope();
 
 container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
+
+container.bind<IDietScoreRemoteClient>(Services.DietScore).to(DietScoreApiClient).inRequestScope();
 
 // School
 container.bind<ISchoolService>(Services.SchoolService).to(SchoolService).inSingletonScope();
