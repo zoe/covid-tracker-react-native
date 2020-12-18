@@ -1364,8 +1364,8 @@
       "correct-info": "This information is correct",
       "no-vaccine": "I haven't had a vaccine",
       "no-2nd": "I haven't had a second dose",
-      "delete-vaccine-title": "Delete this vaccine?",
-      "delete-vaccine-text": "This information will be lost. Do you want to continue?"
+      "delete-vaccine-title": "Delete Vaccine?",
+      "delete-vaccine-text": "Information about all vaccines doses will be deleted."
     },
 
     "your-vaccine": {
