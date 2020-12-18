@@ -72,28 +72,32 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
         items={dropdowns}
       />
 
-      <RegularText
-        style={{
-          paddingTop: 16,
-          paddingBottom: 8,
-        }}>
-        {i18n.t('vaccines.hesitancy.check-all-that-apply')}
-      </RegularText>
+      {(formikProps.values.plan === 'no' || formikProps.values.plan === 'unsure') && (
+        <>
+          <RegularText
+            style={{
+              paddingTop: 16,
+              paddingBottom: 8,
+            }}>
+            {i18n.t('vaccines.hesitancy.check-all-that-apply')}
+          </RegularText>
 
-      <CheckboxList>
-        <BooleanCheckboxes
-          data={checkboxes}
-          showAdditionalInputProps={{
-            label: i18n.t('vaccines.hesitancy.specify'),
-            key: 'reason_other',
-            show: formikProps.values['other'],
-            inputProps: {
-              multiline: true,
-              numberOfLines: 5,
-            },
-          }}
-        />
-      </CheckboxList>
+          <CheckboxList>
+            <BooleanCheckboxes
+              data={checkboxes}
+              showAdditionalInputProps={{
+                label: i18n.t('vaccines.hesitancy.specify'),
+                key: 'reason_other',
+                show: formikProps.values['other'],
+                inputProps: {
+                  multiline: true,
+                  numberOfLines: 5,
+                },
+              }}
+            />
+          </CheckboxList>
+        </>
+      )}
     </View>
   );
 };

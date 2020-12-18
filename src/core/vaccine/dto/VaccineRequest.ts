@@ -11,7 +11,7 @@ export type VaccineRequest = {
 
 export type VaccinePlanRequest = {
   id?: string;
-  patient_id: string; //	Patient ID
+  patient: string; //	Patient ID
 
   plan: string;
 
