@@ -67,6 +67,7 @@ export type ITextClass = {
   pLight: TText;
   pMedium: TText;
   pSmall: TText;
+  pXSmall: TText;
   pSmallBold: TText;
   pSmallLight: TText;
   default: TText;

@@ -70,14 +70,6 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ExternalCallout
-          calloutID="sharev3"
-          imageSource={shareAppV3}
-          aspectRatio={311 / 135}
-          screenName={route.name}
-          postClicked={onShare}
-        />
-
         {showDietStudyPlayback && (
           <TouchableWithoutFeedback
             onPress={() => {
@@ -87,6 +79,13 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
           </TouchableWithoutFeedback>
         )}
+        <ExternalCallout
+          calloutID="sharev3"
+          imageSource={shareAppV3}
+          aspectRatio={311 / 135}
+          screenName={route.name}
+          postClicked={onShare}
+        />
       </View>
 
       <View style={styles.zoe}>

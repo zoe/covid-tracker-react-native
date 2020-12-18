@@ -103,12 +103,14 @@ export const SLogoContainer = styled(View)`
 
 export const SImageContainer = styled(View)`
   ${(props) => `
+    align-items: center;
     background-color: #082A5D; 
     border-radius: ${props.theme.grid.s}px;
-    height: ${props.theme.grid.xxxxl}px;
+    justify-content: center;
+    height: 56px;
     margin-bottom: ${props.theme.grid.l}px;
     padding: ${props.theme.grid.xs}px;
-    width: ${props.theme.grid.xxxxl}px;
+    width: 56px;
   `}
 `;
 

@@ -1025,7 +1025,8 @@
     },
 
     "covid-test": {
-      "question-invite-to-test": false
+      "question-is-rapid-test": "Väntade du mindre än 2 timmar för att få resultaten (dvs. var det ett snabbtest som sidoflöde)?",
+      "question-invite-to-test": "Har vi bjudit in dig att utföra detta test?"
     },
 
     "partners": {

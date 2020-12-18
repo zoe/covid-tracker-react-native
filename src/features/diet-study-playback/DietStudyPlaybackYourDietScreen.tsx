@@ -9,6 +9,7 @@ import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } fr
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
 import { QualityScore } from '@covid/features';
+import { QuestionMarks } from '@assets';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourDiet'>;
@@ -27,18 +28,23 @@ export const DietStudyPlaybackYourDietScreen: React.FC<Props> = ({ route, naviga
           <SecondaryText style={styles.subtext}>
             This diet quality score is a measure of how healthy and balanced your diet is.
           </SecondaryText>
-          <QualityScore
-            beforeScore={coordinator.dietScore.pre_diet_score}
-            duringScore={coordinator.dietScore.post_diet_score}
-          />
-
-          <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
-
-          <RegularText>
-            {'A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish.\n\n' +
-              'A lower score indicates a less healthy diet that includes more processed meats, high-sugar foods and fried snacks.\n\n' +
-              'This score is a simple way to calculate diet quality for the ‘average’ person. While it provides useful insights on a population level, it assumes everyone responds the same way to food. However, we now know this is not true.'}
-          </RegularText>
+          <View style={{ zIndex: 5, elevation: 5 }}>
+            <QualityScore
+              beforeScore={coordinator.dietScore.pre_diet_score}
+              duringScore={coordinator.dietScore.post_diet_score}
+            />
+          </View>
+          <View style={{ marginTop: 24 }}>
+            <View style={{ position: 'absolute', right: -20, top: -40 }}>
+              <QuestionMarks />
+            </View>
+            <Header3Text style={styles.subtitle}>What does this mean?</Header3Text>
+            <RegularText>
+              {'A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fiber-rich foods and oily fish.\n\n' +
+                'A lower score indicates a less healthy diet that includes more processed meats, high-sugar foods and fried snacks.\n\n' +
+                'This score is a simple way to calculate diet quality for the ‘average’ person. While it provides useful insights on a population level, it assumes everyone responds the same way to food. However, we now know this is not true.'}
+            </RegularText>
+          </View>
 
           <BrandedButton onPress={() => coordinator.gotoNextScreen(route.name)} style={styles.button}>
             Next

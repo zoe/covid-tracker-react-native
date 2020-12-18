@@ -12,7 +12,7 @@ interface IProps {
 function ScoreCategory({ active, statusColor, title }: IProps) {
   return (
     <View style={{ alignItems: 'center', flex: 1 }}>
-      <Text textClass="pSmall" colorPalette="uiDark" colorShade="dark" inverted rhythm={20}>
+      <Text textClass="pXSmall" colorPalette="uiDark" colorShade="dark" inverted rhythm={20}>
         {title}
       </Text>
       <View style={{ width: '100%' }}>
