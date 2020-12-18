@@ -54,35 +54,34 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
 
   return (
     <>
-      {!!editIndex &&
-        editIndex === 0 && ( // Little bit messy here. editIndex is only set when editing a vaccine dose. It hides the other dose from the screen.
-          <>
-            <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-            <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
-            {showFirstPicker ? (
-              <CalendarPicker
-                onDateChange={setFirstDoseDate}
-                maxDate={today}
-                {...(!!formikProps.values.firstDoseDate && {
-                  selectedStartDate: formikProps.values.firstDoseDate,
-                })}
-              />
-            ) : (
-              <TouchableOpacity onPress={() => setShowFirstPicker(true)} style={styles.dateBox}>
-                <CalendarIcon />
-                {formikProps.values.firstDoseDate ? (
-                  <RegularText style={{ marginStart: 8 }}>
-                    {moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')}
-                  </RegularText>
-                ) : (
-                  <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
-                )}
-              </TouchableOpacity>
-            )}
-          </>
-        )}
+      {(editIndex === undefined || editIndex === 0) && ( // Little bit messy here. editIndex is only set when editing a vaccine dose. It hides the other dose from the screen.
+        <>
+          <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
+          <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+          {showFirstPicker ? (
+            <CalendarPicker
+              onDateChange={setFirstDoseDate}
+              maxDate={today}
+              {...(!!formikProps.values.firstDoseDate && {
+                selectedStartDate: formikProps.values.firstDoseDate,
+              })}
+            />
+          ) : (
+            <TouchableOpacity onPress={() => setShowFirstPicker(true)} style={styles.dateBox}>
+              <CalendarIcon />
+              {formikProps.values.firstDoseDate ? (
+                <RegularText style={{ marginStart: 8 }}>
+                  {moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')}
+                </RegularText>
+              ) : (
+                <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+              )}
+            </TouchableOpacity>
+          )}
+        </>
+      )}
 
-      {!!editIndex && editIndex === 1 && (
+      {(editIndex === undefined || editIndex === 1) && (
         <>
           <YesNoField
             selectedValue={formikProps.values.hadSecondDose}

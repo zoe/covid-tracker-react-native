@@ -83,6 +83,14 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     );
   };
 
+  const enableNextButton = () => {
+    if (!!vaccines[0]?.doses[0] && vaccines[0]?.doses[0]?.date_taken_specific === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const ListContent = () => {
     if (isLoading) {
       return <Loading status="" error={null} />;
@@ -125,10 +133,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
       <View style={{ flex: 1 }} />
 
-      <BrandedButton
-        style={styles.continueButton}
-        onPress={handleNextButton}
-        enable={!!vaccines[0]?.doses[0]?.date_taken_specific}>
+      <BrandedButton style={styles.continueButton} onPress={handleNextButton} enable={enableNextButton()}>
         <Text>
           {vaccines.length === 0
             ? i18n.t('vaccines.vaccine-list.no-vaccine')
