@@ -2,7 +2,7 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
@@ -58,6 +58,27 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     });
   };
 
+  const promptDeleteTest = (item: VaccineRequest) => {
+    Alert.alert(
+      i18n.t('vaccines.vaccine-list.delete-vaccine-title'),
+      i18n.t('vaccines.vaccine-list.delete-vaccine-text'),
+      [
+        {
+          text: i18n.t('cancel'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('delete'),
+          style: 'destructive',
+          onPress: async () => {
+            await vaccineService.deleteVaccine(item.id);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const ListContent = () => {
     if (isLoading) {
       return <Loading status="" error={null} />;
@@ -80,7 +101,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
                   onPressDose={(i) => {
                     coordinator.goToAddEditVaccine(item, i);
                   }}
-                  onPressDelete={() => vaccineService.deleteVaccine(item.id)}
+                  onPressDelete={() => promptDeleteTest(item)}
                 />
               );
             })}

@@ -10,6 +10,7 @@ import {
   VaccineResponse,
 } from '@covid/core/vaccine/dto/VaccineResponse';
 import { Services } from '@covid/provider/services.types';
+import { CovidTestResponse } from '@covid/core/user/dto/CovidTestContracts';
 
 export interface IVaccineRemoteClient {
   getVaccinePlans(patientId: string): Promise<VaccinePlansResponse>;
@@ -65,6 +66,7 @@ export class VaccineApiClient implements IVaccineRemoteClient {
   }
 
   deleteVaccine(vaccineId: string): Promise<void> {
-    return this.apiClient.delete<{ id: string }, void>(`/vaccines/`, { id: vaccineId }); //TODO CHECK THIS
+    //return this.apiClient.patch(`/vaccines/${vaccineId}/`, { deleted: true });
+    return this.apiClient.delete<object, void>(`/vaccines/${vaccineId}/`, {}); //TODO CHECK THIS
   }
 }

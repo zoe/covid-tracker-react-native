@@ -1376,7 +1376,9 @@
         "add-button": "",
         "correct-info": "",
         "no-vaccine": "",
-        "no-2nd": ""
+        "no-2nd": "",
+        "delete-vaccine-title": "",
+        "delete-vaccine-text": ""
       },
       "your-vaccine": {
         "title": "",
