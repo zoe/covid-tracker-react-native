@@ -36,7 +36,11 @@ export class VaccineService implements IVaccineService {
 
   public async saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean> {
     if (!payload.doses) payload.doses = this.initDoses();
-    await this.apiClient.saveVaccineResponse(patientId, payload);
+    if (payload.id) {
+      await this.apiClient.updateVaccineResponse(patientId, payload);
+    } else {
+      await this.apiClient.saveVaccineResponse(patientId, payload);
+    }
     return true;
   }
 

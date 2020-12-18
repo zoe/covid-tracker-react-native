@@ -46,14 +46,15 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       }
 
       const vaccine = {
+        ...assessmentData.vaccineData,
         patient: assessmentData.patientData.patientId,
         vaccine_type: VaccineTypes.COVID_VACCINE,
         brand: VaccineBrands.PFIZER,
-        ...assessmentData.vaccineData,
+        doses: [],
       } as Partial<VaccineRequest>;
 
       if (formData.firstDoseDate) {
-        if (vaccine.doses![0]) {
+        if (vaccine.doses![0] !== undefined) {
           vaccine.doses![0].date_taken_specific! = formatDateToPost(formData.firstDoseDate);
         } else {
           vaccine.doses?.push({ sequence: 1, date_taken_specific: formatDateToPost(formData.firstDoseDate) });
@@ -61,7 +62,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       }
 
       if (formData.secondDoseDate) {
-        if (vaccine.doses![1]) {
+        if (vaccine.doses![1] !== undefined) {
           vaccine.doses![1].date_taken_specific! = formatDateToPost(formData.secondDoseDate);
         } else {
           vaccine.doses?.push({ sequence: 2, date_taken_specific: formatDateToPost(formData.secondDoseDate) });

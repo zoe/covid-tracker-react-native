@@ -14,6 +14,7 @@ import { Services } from '@covid/provider/services.types';
 export interface IVaccineRemoteClient {
   getVaccinePlans(patientId: string): Promise<VaccinePlansResponse>;
   saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
+  updateVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse>;
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse>;
   saveDoseSymptoms(patientId: string, payload: Partial<DoseSymptomsRequest>): Promise<DoseSymptomsResponse>;
   listVaccines(): Promise<VaccineRequest[]>;
@@ -35,7 +36,18 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       patient: patientId,
       version: appConfig.vaccineVersion,
     };
+    console.log('post ' + JSON.stringify(payload));
     return this.apiClient.post<VaccineRequest, VaccineResponse>('/vaccines/', payload as VaccineRequest);
+  }
+
+  updateVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<VaccineResponse> {
+    payload = {
+      ...payload,
+      patient: patientId,
+      version: appConfig.vaccineVersion,
+    };
+    console.log('patch ' + JSON.stringify(payload));
+    return this.apiClient.patch<VaccineRequest, VaccineResponse>(`/vaccines/${payload.id}/`, payload as VaccineRequest);
   }
 
   saveVaccinePlan(patientId: string, payload: Partial<VaccinePlanRequest>): Promise<VaccinePlanResponse> {
