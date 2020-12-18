@@ -6,6 +6,7 @@ export const SContainerView = styled(TouchableOpacity)`
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  padding: ${(props) => props.theme.grid.xxl}px  0;
 `;
 
 export const SIconContainerView = styled(View)`

@@ -22,7 +22,7 @@ exports[`Button should match snapshot 1`] = `
       style={
         Object {
           "backgroundColor": "#FFFFFF",
-          "borderColor": "#888B8C",
+          "borderColor": "#565A5C",
           "borderRadius": 28,
           "borderWidth": 1,
           "fontSize": 16,
@@ -34,7 +34,7 @@ exports[`Button should match snapshot 1`] = `
       <Text
         style={
           Object {
-            "color": "#888B8C",
+            "color": "#565A5C",
             "textAlign": "center",
           }
         }
