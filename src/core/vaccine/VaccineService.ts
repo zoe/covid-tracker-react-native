@@ -31,7 +31,7 @@ export class VaccineService implements IVaccineService {
 
   public async hasVaccinePlans(patientId: string): Promise<boolean> {
     const plans = await this.apiClient.getVaccinePlans(patientId);
-    return plans && plans.filter((plan) => plan.patient_id === patientId).length > 0;
+    return plans && plans.filter((plan) => plan.patient === patientId).length > 0;
   }
 
   public async saveVaccineResponse(patientId: string, payload: Partial<VaccineRequest>): Promise<boolean> {
