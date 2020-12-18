@@ -152,15 +152,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundSecondary,
   },
   newButton: {
-    marginHorizontal: 16,
     marginVertical: 16,
-    backgroundColor: colors.backgroundTertiary,
+    borderWidth: 1,
+    borderColor: colors.purple,
+    backgroundColor: colors.backgroundSecondary,
   },
   newText: {
-    color: colors.primary,
+    color: colors.purple,
   },
-  continueButton: {
-    marginHorizontal: 16,
-    marginBottom: 8,
-  },
+  continueButton: {},
 });
