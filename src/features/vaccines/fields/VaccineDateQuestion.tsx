@@ -145,7 +145,7 @@ VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateD
       ? moment(vaccine.doses[0].date_taken_specific).toDate()
       : undefined,
     secondDoseDate: vaccine?.doses[1]?.date_taken_specific
-      ? moment(vaccine.doses[0].date_taken_specific).toDate()
+      ? moment(vaccine.doses[1].date_taken_specific).toDate()
       : undefined,
     hadSecondDose: vaccine?.doses[1]?.date_taken_specific ? 'yes' : 'no',
   };
@@ -155,5 +155,6 @@ VaccineDateQuestion.schema = () => {
   return Yup.object().shape({
     firstDoseDate: Yup.date().required(),
     secondDoseDate: Yup.date(),
+    hadSecondDose: Yup.string(),
   });
 };
