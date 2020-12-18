@@ -33,7 +33,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const coordinator = assessmentCoordinator;
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const { assessmentData } = route.params;
+  const { assessmentData, editIndex } = route.params;
 
   const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
 
@@ -93,7 +93,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
           return (
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
-                <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>} />
+                <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>} editIndex={editIndex} />
                 <ErrorText>{errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                   <ValidationError error={i18n.t('validation-error-text')} />

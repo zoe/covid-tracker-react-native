@@ -20,6 +20,7 @@ export interface VaccineDateData {
 
 interface Props {
   formikProps: FormikProps<VaccineDateData>;
+  editIndex?: number;
 }
 
 export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
@@ -28,7 +29,8 @@ export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
 }
 
 export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = (props: Props) => {
-  const { formikProps } = props;
+  const { formikProps, editIndex } = props;
+
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
 
   const [showFirstPicker, setShowFirstPicker] = useState(false);
@@ -52,63 +54,72 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
 
   return (
     <>
-      <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
-      {showFirstPicker ? (
-        <CalendarPicker
-          onDateChange={setFirstDoseDate}
-          maxDate={today}
-          {...(!!formikProps.values.firstDoseDate && {
-            selectedStartDate: formikProps.values.firstDoseDate,
-          })}
-        />
-      ) : (
-        <TouchableOpacity onPress={() => setShowFirstPicker(true)} style={styles.dateBox}>
-          <CalendarIcon />
-          {formikProps.values.firstDoseDate ? (
-            <RegularText style={{ marginStart: 8 }}>
-              {moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')}
-            </RegularText>
-          ) : (
-            <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
-          )}
-        </TouchableOpacity>
-      )}
+      {!!editIndex &&
+        editIndex === 0 && ( // Little bit messy here. editIndex is only set when editing a vaccine dose. It hides the other dose from the screen.
+          <>
+            <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
+            <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+            {showFirstPicker ? (
+              <CalendarPicker
+                onDateChange={setFirstDoseDate}
+                maxDate={today}
+                {...(!!formikProps.values.firstDoseDate && {
+                  selectedStartDate: formikProps.values.firstDoseDate,
+                })}
+              />
+            ) : (
+              <TouchableOpacity onPress={() => setShowFirstPicker(true)} style={styles.dateBox}>
+                <CalendarIcon />
+                {formikProps.values.firstDoseDate ? (
+                  <RegularText style={{ marginStart: 8 }}>
+                    {moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')}
+                  </RegularText>
+                ) : (
+                  <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+                )}
+              </TouchableOpacity>
+            )}
+          </>
+        )}
 
-      <YesNoField
-        selectedValue={formikProps.values.hadSecondDose}
-        onValueChange={(value: string) => {
-          if (value === 'no') {
-            formikProps.values.secondDoseDate = undefined;
-          }
-          formikProps.setFieldValue('hadSecondDose', value);
-        }}
-        label={i18n.t('vaccines.your-vaccine.have-had-second')}
-      />
-
-      {formikProps.values.hadSecondDose === 'yes' && (
+      {!!editIndex && editIndex === 1 && (
         <>
-          <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
-          <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
-          {showSecondPicker ? (
-            <CalendarPicker
-              onDateChange={setSecondDoseDate}
-              maxDate={today}
-              {...(!!formikProps.values.secondDoseDate && {
-                selectedStartDate: formikProps.values.secondDoseDate,
-              })}
-            />
-          ) : (
-            <TouchableOpacity onPress={() => setShowSecondPicker(true)} style={styles.dateBox}>
-              <CalendarIcon />
-              {formikProps.values.secondDoseDate ? (
-                <RegularText style={{ marginStart: 8 }}>
-                  {moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')}
-                </RegularText>
+          <YesNoField
+            selectedValue={formikProps.values.hadSecondDose}
+            onValueChange={(value: string) => {
+              if (value === 'no') {
+                formikProps.values.secondDoseDate = undefined;
+              }
+              formikProps.setFieldValue('hadSecondDose', value);
+            }}
+            label={i18n.t('vaccines.your-vaccine.have-had-second')}
+          />
+
+          {formikProps.values.hadSecondDose === 'yes' && (
+            <>
+              <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
+              <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+              {showSecondPicker ? (
+                <CalendarPicker
+                  onDateChange={setSecondDoseDate}
+                  maxDate={today}
+                  {...(!!formikProps.values.secondDoseDate && {
+                    selectedStartDate: formikProps.values.secondDoseDate,
+                  })}
+                />
               ) : (
-                <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+                <TouchableOpacity onPress={() => setShowSecondPicker(true)} style={styles.dateBox}>
+                  <CalendarIcon />
+                  {formikProps.values.secondDoseDate ? (
+                    <RegularText style={{ marginStart: 8 }}>
+                      {moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')}
+                    </RegularText>
+                  ) : (
+                    <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+                  )}
+                </TouchableOpacity>
               )}
-            </TouchableOpacity>
+            </>
           )}
         </>
       )}

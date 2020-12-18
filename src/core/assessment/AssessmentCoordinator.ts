@@ -19,8 +19,6 @@ import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
 import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
-import { AssessmentInfosRequest } from '@covid/core/assessment/dto/AssessmentInfosRequest';
-import { assessmentService } from '@covid/Services';
 
 export type AssessmentData = {
   assessmentId?: string;
@@ -213,14 +211,14 @@ export class AssessmentCoordinator extends Coordinator {
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
   };
 
-  goToAddEditVaccine = (vaccine?: VaccineRequest, doseIndex?: number) => {
+  goToAddEditVaccine = (vaccine?: VaccineRequest, editIndex?: number) => {
     if (vaccine) {
       this.assessmentData.vaccineData = vaccine;
     }
 
     NavigatorService.navigate('AboutYourVaccine', {
       assessmentData: this.assessmentData,
-      doseIndex,
+      editIndex,
     });
   };
 
