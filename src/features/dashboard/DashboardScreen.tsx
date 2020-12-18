@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -25,6 +25,8 @@ import { SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import { Coordinator } from '@covid/core/Coordinator';
+import dietStudyCoordinator from '@covid/core/diet-study/DietStudyCoordinator';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -91,6 +93,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <Button title="diet study" onPress={() => appCoordinator.goToDietStudyPlayback()} />
         <ExternalCallout
           link="https://youtu.be/UNwOvNF1R4Q"
           calloutID="smell_video_dec16"
