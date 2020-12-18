@@ -36,7 +36,6 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       patient: patientId,
       version: appConfig.vaccineVersion,
     };
-    console.log('post ' + JSON.stringify(payload));
     return this.apiClient.post<VaccineRequest, VaccineResponse>('/vaccines/', payload as VaccineRequest);
   }
 
@@ -46,7 +45,6 @@ export class VaccineApiClient implements IVaccineRemoteClient {
       patient: patientId,
       version: appConfig.vaccineVersion,
     };
-    console.log('patch ' + JSON.stringify(payload));
     return this.apiClient.patch<VaccineRequest, VaccineResponse>(`/vaccines/${payload.id}/`, payload as VaccineRequest);
   }
 
