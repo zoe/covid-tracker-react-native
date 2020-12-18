@@ -4,14 +4,13 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { MutedText } from '@covid/components/Text';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
 import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
-import Share from '@assets/icons/Share';
+import { ShareButton } from '../../Buttons';
 import { Text } from '@covid/components';
 import ChevronRight from '@assets/icons/ChevronRight';
 
@@ -88,7 +87,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
         </TouchableOpacity>
 
         {localTrendline?.delta && (
-          <View style={[styles.deltaTag, { marginBottom: isSharing ? 0 : 20 }]}>
+          <View style={[styles.deltaTag, { marginBottom: isSharing ? 24 : 0 }]}>
             <DeltaTag change={localTrendline.delta} />
           </View>
         )}
@@ -96,10 +95,9 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
 
       {!isSharing && (
         <>
-          <TouchableOpacity style={styles.shareTouchable} onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}>
-            <Share style={styles.shareIcon} />
-            <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
-          </TouchableOpacity>
+          <View>
+              <ShareButton label={i18n.t('dashboard.trendline-card.share-cta')} onPress={() => navigate('Share', { sharable: 'TRENDLINE' })} />
+          </View>
         </>
       )}
     </View>
@@ -110,17 +108,13 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.white,
     borderRadius: 16,
-    paddingBottom: 16,
-    paddingTop: 8,
     marginVertical: 8,
   },
 
   snapshotContainer: {
     paddingTop: 24,
-    paddingBottom: 16,
     paddingHorizontal: 16,
     borderRadius: 16,
-
     backgroundColor: colors.white,
     width: '100%',
     flexDirection: 'column',
@@ -149,7 +143,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginTop: 8,
-    marginBottom: 20,
     width: '100%',
   },
 
@@ -198,7 +191,6 @@ const styles = StyleSheet.create({
   shareLabel: {
     textAlign: 'center',
     color: colors.purple,
-    fontSize: 14,
-    fontWeight: '300',
+    fontSize: 14
   },
 });

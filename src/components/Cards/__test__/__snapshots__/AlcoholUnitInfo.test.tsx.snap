@@ -90,7 +90,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
       style={
         Array [
           Object {
-            "color": "#565A5C",
+            "color": "#24262B",
             "fontFamily": "SofiaProRegular",
             "fontSize": 16,
             "lineHeight": 24,
@@ -192,7 +192,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -210,7 +210,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -238,7 +238,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,
@@ -332,7 +332,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -350,7 +350,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -378,7 +378,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,
@@ -463,7 +463,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -481,7 +481,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -509,7 +509,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,
@@ -612,7 +612,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -630,7 +630,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -658,7 +658,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,
@@ -761,7 +761,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -779,7 +779,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -807,7 +807,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,
@@ -901,7 +901,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -919,7 +919,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -947,7 +947,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,
@@ -1041,7 +1041,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaProRegular",
               "fontSize": 16,
               "lineHeight": 24,
@@ -1069,7 +1069,7 @@ exports[`AlcoholUnitInfo tests renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#565A5C",
+              "color": "#24262B",
               "fontFamily": "SofiaPro-SemiBold",
               "fontSize": 16,
               "lineHeight": 24,

@@ -20,7 +20,7 @@ function ShareButton({ colorPalette = 'burgundy', colorShade = 'main', label, on
       <SIconContainerView>
         <ShareIcon />
       </SIconContainerView>
-      <Text colorPalette={colorPalette} colorShade={colorShade} inverted>
+      <Text colorPalette={colorPalette} colorShade={colorShade} fontSize={14} inverted>
         {label}
       </Text>
     </SContainerView>
