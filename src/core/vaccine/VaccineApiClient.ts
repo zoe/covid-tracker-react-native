@@ -10,7 +10,6 @@ import {
   VaccineResponse,
 } from '@covid/core/vaccine/dto/VaccineResponse';
 import { Services } from '@covid/provider/services.types';
-import { CovidTestResponse } from '@covid/core/user/dto/CovidTestContracts';
 
 export interface IVaccineRemoteClient {
   getVaccinePlans(patientId: string): Promise<VaccinePlansResponse>;

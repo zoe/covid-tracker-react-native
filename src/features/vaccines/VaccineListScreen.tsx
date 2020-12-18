@@ -35,18 +35,22 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      setLoading(true);
-      vaccineService
-        .listVaccines()
-        .then((vaccines) => {
-          const patientId = patientData.patientId;
-          const patientVaccines = vaccines.filter((v) => v.patient === patientId);
-          setVaccines(patientVaccines);
-          setLoading(false);
-        })
-        .catch(() => {});
+      refreshVaccineList();
     }, [])
   );
+
+  const refreshVaccineList = () => {
+    setLoading(true);
+    vaccineService
+      .listVaccines()
+      .then((vaccines) => {
+        const patientId = patientData.patientId;
+        const patientVaccines = vaccines.filter((v) => v.patient === patientId);
+        setVaccines(patientVaccines);
+        setLoading(false);
+      })
+      .catch(() => {});
+  };
 
   const handleNextButton = async () => {
     const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
@@ -70,8 +74,8 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         {
           text: i18n.t('delete'),
           style: 'destructive',
-          onPress: async () => {
-            await vaccineService.deleteVaccine(item.id);
+          onPress: () => {
+            vaccineService.deleteVaccine(item.id).then(() => refreshVaccineList());
           },
         },
       ],
