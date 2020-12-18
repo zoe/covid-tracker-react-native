@@ -12,12 +12,9 @@ interface IProps {
 function SchoolHeader({ schoolName }: IProps) {
   return (
     <View>
-      <STitleText textClass="h4Medium" colorPalette="uiDark" colorShade="darker" inverted>
-        {i18n.t('school-networks.title')}
-      </STitleText>
-      <SSchoolNameText textClass="pSmallLight" colorPalette="uiDark" colorShade="main" inverted>
+      <STitleText textClass="h4Medium" colorPalette="uiDark" colorShade="darker" textAlign="left" inverted>
         {schoolName}
-      </SSchoolNameText>
+      </STitleText>
     </View>
   );
 }

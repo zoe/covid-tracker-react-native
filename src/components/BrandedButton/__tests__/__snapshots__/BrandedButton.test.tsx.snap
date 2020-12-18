@@ -43,7 +43,7 @@ exports[`BrandedButton tests renders correctly 1`] = `
     style={
       Array [
         Object {
-          "color": "#565A5C",
+          "color": "#24262B",
           "fontFamily": "SofiaPro-Light",
           "fontSize": 16,
           "lineHeight": 24,
