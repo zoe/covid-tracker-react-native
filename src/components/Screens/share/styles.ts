@@ -107,10 +107,10 @@ export const SImageContainer = styled(View)`
     background-color: #082A5D; 
     border-radius: ${props.theme.grid.s}px;
     justify-content: center;
-    height: ${props.theme.grid.xxxxl}px;
+    height: 56px;
     margin-bottom: ${props.theme.grid.l}px;
     padding: ${props.theme.grid.xs}px;
-    width: ${props.theme.grid.xxxxl}px;
+    width: 56px;
   `}
 `;
 
