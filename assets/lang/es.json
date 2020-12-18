@@ -1282,7 +1282,8 @@
     },
 
     "covid-test": {
-      "question-invite-to-test": false
+      "question-is-rapid-test": "¿Esperó menos de 2 horas para obtener los resultados (es decir, fue una prueba rápida como la prueba de flujo lateral)?",
+      "question-invite-to-test": "¿Te invitamos a realizar esta prueba?"
     },
 
     "thank-you-uk": {

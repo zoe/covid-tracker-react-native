@@ -93,7 +93,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 aspectRatio={1029 / 600}
                 screenName={this.props.route.name}
               />
-              
+
               {this.state.shouldShowReminders && (
                 <ExternalCallout
                   calloutID="notificationReminders"
