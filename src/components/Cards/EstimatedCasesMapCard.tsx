@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { WebView } from '@covid/components/WebView';
 import { BrandedButton, MutedText } from '@covid/components/Text';
 import { colors } from '@theme';
-import Share from '@assets/icons/Share';
+import { ShareButton } from '../Buttons';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { Services } from '@covid/provider/services.types';
@@ -285,11 +285,14 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
 
       {!isSharing && (
         <>
-          <View style={styles.divider} />
+          {/* <View style={styles.divider} />
           <TouchableOpacity style={styles.shareTouchable} onPress={share}>
             <Share style={styles.shareIcon} />
             <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <View>
+              <ShareButton label={i18n.t('covid-cases-map.share')} onPress={share} />
+          </View>
         </>
       )}
     </View>
@@ -300,7 +303,6 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.white,
     borderRadius: 16,
-    paddingVertical: 8,
     marginVertical: 8,
     overflow: 'hidden',
   },
