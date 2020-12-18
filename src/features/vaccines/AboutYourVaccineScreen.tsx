@@ -101,7 +101,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
                 )}
               </View>
               <View style={{ flex: 1 }} />
-              <BrandedButton onPress={props.handleSubmit}>
+              <BrandedButton onPress={props.handleSubmit} enable={props.values.firstDoseDate === undefined}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
               </BrandedButton>
             </Form>

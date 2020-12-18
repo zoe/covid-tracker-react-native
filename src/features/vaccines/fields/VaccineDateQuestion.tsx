@@ -153,7 +153,7 @@ VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateD
 
 VaccineDateQuestion.schema = () => {
   return Yup.object().shape({
-    firstDoseDate: Yup.date(),
+    firstDoseDate: Yup.date().required(),
     secondDoseDate: Yup.date(),
   });
 };
