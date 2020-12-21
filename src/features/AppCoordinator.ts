@@ -295,12 +295,8 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   async shouldShowDietStudyInvite(): Promise<boolean> {
-    // Check local storage for a cached answer
-    const consent = await AsyncStorageService.getDietStudyConsent();
-    if (consent === DietStudyConsent.SKIP) return false;
-
-    // Check Server
-    return await this.consentService.shouldShowDietStudy();
+    // Diet Study is closed
+    return Promise.resolve(false);
   }
 
   async shouldShowStudiesMenu(): Promise<boolean> {
@@ -309,7 +305,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   async shouldShowTrendLine(): Promise<boolean> {
-    const user = await this.userService.getUser();
     const { startupInfo } = store.getState().content;
 
     // Check feature flag (BE should check does user have LAD, is missing LAD will return false)

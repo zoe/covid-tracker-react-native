@@ -1,20 +1,15 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
-import { IUserService } from '@covid/core/user/UserService';
 import { CaptionText } from '@covid/components/Text';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
-import appCoordinator from '@covid/features/AppCoordinator';
-import { MyStudyIcon, ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
+import { ShareIcon } from '@assets/icons/navigation';
 import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
-import { IConsentService } from '@covid/core/consent/ConsentService';
 import { share } from '@covid/components/Cards/BaseShareApp';
 import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import NavigatorService from '@covid/NavigatorService';
@@ -27,44 +22,9 @@ const isDevChannel = () => {
 };
 
 export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
-  const userService = useInjection<IUserService>(Services.User);
-  const consentService = useInjection<IConsentService>(Services.Consent);
-
   const [userEmail, setUserEmail] = useState<string>('');
-  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
-  const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
+
   const { logout } = useLogout(props.navigation);
-
-  useEffect(() => {
-    if (userEmail !== '') return;
-    fetchEmail();
-    fetchStudyStatus();
-  }, [userService.hasUser, setUserEmail]);
-
-  const fetchEmail = async () => {
-    try {
-      // TODO - Save a server hit and stash this in async storage
-      const profile = await userService.getUser();
-      setUserEmail(profile?.username ?? '');
-    } catch (_) {
-      setUserEmail('');
-    }
-  };
-
-  const fetchStudyStatus = async () => {
-    try {
-      const data = await consentService.getStudyStatus();
-      setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
-      setShowDietStudy(data.should_ask_diet_study);
-    } catch (_) {
-      setShowVaccineRegistry(false);
-      setShowDietStudy(false);
-    }
-  };
-
-  function openDietStudy() {
-    appCoordinator.goToDietStart();
-  }
 
   return (
     <SafeAreaView style={styles.drawerRoot}>
@@ -80,16 +40,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
           </TouchableOpacity>
         </View>
 
-        {showDietStudy && (
-          <MenuItem
-            image={<MyStudyIcon />}
-            label={i18n.t('diet-study.drawer-menu-item')}
-            onPress={() => {
-              openDietStudy();
-            }}
-          />
-        )}
-
         <MenuItem
           image={<EditProfilesIcon />}
           label={i18n.t('nav-edit-profile')}
@@ -97,16 +47,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             NavigatorService.navigate('SelectProfile', { assessmentFlow: false });
           }}
         />
-
-        {showVaccineRegistry && (
-          <MenuItem
-            image={<VaccineRegistryIcon />}
-            label={i18n.t('vaccine-registry.menu-item')}
-            onPress={() => {
-              appCoordinator.goToVaccineRegistry();
-            }}
-          />
-        )}
 
         <MenuItem
           image={<ShareIcon />}

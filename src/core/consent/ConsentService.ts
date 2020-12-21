@@ -14,7 +14,6 @@ export interface IConsentService {
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
   setDietStudyResponse(response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
-  shouldAskForVaccineRegistry(): Promise<boolean>;
   shouldShowDietStudy(): Promise<boolean>;
   getStudyStatus(): Promise<AskForStudies>;
 }
@@ -81,13 +80,6 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     });
   }
 
-  async shouldAskForVaccineRegistry(): Promise<boolean> {
-    if (!isGBCountry()) return Promise.resolve(false);
-    const url = `/study_consent/status/?home_screen=true`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_uk_vaccine_register;
-  }
-
   async shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean> {
     let url = `/study_consent/status/?consent_version=${appConfig.ukValidationStudyConsentVersion}`;
     if (onThankYouScreen) {
@@ -99,11 +91,8 @@ export class ConsentService extends ApiClientBase implements IConsentService {
   }
 
   async shouldShowDietStudy(): Promise<boolean> {
-    if (isSECountry()) return Promise.resolve(false);
-
-    const url = `/study_consent/status/`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_diet_study;
+    // Diet Study is closed
+    return Promise.resolve(false);
   }
 
   private getDefaultStudyResponse(): AskForStudies {
