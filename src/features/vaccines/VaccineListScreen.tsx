@@ -55,11 +55,9 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const handleNextButton = async () => {
     const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
     const takenVaccine = vaccines.length > 0;
+    const askVaccineHesitancy = !takenVaccine && !hasPlans;
 
-    coordinator.gotoNextScreen(route.name, {
-      takenVaccine,
-      hasPlans,
-    });
+    coordinator.gotoNextScreen(route.name, askVaccineHesitancy);
   };
 
   const promptDeleteTest = (item: VaccineRequest) => {

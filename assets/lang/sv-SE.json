@@ -1279,25 +1279,6 @@
     },
 
     "vaccines": {
-      "yes-no": {
-        "title": "",
-        "description": "",
-        "answer-yes": "",
-        "answer-no": ""
-      },
-      "trial-or-national": {
-        "label": "",
-        "title": "",
-        "answer-national": "",
-        "answer-trial": ""
-      },
-      "placebo": {
-        "label": "",
-        "title": "",
-        "answer-yes": "",
-        "answer-no": "",
-        "answer-unsure": ""
-      },
       "thank-you": {
         "title": "",
         "text": "",

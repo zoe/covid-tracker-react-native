@@ -1,6 +1,5 @@
+export { AboutYourVaccineScreen } from './AboutYourVaccineScreen';
 export { VaccineDoseSymptomsScreen } from './VaccineDoseSymptomsScreen';
-export { VaccineThankYouScreen } from './VaccineThankYouScreen';
-export { VaccineTrialOrNationalScreen } from './VaccineTrialOrNationalScreen';
-export { VaccineTrialPlaceboScreen } from './VaccineTrialPlaceboScreen';
-export { VaccineYesNoScreen } from './VaccineYesNoScreen';
 export { VaccineHesitancyScreen } from './VaccineHesitancyScreen';
+export { VaccineListScreen } from './VaccineListScreen';
+export { VaccineThankYouScreen } from './VaccineThankYouScreen';

@@ -74,9 +74,6 @@ export type ScreenParamList = {
   OtherSymptoms: { assessmentData: AssessmentData };
 
   // Vaccines
-  VaccineYesNo: { assessmentData: AssessmentData };
-  VaccineTrialOrNational: { assessmentData: AssessmentData };
-  VaccineTrialPlacebo: { assessmentData: AssessmentData };
   VaccineDoseSymptoms: { assessmentData: AssessmentData; recordVaccine: boolean };
   VaccineThankYou: { assessmentData: AssessmentData };
   VaccineHesitancy: { assessmentData: AssessmentData };

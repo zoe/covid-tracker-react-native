@@ -1262,28 +1262,6 @@
   },
 
   "vaccines": {
-    "yes-no": {
-      "title": "Your COVID-19 vaccines",
-      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.",
-      "answer-yes": "Yes, I’ve had a COVID-19 vaccine",
-      "answer-no": "No, I’ve never had a COVID-19 vaccine"
-    },
-
-    "trial-or-national": {
-      "label": "About your recent vaccine",
-      "title": "How did you receive your vaccination?",
-      "answer-national": "I was vaccinated during the national roll out of COVID-19 vaccines ",
-      "answer-trial": "I participated in a trial"
-    },
-
-    "placebo": {
-      "label": "About your recent vaccine",
-      "title": "As a trial participant, what type of vaccine did you receive?",
-      "answer-yes": "I received a real vaccine injection",
-      "answer-no": "I received a placebo injection",
-      "answer-unsure": "I don't know yet"
-    },
-
     "thank-you": {
       "title": "Thank you.\nPlease continue to provide daily health reports following your COVID-19 vaccination ",
       "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",

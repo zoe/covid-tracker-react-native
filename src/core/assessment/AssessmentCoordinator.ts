@@ -52,33 +52,6 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    VaccineYesNo: ({ takenVaccine, hasPlans }: { takenVaccine: boolean; hasPlans: boolean }) => {
-      if (takenVaccine) {
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
-      } else if (!hasPlans) {
-        NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
-      }
-    },
-    VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
-      if (vaccineType === VaccineTypes.COVID_TRIAL) {
-        NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.reset([
-          { name: homeScreenName() },
-          { name: 'SelectProfile', params: { assessmentFlow: true } },
-          { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData } },
-        ]);
-      }
-    },
-    VaccineTrialPlacebo: () => {
-      NavigatorService.reset([
-        { name: homeScreenName() },
-        { name: 'SelectProfile', params: { assessmentFlow: true } },
-        { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData, recordVaccine: true } },
-      ]);
-    },
     VaccineDoseSymptoms: () => {
       NavigatorService.reset([
         { name: homeScreenName() },
@@ -152,10 +125,10 @@ export class AssessmentCoordinator extends Coordinator {
     AboutYourVaccine: () => {
       NavigatorService.goBack();
     },
-    VaccineList: ({ takenVaccine, hasPlans }: { takenVaccine: boolean; hasPlans: boolean }) => {
+    VaccineList: (askVaccineHesitancy: boolean) => {
       if (this.patientData.patientState.shouldAskDoseSymptoms) {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
-      } else if (!hasPlans && !takenVaccine) {
+      } else if (askVaccineHesitancy) {
         NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
