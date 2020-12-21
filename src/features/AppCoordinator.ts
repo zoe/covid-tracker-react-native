@@ -254,10 +254,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.patientData = await this.patientService.getPatientDataByProfile(profile);
   }
 
-  goToDietStart() {
-    this.startDietStudyFlow(this.patientData, true);
-  }
-
   goToDietStudyPlayback() {
     this.startDietStudyPlaybackFlow(this.patientData);
   }
