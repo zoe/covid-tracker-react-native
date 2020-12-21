@@ -140,9 +140,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     Consent: () => {
       NavigatorService.navigate('Register');
     },
-    VaccineRegistryInfo: () => {
-      NavigatorService.navigate(homeScreenName());
-    },
   };
 
   async init() {
@@ -327,21 +324,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       return !!localTrendline.timeseries && localTrendline.timeseries?.length > 0;
     } catch (error) {
       return false;
-    }
-  }
-
-  goToVaccineRegistry() {
-    NavigatorService.navigate('VaccineRegistrySignup', { currentPatient: this.patientData.patientState });
-  }
-
-  vaccineRegistryResponse(response: boolean) {
-    this.consentService.setVaccineRegistryResponse(response);
-    if (response) {
-      Analytics.track(events.JOIN_VACCINE_REGISTER);
-      NavigatorService.navigate('VaccineRegistryInfo', { currentPatient: this.patientData.patientState });
-    } else {
-      Analytics.track(events.DECLINE_VACCINE_REGISTER);
-      NavigatorService.goBack();
     }
   }
 }

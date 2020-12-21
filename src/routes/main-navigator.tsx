@@ -81,8 +81,6 @@ import {
   VaccineTrialPlaceboScreen,
   VaccineDoseSymptomsScreen,
   VaccineThankYouScreen,
-  VaccineRegistryInfoScreen,
-  VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
   ValidationStudyInfoScreen,
   ValidationStudyIntroScreen,
@@ -164,8 +162,6 @@ function MainNavigator() {
       <Stack.Screen name="ValidationStudyIntro" component={ValidationStudyIntroScreen} options={noHeader} />
       <Stack.Screen name="ValidationStudyConsent" component={ValidationStudyConsentScreen} options={noHeader} />
       <Stack.Screen name="ValidationStudyInfo" component={ValidationStudyInfoScreen} options={noHeader} />
-      <Stack.Screen name="VaccineRegistrySignup" component={VaccineRegistrySignUpScreen} options={noHeader} />
-      <Stack.Screen name="VaccineRegistryInfo" component={VaccineRegistryInfoScreen} options={noHeader} />
       <Stack.Screen name="DietStudyAboutYou" component={DietStudyAboutYouScreen} options={noHeader} />
       <Stack.Screen name="DietStudyIntro" component={DietStudyIntroScreen} options={noHeader} />
       <Stack.Screen name="DietStudyThankYou" component={DietStudyThankYouScreen} options={noHeader} />

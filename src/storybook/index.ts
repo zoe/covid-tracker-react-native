@@ -19,7 +19,6 @@ configure(() => {
   require('./stories/DietStudy.stories');
   require('./stories/NumberIndicator.stories');
   require('./stories/FoodFreqCard.stories');
-  require('./stories/VaccineRegistryCallout.stories');
   require('./stories/TextInput.stories');
   require('./stories/EstimatedCasesMapCard.stories');
   require('./stories/PersonalisedDataCard.stories');

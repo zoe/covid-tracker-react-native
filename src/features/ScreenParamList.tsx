@@ -79,10 +79,6 @@ export type ScreenParamList = {
   VaccineDoseSymptoms: { assessmentData: AssessmentData; recordVaccine: boolean };
   VaccineThankYou: { assessmentData: AssessmentData };
 
-  // Vaccine Registry
-  VaccineRegistrySignup: { currentPatient: PatientStateType };
-  VaccineRegistryInfo: { currentPatient: PatientStateType };
-
   // DietStudy
   DietStudyIntro: { dietStudyData: DietStudyData };
   DietStudyAboutYou: { dietStudyData: DietStudyData };
