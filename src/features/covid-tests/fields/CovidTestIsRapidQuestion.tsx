@@ -64,6 +64,6 @@ CovidTestIsRapidQuestion.schema = () => {
 
 CovidTestIsRapidQuestion.createDTO = (formData: CovidTestIsRapidData): Partial<CovidTest> => {
   return {
-    ...(isGBCountry() && formData.isRapidTest && { invited_to_test: formData.isRapidTest === 'yes' }),
+    ...(isGBCountry() && formData.isRapidTest && { is_rapid_test: formData.isRapidTest === 'yes' }),
   } as Partial<CovidTest>;
 };
