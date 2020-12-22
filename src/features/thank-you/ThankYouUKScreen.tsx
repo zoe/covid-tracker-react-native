@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog025, blog027, dataPage003, notificationReminders, timUpdate022, timUpdate023 } from '@assets';
+import { blog028, dataPage003, notificationReminders, timUpdate024, timXmasThankYou } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -79,21 +79,29 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://covid.joinzoe.com/post/getting-ready-covid-christmas?utm_source=App"
-                calloutID="blog_027"
-                imageSource={blog027}
-                aspectRatio={1032 / 600}
+                link="https://youtu.be/gK4X4ncXuHQ"
+                calloutID="tim_update_024"
+                imageSource={timUpdate024}
+                aspectRatio={1.715}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://youtu.be/YP4T2qgoh7o"
-                calloutID="tim_update_023"
-                imageSource={timUpdate023}
-                aspectRatio={1029 / 600}
+                link="https://www.youtube.com/watch?v=TZPiswzpjP4"
+                calloutID="tim_xmas_thank_you"
+                imageSource={timXmasThankYou}
+                aspectRatio={1.715}
                 screenName={this.props.route.name}
               />
-              
+
+              <ExternalCallout
+                link="https://covid.joinzoe.com/post/how-covid-vaccine-so-fast?utm_source=App"
+                calloutID="blog_028"
+                imageSource={blog028}
+                aspectRatio={1032 / 600}
+                screenName={this.props.route.name}
+              />
+
               {this.state.shouldShowReminders && (
                 <ExternalCallout
                   calloutID="notificationReminders"

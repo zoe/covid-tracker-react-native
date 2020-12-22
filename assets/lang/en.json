@@ -299,6 +299,7 @@
         "other": "Other, please specify"
       }
     },
+    "question-is-rapid-test": "Did you wait less than 2 hours to get the results (i.e. was it a rapid test such as lateral flow test)?",
 
     "question-invite-to-test": "Did we invite you to perform this test?",
 

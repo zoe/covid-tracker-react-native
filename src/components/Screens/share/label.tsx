@@ -18,7 +18,10 @@ function ShareLabel({ colorPalette = 'teal', colorShade = 'main' }: IProps) {
       <SRowView>
         <STextContainer>
           <Text colorPalette={colorPalette} colorShade={colorShade} textClass="h6Regular">
-            Explore the state of the pandemic in your area via the COVID Symptom Study App covid.joinzoe.com
+            Explore the state of the pandemic in your area via the COVID Symptom Study App
+          </Text>
+          <Text colorPalette={colorPalette} colorShade={colorShade} textClass="h6Regular">
+            covid.joinzoe.com
           </Text>
         </STextContainer>
         <SLogoContainer>
