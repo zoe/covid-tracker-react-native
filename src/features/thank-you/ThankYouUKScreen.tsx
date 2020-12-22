@@ -82,7 +82,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                 link="https://youtu.be/gK4X4ncXuHQ"
                 calloutID="tim_update_024"
                 imageSource={timUpdate024}
-                aspectRatio={1.211}
+                aspectRatio={1.715}
                 screenName={this.props.route.name}
               />
 
