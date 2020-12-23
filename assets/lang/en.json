@@ -514,14 +514,6 @@
     "button-text": "Share this app"
   },
 
-  "donate": {
-    "banner": "URGENT APPEAL",
-    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
-    "primary-text": "Keep the COVID Symptom Study alive",
-    "secondary-text": "Without funding, critical COVID research cannot continue. Will you help?",
-    "button-text": "Donate now"
-  },
-
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Thank you for reporting. As we ease lockdown, your daily reporting is more important than ever to avoid a second wave.",
