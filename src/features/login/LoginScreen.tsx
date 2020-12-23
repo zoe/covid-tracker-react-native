@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Icon, Input, Item, Label, Toast } from 'native-base';
+import { Input, Item, Label, Toast } from 'native-base';
 import React, { Component } from 'react';
 import {
   Keyboard,
@@ -30,22 +30,25 @@ type PropsType = {
 };
 
 type StateType = {
-  hasUserValidationError: boolean;
-  hasPassValidationError: boolean;
+  errorMessage: string;
+  hasErrors: boolean;
+  isValid: boolean;
+  pass: string;
+  user: string;
 };
 
 const initialState: StateType = {
-  hasUserValidationError: false,
-  hasPassValidationError: false,
+  errorMessage: '',
+  hasErrors: false,
+  isValid: false,
+  pass: '',
+  user: '',
 };
 
 export class LoginScreen extends Component<PropsType, StateType> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
   private passwordField: Input | null;
-  private errorMessage = '';
-  private username = '';
-  private password = '';
 
   constructor(props: PropsType) {
     super(props);
@@ -53,24 +56,10 @@ export class LoginScreen extends Component<PropsType, StateType> {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  checkFieldsFilled() {
-    return !(this.state.hasPassValidationError || this.state.hasUserValidationError);
-  }
-
   handleLogin() {
-    this.errorMessage = '';
-    const username = this.username.trim();
-    this.setState({
-      hasUserValidationError: username === '',
-      hasPassValidationError: this.password === '',
-    });
-
-    if (username === '' || this.password === '') {
-      return;
-    }
-
+    this.setState({ isValid: false });
     this.userService
-      .login(username, this.password)
+      .login(this.state.user.trim(), this.state.pass)
       .then((response) => {
         const isTester = response.user.is_tester;
         Analytics.identify({ isTester });
@@ -85,29 +74,36 @@ export class LoginScreen extends Component<PropsType, StateType> {
           });
       })
       .catch((error) => {
+        let errorMessage = '';
         if (error.constructor === UserNotFoundException) {
-          this.errorMessage = i18n.t('login.user-not-found-exception');
+          errorMessage = i18n.t('login.user-not-found-exception');
         } else {
-          this.errorMessage = i18n.t('login.exception');
+          errorMessage = i18n.t('login.exception');
         }
-        Toast.show({
-          text: this.errorMessage,
-          duration: 2500,
-        });
+        this.setState({ errorMessage, hasErrors: true });
       });
   }
 
-  // todo: validation for email
+  setIsValid(user: string, pass: string) {
+    const isValid = user.length > 0 && pass.length > 0;
+    this.setState({ isValid });
+    this.setState({ hasErrors: false });
+  }
 
   render() {
+    if (this.state.hasErrors) {
+      Toast.show({
+        text: this.state.errorMessage,
+        duration: 2500,
+      });
+    }
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <View>
             <HeaderLightText style={styles.titleText}>{i18n.t('login.title')}</HeaderLightText>
-
             <View style={styles.formItem}>
-              <Item style={styles.labelPos} floatingLabel error={this.state.hasUserValidationError}>
+              <Item style={styles.labelPos} floatingLabel error={this.state.hasErrors}>
                 <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
                 <Input
                   keyboardType="email-address"
@@ -115,10 +111,8 @@ export class LoginScreen extends Component<PropsType, StateType> {
                   returnKeyType="next"
                   autoCompleteType="email"
                   onChangeText={(username) => {
-                    this.username = username;
-                    if (this.state.hasUserValidationError) {
-                      this.setState({ hasUserValidationError: false });
-                    }
+                    this.setState({ user: username });
+                    this.setIsValid(username, this.state.pass);
                   }}
                   onSubmitEditing={() => {
                     // This complains (but still works) due to issue with Native Base: https://github.com/GeekyAnts/NativeBase/issues/1803 so we force ignore.
@@ -127,33 +121,28 @@ export class LoginScreen extends Component<PropsType, StateType> {
                   }}
                   blurOnSubmit={false}
                 />
-                {this.state.hasUserValidationError && <Icon name="close" />}
               </Item>
             </View>
             <View style={styles.formItem}>
-              <Item style={styles.labelPos} floatingLabel error={this.state.hasPassValidationError}>
+              <Item style={styles.labelPos} floatingLabel error={this.state.hasErrors}>
                 <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
                 <Input
                   secureTextEntry
                   returnKeyType="go"
                   onChangeText={(password) => {
-                    this.password = password;
-                    if (this.state.hasPassValidationError) {
-                      this.setState({ hasPassValidationError: false });
-                    }
+                    this.setState({ pass: password });
+                    this.setIsValid(this.state.user, password);
                   }}
                   getRef={(inputField) => {
                     this.passwordField = inputField;
                   }}
                   onSubmitEditing={this.handleLogin}
                 />
-                {this.state.hasPassValidationError && <Icon name="close" />}
               </Item>
             </View>
           </View>
-
           <View>
-            <BrandedButton onPress={this.handleLogin} hideLoading enable={this.checkFieldsFilled()}>
+            <BrandedButton onPress={this.handleLogin} hideLoading enable={this.state.isValid}>
               <Text>{i18n.t('login.button')}</Text>
             </BrandedButton>
             <View style={styles.bottomTextView}>

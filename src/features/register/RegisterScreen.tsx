@@ -33,7 +33,7 @@ type State = {
 
 const initialState: State = {
   errorMessage: '',
-  enableSubmit: true,
+  enableSubmit: false,
   accountExists: false,
 };
 
@@ -82,18 +82,15 @@ export class RegisterScreen extends Component<PropsType, State> {
             this.setState({
               errorMessage: i18n.t('create-account.already-registered'),
               accountExists: true,
-              enableSubmit: false,
             });
           } else if (err.response?.status === 400) {
             this.setState({
               errorMessage: i18n.t('create-account.password-too-simple'),
-              enableSubmit: true,
               accountExists: false,
             });
           } else {
             this.setState({
               errorMessage: i18n.t('create-account.something-went-wrong', { msg: err.response?.status }),
-              enableSubmit: true,
               accountExists: false,
             });
           }
@@ -101,7 +98,6 @@ export class RegisterScreen extends Component<PropsType, State> {
         // do nothing for now but find a way to report it somewhere?
         .catch((err: Error) => {
           this.setState({ errorMessage: i18n.t('create-account.error', { msg: err.message }) });
-          this.setState({ enableSubmit: true });
         });
     }
   }
@@ -121,6 +117,11 @@ export class RegisterScreen extends Component<PropsType, State> {
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     ) */
+
+  setIsEnabled(user: string, pass: string) {
+    const enableSubmit = user.length > 0 && pass.length > 7;
+    this.setState({ enableSubmit });
+  }
 
   render() {
     return (
@@ -158,8 +159,9 @@ export class RegisterScreen extends Component<PropsType, State> {
                           placeholder={i18n.t('create-account.email')}
                           value={props.values.email}
                           onChangeText={(text) => {
-                            this.setState({ enableSubmit: true });
+                            // this.setState({ enableSubmit: true });
                             props.handleChange('email')(text);
+                            this.setIsEnabled(text, props.values.password);
                           }}
                           onBlur={props.handleBlur('email')}
                           error={(props.touched.email && props.errors.email) || this.state.accountExists}
@@ -184,7 +186,10 @@ export class RegisterScreen extends Component<PropsType, State> {
                           placeholder={i18n.t('create-account.password')}
                           returnKeyType="go"
                           value={props.values.password}
-                          onChangeText={props.handleChange('password')}
+                          onChangeText={(text) => {
+                            props.handleChange('password')(text);
+                            this.setIsEnabled(props.values.email, text);
+                          }}
                           onBlur={props.handleBlur('password')}
                           onSubmitEditing={(event) => props.handleSubmit()}
                           error={props.touched.password && props.errors.password}
@@ -215,7 +220,7 @@ export class RegisterScreen extends Component<PropsType, State> {
                     <BrandedButton
                       onPress={props.handleSubmit}
                       hideLoading={!props.isSubmitting}
-                      enable={this.checkFieldsFilled(props) && this.state.enableSubmit}>
+                      enable={this.state.enableSubmit}>
                       {i18n.t('create-account.btn')}
                     </BrandedButton>
                   </View>
