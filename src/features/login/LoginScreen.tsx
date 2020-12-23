@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Icon, Input, Item, Label, Toast } from 'native-base';
+import { Input, Item, Label, Toast } from 'native-base';
 import React, { Component } from 'react';
 import {
   Keyboard,
