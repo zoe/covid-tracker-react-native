@@ -474,7 +474,7 @@ export default class AboutYouScreen extends Component<AboutYouProps, State> {
 
                 <BrandedButton
                   onPress={props.handleSubmit}
-                  enable={!props.isSubmitting}
+                  enable={checkFormFilled(props)}
                   hideLoading={!props.isSubmitting}>
                   <Text>{this.props.route.params.editing ? i18n.t('edit-profile.done') : i18n.t('next-question')}</Text>
                 </BrandedButton>
