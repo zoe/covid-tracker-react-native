@@ -510,16 +510,8 @@
     "message": "Help slow the spread of #COVID19 and identify at risk cases sooner by self-reporting your symptoms daily, even if you feel well 🙏. Download the app",
     "url": "https://covid.joinzoe.com/",
     "primary-text": "Please share this app",
-    "secondary-text": "As we ease lockdown, it's more important than ever that more people are reporting in your area.",
+    "secondary-text": "Your contributions are vital in the fight against COVID-19. Help us end the pandemic by sharing with others.",
     "button-text": "Share this app"
-  },
-
-  "donate": {
-    "banner": "URGENT APPEAL",
-    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
-    "primary-text": "Keep the COVID Symptom Study alive",
-    "secondary-text": "Without funding, critical COVID research cannot continue. Will you help?",
-    "button-text": "Donate now"
   },
 
   "thank-you-title": "Thank you for your help and vital contribution to the study of COVID-19.",

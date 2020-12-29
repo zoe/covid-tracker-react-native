@@ -16,8 +16,6 @@ interface Props {
   test?: CovidTest;
 }
 
-// CovidTestInvitedQuestion
-
 export interface CovidTestIsRapidQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (test?: CovidTest) => Data;
   schema: () => Yup.ObjectSchema;
@@ -55,11 +53,7 @@ CovidTestIsRapidQuestion.initialFormValues = (test?: CovidTest): CovidTestIsRapi
 };
 
 CovidTestIsRapidQuestion.schema = () => {
-  return isGBCountry()
-    ? Yup.object().shape({
-        isRapidTest: Yup.string().required(i18n.t('please-select-option')),
-      })
-    : Yup.object().shape({});
+  return Yup.object().shape({});
 };
 
 CovidTestIsRapidQuestion.createDTO = (formData: CovidTestIsRapidData): Partial<CovidTest> => {
