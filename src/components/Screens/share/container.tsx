@@ -4,7 +4,7 @@ import { EstimatedCasesMapCard } from '@covid/components/Cards/EstimatedCasesMap
 // import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
 import { TrendlineCard } from '@covid/components/Cards/EstimatedCase';
 
-import { SShareContainerView, STrendlineContainer } from './styles';
+import { SShareContainerView } from './styles';
 
 type Sharable = 'MAP' | 'TRENDLINE';
 
