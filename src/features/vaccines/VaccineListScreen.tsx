@@ -1,8 +1,9 @@
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
+import moment, { Moment } from 'moment';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
@@ -52,12 +53,35 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       .catch(() => {});
   };
 
-  const handleNextButton = async () => {
-    const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
-    const takenVaccine = vaccines.length > 0;
-    const askVaccineHesitancy = !takenVaccine && !hasPlans;
+  function getFirstActiveDose(vaccines: VaccineRequest[]): string | null | undefined {
+    // Loops over all vaccines
+    const today = moment().add(moment().utcOffset(), 'minutes').toDate();
+    const sevenDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(7, 'days').toDate();
 
-    coordinator.gotoNextScreen(route.name, askVaccineHesitancy);
+    for (let i = 0; i < vaccines.length; i++) {
+      for (let j = 0; j < vaccines[i].doses?.length; j++) {
+        const dose = vaccines[i].doses[j];
+        if (dose.date_taken_specific) {
+          const doseDate = moment(dose.date_taken_specific).toDate();
+          if (sevenDaysAgo < doseDate && doseDate < today) {
+            return dose.id;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  const handleNextButton = async () => {
+    if (vaccines.length > 0) {
+      const doseID = getFirstActiveDose(vaccines);
+      const askDoseSymptom = !!doseID;
+      coordinator.gotoNextScreen(route.name, false);
+    } else {
+      // Check if user has answered a VaccinePlan / VaccineHesitancy
+      const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
+      coordinator.gotoNextScreen(route.name, !hasPlans);
+    }
   };
 
   const promptDeleteTest = (item: VaccineRequest) => {

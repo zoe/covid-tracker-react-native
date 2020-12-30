@@ -22,7 +22,7 @@ export type PatientStateType = {
   hasBloodGroupAnswer: boolean;
   hasSchoolGroup: boolean;
   isMinor: boolean;
-  shouldAskVaccineQuestions: boolean;
+  shouldShowVaccineList: boolean;
   shouldAskDoseSymptoms: boolean;
 };
 
@@ -53,7 +53,7 @@ const initPatientState: PatientStateType = {
   hasBloodGroupAnswer: true,
   hasSchoolGroup: false,
   isMinor: false,
-  shouldAskVaccineQuestions: false,
+  shouldShowVaccineList: false,
   shouldAskDoseSymptoms: false,
 };
 

@@ -50,8 +50,11 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
         patient: assessmentData.patientData.patientId,
         vaccine_type: VaccineTypes.COVID_VACCINE,
         brand: VaccineBrands.PFIZER,
-        doses: [],
       } as Partial<VaccineRequest>;
+
+      if (vaccine.doses === undefined) {
+        vaccine.doses = [];
+      }
 
       if (formData.firstDoseDate) {
         if (vaccine.doses![0] !== undefined) {
@@ -101,7 +104,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
                 )}
               </View>
               <View style={{ flex: 1 }} />
-              <BrandedButton onPress={props.handleSubmit} >
+              <BrandedButton onPress={props.handleSubmit}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
               </BrandedButton>
             </Form>

@@ -36,8 +36,6 @@ export type Dose = {
   location: VaccineLocations;
   sequence: number;
   date_taken_specific: string;
-  date_taken_between_start: string;
-  date_taken_between_end: string;
 };
 
 export type DoseSymptomsRequest = {

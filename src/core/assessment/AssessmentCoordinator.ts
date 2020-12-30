@@ -16,7 +16,7 @@ import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
-import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -47,7 +47,13 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
     CovidTestList: () => {
-      NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
+      // After finishing with COVID Tests, we check to ask about Vaccines.
+      // Only UK Users above 16 years, will be eligible (shouldShowVaccineList = True)
+      if (this.patientData.patientState.shouldShowVaccineList) {
+        NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
     },
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
@@ -126,6 +132,7 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.goBack();
     },
     VaccineList: (askVaccineHesitancy: boolean) => {
+      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
       if (this.patientData.patientState.shouldAskDoseSymptoms) {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
       } else if (askVaccineHesitancy) {
@@ -144,7 +151,7 @@ export class AssessmentCoordinator extends Coordinator {
   ) => {
     this.appCoordinator = appCoordinator;
     this.assessmentData = assessmentData;
-    this.userService = userService;
+    this.userService = userService; // TODO: userService does not appear to be used and can be removed.
     this.assessmentService = assessmentService;
     this.patientData = assessmentData.patientData;
   };
