@@ -72,7 +72,6 @@ const migrateIOSAsyncStorage = async () => {
     await FileSystem.writeAsStringAsync(Manifest.from(AsyncLocalStorageFolderOptions.to), content);
     await FileSystem.deleteAsync(fromPath);
   } catch (error) {
-    console.log('Error:', error);
     throw error;
   }
 };
