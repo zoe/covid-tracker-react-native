@@ -292,7 +292,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   async shouldShowTrendLine(): Promise<boolean> {
-    const user = await this.userService.getUser();
     const { startupInfo } = store.getState().content;
 
     // Check feature flag (BE should check does user have LAD, is missing LAD will return false)
