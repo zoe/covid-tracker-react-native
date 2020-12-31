@@ -512,14 +512,6 @@
     "button-text": "Compartir la aplicación"
   },
 
-  "donate": {
-    "banner": "SOLICITUD URGENTE",
-    "url": "https://uk.virginmoneygiving.com/charity-web/charity/displayCharityCampaignPage.action?charityCampaignUrl=COVIDSymptomStudy",
-    "primary-text": "Mantenga activo el estudio de síntomas de COVID",
-    "secondary-text": "Sin financiamiento, el apoyo fundamental para la investigación del COVID, NHS no puede continuar. ¿Nos ayudaría?",
-    "button-text": "Donar ahora"
-  },
-
   "thank-you-title": "Gracias por su ayuda y contribución vital para el estudio del COVID-19.",
   "blog-link": "https://covid.joinzoe.com/blog",
   "thank-you-body": "Gracias por unirse a millones de personas que apoyan a los científicos de Massachusetts General Hospital, Stanford University School of Medicine y King's College London para ayudar a nuestros servicios de salud.",

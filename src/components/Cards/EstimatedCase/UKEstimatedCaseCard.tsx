@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { EstimatedCaseCard } from '@covid/components/Cards/EstimatedCase/EstimatedCaseCard';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ContentState } from '@covid/core/content/state/contentSlice';
+
+import { EstimatedCaseCard } from './EstimatedCaseCard';
 
 interface Props {
   onPress: VoidFunction;

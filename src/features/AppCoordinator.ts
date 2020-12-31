@@ -230,14 +230,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     if (isGBCountry() && !this.patientData.patientState.isReportedByAnother) {
       if (await this.consentService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
-      } else if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(this.patientData, false);
-      } else {
-        this.startAssessmentFlow(this.patientData);
-      }
-    } else if (isUSCountry() && !this.patientData.patientState.isReportedByAnother) {
-      if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(this.patientData, false);
       } else {
         this.startAssessmentFlow(this.patientData);
       }
@@ -294,22 +286,12 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     NavigatorService.navigate('SearchLAD');
   }
 
-  async shouldShowDietStudyInvite(): Promise<boolean> {
-    // Check local storage for a cached answer
-    const consent = await AsyncStorageService.getDietStudyConsent();
-    if (consent === DietStudyConsent.SKIP) return false;
-
-    // Check Server
-    return await this.consentService.shouldShowDietStudy();
-  }
-
   async shouldShowStudiesMenu(): Promise<boolean> {
     const consent = await AsyncStorageService.getDietStudyConsent();
     return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
   }
 
   async shouldShowTrendLine(): Promise<boolean> {
-    const user = await this.userService.getUser();
     const { startupInfo } = store.getState().content;
 
     // Check feature flag (BE should check does user have LAD, is missing LAD will return false)
