@@ -131,10 +131,10 @@ export class AssessmentCoordinator extends Coordinator {
     AboutYourVaccine: () => {
       NavigatorService.goBack();
     },
-    VaccineList: (params: { shouldAskDoseSymptoms: boolean; askVaccineHesitancy: boolean }) => {
+    VaccineList: (params: { shouldAskDoseSymptoms: boolean; askVaccineHesitancy: boolean; dose: string }) => {
       if (params.shouldAskDoseSymptoms) {
         // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData });
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose: params.dose });
       } else if (params.askVaccineHesitancy) {
         // Users without a Vaccine are asked about their VaccinePlans (aka VaccineHesitancy) once
         NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });

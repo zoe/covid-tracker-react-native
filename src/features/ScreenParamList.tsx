@@ -74,7 +74,7 @@ export type ScreenParamList = {
   OtherSymptoms: { assessmentData: AssessmentData };
 
   // Vaccines
-  VaccineDoseSymptoms: { assessmentData: AssessmentData };
+  VaccineDoseSymptoms: { assessmentData: AssessmentData; dose: string };
   VaccineThankYou: { assessmentData: AssessmentData };
   VaccineHesitancy: { assessmentData: AssessmentData };
   VaccineList: { assessmentData: AssessmentData };

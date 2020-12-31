@@ -10,10 +10,12 @@ import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { vaccineService } from '@covid/Services';
 import { colors } from '@theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
+import { useInjection } from '@covid/provider/services.hooks';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -26,12 +28,15 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
+  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
+
   const handleSubmit = async (formData: DoesSymptomsData) => {
     if (!isSubmitting) {
       setSubmitting(true);
       const patientId = route.params.assessmentData.patientData.patientId;
       try {
         const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
+        dosePayload.dose = route.params.dose;
         await vaccineService.saveDoseSymptoms(patientId, dosePayload);
       } catch (e) {
         setErrorMessage(i18n.t('something-went-wrong'));
