@@ -48,7 +48,7 @@ export class AssessmentCoordinator extends Coordinator {
     },
     CovidTestList: () => {
       // After finishing with COVID Tests, we check to ask about Vaccines.
-      // Only UK Users above 16 years, will be eligible (shouldShowVaccineList = True)
+      // UK & US users above 16 years, will be eligible (shouldShowVaccineList = True)
       if (this.patientData.patientState.shouldShowVaccineList) {
         NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
       } else {
@@ -131,11 +131,11 @@ export class AssessmentCoordinator extends Coordinator {
     AboutYourVaccine: () => {
       NavigatorService.goBack();
     },
-    VaccineList: (askVaccineHesitancy: boolean) => {
+    VaccineList: (params: { shouldAskDoseSymptoms: boolean; askVaccineHesitancy: boolean }) => {
       // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
-      if (this.patientData.patientState.shouldAskDoseSymptoms) {
+      if (params.shouldAskDoseSymptoms) {
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
-      } else if (askVaccineHesitancy) {
+      } else if (params.askVaccineHesitancy) {
         NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });

@@ -23,7 +23,6 @@ export type PatientStateType = {
   hasSchoolGroup: boolean;
   isMinor: boolean;
   shouldShowVaccineList: boolean;
-  shouldAskDoseSymptoms: boolean;
 };
 
 const initPatientState: PatientStateType = {
@@ -54,7 +53,6 @@ const initPatientState: PatientStateType = {
   hasSchoolGroup: false,
   isMinor: false,
   shouldShowVaccineList: false,
-  shouldAskDoseSymptoms: false,
 };
 
 export const getInitialPatientState = (patientId: string): PatientStateType => {
