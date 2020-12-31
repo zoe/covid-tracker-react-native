@@ -92,7 +92,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
-          link="https://youtu.be/UNwOvNF1R4Q"
+          link="https://youtu.be/1NZojJ_GBrc"
           calloutID="year_review_2020"
           imageSource={year_review_2020}
           aspectRatio={1029 / 600}
