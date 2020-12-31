@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { blog027, shareAppV3, smell_video_dec16 } from '@assets';
+import { know_symptoms_video, shareAppV3, year_review_2020 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -92,18 +92,18 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
-          link="https://youtu.be/UNwOvNF1R4Q"
-          calloutID="smell_video_dec16"
-          imageSource={smell_video_dec16}
+          link="https://youtu.be/1NZojJ_GBrc"
+          calloutID="year_review_2020"
+          imageSource={year_review_2020}
           aspectRatio={1029 / 600}
           screenName={route.name}
         />
 
         <ExternalCallout
-          link="https://covid.joinzoe.com/post/getting-ready-covid-christmas?utm_source=App"
-          calloutID="blog_027"
-          imageSource={blog027}
-          aspectRatio={1032 / 600}
+          link="https://youtu.be/C3zvrlMPhMI"
+          calloutID="know_symptoms_video"
+          imageSource={know_symptoms_video}
+          aspectRatio={1029 / 600}
           screenName={route.name}
         />
 
