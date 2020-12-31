@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 import { migrateIfNeeded } from '@covid/utils/async-storage-migrate';
