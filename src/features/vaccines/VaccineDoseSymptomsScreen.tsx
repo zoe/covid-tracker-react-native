@@ -14,7 +14,6 @@ import { vaccineService } from '@covid/Services';
 import { colors } from '@theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
-import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -32,15 +31,13 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
       setSubmitting(true);
       const patientId = route.params.assessmentData.patientData.patientId;
       try {
-        if (route.params.recordVaccine) {
-          await vaccineService.saveVaccineResponse(patientId, route.params.assessmentData.vaccineData!);
-        }
         const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
         await vaccineService.saveDoseSymptoms(patientId, dosePayload);
       } catch (e) {
         setErrorMessage(i18n.t('something-went-wrong'));
-        //TODO Show error message toast?
+        // TODO Show error message toast?
       } finally {
+        // TODO Not sure this is the right behaviour. Discuss what to do on error....
         assessmentCoordinator.gotoNextScreen(route.name);
       }
     }

@@ -54,7 +54,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   function getFirstActiveDose(vaccines: VaccineRequest[]): string | null | undefined {
-    // Loops over all vaccines
+    // Loops over all vaccines and doses and return the first dose that has a date in the last 7 days.
     const today = moment().add(moment().utcOffset(), 'minutes').toDate();
     const sevenDaysAgo = moment().add(moment().utcOffset(), 'minutes').subtract(7, 'days').toDate();
 
@@ -63,7 +63,7 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
         const dose = vaccines[i].doses[j];
         if (dose.date_taken_specific) {
           const doseDate = moment(dose.date_taken_specific).toDate();
-          if (sevenDaysAgo < doseDate && doseDate < today) {
+          if (sevenDaysAgo <= doseDate && doseDate <= today) {
             return dose.id;
           }
         }
@@ -75,12 +75,14 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const handleNextButton = async () => {
     if (vaccines.length > 0) {
       const doseID = getFirstActiveDose(vaccines);
-      const askDoseSymptom = !!doseID;
-      coordinator.gotoNextScreen(route.name, false);
+      const shouldAskDoseSymptoms = !!doseID;
+      coordinator.gotoNextScreen(route.name, { shouldAskDoseSymptoms });
     } else {
-      // Check if user has answered a VaccinePlan / VaccineHesitancy
+      console.log('No vaccines... check if ');
+      // No vaccines entered. Check if user has answered a VaccinePlan / VaccineHesitancy
       const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
-      coordinator.gotoNextScreen(route.name, !hasPlans);
+      const askVaccineHesitancy = !hasPlans;
+      coordinator.gotoNextScreen(route.name, { askVaccineHesitancy });
     }
   };
 
