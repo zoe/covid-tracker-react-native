@@ -72,8 +72,6 @@ export const handleServiceError = (error: ReceivedError) => {
     throw new OfflineException(error.message);
   } else if (error.code && [CONNECTION_ABORTED, TIMED_OUT].includes(error.code)) {
     throw new OfflineException(error.message);
-  } else {
-    // console.log('[ERROR] Unhandled error:', error.message);
   }
 
   // Rethrow error if we get here
