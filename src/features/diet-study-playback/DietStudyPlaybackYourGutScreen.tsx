@@ -9,7 +9,8 @@ import { BrandedButton, Header3Text, HeaderText, RegularText, SecondaryText } fr
 import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
 import { colors } from '@theme';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
-import { GutScore } from '@covid/features';
+
+import { GutScore } from '../diet-scores';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourGut'>;

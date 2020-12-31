@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { CaptionText } from '@covid/components/Text';
-import { Text } from '@covid/components';
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
 import { ArrowDown, ArrowUp } from '@assets';
+
+import { Text } from '../../typography';
 
 interface Props {
   change: number;
