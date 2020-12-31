@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Text } from '@covid/components';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import { RightArrow } from '@assets';
+
+import { Text } from '../../typography';
 
 interface Props {
   primaryLabel: string;
