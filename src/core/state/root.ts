@@ -6,11 +6,14 @@ import { contentSlice, ContentState } from '@covid/core/content/state/contentSli
 import { schoolSlice, SchoolState } from '@covid/core/schools/Schools.slice';
 import { uiMessagesSlice, IUIMessageCollection } from '@covid/core/ui-messaging';
 
+import { userSlice, IUser } from './user';
+
 export type RootState = {
   assessment: IAssessmentState;
   content: ContentState;
   school: SchoolState;
   uiMessages: IUIMessageCollection;
+  user: IUser;
 };
 
 export default combineReducers({
@@ -18,4 +21,5 @@ export default combineReducers({
   content: contentSlice.reducer,
   school: schoolSlice.reducer,
   uiMessages: uiMessagesSlice,
+  user: userSlice,
 });
