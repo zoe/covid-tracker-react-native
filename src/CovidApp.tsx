@@ -5,6 +5,7 @@ import { Header, Root } from 'native-base';
 import React, { useEffect } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { colors } from '@theme/colors';
 import Analytics, { events } from '@covid/core/Analytics';

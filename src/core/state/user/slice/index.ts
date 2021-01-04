@@ -6,6 +6,7 @@ import { IUser } from '../types';
 
 const initialState: IUser = {
   email: '',
+  username: '',
 };
 
 const userSlice = createSlice({
@@ -17,9 +18,15 @@ const userSlice = createSlice({
         ...initialState,
       };
     },
+    setUsername: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        username: action.payload,
+      };
+    },
   },
 });
 
-export const { reset } = userSlice.actions;
+export const { reset, setUsername } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;
