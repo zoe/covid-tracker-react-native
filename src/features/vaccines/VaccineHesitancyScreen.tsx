@@ -6,77 +6,81 @@ import { StyleSheet, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
-import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import i18n from '@covid/locale/i18n';
 import { colors } from '@theme';
-import { InlineNeedle } from '@covid/components/InlineNeedle';
-import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
-import { useInjection } from '@covid/provider/services.hooks';
+import i18n from '@covid/locale/i18n';
+import Screen, { Header } from '@covid/components/Screen';
+import { BrandedButton, ErrorText, HeaderText } from '@covid/components';
+import {
+  VaccineHesitancyData,
+  VaccineHesitancyQuestions,
+} from '@covid/features/vaccines/fields/VaccineHesitancyQuestions';
 import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
+import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
-  navigation: StackNavigationProp<ScreenParamList, 'VaccineDoseSymptoms'>;
-  route: RouteProp<ScreenParamList, 'VaccineDoseSymptoms'>;
+  navigation: StackNavigationProp<ScreenParamList, 'VaccineHesitancy'>;
+  route: RouteProp<ScreenParamList, 'VaccineHesitancy'>;
 };
 
-export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
+export const VaccineHesitancyScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
 
-  const handleSubmit = async (formData: DoesSymptomsData) => {
+  const handleSubmit = async (formData: VaccineHesitancyData) => {
     if (!isSubmitting) {
       setSubmitting(true);
       const patientId = route.params.assessmentData.patientData.patientId;
       try {
-        const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
-        dosePayload.dose = route.params.dose;
-        await vaccineService.saveDoseSymptoms(patientId, dosePayload);
+        const dto = VaccineHesitancyQuestions.createDTO(formData);
+        await vaccineService.saveVaccinePlan(patientId, dto);
+        assessmentCoordinator.gotoNextScreen(route.name);
       } catch (e) {
         setErrorMessage(i18n.t('something-went-wrong'));
-        // TODO Show error message toast?
+        //TODO Show error message toast?
       } finally {
-        // TODO Not sure this is the right behaviour. Discuss what to do on error....
-        assessmentCoordinator.gotoNextScreen(route.name);
+        setSubmitting(false);
       }
     }
   };
 
-  const registerSchema = Yup.object().shape({}).concat(DoesSymptomsQuestions.schema());
+  const registerSchema = Yup.object().shape({}).concat(VaccineHesitancyQuestions.schema());
   const currentPatient = route.params.assessmentData.patientData.patientState;
+
   return (
     <View style={styles.rootContainer}>
       <Screen profile={currentPatient.profile} navigation={navigation}>
         <Header>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <InlineNeedle />
-            <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
-          </View>
-
-          <HeaderText>{i18n.t('vaccines.dose-symptoms.title')}</HeaderText>
+          <HeaderText>{i18n.t('vaccines.hesitancy.title')}</HeaderText>
         </Header>
 
         <View>
           <Formik
             initialValues={{
-              ...DoesSymptomsQuestions.initialFormValues(),
+              ...VaccineHesitancyQuestions.initialFormValues(),
             }}
             validationSchema={registerSchema}
-            onSubmit={(values: DoesSymptomsData) => handleSubmit(values)}>
+            onSubmit={(values: VaccineHesitancyData) => handleSubmit(values)}>
             {(props) => {
               return (
                 <Form style={{ flexGrow: 1 }}>
                   <View style={{ marginHorizontal: 16 }}>
-                    <DoesSymptomsQuestions formikProps={props} />
+                    <VaccineHesitancyQuestions formikProps={props} />
                   </View>
 
                   <View style={{ flex: 1 }} />
+
+                  {!!Object.keys(props.errors).length && (
+                    <View style={{ marginHorizontal: 16, marginBottom: 24 }}>
+                      <ErrorText>{i18n.t('validation-error-text')}</ErrorText>
+                    </View>
+                  )}
+
                   <BrandedButton
                     style={styles.continueButton}
                     onPress={props.handleSubmit}

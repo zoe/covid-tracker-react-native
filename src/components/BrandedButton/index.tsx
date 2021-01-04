@@ -39,7 +39,6 @@ export const BrandedButton = ({
       <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
         {children}
       </Text>
-      {isDisabled && !hideLoading && <ActivityIndicator testID="activityIndicator" size="small" />}
     </Button>
   );
 };
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
   },
 
   buttonDisabled: {
-    backgroundColor: colors.backgroundBrandDisabled,
+    opacity: 0.2,
   },
 
   buttonText: {
