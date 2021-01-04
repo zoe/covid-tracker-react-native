@@ -136,7 +136,7 @@ export class AssessmentCoordinator extends Coordinator {
       askVaccineHesitancy: boolean | undefined;
       dose: string | undefined;
     }) => {
-      if (params.shouldAskDoseSymptoms) {
+      if (params.shouldAskDoseSymptoms && params.dose) {
         // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
         NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose: params.dose });
       } else if (params.askVaccineHesitancy) {
