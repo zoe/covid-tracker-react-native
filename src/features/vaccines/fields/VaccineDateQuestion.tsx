@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import moment, { Moment } from 'moment';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
@@ -55,7 +56,7 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
   return (
     <>
       {(editIndex === undefined || editIndex === 0) && ( // Little bit messy here. editIndex is only set when editing a vaccine dose. It hides the other dose from the screen.
-        <>
+        <View style={{ marginBottom: 16 }}>
           <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
           <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
           {showFirstPicker ? (
@@ -78,12 +79,14 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
               )}
             </TouchableOpacity>
           )}
-        </>
+        </View>
       )}
 
       {(editIndex === undefined || editIndex === 1) && (
         <>
-          <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
+          <Header3Text style={{ marginTop: 24, marginBottom: 8 }}>
+            {i18n.t('vaccines.your-vaccine.second-dose')}
+          </Header3Text>
           <YesNoField
             selectedValue={formikProps.values.hadSecondDose}
             onValueChange={(value: string) => {
