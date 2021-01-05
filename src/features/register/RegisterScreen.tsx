@@ -6,6 +6,7 @@ import { Form, Label } from 'native-base';
 import React, { Component } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
@@ -16,6 +17,7 @@ import { BrandedButton, ClickableText, ErrorText, HeaderLightText, RegularText }
 import { Field, FieldError } from '@covid/components/Forms';
 import { lazyInject } from '@covid/provider/services';
 import { Services } from '@covid/provider/services.types';
+import { setUsername } from '@covid/core/state/user';
 
 import appCoordinator from '../AppCoordinator';
 import { ScreenParamList } from '../ScreenParamList';
@@ -23,6 +25,7 @@ import { ScreenParamList } from '../ScreenParamList';
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Register'>;
   route: RouteProp<ScreenParamList, 'Register'>;
+  setUsername: (username: string) => void;
 };
 
 type State = {
@@ -47,7 +50,7 @@ const initialRegistrationValues = {
   password: '',
 };
 
-export class RegisterScreen extends Component<PropsType, State> {
+class RegisterScreen extends Component<PropsType, State> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
 
@@ -72,6 +75,7 @@ export class RegisterScreen extends Component<PropsType, State> {
           const isTester = response.user.is_tester;
           Analytics.identify({ isTester });
           Analytics.track(events.SIGNUP);
+          this.props.setUsername(response.user.username);
           const patientId = response.user.patients[0];
           await appCoordinator.setPatientById(patientId).then(() => appCoordinator.fetchInitialData());
           appCoordinator.gotoNextScreen(this.props.route.name);
@@ -278,3 +282,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
 });
+
+const mapDispatchToProps = {
+  setUsername,
+};
+
+export default connect(null, mapDispatchToProps)(RegisterScreen);
