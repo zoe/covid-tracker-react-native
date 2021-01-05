@@ -34,6 +34,10 @@ export const VaccineThankYouScreen: React.FC<Props> = ({ route, navigation }) =>
 
           <HeaderText style={{ marginTop: 36, textAlign: 'center' }}>{i18n.t('vaccines.thank-you.title')}</HeaderText>
 
+          <HeaderText style={{ marginTop: 8, textAlign: 'center' }}>
+            {i18n.t('vaccines.thank-you.sub-title')}
+          </HeaderText>
+
           <RegularText style={{ marginTop: 36, textAlign: 'center' }}>{i18n.t('vaccines.thank-you.text')}</RegularText>
         </View>
       </Screen>

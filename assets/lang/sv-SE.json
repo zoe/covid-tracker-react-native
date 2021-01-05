@@ -1274,6 +1274,7 @@
     "vaccines": {
       "thank-you": {
         "title": "",
+        "sub-title": "",
         "text": "",
         "confirm": ""
       },

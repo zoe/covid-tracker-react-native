@@ -1309,7 +1309,8 @@
     "vaccines": {
 
     "thank-you": {
-      "title": "Thank you.\nPlease continue to provide daily health reports following your COVID-19 vaccination ",
+      "title": "Thank you.",
+      "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
       "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
       "confirm": "Start daily report"
     },
