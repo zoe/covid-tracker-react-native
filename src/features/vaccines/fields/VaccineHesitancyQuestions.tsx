@@ -60,8 +60,8 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
     { label: i18n.t('vaccines.hesitancy.unsure-is-working'), formKey: 'reason_efficacy' },
     { label: i18n.t('vaccines.hesitancy.availability'), formKey: 'reason_availability' },
     { label: i18n.t('vaccines.hesitancy.unnecessary'), formKey: 'reason_unnecessary' },
-    { label: i18n.t('vaccines.hesitancy.Other'), formKey: 'other' },
     { label: i18n.t('vaccines.hesitancy.not-to-say'), formKey: 'reason_pfnts' },
+    { label: i18n.t('vaccines.hesitancy.Other'), formKey: 'other' },
   ];
 
   return (
