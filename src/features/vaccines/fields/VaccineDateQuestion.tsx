@@ -83,6 +83,7 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
 
       {(editIndex === undefined || editIndex === 1) && (
         <>
+          <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
           <YesNoField
             selectedValue={formikProps.values.hadSecondDose}
             onValueChange={(value: string) => {
@@ -96,7 +97,6 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
 
           {formikProps.values.hadSecondDose === 'yes' && (
             <>
-              <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.second-dose')}</Header3Text>
               <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
               {showSecondPicker ? (
                 <CalendarPicker
