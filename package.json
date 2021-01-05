@@ -46,6 +46,7 @@
     "@react-navigation/native": "^5.0.8",
     "@react-navigation/stack": "^5.1.0",
     "@reduxjs/toolkit": "^1.4.0",
+    "@sentry/react-native": "^2.1.0",
     "@types/i18n-js": "^3.0.1",
     "@types/node": "^13.9.0",
     "@types/react-native-calendar-picker": "^6.0.0",
@@ -108,6 +109,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
+    "sentry-expo": "^3.0.4",
     "string-natural-compare": "^3.0.1",
     "styled-components": "^5.2.0",
     "typesafe-actions": "^5.1.0",
@@ -154,6 +156,9 @@
     "ts-jest": "^25.3.1",
     "ts-node": "^8.6.2",
     "typescript": "~3.9.2"
+  },
+  "resolutions": {
+    "expo-device": "~2.4.0"
   },
   "private": true,
   "husky": {
