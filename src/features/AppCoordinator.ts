@@ -28,6 +28,7 @@ import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/E
 import store from '@covid/core/state/store';
 import {
   fetchDismissedCallouts,
+  fetchFeaturedContent,
   fetchLocalTrendLine,
   FetchLocalTrendlinePayload,
   fetchStartUpInfo,
@@ -173,6 +174,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   async fetchInitialData(): Promise<void> {
     await store.dispatch(fetchStartUpInfo());
     await store.dispatch(fetchDismissedCallouts());
+    await store.dispatch(fetchFeaturedContent());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }
