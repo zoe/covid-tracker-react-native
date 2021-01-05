@@ -1317,7 +1317,9 @@
 
     "dose-symptoms": {
       "label": "About your recent vaccine",
-      "title": "Are you experiencing any symptoms near the injection site?",
+      "title-1": "Are you experiencing any symptoms",
+      "title-2": " near the injection site",
+      "title-3": "?",
       "check-all-that-apply": "Check all that apply:",
       "pain": "Pain",
       "redness": "Redness",
@@ -1327,6 +1329,8 @@
       "itch": "Itch",
       "tenderness": "Tenderness",
       "other": "Other",
+      "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
+      "other-placeholder": "Describe your symptoms here...",
       "next": "Next"
     },
 

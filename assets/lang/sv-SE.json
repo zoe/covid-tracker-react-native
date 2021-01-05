@@ -1280,7 +1280,9 @@
       },
       "dose-symptoms": {
         "label": "",
-        "title": "",
+        "title-1": "",
+        "title-2": "",
+        "title-3": "",
         "check-all-that-apply": "",
         "pain": "",
         "redness": "",
@@ -1290,6 +1292,8 @@
         "itch": "",
         "tenderness": "",
         "other": "",
+        "other-info": "",
+        "other-placeholder": "",
         "next": ""
       },
       "hesitancy": {
