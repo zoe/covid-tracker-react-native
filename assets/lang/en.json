@@ -1273,7 +1273,10 @@
       "itch": "Itch",
       "tenderness": "Tenderness",
       "other": "Other",
-      "next": "Next"
+      "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
+      "other-placeholder": "Describe your symptoms here...",
+      "next": "Next",
+
     },
 
     "vaccine-list": {
