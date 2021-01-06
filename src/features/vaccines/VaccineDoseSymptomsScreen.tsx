@@ -59,7 +59,11 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
             <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
           </View>
 
-          <HeaderText>{i18n.t('vaccines.dose-symptoms.title')}</HeaderText>
+          <HeaderText>
+            <HeaderText>{i18n.t('vaccines.dose-symptoms.title-1')}</HeaderText>
+            <HeaderText style={{ color: colors.purple }}>{i18n.t('vaccines.dose-symptoms.title-2')}</HeaderText>
+            <HeaderText>{i18n.t('vaccines.dose-symptoms.title-3')}</HeaderText>
+          </HeaderText>
         </Header>
 
         <View>
