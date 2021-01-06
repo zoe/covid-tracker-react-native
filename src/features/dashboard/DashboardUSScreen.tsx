@@ -20,6 +20,7 @@ import { pushNotificationService } from '@covid/Services';
 import { PartnerLogoUSDash } from '@covid/components/Logos/PartnerLogo';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -30,6 +31,7 @@ interface Props {
 }
 
 export const DashboardUSScreen: React.FC<Props> = (params) => {
+  const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const { route, navigation } = params;
 
@@ -62,6 +64,15 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       dispatch(updateTodayDate());
     });
   }, [navigation]);
+
+  useEffect(() => {
+    if (!app.dashboardVisited) {
+      if (showDietStudyPlayback) {
+        Analytics.track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
+      }
+      dispatch(setDasboardVisited(true));
+    }
+  }, []);
 
   return (
     <CollapsibleHeaderScrollView
