@@ -49,7 +49,6 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
         ...assessmentData.vaccineData,
         patient: assessmentData.patientData.patientId,
         vaccine_type: VaccineTypes.COVID_VACCINE,
-        brand: VaccineBrands.PFIZER,
       } as Partial<VaccineRequest>;
 
       if (vaccine.doses === undefined) {
