@@ -98,7 +98,10 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
           text: i18n.t('delete'),
           style: 'destructive',
           onPress: () => {
-            vaccineService.deleteVaccine(item.id).then(() => refreshVaccineList());
+            vaccineService.deleteVaccine(item.id).then(() => {
+              coordinator.resetVaccine();
+              refreshVaccineList();
+            });
           },
         },
       ],
