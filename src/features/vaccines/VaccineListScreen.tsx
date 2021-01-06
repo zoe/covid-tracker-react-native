@@ -12,7 +12,7 @@ import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
@@ -107,11 +107,8 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const enableNextButton = () => {
-    if (!!vaccines[0]?.doses[0] && vaccines[0]?.doses[0]?.date_taken_specific === undefined) {
-      return false;
-    } else {
-      return true;
-    }
+    const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
+    return !(firstDose && firstDose.date_taken_specific == null); // Disable button if user has first dose with no date.
   };
 
   const ListContent = () => {
