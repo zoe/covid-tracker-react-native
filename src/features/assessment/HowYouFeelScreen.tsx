@@ -54,7 +54,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           assessmentCoordinator.assessmentData.patientData.patientInfo!
         );
       } else {
-        await assessmentService.saveAssessment(assessment);
+        assessmentService.saveAssessment(assessment);
       }
     } catch (error) {
       setErrorMessage(i18n.t('something-went-wrong'));

@@ -12,7 +12,6 @@ const ValueChangeHandler = (): HandlerFunction => action('selectable-item-select
 const Toggleable: React.FC = () => {
   const [show, setShow] = useState<boolean>(true);
   const items = show ? FOOD_INTAKE_FREQUENCY() : [];
-  console.log(items);
   return (
     <View>
       <Button

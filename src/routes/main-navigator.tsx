@@ -76,16 +76,16 @@ import {
   TreatmentOtherScreen,
   TreatmentSelectionScreen,
   TrendlineScreen,
-  VaccineYesNoScreen,
-  VaccineTrialOrNationalScreen,
-  VaccineTrialPlaceboScreen,
   VaccineDoseSymptomsScreen,
+  VaccineListScreen,
   VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
+  AboutYourVaccineScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
   ValidationStudyInfoScreen,
   ValidationStudyIntroScreen,
+  VaccineHesitancyScreen,
   Welcome1Screen,
   Welcome2Screen,
   WelcomeRepeatScreen,
@@ -199,11 +199,11 @@ function MainNavigator() {
       <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
       <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
-      <Stack.Screen name="VaccineYesNo" component={VaccineYesNoScreen} options={noHeader} />
-      <Stack.Screen name="VaccineTrialOrNational" component={VaccineTrialOrNationalScreen} options={noHeader} />
-      <Stack.Screen name="VaccineTrialPlacebo" component={VaccineTrialPlaceboScreen} options={noHeader} />
       <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
       <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
+      <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
+      <Stack.Screen name="VaccineList" component={VaccineListScreen} options={noHeader} />
+      <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

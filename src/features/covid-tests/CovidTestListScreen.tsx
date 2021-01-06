@@ -75,21 +75,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
   };
 
   handleNextButton = async () => {
-    try {
-      const { assessmentData } = this.props.route.params;
-      const currentPatient = assessmentData.patientData.patientState;
-
-      const patientId = currentPatient.patientId;
-
-      const assessment = {
-        patient: patientId,
-      } as Partial<AssessmentInfosRequest>;
-
-      await assessmentService.saveAssessment(assessment);
-      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-    } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
-    }
+    AssessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {

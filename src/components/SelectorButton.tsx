@@ -12,11 +12,13 @@ type IButtonPress = ((event: GestureResponderEvent) => void) | undefined;
 interface Props {
   onPress?: IButtonPress;
   text: string;
+  testID?: string;
+  disable?: boolean;
 }
 
 export const SelectorButton: React.FC<Props> = (props) => (
   <FieldWrapper style={styles.fieldWrapper}>
-    <TouchableOpacity onPress={props.onPress} testID="buttonTestID">
+    <TouchableOpacity onPress={props.onPress} testID={props.testID ?? 'buttonTestID'} disabled={props.disable}>
       <View style={styles.bigButton}>
         <Text style={[fontStyles.bodyReg, styles.buttonText]}>{props.text}</Text>
       </View>

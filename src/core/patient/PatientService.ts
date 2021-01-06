@@ -161,8 +161,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const hasBloodGroupAnswer = patient.blood_group != null;
     const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
     const hasSchoolGroup = patient.has_school_group;
-    const shouldAskVaccineQuestions = patient.vaccine_status === VaccineStatus.ASK_VACCINE_QUESTION;
-    const shouldAskDoseSymptoms = patient.vaccine_status === VaccineStatus.ASK_DOSE_SYMPTOMS;
+    const shouldShowVaccineList = patient.vaccine_status !== VaccineStatus.DO_NOT_ASK;
     const isMinor = isMinorAge(patient.year_of_birth);
 
     return {
@@ -187,8 +186,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isNHSStudy,
       hasSchoolGroup,
       isMinor,
-      shouldAskVaccineQuestions,
-      shouldAskDoseSymptoms,
+      shouldShowVaccineList,
     };
   }
 
