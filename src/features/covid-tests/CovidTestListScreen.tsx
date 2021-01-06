@@ -120,15 +120,17 @@ export default class CovidTestListScreen extends Component<Props, State> {
               })}
             </View>
           )}
-        </Screen>
 
-        <BrandedButton style={styles.continueButton} onPress={this.handleNextButton}>
-          <Text>
-            {this.state.covidTests.length === 0
-              ? i18n.t('covid-test-list.never-had-test')
-              : i18n.t('covid-test-list.above-list-correct')}
-          </Text>
-        </BrandedButton>
+          <View style={{ flex: 1 }} />
+
+          <BrandedButton style={styles.continueButton} onPress={this.handleNextButton}>
+            <Text>
+              {this.state.covidTests.length === 0
+                ? i18n.t('covid-test-list.never-had-test')
+                : i18n.t('covid-test-list.above-list-correct')}
+            </Text>
+          </BrandedButton>
+        </Screen>
       </View>
     );
   }
@@ -152,6 +154,5 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     marginHorizontal: 16,
-    marginBottom: 32,
   },
 });
