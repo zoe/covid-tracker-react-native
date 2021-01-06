@@ -6,7 +6,7 @@ import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { AssessmentResponse } from './dto/AssessmentInfosResponse';
 
 export interface IAssessmentService {
-  initAssessment(): void;
+  initAssessment(patientId: string): void;
   saveAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   completeAssessment(
     assessment: Partial<AssessmentInfosRequest> | null,
@@ -46,16 +46,20 @@ export default class AssessmentService implements IAssessmentService {
     }
   }
 
-  private async saveToState(assessment: Partial<AssessmentInfosRequest>) {
+  private saveToState(assessment: Partial<AssessmentInfosRequest>) {
     return this.state.updateAssessment(assessment);
   }
 
-  initAssessment() {
-    this.state.initAssessment();
+  initAssessment(patientId: string) {
+    const assessment = {
+      patient: patientId,
+    } as Partial<AssessmentInfosRequest>;
+
+    this.state.initAssessment(assessment);
   }
 
-  async saveAssessment(assessment: Partial<AssessmentInfosRequest>) {
-    await this.saveToState(assessment);
+  saveAssessment(assessment: Partial<AssessmentInfosRequest>) {
+    this.saveToState(assessment);
   }
 
   async completeAssessment(
@@ -73,7 +77,7 @@ export default class AssessmentService implements IAssessmentService {
         }
       }
 
-      await this.saveAssessment(assessment);
+      this.saveAssessment(assessment);
     }
 
     const response = this.sendFullAssessmentToApi();

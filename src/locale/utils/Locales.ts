@@ -53,7 +53,6 @@ export default class Locales {
 
   private getLocaleFile(locale: Locale): Translations {
     const filePath = join(this.localeDir, locale + JSON_EXT);
-    // console.log('[LOCALE] filePath:', filePath);
     return this.isFile(filePath) ? JSON.parse(readFileSync(filePath).toString()) : {};
   }
 
