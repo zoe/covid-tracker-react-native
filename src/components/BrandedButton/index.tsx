@@ -1,6 +1,6 @@
 import { Button } from 'native-base';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { colors, fontStyles } from '@theme';
 
@@ -21,25 +21,23 @@ export const BrandedButton = ({
   textProps,
   hideLoading,
 }: ClickableProps & BrandedButtonProps) => {
-  const btnStyle = [styles.button, style];
   const isDisabled = enable === false;
-  if (isDisabled) {
-    btnStyle.push(styles.buttonDisabled);
-  }
 
   return (
-    <Button
-      testID="buttonTestID"
-      block
-      style={btnStyle}
-      onPress={() => {
-        !isDisabled && onPress();
-      }}
-      {...buttonProps}>
-      <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
-        {children}
-      </Text>
-    </Button>
+    <View style={isDisabled ? { opacity: 0.2 } : { opacity: 1 }}>
+      <Button
+        testID="buttonTestID"
+        block
+        style={[styles.button, style]}
+        onPress={() => {
+          !isDisabled && onPress();
+        }}
+        {...buttonProps}>
+        <Text style={[fontStyles.bodyLight, styles.buttonText]} {...textProps}>
+          {children}
+        </Text>
+      </Button>
+    </View>
   );
 };
 
@@ -49,10 +47,6 @@ const styles = StyleSheet.create({
     height: 56,
     backgroundColor: colors.brand,
     elevation: 0,
-  },
-
-  buttonDisabled: {
-    opacity: 0.2,
   },
 
   buttonText: {
