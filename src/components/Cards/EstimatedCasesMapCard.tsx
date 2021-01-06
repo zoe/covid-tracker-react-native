@@ -189,12 +189,18 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
   useEffect(() => {
+    let isMounted = true;
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
     (async () => {
       try {
-        setHtml(await loadEstimatedCasesCartoMap());
+        if (isMounted) {
+          setHtml(await loadEstimatedCasesCartoMap());
+        }
       } catch (_) {}
     })();
+    return function cleanUp() {
+      isMounted = false;
+    };
   }, []);
 
   const syncMapCenter = () => {
