@@ -273,6 +273,10 @@ export class AssessmentCoordinator extends Coordinator {
       ...vaccine,
     };
   }
+
+  resetVaccine() {
+    this.assessmentData.vaccineData = undefined;
+  }
 }
 
 const assessmentCoordinator = new AssessmentCoordinator();
