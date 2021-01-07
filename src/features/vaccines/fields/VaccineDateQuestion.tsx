@@ -104,6 +104,8 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
               {showSecondPicker ? (
                 <CalendarPicker
                   onDateChange={setSecondDoseDate}
+                  minDate={formikProps.values.firstDoseDate}
+                  restrictMonthNavigation
                   maxDate={today}
                   {...(!!formikProps.values.secondDoseDate && {
                     selectedStartDate: formikProps.values.secondDoseDate,

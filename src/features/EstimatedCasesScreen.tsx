@@ -16,11 +16,18 @@ export const EstimatedCasesScreen: React.FC<Props> = ({ navigation }) => {
   const [html, setHtml] = useState<string>('');
 
   useEffect(() => {
-    (async () => {
+    let isMounted = true;
+    const runAsync = async () => {
       try {
         setHtml(await loadEstimatedCasesCartoMap());
       } catch (_) {}
-    })();
+    };
+    if (isMounted) {
+      runAsync();
+    }
+    return function () {
+      isMounted = false;
+    };
   }, []);
 
   return (

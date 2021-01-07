@@ -1307,79 +1307,82 @@
     },
 
     "vaccines": {
+      "thank-you": {
+        "title": "Thank you.",
+        "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
+        "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
+        "confirm": "Start daily report"
+      },
 
-    "thank-you": {
-      "title": "Thank you.",
-      "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
-      "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
-      "confirm": "Start daily report"
+      "dose-symptoms": {
+        "label": "About your recent vaccine",
+        "title-1": "Are you experiencing any symptoms",
+        "title-2": " near the injection site",
+        "title-3": "?",
+        "check-all-that-apply": "Check all that apply:",
+        "pain": "Pain",
+        "redness": "Redness",
+        "swelling": "Swelling",
+        "glands": "Swollen glands in the armpit",
+        "warmth": "Warmth",
+        "itch": "Itch",
+        "tenderness": "Tenderness",
+        "other": "Other",
+        "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
+        "other-placeholder": "Describe your symptoms here...",
+        "next": "Next"
+      },
+
+      "vaccine-list": {
+        "title": "Your COVID-19 vaccines",
+        "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now. ",
+        "add-button": "Add vaccine",
+        "correct-info": "This information is correct",
+        "no-vaccine": "I haven't had a vaccine",
+        "no-2nd": "I haven't had a second dose",
+        "delete-vaccine-title": "Delete Vaccine?",
+        "delete-vaccine-text": "Information about all vaccines doses will be deleted."
+      },
+
+      "your-vaccine": {
+        "title": "Tell us about your vaccine",
+        "first-dose": "About your first dose",
+        "second-dose": "About your second dose",
+        "when-injection": "When was your injection?",
+        "have-had-second": "Have you had a second dose yet?",
+        "select-date": "Select date",
+        "confirm": "Confirm"
+      },
+
+      "vaccine-card": {
+        "dose-1": "Dose 1",
+        "dose-2": "Dose 2",
+        "add-date": "Add date",
+        "add-info": "Add dose information",
+        "delete": "Delete vaccine",
+        "date-missing": "Logged but date missing",
+        "not-logged": "Not yet logged"
+      },
+
+      "hesitancy": {
+        "title": "Would you accept a COVID019 vaccine if offered?",
+        "check-all-that-apply": "Please tell us why (check all that apply):",
+        "vaccine-trial": "I took part on a vaccine trial",
+        "religious": "Religious reasons",
+        "philosophical": "Personal belief / philosophical reasons",
+        "pregnancy": "Pregnancy / breastfeeding",
+        "illness": "Illness / medication",
+        "safety-concern": "Concerned about long term side effects",
+        "bad-reaction": "Concerned about adverse reaction",
+        "do-not-know": "Do not know enough about it",
+        "unsure-is-working": "Do not think it will work",
+        "availability": "Do not think it will be available to me",
+        "unnecessary": "Do not think it is necessary",
+        "Other": "Other",
+        "not-to-say": "Prefer not to say",
+        "specify": "Please specify the other reason"
+      }
     },
-
-    "dose-symptoms": {
-      "label": "About your recent vaccine",
-      "title": "Are you experiencing any symptoms near the injection site?",
-      "check-all-that-apply": "Check all that apply:",
-      "pain": "Pain",
-      "redness": "Redness",
-      "swelling": "Swelling",
-      "glands": "Swollen glands in the armpit",
-      "warmth": "Warmth",
-      "itch": "Itch",
-      "tenderness": "Tenderness",
-      "other": "Other",
-      "next": "Next"
-    },
-
-    "vaccine-list": {
-      "title": "Your COVID-19 vaccines",
-      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now. ",
-      "add-button": "Add vaccine",
-      "correct-info": "This information is correct",
-      "no-vaccine": "I haven't had a vaccine",
-      "no-2nd": "I haven't had a second dose",
-      "delete-vaccine-title": "Delete Vaccine?",
-      "delete-vaccine-text": "Information about all vaccines doses will be deleted."
-    },
-
-    "your-vaccine": {
-      "title": "Tell us about your vaccine",
-      "first-dose": "About your first dose",
-      "second-dose": "About your second dose",
-      "when-injection": "When was your injection?",
-      "have-had-second": "Have you had a second dose yet?",
-      "select-date": "Select date",
-      "confirm": "Confirm"
-    },
-
-    "vaccine-card": {
-      "dose-1": "Dose 1",
-      "dose-2": "Dose 2",
-      "add-date": "Add date",
-      "add-info": "Add dose information",
-      "delete": "Delete vaccine",
-      "date-missing": "Logged but date missing",
-      "not-logged": "Not yet logged"
-    },
-
-    "hesitancy": {
-      "title": "Would you accept a COVID019 vaccine if offered?",
-      "check-all-that-apply": "Please tell us why (check all that apply):",
-      "vaccine-trial": "I took part on a vaccine trial",
-      "religious": "Religious reasons",
-      "philosophical": "Personal belief / philosophical reasons",
-      "pregnancy": "Pregnancy / breastfeeding",
-      "illness": "Illness / medication",
-      "safety-concern": "Concerned about long term side effects",
-      "bad-reaction": "Concerned about adverse reaction",
-      "do-not-know": "Do not know enough about it",
-      "unsure-is-working": "Do not think it will work",
-      "availability": "Do not think it will be available to me",
-      "unnecessary": "Do not think it is necessary",
-      "Other": "Other",
-      "not-to-say": "Prefer not to say",
-      "specify": "Please specify the other reason"
-    }
-  },
 
     "nhs-study-intro": {
       "title": false,
