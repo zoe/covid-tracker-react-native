@@ -4,14 +4,15 @@ import { AssessmentInfosRequest } from './dto/AssessmentInfosRequest';
 import { updateAssessment, clearAssessment } from './state/actions';
 
 export interface IAssessmentState {
-  initAssessment(): void;
+  initAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   updateAssessment(assessment: Partial<AssessmentInfosRequest>): void;
   getAssessment(): Partial<AssessmentInfosRequest>;
 }
 
 export default class ReduxAssessmentState implements IAssessmentState {
-  initAssessment() {
+  initAssessment(assessment: Partial<AssessmentInfosRequest>) {
     store.dispatch(clearAssessment());
+    store.dispatch(updateAssessment(assessment));
   }
 
   updateAssessment(assessment: Partial<AssessmentInfosRequest>) {

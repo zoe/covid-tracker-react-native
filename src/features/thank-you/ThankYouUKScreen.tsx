@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog028, dataPage003, notificationReminders, timUpdate025, timXmasThankYou } from '@assets';
+import { blog028, dataPage003, notificationReminders, timUpdate026, year_review_2020 } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -79,18 +79,18 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               />
 
               <ExternalCallout
-                link="https://youtu.be/n2JyjR5b6rk"
-                calloutID="tim_update_025"
-                imageSource={timUpdate025}
+                link="https://youtu.be/VG-8U5rIgfs"
+                calloutID="tim_update_026"
+                imageSource={timUpdate026}
                 aspectRatio={1.715}
                 screenName={this.props.route.name}
               />
 
               <ExternalCallout
-                link="https://www.youtube.com/watch?v=TZPiswzpjP4"
-                calloutID="tim_xmas_thank_you"
-                imageSource={timXmasThankYou}
-                aspectRatio={1.715}
+                link="https://youtu.be/1NZojJ_GBrc"
+                calloutID="year_review_2020"
+                imageSource={year_review_2020}
+                aspectRatio={1029 / 600}
                 screenName={this.props.route.name}
               />
 

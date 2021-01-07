@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { know_symptoms_video, shareAppV3, year_review_2020 } from '@assets';
+import { blog029, know_symptoms_video, shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -25,6 +25,7 @@ import { SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -35,6 +36,7 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
@@ -82,6 +84,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    if (!app.dashboardVisited) {
+      dispatch(setDasboardVisited(true));
+    }
+  }, []);
+
   const hasNetworkData = networks && networks.length > 0;
 
   return (
@@ -92,10 +100,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
-          link="https://youtu.be/1NZojJ_GBrc"
-          calloutID="year_review_2020"
-          imageSource={year_review_2020}
-          aspectRatio={1029 / 600}
+          link="https://covid.joinzoe.com/post/covid-vaccine-questions?utm_source=App"
+          calloutID="blog_029"
+          imageSource={blog029}
+          aspectRatio={1032 / 600}
           screenName={route.name}
         />
 

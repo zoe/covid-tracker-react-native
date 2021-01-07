@@ -61,7 +61,6 @@ export type UserResponse = {
   // TODO: WARNING If this is changed we need to invalidate the locally cached version
   pii: string;
   username: string;
-  authorizations: string[];
   patients: string[];
   ask_for_rating: boolean;
   is_tester: boolean;

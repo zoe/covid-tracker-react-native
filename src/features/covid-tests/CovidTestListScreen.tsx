@@ -75,21 +75,7 @@ export default class CovidTestListScreen extends Component<Props, State> {
   };
 
   handleNextButton = async () => {
-    try {
-      const { assessmentData } = this.props.route.params;
-      const currentPatient = assessmentData.patientData.patientState;
-
-      const patientId = currentPatient.patientId;
-
-      const assessment = {
-        patient: patientId,
-      } as Partial<AssessmentInfosRequest>;
-
-      await assessmentService.saveAssessment(assessment);
-      AssessmentCoordinator.gotoNextScreen(this.props.route.name);
-    } catch (error) {
-      this.setState({ errorMessage: i18n.t('something-went-wrong') });
-    }
+    AssessmentCoordinator.gotoNextScreen(this.props.route.name);
   };
 
   render() {
@@ -134,15 +120,17 @@ export default class CovidTestListScreen extends Component<Props, State> {
               })}
             </View>
           )}
-        </Screen>
 
-        <BrandedButton style={styles.continueButton} onPress={this.handleNextButton}>
-          <Text>
-            {this.state.covidTests.length === 0
-              ? i18n.t('covid-test-list.never-had-test')
-              : i18n.t('covid-test-list.above-list-correct')}
-          </Text>
-        </BrandedButton>
+          <View style={{ flex: 1 }} />
+
+          <BrandedButton style={styles.continueButton} onPress={this.handleNextButton}>
+            <Text>
+              {this.state.covidTests.length === 0
+                ? i18n.t('covid-test-list.never-had-test')
+                : i18n.t('covid-test-list.above-list-correct')}
+            </Text>
+          </BrandedButton>
+        </Screen>
       </View>
     );
   }
@@ -166,6 +154,5 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     marginHorizontal: 16,
-    marginBottom: 32,
   },
 });
