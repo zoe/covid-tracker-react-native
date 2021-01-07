@@ -121,16 +121,22 @@ export const fetchFeaturedContent = createAsyncThunk(
   'content/featured_content',
   async (): Promise<Partial<ContentState>> => {
     const service = container.get<IContentService>(Services.Content);
-    const content = await service.getFeaturedContent();
-    const sort = <T extends IFeaturedContent>(left: T, right: T): number =>
-      left.order_index > right.order_index ? 1 : -1;
-    const home = content.filter((item) => item.featured_uk_home === true).sort(sort);
-    const thankyou = content.filter((item) => item.featured_uk_thankyou === true).sort(sort);
-
-    return {
-      featuredHome: home,
-      featuredThankyou: thankyou,
-    };
+    try {
+      const content = await service.getFeaturedContent();
+      const sort = <T extends IFeaturedContent>(left: T, right: T): number =>
+        left.order_index > right.order_index ? 1 : -1;
+      const home = content.filter((item) => item.featured_uk_home === true).sort(sort);
+      const thankyou = content.filter((item) => item.featured_uk_thankyou === true).sort(sort);
+      return {
+        featuredHome: home,
+        featuredThankyou: thankyou,
+      };
+    } catch (_) {
+      return {
+        featuredHome: [],
+        featuredThankyou: [],
+      };
+    }
   }
 );
 

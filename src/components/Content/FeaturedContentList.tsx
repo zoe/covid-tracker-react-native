@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { View } from 'react-native';
 
 import { IFeaturedContent } from '@covid/core/content/dto/ContentAPIContracts';
 import { RootState } from '@covid/core/state/root';
@@ -18,18 +19,18 @@ export type FeaturedContentProps = {
 
 export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, screenName }) => {
   const home = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredHome);
-
   const thankyou = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredThankyou);
 
   const mapper = (item: IFeaturedContent) => (
-    <ExternalCallout
-      key={item.link}
-      link={item.link}
-      calloutID={item.slug}
-      imageSource={{ uri: item.thumbnail_image_url }}
-      aspectRatio={1029 / 600}
-      screenName={screenName}
-    />
+    <View testID="featured-content-callout" key={item.slug}>
+      <ExternalCallout
+        link={item.link}
+        calloutID={item.slug}
+        imageSource={{ uri: item.thumbnail_image_url }}
+        aspectRatio={1029 / 600}
+        screenName={screenName}
+      />
+    </View>
   );
 
   const content = () => {
