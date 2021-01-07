@@ -51,7 +51,13 @@ export const FoodFreqGroup: React.FC<Props> = ({
   const fadeAnimation = useRef(new Animated.Value(opacity.start)).current;
 
   useEffect(() => {
-    animate(fadeAnimation);
+    let isMounted = true;
+    if (isMounted) {
+      animate(fadeAnimation);
+    }
+    return function cleanUp() {
+      isMounted = false;
+    };
   }, [selectedItem, setSelectedItem]);
 
   const hasSelectedItem = selectedItem !== null;
