@@ -25,6 +25,7 @@ import { SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -35,6 +36,7 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
     (state) => state.school.joinedSchoolNetworks
@@ -81,6 +83,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       setShowTrendline(flag);
     });
   }, [navigation]);
+
+  useEffect(() => {
+    if (!app.dashboardVisited) {
+      dispatch(setDasboardVisited(true));
+    }
+  }, []);
 
   const hasNetworkData = networks && networks.length > 0;
 
