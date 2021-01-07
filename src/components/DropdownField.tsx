@@ -120,7 +120,7 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
           borderRadiusStyle,
           isSelected && styles.dropdownTextHighlightStyle,
         ]}>
-        {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5 }} />}
+        {itemIcons?.length && <Image source={itemIcons[index]} style={{ marginRight: 5, width: 24, height: 24 }} />}
         <Text style={[styles.dropdownTextStyle]}>{option}</Text>
       </View>
     );
