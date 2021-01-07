@@ -78,7 +78,6 @@ export const timUpdate026 = require('./thank-you-modules/tim_update_026.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
-export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const year_review_2020 = require('./thank-you-modules/year_review_2020.png');
 export const know_symptoms_video = require('./thank-you-modules/know_symptoms_video.png');
@@ -91,8 +90,6 @@ export const blobs = require('./blobs.png');
 export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 
 // Avatar
-export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
-export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
 export const doctorsAvatars = require('./doctors-avatars.png');
 
