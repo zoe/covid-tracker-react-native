@@ -53,7 +53,13 @@ function Snackbar({
   };
 
   useEffect(() => {
-    animate(active);
+    let isMouted = true;
+    if (isMouted) {
+      animate(active);
+    }
+    return function () {
+      isMouted = false;
+    };
   }, [active, animValue]);
 
   const animateTo = animValue.interpolate({

@@ -27,10 +27,15 @@ export const usFlag = require('./icons/us-flag.png');
 
 // Mechanism Icons
 export const fingerPrick = require('./mechanism-icons/fingerPrick.png');
+export const fingerPrickX3 = require('./mechanism-icons/fingerPrickX3.png');
 export const noseSwab = require('./mechanism-icons/noseSwab.png');
+export const noseSwabX3 = require('./mechanism-icons/noseSwabX3.png');
 export const otherTest = require('./mechanism-icons/other.png');
+export const otherTestX3 = require('./mechanism-icons/otherX3.png');
 export const spit = require('./mechanism-icons/spit.png');
+export const spitX3 = require('./mechanism-icons/spitX3.png');
 export const syringe = require('./mechanism-icons/syringe.png');
+export const syringeX3 = require('./mechanism-icons/syringeX3.png');
 
 // Logos
 export const gbPartners = require('./logos/gb_partners.png');
