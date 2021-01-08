@@ -19,13 +19,6 @@ import {
   CreateProfileScreen,
   DashboardScreen,
   DashboardUSScreen,
-  DietStudyPlaybackIntroScreen,
-  DietStudyPlaybackGlobalScreen,
-  DietStudyPlaybackDietQualityScreen,
-  DietStudyPlaybackYourDietScreen,
-  DietStudyPlaybackGutHealthScreen,
-  DietStudyPlaybackYourGutScreen,
-  DietStudyPlaybackResearchScreen,
   EditLocationScreen,
   EditProfileScreen,
   EstimatedCasesScreen,
@@ -87,6 +80,8 @@ import {
   YourStudyScreen,
   YourWorkScreen,
 } from '@covid/features';
+
+import { DietStudyPlaybackNavigator } from '../';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -174,17 +169,6 @@ function MainNavigator() {
       <Stack.Screen name="SchoolDashboard" component={SchoolDashboardScreen} options={noHeader} />
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
-      <Stack.Screen name="DietStudyPlaybackIntro" component={DietStudyPlaybackIntroScreen} options={noHeader} />
-      <Stack.Screen name="DietStudyPlaybackGlobal" component={DietStudyPlaybackGlobalScreen} options={noHeader} />
-      <Stack.Screen
-        name="DietStudyPlaybackDietQuality"
-        component={DietStudyPlaybackDietQualityScreen}
-        options={noHeader}
-      />
-      <Stack.Screen name="DietStudyPlaybackYourDiet" component={DietStudyPlaybackYourDietScreen} options={noHeader} />
-      <Stack.Screen name="DietStudyPlaybackGutHealth" component={DietStudyPlaybackGutHealthScreen} options={noHeader} />
-      <Stack.Screen name="DietStudyPlaybackYourGut" component={DietStudyPlaybackYourGutScreen} options={noHeader} />
-      <Stack.Screen name="DietStudyPlaybackResearch" component={DietStudyPlaybackResearchScreen} options={noHeader} />
       <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
       <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
       <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
@@ -194,6 +178,7 @@ function MainNavigator() {
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
+      {DietStudyPlaybackNavigator({ Stack })}
     </Stack.Navigator>
   );
 }
