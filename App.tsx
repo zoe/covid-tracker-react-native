@@ -19,12 +19,11 @@ import { ErrorBoundary } from '@covid/core/ErrorBoundary';
 const ENABLE_STORYBOOK = false;
 
 Sentry.init({
-  dsn: env.SENTRY_URL,
-  enableInExpoDevelopment: true,
+  dsn: env.SENTRY_DSN_URL,
+  enableInExpoDevelopment: false,
   debug: false,
   enableAutoSessionTracking: true,
   environment: env.NAME,
-  //todo : release?
 });
 
 const App: React.FC = () => {
