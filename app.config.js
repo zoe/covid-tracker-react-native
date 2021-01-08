@@ -1,4 +1,4 @@
-import env from 'react-native-config';
+import 'dotenv/config';
 
 export default ({ config }) => {
   return {
@@ -10,7 +10,7 @@ export default ({ config }) => {
           config: {
             organization: 'zoe',
             project: 'covid-symptom-study',
-            authToken: env.SENTRY_TOKEN,
+            authToken: process.env.SENTRY_TOKEN,
           },
         },
       ],
