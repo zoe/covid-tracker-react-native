@@ -27,7 +27,7 @@ export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, scre
         link={item.link}
         calloutID={item.slug}
         imageSource={{ uri: item.thumbnail_image_url }}
-        aspectRatio={1029 / 600}
+        aspectRatio={1029 / 600} // TODO: Supports dynamic content size in the future
         screenName={screenName}
       />
     </View>
