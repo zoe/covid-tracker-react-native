@@ -39,6 +39,7 @@ export interface IFeaturedContent {
   name: string;
   slug: string;
   thumbnail_image_url: string;
+  thumbnail_aspect_ratio: number;
   link: string;
   order_index: number;
   featured_uk_home: boolean;
