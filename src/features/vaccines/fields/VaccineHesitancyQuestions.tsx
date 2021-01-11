@@ -91,7 +91,7 @@ export const VaccineHesitancyQuestions: FormQuestion<Props, VaccineHesitancyData
                 show: formikProps.values['other'],
                 inputProps: {
                   multiline: true,
-                  numberOfLines: 5,
+                  maxLength: 500,
                 },
               }}
             />
