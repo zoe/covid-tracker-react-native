@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundSecondary,
   },
   rootContainer: {
-    alignSelf: 'center',
     maxWidth: 500,
     padding: 18,
   },
