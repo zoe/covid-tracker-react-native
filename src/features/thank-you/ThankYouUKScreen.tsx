@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog028, dataPage003, notificationReminders, timUpdate026, year_review_2020 } from '@assets';
+import { notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -20,6 +20,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
+import { FeaturedContentList, FeaturedContentType } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -70,37 +71,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
-                calloutID="data_page_003"
-                imageSource={dataPage003}
-                aspectRatio={1.55}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://youtu.be/VG-8U5rIgfs"
-                calloutID="tim_update_026"
-                imageSource={timUpdate026}
-                aspectRatio={1.715}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://youtu.be/1NZojJ_GBrc"
-                calloutID="year_review_2020"
-                imageSource={year_review_2020}
-                aspectRatio={1029 / 600}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/how-covid-vaccine-so-fast?utm_source=App"
-                calloutID="blog_028"
-                imageSource={blog028}
-                aspectRatio={1032 / 600}
-                screenName={this.props.route.name}
-              />
+              <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
