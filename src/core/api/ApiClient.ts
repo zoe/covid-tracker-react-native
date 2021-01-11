@@ -5,6 +5,7 @@ import { ApiClientBase } from './ApiClientBase';
 import { handleServiceError } from './ApiServiceErrors';
 
 export interface IApiClient {
+  getClient(): AxiosInstance;
   setClient(instance: AxiosInstance): void;
   delete<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
   post<TRequest, TResponse>(path: string, object: TRequest): Promise<TResponse>;
@@ -16,6 +17,10 @@ export interface IApiClient {
 @injectable()
 export default class ApiClient extends ApiClientBase implements IApiClient {
   protected client = ApiClientBase.client;
+
+  getClient(): AxiosInstance {
+    return this.client;
+  }
 
   setClient(instance: AxiosInstance): void {
     this.client = instance;
