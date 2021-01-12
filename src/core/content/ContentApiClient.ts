@@ -4,12 +4,13 @@ import { AreaStatsResponse, PatientInfosRequest, StartupInfo } from '@covid/core
 import { Services } from '@covid/provider/services.types';
 import { IApiClient } from '@covid/core/api/ApiClient';
 
-import { LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
+import { FeaturedContentResponse, LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentApiClient {
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getStartupInfo(): Promise<StartupInfo>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
+  getFeaturedContent(): Promise<FeaturedContentResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
@@ -30,6 +31,10 @@ export class ContentApiClient implements IContentApiClient {
   getTrendLines(lad?: string): Promise<TrendLineResponse> {
     const path = lad ? `/trendlines/?lad=${lad}` : `/trendlines/`;
     return this.apiClient.get<TrendLineResponse>(path);
+  }
+
+  getFeaturedContent(): Promise<FeaturedContentResponse> {
+    return this.apiClient.get<FeaturedContentResponse>('/content/');
   }
 
   searchLAD(query: string, page: number = 0, size: number = 20): Promise<LADSearchResponse> {

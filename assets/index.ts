@@ -71,16 +71,11 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog028 = require('./thank-you-modules/blog_028.png');
-export const blog029 = require('./thank-you-modules/blog_029.png');
 export const incidence011 = require('./thank-you-modules/incidence_011.png');
-export const timUpdate026 = require('./thank-you-modules/tim_update_026.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
-export const year_review_2020 = require('./thank-you-modules/year_review_2020.png');
-export const know_symptoms_video = require('./thank-you-modules/know_symptoms_video.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');
