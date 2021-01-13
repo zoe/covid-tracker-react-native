@@ -6,5 +6,5 @@
   "testTimeout": 10000,
   "reporters": ["detox/runners/jest/streamlineReporter"],
   "verbose": true,
-  "testRegex": "\\.spec\\.ts$"
+  "testRegex": "\\.e2e\\.ts$"
 }
