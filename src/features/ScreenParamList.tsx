@@ -60,7 +60,7 @@ export type ScreenParamList = {
   CovidTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   NHSTestDetail: { assessmentData: AssessmentData; test?: CovidTest };
   CovidTestConfirm: { assessmentData: AssessmentData; test: CovidTest };
-  HowYouFeel: { assessmentData: AssessmentData };
+  HowYouFeel: { assessmentData: AssessmentData; showVaccineMessage?: boolean };
   WhereAreYou: { assessmentData: AssessmentData };
   TreatmentSelection: { assessmentData: AssessmentData; location: string };
   TreatmentOther: { assessmentData: AssessmentData; location: string };

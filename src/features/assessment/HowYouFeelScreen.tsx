@@ -6,7 +6,7 @@ import { View } from 'native-base';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
-import { HeaderText, RegularText } from '@covid/components/Text';
+import { HeaderText, RegularBoldText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
 import { assessmentService } from '@covid/Services';
@@ -15,6 +15,8 @@ import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
 
 import { ScreenParamList } from '../ScreenParamList';
+import InfoCircle from '@assets/icons/InfoCircle';
+import { RightArrow } from '@assets';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -75,26 +77,44 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <ProgressStatus step={0} maxSteps={1} />
         </ProgressBlock>
 
-        <>
-          <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
-            <RegularText>
-              <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
-              <RegularText style={{ fontFamily: 'SofiaPro-Medium' }}>{location}</RegularText>
-            </RegularText>
-            <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
-          </TouchableOpacity>
+        <TouchableOpacity style={{ padding: 16 }} onPress={() => assessmentCoordinator.editLocation()}>
+          <RegularText>
+            <RegularText>{i18n.t('how-you-feel.current-location') + ' '}</RegularText>
+            <RegularText style={{ fontFamily: 'SofiaPro-Medium' }}>{location}</RegularText>
+          </RegularText>
+          <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
+        </TouchableOpacity>
 
-          <View style={{ marginHorizontal: 16 }}>
-            <SelectorButton
-              onPress={() => handlePress(true)}
-              text={i18n.t('how-you-feel.picker-health-status-healthy')}
-            />
-            <SelectorButton
-              onPress={() => handlePress(false)}
-              text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
-            />
+        <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineInfo()}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 0.1 }}>
+              <InfoCircle color={colors.linkBlue} />
+            </View>
+            <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>
+              {i18n.t('how-you-feel.vaccine-reporting-message')}
+            </RegularText>
           </View>
-        </>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 40, marginTop: 16 }}>
+            <View style={{ paddingRight: 8 }}>
+              <RightArrow color={colors.linkBlue} />
+            </View>
+            <RegularBoldText style={{ color: colors.linkBlue }}>
+              {i18n.t('how-you-feel.vaccine-reporting-link')}
+            </RegularBoldText>
+          </View>
+        </TouchableOpacity>
+
+        <View style={{ marginHorizontal: 16 }}>
+          <SelectorButton
+            onPress={() => handlePress(true)}
+            text={i18n.t('how-you-feel.picker-health-status-healthy')}
+          />
+          <SelectorButton
+            onPress={() => handlePress(false)}
+            text={i18n.t('how-you-feel.picker-health-status-not-healthy')}
+          />
+        </View>
       </Screen>
     </>
   );

@@ -422,7 +422,9 @@
     "picker-health-status-healthy": "I feel physically normal",
     "picker-health-status-not-healthy": "I'm not feeling quite right",
     "current-location": "You are currently reporting from:",
-    "update-location": "Update Location"
+    "update-location": "Update Location",
+    "vaccine-reporting-message": "Please continue to provide daily health reports following your COVID-19 vaccination and log any general symptoms you might experience.",
+    "vaccine-reporting-link": "Why is that important?"
   },
 
   "where-are-you": {
