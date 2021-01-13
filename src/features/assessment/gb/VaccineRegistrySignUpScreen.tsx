@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     marginTop: 32,
-    alignItems: 'center',
   },
   backIcon: {
     alignSelf: 'flex-start',
