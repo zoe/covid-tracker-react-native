@@ -67,6 +67,7 @@ import {
   VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
   AboutYourVaccineScreen,
+  VaccineLogSymptomsInfoScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
   ValidationStudyInfoScreen,
@@ -174,6 +175,7 @@ function MainNavigator() {
       <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
       <Stack.Screen name="VaccineList" component={VaccineListScreen} options={noHeader} />
       <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
+      <Stack.Screen name="VaccineLogSymptomsInfo" component={VaccineLogSymptomsInfoScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

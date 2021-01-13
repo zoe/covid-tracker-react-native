@@ -1031,6 +1031,12 @@
         "not-to-say": "",
         "specify": ""
       },
+      "log-symptoms": {
+        "title": "",
+        "body-1": "",
+        "body-2": "",
+        "body-3": ""
+      },
       "vaccine-list": {
         "title": "",
         "description": "",

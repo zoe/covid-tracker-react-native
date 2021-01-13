@@ -999,6 +999,13 @@
       "next": "Next"
     },
 
+    "log-symptoms": {
+      "title": "Why is logging symptoms following my vaccine so important?",
+      "body-1": "When COVID-19 cases exploded in March 2020, we quickly set up the ZOE COVID Symptom Study to understand the virus.",
+      "body-2": "As the pandemic shifts into a new phase, we'll be monitoring the impact vaccines have on the pandemic.",
+      "body-3": "Logging your vaccine and telling us how you feel following your dose helps us to keep our data accurate."
+    },
+
     "vaccine-list": {
       "title": "Your COVID-19 vaccines",
       "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now.",

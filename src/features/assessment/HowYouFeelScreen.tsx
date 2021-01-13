@@ -70,7 +70,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   let currentProfileVaccineEnteredText;
   if (currentProfileVaccines.length) {
     currentProfileVaccineEnteredText = (
-      <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineInfo()}>
+      <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineLogSymptomsInfo()}>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 0.1 }}>
             <InfoCircle color={colors.linkBlue} />

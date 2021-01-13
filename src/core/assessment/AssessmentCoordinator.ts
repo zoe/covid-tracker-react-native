@@ -196,6 +196,12 @@ export class AssessmentCoordinator extends Coordinator {
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
   };
 
+  goToVaccineLogSymptomsInfo = () => {
+    NavigatorService.navigate('VaccineLogSymptomsInfo', {
+      assessmentData: this.assessmentData,
+    });
+  };
+
   goToAddEditVaccine = (vaccine?: VaccineRequest, editIndex?: number) => {
     if (vaccine) {
       this.assessmentData.vaccineData = vaccine;
