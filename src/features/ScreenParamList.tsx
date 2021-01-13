@@ -101,7 +101,6 @@ export type ScreenParamList = {
   SelectSchool: undefined;
   JoinSchool: { patientData: PatientData; higherEducation: boolean };
   JoinSchoolGroup: { patientData: PatientData; selectedSchool: SchoolModel };
-  CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
   SchoolDashboard: { school: SubscribedSchoolStats };
