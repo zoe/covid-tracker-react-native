@@ -73,11 +73,16 @@ fastlane android appcenter
 fastlane ios certificates
 ```
 
+### ios build
+```
+fastlane ios build
+```
+Build
 ### ios release
 ```
 fastlane ios release
 ```
-Build
+Release
 ### ios appcenter
 ```
 fastlane ios appcenter

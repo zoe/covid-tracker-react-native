@@ -1,0 +1,14 @@
+{
+  "testRunner": "jest",
+  "runnerConfig": "e2e/config.json",
+  "configurations": {
+    "ios.sim.release": {
+      "binaryPath": "ios/DerivedData/Covid/Build/Products/Stage-iphonesimulator/covid-zoe Stage.app",
+      "build": "fastlane ios build env:stage",
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 11"
+      }
+    }
+  }
+}
