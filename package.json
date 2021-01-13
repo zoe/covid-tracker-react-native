@@ -11,6 +11,7 @@
     "ios:devices": "xcrun simctl list",
     "web": "expo start --web",
     "test": "jest --maxWorker=2 --runInBand --detectOpenHandles",
+    "test:e2e:ios": "detox test ./e2e --configuration ios.sim.release",
     "test:coverage": "jest --maxWorker=2 --coverage --reporters=default --reporters=jest-junit --ci && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
     "test:updateSnapshots": "jest -u",
