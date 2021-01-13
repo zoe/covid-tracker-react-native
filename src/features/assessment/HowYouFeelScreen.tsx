@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
+import { useSelector } from 'react-redux';
 
 import ProgressStatus from '@covid/components/ProgressStatus';
 import Screen, { Header, ProgressBlock } from '@covid/components/Screen';
@@ -13,10 +14,12 @@ import { assessmentService } from '@covid/Services';
 import { USStudyInvite } from '@covid/components/USStudyInvite';
 import { SelectorButton } from '@covid/components/SelectorButton';
 import { colors } from '@theme';
-
-import { ScreenParamList } from '../ScreenParamList';
 import InfoCircle from '@assets/icons/InfoCircle';
 import { RightArrow } from '@assets';
+import { RootState } from '@covid/core/state/root';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+
+import { ScreenParamList } from '../ScreenParamList';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'HowYouFeel'>;
@@ -26,6 +29,7 @@ type Props = {
 export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [location, setLocation] = useState('');
+  const currentProfileVaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
 
   useEffect(() => {
     const { patientInfo } = assessmentCoordinator.assessmentData.patientData;
@@ -63,7 +67,32 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   }
 
+  let currentProfileVaccineEnteredText;
+  if (currentProfileVaccines.length) {
+    currentProfileVaccineEnteredText = (
+      <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineInfo()}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 0.1 }}>
+            <InfoCircle color={colors.linkBlue} />
+          </View>
+          <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>
+            {i18n.t('how-you-feel.vaccine-reporting-message')}
+          </RegularText>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 32, marginTop: 16 }}>
+          <View style={{ paddingRight: 8 }}>
+            <RightArrow color={colors.linkBlue} />
+          </View>
+          <RegularBoldText style={{ color: colors.linkBlue }}>
+            {i18n.t('how-you-feel.vaccine-reporting-link')}
+          </RegularBoldText>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   const currentPatient = assessmentCoordinator.assessmentData.patientData.patientState;
+
   return (
     <>
       <USStudyInvite assessmentData={assessmentCoordinator.assessmentData} />
@@ -85,25 +114,7 @@ export const HowYouFeelScreen: React.FC<Props> = ({ route, navigation }) => {
           <RegularText style={{ color: colors.purple }}>{i18n.t('how-you-feel.update-location')}</RegularText>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineInfo()}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 0.1 }}>
-              <InfoCircle color={colors.linkBlue} />
-            </View>
-            <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>
-              {i18n.t('how-you-feel.vaccine-reporting-message')}
-            </RegularText>
-          </View>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 40, marginTop: 16 }}>
-            <View style={{ paddingRight: 8 }}>
-              <RightArrow color={colors.linkBlue} />
-            </View>
-            <RegularBoldText style={{ color: colors.linkBlue }}>
-              {i18n.t('how-you-feel.vaccine-reporting-link')}
-            </RegularBoldText>
-          </View>
-        </TouchableOpacity>
+        {currentProfileVaccineEnteredText}
 
         <View style={{ marginHorizontal: 16 }}>
           <SelectorButton
