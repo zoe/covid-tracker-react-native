@@ -17,6 +17,7 @@ import { RootState } from '@covid/core/state/root';
 import { addDismissCallout } from '@covid/core/content/state/contentSlice';
 import { useAppDispatch } from '@covid/core/state/store';
 import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView';
+import i18n from '@covid/locale/i18n';
 
 type ExternalCalloutProps = {
   link?: string;
@@ -75,7 +76,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
               }}
               onError={() => {
                 setImageLoading(false);
-                setImageLoadError('This content can not be loaded at the moment.');
+                setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
               }}
             />
             {canDismiss && (
