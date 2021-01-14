@@ -10,7 +10,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { RootState } from '@covid/core/state/root';
-import { selectJoinedGroups, selectPreviouslyJoinedGroups } from '@covid/core/schools/Schools.slice';
+import { selectAllJoinedGroups, selectPatientsJoinedGroups } from '@covid/core/schools/Schools.slice';
 
 import { UniversityForm } from './forms';
 import { JoinHeader, SelectedSchool } from './partials';
@@ -24,9 +24,8 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
   const [schools, setSchools] = useState<SchoolModel[]>([]);
   const service = useInjection<ISchoolService>(Services.SchoolService);
   const { patientData } = route.params;
-  const previouslyJoinedGroups = useSelector((state: RootState) => selectJoinedGroups(state, true));
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPreviouslyJoinedGroups(state, patientData.patientId, true)
+    selectPatientsJoinedGroups(state, patientData.patientId, true)
   );
 
   useEffect(() => {
@@ -42,7 +41,6 @@ function JoinHigherEducationScreen({ navigation, route }: IProps) {
         <SelectedSchool
           title="school-networks.join-school.university-network-header"
           currentJoinedGroup={currentJoinedGroup}
-          previouslyJoinedGroups={previouslyJoinedGroups}
           currentPatient={patientData.patientState}
           removeText="school-networks.join-school.removeHigherEducation"
         />

@@ -1314,7 +1314,8 @@
     }
   },
   "generic": {
-    "share-this-with-someone": "Share this with someone"
+    "share-this-with-someone": "Share this with someone",
+    "content-can-not-be-loaded-atm": "This content can not be loaded at the moment."
   },
 
   "error-boundary": {

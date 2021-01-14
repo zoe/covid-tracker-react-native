@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { blog029, know_symptoms_video, shareAppV3 } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -21,7 +21,7 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { SchoolNetworks } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
@@ -39,7 +39,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks
+    (state) => state.school.joinedSchoolGroups
   );
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
@@ -99,21 +99,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ExternalCallout
-          link="https://covid.joinzoe.com/post/covid-vaccine-questions?utm_source=App"
-          calloutID="blog_029"
-          imageSource={blog029}
-          aspectRatio={1032 / 600}
-          screenName={route.name}
-        />
-
-        <ExternalCallout
-          link="https://youtu.be/C3zvrlMPhMI"
-          calloutID="know_symptoms_video"
-          imageSource={know_symptoms_video}
-          aspectRatio={1029 / 600}
-          screenName={route.name}
-        />
+        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
         {hasNetworkData && (
           <View

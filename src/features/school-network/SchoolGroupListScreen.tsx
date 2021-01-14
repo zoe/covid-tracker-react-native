@@ -29,14 +29,12 @@ export const SchoolGroupListScreen: React.FC<Props> = ({ route, navigation }) =>
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const [pressedGroup, setPressedGroup] = useState<SchoolGroupModel>();
 
-  const allGroups = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks
-  );
+  const allGroups = useSelector<RootState, SubscribedSchoolGroupStats[]>((state) => state.school.joinedSchoolGroups);
 
   useEffect(() => {
     const { patientId } = route.params.patientData;
     const schoolId = route.params.selectedSchool.id;
-    const currentJoinedGroups = allGroups!.filter(
+    const currentJoinedGroups = allGroups.filter(
       (group) => group.patient_id === patientId && group.school.id === schoolId
     );
 

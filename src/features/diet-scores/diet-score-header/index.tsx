@@ -12,7 +12,7 @@ interface IProps {
 function DietScoreHeader({ rhythm = 16, subTitle, title }: IProps) {
   return (
     <>
-      <Text textClass="h4Regular" rhythm={8}>
+      <Text textClass="h4" rhythm={8}>
         {title}
       </Text>
       <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted rhythm={rhythm}>
