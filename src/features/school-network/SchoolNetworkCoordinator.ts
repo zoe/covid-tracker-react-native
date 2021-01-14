@@ -14,7 +14,7 @@ import {
   SubscribedSchoolStats,
 } from '@covid/core/schools/Schools.dto';
 import { ISchoolService } from '@covid/core/schools/SchoolService';
-import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
+import { fetchSubscribedSchoolGroups, schoolSlice } from '@covid/core/schools/Schools.slice';
 import store from '@covid/core/state/store';
 
 export class SchoolNetworkCoordinator extends Coordinator implements SelectProfile {
@@ -68,10 +68,6 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
     NavigatorService.navigate('SelectProfile');
   }
 
-  goToCreateSchoolGroup() {
-    NavigatorService.navigate('CreateNetworkGroup');
-  }
-
   resetToHome() {
     NavigatorService.reset([{ name: homeScreenName() }], 0);
   }
@@ -105,19 +101,20 @@ export class SchoolNetworkCoordinator extends Coordinator implements SelectProfi
 
   async removePatientFromGroup(groupId: string, patientId: string) {
     return await this.schoolService.leaveGroup(groupId, patientId).then(async (r) => {
-      await store.dispatch(fetchSubscribedSchoolGroups());
-      return r;
+      await store.dispatch(fetchSubscribedSchoolGroups()).then(() => {
+        store.dispatch(schoolSlice.actions.removeGroup(groupId));
+      });
     });
   }
 
-  async removePatientFromGroupList(schoolGroups: SubscribedSchoolGroupStats[], schoolId: string, patientId: string) {
-    await schoolGroups.forEach((group) => {
+  async removePatientFromSchool(schoolId: string, patientId: string) {
+    for (const group of store.getState().school.joinedSchoolGroups) {
       if (group.school.id === schoolId && group.patient_id === patientId) {
-        this.schoolService.leaveGroup(group.id, patientId);
+        await this.schoolService.leaveGroup(group.id, patientId).then(() => {
+          store.dispatch(schoolSlice.actions.removeGroup(group.id));
+        });
       }
-    });
-
-    await store.dispatch(fetchSubscribedSchoolGroups());
+    }
   }
 
   async addPatientToGroup(groupId: string, patientId: string) {

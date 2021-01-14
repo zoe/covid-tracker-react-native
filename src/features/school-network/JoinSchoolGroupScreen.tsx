@@ -42,7 +42,6 @@ const ValidationSchema = () => {
 
 export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...props }) => {
   const inputMode: InputMode = InputMode.dropdown;
-  const enableCreateGroup: boolean = false;
 
   const currentPatient = route.params.patientData.patientState;
 
@@ -136,11 +135,6 @@ export const JoinSchoolGroupScreen: React.FC<Props> = ({ route, navigation, ...p
                     items={groupList}
                     error={formikProps.touched.groupId && formikProps.errors.groupId}
                   />
-                )}
-                {enableCreateGroup && (
-                  <Button onPress={create} outline>
-                    {i18n.t('school-networks.join-group.cta')}
-                  </Button>
                 )}
               </View>
 
