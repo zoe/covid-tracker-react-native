@@ -1315,5 +1315,11 @@
   },
   "generic": {
     "share-this-with-someone": "Share this with someone"
+  },
+
+  "error-boundary": {
+    "something-went-wrong": "Oops! Something wet wrong.",
+    "encountered-error": "Sorry but the app has encountered an error:",
+    "notified": "The development team has been notified and should hopefully fix this issue asap! Try to restart the app to continue."
   }
 }

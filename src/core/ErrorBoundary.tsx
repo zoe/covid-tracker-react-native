@@ -5,6 +5,7 @@ import * as Sentry from 'sentry-expo';
 import { Header3Text, RegularBoldText, RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
 import { covidIcon } from '@assets';
+import i18n from '@covid/locale/i18n';
 
 const myErrorHandler = (error: Error, componentStack: string, eventId: string) => {
   Sentry.Native.captureException(error);
@@ -19,13 +20,10 @@ function ErrorFallback(errorData: {
     <View style={[styles.outerContainer]}>
       <View style={[styles.innerContainer]}>
         <Image source={covidIcon} style={styles.logo} />
-        <Header3Text>Oops! Something went wrong.</Header3Text>
-        <RegularText>{'\n'}Sorry but the app has encountered an error:</RegularText>
+        <Header3Text>{i18n.t('error-boundary.something-went-wrong')}</Header3Text>
+        <RegularText>{'\n' + i18n.t('error-boundary.encountered-error')}</RegularText>
         <RegularBoldText>'{errorData.error.message}'</RegularBoldText>
-        <RegularText>
-          {'\n'}The development team has been notified and should hopefully fix this issue asap! Try to restart the app
-          to continue.
-        </RegularText>
+        <RegularText>{'\n' + i18n.t('error-boundary.notified')}</RegularText>
       </View>
     </View>
   );
