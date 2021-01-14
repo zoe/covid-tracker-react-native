@@ -12,10 +12,8 @@ export interface IConsentService {
   setConsentSigned(document: string, version: string, privacy_policy_version: string): void;
   setVaccineRegistryResponse(response: boolean): void;
   setValidationStudyResponse(response: boolean, anonymizedData?: boolean, reContacted?: boolean): void;
-  setDietStudyResponse(response: boolean): void;
   shouldAskForValidationStudy(onThankYouScreen: boolean): Promise<boolean>;
   shouldAskForVaccineRegistry(): Promise<boolean>;
-  shouldShowDietStudy(): Promise<boolean>;
   getStudyStatus(): Promise<AskForStudies>;
 }
 
@@ -73,14 +71,6 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     });
   }
 
-  setDietStudyResponse(response: boolean) {
-    return this.client.post('/study_consent/', {
-      study: 'Diet Study Beyond Covid',
-      version: appConfig.dietStudyBeyondCovidConsentVersion,
-      status: response ? 'signed' : 'declined',
-    });
-  }
-
   async shouldAskForVaccineRegistry(): Promise<boolean> {
     if (!isGBCountry()) return Promise.resolve(false);
     const url = `/study_consent/status/?home_screen=true`;
@@ -98,19 +88,10 @@ export class ConsentService extends ApiClientBase implements IConsentService {
     return response.data.should_ask_uk_validation_study;
   }
 
-  async shouldShowDietStudy(): Promise<boolean> {
-    if (isSECountry()) return Promise.resolve(false);
-
-    const url = `/study_consent/status/`;
-    const response = await this.client.get<AskForStudies>(url);
-    return response.data.should_ask_diet_study;
-  }
-
   private getDefaultStudyResponse(): AskForStudies {
     return {
       should_ask_uk_validation_study: false,
       should_ask_uk_vaccine_register: false,
-      should_ask_diet_study: false,
     } as AskForStudies;
   }
 

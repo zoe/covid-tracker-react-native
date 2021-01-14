@@ -1,7 +1,6 @@
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
@@ -73,24 +72,15 @@ export type ScreenParamList = {
   OtherSymptoms: { assessmentData: AssessmentData };
 
   // Vaccines
-  VaccineYesNo: { assessmentData: AssessmentData };
-  VaccineTrialOrNational: { assessmentData: AssessmentData };
-  VaccineTrialPlacebo: { assessmentData: AssessmentData };
-  VaccineDoseSymptoms: { assessmentData: AssessmentData; recordVaccine: boolean };
+  VaccineDoseSymptoms: { assessmentData: AssessmentData; dose: string };
   VaccineThankYou: { assessmentData: AssessmentData };
+  VaccineHesitancy: { assessmentData: AssessmentData };
+  VaccineList: { assessmentData: AssessmentData };
+  AboutYourVaccine: { assessmentData: AssessmentData; editIndex?: number };
 
   // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
-
-  // DietStudy
-  DietStudyIntro: { dietStudyData: DietStudyData };
-  DietStudyAboutYou: { dietStudyData: DietStudyData };
-  DietStudyThankYouBreak: { dietStudyData: DietStudyData };
-  DietStudyThankYou: { dietStudyData: DietStudyData };
-  DietStudyTypicalDiet: { dietStudyData: DietStudyData };
-  DietStudyYourLifestyle: { dietStudyData: DietStudyData };
-  DietStudyConsent: { dietStudyData: DietStudyData };
 
   // Completion screens
   ThankYouSE: undefined;

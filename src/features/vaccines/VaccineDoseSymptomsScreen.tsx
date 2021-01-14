@@ -10,11 +10,12 @@ import Screen, { Header } from '@covid/components/Screen';
 import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import i18n from '@covid/locale/i18n';
-import { vaccineService } from '@covid/Services';
 import { colors } from '@theme';
 import { InlineNeedle } from '@covid/components/InlineNeedle';
 import { DoesSymptomsData, DoesSymptomsQuestions } from '@covid/features/vaccines/fields/DoseSymptomsQuestions';
-import { VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
+import { useInjection } from '@covid/provider/services.hooks';
+import { IVaccineService } from '@covid/core/vaccine/VaccineService';
+import { Services } from '@covid/provider/services.types';
 
 import { ScreenParamList } from '../ScreenParamList';
 
@@ -27,20 +28,21 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
 
+  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
+
   const handleSubmit = async (formData: DoesSymptomsData) => {
     if (!isSubmitting) {
       setSubmitting(true);
       const patientId = route.params.assessmentData.patientData.patientId;
       try {
-        if (route.params.recordVaccine) {
-          await vaccineService.saveVaccineResponse(patientId, route.params.assessmentData.vaccineData!);
-        }
         const dosePayload = DoesSymptomsQuestions.createDoseSymptoms(formData);
+        dosePayload.dose = route.params.dose;
         await vaccineService.saveDoseSymptoms(patientId, dosePayload);
       } catch (e) {
         setErrorMessage(i18n.t('something-went-wrong'));
-        //TODO Show error message toast?
+        // TODO Show error message toast?
       } finally {
+        // TODO Not sure this is the right behaviour. Discuss what to do on error....
         assessmentCoordinator.gotoNextScreen(route.name);
       }
     }
@@ -57,7 +59,11 @@ export const VaccineDoseSymptomsScreen: React.FC<Props> = ({ route, navigation }
             <RegularText>{i18n.t('vaccines.dose-symptoms.label')}</RegularText>
           </View>
 
-          <HeaderText>{i18n.t('vaccines.dose-symptoms.title')}</HeaderText>
+          <HeaderText>
+            <HeaderText>{i18n.t('vaccines.dose-symptoms.title-1')}</HeaderText>
+            <HeaderText style={{ color: colors.purple }}>{i18n.t('vaccines.dose-symptoms.title-2')}</HeaderText>
+            <HeaderText>{i18n.t('vaccines.dose-symptoms.title-3')}</HeaderText>
+          </HeaderText>
         </Header>
 
         <View>

@@ -7,7 +7,11 @@ import { IContentService } from '@covid/core/content/ContentService';
 import { Services } from '@covid/provider/services.types';
 import { AsyncStorageService, DISMISSED_CALLOUTS, PersonalisedLocalData } from '@covid/core/AsyncStorageService';
 import { IPredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
-import { ITrendLineData, ITrendLineTimeSeriesData } from '@covid/core/content/dto/ContentAPIContracts';
+import {
+  IFeaturedContent,
+  ITrendLineData,
+  ITrendLineTimeSeriesData,
+} from '@covid/core/content/dto/ContentAPIContracts';
 
 // State interface
 
@@ -19,6 +23,10 @@ export type ContentState = {
   startupInfo?: StartupInfo;
   personalizedLocalData?: PersonalisedLocalData;
   localTrendline?: ITrendLineData;
+
+  // Featured content
+  featuredHome: IFeaturedContent[];
+  featuredThankyou: IFeaturedContent[];
 
   // Explore trend line screen
   exploreTrendline?: ITrendLineData;
@@ -44,6 +52,8 @@ const initialState: ContentState = {
   todayDate: todaysDate(),
   dismissedCallouts: [],
   exploreTrendlineUpdating: false,
+  featuredHome: [],
+  featuredThankyou: [],
 };
 
 const getTrendLineDelta = (timeseries: ITrendLineTimeSeriesData[], from: number): number | undefined => {
@@ -104,6 +114,29 @@ export const fetchLocalTrendLine = createAsyncThunk<Promise<Partial<ContentState
         ...trendline,
       },
     } as Partial<ContentState>;
+  }
+);
+
+export const fetchFeaturedContent = createAsyncThunk(
+  'content/featured_content',
+  async (): Promise<Partial<ContentState>> => {
+    const service = container.get<IContentService>(Services.Content);
+    try {
+      const content = await service.getFeaturedContent();
+      const sort = <T extends IFeaturedContent>(left: T, right: T): number =>
+        left.order_index > right.order_index ? 1 : -1;
+      const home = content.filter((item) => item.featured_uk_home === true).sort(sort);
+      const thankyou = content.filter((item) => item.featured_uk_thankyou === true).sort(sort);
+      return {
+        featuredHome: home,
+        featuredThankyou: thankyou,
+      };
+    } catch (_) {
+      return {
+        featuredHome: [],
+        featuredThankyou: [],
+      };
+    }
   }
 );
 
@@ -172,6 +205,12 @@ export const contentSlice = createSlice({
       const { ukActive, ukDaily } = action.payload;
       current.ukActive = ukActive;
       current.ukDaily = ukDaily;
+    },
+
+    // Featured content
+    [fetchFeaturedContent.fulfilled.type]: (current, action: { payload: Partial<ContentState> }) => {
+      current.featuredHome = action.payload?.featuredHome ?? [];
+      current.featuredThankyou = action.payload?.featuredThankyou ?? [];
     },
 
     // Trendline data

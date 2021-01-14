@@ -31,3 +31,21 @@ export interface ITrendLineTimeSeriesData {
   upper_CI: number;
   date: Date;
 }
+
+/**
+ * Featured Content
+ */
+export interface IFeaturedContent {
+  name: string;
+  slug: string;
+  thumbnail_image_url: string;
+  thumbnail_aspect_ratio: number;
+  link: string;
+  order_index: number;
+  featured_uk_home: boolean;
+  featured_uk_thankyou: boolean;
+  updated_at: Date;
+  published_at: Date;
+}
+
+export type FeaturedContentResponse = IFeaturedContent[];
