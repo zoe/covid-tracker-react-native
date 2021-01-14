@@ -25,6 +25,7 @@ const vaccinesSlice = createSlice({
   name: 'Vaccine',
   initialState,
   reducers: {
+    // Added 14.01.2021. Not currently used but should be useful for setting and saving vaccine
     setVaccine: (state, action: PayloadAction<VaccineRequest[]>) => {
       state.vaccines = action.payload;
     },

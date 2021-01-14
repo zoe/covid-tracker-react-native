@@ -419,7 +419,9 @@
     "picker-health-status-healthy": "Me siento normal físicamente",
     "picker-health-status-not-healthy": "No me siento muy bien",
     "current-location": "Actualmente de dónde está informando:",
-    "update-location": "Actualiza su ubicación"
+    "update-location": "Actualiza su ubicación",
+    "vaccine-reporting-message": "",
+    "vaccine-reporting-link": ""
   },
 
   "where-are-you": {

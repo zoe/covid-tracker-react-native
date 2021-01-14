@@ -284,7 +284,9 @@
     "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
     "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
     "current-location": "Du rapporterar just nu från:",
-    "update-location": "Uppdatera plats"
+    "update-location": "Uppdatera plats",
+    "vaccine-reporting-message": "",
+    "vaccine-reporting-link": ""
   },
 
   "describe-symptoms": {
