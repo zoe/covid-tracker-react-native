@@ -79,7 +79,7 @@ import {
   YourWorkScreen,
 } from '@covid/features';
 
-import { DietStudyPlaybackNavigator } from '../';
+import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
