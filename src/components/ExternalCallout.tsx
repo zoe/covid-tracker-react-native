@@ -16,6 +16,8 @@ import { closeIcon } from '@assets';
 import { RootState } from '@covid/core/state/root';
 import { addDismissCallout } from '@covid/core/content/state/contentSlice';
 import { useAppDispatch } from '@covid/core/state/store';
+import { ContentLoadingView } from '@covid/components/Content/ContentLoadingView';
+import i18n from '@covid/locale/i18n';
 
 type ExternalCalloutProps = {
   link?: string;
@@ -32,6 +34,8 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const { calloutID, link, screenName, postClicked, canDismiss } = props;
   const dismissedCalloutIds = useSelector<RootState, string[]>((state) => state.content.dismissedCallouts);
   const [dismissed, setDismissed] = useState<boolean>(false);
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
+  const [imageLoadError, setImageLoadError] = useState<string | undefined>(undefined);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -50,13 +54,30 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }
 
   return (
-    <>
+    <ContentLoadingView loading={imageLoading} errorMessage={imageLoadError}>
       {!dismissed && (
         <TouchableWithoutFeedback onPress={clickCallout}>
           <View style={styles.viewContainer}>
             <Image
               source={props.imageSource}
-              style={[styles.image, { aspectRatio: props.aspectRatio }, { ...(props.imageStyles as object) }]}
+              style={[
+                styles.image,
+                { aspectRatio: props.aspectRatio },
+                { ...(props.imageStyles as object) },
+                imageLoading && { opacity: 0 },
+              ]}
+              onLoadStart={() => {
+                setImageLoading(true);
+              }}
+              onLoadEnd={() => {
+                setTimeout(() => {
+                  setImageLoading(false);
+                }, 330);
+              }}
+              onError={() => {
+                setImageLoading(false);
+                setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
+              }}
             />
             {canDismiss && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
@@ -66,7 +87,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
           </View>
         </TouchableWithoutFeedback>
       )}
-    </>
+    </ContentLoadingView>
   );
 };
 
