@@ -155,4 +155,225 @@ export const colors: IColorPalettes = {
       fgColor: '#fff',
     },
   },
+  //no shades defined at the moment, so default all to a single color
+  accentBlue: {
+    lighter: {
+      bgColor: '#0165B5',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#0165B5',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#0165B5',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#0165B5',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#0165B5',
+      fgColor: '#fff',
+    },
+  },
+  accentCyan: {
+    lighter: {
+      bgColor: '#29C4CF',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#29C4CF',
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#29C4CF',
+      fgColor: '#000',
+    },
+    dark: {
+      bgColor: '#29C4CF',
+      fgColor: '#000',
+    },
+    darker: {
+      bgColor: '#29C4CF',
+      fgColor: '#000',
+    },
+  },
+  accentMagenta: {
+    lighter: {
+      bgColor: '#A0278F',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#A0278F',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#A0278F',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#A0278F',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#A0278F',
+      fgColor: '#fff',
+    },
+  },
+  accentPredict: {
+    lighter: {
+      bgColor: '#082A5D',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#082A5D',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#082A5D',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#082A5D',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#082A5D',
+      fgColor: '#fff',
+    },
+  },
+  actionPrimary: {
+    lighter: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#024364',
+      fgColor: '#fff',
+    },
+  },
+  actionSecondary: {
+    lighter: {
+      bgColor: '#A10056',
+      fgColor: '#fff',
+    },
+    light: {
+      bgColor: '#A10056',
+      fgColor: '#fff',
+    },
+    main: {
+      bgColor: '#A10056',
+      fgColor: '#fff',
+    },
+    dark: {
+      bgColor: '#A10056',
+      fgColor: '#fff',
+    },
+    darker: {
+      bgColor: '#A10056',
+      fgColor: '#fff',
+    },
+  },
+  feedbackBad: {
+    lighter: {
+      bgColor: '#FF8A00',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#FF8A00',
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#FF8A00',
+      fgColor: '#000',
+    },
+    dark: {
+      bgColor: '#FF8A00',
+      fgColor: '#000',
+    },
+    darker: {
+      bgColor: '#FF8A00',
+      fgColor: '#000',
+    },
+  },
+  feedbackExcellent: {
+    lighter: {
+      bgColor: '#98AB02',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#98AB02',
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#98AB02',
+      fgColor: '#000',
+    },
+    dark: {
+      bgColor: '#98AB02',
+      fgColor: '#000',
+    },
+    darker: {
+      bgColor: '#98AB02',
+      fgColor: '#000',
+    },
+  },
+  feedbackGood: {
+    lighter: {
+      bgColor: '#C0D904',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#C0D904',
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#C0D904',
+      fgColor: '#000',
+    },
+    dark: {
+      bgColor: '#C0D904',
+      fgColor: '#000',
+    },
+    darker: {
+      bgColor: '#C0D904',
+      fgColor: '#000',
+    },
+  },
+  feedbackPoor: {
+    lighter: {
+      bgColor: '#FFBF19',
+      fgColor: '#000',
+    },
+    light: {
+      bgColor: '#FFBF19',
+      fgColor: '#000',
+    },
+    main: {
+      bgColor: '#FFBF19',
+      fgColor: '#000',
+    },
+    dark: {
+      bgColor: '#FFBF19',
+      fgColor: '#000',
+    },
+    darker: {
+      bgColor: '#FFBF19',
+      fgColor: '#000',
+    },
+  },
 };
