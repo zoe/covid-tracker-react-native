@@ -6,7 +6,7 @@ import { RouteProp } from '@react-navigation/native';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import Screen from '@covid/components/Screen';
 import { RootState } from '@covid/core/state/root';
-import { selectJoinedGroups, selectPreviouslyJoinedGroups } from '@covid/core/schools/Schools.slice';
+import { selectAllJoinedGroups, selectPatientsJoinedGroups } from '@covid/core/schools/Schools.slice';
 
 import { JoinHeader, SelectedSchool } from './partials';
 import { SchoolForm } from './forms';
@@ -20,10 +20,8 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
   const currentPatient = route.params.patientData.patientState;
 
   const currentJoinedGroup = useSelector((state: RootState) =>
-    selectPreviouslyJoinedGroups(state, currentPatient.patientId, false)
+    selectPatientsJoinedGroups(state, currentPatient.patientId, false)
   );
-
-  const previouslyJoinedGroups = useSelector((state: RootState) => selectJoinedGroups(state, false));
 
   return (
     <Screen profile={currentPatient.profile} navigation={navigation} simpleCallout>
@@ -35,7 +33,6 @@ function JoinSchoolScreen({ route, navigation }: IProps) {
           linkLabel="school-networks.join-school.school-url-label"
           organisation="School"
           currentJoinedGroup={currentJoinedGroup}
-          previouslyJoinedGroups={previouslyJoinedGroups}
           currentPatient={currentPatient}
           removeText="school-networks.join-school.remove"
           hasBubbles

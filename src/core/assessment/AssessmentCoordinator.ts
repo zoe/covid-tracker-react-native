@@ -16,7 +16,7 @@ import { lazyInject } from '@covid/provider/services';
 import NavigatorService from '@covid/NavigatorService';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { Coordinator, ScreenFlow, ScreenName } from '@covid/core/Coordinator';
-import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 
 import { IProfileService } from '../profile/ProfileService';
 
@@ -48,14 +48,9 @@ export class AssessmentCoordinator extends Coordinator {
     },
     CovidTestList: () => {
       // After finishing with COVID Tests, we check to ask about Vaccines.
-      // Only UK Users above 16 years, will be eligible (shouldAskVaccineQuestions = True)
-      // After they've entered a Vaccine, they won't be asked again.
-      // For 7 days after a dose, they'll have to log DoseSymptoms (shouldAskDoseSymptoms = True)
-      const currentPatient = this.patientData.patientState;
-      if (currentPatient.shouldAskVaccineQuestions) {
-        NavigatorService.navigate('VaccineYesNo', { assessmentData: this.assessmentData });
-      } else if (currentPatient.shouldAskDoseSymptoms) {
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: false });
+      // UK & US users above 16 years, will be eligible (shouldShowVaccineList = True)
+      if (this.patientData.patientState.shouldShowVaccineList) {
+        NavigatorService.navigate('VaccineList', { assessmentData: this.assessmentData });
       } else {
         NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
       }
@@ -63,37 +58,15 @@ export class AssessmentCoordinator extends Coordinator {
     CovidTestConfirm: () => {
       NavigatorService.navigate('CovidTestList', { assessmentData: this.assessmentData });
     },
-    VaccineYesNo: (takenVaccine: boolean) => {
-      if (takenVaccine) {
-        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, recordVaccine: true });
-      } else {
-        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
-      }
-    },
-    VaccineTrialOrNational: (vaccineType: VaccineTypes) => {
-      if (vaccineType === VaccineTypes.COVID_TRIAL) {
-        NavigatorService.navigate('VaccineTrialPlacebo', { assessmentData: this.assessmentData });
-      } else {
-        NavigatorService.reset([
-          { name: homeScreenName() },
-          { name: 'SelectProfile', params: { assessmentFlow: true } },
-          { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData } },
-        ]);
-      }
-    },
-    VaccineTrialPlacebo: () => {
-      NavigatorService.reset([
-        { name: homeScreenName() },
-        { name: 'SelectProfile', params: { assessmentFlow: true } },
-        { name: 'VaccineDoseSymptoms', params: { assessmentData: this.assessmentData, recordVaccine: true } },
-      ]);
-    },
     VaccineDoseSymptoms: () => {
       NavigatorService.reset([
         { name: homeScreenName() },
         { name: 'SelectProfile', params: { assessmentFlow: true } },
         { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
       ]);
+    },
+    VaccineHesitancy: () => {
+      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
     },
     VaccineThankYou: () => {
       NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
@@ -155,6 +128,24 @@ export class AssessmentCoordinator extends Coordinator {
     OtherSymptoms: () => {
       NavigatorService.navigate('WhereAreYou', { assessmentData: this.assessmentData });
     },
+    AboutYourVaccine: () => {
+      NavigatorService.goBack();
+    },
+    VaccineList: (params: {
+      shouldAskDoseSymptoms: boolean | undefined;
+      askVaccineHesitancy: boolean | undefined;
+      dose: string | undefined;
+    }) => {
+      if (params.shouldAskDoseSymptoms && params.dose) {
+        // For 7 days after a dose, they'll have to log VaccineDoseSymptoms (shouldAskDoseSymptoms = True)
+        NavigatorService.navigate('VaccineDoseSymptoms', { assessmentData: this.assessmentData, dose: params.dose });
+      } else if (params.askVaccineHesitancy) {
+        // Users without a Vaccine are asked about their VaccinePlans (aka VaccineHesitancy) once
+        NavigatorService.navigate('VaccineHesitancy', { assessmentData: this.assessmentData });
+      } else {
+        NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      }
+    },
   };
 
   init = (
@@ -165,7 +156,7 @@ export class AssessmentCoordinator extends Coordinator {
   ) => {
     this.appCoordinator = appCoordinator;
     this.assessmentData = assessmentData;
-    this.userService = userService;
+    this.userService = userService; // TODO: userService does not appear to be used and can be removed.
     this.assessmentService = assessmentService;
     this.patientData = assessmentData.patientData;
   };
@@ -173,7 +164,7 @@ export class AssessmentCoordinator extends Coordinator {
   startAssessment = () => {
     const currentPatient = this.patientData.patientState;
     const config = this.localisationService.getConfig();
-    this.assessmentService.initAssessment();
+    this.assessmentService.initAssessment(this.patientData.patientState.patientId);
 
     if (currentPatient.hasCompletedPatientDetails) {
       if (AssessmentCoordinator.mustBackFillProfile(currentPatient, config)) {
@@ -203,6 +194,17 @@ export class AssessmentCoordinator extends Coordinator {
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
     const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
+  };
+
+  goToAddEditVaccine = (vaccine?: VaccineRequest, editIndex?: number) => {
+    if (vaccine) {
+      this.assessmentData.vaccineData = vaccine;
+    }
+
+    NavigatorService.navigate('AboutYourVaccine', {
+      assessmentData: this.assessmentData,
+      editIndex,
+    });
   };
 
   static mustBackFillProfile(currentPatient: PatientStateType, config: ConfigType) {
@@ -270,6 +272,10 @@ export class AssessmentCoordinator extends Coordinator {
       ...this.assessmentData.vaccineData!,
       ...vaccine,
     };
+  }
+
+  resetVaccine() {
+    this.assessmentData.vaccineData = undefined;
   }
 }
 

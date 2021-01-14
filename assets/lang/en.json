@@ -194,6 +194,7 @@
 
   "picker-yes": "Yes",
   "picker-no": "No",
+  "picker-do-not-know": "I do not know yet",
   "picker-unsure": "Unsure",
   "please-select-option": "Please select an option",
   "placeholder-optional-question": "*Optional",
@@ -956,289 +957,6 @@
     "question-use-cgm": "Do you use a continuous glucose monitor (CGM)?"
   },
 
-  "diet-study": {
-    "drawer-menu-item": "Diet study",
-    "answer-for-feb": "Answer for month of Feb",
-    "answer-for-last-4-weeks": "Answer for last 4 weeks",
-
-    "required": "This is required",
-
-    "intro": {
-      "title": "COVID & Diet",
-      "description-1": "We would like to ask you some one-off diet and lifestyle questions to help researchers understand how diet can impact the likelihood and severity of getting COVID.",
-      "description-2": "They also want to understand how lockdown has impacted our diet and lifestyle habits. It will take 10-15 minutes to complete.\n\nCurrently we only support reporting for the profile labelled 'Me'.",
-      "cta-yes": "Yes, let's do it",
-      "cta-no-later": "No, but ask me later",
-      "cta-no-never": "Skip and don't ask me again"
-    },
-
-    "next-section": "Next section",
-
-    "about-you": {
-      "title": "Your lifestyle",
-      "intro-1": "Answer these questions thinking back over your typical habits over the last ",
-      "intro-2": "4 weeks.",
-      "answer-again-1": "Please answer the same set of questions, but this time for ",
-      "answer-again-2": "February 2020",
-      "answer-again-3": ", before the COVID pandemic spread."
-    },
-
-    "weight-label": "Your weight",
-    "weight-unsure-label": "I don't know my weight",
-    "was-pregnant-label": "I am/was pregnant",
-    "hours-of-sleep-weekday-label": "How long did you usually sleep for on week nights (Sunday to Thursday)?",
-    "hours-of-sleep-weekend-label": "How long did you usually sleep for on weekend nights (Friday to Saturday)?",
-    "hours-of-sleep-placeholder": "Hours per night",
-    "shift-work-label": "Did you work shifts outside the regular daytime hours of approximately 07.00 a.m. and 06.00 p.m.?",
-    "food-security": {
-      "label": "Which of the following statements best describes the food eaten in your household in this time-frame?",
-      "always-had-enough": "You all always had enough of the kinds of foods you wanted to eat",
-      "enough-not-kinds-wanted": "You all had enough to eat, but not always the kinds of food you wanted",
-      "sometimes-not-enough": "You sometimes did not have enough to eat",
-      "often-not-enough": "You often did not have enough to eat",
-      "pfnts": "Prefer not to say"
-    },
-
-    "food-availability": {
-      "label": "Which situation best describes your response to the prior question about a lack of food availability?",
-      "financial-limitations": "Financial limitations",
-      "shelter-in-place": "Shelter-in-place orders implemented in my community",
-      "shortages": "Shortages in food availability",
-      "avoidance": "Anxiety/avoidance associated with going to the grocery store",
-      "other": "Other"
-    },
-
-    "your-lifestyle": {
-      "title": "Dietary habits",
-      "title-2": "Food Access"
-    },
-
-    "physical-activity": {
-      "label": "How frequently have you typically engaged in physical activity that raised your heart rate and lasted for 20 minutes at a time?",
-      "less-than-once-a-month": "Less than once a month",
-      "less-than-once-a-week": "At least once a month, but less than once a week",
-      "once-a-week": "About once a week",
-      "twice-a-week": "About twice a week",
-      "three-to-four-times-a-week": "3-4 times per week",
-      "five-or-more": "5 or more times per week",
-      "pfnts": "Prefer not to say"
-    },
-
-    "food-frequency": {
-      "rarely-or-never": "Rarely or never",
-      "less-than-once-a-week": "Less than once a week",
-      "once-a-week": "Once a week",
-      "two-to-three-a-week": "2 to 3 times a week",
-      "four-to-six-a-week": "4 to 6 times a week",
-      "one-to-two-a-day": "1 to 2 times a day",
-      "three-to-four-a-day": "3 to 4 times a day",
-      "five-plus-a-day": "5+ times a day"
-    },
-
-    "alcohol-frequency": {
-      "label": "How often did you have a drink containing alcohol?",
-      "never": "Never",
-      "monthly": "Monthly",
-      "two-to-four-a-month": "2 to 4 times a month",
-      "two-to-three-a-week": "2 to 3 times a week",
-      "four-or-more-a-week": "4 or more times a week",
-      "pfnts": "Prefer not to say"
-    },
-
-    "alcohol-units": {
-      "label": "How many drinks containing alcohol did you have on a typical day when you were drinking? By “drink” we mean one unit of alcohol.",
-      "one-to-two": "1 or 2",
-      "three-to-four": "3 or 4",
-      "five-to-six": "5 or 6",
-      "seven-to-nine": "7, 8, 9",
-      "ten-or-more": "10 or more",
-      "pfnts": "Prefer not to say"
-    },
-
-    "alcohol-unit-info": {
-      "label-1": "A drink is defined as one unit of alcohol.",
-      "label-2": "Typical units in common alcoholic beverages:",
-      "pints": "Pint or can of beer/lager/cider",
-      "shots": "Single shot of spirits",
-      "small-glass": "Small glass of fortified wine",
-      "standard-glass": "Standard glass of wine",
-      "large-glass": "Large glass of wine",
-      "bottle-wine": "Bottle of wine",
-      "malt-liquor": "",
-
-      "pints-volume": "570ml",
-      "shots-volume": "25ml",
-      "small-glass-volume": "100ml",
-      "standard-glass-volume": "175ml",
-      "large-glass-volume": "250ml",
-      "bottle-wine-volume": "750ml",
-      "malt-liquor-volume": "",
-
-      "pints-units": "2 units",
-      "shots-units": "1 unit",
-      "small-glass-units": "1 unit",
-      "standard-glass-units": "2 units",
-      "large-glass-units": "3 units",
-      "bottle-wine-units": "9 units",
-      "malt-liquor-units": ""
-    },
-
-    "takes-supplements-label": "Did you regularly (at least 3-4 times a week) take supplements?",
-
-    "supplements": {
-      "label": "What vitamins or supplements did you take (at least 3-4 times a week)?",
-      "fiber": "Fibre Supplements (e.g. Metamucil, Citrucel, Inulin, Psyllium, Fybogel)",
-      "probiotic": "Probiotic capsules / sachets",
-      "iron": "Iron tablets",
-      "calcium": "Calcium tablets",
-      "vitamin-d": "Vitamin D supplements",
-      "zinc": "Zinc supplements",
-      "vitamin-c": "Vitamin C supplements",
-      "multivitamin": "Multivitamin tablets ",
-      "omega3": "Fish or omega 3 oils and capsules",
-      "garlic": "Garlic supplement",
-      "other": "Other",
-      "pfnts": "Prefer not to say",
-      "specify": "Please specify the other supplements"
-    },
-
-    "first-calories-label": "After waking, what time did you typically first eat or drink anything other than water/black coffee and plain tea? (including snacks)",
-    "last-calories-label": "What was the latest time of day that you would typically eat or drink anything other than water/black coffee and plain tea? (including snacks)",
-    "eats-breakfast-label": "Did you typically eat breakfast?",
-    "main-meals-label": "How many 'main' meals did you typically eat in a day? (A main meal is lunch or evening meal, not including breakfast)",
-    "main-meals-placeholder": "Main meals per day",
-    "snacks-label": "How many times did you typically eat snacks in a day? (A snack is any food eaten outside of breakfast, lunch or evening meal)",
-    "snacks-placeholder": "Eat snacks per day",
-    "lost-control": "Do you worry that you had lost control over how much you eat?",
-    "diet": {
-      "label": "Which of the below options best describes you over the four weeks?\n\n You can select more than one option.",
-      "mixed": "Typical mixed diet (including most/all foods as well as meat, fish or seafood)",
-      "vegetarian": "Vegetarian (includes eggs and/or dairy)",
-      "vegan": "Vegan (no animal products)",
-      "pescatarian": "Pescatarian (no meat other than fish or seafood)",
-      "keto": "Ketogenic or Atkins",
-      "low-carb": "Low-carbohydrate diet (includes the Paleo diet or minimising carbs)",
-      "low-fat": "Low-fat diet",
-      "gluten-free": "Gluten-free diet",
-      "lactose-free": "Lactose-free diet",
-      "low-calorie": "Low-calorie diet"
-    },
-
-    "typical-diet": {
-      "title": "Your typical diet",
-      "text-1": "These questions ask about some foods & drinks you might have in a ‘typical’ week during this time-frame.\n\nDo not be concerned if some things you eat or drink are not mentioned.",
-      "text-2": "Please select how often you eat at least ONE portion of the following foods & drinks. A portion includes: a handful of grapes, an orange, a serving of carrots, a side salad, a slice of bread, a glass of pop.",
-      "fruit-1": "Fruit",
-      "fruit-2": "(tinned / fresh)",
-      "fruit_juice-1": "Fruit juice ",
-      "fruit_juice-2": "(not cordial or squash)",
-      "salad-1": "Salad",
-      "salad-2": "(not garnish added to sandwiches)",
-      "vegetables-1": "Vegetables",
-      "vegetables-2": "(tinned / frozen / fresh but not potatoes)",
-      "chips-1": "Chips / fried potatoes",
-      "chips-2": "",
-      "pulses-1": "Beans or pulses",
-      "pulses-2": "like baked beans, chick peas, dahl",
-      "fibre_rich_breakfast-1": "Fibre-rich breakfast cereal",
-      "fibre_rich_breakfast-2": "like Weetabix, Fruit ‘n Fibre, Porridge, Muesli",
-      "wholemeal_bread-1": "Wholemeal bread or chapattis",
-      "wholemeal_bread-2": "",
-      "cheese_yogurt-1": "Cheese / yoghurt",
-      "cheese_yogurt-2": "",
-      "crisps_snacks-1": "Crisps / savoury snacks",
-      "crisps_snacks-2": "",
-      "sweets-1": "Sweet biscuits, cakes, chocolate, sweets",
-      "sweets-2": "",
-      "ice_cream-1": "Ice cream / cream",
-      "ice_cream-2": "",
-      "fizzy_pop-1": "Non alcoholic fizzy drinks/pop",
-      "fizzy_pop-2": "(not sugar free or diet)",
-      "red_meat-1": "Beef, Lamb, Pork, Ham",
-      "red_meat-2": "Steaks, roasts, joints, mince or chops",
-      "white_meat-1": "Chicken or Turkey",
-      "white_meat-2": "Steaks, roasts, joints, mince or portions (not in batter or breadcrumbs)",
-      "red_processed_meat-1": "Sausages, bacon, corned beef, meat pies/pasties, burgers",
-      "red_processed_meat-2": "",
-      "white_processed_meat-1": "Chicken/turkey nuggets/twizzlers, turkey burgers, chicken pies, or in batter or breadcrumbs",
-      "white_processed_meat-2": "",
-      "white_fish_battered_breaded-1": "White fish in batter or breadcrumbs – like ‘fish ‘n chips’",
-      "white_fish_battered_breaded-2": "",
-      "white_fish-1": "White fish not in batter or breadcrumbs",
-      "white_fish-2": "",
-      "oily_fish-1": "Oily fish – like herrings, sardines, salmon, trout, mackerel, fresh tuna",
-      "oily_fish-2": "(not tinned tuna)",
-      "eggs-1": "Eggs - as boiled, fried, scrambled, etc.",
-      "eggs-2": "",
-      "fast_food-1": "Fast food",
-      "fast_food-2": "",
-      "live-probiotic-1": "Live probiotic or fermented food products",
-      "live-probiotic-2": "e.g. sauerkraut, kimchi, yakult, live yogurt, kefir",
-      "white-bread-1": "White bread",
-      "rice-1": "Rice",
-      "pasta-1": "Pasta",
-      "refined_breakfast-1": "Refined breakfast cereals",
-      "refined_breakfast-2": "e.g. rice krispies, cornflakes, coco pops",
-
-      "section-meat": "Whole meats",
-      "section-processed-meat": "Processed meats / meat products",
-      "section-fish": "Fish",
-      "section-other": "Other",
-      "section-refined-carbs": "Refined carbohydrates",
-
-      "portions_of_fruit-label": "On average, how many portions of FRUIT did you eat a day? (Excluding 100% fruit juice. Examples include a handful of grapes, an orange, a handful of dried fruits)",
-      "portions_of_fruit-placeholder": "Portions per day",
-      "glasses_of_juice-label": "On average, how many glasses of 100% fruit or vegetable juice did you drink a day? (A standard glass is 230 ml)",
-      "glasses_of_juice-placeholder": "Glasses per day",
-      "portions_of_veg-label": "On average, how many portions of VEGETABLES did you eat a day? (Examples include 3 heaped tablespoons of carrots, a side salad, 2 spears of broccoli)",
-      "portions_of_veg-placeholder": "Portions per day",
-
-      "milk-label": "What milk did you usually use or drink, such as in hot & cold drinks or on cereal?",
-      "milk-whole": "Whole / full-fat milk",
-      "milk-semi": "Semi-skimmed milk",
-      "milk-skimmed": "Skimmed milk",
-      "milk-rarely-never": "Rarely/never use milk",
-      "milk-plant": "Plant-based milk",
-      "milk-other": "Other",
-
-      "noticed-a-change": "Have you noticed a change in your diet since February 2020?"
-    },
-
-    "other-info": {
-      "label": "Is there any other information about your diet & lifestyle you would like to share?",
-      "placeholder": "Optional",
-      "text-limit": "Ensure this field has no more than {{count}} characters.",
-      "text-limit-caption": "Max {{count}} characters"
-    },
-
-    "diet-changed": {
-      "not-sure": "Not sure"
-    },
-
-    "continue-cta": "Continue",
-    "complete-cta": "Answer for February 2020",
-
-    "consent": {
-      "header": "Before you continue",
-      "paragraph": "Our colleagues at King's College London who will analyse this data, would love to be able to use your results as part of further research into nutrition and health beyond COVID. \n\nWe'd like to ask if you consent to your data being used in this way for a non-COVID purpose? The data shared would also include data such as your age, height, weight and pre-existing medical conditions that you have told us about in the app. \n\nThis is completely optional. However, by doing so you will make a valuable contribution to future nutrition and health research.",
-      "buttons-header": "Do you consent to using this data for further research into nutrition and health?",
-      "yes": "Yes, I agree",
-      "no": "No, I do not consent"
-    },
-
-    "thank-you": {
-      "title": "Thank you",
-      "text-1": "We appreciate you taking time to help advance the science and better understand how diet can impact the likelihood and severity of getting COVID."
-    },
-
-    "thank-you-break": {
-      "description-1": "\"Thank you for answering these important questions. To help us also understand the impact of lockdown, please answer these questions for February (Pre-Covid). Providing this information can really make a difference to our understanding of this pandemic.\"",
-      "sarah-name": "Dr Sarah Berry",
-      "sarah-description": "Dept of Nutritional Sciences,\nKing's College London",
-      "return-later": "If you'd like to take a break, you can return to these questions by clicking 'Diet Study' from the menu in the top right corner of the home screen. "
-    }
-  },
-
   "blood-group": {
     "justification": "Other studies have shown that your blood group may affect both your risk and severity of COVID infection.",
     "question": "What is your blood group?",
@@ -1253,37 +971,18 @@
   },
 
   "vaccines": {
-    "yes-no": {
-      "title": "Your COVID-19 vaccines",
-      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.",
-      "answer-yes": "Yes, I’ve had a COVID-19 vaccine",
-      "answer-no": "No, I’ve never had a COVID-19 vaccine"
-    },
-
-    "trial-or-national": {
-      "label": "About your recent vaccine",
-      "title": "How did you receive your vaccination?",
-      "answer-national": "I was vaccinated during the national roll out of COVID-19 vaccines ",
-      "answer-trial": "I participated in a trial"
-    },
-
-    "placebo": {
-      "label": "About your recent vaccine",
-      "title": "As a trial participant, what type of vaccine did you receive?",
-      "answer-yes": "I received a real vaccine injection",
-      "answer-no": "I received a placebo injection",
-      "answer-unsure": "I don't know yet"
-    },
-
     "thank-you": {
-      "title": "Thank you.\nPlease continue to provide daily health reports following your COVID-19 vaccination ",
+      "title": "Thank you.",
+      "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
       "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
       "confirm": "Start daily report"
     },
 
     "dose-symptoms": {
       "label": "About your recent vaccine",
-      "title": "Are you experiencing any symptoms near the injection site?",
+      "title-1": "Are you experiencing any symptoms",
+      "title-2": " near the injection site",
+      "title-3": "?",
       "check-all-that-apply": "Check all that apply:",
       "pain": "Pain",
       "redness": "Redness",
@@ -1293,7 +992,59 @@
       "itch": "Itch",
       "tenderness": "Tenderness",
       "other": "Other",
+      "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
+      "other-placeholder": "Describe your symptoms here...",
       "next": "Next"
+    },
+
+    "vaccine-list": {
+      "title": "Your COVID-19 vaccines",
+      "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now.",
+      "add-button": "Add vaccine",
+      "correct-info": "This information is correct",
+      "no-vaccine": "I haven't had a vaccine",
+      "no-2nd": "I haven't had a second dose",
+      "delete-vaccine-title": "Delete Vaccine?",
+      "delete-vaccine-text": "Information about all vaccines doses will be deleted."
+    },
+
+    "your-vaccine": {
+      "title": "Tell us about your vaccine",
+      "first-dose": "About your first dose",
+      "second-dose": "About your second dose",
+      "when-injection": "When was your injection?",
+      "have-had-second": "Have you had a second dose yet?",
+      "select-date": "Select date",
+      "confirm": "Confirm"
+    },
+
+    "vaccine-card": {
+      "dose-1": "Dose 1",
+      "dose-2": "Dose 2",
+      "add-date": "Add date",
+      "add-info": "Add dose information",
+      "delete": "Delete vaccine",
+      "date-missing": "Logged but date missing",
+      "not-logged": "Not yet logged"
+    },
+
+    "hesitancy": {
+      "title": "Would you accept a COVID-19 vaccine if offered?",
+      "check-all-that-apply": "Please tell us why (check all that apply):",
+      "vaccine-trial": "I took part on a vaccine trial",
+      "religious": "Religious reasons",
+      "philosophical": "Personal belief / philosophical reasons",
+      "pregnancy": "Pregnancy / breastfeeding",
+      "illness": "Illness / medication",
+      "safety-concern": "Concerned about long term side effects",
+      "bad-reaction": "Concerned about adverse reaction",
+      "do-not-know": "Do not know enough about it",
+      "unsure-is-working": "Do not think it will work",
+      "availability": "Do not think it will be available to me",
+      "unnecessary": "Do not think it is necessary",
+      "Other": "Other",
+      "not-to-say": "Prefer not to say",
+      "specify": "Please specify the other reason"
     }
   },
 
@@ -1563,6 +1314,7 @@
     }
   },
   "generic": {
-    "share-this-with-someone": "Share this with someone"
+    "share-this-with-someone": "Share this with someone",
+    "content-can-not-be-loaded-atm": "This content can not be loaded at the moment."
   }
 }

@@ -36,8 +36,8 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
   const hasHayfever = route.params.assessmentData.patientData.patientState.hasHayfever;
   const registerSchema = Yup.object().shape({}).concat(GeneralSymptomsQuestions.schema());
 
-  const handleSubmit = async (formData: GeneralSymptomsData) => {
-    await assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(formData, hasHayfever));
+  const handleSubmit = (formData: GeneralSymptomsData) => {
+    assessmentService.saveAssessment(GeneralSymptomsQuestions.createAssessment(formData, hasHayfever));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 

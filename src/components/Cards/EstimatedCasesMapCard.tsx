@@ -5,9 +5,8 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { WebView } from '@covid/components/WebView';
-import { BrandedButton, MutedText } from '@covid/components/Text';
+import { BrandedButton } from '@covid/components/Text';
 import { colors } from '@theme';
-import { ShareButton } from '../Buttons';
 import i18n from '@covid/locale/i18n';
 import NavigatorService from '@covid/NavigatorService';
 import { Services } from '@covid/provider/services.types';
@@ -19,7 +18,9 @@ import { IPatientService } from '@covid/core/patient/PatientService';
 import { loadEstimatedCasesCartoMap } from '@covid/utils/files';
 import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
-import { Text } from '@covid/components';
+
+import { ShareButton } from '../Buttons';
+import { Text } from '../typography';
 
 const MAP_HEIGHT = 246;
 
@@ -87,7 +88,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   return (
     <View style={[styles.root, root]}>
       <View style={{ marginVertical: 24, paddingHorizontal: 16 }}>
-        <Text textClass="h4Regular" rhythm={8}>
+        <Text textClass="h4" rhythm={8}>
           {primaryLabel}
         </Text>
         <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
@@ -188,12 +189,18 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
   useEffect(() => {
+    let isMounted = true;
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
     (async () => {
       try {
-        setHtml(await loadEstimatedCasesCartoMap());
+        if (isMounted) {
+          setHtml(await loadEstimatedCasesCartoMap());
+        }
       } catch (_) {}
     })();
+    return function cleanUp() {
+      isMounted = false;
+    };
   }, []);
 
   const syncMapCenter = () => {
@@ -264,7 +271,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
     <View style={styles.root}>
       <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
         <View style={{ marginVertical: isSharing ? 4 : 24, paddingHorizontal: 16 }}>
-          <Text textClass="h4Regular" rhythm={8}>
+          <Text textClass="h4" rhythm={8}>
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
           </Text>
           <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
@@ -291,7 +298,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
             <MutedText style={styles.shareLabel}>{i18n.t('covid-cases-map.share')}</MutedText>
           </TouchableOpacity> */}
           <View>
-              <ShareButton label={i18n.t('covid-cases-map.share')} onPress={share} />
+            <ShareButton label={i18n.t('covid-cases-map.share')} onPress={share} />
           </View>
         </>
       )}

@@ -13,6 +13,8 @@ import {
   SymptomCheckBoxData,
 } from '@covid/features/assessment/fields/SymptomsTypes';
 import { DoseSymptomsRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { colors } from '@covid/themes/theme/colors';
+import InfoCircle from '@assets/icons/InfoCircle';
 
 export type DoesSymptomsData = DoesSymptomsCheckBoxData & DoesSymptomsFollowUpData;
 
@@ -55,15 +57,29 @@ export const DoesSymptomsQuestions: DoseSymptomQuestions<Props, DoesSymptomsData
       <CheckboxList>{createSymptomCheckboxes(checkboxes, formikProps)}</CheckboxList>
 
       {formikProps.values.other && (
-        <Textarea
-          rowSpan={3}
-          bordered
-          placeholder={i18n.t('placeholder-max-500')}
-          value={formikProps.values.otherSymptoms}
-          onChangeText={formikProps.handleChange('otherSymptoms')}
-          underline={false}
-          style={{ borderRadius: 8 }}
-        />
+        <>
+          <View style={{ flexDirection: 'row', marginVertical: 16, paddingRight: 32 }}>
+            <View style={{ paddingRight: 8 }}>
+              <InfoCircle color={colors.burgundy.main.bgColor} />
+            </View>
+            <View>
+              <RegularText style={{ color: colors.burgundy.main.bgColor }}>
+                {i18n.t('vaccines.dose-symptoms.other-info')}
+              </RegularText>
+            </View>
+          </View>
+
+          <Textarea
+            rowSpan={4}
+            bordered
+            maxLength={500}
+            placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
+            value={formikProps.values.otherSymptoms}
+            onChangeText={formikProps.handleChange('otherSymptoms')}
+            underline={false}
+            style={{ borderRadius: 8 }}
+          />
+        </>
       )}
     </View>
   );

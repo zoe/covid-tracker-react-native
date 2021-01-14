@@ -61,7 +61,6 @@ export type UserResponse = {
   // TODO: WARNING If this is changed we need to invalidate the locally cached version
   pii: string;
   username: string;
-  authorizations: string[];
   patients: string[];
   ask_for_rating: boolean;
   is_tester: boolean;
@@ -321,5 +320,4 @@ export type StartupInfo = {
 export type AskForStudies = {
   should_ask_uk_validation_study: boolean;
   should_ask_uk_vaccine_register: boolean;
-  should_ask_diet_study: boolean;
 };

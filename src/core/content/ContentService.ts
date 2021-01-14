@@ -10,7 +10,7 @@ import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
 import { IContentApiClient } from '@covid/core/content/ContentApiClient';
 
-import { LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
+import { FeaturedContentResponse, LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentService {
   localData?: PersonalisedLocalData;
@@ -22,6 +22,7 @@ export interface IContentService {
   getStartupInfo(): Promise<StartupInfo | null>;
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
+  getFeaturedContent(): Promise<FeaturedContentResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
   signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
@@ -101,6 +102,10 @@ export default class ContentService implements IContentService {
 
   public async getTrendLines(lad?: string): Promise<TrendLineResponse> {
     return this.apiClient.getTrendLines(lad);
+  }
+
+  public async getFeaturedContent(): Promise<FeaturedContentResponse> {
+    return this.apiClient.getFeaturedContent();
   }
 
   public searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse> {

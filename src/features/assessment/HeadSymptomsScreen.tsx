@@ -24,8 +24,8 @@ type Props = {
 export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (formData: HeadSymptomsData) => {
-    await assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
+  const handleSubmit = (formData: HeadSymptomsData) => {
+    assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 

@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { blog027, shareAppV3, smell_video_dec16 } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -21,10 +21,11 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { SchoolNetworks } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -35,9 +36,10 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks
+    (state) => state.school.joinedSchoolGroups
   );
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
@@ -82,6 +84,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    if (!app.dashboardVisited) {
+      dispatch(setDasboardVisited(true));
+    }
+  }, []);
+
   const hasNetworkData = networks && networks.length > 0;
 
   return (
@@ -91,21 +99,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ExternalCallout
-          link="https://youtu.be/UNwOvNF1R4Q"
-          calloutID="smell_video_dec16"
-          imageSource={smell_video_dec16}
-          aspectRatio={1029 / 600}
-          screenName={route.name}
-        />
-
-        <ExternalCallout
-          link="https://covid.joinzoe.com/post/getting-ready-covid-christmas?utm_source=App"
-          calloutID="blog_027"
-          imageSource={blog027}
-          aspectRatio={1032 / 600}
-          screenName={route.name}
-        />
+        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
         {hasNetworkData && (
           <View
