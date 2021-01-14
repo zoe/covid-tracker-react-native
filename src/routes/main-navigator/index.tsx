@@ -15,7 +15,6 @@ import {
   CovidTestConfirmScreen,
   CovidTestDetailScreen,
   CovidTestListScreen,
-  CreateNetworkGroupScreen,
   CreateProfileScreen,
   DashboardScreen,
   DashboardUSScreen,
@@ -50,7 +49,6 @@ import {
   SchoolGroupListScreen,
   SchoolHowToScreen,
   SchoolIntroScreen,
-  SchoolSuccessScreen,
   SearchLADScreen,
   SelectProfileScreen,
   SplashScreen,
@@ -161,8 +159,6 @@ function MainNavigator() {
       <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
       <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
-      <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
-      <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
       <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
       <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
       <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
