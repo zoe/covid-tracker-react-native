@@ -301,24 +301,24 @@ jobs:
       - prepare_deploy_env
       - expo_ota_publish
 
-  ota-rollback:
-    executor: mobile-build-box
-    working_directory: ~/covid-react
-    steps:
-      - prepare_code
-      - prepare_deploy_env
-      - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      - run:
-          name: Set expo release channel to perform rollback on
-          command: |
-            echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
-      - run:
-          name: Set Expo version to rollback to
-          # This command will not work if the expo dependencies is not defined like this ^x.x.x
-          command: |
-            echo "export EXPO_ROLLBACK_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)" >> $BASH_ENV
-      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios --non-interactive
-      - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android --non-interactive
+  # ota-rollback:
+  #   executor: mobile-build-box
+  #   working_directory: ~/covid-react
+  #   steps:
+  #     - prepare_code
+  #     - prepare_deploy_env
+  #     - run: npx expo-cli login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+  #     - run:
+  #         name: Set expo release channel to perform rollback on
+  #         command: |
+  #           echo "export RELEASE_CHANNEL=$(grep EXPO_RELEASE_CHANNEL .env | cut -d '=' -f2)" >> $BASH_ENV
+  #     - run:
+  #         name: Set Expo version to rollback to
+  #         # This command will not work if the expo dependencies is not defined like this ^x.x.x
+  #         command: |
+  #           echo "export EXPO_ROLLBACK_VERSION=$(cat package.json | jq -r '.dependencies.expo' | cut -d '^' -f2)" >> $BASH_ENV
+  #     - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform ios --non-interactive
+  #     - run: npx expo-cli publish:rollback --release-channel $RELEASE_CHANNEL --sdk-version $EXPO_ROLLBACK_VERSION --platform android --non-interactive
 
   ### ------------------- ###
   ### Slack related jobs  ###
@@ -485,27 +485,27 @@ workflows:
 
   # OTA Rollback (with approval) if OTA release is successful
 
-  rollbacks:
-    jobs:
-      # Production OTA rollback
-      - ota-rollback-approval:
-          name: 'Prod rollback'
-          filters: *master_filter
-          type: approval
-      - ota-rollback:
-          filters: *master_filter
-          context: react-covid-tracker-prod
-          requires:
-            - Prod rollback
+  # rollbacks:
+  #   jobs:
+  #     # Production OTA rollback
+  #     - ota-rollback-approval:
+  #         name: 'Prod rollback'
+  #         filters: *master_filter
+  #         type: approval
+  #     - ota-rollback:
+  #         filters: *master_filter
+  #         context: react-covid-tracker-prod
+  #         requires:
+  #           - Prod rollback
 
-      # Staging OTA rollback
-      - ota-rollback-approval:
-          name: 'Stage rollback'
-          filters: *develop_filter
-          type: approval
-      - ota-rollback:
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-          requires:
-            - Stage rollback
+  #     # Staging OTA rollback
+  #     - ota-rollback-approval:
+  #         name: 'Stage rollback'
+  #         filters: *develop_filter
+  #         type: approval
+  #     - ota-rollback:
+  #         filters: *develop_filter
+  #         context: react-covid-tracker-stage
+  #         requires:
+  #           - Stage rollback
 

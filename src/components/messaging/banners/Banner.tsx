@@ -39,7 +39,13 @@ function Banner({ active = true, message }: IProps) {
   };
 
   useEffect(() => {
-    animate(active);
+    let isMounted = true;
+    if (isMounted) {
+      animate(active);
+    }
+    return function cleanUp() {
+      isMounted = false;
+    };
   }, [active, animValue]);
 
   const animateTo = animValue.interpolate({

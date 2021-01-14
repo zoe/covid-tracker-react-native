@@ -1,6 +1,5 @@
 import { AsyncStorage } from 'react-native';
 
-import { DietStudyConsent } from '@covid/core/diet-study/DietStudyCoordinator';
 import { migrateIfNeeded } from '@covid/utils/async-storage-migrate';
 
 import { AuthenticatedUser } from './user/UserService';
@@ -182,24 +181,7 @@ export class AsyncStorageService {
     }
   }
 
-  // Diet Study Consent
-  static async getDietStudyConsent(): Promise<DietStudyConsent | null> {
-    try {
-      const value = await AsyncStorage.getItem(DIET_STUDY_CONSENT);
-      return value as DietStudyConsent | null;
-    } catch (err) {
-      return null;
-    }
-  }
-
-  static async setDietStudyConsent(consent: DietStudyConsent) {
-    try {
-      return await AsyncStorage.setItem(DIET_STUDY_CONSENT, consent);
-    } catch (err) {}
-  }
-
   // Common
-
   static async getItem<T>(key: string): Promise<T | null> {
     try {
       const value = await AsyncStorage.getItem(key);
