@@ -1328,6 +1328,7 @@
     }
   },
   "generic": {
-    "share-this-with-someone": ""
+    "share-this-with-someone": "",
+    "content-can-not-be-loaded-atm": ""
   }
 }
