@@ -12,7 +12,7 @@ import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
@@ -98,7 +98,10 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
           text: i18n.t('delete'),
           style: 'destructive',
           onPress: () => {
-            vaccineService.deleteVaccine(item.id).then(() => refreshVaccineList());
+            vaccineService.deleteVaccine(item.id).then(() => {
+              coordinator.resetVaccine();
+              refreshVaccineList();
+            });
           },
         },
       ],
@@ -107,11 +110,8 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const enableNextButton = () => {
-    if (!!vaccines[0]?.doses[0] && vaccines[0]?.doses[0]?.date_taken_specific === undefined) {
-      return false;
-    } else {
-      return true;
-    }
+    const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
+    return !(firstDose && firstDose.date_taken_specific == null); // Disable button if user has first dose with no date.
   };
 
   const ListContent = () => {
@@ -147,41 +147,47 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <Screen style={styles.rootContainer} profile={patientData.patientState.profile} navigation={navigation}>
-      <HeaderText style={{ marginVertical: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
+    <View style={styles.rootContainer}>
+      <Screen profile={patientData.patientState.profile} navigation={navigation}>
+        <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
 
-      <RegularText style={{ marginVertical: 8 }}>{i18n.t('vaccines.vaccine-list.description')}</RegularText>
+        <RegularText style={{ marginVertical: 8, marginHorizontal: 16 }}>
+          {i18n.t('vaccines.vaccine-list.description')}
+        </RegularText>
 
-      <ListContent />
+        <ListContent />
 
-      <View style={{ flex: 1 }} />
+        <View style={{ flex: 1 }} />
 
-      <BrandedButton style={styles.continueButton} onPress={handleNextButton} enable={enableNextButton()}>
-        <Text>
-          {vaccines.length === 0
-            ? i18n.t('vaccines.vaccine-list.no-vaccine')
-            : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
-            ? i18n.t('vaccines.vaccine-list.no-2nd')
-            : i18n.t('vaccines.vaccine-list.correct-info')}
-        </Text>
-      </BrandedButton>
-    </Screen>
+        <BrandedButton style={styles.continueButton} onPress={handleNextButton} enable={enableNextButton()}>
+          <Text>
+            {vaccines.length === 0
+              ? i18n.t('vaccines.vaccine-list.no-vaccine')
+              : vaccines[0]?.doses[1]?.date_taken_specific === undefined // 2nd dose not logged
+              ? i18n.t('vaccines.vaccine-list.no-2nd')
+              : i18n.t('vaccines.vaccine-list.correct-info')}
+          </Text>
+        </BrandedButton>
+      </Screen>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: colors.backgroundSecondary,
+    backgroundColor: colors.backgroundPrimary,
   },
   newButton: {
     marginVertical: 16,
     borderWidth: 1,
     borderColor: colors.purple,
-    backgroundColor: colors.backgroundSecondary,
+    backgroundColor: colors.backgroundPrimary,
   },
   newText: {
     color: colors.purple,
   },
-  continueButton: {},
+  continueButton: {
+    marginHorizontal: 16,
+  },
 });

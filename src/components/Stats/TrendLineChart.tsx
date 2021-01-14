@@ -46,16 +46,29 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ filter, viewMode
   });
 
   useEffect(() => {
-    (async () => {
+    let isMounted = true;
+    const runAsync = async () => {
       try {
         const x = viewMode === TrendLineViewMode.explore ? await loadTrendLineExplore() : await loadTrendLineOverview();
         setHtml(x);
       } catch (_) {}
-    })();
+    };
+    if (isMounted) {
+      runAsync();
+    }
+    return function cleanUp() {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    webview.current?.call('updateTimeWindow', { payload: { type: filter } });
+    let isMounted = true;
+    if (isMounted) {
+      webview.current?.call('updateTimeWindow', { payload: { type: filter } });
+    }
+    return function () {
+      isMounted = false;
+    };
   }, [filter]);
 
   useEffect(() => {

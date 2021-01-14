@@ -3,11 +3,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ConfigType } from '@covid/core/Config';
 import { IUserService } from '@covid/core/user/UserService';
 import {
+  homeScreenName,
+  ILocalisationService,
   isGBCountry,
   isUSCountry,
-  ILocalisationService,
   LocalisationService,
-  homeScreenName,
 } from '@covid/core/localisation/LocalisationService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
@@ -17,9 +17,6 @@ import { ConsentService, IConsentService } from '@covid/core/consent/ConsentServ
 import { lazyInject } from '@covid/provider/services';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { IContentService } from '@covid/core/content/ContentService';
-import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
-import dietStudyCoordinator, { DietStudyConsent, LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
@@ -28,6 +25,7 @@ import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/E
 import store from '@covid/core/state/store';
 import {
   fetchDismissedCallouts,
+  fetchFeaturedContent,
   fetchLocalTrendLine,
   FetchLocalTrendlinePayload,
   fetchStartUpInfo,
@@ -61,9 +59,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   @lazyInject(Services.Localisation)
   localisationService: ILocalisationService;
-
-  @lazyInject(Services.DietStudy)
-  dietStudyService: IDietStudyRemoteClient;
 
   @lazyInject(Services.DietScore)
   dietScoreService: IDietScoreRemoteClient;
@@ -174,6 +169,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   async fetchInitialData(): Promise<void> {
     await store.dispatch(fetchStartUpInfo());
     await store.dispatch(fetchDismissedCallouts());
+    await store.dispatch(fetchFeaturedContent());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }
@@ -196,16 +192,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   async startAssessmentFlow(patientData: PatientData) {
     assessmentCoordinator.init(this, { patientData }, this.userService, assessmentService);
     assessmentCoordinator.startAssessment();
-  }
-
-  startDietStudyFlow(patientData: PatientData, startedFromMenu: boolean, timePeriod: string = LAST_4_WEEKS) {
-    dietStudyCoordinator.init(
-      this,
-      { patientData, timePeriod, startedFromMenu },
-      this.userService,
-      this.dietStudyService
-    );
-    dietStudyCoordinator.startDietStudy();
   }
 
   startDietStudyPlaybackFlow(patientData: PatientData) {
@@ -247,10 +233,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.patientData = await this.patientService.getPatientDataByProfile(profile);
   }
 
-  goToDietStart() {
-    this.startDietStudyFlow(this.patientData, true);
-  }
-
   goToDietStudyPlayback() {
     this.startDietStudyPlaybackFlow(this.patientData);
   }
@@ -285,11 +267,6 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
 
   goToSearchLAD() {
     NavigatorService.navigate('SearchLAD');
-  }
-
-  async shouldShowStudiesMenu(): Promise<boolean> {
-    const consent = await AsyncStorageService.getDietStudyConsent();
-    return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
   }
 
   async shouldShowTrendLine(): Promise<boolean> {

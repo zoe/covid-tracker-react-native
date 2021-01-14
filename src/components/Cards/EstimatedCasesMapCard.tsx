@@ -88,7 +88,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   return (
     <View style={[styles.root, root]}>
       <View style={{ marginVertical: 24, paddingHorizontal: 16 }}>
-        <Text textClass="h4Regular" rhythm={8}>
+        <Text textClass="h4" rhythm={8}>
           {primaryLabel}
         </Text>
         <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
@@ -189,12 +189,18 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
   }, [mapConfig, setMapConfig, webViewRef.current]);
 
   useEffect(() => {
+    let isMounted = true;
     Analytics.track(events.ESTIMATED_CASES_MAP_EMPTY_STATE_SHOWN);
     (async () => {
       try {
-        setHtml(await loadEstimatedCasesCartoMap());
+        if (isMounted) {
+          setHtml(await loadEstimatedCasesCartoMap());
+        }
       } catch (_) {}
     })();
+    return function cleanUp() {
+      isMounted = false;
+    };
   }, []);
 
   const syncMapCenter = () => {
@@ -265,7 +271,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
     <View style={styles.root}>
       <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
         <View style={{ marginVertical: isSharing ? 4 : 24, paddingHorizontal: 16 }}>
-          <Text textClass="h4Regular" rhythm={8}>
+          <Text textClass="h4" rhythm={8}>
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
           </Text>
           <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>

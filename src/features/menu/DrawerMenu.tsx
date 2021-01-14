@@ -11,7 +11,7 @@ import { CaptionText } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { MyStudyIcon, ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
+import { ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
 import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
@@ -33,8 +33,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
   const userService = useInjection<IUserService>(Services.User);
   const consentService = useInjection<IConsentService>(Services.Consent);
 
-  // const [userEmail, setUserEmail] = useState<string>('');
-  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
   const { logout } = useLogout(props.navigation);
 
@@ -47,16 +45,10 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
     try {
       const data = await consentService.getStudyStatus();
       setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
-      setShowDietStudy(data.should_ask_diet_study);
     } catch (_) {
       setShowVaccineRegistry(false);
-      setShowDietStudy(false);
     }
   };
-
-  function openDietStudy() {
-    appCoordinator.goToDietStart();
-  }
 
   return (
     <SafeAreaView style={styles.drawerRoot}>
@@ -71,16 +63,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-
-        {showDietStudy && (
-          <MenuItem
-            image={<MyStudyIcon />}
-            label={i18n.t('diet-study.drawer-menu-item')}
-            onPress={() => {
-              openDietStudy();
-            }}
-          />
-        )}
 
         <MenuItem
           image={<EditProfilesIcon />}

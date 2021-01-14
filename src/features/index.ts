@@ -3,7 +3,6 @@ export { CountrySelectScreen } from './CountrySelectScreen';
 export * from './covid-tests';
 export * from './dashboard';
 export * from './diet-scores';
-export * from './diet-study';
 export { EstimatedCasesScreen } from './EstimatedCasesScreen';
 export { default as LoginScreen } from './login/LoginScreen';
 export * from './multi-profile';
