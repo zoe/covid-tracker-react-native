@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import thunk from 'redux-thunk';
+import env from 'react-native-config';
 
 import rootReducer from '@covid/core/state/root';
 
@@ -13,16 +13,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// export default () => {
-//   let store = createStore(persistedReducer)
-//   let persistor = persistStore(store)
-//   return { store, persistor }
-// }
-
 const store = configureStore({
   reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: [thunk],
+  devTools: env.name === 'Staging',
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
 });
 
 export const persistor = persistStore(store);

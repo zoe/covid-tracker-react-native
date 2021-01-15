@@ -26,16 +26,10 @@ const userSlice = createSlice({
       };
     },
     setProfile: (state, action: PayloadAction<IUser>) => {
-      return {
-        ...state,
-        ...action.payload,
-      };
+      state = action.payload;
     },
     setUsername: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        username: action.payload,
-      };
+      state.username = action.payload;
     },
   },
 });
