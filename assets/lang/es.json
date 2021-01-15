@@ -1094,6 +1094,9 @@
         "when-injection": "When was your injection?",
         "have-had-second": "Have you had a second dose yet?",
         "select-date": "Select date",
+        "placeholder-name": "Choose one",
+        "about-name": "What is the name of the vaccine you recieved?",
+        "name-i-dont-know": "I don't know",
         "confirm": "Confirm"
       },
 

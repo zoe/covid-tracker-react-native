@@ -16,6 +16,7 @@ import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator'
 import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDateData, VaccineDateQuestion } from '@covid/features/vaccines/fields/VaccineDateQuestion';
+import { VaccineNameData, VaccineNameQuestion } from '@covid/features/vaccines/fields/VaccineNameQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 
@@ -26,7 +27,7 @@ type Props = {
   route: RouteProp<ScreenParamList, 'AboutYourVaccine'>;
 };
 
-interface AboutYourVaccineData extends VaccineDateData {}
+interface AboutYourVaccineData extends VaccineDateData, VaccineNameData {}
 
 export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
@@ -96,12 +97,21 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
           return (
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
+                <VaccineNameQuestion formikProps={props as FormikProps<VaccineNameData>} editIndex={editIndex} />
+                <ErrorText>{errorMessage}</ErrorText>
+                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                  <ValidationError error={i18n.t('validation-error-text')} />
+                )}
+              </View>
+
+              <View style={{ marginHorizontal: 16 }}>
                 <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>} editIndex={editIndex} />
                 <ErrorText>{errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                   <ValidationError error={i18n.t('validation-error-text')} />
                 )}
               </View>
+
               <View style={{ flex: 1 }} />
               <BrandedButton onPress={props.handleSubmit}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
