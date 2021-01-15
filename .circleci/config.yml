@@ -114,7 +114,7 @@ commands:
   node-install:
     steps:
       - restore_cache:
-          key: *yarn_cache_key
+          key: yarn-v3-{{ checksum "yarn.lock" }}-{{ arch }}
       - restore_cache:
           key: *node_cache_key
       - restore_cache:
@@ -124,7 +124,7 @@ commands:
           name: Install Dependencies
           command: yarn install --immutable
       - save_cache:
-          key: *yarn_cache_key
+          key: yarn-v3-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
       - save_cache:
