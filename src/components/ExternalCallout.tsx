@@ -3,13 +3,14 @@ import {
   Image,
   ImageSourcePropType,
   ImageStyle,
+  ImageURISource,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import CachedImage from 'react-native-image-cache-wrapper';
+import FastImage from 'react-native-fast-image';
 
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
@@ -40,7 +41,6 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const imageProps = {
-    source: props.imageSource,
     style: [
       styles.image,
       { aspectRatio: props.aspectRatio },
@@ -85,7 +85,11 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
       {!dismissed && (
         <TouchableWithoutFeedback onPress={clickCallout}>
           <View style={styles.viewContainer}>
-            <CachedImage {...imageProps} />
+            {Object.keys(props.imageSource).includes('uri') ? (
+              <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
+            ) : (
+              <Image {...imageProps} source={props.imageSource} />
+            )}
             {canDismiss && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
