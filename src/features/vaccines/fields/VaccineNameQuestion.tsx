@@ -37,24 +37,51 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
     { label: 'Pfizer/BioNTech', value: 'pfizer' },
     { label: 'Oxford/Astrazeneca', value: 'oxford' },
     { label: 'Moderna', value: 'moderna' },
-    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'dontknow' },
+    // "I don't know" value is set as other for UI
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'other' },
   ];
 
+  const iDontKnowOptions = [
+    { label: i18n.t('choose-one-of-these-options'), value: '' },
+    // mRNA doesn't need translation
+    { label: 'mRNA', value: 'mrna' },
+    { label: i18n.t('vaccines.your-vaccine.name-other'), value: 'other' },
+    // "I don't know" value is set as other for UI
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'other' },
+  ];
+
+  const vaccineTypeInput = props.formikProps.values.name === 'other' ?
+    <View>
+        <DropdownField
+        placeholder={i18n.t('vaccines.your-vaccine.label-name')}
+        selectedValue={props.formikProps.values.name}
+        onValueChange={props.formikProps.handleChange('name')}
+        label={i18n.t('vaccines.your-vaccine.label-name-other')}
+        items={iDontKnowOptions}
+        error={props.formikProps.touched.name && props.errors.name}
+        />
+    </View> : null;
+
+  
   return (
     <>
       {(editIndex === undefined || editIndex === 0) && (
-        <View style={{ marginBottom: 16 }}>
+        <View>
           <DropdownField
-            placeholder={i18n.t('vaccines.your-vaccine.placeholder-name')}
+            placeholder={i18n.t('vaccines.your-vaccine.label-name')}
             selectedValue={props.formikProps.values.name}
             onValueChange={props.formikProps.handleChange('name')}
-            label={i18n.t('vaccines.your-vaccine.about-name')}
+            label={i18n.t('vaccines.your-vaccine.label-name')}
             items={nameOptions}
             error={props.formikProps.touched.name && props.errors.name}
           />
         </View>
       )}
+
+      { vaccineTypeInput }
+
     </>
+
   );
 };
 

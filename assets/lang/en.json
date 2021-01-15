@@ -1016,8 +1016,11 @@
       "have-had-second": "Have you had a second dose yet?",
       "select-date": "Select date",
       "placeholder-name": "Choose one",
-      "about-name": "What is the name of the vaccine you recieved?",
+      "label-name": "What is the name of the vaccine you recieved?",
       "name-i-dont-know": "I don't know",
+      "name-other": "Other",
+      "label-name-other": "Which type of vaccine was it?",
+      "placeholder-type": "Choose one",
       "confirm": "Confirm"
     },
 
