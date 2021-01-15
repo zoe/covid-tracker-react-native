@@ -67,7 +67,10 @@ export const GeneralSymptomsScreen: React.FC<Props> = ({ route, navigation }) =>
                 </View>
 
                 <View style={{ flex: 1 }} />
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                <BrandedButton
+                  onPress={props.handleSubmit}
+                  hideLoading={!props.isSubmitting}
+                  enable={!props.isSubmitting}>
                   {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>
