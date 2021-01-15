@@ -11,16 +11,21 @@ describe('Example', () => {
   });
 
   it('should have welcome screen', async () => {
-    await expect(element(by.id('welcome'))).toBeTrue();
+    await waitFor(element(by.id('more')))
+      .toBeVisible()
+      .withTimeout(20000);
+    try {
+      await element(by.id('more')).tap();
+    } catch (e) {}
   });
 
-  it('should show hello screen after tap', async () => {
-    await element(by.id('hello_button')).tap();
-    await expect(element(by.text('Hello!!!'))).toBeTrue();
-  });
+  // it('should show hello screen after tap', async () => {
+  //   await element(by.id('hello_button')).tap();
+  //   await expect(element(by.text('Hello!!!'))).toBeTrue();
+  // });
 
-  it('should show world screen after tap', async () => {
-    await element(by.id('world_button')).tap();
-    await expect(element(by.text('World!!!'))).toBeTrue();
-  });
+  // it('should show world screen after tap', async () => {
+  //   await element(by.id('world_button')).tap();
+  //   await expect(element(by.text('World!!!'))).toBeTrue();
+  // });
 });
