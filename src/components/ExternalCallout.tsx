@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import CachedImage from 'react-native-image-cache-wrapper';
 
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
@@ -38,9 +39,35 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const [imageLoadError, setImageLoadError] = useState<string | undefined>(undefined);
   const dispatch = useAppDispatch();
 
+  const imageProps = {
+    source: props.imageSource,
+    style: [
+      styles.image,
+      { aspectRatio: props.aspectRatio },
+      { ...(props.imageStyles as object) },
+      imageLoading && { opacity: 0 },
+    ],
+    onLoadStart: () => {
+      setImageLoading(true);
+    },
+    onLoadEnd: () => {
+      setTimeout(() => {
+        setImageLoading(false);
+      }, 330);
+    },
+    onError: () => {
+      setImageLoading(false);
+      setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
+    },
+  };
+
   useEffect(() => {
     setDismissed(dismissedCalloutIds.includes(calloutID));
   }, [dismissedCalloutIds]);
+
+  useEffect(() => {
+    setImageLoading(true);
+  }, []);
 
   function clickCallout() {
     Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
@@ -58,27 +85,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
       {!dismissed && (
         <TouchableWithoutFeedback onPress={clickCallout}>
           <View style={styles.viewContainer}>
-            <Image
-              source={props.imageSource}
-              style={[
-                styles.image,
-                { aspectRatio: props.aspectRatio },
-                { ...(props.imageStyles as object) },
-                imageLoading && { opacity: 0 },
-              ]}
-              onLoadStart={() => {
-                setImageLoading(true);
-              }}
-              onLoadEnd={() => {
-                setTimeout(() => {
-                  setImageLoading(false);
-                }, 330);
-              }}
-              onError={() => {
-                setImageLoading(false);
-                setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
-              }}
-            />
+            <CachedImage {...imageProps} />
             {canDismiss && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
