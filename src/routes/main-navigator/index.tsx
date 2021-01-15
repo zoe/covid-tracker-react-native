@@ -15,7 +15,6 @@ import {
   CovidTestConfirmScreen,
   CovidTestDetailScreen,
   CovidTestListScreen,
-  CreateNetworkGroupScreen,
   CreateProfileScreen,
   DashboardScreen,
   DashboardUSScreen,
@@ -50,7 +49,6 @@ import {
   SchoolGroupListScreen,
   SchoolHowToScreen,
   SchoolIntroScreen,
-  SchoolSuccessScreen,
   SearchLADScreen,
   SelectProfileScreen,
   SplashScreen,
@@ -67,6 +65,7 @@ import {
   VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
   AboutYourVaccineScreen,
+  VaccineLogSymptomsInfoScreen,
   VaccineRegistrySignUpScreen,
   ValidationStudyConsentScreen,
   ValidationStudyInfoScreen,
@@ -161,8 +160,6 @@ function MainNavigator() {
       <Stack.Screen name="NHSDetails" component={NHSDetailsScreen} options={noHeader} />
       <Stack.Screen name="JoinSchool" component={JoinSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinSchoolGroup" component={JoinSchoolGroupScreen} options={noHeader} />
-      <Stack.Screen name="CreateNetworkGroup" component={CreateNetworkGroupScreen} options={noHeader} />
-      <Stack.Screen name="SchoolSuccess" component={SchoolSuccessScreen} options={noHeader} />
       <Stack.Screen name="SchoolIntro" component={SchoolIntroScreen} options={noHeader} />
       <Stack.Screen name="SchoolHowTo" component={SchoolHowToScreen} options={noHeader} />
       <Stack.Screen name="SchoolGroupList" component={SchoolGroupListScreen} options={noHeader} />
@@ -174,6 +171,7 @@ function MainNavigator() {
       <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
       <Stack.Screen name="VaccineList" component={VaccineListScreen} options={noHeader} />
       <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
+      <Stack.Screen name="VaccineLogSymptomsInfo" component={VaccineLogSymptomsInfoScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_BELOW__ */}
       <Stack.Screen name="Trendline" component={TrendlineScreen} options={noHeader} />
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />

@@ -72,6 +72,7 @@ export const DoesSymptomsQuestions: DoseSymptomQuestions<Props, DoesSymptomsData
           <Textarea
             rowSpan={4}
             bordered
+            maxLength={500}
             placeholder={i18n.t('vaccines.dose-symptoms.other-placeholder')}
             value={formikProps.values.otherSymptoms}
             onChangeText={formikProps.handleChange('otherSymptoms')}

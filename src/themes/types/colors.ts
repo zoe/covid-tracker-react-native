@@ -21,6 +21,17 @@ export interface IColorPalettes {
   teal: IColorShades;
   ui: IColorShades;
   uiDark: IColorShades;
+  // zoe covid palette - no shades provided at this point
+  accentBlue: IColorShades;
+  accentCyan: IColorShades;
+  accentMagenta: IColorShades;
+  accentPredict: IColorShades;
+  actionPrimary: IColorShades;
+  actionSecondary: IColorShades;
+  feedbackBad: IColorShades;
+  feedbackExcellent: IColorShades;
+  feedbackGood: IColorShades;
+  feedbackPoor: IColorShades;
 }
 
 export type TColorPalette = keyof IColorPalettes;
