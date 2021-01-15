@@ -1020,7 +1020,11 @@
       "name-i-dont-know": "I don't know",
       "name-other": "Other",
       "label-name-other": "Which type of vaccine was it?",
+      "label-name-other-2": "Enter the information about the type of vaccine you have available:",
+      "placeholder-name-other-2": "Type here",
       "placeholder-type": "Choose one",
+      "placeholder-batch": "E.g. ELO141",
+      "label-batch": "Batch number",
       "confirm": "Confirm"
     },
 

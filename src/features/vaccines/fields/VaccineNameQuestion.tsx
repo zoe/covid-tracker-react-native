@@ -11,11 +11,13 @@ import { Header3Text, RegularText, SecondaryText } from '@covid/components/Text'
 import { colors } from '@theme';
 import YesNoField from '@covid/components/YesNoField';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
-import { CalendarIcon } from '@assets';
 import DropdownField from '@covid/components/DropdownField';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 export interface VaccineNameData {
   name: string;
+  dontKnowOption: string;
+  dontKnowText: string;
 }
 
 interface Props {
@@ -37,8 +39,7 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
     { label: 'Pfizer/BioNTech', value: 'pfizer' },
     { label: 'Oxford/Astrazeneca', value: 'oxford' },
     { label: 'Moderna', value: 'moderna' },
-    // "I don't know" value is set as other for UI
-    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'other' },
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'dontknow' },
   ];
 
   const iDontKnowOptions = [
@@ -46,23 +47,40 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
     // mRNA doesn't need translation
     { label: 'mRNA', value: 'mrna' },
     { label: i18n.t('vaccines.your-vaccine.name-other'), value: 'other' },
-    // "I don't know" value is set as other for UI
-    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'other' },
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'dontknow' },
   ];
 
-  const vaccineTypeInput = props.formikProps.values.name === 'other' ?
-    <View>
+  const vaccineTypeInput =
+    props.formikProps.values.name === 'dontknow' || props.formikProps.values.name === 'other' ? (
+      <View>
         <DropdownField
-        placeholder={i18n.t('vaccines.your-vaccine.label-name')}
-        selectedValue={props.formikProps.values.name}
-        onValueChange={props.formikProps.handleChange('name')}
-        label={i18n.t('vaccines.your-vaccine.label-name-other')}
-        items={iDontKnowOptions}
-        error={props.formikProps.touched.name && props.errors.name}
+          placeholder={i18n.t('vaccines.your-vaccine.label-name')}
+          selectedValue={props.formikProps.values.dontKnowOption}
+          onValueChange={props.formikProps.handleChange('dontKnowOption')}
+          label={i18n.t('vaccines.your-vaccine.label-name-other')}
+          items={iDontKnowOptions}
+          error={props.formikProps.touched.dontKnowOption && props.errors.dontKnowOption}
         />
-    </View> : null;
+      </View>
+    ) : null;
 
-  
+  const vaccineTypeOtherInput =
+    props.formikProps.values.dontKnowOption === 'other' ? (
+      <View>
+        <RegularText>{i18n.t('vaccines.your-vaccine.label-name-other-2')}</RegularText>
+        <ValidatedTextInput
+          placeholder={i18n.t('vaccines.your-vaccine.placeholder-name-other-2')}
+          value={props.formikProps.values.dontKnowText}
+          onChangeText={props.formikProps.handleChange('dontKnowText')}
+          onBlur={props.formikProps.handleBlur('dontKnowText')}
+          error={props.formikProps.touched.dontKnowText && props.formikProps.errors.dontKnowText}
+          returnKeyType="next"
+          onSubmitEditing={() => {}}
+          keyboardType="numeric"
+        />
+      </View>
+    ) : null;
+
   return (
     <>
       {(editIndex === undefined || editIndex === 0) && (
@@ -78,10 +96,10 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
         </View>
       )}
 
-      { vaccineTypeInput }
+      {vaccineTypeInput}
 
+      {vaccineTypeOtherInput}
     </>
-
   );
 };
 
@@ -106,6 +124,6 @@ VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineNameD
 
 VaccineNameQuestion.schema = () => {
   return Yup.object().shape({
-    name: Yup.date().required(),
+    name: Yup.name().required(),
   });
 };
