@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 
+import appConfig from '@covid/appConfig';
+
 import { Text } from '../typography';
 
 const styles = StyleSheet.create({
@@ -56,6 +58,7 @@ type ContentLoadingViewProps = {
 };
 
 export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({ loading, errorMessage, children }) => {
+  const showShimmers = appConfig.isQA === false;
   if (errorMessage) {
     return <ContentErrorView message={errorMessage} />;
   }
@@ -64,11 +67,13 @@ export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({ loading,
     <View>
       {loading && (
         <View style={styles.container}>
-          <View>
-            <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base]} />
-            <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base, styles.two]} />
-          </View>
-          <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base, styles.three]} />
+          {showShimmers && (
+            <View>
+              <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base]} />
+              <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base, styles.two]} />
+            </View>
+          )}
+          {showShimmers && <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base, styles.three]} />}
         </View>
       )}
       <View style={[loading && { position: 'absolute', opacity: 0 }]}>{children}</View>

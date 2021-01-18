@@ -1,7 +1,7 @@
 import env from 'react-native-config';
 
 export default {
-  apiBase: env.API_URL,
+  apiBase: 'http://0.0.0.0:8001',
   amplitudeKey: env.AMPLITUDE_KEY,
 
   assessmentVersion: '2.1.0',
@@ -23,4 +23,6 @@ export default {
 
   vaccineRegistryVersion: 'v1',
   vaccineRegistryAdVersion: 'v2',
+
+  isQA: env.CI || false,
 };
