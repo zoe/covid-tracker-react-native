@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { colors } from '@theme';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -29,7 +29,6 @@ import { ScreenParamList } from '../ScreenParamList';
 interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
   route: RouteProp<ScreenParamList, 'Login'>;
-  setUsername: (username: string) => void;
 }
 
 type StateType = {
@@ -40,7 +39,8 @@ type StateType = {
   user: string;
 };
 
-function LoginScreen({ route, setUsername }: IProps) {
+function LoginScreen({ route }: IProps) {
+  const dispatch = useDispatch();
   const userService = useInjection<IUserService>(Services.User);
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
@@ -60,7 +60,7 @@ function LoginScreen({ route, setUsername }: IProps) {
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
 
-        setUsername(response.user.username);
+        dispatch(setUsername(response.user.username));
 
         appCoordinator
           .setPatientById(patientId)
@@ -192,8 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = {
-  setUsername,
-};
-
-export default connect(null, mapDispatchToProps)(LoginScreen);
+export default LoginScreen;
