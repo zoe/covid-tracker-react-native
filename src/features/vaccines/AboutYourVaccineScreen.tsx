@@ -21,8 +21,7 @@ import { VaccineBatchData, VaccineBatchQuestion } from '@covid/features/vaccines
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
-import InfoCircle from '@assets/icons/InfoCircle';
-import { QuestionMarks } from '@assets';
+import QuestionCircle from '@assets/icons/QuestionCircle';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -93,7 +92,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineFindInfo()}>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 0.1 }}>
-            <InfoCircle color={colors.linkBlue} />
+            <QuestionCircle color={colors.linkBlue} />
           </View>
           <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>{i18n.t('vaccines.find-info.link')}</RegularText>
         </View>
