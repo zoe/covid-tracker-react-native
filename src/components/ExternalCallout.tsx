@@ -30,6 +30,7 @@ type ExternalCalloutProps = {
   screenName: string;
   imageStyles?: StyleProp<ImageStyle>;
   canDismiss?: boolean;
+  disableLoadingState?: boolean;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
@@ -81,7 +82,10 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }
 
   return (
-    <ContentLoadingView loading={imageLoading} errorMessage={imageLoadError}>
+    <ContentLoadingView
+      loading={imageLoading}
+      errorMessage={imageLoadError}
+      disableShimmers={props.disableLoadingState}>
       {!dismissed && (
         <TouchableWithoutFeedback onPress={clickCallout}>
           <View style={styles.viewContainer}>
