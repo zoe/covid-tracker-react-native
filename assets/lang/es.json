@@ -1085,6 +1085,12 @@
         "body-3": "Logging your vaccine and telling us how you feel following your dose helps us to keep our data accurate"
       },
 
+      "find-info": {
+        "title": "Find your vaccine info",
+        "body-1": "You should have received a vaccination card at the time of your vaccination. It contains all the information needed to log your vaccine with us.",
+        "link": "Where can I find this information?"
+      },
+
       "vaccine-list": {
         "title": "Your COVID-19 vaccines",
         "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now. ",

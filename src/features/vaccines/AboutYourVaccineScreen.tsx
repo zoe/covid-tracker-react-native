@@ -3,13 +3,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import key from 'weak-key';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText } from '@covid/components/Text';
+import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -20,6 +20,9 @@ import { VaccineNameData, VaccineNameQuestion } from '@covid/features/vaccines/f
 import { VaccineBatchData, VaccineBatchQuestion } from '@covid/features/vaccines/fields/VaccineBatchQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { colors } from '@theme';
+import InfoCircle from '@assets/icons/InfoCircle';
+import { QuestionMarks } from '@assets';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -86,6 +89,15 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       <Header>
         <HeaderText>{i18n.t('vaccines.your-vaccine.title')}</HeaderText>
       </Header>
+
+      <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineFindInfo()}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 0.1 }}>
+            <InfoCircle color={colors.linkBlue} />
+          </View>
+          <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>{i18n.t('vaccines.find-info.link')}</RegularText>
+        </View>
+      </TouchableOpacity>
 
       <Formik
         initialValues={{

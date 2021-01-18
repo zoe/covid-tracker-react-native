@@ -1039,6 +1039,11 @@
         "body-2": "",
         "body-3": ""
       },
+      "find-info": {
+        "title": "Find your vaccine info",
+        "body-1": "You should have received a vaccination card at the time of your vaccination. It contains all the information needed to log your vaccine with us.",
+        "link": "Where can I find this information?"
+      },
       "vaccine-list": {
         "title": "",
         "description": "",
