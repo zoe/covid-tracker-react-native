@@ -1,18 +1,16 @@
 import { FormikProps } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
-import moment, { Moment } from 'moment';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
-import CalendarPicker from '@covid/components/CalendarPicker';
-import { Header3Text, RegularText, SecondaryText } from '@covid/components/Text';
+import { RegularText } from '@covid/components/Text';
 import { colors } from '@theme';
-import YesNoField from '@covid/components/YesNoField';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import DropdownField from '@covid/components/DropdownField';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 export interface VaccineNameData {
   name: string;
@@ -37,10 +35,14 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
     { label: i18n.t('choose-one-of-these-options'), value: '' },
     // These are "Brand names" so don't need translations
     { label: 'Pfizer/BioNTech', value: 'pfizer' },
-    { label: 'Oxford/Astrazeneca', value: 'oxford' },
     { label: 'Moderna', value: 'moderna' },
     { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'dontknow' },
   ];
+
+  // Add in extra item specific to GB users
+  if (isGBCountry()) {
+    nameOptions.splice(2, 0, { label: 'Oxford/Astrazeneca', value: 'oxford' });
+  }
 
   const iDontKnowOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },

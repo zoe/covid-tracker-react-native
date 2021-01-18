@@ -8,9 +8,7 @@ import { HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { vaccinationExampleUK, vaccinationExampleUS } from '@assets';
-import { useInjection } from '@covid/provider/services.hooks';
-import { Services } from '@covid/provider/services.types';
-import { ILocalisationService } from '@covid/core/localisation/LocalisationService';
+import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineFindInfo'>;
@@ -18,27 +16,10 @@ type Props = {
 };
 
 export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) => {
-  const localisationService = useInjection<ILocalisationService>(Services.Localisation);
   const { assessmentData } = route.params;
 
-  const [exampleImageSrc, updateExampleImageSrc] = useState('first');
-  useEffect(() => {
-    let isMounted = true;
-    async function getCountryFromLocalisationService() {
-      const country: string | null = await localisationService.getUserCountry();
-      if (country == 'US') {
-        updateExampleImageSrc(vaccinationExampleUS);
-      } else {
-        updateExampleImageSrc(vaccinationExampleUK);
-      }
-    }
-    if (isMounted) {
-      getCountryFromLocalisationService();
-    }
-    return function cleanUp() {
-      isMounted = false;
-    };
-  }, []);
+  // No case for SE, just GB and US atm (Jan 2021)
+  const exampleImageSrc = isGBCountry() ? vaccinationExampleUK : vaccinationExampleUS;
 
   return (
     <Screen profile={assessmentData.patientData.profile} navigation={navigation}>
