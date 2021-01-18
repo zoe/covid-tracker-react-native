@@ -4,6 +4,8 @@ import { Text } from 'native-base';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import moment, { Moment } from 'moment';
+import { useSelector } from 'react-redux';
+import { State } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
@@ -16,6 +18,9 @@ import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { useAppDispatch } from '@covid/core/state/store';
+import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
+import { RootState } from '@covid/core/state/root';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -27,29 +32,24 @@ type Props = {
 export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
-
-  const [vaccines, setVaccines] = useState<VaccineRequest[]>([]);
+  const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
   const { patientData } = route.params.assessmentData;
+  const dispatch = useAppDispatch();
 
   useFocusEffect(
     React.useCallback(() => {
+      dispatch(vaccinesSlice.actions.reset());
       refreshVaccineList();
     }, [])
   );
 
   const refreshVaccineList = () => {
     setLoading(true);
-    vaccineService
-      .listVaccines()
-      .then((vaccines) => {
-        const patientId = patientData.patientId;
-        const patientVaccines = vaccines.filter((v) => v.patient === patientId);
-        setVaccines(patientVaccines);
-        setLoading(false);
-      })
+    const patientId = patientData.patientId;
+    dispatch(fetchVaccines(patientId))
+      .then(() => setLoading(false))
       .catch(() => {});
   };
 

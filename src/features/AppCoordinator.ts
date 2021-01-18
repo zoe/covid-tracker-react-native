@@ -140,7 +140,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     },
   };
 
-  async init() {
+  async init(setUsername: (username: string) => void) {
     let user: UserResponse | null = null;
     let patientId: string | null = null;
 
@@ -150,6 +150,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       user = await this.userService.getUser();
       this.thisUser = user;
       patientId = user?.patients[0] ?? null;
+      setUsername(user?.username ?? '');
     }
 
     if (patientId && user) {
