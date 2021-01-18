@@ -14,7 +14,7 @@ target 'Covid' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
 
-  use_unimodules!(exclude: ['expo-splash-screen'])
+  use_unimodules!(exclude: ['expo-splash-screen', 'expo-location'])
 
   # use_flipper!
   post_install do |installer|
