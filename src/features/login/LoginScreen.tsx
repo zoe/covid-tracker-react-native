@@ -1,7 +1,7 @@
+import React, { useRef, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Input, Item, Label, Toast } from 'native-base';
-import React, { Component } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -14,23 +14,23 @@ import {
 import { connect } from 'react-redux';
 
 import { colors } from '@theme';
+import { useInjection } from '@covid/provider/services.hooks';
 import i18n from '@covid/locale/i18n';
 import { IUserService } from '@covid/core/user/UserService';
 import { UserNotFoundException } from '@covid/core/Exception';
 import Analytics from '@covid/core/Analytics';
 import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@covid/components/Text';
 import { Services } from '@covid/provider/services.types';
-import { lazyInject } from '@covid/provider/services';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { setUsername } from '@covid/core/state/user';
 
 import { ScreenParamList } from '../ScreenParamList';
 
-type PropsType = {
+interface IProps {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
   route: RouteProp<ScreenParamList, 'Login'>;
   setUsername: (username: string) => void;
-};
+}
 
 type StateType = {
   errorMessage: string;
@@ -40,29 +40,19 @@ type StateType = {
   user: string;
 };
 
-const initialState: StateType = {
-  errorMessage: '',
-  hasErrors: false,
-  isValid: false,
-  pass: '',
-  user: '',
-};
+function LoginScreen({ route, setUsername }: IProps) {
+  const userService = useInjection<IUserService>(Services.User);
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
+  const [hasErrors, setHasErrors] = useState(false);
+  const [isValid, setIsValidState] = useState(false);
+  const passwordInput = useRef(null);
 
-class LoginScreen extends Component<PropsType, StateType> {
-  @lazyInject(Services.User)
-  private readonly userService: IUserService;
-  private passwordField: Input | null;
+  const handleLogin = () => {
+    // this.setState({ isValid: false });
 
-  constructor(props: PropsType) {
-    super(props);
-    this.state = initialState;
-    this.handleLogin = this.handleLogin.bind(this);
-  }
-
-  handleLogin() {
-    this.setState({ isValid: false });
-    this.userService
-      .login(this.state.user.trim(), this.state.pass)
+    userService
+      .login(user.trim(), pass)
       .then((response) => {
         const isTester = response.user.is_tester;
         Analytics.identify({ isTester });
@@ -70,13 +60,13 @@ class LoginScreen extends Component<PropsType, StateType> {
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
 
-        this.props.setUsername(response.user.username);
+        setUsername(response.user.username);
 
         appCoordinator
           .setPatientById(patientId)
           .then(() => appCoordinator.fetchInitialData())
           .then(() => {
-            appCoordinator.gotoNextScreen(this.props.route.name);
+            appCoordinator.gotoNextScreen(route.name);
           });
       })
       .catch((error) => {
@@ -86,89 +76,76 @@ class LoginScreen extends Component<PropsType, StateType> {
         } else {
           errorMessage = i18n.t('login.exception');
         }
-        this.setState({ errorMessage, hasErrors: true });
+        // setErrorMessage(errorMessage);
+        setHasErrors(true);
+        Toast.show({ text: errorMessage, duration: 2500 });
       });
-  }
+  };
 
-  setIsValid(user: string, pass: string) {
+  const setIsValid = (user: string, pass: string) => {
     const isValid = user.length > 0 && pass.length > 0;
-    this.setState({ isValid });
-    this.setState({ hasErrors: false });
-  }
+    setIsValidState(isValid);
+    setHasErrors(false);
+  };
 
-  render() {
-    if (this.state.hasErrors) {
-      Toast.show({
-        text: this.state.errorMessage,
-        duration: 2500,
-      });
-    }
-    return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <View>
-            <HeaderLightText style={styles.titleText}>{i18n.t('login.title')}</HeaderLightText>
-            <View style={styles.formItem}>
-              <Item style={styles.labelPos} floatingLabel error={this.state.hasErrors}>
-                <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
-                <Input
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  returnKeyType="next"
-                  autoCompleteType="email"
-                  onChangeText={(username) => {
-                    this.setState({ user: username });
-                    this.setIsValid(username, this.state.pass);
-                  }}
-                  onSubmitEditing={() => {
-                    // This complains (but still works) due to issue with Native Base: https://github.com/GeekyAnts/NativeBase/issues/1803 so we force ignore.
-                    // @ts-ignore
-                    this.passwordField._root.focus();
-                  }}
-                  blurOnSubmit={false}
-                />
-              </Item>
-            </View>
-            <View style={styles.formItem}>
-              <Item style={styles.labelPos} floatingLabel error={this.state.hasErrors}>
-                <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
-                <Input
-                  secureTextEntry
-                  returnKeyType="go"
-                  onChangeText={(password) => {
-                    this.setState({ pass: password });
-                    this.setIsValid(this.state.user, password);
-                  }}
-                  getRef={(inputField) => {
-                    this.passwordField = inputField;
-                  }}
-                  onSubmitEditing={this.handleLogin}
-                />
-              </Item>
-            </View>
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView style={styles.rootContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <View>
+          <HeaderLightText style={styles.titleText}>{i18n.t('login.title')}</HeaderLightText>
+          <View style={styles.formItem}>
+            <Item style={styles.labelPos} floatingLabel error={hasErrors}>
+              <Label style={styles.labelStyle}>{i18n.t('login.email-label')}</Label>
+              <Input
+                keyboardType="email-address"
+                autoCapitalize="none"
+                returnKeyType="next"
+                autoCompleteType="email"
+                onChangeText={(username) => {
+                  setUser(username);
+                  setIsValid(username, pass);
+                }}
+                blurOnSubmit={false}
+              />
+            </Item>
           </View>
-          <View>
-            <BrandedButton onPress={this.handleLogin} hideLoading enable={this.state.isValid}>
-              <Text>{i18n.t('login.button')}</Text>
-            </BrandedButton>
-            <View style={styles.bottomTextView}>
-              <RegularText>{i18n.t('login.dont-have-account')}</RegularText>
-              <RegularText> </RegularText>
-              <ClickableText onPress={() => appCoordinator.goToPreRegisterScreens()}>
-                {i18n.t('login.create-account')}
-              </ClickableText>
-            </View>
+          <View style={styles.formItem}>
+            <Item style={styles.labelPos} floatingLabel error={hasErrors}>
+              <Label style={styles.labelStyle}>{i18n.t('login.password-label')}</Label>
+              <Input
+                secureTextEntry
+                returnKeyType="go"
+                onChangeText={(password) => {
+                  setPass(password);
+                  setIsValid(user, password);
+                }}
+                onSubmitEditing={handleLogin}
+                ref={passwordInput}
+              />
+            </Item>
+          </View>
+        </View>
+        <View>
+          <BrandedButton onPress={handleLogin} hideLoading enable={isValid}>
+            <Text>{i18n.t('login.button')}</Text>
+          </BrandedButton>
+          <View style={styles.bottomTextView}>
+            <RegularText>{i18n.t('login.dont-have-account')}</RegularText>
+            <RegularText> </RegularText>
+            <ClickableText onPress={() => appCoordinator.goToPreRegisterScreens()}>
+              {i18n.t('login.create-account')}
+            </ClickableText>
+          </View>
 
-            <View style={styles.bottomTextView2}>
-              <ClickableText onPress={() => appCoordinator.goToResetPassword()}>
-                {i18n.t('login.forgot-your-password')}
-              </ClickableText>
-            </View>
+          <View style={styles.bottomTextView2}>
+            <ClickableText onPress={() => appCoordinator.goToResetPassword()}>
+              {i18n.t('login.forgot-your-password')}
+            </ClickableText>
           </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    );
-  }
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
+  );
 }
 
 const styles = StyleSheet.create({
