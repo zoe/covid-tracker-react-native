@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 import RNSplashScreen from 'react-native-splash-screen';
 import { RouteProp } from '@react-navigation/native';
 
@@ -12,6 +13,7 @@ import { offlineService } from '@covid/Services';
 import { IUserService } from '@covid/core/user/UserService';
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
+import { setUsername } from '@covid/core/state/user';
 
 import appCoordinator from './AppCoordinator';
 import { ScreenParamList } from './ScreenParamList';
@@ -19,6 +21,7 @@ import { ScreenParamList } from './ScreenParamList';
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'Splash'>;
   route: RouteProp<ScreenParamList, 'Splash'>;
+  setUsername: (username: string) => void;
 };
 
 type SplashState = {
@@ -39,7 +42,7 @@ const initialState = {
   isRetryEnabled: false,
 };
 
-export class SplashScreen extends Component<Props, SplashState> {
+class SplashScreen extends Component<Props, SplashState> {
   @lazyInject(Services.User)
   userService: IUserService;
 
@@ -61,7 +64,7 @@ export class SplashScreen extends Component<Props, SplashState> {
   }
 
   async initAppState() {
-    await appCoordinator.init();
+    await appCoordinator.init(this.props.setUsername);
     RNSplashScreen.hide();
     appCoordinator.gotoNextScreen(this.props.route.name);
   }
@@ -116,3 +119,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.predict,
   },
 });
+
+const mapDispatchToProps = {
+  setUsername,
+};
+
+export default connect(null, mapDispatchToProps)(SplashScreen);

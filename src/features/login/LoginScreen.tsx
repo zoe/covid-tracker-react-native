@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import { colors } from '@theme';
 import i18n from '@covid/locale/i18n';
@@ -21,12 +22,14 @@ import { BrandedButton, ClickableText, HeaderLightText, RegularText } from '@cov
 import { Services } from '@covid/provider/services.types';
 import { lazyInject } from '@covid/provider/services';
 import appCoordinator from '@covid/features/AppCoordinator';
+import { setUsername } from '@covid/core/state/user';
 
 import { ScreenParamList } from '../ScreenParamList';
 
 type PropsType = {
   navigation: StackNavigationProp<ScreenParamList, 'Login'>;
   route: RouteProp<ScreenParamList, 'Login'>;
+  setUsername: (username: string) => void;
 };
 
 type StateType = {
@@ -45,7 +48,7 @@ const initialState: StateType = {
   user: '',
 };
 
-export class LoginScreen extends Component<PropsType, StateType> {
+class LoginScreen extends Component<PropsType, StateType> {
   @lazyInject(Services.User)
   private readonly userService: IUserService;
   private passwordField: Input | null;
@@ -66,6 +69,9 @@ export class LoginScreen extends Component<PropsType, StateType> {
 
         // TODO: Support multiple users.
         const patientId = response.user.patients[0];
+
+        this.props.setUsername(response.user.username);
+
         appCoordinator
           .setPatientById(patientId)
           .then(() => appCoordinator.fetchInitialData())
@@ -208,3 +214,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundPrimary,
   },
 });
+
+const mapDispatchToProps = {
+  setUsername,
+};
+
+export default connect(null, mapDispatchToProps)(LoginScreen);
