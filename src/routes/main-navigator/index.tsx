@@ -62,7 +62,6 @@ import {
   TrendlineScreen,
   VaccineDoseSymptomsScreen,
   VaccineListScreen,
-  VaccineThankYouScreen,
   VaccineRegistryInfoScreen,
   AboutYourVaccineScreen,
   VaccineLogSymptomsInfoScreen,
@@ -167,7 +166,6 @@ function MainNavigator() {
       <Stack.Screen name="ConfirmSchool" component={ConfirmSchoolScreen} options={noHeader} />
       <Stack.Screen name="JoinHigherEducation" component={JoinHigherEducationScreen} options={noHeader} />
       <Stack.Screen name="VaccineDoseSymptoms" component={VaccineDoseSymptomsScreen} options={noHeader} />
-      <Stack.Screen name="VaccineThankYou" component={VaccineThankYouScreen} options={noHeader} />
       <Stack.Screen name="VaccineHesitancy" component={VaccineHesitancyScreen} options={noHeader} />
       <Stack.Screen name="VaccineList" component={VaccineListScreen} options={noHeader} />
       <Stack.Screen name="AboutYourVaccine" component={AboutYourVaccineScreen} options={noHeader} />
