@@ -54,7 +54,7 @@ describe('FeaturedContentList tests', () => {
       // Test rendering
       const instance = renderer.create(
         <Provider store={testContentStore}>
-          <FeaturedContentList type={FeaturedContentType.Home} screenName="Screen name" />
+          <FeaturedContentList type={FeaturedContentType.Home} screenName="Screen name" disableLoadingState />
         </Provider>
       );
 
