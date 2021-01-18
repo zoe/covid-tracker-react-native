@@ -22,7 +22,7 @@ Sentry.init({
   dsn: env.SENTRY_DSN_URL,
   enableInExpoDevelopment: false,
   debug: false,
-  enableAutoSessionTracking: true,
+  enableAutoSessionTracking: false,
   environment: env.NAME,
 });
 
