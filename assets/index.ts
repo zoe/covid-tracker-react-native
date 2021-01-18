@@ -101,8 +101,8 @@ export const dietStudyPlaybackReady = require('./diet-playback-ready.png');
 export { default as ShareIcon } from './icons/Share';
 
 // Vaccination example sheets
-export const vaccinationnExampleUK = require('./vaccines/vaccine-demo-uk.png');
-export const vaccinationnExampleUS = require('./vaccines/vaccine-demo-us.png');
+export const vaccinationExampleUK = require('./vaccines/vaccine-demo-uk.png');
+export const vaccinationExampleUS = require('./vaccines/vaccine-demo-us.png');
 
 //
 export * from './icons/stats';
