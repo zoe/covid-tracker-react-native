@@ -12,6 +12,8 @@ import { fetchFeaturedContent } from '@covid/core/content/state/contentSlice';
 import { FeaturedContentList, FeaturedContentType } from '@covid/components/Content/FeaturedContentList';
 import FeaturedContentJson from '@covid/components/Content/__mock__/featured-content.json';
 
+jest.useFakeTimers();
+
 // Mock Redux store
 const mockReduxStore = (state: any) => {
   const middlewares = [thunk];
