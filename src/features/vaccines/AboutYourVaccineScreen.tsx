@@ -1,8 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
-import key from 'weak-key';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
@@ -13,11 +12,10 @@ import { BrandedButton, ErrorText, HeaderText, RegularText } from '@covid/compon
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { Dose, VaccineBrands, VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDateData, VaccineDateQuestion } from '@covid/features/vaccines/fields/VaccineDateQuestion';
 import { VaccineNameData, VaccineNameQuestion } from '@covid/features/vaccines/fields/VaccineNameQuestion';
-import { VaccineBatchData, VaccineBatchQuestion } from '@covid/features/vaccines/fields/VaccineBatchQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
@@ -30,12 +28,12 @@ type Props = {
   route: RouteProp<ScreenParamList, 'AboutYourVaccine'>;
 };
 
-interface AboutYourVaccineData extends VaccineDateData, VaccineNameData, VaccineBatchData {}
+interface AboutYourVaccineData extends VaccineDateData, VaccineNameData {}
 
 export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const { assessmentData, editIndex } = route.params;
   const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
@@ -117,14 +115,6 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
 
               <View style={{ marginHorizontal: 16 }}>
                 <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>} editIndex={editIndex} />
-                <ErrorText>{errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
-                )}
-              </View>
-
-              <View style={{ marginHorizontal: 16 }}>
-                <VaccineBatchQuestion formikProps={props as FormikProps<VaccineBatchData>} editIndex={editIndex} />
                 <ErrorText>{errorMessage}</ErrorText>
                 {!!Object.keys(props.errors).length && props.submitCount > 0 && (
                   <ValidationError error={i18n.t('validation-error-text')} />

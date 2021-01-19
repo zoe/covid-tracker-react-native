@@ -7,16 +7,19 @@ import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { Header3Text, RegularText, SecondaryText } from '@covid/components/Text';
+import { Header3Text, RegularText, SecondaryText, ErrorText } from '@covid/components/Text';
 import { colors } from '@theme';
 import YesNoField from '@covid/components/YesNoField';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { CalendarIcon } from '@assets';
+import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 
 export interface VaccineDateData {
   firstDoseDate: Date | undefined;
   secondDoseDate: Date | undefined;
   hadSecondDose: string;
+  firstBatchNumber: string | undefined;
+  secondBatchNumber: string | undefined;
 }
 
 interface Props {
@@ -31,11 +34,10 @@ export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
 
 export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = (props: Props) => {
   const { formikProps, editIndex } = props;
-
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
-
   const [showFirstPicker, setShowFirstPicker] = useState(false);
   const [showSecondPicker, setShowSecondPicker] = useState(false);
+  const [errorMessage] = useState<string>('');
 
   function convertToDate(selectedDate: Moment) {
     const offset = selectedDate.utcOffset();
@@ -82,9 +84,20 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
         </View>
       )}
 
+      <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
+      <ValidatedTextInput
+        placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
+        value={props.formikProps.values.firstBatchNumber}
+        onChangeText={props.formikProps.handleChange('firstBatchNumber')}
+        onBlur={props.formikProps.handleBlur('firstBatchNumber')}
+        error={props.formikProps.touched.firstBatchNumber && props.formikProps.errors.firstBatchNumber}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+      />
+
       {(editIndex === undefined || editIndex === 1) && (
         <>
-          <Header3Text style={{ marginTop: 24, marginBottom: 8 }}>
+          <Header3Text style={{ marginTop: 32, marginBottom: 8 }}>
             {i18n.t('vaccines.your-vaccine.second-dose')}
           </Header3Text>
           <YesNoField
@@ -123,6 +136,19 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
                   )}
                 </TouchableOpacity>
               )}
+
+              <View style={{ marginTop: 16, marginBottom: 16 }}>
+                <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
+                <ValidatedTextInput
+                  placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
+                  value={props.formikProps.values.secondBatchNumber}
+                  onChangeText={props.formikProps.handleChange('secondBatchNumber')}
+                  onBlur={props.formikProps.handleBlur('secondBatchNumber')}
+                  error={props.formikProps.touched.secondBatchNumber && props.formikProps.errors.secondBatchNumber}
+                  returnKeyType="next"
+                  onSubmitEditing={() => {}}
+                />
+              </View>
             </>
           )}
         </>
