@@ -27,7 +27,7 @@
     "storybook": "start-storybook",
     "clean:git": "git checkout develop && git pull && git fetch --all --prune && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done",
     "clear:metro": "rm -rf $TMPDIR/metro-*",
-    "reset": "watchman watch-del-all && rm package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install",
+    "reset": "watchman watch-del-all && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-*",
     "postinstall": "cd ios && pod install",
     "fastlane": "ENVFILE=.env bundle exec fastlane",
     "fastlane:ios:register": "bundle exec fastlane register && bundle exec fastlane match adhoc -a com.joinzoe.covid-zoe.qa --force_for_new_devices",
