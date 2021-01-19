@@ -66,15 +66,12 @@ export const handleServiceError = (error: ReceivedError) => {
       case STATUS_SERVER_ERROR:
         throw new RetryableApiException(error.message, error.response.status, 'errors.server-error');
       default:
-        console.log('[ERROR] Unhandled status:', error.response.status, ':', error.message);
         throw new ApiException(error.message, error.response.status);
     }
   } else if (error.message === NETWORK_ERROR) {
     throw new OfflineException(error.message);
   } else if (error.code && [CONNECTION_ABORTED, TIMED_OUT].includes(error.code)) {
     throw new OfflineException(error.message);
-  } else {
-    console.log('[ERROR] Unhandled error:', error.message);
   }
 
   // Rethrow error if we get here

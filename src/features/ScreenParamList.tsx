@@ -1,7 +1,6 @@
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
 import { AssessmentData } from '@covid/core/assessment/AssessmentCoordinator';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { DietStudyData } from '@covid/core/diet-study/DietStudyCoordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
 import { SchoolModel, SubscribedSchoolStats } from '@covid/core/schools/Schools.dto';
 
@@ -72,22 +71,21 @@ export type ScreenParamList = {
   GutStomachSymptoms: { assessmentData: AssessmentData };
   OtherSymptoms: { assessmentData: AssessmentData };
 
+  // Vaccines
+  VaccineDoseSymptoms: { assessmentData: AssessmentData; dose: string };
+  VaccineHesitancy: { assessmentData: AssessmentData };
+  VaccineList: { assessmentData: AssessmentData };
+  AboutYourVaccine: { assessmentData: AssessmentData; editIndex?: number };
+  VaccineLogSymptomsInfo: { assessmentData: AssessmentData };
+
+  // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };
   VaccineRegistryInfo: { currentPatient: PatientStateType };
 
-  // DietStudy
-  DietStudyIntro: { dietStudyData: DietStudyData };
-  DietStudyAboutYou: { dietStudyData: DietStudyData };
-  DietStudyThankYouBreak: { dietStudyData: DietStudyData };
-  DietStudyThankYou: { dietStudyData: DietStudyData };
-  DietStudyTypicalDiet: { dietStudyData: DietStudyData };
-  DietStudyYourLifestyle: { dietStudyData: DietStudyData };
-  DietStudyConsent: { dietStudyData: DietStudyData };
-
   // Completion screens
-  ThankYou: undefined;
+  ThankYouSE: undefined;
   ThankYouUK: undefined;
-  ViralThankYou: undefined;
+  ThankYouUS: undefined;
 
   ValidationStudyIntro: undefined;
   ValidationStudyInfo: undefined;
@@ -103,12 +101,19 @@ export type ScreenParamList = {
   SelectSchool: undefined;
   JoinSchool: { patientData: PatientData; higherEducation: boolean };
   JoinSchoolGroup: { patientData: PatientData; selectedSchool: SchoolModel };
-  CreateNetworkGroup: undefined;
   SchoolSuccess: undefined;
   SchoolGroupList: { patientData: PatientData; selectedSchool: SchoolModel };
   SchoolDashboard: { school: SubscribedSchoolStats };
   ConfirmSchool: { patientData: PatientData; school: SchoolModel };
   JoinHigherEducation: { patientData: PatientData };
+
+  DietStudyPlaybackIntro: undefined;
+  DietStudyPlaybackGlobal: undefined;
+  DietStudyPlaybackDietQuality: undefined;
+  DietStudyPlaybackYourDiet: undefined;
+  DietStudyPlaybackGutHealth: undefined;
+  DietStudyPlaybackYourGut: undefined;
+  DietStudyPlaybackResearch: undefined;
 
   //
   Modal: undefined;

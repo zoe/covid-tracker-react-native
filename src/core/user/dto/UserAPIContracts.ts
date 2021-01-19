@@ -61,7 +61,6 @@ export type UserResponse = {
   // TODO: WARNING If this is changed we need to invalidate the locally cached version
   pii: string;
   username: string;
-  authorizations: string[];
   patients: string[];
   ask_for_rating: boolean;
   is_tester: boolean;
@@ -255,7 +254,16 @@ export type PatientInfosRequest = {
   is_in_uk_nhs_asymptomatic_study: boolean;
 
   has_school_group: boolean;
+  should_ask_vaccine_questions: boolean;
+  vaccine_status: VaccineStatus;
 };
+
+export enum VaccineStatus {
+  DO_NOT_ASK = 'do_not_ask',
+  ASK_VACCINE_QUESTION = 'ask_about_vaccines',
+  ASK_DOSE_SYMPTOMS = 'ask_dose_symptoms',
+  HAS_VACCINES = 'has_vaccines',
+}
 
 export type TokenInfoRequest = {
   token: string;
@@ -295,6 +303,7 @@ export type StartupInfo = {
   show_new_dashboard: boolean;
   show_edit_location: boolean;
   show_trendline: boolean;
+  show_diet_score: boolean;
   local_data: {
     map_url: string;
     lad: string;
@@ -311,5 +320,4 @@ export type StartupInfo = {
 export type AskForStudies = {
   should_ask_uk_validation_study: boolean;
   should_ask_uk_vaccine_register: boolean;
-  should_ask_diet_study: boolean;
 };

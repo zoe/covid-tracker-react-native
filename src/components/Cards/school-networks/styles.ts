@@ -8,14 +8,13 @@ export const SContainerView = styled(View)`
   ${(props) => `
     background-color: white;
     border-radius: ${props.theme.grid.m}px;
-    padding: ${props.theme.grid.l}px ${props.theme.grid.xxl}px;
+    padding: ${props.theme.grid.xxl}px ${props.theme.grid.xxl}px 0 ${props.theme.grid.xxl}px;
   `}
 `;
 
 export const STitleText = styled(Text)`
   ${(props) => `
-    margin-bottom: ${props.theme.grid.s}px;
-    text-align: center;
+    margin-bottom: ${props.theme.grid.xxl}px;
   `}
 `;
 
@@ -40,8 +39,8 @@ export const SStatsContainerView = styled(View)<IStatsViewProps>`
   ${(props) => `
     border-color: ${props.theme.colors.ui.dark.bgColor};
     border-bottom-width: ${props.isLast ? 0 : 1}px;
-    margin-bottom: ${props.theme.grid.xxl}px;
-    padding-bottom: ${props.theme.grid.m}px;
+    margin-bottom: ${props.isLast ? 0 : props.theme.grid.xxl}px;
+    padding-bottom: ${props.isLast ? 0 : props.theme.grid.xxl}px;
   `}
 `;
 

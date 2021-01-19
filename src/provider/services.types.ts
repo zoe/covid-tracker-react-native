@@ -3,7 +3,7 @@ export const Services = {
   ContentApi: Symbol('ContentApi'),
   Content: Symbol('Content'),
   User: Symbol('User'),
-  DietStudy: Symbol('DietStudy'),
+  DietScore: Symbol('DietScore'),
   IncidenceHttpApi: Symbol('IncidenceHttpApi'),
   PredictiveMetricsClient: Symbol('IPredictiveMetricsClient'),
   Consent: Symbol('Consent'),
@@ -12,4 +12,6 @@ export const Services = {
   Patient: Symbol('Patient'),
   CovidTest: Symbol('CovidTest'),
   SchoolService: Symbol('SchoolService'),
+  Vaccine: Symbol('Vaccine'),
+  VaccineApiClient: Symbol('VaccineApiClient'),
 };

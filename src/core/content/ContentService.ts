@@ -5,12 +5,12 @@ import { AreaStatsResponse, StartupInfo } from '@covid/core/user/dto/UserAPICont
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import { isSECountry, isUSCountry, LocalisationService } from '@covid/core/localisation/LocalisationService';
 import i18n from '@covid/locale/i18n';
-import { AppScreenContent, ScreenContent } from '@covid/core/content/ScreenContentContracts';
+import { ScreenContent } from '@covid/core/content/ScreenContentContracts';
 import { Services } from '@covid/provider/services.types';
 import { camelizeKeys } from '@covid/core/api/utils';
 import { IContentApiClient } from '@covid/core/content/ContentApiClient';
 
-import { LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
+import { FeaturedContentResponse, LADSearchResponse, TrendLineResponse } from './dto/ContentAPIContracts';
 
 export interface IContentService {
   localData?: PersonalisedLocalData;
@@ -22,7 +22,9 @@ export interface IContentService {
   getStartupInfo(): Promise<StartupInfo | null>;
   getAreaStats(patientId: string): Promise<AreaStatsResponse>;
   getTrendLines(lad?: string): Promise<TrendLineResponse>;
+  getFeaturedContent(): Promise<FeaturedContentResponse>;
   searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse>;
+  signUpForDietNewsletter(signup: boolean): Promise<void>;
 }
 
 @injectable()
@@ -102,7 +104,15 @@ export default class ContentService implements IContentService {
     return this.apiClient.getTrendLines(lad);
   }
 
+  public async getFeaturedContent(): Promise<FeaturedContentResponse> {
+    return this.apiClient.getFeaturedContent();
+  }
+
   public searchLAD(query: string, page: number, size: number): Promise<LADSearchResponse> {
     return this.apiClient.searchLAD(query, page, size);
+  }
+
+  public signUpForDietNewsletter(signup: boolean): Promise<void> {
+    return this.apiClient.signUpForDietNewsletter(signup);
   }
 }

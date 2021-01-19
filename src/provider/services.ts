@@ -10,10 +10,11 @@ import { LocalisationService, ILocalisationService } from '@covid/core/localisat
 import { IPatientService, PatientService } from '@covid/core/patient/PatientService';
 import { IProfileService, ProfileService } from '@covid/core/profile/ProfileService';
 import CovidTestService, { ICovidTestService } from '@covid/core/user/CovidTestService';
-import { IDietStudyRemoteClient, DietStudyApiClient } from '@covid/core/diet-study/DietStudyApiClient';
 import { IPredictiveMetricsClient, PredictiveMetricsClient } from '@covid/core/content/PredictiveMetricsClient';
 import { Services } from '@covid/provider/services.types';
 import { ISchoolService, SchoolService } from '@covid/core/schools/SchoolService';
+import { IVaccineService, VaccineService } from '@covid/core/vaccine/VaccineService';
+import { IVaccineRemoteClient, VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
 
 export const container = new Container();
 
@@ -35,8 +36,6 @@ container.bind<IProfileService>(Services.Profile).to(ProfileService).inSingleton
 
 container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSingletonScope();
 
-container.bind<IDietStudyRemoteClient>(Services.DietStudy).to(DietStudyApiClient).inSingletonScope();
-
 // School
 container.bind<ISchoolService>(Services.SchoolService).to(SchoolService).inSingletonScope();
 
@@ -46,5 +45,12 @@ container
   .bind<IPredictiveMetricsClient>(Services.PredictiveMetricsClient)
   .to(PredictiveMetricsClient)
   .inSingletonScope();
+
+/**
+ * Vaccine services
+ */
+container.bind<IVaccineRemoteClient>(Services.VaccineApiClient).to(VaccineApiClient).inSingletonScope();
+
+container.bind<IVaccineService>(Services.Vaccine).to(VaccineService).inSingletonScope();
 
 export const { lazyInject } = getDecorators(container);

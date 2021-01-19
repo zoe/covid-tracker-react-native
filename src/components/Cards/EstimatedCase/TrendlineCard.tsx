@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { MutedText } from '@covid/components/Text';
 import { colors } from '@theme';
 import Analytics, { events } from '@covid/core/Analytics';
 import i18n from '@covid/locale/i18n';
 import { RootState } from '@covid/core/state/root';
 import { ITrendLineData } from '@covid/core/content/dto/ContentAPIContracts';
-import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '@covid/components/Stats/TrendLineChart';
-import Share from '@assets/icons/Share';
-import { Text } from '@covid/components';
 import ChevronRight from '@assets/icons/ChevronRight';
+
+import { TrendLineChart, TrendlineTimeFilters, TrendLineViewMode } from '../../Stats/TrendLineChart';
+import { Text } from '../../typography';
+import { ShareButton } from '../../Buttons';
 
 import { DeltaTag } from './DeltaTag';
 
@@ -41,7 +41,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
   return (
     <View style={styles.root}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
-        <Text textClass="h4Regular" rhythm={8}>
+        <Text textClass="h4" rhythm={8}>
           {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
         </Text>
         <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
@@ -66,7 +66,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             marginBottom: 12,
           }}>
           <View style={{ marginRight: 12 }}>
-            <Text textClass="h0Regular">{localTrendline?.today}</Text>
+            <Text textClass="h0">{localTrendline?.today}</Text>
           </View>
           <View style={{ width: '30%' }}>
             <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
@@ -88,7 +88,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
         </TouchableOpacity>
 
         {localTrendline?.delta && (
-          <View style={[styles.deltaTag, { marginBottom: isSharing ? 0 : 20 }]}>
+          <View style={[styles.deltaTag, { marginBottom: isSharing ? 24 : 0 }]}>
             <DeltaTag change={localTrendline.delta} />
           </View>
         )}
@@ -96,10 +96,12 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
 
       {!isSharing && (
         <>
-          <TouchableOpacity style={styles.shareTouchable} onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}>
-            <Share style={styles.shareIcon} />
-            <MutedText style={styles.shareLabel}>{i18n.t('dashboard.trendline-card.share-cta')}</MutedText>
-          </TouchableOpacity>
+          <View>
+            <ShareButton
+              label={i18n.t('dashboard.trendline-card.share-cta')}
+              onPress={() => navigate('Share', { sharable: 'TRENDLINE' })}
+            />
+          </View>
         </>
       )}
     </View>
@@ -110,17 +112,13 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.white,
     borderRadius: 16,
-    paddingBottom: 16,
-    paddingTop: 8,
     marginVertical: 8,
   },
 
   snapshotContainer: {
     paddingTop: 24,
-    paddingBottom: 16,
     paddingHorizontal: 16,
     borderRadius: 16,
-
     backgroundColor: colors.white,
     width: '100%',
     flexDirection: 'column',
@@ -149,7 +147,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginTop: 8,
-    marginBottom: 20,
     width: '100%',
   },
 
@@ -199,6 +196,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.purple,
     fontSize: 14,
-    fontWeight: '300',
   },
 });

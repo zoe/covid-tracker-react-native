@@ -3,11 +3,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ConfigType } from '@covid/core/Config';
 import { IUserService } from '@covid/core/user/UserService';
 import {
+  homeScreenName,
+  ILocalisationService,
   isGBCountry,
   isUSCountry,
-  ILocalisationService,
   LocalisationService,
-  homeScreenName,
 } from '@covid/core/localisation/LocalisationService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { assessmentService } from '@covid/Services';
@@ -17,9 +17,6 @@ import { ConsentService, IConsentService } from '@covid/core/consent/ConsentServ
 import { lazyInject } from '@covid/provider/services';
 import { IPatientService } from '@covid/core/patient/PatientService';
 import { IContentService } from '@covid/core/content/ContentService';
-import { IDietStudyRemoteClient } from '@covid/core/diet-study/DietStudyApiClient';
-import dietStudyCoordinator, { DietStudyConsent, LAST_4_WEEKS } from '@covid/core/diet-study/DietStudyCoordinator';
-import { AsyncStorageService } from '@covid/core/AsyncStorageService';
 import NavigatorService from '@covid/NavigatorService';
 import Analytics, { events } from '@covid/core/Analytics';
 import { Profile } from '@covid/components/Collections/ProfileList';
@@ -28,6 +25,7 @@ import editProfileCoordinator from '@covid/features/multi-profile/edit-profile/E
 import store from '@covid/core/state/store';
 import {
   fetchDismissedCallouts,
+  fetchFeaturedContent,
   fetchLocalTrendLine,
   FetchLocalTrendlinePayload,
   fetchStartUpInfo,
@@ -36,6 +34,8 @@ import {
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { UserResponse } from '@covid/core/user/dto/UserAPIContracts';
 import { Coordinator, EditableProfile, SelectProfile } from '@covid/core/Coordinator';
+import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/DietStudyPlaybackCoordinator';
+import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 
 type ScreenName = keyof ScreenParamList;
 type ScreenFlow = {
@@ -60,8 +60,8 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   @lazyInject(Services.Localisation)
   localisationService: ILocalisationService;
 
-  @lazyInject(Services.DietStudy)
-  dietStudyService: IDietStudyRemoteClient;
+  @lazyInject(Services.DietScore)
+  dietScoreService: IDietScoreRemoteClient;
 
   navigation: NavigationType;
   patientData: PatientData;
@@ -140,7 +140,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     },
   };
 
-  async init() {
+  async init(setUsername: (username: string) => void) {
     let user: UserResponse | null = null;
     let patientId: string | null = null;
 
@@ -150,6 +150,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
       user = await this.userService.getUser();
       this.thisUser = user;
       patientId = user?.patients[0] ?? null;
+      setUsername(user?.username ?? '');
     }
 
     if (patientId && user) {
@@ -168,6 +169,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   async fetchInitialData(): Promise<void> {
     await store.dispatch(fetchStartUpInfo());
     await store.dispatch(fetchDismissedCallouts());
+    await store.dispatch(fetchFeaturedContent());
     if (isGBCountry()) {
       await store.dispatch(fetchUKMetrics());
     }
@@ -192,14 +194,9 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     assessmentCoordinator.startAssessment();
   }
 
-  startDietStudyFlow(patientData: PatientData, startedFromMenu: boolean, timePeriod: string = LAST_4_WEEKS) {
-    dietStudyCoordinator.init(
-      this,
-      { patientData, timePeriod, startedFromMenu },
-      this.userService,
-      this.dietStudyService
-    );
-    dietStudyCoordinator.startDietStudy();
+  startDietStudyPlaybackFlow(patientData: PatientData) {
+    dietStudyPlaybackCoordinator.init(this, patientData, this.contentService, this.dietScoreService);
+    dietStudyPlaybackCoordinator.startDietStudyPlayback();
   }
 
   async startEditProfile(profile: Profile) {
@@ -215,28 +212,11 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     editProfileCoordinator.goToEditLocation();
   }
 
-  gotoNextScreen = (screenName: ScreenName) => {
-    if (Object.keys(this.screenFlow).includes(screenName)) {
-      (this.screenFlow as ScreenFlow)[screenName]();
-    } else {
-      // We don't have nextScreen logic for this page. Explain loudly.
-      console.error('[ROUTE] no next route found for:', screenName);
-    }
-  };
-
   async profileSelected(profile: Profile) {
     await this.setPatientByProfile(profile);
     if (isGBCountry() && !this.patientData.patientState.isReportedByAnother) {
       if (await this.consentService.shouldAskForValidationStudy(false)) {
         this.goToUKValidationStudy();
-      } else if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(this.patientData, false);
-      } else {
-        this.startAssessmentFlow(this.patientData);
-      }
-    } else if (isUSCountry() && !this.patientData.patientState.isReportedByAnother) {
-      if (await this.shouldShowDietStudyInvite()) {
-        this.startDietStudyFlow(this.patientData, false);
       } else {
         this.startAssessmentFlow(this.patientData);
       }
@@ -253,8 +233,8 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.patientData = await this.patientService.getPatientDataByProfile(profile);
   }
 
-  goToDietStart() {
-    this.startDietStudyFlow(this.patientData, true);
+  goToDietStudyPlayback() {
+    this.startDietStudyPlaybackFlow(this.patientData);
   }
 
   goToUKValidationStudy() {
@@ -289,22 +269,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     NavigatorService.navigate('SearchLAD');
   }
 
-  async shouldShowDietStudyInvite(): Promise<boolean> {
-    // Check local storage for a cached answer
-    const consent = await AsyncStorageService.getDietStudyConsent();
-    if (consent === DietStudyConsent.SKIP) return false;
-
-    // Check Server
-    return await this.consentService.shouldShowDietStudy();
-  }
-
-  async shouldShowStudiesMenu(): Promise<boolean> {
-    const consent = await AsyncStorageService.getDietStudyConsent();
-    return consent === DietStudyConsent.ACCEPTED || consent === DietStudyConsent.DEFER;
-  }
-
   async shouldShowTrendLine(): Promise<boolean> {
-    const user = await this.userService.getUser();
     const { startupInfo } = store.getState().content;
 
     // Check feature flag (BE should check does user have LAD, is missing LAD will return false)

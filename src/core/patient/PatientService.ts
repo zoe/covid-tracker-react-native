@@ -3,14 +3,14 @@ import { inject, injectable } from 'inversify';
 import i18n from '@covid/locale/i18n';
 import { Services } from '@covid/provider/services.types';
 import { DEFAULT_PROFILE } from '@covid/utils/avatar';
-import { isUSCountry, isGBCountry } from '@covid/core/localisation/LocalisationService';
-import { PatientInfosRequest } from '@covid/core/user/dto/UserAPIContracts';
+import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
+import { PatientInfosRequest, VaccineStatus } from '@covid/core/user/dto/UserAPIContracts';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import { ApiClientBase } from '@covid/core/api/ApiClientBase';
 import { handleServiceError } from '@covid/core/api/ApiServiceErrors';
 import appConfig from '@covid/appConfig';
 import { Profile } from '@covid/components/Collections/ProfileList';
-import { PatientStateType, getInitialPatientState, isMinorAge } from '@covid/core/patient/PatientState';
+import { getInitialPatientState, isMinorAge, PatientStateType } from '@covid/core/patient/PatientState';
 import { PatientData } from '@covid/core/patient/PatientData';
 
 export interface IPatientService {
@@ -21,6 +21,7 @@ export interface IPatientService {
   setUSStudyInviteResponse(patientId: string, response: boolean): void;
   getPatientDataById(patientId: string): Promise<PatientData>;
   getPatientDataByProfile(profile: Profile): Promise<PatientData>;
+  updatePatientState(patientState: PatientStateType, patient: PatientInfosRequest): Promise<PatientStateType>;
 }
 
 @injectable()
@@ -112,7 +113,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     return null;
   }
 
-  private async updatePatientState(
+  public async updatePatientState(
     patientState: PatientStateType,
     patient: PatientInfosRequest
   ): Promise<PatientStateType> {
@@ -160,7 +161,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const hasBloodGroupAnswer = patient.blood_group != null;
     const isNHSStudy = patient.is_in_uk_nhs_asymptomatic_study;
     const hasSchoolGroup = patient.has_school_group;
-
+    const shouldShowVaccineList = patient.vaccine_status !== VaccineStatus.DO_NOT_ASK;
     const isMinor = isMinorAge(patient.year_of_birth);
 
     return {
@@ -185,6 +186,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       isNHSStudy,
       hasSchoolGroup,
       isMinor,
+      shouldShowVaccineList,
     };
   }
 

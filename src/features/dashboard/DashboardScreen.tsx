@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3, webinarInvite } from '@assets';
+import { shareAppV3 } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -21,10 +21,11 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { SchoolNetworks } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
+import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -35,9 +36,10 @@ interface Props {
 }
 
 export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
+  const app = useSelector(selectApp);
   const dispatch = useAppDispatch();
   const networks = useSelector<RootState, Optional<SubscribedSchoolGroupStats[]>>(
-    (state) => state.school.joinedSchoolNetworks
+    (state) => state.school.joinedSchoolGroups
   );
 
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
@@ -82,6 +84,12 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    if (!app.dashboardVisited) {
+      dispatch(setDasboardVisited(true));
+    }
+  }, []);
+
   const hasNetworkData = networks && networks.length > 0;
 
   return (
@@ -91,13 +99,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-        <ExternalCallout
-          link="https://us02web.zoom.us/webinar/register/4716069965500/WN_0FyYubk1SMGe58xH2Ee9cw"
-          calloutID="webinar_invite_dec_09"
-          imageSource={webinarInvite}
-          aspectRatio={1.079}
-          screenName={route.name}
-        />
+        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
         {hasNetworkData && (
           <View
@@ -113,7 +115,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         <EstimatedCasesMapCard />
 
         <UKEstimatedCaseCard onPress={onMoreDetails} />
-
 
         <ExternalCallout
           calloutID="sharev3"

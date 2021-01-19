@@ -6,7 +6,7 @@ import i18n from '@covid/locale/i18n';
 import DropdownField from '@covid/components/DropdownField';
 import { GenericTextField } from '@covid/components/GenericTextField';
 import { CovidTest } from '@covid/core/user/dto/CovidTestContracts';
-import { fingerPrick, noseSwab, otherTest, spit, syringe } from '@assets';
+import { fingerPrickX3, otherTestX3, spitX3, syringeX3, noseSwabX3 } from '@assets';
 import { CovidTestMechanismOptions, CovidTestTrainedWorkerOptions } from '@covid/core/user/dto/UserAPIContracts';
 
 export interface CovidTestMechanismData {
@@ -59,7 +59,7 @@ export const CovidTestMechanismQuestion: CovidTestMechanismQuestion<Props, Covid
   ];
   let mechanismItemIcons = undefined;
   if (!test || (test && !noIcons.includes(test.mechanism))) {
-    mechanismItemIcons = [noseSwab, spit, fingerPrick, syringe, otherTest];
+    mechanismItemIcons = [noseSwabX3, spitX3, fingerPrickX3, syringeX3, otherTestX3];
   }
 
   return (

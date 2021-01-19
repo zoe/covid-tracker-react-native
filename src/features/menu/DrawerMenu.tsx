@@ -2,6 +2,7 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { useEffect, useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
 
 import { closeIcon } from '@assets';
 import i18n from '@covid/locale/i18n';
@@ -10,7 +11,7 @@ import { CaptionText } from '@covid/components/Text';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import appCoordinator from '@covid/features/AppCoordinator';
-import { MyStudyIcon, ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
+import { ShareIcon, VaccineRegistryIcon } from '@assets/icons/navigation';
 import { MenuItem } from '@covid/features/menu/DrawerMenuItem';
 import { useLogout } from '@covid/features/menu/Logout.hooks';
 import { LinksSection } from '@covid/features/menu/LinksSection';
@@ -19,6 +20,7 @@ import { share } from '@covid/components/Cards/BaseShareApp';
 import EditProfilesIcon from '@assets/icons/navigation/EditProfilesIcon';
 import NavigatorService from '@covid/NavigatorService';
 import { useConstants } from '@covid/utils/hooks';
+import { selectUser } from '@covid/core/state/user';
 
 const Constants = useConstants();
 
@@ -27,44 +29,26 @@ const isDevChannel = () => {
 };
 
 export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
+  const user = useSelector(selectUser);
   const userService = useInjection<IUserService>(Services.User);
   const consentService = useInjection<IConsentService>(Services.Consent);
 
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [showDietStudy, setShowDietStudy] = useState<boolean>(false);
   const [showVaccineRegistry, setShowVaccineRegistry] = useState<boolean>(false);
   const { logout } = useLogout(props.navigation);
 
   useEffect(() => {
-    if (userEmail !== '') return;
-    fetchEmail();
+    if (user.username !== '') return;
     fetchStudyStatus();
-  }, [userService.hasUser, setUserEmail]);
-
-  const fetchEmail = async () => {
-    try {
-      // TODO - Save a server hit and stash this in async storage
-      const profile = await userService.getUser();
-      setUserEmail(profile?.username ?? '');
-    } catch (_) {
-      setUserEmail('');
-    }
-  };
+  }, [userService.hasUser]);
 
   const fetchStudyStatus = async () => {
     try {
       const data = await consentService.getStudyStatus();
       setShowVaccineRegistry(data.should_ask_uk_vaccine_register);
-      setShowDietStudy(data.should_ask_diet_study);
     } catch (_) {
       setShowVaccineRegistry(false);
-      setShowDietStudy(false);
     }
   };
-
-  function openDietStudy() {
-    appCoordinator.goToDietStart();
-  }
 
   return (
     <SafeAreaView style={styles.drawerRoot}>
@@ -79,16 +63,6 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
             <Image style={styles.closeIcon} source={closeIcon} />
           </TouchableOpacity>
         </View>
-
-        {showDietStudy && (
-          <MenuItem
-            image={<MyStudyIcon />}
-            label={i18n.t('diet-study.drawer-menu-item')}
-            onPress={() => {
-              openDietStudy();
-            }}
-          />
-        )}
 
         <MenuItem
           image={<EditProfilesIcon />}
@@ -119,15 +93,15 @@ export const DrawerMenu: React.FC<DrawerContentComponentProps> = (props) => {
 
         <LinksSection navigation={props.navigation} />
 
-        <View style={{ flex: 1 }} />
-        <MenuItem
-          label={i18n.t('logout')}
-          smallLabel={userEmail}
-          onPress={() => {
-            setUserEmail('');
-            logout();
-          }}
-        />
+        <View style={{ marginBottom: 24, paddingBottom: 24 }}>
+          <MenuItem
+            label={i18n.t('logout')}
+            smallLabel={user.username}
+            onPress={() => {
+              logout();
+            }}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

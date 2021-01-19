@@ -7,7 +7,7 @@ export default {
   assessmentVersion: '2.1.0',
   patientVersion: '1.6.0',
   covidTestVersion: '1.2.0',
-  dietStudyVersion: '1.0.0',
+  vaccineVersion: '1.0.0',
 
   nursesConsentVersionUS: 'v2',
   consentVersionUS: 'v1',
@@ -23,5 +23,4 @@ export default {
 
   vaccineRegistryVersion: 'v1',
   vaccineRegistryAdVersion: 'v2',
-  dietStudyBeyondCovidConsentVersion: 'v1',
 };

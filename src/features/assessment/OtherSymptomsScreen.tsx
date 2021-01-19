@@ -24,8 +24,8 @@ type Props = {
 export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (formData: OtherSymptomsData) => {
-    await assessmentService.saveAssessment(OtherSymptomsQuestions.createAssessment(formData));
+  const handleSubmit = (formData: OtherSymptomsData) => {
+    assessmentService.saveAssessment(OtherSymptomsQuestions.createAssessment(formData));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 
@@ -57,7 +57,10 @@ export const OtherSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ flex: 1 }} />
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                <BrandedButton
+                  onPress={props.handleSubmit}
+                  hideLoading={!props.isSubmitting}
+                  enable={!props.isSubmitting}>
                   {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>

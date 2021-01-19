@@ -20,7 +20,6 @@ interface IProps {
   linkLabel?: string;
   organisation?: string;
   currentJoinedGroup: SubscribedSchoolGroupStats;
-  previouslyJoinedGroups: SubscribedSchoolGroupStats[] | undefined;
   currentPatient: PatientStateType;
   removeText: string;
   hasBubbles?: boolean;
@@ -33,7 +32,6 @@ function SelectedSchool({
   linkLabel = '',
   organisation = '',
   currentJoinedGroup,
-  previouslyJoinedGroups,
   currentPatient,
   removeText,
   hasBubbles = false,
@@ -41,7 +39,7 @@ function SelectedSchool({
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handleOnRemove = (schoolId: string) => {
-    schoolNetworkCoordinator.removePatientFromGroupList(previouslyJoinedGroups!, schoolId, currentPatient.patientId);
+    schoolNetworkCoordinator.removePatientFromSchool(schoolId, currentPatient.patientId);
     setModalVisible(false);
     schoolNetworkCoordinator.closeFlow();
   };

@@ -21,7 +21,7 @@ export const STouchableOpacity = styled(TouchableOpacity)<SProps>`
     border-color: ${
       props.outline && !props.simple ? props.theme.colors[props.colorPalette][props.colorShade].bgColor : 'transparent'
     };
-    border-radius: ${props.theme.grid.xl};
+    border-radius: ${props.theme.grid.xl}px;
     justify-content: center;
     margin-bottom: ${props.rhythm}px;
     padding: ${props.theme.grid.s}px ${props.theme.grid.l}px;

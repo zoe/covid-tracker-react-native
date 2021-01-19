@@ -27,10 +27,15 @@ export const usFlag = require('./icons/us-flag.png');
 
 // Mechanism Icons
 export const fingerPrick = require('./mechanism-icons/fingerPrick.png');
+export const fingerPrickX3 = require('./mechanism-icons/fingerPrickX3.png');
 export const noseSwab = require('./mechanism-icons/noseSwab.png');
+export const noseSwabX3 = require('./mechanism-icons/noseSwabX3.png');
 export const otherTest = require('./mechanism-icons/other.png');
+export const otherTestX3 = require('./mechanism-icons/otherX3.png');
 export const spit = require('./mechanism-icons/spit.png');
+export const spitX3 = require('./mechanism-icons/spitX3.png');
 export const syringe = require('./mechanism-icons/syringe.png');
+export const syringeX3 = require('./mechanism-icons/syringeX3.png');
 
 // Logos
 export const gbPartners = require('./logos/gb_partners.png');
@@ -66,17 +71,11 @@ export const NUMBER_OF_PROFILE_AVATARS = 10;
 export const notificationReminders = require('./thank-you-modules/notification_reminders.png');
 export const notificationRemindersSE = require('./thank-you-modules/notification_reminders_se.png');
 export const dataPage003 = require('./thank-you-modules/data_page_003.png');
-export const blog023 = require('./thank-you-modules/blog_023.png');
-export const blog024 = require('./thank-you-modules/blog_024.png');
 export const incidence011 = require('./thank-you-modules/incidence_011.png');
-export const timUpdate021 = require('./thank-you-modules/tim_update_021.png');
 export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
-export const shareAppV2 = require('./thank-you-modules/shareApp_v2.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
-export const donate = require('./thank-you-modules/donate.png');
-export const webinarInvite = require('./thank-you-modules/webinar_invite.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');
@@ -86,9 +85,17 @@ export const blobs = require('./blobs.png');
 export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 
 // Avatar
-export const sarahBerryAvatar = require('./sarah_berry_avatar.png');
-export const chrisGardnerAvatar = require('./chris_gardner_avatar.png');
 export const cartoMapHtml = require('./carto/estimated-cases.html');
+export const doctorsAvatars = require('./doctors-avatars.png');
+
+export const dietStudyPlaybackGlobal1 = require('./global-stats-1.png');
+export const dietStudyPlaybackGlobal2 = require('./global-stats-2.png');
+export const dietStudyPlaybackGlobal3 = require('./global-stats-3.png');
+export const dietStudyPlaybackFoodHeader = require('./diet-playback-food-banner.png');
+export const dietStudyPlaybackGutHeader = require('./diet-playback-gut-banner.png');
+export const dietStudyPlaybackGutDiagram = require('./gut-diagram.png');
+export const fallingFoodBackground = require('./backgrounds/falling-food.png');
+export const dietStudyPlaybackReady = require('./diet-playback-ready.png');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';

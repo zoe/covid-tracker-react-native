@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-import { blog023, blog024, dataPage003, notificationReminders, timUpdate021 } from '@assets';
+import { notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -20,6 +20,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
+import { FeaturedContentList, FeaturedContentType } from '@covid/components';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -70,39 +71,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
 
-              <ExternalCallout
-                link="https://covid.joinzoe.com/your-contribution?utm_source=App"
-                calloutID="data_page_003"
-                imageSource={dataPage003}
-                aspectRatio={1.55}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/vitamins-reduce-covid-risk?utm_source=App"
-                calloutID="blog_023"
-                imageSource={blog023}
-                aspectRatio={1.555}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://covid.joinzoe.com/post/covid-vaccines-expert-questions?utm_source=App"
-                calloutID="blog_024"
-                imageSource={blog024}
-                aspectRatio={1.555}
-                screenName={this.props.route.name}
-              />
-
-              <ExternalCallout
-                link="https://www.youtube.com/watch?v=AGH8nInkA14"
-                calloutID="tim_update_021"
-                imageSource={timUpdate021}
-                aspectRatio={1.21}
-                screenName={this.props.route.name}
-              />
-
-              {/*<RegularText style={styles.dateLabel}>Oct 29, 2020</RegularText>*/}
+              <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 
               {this.state.shouldShowReminders && (
                 <ExternalCallout
@@ -167,7 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundSecondary,
   },
   rootContainer: {
-    alignSelf: 'center',
     maxWidth: 500,
     padding: 18,
   },

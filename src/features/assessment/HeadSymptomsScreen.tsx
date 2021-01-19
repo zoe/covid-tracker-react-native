@@ -24,8 +24,8 @@ type Props = {
 export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (formData: HeadSymptomsData) => {
-    await assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
+  const handleSubmit = (formData: HeadSymptomsData) => {
+    assessmentService.saveAssessment(HeadSymptomsQuestions.createAssessment(formData));
     assessmentCoordinator.gotoNextScreen(route.name);
   };
 
@@ -56,7 +56,10 @@ export const HeadSymptomsScreen: React.FC<Props> = ({ route, navigation }) => {
                   <HeadSymptomsQuestions formikProps={props} />
                 </View>
                 <View style={{ flex: 1 }} />
-                <BrandedButton onPress={props.handleSubmit} hideLoading={!props.isSubmitting}>
+                <BrandedButton
+                  onPress={props.handleSubmit}
+                  hideLoading={!props.isSubmitting}
+                  enable={!props.isSubmitting}>
                   {i18n.t('describe-symptoms.next')}
                 </BrandedButton>
               </Form>
