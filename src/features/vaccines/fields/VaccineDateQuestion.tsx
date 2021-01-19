@@ -7,24 +7,29 @@ import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
-import { Header3Text, RegularText, SecondaryText, ErrorText } from '@covid/components/Text';
+import { RegularText, SecondaryText, ErrorText } from '@covid/components/Text';
 import { colors } from '@theme';
-import YesNoField from '@covid/components/YesNoField';
 import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
+import { ValidationError } from '@covid/components/ValidationError';
+
+import { VaccineNameQuestion } from './VaccineNameQuestion';
 
 export interface VaccineDateData {
   firstDoseDate: Date | undefined;
   secondDoseDate: Date | undefined;
-  hadSecondDose: string;
   firstBatchNumber: string | undefined;
   secondBatchNumber: string | undefined;
+
+  // Needs fixing after product decide - 19 jan 2021
+  name: string | undefined;
 }
 
 interface Props {
   formikProps: FormikProps<VaccineDateData>;
   editIndex?: number;
+  firstDose: boolean;
 }
 
 export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
@@ -35,7 +40,7 @@ export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
 export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = (props: Props) => {
   const { formikProps, editIndex } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
-  const [showFirstPicker, setShowFirstPicker] = useState(false);
+  const [showPicker, setshowPicker] = useState(false);
   const [showSecondPicker, setShowSecondPicker] = useState(false);
   const [errorMessage] = useState<string>('');
 
@@ -45,46 +50,50 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
     return selectedDate.toDate();
   }
 
-  function setFirstDoseDate(selectedDate: Moment): void {
-    formikProps.values.firstDoseDate = convertToDate(selectedDate);
-    setShowFirstPicker(false);
+  function setDoseDate(selectedDate: Moment): void {
+    if (props.firstDose) {
+      formikProps.values.firstDoseDate = convertToDate(selectedDate);
+    } else {
+      formikProps.values.secondDoseDate = convertToDate(selectedDate);
+    }
+    setshowPicker(false);
   }
 
-  function setSecondDoseDate(selectedDate: Moment): void {
-    formikProps.values.secondDoseDate = convertToDate(selectedDate);
-    setShowSecondPicker(false);
-  }
+  const renderPicker = () => {
+    const dateField: Date | undefined = props.firstDose
+      ? formikProps.values.firstDoseDate
+      : formikProps.values.secondDoseDate;
 
-  return (
-    <>
-      {(editIndex === undefined || editIndex === 0) && ( // Little bit messy here. editIndex is only set when editing a vaccine dose. It hides the other dose from the screen.
-        <View style={{ marginBottom: 16 }}>
-          <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-          <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
-          {showFirstPicker ? (
-            <CalendarPicker
-              onDateChange={setFirstDoseDate}
-              maxDate={today}
-              {...(!!formikProps.values.firstDoseDate && {
-                selectedStartDate: formikProps.values.firstDoseDate,
-              })}
-            />
-          ) : (
-            <TouchableOpacity onPress={() => setShowFirstPicker(true)} style={styles.dateBox}>
-              <CalendarIcon />
-              {formikProps.values.firstDoseDate ? (
-                <RegularText style={{ marginStart: 8 }}>
-                  {moment(formikProps.values.firstDoseDate).format('MMMM D, YYYY')}
-                </RegularText>
-              ) : (
-                <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
-              )}
-            </TouchableOpacity>
-          )}
-        </View>
-      )}
+    return (
+      <CalendarPicker
+        onDateChange={setDoseDate}
+        maxDate={today}
+        {...(!!formikProps.values.firstDoseDate && {
+          selectedStartDate: formikProps.values.firstDoseDate,
+        })}
+      />
+    );
+  };
 
-      <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
+  const renderCalenderButton = () => {
+    const dateField: Date | undefined = props.firstDose
+      ? formikProps.values.firstDoseDate
+      : formikProps.values.secondDoseDate;
+
+    return (
+      <TouchableOpacity onPress={() => setshowPicker(true)} style={styles.dateBox}>
+        <CalendarIcon />
+        {dateField ? (
+          <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
+        ) : (
+          <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+        )}
+      </TouchableOpacity>
+    );
+  };
+
+  const renderBatchNumber = () =>
+    props.firstDose ? (
       <ValidatedTextInput
         placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
         value={props.formikProps.values.firstBatchNumber}
@@ -94,73 +103,40 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
         returnKeyType="next"
         onSubmitEditing={() => {}}
       />
+    ) : (
+      <ValidatedTextInput
+        placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
+        value={props.formikProps.values.secondBatchNumber}
+        onChangeText={props.formikProps.handleChange('secondBatchNumber')}
+        onBlur={props.formikProps.handleBlur('secondBatchNumber')}
+        error={props.formikProps.touched.secondBatchNumber && props.formikProps.errors.secondBatchNumber}
+        returnKeyType="next"
+        onSubmitEditing={() => {}}
+      />
+    );
 
-      {(editIndex === undefined || editIndex === 1) && (
-        <>
-          <Header3Text style={{ marginTop: 32, marginBottom: 8 }}>
-            {i18n.t('vaccines.your-vaccine.second-dose')}
-          </Header3Text>
-          <YesNoField
-            selectedValue={formikProps.values.hadSecondDose}
-            onValueChange={(value: string) => {
-              if (value === 'no') {
-                formikProps.values.secondDoseDate = undefined;
-              }
-              formikProps.setFieldValue('hadSecondDose', value);
-            }}
-            label={i18n.t('vaccines.your-vaccine.have-had-second')}
-          />
-
-          {formikProps.values.hadSecondDose === 'yes' && (
-            <>
-              <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
-              {showSecondPicker ? (
-                <CalendarPicker
-                  onDateChange={setSecondDoseDate}
-                  minDate={formikProps.values.firstDoseDate}
-                  restrictMonthNavigation
-                  maxDate={today}
-                  {...(!!formikProps.values.secondDoseDate && {
-                    selectedStartDate: formikProps.values.secondDoseDate,
-                  })}
-                />
-              ) : (
-                <TouchableOpacity onPress={() => setShowSecondPicker(true)} style={styles.dateBox}>
-                  <CalendarIcon />
-                  {formikProps.values.secondDoseDate ? (
-                    <RegularText style={{ marginStart: 8 }}>
-                      {moment(formikProps.values.secondDoseDate).format('MMMM D, YYYY')}
-                    </RegularText>
-                  ) : (
-                    <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
-                  )}
-                </TouchableOpacity>
-              )}
-
-              <View style={{ marginTop: 16, marginBottom: 16 }}>
-                <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
-                <ValidatedTextInput
-                  placeholder={i18n.t('vaccines.your-vaccine.placeholder-batch')}
-                  value={props.formikProps.values.secondBatchNumber}
-                  onChangeText={props.formikProps.handleChange('secondBatchNumber')}
-                  onBlur={props.formikProps.handleBlur('secondBatchNumber')}
-                  error={props.formikProps.touched.secondBatchNumber && props.formikProps.errors.secondBatchNumber}
-                  returnKeyType="next"
-                  onSubmitEditing={() => {}}
-                />
-              </View>
-            </>
+  return (
+    <>
+      <View style={{ marginBottom: 16 }}>
+        <View style={{ marginBottom: 16 }}>
+          <VaccineNameQuestion formikProps={formikProps as FormikProps<VaccineDateData>} editIndex={editIndex} />
+          <ErrorText>{errorMessage}</ErrorText>
+          {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
+            <ValidationError error={i18n.t('validation-error-text')} />
           )}
-        </>
-      )}
+        </View>
+
+        <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
+        {showPicker ? renderPicker() : renderCalenderButton()}
+      </View>
+
+      <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
+      {renderBatchNumber()}
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  labelStyle: {
-    marginVertical: 16,
-  },
   dateBox: {
     marginVertical: 8,
     backgroundColor: colors.backgroundTertiary,
@@ -178,7 +154,6 @@ VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateD
     secondDoseDate: vaccine?.doses[1]?.date_taken_specific
       ? moment(vaccine.doses[1].date_taken_specific).toDate()
       : undefined,
-    hadSecondDose: vaccine?.doses[1]?.date_taken_specific ? 'yes' : 'no',
   };
 };
 
@@ -186,6 +161,7 @@ VaccineDateQuestion.schema = () => {
   return Yup.object().shape({
     firstDoseDate: Yup.date().required(),
     secondDoseDate: Yup.date(),
-    hadSecondDose: Yup.string(),
+    firstBatchNumber: Yup.string(),
+    secondBatchNumber: Yup.string(),
   });
 };

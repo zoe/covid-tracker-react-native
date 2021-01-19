@@ -7,6 +7,7 @@ export type VaccineRequest = {
   brand: VaccineBrands | null;
   placebo: PlaceboStatus | null;
   doses: Partial<Dose>[];
+  name: string;
 };
 
 export type VaccinePlanRequest = {
@@ -36,13 +37,13 @@ export type Dose = {
   location: VaccineLocations;
   sequence: number;
   date_taken_specific: string;
+  batch_number: string;
 };
 
 export type DoseSymptomsRequest = {
   id: string;
   patient: string; //	Patient ID
   dose: string; // Dose ID
-
   pain: boolean;
   redness: boolean;
   swelling: boolean;

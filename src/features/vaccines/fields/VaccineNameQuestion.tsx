@@ -12,6 +12,8 @@ import DropdownField from '@covid/components/DropdownField';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
+import { VaccineDateData } from './VaccineDateQuestion';
+
 export interface VaccineNameData {
   name: string;
   dontKnowOption: string;
@@ -28,7 +30,7 @@ export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
   schema: () => Yup.ObjectSchema;
 }
 
-export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = (props: Props) => {
+export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDateData> = (props: Props) => {
   const { formikProps, editIndex } = props;
 
   const nameOptions = [
@@ -61,7 +63,7 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
           onValueChange={props.formikProps.handleChange('dontKnowOption')}
           label={i18n.t('vaccines.your-vaccine.label-name-other')}
           items={iDontKnowOptions}
-          error={props.formikProps.touched.dontKnowOption && props.errors.dontKnowOption}
+          error={props.formikProps.touched.dontKnowOption && props.formikProps.errors.dontKnowOption}
         />
       </View>
     ) : null;
@@ -93,7 +95,7 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineNameData> = 
             onValueChange={props.formikProps.handleChange('name')}
             label={i18n.t('vaccines.your-vaccine.label-name')}
             items={nameOptions}
-            error={props.formikProps.touched.name && props.errors.name}
+            error={props.formikProps.touched.name && props.formikProps.errors.name}
           />
         </View>
       )}
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
   },
 });
 
-VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineNameData => {
+VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateData => {
   return {
     name: vaccine?.name ? vaccine.name : undefined,
   };
