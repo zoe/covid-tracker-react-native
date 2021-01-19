@@ -26,6 +26,7 @@ type DoesSymptomsCheckBoxData = {
   warmth: boolean;
   itch: boolean;
   tenderness: boolean;
+  bruising: boolean;
   other: boolean;
 };
 
@@ -48,6 +49,7 @@ export const DoesSymptomsQuestions: DoseSymptomQuestions<Props, DoesSymptomsData
     { label: i18n.t('vaccines.dose-symptoms.warmth'), value: 'warmth' },
     { label: i18n.t('vaccines.dose-symptoms.itch'), value: 'itch' },
     { label: i18n.t('vaccines.dose-symptoms.tenderness'), value: 'tenderness' },
+    { label: i18n.t('vaccines.dose-symptoms.bruising'), value: 'bruising' },
     { label: i18n.t('vaccines.dose-symptoms.other'), value: 'other' },
   ];
 
@@ -94,6 +96,7 @@ DoesSymptomsQuestions.initialFormValues = (): DoesSymptomsData => {
     warmth: false,
     itch: false,
     tenderness: false,
+    bruising: false,
     other: false,
     otherSymptoms: '',
   };
@@ -112,6 +115,7 @@ DoesSymptomsQuestions.createDoseSymptoms = (formData: DoesSymptomsData): Partial
     warmth: formData.warmth,
     itch: formData.itch,
     tenderness: formData.tenderness,
+    bruising: formData.bruising,
     ...(formData.other && { other: formData.otherSymptoms }),
   };
 };

@@ -50,6 +50,7 @@ export type DoseSymptomsRequest = {
   warmth: boolean;
   itch: boolean;
   tenderness: boolean;
+  bruising: boolean;
   other: string;
 };
 
