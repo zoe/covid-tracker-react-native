@@ -1052,13 +1052,6 @@
     },
 
     "vaccines": {
-      "thank-you": {
-        "title": "Thank you.",
-        "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
-        "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
-        "confirm": "Start daily report"
-      },
-
       "dose-symptoms": {
         "label": "About your recent vaccine",
         "title-1": "Are you experiencing any symptoms",
@@ -1072,6 +1065,7 @@
         "warmth": "Warmth",
         "itch": "Itch",
         "tenderness": "Tenderness",
+        "bruising": "Bruising",
         "other": "Other",
         "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
         "other-placeholder": "Describe your symptoms here...",
