@@ -1111,8 +1111,7 @@
         "select-date": "Select date",
         "placeholder-name": "Choose one",
         "about-name": "What is the name of the vaccine you recieved?",
-        "name-i-dont-know": "I don't know",
-        "name-other": "Other",
+        "name-i-dont-know": "Other/I don't know",
         "confirm": "Confirm"
       },
 

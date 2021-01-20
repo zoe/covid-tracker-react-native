@@ -1,28 +1,19 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import { StyleSheet, TouchableOpacity } from 'react-native';
 import { View } from 'native-base';
 
 import i18n from '@covid/locale/i18n';
-import { RegularText } from '@covid/components/Text';
-import { colors } from '@theme';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import DropdownField from '@covid/components/DropdownField';
-import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
 import { VaccineDateData } from './VaccineDateQuestion';
 
-export interface VaccineNameData {
-  name: string;
-  dontKnowOption: string;
-  dontKnowText: string;
-}
-
 interface Props {
-  formikProps: FormikProps<VaccineNameData>;
+  formikProps: FormikProps<VaccineDateData>;
   editIndex?: number;
+  firstDose?: boolean;
 }
 
 export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
@@ -36,98 +27,89 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDateData> = 
   const nameOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
     // These are "Brand names" so don't need translations
-    { label: 'Pfizer/BioNTech', value: 'pfizer' },
-    { label: 'Moderna', value: 'moderna' },
-    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'dontknow' },
+    { label: 'Pfizer/BioNTech', value: VaccineBrands.PFIZER },
+    { label: 'Moderna', value: VaccineBrands.MODERNA },
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: VaccineBrands.NOT_SURE },
   ];
 
   // Add in extra item specific to GB users
   if (isGBCountry()) {
-    nameOptions.splice(2, 0, { label: 'Oxford/Astrazeneca', value: 'oxford' });
+    nameOptions.splice(2, 0, { label: 'Oxford/Astrazeneca', value: VaccineBrands.ASTRAZENECA });
   }
 
-  const iDontKnowOptions = [
+  const descriptionOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
     // mRNA doesn't need translation
     { label: 'mRNA', value: 'mrna' },
-    { label: i18n.t('vaccines.your-vaccine.name-other'), value: 'other' },
-    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'dontknow' },
+    { label: i18n.t('vaccines.your-vaccine.name-i-dont-know'), value: 'not_sure' },
   ];
 
-  const vaccineTypeInput =
-    props.formikProps.values.name === 'dontknow' || props.formikProps.values.name === 'other' ? (
-      <View>
-        <DropdownField
-          placeholder={i18n.t('vaccines.your-vaccine.label-name')}
-          selectedValue={props.formikProps.values.dontKnowOption}
-          onValueChange={props.formikProps.handleChange('dontKnowOption')}
-          label={i18n.t('vaccines.your-vaccine.label-name-other')}
-          items={iDontKnowOptions}
-          error={props.formikProps.touched.dontKnowOption && props.formikProps.errors.dontKnowOption}
-        />
-      </View>
-    ) : null;
+  const renderNameInput = () => {
+    const brandField = props.firstDose ? props.formikProps.values.firstBrand : props.formikProps.values.secondBrand;
+    const brandString = props.firstDose ? 'firstBrand' : 'secondBrand';
+    const brandTouched = props.firstDose ? props.formikProps.touched.firstBrand : props.formikProps.touched.secondBrand;
+    const brandError = props.firstDose ? props.formikProps.errors.firstBrand : props.formikProps.errors.secondBrand;
 
-  const vaccineTypeOtherInput =
-    props.formikProps.values.dontKnowOption === 'other' ? (
-      <View>
-        <RegularText>{i18n.t('vaccines.your-vaccine.label-name-other-2')}</RegularText>
-        <ValidatedTextInput
-          placeholder={i18n.t('vaccines.your-vaccine.placeholder-name-other-2')}
-          value={props.formikProps.values.dontKnowText}
-          onChangeText={props.formikProps.handleChange('dontKnowText')}
-          onBlur={props.formikProps.handleBlur('dontKnowText')}
-          error={props.formikProps.touched.dontKnowText && props.formikProps.errors.dontKnowText}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
-          keyboardType="numeric"
-        />
-      </View>
-    ) : null;
+    return (
+      <DropdownField
+        placeholder={i18n.t('vaccines.your-vaccine.label-name')}
+        selectedValue={brandField}
+        onValueChange={props.formikProps.handleChange(brandString)}
+        label={i18n.t('vaccines.your-vaccine.label-name')}
+        items={nameOptions}
+        error={brandTouched && brandError}
+      />
+    );
+  };
+
+  const renderDescriptionInput = () => {
+    const descriptionField = props.firstDose
+      ? props.formikProps.values.firstDescription
+      : props.formikProps.values.secondDescription;
+
+    if (descriptionField !== 'not_sure') {
+      return null;
+    }
+
+    const descriptionString = props.firstDose ? 'firstDescription' : 'secondDescription';
+    const descriptionTouched = props.firstDose
+      ? props.formikProps.touched.firstDescription
+      : props.formikProps.touched.secondDescription;
+    const descriptionError = props.firstDose
+      ? props.formikProps.errors.firstDescription
+      : props.formikProps.errors.secondDescription;
+
+    return (
+      <DropdownField
+        placeholder={i18n.t('vaccines.your-vaccine.label-name')}
+        selectedValue={descriptionField}
+        onValueChange={props.formikProps.handleChange(descriptionString)}
+        label={i18n.t('vaccines.your-vaccine.label-name-other')}
+        items={descriptionOptions}
+        error={descriptionTouched && descriptionError}
+      />
+    );
+  };
 
   return (
     <>
-      {(editIndex === undefined || editIndex === 0) && (
-        <View>
-          <DropdownField
-            placeholder={i18n.t('vaccines.your-vaccine.label-name')}
-            selectedValue={props.formikProps.values.name}
-            onValueChange={props.formikProps.handleChange('name')}
-            label={i18n.t('vaccines.your-vaccine.label-name')}
-            items={nameOptions}
-            error={props.formikProps.touched.name && props.formikProps.errors.name}
-          />
-        </View>
-      )}
+      <View>{renderNameInput()}</View>
 
-      {vaccineTypeInput}
-
-      {vaccineTypeOtherInput}
+      <View>{renderDescriptionInput()}</View>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  labelStyle: {
-    marginVertical: 16,
-  },
-  dateBox: {
-    marginVertical: 8,
-    backgroundColor: colors.backgroundTertiary,
-    borderRadius: 8,
-    flexDirection: 'row',
-    padding: 16,
-  },
-});
-
 VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateData => {
   return {
-    name: vaccine?.name ? vaccine.name : undefined,
+    firstBrand: vaccine?.firstBrand ? vaccine.firstBrand : undefined,
+    description: vaccine?.description ? vaccine.description : undefined,
   };
 };
 
 VaccineNameQuestion.schema = () => {
   return Yup.object().shape({
-    name: Yup.name().required(),
+    firstBrand: Yup.string().required(),
+    description: Yup.string().required(),
   });
 };

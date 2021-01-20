@@ -12,7 +12,7 @@ import { BrandedButton, ErrorText, HeaderText, RegularText, Header3Text } from '
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
-import { VaccineRequest, VaccineTypes } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest, VaccineTypes, Dose } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
 import { VaccineDateData, VaccineDateQuestion } from '@covid/features/vaccines/fields/VaccineDateQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
@@ -36,51 +36,63 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const coordinator = assessmentCoordinator;
   const [errorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [showSecondPicker, setShowSecondPicker] = useState(false);
+  const [hasSecondDose, setHasSecondDose] = useState<string>('no');
   const { assessmentData, editIndex } = route.params;
   const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
 
   const handleAction = (formData: AboutYourVaccineData) => {
     if (!submitting) {
-      setSubmitting(true);
+      // //setSubmitting(true);
+
       function formatDateToPost(date: Date) {
         return moment(date).format('YYYY-MM-DD');
       }
+      // alert(JSON.stringify('vaccine'));
       const vaccine = {
         ...assessmentData.vaccineData,
         patient: assessmentData.patientData.patientId,
         vaccine_type: VaccineTypes.COVID_VACCINE,
-        name: formData.name,
       } as Partial<VaccineRequest>;
-      if (vaccine.doses === undefined) {
-        vaccine.doses = [];
+
+      let doses: Partial<Dose>[] = [];
+
+      if (vaccine.doses !== undefined) {
+        doses = [...vaccine.doses];
       }
 
       if (formData.firstDoseDate) {
         if (vaccine.doses![0] !== undefined) {
           vaccine.doses![0].date_taken_specific! = formatDateToPost(formData.firstDoseDate);
         } else {
-          vaccine.doses?.push({
+          doses.push({
             sequence: 1,
             date_taken_specific: formatDateToPost(formData.firstDoseDate),
-            //batch_number: formData.batchNumber
-          });
-        }
-      }
-      if (formData.secondDoseDate) {
-        if (vaccine.doses![1] !== undefined) {
-          vaccine.doses![1].date_taken_specific! = formatDateToPost(formData.secondDoseDate);
-        } else {
-          vaccine.doses?.push({
-            sequence: 2,
-            date_taken_specific: formatDateToPost(formData.secondDoseDate),
-            //batch_number: formData.secondBatchNumber
+            batch_number: formData.firstBatchNumber,
+            brand: formData.firstBrand,
+            description: formData.firstDescription,
           });
         }
       }
 
-      //alert( JSON.stringify(vaccine, null, 2));
-      submitVaccine(vaccine);
+      if (formData.secondDoseDate) {
+        if (vaccine.doses?.[1] !== undefined) {
+          vaccine.doses![1].date_taken_specific! = formatDateToPost(formData.secondDoseDate);
+        } else {
+          doses.push({
+            sequence: 2,
+            date_taken_specific: formatDateToPost(formData.secondDoseDate),
+            batch_number: formData.secondBatchNumber,
+            brand: formData.secondBrand,
+            description: formData.secondDescription,
+          });
+        }
+      }
+      const updatedVaccine = {
+        ...vaccine,
+        doses,
+      } as Partial<VaccineRequest>;
+
+      submitVaccine(updatedVaccine);
     }
   };
 
@@ -89,8 +101,19 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     coordinator.gotoNextScreen(route.name);
   };
 
+  const firstDoseUI = (props: FormikProps<VaccineDateData>) => (
+    <>
+      <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
+      <VaccineDateQuestion formikProps={props as FormikProps<VaccineDateData>} editIndex={editIndex} firstDose />
+      <ErrorText>{errorMessage}</ErrorText>
+      {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+        <ValidationError error={i18n.t('validation-error-text')} />
+      )}
+    </>
+  );
+
   const secondDoseUI = (props: FormikProps<VaccineDateData>) =>
-    showSecondPicker ? null : (
+    hasSecondDose === 'no' ? null : (
       <>
         <VaccineDateQuestion
           formikProps={props as FormikProps<VaccineDateData>}
@@ -133,32 +156,25 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
           return (
             <Form style={{ flex: 1 }}>
               <View style={{ marginHorizontal: 16 }}>
-                <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-                <VaccineDateQuestion
-                  formikProps={props as FormikProps<VaccineDateData>}
-                  editIndex={editIndex}
-                  firstDose
-                />
-                <ErrorText>{errorMessage}</ErrorText>
-                {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                  <ValidationError error={i18n.t('validation-error-text')} />
+                {(editIndex === undefined || editIndex === 0) && firstDoseUI(props)}
+                {(editIndex === undefined || editIndex === 1) && (
+                  <>
+                    <Header3Text style={{ marginTop: 16, marginBottom: 8 }}>
+                      {i18n.t('vaccines.your-vaccine.second-dose')}
+                    </Header3Text>
+                    <YesNoField
+                      selectedValue={hasSecondDose}
+                      onValueChange={(value: string) => {
+                        if (value === 'no') {
+                          props.values.secondDoseDate = undefined;
+                        }
+                        setHasSecondDose(value);
+                      }}
+                      label={i18n.t('vaccines.your-vaccine.have-had-second')}
+                    />
+                    {secondDoseUI(props)}
+                  </>
                 )}
-
-                <Header3Text style={{ marginTop: 32, marginBottom: 8 }}>
-                  {i18n.t('vaccines.your-vaccine.second-dose')}
-                </Header3Text>
-                <YesNoField
-                  selectedValue={props.values.hadSecondDose}
-                  onValueChange={(value: string) => {
-                    if (value === 'no') {
-                      props.values.secondDoseDate = undefined;
-                    }
-                    setShowSecondPicker(value === 'no');
-                  }}
-                  label={i18n.t('vaccines.your-vaccine.have-had-second')}
-                />
-
-                {secondDoseUI(props as FormikProps<VaccineDateData>)}
               </View>
               <View style={{ flex: 1 }} />
               <BrandedButton onPress={props.handleSubmit}>

@@ -9,7 +9,7 @@ import i18n from '@covid/locale/i18n';
 import CalendarPicker from '@covid/components/CalendarPicker';
 import { RegularText, SecondaryText, ErrorText } from '@covid/components/Text';
 import { colors } from '@theme';
-import { VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
+import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRequest';
 import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
@@ -18,12 +18,13 @@ import { VaccineNameQuestion } from './VaccineNameQuestion';
 
 export interface VaccineDateData {
   firstDoseDate: Date | undefined;
-  secondDoseDate: Date | undefined;
   firstBatchNumber: string | undefined;
+  firstBrand: VaccineBrands | undefined;
+  firstDescription: string | undefined;
+  secondDoseDate: Date | undefined;
   secondBatchNumber: string | undefined;
-
-  // Needs fixing after product decide - 19 jan 2021
-  name: string | undefined;
+  secondBrand: VaccineBrands | undefined;
+  secondDescription: string | undefined;
 }
 
 interface Props {
@@ -41,7 +42,6 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
   const { formikProps, editIndex } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
   const [showPicker, setshowPicker] = useState(false);
-  const [showSecondPicker, setShowSecondPicker] = useState(false);
   const [errorMessage] = useState<string>('');
 
   function convertToDate(selectedDate: Moment) {
@@ -119,7 +119,11 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
-          <VaccineNameQuestion formikProps={formikProps as FormikProps<VaccineDateData>} editIndex={editIndex} />
+          <VaccineNameQuestion
+            formikProps={formikProps as FormikProps<VaccineDateData>}
+            editIndex={editIndex}
+            firstDose={props.firstDose}
+          />
           <ErrorText>{errorMessage}</ErrorText>
           {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
             <ValidationError error={i18n.t('validation-error-text')} />
@@ -159,7 +163,7 @@ VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateD
 
 VaccineDateQuestion.schema = () => {
   return Yup.object().shape({
-    firstDoseDate: Yup.date().required(),
+    firstDoseDate: Yup.date(),
     secondDoseDate: Yup.date(),
     firstBatchNumber: Yup.string(),
     secondBatchNumber: Yup.string(),
