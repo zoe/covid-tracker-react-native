@@ -481,6 +481,7 @@
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
   "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
+  "confirm": "",
   "delete": "Ta bort",
   "estimated-cases": "Uppskattade fall",
   "logout": "Logga ut",
@@ -989,7 +990,6 @@
       "callout-link-text": false,
       "menu-item": false
     },
-
     "vaccines": {
       "dose-symptoms": {
         "label": "",

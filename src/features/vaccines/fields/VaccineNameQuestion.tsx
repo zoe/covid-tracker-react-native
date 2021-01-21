@@ -12,7 +12,6 @@ import { VaccineDoseData } from './VaccineDateQuestion';
 
 interface Props {
   formikProps: FormikProps<VaccineDoseData>;
-  editIndex?: number;
   firstDose?: boolean;
 }
 
@@ -22,7 +21,7 @@ export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
 }
 
 export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = (props: Props) => {
-  const { formikProps, editIndex } = props;
+  const { formikProps } = props;
 
   const nameOptions = [
     { label: i18n.t('choose-one-of-these-options'), value: '' },
@@ -50,6 +49,7 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = 
     const brandTouched = props.firstDose ? props.formikProps.touched.firstBrand : props.formikProps.touched.secondBrand;
     const brandError = props.firstDose ? props.formikProps.errors.firstBrand : props.formikProps.errors.secondBrand;
 
+    console.log('brandField is ', brandField);
     return (
       <DropdownField
         placeholder={i18n.t('vaccines.your-vaccine.label-name')}
@@ -72,7 +72,6 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = 
     const descriptionField = props.firstDose
       ? props.formikProps.values.firstDescription
       : props.formikProps.values.secondDescription;
-
     const descriptionString = props.firstDose ? 'firstDescription' : 'secondDescription';
     const descriptionTouched = props.firstDose
       ? props.formikProps.touched.firstDescription
@@ -103,14 +102,18 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = 
 
 VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDoseData => {
   return {
-    firstBrand: vaccine?.firstBrand ? vaccine.firstBrand : undefined,
-    description: vaccine?.description ? vaccine.description : undefined,
+    firstBrand: vaccine?.doses[0]?.brand,
+    firstDescription: vaccine?.doses[0]?.description,
+    secondBrand: vaccine?.doses[1]?.brand,
+    secondDescription: vaccine?.doses[1]?.description,
   };
 };
 
 VaccineNameQuestion.schema = () => {
   return Yup.object().shape({
     firstBrand: Yup.string().required(),
-    description: Yup.string().required(),
+    firstDescription: Yup.string(),
+    secondBrand: Yup.string().required(),
+    secondDescription: Yup.string(),
   });
 };

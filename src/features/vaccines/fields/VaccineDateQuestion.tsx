@@ -29,7 +29,6 @@ export interface VaccineDoseData {
 
 interface Props {
   formikProps: FormikProps<VaccineDoseData>;
-  editIndex?: number;
   firstDose: boolean;
 }
 
@@ -39,7 +38,7 @@ export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
 }
 
 export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = (props: Props) => {
-  const { formikProps, editIndex } = props;
+  const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
   const [showPicker, setshowPicker] = useState(false);
   const [errorMessage] = useState<string>('');
@@ -119,11 +118,7 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = 
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
-          <VaccineNameQuestion
-            formikProps={formikProps as FormikProps<VaccineDoseData>}
-            editIndex={editIndex}
-            firstDose={props.firstDose}
-          />
+          <VaccineNameQuestion formikProps={formikProps as FormikProps<VaccineDoseData>} firstDose={props.firstDose} />
           <ErrorText>{errorMessage}</ErrorText>
           {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
             <ValidationError error={i18n.t('validation-error-text')} />
@@ -149,17 +144,6 @@ const styles = StyleSheet.create({
     padding: 16,
   },
 });
-
-VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDoseData => {
-  return {
-    firstDoseDate: vaccine?.doses[0]?.date_taken_specific
-      ? moment(vaccine.doses[0].date_taken_specific).toDate()
-      : undefined,
-    secondDoseDate: vaccine?.doses[1]?.date_taken_specific
-      ? moment(vaccine.doses[1].date_taken_specific).toDate()
-      : undefined,
-  };
-};
 
 VaccineDateQuestion.schema = () => {
   return Yup.object().shape({

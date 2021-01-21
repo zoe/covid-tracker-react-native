@@ -544,6 +544,7 @@
   "delete-data-alert-text": "Si elimina su cuenta y datos, no se puede deshacer.",
   "push-notifications": "Activa los recordatorios",
   "cancel": "Cancelar",
+  "confirm": "",
   "delete": "Eliminar",
   "estimated-cases": "Casos estimados",
   "logout": "Cerrar sesión",

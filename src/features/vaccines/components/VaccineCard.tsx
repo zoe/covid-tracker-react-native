@@ -12,11 +12,10 @@ import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 type Props = {
   vaccine: VaccineRequest;
   style?: ViewStyle;
-  onPressDose: (index: number) => void;
-  onPressEdit: () => void;
+  onPressEdit: (index: number) => void;
 };
 
-export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose }) => {
+export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) => {
   const formatDateString = (dateString: string): string => {
     return moment(dateString).format('MMM D YYYY');
   };
@@ -57,15 +56,26 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose }) =>
 
   const hasFirstDoseDate = !!dose1?.date_taken_specific;
   const hasSecondDoseDate = !!dose2?.date_taken_specific;
-  const hasFirstDoseName = !!dose1?.brand && !!dose1?.description;
-  const hasSecondDoseName = !!dose2?.brand && !!dose2?.description;
+
   const hasFirstDoseBrand = !!dose1?.brand;
   const hasSecondDoseBrand = !!dose2?.brand;
   const hasFirstDoseDescription = !!dose1?.description;
   const hasSecondDoseDescription = !!dose2?.description;
 
+  const hasFirstDoseName = hasFirstDoseBrand || hasFirstDoseDescription;
+  const hasSecondDoseName = hasSecondDoseBrand || hasSecondDoseDescription;
+
+  console.log(
+    'hasFirstDoseName: ',
+    hasFirstDoseName,
+    ' hasFirstDoseBrand: ',
+    hasFirstDoseBrand,
+    ' hasFirstDoseDescription: ',
+    hasFirstDoseDescription
+  );
+
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.row}>
         {renderTick(hasFirstDoseDate, hasFirstDoseName)}
         <RegularText>{i18n.t('vaccines.vaccine-card.dose-1')}</RegularText>
@@ -101,7 +111,11 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose }) =>
       <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
         {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}
       </RegularText>
-    </>
+
+      <ClickableText style={{ marginTop: 24, marginBottom: 16 }} onPress={() => onPressEdit(1)}>
+        <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
+      </ClickableText>
+    </View>
   );
 };
 
@@ -129,5 +143,18 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.purple,
+  },
+  clickableText: {
+    marginTop: 24,
+    marginBottom: 8,
+    textAlign: 'center',
+    color: colors.purple,
+  },
+  container: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 16,
+    borderColor: colors.tertiary,
+    margin: 16,
   },
 });

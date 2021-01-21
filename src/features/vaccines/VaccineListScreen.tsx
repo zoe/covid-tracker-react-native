@@ -102,24 +102,18 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
             </BrandedButton>
           )}
 
-          <View style={styles.container}>
-            {vaccines.map((item: VaccineRequest) => {
-              return (
-                <VaccineCard
-                  style={{ marginVertical: 8 }}
-                  vaccine={item}
-                  key={item.id}
-                  onPressEdit={(i) => {
-                    coordinator.goToAddEditVaccine(item, i);
-                  }}
-                />
-              );
-            })}
-
-            <ClickableText style={{ marginTop: 24, marginBottom: 16 }} onPress={() => coordinator.goToAddEditVaccine()}>
-              <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
-            </ClickableText>
-          </View>
+          {vaccines.map((vaccine: VaccineRequest) => {
+            return (
+              <VaccineCard
+                style={{ marginVertical: 8 }}
+                vaccine={vaccine}
+                key={vaccine.id}
+                onPressEdit={(i) => {
+                  coordinator.goToAddEditVaccine(vaccine);
+                }}
+              />
+            );
+          })}
         </>
       );
     }
@@ -168,21 +162,5 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     marginHorizontal: 16,
-  },
-  clickableText: {
-    marginTop: 24,
-    marginBottom: 8,
-    textAlign: 'center',
-    color: colors.purple,
-  },
-  container: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 16,
-    borderColor: colors.tertiary,
-    marginTop: 24,
-    marginRight: 16,
-    marginBottom: 64,
-    marginLeft: 16,
   },
 });

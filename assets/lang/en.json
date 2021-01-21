@@ -547,6 +547,7 @@
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
+  "confirm": "Confirm",
   "delete": "Delete",
   "estimated-cases": "Estimated cases",
   "logout": "Log out",
