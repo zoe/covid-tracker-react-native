@@ -16,7 +16,7 @@ import { ValidationError } from '@covid/components/ValidationError';
 
 import { VaccineNameQuestion } from './VaccineNameQuestion';
 
-export interface VaccineDateData {
+export interface VaccineDoseData {
   firstDoseDate: Date | undefined;
   firstBatchNumber: string | undefined;
   firstBrand: VaccineBrands | undefined;
@@ -28,7 +28,7 @@ export interface VaccineDateData {
 }
 
 interface Props {
-  formikProps: FormikProps<VaccineDateData>;
+  formikProps: FormikProps<VaccineDoseData>;
   editIndex?: number;
   firstDose: boolean;
 }
@@ -38,7 +38,7 @@ export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
   schema: () => Yup.ObjectSchema;
 }
 
-export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = (props: Props) => {
+export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = (props: Props) => {
   const { formikProps, editIndex } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
   const [showPicker, setshowPicker] = useState(false);
@@ -120,7 +120,7 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDateData> = 
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
           <VaccineNameQuestion
-            formikProps={formikProps as FormikProps<VaccineDateData>}
+            formikProps={formikProps as FormikProps<VaccineDoseData>}
             editIndex={editIndex}
             firstDose={props.firstDose}
           />
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
 });
 
-VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateData => {
+VaccineDateQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDoseData => {
   return {
     firstDoseDate: vaccine?.doses[0]?.date_taken_specific
       ? moment(vaccine.doses[0].date_taken_specific).toDate()

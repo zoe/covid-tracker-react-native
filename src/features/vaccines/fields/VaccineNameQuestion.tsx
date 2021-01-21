@@ -8,10 +8,10 @@ import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRe
 import DropdownField from '@covid/components/DropdownField';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
-import { VaccineDateData } from './VaccineDateQuestion';
+import { VaccineDoseData } from './VaccineDateQuestion';
 
 interface Props {
-  formikProps: FormikProps<VaccineDateData>;
+  formikProps: FormikProps<VaccineDoseData>;
   editIndex?: number;
   firstDose?: boolean;
 }
@@ -21,7 +21,7 @@ export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
   schema: () => Yup.ObjectSchema;
 }
 
-export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDateData> = (props: Props) => {
+export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = (props: Props) => {
   const { formikProps, editIndex } = props;
 
   const nameOptions = [
@@ -63,13 +63,15 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDateData> = 
   };
 
   const renderDescriptionInput = () => {
+    // Use value of relevant brand to show (or not) the description field
+    const brandField = props.firstDose ? props.formikProps.values.firstBrand : props.formikProps.values.secondBrand;
+    if (brandField !== 'not_sure') {
+      return null;
+    }
+
     const descriptionField = props.firstDose
       ? props.formikProps.values.firstDescription
       : props.formikProps.values.secondDescription;
-
-    if (descriptionField !== 'not_sure') {
-      return null;
-    }
 
     const descriptionString = props.firstDose ? 'firstDescription' : 'secondDescription';
     const descriptionTouched = props.firstDose
@@ -94,13 +96,12 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDateData> = 
   return (
     <>
       <View>{renderNameInput()}</View>
-
       <View>{renderDescriptionInput()}</View>
     </>
   );
 };
 
-VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDateData => {
+VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDoseData => {
   return {
     firstBrand: vaccine?.firstBrand ? vaccine.firstBrand : undefined,
     description: vaccine?.description ? vaccine.description : undefined,
