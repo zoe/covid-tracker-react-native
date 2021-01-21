@@ -1033,7 +1033,10 @@
       "placeholder-type": "Choose one",
       "placeholder-batch": "E.g. ELO141",
       "label-batch": "Batch number",
-      "confirm": "Confirm"
+      "date-change-confirm": "Confirm date change?",
+      "date-change-text": "This will change when we ask you certain questions.",
+      "confirm": "Confirm",
+      "delete": "Delete vaccine"
     },
 
     "vaccine-card": {
@@ -1041,9 +1044,10 @@
       "dose-2": "Dose 2",
       "add-date": "Add date",
       "add-info": "Add dose information",
-      "delete": "Delete vaccine",
-      "date-missing": "Logged but date missing",
-      "not-logged": "Not yet logged"
+      "date-missing": "Date required. Edit to add",
+      "name-missing": "Edit to add vaccine name",
+      "not-logged": "Not yet logged",
+      "edit-vaccine": "Edit vaccine"
     },
 
     "hesitancy": {

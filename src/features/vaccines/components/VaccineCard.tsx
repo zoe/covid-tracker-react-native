@@ -13,16 +13,24 @@ type Props = {
   vaccine: VaccineRequest;
   style?: ViewStyle;
   onPressDose: (index: number) => void;
-  onPressDelete: () => void;
+  onPressEdit: () => void;
 };
 
-export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose, onPressDelete }) => {
+export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose }) => {
   const formatDateString = (dateString: string): string => {
     return moment(dateString).format('MMM D YYYY');
   };
 
-  const getIcon = (hasDate: boolean) => {
-    return hasDate ? tick : pending;
+  const renderTick = (hasDate: boolean, hasName: boolean) => {
+    if (hasDate && hasName) {
+      return <Image source={tick} style={styles.tick} />;
+    }
+  };
+
+  const renderPending = (hasDate: boolean, hasName: boolean) => {
+    if (hasDate && hasName) {
+      return <Image source={pending} style={styles.tick} />;
+    }
   };
 
   const formatVaccineDate = (dose: Dose) => {
@@ -33,53 +41,71 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressDose, onPr
     }
   };
 
-  const hasFirstDoseDate = !!vaccine.doses[0]?.date_taken_specific;
-  const hasSecondDoseDate = !!vaccine.doses[1]?.date_taken_specific;
+  const pendingIconAndText = (textKey: string) => (
+    <View style={styles.row}>
+      <Image source={pending} style={styles.tick} />
+      <RegularText style={styles.pendingText}>{i18n.t(textKey)}</RegularText>
+    </View>
+  );
+
+  const dateRequired = pendingIconAndText('vaccines.vaccine-card.date-missing');
+  const notYetLogged = pendingIconAndText('vaccines.vaccine-card.not-logged');
+
+  const dose1: Dose | undefined = vaccine.doses[0];
+  const dose2: Dose | undefined = vaccine.doses[1];
+  console.log('dose1:', dose1, '\ndose2:', dose2);
+
+  const hasFirstDoseDate = !!dose1?.date_taken_specific;
+  const hasSecondDoseDate = !!dose2?.date_taken_specific;
+  const hasFirstDoseName = !!dose1?.brand && !!dose1?.description;
+  const hasSecondDoseName = !!dose2?.brand && !!dose2?.description;
+  const hasFirstDoseBrand = !!dose1?.brand;
+  const hasSecondDoseBrand = !!dose2?.brand;
+  const hasFirstDoseDescription = !!dose1?.description;
+  const hasSecondDoseDescription = !!dose2?.description;
 
   return (
-    <View style={[styles.container, style]}>
-      <RegularText>{i18n.t('vaccines.vaccine-card.dose-1')}</RegularText>
+    <>
       <View style={styles.row}>
-        <Image source={getIcon(hasFirstDoseDate)} style={styles.tick} />
-        <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
-          {hasFirstDoseDate
-            ? formatVaccineDate(vaccine.doses[0] as Dose)
-            : i18n.t('vaccines.vaccine-card.date-missing')}
-        </RegularText>
+        {renderTick(hasFirstDoseDate, hasFirstDoseName)}
+        <RegularText>{i18n.t('vaccines.vaccine-card.dose-1')}</RegularText>
       </View>
-      {!hasFirstDoseDate && (
-        <BrandedButton style={styles.button} onPress={() => onPressDose(0)}>
-          <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-date')}</Text>
-        </BrandedButton>
+      <RegularText style={[!hasFirstDoseName && styles.pendingText]}>
+        {hasFirstDoseName
+          ? hasFirstDoseBrand
+            ? dose1.brand
+            : dose1.description
+          : pendingIconAndText('vaccines.vaccine-card.name-missing')}
+      </RegularText>
+      <RegularText style={[!hasFirstDoseDate && styles.pendingText]}>
+        {hasFirstDoseDate ? formatVaccineDate(dose1 as Dose) : i18n.t('vaccines.vaccine-card.date-missing')}
+      </RegularText>
+
+      {!hasFirstDoseDate && dateRequired}
+
+      <View style={styles.row}>
+        {renderTick(hasSecondDoseDate, hasSecondDoseName)}
+        <RegularText>{i18n.t('vaccines.vaccine-card.dose-2')}</RegularText>
+      </View>
+
+      {hasSecondDoseDate && (
+        <RegularText style={[!hasSecondDoseName && styles.pendingText]}>
+          {hasSecondDoseName
+            ? hasSecondDoseBrand
+              ? dose2.brand
+              : dose2.description
+            : pendingIconAndText('vaccines.vaccine-card.name-missing')}
+        </RegularText>
       )}
 
-      <RegularText style={{ marginTop: 16 }}>{i18n.t('vaccines.vaccine-card.dose-2')}</RegularText>
-      <View style={styles.row}>
-        <Image source={getIcon(hasSecondDoseDate)} style={styles.tick} />
-        <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
-          {hasSecondDoseDate ? formatVaccineDate(vaccine.doses[1] as Dose) : i18n.t('vaccines.vaccine-card.not-logged')}
-        </RegularText>
-      </View>
-      {!hasSecondDoseDate && (
-        <BrandedButton style={styles.button} enable={hasFirstDoseDate} onPress={() => onPressDose(1)}>
-          <Text style={styles.buttonText}>{i18n.t('vaccines.vaccine-card.add-info')}</Text>
-        </BrandedButton>
-      )}
-
-      <ClickableText onPress={() => onPressDelete()} style={styles.deleteText}>
-        {i18n.t('vaccines.vaccine-card.delete')}
-      </ClickableText>
-    </View>
+      <RegularText style={[!hasSecondDoseDate && styles.pendingText]}>
+        {hasSecondDoseDate ? formatVaccineDate(dose2 as Dose) : notYetLogged}
+      </RegularText>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 16,
-    borderColor: colors.tertiary,
-  },
   row: {
     marginVertical: 8,
     flexDirection: 'row',
@@ -102,12 +128,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   buttonText: {
-    color: colors.purple,
-  },
-  deleteText: {
-    marginTop: 24,
-    marginBottom: 8,
-    textAlign: 'center',
     color: colors.purple,
   },
 });

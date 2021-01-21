@@ -2,13 +2,13 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Form, Text } from 'native-base';
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment';
 
 import Screen, { Header } from '@covid/components/Screen';
-import { BrandedButton, ErrorText, HeaderText, RegularText, Header3Text } from '@covid/components/Text';
+import { BrandedButton, ClickableText, ErrorText, Header3Text, HeaderText, RegularText } from '@covid/components/Text';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
@@ -40,7 +40,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const { assessmentData, editIndex } = route.params;
   const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
 
-  const handleAction = (formData: AboutYourVaccineData) => {
+  const processFormDataForSubmit = (formData: AboutYourVaccineData) => {
     if (!submitting) {
       setSubmitting(true);
 
@@ -110,6 +110,50 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     coordinator.gotoNextScreen(route.name);
   };
 
+  const checkDateChangePrompt = (formData: AboutYourVaccineData) => {
+    Alert.alert(
+      i18n.t('vaccines.your-vaccine.date-change-confirm'),
+      i18n.t('vaccines.your-vaccine.date-change-text'),
+      [
+        {
+          text: i18n.t('cancel'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('confirm'),
+          onPress: () => {
+            processFormDataForSubmit(formData);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const promptDeleteVaccine = () => {
+    Alert.alert(
+      i18n.t('vaccines.vaccine-list.delete-vaccine-title'),
+      i18n.t('vaccines.vaccine-list.delete-vaccine-text'),
+      [
+        {
+          text: i18n.t('cancel'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('delete'),
+          style: 'destructive',
+          onPress: () => {
+            vaccineService.deleteVaccine(assessmentData.vaccineData.id).then(() => {
+              coordinator.resetVaccine();
+              coordinator.gotoNextScreen(route.name);
+            });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const firstDoseUI = (props: FormikProps<VaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
@@ -147,6 +191,21 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     </TouchableOpacity>
   );
 
+  const dateHasBeenEdited = (formData: AboutYourVaccineData) => {
+    if (assessmentData.vaccineData === undefined || assessmentData.vaccineData.doses === undefined) {
+      return false;
+    }
+    const dose1Date = assessmentData.vaccineData.doses[0].date_taken_specific;
+    const dose2Date = assessmentData.vaccineData.doses[1].date_taken_specific;
+
+    console.log(
+      'dateHasBeenEdited: ',
+      editIndex || (formData.firstDoseDate === dose1Date && formData.secondDoseDate === dose2Date)
+    );
+
+    return editIndex || (formData.firstDoseDate === dose1Date && formData.secondDoseDate === dose2Date);
+  };
+
   return (
     <Screen profile={assessmentData.patientData.profile} navigation={navigation}>
       <Header>
@@ -160,7 +219,10 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
           ...VaccineDateQuestion.initialFormValues(assessmentData.vaccineData),
         }}
         validationSchema={registerSchema}
-        onSubmit={(values: AboutYourVaccineData) => handleAction(values)}>
+        onSubmit={(formData: AboutYourVaccineData) =>
+          // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit.
+          dateHasBeenEdited() ? checkDateChangePrompt(formData) : processFormDataForSubmit(formData)
+        }>
         {(props: FormikProps<AboutYourVaccineData>) => {
           return (
             <Form style={{ flex: 1 }}>
@@ -189,6 +251,10 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
               <BrandedButton onPress={props.handleSubmit}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
               </BrandedButton>
+
+              <ClickableText onPress={() => promptDeleteVaccine()} style={styles.clickableText}>
+                {i18n.t('vaccines.your-vaccine.delete')}
+              </ClickableText>
             </Form>
           );
         }}
@@ -200,5 +266,11 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
 const styles = StyleSheet.create({
   labelStyle: {
     marginVertical: 16,
+  },
+  clickableText: {
+    marginTop: 24,
+    marginBottom: 8,
+    textAlign: 'center',
+    color: colors.purple,
   },
 });

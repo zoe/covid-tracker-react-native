@@ -1057,18 +1057,29 @@
         "have-had-second": "",
         "select-date": "",
         "placeholder-name": "",
-        "about-name": "",
+        "label-name": "",
         "name-i-dont-know": "",
-        "confirm": ""
+        "label-name-other": "",
+        "label-name-other-2": "",
+        "placeholder-name-other-2": "",
+        "placeholder-type": "",
+        "placeholder-batch": "",
+        "label-batch": "",
+        "date-change-confirm": "",
+        "date-change-text": "",
+        "confirm": "",
+        "delete": ""
       },
+
       "vaccine-card": {
         "dose-1": "",
         "dose-2": "",
         "add-date": "",
         "add-info": "",
-        "delete": "",
         "date-missing": "",
-        "not-logged": ""
+        "name-missing": "",
+        "not-logged": "",
+        "edit-vaccine": ""
       }
     },
 
