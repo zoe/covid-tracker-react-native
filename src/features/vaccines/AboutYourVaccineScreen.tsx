@@ -37,7 +37,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const coordinator = assessmentCoordinator;
   const [errorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [hasSecondDose, setHasSecondDose] = useState<string>(undefined);
+  const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
   const { assessmentData } = route.params;
   const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
 
@@ -56,7 +56,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
         patient: assessmentData.patientData.patientId,
         vaccine_type: VaccineTypes.COVID_VACCINE,
       };
-      const doses: Partial<Dose>[] = [];
+      const doses: Partial<Dose | undefined>[] = [];
 
       if (formData.firstDoseDate) {
         doses[0] = vaccine?.doses && vaccine?.doses[0] ? vaccine.doses[0] : undefined;
@@ -178,7 +178,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     }
 
     // Always has doses here due to check above
-    const doses: Dose[] = assessmentData.vaccineData.doses;
+    const doses: Partial<Dose>[] = assessmentData.vaccineData.doses;
     const dose1Date = doses[0]?.date_taken_specific;
     const dose2Date = doses[1]?.date_taken_specific;
     const formDate1 = formatDateToPost(formData.firstDoseDate);
