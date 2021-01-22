@@ -32,12 +32,12 @@ interface Props {
   firstDose: boolean;
 }
 
-export interface VaccineDateQuestion<P, Data> extends React.FC<P> {
+export interface VaccineDoseQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (vaccine?: VaccineRequest) => Data;
   schema: () => Yup.ObjectSchema;
 }
 
-export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = (props: Props) => {
+export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = (props: Props) => {
   const { formikProps } = props;
   const today = moment().add(moment().utcOffset(), 'minutes').toDate();
   const [showPicker, setshowPicker] = useState(false);
@@ -78,16 +78,22 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = 
     const dateField: Date | undefined = props.firstDose
       ? formikProps.values.firstDoseDate
       : formikProps.values.secondDoseDate;
+    const errorField: string | undefined = props.firstDose
+      ? formikProps.errors.firstDoseDate
+      : formikProps.errors.secondDoseDate;
 
     return (
-      <TouchableOpacity onPress={() => setshowPicker(true)} style={styles.dateBox}>
-        <CalendarIcon />
-        {dateField ? (
-          <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
-        ) : (
-          <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
-        )}
-      </TouchableOpacity>
+      <>
+        <TouchableOpacity onPress={() => setshowPicker(true)} style={styles.dateBox}>
+          <CalendarIcon />
+          {dateField ? (
+            <RegularText style={{ marginStart: 8 }}>{moment(dateField).format('MMMM D, YYYY')}</RegularText>
+          ) : (
+            <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
+          )}
+        </TouchableOpacity>
+        <ErrorText>{errorField ? 'Date is required' : ''}</ErrorText>
+      </>
     );
   };
 
@@ -98,8 +104,8 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = 
         value={props.formikProps.values.firstBatchNumber}
         onChangeText={props.formikProps.handleChange('firstBatchNumber')}
         onBlur={props.formikProps.handleBlur('firstBatchNumber')}
-        error={props.formikProps.touched.firstBatchNumber && props.formikProps.errors.firstBatchNumber}
         returnKeyType="next"
+        error={formikProps.touched.firstBatchNumber && formikProps.errors.firstBatchNumber}
         onSubmitEditing={() => {}}
       />
     ) : (
@@ -108,27 +114,35 @@ export const VaccineDateQuestion: VaccineDateQuestion<Props, VaccineDoseData> = 
         value={props.formikProps.values.secondBatchNumber}
         onChangeText={props.formikProps.handleChange('secondBatchNumber')}
         onBlur={props.formikProps.handleBlur('secondBatchNumber')}
-        error={props.formikProps.touched.secondBatchNumber && props.formikProps.errors.secondBatchNumber}
         returnKeyType="next"
+        error={formikProps.touched.secondBatchNumber && formikProps.errors.secondBatchNumber}
         onSubmitEditing={() => {}}
       />
     );
+
+  const renderNameError = () => {
+    if (formikProps.submitCount == 0 || !!Object.keys(formikProps.errors).length) {
+      return null;
+    }
+    if (props.firstDose && (formikProps.errors.firstBrand || formikProps.errors.firstDescription)) {
+      return <ValidationError error={i18n.t('validation-error-text')} />;
+    }
+    if (!props.firstDose && (formikProps.errors.secondBrand || formikProps.errors.secondDescription)) {
+      return <ValidationError error={i18n.t('validation-error-text')} />;
+    }
+    return null;
+  };
 
   return (
     <>
       <View style={{ marginBottom: 16 }}>
         <View style={{ marginBottom: 16 }}>
           <VaccineNameQuestion formikProps={formikProps as FormikProps<VaccineDoseData>} firstDose={props.firstDose} />
-          <ErrorText>{errorMessage}</ErrorText>
-          {!!Object.keys(formikProps.errors).length && formikProps.submitCount > 0 && (
-            <ValidationError error={i18n.t('validation-error-text')} />
-          )}
+          {renderNameError}
         </View>
-
         <SecondaryText>{i18n.t('vaccines.your-vaccine.when-injection')}</SecondaryText>
         {showPicker ? renderPicker() : renderCalenderButton()}
       </View>
-
       <RegularText>{i18n.t('vaccines.your-vaccine.label-batch')}</RegularText>
       {renderBatchNumber()}
     </>
@@ -145,11 +159,15 @@ const styles = StyleSheet.create({
   },
 });
 
-VaccineDateQuestion.schema = () => {
+VaccineDoseQuestion.schema = () => {
   return Yup.object().shape({
-    firstDoseDate: Yup.date(),
+    firstDoseDate: Yup.date().required(),
     secondDoseDate: Yup.date(),
     firstBatchNumber: Yup.string(),
     secondBatchNumber: Yup.string(),
+    firstBrand: Yup.string().nullable(),
+    firstDescription: Yup.string().nullable(),
+    secondBrand: Yup.string().nullable(),
+    secondDescription: Yup.string().nullable(),
   });
 };

@@ -14,7 +14,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { VaccineRequest, VaccineTypes, Dose } from '@covid/core/vaccine/dto/VaccineRequest';
 import { ValidationError } from '@covid/components/ValidationError';
-import { VaccineDoseData, VaccineDateQuestion } from '@covid/features/vaccines/fields/VaccineDateQuestion';
+import { VaccineDoseData, VaccineDoseQuestion } from '@covid/features/vaccines/fields/VaccineDoseQuestion';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
 import { colors } from '@theme';
@@ -30,6 +30,8 @@ type Props = {
   route: RouteProp<ScreenParamList, 'AboutYourVaccine'>;
 };
 
+const registerSchema = Yup.object().shape({}).concat(VaccineDoseQuestion.schema());
+
 interface AboutYourVaccineData extends VaccineDoseData {}
 
 export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
@@ -39,7 +41,6 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
   const { assessmentData } = route.params;
-  const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
 
   function vaccineOrFormHasSecondDose() {
     if (hasSecondDose !== undefined) {
@@ -71,8 +72,8 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
         doses[0] = updatedDose;
       }
 
-      //if setHasSecondDose is manually set to 'no', the data will not be saved (even if entered)
-      if (setHasSecondDose && formData.secondDoseDate) {
+      // if setHasSecondDose is manually set to 'no', the data will not be saved (even if entered)
+      if (vaccineOrFormHasSecondDose()) {
         doses[1] = vaccine?.doses && vaccine?.doses[1] ? vaccine.doses[1] : undefined;
         const updatedDose: Partial<Dose> = {
           ...doses[1],
@@ -83,6 +84,9 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
           description: formData.secondDescription,
         };
         doses[1] = updatedDose;
+      } else {
+        // unlinking a "deleted" dose needs work in this ticket:
+        //https://www.notion.so/joinzoe/Delete-vaccine-dose-if-user-sets-second-to-no-on-edit-2dbfcaad27e44068af02ce980e5a98da
       }
       const updatedVaccine: Partial<VaccineRequest> = { ...vaccine, doses };
       submitVaccine(updatedVaccine);
@@ -141,22 +145,15 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const renderFirstDoseUI = (props: FormikProps<VaccineDoseData>) => (
     <>
       <Header3Text style={styles.labelStyle}>{i18n.t('vaccines.your-vaccine.first-dose')}</Header3Text>
-      <VaccineDateQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose />
-      <ErrorText>{errorMessage}</ErrorText>
-      {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-        <ValidationError error={i18n.t('validation-error-text')} />
-      )}
+      <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose />
     </>
   );
 
   const renderSecondDoseUI = (props: FormikProps<VaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
       <>
-        <VaccineDateQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
+        <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
         <ErrorText>{errorMessage}</ErrorText>
-        {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-          <ValidationError error={i18n.t('validation-error-text')} />
-        )}
       </>
     ) : null;
 
@@ -203,25 +200,30 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     };
   };
 
+  const renderDeleteButton = () =>
+    assessmentData.vaccineData?.id ? (
+      <ClickableText onPress={() => promptDeleteVaccine()} style={styles.clickableText}>
+        {i18n.t('vaccines.your-vaccine.delete')}
+      </ClickableText>
+    ) : null;
+
   return (
     <Screen profile={assessmentData.patientData.profile} navigation={navigation}>
       <Header>
         <HeaderText>{i18n.t('vaccines.your-vaccine.title')}</HeaderText>
       </Header>
-
       {renderFindInfoLink}
-
       <Formik
         initialValues={{ ...buildInitialValues(assessmentData.vaccineData) }}
         validationSchema={registerSchema}
         onSubmit={(formData: AboutYourVaccineData) =>
-          // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit.
+          // Show an alert if any date value has changed. The prompt confirm will call processFormDataForSubmit thereafter.
           dateHasBeenEdited(formData) ? checkDateChangePrompt(formData) : processFormDataForSubmit(formData)
         }>
         {(props: FormikProps<AboutYourVaccineData>) => {
           return (
             <Form style={{ flex: 1 }}>
-              <View style={{ marginHorizontal: 16 }}>
+              <View style={{ marginHorizontal: 16, marginBottom: 32 }}>
                 {renderFirstDoseUI(props)}
                 <Header3Text style={{ marginTop: 16, marginBottom: 8 }}>
                   {i18n.t('vaccines.your-vaccine.second-dose')}
@@ -238,12 +240,13 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
                 />
                 {renderSecondDoseUI(props)}
               </View>
+              {!!Object.keys(props.errors).length && props.submitCount > 0 && (
+                <ValidationError error={i18n.t('validation-error-text')} />
+              )}
               <BrandedButton onPress={props.handleSubmit}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
               </BrandedButton>
-              <ClickableText onPress={() => promptDeleteVaccine()} style={styles.clickableText}>
-                {i18n.t('vaccines.your-vaccine.delete')}
-              </ClickableText>
+              {renderDeleteButton()}
             </Form>
           );
         }}

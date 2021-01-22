@@ -8,7 +8,7 @@ import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRe
 import DropdownField from '@covid/components/DropdownField';
 import { isGBCountry } from '@covid/core/localisation/LocalisationService';
 
-import { VaccineDoseData } from './VaccineDateQuestion';
+import { VaccineDoseData } from './VaccineDoseQuestion';
 
 interface Props {
   formikProps: FormikProps<VaccineDoseData>;
@@ -17,7 +17,6 @@ interface Props {
 
 export interface VaccineNameQuestion<P, Data> extends React.FC<P> {
   initialFormValues: (vaccine?: VaccineRequest) => Data;
-  schema: () => Yup.ObjectSchema;
 }
 
 export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = (props: Props) => {
@@ -49,7 +48,6 @@ export const VaccineNameQuestion: VaccineNameQuestion<Props, VaccineDoseData> = 
     const brandTouched = props.firstDose ? props.formikProps.touched.firstBrand : props.formikProps.touched.secondBrand;
     const brandError = props.firstDose ? props.formikProps.errors.firstBrand : props.formikProps.errors.secondBrand;
 
-    console.log('brandField is ', brandField);
     return (
       <DropdownField
         placeholder={i18n.t('vaccines.your-vaccine.label-name')}
@@ -107,13 +105,4 @@ VaccineNameQuestion.initialFormValues = (vaccine?: VaccineRequest): VaccineDoseD
     secondBrand: vaccine?.doses[1]?.brand,
     secondDescription: vaccine?.doses[1]?.description,
   };
-};
-
-VaccineNameQuestion.schema = () => {
-  return Yup.object().shape({
-    firstBrand: Yup.string().required(),
-    firstDescription: Yup.string(),
-    secondBrand: Yup.string().required(),
-    secondDescription: Yup.string(),
-  });
 };
