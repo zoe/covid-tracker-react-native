@@ -73,10 +73,10 @@ export type ScreenParamList = {
 
   // Vaccines
   VaccineDoseSymptoms: { assessmentData: AssessmentData; dose: string };
-  VaccineThankYou: { assessmentData: AssessmentData };
   VaccineHesitancy: { assessmentData: AssessmentData };
   VaccineList: { assessmentData: AssessmentData };
   AboutYourVaccine: { assessmentData: AssessmentData; editIndex?: number };
+  VaccineLogSymptomsInfo: { assessmentData: AssessmentData };
 
   // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };

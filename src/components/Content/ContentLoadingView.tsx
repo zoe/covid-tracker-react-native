@@ -53,16 +53,23 @@ export const ContentErrorView: React.FC<ContentErrorViewProps> = ({ message }) =
 type ContentLoadingViewProps = {
   loading?: boolean;
   errorMessage?: string;
+  disableShimmers?: boolean;
 };
 
-export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({ loading, errorMessage, children }) => {
+export const ContentLoadingView: React.FC<ContentLoadingViewProps> = ({
+  loading,
+  errorMessage,
+  disableShimmers,
+  children,
+}) => {
+  const enableShimmers = !disableShimmers;
   if (errorMessage) {
     return <ContentErrorView message={errorMessage} />;
   }
 
   return (
     <View>
-      {loading && (
+      {loading && enableShimmers && (
         <View style={styles.container}>
           <View>
             <ShimmerPlaceholder LinearGradient={LinearGradient} style={[styles.base]} />

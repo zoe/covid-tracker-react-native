@@ -1,17 +1,18 @@
 import 'reflect-metadata';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components/native';
+import { ThemeProvider } from 'styled-components';
 import SplashScreen from 'react-native-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import env from 'react-native-config';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import CovidApp from '@covid/CovidApp';
 import StorybookUIRoot from '@covid/storybook';
 import { Provider as ServiceProvider } from '@covid/provider/services.provider';
 import { container } from '@covid/provider/services';
-import store from '@covid/core/state/store';
+import store, { persistor } from '@covid/core/state/store';
 import { Theme } from '@covid/themes';
 import { MessagingContainer } from '@covid/components';
 import { ErrorBoundary } from '@covid/core/ErrorBoundary';
@@ -32,14 +33,16 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <ThemeProvider theme={Theme}>
-          <SafeAreaProvider>
-            <MessagingContainer />
-            <ServiceProvider container={container}>
-              <Root />
-            </ServiceProvider>
-          </SafeAreaProvider>
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={Theme}>
+            <SafeAreaProvider>
+              <MessagingContainer />
+              <ServiceProvider container={container}>
+                <Root />
+              </ServiceProvider>
+            </SafeAreaProvider>
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </ErrorBoundary>
   );

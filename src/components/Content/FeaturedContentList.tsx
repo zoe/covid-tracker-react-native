@@ -15,9 +15,10 @@ export enum FeaturedContentType {
 export type FeaturedContentProps = {
   type: FeaturedContentType;
   screenName: string;
+  disableLoadingState?: boolean;
 };
 
-export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, screenName }) => {
+export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, screenName, disableLoadingState }) => {
   const home = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredHome);
   const thankyou = useSelector<RootState, Optional<IFeaturedContent[]>>((state) => state.content.featuredThankyou);
 
@@ -29,6 +30,7 @@ export const FeaturedContentList: React.FC<FeaturedContentProps> = ({ type, scre
         imageSource={{ uri: item.thumbnail_image_url }}
         aspectRatio={item.thumbnail_aspect_ratio}
         screenName={screenName}
+        disableLoadingState={disableLoadingState}
       />
     </View>
   );

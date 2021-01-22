@@ -419,7 +419,9 @@
     "picker-health-status-healthy": "Me siento normal físicamente",
     "picker-health-status-not-healthy": "No me siento muy bien",
     "current-location": "Actualmente de dónde está informando:",
-    "update-location": "Actualiza su ubicación"
+    "update-location": "Actualiza su ubicación",
+    "vaccine-reporting-message": "",
+    "vaccine-reporting-link": ""
   },
 
   "where-are-you": {
@@ -1050,13 +1052,6 @@
     },
 
     "vaccines": {
-      "thank-you": {
-        "title": "Thank you.",
-        "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
-        "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
-        "confirm": "Start daily report"
-      },
-
       "dose-symptoms": {
         "label": "About your recent vaccine",
         "title-1": "Are you experiencing any symptoms",
@@ -1070,10 +1065,18 @@
         "warmth": "Warmth",
         "itch": "Itch",
         "tenderness": "Tenderness",
+        "bruising": "Bruising",
         "other": "Other",
         "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
         "other-placeholder": "Describe your symptoms here...",
         "next": "Next"
+      },
+
+      "log-symptoms": {
+        "title": "Why is logging symptoms following my vaccine so important?",
+        "body-1": "When COVID-19 cases exploded in MArch 2020, we quickly set up the ZOE COVID Symptom Study to understand the virus.",
+        "body-2": "As the pandemic shifts into a new phase, we'll be monitoring the impact vaccines have on the pandemic.",
+        "body-3": "Logging your vaccine and telling us how you feel following your dose helps us to keep our data accurate"
       },
 
       "vaccine-list": {

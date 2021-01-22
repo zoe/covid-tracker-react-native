@@ -3,12 +3,14 @@ import {
   Image,
   ImageSourcePropType,
   ImageStyle,
+  ImageURISource,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 import Analytics, { events } from '@covid/core/Analytics';
 import { openWebLink } from '@covid/utils/links';
@@ -28,6 +30,7 @@ type ExternalCalloutProps = {
   screenName: string;
   imageStyles?: StyleProp<ImageStyle>;
   canDismiss?: boolean;
+  disableLoadingState?: boolean;
 };
 
 export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
@@ -38,9 +41,34 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   const [imageLoadError, setImageLoadError] = useState<string | undefined>(undefined);
   const dispatch = useAppDispatch();
 
+  const imageProps = {
+    style: [
+      styles.image,
+      { aspectRatio: props.aspectRatio },
+      { ...(props.imageStyles as object) },
+      imageLoading && { opacity: 0 },
+    ],
+    onLoadStart: () => {
+      setImageLoading(true);
+    },
+    onLoadEnd: () => {
+      setTimeout(() => {
+        setImageLoading(false);
+      }, 330);
+    },
+    onError: () => {
+      setImageLoading(false);
+      setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
+    },
+  };
+
   useEffect(() => {
     setDismissed(dismissedCalloutIds.includes(calloutID));
   }, [dismissedCalloutIds]);
+
+  useEffect(() => {
+    setImageLoading(true);
+  }, []);
 
   function clickCallout() {
     Analytics.track(events.CLICK_CALLOUT, { calloutID, screenName });
@@ -54,31 +82,18 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
   }
 
   return (
-    <ContentLoadingView loading={imageLoading} errorMessage={imageLoadError}>
+    <ContentLoadingView
+      loading={imageLoading}
+      errorMessage={imageLoadError}
+      disableShimmers={props.disableLoadingState}>
       {!dismissed && (
         <TouchableWithoutFeedback onPress={clickCallout}>
           <View style={styles.viewContainer}>
-            <Image
-              source={props.imageSource}
-              style={[
-                styles.image,
-                { aspectRatio: props.aspectRatio },
-                { ...(props.imageStyles as object) },
-                imageLoading && { opacity: 0 },
-              ]}
-              onLoadStart={() => {
-                setImageLoading(true);
-              }}
-              onLoadEnd={() => {
-                setTimeout(() => {
-                  setImageLoading(false);
-                }, 330);
-              }}
-              onError={() => {
-                setImageLoading(false);
-                setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
-              }}
-            />
+            {Object.keys(props.imageSource).includes('uri') ? (
+              <FastImage {...imageProps} source={{ uri: (props.imageSource as ImageURISource).uri }} />
+            ) : (
+              <Image {...imageProps} source={props.imageSource} />
+            )}
             {canDismiss && (
               <TouchableWithoutFeedback onPress={clickDismiss}>
                 <Image style={styles.closeCross} source={closeIcon} />
