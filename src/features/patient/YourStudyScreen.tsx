@@ -101,7 +101,7 @@ const AllCohorts: CohortDefinition[] = [
   },
   {
     key: 'is_in_us_origins',
-    label: 'ORIGINS',
+    label: 'ORIGINS-Columbia University',
     country: 'US',
   },
   {
@@ -342,7 +342,7 @@ export default class YourStudyScreen extends Component<YourStudyProps, State> {
               <Form>
                 <FieldWrapper>
                   <Item stackedLabel style={styles.textItemStyle}>
-                    <Label>{i18n.t('your-study.label-cohort')}</Label>
+                    <Label style={{ marginBottom: 16 }}>{i18n.t('your-study.label-cohort')}</Label>
                     <CheckboxList>
                       {countrySpecificCohorts.map((cohort) => (
                         <CheckboxItem
