@@ -117,7 +117,11 @@ export default class Screen extends Component<ScreenProps> {
                 flexGrow: 1,
                 justifyContent: 'space-between',
               }}>
-              <View style={styles.pageBlock}>{this.props.children}</View>
+              {this.props.extendEdges ? (
+                <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>
+              ) : (
+                <View style={styles.pageBlock}>{this.props.children}</View>
+              )}
             </ScrollView>
           )}
         </KeyboardAvoidingView>
@@ -149,6 +153,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     marginHorizontal: 16,
     marginBottom: 16,
+  },
+
+  pageBlockExtendedEdges: {
+    marginHorizontal: 0,
   },
 
   headerBlock: {
