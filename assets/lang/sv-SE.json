@@ -1334,7 +1334,13 @@
     }
   },
   "generic": {
-    "share-this-with-someone": "Share this with someone",
-    "content-can-not-be-loaded-atm": ""
+    "share-this-with-someone": "Dela detta med någon",
+    "content-can-not-be-loaded-atm": "Detta innehåll kan inte laddas just nu"
+  },
+
+  "error-boundary": {
+    "something-went-wrong": "Hoppsan! Något gick fel.",
+    "encountered-error": "Tyvärr har appen stött på ett fel:",
+    "notified": "Utvecklingsteamet har meddelats och förhoppningsvis bör problemet åtgärdas så fort! Försök att starta om appen för att fortsätta."
   }
 }

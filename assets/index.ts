@@ -6,6 +6,7 @@ export const icon = require('./icon.png');
 export const social = require('./social.png');
 export const usMap = require('./usMap.png');
 export const gbMap = require('./gbMap.png');
+export const errors = require('./errors.png');
 
 // Icons
 export const closeIcon = require('./icons/close.png');
