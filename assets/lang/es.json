@@ -1328,7 +1328,7 @@
 
   "error-boundary": {
     "something-went-wrong": "¡Ups! Algo salió mal.",
-    "encountered-error": "Lo sentimos, pero la aplicación ha encontrado un error:",
+    "encountered-error": "La aplicación ha encontrado un error:",
     "notified": "El equipo de desarrollo ha sido notificado y, con suerte, debería solucionar este problema lo antes posible. Intente reiniciar la aplicación para continuar."
   }
 }
