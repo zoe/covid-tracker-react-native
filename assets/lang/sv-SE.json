@@ -284,7 +284,9 @@
     "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
     "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
     "current-location": "Du rapporterar just nu från:",
-    "update-location": "Uppdatera plats"
+    "update-location": "Uppdatera plats",
+    "vaccine-reporting-message": "",
+    "vaccine-reporting-link": ""
   },
 
   "describe-symptoms": {
@@ -989,12 +991,6 @@
     },
 
     "vaccines": {
-      "thank-you": {
-        "title": "",
-        "sub-title": "",
-        "text": "",
-        "confirm": ""
-      },
       "dose-symptoms": {
         "label": "",
         "title-1": "",
@@ -1008,6 +1004,7 @@
         "warmth": "",
         "itch": "",
         "tenderness": "",
+        "bruising": "",
         "other": "",
         "other-info": "",
         "other-placeholder": "",
@@ -1030,6 +1027,12 @@
         "Other": "",
         "not-to-say": "",
         "specify": ""
+      },
+      "log-symptoms": {
+        "title": "",
+        "body-1": "",
+        "body-2": "",
+        "body-3": ""
       },
       "vaccine-list": {
         "title": "",

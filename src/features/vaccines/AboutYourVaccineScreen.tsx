@@ -34,7 +34,6 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const { assessmentData, editIndex } = route.params;
-
   const registerSchema = Yup.object().shape({}).concat(VaccineDateQuestion.schema());
 
   const handleAction = (formData: AboutYourVaccineData) => {

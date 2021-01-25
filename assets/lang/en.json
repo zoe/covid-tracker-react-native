@@ -422,7 +422,9 @@
     "picker-health-status-healthy": "I feel physically normal",
     "picker-health-status-not-healthy": "I'm not feeling quite right",
     "current-location": "You are currently reporting from:",
-    "update-location": "Update Location"
+    "update-location": "Update Location",
+    "vaccine-reporting-message": "Please continue to provide daily health reports following your COVID-19 vaccination and log any general symptoms you might experience.",
+    "vaccine-reporting-link": "Why is that important?"
   },
 
   "where-are-you": {
@@ -971,13 +973,6 @@
   },
 
   "vaccines": {
-    "thank-you": {
-      "title": "Thank you.",
-      "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
-      "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
-      "confirm": "Start daily report"
-    },
-
     "dose-symptoms": {
       "label": "About your recent vaccine",
       "title-1": "Are you experiencing any symptoms",
@@ -991,10 +986,18 @@
       "warmth": "Warmth",
       "itch": "Itch",
       "tenderness": "Tenderness",
+      "bruising": "Bruising",
       "other": "Other",
       "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
       "other-placeholder": "Describe your symptoms here...",
       "next": "Next"
+    },
+
+    "log-symptoms": {
+      "title": "Why is logging symptoms following my vaccine so important?",
+      "body-1": "When COVID-19 cases exploded in March 2020, we quickly set up the ZOE COVID Symptom Study to understand the virus.",
+      "body-2": "As the pandemic shifts into a new phase, we'll be monitoring the impact vaccines have on the pandemic.",
+      "body-3": "Logging your vaccine and telling us how you feel following your dose helps us to keep our data accurate."
     },
 
     "vaccine-list": {

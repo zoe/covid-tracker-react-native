@@ -14,7 +14,7 @@ interface GenericTextFieldProps extends TextInputProps {
   placeholder?: string;
   keyboardType?: KeyboardTypeOptions;
   showError?: boolean;
-  inputProps?: any;
+  inputProps?: TextInputProps;
   wrapperStyle?: StyleProp<ViewStyle>;
 }
 

@@ -88,7 +88,7 @@ const EmptyView: React.FC<EmptyViewProps> = ({ onPress, ...props }) => {
   return (
     <View style={[styles.root, root]}>
       <View style={{ marginVertical: 24, paddingHorizontal: 16 }}>
-        <Text textClass="h4Regular" rhythm={8}>
+        <Text textClass="h4" rhythm={8}>
           {primaryLabel}
         </Text>
         <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>
@@ -271,7 +271,7 @@ export const EstimatedCasesMapCard: React.FC<Props> = ({ isSharing }) => {
     <View style={styles.root}>
       <View style={styles.snapshotContainer} ref={viewRef} collapsable={false}>
         <View style={{ marginVertical: isSharing ? 4 : 24, paddingHorizontal: 16 }}>
-          <Text textClass="h4Regular" rhythm={8}>
+          <Text textClass="h4" rhythm={8}>
             {i18n.t('covid-cases-map.covid-in-x', { location: displayLocation })}
           </Text>
           <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>

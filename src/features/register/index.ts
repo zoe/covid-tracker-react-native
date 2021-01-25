@@ -1,7 +1,7 @@
 export { default as ConsentScreen } from './ConsentScreen/ConsentScreen';
 export { OptionalInfoScreen } from './OptionalInfoScreen';
 export { PrivacyPolicyUKScreen } from './gb/PrivacyPolicyUKScreen';
-export { RegisterScreen } from './RegisterScreen';
+export { default as RegisterScreen } from './RegisterScreen';
 export { default as PrivacyPolicySVScreen } from './sv/PrivacyPolicySVScreen';
 export { default as BeforeWeStartUS } from './us/BeforeWeStartUS';
 export { NursesConsentUSScreen } from './us/NursesConsentUS';

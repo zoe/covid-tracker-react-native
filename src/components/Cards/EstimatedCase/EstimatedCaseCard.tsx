@@ -37,7 +37,7 @@ export const EstimatedCaseCard: React.FC<Props> = ({
     <View style={styles.root}>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View>
-          <Text textClass="h4Regular" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
+          <Text textClass="h4" colorPalette="uiDark" colorShade="darker" inverted rhythm={8}>
             {primaryLabel}
           </Text>
           <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>

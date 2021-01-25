@@ -62,14 +62,15 @@ export class AssessmentCoordinator extends Coordinator {
       NavigatorService.reset([
         { name: homeScreenName() },
         { name: 'SelectProfile', params: { assessmentFlow: true } },
-        { name: 'VaccineThankYou', params: { assessmentData: this.assessmentData } },
+        { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
       ]);
     },
     VaccineHesitancy: () => {
-      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
-    },
-    VaccineThankYou: () => {
-      NavigatorService.navigate('HowYouFeel', { assessmentData: this.assessmentData });
+      NavigatorService.reset([
+        { name: homeScreenName() },
+        { name: 'SelectProfile', params: { assessmentFlow: true } },
+        { name: 'HowYouFeel', params: { assessmentData: this.assessmentData } },
+      ]);
     },
     NHSTestDetail: () => {
       NavigatorService.goBack();
@@ -194,6 +195,12 @@ export class AssessmentCoordinator extends Coordinator {
   goToAddEditTest = (testType: CovidTestType, covidTest?: CovidTest) => {
     const screenName: keyof ScreenParamList = testType === CovidTestType.Generic ? 'CovidTestDetail' : 'NHSTestDetail';
     NavigatorService.navigate(screenName, { assessmentData: this.assessmentData, test: covidTest });
+  };
+
+  goToVaccineLogSymptomsInfo = () => {
+    NavigatorService.navigate('VaccineLogSymptomsInfo', {
+      assessmentData: this.assessmentData,
+    });
   };
 
   goToAddEditVaccine = (vaccine?: VaccineRequest, editIndex?: number) => {
