@@ -58,7 +58,7 @@ export const ExternalCallout: React.FC<ExternalCalloutProps> = (props) => {
     },
     onError: () => {
       setImageLoading(false);
-      setImageLoadError(i18n.t('content-can-not-be-loaded-atm'));
+      setImageLoadError(i18n.t('generic.content-can-not-be-loaded-atm'));
     },
   };
 
