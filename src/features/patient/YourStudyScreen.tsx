@@ -101,7 +101,7 @@ const AllCohorts: CohortDefinition[] = [
   },
   {
     key: 'is_in_us_origins',
-    label: 'ORIGINS',
+    label: 'ORIGINS-Columbia University',
     country: 'US',
   },
   {
