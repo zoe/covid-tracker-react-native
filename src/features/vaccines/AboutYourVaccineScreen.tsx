@@ -37,7 +37,6 @@ interface AboutYourVaccineData extends VaccineDoseData {}
 export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
-  const [errorMessage] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [hasSecondDose, setHasSecondDose] = useState<string | undefined>(undefined);
   const { assessmentData } = route.params;
@@ -151,10 +150,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
 
   const renderSecondDoseUI = (props: FormikProps<VaccineDoseData>) =>
     vaccineOrFormHasSecondDose() ? (
-      <>
-        <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
-        <ErrorText>{errorMessage}</ErrorText>
-      </>
+      <VaccineDoseQuestion formikProps={props as FormikProps<VaccineDoseData>} firstDose={false} />
     ) : null;
 
   const renderFindInfoLink = isSECountry() ? null : (
