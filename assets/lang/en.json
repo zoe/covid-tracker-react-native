@@ -1322,7 +1322,7 @@
   },
 
   "error-boundary": {
-    "something-went-wrong": "Oops! Something wet wrong.",
+    "something-went-wrong": "Oops! Something went wrong.",
     "encountered-error": "Sorry but the app has encountered an error:",
     "notified": "The development team has been notified and should hopefully fix this issue asap! Try to restart the app to continue."
   }
