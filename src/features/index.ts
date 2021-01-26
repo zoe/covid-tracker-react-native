@@ -2,7 +2,6 @@ export * from './assessment';
 export { CountrySelectScreen } from './CountrySelectScreen';
 export * from './covid-tests';
 export * from './dashboard';
-export * from './diet-study-playback/components';
 export { EstimatedCasesScreen } from './EstimatedCasesScreen';
 export { default as LoginScreen } from './login/LoginScreen';
 export * from './multi-profile';
