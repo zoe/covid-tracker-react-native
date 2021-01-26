@@ -202,3 +202,4 @@ ios/Pods/
 android/app/src/main/assets/fonts/SofiaPro*.otf
 /assets/fonts/*
 fastlane/devices.txt
+.env.local
