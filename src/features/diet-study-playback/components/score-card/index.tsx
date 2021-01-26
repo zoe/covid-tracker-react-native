@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated } from 'react-native';
 
 type TDirection = 'UP' | 'DOWN';
 
