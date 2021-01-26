@@ -2,14 +2,14 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import moment, { Moment } from 'moment';
 import { useSelector } from 'react-redux';
 import { State } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -85,30 +85,6 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
-  const promptDeleteTest = (item: VaccineRequest) => {
-    Alert.alert(
-      i18n.t('vaccines.vaccine-list.delete-vaccine-title'),
-      i18n.t('vaccines.vaccine-list.delete-vaccine-text'),
-      [
-        {
-          text: i18n.t('cancel'),
-          style: 'cancel',
-        },
-        {
-          text: i18n.t('delete'),
-          style: 'destructive',
-          onPress: () => {
-            vaccineService.deleteVaccine(item.id).then(() => {
-              coordinator.resetVaccine();
-              refreshVaccineList();
-            });
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
   const enableNextButton = () => {
     const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
     return !(firstDose && firstDose.date_taken_specific == null); // Disable button if user has first dose with no date.
@@ -126,21 +102,18 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
             </BrandedButton>
           )}
 
-          <>
-            {vaccines.map((item: VaccineRequest) => {
-              return (
-                <VaccineCard
-                  style={{ marginVertical: 8 }}
-                  vaccine={item}
-                  key={item.id}
-                  onPressDose={(i) => {
-                    coordinator.goToAddEditVaccine(item, i);
-                  }}
-                  onPressDelete={() => promptDeleteTest(item)}
-                />
-              );
-            })}
-          </>
+          {vaccines.map((vaccine: VaccineRequest) => {
+            return (
+              <VaccineCard
+                style={{ marginVertical: 8 }}
+                vaccine={vaccine}
+                key={vaccine.id}
+                onPressEdit={(i) => {
+                  coordinator.goToAddEditVaccine(vaccine);
+                }}
+              />
+            );
+          })}
         </>
       );
     }

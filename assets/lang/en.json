@@ -547,6 +547,7 @@
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
+  "confirm": "Confirm",
   "delete": "Delete",
   "estimated-cases": "Estimated cases",
   "logout": "Log out",
@@ -1000,6 +1001,12 @@
       "body-3": "Logging your vaccine and telling us how you feel following your dose helps us to keep our data accurate."
     },
 
+    "find-info": {
+      "title": "Find your vaccine info",
+      "body-1": "You should have received a vaccination card at the time of your vaccination. It contains all the information needed to log your vaccine with us.",
+      "link": "Where can I find this information?"
+    },
+
     "vaccine-list": {
       "title": "Your COVID-19 vaccines",
       "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine through the national roll-out.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now.",
@@ -1018,7 +1025,19 @@
       "when-injection": "When was your injection?",
       "have-had-second": "Have you had a second dose yet?",
       "select-date": "Select date",
-      "confirm": "Confirm"
+      "placeholder-name": "Choose one",
+      "label-name": "What is the name of the vaccine you recieved?",
+      "name-i-dont-know": "Other/I don't know",
+      "label-name-other": "Which type of vaccine was it?",
+      "label-name-other-2": "Enter the information about the type of vaccine you have available:",
+      "placeholder-name-other-2": "Type here",
+      "placeholder-type": "Choose one",
+      "placeholder-batch": "E.g. ELO141",
+      "label-batch": "Batch number",
+      "date-change-confirm": "Confirm date change?",
+      "date-change-text": "This will change when we ask you certain questions.",
+      "confirm": "Confirm",
+      "delete": "Delete vaccine"
     },
 
     "vaccine-card": {
@@ -1026,9 +1045,10 @@
       "dose-2": "Dose 2",
       "add-date": "Add date",
       "add-info": "Add dose information",
-      "delete": "Delete vaccine",
-      "date-missing": "Logged but date missing",
-      "not-logged": "Not yet logged"
+      "date-missing": "Date required. Edit to add",
+      "name-missing": "Edit to add vaccine name",
+      "not-logged": "Not yet logged",
+      "edit-vaccine": "Edit vaccine"
     },
 
     "hesitancy": {
