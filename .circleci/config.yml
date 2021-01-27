@@ -60,7 +60,7 @@ references:
   develop_filter: &develop_filter
     branches:
       only:
-        - develop
+        - selvach/sentry
 
   release_filter: &release_filter
     branches:
