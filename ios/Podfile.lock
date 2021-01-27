@@ -11,13 +11,13 @@ PODS:
     - AppCenter/Crashes
     - AppCenterReactNativeShared
     - React
-  - AppCenter/Analytics (3.3.4):
+  - AppCenter/Analytics (4.0.0):
     - AppCenter/Core
-  - AppCenter/Core (3.3.4)
-  - AppCenter/Crashes (3.3.4):
+  - AppCenter/Core (4.0.0)
+  - AppCenter/Crashes (4.0.0):
     - AppCenter/Core
-  - AppCenterReactNativeShared (3.1.2):
-    - AppCenter/Core (= 3.3.4)
+  - AppCenterReactNativeShared (4.0.0):
+    - AppCenter/Core (= 4.0.0)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -28,7 +28,7 @@ PODS:
     - UMCore
   - EXApplication (2.4.1):
     - UMCore
-  - EXConstants (10.0.0):
+  - EXConstants (10.0.1):
     - UMConstantsInterface
     - UMCore
   - EXDevice (2.4.0):
@@ -628,17 +628,17 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Amplitude: cc34fcd8dfffc3470bc2e05f3a4abb0178f6d963
-  AppCenter: 0487be185c038ed2ecc5ed38219af1dcd280af23
+  AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
   appcenter-analytics: bce201b504c8138d235e6f42de1f36d30d2cd7f5
   appcenter-core: 086ab16077baef60368c6a119af6e9e127406286
   appcenter-crashes: 10790bf670f79150f1654d79f76c10a8b4936688
-  AppCenterReactNativeShared: 66667cd2dfad295b84bbf0f462e0e139e2128284
+  AppCenterReactNativeShared: 69aedc15c136e5f76a0cc9eb2ad84d3cefc6e64f
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   EXAmplitude: caa186767e48b4efcb07cf74be76ff16f4700e48
   EXApplication: e3c201e7b913d081bbd37bd3c5d0e2cdc21733b4
-  EXConstants: 07a3effb73d2f73b61079703f810bbdd5364a1c5
+  EXConstants: d9483a8fe0a963dd7ee3389f371303773e6ecd37
   EXDevice: 01f54314f618aa4098893f66cd8f2a8a411f33ee
   EXErrorRecovery: 16696fe023fb46a32c3b09033abc361cfcf150a7
   EXFileSystem: afe9b1fd937d30270bf5108ba44e2f4a1d1ad694
@@ -711,6 +711,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 6cad5929dbc0a5b986ad4d77caac497d4de730a7
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
 
-PODFILE CHECKSUM: 3d3063ddda1237edca3f1f090d8cdc670418bc42
+PODFILE CHECKSUM: 492fa736425aaacb08cc9fb5912ca565242520ad
 
 COCOAPODS: 1.10.0
