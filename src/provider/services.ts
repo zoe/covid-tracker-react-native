@@ -15,6 +15,7 @@ import { Services } from '@covid/provider/services.types';
 import { ISchoolService, SchoolService } from '@covid/core/schools/SchoolService';
 import { IVaccineService, VaccineService } from '@covid/core/vaccine/VaccineService';
 import { IVaccineRemoteClient, VaccineApiClient } from '@covid/core/vaccine/VaccineApiClient';
+import { DietScoreApiClient, IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 
 export const container = new Container();
 
@@ -38,6 +39,9 @@ container.bind<ICovidTestService>(Services.CovidTest).to(CovidTestService).inSin
 
 // School
 container.bind<ISchoolService>(Services.SchoolService).to(SchoolService).inSingletonScope();
+
+// DietScores
+container.bind<IDietScoreRemoteClient>(Services.DietScore).to(DietScoreApiClient).inRequestScope();
 
 // Incidence Api
 container.bind<IApiClient>(Services.IncidenceHttpApi).to(ApiClient).inSingletonScope();

@@ -10,7 +10,7 @@ import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/Di
 import { colors } from '@theme';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
 
-import { GutScore } from '../diet-scores';
+import { GutScore } from './components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourGut'>;
