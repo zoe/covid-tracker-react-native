@@ -428,10 +428,24 @@ workflows:
           context: slack-ci-covid-mobile
           requires:
             - build
+      - adhoc-release-approval:
+          name: 'Adhoc approval'
+          filters: *selvach_filter
+          type: approval
+          requires:
+            - build
       - deploy-ios:
           name: 'Adhoc iOS'
           filters: *selvach_filter
           context: react-covid-tracker-stage
+          requires:
+            - Adhoc approval
+      - deploy-android:
+          name: 'Adhoc Android'
+          filters: *develop_filter
+          context: react-covid-tracker-stage
+          requires:
+            - Adhoc approval
       - deployed-stage:
           name: 'Stage apps published'
           context: slack-ci-covid-mobile
