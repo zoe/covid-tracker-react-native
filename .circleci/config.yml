@@ -432,14 +432,6 @@ workflows:
           name: 'Adhoc iOS'
           filters: *selvach_filter
           context: react-covid-tracker-stage
-          requires:
-            - Adhoc approval
-      - deploy-android:
-          name: 'Adhoc Android'
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-          requires:
-            - Adhoc approval
       - deployed-stage:
           name: 'Stage apps published'
           context: slack-ci-covid-mobile
