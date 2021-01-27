@@ -1,23 +1,23 @@
 PODS:
   - Amplitude (6.0.0)
-  - appcenter-analytics (3.1.1):
-    - AppCenter/Analytics
-    - AppCenterReactNativeShared
+  - appcenter-analytics (3.1.3):
+    - AppCenter/Analytics (~> 3.3.4)
+    - AppCenterReactNativeShared (~> 3.1)
     - React
-  - appcenter-core (3.1.1):
-    - AppCenterReactNativeShared
+  - appcenter-core (3.1.3):
+    - AppCenterReactNativeShared (~> 3.1)
     - React
-  - appcenter-crashes (3.1.1):
-    - AppCenter/Crashes
-    - AppCenterReactNativeShared
+  - appcenter-crashes (3.1.3):
+    - AppCenter/Crashes (~> 3.3.4)
+    - AppCenterReactNativeShared (~> 3.1)
     - React
-  - AppCenter/Analytics (4.0.0):
+  - AppCenter/Analytics (3.3.4):
     - AppCenter/Core
-  - AppCenter/Core (4.0.0)
-  - AppCenter/Crashes (4.0.0):
+  - AppCenter/Core (3.3.4)
+  - AppCenter/Crashes (3.3.4):
     - AppCenter/Core
-  - AppCenterReactNativeShared (4.0.0):
-    - AppCenter/Core (= 4.0.0)
+  - AppCenterReactNativeShared (3.1.2):
+    - AppCenter/Core (= 3.3.4)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -31,14 +31,14 @@ PODS:
   - EXConstants (10.0.1):
     - UMConstantsInterface
     - UMCore
-  - EXDevice (2.4.0):
+  - EXDevice (3.1.1):
     - UMCore
   - EXErrorRecovery (1.3.0):
     - UMCore
   - EXFileSystem (9.2.0):
     - UMCore
     - UMFileSystemInterface
-  - EXFont (8.3.0):
+  - EXFont (8.4.0):
     - UMCore
     - UMFontInterface
   - EXImageLoader (1.2.0):
@@ -261,11 +261,11 @@ PODS:
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
   - React-jsinspector (0.63.3)
-  - react-native-config (1.3.3):
-    - react-native-config/App (= 1.3.3)
-  - react-native-config/App (1.3.3):
-    - React
-  - react-native-netinfo (5.9.7):
+  - react-native-config (1.4.1):
+    - react-native-config/App (= 1.4.1)
+  - react-native-config/App (1.4.1):
+    - React-Core
+  - react-native-netinfo (5.9.9):
     - React-Core
   - react-native-safe-area-context (3.1.9):
     - React-Core
@@ -347,8 +347,8 @@ PODS:
     - SDWebImageWebPCoder (~> 0.6.1)
   - RNGestureHandler (1.7.0):
     - React
-  - RNReanimated (1.13.0):
-    - React
+  - RNReanimated (1.13.2):
+    - React-Core
   - RNScreens (2.10.1):
     - React
   - RNSentry (2.1.0):
@@ -405,7 +405,7 @@ DEPENDENCIES:
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - EXSharing (from `../node_modules/expo-sharing/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
-  - EXUpdates (from `../node_modules/sentry-expo/node_modules/expo-updates/ios`)
+  - EXUpdates (from `../node_modules/expo-updates/ios`)
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -516,7 +516,7 @@ EXTERNAL SOURCES:
   EXSQLite:
     :path: "../node_modules/expo-sqlite/ios"
   EXUpdates:
-    :path: "../node_modules/sentry-expo/node_modules/expo-updates/ios"
+    :path: "../node_modules/expo-updates/ios"
   EXWebBrowser:
     :path: "../node_modules/expo-web-browser/ios"
   FBLazyVector:
@@ -628,21 +628,21 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Amplitude: cc34fcd8dfffc3470bc2e05f3a4abb0178f6d963
-  AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
-  appcenter-analytics: bce201b504c8138d235e6f42de1f36d30d2cd7f5
-  appcenter-core: 086ab16077baef60368c6a119af6e9e127406286
-  appcenter-crashes: 10790bf670f79150f1654d79f76c10a8b4936688
-  AppCenterReactNativeShared: 69aedc15c136e5f76a0cc9eb2ad84d3cefc6e64f
+  AppCenter: 0487be185c038ed2ecc5ed38219af1dcd280af23
+  appcenter-analytics: ecf5dc1a919ea2247323a23c16a2e15affc0a4b3
+  appcenter-core: a5fca14d50ac3db1ed3e44c730919e0426d436ce
+  appcenter-crashes: 9fb422480b397e8ef1894cb8635b65c78b7d8618
+  AppCenterReactNativeShared: 66667cd2dfad295b84bbf0f462e0e139e2128284
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   EXAmplitude: caa186767e48b4efcb07cf74be76ff16f4700e48
   EXApplication: e3c201e7b913d081bbd37bd3c5d0e2cdc21733b4
   EXConstants: d9483a8fe0a963dd7ee3389f371303773e6ecd37
-  EXDevice: 01f54314f618aa4098893f66cd8f2a8a411f33ee
+  EXDevice: 101eddd9bc28faba8246ba0c499a65a4821a6b5e
   EXErrorRecovery: 16696fe023fb46a32c3b09033abc361cfcf150a7
   EXFileSystem: afe9b1fd937d30270bf5108ba44e2f4a1d1ad694
-  EXFont: a6a4353271395f3bb4ee528b52a5035b4b0e412a
+  EXFont: 30c64ed8735a180e3f20046e4fdac4ea074d71d3
   EXImageLoader: 7153fb1307ac643299a9072b71da0d276f4c7789
   EXKeepAwake: 76eed36786534f6a476748e600fa6faf07ac3d09
   EXLinearGradient: c7ca1c2933ac240ffbc805c014a72947e227ac75
@@ -668,8 +668,8 @@ SPEC CHECKSUMS:
   React-jsi: df07aa95b39c5be3e41199921509bfa929ed2b9d
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
-  react-native-config: 9a061347e0136fdb32d43a34d60999297d672361
-  react-native-netinfo: 250dc0ca126512f618a8a2ca6a936577e1f66586
+  react-native-config: d8b45133fd13d4f23bd2064b72f6e2c08b2763ed
+  react-native-netinfo: 0212ce8604e88edf686f1481b925b17a42a52449
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-view-shot: 4475fde003fe8a210053d1f98fb9e06c1d834e1c
@@ -689,7 +689,7 @@ SPEC CHECKSUMS:
   RNDateTimePicker: f47a6309133c6d013ad6942fc83b753b3f6e41d6
   RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
-  RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
+  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
   RNSentry: 51972e3fe50e2fb38ae459af8c87d61f63f364db
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
