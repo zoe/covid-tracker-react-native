@@ -15,7 +15,7 @@ export interface IDietScoreRemoteClient {
 export class DietScoreApiClient implements IDietScoreRemoteClient {
   constructor(@inject(Services.Api) private apiClient: IApiClient) {}
 
-  getDietScore(paientId: any): Promise<TDietScoreResponse> {
-    return this.apiClient.get<TDietScoreResponse>(`${API_URL}?patient=${paientId}`);
+  getDietScore(patientId: string): Promise<TDietScoreResponse> {
+    return this.apiClient.get<TDietScoreResponse>(`${API_URL}?patient=${patientId}`);
   }
 }
