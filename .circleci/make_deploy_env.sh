@@ -27,7 +27,7 @@ COVID_ANDROID_APP_ID=com.joinzoe.covid_zoe
 echo "NAME=$NAME" > .env
 echo "API_URL=$API_URL" >> .env
 echo "AMPLITUDE_KEY=$AMPLITUDE_KEY" >> .env
-echo "SENTRY_URL=$SENTRY_URL" >> .env
+echo "SENTRY_DSN_URL=$SENTRY_DSN_URL" >> .env
 echo "SENTRY_TOKEN=$SENTRY_TOKEN" >> .env
 
 echo $SENTRY_PROPERTIES | base64 -d > android/sentry.properties
