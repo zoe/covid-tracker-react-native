@@ -41,7 +41,6 @@
 		F823E172FA094AAFBE34DD11 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D39F52C00735433899C82B37 /* Foundation.ttf */; };
 		F919B95DF372484D98936B18 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C13E86B875447CC9E60BC10 /* SimpleLineIcons.ttf */; };
 		FE47494A5C594737B9FAFCD2 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8863502152F4361AD4F1391 /* rubicon-icon-font.ttf */; };
-		CE879ACB134041AC929FCD94 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA8365286C6A4DB1865711E5 /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,7 +101,6 @@
 		F778D8F9252644E800CB635B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7E2425125125F3700D03296 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../configs/stage/ios/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug.xcconfig"; sourceTree = "<group>"; };
-		CA8365286C6A4DB1865711E5 /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../assets/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +210,6 @@
 				D8863502152F4361AD4F1391 /* rubicon-icon-font.ttf */,
 				5C13E86B875447CC9E60BC10 /* SimpleLineIcons.ttf */,
 				32907E0C9BD548E7BAB165F9 /* Zocial.ttf */,
-				CA8365286C6A4DB1865711E5 /* icomoon.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -334,7 +331,6 @@
 				F919B95DF372484D98936B18 /* SimpleLineIcons.ttf in Resources */,
 				F778D8FA252644E900CB635B /* LaunchScreen.storyboard in Resources */,
 				00EAE7BC42914630B88E62E0 /* Zocial.ttf in Resources */,
-				CE879ACB134041AC929FCD94 /* icomoon.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
