@@ -1033,7 +1033,7 @@
       "placeholder-name-other-2": "Type here",
       "placeholder-type": "Choose one",
       "placeholder-batch": "E.g. ELO141",
-      "label-batch": "Batch number",
+      "label-batch": "Batch number (optional)",
       "date-change-confirm": "Confirm date change?",
       "date-change-text": "This will change when we ask you certain questions.",
       "confirm": "Confirm",
