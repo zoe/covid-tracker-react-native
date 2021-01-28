@@ -123,7 +123,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
         </RegularText>
       </View>
 
-      <ClickableText style={{ marginTop: 8, marginBottom: 8 }} onPress={() => onPressEdit(1)}>
+      <ClickableText style={{ marginTop: 8, marginBottom: 8, textAlign: 'center' }} onPress={() => onPressEdit(1)}>
         <Text style={styles.clickableText}>{i18n.t('vaccines.vaccine-card.edit-vaccine')}</Text>
       </ClickableText>
     </View>
