@@ -184,14 +184,14 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
       firstDoseDate: vaccine?.doses[0]?.date_taken_specific
         ? moment(vaccine.doses[0].date_taken_specific).toDate()
         : undefined,
-      firstBatchNumber: vaccine?.doses[0]?.batch_number,
-      firstBrand: vaccine?.doses[0]?.brand,
+      firstBatchNumber: vaccine?.doses[0]?.batch_number ?? '',
+      firstBrand: vaccine?.doses[0]?.brand ?? undefined,
       firstDescription: vaccine?.doses[0]?.description,
       secondDoseDate: vaccine?.doses[1]?.date_taken_specific
         ? moment(vaccine.doses[1].date_taken_specific).toDate()
         : undefined,
-      secondBatchNumber: vaccine?.doses[1]?.batch_number,
-      secondBrand: vaccine?.doses[1]?.brand,
+      secondBatchNumber: vaccine?.doses[1]?.batch_number ?? '',
+      secondBrand: vaccine?.doses[1]?.brand ?? undefined,
       secondDescription: vaccine?.doses[1]?.description,
     };
   };
