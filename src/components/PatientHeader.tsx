@@ -17,6 +17,7 @@ import { ClippedText, RegularText } from './Text';
 type BackButtonProps = {
   navigation: NavigationProp<ScreenParamList, ScreenName>;
   style?: StyleProp<ViewStyle>;
+  showCloseButton?: boolean;
 };
 
 export enum CallOutType {
@@ -24,8 +25,14 @@ export enum CallOutType {
   Tag,
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: containerStyle }) => {
-  return (
+export const BackButton: React.FC<BackButtonProps> = ({ navigation, style: containerStyle, showCloseButton }) => {
+  return showCloseButton ? (
+    <TouchableOpacity onPress={navigation.goBack} style={containerStyle}>
+      <View style={styles.iconButton}>
+        <Icon name="cross" type="Entypo" style={styles.icon} />
+      </View>
+    </TouchableOpacity>
+  ) : (
     <TouchableOpacity onPress={navigation.goBack} style={containerStyle}>
       <View style={styles.iconButton}>
         <Icon name="chevron-thin-left" type="Entypo" style={styles.icon} />
@@ -40,17 +47,21 @@ type PatientHeaderProps = {
   simpleCallout?: boolean;
   type?: CallOutType;
   calloutTitle?: string;
+  showCloseButton?: boolean;
 };
 
 type NavbarProps = {
   navigation?: StackNavigationProp<ScreenParamList>;
   rightComponent?: React.ReactNode;
+  showCloseButton?: boolean;
 };
 
-export const NavHeader: React.FC<NavbarProps> = ({ navigation, rightComponent }) => {
+export const NavHeader: React.FC<NavbarProps> = ({ navigation, rightComponent, showCloseButton }) => {
   return (
     <View style={styles.headerBar}>
-      <View style={styles.left}>{!!navigation && <BackButton navigation={navigation} />}</View>
+      <View style={styles.left}>
+        {!!navigation && <BackButton navigation={navigation} showCloseButton={showCloseButton} />}
+      </View>
       <View style={styles.center} />
       <View style={styles.right}>{rightComponent}</View>
     </View>
@@ -63,6 +74,7 @@ const PatientHeader: React.FC<PatientHeaderProps> = ({
   simpleCallout = false,
   type = !profile.reported_by_another ? CallOutType.Simple : CallOutType.Tag,
   calloutTitle = !profile.reported_by_another ? profile.name : i18n.t('answer-for', { name: profile.name }),
+  showCloseButton = false,
 }) => {
   const avatarImage = getAvatarByName(profile.avatar_name as AvatarName);
   const avatarComponent = (
@@ -83,7 +95,7 @@ const PatientHeader: React.FC<PatientHeaderProps> = ({
     </>
   );
 
-  return <NavHeader navigation={navigation} rightComponent={avatarComponent} />;
+  return <NavHeader navigation={navigation} rightComponent={avatarComponent} showCloseButton={showCloseButton} />;
 };
 
 const styles = StyleSheet.create({
