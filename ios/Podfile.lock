@@ -22,7 +22,7 @@ PODS:
   - BVLinearGradient (2.5.6):
     - React
   - DoubleConversion (1.1.6)
-  - EXAmplitude (8.3.1):
+  - EXAmplitude (10.0.0):
     - Amplitude (~> 6.0.0)
     - UMConstantsInterface
     - UMCore
@@ -636,7 +636,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cde416483dac037923206447da6e1454df403714
-  EXAmplitude: caa186767e48b4efcb07cf74be76ff16f4700e48
+  EXAmplitude: 5e3dabb2ba3d05200a63787b2334e13346df94fb
   EXApplication: e3c201e7b913d081bbd37bd3c5d0e2cdc21733b4
   EXConstants: d9483a8fe0a963dd7ee3389f371303773e6ecd37
   EXDevice: 101eddd9bc28faba8246ba0c499a65a4821a6b5e
