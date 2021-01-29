@@ -11,7 +11,6 @@ class DietStudyPlaybackCoordinator extends Coordinator {
   appCoordinator: AppCoordinator;
   navigation: NavigationType;
   contentService: IContentService;
-  dietScoreSevice: IDietScoreRemoteClient;
   dietScore: TDietScoreResponse;
 
   screenFlow: ScreenFlow = {

@@ -24,3 +24,5 @@ export const aWeekAgo = () => {
 export const isDateBefore = (date: DateTypes, compDate: DateTypes): boolean => {
   return moment(date).isBefore(compDate);
 };
+
+export const formatDateToPost = (date: Date) => moment(date).format('YYYY-MM-DD');

@@ -64,6 +64,7 @@ export type ScreenProps = {
   calloutType?: CallOutType;
   calloutTitle?: string;
   showBackButton?: boolean;
+  showCloseButton?: boolean;
   extendEdges?: boolean;
   scrollEnabled?: boolean;
 };
@@ -74,9 +75,7 @@ export default class Screen extends Component<ScreenProps> {
 
   render() {
     const profile = this.props.profile;
-
     const scrollEnabled = this.props.scrollEnabled === undefined ? true : this.props.scrollEnabled;
-
     const header = () => {
       if (profile && this.props.navigation) {
         return (
@@ -86,6 +85,7 @@ export default class Screen extends Component<ScreenProps> {
             simpleCallout={this.props.simpleCallout}
             type={this.props.calloutType}
             calloutTitle={this.props.calloutTitle}
+            showCloseButton={this.props.showCloseButton}
           />
         );
       } else if (profile && !this.props.navigation) {
@@ -95,10 +95,13 @@ export default class Screen extends Component<ScreenProps> {
             simpleCallout={this.props.simpleCallout}
             type={this.props.calloutType}
             calloutTitle={this.props.calloutTitle}
+            showCloseButton={this.props.showCloseButton}
           />
         );
       } else if (this.props.navigation && this.props.showBackButton) {
-        return <NavHeader navigation={this.props.navigation} />;
+        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
+      } else if (this.props.navigation && this.props.showCloseButton) {
+        return <NavHeader navigation={this.props.navigation} showCloseButton={this.props.showCloseButton} />;
       } else if (this.props.extendEdges) {
         return <View />;
       } else {
@@ -117,7 +120,11 @@ export default class Screen extends Component<ScreenProps> {
                 flexGrow: 1,
                 justifyContent: 'space-between',
               }}>
-              <View style={styles.pageBlock}>{this.props.children}</View>
+              {this.props.extendEdges ? (
+                <View style={styles.pageBlockExtendedEdges}>{this.props.children}</View>
+              ) : (
+                <View style={styles.pageBlock}>{this.props.children}</View>
+              )}
             </ScrollView>
           )}
         </KeyboardAvoidingView>
@@ -149,6 +156,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     marginHorizontal: 16,
     marginBottom: 16,
+  },
+
+  pageBlockExtendedEdges: {
+    marginHorizontal: 0,
   },
 
   headerBlock: {
