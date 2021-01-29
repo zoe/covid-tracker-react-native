@@ -4,7 +4,9 @@
   "scripts": {
     "start": "react-native start",
     "start:reset": "react-native start --reset-cache",
+    "build-fonts": "./.circleci/pull_private_assets.sh",
     "android": "ENVFILE=.env.staging react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
+    "android:local": "ENVFILE=.env.staging react-native run-android --variant=debug --appId=com.joinzoe.covid_zoe.qa",
     "android:devices": " ~/Library/Android/sdk/emulator/emulator -list-avds",
     "ios": "react-native run-ios --scheme 'Covid Debug' --configuration Debug",
     "ios:staging": "ENVFILE=.env.staging npm run ios -- --simulator='iPhone 8'",
@@ -36,7 +38,8 @@
     "fastlane:android:release": "npm run fastlane android release",
     "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
     "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
-    "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump"
+    "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump",
+    "metro-empty-cache": "rm -rf $TMPDIR/metro-cache"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.13.2",
