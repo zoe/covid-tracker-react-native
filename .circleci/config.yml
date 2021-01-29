@@ -446,7 +446,7 @@ workflows:
           requires:
             - Adhoc iOS
             - Adhoc Android
-      
+
       # Publish app to store
       # # - App / Store release through AppCenter (with approval)
       # # |-- iOS Release to app store (through AppCenter)
