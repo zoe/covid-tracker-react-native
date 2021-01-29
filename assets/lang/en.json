@@ -600,6 +600,7 @@
   "default-profile-name": "Me",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Please provide more details",
 

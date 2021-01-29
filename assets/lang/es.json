@@ -769,6 +769,7 @@
   "default-profile-name": "Yo",
 
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Por favor, de más detalles",
 
