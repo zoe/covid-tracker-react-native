@@ -66,7 +66,7 @@ references:
     branches:
       only:
         - master
-        - fix_builds
+        - selvach/fix_builds
 
   feature_filter: &feature_filter
     branches:
@@ -76,6 +76,7 @@ references:
         - develop-legacy
         - release-0.x-legacy
         - stage
+        - selvach/fix_builds
 
 ###
 ### Define shared commands:
