@@ -60,13 +60,13 @@ references:
   develop_filter: &develop_filter
     branches:
       only:
-        - develop
+        - selvach/fix_builds
 
   release_filter: &release_filter
     branches:
       only:
         - master
-        - develop
+        - fix_builds
 
   feature_filter: &feature_filter
     branches:
@@ -434,18 +434,6 @@ workflows:
           context: react-covid-tracker-stage
           requires:
             - Adhoc approval
-      - deploy-android:
-          name: 'Adhoc Android'
-          filters: *develop_filter
-          context: react-covid-tracker-stage
-          requires:
-            - Adhoc approval
-      - deployed-stage:
-          name: 'Stage apps published'
-          context: slack-ci-covid-mobile
-          requires:
-            - Adhoc iOS
-            - Adhoc Android
       
       # Publish app to store
       # # - App / Store release through AppCenter (with approval)
