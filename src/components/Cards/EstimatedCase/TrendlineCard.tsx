@@ -86,12 +86,11 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             </View>
           </View>
         </TouchableOpacity>
-
-        {localTrendline?.delta && (
+        {localTrendline?.delta ? (
           <View style={[styles.deltaTag, { marginBottom: isSharing ? 24 : 0 }]}>
             <DeltaTag change={localTrendline.delta} />
           </View>
-        )}
+        ) : null}
       </View>
 
       {!isSharing && (
