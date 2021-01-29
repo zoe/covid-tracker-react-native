@@ -6,6 +6,7 @@ export const icon = require('./icon.png');
 export const social = require('./social.png');
 export const usMap = require('./usMap.png');
 export const gbMap = require('./gbMap.png');
+export const errors = require('./errors.png');
 
 // Icons
 export const closeIcon = require('./icons/close.png');
@@ -100,7 +101,6 @@ export const dietStudyPlaybackReady = require('./diet-playback-ready.png');
 // share svg
 export { default as ShareIcon } from './icons/Share';
 
-//
 export * from './icons/stats';
 export * from './icons/svgIcons';
 export { default as C19 } from './logos/C19';

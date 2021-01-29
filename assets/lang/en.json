@@ -422,7 +422,9 @@
     "picker-health-status-healthy": "I feel physically normal",
     "picker-health-status-not-healthy": "I'm not feeling quite right",
     "current-location": "You are currently reporting from:",
-    "update-location": "Update Location"
+    "update-location": "Update Location",
+    "vaccine-reporting-message": "Please continue to provide daily health reports following your COVID-19 vaccination and log any general symptoms you might experience.",
+    "vaccine-reporting-link": "Why is that important?"
   },
 
   "where-are-you": {
@@ -545,6 +547,7 @@
   "delete-data-alert-text": "Deleting your account and data cannot be undone.",
   "push-notifications": "Turn on reminders",
   "cancel": "Cancel",
+  "confirm": "Confirm",
   "delete": "Delete",
   "estimated-cases": "Estimated cases",
   "logout": "Log out",
@@ -971,13 +974,6 @@
   },
 
   "vaccines": {
-    "thank-you": {
-      "title": "Thank you.",
-      "sub-title": "Please continue to provide daily health reports following your COVID-19 vaccination.",
-      "text": "The 7 days following your vaccination are crucial for us to properly understand side-effects.\n\nYour daily reports will help maintain the accuracy of our COVID-19 infection data.",
-      "confirm": "Start daily report"
-    },
-
     "dose-symptoms": {
       "label": "About your recent vaccine",
       "title-1": "Are you experiencing any symptoms",
@@ -991,10 +987,24 @@
       "warmth": "Warmth",
       "itch": "Itch",
       "tenderness": "Tenderness",
+      "bruising": "Bruising",
       "other": "Other",
       "other-info": "Please enter symptoms near the injection site (most likely your arm) only. We’ll ask about general symptoms in the next section.",
       "other-placeholder": "Describe your symptoms here...",
       "next": "Next"
+    },
+
+    "log-symptoms": {
+      "title": "Why is logging symptoms following my vaccine so important?",
+      "body-1": "When COVID-19 cases exploded in March 2020, we quickly set up the ZOE COVID Symptom Study to understand the virus.",
+      "body-2": "As the pandemic shifts into a new phase, we'll be monitoring the impact vaccines have on the pandemic.",
+      "body-3": "Logging your vaccine and telling us how you feel following your dose helps us to keep our data accurate."
+    },
+
+    "find-info": {
+      "title": "Find your vaccine info",
+      "body-1": "You should have received a vaccination card at the time of your vaccination. It contains all the information needed to log your vaccine with us.",
+      "link": "Where can I find this information?"
     },
 
     "vaccine-list": {
@@ -1015,7 +1025,19 @@
       "when-injection": "When was your injection?",
       "have-had-second": "Have you had a second dose yet?",
       "select-date": "Select date",
-      "confirm": "Confirm"
+      "placeholder-name": "Choose one",
+      "label-name": "What is the name of the vaccine you recieved?",
+      "name-i-dont-know": "Other/I don't know",
+      "label-name-other": "Which type of vaccine was it?",
+      "label-name-other-2": "Enter the information about the type of vaccine you have available:",
+      "placeholder-name-other-2": "Type here",
+      "placeholder-type": "Choose one",
+      "placeholder-batch": "E.g. ELO141",
+      "label-batch": "Batch number (optional)",
+      "date-change-confirm": "Confirm date change?",
+      "date-change-text": "This will change when we ask you certain questions.",
+      "confirm": "Confirm",
+      "delete": "Delete vaccine"
     },
 
     "vaccine-card": {
@@ -1023,9 +1045,10 @@
       "dose-2": "Dose 2",
       "add-date": "Add date",
       "add-info": "Add dose information",
-      "delete": "Delete vaccine",
-      "date-missing": "Logged but date missing",
-      "not-logged": "Not yet logged"
+      "date-missing": "Date required. Edit to add",
+      "name-missing": "Edit to add vaccine name",
+      "not-logged": "Not yet logged",
+      "edit-vaccine": "Edit vaccine"
     },
 
     "hesitancy": {
@@ -1316,5 +1339,11 @@
   "generic": {
     "share-this-with-someone": "Share this with someone",
     "content-can-not-be-loaded-atm": "This content can not be loaded at the moment."
+  },
+
+  "error-boundary": {
+    "something-went-wrong": "Oops! Something went wrong.",
+    "encountered-error": "The app has encountered an error:",
+    "notified": "The development team has been notified and will look into it as soon as possible. Try to restart the app to continue."
   }
 }

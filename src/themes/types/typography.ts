@@ -28,32 +28,19 @@ export type TText = {
 
 export type ITextClass = {
   h0: TText;
-  h0Light: TText;
-  h0Medium: TText;
-  h0Regular: TText;
   //
   h1: TText;
-  h1Light: TText;
-  h1Medium: TText;
   h1Regular: TText;
   //
   h2: TText;
-  h2Light: TText;
-  h2Medium: TText;
-  h2Regular: TText;
   //
   h3: TText;
-  h3Light: TText;
-  h3Medium: TText;
-  h3Regular: TText;
+  h3Bold: TText;
   //
   h4: TText;
-  h4Light: TText;
   h4Medium: TText;
-  h4Regular: TText;
   //
   h5: TText;
-  h5Light: TText;
   h5Medium: TText;
   h5Regular: TText;
   //

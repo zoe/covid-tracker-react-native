@@ -63,6 +63,9 @@
   "vaccines": {
     "vaccine-list": {
       "description": "Tell us if you’ve had at least one dose of a COVID-19 vaccine.\n\nWe can't record COVID-19 vaccines taken as part of a trial yet. If this is how you received your vaccination, please don't add it for now. "
+    },
+    "your-vaccine": {
+      "label-batch": "Lot number (optional)"
     }
   }
 }

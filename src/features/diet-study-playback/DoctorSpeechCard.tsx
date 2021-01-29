@@ -1,8 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Card } from 'native-base';
 
-import { colors } from '@theme';
 import { BasicCard } from '@covid/components/Cards/BasicCard';
 import { doctorsAvatars, QuoteMarks } from '@assets';
 

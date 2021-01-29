@@ -284,7 +284,9 @@
     "picker-health-status-healthy": "Jag känner mig lika frisk som vanligt",
     "picker-health-status-not-healthy": "Jag känner mig inte helt kry",
     "current-location": "Du rapporterar just nu från:",
-    "update-location": "Uppdatera plats"
+    "update-location": "Uppdatera plats",
+    "vaccine-reporting-message": "",
+    "vaccine-reporting-link": ""
   },
 
   "describe-symptoms": {
@@ -479,6 +481,7 @@
   "delete-data-alert-text": "Du kan inte ångra dig om du tar bort ditt konto och dina uppgifter.",
   "push-notifications": "Slå på påminnelser",
   "cancel": "Avbryt",
+  "confirm": "",
   "delete": "Ta bort",
   "estimated-cases": "Uppskattade fall",
   "logout": "Logga ut",
@@ -987,14 +990,7 @@
       "callout-link-text": false,
       "menu-item": false
     },
-
     "vaccines": {
-      "thank-you": {
-        "title": "",
-        "sub-title": "",
-        "text": "",
-        "confirm": ""
-      },
       "dose-symptoms": {
         "label": "",
         "title-1": "",
@@ -1008,6 +1004,7 @@
         "warmth": "",
         "itch": "",
         "tenderness": "",
+        "bruising": "",
         "other": "",
         "other-info": "",
         "other-placeholder": "",
@@ -1031,6 +1028,17 @@
         "not-to-say": "",
         "specify": ""
       },
+      "log-symptoms": {
+        "title": "",
+        "body-1": "",
+        "body-2": "",
+        "body-3": ""
+      },
+      "find-info": {
+        "title": "Find your vaccine info",
+        "body-1": "You should have received a vaccination card at the time of your vaccination. It contains all the information needed to log your vaccine with us.",
+        "link": "Where can I find this information?"
+      },
       "vaccine-list": {
         "title": "",
         "description": "",
@@ -1048,16 +1056,30 @@
         "when-injection": "",
         "have-had-second": "",
         "select-date": "",
-        "confirm": ""
+        "placeholder-name": "",
+        "label-name": "",
+        "name-i-dont-know": "",
+        "label-name-other": "",
+        "label-name-other-2": "",
+        "placeholder-name-other-2": "",
+        "placeholder-type": "",
+        "placeholder-batch": "",
+        "label-batch": "",
+        "date-change-confirm": "",
+        "date-change-text": "",
+        "confirm": "",
+        "delete": ""
       },
+
       "vaccine-card": {
         "dose-1": "",
         "dose-2": "",
         "add-date": "",
         "add-info": "",
-        "delete": "",
         "date-missing": "",
-        "not-logged": ""
+        "name-missing": "",
+        "not-logged": "",
+        "edit-vaccine": ""
       }
     },
 
@@ -1312,7 +1334,13 @@
     }
   },
   "generic": {
-    "share-this-with-someone": "Share this with someone",
-    "content-can-not-be-loaded-atm": ""
+    "share-this-with-someone": "Dela detta med någon",
+    "content-can-not-be-loaded-atm": "Detta innehåll kan inte laddas just nu"
+  },
+
+  "error-boundary": {
+    "something-went-wrong": "Hoppsan! Något gick fel.",
+    "encountered-error": "Tyvärr har appen stött på ett fel:",
+    "notified": "Utvecklingsteamet har meddelats och förhoppningsvis bör problemet åtgärdas så fort! Försök att starta om appen för att fortsätta."
   }
 }

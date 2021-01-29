@@ -7,6 +7,7 @@ export type VaccineRequest = {
   brand: VaccineBrands | null;
   placebo: PlaceboStatus | null;
   doses: Partial<Dose>[];
+  description: string; // eg 'mRNA'
 };
 
 export type VaccinePlanRequest = {
@@ -36,13 +37,15 @@ export type Dose = {
   location: VaccineLocations;
   sequence: number;
   date_taken_specific: string;
+  brand: VaccineBrands | null;
+  description: string; // eg 'mRNA'
+  batch_number: string;
 };
 
 export type DoseSymptomsRequest = {
   id: string;
   patient: string; //	Patient ID
   dose: string; // Dose ID
-
   pain: boolean;
   redness: boolean;
   swelling: boolean;
@@ -50,6 +53,7 @@ export type DoseSymptomsRequest = {
   warmth: boolean;
   itch: boolean;
   tenderness: boolean;
+  bruising: boolean;
   other: string;
 };
 
@@ -62,6 +66,8 @@ export enum VaccineTypes {
 export enum VaccineBrands {
   PFIZER = 'pfizer',
   ASTRAZENECA = 'astrazeneca',
+  MODERNA = 'moderna',
+  NOT_SURE = 'not_sure',
 }
 
 export enum PlaceboStatus {

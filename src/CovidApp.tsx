@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Header, Root } from 'native-base';
+import { Root } from 'native-base';
 import React, { useEffect } from 'react';
 import { Dimensions, StatusBar } from 'react-native';
 import * as Notifications from 'expo-notifications';
@@ -39,9 +39,6 @@ function CovidApp() {
 
   return (
     <Root>
-      <Header style={{ display: 'none' }}>
-        <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-      </Header>
       <NavigationContainer
         ref={(navigatorRef) => {
           NavigatorService.setContainer(navigatorRef);

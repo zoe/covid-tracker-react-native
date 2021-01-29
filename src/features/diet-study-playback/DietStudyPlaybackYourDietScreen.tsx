@@ -10,7 +10,7 @@ import dietStudyPlaybackCoordinator from '@covid/features/diet-study-playback/Di
 import { colors } from '@theme';
 import { QuestionMarks } from '@assets';
 
-import { QualityScore } from '../diet-scores';
+import { QualityScore } from './components';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackYourDiet'>;

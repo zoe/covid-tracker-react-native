@@ -41,7 +41,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
   return (
     <View style={styles.root}>
       <View ref={viewRef} style={styles.snapshotContainer} collapsable={false}>
-        <Text textClass="h4Regular" rhythm={8}>
+        <Text textClass="h4" rhythm={8}>
           {i18n.t('explore-trend-line.active-covid-cases')} {localTrendline?.name}
         </Text>
         <Text textClass="pSmallLight" rhythm={32} colorPalette="uiDark" colorShade="dark" inverted>
@@ -66,7 +66,7 @@ export const TrendlineCard: React.FC<Props> = ({ ctaOnPress = () => null, isShar
             marginBottom: 12,
           }}>
           <View style={{ marginRight: 12 }}>
-            <Text textClass="h0Regular">{localTrendline?.today}</Text>
+            <Text textClass="h0">{localTrendline?.today}</Text>
           </View>
           <View style={{ width: '30%' }}>
             <Text textClass="pSmallLight" colorPalette="uiDark" colorShade="dark" inverted>

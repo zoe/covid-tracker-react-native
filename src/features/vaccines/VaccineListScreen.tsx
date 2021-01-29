@@ -2,12 +2,14 @@ import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import moment, { Moment } from 'moment';
+import { useSelector } from 'react-redux';
+import { State } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
-import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -16,6 +18,9 @@ import { Dose, VaccineRequest } from '@covid/core/vaccine/dto/VaccineRequest';
 import { VaccineCard } from '@covid/features/vaccines/components/VaccineCard';
 import { useInjection } from '@covid/provider/services.hooks';
 import { Services } from '@covid/provider/services.types';
+import { useAppDispatch } from '@covid/core/state/store';
+import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
+import { RootState } from '@covid/core/state/root';
 
 import { IVaccineService } from '../../core/vaccine/VaccineService';
 
@@ -27,29 +32,24 @@ type Props = {
 export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
   const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
   const coordinator = assessmentCoordinator;
-
-  const [vaccines, setVaccines] = useState<VaccineRequest[]>([]);
+  const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
   const { patientData } = route.params.assessmentData;
+  const dispatch = useAppDispatch();
 
   useFocusEffect(
     React.useCallback(() => {
+      dispatch(vaccinesSlice.actions.reset());
       refreshVaccineList();
     }, [])
   );
 
   const refreshVaccineList = () => {
     setLoading(true);
-    vaccineService
-      .listVaccines()
-      .then((vaccines) => {
-        const patientId = patientData.patientId;
-        const patientVaccines = vaccines.filter((v) => v.patient === patientId);
-        setVaccines(patientVaccines);
-        setLoading(false);
-      })
+    const patientId = patientData.patientId;
+    dispatch(fetchVaccines(patientId))
+      .then(() => setLoading(false))
       .catch(() => {});
   };
 
@@ -85,30 +85,6 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
-  const promptDeleteTest = (item: VaccineRequest) => {
-    Alert.alert(
-      i18n.t('vaccines.vaccine-list.delete-vaccine-title'),
-      i18n.t('vaccines.vaccine-list.delete-vaccine-text'),
-      [
-        {
-          text: i18n.t('cancel'),
-          style: 'cancel',
-        },
-        {
-          text: i18n.t('delete'),
-          style: 'destructive',
-          onPress: () => {
-            vaccineService.deleteVaccine(item.id).then(() => {
-              coordinator.resetVaccine();
-              refreshVaccineList();
-            });
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
   const enableNextButton = () => {
     const firstDose: Partial<Dose> | undefined = vaccines[0]?.doses[0];
     return !(firstDose && firstDose.date_taken_specific == null); // Disable button if user has first dose with no date.
@@ -126,21 +102,18 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
             </BrandedButton>
           )}
 
-          <>
-            {vaccines.map((item: VaccineRequest) => {
-              return (
-                <VaccineCard
-                  style={{ marginVertical: 8 }}
-                  vaccine={item}
-                  key={item.id}
-                  onPressDose={(i) => {
-                    coordinator.goToAddEditVaccine(item, i);
-                  }}
-                  onPressDelete={() => promptDeleteTest(item)}
-                />
-              );
-            })}
-          </>
+          {vaccines.map((vaccine: VaccineRequest) => {
+            return (
+              <VaccineCard
+                style={{ marginVertical: 8 }}
+                vaccine={vaccine}
+                key={vaccine.id}
+                onPressEdit={(i) => {
+                  coordinator.goToAddEditVaccine(vaccine);
+                }}
+              />
+            );
+          })}
         </>
       );
     }
