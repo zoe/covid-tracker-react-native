@@ -10,6 +10,7 @@ public class BasePackageList {
         new expo.modules.analytics.amplitude.AmplitudePackage(),
         new expo.modules.application.ApplicationPackage(),
         new expo.modules.constants.ConstantsPackage(),
+        new expo.modules.device.DevicePackage(),
         new expo.modules.errorrecovery.ErrorRecoveryPackage(),
         new expo.modules.filesystem.FileSystemPackage(),
         new expo.modules.font.FontLoaderPackage(),

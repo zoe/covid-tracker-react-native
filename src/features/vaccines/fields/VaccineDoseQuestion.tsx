@@ -175,8 +175,8 @@ VaccineDoseQuestion.schema = () => {
   return Yup.object().shape({
     firstDoseDate: Yup.date().required(),
     secondDoseDate: Yup.date(),
-    firstBatchNumber: Yup.string(),
-    secondBatchNumber: Yup.string(),
+    firstBatchNumber: Yup.string().nullable(),
+    secondBatchNumber: Yup.string().nullable(),
     firstBrand: Yup.string().nullable(),
     firstDescription: Yup.string().nullable(),
     secondBrand: Yup.string().nullable(),
