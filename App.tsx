@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import env from 'react-native-config';
 import { PersistGate } from 'redux-persist/integration/react';
+import { useFonts } from 'expo-font';
 
 import CovidApp from '@covid/CovidApp';
 import StorybookUIRoot from '@covid/storybook';
@@ -30,6 +31,9 @@ Sentry.init({
 const App: React.FC = () => {
   const Root = ENABLE_STORYBOOK ? StorybookUIRoot : CovidApp;
   SplashScreen.hide();
+  const [loaded] = useFonts({
+    icomoon: require('./assets/fonts/icomoon.ttf'),
+  });
   return (
     <ErrorBoundary>
       <Provider store={store}>
@@ -37,9 +41,7 @@ const App: React.FC = () => {
           <ThemeProvider theme={Theme}>
             <SafeAreaProvider>
               <MessagingContainer />
-              <ServiceProvider container={container}>
-                <Root />
-              </ServiceProvider>
+              <ServiceProvider container={container}>{loaded ? <Root /> : null}</ServiceProvider>
             </SafeAreaProvider>
           </ThemeProvider>
         </PersistGate>
