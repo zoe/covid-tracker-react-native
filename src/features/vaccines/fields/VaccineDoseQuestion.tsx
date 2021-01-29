@@ -13,6 +13,7 @@ import { VaccineRequest, VaccineBrands } from '@covid/core/vaccine/dto/VaccineRe
 import { CalendarIcon } from '@assets';
 import { ValidatedTextInput } from '@covid/components/ValidatedTextInput';
 import { ValidationError } from '@covid/components/ValidationError';
+import { isGBCountry, isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 import { VaccineNameQuestion } from './VaccineNameQuestion';
 
@@ -63,13 +64,24 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
       ? formikProps.values.firstDoseDate
       : formikProps.values.secondDoseDate;
 
+    let countrySpecificMinDate: Date | undefined;
+    if (isGBCountry()) {
+      countrySpecificMinDate = new Date('2020-12-08');
+    }
+    if (isUSCountry()) {
+      countrySpecificMinDate = new Date('2020-12-11');
+    }
+    if (!props.firstDose) {
+      countrySpecificMinDate = formikProps.values.firstDoseDate;
+    }
+
     return (
       <CalendarPicker
         onDateChange={setDoseDate}
+        initialDate={dateField}
+        selectedStartDate={dateField}
         maxDate={today}
-        {...(!!formikProps.values.firstDoseDate && {
-          selectedStartDate: formikProps.values.firstDoseDate,
-        })}
+        minDate={countrySpecificMinDate}
       />
     );
   };

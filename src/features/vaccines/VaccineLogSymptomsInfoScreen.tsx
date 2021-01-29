@@ -17,16 +17,14 @@ export const VaccineLogSymptomsInfoScreen: React.FC<Props> = ({ route, navigatio
   const { assessmentData } = route.params;
 
   return (
-    <Screen profile={assessmentData.patientData.profile} navigation={navigation}>
+    <Screen profile={assessmentData.patientData.profile} navigation={navigation} showCloseButton>
       <Header>
         <HeaderText>{i18n.t('vaccines.log-symptoms.title')}</HeaderText>
       </Header>
 
       <View style={{ padding: 16 }}>
         <RegularText style={{ paddingBottom: 24 }}>{i18n.t('vaccines.log-symptoms.body-1')}</RegularText>
-
         <RegularText style={{ paddingBottom: 24 }}>{i18n.t('vaccines.log-symptoms.body-2')}</RegularText>
-
         <RegularText style={{ paddingBottom: 24 }}>{i18n.t('vaccines.log-symptoms.body-3')}</RegularText>
       </View>
     </Screen>

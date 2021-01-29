@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import Screen, { Header } from '@covid/components/Screen';
 import { HeaderText, RegularText } from '@covid/components/Text';
@@ -23,7 +23,7 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
   const exampleSVG = isGBCountry() ? <VaccineDemoUK /> : <VaccineDemoUS />;
 
   return (
-    <Screen extendEdges profile={assessmentData.patientData.profile} navigation={navigation}>
+    <Screen extendEdges profile={assessmentData.patientData.profile} navigation={navigation} showCloseButton>
       <View style={{ padding: 16 }}>
         <Header>
           <HeaderText>{i18n.t('vaccines.find-info.title')}</HeaderText>
@@ -34,14 +34,7 @@ export const VaccineFindInfoScreen: React.FC<Props> = ({ route, navigation }) =>
         </View>
       </View>
 
-      {exampleSVG}
+      <View style={{ alignContent: 'center', padding: 8 }}>{exampleSVG}</View>
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    height: 200,
-  },
-});
