@@ -61,14 +61,14 @@ references:
     branches:
       only:
         - develop
-        - selvach/ota-fixes
+        - selvach/ota_fixes
 
   release_filter: &release_filter
     branches:
       only:
         - master
         - develop
-        - selvach/ota-fixes
+        - selvach/ota_fixes
 
   feature_filter: &feature_filter
     branches:
