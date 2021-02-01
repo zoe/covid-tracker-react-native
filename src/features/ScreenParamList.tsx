@@ -108,7 +108,6 @@ export type ScreenParamList = {
   JoinHigherEducation: { patientData: PatientData };
 
   DietStudyPlaybackIntro: undefined;
-  DietStudyPlaybackGlobal: undefined;
   DietStudyPlaybackDietQuality: undefined;
   DietStudyPlaybackYourDiet: undefined;
   DietStudyPlaybackGutHealth: undefined;

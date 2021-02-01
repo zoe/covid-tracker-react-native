@@ -15,9 +15,6 @@ class DietStudyPlaybackCoordinator extends Coordinator {
 
   screenFlow: ScreenFlow = {
     DietStudyPlaybackIntro: () => {
-      NavigatorService.navigate('DietStudyPlaybackGlobal');
-    },
-    DietStudyPlaybackGlobal: () => {
       NavigatorService.navigate('DietStudyPlaybackDietQuality');
     },
     DietStudyPlaybackDietQuality: () => {
