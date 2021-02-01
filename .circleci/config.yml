@@ -61,14 +61,12 @@ references:
     branches:
       only:
         - develop
-        - chores/ios-11
 
   release_filter: &release_filter
     branches:
       only:
         - master
         - develop
-        - chores/ios-11
 
   feature_filter: &feature_filter
     branches:
