@@ -81,7 +81,7 @@ function initialize(): void {
     return;
   }
 
-  Amplitude.initialize(appConfig.amplitudeKey);
+  Amplitude.initializeAsync(appConfig.amplitudeKey);
   // Amplitude.setTrackingOptions(trackingOptions);
   isInitialized = true;
 }
@@ -90,9 +90,9 @@ export function track(event: string, eventProperties?: object): void {
   initialize();
 
   if (eventProperties) {
-    Amplitude.logEventWithProperties(event, eventProperties);
+    Amplitude.logEventWithPropertiesAsync(event, eventProperties);
   } else {
-    Amplitude.logEvent(event);
+    Amplitude.logEventAsync(event);
   }
 }
 
@@ -112,7 +112,7 @@ export function identify(additionalProps?: AdditionalUserProperties): void {
     revisionId: Constants.manifest.revisionId,
     releaseChannel: Constants.manifest.releaseChannel,
   };
-  Amplitude.setUserProperties(payload);
+  Amplitude.setUserPropertiesAsync(payload);
 }
 
 export default {
