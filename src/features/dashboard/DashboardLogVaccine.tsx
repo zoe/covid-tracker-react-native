@@ -10,10 +10,10 @@ import { shareVaccine } from '@assets';
 import i18n from '@covid/locale/i18n';
 
 interface Props {
-  id: string;
+  screenName: string;
 }
 
-export const DashboardLogVaccine: React.FC<Props> = ({ id }) => {
+export const DashboardLogVaccine: React.FC<Props> = ({ screenName }) => {
   const onShareImage = async () => {
     try {
       const uri = Image.resolveAssetSource(shareVaccine).uri;
@@ -29,14 +29,8 @@ export const DashboardLogVaccine: React.FC<Props> = ({ id }) => {
   };
 
   const trackShare = () => {
-    Analytics.track(events.GET_VACCINE_SHARED, { id });
+    Analytics.track(events.LOG_YOUR_VACCINE_SHARED, { screenName });
   };
-
-  const trackView = () => {
-    Analytics.track(events.GET_VACCINE_DISPLAYED, { id });
-  };
-
-  trackView();
 
   return (
     <TouchableOpacity style={{ marginLeft: -14, marginTop: -30 }} onPress={onShareImage}>

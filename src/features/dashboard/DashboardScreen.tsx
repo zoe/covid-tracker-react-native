@@ -100,7 +100,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <DashboardLogVaccine id="dashboardShareVaccine" />
+      <DashboardLogVaccine screenName="DashboardScreen" />
 
       <View style={styles.calloutContainer}>
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
