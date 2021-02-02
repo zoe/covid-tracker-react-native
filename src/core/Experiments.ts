@@ -1,7 +1,5 @@
-import { useSelector } from 'react-redux';
-
 import Analytics from '@covid/core/Analytics';
-import { selectUser } from '@covid/core/state/user';
+import store from '@covid/core/state/store';
 
 export const experiments = {
   Experiment_001: 'Experiment_001', // Test alternative external callouts on UK Thank You Pags
@@ -28,8 +26,8 @@ function getVariant(hash: string, totalVariants: number): string {
   return 'variant_' + variantNumber;
 }
 
-export async function startExperiment(experimentName: string, totalVariants: number): Promise<string | null> {
-  const user = useSelector(selectUser);
+export function startExperiment(experimentName: string, totalVariants: number): string | null {
+  const user = store.getState().user;
   if (!user) return null;
 
   const variant = getVariant(user.username, totalVariants);

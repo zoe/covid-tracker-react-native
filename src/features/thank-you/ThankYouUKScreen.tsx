@@ -1,9 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
-import { notificationReminders } from '@assets';
+import { dietStudyPlaybackReady, notificationReminders } from '@assets';
 import { colors } from '@theme';
 import { AppRating, shouldAskForRating } from '@covid/components/AppRating';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
@@ -21,6 +21,10 @@ import { IConsentService } from '@covid/core/consent/ConsentService';
 import assessmentCoordinator from '@covid/core/assessment/AssessmentCoordinator';
 import { BigGreenTickFilled } from '@covid/components/BigGreenTick';
 import { FeaturedContentList, FeaturedContentType } from '@covid/components';
+import { experiments, startExperiment } from '@covid/core/Experiments';
+import Analytics, { events } from '@covid/core/Analytics';
+import appCoordinator from '@covid/features/AppCoordinator';
+import store from '@covid/core/state/store';
 
 type RenderProps = {
   navigation: StackNavigationProp<ScreenParamList, 'ThankYouUK'>;
@@ -31,12 +35,14 @@ type State = {
   askForRating: boolean;
   inviteToStudy: boolean;
   shouldShowReminders: boolean;
+  showDietStudyPlayback: boolean;
 };
 
 const initialState = {
   askForRating: false,
   inviteToStudy: false,
   shouldShowReminders: false,
+  showDietStudyPlayback: false,
 };
 
 export default class ThankYouUKScreen extends Component<RenderProps, State> {
@@ -47,10 +53,19 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
   state = initialState;
 
   async componentDidMount() {
+    const { startupInfo } = store.getState().content;
+    const variant = startExperiment(experiments.UK_DietScore_Invite, 2);
+    const showDietStudyPlayback = (variant === 'variant_2' && startupInfo?.show_diet_score) || false;
+
+    if (showDietStudyPlayback) {
+      Analytics.track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
+    }
+
     this.setState({
       askForRating: await shouldAskForRating(),
       inviteToStudy: await this.consentService.shouldAskForValidationStudy(true),
       shouldShowReminders: !(await this.pushService.isGranted()),
+      showDietStudyPlayback,
     });
   }
 
@@ -70,6 +85,16 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
               </Header>
 
               <RegularText style={styles.signOff}>{i18n.t('thank-you-uk.sign-off')}</RegularText>
+
+              {this.state.showDietStudyPlayback && (
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
+                    appCoordinator.goToDietStudyPlayback();
+                  }}>
+                  <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+                </TouchableWithoutFeedback>
+              )}
 
               <FeaturedContentList type={FeaturedContentType.ThankYou} screenName={this.props.route.name} />
 
@@ -169,5 +194,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundSecondary,
     borderColor: colors.brand,
     borderWidth: 1,
+  },
+  dietStudyImage: {
+    width: '100%',
+    aspectRatio: 1200 / 1266,
+    height: undefined,
+    resizeMode: 'contain',
+    marginVertical: 8,
   },
 });
