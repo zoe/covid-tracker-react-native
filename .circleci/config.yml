@@ -61,14 +61,12 @@ references:
     branches:
       only:
         - develop
-        - chores/android-build-no
 
   release_filter: &release_filter
     branches:
       only:
         - master
         - develop
-        - chores/android-build-no
 
   feature_filter: &feature_filter
     branches:
