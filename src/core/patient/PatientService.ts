@@ -163,6 +163,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
     const hasSchoolGroup = patient.has_school_group;
     const shouldShowVaccineList = patient.vaccine_status !== VaccineStatus.DO_NOT_ASK;
     const isMinor = isMinorAge(patient.year_of_birth);
+    const vaccineHesitancySeen = patient.vaccine_hesitancy_seen;
 
     return {
       ...patientState,
@@ -187,6 +188,7 @@ export class PatientService extends ApiClientBase implements IPatientService {
       hasSchoolGroup,
       isMinor,
       shouldShowVaccineList,
+      vaccineHesitancySeen,
     };
   }
 

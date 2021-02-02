@@ -3,13 +3,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Text } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { State } from 'react-native-gesture-handler';
 
 import { colors } from '@theme';
 import Screen from '@covid/components/Screen';
-import { BrandedButton, ClickableText, HeaderText, RegularText } from '@covid/components/Text';
+import { BrandedButton, HeaderText, RegularText } from '@covid/components/Text';
 import { Loading } from '@covid/components/Loading';
 import i18n from '@covid/locale/i18n';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
@@ -21,8 +20,7 @@ import { Services } from '@covid/provider/services.types';
 import { useAppDispatch } from '@covid/core/state/store';
 import vaccinesSlice, { fetchVaccines } from '@covid/core/state/vaccines/slice';
 import { RootState } from '@covid/core/state/root';
-
-import { IVaccineService } from '../../core/vaccine/VaccineService';
+import { IPatientService } from '@covid/core/patient/PatientService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'VaccineList'>;
@@ -30,11 +28,10 @@ type Props = {
 };
 
 export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
-  const vaccineService = useInjection<IVaccineService>(Services.Vaccine);
+  const patientService = useInjection<IPatientService>(Services.Patient);
   const coordinator = assessmentCoordinator;
   const vaccines = useSelector<RootState, VaccineRequest[]>((state) => state.vaccines.vaccines);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const { patientData } = route.params.assessmentData;
   const dispatch = useAppDispatch();
 
@@ -78,10 +75,16 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
       const shouldAskDoseSymptoms = !!dose;
       coordinator.gotoNextScreen(route.name, { shouldAskDoseSymptoms, dose });
     } else {
-      // No vaccines entered. Check if user has answered a VaccinePlan / VaccineHesitancy
-      const hasPlans = await vaccineService.hasVaccinePlans(patientData.patientId);
-      const askVaccineHesitancy = !hasPlans;
-      coordinator.gotoNextScreen(route.name, { askVaccineHesitancy });
+      //Send to hesitancy screen if they havn't yet seen it
+      if (!patientData.patientInfo?.vaccine_hesitancy_seen) {
+        // Update patient's vaccine_hesitancy_seen so it doesn't show next time, even after vaccine delete.
+        patientService.updatePatientInfo(patientData.patientId, { vaccine_hesitancy_seen: true }).then((info) => {
+          patientData.patientInfo = info;
+          coordinator.gotoNextScreen(route.name, { askVaccineHesitancy: true });
+        });
+      } else {
+        coordinator.gotoNextScreen(route.name, { askVaccineHesitancy: false });
+      }
     }
   };
 
@@ -101,7 +104,6 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
               <Text style={styles.newText}>{i18n.t('vaccines.vaccine-list.add-button')}</Text>
             </BrandedButton>
           )}
-
           {vaccines.map((vaccine: VaccineRequest) => {
             return (
               <VaccineCard
@@ -123,15 +125,11 @@ export const VaccineListScreen: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.rootContainer}>
       <Screen profile={patientData.patientState.profile} navigation={navigation}>
         <HeaderText style={{ margin: 16 }}>{i18n.t('vaccines.vaccine-list.title')}</HeaderText>
-
         <RegularText style={{ marginVertical: 8, marginHorizontal: 16 }}>
           {i18n.t('vaccines.vaccine-list.description')}
         </RegularText>
-
         <ListContent />
-
         <View style={{ flex: 1 }} />
-
         <BrandedButton style={styles.continueButton} onPress={handleNextButton} enable={enableNextButton()}>
           <Text>
             {vaccines.length === 0
