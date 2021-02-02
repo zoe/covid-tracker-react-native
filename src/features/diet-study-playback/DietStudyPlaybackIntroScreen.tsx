@@ -22,27 +22,70 @@ import {
   dietStudyPlaybackGlobal3,
   doctorsAvatars,
   QuoteMarks,
+  sarahAvatar,
 } from '@assets';
 import { DoctorSpeechCard } from '@covid/features/diet-study-playback/DoctorSpeechCard';
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
 
 type Props = {
   navigation: StackNavigationProp<ScreenParamList, 'DietStudyPlaybackIntro'>;
   route: RouteProp<ScreenParamList, 'DietStudyPlaybackIntro'>;
 };
 
+const SarahIntro = () => (
+  <>
+    <Image style={[introStyles.avatar, introStyles.sarahAvatar]} source={sarahAvatar} />
+    <RegularText style={introStyles.namesText}>Dr Sarah Berry</RegularText>
+    <CaptionText style={introStyles.uniText}>{"Nutritional Scientist\nKing's College London"}</CaptionText>
+  </>
+);
+
+const DoctorsIntro = () => (
+  <>
+    <Image style={[introStyles.avatar, introStyles.doctorsAvatar]} source={doctorsAvatars} />
+    <RegularText style={introStyles.namesText}>{'Dr Sarah Berry\n& Prof Christopher Gardner'}</RegularText>
+    <CaptionText style={introStyles.uniText}>
+      {"Nutritional Scientists\nKing's College London & Stanford University"}
+    </CaptionText>
+  </>
+);
+
+const introStyles = StyleSheet.create({
+  avatar: {
+    resizeMode: 'contain',
+    height: undefined,
+    marginTop: 16,
+  },
+  sarahAvatar: {
+    width: 100,
+    aspectRatio: 1.0,
+  },
+  doctorsAvatar: {
+    width: 170,
+    aspectRatio: 1.8,
+  },
+  namesText: {
+    marginVertical: 8,
+    marginHorizontal: 4,
+    color: colors.textDark,
+  },
+  uniText: {
+    marginBottom: 16,
+    marginHorizontal: 4,
+    color: colors.secondary,
+  },
+});
+
 export const DietStudyPlaybackIntroScreen: React.FC<Props> = ({ route, navigation }) => {
   const coordinator = dietStudyPlaybackCoordinator;
+  const IntroCard = isUSCountry() ? DoctorsIntro() : SarahIntro();
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.navContainer}>{!!navigation && <BackButton navigation={navigation} />}</View>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.rootContainer}>
-          <Image style={styles.avatar} source={doctorsAvatars} />
-          <RegularText style={styles.namesText}>{'Dr Sarah Berry\n& Prof Christopher Gardner'}</RegularText>
-          <CaptionText style={styles.uniText}>
-            {"Nutritional Scientists\nKing's College London & Stanford University"}
-          </CaptionText>
+          {IntroCard}
 
           <BasicCard style={{ marginBottom: 24 }}>
             <View style={styles.quoteIcon}>
