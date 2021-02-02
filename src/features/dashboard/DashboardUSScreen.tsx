@@ -22,6 +22,8 @@ import { RootState } from '@covid/core/state/root';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
+import { DashboardLogVaccine } from './DashboardLogVaccine';
+
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
 
@@ -80,6 +82,8 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      <DashboardLogVaccine />
+
       <View style={styles.calloutContainer}>
         {showDietStudyPlayback && (
           <TouchableWithoutFeedback
