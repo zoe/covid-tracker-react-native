@@ -82,7 +82,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <DashboardLogVaccine />
+      <DashboardLogVaccine id="dashboardShareVaccineUS" />
 
       <View style={styles.calloutContainer}>
         {showDietStudyPlayback && (
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   calloutContainer: {
-    marginHorizontal: 24,
+    marginHorizontal: 16,
   },
   zoe: {
     marginBottom: 32,

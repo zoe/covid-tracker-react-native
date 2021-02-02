@@ -20,7 +20,7 @@ export const DashboardLogVaccine: React.FC<Props> = ({ id }) => {
       const downloadPath = FileSystem.cacheDirectory + 'ShareVaccine.png';
       const { uri: localUrl } = await FileSystem.downloadAsync(uri, downloadPath);
 
-       const shared = await Sharing.shareAsync(localUrl, {
+      const shared = await Sharing.shareAsync(localUrl, {
         mimeType: 'image/png',
         dialogTitle: i18n.t('share-log-vaccine'),
       });
@@ -30,11 +30,11 @@ export const DashboardLogVaccine: React.FC<Props> = ({ id }) => {
 
   const trackShare = () => {
     Analytics.track(events.GET_VACCINE_SHARED, { id });
-  }
+  };
 
   const trackView = () => {
     Analytics.track(events.GET_VACCINE_DISPLAYED, { id });
-  }
+  };
 
   trackView();
 
