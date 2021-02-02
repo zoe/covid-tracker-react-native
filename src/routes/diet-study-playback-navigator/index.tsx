@@ -1,4 +1,5 @@
 import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import {
   DietStudyPlaybackIntroScreen,
@@ -8,10 +9,13 @@ import {
   DietStudyPlaybackGutHealthScreen,
   DietStudyPlaybackYourGutScreen,
   DietStudyPlaybackResearchScreen,
+  ScreenParamList,
 } from '@covid/features';
 
+const StackType = createStackNavigator<ScreenParamList>();
+
 interface IProps {
-  Stack: any;
+  Stack: typeof StackType;
 }
 
 function DietStudyPlaybackNavigator({ Stack }: IProps) {

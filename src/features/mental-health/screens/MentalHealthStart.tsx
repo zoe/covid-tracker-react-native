@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 function MentalHealthStart() {
   return (
     <View>
-      <Text>The end</Text>
+      <Text>The start</Text>
     </View>
   );
 }
