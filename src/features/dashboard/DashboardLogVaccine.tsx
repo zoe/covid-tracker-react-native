@@ -5,24 +5,38 @@ import { Image } from 'react-native';
 import Svg, { Path, Rect, G, Defs, ClipPath } from 'react-native-svg';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import Analytics, { events } from '@covid/core/Analytics';
 import { shareVaccine } from '@assets';
 import i18n from '@covid/locale/i18n';
 
-interface Props {}
+interface Props {
+  id: string;
+}
 
-export const DashboardLogVaccine: React.FC<Props> = ({}) => {
+export const DashboardLogVaccine: React.FC<Props> = ({ id }) => {
   const onShareImage = async () => {
     try {
       const uri = Image.resolveAssetSource(shareVaccine).uri;
       const downloadPath = FileSystem.cacheDirectory + 'ShareVaccine.png';
       const { uri: localUrl } = await FileSystem.downloadAsync(uri, downloadPath);
 
-      await Sharing.shareAsync(localUrl, {
+       const shared = await Sharing.shareAsync(localUrl, {
         mimeType: 'image/png',
         dialogTitle: i18n.t('share-log-vaccine'),
       });
+      trackShare();
     } catch (_) {}
   };
+
+  const trackShare = () => {
+    Analytics.track(events.GET_VACCINE_SHARED, { id });
+  }
+
+  const trackView = () => {
+    Analytics.track(events.GET_VACCINE_DISPLAYED, { id });
+  }
+
+  trackView();
 
   return (
     <TouchableOpacity style={{ marginLeft: -14, marginTop: -30 }} onPress={onShareImage}>
