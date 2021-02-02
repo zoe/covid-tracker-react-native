@@ -15,6 +15,7 @@
 		20A7E2671D06414298EABEE5 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A5BAF8D0D3348F4B7121DFB /* FontAwesome5_Regular.ttf */; };
 		2109C585AD574A2DA19091D4 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A35E878AE6E466F8B9D4634 /* Entypo.ttf */; };
 		301B131F8802424EAFD21B6A /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D987CEEA4F54564B275B288 /* FontAwesome5_Solid.ttf */; };
+		30FA879087044B8C9CE1F10F /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6C91EB57640FEAAE489F0 /* icomoon.ttf */; };
 		5E73E9549D3B43CD99F4CA6F /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 617C704A533A453BA07330C7 /* Feather.ttf */; };
 		64A18536D723448EB69C0619 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0072139D332B47EF8F51BDF4 /* Fontisto.ttf */; };
 		6AC7ED32BB8AE76D1736E94E /* libPods-Covid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDF4BA42D7FB9428DA31746 /* libPods-Covid.a */; };
@@ -41,13 +42,13 @@
 		F823E172FA094AAFBE34DD11 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D39F52C00735433899C82B37 /* Foundation.ttf */; };
 		F919B95DF372484D98936B18 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C13E86B875447CC9E60BC10 /* SimpleLineIcons.ttf */; };
 		FE47494A5C594737B9FAFCD2 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8863502152F4361AD4F1391 /* rubicon-icon-font.ttf */; };
-		30FA879087044B8C9CE1F10F /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6C91EB57640FEAAE489F0 /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0072139D332B47EF8F51BDF4 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		053721BE31D64BB2A6DD1112 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		0ED6C91EB57640FEAAE489F0 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* covid-zoe Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "covid-zoe Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../Covid/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../Covid/AppDelegate.m; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		F778D8F9252644E800CB635B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7E2425125125F3700D03296 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../configs/stage/ios/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		FA798D290ADB8215D1F0427E /* Pods-Covid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid.debug.xcconfig"; path = "Target Support Files/Pods-Covid/Pods-Covid.debug.xcconfig"; sourceTree = "<group>"; };
-		0ED6C91EB57640FEAAE489F0 /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../assets/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -450,7 +450,7 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = Covid/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = (
@@ -482,7 +482,7 @@
 				DEVELOPMENT_TEAM = 2B2W2896D7;
 				EXPO_RELEASE_CHANNEL = "$(EXPO_RELEASE_CHANNEL)";
 				INFOPLIST_FILE = Covid/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = (
@@ -685,7 +685,7 @@
 				DEVELOPMENT_TEAM = 2B2W2896D7;
 				EXPO_RELEASE_CHANNEL = "$(EXPO_RELEASE_CHANNEL)";
 				INFOPLIST_FILE = Covid/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = (
