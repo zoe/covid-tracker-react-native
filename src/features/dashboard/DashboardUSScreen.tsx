@@ -82,7 +82,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <DashboardLogVaccine screenName="DashboardUSScreen" />
+      <DashboardLogVaccine screenName="DashboardUS" />
 
       <View style={styles.calloutContainer}>
         {showDietStudyPlayback && (
