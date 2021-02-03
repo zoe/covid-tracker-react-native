@@ -33,17 +33,17 @@ export const DashboardLogVaccine: React.FC<Props> = ({ screenName }) => {
   };
 
   return (
-    <TouchableOpacity style={{ aspectRatio: 1, borderColor: 'green', borderWidth: 1 }} onPress={onShareImage}>
+    <TouchableOpacity style={{ marginLeft: -14, marginTop: -30 }} onPress={onShareImage}>
       {svgButton}
     </TouchableOpacity>
   );
 };
 
 const svgButton = (
-  <Svg width="100%" height="50%" viewBox="0 0 380 190" fill="none">
+  <Svg width={380} height={190} viewBox="0 0 380 180" fill="none" xmlns="http://www.w3.org/2000/svg">
     <G filter="url(#prefix__filter0_d)">
       <G clipPath="url(#prefix__clip0)">
-        <Rect x={0} y={0} width="380" height="190" rx={16} fill="#0165B5" />
+        <Rect x={30} y={30} width={343} height={146} rx={16} fill="#0165B5" />
         <Path
           d="M272.609 130l6.239 5.657-6.239 5.657"
           stroke="#fff"
@@ -102,7 +102,7 @@ const svgButton = (
     </G>
     <Defs>
       <ClipPath id="prefix__clip0">
-        <Rect x={0} y={0} width={343} height={146} rx={16} fill="#fff" />
+        <Rect x={30} y={30} width={343} height={146} rx={16} fill="#fff" />
       </ClipPath>
     </Defs>
   </Svg>
