@@ -1,9 +1,7 @@
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
-
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -17,7 +15,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3 } from '@assets';
+import { shareAppV3, shareVaccine, shareVaccineBanner } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -30,7 +28,6 @@ import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import AnalyticsService, { events } from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
-import { shareVaccine, shareVaccineBanner } from '@assets';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -115,10 +112,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       config={headerConfig}
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
-      expandedHeader={<Header reportOnPress={onReport} />}>    
-
+      expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
-
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareVaccineBanner}

@@ -1,6 +1,5 @@
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
-
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -96,9 +95,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      
       <View style={styles.calloutContainer}>
-
         <ExternalCallout
           calloutID="sharev3"
           imageSource={shareVaccineBanner}
