@@ -190,7 +190,7 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
   }
 
   async startAssessmentFlow(patientData: PatientData) {
-    assessmentCoordinator.init(this, { patientData }, this.userService, assessmentService);
+    assessmentCoordinator.init(this, { patientData }, assessmentService);
     assessmentCoordinator.startAssessment();
   }
 
