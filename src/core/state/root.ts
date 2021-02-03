@@ -8,24 +8,27 @@ import { uiMessagesSlice, IUIMessageCollection } from '@covid/core/ui-messaging'
 
 import { userSlice, IUser } from './user';
 import { IApp, appSlice } from './app';
+import { IMentalHealthChanges, mentalHealthChangesSlice } from './mental-health';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {
   app: IApp;
-  vaccines: IVaccineState;
   assessment: IAssessmentState;
   content: ContentState;
+  mentalHealthChanges: IMentalHealthChanges;
   school: SchoolState;
   uiMessages: IUIMessageCollection;
   user: IUser;
+  vaccines: IVaccineState;
 };
 
 export default combineReducers({
   app: appSlice,
-  vaccines: vaccinesSlice.reducer,
   assessment,
   content: contentSlice.reducer,
+  mentalHealthChanges: mentalHealthChangesSlice,
   school: schoolSlice.reducer,
   uiMessages: uiMessagesSlice,
   user: userSlice,
+  vaccines: vaccinesSlice.reducer,
 });

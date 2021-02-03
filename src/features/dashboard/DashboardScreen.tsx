@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -100,9 +100,10 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <DashboardLogVaccine screenName="Dashboard" />
+      <Button title="Mental Health Study" onPress={() => appCoordinator.goToMentalHealthStudy()} />
 
       <View style={styles.calloutContainer}>
+        <DashboardLogVaccine screenName="Dashboard" />
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
         {hasNetworkData && (
