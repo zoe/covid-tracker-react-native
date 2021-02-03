@@ -81,6 +81,8 @@ import {
 } from '@covid/features';
 
 import DietStudyPlaybackNavigator from '../diet-study-playback-navigator';
+import MentalHealthNavigator from '../main-navigator';
+import { MetalHealthNavigator } from '..';
 
 function MainNavigator() {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -178,6 +180,7 @@ function MainNavigator() {
       <Stack.Screen name="SearchLAD" component={SearchLADScreen} options={noHeader} />
       {/* __HYGEN_INJECTED_SCREEN_ABOVE__ */}
       {DietStudyPlaybackNavigator({ Stack })}
+      {MetalHealthNavigator({ Stack })}
     </Stack.Navigator>
   );
 }
