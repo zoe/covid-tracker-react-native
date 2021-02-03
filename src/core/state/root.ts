@@ -11,8 +11,10 @@ import { IApp, appSlice } from './app';
 import {
   IMentalHealthChanges,
   IMentalHealthFrequency,
+  IMentalHealthHistory,
   mentalHealthChangesSlice,
-  MentalHealthFrequencySlice,
+  mentalHealthFrequencySlice,
+  mentalHealthHistorySlice,
 } from './mental-health';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
@@ -22,6 +24,7 @@ export type RootState = {
   content: ContentState;
   mentalHealthChanges: IMentalHealthChanges;
   mentalHealthFrequency: IMentalHealthFrequency;
+  mentalHealthHistory: IMentalHealthHistory;
   school: SchoolState;
   uiMessages: IUIMessageCollection;
   user: IUser;
@@ -33,7 +36,8 @@ export default combineReducers({
   assessment,
   content: contentSlice.reducer,
   mentalHealthChanges: mentalHealthChangesSlice,
-  mentalHealthFrequency: MentalHealthFrequencySlice,
+  mentalHealthFrequency: mentalHealthFrequencySlice,
+  mentalHealthHistory: mentalHealthHistorySlice,
   school: schoolSlice.reducer,
   uiMessages: uiMessagesSlice,
   user: userSlice,
