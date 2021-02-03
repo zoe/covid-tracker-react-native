@@ -1,99 +1,99 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../../root';
-import { IMentalHealthChanges, TMenatalHealthChange } from '../types';
+import { IMentalHealthChanges, TMentalHealthChange } from '../types';
 
 const initialState: IMentalHealthChanges = {};
 
 const mentalHealthChangesSlice = createSlice({
-  name: 'MentalHealth',
+  name: 'MentalHealthChanges',
   initialState,
   reducers: {
-    setDevicesWithScreen: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setDevicesWithScreen: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         devicesWithScreen: action.payload,
       };
     },
-    setDrinkingAlcohol: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setDrinkingAlcohol: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         drinkingAlcohol: action.payload,
       };
     },
-    setEngagingWithOrganisations: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setEngagingWithOrganisations: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         engagingWithOrganisations: action.payload,
       };
     },
-    setFeelingAlone: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setFeelingAlone: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         feelingAlone: action.payload,
       };
     },
-    setGreenSpaces: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setGreenSpaces: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         greenSpaces: action.payload,
       };
     },
-    setInteractingFaceToFace: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setInteractingFaceToFace: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         interactingFaceToFace: action.payload,
       };
     },
-    setInteractingViaPhoneOrTechnology: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setInteractingViaPhoneOrTechnology: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         interactingViaPhoneOrTechnology: action.payload,
       };
     },
-    setReadingWatchingListeningNews: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setReadingWatchingListeningNews: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         readingWatchingListeningNews: action.payload,
       };
     },
-    setPhysical: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setPhysical: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         physical: action.payload,
       };
     },
-    setRelaxation: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setRelaxation: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         relaxation: action.payload,
       };
     },
-    setSleep: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setSleep: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         sleep: action.payload,
       };
     },
-    setSmokingOrVaping: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setSmokingOrVaping: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         smokingOrVaping: action.payload,
       };
     },
-    setSnacks: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setSnacks: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         snacks: action.payload,
       };
     },
-    setTimeWithPets: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setTimeWithPets: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         timeWithPets: action.payload,
       };
     },
-    setWorking: (state, action: PayloadAction<TMenatalHealthChange>) => {
+    setWorking: (state, action: PayloadAction<TMentalHealthChange>) => {
       return {
         ...state,
         working: action.payload,

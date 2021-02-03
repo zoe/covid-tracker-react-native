@@ -8,7 +8,12 @@ import { uiMessagesSlice, IUIMessageCollection } from '@covid/core/ui-messaging'
 
 import { userSlice, IUser } from './user';
 import { IApp, appSlice } from './app';
-import { IMentalHealthChanges, mentalHealthChangesSlice } from './mental-health';
+import {
+  IMentalHealthChanges,
+  IMentalHealthFrequency,
+  mentalHealthChangesSlice,
+  MentalHealthFrequencySlice,
+} from './mental-health';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {
@@ -16,6 +21,7 @@ export type RootState = {
   assessment: IAssessmentState;
   content: ContentState;
   mentalHealthChanges: IMentalHealthChanges;
+  mentalHealthFrequency: IMentalHealthFrequency;
   school: SchoolState;
   uiMessages: IUIMessageCollection;
   user: IUser;
@@ -27,6 +33,7 @@ export default combineReducers({
   assessment,
   content: contentSlice.reducer,
   mentalHealthChanges: mentalHealthChangesSlice,
+  mentalHealthFrequency: MentalHealthFrequencySlice,
   school: schoolSlice.reducer,
   uiMessages: uiMessagesSlice,
   user: userSlice,
