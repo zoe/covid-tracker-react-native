@@ -1,5 +1,9 @@
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
+
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
+
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -23,11 +27,10 @@ import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import AnalyticsService from '@covid/core/Analytics';
+import AnalyticsService, { events } from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
-
-import { DashboardLogVaccine } from './DashboardLogVaccine';
+import { shareVaccine, shareVaccineBanner } from '@assets';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -68,6 +71,19 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
+  const onShareImage = async (image: any, eventKey: string, screenName: string) => {
+    try {
+      const uri = Image.resolveAssetSource(image).uri;
+      const downloadPath = FileSystem.cacheDirectory + 'ShareVaccine.png';
+      const { uri: localUrl } = await FileSystem.downloadAsync(uri, downloadPath);
+      await Sharing.shareAsync(localUrl, {
+        mimeType: 'image/png',
+        dialogTitle: i18n.t('share-log-vaccine'),
+      });
+      AnalyticsService.track(eventKey, { screenName });
+    } catch (_) {}
+  };
+
   useEffect(() => {
     (async () => {
       AnalyticsService.identify();
@@ -99,10 +115,18 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       config={headerConfig}
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
-      expandedHeader={<Header reportOnPress={onReport} />}>
-      <DashboardLogVaccine screenName="Dashboard" />
+      expandedHeader={<Header reportOnPress={onReport} />}>    
 
       <View style={styles.calloutContainer}>
+
+        <ExternalCallout
+          calloutID="sharev3"
+          imageSource={shareVaccineBanner}
+          aspectRatio={311 / 135}
+          screenName={route.name}
+          postClicked={() => onShareImage(shareVaccine, events.LOG_YOUR_VACCINE_SHARED, 'Dashboard')}
+        />
+
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
         {hasNetworkData && (
