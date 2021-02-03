@@ -538,6 +538,7 @@
   "prefer-not-to-say": "Föredrar att inte svara",
 
   "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Vänligen ge mer information",
 

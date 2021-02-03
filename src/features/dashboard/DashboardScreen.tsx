@@ -29,6 +29,8 @@ import AnalyticsService, { events } from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 
+import { DashboardLogVaccine } from './DashboardLogVaccine';
+
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
 
@@ -113,6 +115,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
+      <DashboardLogVaccine screenName="Dashboard" />
+
       <View style={styles.calloutContainer}>
         <ExternalCallout
           calloutID="sharev3"

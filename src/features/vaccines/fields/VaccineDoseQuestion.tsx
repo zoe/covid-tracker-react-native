@@ -172,14 +172,33 @@ const styles = StyleSheet.create({
 });
 
 VaccineDoseQuestion.schema = () => {
-  return Yup.object().shape({
-    firstDoseDate: Yup.date().required(),
-    secondDoseDate: Yup.date(),
-    firstBatchNumber: Yup.string().nullable(),
-    secondBatchNumber: Yup.string().nullable(),
-    firstBrand: Yup.string().nullable(),
-    firstDescription: Yup.string().nullable(),
-    secondBrand: Yup.string().nullable(),
-    secondDescription: Yup.string().nullable(),
-  });
+  return Yup.object().shape(
+    {
+      firstDoseDate: Yup.date().required(),
+      secondDoseDate: Yup.date(),
+      firstBatchNumber: Yup.string().nullable(),
+      secondBatchNumber: Yup.string().nullable(),
+      firstBrand: Yup.string().when('firstDescription', {
+        is: undefined,
+        then: Yup.string().required(i18n.t('validation-error-please-select-option')),
+      }),
+      firstDescription: Yup.string().when('firstBrand', {
+        is: 'not_sure',
+        then: Yup.string().required(i18n.t('validation-error-please-select-option')),
+      }),
+      secondBrand: Yup.string().when(['secondDoseDate', 'secondDescription'], {
+        is: [!undefined, undefined],
+        then: Yup.string().required(i18n.t('validation-error-please-select-option')),
+      }),
+      secondDescription: Yup.string().when(['secondDoseDate', 'secondBrand'], {
+        is: [!undefined, 'not_sure'],
+        then: Yup.string().required(i18n.t('validation-error-please-select-option')),
+      }),
+    },
+    // These are to flag against circular dependency errors:
+    [
+      ['firstBrand', 'firstDescription'],
+      ['secondBrand', 'secondDescription'],
+    ]
+  );
 };
