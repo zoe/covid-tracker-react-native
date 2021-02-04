@@ -103,7 +103,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
-          calloutID="sharev3"
+          calloutID="shareVaccine"
           imageSource={shareVaccineBanner}
           aspectRatio={311 / 135}
           screenName={route.name}
