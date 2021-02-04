@@ -11,13 +11,7 @@ function MentalHealthStart() {
     <SafeLayout>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={{ marginTop: 24 }}>
-          <RoundIconButton
-            backgroundColor="black"
-            iconColor="white"
-            iconName="arrow_back_ios"
-            iconStyle={{ transform: [{ translateX: 3 }] }}
-            onPress={() => goBack()}
-          />
+          <RoundIconButton backgroundColor="transparent" iconName="close-large" onPress={() => goBack()} />
         </View>
         <View style={styles.footer}>
           <BrandedButton onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
