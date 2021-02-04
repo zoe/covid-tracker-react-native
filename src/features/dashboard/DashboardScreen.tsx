@@ -2,7 +2,6 @@ import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { Image, StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -26,12 +25,11 @@ import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import AnalyticsService, { events } from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
 import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
 import { experiments, startExperiment } from '@covid/core/Experiments';
-import Analytics, { events, identify } from '@covid/core/Analytics';
+import { events, identify, track } from '@covid/core/Analytics';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -90,7 +88,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         mimeType: 'image/png',
         dialogTitle,
       });
-      AnalyticsService.track(eventKey, { screenName });
+      track(eventKey, { screenName });
     } catch (_) {}
   };
 
@@ -115,7 +113,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
   useEffect(() => {
     if (!app.dashboardVisited) {
       if (showDietStudyPlayback) {
-        Analytics.track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
+        track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
       }
       dispatch(setDasboardVisited(true));
     }
@@ -151,7 +149,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
         {showDietStudyPlayback && (
           <TouchableWithoutFeedback
             onPress={() => {
-              Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
+              track(events.DIET_STUDY_PLAYBACK_CLICKED);
               appCoordinator.goToDietStudyPlayback();
             }}>
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
