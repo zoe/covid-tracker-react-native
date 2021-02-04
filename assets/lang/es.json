@@ -375,6 +375,8 @@
     "head-eye-soreness": "Dolor o incomodidad inusual de los ojos (e.j La sensibilidad de las luces, lágrimas excesivos, o ojos rojos/rosados)",
     "head-earache": "El dolor de oídos",
     "head-ear-ringing": "Zumbido en sus orejas",
+    "head-mouth-ulcers": "Las úlceras en la boca o la lengua",
+    "head-tongue-surface": "Cambios en la superficie de la lengua",
 
     "throat-chest-symptoms": "¿Tiene algunas síntomas en sus garganta o pecho?",
     "throat-chest-sore-throat": "Dolor en su garganta",
@@ -769,6 +771,7 @@
   "default-profile-name": "Yo",
 
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Por favor, de más detalles",
 

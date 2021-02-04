@@ -68,4 +68,6 @@ export type AssessmentInfosRequest = {
   irregular_heartbeat: boolean;
   chills_or_shivers: boolean;
   unusual_joint_pains: boolean;
+  mouth_ulcers: boolean;
+  tongue_surface: boolean;
 };

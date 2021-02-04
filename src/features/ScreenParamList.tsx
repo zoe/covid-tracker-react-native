@@ -114,6 +114,14 @@ export type ScreenParamList = {
   DietStudyPlaybackYourGut: undefined;
   DietStudyPlaybackResearch: undefined;
 
+  MentalHealthStart: undefined;
+  MentalHealthChanges: undefined;
+  MentalHealthFrequency: undefined;
+  MentalHealthHistory: undefined;
+  MentalHealthSupport: undefined;
+  MentalHealthLearning: undefined;
+  MentalHealthEnd: undefined;
+
   //
   Modal: undefined;
   Main: undefined;

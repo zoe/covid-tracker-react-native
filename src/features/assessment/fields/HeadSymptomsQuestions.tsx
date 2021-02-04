@@ -26,6 +26,8 @@ type HeadSymptomsCheckBoxData = {
   eyeSoreness: boolean;
   earache: boolean;
   ringingEars: boolean;
+  mouthUlcers: boolean;
+  tongueSurface: boolean;
 };
 
 type HeadSymptomsFollowUpData = {
@@ -61,6 +63,8 @@ export const HeadSymptomsQuestions: SymptomQuestions<Props, HeadSymptomsData> = 
     { label: i18n.t('describe-symptoms.head-eye-soreness'), value: 'eyeSoreness' },
     { label: i18n.t('describe-symptoms.head-earache'), value: 'earache' },
     { label: i18n.t('describe-symptoms.head-ear-ringing'), value: 'ringingEars' },
+    { label: i18n.t('describe-symptoms.head-mouth-ulcers'), value: 'mouthUlcers' },
+    { label: i18n.t('describe-symptoms.head-tongue-surface'), value: 'tongueSurface' },
   ];
 
   return (
@@ -83,6 +87,8 @@ HeadSymptomsQuestions.initialFormValues = (): HeadSymptomsData => {
     eyeSoreness: false,
     earache: false,
     ringingEars: false,
+    mouthUlcers: false,
+    tongueSurface: false,
   };
 };
 
@@ -107,5 +113,7 @@ HeadSymptomsQuestions.createAssessment = (formData: HeadSymptomsData): Partial<A
     eye_soreness: formData.eyeSoreness,
     earache: formData.earache,
     ear_ringing: formData.ringingEars,
+    mouth_ulcers: formData.mouthUlcers,
+    tongue_surface: formData.tongueSurface,
   };
 };
