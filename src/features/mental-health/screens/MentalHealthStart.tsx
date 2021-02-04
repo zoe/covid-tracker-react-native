@@ -1,14 +1,12 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { BrandedButton } from '@covid/components';
+import { BrandedButton, SafeLayout } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
-
-import { Container } from '../partials';
 
 function MentalHealthStart() {
   return (
-    <Container>
+    <SafeLayout>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={{ borderColor: 'green', borderWidth: 1 }}>
           <Text>The start</Text>
@@ -19,7 +17,7 @@ function MentalHealthStart() {
           </BrandedButton>
         </View>
       </ScrollView>
-    </Container>
+    </SafeLayout>
   );
 }
 
