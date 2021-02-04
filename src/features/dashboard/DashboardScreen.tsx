@@ -121,7 +121,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
         <ExternalCallout
-          calloutID="sharev3"
+          calloutID="shareVaccine"
           imageSource={shareVaccineBanner}
           aspectRatio={311 / 135}
           screenName={route.name}
