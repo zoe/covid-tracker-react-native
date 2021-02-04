@@ -5,6 +5,8 @@ export type TIconName =
   | 'age'
   | 'apple-info'
   | 'apple'
+  | 'arrow_back_ios'
+  | 'arrow_forward_ios'
   | 'asian'
   | 'bagel'
   | 'bed-off'
