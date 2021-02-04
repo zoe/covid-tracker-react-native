@@ -12,18 +12,18 @@ const mentalHealthHistorySlice = createSlice({
   name: 'MentalHealthHistory',
   initialState,
   reducers: {
-    addCondition: (state, action: PayloadAction<TMentalHealthCondition>) => {
+    addHistoryCondition: (state, action: PayloadAction<TMentalHealthCondition>) => {
       return {
         ...state,
         conditions: [...state.conditions, action.payload],
       };
     },
-    removeCondition: (state, action: PayloadAction<TMentalHealthCondition>) => {
+    removeHistoryCondition: (state, action: PayloadAction<TMentalHealthCondition>) => {
       const index = state.conditions.findIndex((condition) => condition === action.payload);
       state.conditions.splice(index, 1);
       return state;
     },
-    setHasDiagnosis: (state, action: PayloadAction<boolean>) => {
+    setHasHistoryDiagnosis: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
         hasDiagnosis: action.payload,
@@ -32,6 +32,6 @@ const mentalHealthHistorySlice = createSlice({
   },
 });
 
-export const { addCondition, removeCondition, setHasDiagnosis } = mentalHealthHistorySlice.actions;
+export const { addHistoryCondition, removeHistoryCondition, setHasHistoryDiagnosis } = mentalHealthHistorySlice.actions;
 export const selectMentalHealthHistory = (state: RootState) => state.mentalHealthHistory;
 export default mentalHealthHistorySlice.reducer;

@@ -9,3 +9,7 @@ export { default as mentalHealthFrequencySlice } from './frequency/slice';
 export * from './history/types';
 export * from './history/slice';
 export { default as mentalHealthHistorySlice } from './history/slice';
+//
+export * from './learning/types';
+export * from './learning/slice';
+export { default as mentalHealthLearningSlice } from './learning/slice';
