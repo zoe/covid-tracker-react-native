@@ -53,7 +53,7 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
 
           <TouchableOpacity
             onPress={() => {
-              openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback');
+              openWebLink(coordinator.getDietStudyInfoUrl());
             }}>
             <View style={{ alignItems: 'center', flexDirection: 'row', marginTop: 24 }}>
               <StandardArrowRight />

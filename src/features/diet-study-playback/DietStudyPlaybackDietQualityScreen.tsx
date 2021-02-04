@@ -51,7 +51,7 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
 
             <ClickableText
               style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
-              onPress={() => openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback')}>
+              onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}>
               {'\n'}* Learn more about the Short Form FFQ tool developed by Cleghorn et al. that we used in this blog.
             </ClickableText>
           </DoctorSpeechCard>
