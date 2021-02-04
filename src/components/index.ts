@@ -6,6 +6,7 @@ export * from './Content';
 export * from './DropdownField';
 export * from './icons';
 export * from './Inputs';
+export * from './layouts';
 export * from './messaging';
 export * from './Screens';
 export * from './status';
