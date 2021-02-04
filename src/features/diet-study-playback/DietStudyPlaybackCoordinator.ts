@@ -2,7 +2,7 @@ import { AppCoordinator } from '@covid/features/AppCoordinator';
 import NavigatorService from '@covid/NavigatorService';
 import { Coordinator, ScreenFlow } from '@covid/core/Coordinator';
 import { PatientData } from '@covid/core/patient/PatientData';
-import { homeScreenName } from '@covid/core/localisation/LocalisationService';
+import { homeScreenName, isUSCountry } from '@covid/core/localisation/LocalisationService';
 import { IContentService } from '@covid/core/content/ContentService';
 import { IDietScoreRemoteClient } from '@covid/core/diet-score/DietScoreApiClient';
 import { TDietScoreResponse } from '@covid/core/diet-score/dto/DietScoreResponse';
@@ -15,9 +15,6 @@ class DietStudyPlaybackCoordinator extends Coordinator {
 
   screenFlow: ScreenFlow = {
     DietStudyPlaybackIntro: () => {
-      NavigatorService.navigate('DietStudyPlaybackGlobal');
-    },
-    DietStudyPlaybackGlobal: () => {
       NavigatorService.navigate('DietStudyPlaybackDietQuality');
     },
     DietStudyPlaybackDietQuality: () => {
@@ -56,6 +53,12 @@ class DietStudyPlaybackCoordinator extends Coordinator {
   signUpToNewsletter(signup: boolean) {
     return this.contentService.signUpForDietNewsletter(signup);
   }
+
+  getDietStudyInfoUrl = () => {
+    return isUSCountry()
+      ? 'https://covid.joinzoe.com/us-post/covid-diet-feedback'
+      : 'https://covid.joinzoe.com/post/covid-lockdown-diet';
+  };
 }
 
 const dietStudyPlaybackCoordinator = new DietStudyPlaybackCoordinator();

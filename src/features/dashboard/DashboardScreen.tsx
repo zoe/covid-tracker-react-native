@@ -1,5 +1,7 @@
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -13,7 +15,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { shareAppV3 } from '@assets';
+import { dietStudyPlaybackReady, shareAppV3, shareVaccine, shareVaccineBanner } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { openWebLink } from '@covid/utils/links';
 import { useAppDispatch } from '@covid/core/state/store';
@@ -23,11 +25,11 @@ import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
 import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
-import AnalyticsService from '@covid/core/Analytics';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
-
-import { DashboardLogVaccine } from './DashboardLogVaccine';
+import { StartupInfo } from '@covid/core/user/dto/UserAPIContracts';
+import { experiments, startExperiment } from '@covid/core/Experiments';
+import { events, identify, track } from '@covid/core/Analytics';
 
 const HEADER_EXPANDED_HEIGHT = 328;
 const HEADER_COLLAPSED_HEIGHT = 100;
@@ -44,6 +46,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     (state) => state.school.joinedSchoolGroups
   );
 
+  const startupInfo = useSelector<RootState, StartupInfo | undefined>((state) => state.content.startupInfo);
+  const variant = startExperiment(experiments.UK_DietScore_Invite, 2);
+  const showDietStudyPlayback = variant === 'variant_1' && startupInfo?.show_diet_score;
   const [showTrendline, setShowTrendline] = useState<boolean>(false);
 
   const headerConfig = {
@@ -68,9 +73,28 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
+  const onShareImage = async (
+    fileName: string,
+    image: any,
+    dialogTitle: string,
+    eventKey: string,
+    screenName: string
+  ) => {
+    try {
+      const uri = Image.resolveAssetSource(image).uri;
+      const downloadPath = FileSystem.cacheDirectory + fileName;
+      const { uri: localUrl } = await FileSystem.downloadAsync(uri, downloadPath);
+      await Sharing.shareAsync(localUrl, {
+        mimeType: 'image/png',
+        dialogTitle,
+      });
+      track(eventKey, { screenName });
+    } catch (_) {}
+  };
+
   useEffect(() => {
     (async () => {
-      AnalyticsService.identify();
+      identify();
       await pushNotificationService.refreshPushToken();
     })();
   }, []);
@@ -88,6 +112,9 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
 
   useEffect(() => {
     if (!app.dashboardVisited) {
+      if (showDietStudyPlayback) {
+        track(events.DIET_STUDY_PLAYBACK_DISPLAYED);
+      }
       dispatch(setDasboardVisited(true));
     }
   }, []);
@@ -100,10 +127,34 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       navigation={navigation}
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
-      <DashboardLogVaccine screenName="Dashboard" />
-
       <View style={styles.calloutContainer}>
+        <ExternalCallout
+          calloutID="shareVaccine"
+          imageSource={shareVaccineBanner}
+          aspectRatio={311 / 135}
+          screenName={route.name}
+          postClicked={() =>
+            onShareImage(
+              'ShareVaccine.png',
+              shareVaccine,
+              i18n.t('share-log-vaccine'),
+              events.LOG_YOUR_VACCINE_SHARED,
+              'Dashboard'
+            )
+          }
+        />
+
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
+
+        {showDietStudyPlayback && (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              track(events.DIET_STUDY_PLAYBACK_CLICKED);
+              appCoordinator.goToDietStudyPlayback();
+            }}>
+            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+          </TouchableWithoutFeedback>
+        )}
 
         {hasNetworkData && (
           <View
@@ -142,5 +193,12 @@ const styles = StyleSheet.create({
   },
   zoe: {
     marginVertical: 32,
+  },
+  dietStudyImage: {
+    width: '100%',
+    aspectRatio: 1200 / 1266,
+    height: undefined,
+    resizeMode: 'contain',
+    marginVertical: 8,
   },
 });

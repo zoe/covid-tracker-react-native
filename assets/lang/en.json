@@ -378,6 +378,8 @@
     "head-eye-soreness": "Unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)",
     "head-earache": "Earache",
     "head-ear-ringing": "Ringing in your ears",
+    "head-mouth-ulcers": "Mouth or tongue ulcers",
+    "head-tongue-surface": "Changes to tongue surface",
 
     "throat-chest-symptoms": "Are you experiencing any symptoms in your throat or chest area?",
     "throat-chest-sore-throat": "Sore or painful throat",
@@ -600,6 +602,7 @@
   "default-profile-name": "Me",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Please provide more details",
 

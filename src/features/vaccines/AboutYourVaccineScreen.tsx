@@ -157,7 +157,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineFindInfo()}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 0.1 }}>
-          <QuestionCircle color={colors.linkBlue} />
+          <QuestionCircle colorIcon={colors.linkBlue} />
         </View>
         <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>{i18n.t('vaccines.find-info.link')}</RegularText>
       </View>
@@ -227,6 +227,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
                 <YesNoField
                   selectedValue={vaccineOrFormHasSecondDose() ? 'yes' : 'no'}
                   onValueChange={(value: string) => {
+                    props.values.hasSecondDose = value === 'yes';
                     if (value === 'no') {
                       props.values.secondDoseDate = undefined;
                     }
@@ -237,8 +238,9 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
                 {renderSecondDoseUI(props)}
               </View>
               {!!Object.keys(props.errors).length && props.submitCount > 0 && (
-                <ValidationError error={i18n.t('validation-error-text')} />
+                <ValidationError style={{ marginBottom: 32 }} error={i18n.t('validation-error-text')} />
               )}
+
               <BrandedButton onPress={props.handleSubmit}>
                 <Text>{i18n.t('vaccines.your-vaccine.confirm')}</Text>
               </BrandedButton>
