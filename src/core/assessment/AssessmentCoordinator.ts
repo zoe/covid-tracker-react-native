@@ -1,7 +1,6 @@
 import { ConfigType } from '@covid/core/Config';
 import { IAssessmentService } from '@covid/core/assessment/AssessmentService';
 import { PatientStateType } from '@covid/core/patient/PatientState';
-import { IUserService } from '@covid/core/user/UserService';
 import { CovidTest, CovidTestType } from '@covid/core/user/dto/CovidTestContracts';
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { AppCoordinator } from '@covid/features/AppCoordinator';
@@ -34,7 +33,6 @@ export class AssessmentCoordinator extends Coordinator {
   private readonly localisationService: ILocalisationService;
 
   navigation: NavigationType;
-  userService: IUserService;
   assessmentService: IAssessmentService;
   assessmentData: AssessmentData;
   appCoordinator: AppCoordinator;
@@ -149,15 +147,9 @@ export class AssessmentCoordinator extends Coordinator {
     },
   };
 
-  init = (
-    appCoordinator: AppCoordinator,
-    assessmentData: AssessmentData,
-    userService: IUserService,
-    assessmentService: IAssessmentService
-  ) => {
+  init = (appCoordinator: AppCoordinator, assessmentData: AssessmentData, assessmentService: IAssessmentService) => {
     this.appCoordinator = appCoordinator;
     this.assessmentData = assessmentData;
-    this.userService = userService; // TODO: userService does not appear to be used and can be removed.
     this.assessmentService = assessmentService;
     this.patientData = assessmentData.patientData;
   };
