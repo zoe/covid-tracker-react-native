@@ -78,6 +78,7 @@ export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
 export const shareVaccine = require('./share-vaccine.png');
+export const shareVaccineBanner = require('./share-vaccine-banner.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');
