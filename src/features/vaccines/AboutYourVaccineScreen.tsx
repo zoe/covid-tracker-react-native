@@ -157,7 +157,7 @@ export const AboutYourVaccineScreen: React.FC<Props> = ({ route, navigation }) =
     <TouchableOpacity style={{ margin: 16 }} onPress={() => assessmentCoordinator.goToVaccineFindInfo()}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 0.1 }}>
-          <QuestionCircle color={colors.linkBlue} />
+          <QuestionCircle colorIcon={colors.linkBlue} />
         </View>
         <RegularText style={{ color: colors.linkBlue, flex: 0.9 }}>{i18n.t('vaccines.find-info.link')}</RegularText>
       </View>
