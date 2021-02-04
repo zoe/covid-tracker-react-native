@@ -8,24 +8,46 @@ import { uiMessagesSlice, IUIMessageCollection } from '@covid/core/ui-messaging'
 
 import { userSlice, IUser } from './user';
 import { IApp, appSlice } from './app';
+import {
+  IMentalHealthChanges,
+  IMentalHealthFrequency,
+  IMentalHealthHistory,
+  IMentalHealthLearning,
+  IMentalHealthState,
+  mentalHealthChangesSlice,
+  mentalHealthFrequencySlice,
+  mentalHealthHistorySlice,
+  mentalHealthLearningSlice,
+  mentalHealthStateSlice,
+} from './mental-health';
 import { IVaccineState, vaccinesSlice } from './vaccines';
 
 export type RootState = {
   app: IApp;
-  vaccines: IVaccineState;
   assessment: IAssessmentState;
   content: ContentState;
+  mentalHealthChanges: IMentalHealthChanges;
+  mentalHealthFrequency: IMentalHealthFrequency;
+  mentalHealthHistory: IMentalHealthHistory;
+  mentalHealthLearning: IMentalHealthLearning;
+  mentalHealthState: IMentalHealthState;
   school: SchoolState;
   uiMessages: IUIMessageCollection;
   user: IUser;
+  vaccines: IVaccineState;
 };
 
 export default combineReducers({
   app: appSlice,
-  vaccines: vaccinesSlice.reducer,
   assessment,
   content: contentSlice.reducer,
+  mentalHealthChanges: mentalHealthChangesSlice,
+  mentalHealthFrequency: mentalHealthFrequencySlice,
+  mentalHealthHistory: mentalHealthHistorySlice,
+  mentalHealthLearning: mentalHealthLearningSlice,
+  mentalHealthState: mentalHealthStateSlice,
   school: schoolSlice.reducer,
   uiMessages: uiMessagesSlice,
   user: userSlice,
+  vaccines: vaccinesSlice.reducer,
 });
