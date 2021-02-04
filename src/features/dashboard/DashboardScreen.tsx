@@ -1,7 +1,7 @@
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, Button } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -120,6 +120,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <Button title="Mental Health Study" onPress={() => appCoordinator.goToMentalHealthStudy()} />
         <ExternalCallout
           calloutID="shareVaccine"
           imageSource={shareVaccineBanner}
