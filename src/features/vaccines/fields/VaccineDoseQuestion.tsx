@@ -209,13 +209,13 @@ VaccineDoseQuestion.schema = () => {
         is: true,
         then: Yup.date().required(i18n.t('validation-error-daterequired')),
       }),
-      secondBrand: Yup.string().when(['hasSecondDose', 'secondDoseDate', 'secondDescription'], {
-        is: [true, !undefined, undefined],
+      secondBrand: Yup.string().when(['hasSecondDose', 'secondDescription'], {
+        is: (hasSecondDose, secondDescription) => hasSecondDose && !secondDescription,
         then: Yup.string().required(i18n.t('validation-error-please-select-option')),
       }),
       secondDescription: Yup.string()
-        .when(['hasSecondDose', 'secondDoseDate', 'secondBrand'], {
-          is: [true, !undefined, 'not_sure'],
+        .when(['hasSecondDose', 'secondBrand'], {
+          is: (hasSecondDose, secondBrand) => hasSecondDose && secondBrand == 'not_sure',
           then: Yup.string().required(i18n.t('validation-error-please-select-option')),
         })
         .nullable(),
