@@ -23,7 +23,7 @@ import { updateTodayDate } from '@covid/core/content/state/contentSlice';
 import { RootState } from '@covid/core/state/root';
 import { Optional } from '@covid/utils/types';
 import { fetchSubscribedSchoolGroups } from '@covid/core/schools/Schools.slice';
-import { FeaturedContentList, FeaturedContentType, SchoolNetworks } from '@covid/components';
+import { FeaturedContentList, FeaturedContentType, SchoolNetworks, RoundIconButton } from '@covid/components';
 import { SubscribedSchoolGroupStats } from '@covid/core/schools/Schools.dto';
 import { pushNotificationService } from '@covid/Services';
 import { selectApp, setDasboardVisited } from '@covid/core/state/app';
@@ -128,6 +128,7 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
       compactHeader={<CompactHeader reportOnPress={onReport} />}
       expandedHeader={<Header reportOnPress={onReport} />}>
       <View style={styles.calloutContainer}>
+        <RoundIconButton iconName="arrow_forward_ios" onPress={() => appCoordinator.goToMentalHealthStudy()} />
         <ExternalCallout
           calloutID="shareVaccine"
           imageSource={shareVaccineBanner}
