@@ -26,6 +26,7 @@ export interface VaccineDoseData {
   secondBatchNumber: string | undefined;
   secondBrand: VaccineBrands | undefined;
   secondDescription: string | undefined;
+  hasSecondDose: boolean;
 }
 
 interface Props {
@@ -63,16 +64,25 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     const dateField: Date | undefined = props.firstDose
       ? formikProps.values.firstDoseDate
       : formikProps.values.secondDoseDate;
-
     let countrySpecificMinDate: Date | undefined;
+    let maxDate: Date | undefined;
+    let minDate: Date | undefined = today;
+
     if (isGBCountry()) {
-      countrySpecificMinDate = new Date('2020-12-08');
+      minDate = new Date('2020-12-08');
     }
     if (isUSCountry()) {
-      countrySpecificMinDate = new Date('2020-12-11');
+      minDate = new Date('2020-12-11');
     }
-    if (!props.firstDose) {
-      countrySpecificMinDate = formikProps.values.firstDoseDate;
+
+    // Validate dates for overlap - easier to to do here than in the Yup validation schema
+    // set the max date of first dose to the same date as the second dose
+    if (props.firstDose && formikProps.values.secondDoseDate) {
+      maxDate = formikProps.values.secondDoseDate;
+    }
+    // set the min date of second dose to the same date as the first dose
+    if (!props.firstDose && formikProps.values.firstDoseDate) {
+      minDate = formikProps.values.firstDoseDate;
     }
 
     return (
@@ -80,8 +90,8 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
         onDateChange={setDoseDate}
         initialDate={dateField}
         selectedStartDate={dateField}
-        maxDate={today}
-        minDate={countrySpecificMinDate}
+        maxDate={maxDate}
+        minDate={minDate}
       />
     );
   };
@@ -93,6 +103,9 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
     const errorField: string | undefined = props.firstDose
       ? formikProps.errors.firstDoseDate
       : formikProps.errors.secondDoseDate;
+    const touched: boolean | undefined = props.firstDose
+      ? formikProps.touched.firstDoseDate
+      : formikProps.touched.secondDoseDate;
 
     return (
       <>
@@ -104,7 +117,7 @@ export const VaccineDoseQuestion: VaccineDoseQuestion<Props, VaccineDoseData> = 
             <RegularText style={{ marginStart: 8 }}>{i18n.t('vaccines.your-vaccine.select-date')}</RegularText>
           )}
         </TouchableOpacity>
-        <ErrorText>{errorField ? 'Date is required' : ''}</ErrorText>
+        <ErrorText>{errorField && touched ? i18n.t('validation-error-text-required') : ''}</ErrorText>
       </>
     );
   };
@@ -174,26 +187,39 @@ const styles = StyleSheet.create({
 VaccineDoseQuestion.schema = () => {
   return Yup.object().shape(
     {
+      // Dose 1
       firstDoseDate: Yup.date().required(),
-      secondDoseDate: Yup.date(),
-      firstBatchNumber: Yup.string().nullable(),
-      secondBatchNumber: Yup.string().nullable(),
       firstBrand: Yup.string().when('firstDescription', {
         is: undefined,
         then: Yup.string().required(i18n.t('validation-error-please-select-option')),
       }),
-      firstDescription: Yup.string().when('firstBrand', {
-        is: 'not_sure',
+      firstDescription: Yup.string()
+        .when('firstBrand', {
+          is: 'not_sure',
+          then: Yup.string().required(i18n.t('validation-error-please-select-option')),
+        })
+        .nullable(),
+      firstBatchNumber: Yup.string().nullable(),
+
+      // Tracks if second dose yes/no
+      hasSecondDose: Yup.bool(),
+
+      // Dose 2
+      secondDoseDate: Yup.date().when('hasSecondDose', {
+        is: true,
+        then: Yup.date().required(i18n.t('validation-error-daterequired')),
+      }),
+      secondBrand: Yup.string().when(['hasSecondDose', 'secondDescription'], {
+        is: (hasSecondDose, secondDescription) => hasSecondDose && !secondDescription,
         then: Yup.string().required(i18n.t('validation-error-please-select-option')),
       }),
-      secondBrand: Yup.string().when(['secondDoseDate', 'secondDescription'], {
-        is: [!undefined, undefined],
-        then: Yup.string().required(i18n.t('validation-error-please-select-option')),
-      }),
-      secondDescription: Yup.string().when(['secondDoseDate', 'secondBrand'], {
-        is: [!undefined, 'not_sure'],
-        then: Yup.string().required(i18n.t('validation-error-please-select-option')),
-      }),
+      secondDescription: Yup.string()
+        .when(['hasSecondDose', 'secondBrand'], {
+          is: (hasSecondDose, secondBrand) => hasSecondDose && secondBrand == 'not_sure',
+          then: Yup.string().required(i18n.t('validation-error-please-select-option')),
+        })
+        .nullable(),
+      secondBatchNumber: Yup.string().nullable(),
     },
     // These are to flag against circular dependency errors:
     [
