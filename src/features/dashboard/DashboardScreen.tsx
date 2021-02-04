@@ -68,14 +68,20 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
     await share(shareMessage);
   };
 
-  const onShareImage = async (image: any, eventKey: string, screenName: string) => {
+  const onShareImage = async (
+    fileName: string,
+    image: any,
+    dialogTitle: string,
+    eventKey: string,
+    screenName: string
+  ) => {
     try {
       const uri = Image.resolveAssetSource(image).uri;
-      const downloadPath = FileSystem.cacheDirectory + 'ShareVaccine.png';
+      const downloadPath = FileSystem.cacheDirectory + fileName;
       const { uri: localUrl } = await FileSystem.downloadAsync(uri, downloadPath);
       await Sharing.shareAsync(localUrl, {
         mimeType: 'image/png',
-        dialogTitle: i18n.t('share-log-vaccine'),
+        dialogTitle,
       });
       AnalyticsService.track(eventKey, { screenName });
     } catch (_) {}
@@ -119,7 +125,15 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           imageSource={shareVaccineBanner}
           aspectRatio={311 / 135}
           screenName={route.name}
-          postClicked={() => onShareImage(shareVaccine, events.LOG_YOUR_VACCINE_SHARED, 'Dashboard')}
+          postClicked={() =>
+            onShareImage(
+              'ShareVaccine.png',
+              shareVaccine,
+              i18n.t('share-log-vaccine'),
+              events.LOG_YOUR_VACCINE_SHARED,
+              'Dashboard'
+            )
+          }
         />
 
         <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
