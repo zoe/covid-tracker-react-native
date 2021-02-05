@@ -92,7 +92,7 @@ export default class ThankYouUKScreen extends Component<RenderProps, State> {
                     Analytics.track(events.DIET_STUDY_PLAYBACK_CLICKED);
                     appCoordinator.goToDietStudyPlayback();
                   }}>
-                  <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+                  <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUK} />
                 </TouchableWithoutFeedback>
               )}
 

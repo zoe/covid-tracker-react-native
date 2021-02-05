@@ -13,7 +13,7 @@ import { ScreenParamList } from '@covid/features/ScreenParamList';
 import appCoordinator from '@covid/features/AppCoordinator';
 import { ExternalCallout } from '@covid/components/ExternalCallout';
 import { share } from '@covid/components/Cards/BaseShareApp';
-import { dietStudyPlaybackReady, shareAppV3, shareVaccineBanner, shareVaccine } from '@assets';
+import { dietStudyPlaybackReadyUS, shareAppV3, shareVaccineBanner, shareVaccine } from '@assets';
 import i18n from '@covid/locale/i18n';
 import { useAppDispatch } from '@covid/core/state/store';
 import { updateTodayDate } from '@covid/core/content/state/contentSlice';
@@ -124,7 +124,7 @@ export const DashboardUSScreen: React.FC<Props> = (params) => {
               AnalyticsService.track(events.DIET_STUDY_PLAYBACK_CLICKED);
               appCoordinator.goToDietStudyPlayback();
             }}>
-            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
+            <Image style={styles.dietStudyImage} source={dietStudyPlaybackReadyUS} />
           </TouchableWithoutFeedback>
         )}
         <ExternalCallout
