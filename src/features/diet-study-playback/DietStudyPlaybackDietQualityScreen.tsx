@@ -55,7 +55,7 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
           </DoctorSpeechCard>
 
           <BrandedButton onPress={() => coordinator.gotoNextScreen(route.name)} style={styles.button}>
-            See my Traditional Diet Quality Score
+            View your Traditional Diet Quality Score
           </BrandedButton>
         </View>
       </ScrollView>

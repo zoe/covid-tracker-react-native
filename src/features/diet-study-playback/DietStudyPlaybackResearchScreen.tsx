@@ -69,7 +69,7 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
               <Header3Text style={styles.subtitle}>
                 Would you like to learn about the latest nutrition research?
               </Header3Text>
-              <RegularText>
+              <RegularText style={{ paddingBottom: 16 }}>
                 We will keep you up-to-date by email with the latest nutritional science, including ZOE’s own
                 discoveries. You can opt-out at any time, and will only receive science updates.
               </RegularText>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     color: colors.brand,
   },
   fallingFoodImage: {
+    borderRadius: 20,
     width: '100%',
     aspectRatio: 1200 / 584,
     height: undefined,

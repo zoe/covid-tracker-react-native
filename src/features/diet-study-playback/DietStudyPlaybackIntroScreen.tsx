@@ -88,7 +88,7 @@ export const DietStudyPlaybackIntroScreen: React.FC<Props> = ({ route, navigatio
         <View style={styles.rootContainer}>
           {IntroCard}
 
-          <BasicCard style={{ marginBottom: 24 }}>
+          <BasicCard style={[{ marginBottom: 24 }, styles.boxShadow]}>
             <View style={styles.quoteIcon}>
               <QuoteMarks />
             </View>
@@ -211,5 +211,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginVertical: 16,
+  },
+  boxShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
   },
 });
