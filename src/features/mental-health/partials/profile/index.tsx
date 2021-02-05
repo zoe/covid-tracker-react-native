@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { Avatar, Text } from '@covid/components';
+import { Avatar, SpeechCard, Text } from '@covid/components';
 import { useTheme } from '@covid/themes';
 import { avatarTemp } from '@assets';
 
@@ -14,6 +14,7 @@ function Profile() {
       <Text textClass="pSmallLight" style={{ color: theme.colors.ui.dark }}>
         Professor of Psychiatric Epidemiology, Harvard TH Chan School of Public Health
       </Text>
+      <SpeechCard />
     </View>
   );
 }
