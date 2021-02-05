@@ -145,8 +145,6 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
           }
         />
 
-        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
-
         {showDietStudyPlayback && (
           <TouchableWithoutFeedback
             onPress={() => {
@@ -156,6 +154,8 @@ export const DashboardScreen: React.FC<Props> = ({ navigation, route }) => {
             <Image style={styles.dietStudyImage} source={dietStudyPlaybackReady} />
           </TouchableWithoutFeedback>
         )}
+
+        <FeaturedContentList type={FeaturedContentType.Home} screenName={route.name} />
 
         {hasNetworkData && (
           <View
