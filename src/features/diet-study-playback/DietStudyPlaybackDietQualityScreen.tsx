@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import i18n from 'i18n-js';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -40,10 +41,7 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
           </SecondaryText>
 
           <DoctorSpeechCard>
-            <Header3Text style={{ marginBottom: 20 }}>
-              We have analyzed your diet in two ways to help you understand how your diet can help you maintain
-              long-term health.
-            </Header3Text>
+            <Header3Text style={{ marginBottom: 20 }}>{i18n.t('diet-scores.diet-quality-intro.text-1')}</Header3Text>
             <RegularText>
               First we will show you your Traditional Diet Quality Score. We used a scientifically validated method* to
               understand your overall diet quality before and during the pandemic.
@@ -51,13 +49,13 @@ export const DietStudyPlaybackDietQualityScreen: React.FC<Props> = ({ route, nav
 
             <ClickableText
               style={{ ...fontStyles.bodySmallLight, color: colors.purple }}
-              onPress={() => openWebLink('https://covid.joinzoe.com/us-post/covid-diet-feedback')}>
+              onPress={() => openWebLink(coordinator.getDietStudyInfoUrl())}>
               {'\n'}* Learn more about the Short Form FFQ tool developed by Cleghorn et al. that we used in this blog.
             </ClickableText>
           </DoctorSpeechCard>
 
           <BrandedButton onPress={() => coordinator.gotoNextScreen(route.name)} style={styles.button}>
-            See my Traditional Diet Quality Score
+            View your Traditional Diet Quality Score
           </BrandedButton>
         </View>
       </ScrollView>

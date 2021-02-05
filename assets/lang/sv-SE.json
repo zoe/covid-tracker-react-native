@@ -338,6 +338,8 @@
     "head-eye-soreness": "Ovanligt ont eller irritation i ögnen (t.ex. ljuskänslighet, rinnande ögon, eller röda ögon [ögoninflammation])",
     "head-earache": "Ont i öronen",
     "head-ear-ringing": "Det ringer i öronen",
+    "head-mouth-ulcers": "Blåsor i munnen eller på tungan",
+    "head-tongue-surface": "Förändringar på tungans yta",
 
     "throat-chest-symptoms": "Har du några symtom i hals- eller bröstregionen?",
     "throat-chest-sore-throat": "Ont eller irriterad i halsen",
@@ -538,6 +540,7 @@
   "prefer-not-to-say": "Föredrar att inte svara",
 
   "validation-error-text": "Vänligen bläddra upp och fyll i de saknade detaljerna eller korrigera ovanstående information",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Vänligen ge mer information",
 
@@ -990,6 +993,22 @@
       "callout-link-text": false,
       "menu-item": false
     },
+
+    "diet-scores": {
+      "intro": {
+        "next": ""
+      },
+      "diet-quality-intro": {
+        "text-1": ""
+      },
+      "diet-quality": {
+        "text-1": ""
+      },
+      "gut-quality": {
+        "text-5": ""
+      }
+    },
+
     "vaccines": {
       "dose-symptoms": {
         "label": "",
@@ -1330,7 +1349,8 @@
       "more-parents-singular": "",
       "reported-unwell": "",
       "report-for-today": "",
-      "report-for-today-singular": ""
+      "report-for-today-singular": "",
+      "share-log-vaccine": ""
     }
   },
   "generic": {

@@ -378,6 +378,8 @@
     "head-eye-soreness": "Unusual eye-soreness or discomfort (e.g. light sensitivity, excessive tears, or pink/red eye)",
     "head-earache": "Earache",
     "head-ear-ringing": "Ringing in your ears",
+    "head-mouth-ulcers": "Mouth or tongue ulcers",
+    "head-tongue-surface": "Changes to tongue surface",
 
     "throat-chest-symptoms": "Are you experiencing any symptoms in your throat or chest area?",
     "throat-chest-sore-throat": "Sore or painful throat",
@@ -600,6 +602,7 @@
   "default-profile-name": "Me",
 
   "validation-error-text": "Please scroll up to fill in the missing details or correct the above information",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Please provide more details",
 
@@ -973,6 +976,21 @@
     }
   },
 
+  "diet-scores": {
+    "intro": {
+      "next": "View your personalised insights"
+    },
+    "diet-quality-intro": {
+      "text-1": "We have analysed your diet in two ways to help you understand how your diet can help you maintain long-term health."
+    },
+    "diet-quality": {
+      "text-1": "A score of 12 and above indicates a healthier diet that includes plenty of fruits, vegetables, fibre-rich foods and oily fish."
+    },
+    "gut-quality": {
+      "text-5": "Fibre is fundamental - choose fibre-rich foods like wholegrains, beans, pulses, fruit, vegetables, nuts and seeds."
+    }
+  },
+
   "vaccines": {
     "dose-symptoms": {
       "label": "About your recent vaccine",
@@ -1026,7 +1044,7 @@
       "have-had-second": "Have you had a second dose yet?",
       "select-date": "Select date",
       "placeholder-name": "Choose one",
-      "label-name": "What is the name of the vaccine you recieved?",
+      "label-name": "What is the name of the vaccine you received?",
       "name-i-dont-know": "Other/I don't know",
       "label-name-other": "Which type of vaccine was it?",
       "label-name-other-2": "Enter the information about the type of vaccine you have available:",
@@ -1333,7 +1351,8 @@
       "more-parents-singular": "more parent needed to sign up their children",
       "reported-unwell": "reported feeling unwell",
       "report-for-today": "children reported for today",
-      "report-for-today-singular": "child reported for today"
+      "report-for-today-singular": "child reported for today",
+      "share-log-vaccine": "Join ZOE in helping the NHS by logging your COVID vaccine. covid.joinzoe.com/vaccines #LogYourJab"
     }
   },
   "generic": {

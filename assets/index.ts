@@ -77,6 +77,8 @@ export const surveyInvite = require('./thank-you-modules/surveyInvite.png');
 export const studyInvite = require('./thank-you-modules/studyInvite.png');
 export const shareApp = require('./thank-you-modules/shareApp.png');
 export const shareAppV3 = require('./thank-you-modules/shareApp_v3.png');
+export const shareVaccine = require('./share-vaccine.png');
+export const shareVaccineBanner = require('./share-vaccine-banner.png');
 
 export const studyIntro = require('./backgrounds/study_intro.png');
 export const cardBackground1 = require('./backgrounds/cardBackground1.png');
@@ -88,6 +90,7 @@ export const vaccineBg = require('./backgrounds/vaccine-bg.png');
 // Avatar
 export const cartoMapHtml = require('./carto/estimated-cases.html');
 export const doctorsAvatars = require('./doctors-avatars.png');
+export const sarahAvatar = require('./sarah-avatar.png');
 
 export const dietStudyPlaybackGlobal1 = require('./global-stats-1.png');
 export const dietStudyPlaybackGlobal2 = require('./global-stats-2.png');
@@ -96,7 +99,8 @@ export const dietStudyPlaybackFoodHeader = require('./diet-playback-food-banner.
 export const dietStudyPlaybackGutHeader = require('./diet-playback-gut-banner.png');
 export const dietStudyPlaybackGutDiagram = require('./gut-diagram.png');
 export const fallingFoodBackground = require('./backgrounds/falling-food.png');
-export const dietStudyPlaybackReady = require('./diet-playback-ready.png');
+export const dietStudyPlaybackReadyUS = require('./diet-playback-ready-us.png');
+export const dietStudyPlaybackReadyUK = require('./diet-playback-ready-uk.png');
 
 // share svg
 export { default as ShareIcon } from './icons/Share';

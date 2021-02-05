@@ -375,6 +375,8 @@
     "head-eye-soreness": "Dolor o incomodidad inusual de los ojos (e.j La sensibilidad de las luces, lágrimas excesivos, o ojos rojos/rosados)",
     "head-earache": "El dolor de oídos",
     "head-ear-ringing": "Zumbido en sus orejas",
+    "head-mouth-ulcers": "Las úlceras en la boca o la lengua",
+    "head-tongue-surface": "Cambios en la superficie de la lengua",
 
     "throat-chest-symptoms": "¿Tiene algunas síntomas en sus garganta o pecho?",
     "throat-chest-sore-throat": "Dolor en su garganta",
@@ -769,6 +771,7 @@
   "default-profile-name": "Yo",
 
   "validation-error-text": "Desplácese hacia arriba, complete los detalles que faltan o corrija la información anterior",
+  "validation-error-please-select-option": "Please select an option",
 
   "validation-error-text-required": "Por favor, de más detalles",
 
@@ -1052,6 +1055,21 @@
       "menu-item": false
     },
 
+    "diet-scores": {
+      "intro": {
+        "next": ""
+      },
+      "diet-quality-intro": {
+        "text-1": ""
+      },
+      "diet-quality": {
+        "text-1": ""
+      },
+      "gut-quality": {
+        "text-5": ""
+      }
+    },
+
     "vaccines": {
       "dose-symptoms": {
         "label": "About your recent vaccine",
@@ -1105,7 +1123,7 @@
         "have-had-second": "Have you had a second dose yet?",
         "select-date": "Select date",
         "placeholder-name": "Choose one",
-        "label-name": "What is the name of the vaccine you recieved?",
+        "label-name": "What is the name of the vaccine you received?",
         "name-i-dont-know": "Other/I don't know",
         "label-name-other": "Which type of vaccine was it?",
         "label-name-other-2": "Enter the information about the type of vaccine you have available:",
@@ -1338,7 +1356,8 @@
       "more-parents-singular": "",
       "reported-unwell": "",
       "report-for-today": "",
-      "report-for-today-singular": ""
+      "report-for-today-singular": "",
+      "share-log-vaccine": ""
     }
   },
   "generic": {

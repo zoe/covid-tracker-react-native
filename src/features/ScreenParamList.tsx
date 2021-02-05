@@ -77,6 +77,7 @@ export type ScreenParamList = {
   VaccineList: { assessmentData: AssessmentData };
   AboutYourVaccine: { assessmentData: AssessmentData; editIndex?: number };
   VaccineLogSymptomsInfo: { assessmentData: AssessmentData };
+  VaccineFindInfo: { assessmentData: AssessmentData };
 
   // Vaccine Registry
   VaccineRegistrySignup: { currentPatient: PatientStateType };
@@ -108,12 +109,19 @@ export type ScreenParamList = {
   JoinHigherEducation: { patientData: PatientData };
 
   DietStudyPlaybackIntro: undefined;
-  DietStudyPlaybackGlobal: undefined;
   DietStudyPlaybackDietQuality: undefined;
   DietStudyPlaybackYourDiet: undefined;
   DietStudyPlaybackGutHealth: undefined;
   DietStudyPlaybackYourGut: undefined;
   DietStudyPlaybackResearch: undefined;
+
+  MentalHealthStart: undefined;
+  MentalHealthChanges: undefined;
+  MentalHealthFrequency: undefined;
+  MentalHealthHistory: undefined;
+  MentalHealthSupport: undefined;
+  MentalHealthLearning: undefined;
+  MentalHealthEnd: undefined;
 
   //
   Modal: undefined;

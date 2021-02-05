@@ -53,7 +53,7 @@ export const DietStudyPlaybackGutHealthScreen: React.FC<Props> = ({ route, navig
           </DoctorSpeechCard>
 
           <BrandedButton onPress={() => coordinator.gotoNextScreen(route.name)} style={styles.button}>
-            See my Gut Friendly Diet Score
+            View your Gut Friendly Diet Score
           </BrandedButton>
         </View>
       </ScrollView>
