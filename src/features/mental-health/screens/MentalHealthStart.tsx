@@ -1,18 +1,14 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-import { BrandedButton, RoundIconButton, SafeLayout } from '@covid/components';
+import { BasicNavHeader, BrandedButton, SafeLayout } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 
 function MentalHealthStart() {
-  const { goBack } = useNavigation();
   return (
     <SafeLayout>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={{ marginTop: 24 }}>
-          <RoundIconButton backgroundColor="transparent" iconName="close-large" onPress={() => goBack()} />
-        </View>
+        <BasicNavHeader />
         <View style={styles.footer}>
           <BrandedButton onPress={() => NavigatorService.navigate('MentalHealthChanges', undefined)}>
             Start
