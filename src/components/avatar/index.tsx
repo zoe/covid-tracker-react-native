@@ -1,0 +1,42 @@
+import React from 'react';
+import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
+
+import { TStyleObject } from '@covid/utils/types';
+
+interface IProps {
+  imgsrc: ImageSourcePropType;
+  imgStyle?: TStyleObject;
+  size?: number;
+}
+
+function Avatar({ imgsrc, imgStyle = {}, size = 60 }: IProps) {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        backgroundColor: 'pink',
+        borderColor: 'white',
+        borderRadius: size,
+        borderWidth: 2,
+        height: size,
+        justifyContent: 'center',
+        overflow: 'hidden',
+        width: size,
+      }}>
+      <Image
+        source={imgsrc}
+        style={{
+          aspectRatio: 1.0,
+          resizeMode: 'contain',
+          height: undefined,
+          width: size,
+          ...imgStyle,
+        }}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({});
+
+export default Avatar;
