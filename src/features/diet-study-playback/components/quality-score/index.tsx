@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isUSCountry } from '@covid/core/localisation/LocalisationService';
+
 import MissingDataText from '../missing-data-text';
 
 import Score from './score';
@@ -13,6 +15,7 @@ interface IProps {
 }
 
 function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }: IProps) {
+  const duringPandemicSubtitle = isUSCountry() ? 'September - October 2020' : 'August - September 2020';
   return (
     <SContainerView>
       {beforeScore && (
@@ -34,7 +37,7 @@ function QualityScore({ beforeScore, duringScore, minValue = 5, maxValue = 15 }:
         maxValue={maxValue}
         maxValueLabel="Excellent"
         title="During the pandemic"
-        subTitle="September - October 2020"
+        subTitle={duringPandemicSubtitle}
       />
       {!beforeScore && <MissingDataText />}
     </SContainerView>

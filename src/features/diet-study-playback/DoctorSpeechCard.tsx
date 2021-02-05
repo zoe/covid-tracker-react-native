@@ -17,7 +17,7 @@ export const DoctorSpeechCard: React.FC<CardProps> = (c) => {
   const avatarIcon = isUSCountry() ? DoctorsIcon() : SarahIcon();
   return (
     <View style={{ paddingTop: 45 }}>
-      <BasicCard style={c.cardStyle}>
+      <BasicCard style={[c.cardStyle, styles.boxShadow]}>
         <View style={styles.quoteIcon}>
           <QuoteMarks />
         </View>
@@ -45,5 +45,12 @@ const styles = StyleSheet.create({
   sarahAvatar: {
     width: 70,
     aspectRatio: 1.0,
+  },
+  boxShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
   },
 });
