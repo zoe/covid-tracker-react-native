@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 
-function MentalHealthEnd() {
+import { BasicPage, Text } from '@covid/components';
+import NavigatorService from '@covid/NavigatorService';
+
+function MentalHealthSupport() {
   return (
-    <View>
-      <Text>The end</Text>
-    </View>
+    <BasicPage footerTitle="Back to home" onPress={() => NavigatorService.navigate('Dashboard', undefined)}>
+      <Text>The End</Text>
+    </BasicPage>
   );
 }
 
-export default MentalHealthEnd;
+export default MentalHealthSupport;

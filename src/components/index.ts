@@ -4,7 +4,6 @@ export * from './Cards';
 export * from './Checkbox';
 export * from './Content';
 export * from './DropdownField';
-export * from './headers';
 export * from './icons';
 export * from './Inputs';
 export * from './layouts';

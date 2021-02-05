@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+
+import { BasicPage, Text } from '@covid/components';
+import NavigatorService from '@covid/NavigatorService';
 
 function MentalHealthFrequency() {
   return (
-    <View>
+    <BasicPage footerTitle="Next" onPress={() => NavigatorService.navigate('MentalHealthHistory', undefined)}>
       <Text>Frequency</Text>
-    </View>
+    </BasicPage>
   );
 }
 
