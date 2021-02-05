@@ -9,6 +9,7 @@ import rootReducer from '@covid/core/state/root';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['dashboardVisited'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
