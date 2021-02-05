@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import i18n from 'i18n-js';
 
 import { ScreenParamList } from '@covid/features/ScreenParamList';
 import { BackButton } from '@covid/components/PatientHeader';
@@ -144,7 +145,7 @@ export const DietStudyPlaybackIntroScreen: React.FC<Props> = ({ route, navigatio
           </DoctorSpeechCard>
 
           <BrandedButton onPress={() => coordinator.gotoNextScreen(route.name)} style={styles.button}>
-            See your personalised insights
+            {i18n.t('diet-scores.intro.next')}
           </BrandedButton>
         </View>
       </ScrollView>
