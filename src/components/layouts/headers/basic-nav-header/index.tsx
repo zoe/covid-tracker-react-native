@@ -10,7 +10,7 @@ function BasicNavHeader() {
   const { goBack } = useNavigation();
   const theme = useTheme();
   return (
-    <View style={{ marginTop: theme.grid.l }}>
+    <View style={{ marginTop: theme.grid.l, paddingHorizontal: theme.grid.gutter }}>
       <RoundIconButton
         backgroundColor={theme.colors.ui.dark.bgColor}
         iconColor="black"

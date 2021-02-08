@@ -13,7 +13,7 @@ interface IProps {
 
 function BasicPage({ children, footerTitle, onPress }: IProps) {
   return (
-    <SafeLayout>
+    <SafeLayout withGutter={false}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
         <BasicNavHeader />
         {children}

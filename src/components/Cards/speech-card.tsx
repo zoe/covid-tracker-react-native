@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { QuoteMarks } from '@assets';
+import { useTheme } from '@covid/themes';
 
-function SpeechCard() {
+interface IProps {
+  children: ReactNode;
+}
+
+function SpeechCard({ children }: IProps) {
+  const { grid } = useTheme();
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, { padding: grid.gutter }]}>
       <View style={[styles.arrow, styles.shadow]} />
-      <View style={[styles.container, styles.shadow]}>
-        <View style={styles.quotes}>
-          <QuoteMarks />
+      <View style={[styles.container, styles.shadow, { paddingHorizontal: grid.gutter, paddingVertical: grid.xxl }]}>
+        <View style={{ marginBottom: grid.l }}>
+          <View style={{ marginBottom: grid.l }}>
+            <QuoteMarks />
+          </View>
+          <View>{children}</View>
         </View>
         <View />
       </View>
@@ -21,19 +30,13 @@ function SpeechCard() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    padding: 16,
     width: '100%',
   },
   container: {
     height: '100%',
     backgroundColor: 'white',
     borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 24,
     width: '100%',
-  },
-  quotes: {
-    marginBottom: 16,
   },
   arrow: {
     position: 'absolute',

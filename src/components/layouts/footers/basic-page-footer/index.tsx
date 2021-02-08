@@ -14,7 +14,7 @@ interface IProps {
 function BasicPageFooter({ active = true, onPress, title }: IProps) {
   const theme = useTheme();
   return (
-    <View style={{ marginBottom: theme.grid.m, marginTop: theme.grid.m }}>
+    <View style={{ marginBottom: theme.grid.m, marginTop: theme.grid.m, paddingHorizontal: theme.grid.gutter }}>
       <BrandedButton enable={active} onPress={onPress}>
         {title}
       </BrandedButton>
