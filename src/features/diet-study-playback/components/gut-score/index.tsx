@@ -8,7 +8,7 @@ import { SContainerView } from './styles';
 import Score from './score';
 
 interface IProps {
-  beforeScore: number;
+  beforeScore?: number;
   duringScore: number;
   minValue?: number;
   maxValue?: number;

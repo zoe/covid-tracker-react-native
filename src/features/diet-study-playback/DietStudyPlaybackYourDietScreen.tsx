@@ -33,7 +33,7 @@ export const DietStudyPlaybackYourDietScreen: React.FC<Props> = ({ route, naviga
           <View style={{ zIndex: 5, elevation: 5 }}>
             <QualityScore
               beforeScore={coordinator.dietScore?.pre_diet_score}
-              duringScore={coordinator.dietScore?.post_diet_score}
+              duringScore={coordinator.dietScore.post_diet_score}
             />
           </View>
           <View style={{ marginTop: 24 }}>
