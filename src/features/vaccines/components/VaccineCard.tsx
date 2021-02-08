@@ -46,13 +46,6 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
     }
   };
 
-  const pendingIconAndText = (textKey: string) => (
-    <View style={{ ...styles.row, ...styles.pendingIconAndText }}>
-      <Image source={pending} style={styles.tick} />
-      <RegularText style={styles.pendingText}>{i18n.t(textKey)}</RegularText>
-    </View>
-  );
-
   const warningIconAndText = (textKey: string) => (
     <View style={styles.row}>
       <QuestionCircle colorBg={colors.feedbackBad} colorIcon={colors.white} />
@@ -61,7 +54,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
   );
 
   const dateRequired = warningIconAndText('vaccines.vaccine-card.date-missing');
-  const notYetLogged = pendingIconAndText('vaccines.vaccine-card.not-logged');
+  const notYetLogged = warningIconAndText('vaccines.vaccine-card.not-logged');
 
   const dose1: Partial<Dose> | undefined = vaccine.doses[0];
   const dose2: Partial<Dose> | undefined = vaccine.doses[1];
@@ -86,7 +79,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
             ? hasFirstDoseBrand
               ? displayBrandNameMap[dose1.brand]
               : displayDescriptionNameMap[dose1.description]
-            : pendingIconAndText('vaccines.vaccine-card.name-missing')}
+            : warningIconAndText('vaccines.vaccine-card.name-missing')}
         </RegularText>
 
         {!hasFirstDoseDate && dateRequired}
@@ -113,7 +106,7 @@ export const VaccineCard: React.FC<Props> = ({ vaccine, style, onPressEdit }) =>
                 ? hasSecondDoseBrand
                   ? displayBrandNameMap[dose2.brand]
                   : displayDescriptionNameMap[dose2.description]
-                : pendingIconAndText('vaccines.vaccine-card.name-missing')}
+                : warningIconAndText('vaccines.vaccine-card.name-missing')}
             </RegularText>
           </View>
         )}
