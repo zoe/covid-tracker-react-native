@@ -200,6 +200,7 @@ export type TIconName =
   | 'ratio'
   | 'recommendation'
   | 'remove'
+  | 'remove1'
   | 'reply'
   | 'report'
   | 'retrain'

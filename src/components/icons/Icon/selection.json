@@ -27,6 +27,28 @@
     },
     {
       "icon": {
+        "paths": ["M810 554h-596v-84h596v84z"],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["remove"],
+        "grid": 24
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "remove",
+        "id": 166,
+        "order": 525,
+        "prevSize": 24,
+        "code": 59913,
+        "name": "remove1"
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 166
+    },
+    {
+      "icon": {
         "paths": ["M498 166l-346 346 346 346-76 76-422-422 422-422z"],
         "attrs": [],
         "isMulticolor": false,
