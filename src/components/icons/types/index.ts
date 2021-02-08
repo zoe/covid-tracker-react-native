@@ -90,6 +90,7 @@ export type TIconName =
   | 'email'
   | 'equal-1'
   | 'equal-2'
+  | 'error_outline'
   | 'facebook-outline'
   | 'fat-off'
   | 'fat'

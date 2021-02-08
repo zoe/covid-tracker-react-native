@@ -1,6 +1,7 @@
 import React from 'react';
+import { View } from 'react-native';
 
-import { BasicPage, Text, SpeechCard } from '@covid/components';
+import { BasicPage, Text, SpeechCard, Icon } from '@covid/components';
 import NavigatorService from '@covid/NavigatorService';
 
 import { Profile } from '../partials';
@@ -18,6 +19,12 @@ function MentalHealthStart() {
         </Text>
         <Text textClass="pLight">Thank you for your ongoing support!</Text>
       </SpeechCard>
+      <View style={{ flexDirection: 'row', paddingHorizontal: 16 }}>
+        <Icon iconName="error_outline" />
+        <Text textClass="pLight" style={{ marginLeft: 8 }}>
+          This study is currently only available for the “Me” primary profile.
+        </Text>
+      </View>
     </BasicPage>
   );
 }
