@@ -15,14 +15,14 @@ interface IProps {
   active?: boolean;
   iconName?: TIconName;
   keyValue: TKeyValue;
-  onPress: (answer: TKeyPair) => void;
+  onPress: <T>(answer: T) => void;
 }
 
 function QuestionBlock({ active = false, iconName = undefined, keyValue, onPress }: IProps) {
   const { colors } = useTheme();
   return (
     <TouchableOpacity
-      onPress={() => onPress({ keyValue })}
+      onPress={onPress}
       style={[styles.container, { backgroundColor: active ? colors.burgundy.main.bgColor : colors.ui.main.bgColor }]}>
       {iconName && <Icon iconName={iconName} />}
       <Text textClass="label" textAlign="center">
