@@ -8,7 +8,7 @@ import { SContainerView } from './styles';
 import Score from './score';
 
 interface IProps {
-  beforeScore: number;
+  beforeScore?: number;
   duringScore: number;
   minValue?: number;
   maxValue?: number;
@@ -28,13 +28,15 @@ function GutScore({ beforeScore, duringScore, minValue = 0, maxValue = 10 }: IPr
           style={{ marginBottom: 48 }}
         />
       )}
-      <Score
-        currentValue={duringScore}
-        minValue={minValue}
-        maxValue={maxValue}
-        title="During the pandemic"
-        subTitle={duringPandemicSubtitle}
-      />
+      {duringScore && (
+        <Score
+          currentValue={duringScore}
+          minValue={minValue}
+          maxValue={maxValue}
+          title="During the pandemic"
+          subTitle={duringPandemicSubtitle}
+        />
+      )}
       {!beforeScore && <MissingDataText />}
     </SContainerView>
   );
