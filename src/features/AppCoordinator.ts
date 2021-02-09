@@ -233,7 +233,19 @@ export class AppCoordinator extends Coordinator implements SelectProfile, Editab
     this.patientData = await this.patientService.getPatientDataByProfile(profile);
   }
 
-  goToDietStudyPlayback() {
+  async setPatientToPrimary() {
+    const user = await this.userService.getUser();
+    const patientId = user?.patients[0] ?? null;
+
+    if (patientId) {
+      await this.setPatientById(patientId);
+    }
+  }
+
+  async goToDietStudyPlayback() {
+    if (this.patientData.patientState.isReportedByAnother) {
+      await this.setPatientToPrimary();
+    }
     this.startDietStudyPlaybackFlow(this.patientData);
   }
 
