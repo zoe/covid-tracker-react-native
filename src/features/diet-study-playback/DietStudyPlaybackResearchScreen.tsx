@@ -99,6 +99,7 @@ export const DietStudyPlaybackResearchScreen: React.FC<Props> = ({ route, naviga
                     style={{ textAlign: 'center', marginTop: 16 }}
                     onPress={() => {
                       coordinator.signUpToNewsletter(false).then(() => {
+                        Analytics.track(events.DIET_STUDY_NEWSLETTER_LEAVE);
                         setShowNewsletterButton(true);
                       });
                     }}>
